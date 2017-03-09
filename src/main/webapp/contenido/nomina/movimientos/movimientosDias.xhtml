@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos Fijos" />
+	<ui:param name="moduloTitulo" value="Movimientos Fijos" />
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" showSummary="false"  sticky="false" life="7000" />
+			<p:messages id="messages" showDetail="true" showSummary="false"   closable="true"/>
+			
+			<p:panel id="panelPrincipal">
+			<p:panelGrid columns="5"
+					columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-2,ui-grid-col-2,ui-grid-col-2"
+					layout="grid"
+					styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
+
+					<p:outputPanel>
+						<p:outputLabel for="fechaDoc" value="Fecha Documento: " />
+						<p:calendar id="fechaDoc" required="true" requiredMessage="El campo Fecha es requerido."
+							value="#{movientoNominaDias.newMovimientoFijoDTO.fechaDocumento}"
+							validator="#{movientoNominaDias.validator}">
+							<p:ajax update="msgfechaDoc" event="blur" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgfechaDoc" for="fechaDoc" />
+					</p:outputPanel>
+					<p:outputPanel>
+						<p:outputLabel for="folio" value="Folio Documento: " />
+						<p:inputText id="folio" required="true" requiredMessage="El campo folio es requerido."
+							value="#{movientoNominaDias.newMovimientoFijoDTO.folio}"
+							validator="#{movientoNominaDias.validator}">
+							<p:ajax update="msgfolio" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgfolio" for="folio" />
+					</p:outputPanel>
+
+					<p:outputPanel>
+						<p:outputLabel for="quincenaFinal" value="Quincena Final: " />
+						<p:selectOneMenu id="quincenaFinal" required="true" requiredMessage="El campo quincena final es requerido."
+							value="#{movientoNominaDias.newMovimientoFijoDTO.quincenaFinal}"
+							validator="#{movientoNominaDias.validator}">
+							<f:selectItems value="#{movientoNominaDias.quincenas}" />
+							<p:ajax update="msgquincenaFinal" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgquincenaFinal" for="quincenaFinal" />
+					</p:outputPanel>
+
+					<p:outputPanel>
+						<p:outputLabel for="anioFinal" value="Año final: " />
+						<p:inputText id="anioFinal" required="true" requiredMessage="El campo año final es requerido."
+							value="#{movientoNominaDias.newMovimientoFijoDTO.anioFinal}"
+							validator="#{movientoNominaDias.validator}">
+							<p:ajax update="msganioFinal" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msganioFinal" for="anioFinal" />
+					</p:outputPanel>
+
+					<p:outputPanel>
+						<p:outputLabel for="numDias" value="Número de Dias: " />
+						<p:inputText id="numDias"  required="true" requiredMessage="El campo dias es requerido."
+							value="#{movientoNominaDias.newMovimientoFijoDTO.dias}"
+							validator="#{movientoNominaDias.validator}">
+							<p:ajax update="msgdias" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgdias" for="numDias" />
+					</p:outputPanel>
+
+					<p:spacer/>
+					
+					<p:commandButton value="Agregar Movimiento" id="agregar"
+						icon="ui-icon-plusthick" iconPos="right"
+						update="panelPrincipal growl"
+						actionListener="#{movientoNominaDias.agregarMovimiento()}"
+						style="height:60px; widht:50px;" />
+					<p:spacer/>
+					<p:commandButton id="regresar" value="Regresar"
+						icon="ui-icon-closethick" style="height:60px; widht:50px"
+						iconPos="right" action="#{movientoNominaDias.irInicio()}"
+						process="@this" styleClass="fm-btn-peligro fm-btn-elevado" />
+						<p:spacer/>
+				</p:panelGrid>	
+			</p:panel>
+			
+		</h:form>
+	</ui:define>
+</ui:composition>

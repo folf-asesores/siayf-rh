@@ -1,0 +1,303 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+
+	<ui:param name="ventanaTitulo"
+		value="Consulta Configuración Presupuestal" />
+
+	<ui:param name="moduloTitulo"
+		value="Consulta Configuración Presupuestal" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<h:panelGroup id="panelGroupBusqueda"
+				rendered="#{configuracionPresupuesto.view.mostrarBusqueda}">
+				<p:panelGrid columns="5"
+					columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-2,ui-grid-col-3, ui-grid-col-2 "
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel for="tipoFiltro" value="Tipo búsqueda:" />
+					<p:selectOneMenu id="tipoFiltro"
+						value="#{configuracionPresupuesto.view.filtro.tipoFiltro}"
+						validator="#{configuracionPresupuesto.validatorBusqueda}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{configuracionPresupuesto.view.listaTipoFiltro}" />
+						<p:ajax update="msgTipoFiltro" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="tipoContratacion" value="Tipo Contratación:" />
+					<p:selectOneMenu id="tipoContratacion"
+						value="#{configuracionPresupuesto.view.filtro.tipoContratacion}"
+						validator="#{configuracionPresupuesto.validatorBusqueda}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{configuracionPresupuesto.view.listaTiposContratacion}" />
+						<p:ajax update="msgTipoContratacion" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+
+					<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+						actionListener="#{configuracionPresupuesto.consultarConfiguraciones()}"
+						update="form"></p:commandButton>
+
+
+					<p:spacer></p:spacer>
+					<p:message id="msgTipoFiltro" for="tipoFiltro" />
+
+					<p:spacer></p:spacer>
+					<p:message id="msgTipoContratacion" for="tipoContratacion" />
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+
+				<p:dataTable id="configuraciones"
+					value="#{configuracionPresupuesto.view.configuraciones}" var="c"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					rendered="#{configuracionPresupuesto.view.mostrarEmpleados}">
+					<p:column headerText="Rfc">
+						<h:outputText value="#{c.rfc}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{c.nombreCompleto}" />
+					</p:column>
+					<p:column headerText="Numero Empleado">
+						<h:outputText value="#{c.numeroEmpleado}" />
+					</p:column>
+
+					<p:column headerText="Contratacion">
+						<h:outputText value="#{c.contratacion}" />
+					</p:column>
+
+					<p:column headerText="Nombramiento">
+						<h:outputText value="#{c.nombramiento}" />
+					</p:column>
+
+					<p:column headerText="Financiamiento">
+						<h:outputText value="#{c.financiamiento}" />
+					</p:column>
+					<p:column headerText="SubFinanciamiento">
+						<h:outputText value="#{c.subfuenteFinanciamiento}" />
+					</p:column>
+					<p:column headerText="Programa">
+						<h:outputText value="#{c.programa}" />
+					</p:column>
+					<p:column headerText="Periodo Contratación">
+						<h:outputText value="#{c.inicio}">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+						<h:outputText value="/" />
+						<h:outputText value="#{c.fin}">
+							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Ver">
+						<p:commandButton update="form"
+							actionListener="#{configuracionPresupuesto.obtenerDetalleConfiguracion(c.idConfiguracionPresupuesto)}"
+							icon="fm-icon-eye" title="Ver">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+
+				<p:dataTable id="salarios"
+					value="#{configuracionPresupuesto.view.salarios}" var="s"
+					paginator="true" paginatorPosition="bottom" rows="7"
+					rendered="#{configuracionPresupuesto.view.mostrarSalarios}">
+
+					<p:column headerText="Contratación">
+						<h:outputText value="#{s.contratacion}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{s.rfc}" />
+					</p:column>
+
+					<p:column headerText="Nombre Completo">
+						<h:outputText value="#{s.nombreCompleto}" />
+					</p:column>
+
+					<p:column headerText="Clave Puesto">
+						<h:outputText value="#{s.clavePuesto}" />
+					</p:column>
+
+					<p:column headerText="Puesto">
+						<h:outputText value="#{s.puesto}" />
+					</p:column>
+
+					<p:column headerText="Sueldo Mensual">
+						<h:outputText value="#{s.sueldoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</p:column>
+				</p:dataTable>
+			</h:panelGroup>
+
+
+			<h:panelGroup id="panelDetalleConfiguracion"
+				rendered="#{configuracionPresupuesto.view.mostrarDetallePresupuesto}">
+
+				<p:panelGrid id="datos" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+
+					<p:spacer></p:spacer>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h3>Datos Empleado</h3>
+						</f:facet>
+
+						<p:outputLabel value="Contratación:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.tipoContratacion}" />
+
+						<p:outputLabel value="Nombramiento" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.nombramiento}" />
+
+						<p:outputLabel value="RFC:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.rfc}" />
+
+						<p:outputLabel value="Nombre:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.nombreCompleto}" />
+
+						<p:outputLabel value="Dirección:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.direccion}" />
+						<p:outputLabel value="Inicio contratación" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.inicioContratacion}" />
+						<p:outputLabel value="Fin Contratación" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.finContratacion}" />
+					</p:panelGrid>
+
+					<p:spacer></p:spacer>
+
+					<p:spacer></p:spacer>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<h3>Datos Configuracion Presupuestal</h3>
+						</f:facet>
+
+						<p:outputLabel value="Proyecto:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.proyecto}" />
+
+						<p:outputLabel value="Dependencia:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.dependencia}" />
+
+						<p:outputLabel value="Unidad Responsable:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.unidadResponsable}" />
+
+
+						<p:outputLabel value="Clave Puesto:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.clavePuesto}" />
+
+						<p:outputLabel value="Puesto:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.puesto}" />
+
+						<p:outputLabel value="Salario Mensual:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.salario.sueldoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+						<p:outputLabel value="Financiamiento" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.fuenteFinanciamiento}" />
+
+						<p:outputLabel value="Subfuente Financiamiento" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.subFuenteFinanciamiento}" />
+
+						<p:outputLabel value="Tipo Recurso:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.tipoRecurso}" />
+
+						<p:outputLabel value="Programa:" />
+						<h:outputText
+							value="#{configuracionPresupuesto.view.detalleConfiguracion.programa}" />
+					</p:panelGrid>
+
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-5,ui-grid-col-2,ui-grid-col-5"
+					layout="grid" styleClass="ui-panelgrid-blank">
+
+					<p:spacer></p:spacer>
+					<p:commandButton value="Consultar Quincenas"
+						actionListener="#{configuracionPresupuesto.mostrarQuincenas()}"
+						update="form"></p:commandButton>
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6"
+					layout="grid" styleClass="ui-panelgrid-blank"
+					rendered="#{configuracionPresupuesto.view.mostrarQuincena}">
+
+					<p:dataTable id="percepciones" paginator="true"
+						paginatorPosition="bottom" rows="7">
+
+						<p:column headerText="Percepciones">
+
+						</p:column>
+
+						<p:column headerText="Importe">
+
+						</p:column>
+
+
+
+					</p:dataTable>
+
+					<p:dataTable id="deducciones" paginator="true"
+						paginatorPosition="bottom" rows="7">
+
+						<p:column headerText="Deducciones">
+
+						</p:column>
+
+						<p:column headerText="Importe">
+
+						</p:column>
+
+
+
+					</p:dataTable>
+
+
+				</p:panelGrid>
+
+
+
+			</h:panelGroup>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

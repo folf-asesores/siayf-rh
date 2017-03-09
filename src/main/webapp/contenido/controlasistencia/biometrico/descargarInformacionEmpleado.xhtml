@@ -1,0 +1,84 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo"
+		value="Descargar Información Empleado Biométrico" />
+	<ui:param name="moduloSubtitulo"
+		value="Descargue y sincronice el empleado dado de alta en el reloj biométrico." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{descargarInformacionEmpleadoControlller.init}"
+			type="preRenderView" />
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmBiometricoEmpleado" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel styleClass="fm-contenedor-100">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="fm-contenedor ui-noborder sin_borde"
+					columnClasses="ui-grid-col-5,ui-grid-col-3,ui-grid-col-3,ui-grid-col-1">
+					<p:autoComplete id="empleado" placeholder="Ingrese el nombre del empleado"
+						value="#{descargarInformacionEmpleadoControlller.asignarEmpleadoRegistroBiometricoForm.idEmpleado}"
+						completeMethod="#{descargarInformacionEmpleadoControlller.buscarEmpleadoAutoComplete}"
+						var="infoEmpleadoDTO" itemLabel="#{infoEmpleadoDTO.nombre}"
+						itemValue="#{infoEmpleadoDTO.idEmpleado}" maxResults="12"
+						styleClass="fm-bloque input_lng" forceSelection="true">
+
+					</p:autoComplete>
+
+					<p:selectOneMenu styleClass="fm-bloque input_lng" 
+						value="#{descargarInformacionEmpleadoControlller.asignarEmpleadoRegistroBiometricoForm.idBiometrico}">
+						<f:selectItem itemLabel="Seleccione el biometrico" itemValue="0" />
+						<f:selectItems
+							value="#{descargarInformacionEmpleadoControlller.listadoEquiposBiometricos}"
+							var="equipo" itemLabel="#{equipo.descripcion}"
+							itemValue="#{equipo.idEquipo}"></f:selectItems>
+
+					</p:selectOneMenu>
+					<p:inputText placeholder="# identificador en el biometrico"
+						value="#{descargarInformacionEmpleadoControlller.asignarEmpleadoRegistroBiometricoForm.idRegistroBiometrico}"
+						></p:inputText>
+
+					<p:ajaxStatus>
+						<f:facet name="default">
+							
+						</f:facet>
+						<f:facet name="start">
+							<center>
+								<p:graphicImage library="imagenes" name="sincronizar.gif" width="32" />
+							</center>
+						</f:facet>
+						<f:facet name="complete">
+							<p:commandButton id="btnBuscar" title="Nuevo"
+								icon="ui-icon-circle-arrow-s"
+								action="#{descargarInformacionEmpleadoControlller.descagarInformacionEmpleadoBiometrico}"
+								update="messages_generales" />
+
+						</f:facet>
+					</p:ajaxStatus>
+
+				</p:panelGrid>
+
+				<p:panel styleClass="fm-contenedor-100">
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<center>
+								<p:graphicImage library="imagenes" name="load.gif" />
+							</center>
+						</f:facet>
+						<f:facet name="complete"></f:facet>
+					</p:ajaxStatus>
+				</p:panel>
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

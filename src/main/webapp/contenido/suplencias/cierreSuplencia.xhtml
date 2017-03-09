@@ -1,0 +1,202 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Cierre Suplencias" />
+
+	<ui:param name="moduloTitulo" value="Cierre Suplencias" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:spacer height="30"></p:spacer>
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="2" columnClasses=" ui-grid-col-2, ui-grid-col-10"
+				rendered="#{cierreSuplencia.view.mostrarBusqueda}">
+
+
+				<p:outputLabel for="quincena" value="Seleccione una quincena" />
+				<p:selectOneMenu id="quincena"
+					value="#{cierreSuplencia.view.numeroQuincena}">
+
+					<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+					<f:selectItems value="#{cierreSuplencia.view.listaQuincenas}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel for="estatus" value="Seleccione una estatus" />
+				<p:selectOneMenu id="estatus"
+					value="#{cierreSuplencia.view.estatus}">
+
+					<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+					<f:selectItems value="#{cierreSuplencia.view.listaEstatus}" />
+
+					<p:ajax listener="#{cierreSuplencia.consultarDetallesQuincena()}"
+						update="form, messages_generales" process="quincena, estatus"></p:ajax>
+				</p:selectOneMenu>
+			</p:panelGrid>
+
+
+			<p:dataTable id="detalles" editable="true" var="d" scrollRows="10"
+				scrollable="true" value="#{cierreSuplencia.view.listaDetalles}"
+				rendered="#{cierreSuplencia.view.mostrarBusqueda}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Suplente">
+					<h:outputText value="#{d.nombreSuplente}" />
+				</p:column>
+
+				<p:column headerText="Numero quincena">
+					<h:outputText value="#{d.numeroQuincena}" />
+				</p:column>
+
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{d.estatus}" />
+				</p:column>
+
+				<p:column headerText="Total"
+					rendered="#{cierreSuplencia.view.mostrarColumnasCierre}">
+					<h:outputText value="#{d.total}" />
+				</p:column>
+
+				<p:column headerText="Fecha cierre"
+					rendered="#{cierreSuplencia.view.mostrarColumnasCierre}">
+					<h:outputText value="#{d.estatus}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Ver Desglose" style="text-align: center;">
+					<p:commandButton update="form"
+						actionListener="#{cierreSuplencia.mostrarDesglose(d.idSuplenteAutorizado, d.nombreSuplente, d.idQuincena,d.estatus)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:spacer height="30"></p:spacer>
+			<p:dialog header="Detalle Suplencia" id="detalleSuplencia"
+				visible="#{cierreSuplencia.view.mostrarDesglose}" modal="true"
+				closable="false" height="500" minWidth="500">
+				<p:messages id="errorCierre" showDetail="true" autoUpdate="false"
+					severity="error" closable="true" />
+				<p:dataTable id="detallesDesglose" editable="true" var="d"
+					scrollRows="10" scrollable="true"
+					value="#{cierreSuplencia.view.desglose}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<h4>Detalles Suplencias de #{cierreSuplencia.view.suplente}
+							de la quincena #{cierreSuplencia.view.numeroQuincena}</h4>
+						<p:commandButton value="Regresar a revisión"
+							icon="ui-icon-circle-arrow-w"
+							actionListener="#{cierreSuplencia.regresarARevision()}"
+							update="form" onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+					</f:facet>
+
+					<p:column headerText="Empleado">
+						<h:outputText value="#{d.nombreEmpleado}" />
+					</p:column>
+
+					<p:column headerText="Tipo Suplencia">
+						<h:outputText value="#{d.tipoSuplencia}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{d.estatus}" />
+					</p:column>
+
+					<p:column headerText="Fecha Inicio">
+						<h:outputText value="#{d.fechaInicio}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Fecha Fin">
+						<h:outputText value="#{d.fechaFin}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Días">
+						<h:outputText value="#{d.dias}" />
+					</p:column>
+
+					<p:column headerText="Cantidad Diaria">
+						<h:outputText value="#{d.cantidadDiaria}" />
+					</p:column>
+
+					<p:column headerText="Total">
+						<h:outputText value="#{d.total}" />
+					</p:column>
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="3" style="text-align:right"
+								footerText="Total Días:" />
+							<p:column style="text-align:left"
+								footerText="#{cierreSuplencia.view.totalDias}" />
+							<p:column colspan="3" style="text-align:right"
+								footerText="Total:" />
+							<p:column style="text-align:left"
+								footerText="#{cierreSuplencia.view.total}" />
+						</p:row>
+					</p:columnGroup>
+
+				</p:dataTable>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					columnClasses=" ui-grid-col-1, ui-grid-col-10, ui-grid-col-1">
+
+					<p:spacer></p:spacer>
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="1" columnClasses=" ui-grid-col-12">
+
+						<p:outputLabel value="Total días suplidos:" />
+						<h:outputText value="#{cierreSuplencia.view.totalDias}"></h:outputText>
+
+						<p:outputLabel value="Importe total suplencia:" />
+						<h:outputText value="#{cierreSuplencia.view.total}"></h:outputText>
+
+					</p:panelGrid>
+
+
+					<p:spacer></p:spacer>
+
+				</p:panelGrid>
+
+				<div align="center">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						actionListener="#{cierreSuplencia.cierreQuincena()}"
+						oncomplete="mymessages();" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						actionListener="#{cierreSuplencia.ocultarDesglose()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</div>
+
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,431 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo"
+		value="Dependiente económico :: Empleado" />
+
+	<ui:param name="moduloTitulo" value="Dependiente económico" />
+	<ui:param name="moduloSubtitulo" value="" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="frmDependienteEconomico"
+			styleClass="fm-contenedor ui-fluid">
+			<p:outputPanel styleClass="fm-tarjeta"
+				rendered="#{dependienteEconomicoController.view.panelBusqueda}">
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+					<p:outputLabel for="criterio" value="Buscar:" />
+					<p:outputPanel id="outputCriterio">
+						<p:inputText id="criterio"
+							value="#{dependienteEconomicoController.view.busqueda}"
+							required="true"
+							requiredMessage="Ingrese un criterio de busqueda."
+							placeholder="Buscar por nombre(s), RFC o CURP">
+							<p:clientValidator />
+							<p:ajax event="blur"
+								update=":frmDependienteEconomico:outputCriterio" />
+						</p:inputText>
+						<p:message for="criterio" />
+					</p:outputPanel>
+					<p:commandButton id="btnBuscar" widgetVar="btnBuscarWV"
+						title="Buscar empleado"
+						actionListener="#{dependienteEconomicoController.consultarEmpleados}"
+						onclick="setTimeout(function() {PF('btnBuscarWV').disable();}, 1 * 1000);"
+						oncomplete="setTimeout(function() {PF('btnBuscarWV').enable();}, 1 * 1000);"
+						icon="ui-icon-search" styleClass="fm-btn-elevado"
+						update="frmDependienteEconomico" />
+				</p:panelGrid>
+
+				<p:dataTable id="tblEmpleados"
+					emptyMessage="No se ha encontrado ningún empleado."
+					value="#{dependienteEconomicoController.view.empleadosEncontrados}"
+					var="empleado" paginator="true" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pág.: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+					<p:column headerText="Número de empleado" width="120">
+						<h:outputText value="#{empleado.numeroEmpleado}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{empleado.nombre}" />
+					</p:column>
+					<p:column headerText="CURP">
+						<h:outputText value="#{empleado.curp}" />
+					</p:column>
+
+					<p:column headerText="RFC">
+						<h:outputText value="#{empleado.rfc}" />
+					</p:column>
+
+					<p:column headerText="Domicilio">
+						<h:outputText value="#{empleado.direccion}" />
+					</p:column>
+					<p:column headerText="Opciones"
+						styleClass="fm-texto-alineado-centro" width="80">
+						<p:commandLink update="frmDependienteEconomico" title="Ver"
+							actionListener="#{dependienteEconomicoController.mostrarDetalleEmpleado(empleado)}">
+							<span class="fm-icon-eye"></span>
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel styleClass="fm-tarjeta"
+				rendered="#{dependienteEconomicoController.view.panelDependienteEconomico}">
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="2" columnClasses="ui-grid-col-3, ui-grid-col-9">
+					<p:outputLabel value="Número de empleado:" />
+					<h:outputText
+						value="#{dependienteEconomicoController.view.empleadoSelecionado.numeroEmpleado}" />
+
+					<p:outputLabel value="Nombre:" />
+					<h:outputText
+						value="#{dependienteEconomicoController.view.empleadoSelecionado.nombre}" />
+				</p:panelGrid>
+
+				<p:dataTable id="tblDependientes"
+					emptyMessage="No se ha encontrado ningún dependiente económico."
+					value="#{dependienteEconomicoController.view.dependientesEconomicos}"
+					var="dependienteEconomico" paginator="true" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pág.: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+					<f:facet name="header">
+						<p:commandLink title="Agregar nuevo dependiente económico"
+							actionListener="#{dependienteEconomicoController.mostrarNuevoDependieteEconomico}"
+							update="frmDependienteEconomico" styleClass="fm-float-right">
+							<span class="ui-icon-plus fm-font-color-white"></span>
+						</p:commandLink>
+						<p:outputPanel styleClass="fm-clear-both"></p:outputPanel>
+					</f:facet>
+
+					<p:column headerText="CURP">
+						<h:outputText value="#{dependienteEconomico.curp}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{dependienteEconomico.nombreCompleto}" />
+					</p:column>
+
+					<p:column headerText="Fecha de nacimiento">
+						<h:outputText value="#{dependienteEconomico.fechaNacimiento}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Sexo">
+						<h:outputText value="#{dependienteEconomico.sexo}" />
+					</p:column>
+
+					<p:column headerText="Parentesco">
+						<h:outputText value="#{dependienteEconomico.parentesco}" />
+					</p:column>
+
+					<p:column headerText="Opciones"
+						styleClass="fm-texto-alineado-centro" width="80">
+						<p:commandLink update="frmDependienteEconomico" title="Ver"
+							actionListener="#{dependienteEconomicoController.mostrarDependienteEconomico(dependienteEconomico.idDependiente)}">
+							<span class="ui-icon-pencil"></span>
+						</p:commandLink>
+						<p:commandLink update="frmDependienteEconomico" title="Eliminar"
+							actionListener="#{dependienteEconomicoController.eliminarDependienteEconomico(dependienteEconomico.idDependiente)}">
+							<span class="ui-icon-trash"></span>
+							<p:confirm header="Confirmar eliminación"
+								message="Realmente desea eliminar este dependiente económico"
+								icon="ui-icon-alert" />
+						</p:commandLink>
+					</p:column>
+				</p:dataTable>
+
+				<p:outputPanel styleClass="fm-tarjeta-pie">
+					<p:commandButton value="Atrás"
+						actionListener="#{dependienteEconomicoController.mostrarBusquedaEmpleados}"
+						process="@this" update="frmDependienteEconomico"
+						icon="ui-icon-circle-arrow-w"
+						styleClass="fm-tarjeta-pie-boton fm-btn-inverso" />
+				</p:outputPanel>
+			</p:outputPanel>
+
+			<p:panelGrid layout="grid" styleClass="fm-tarjeta" columns="1"
+				columnClasses="ui-grid-col-12"
+				rendered="#{dependienteEconomicoController.view.panelNuevo}">
+
+				<f:facet name="header">
+					<h3 class="fm-tarjeta-tema">Nuevo dependiente económico</h3>
+				</f:facet>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="2" columnClasses="ui-grid-col-3, ui-grid-col-9">
+					<p:outputLabel for="txtCurp" value="CURP" />
+					<p:outputPanel>
+						<p:inputText id="txtCurp"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.curp}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgCurp" />
+						</p:inputText>
+						<p:message id="msgCurp" for="txtCurp" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Nombre" for="txtNombre" />
+					<p:outputPanel>
+						<p:inputText id="txtNombre"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.nombre}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgNombre" />
+						</p:inputText>
+						<p:message id="msgNombre" for="txtNombre" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+					<p:outputLabel value="Apellido paterno" for="txtApellidoPaterno" />
+					<p:outputPanel>
+						<p:inputText id="txtApellidoPaterno"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.apellidoPaterno}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:ajax update="msgApellidoPaterno" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgApellidoPaterno" for="txtApellidoPaterno" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Apellido materno" for="txtApellidoMaterno" />
+					<p:outputPanel>
+						<p:inputText id="txtApellidoMaterno"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.apellidoMaterno}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:ajax update="msgApellidoMaterno" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgApellidoMaterno" for="txtApellidoMaterno" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="2" columnClasses="ui-grid-col-3, ui-grid-col-9">
+					<p:outputLabel value="Fecha de nacimiento" for="txtFechaNacimiento" />
+					<p:outputPanel>
+						<p:calendar id="txtFechaNacimiento"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.fechaNacimiento}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}"
+							pattern="dd/MM/yyyy" mask="true">
+							<p:ajax update="msgFechaNacimiento" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgFechaNacimiento" for="txtFechaNacimiento" />
+					</p:outputPanel>
+
+					<p:outputLabel for="sorSexo" value="Sexo" />
+					<p:outputPanel>
+						<p:selectOneRadio id="sorSexo"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.sexo}"
+							layout="responsive" columns="2"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<f:selectItems
+								value="#{dependienteEconomicoController.view.sexos}" />
+							<p:clientValidator />
+							<p:ajax update="msgSexo" />
+						</p:selectOneRadio>
+						<p:message id="msgSexo" for="sorSexo" />
+					</p:outputPanel>
+
+					<p:outputLabel for="somParentesco" value="Parentesco" />
+					<p:outputPanel>
+						<p:selectOneMenu id="somParentesco"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.parentesco}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+							<f:selectItems
+								value="#{dependienteEconomicoController.view.parentescos}" />
+							<p:clientValidator />
+							<p:ajax update="msgParentesco" />
+						</p:selectOneMenu>
+						<p:message id="msgParentesco" for="somParentesco" />
+					</p:outputPanel>
+
+					<p:outputLabel for="txtOtroParentesco" value="Otro parentesco" />
+					<p:outputPanel>
+						<p:inputText id="txtOtroParentesco"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.otroParentesco}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgOtroParentesco" />
+						</p:inputText>
+						<p:message id="msgOtroParentesco" for="txtOtroParentesco" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:outputPanel styleClass="fm-float-right">
+						<p:commandButton value="Cancelar" process="@this"
+							actionListener="#{dependienteEconomicoController.ocultarNuevoDependieteEconomico}"
+							update="frmDependienteEconomico"
+							styleClass="fm-tarjeta-pie-boton fm-btn-inverso" />
+						<p:commandButton value="Guardar"
+							actionListener="#{dependienteEconomicoController.agregarDependieteEconomico}"
+							update="frmDependienteEconomico"
+							styleClass="fm-tarjeta-pie-boton" />
+					</p:outputPanel>
+					<p:outputPanel styleClass="fm-clear-both"></p:outputPanel>
+				</f:facet>
+			</p:panelGrid>
+
+			<p:panelGrid layout="grid" styleClass="fm-tarjeta" columns="1"
+				columnClasses="ui-grid-col-12"
+				rendered="#{dependienteEconomicoController.view.panelActualizar}">
+
+				<f:facet name="header">
+					<h3 class="fm-tarjeta-tema">Actualizar dependiente económico</h3>
+				</f:facet>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="2" columnClasses="ui-grid-col-3, ui-grid-col-9">
+					<p:outputLabel for="txtActualizarCurp" value="CURP" />
+					<p:outputPanel>
+						<p:inputText id="txtActualizarCurp"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.curp}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgActualizarCurp" />
+						</p:inputText>
+						<p:message id="msgActualizarCurp" for="txtActualizarCurp" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Nombre" for="txtActualizarNombre" />
+					<p:outputPanel>
+						<p:inputText id="txtActualizarNombre"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.nombre}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgActualizarNombre" />
+						</p:inputText>
+						<p:message id="msgActualizarNombre" for="txtActualizarNombre" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4">
+					<p:outputLabel value="Apellido paterno"
+						for="txtActualizarApellidoPaterno" />
+					<p:outputPanel>
+						<p:inputText id="txtActualizarApellidoPaterno"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.apellidoPaterno}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgActualizarApellidoPaterno" />
+						</p:inputText>
+						<p:message id="msgActualizarApellidoPaterno"
+							for="txtActualizarApellidoPaterno" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Apellido materno"
+						for="txtActualizarApellidoMaterno" />
+					<p:outputPanel>
+						<p:inputText id="txtActualizarApellidoMaterno"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.apellidoMaterno}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgActualizarApellidoMaterno" />
+						</p:inputText>
+						<p:message id="msgActualizarApellidoMaterno"
+							for="txtActualizarApellidoMaterno" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank"
+					columns="2" columnClasses="ui-grid-col-3, ui-grid-col-9">
+
+					<p:outputLabel value="Fecha de nacimiento"
+						for="txtActualizarFechaNacimiento" />
+					<p:outputPanel>
+						<p:calendar id="txtActualizarFechaNacimiento"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.fechaNacimiento}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}"
+							pattern="dd/MM/yyyy">
+							<p:ajax update="msgActualizarFechaNacimiento" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgActualizarFechaNacimiento"
+							for="txtActualizarFechaNacimiento" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Sexo" for="sorActualizarSexo" />
+					<p:outputPanel>
+						<p:selectOneRadio id="sorActualizarSexo"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.sexo}"
+							layout="responsive" columns="2"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<f:selectItems
+								value="#{dependienteEconomicoController.view.sexos}" />
+							<p:clientValidator />
+							<p:ajax update="msgActualizarSexo" />
+						</p:selectOneRadio>
+						<p:message id="msgActualizarSexo" for="sorActualizarSexo" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Parentesco" for="somActualizarParentesco" />
+					<p:outputPanel>
+						<p:selectOneMenu id="somActualizarParentesco"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.parentesco}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+							<f:selectItems
+								value="#{dependienteEconomicoController.view.parentescos}" />
+							<p:clientValidator />
+							<p:ajax update="msgActualizarParentesco" />
+						</p:selectOneMenu>
+						<p:message id="msgActualizarParentesco"
+							for="somActualizarParentesco" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Otro parentesco"
+						for="txtActualizarOtroParentesco" />
+					<p:outputPanel>
+						<p:inputText id="txtActualizarOtroParentesco"
+							value="#{dependienteEconomicoController.view.dependienteEconomico.otroParentesco}"
+							validator="#{dependienteEconomicoController.validarDependienteEconomico}">
+							<p:clientValidator />
+							<p:ajax update="msgActualizarOtroParentesco" />
+						</p:inputText>
+						<p:message id="msgActualizarOtroParentesco"
+							for="txtActualizarOtroParentesco" />
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:outputPanel styleClass="fm-float-right">
+						<p:commandButton value="Cancelar" process="@this"
+							actionListener="#{dependienteEconomicoController.ocultarActualizarDependieteEconomico}"
+							update="frmDependienteEconomico"
+							styleClass="fm-tarjeta-pie-boton fm-btn-inverso" />
+						<p:commandButton value="Actualizar"
+							actionListener="#{dependienteEconomicoController.actualizarDependieteEconomico}"
+							update="frmDependienteEconomico"
+							styleClass="fm-tarjeta-pie-boton" />
+					</p:outputPanel>
+					<p:outputPanel styleClass="fm-clear-both"></p:outputPanel>
+				</f:facet>
+			</p:panelGrid>
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

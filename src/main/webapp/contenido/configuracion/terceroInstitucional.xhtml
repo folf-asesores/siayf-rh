@@ -1,0 +1,134 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Terceros Institucionales" />
+	<ui:param name="moduloTitulo" value="Terceros Institucionales" />
+
+	<ui:define name="moduloContenido" >
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" />
+			<p:growl id="growl" showDetail="true" autoUpdate="true"
+				sticky="false" life="7000" />
+
+			<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+				<p:panelGrid
+					styleClass=" ui-fluid ui-panelgrid-blank ui-fluid ui-responsive ui-noborder sin_borde  "
+					columns="4" columnClasses="ui-grid-col-3" layout="grid">
+
+					<p:outputLabel for="numero" value="Número:" />
+					<p:inputText id="numero"
+						value="#{terceroInstitucional.view.terceroInstitucional.numero}" />
+
+					<p:outputLabel for="claveX" value="Concepto Deducción:" />
+					<p:inputText id="claveX" placeholder="*"
+						value="#{terceroInstitucional.view.terceroInstitucional.conceptoDeduccion}" />
+
+					<p:outputLabel for="claveY" value="Contrapartida Identificadora:" />
+					<p:inputText id="claveY" placeholder="*"
+						value="#{terceroInstitucional.view.terceroInstitucional.contrapartidaIdentificadora}" />
+
+				     <p:spacer/>
+				     <p:spacer/>
+
+<p:spacer/><p:spacer/><p:spacer/>
+					<p:commandButton icon="ui-icon-check" iconPos="right" update="form"
+						value="#{terceroInstitucional.view.accionButton}"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						actionListener="#{terceroInstitucional.crearActualizarTerceroInstitucional()}" />
+
+
+				</p:panelGrid>
+
+				<p:panelGrid
+					styleClass=" ui-fluid ui-panelgrid-blank ui-fluid ui-responsive ui-noborder sin_borde  "
+					columns="1" columnClasses="ui-grid-col-12" layout="grid">
+					<p:dataTable
+						value="#{terceroInstitucional.view.listaTerceroInstitucional}"
+						var="t" rowKey="#{t.idTerceroInstitucional}" editable="true"
+						paginator="true" rows="5" 
+						emptyMessage="No se encontro ningún registro"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+						<p:column headerText="No." width="40" filterBy="#{t.numero}" filterMatchMode="contains">
+							<h:outputText value="#{t.numero}" />
+						</p:column>
+
+<!-- 						<p:column headerText="NOMBRE EMPRESA"> -->
+<!-- 							<h:outputText value="#{t.nombreEmpresa}" /> -->
+<!-- 						</p:column> -->
+
+						<p:column headerText="CONCEPTO DE DEDUCCIÓN" width="130" filterBy="#{t.conceptoDeduccion}" filterMatchMode="contains">
+							<h:outputText value="#{t.conceptoDeduccion}" />
+						</p:column>
+
+						<p:column headerText="CONTRAPARTIDA IDENTIFICADORA" width="130" filterBy="#{t.contrapartidaIdentificadora}" filterMatchMode="contains">
+							<h:outputText value="#{t.contrapartidaIdentificadora}" />
+						</p:column>
+
+<!-- 						<p:column headerText="GIRO"> -->
+<!-- 							<h:outputText value="#{t.giro}" /> -->
+<!-- 						</p:column> -->
+
+						<p:column headerText="OPCIONES" width="100">
+							<p:commandButton icon="ui-icon-pencil" update="form"
+								styleClass="fm-btn-exitoso fm-btn-elevado"
+								title="Actualizar #{t.nombreEmpresa}"
+								action="#{terceroInstitucional.seleccionarActualizacionTerceroInstitucional(t)}" />
+							<p:commandButton icon="ui-icon-trash"
+								title="Eliminar #{t.nombreEmpresa}"
+								styleClass="fm-btn-error fm-btn-elevado"
+								onclick="PF('dialogEliminarTercero').show()"
+								action="#{terceroInstitucional.seleccionarEliminacionTerceroInstitucional(t)}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panelGrid>
+
+			</h:panelGroup>
+
+			<p:confirmDialog header="Tercero Institucional" severity="alert"
+				message="¿Desea Eliminar el Registro Seleccionado?"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEliminarTercero">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						iconPos="right" styleClass="fm-btn-exitoso fm-btn-elevado"
+						action="#{terceroInstitucional.eliminarTerceroInstitucional()}"
+						oncomplete="PF('dialogEliminarTercero').hide()" update="form" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						action="#{terceroInstitucional.deseleccionarTerceroInstitucional()}"
+						update="form" iconPos="right"
+						styleClass="fm-btn-error fm-btn-elevado"
+						oncomplete="PF('dialogEliminarTercero').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

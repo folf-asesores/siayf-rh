@@ -1,0 +1,172 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Datos Encabezado" />
+	<ui:param name="moduloTitulo" value="Datos Encabezado" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true" closable="true"
+				autoUpdate="true" />
+			<p:growl id="growl" showDetail="true" autoUpdate="true"
+				sticky="false" life="7000" />
+
+			<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+				<p:row>
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-2, ui-grid-col-9,ui-grid-col-1.5"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer />
+						<p:spacer />
+						<p:commandButton id="cancelar" value="Regresar"
+							style="float:right;" styleClass="fm-btn-elevdo"
+							action="#{reporteSiif.retroceder}" />
+					</p:panelGrid>
+					<p:panelGrid columns="3" layout="grid"
+						columnClasses="ui-grid-col-3, ui-grid-col-9,ui-grid-col-4"
+						styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:column>
+							<p:commandButton id="consultaDatosEncabezado"
+								value="Gestionar datos"
+								action="#{consultaDatosPersonales.irPrincipal}"
+								disabled="#{consultaDatosEncabezado.view.disabledIrGestionarDatosEncabezado}"
+								update=":form" style="float:right;" ajax="false">
+								<f:setPropertyActionListener
+									target="#{consultaDatosPersonales.view.rfcCriterio}"
+									value="#{consultaDatosEncabezado.view.datoEncabezadoSelect.rfc}" />
+							</p:commandButton>
+						</p:column>
+						<p:spacer />
+						<p:column>
+							<p:commandButton id="consultaDatosNomina"
+								value="Gestionar DAT y TRA"
+								action="#{consultaNomina.irPrincipal}"
+								disabled="#{consultaDatosEncabezado.view.disabledIrGestionarDatosEncabezado}"
+								update=":form" style="float:left;" ajax="false">
+								<f:setPropertyActionListener
+									target="#{consultaNomina.view.rfcCriterio}"
+									value="#{consultaDatosEncabezado.view.datoEncabezadoSelect.rfc}" />
+							</p:commandButton>
+						</p:column>
+					</p:panelGrid>
+				</p:row>
+				<p:dataTable var="item" rowKey="#{item.rfc}"
+					value="#{consultaDatosEncabezado.view.listDatosPersonalesLista}"
+					selection="#{consultaDatosEncabezado.view.datoEncabezadoSelect}"
+					scrollable="true" selectionMode="single"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="50" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="50,100,150" resizableColumns="true"
+					resizeMode="expand">
+
+					<p:ajax event="rowSelect"
+						listener="#{consultaDatosEncabezado.onRowSelectDatosEncabezado}"
+						update=":form" />
+					<p:ajax event="rowUnselect"
+						listener="#{consultaDatosEncabezado.onRowUnselectDatosEncabezado}"
+						update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column colspan="2" headerText="Personales" />
+							<p:column colspan="2" headerText="Laborales" />
+							<p:column colspan="5" headerText="DAT" />
+							<p:column colspan="3" headerText="TRA" />
+						</p:row>
+						<p:row>
+							<p:column headerText="Id Dato Personal" />
+							<p:column headerText="Nombre" />
+
+							<p:column headerText="Id Dato Laboral" />
+							<p:column headerText="Puesto" />
+
+							<p:column headerText="RFC" />
+							<p:column headerText="No. Cuenta" />
+							<p:column headerText="UR" />
+							<p:column headerText="FN" />
+							<p:column headerText="CR" />
+
+							<p:column headerText="Per" />
+							<p:column headerText="Ded" />
+							<p:column headerText="Neto" />
+
+
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{item.id_empleado_datos_personales}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.nombre}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.id_empleado_datos_laborales}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.id_puesto}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.rfc}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.noChequeCuenta}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.ur}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.fn}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.cr}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.percepciones}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.deducciones}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{item.neto}" />
+					</p:column>
+				</p:dataTable>
+
+			</h:panelGroup>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+		</h:form>
+
+	</ui:define>
+
+	<ui:define name="bodyExtra">
+		<h:outputScript>
+		function mymessages() {
+			   setTimeout(function() { $('[id$=messages_generales]').hide(1000); }, 5500);
+			  
+			}
+	
+		</h:outputScript>
+
+	</ui:define>
+
+</ui:composition>

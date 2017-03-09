@@ -1,0 +1,199 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Reincorporacion Base" />
+	<ui:param name="moduloTitulo" value="Reincorporacion Base" />
+
+	<ui:param name="moduloSubtitulo" value="Reincorporacion Base" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{reincorporacionBase.view.mostrarPrincipal}">
+
+				<p:outputLabel for="criterio" value="Ingrese un criterio: " />
+
+				<p:inputText id="criterio"
+					value="#{reincorporacionBase.view.criterio}" placeholder="Rfc">
+
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{reincorporacionBase.buscarEmpleados()}"
+					update="form" />
+
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="tablita" editable="true" var="n"
+				rendered="#{reincorporacionBase.view.mostrarPrincipal}"
+				value="#{reincorporacionBase.view.reincorporacionBaseDetalleDTO}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="6" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{n.empleado}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{n.rfc}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{n.curp}" />
+				</p:column>
+
+				<p:column headerText="Motivo">
+					<h:outputText value="#{n.motivo}" />
+				</p:column>
+
+				<p:column width="100" headerText="Descargar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form" process="@this"
+						actionListener="#{reincorporacionBase.contenidoReservacion(n.idMovimiento)}"
+						oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{reincorporacionBase.view.mostrarReincorporacion}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText />
+					<h:outputText value="Asunto: " />
+					<h:outputText
+						value="Se comunica reincorporación a su plaza de base por término de licencia sin goce de sueldo por residencia médica." />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText
+						value="#{reincorporacionBase.view.reincorporacionBaseDTO.presenteNombre}" />
+
+					<h:outputText
+						value="#{reincorporacionBase.view.reincorporacionBaseDTO.presenteClaveUno}" />
+
+					<h:outputText
+						value="#{reincorporacionBase.view.reincorporacionBaseDTO.presenteClaveDos}" />
+
+					<h:outputText value="P r e s e n t e" />
+
+					<p:spacer />
+
+					<p:inputTextarea
+						value="Atendiendo su petición de fecha #{reincorporacionBase.view.reincorporacionBaseDTO.fecha}, donde solicita reincorporarse a su plaza de base por término de la licencia sin goce de sueldo por residencia médica, hago de su conocimiento que de acuerdo a lo establecido en el Artículo 151 y 169 de las Condiciones Generales de Trabajo de la Secretaría de Salud" />
+
+					<h:outputText
+						value=",  #{reincorporacionBase.view.reincorporacionBaseDTO.fechaNombramiento} dependiente de esta Secretaría de Salud en el Estado y Organismo Público Descentralizado Salud de Tlaxcala, " />
+
+					<p:inputTextarea value="con función de #{reincorporacionBase.view.reincorporacionBaseDTO.funcion} y clave presupuestal #{reincorporacionBase.view.reincorporacionBaseDTO.clavePresupuestal}." />
+
+					<p:spacer />
+
+					<h:outputText
+						value="Por lo que deberá presentarse con la #{reincorporacionBase.view.reincorporacionBaseDTO.directoraUnidad}, 
+						Directora de la Unidad de referencia, quien le asignará su área, turno y horario de labores." />
+
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+
+						<h:outputText value="A t e n t a m e n t e"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<h:outputText value="Directora de Administración de la"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+						<h:outputText
+							value="Sría. de Salud en el Edo. y O.P.D. Salud de Tlaxcala"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<h:outputText
+							value="#{reincorporacionBase.view.reincorporacionBaseDTO.directoraAdministracion}"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+					<p:column width="100" headerText="Descargar"
+						style="text-align: center;">
+
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+							<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+								actionListener="#{reincorporacionBase.regresar()}" update="form"
+								process="@this" />
+
+							<p:commandButton value="Descargar" icon="fm-icon-download"
+								update="@form" iconPos="right" ajax="false"
+								action="#{reincorporacionBase.descargarReservacionPlazaConfianza()}"
+								rendered="#{reincorporacionBase.view.mostrarReincorporacion}"
+								oncomplete="mymessages();" />
+						</p:panelGrid>
+					</p:column>
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

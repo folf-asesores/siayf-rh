@@ -1,0 +1,88 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Plazas" />
+        
+	<ui:param name="moduloTitulo" value="Plazas" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-responsive" id="panelGridUno"
+				rendered="#{plaza.plazaView.habilitarPanelPrincipal}">
+				<p:row>
+					<p:column>
+						<p:commandButton value="Nueva Plaza" icon="ui-icon-plus"
+							iconPos="right" action="#{plaza.habilitarFormulario()}"
+							update=":form" style="float:right;" ajax="false"
+							rendered="#{plaza.plazaView.habilitarBotonNuevaPlaza}" />
+						<p:commandButton value="Cancelar Edición" icon="ui-icon-close"
+							iconPos="right" action="#{plaza.cancelar()}" update=":form"
+							style="float:right;background:#C0C0C0"
+							rendered="#{plaza.plazaView.habilitarBotonEdicion}" />
+						<p:commandButton value="Editar Plaza" icon="ui-icon-pencil"
+							iconPos="right"
+							actionListener="#{plaza.habilitarFormularioEdicion()}"
+							update=":form" style="float:right;" ajax="false"
+							rendered="#{plaza.plazaView.habilitarBotonEdicion}" />
+					</p:column>
+
+				</p:row>
+				<p:panelGrid style="width:100%;" styleClass="ui-responsive"
+					id="panel">
+					<p:row>
+						<p:column>
+							<p:inputText id="criterio"
+								placeholder="Buscar plaza de acuerdo a  su clave,nombre,adscripción o tipo"
+								value="#{plaza.criterio}" size="80" />
+							<p:commandButton id="buscarCriterio" icon="ui-icon-search"
+								styleClass="fm-btn-elevado" process="@this,criterio"
+								update=":form" action="#{plaza.obtenerPlaza()}" ajax="false">
+							</p:commandButton>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:dataTable var="e" editable="true" rowKey="#{e.idPlaza}"
+					selection="#{plaza.plazaView.seleccionarPlaza}"
+					value="#{plaza.plazaView.listaPlazas}" paginator="true" rows="10"
+					paginatorAlwaysVisible="false" selectionMode="single">
+					<p:ajax event="rowSelect" process="@this"
+						listener="#{plaza.habilitarBotonEdicion()}" update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Clave" rowspan="2" colspan="1" />
+							<p:column headerText="Nombre" rowspan="2" colspan="1" />
+							<p:column headerText="Adscripción" rowspan="2" colspan="1" />
+							<p:column headerText="Tipo" rowspan="2" colspan="1" />
+							<p:column headerText="Condición Laboral" rowspan="2" colspan="1" />
+						</p:row>
+					</p:columnGroup>
+
+					<h:outputText value="#{e.idPlaza}" style="display:none;" />
+
+					<p:column>
+						<h:outputText value="#{e.clave}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.nombrePlaza}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.adscripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.tipo}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.condicionLaboral}" />
+					</p:column>
+				</p:dataTable>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

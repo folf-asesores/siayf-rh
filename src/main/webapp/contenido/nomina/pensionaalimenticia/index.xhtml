@@ -1,0 +1,178 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Pensión Alimenticia" />
+	<ui:param name="moduloTitulo" value="Pensión Alimenticia" />
+	<ui:param name="moduloSubtitulo"
+		value="Ingrese el RFC del empleado dar de alta una nueva pensión ó ver las pensiones registradas" />
+
+	<ui:define name="moduloContenido">
+
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+
+		<h:form id="frmPensionAlimenticiaEmpleado" styleClass="fm-contenedor">
+
+			<p:messages id="info" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					columns="3"
+					columnClasses="ui-grid-col-3,ui-grid-col-7,ui-grid-col-2">
+
+					<p:outputLabel value="RFC:" />
+
+					<p:inputText value="#{indexPensionAlimenticiaController.rfc}"></p:inputText>
+
+					<p:commandButton id="btnBuscar" title="Nuevo" icon="ui-icon-search"
+						update="frmPensionAlimenticiaEmpleado"
+						action="#{indexPensionAlimenticiaController.buscarPorRFC}" />
+
+				</p:panelGrid>
+
+				<br />
+
+
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					rendered="#{indexPensionAlimenticiaController.mostrarInformacion}">
+					<f:facet name="header">
+						<p:panelGrid columns="1" layout="grid"
+							styleClass="header-panel-grid">
+							<h2
+								style="font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">
+								Datos Empleado.</h2>
+
+						</p:panelGrid>
+					</f:facet>
+					<p:row>
+						<p:column style="text-align: right !important;">
+							<p:outputLabel value="RFC:" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{indexPensionAlimenticiaController.informacionEmpleado.rfc}" />
+						</p:column>
+						<p:column style="text-align: right !important;">
+							<p:outputLabel value="CURP:" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="#{indexPensionAlimenticiaController.informacionEmpleado.curp}" />
+
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column style="text-align: right !important;">
+							<p:outputLabel value="Nombre:" />
+						</p:column>
+						<p:column colspan="5">
+							<h:outputText
+								value="#{indexPensionAlimenticiaController.informacionEmpleado.nombre}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<br />
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank "
+					rendered="#{indexPensionAlimenticiaController.mostrarInformacion}">
+					<f:facet name="header">
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="header-panel-grid">
+							<h2
+								style="text-align: left; font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">
+								Pensiones Registradas.</h2>
+							<p:button id="btnNuevaRegla" title="Nuevo" icon="ui-icon-plus"
+								styleClass="fm-btn-inverso aling_right " immediate="true"
+								update="@all"
+								outcome="agregar.xhtml?i=#{indexPensionAlimenticiaController.informacionEmpleado.idEmpleado}" />
+						</p:panelGrid>
+
+
+					</f:facet>
+					<p:dataTable var="tblPensionesRegistradas"
+						id="tblPensionesRegistradas" styleClass="tabla-personalizada"
+						widgetVar="tblPensiones"
+						emptyMessage="No se encontraron registros"
+						value="#{indexPensionAlimenticiaController.informacionEmpleado.beneficiarioRegistrados}">
+
+
+
+						<p:column headerText="Oficio">
+							<h:outputText value="#{tblPensionesRegistradas.oficio}" />
+						</p:column>
+						<p:column headerText="Expediente">
+							<h:outputText value="#{tblPensionesRegistradas.numeroExpediente}" />
+						</p:column>
+						<p:column headerText="Juzgado">
+							<h:outputText value="#{tblPensionesRegistradas.numeroJuzgado}" />
+						</p:column>
+						<p:column headerText="RFC">
+							<h:outputText value="#{tblPensionesRegistradas.rfc}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<h:outputText value="#{tblPensionesRegistradas.beneficiario}" />
+						</p:column>
+						<p:column headerText="Fecha Alta">
+							<h:outputText value="#{tblPensionesRegistradas.fechaAlta}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Tipo">
+							<h:outputText value="#{tblPensionesRegistradas.claveCouta}" />
+						</p:column>
+						<p:column headerText="Valor">
+							<h:outputText value="#{tblPensionesRegistradas.valor}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="FechaBaja">
+							<h:outputText value="#{tblPensionesRegistradas.fechaBaja}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Estatus">
+							<h:outputText value="#{tblPensionesRegistradas.estatus}" />
+						</p:column>
+						<p:column>
+							<p:button id="btnEditarRegla" title="Editar"
+								icon="ui-icon-pencil" immediate="true" update="@all"
+								outcome="editar.xhtml?i=#{tblPensionesRegistradas.idPensionAlimenticia}" />
+
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panelGrid>
+
+
+			</p:panel>
+
+
+
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

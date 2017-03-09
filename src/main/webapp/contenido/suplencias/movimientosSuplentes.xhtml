@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Vacaciones e incapacidades" />
+	<ui:param name="moduloTitulo" value="Vacaciones e incapacidades" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para vacaciones e incapacidades." />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+				<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+				<p:inputText id="criterio"
+					value="#{movimientoSuplente.view.filtro.criterio}">
+				</p:inputText>
+
+				<p:commandButton oncomplete="mymessages();"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					actionListener="#{movimientoSuplente.buscarSuplente()}" />
+
+			</p:panelGrid>
+
+
+			<p:dataTable id="tablaPuesto" editable="true" var="s" scrollRows="10"
+				scrollable="true" value="#{movimientoSuplente.view.suplentes}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{s.rfc}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{s.nombre}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{s.estatus}" />
+				</p:column>
+
+				<p:column headerText="Tiplo Suplente">
+					<h:outputText value="#{s.tipoSuplente}" />
+				</p:column>
+
+				<p:column headerText="Seleccionar suplente">
+					<p:commandButton update="form"
+						actionListener="#{movimientoSuplente.mostrarRegistroMovimiento(s.idSuplente)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Registro Movimiento Suplencia"
+				id="dialog_movimiento_suplencia"
+				visible="#{movimientoSuplente.view.mostrarRegistroMovimiento}"
+				modal="true" closable="false" height="500" minWidth="400">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					id="panel_movimiento" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+					<p:outputLabel value="Rfc:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Nombre:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Suplente:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.tipoSuplente}"></h:outputText>
+
+					<p:outputLabel value="Centro responsabilidad:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.centroResponsabilidad}"></h:outputText>
+
+
+					<p:outputLabel value="Función:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.funcion}"></h:outputText>
+
+					<p:outputLabel value="Fecha ingreso:" />
+					<h:outputText
+						value="#{movimientoSuplente.view.suplenteSeleccionado.fechaIngreso}"></h:outputText>
+
+					<p:outputLabel for="movimiento" value="Seleccione un movimiento:*" />
+					<p:selectOneButton id="movimiento"
+						value="#{movimientoSuplente.view.movimiento.movimiento}">
+						<f:selectItem itemLabel="VACACIONES" itemValue="VACACIONES" />
+						<f:selectItem itemLabel="INCAPACIDAD" itemValue="INCAPACIDAD" />
+						<p:ajax listener="#{movimientoSuplente.seleccionarMovimiento()}"
+							update="panel_movimiento">
+						</p:ajax>
+					</p:selectOneButton>
+
+
+					<p:outputLabel for="fecha_inicio" value="Fecha inicio:*" />
+					<p:calendar id="fecha_inicio"
+						value="#{movimientoSuplente.view.movimiento.fechaInicio}"
+						pattern="dd-MM-yyyy" mask="true" locale="es" />
+
+					<p:outputLabel for="fecha_fin" value="Fecha fin:*" />
+					<p:calendar id="fecha_fin"
+						value="#{movimientoSuplente.view.movimiento.fechaFin}"
+						pattern="dd-MM-yyyy" mask="true" locale="es" />
+
+					<p:outputLabel for="ejercicio"
+						value="Ejercicio fiscal del periodo vacacional:*"
+						rendered="#{movimientoSuplente.view.mostrarVacaciones}" />
+					<p:inputText id="ejercicio"
+						rendered="#{movimientoSuplente.view.mostrarVacaciones}"
+						value="#{movimientoSuplente.view.movimiento.ejercicioFiscalPeriodo}"></p:inputText>
+
+					<p:outputLabel for="observaciones" value="Observaciones:" />
+					<p:inputTextarea id="observaciones"
+						value="#{movimientoSuplente.view.movimiento.observaciones}"></p:inputTextarea>
+
+
+				</p:panelGrid>
+
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

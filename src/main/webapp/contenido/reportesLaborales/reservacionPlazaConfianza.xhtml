@@ -1,0 +1,248 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Reservacion Plaza Confianza" />
+	<ui:param name="moduloTitulo" value="Reservacion Plaza Confianza" />
+
+	<ui:param name="moduloSubtitulo" value="Reservacion Plaza Confianza" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{reservacionPlazaConfianza.view.mostrarPrincipal}">
+
+				<p:outputLabel for="criterio" value="Ingrese un criterio: " />
+
+				<p:inputText id="criterio"
+					value="#{reservacionPlazaConfianza.view.criterio}"
+					placeholder="Rfc">
+
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{reservacionPlazaConfianza.buscarEmpleados()}"
+					update="form" />
+
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="tablita" editable="true" var="n"
+				rendered="#{reservacionPlazaConfianza.view.mostrarPrincipal}"
+				value="#{reservacionPlazaConfianza.view.reservacionDetalleDTO}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="6" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{n.empleado}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{n.rfc}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{n.curp}" />
+				</p:column>
+
+				<p:column headerText="Motivo">
+					<h:outputText value="#{n.motivo}" />
+				</p:column>
+
+				<p:column width="100" headerText="Descargar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form" process="@this"
+						actionListener="#{reservacionPlazaConfianza.contenidoReservacion(n.idMovimiento)}"
+						oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{reservacionPlazaConfianza.view.mostrarReservacion}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText />
+					<h:outputText value="Asunto: " />
+					<h:outputText
+						value="Se concede licencia sin goce de sueldo en el puesto con funciones de base, para ocupar puesto de confianza dentro
+						 de la Secretaría de Salud en el Estado y O.P.D. Salud de Tlaxcala." />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText
+						value="#{reservacionPlazaConfianza.view.reservacionDTO.presenteNombre}" />
+
+					<h:outputText
+						value="#{reservacionPlazaConfianza.view.reservacionDTO.presenteClaveUno}" />
+
+					<h:outputText
+						value="#{reservacionPlazaConfianza.view.reservacionDTO.presenteClaveDos}" />
+
+					<h:outputText value="P r e s e n t e" />
+
+					<p:spacer />
+
+					<p:inputTextarea
+						value="En atención a solicitud, #{reservacionPlazaConfianza.view.reservacionDTO.comunicado}" />
+
+					<h:outputText
+						value=", se le concede dicha licencia #{reservacionPlazaConfianza.view.reservacionDTO.fecha} en la plaza del puesto de base, con los datos que a continuación se especifican:" />
+
+					<p:panelGrid columns="3" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+						<h:outputText value="Plaza de Base:" />
+						<h:outputText value="Fecha de Ingreso:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.fechaIngreso}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Clave Original:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.claveOriginal}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Denominación:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.denominacionAlta}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Adscripcion:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.adscripcionComision}" />
+
+						<h:outputText value="Puesto de confianza:" />
+						<h:outputText value="Fecha de Designacion:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.fechaDesignacion}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Clave Designada:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.claveDesignada}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Denominacion:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.denominacion}" />
+
+						<h:outputText value="" />
+						<h:outputText value="Adscripcion:" />
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.adscripcion}" />
+					</p:panelGrid>
+					<p:spacer />
+
+					<h:outputText
+						value="Así mismo, solicito a usted, que deberá presentar ante la Oficina de Relaciones Laborales de esta 
+						Secretaría en la primera quincena de diciembre de cada año, comprobantes de que subsisten las causas que dieron 
+						origen a esta licencia, para su prórroga." />
+
+					<p:inputTextarea
+						value="De conformidad con lo dispuesto por #{reservacionPlazaConfianza.view.reservacionDTO.posicionUno}, 
+						para los efectos correspondientes." />
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+
+						<h:outputText value="A t e n t a m e n t e"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<h:outputText value="Directora de Administración de la"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+						<h:outputText
+							value="Sría. de Salud en el Edo. y O.P.D. Salud de Tlaxcala"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<h:outputText
+							value="#{reservacionPlazaConfianza.view.reservacionDTO.directoraAdministracion}"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+					<p:column width="100" headerText="Descargar"
+						style="text-align: center;">
+
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+							<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+								actionListener="#{reservacionPlazaConfianza.regresar()}"
+								update="form" process="@this" />
+
+							<p:commandButton value="Descargar" icon="fm-icon-download"
+								update="@form" iconPos="right" ajax="false"
+								action="#{reservacionPlazaConfianza.descargarReservacionPlazaConfianza()}"
+								rendered="#{reservacionPlazaConfianza.view.mostrarReservacion}"
+								oncomplete="mymessages();" />
+						</p:panelGrid>
+					</p:column>
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

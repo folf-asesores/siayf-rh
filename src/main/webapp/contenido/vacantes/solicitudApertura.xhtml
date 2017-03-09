@@ -1,0 +1,380 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Solicitud Apertura" />
+
+	<ui:param name="moduloTitulo" value="Solicitud Apertura" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:tabView>
+				<p:ajax event="tabChange"
+					listener="#{solicitudApertura.onTabChange}" update="form" />
+
+				<p:tab title="Eventuales">
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						id="registroSolicitudEventual">
+
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							id="panelGridEventual" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Registro Solicitud Eventual</h3>
+							</f:facet>
+
+							<p:outputLabel for="tipoContratacionEventual"
+								value="Seleccione el tipo de solicitud:" />
+							<p:selectOneMenu id="tipoContratacionEventual" filter="true"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.tipoContratacion}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaContratacionEventual}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="puestoEventual" value="Puesto" />
+							<p:selectOneMenu id="puestoEventual" filter="true"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idPuesto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{solicitudApertura.view.listaPuestos}" />
+								<p:ajax listener="#{solicitudApertura.obtenerSalario()}"
+									update="registroSolicitudEventual,form:messages_generales"
+									process="puestoEventual,tipoContratacionEventual"></p:ajax>
+							</p:selectOneMenu>
+
+
+
+
+
+							<p:outputLabel for="proyecto" value="Proyecto" />
+							<p:selectOneMenu id="proyecto" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idProyecto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{solicitudApertura.view.listaProyectos}" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="dependencia" value="Dependencia" />
+							<p:selectOneMenu id="dependencia" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idDependencia}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaDependencias}" />
+								<p:ajax
+									listener="#{solicitudApertura.obtenerUnidadesResponsables()}"
+									update="unidadResponsable"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="unidadResponsable" value="Unidad Responsable" />
+							<p:selectOneMenu id="unidadResponsable" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idUnidadResponsable}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaUnidadesResponsables}" />
+
+							</p:selectOneMenu>
+
+
+
+							<p:outputLabel for="fuente" value="Fuente Financiamiento" />
+							<p:selectOneMenu id="fuente" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idFuenteFinanciamiento}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaFuentesFinanciamiento}" />
+								<p:ajax
+									listener="#{solicitudApertura.obtenerSubfuentesFinanciamiento()}"
+									update="subfuente"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="subfuente" value="Subfuente Financiamiento" />
+							<p:selectOneMenu id="subfuente" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idSubfuenteFinanciamiento}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaSubfuentesFinanciamiento}" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="tipoRecurso" value="Tipo Recurso" />
+							<p:selectOneMenu id="tipoRecurso" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientos}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idTipoRecurso}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaTiposRecursos}" />
+
+							</p:selectOneMenu>
+
+
+
+							<p:panelGrid columns="2" id="salarioEstatal"
+								columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid"
+								rendered="#{solicitudApertura.view.mostrarSalarioEstatal}">
+								<f:facet name="header">
+									<h3>Configuracion Salario Mensual Contrato estatal</h3>
+								</f:facet>
+
+								<p:outputLabel value="Sueldo Base Mensual Minimo:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.sueldoBaseMensualMinimo}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+
+								<p:outputLabel value="Sueldo Base Mensual Medio:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.sueldoBaseMensualMedio}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+
+								<p:outputLabel value="Sueldo Base Mensual Máximo:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.sueldoBaseMensualMaximo}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+
+								<p:outputLabel for="sueldoPropuesto" value="Sueldo propuesto:" />
+								<p:inputText id="sueldoPropuesto"
+									value="#{solicitudApertura.view.solicitud.datosLaborales.sueldo}"></p:inputText>
+
+							</p:panelGrid>
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+
+						<p:spacer></p:spacer>
+
+						<p:panelGrid columns="3" id="botonGuardar"
+							columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<p:spacer></p:spacer>
+							<p:commandButton value="Solicitar Apertura Vacante"
+								process="registroSolicitudEventual"
+								actionListener="#{solicitudApertura.guardarVacante()}"
+								update="form,form:messages_generales"></p:commandButton>
+							<p:spacer></p:spacer>
+
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+
+					</p:panelGrid>
+
+				</p:tab>
+
+				<p:tab title="Federalizadas">
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						id="registroSolicitudFederal">
+
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							id="panelLaboralesFederal" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Registro Solicitud Federal</h3>
+							</f:facet>
+
+							<p:outputLabel for="tipoContratacion2"
+								value="Seleccione el tipo de solicitud" />
+							<p:selectOneMenu id="tipoContratacion2" filter="true"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.tipoContratacion}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaContratacionLaboral}" />
+								<p:ajax
+									listener="#{solicitudApertura.seleccionarNombramiento()}"
+									update="registroSolicitudFederal"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="nombramiento2" value="Nombramiento"
+								rendered="#{solicitudApertura.view.mostrarNombramientos}" />
+							<p:selectOneMenu id="nombramiento2"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idNombramiento}"
+								rendered="#{solicitudApertura.view.mostrarNombramientos}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaTiposNombramiento}" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="proyecto2" value="Proyecto" />
+							<p:selectOneMenu id="proyecto2" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idProyecto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{solicitudApertura.view.listaProyectos}" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="dependencia2" value="Dependencia" />
+							<p:selectOneMenu id="dependencia2" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idDependencia}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaDependencias}" />
+								<p:ajax
+									listener="#{solicitudApertura.obtenerUnidadesResponsables()}"
+									update="unidadResponsable2"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="unidadResponsable2"
+								value="Unidad Responsable" />
+							<p:selectOneMenu id="unidadResponsable2" filter="true"
+								filterMatchMode="contains"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idUnidadResponsable}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaUnidadesResponsables}" />
+
+							</p:selectOneMenu>
+
+
+
+							<p:outputLabel for="fuente2" value="Fuente Financiamiento" />
+							<p:selectOneMenu id="fuente2" filter="true"
+								filterMatchMode="contains"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idFuenteFinanciamiento}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaFuentesFinanciamiento}" />
+								<p:ajax
+									listener="#{solicitudApertura.obtenerSubfuentesFinanciamiento()}"
+									update="subfuente2"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="subfuente2" value="Subfuente Financiamiento" />
+							<p:selectOneMenu id="subfuente2" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idSubfuenteFinanciamiento}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaSubfuentesFinanciamiento}" />
+
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="tipoRecurso2" value="Tipo Recurso" />
+							<p:selectOneMenu id="tipoRecurso2" filter="true"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								filterMatchMode="contains"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idTipoRecurso}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{solicitudApertura.view.listaTiposRecursos}" />
+
+							</p:selectOneMenu>
+
+
+
+							<p:outputLabel for="puestoFederal" value="Puesto" />
+							<p:selectOneMenu id="puestoFederal" filter="true"
+								filterMatchMode="contains"
+								disabled="#{solicitudApertura.view.bloquearFinanciamientoInterinato}"
+								value="#{solicitudApertura.view.solicitud.datosLaborales.idPuesto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{solicitudApertura.view.listaPuestos}" />
+								<p:ajax listener="#{solicitudApertura.obtenerSalario()}"
+									process="@this" update="registroSolicitudFederal"></p:ajax>
+
+							</p:selectOneMenu>
+
+
+							<p:panelGrid columns="2" id="salarioFederal"
+								columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid"
+								rendered="#{solicitudApertura.view.mostrarSalarioFederal}">
+								<f:facet name="header">
+									<h3>Salario Tabulador Federal</h3>
+								</f:facet>
+
+								<p:outputLabel value="Sueldo Bruto Mensual:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.sueldoBrutoMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+								<p:outputLabel value="Asignacion Bruta Mensual:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.asignacionBrutaMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+								<p:outputLabel value="A.G.A. Bruta Mensual:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.agaBrutaMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+								<p:outputLabel value="Total Bruto Mensual:" />
+								<h:outputText
+									value="#{solicitudApertura.view.salario.totalBrutoMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+							</p:panelGrid>
+
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="3" id="botonGuardar2"
+							columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<p:spacer></p:spacer>
+
+							<p:commandButton value="Solicitar Apertura Vacante"
+								actionListener="#{solicitudApertura.guardarVacante()}"
+								update="form,form:messages_generales"></p:commandButton>
+							<p:spacer></p:spacer>
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+		</h:form>
+	</ui:define>
+</ui:composition>

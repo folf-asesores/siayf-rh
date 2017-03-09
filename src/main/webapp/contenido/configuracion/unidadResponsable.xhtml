@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="UnidadResponsable" />
+	<ui:param name="moduloTitulo"  value="UnidadResponsable" />
+	
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{unidadResponsable.view.panelPrincipal}">
+				
+				<p:panelGrid columns="4" layout="grid" >
+						<p:commandButton value="Gestionar..." 
+										action="#{unidadResponsable.irGestionarUnidadResponsable()}"
+										update=":form"
+										ajax="false"
+										disabled="#{unidadResponsable.view.disabledIrGestionar}" />
+						  				
+						<p:commandButton id="eliminar"  
+                 						 value="Eliminar..." 
+                 						 onclick="PF('eliminarConfirm').show()"
+                 						 disabled="#{unidadResponsable.view.disabledIrGestionar}" >
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar la UNIDAD seleccionada?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirm">
+    					<p:commandButton value="Si" 
+                     					 action="#{unidadResponsable.eliminarUnidadResponsable()}" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"
+                     					 update=":form" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"/> 
+                     					 
+						</p:confirmDialog> 
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{unidadResponsable.irNuevoUnidadResponsable()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:dataTable id="listUnidadResponsable"
+							 value="#{unidadResponsable.view.listUnidadResponsable}"
+							 var="unidadResponsableItem"
+							 rowKey="#{unidadResponsableItem.idUnidadResponsable}"
+							 selection="#{unidadResponsable.view.unidadResponsableSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{unidadResponsable.onRowSelectUnidadResponsable}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{unidadResponsable.onRowUnselectUnidadResponsable}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column headerText="Unidad Responsable" />
+							<p:column style="width:299px" headerText="Dependencia" />
+							<p:column style="width:120px" headerText="Unidades por Dependencia" />
+							<p:column style="width:99px" headerText="Base36" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{unidadResponsableItem.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{unidadResponsableItem.idDependencia}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{unidadResponsableItem.idUnidadXDependencia}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{unidadResponsableItem.idBase36}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{unidadResponsable.view.panelGestion}">
+				<p:focus context="panelGestion"/>				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+											 
+					<p:outputLabel for="UnidadResponsable" value="Unidad Responsable:"/>        			
+        			<p:inputText id="UnidadResponsable" value="#{unidadResponsable.view.unidadResponsable.descripcion}"
+        						 validator="#{unidadResponsable.validatorUnidad}">
+        				<p:ajax update="msgUnidad"/>
+        				<p:clientValidator/>
+            		</p:inputText>
+            		<p:message id="msgUnidad" for="UnidadResponsable"/>
+					<p:spacer/>
+					
+					<p:outputLabel value="Dependencia"/>			 
+					<p:inputText id="Dependencia" value="#{unidadResponsable.view.unidadResponsable.idDependencia}"
+								 validator="#{unidadResponsable.validatorUnidad}">
+						<p:ajax update="msgDependencia"/>
+						<p:clientValidator/>
+					</p:inputText>
+					<p:message id="msgDependencia" for="Dependencia"/>
+					<p:spacer/>
+					
+					<p:outputLabel value="Unidad por Dependencia"/>			 
+					<p:inputText id="UnidadXDependencia" value="#{unidadResponsable.view.unidadResponsable.idUnidadXDependencia}"
+								 validator="#{unidadResponsable.validatorUnidad}">
+						<p:ajax update="msgUxD"/>
+						<p:clientValidator/>
+					</p:inputText>
+					<p:message id="msgUxD" for="UnidadXDependencia"/>
+					<p:spacer/>
+					
+					<p:outputLabel value="Base36"/>			 
+					<p:inputText id="Base36" value="#{unidadResponsable.view.unidadResponsable.idBase36}"
+								 validator="#{unidadResponsable.validatorUnidad}">
+						<p:ajax update="msgB36"/>
+						<p:clientValidator/>
+					</p:inputText>
+					<p:message id="msgB36" for="Base36"/>
+					<p:spacer/>
+					</p:panelGrid>	
+				
+				<div>
+				<p:panelGrid id="btn1" columns="3" layout="grid">
+					<p:commandButton value="Guardar"
+									action="#{unidadResponsable.guardarUnidadResponsable}"
+									update=":form"
+									style="float:left;"
+									ajax="false"/>
+					<p/>
+					<p:commandButton value="Cancelar"
+									action="#{unidadResponsable.irPrincipal()}"
+									update=":form"
+									style="float:right;"
+									ajax="false"/>
+				</p:panelGrid>					
+				</div>		 				 	 			 
+			</p:outputPanel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

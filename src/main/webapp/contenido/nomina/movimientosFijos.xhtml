@@ -1,0 +1,500 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos Nomina" />
+	<ui:param name="moduloTitulo" value="Movimientos de Nomina" />
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<style type="text/css">
+.old {
+	background-color: #fca752 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
+	</ui:define>
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-responsive fm-tarjeta ui-fluid">
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-5, ui-grid-col-1,ui-grid-col-2,"
+					layout="grid" styleClass="ui-responsive ui-panelgrid-blank"
+					rendered="#{movimientosFijos.panelBusqueda}">
+
+					<p:inputText id="criterio"
+						placeholder="Buscar Empleado por RFC, Nombre, Apellidos o Número"
+						value="#{movimientosFijos.criterio}" size="80" />
+					<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+						update="form" action="#{movimientosFijos.buscarEmpleados()}" />
+
+					<p:commandButton id="cargaMasiva" style="height:50px"
+						styleClass="fm-btn-acento" value="Cargar  registros masivamente"
+						update=":form" ajax="false" process="@this"
+						action="#{movimientosFijos.mostrarPanelImportacion()}" />
+
+
+
+				</p:panelGrid>
+
+				<p:panel id="importarRegistros" header="Importar Movimientos"
+					rendered="#{movimientosFijos.mostrarPanelImportacionMasiva}">
+
+					<p:panelGrid id="controlesFiles" columns="5"
+						columnClasses="ui-grid-col-2, ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-2"
+						layout="grid" styleClass="ui-responsive ui-panelgrid-blank">
+
+						<p:fileUpload id="archivotxt" value="#{movimientosFijos.file}"
+							mode="simple" label="Seleccionar Archivo Txt"
+							allowTypes="/(\.|\/)(txt)$/"
+							requiredMessage="El Archivo Txt es requerido"
+							invalidFileMessage="El Archivo debe tener la extención txt"
+							skinSimple="true" />
+						<p:commandButton id="cargarArchivo" styleClass="fm-btn-exitoso"
+							icon="ui-icon-refresh" value="Cargar  archivo"
+							update="tablaInfoMov guardarinfoArchivo" ajax="false"
+							action="#{movimientosFijos.procesarArchivo()}" />
+
+						<p:spacer />
+
+						<p:commandButton id="guardarinfoArchivo" value="Guardar"
+							update="importarRegistros" icon="ui-icon-disk" iconPos="right"
+							disabled="#{movimientosFijos.activarBotonGuardar}"
+							action="#{movimientosFijos.guardarMovimientosArchivos()}"
+							styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+
+						<p:commandButton id="cancel" value="Regresar"
+							icon="ui-icon-closethick" update="@form" iconPos="right"
+							action="#{movimientosFijos.irInicio()}" process="@this"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+
+
+					<p:dataTable var="infoMovimientos" id="tablaInfoMov"
+						rendered="#{movimientosFijos.mostrarTablaCargaInfo}"
+						value="#{movimientosFijos.listaMovimientoArchivo}"
+						rowStyleClass="#{infoMovimientos.statusRegistro !=null ? 'old' : null}">
+						<f:facet name="header">
+							<h:outputText
+								value="La tabla que se muestra a continuación es un resumen de la información contenida en el archivo seleccionado." />
+						</f:facet>
+						<p:column headerText="RFC">
+							<h:outputText value="#{infoMovimientos.rfc}" />
+						</p:column>
+
+						<p:column headerText="Tercero Institucional">
+							<h:outputText value="#{infoMovimientos.terceroInstitucional}" />
+						</p:column>
+
+						<p:column headerText="Quincena Final">
+							<h:outputText value="#{infoMovimientos.quincenaFinal}" />
+						</p:column>
+
+						<p:column headerText="Año Final">
+							<h:outputText value="#{infoMovimientos.anioFinal}" />
+						</p:column>
+						<p:column headerText="Monto">
+							<h:outputText value="#{infoMovimientos.importeDescontado}" />
+						</p:column>
+						<p:column headerText="Estado">
+							<h:outputText value="#{infoMovimientos.statusRegistro}" />
+						</p:column>
+					</p:dataTable>
+
+
+					<p:dataTable var="infoMovimientos" id="tablaInfoMovResult"
+						rendered="#{movimientosFijos.mostrarTablaResultCargaInfo}"
+						value="#{movimientosFijos.movimientosProcesados}">
+						<p:column headerText="RFC">
+							<h:outputText value="#{infoMovimientos.rfc}" />
+						</p:column>
+
+						<p:column headerText="Tercero Institucional">
+							<h:outputText value="#{infoMovimientos.terceroInstitucional}" />
+						</p:column>
+
+						<p:column headerText="Quincena Final">
+							<h:outputText value="#{infoMovimientos.quincenaFinal}" />
+						</p:column>
+
+						<p:column headerText="Año Final">
+							<h:outputText value="#{infoMovimientos.anioFinal}" />
+						</p:column>
+						<p:column headerText="Monto">
+							<h:outputText value="#{infoMovimientos.importeDescontado}" />
+						</p:column>
+						<p:column headerText="Estatus">
+							<h:outputText value="#{infoMovimientos.statusRegistro}" />
+						</p:column>
+					</p:dataTable>
+
+				</p:panel>
+
+
+
+				<p:dataTable id="dataEmpleados" var="e" editable="true"
+					emptyMessage="No se encontrarón resultados"
+					rowKey="#{e.idEmpleado}" value="#{movimientosFijos.empleadoLista}"
+					paginator="true" rows="10" paginatorAlwaysVisible="false"
+					rendered="#{movimientosFijos.mostrarTablaEmpleados}">
+
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Nombre" />
+							<p:column headerText="CURP" />
+							<p:column headerText="RFC" />
+							<p:column headerText="Dirección" />
+							<p:column headerText="Numero de Empleado" />
+							<p:column headerText="Estatus" />
+							<p:column width="50" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{e.nombre}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.curp}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.rfc}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.direccion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.numeroEmpleado}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.estatus}" />
+					</p:column>
+					<p:column>
+						<p:commandButton update="form"
+							action="#{movimientosFijos.verMovimientosFijos(e)}"
+							icon="ui-icon-circle-check" styleClass="fm-btn-elevado" />
+					</p:column>
+				</p:dataTable>
+
+				<p:outputPanel id="panelFormulario"
+					rendered="#{movimientosFijos.panelMovimientosFijos}">
+					<p:ribbon>
+						<p:tab title="Generales">
+							<p:ribbonGroup label="Empleado">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.nombre}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="CURP">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.curp}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Edad">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.edad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nacionalidad">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.nacionalidad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Sexo">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.sexo}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estado Civil">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.estadoCivil}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estudios">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.estudios}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Domicilio">
+							<p:ribbonGroup label="Domicilio">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.domicilio}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Laborales">
+							<p:ribbonGroup label="Contratación">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.tipoContratacion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{movimientosFijos.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nombramiento">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.nombramiento}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Puesto">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.codigoPuesto}" />
+								<br />
+								<h:outputText value="#{movimientosFijos.empleadoDatos.puesto}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Unidad Responsable">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.unidadResponsable}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Adscripción">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.adscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Lugar adscripción">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.lugarAdscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Area adscripción">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.areaAdscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Ultima Licencia">
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.licencia} " />
+								<h:outputText
+									value="#{movimientosFijos.empleadoDatos.ultimaLicencia}">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:ribbonGroup>
+						</p:tab>
+					</p:ribbon>
+				</p:outputPanel>
+
+			</p:panelGrid>
+
+			<p:panelGrid id="controles" columns="2"
+				rendered="#{movimientosFijos.panelMovimientosFijos}"
+				columnClasses="ui-grid-col-3,ui-grid-col-2" layout="grid"
+				styleClass="ui-responsive ui-panelgrid-blank">
+
+				<p:commandButton value="Agregar Movimiento" id="agregar"
+					disabled="#{movimientosFijos.permitirAltaMovimiento}"
+					icon="ui-icon-plusthick" iconPos="right"
+					update="@form"
+					action="#{movimientosFijos.iraFormulario}"
+					style="height:60px; widht:50px;"/>
+
+				<p:commandButton id="regresar" value="Regresar" update="@form"
+					icon="ui-icon-closethick" style="height:60px;"
+					iconPos="right" action="#{movimientosFijos.irInicio}"
+					process="@this" styleClass="fm-btn-peligro fm-btn-elevado" />
+
+			</p:panelGrid>
+
+			<!-- *************************************comienza panel datos *************************************** -->
+
+			<p:panel id="panelDatos" header="Movimientos Fijos"
+				rendered="#{movimientosFijos.panelMovimientosFijos}">
+
+				<p:ajaxStatus>
+					<f:facet name="start">
+						<center>
+							<p:graphicImage library="imagenes" name="load.gif" />
+						</center>
+					</f:facet>
+					<f:facet name="complete" />
+				</p:ajaxStatus>
+
+				<p:dataTable id="tablemovimientos" var="mov"
+					value="#{movimientosFijos.listaMovimientos}"
+					emptyMessage="No se tienen registros de movimientso para el empleado.."
+					scrollable="true" rows="10" paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30" editable="true"
+					style="margin-bottom:20px">
+
+
+					<p:column filterBy="#{mov.folio}" headerText="Folio"
+						filterMatchMode="contains">
+						<h:outputText value="#{mov.folio}" />
+					</p:column>
+
+					<p:column filterBy="#{mov.quincenaFinal}"
+						headerText="Quincena Final" filterMatchMode="contains">
+						<h:outputText value="#{mov.quincenaFinal}" />
+					</p:column>
+					<p:column filterBy="#{mov.anioFinal}" headerText="Año Final"
+						filterMatchMode="contains">
+						<h:outputText value="#{mov.anioFinal}" />
+					</p:column>
+					<p:column filterBy="#{mov.terceroInstitucional}"
+						headerText="Tercero institucional" filterMatchMode="contains">
+						<h:outputText value="#{mov.terceroInstitucional}" />
+					</p:column>
+					<p:column filterBy="#{mov.importeDescontado}"
+						headerText="Importe a descontar" filterMatchMode="contains">
+						<h:outputText value="#{mov.importeDescontado}" />
+					</p:column>
+					<p:column filterBy="#{mov.dias}" headerText="Año Inicial"
+						filterMatchMode="contains">
+						<h:outputText value="#{mov.dias}" />
+					</p:column>
+
+					<p:column style="width:52px" headerText="Editar">
+						<p:commandButton id="editarMovimiento"
+							styleClass="fm-btn-edit fm-btn-elevado"
+							oncomplete="PF('editMovDlg').show()" process="@this"
+							icon="ui-icon-pencil" update=":form:editDialog">
+							<f:setPropertyActionListener value="#{mov}"
+								target="#{movimientosFijos.movimientoSeleccionado}"
+								for="editarMovimiento" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column style="width:50px; text-align: center;"
+						headerText="Eliminar">
+						<p:commandButton id="eliminarMovimiento"
+							styleClass="fm-btn-error fm-btn-elevado"
+							onclick="PF('dialogEliminarMovimiento').show()"
+							process="tablemovimientos" update="tablemovimientos"
+							icon="ui-icon-trash">
+							<f:setPropertyActionListener value="#{mov}"
+								target="#{movimientosFijos.movimientoSeleccionado}"
+								for="eliminarMovimiento" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog header="Movimiento Fijo" severity="alert"
+					message="¿Desea Eliminar el Registro ?" showEffect="fade"
+					hideEffect="explode" widgetVar="dialogEliminarMovimiento">
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:commandButton value="Si" icon="ui-icon-circle-check"
+							process="@this" iconPos="right"
+							styleClass="fm-btn-exitoso fm-btn-elevado"
+							action="#{movimientosFijos.eliminarMovimiento()}"
+							oncomplete="PF('dialogEliminarMovimiento').hide()"
+							update="tablemovimientos growl" />
+						<p:commandButton value="No" icon="ui-icon-circle-close"
+							process="@this" update="tablemovimientos growl" iconPos="right"
+							styleClass="fm-btn-error fm-btn-elevado"
+							oncomplete="PF('dialogEliminarMovimiento').hide()" />
+					</p:panelGrid>
+				</p:confirmDialog>
+			</p:panel>
+
+
+			<p:dialog id="editDialog" header="Editar Movimiento"
+				widgetVar="editMovDlg" modal="true" height="400">
+				<p:panelGrid columns="2" id="gridEdicion"
+					columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+					styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
+
+
+					<p:outputLabel for="fechaDocEdit" value="Fecha Documento: " />
+					<p:outputPanel>
+						<p:calendar id="fechaDocEdit"
+							value="#{movimientosFijos.movimientoSeleccionado.fechaDocumento}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msgfechaDocEdit" event="blur" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgfechaDocEdit" for="fechaDocEdit" />
+					</p:outputPanel>
+
+					<p:outputLabel for="folioEdit" value="Folio Documento: " />
+					<p:outputPanel>
+						<p:inputText id="folioEdit"
+							value="#{movimientosFijos.movimientoSeleccionado.folio}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msgfolioEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgfolioEdit" for="folioEdit" />
+					</p:outputPanel>
+
+
+					<p:outputLabel for="quincenaFinalEdit" value="Quincena Final: " />
+					<p:outputPanel>
+						<p:selectOneMenu id="quincenaFinalEdit"
+							value="#{movimientosFijos.movimientoSeleccionado.quincenaFinal}"
+							validator="#{movimientosFijos.validator}">
+							<f:selectItems value="#{movimientosFijos.quincenas}" />
+							<p:ajax update="quincenaFinalEdit" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgquincenaFinalEdit" for="quincenaFinalEdit" />
+					</p:outputPanel>
+
+
+					<p:outputLabel for="anioFinalEdit" value="Año final: " />
+					<p:outputPanel>
+						<p:inputText id="anioFinalEdit"
+							value="#{movimientosFijos.movimientoSeleccionado.anioFinal}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msganioFinalEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msganioFinalEdit" for="anioFinalEdit" />
+					</p:outputPanel>
+
+
+					<p:outputLabel for="importeQuincenalEdit"
+						value="Importe a descontar: "
+						rendered="#{movimientosFijos.habilitarCampoImporte}" />
+					<p:outputPanel rendered="#{movimientosFijos.habilitarCampoImporte}">
+						<p:inputText id="importeQuincenalEdit" placeholder="$00.00"
+							value="#{movimientosFijos.movimientoSeleccionado.importeDescontado}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msgimporteQuincenalEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgimporteQuincenalEdit"
+							for="msgimporteQuincenalEdit" />
+					</p:outputPanel>
+
+					<p:outputLabel for="numDiasEdit" value="Número de Dias: "
+						rendered="#{movimientosFijos.habilitarCampoUnidades}" />
+					<p:outputPanel
+						rendered="#{movimientosFijos.habilitarCampoUnidades}">
+						<p:inputText id="numDiasEdit"
+							value="#{movimientosFijos.movimientoSeleccionado.dias}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msgdiasEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgdiasEdit" for="numDiasEdit" />
+					</p:outputPanel>
+
+					<p:outputLabel for="conceptoEdit" value="Concepto: "
+						rendered="#{movimientosFijos.habilitarCamposTerceros}" />
+					<p:outputPanel
+						rendered="#{movimientosFijos.habilitarCamposTerceros}">
+						<p:selectOneMenu id="conceptoEdit" disabled="true"
+							value="#{movimientosFijos.movimientoSeleccionado.idTerceroInstitucional}"
+							validator="#{movimientosFijos.validator}">
+							<p:ajax update="msgconceptoEdit" />
+							<p:clientValidator />
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{movimientosFijos.listaConceptos}" />
+						</p:selectOneMenu>
+						<p:message id="msgconceptoEdit" for="conceptoEdit" />
+					</p:outputPanel>
+
+					<f:facet name="footer">
+						<p:commandButton value="Guardar Cambios" id="editarButton"
+							icon="ui-icon-plusthick" iconPos="right"
+							oncomplete="PF('editMovDlg').hide();" update="tablemovimientos"
+							actionListener="#{movimientosFijos.editarRegistro()}"
+							style="height:60px; widht:50px" />
+
+						<p:commandButton id="CancelarEdicion" value="Regresar"
+							icon="ui-icon-closethick" style="height:60px; widht:50px"
+							iconPos="right" onclick="PF('editMovDlg').hide();"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</f:facet>
+				</p:panelGrid>
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

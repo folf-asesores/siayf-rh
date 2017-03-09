@@ -1,0 +1,170 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Configuración Módulo Acción" />
+	<ui:param name="moduloTitulo" value="Configuración Módulo Acción" />
+	<ui:define name="moduloContenido">
+
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panel
+				rendered="#{configuracionModuloAccionController.activarPanelAlta}">
+				<p:panelGrid id="altaconfigModuloGrid" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="nombreConfiguracion"
+						value="Nombre Configuración" />
+					<p:inputText id="nombreConfiguracion"
+						value="#{configuracionModuloAccionController.configuracionModuloAccionDTONew.nombreConfiguracion}" />
+
+					<p:outputLabel for="modulo" value="Módulo:" />
+					<p:outputPanel>
+						<p:selectOneMenu id="modulo"
+							value="#{configuracionModuloAccionController.configuracionModuloAccionDTONew.modulo.id_modulo}"
+							validator="#{configuracionModuloAccionController.validatorConfiguracionModuloAccion}">
+							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
+							<f:selectItems
+								value="#{configuracionModuloAccionController.listaModulos}"
+								var="modulo" itemValue="#{modulo.id_modulo}"
+								itemLabel="#{modulo.nombre}" />
+							<p:ajax update="msgModulo tablaAcciones" listener="#{configuracionModuloAccionController.accionesPorModuloSeleccionado}"/>
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgModulo" for="modulo" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:commandButton id="guardarConfiguracion"
+						value="Guardar Configuración"
+						update="tablaConfiguracionModuloAccion altaconfigModuloGrid"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						actionListener="#{configuracionModuloAccionController.agregarConfiguracionModuloAccion()}"
+						icon="ui-icon-check" />
+				</p:panelGrid>
+
+				<br />
+				<p:dataTable id="tablaAcciones" var="accion"
+					value="#{configuracionModuloAccionController.listaAcciones}"
+					selection="#{configuracionModuloAccionController.listaAccionesSeleccionadas}"
+					rowKey="#{accion.id_accion}" style="margin-bottom:0">
+					<f:facet name="header">
+          				 Acciones del Modulo
+       				</f:facet>
+					<p:column selectionMode="multiple"
+						style="width:16px;text-align:center" />
+					<p:column headerText="Accion">
+						<h:outputText value="#{accion.clave}" />
+					</p:column>
+					<p:column headerText="Descripción">
+						<h:outputText value="#{accion.descripcion}" />
+					</p:column>
+					<p:column headerText="Area">
+						<h:outputText value="#{accion.nombreArea}" />
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+			<br />
+
+
+			<p:panel id="panelTablaPrincipal"
+				rendered="#{configuracionModuloAccionController.activarTablaPrincipal}">
+
+				<div align="right">
+					<p:commandButton value="Agregar Configuración" icon="ui-icon-plus"
+						iconPos="right"
+						actionListener="#{configuracionModuloAccionController.mostrarPanelAlta()}"
+						styleClass="fm-btn-exitoso fm-btn-elevado" update="form" />
+				</div>
+
+				<p:dataTable id="tablaConfiguracionModuloAccion"
+					var="configuracionModuloAccion" scrollable="true" rows="3"
+					paginator="true" paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30"
+					value="#{configuracionModuloAccionController.listaConfiguracionModuloAccion}"
+					editable="true" style="margin-bottom:20px">
+
+
+
+					<p:column headerText="Nombre Configuración">
+
+						<h:outputText
+							value="#{configuracionModuloAccion.nombreConfiguracion}" />
+
+					</p:column>
+
+					<p:column headerText="Módulo">
+
+						<h:outputText value="#{configuracionModuloAccion.modulo.nombre}" />
+
+					</p:column>
+
+
+					<p:column style="width:52px" headerText="Opciones">
+						<p:commandButton id="editarConfiguracionModulo"
+							styleClass="fm-btn-error fm-btn-elevado"
+							process="tablaConfiguracionModuloAccion"
+							update="tablaConfiguracionModuloAccion" icon="ui-icon-pencil">
+							<f:setPropertyActionListener value="#{configuracionModuloAccion}"
+								target="#{configuracionModuloAccionController.configuracionModuloAccionSelect}"
+								for="editarConfiguracionModulo" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column style="width:50px; text-align: center;">
+						<p:commandButton id="eliminarConfiguracionModulo"
+							styleClass="fm-btn-error fm-btn-elevado"
+							onclick="PF('dialogEliminarConfiguracioModulo').show()"
+							process="tablaConfiguracionModuloAccion"
+							update="tablaConfiguracionModuloAccion" icon="ui-icon-trash">
+							<f:setPropertyActionListener value="#{configuracionModuloAccion}"
+								target="#{configuracionModuloAccionController.configuracionModuloAccionSelect}"
+								for="eliminarConfiguracionModulo" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+			<p:confirmDialog header="Configuracion Modulo-Accion"
+				severity="alert" message="¿Desea Eliminar el Registro"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEliminarConfiguracioModulo">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						process="@this" iconPos="right"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						action="#{configuracionModuloAccionController.eliminarConfiguracion()}"
+						oncomplete="PF('dialogEliminarConfiguracioModulo').hide()"
+						update="tablaConfiguracionModuloAccion messages_generales growl" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						process="@this"
+						update="tablaConfiguracionModuloAccion messages_generales growl"
+						iconPos="right" styleClass="fm-btn-error fm-btn-elevado"
+						oncomplete="PF('dialogEliminarConfiguracioModulo').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

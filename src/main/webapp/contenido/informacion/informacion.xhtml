@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Consulta Aspirante" />
+	<ui:param name="moduloTitulo" value="Consulta Aspirante" />
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="1" columnClasses=" ui-grid-col-12">
+
+				<p:commandButton value="Actualizar Perfil Empleados"
+					actionListener="#{cruce.actualizarPerfilEmpleado()}" update="form"></p:commandButton>
+
+
+
+				<p:commandButton actionListener="#{cruce.cruzarInformacion()}"
+					value="Cruzar Información" update="form"></p:commandButton>
+
+
+				<p:commandButton actionListener="#{cruce.crearPuestos()}"
+					value="Crear puestos" update="form"></p:commandButton>
+
+
+				<p:commandButton actionListener="#{cruce.cruzarEventual()}"
+					value="Cruzar Eventual" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.cruzarVoluntarios()}"
+					value="Cruzar Voluntarios" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.importarSuplencias()}"
+					value="Importar suplencias" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.crearEmpleados()}"
+					value="Crear empleados" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.cruzarLaboralSuplencias()}"
+					value="Laboral Suplencias" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.cruzarSeguroPopular()}"
+					value="Seguro Popular" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.actualizarSeguroPopular()}"
+					value="Actualizar Seguro Popular" update="form"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.actualizarPuestos()}"
+					value="Actualizar Puestos" update="form"></p:commandButton>
+
+				<p:commandButton
+					actionListener="#{cruce.complementarSeguroPopular()}"
+					value="Complementar Seguro" update="form"></p:commandButton>
+
+				<p:commandButton
+					actionListener="#{cruce.actualizarEstatusSuplentes()}"
+					value="Actualizar suplencias" update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.cruzarSuplencias24()}"
+					value="Cruzar suplencias 24" update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.crearEmpleadoEspecifico()}"
+					value="Crear Empleado Especifico" update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton
+					actionListener="#{cruce.agregarSuplentesFaltantes()}"
+					value="Agregar suplentes faltantes"
+					update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton
+					actionListener="#{cruce.inactivarContratosFederales()}"
+					value="Inactivar contratos estatales"
+					update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.actualizarEstatal()}"
+					value="Actualizar Estatal" update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton actionListener="#{cruce.altasBajas()}"
+					value="Actualizar Estatal" update="form, messages_generales"></p:commandButton>
+
+				<p:commandButton
+					actionListener="#{cruce.procesarPlantillaAutorizada()}"
+					value="Procesar plantilla autorizada"
+					update="form, messages_generales"></p:commandButton>
+
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

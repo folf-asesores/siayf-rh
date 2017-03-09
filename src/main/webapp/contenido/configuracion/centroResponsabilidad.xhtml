@@ -1,0 +1,129 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Centro de Responsabilidad " />
+	<ui:param name="moduloTitulo" value="Centro de Responsabilidad " />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+
+			<p:outputPanel id="panelPrincipal" styleClass="fm-tarjeta"
+				rendered="#{centroResponsabilidad.view.panelPrincipal}">
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<f:facet name="header">
+						<div align="right">
+							<p:commandButton value="Nuevo Centro de Responsabilidad"
+								action="#{centroResponsabilidad.irNuevoCentroresponsabilidad()}"
+								update=":form" style="float:right;" ajax="false" />
+						</div>
+					</f:facet>
+
+				</p:panelGrid>
+
+
+				<p:panelGrid columns="1" layout="grid">
+					<p:dataTable id="listCentroResponsabilidad"
+						value="#{centroResponsabilidad.view.listCentroResponsabilidad}"
+						var="centroResponsabilidadItem" scrollable="true"
+						scrollHeight="400" emptyMessage="Registros no encontrados.">
+						<p:ajax event="rowSelect"
+							listener="#{centroResponsabilidad.onRowSelectCentroResponsabilidad}"
+							update=":form" />
+						<p:ajax event="rowUnselect"
+							listener="#{centroResponsabilidad.onRowUnselectCentroResponsabilidad}"
+							update=":form" />
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column style="width:56px" headerText="ID" />
+								<p:column style="width:106px" headerText="Clave" />
+								<p:column headerText="Descripción" />
+								<p:column style="width:150px" headerText="Opciones" />
+							</p:row>
+						</p:columnGroup>
+						<p:column>
+							<h:outputText
+								value="#{centroResponsabilidadItem.idCentroResponsabilidad}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{centroResponsabilidadItem.clave}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{centroResponsabilidadItem.descripcion}" />
+						</p:column>
+
+						<p:column width="100">
+							<p:commandButton icon="ui-icon-pencil" iconPos="right"
+								oncomplete="scrollToAnchorPanel();"
+								title="Actualizar: #{centroResponsabilidadItem.descripcion}"
+								action="#{centroResponsabilidad.irGestionarCentroresponsabilidad(centroResponsabilidadItem)}"
+								update="form" styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+							<p:commandButton icon="ui-icon-trash" update="form"
+								title="Eliminar #{centroResponsabilidadItem.descripcion}"
+								action="#{centroResponsabilidad.eliminarCentroresponsabilidad(centroResponsabilidadItem.idCentroResponsabilidad)}"
+								styleClass="fm-btn-peligro fm-btn-elevado" process="@this" />
+
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:outputPanel>
+
+
+			<p:dialog header="Alta Fuente Financiamiento" id="registro_fuente"
+				visible="#{centroResponsabilidad.view.panelGestion}" modal="true"
+				closable="false" height="200" minWidth="300">
+				<p:panelGrid columns="3" styleClass="ui-panelgrid-blank"
+					layout="grid"
+					columnClasses="ui-grid-col-3, ui-grid-col-7, ui-grid-col-2"
+					id="panelGestionar">
+
+					<p:outputLabel for="Clave"
+						value="Clave del centro de responsabilidad" />
+					<p:inputText id="Clave"
+						value="#{centroResponsabilidad.view.centroResponsabilidad.idCentroResponsabilidad}"
+						validator="#{centroResponsabilidad.validatorCentroResponsabilidad()}">
+						<p:ajax update="msgClave" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgClave" for="Clave" />
+
+					<p:outputLabel for="descripcion" value="Descripción " />
+					<p:inputText id="descripcion"
+						value="#{centroResponsabilidad.view.centroResponsabilidad.descripcion}"
+						validator="#{centroResponsabilidad.validatorCentroResponsabilidad()}">
+						<p:ajax update="msgDescripcion" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgDescripcion" for="descripcion" />
+
+
+				</p:panelGrid>
+
+				<p:panelGrid id="btn1" columns="3"
+					columnClasses="ui-grid-col-5,ui-grid-col-2,ui-grid-col-5"
+					layout="grid" styleClass="ui-panelgrid-blank">
+
+					<p:commandButton value="Guardar"
+						action="#{centroResponsabilidad.guardarCentroresponsabilidad()}"
+						update=":form" styleClass="fm-float-left fm-tarjeta-pie-boton"
+						ajax="false" />
+					<p:spacer></p:spacer>
+					<p:commandButton value="Cancelar"
+						action="#{centroResponsabilidad.irPrincipal()}" update=":form"
+						immediate="true" styleClass="fm-float-right fm-tarjeta-pie-boton"
+						ajax="false" />
+
+				</p:panelGrid>
+
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

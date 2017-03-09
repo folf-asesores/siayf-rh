@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+logout.xhtml
+Creado el Oct 10, 2016 12:30:18 PM
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/plantillas/miniform-impl.xhtml" >
+
+    <ui:param name="ventanaTitulo" value="Logout" />
+    <ui:param name="moduloEncabezadoTitulo" value="Logout" />
+
+    <ui:define name="moduloEncabezadoIcono">
+        <span class="fm-icon-logout"></span>
+    </ui:define>
+
+    <ui:define name="moduloContenido">
+        <p>Su sesión se ha cerrado correctamente.</p>
+        <h:outputScript target="body">
+$(document).ready(function() {
+    var login = '#{request.contextPath}/contenido/seguridad/login.xhtml';
+    window.location.replace(login);
+});
+        </h:outputScript>
+    </ui:define>
+</ui:composition>

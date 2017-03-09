@@ -1,0 +1,238 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Reservacion Plaza Eleccion Popular" />
+	<ui:param name="moduloTitulo"
+		value="Reservacion Plaza Eleccion Popular" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Reservacion Plaza Eleccion Popular" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{reservacionPlazaEleccionPopular.view.mostrarPrincipal}">
+
+				<p:outputLabel for="criterio" value="Ingrese un criterio: " />
+
+				<p:inputText id="criterio"
+					value="#{reservacionPlazaEleccionPopular.view.criterio}"
+					placeholder="Rfc">
+
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{reservacionPlazaEleccionPopular.buscarEmpleados()}"
+					update="form" />
+
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="tablita" editable="true" var="n"
+				rendered="#{reservacionPlazaEleccionPopular.view.mostrarPrincipal}"
+				value="#{reservacionPlazaEleccionPopular.view.reservacionDetalleDTO}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="6" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{n.empleado}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{n.rfc}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{n.curp}" />
+				</p:column>
+
+				<p:column headerText="Motivo">
+					<h:outputText value="#{n.motivo}" />
+				</p:column>
+
+				<p:column width="100" headerText="Descargar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form" process="@this"
+						actionListener="#{reservacionPlazaEleccionPopular.contenidoReservacionOtra(n.idMovimiento)}"
+						oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{reservacionPlazaEleccionPopular.view.mostrarReservacion}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:outputLabel />
+					<h:outputText value="Asunto: " />
+					<p:outputLabel
+						value="Se concede prorroga de licencia sin goce de sueldo en el puesto con funciones de regularizado, 
+						para ocupar cargo de elección popular." />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText
+						value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.presenteNombre}" />
+
+					<h:outputText
+						value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.presenteClaveUno}" />
+
+					<h:outputText
+						value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.presenteClaveDos}" />
+
+					<h:outputText value="P r e s e n t e" />
+
+					<p:spacer />
+					
+					<p:inputTextarea value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.posicionUno}, se le concede dicha licencia #{reservacionPlazaEleccionPopular.view.reservacionDTO.fecha}"/>
+
+					<h:outputText
+						value=", en la plaza del puesto de regularizado, con los datos que a continuación se especifican: " />
+
+					<p:panelGrid columns="3" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+						<p:outputLabel value="Plaza de Base:" />
+						<p:outputLabel value="Fecha de Ingreso:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.fechaIngreso}" />
+
+						<p:outputLabel value="" />
+						<p:outputLabel value="Clave Original:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.claveOriginal}" />
+
+						<p:outputLabel value="" />
+						<p:outputLabel value="Denominación:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.denominacionAlta}" />
+
+						<p:outputLabel value="" />
+						<p:outputLabel value="Adscripcion:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.adscripcion}" />
+
+						<p:outputLabel value="Puesto de confianza:" />
+						<p:outputLabel value="Fecha de Designacion:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.fechaDesignacion}" />
+
+						<p:outputLabel value="" />
+						<p:outputLabel value="Denominacion:" />
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.denominacion}" />
+					</p:panelGrid>
+					<p:spacer />
+
+					<h:outputText
+						value="Así mismo, solicito a usted, que deberá presentar ante la Oficina de Relaciones Laborales de esta Secretaría 
+						en la primera quincena de diciembre de cada año, comprobantes de que subsisten las causas que dieron origen a esta 
+						licencia, para su prórroga." />
+
+					<p:inputTextarea
+						value="De conformidad con lo dispuesto por #{reservacionPlazaEleccionPopular.view.reservacionDTO.posiciondos}, para los efectos correspondientes. " />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+
+						<p:outputLabel value="A t e n t a m e n t e"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<p:outputLabel value="Directora de Administración de la"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel
+							value="Sría. de Salud en el Edo. y O.P.D. Salud de Tlaxcala"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel
+							value="#{reservacionPlazaEleccionPopular.view.reservacionDTO.directoraAdministracion}"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+					<p:column width="100" headerText="Descargar"
+						style="text-align: center;">
+
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+							<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+								actionListener="#{reservacionPlazaEleccionPopular.regresar()}"
+								update="form" process="@this" />
+
+							<p:commandButton value="Descargar" icon="fm-icon-download"
+								update="@form" iconPos="right" ajax="false"
+								action="#{reservacionPlazaEleccionPopular.descargarReservacionPlazaEleccionPopular()}"
+								rendered="#{reservacionPlazaEleccionPopular.view.mostrarReservacion}"
+								oncomplete="mymessages();" />
+						</p:panelGrid>
+					</p:column>
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

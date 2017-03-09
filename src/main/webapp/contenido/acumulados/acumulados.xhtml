@@ -1,0 +1,96 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Acumulados" />
+	<ui:param name="moduloTitulo" value="Acumulados" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panel id="panelDatosBusqueda">
+
+				<p:panelGrid layout="grid" id="gridDatosBusqueda"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="4"
+					columnClasses="ui-grid-col-3, ui-grid-col-3,ui-grid-col-3,ui-grid-col-3">
+
+					<p:outputLabel for="quincenaInicial" value="Quincena Inicial:" />
+					<p:selectOneMenu id="quincenaInicial"
+						value="#{acumuladosController.quincenaInicial}">
+						<f:selectItems value="#{acumuladosController.quincenas}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="quincenaFinal" value="Quincena Final:" />
+					<p:selectOneMenu id="quincenaFinal"
+						value="#{acumuladosController.quincenaFinal}">
+						<f:selectItems value="#{acumuladosController.quincenas}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="anio" value="Año: " />
+					<p:inputText id="anio" value="#{acumuladosController.anio}" />
+
+					<p:outputLabel for="nombramiento" value="Tipo de nombramiento:" />
+					<p:selectOneMenu id="nombramiento"
+						value="#{acumuladosController.nombramientoSeleccionado}">
+						<f:selectItems
+							value="#{acumuladosController.tiposNombramientosItems}" />
+					</p:selectOneMenu>
+
+					<p:spacer />
+					<p:commandButton value="Realizar busqueda" id="busqueda"
+						actionListener="#{acumuladosController.realizarBusqueda()}"
+						update="tablaAcumulados" />
+
+					<p:spacer />
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="form" ajax="false" iconPos="right"
+						action="#{acumuladosController.descargarExcel()}"
+						oncomplete="mymessages();" />
+
+
+				</p:panelGrid>
+			</p:panel>
+<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+			<p:dataTable id="tablaAcumulados" var="acumulado" scrollable="true"
+				rows="20" paginator="true" paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30"
+				value="#{acumuladosController.listaNominas}"
+				style="margin-bottom:20px">
+
+				<p:column headerText="RFC">
+					<h:outputText value="#{acumulado.rfc}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{acumulado.nombre}" />
+
+				</p:column>
+				<p:column headerText="Concepto">
+					<h:outputText value="#{acumulado.descripcion}" />
+				</p:column>
+				<p:column headerText="Importe">
+					<h:outputText value="#{acumulado.importe}">
+						<f:convertNumber type="currency" currencySymbol="$" />
+					</h:outputText>
+				</p:column>
+			</p:dataTable>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

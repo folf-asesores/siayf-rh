@@ -1,0 +1,72 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+<ui:param name="ventanaTitulo" value="Movimientos a la Nómina" />
+<ui:param name="moduloTitulo"  value="Movimientos a la Nómina" />
+
+<ui:define name="moduloContenido">
+<h:form id="form" enctype="multipart/form-data">
+	<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+	<p:outputPanel id="panelGestion"
+   				 styleClass="fm-tarjeta"
+				 rendered="#{conceptosNomina.view.panelGestion}">
+	<p:focus context="panelGestion"/>
+
+	<h:panelGroup
+				  rendered="#{!integracionBean.procesado and !integracionBean.integrado}">
+		<p:panel style="width:680px;background-color:#E0ECF8;">
+			<p:panel style="width:650px;background-color:#F7F7F9;">
+				<p:panelGrid columns="3" styleClass="sit-panel-grid">
+					<h:outputText value="Banco: " />
+					<p:selectOneMenu id="banco"
+									 value="#{integracionBean.opcionBanco}"
+									 effect="fade"
+									 label="Banco"
+									 required="true">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{integracionBean.opcionesBanco}" />
+					</p:selectOneMenu>
+					<p:message for="banco" display="icon" />
+
+					<h:outputText value="Archivo de texto: " />
+					<p:fileUpload id="file" value="#{integracionBean.file}"
+						mode="simple" required="true" label="Archivo">
+						<f:validator validatorId="utils.UploadValidator" />
+					</p:fileUpload>
+					<p:message for="file" display="icon" />
+				</p:panelGrid>
+			</p:panel>
+			<div style="text-align: center;">
+				<p:commandButton value="Procesar Archivo" ajax="false"
+					update=":form"
+					actionListener="#{integracionBean.procesarArchivo}" />
+			</div>
+		</p:panel>
+	</h:panelGroup>
+	<h:panelGrid columns="2"
+				 styleClass="ui-fluid"
+				 cellpadding="5"
+				 id="panelInformacionNomina">
+
+		<p:fileUpload mode="advanced"
+					  id="archivo2"
+					  allowTypes="/(\.|\/)(zip)$/"
+					  fileUploadListener="#{anexo01.uploadFileDoc}"
+					  invalidFileMessage="El formato del archivo es invalido"
+					  label="Seleccionar archivo"
+					  uploadLabel="Cargar archivo"
+					  cancelLabel="Cancelar archivo" />
+		<p:commandButton value="Aceptar"
+						 icon="ui-icon-circle-check"
+						 iconPos="right"
+						 action="#{anexo01.procesoRegistroAnexo()}"
+						 update="form" />
+	</h:panelGrid>
+</h:form>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,136 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Fuente de Financiamiento OPD" />
+	<ui:param name="moduloTitulo"  value="Fuente de Financiamiento OPD" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{fuenteFinanciamientoOPD.view.panelPrincipal}">
+				<p:panelGrid columns="4" layout="grid" >
+												 
+						<p:commandButton value="Gestionar..." 
+										action="#{fuenteFinanciamientoOPD.irGestionarFuenteFinanciamientoOPD()}"
+										update=":form"
+										ajax="false"
+										disabled="#{fuenteFinanciamientoOPD.view.disabledIrGestionarOPD}" />
+						  				
+						<p:commandButton id="eliminar"  
+                 						 value="Eliminar..." 
+                 						 onclick="PF('eliminarConfirm').show()"
+                 						 disabled="#{fuenteFinanciamientoOPD.view.disabledIrGestionarOPD}" >
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar esta FUENTE DE FINANCIAMIENTO OPD?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirm">
+    					<p:commandButton value="Si" 
+                     					 action="#{fuenteFinanciamientoOPD.eliminarFuenteFinanciamientoOPD()}" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"
+                     					 update=":form" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"/> 
+                     					 
+						</p:confirmDialog> 
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{fuenteFinanciamientoOPD.irNuevoFuenteFinanciamientoOPD()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:dataTable id="listFuenteFinanciamientoOPD"
+							 value="#{fuenteFinanciamientoOPD.view.listFuenteFinanciamientoOPDLista}"
+							 var="fuenteFinanciamientoOPDItem"
+							 rowKey="#{fuenteFinanciamientoOPDItem.idFuenteFinanciamientoOPD}"
+							 selection="#{fuenteFinanciamientoOPD.view.fuenteFinanciamientoOPDSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{fuenteFinanciamientoOPD.onRowSelectFuenteFinanciamientoOPD}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{FuenteFinanciamientoOPD.onRowUnselectFuenteFinanciamientoOPD}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column style="width:46px" headerText="ID" />
+							<p:column headerText="Financiamiento OPD" />
+							<p:column headerText="Fuente de Financiamiento" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{fuenteFinanciamientoOPDItem.idFuenteFinanciamientoOPD}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{fuenteFinanciamientoOPDItem.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{fuenteFinanciamientoOPDItem.idFuenteFinanciamiento}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{fuenteFinanciamientoOPD.view.panelGestion}">
+				<p:focus context="panelGestion"/>
+				
+				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							 
+					<p:outputLabel for="Descripcion" value="Descripcion :"/>        			
+        			<p:inputText id="Descripcion" value="#{fuenteFinanciamientoOPD.view.fuenteFinanciamientoOPD.descripcion}"
+        						 validator="#{fuenteFinanciamientoOPD.validatorFuenteOPD}">
+        				<p:ajax update="msgDescripcion" />
+						<p:clientValidator />			 
+        			</p:inputText>
+      				<p:message id="msgDescripcion" for="Descripcion" />
+      				<p:spacer/>
+      				
+					<p:outputLabel for="idFF" value="Fuente de Financiamiento :" />
+        			<p:selectOneMenu id="idFF"
+        							 value="#{fuenteFinanciamientoOPD.view.fuenteFinanciamientoOPD.idFuenteFinanciamiento}"
+        							 validator="#{fuenteFinanciamientoOPD.validatorFuenteOPD}">
+            			<f:selectItem itemLabel="Elije una..." itemValue="" />
+            			<f:selectItems value="#{fuenteFinanciamiento.view.listFuenteFinanciamiento}" 
+            						   var="itemFF" 
+            						   itemLabel="#{itemFF.descripcion}" 
+            						   itemValue="#{itemFF.idFuenteFinanciamiento}" />
+            			<p:ajax update="msgidFF" />
+						<p:clientValidator />			   
+        			</p:selectOneMenu>
+        			<p:message id="msgidFF" for="idFF" />
+        			<p:spacer/>
+        				
+					</p:panelGrid>	
+				<p:panelGrid id="btn1" columns="3" layout="grid">
+					<p:commandButton value="Guardar"
+									action="#{fuenteFinanciamientoOPD.guardarFuenteFinanciamientoOPD}"
+									update=":form"
+									style="float:left;"
+									ajax="false"/>
+					<p/>
+					<p:commandButton value="Cancelar"
+									action="#{fuenteFinanciamientoOPD.irPrincipal()}"
+									update=":form"
+									style="float:right;"
+									ajax="false"/>
+				</p:panelGrid>
+				
+			</p:outputPanel>
+				
+		</h:form>
+	</ui:define>
+</ui:composition>

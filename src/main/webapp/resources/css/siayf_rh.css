@@ -1,0 +1,98 @@
+@CHARSET "ISO-8859-1";
+
+.input_lng {
+	width: 95%;
+}
+
+.input_lng input{
+	width: 95% !important;
+}
+
+.input_cmb_lng {
+	width: 88%;
+}
+
+.lbl_info {
+	font-size: 12px !important;
+	font-weight: normal !important;
+}
+
+.aling_right {
+	display: flex;
+	margin-left: auto;
+	margin-right: 5px;
+	 
+}
+
+.sin_borde ,.sin_borde tbody tr td {
+	border: none !important;
+}
+
+.ui-fileupload-files {
+	border: none !important;
+}
+.ui-fileupload-files  tbody tr td{
+	border: none !important;
+	font-size: 10px !important;
+}
+.ui-fileupload-preview{
+	display: none;
+}
+.ui-fileupload-content .ui-progressbar{
+	width: 70px;
+}
+.ui-fileupload-cancel{
+	display: none;
+} 
+.ui-messages-error-icon{
+	display: none;
+}
+.ui-messages-info-icon{
+	display: none;
+}
+.tabla-personalizada .ui-datatable-header{
+	background-color: transparent !important;
+}
+
+.ui-messages-error {
+	color: rgba(255, 255, 255, 1) !important;
+	background-color: #ef5350 !important;
+	font-size: 14px;
+}
+
+.ui-messages-small {	
+	font-size: 10px;
+} 
+
+.ui-messages-info{
+	color: rgba(255, 255, 255, 1) !important;
+	background-color: #66BB6A !important;
+	border-color: #66BB6A !important;
+}
+
+.ui-messages-error ul{
+	margin-left: 0px !important;
+	text-align: left;
+}
+
+
+.header-panel-grid{
+	background-color: #009688;
+	color: rgba(255, 255, 255, 1) !important;
+	text-align: left;
+	font-size:18px;
+	padding: 0px;
+	margin: 0px;
+}
+.emp1 {
+    background: blue !important;
+}
+.retardo{
+	background: #ffc400 !important
+}
+.falta{
+	background: red !important;
+}
+.retardoMayor{
+	background: #ef5350 !important;
+}

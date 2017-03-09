@@ -1,0 +1,103 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Fuente de Financiamiento" />
+	<ui:param name="moduloTitulo" value="Fuente de Financiamiento" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+			<p:outputPanel id="panelPrincipal" styleClass="fm-tarjeta">
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<f:facet name="header">
+						<div align="right">
+							<p:commandButton value="Alta Fuente Financiamiento"
+								action="#{fuenteFinanciamiento.mostrarRegistroFuente()}"
+								update=":form" style="float:right;" ajax="false" />
+						</div>
+					</f:facet>
+
+				</p:panelGrid>
+				<p:dataTable id="listFuenteFinanciamiento"
+					value="#{fuenteFinanciamiento.view.listFuenteFinanciamiento}"
+					var="fuenteFinanciamientoItem" scrollable="true" scrollHeight="300"
+					emptyMessage="Registros no encontrados.">
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column style="width:60px" headerText="ID Base 36" />
+							<p:column headerText="Fuente de Financiamiento" />
+							<p:column style="width:100px" headerText="Opciones" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{fuenteFinanciamientoItem.idBase36}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{fuenteFinanciamientoItem.descripcion}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton icon="ui-icon-trash" update="form"
+							title="Eliminar: #{fuenteFinanciamientoItem.descripcion}"
+							action="#{fuenteFinanciamiento.eliminarFuenteFinanciamiento(fuenteFinanciamientoItem.idFuenteFinanciamiento, fuenteFinanciamientoItem.descripcion)}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+
+					</p:column>
+
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:dialog header="Alta Fuente Financiamiento" id="registro_fuente"
+				visible="#{fuenteFinanciamiento.view.mostrarRegistroFuenteFinanciamiento}"
+				modal="true" closable="false" height="200" minWidth="300">
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+
+					</f:facet>
+
+					<p:outputLabel for="Descripcion" value="Descripcion :" />
+					<p:inputText id="Descripcion"
+						value="#{fuenteFinanciamiento.view.nuevaFuenteFinanciamiento.descripcion}">
+
+					</p:inputText>
+					<p:outputLabel for="B36" value="Base 36 :" />
+					<p:inputText id="B36"
+						value="#{fuenteFinanciamiento.view.nuevaFuenteFinanciamiento.idBase36}">
+
+					</p:inputText>
+
+					<p:panelGrid id="btn1" columns="3"
+						columnClasses="ui-grid-col-5,ui-grid-col-2,ui-grid-col-5"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<p:commandButton value="Guardar"
+							action="#{fuenteFinanciamiento.guardarFuenteFinanciamiento}"
+							update="registro_fuente,listFuenteFinanciamiento"
+							style="float:left;" ajax="false" />
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar"
+							action="#{fuenteFinanciamiento.ocultarRegistroFuente()}"
+							update=":form" style="float:right;" ajax="false" />
+
+					</p:panelGrid>
+
+
+				</p:panelGrid>
+
+
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

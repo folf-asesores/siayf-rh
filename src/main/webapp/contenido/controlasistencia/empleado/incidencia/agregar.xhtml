@@ -1,0 +1,206 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Capturar incidencia empleado" />
+	<ui:param name="moduloSubtitulo"
+		value="Capture la información de la incidencia del empleado. " />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{agregarIncidenciaEmpleadoController.init}"
+			type="preRenderView" />
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmFormNuevaIncidenciaEmpleado" styleClass="fm-contenedor">
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false"   />
+
+			<p:panel styleClass=" ui-noborder sin_borde  fm-contenedor-50">
+				<p:panelGrid styleClass=" ui-noborder sin_borde  fm-contenedor-80">
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="# Oficio" />
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="Fecha Oficio" />
+						</p:column>
+					</p:row>
+					<p:row>
+
+						<p:column styleClass="ui-grid-col-6">
+							<p:inputText
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.numeroOficio}"></p:inputText>
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:calendar
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.fechaOficio}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:outputLabel value="Empleado:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:autoComplete id="empleado"
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.idEmpleado}"
+								completeMethod="#{agregarIncidenciaEmpleadoController.buscarEmpleadoAutoComplete}"
+								var="infoEmpleadoDTO" itemLabel="#{infoEmpleadoDTO.nombre}"
+								itemValue="#{infoEmpleadoDTO.idEmpleado}" maxResults="12"
+								styleClass="fm-bloque input_lng" forceSelection="true">
+
+							</p:autoComplete>
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:outputLabel value="Incidencia:" />
+						</p:column>
+
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:autoComplete id="incidencia"
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.idIncidencia}"
+								completeMethod="#{agregarIncidenciaEmpleadoController.incidenciasAutoacompletar}"
+								var="incidenciaModel" itemLabel="#{incidenciaModel.descripcion}"
+								itemValue="#{incidenciaModel.idIncidencia}" maxResults="12"
+								styleClass="fm-bloque input_lng" forceSelection="true">
+							</p:autoComplete>
+
+
+						</p:column>
+
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="Fecha Inicio:" />
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="Fecha Fin:" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<p:calendar
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.fechaInicio}" />
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:calendar
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.fechaFin}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="Hora Inicio:" />
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:outputLabel value="Hora Fin:" />
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-6">
+							<p:calendar pattern="HH:mm" timeOnly="true"
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.horaInicio}" />
+						</p:column>
+						<p:column styleClass="ui-grid-col-6">
+							<p:calendar pattern="HH:mm" timeOnly="true"
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.horaFin}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:outputLabel value="Observaciones:" />
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:inputTextarea rows="5" cols="59"
+								value="#{agregarIncidenciaEmpleadoController.incidenciaEmpleadoFormModel.observaciones}">
+							</p:inputTextarea>
+
+
+						</p:column>
+
+					</p:row>
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-12" colspan="2">
+							<p:ajaxStatus>
+								<f:facet name="start">
+									<center>
+										<p:graphicImage library="imagenes" name="load.gif" />
+									</center>
+								</f:facet>
+								<f:facet name="complete"></f:facet>
+							</p:ajaxStatus>
+
+
+							<p:panel
+								styleClass=" fm-contenedor-100 ui-grid-col-12 ui-panelgrid-blank ui-noborder sin_borde  aling_right"
+								style="width:320px; ">
+
+								<p:commandButton icon="ui-icon-disk" value="Guardar"
+									action="#{agregarIncidenciaEmpleadoController.guardar}"
+									update="dlgAdevertencia">
+
+								</p:commandButton>
+								<p:button icon="ui-icon-close" value="Cancelar"
+									outcome="index.xhtml" />
+
+							</p:panel>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+
+			</p:panel>
+			<p:dialog id="dlgAdevertencia" widgetVar="dlgAdevertencia"
+				header="Reglas Incidencias" modal="true"
+				styleClass="fm-responsivo-50">
+				<p:panelGrid
+					styleClass="ui-panelgrid-blank ui-noborder sin_borde fm-responsivo-100">
+					<p:row>
+						<p:column colspan="2">
+							<p:outputLabel
+								value="Adevertencia: #{agregarIncidenciaEmpleadoController.mensajeErrorValidacion}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+							<p:outputLabel value="¿Desea guardar la incidencia?" />
+						</p:column>
+					</p:row>
+					<p:row>
+
+						<p:column>
+							<br />
+							<p:commandButton icon="ui-icon-plus" value="Guardar"
+								action="#{agregarIncidenciaEmpleadoController.guardarSinValidacion}"
+								update="@all">
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" value="Regresar"
+								type="button" onclick="PF('dlgAdevertencia').hide()" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+
+			</p:dialog>
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-08-25T13:37:06 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="entregas" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9dc9c0f9-12de-4205-9777-866a2a754629">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="saludRHDEV"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="numeroLicitacion" class="java.lang.Integer"/>
+	<parameter name="idproveedor" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[select concat(p.nombre) proveedor,l.numero_licitacion
+ from licitaciones as l
+inner join detalles_licitaciones as dl on dl.id_licitacion=l.id_licitacion
+inner join detalles_entregas as de on de.id_detalle_licitacion=dl.id_detalle_licitacion
+inner join orden_compra as o on o.id_compra=de.id_compra
+inner join  beneficiarios as p on  p.id_beneficiario=dl.id_proveedor
+where l.id_licitacion=  $P{numeroLicitacion}   and p.id_beneficiario=  $P{idproveedor} 
+GROUP BY l.numero_licitacion]]>
+	</queryString>
+	<field name="proveedor" class="java.lang.String"/>
+	<field name="numero_licitacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="137" splitType="Stretch">
+			<image>
+				<reportElement x="649" y="0" width="130" height="60" uuid="59315c3c-5e07-40d5-aa3b-80224e0a885a"/>
+				<imageExpression><![CDATA["imagenes/salud.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="0" width="110" height="50" uuid="a77c0e21-708d-4969-92a4-88dd36f5cc28"/>
+				<imageExpression><![CDATA["imagenes/tlax.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="60" width="60" height="20" uuid="c9a05e09-2222-42c5-a6e9-c8e7edb3e9bc"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Licitación: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="108" width="57" height="20" uuid="a75685cf-47bd-4e6e-8b7c-2489bd3e524d"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Proveedor:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="60" y="60" width="100" height="20" uuid="8beaa6d2-17c3-41c1-90c0-5a2c83ab240e"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_licitacion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="60" y="109" width="420" height="19" uuid="f2b88b0f-510b-4575-aab7-0a14098571f5"/>
+				<textElement>
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{proveedor}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2" y="86" width="100" height="22" uuid="8e63445c-7aa5-4518-a51e-8c33ba640e25"/>
+				<textElement>
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cuadro de entregas]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="30" uuid="11db49fd-e801-4f22-952d-50225bf9188c"/>
+				<subreportParameter name="numeroLicitacion">
+					<subreportParameterExpression><![CDATA[$P{numeroLicitacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idproveedor">
+					<subreportParameterExpression><![CDATA[$P{idproveedor}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["reportes/unionEntregas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="28">
+			<subreport>
+				<reportElement x="0" y="8" width="200" height="20" uuid="0f2f610e-c3eb-4263-8cc7-9711ed9e2d73"/>
+				<subreportParameter name="numeroLicitacion">
+					<subreportParameterExpression><![CDATA[$P{numeroLicitacion}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idproveedor">
+					<subreportParameterExpression><![CDATA[$P{idproveedor}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["reportes/facturas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="58" splitType="Stretch">
+			<textField>
+				<reportElement x="360" y="10" width="100" height="30" uuid="67e23378-d0e8-4feb-9914-91634e2b8500"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Pagina " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="460" y="10" width="100" height="30" uuid="79979b32-a511-44b6-b038-0bfbbb65e4ec"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[" de " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

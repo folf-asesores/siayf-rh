@@ -1,0 +1,341 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Registro Seguro de Vida Institucional" />
+	<ui:param name="moduloTitulo"
+		value="Registro Seguro de Vida Institucional" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" severity="info,error,warn,fatal" closable="true"
+				globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				rendered="#{seguroVidaInstitucional.view.principal}"
+				columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+				<p:inputText value="#{seguroVidaInstitucional.view.criterio}"
+					validator="#{seguroVidaInstitucional.validatorConsulta}"
+					id="criterio" placeholder="RFC o nombre completo">
+					<p:ajax event="blur" update="msgCriterio" />
+					<p:clientValidator />
+				</p:inputText>
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					action="#{seguroVidaInstitucional.consultarEmpleados()}"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" update="form" />
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="empleados"
+				rendered="#{seguroVidaInstitucional.view.principal}"
+				value="#{seguroVidaInstitucional.view.listaEmpleados}" var="e"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				paginatorPosition="bottom" rows="5">
+
+				<p:column headerText="RFC" width="150" style="text-align: center;">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="CURP">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Contratación">
+					<h:outputText value="#{e.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Nombramiento">
+					<h:outputText value="#{e.nombramiento}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+
+				<p:column headerText="Registrar" width="70"
+					style="text-align: center;">
+					<p:commandButton update="form" icon="ui-icon-plusthick"
+						oncomplete="mymessages();" process="@this"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{seguroVidaInstitucional.seleccionarEmpleado(e)}"
+						onstart="PF('statusDialog').show()" title="Alta">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:spacer width="5px" />
+			<p:panelGrid
+				rendered="#{seguroVidaInstitucional.view.datosEmpleadoSeleccionado}"
+				columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<f:facet name="header">
+						<h3>Datos del Empleado</h3>
+					</f:facet>
+
+					<p:outputLabel for="nombreCompleto" value="Nombre Completo: " />
+					<h:outputText id="nombreCompleto"
+						value="#{seguroVidaInstitucional.view.infoEmpleadoDTO.nombre}" />
+
+					<p:outputLabel for="curp" value="C.U.R.P.: " />
+					<h:outputText id="curp"
+						value="#{seguroVidaInstitucional.view.infoEmpleadoDTO.curp}" />
+
+					<p:outputLabel for="rfc" value="R.F.C.: " />
+					<h:outputText id="rfc"
+						value="#{seguroVidaInstitucional.view.infoEmpleadoDTO.rfc}" />
+
+					<p:outputLabel for="domicilio" value="Domicilio Completo: " />
+					<h:outputText id="domicilio"
+						value="#{seguroVidaInstitucional.view.infoEmpleadoDTO.direccion}" />
+
+				</p:panelGrid>
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:spacer width="5px" />
+
+			<p:fieldset 
+				rendered="#{seguroVidaInstitucional.view.formularioAltaSeguro}"
+				legend="Alta Seguro de Vida Institucional"
+				style="margin-bottom:20px">
+				<p:messages id="messages" showDetail="true" autoUpdate="true"
+					severity="info,error,warn,fatal" closable="true" globalOnly="true" />
+
+				<p:dataTable id="dependientes"
+					value="#{seguroVidaInstitucional.view.listaDependientesEconomicos}"
+					var="d" emptyMessage="No se encontrarón resultados"
+					paginator="true" paginatorPosition="bottom" rows="5">
+
+					<f:facet name="header">
+						<h3>Dependientes Economicos</h3>
+					</f:facet>
+
+					<p:column headerText="CURP">
+						<h:outputText value="#{d.curp}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{d.nombreCompleto}" />
+					</p:column>
+
+					<p:column headerText="Fecha Nacimiento">
+						<h:outputText value="#{d.fechaNacimiento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Sexo">
+						<h:outputText value="#{d.sexo}" />
+					</p:column>
+
+					<p:column headerText="Parentesco">
+						<h:outputText value="#{d.parentesco}" />
+					</p:column>
+
+					<p:column headerText="Seleccionar Beneficiario" width="70"
+						style="text-align: center;">
+						<p:commandButton update="form" icon="ui-icon-check"
+							action="#{seguroVidaInstitucional.seleccionarBeneficiario(d)}"
+							oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+							process="@this" onstart="PF('statusDialog').show()" title="Alta">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+				<p:spacer width="5px" />
+
+				<p:messages id="messagesBeneficiarios" showDetail="true"
+					autoUpdate="true" severity="info,error,warn,fatal" closable="true"
+					globalOnly="true" />
+				<p:dataTable id="beneficiarios"
+					value="#{seguroVidaInstitucional.view.beneficiariosDTOsNuevos}"
+					var="b" emptyMessage="Beneficiarios no Registrados"
+					paginator="true" paginatorPosition="bottom" rows="5">
+
+					<f:facet name="header">
+						<h3>Beneficiarios</h3>
+					</f:facet>
+
+					<p:column headerText="CURP">
+						<h:outputText value="#{b.curp}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{b.nombreCompleto}" />
+					</p:column>
+
+					<p:column headerText="Fecha Nacimiento">
+						<h:outputText value="#{b.fechaNacimiento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Sexo">
+						<h:outputText value="#{b.sexo}" />
+					</p:column>
+
+					<p:column headerText="Parentesco">
+						<h:outputText value="#{b.parentesco}" />
+					</p:column>
+
+					<p:column headerText="Porcentaje">
+						<h:outputText value="#{b.porcetaje} %" />
+					</p:column>
+
+					<p:column headerText="Eliminar" width="70"
+						style="text-align: center;">
+						<p:commandButton update="form" icon="ui-icon-trash"
+							oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+							action="#{seguroVidaInstitucional.eliminarBeneficiario(b)}"
+							onstart="PF('statusDialog').show()" title="Alta">
+						</p:commandButton>
+					</p:column>
+
+					<f:facet name="footer">
+						<div align="right">
+							<p:outputLabel value="Total Porcentaje: " />
+							<h:outputText
+								value="#{seguroVidaInstitucional.view.totalPorcentaje} %" />
+						</div>
+					</f:facet>
+
+				</p:dataTable>
+				<p:spacer width="5px" />
+				<div align="center">
+					<p:commandButton value="Registrar"
+						onsuccess="PF('statusDialog').hide()" update="@form"
+						action="#{seguroVidaInstitucional.registrarSeguro()}" process="@form"
+						onstart="PF('statusDialog').show()" />
+					<p:spacer height="5px" />
+					<p:commandButton value="Ocultar"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" update="form" process="@this"
+						action="#{seguroVidaInstitucional.regresar()}" />
+				</div>
+
+				<p:dialog visible="#{seguroVidaInstitucional.view.dialogPorcentaje}"
+					modal="true">
+					<p:messages id="messagesDialog" showDetail="true" autoUpdate="true"
+						severity="info,error,warn,fatal" closable="true" globalOnly="true" />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel for="numeroExpediente" value="Número Expediente: *" />
+						<p:outputLabel>
+							<p:inputText id="numeroExpediente"
+								validator="#{seguroVidaInstitucional.validatorCampos}"
+								value="#{seguroVidaInstitucional.view.seguroVidaInstitucionalDTONuevo.numeroExpediente}">
+								<p:clientValidator />
+								<p:ajax event="blur" update="msgNumero" />
+							</p:inputText>
+							<p:message id="msgNumero" for="numeroExpediente" />
+						</p:outputLabel>
+
+						<p:outputLabel for="porcentaje" value="Porcentaje: " />
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-10, ui-grid-col-2" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+							<p:spinner id="porcentaje" max="100" min="1"
+								value="#{seguroVidaInstitucional.view.porcentajeBeneficiario}" />
+							<p:outputLabel value="%" />
+						</p:panelGrid>
+
+					</p:panelGrid>
+					<div align="center">
+						<p:commandButton styleClass="fm-btn-elevado" value="Aceptar"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" update="form"
+							action="#{seguroVidaInstitucional.agregarBeneficiario()}" />
+						<p:commandButton styleClass="fm-btn-elevado" value="Cancelar"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" update="form" process="@this"
+							action="#{seguroVidaInstitucional.cerrarDialogo()}" />
+
+
+					</div>
+
+				</p:dialog>
+
+			</p:fieldset>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+					rendered="#{seguroVidaInstitucional.view.generarReporte}">
+
+					<p:outputLabel value="El empleado ya se encuentra registrado" />
+					<p:spacer />
+					<p:panelGrid columns="2" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						columnClasses="ui-grid-col-6, ui-grid-col-6">
+						<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+							onsuccess="PF('statusDialog').hide()" ajax="false"
+							onstart="PF('statusDialog').show()" update="form"
+							action="#{seguroVidaInstitucional.regresar()}" />
+
+						<p:commandButton value="Generar Reporte" icon="ui-icon-document"
+							onsuccess="PF('statusDialog').hide()" ajax="false"
+							onstart="PF('statusDialog').show()" update="form"
+							action="#{seguroVidaInstitucional.generarSeguro()}" />
+					</p:panelGrid>
+				</p:panelGrid>
+				<p:spacer />
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-4, ui-grid-col-8"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{seguroVidaInstitucional.view.reporteExitoso}">
+
+				<p:outputLabel value="¡El reporte se genero correctamente!" />
+				<p:spacer />
+				<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+					update="@form"
+					actionListener="#{seguroVidaInstitucional.regresar()}" />
+			</p:panelGrid>
+
+			<p:outputPanel id="nuevaVentanaReporte"
+				rendered="#{seguroVidaInstitucional.view.ventanaNuevoReporte}">
+				<h:outputScript>
+                window.open('#{request.contextPath}/#{seguroVidaInstitucional.view.urlReporte}');
+            </h:outputScript>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

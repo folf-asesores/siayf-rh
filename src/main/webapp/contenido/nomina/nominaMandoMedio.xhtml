@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+nominaMandoMedio.xhtml
+Creado el 29/Nov/2016 2:53:23 PM
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 xmlns:p="http://primefaces.org/ui"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Nomina de mandos medios" />
+    <ui:param name="moduloTitulo" value="Nomina de mandos medios" />
+    <ui:define name="moduloContenido">
+        <h:form id="frmNominaMandoMedio">
+            <!-- Tabla presenta la nomina de mandos medios -->
+            <p:dataTable id="tblNominaMandoMedio" value="#{nominaMandoMedioController.view.nominaMandoMedioDtos}" var="nominaMandoMedio"
+                         emptyMessage="No se ha encontrado ninguna información sobre nominas de mandos medios."
+                         paginator="true" paginatorPosition="bottom" rows="10"
+                         currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pág.: {currentPage}/{totalPages})"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         paginatorAlwaysVisible="false"
+                         rowIndexVar="index" >
+
+                <f:facet name="header">
+                    <p:commandLink title="Agregar nueva nomina de mando medio"
+                                   styleClass="fm-float-right"
+                                   actionListener="#{nominaMandoMedioController.mostrarPanelNuevo}"
+                                   update=":frmNominaMandoMedio:pnlNuevaNominaMandoMedio :frmNominaMandoMedio" >
+                        <span class="ui-icon-plus fm-font-color-white"></span>
+                    </p:commandLink>
+                    <p:outputPanel styleClass="fm-clear-both" />
+                </f:facet>
+
+                <p:column headerText="No. Prog." >
+                    <h:outputText value="#{index + 1}" />
+                </p:column>
+
+                <p:column headerText="R. F. C." >
+                    <h:outputText value="#{nominaMandoMedio.rfc}" />
+                </p:column>
+
+                <p:column headerText="Adscripción" >
+                    <h:outputText value="#{nominaMandoMedio.adscripcion}" />
+                </p:column>
+
+                <p:column headerText="Puesto" >
+                    <h:outputText value="#{nominaMandoMedio.puesto}" />
+                </p:column>
+
+                <p:column headerText="Nombre" >
+                    <h:outputText value="#{nominaMandoMedio.nombreEmpleado}" />
+                </p:column>
+
+                <p:column headerText="Opciones"
+                          styleClass="fm-texto-alineado-centro" width="80">
+                    <p:commandLink update=":frmNominaMandoMedio:pnlEditarNominaMandoMedio :frmNominaMandoMedio" title="Editar"
+                                   actionListener="#{nominaMandoMedioController.mostrarDialogoEditar(nominaMandoMedio)}">
+                        <span class="ui-icon-pencil"></span>
+                    </p:commandLink>
+                    <p:commandLink update=":frmNominaMandoMedio:tblNominaMandoMedio :frmNominaMandoMedio" title="Eliminar"
+                                   actionListener="#{nominaMandoMedioController.eliminar(nominaMandoMedio.idNominaMandoMedio)}">
+                        <span class="ui-icon-trash"></span>
+                        <p:confirm header="Confirmar eliminación"
+                                   message="Realmente desea eliminar la nomina de este mando medio."
+                                   icon="ui-icon-alert" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+            
+            <p:spacer height="20px" rendered="#{nominaMandoMedioController.view.mostrarPanelNuevo}" />
+
+            <p:outputPanel styleClass="ui-fluid fm-tarjeta" rendered="#{nominaMandoMedioController.view.mostrarPanelNuevo}">
+                <!-- Panel para agregar una nueva nomina de mando medio. -->
+                <p:panelGrid id="pnlNuevaNominaMandoMedio" layout="grid" columns="2" 
+                                 columnClasses="ui-grid-col-3, ui-grid-col-9"
+                                 styleClass="ui-panelgrid-blank"
+                                 rendered="#{nominaMandoMedioController.view.mostrarPanelNuevo}">
+
+                    <p:outputLabel value="Empleado" />
+                    <p:outputPanel>
+                        <p:inputText value="#{nominaMandoMedioController.view.consultaEmpleado}"
+                                     placeholder="Ingrese el RFC, CURP o nombre del empleado a buscar"/>
+                        <p:commandLink title="Buscar"
+                                       update=":frmNominaMandoMedio:pnlNuevaNominaMandoMedio :frmNominaMandoMedio"
+                                       action="#{nominaMandoMedioController.obtenerEmpleados}"
+                                       style="position: relative; top: -25px; right: 10px; float: right;">
+                            <span class="ui-icon-search" />
+                        </p:commandLink>
+                    </p:outputPanel>
+
+                    <p:outputLabel value="Adscripción" for="somAdscripciones" />
+                    <p:selectOneMenu id="somAdscripciones" 
+                                     value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.idAdscripcion}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+                        <f:selectItems value="#{nominaMandoMedioController.view.adscripciones}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Puesto" for="txtPuesto" />
+                    <p:inputText id="txtPuesto" value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.puesto}" />
+
+                    <p:outputLabel value="Código funcional" for="somPuesto" />
+                    <p:selectOneMenu id="somPuesto"
+                                     value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.idPuestoGeneral}"
+                                     filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+                        <f:selectItems value="#{nominaMandoMedioController.view.puestos}" />
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Tipo de contraración" for="txtTipoContratacion"/>
+                    <p:inputText id="txtTipoContratacion"
+                                 value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.tipoContratacion}" />
+
+                    <p:outputLabel value="Complemento" for="txtComplemento" />
+                    <p:inputText id="txtComplemento"
+                                 value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.complemento}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+
+                    <p:outputLabel value="ISR" for="txtIsr" />
+                    <p:inputText id="txtIsr"
+                                 value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.isr}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+
+                    <p:outputLabel value="Neto" for="txtNeto" />
+                    <p:inputText id="txtNeto"
+                                 value="#{nominaMandoMedioController.view.nuevaNominaMandoMedio.neto}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+
+                </p:panelGrid>
+                <p:outputPanel styleClass="fm-tarjeta-pie">
+                        <p:commandButton value="Guardar" 
+                                         actionListener="#{nominaMandoMedioController.guardar}"
+                                         update="frmNominaMandoMedio"
+                                         styleClass="fm-tarjeta-pie-boton fm-float-right"/>
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{nominaMandoMedioController.limpiar}"
+                                         update="frmNominaMandoMedio"
+                                         styleClass="fm-btn-inverso fm-tarjeta-pie-boton fm-float-right" />
+                </p:outputPanel>
+            </p:outputPanel>
+            
+            <p:spacer height="20px" rendered="#{nominaMandoMedioController.view.mostrarPanelEditar}" />
+            
+            <p:outputPanel styleClass="ui-fluid fm-tarjeta" rendered="#{nominaMandoMedioController.view.mostrarPanelEditar}">
+                <!-- Panel para editar la nomina de un mando medio. -->
+                <p:panelGrid id="pnlEditarNominaMandoMedio" layout="grid" columns="2" 
+                                 columnClasses="ui-grid-col-3, ui-grid-col-9"
+                                 styleClass="ui-panelgrid-blank"
+                                 rendered="#{nominaMandoMedioController.view.mostrarPanelEditar}">
+
+                        <p:outputLabel value="Empleado" for="txtEmpleadoEditar" />
+                        <h:outputText id="txtEmpleadoEditar" value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.nombreEmpleado}" />
+
+                        <p:outputLabel value="Adscripción" for="somAdscripcionesEditar" />
+                        <p:selectOneMenu id="somAdscripcionesEditar" 
+                                         value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.idAdscripcion}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+                            <f:selectItems value="#{nominaMandoMedioController.view.adscripciones}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Puesto" for="txtPuestoEditar" />
+                        <p:inputText id="txtPuestoEditar" value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.puesto}" />
+
+                        <p:outputLabel value="Código funcional" for="somPuestoEditar" />
+                        <p:selectOneMenu id="somPuestoEditar"
+                                         value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.idPuestoGeneral}"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+                            <f:selectItems value="#{nominaMandoMedioController.view.puestos}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Tipo de contraración" for="txtTipoContratacionEditar"/>
+                        <p:inputText id="txtTipoContratacionEditar"
+                                     value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.tipoContratacion}" />
+
+                        <p:outputLabel value="Complemento" for="txtComplementoEditar" />
+                        <p:inputText id="txtComplementoEditar"
+                                     value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.complemento}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+
+                        <p:outputLabel value="ISR" for="txtIsrEditar" />
+                        <p:inputText id="txtIsrEditar"
+                                     value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.isr}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+
+                        <p:outputLabel value="Neto" for="txtNetoEditar" />
+                        <p:inputText id="txtNetoEditar"
+                                     value="#{nominaMandoMedioController.view.nominaMandoMedioSeleccionada.neto}" >
+                            <f:convertNumber currencySymbol="$" type="currency" locale="es-MX" />
+                        </p:inputText>
+                    
+                </p:panelGrid>
+                <p:outputPanel styleClass="fm-tarjeta-pie">
+                        <p:commandButton value="Guardar" 
+                                         actionListener="#{nominaMandoMedioController.actualizar}"
+                                         update="frmNominaMandoMedio"
+                                         styleClass="fm-tarjeta-pie-boton fm-float-right"/>
+                        <p:commandButton value="Cancelar" 
+                                         actionListener="#{nominaMandoMedioController.limpiar}"
+                                         update="frmNominaMandoMedio"
+                                         styleClass="fm-btn-inverso fm-tarjeta-pie-boton fm-float-right" />
+                </p:outputPanel>
+            </p:outputPanel>
+                
+            <p:dialog id="dlgBuscarEmpleado" visible="#{nominaMandoMedioController.view.mostrarDialogoEmpleado}"
+                      modal="true">
+                <p:dataTable id="empleados"
+                             value="#{nominaMandoMedioController.view.empleados}" var="e"
+                             paginator="true" paginatorPosition="bottom" rows="5"
+                             currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+                    <p:column headerText="Numero de empleado">
+                        <h:outputText value="#{e.numeroEmpleado}" />
+                    </p:column>
+
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{e.nombre}" />
+                    </p:column>
+
+                    <p:column headerText="CURP">
+                        <h:outputText value="#{e.curp}" />
+                    </p:column>
+
+                    <p:column headerText="RFC">
+                        <h:outputText value="#{e.rfc}" />
+                    </p:column>
+                    
+                    <p:column headerText="Seleccionar">
+                        <p:commandLink title="Seleccionar" 
+                                       update="frmNominaMandoMedio"
+                                       actionListener="#{nominaMandoMedioController.seleccionarEmpleado(e)}">
+                            <span class="ui-icon-circle-check"></span>
+                        </p:commandLink>
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
+
+            <!-- Cuadro de dialogo para confirmar la eliminación. -->
+            <p:confirmDialog global="true">
+                <p:commandButton value="Si" type="button"
+                                 styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                <p:commandButton value="No" type="button"
+                                 styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

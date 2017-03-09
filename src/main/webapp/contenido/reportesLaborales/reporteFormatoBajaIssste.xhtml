@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Reporte Formato Baja ISSSTE" />
+	<ui:param name="moduloTitulo" value="Reporte Formato Baja ISSSTE" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos con * son requeridos." />
+		
+		<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{formatoBajaIssste.view.datosPrincipales}">
+				
+				<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+				
+				<p:inputText id="criterio"
+					value="#{formatoBajaIssste.view.criterio}"
+					placeholder="RFC o nombre completo"
+					validator="#{formatoBajaIssste.validatorConsulta}">
+					<p:ajax update="msgCriterio" />
+					<p:clientValidator />
+				</p:inputText>
+				
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{formatoBajaIssste.consultarEmpleados()}"
+					update="form" />
+					
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+			
+			<p:dataTable id="empleados"
+				emptyMessage="No se encontrarón resultados"
+				value="#{formatoBajaIssste.view.listaEmpleados}" var="e"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				rendered="#{formatoBajaIssste.view.datosPrincipales}">
+
+				<p:column headerText="Número Empleado" width="150"
+					style="text-aling: center;">
+					<h:outputText value="#{e.numeroEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+				
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+
+				<p:column headerText="Ver" width="50" style="text-align: center;">
+					
+					<p:commandButton update="form" icon="fm-icon-eye"
+						onsuccess="PF('statusDialog').hide()"
+						action="#{formatoBajaIssste.seleccionEmpleado(e)}"
+						onstart="PF('statusDialog').show()" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{formatoBajaIssste.view.datosPersona}">
+
+				<f:facet name="header">
+					<h3>Datos del Empleado</h3>
+				</f:facet>
+
+				<p:outputLabel for="nombreCompleto" value="Nombre Completo: " />
+				<h:outputText id="nombreCompleto" value="#{formatoBajaIssste.view.empleadoSeleccionado.nombre}" />
+
+				<p:outputLabel for="curp" value="C.U.R.P.: " />
+				<h:outputText id="curp" value="#{formatoBajaIssste.view.empleadoSeleccionado.curp}" />
+
+				<p:outputLabel for="rfc" value="R.F.C.: " />
+				<h:outputText id="rfc" value="#{formatoBajaIssste.view.empleadoSeleccionado.rfc}" />
+				
+				<p:outputLabel for="domicilio" value="Domicilio Completo: " />
+				<h:outputText id="domicilio" value="#{formatoBajaIssste.view.empleadoSeleccionado.direccion}" />
+						
+				<p:commandButton value="Ver Formato Baja" icon="fm-icon-eye"
+				update="@form" ajax="false"
+				actionListener="#{formatoBajaIssste.verFormatoBajas()}"
+				iconPos="right"/>
+			</p:panelGrid>
+			
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-4, ui-grid-col-8"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{formatoBajaIssste.view.reporteExitoso}">
+
+				<p:outputLabel value="¡El reporte se genero correctamente!" />
+				<p:spacer />
+				<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+					update="@form" actionListener="#{formatoBajaIssste.regresar()}" />
+			</p:panelGrid>
+
+			<p:outputPanel id="nuevaVentanaReporte"
+				rendered="#{formatoBajaIssste.view.ventanaNuevoReporte}">
+				<h:outputScript>
+                window.open('#{request.contextPath}/#{formatoBajaIssste.view.urlReporte}');
+            </h:outputScript>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,284 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Alta Empleado" />
+
+	<ui:param name="moduloTitulo" value="Alta Empleado" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:spacer height="30"></p:spacer>
+
+			<h:panelGroup id="busqueda"
+				rendered="#{altaEmpleado.view.mostrarTablaResultado}">
+				<p:outputLabel for="tipoContratacion" value="Tipo Contratación" />
+				<p:selectOneMenu id="tipoContratacion"
+					value="#{altaEmpleado.view.idTipoContratacion}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems value="#{altaEmpleado.view.listaTiposContratacion}" />
+					<p:ajax
+						listener="#{altaEmpleado.vacantesDisponiblesPorContratacion()}"
+						update="vacantesDisponibles, messages_generales"
+						process="tipoContratacion"></p:ajax>
+				</p:selectOneMenu>
+
+				<p:dataTable id="vacantesDisponibles"
+					value="#{altaEmpleado.view.vacantesDisponibles}" var="d"
+					paginator="true" paginatorPosition="bottom" rows="10">
+					<p:column headerText="Tipo Contratación">
+						<h:outputText value="#{d.tipoContratacion}" />
+					</p:column>
+					<p:column headerText="Nombramiento">
+						<h:outputText value="#{d.nombramiento}" />
+					</p:column>
+
+					<p:column headerText="Número Vacante">
+						<h:outputText value="#{d.folioVacante}" />
+					</p:column>
+
+					<p:column headerText="Código Puesto">
+						<h:outputText value="#{d.codigoPuesto}" />
+					</p:column>
+					<p:column headerText="Puesto">
+						<h:outputText value="#{d.puesto}" />
+					</p:column>
+					<p:column headerText="Sueldo">
+						<h:outputText value="#{d.sueldo}" />
+					</p:column>
+					<p:column headerText="Seleccionar">
+						<p:commandButton update="form"
+							actionListener="#{altaEmpleado.obtenerDetalleConfiguracion(d.idConfiguracionPresupuesto, d.idInventarioVacante, d.tipoContratacion)}"
+							icon="fm-icon-eye" title="Ver" process="@this">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+
+			</h:panelGroup>
+
+
+
+
+			<p:panelGrid columns="3" id="panelGridAlta"
+				columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{altaEmpleado.view.mostrarPanelAlta}">
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Detalle Vacante</h3>
+					</f:facet>
+
+					<p:outputLabel for="proyectoD" value="Proyecto" />
+					<h:outputText id="proyectoD"
+						value="#{altaEmpleado.view.detalleVacante.proyecto}"></h:outputText>
+
+					<p:outputLabel for="dependenciaD" value="Dependencia" />
+					<h:outputText id="dependenciaD"
+						value="#{altaEmpleado.view.detalleVacante.dependencia}"></h:outputText>
+
+					<p:outputLabel for="unidadResponsableD" value="Unidad Responsable" />
+					<h:outputText id="unidadResponsableD"
+						value="#{altaEmpleado.view.detalleVacante.unidadResponsable}"></h:outputText>
+
+					<p:outputLabel for="tipoContratacionD" value="Tipo Contratación" />
+					<h:outputText id="tipoContratacionD"
+						value="#{altaEmpleado.view.detalleVacante.tipoContratacion}"></h:outputText>
+
+
+					<p:outputLabel for="nombramientoD" value="Nombramiento" />
+					<h:outputText id="nombramientoD"
+						value="#{altaEmpleado.view.detalleVacante.nombramiento}"></h:outputText>
+
+
+					<p:outputLabel for="codigoPuestoD" value="Puesto" />
+					<h:outputText id="codigoPuestoD"
+						value="#{altaEmpleado.view.detalleVacante.codigoPuesto}"></h:outputText>
+
+
+					<p:outputLabel for="puestoD" value="Puesto" />
+					<h:outputText id="puestoD"
+						value="#{altaEmpleado.view.detalleVacante.puesto}"></h:outputText>
+
+
+					<p:outputLabel for="fuenteD" value="Fuente Financiamiento" />
+					<h:outputText id="fuenteD"
+						value="#{altaEmpleado.view.detalleVacante.fuenteFinanciamiento}"></h:outputText>
+
+					<p:outputLabel for="subfuenteD" value="Subfuente Financiamiento" />
+					<h:outputText id="subfuenteD"
+						value="#{altaEmpleado.view.detalleVacante.subfuenteFinanciamiento}"></h:outputText>
+
+					<p:outputLabel for="tipoRecursoD" value="Tipo Recurso" />
+					<h:outputText id="tipoRecursoD"
+						value="#{altaEmpleado.view.detalleVacante.tipoRecurso}"></h:outputText>
+
+					<p:outputLabel for="nombreCuentaD" value="Nombre Cuenta:" />
+					<h:outputText id="nombreCuentaD"
+						value="#{altaEmpleado.view.detalleVacante.cuentaFinanciamiento}"></h:outputText>
+
+					<p:outputLabel for="tabuladorD" value="Tabulador:" />
+					<h:outputText id="tabuladorD"
+						value="#{altaEmpleado.view.detalleVacante.tabulador}"></h:outputText>
+
+					<p:outputLabel for="sueldoTabuladorD" value="Sueldo Tabulador:" />
+					<h:outputText id="sueldoTabuladorD"
+						value="#{altaEmpleado.view.detalleVacante.sueldoTabulador}"></h:outputText>
+
+					<p:outputLabel for="suedoD" value="Sueldo Autorizado:" />
+					<h:outputText id="suedoD"
+						value="#{altaEmpleado.view.detalleVacante.sueldoAutorizado}"></h:outputText>
+
+
+				</p:panelGrid>
+
+				<p:spacer></p:spacer>
+
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Datos del Candidato</h3>
+					</f:facet>
+
+					<p:outputLabel for="nombre" value="Nombre:" />
+					<h:outputText id="nombre"
+						value="#{altaEmpleado.view.candidato.nombre}"></h:outputText>
+
+
+					<p:outputLabel for="rfc" value="RFC:" />
+					<h:outputText id="rfc" value="#{altaEmpleado.view.candidato.rfc}"></h:outputText>
+
+
+					<p:outputLabel for="curp" value="Curp:" />
+					<h:outputText id="curp" value="#{altaEmpleado.view.candidato.curp}"></h:outputText>
+
+
+					<p:outputLabel for="edad" value="Edad:" />
+					<h:outputText id="edad" value="#{altaEmpleado.view.candidato.edad}"></h:outputText>
+
+
+					<p:outputLabel for="nacionalidad" value="Nacionalidad:" />
+					<h:outputText id="nacionalidad"
+						value="#{altaEmpleado.view.candidato.nacionalidad}"></h:outputText>
+
+					<p:outputLabel for="sexo" value="Sexo:" />
+					<h:outputText id="sexo" value="#{altaEmpleado.view.candidato.sexo}"></h:outputText>
+
+
+					<p:outputLabel for="estadoCivil" value="Estado Civil:" />
+					<h:outputText id="estadoCivil"
+						value="#{altaEmpleado.view.candidato.estadoCivil}"></h:outputText>
+
+
+					<p:outputLabel for="domicilio" value="Domicilio:" />
+					<h:outputText id="domicilio"
+						value="#{altaEmpleado.view.candidato.domicilio}"></h:outputText>
+
+
+
+
+					<p:outputLabel for="estudios" value="Estudios:" />
+					<h:outputText id="estudios"
+						value="#{altaEmpleado.view.candidato.estudios}"></h:outputText>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Datos Laborales</h3>
+					</f:facet>
+
+					<p:outputLabel for="personal" value="Número personal:" />
+					<p:inputText id="personal"
+						value="#{altaEmpleado.view.altaEmpleado.numeroEmpleado}"></p:inputText>
+
+					<p:outputLabel for="laboral" value="Número laboral:" />
+					<p:inputText id="laboral"
+						value="#{altaEmpleado.view.altaEmpleado.numeroLaboral}"></p:inputText>
+
+					<p:outputLabel for="clavePresupuestal" value="Clave Presupuestal:"
+						rendered="#{altaEmpleado.view.mostrarCamposFederales}" />
+					<p:inputText id="clavePresupuestal"
+						value="#{altaEmpleado.view.altaEmpleado.nombramiento.clavePresupuestal}"
+						rendered="#{altaEmpleado.view.mostrarCamposFederales}"></p:inputText>
+
+					<p:outputLabel for="inicio" value="Fecha Inicio Contrato:"
+						rendered="#{altaEmpleado.view.mostrarCamposEventuales}" />
+					<p:calendar id="inicio"
+						value="#{altaEmpleado.view.altaEmpleado.fechaInicio}"
+						rendered="#{altaEmpleado.view.mostrarCamposEventuales}">
+					</p:calendar>
+
+					<p:outputLabel for="fin" value="Fecha Fin Contrato:"
+						rendered="#{altaEmpleado.view.mostrarCamposEventuales}" />
+					<p:calendar id="fin"
+						value="#{altaEmpleado.view.altaEmpleado.fechaFin}"
+						rendered="#{altaEmpleado.view.mostrarCamposEventuales}">
+					</p:calendar>
+
+					<p:outputLabel for="jornada" value="Jornada:" />
+					<p:selectOneMenu id="jornada"
+						value="#{altaEmpleado.view.altaEmpleado.idTipoJornada}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaEmpleado.view.listaTiposJornadas}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="fechaIngreso" value="Fecha Ingreso*" />
+					<p:calendar id="fechaIngreso"
+						value="#{altaEmpleado.view.altaEmpleado.fechaIngreso}">
+					</p:calendar>
+
+					<p:outputLabel for="fechaInicioLabores"
+						value="Fecha Inicio Labores*" />
+					<p:calendar id="fechaInicioLabores"
+						value="#{altaEmpleado.view.altaEmpleado.fechaInicioLabores}">
+					</p:calendar>
+
+					<p:outputLabel for="metodo" value="Método de pago:" />
+					<p:selectOneMenu id="metodo"
+						value="#{altaEmpleado.view.altaEmpleado.idMetodoPago}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaEmpleado.view.listaMetodosPago}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="bancos" value="Banco:" />
+					<p:selectOneMenu id="bancos"
+						value="#{altaEmpleado.view.altaEmpleado.idBanco}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaEmpleado.view.listaBancos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="cuenta" value="Cuenta Bancaria:" />
+
+					<p:inputText id="cuenta"
+						value="#{altaEmpleado.view.altaEmpleado.numeroCuenta}"></p:inputText>
+
+					<p:spacer></p:spacer>
+					<p:commandButton value="Registrar Empleado"
+						actionListener="#{altaEmpleado.registrarEmpleado()}"
+						update="form, messages_generales"></p:commandButton>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

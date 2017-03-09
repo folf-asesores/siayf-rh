@@ -1,0 +1,176 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Administración Areas" />
+	<ui:param name="moduloTitulo" value="Administración Areas" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:tabMenu activeIndex="#{param.i}">
+				<p:menuitem value="Areas"
+					outcome="/contenido/seguridad/administracionAreas.xhtml"
+					icon="ui-icon-gear">
+					<f:param name="i" value="0" />
+				</p:menuitem>
+				<p:menuitem value="Acciones"
+					outcome="/contenido/seguridad/acciones.xhtml" icon="ui-icon-gear">
+					<f:param name="i" value="1" />
+				</p:menuitem>
+				<p:menuitem value="Modulos"
+					outcome="/contenido/seguridad/modulos.xhtml" icon="ui-icon-gear">
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Usuarios"
+					outcome="/contenido/seguridad/configuracionUsuario.xhtml"
+					icon="ui-icon-person">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+			</p:tabMenu>
+
+			<br />
+			<br />
+			<p:panel>
+				<p:panelGrid id="nuevaAreasGrid" layout="grid"
+					styleClass="ui-panelgrid-blank" columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel for="nombreArea" value="Nombre Area:" />
+					<p:outputPanel>
+						<p:inputText id="nombreArea"
+							value="#{areasController.areaNew.nombreArea}"
+							validator="#{areasController.validatorArea}">
+							<p:ajax update="msgnombreArea" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgnombreArea" for="nombreArea" />
+					</p:outputPanel>
+
+					<p:outputLabel for="descArea" value="Descripción:" />
+					<p:outputPanel>
+						<p:inputText id="descArea"
+							value="#{areasController.areaNew.descripcion}"
+							validator="#{areasController.validatorArea}">
+							<p:ajax update="msgDescripcion" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgDescripcion" for="descArea" />
+					</p:outputPanel>
+
+					<p:outputLabel for="titularArea" value="Titular:" />
+					<p:outputPanel>
+						<p:inputText id="titularArea"
+							value="#{areasController.areaNew.titular}"
+							validator="#{areasController.validatorArea}">
+							<p:ajax update="msgtitular" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgtitular" for="titularArea" />
+					</p:outputPanel>
+					<p:spacer />
+					<p:commandButton id="guardarArea" value="Agregar Area"
+						update="tablaAreas nuevaAreasGrid"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						actionListener="#{areasController.agregarArea()}"
+						icon="ui-icon-check" />
+				</p:panelGrid>
+			</p:panel>
+			<br />
+			<p:dataTable id="tablaAreas" var="area" rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30" value="#{areasController.listaAreas}"
+				editable="true">
+
+				<p:ajax event="rowEdit" listener="#{areasController.onRowEdit}"
+					update="tablaAreas" />
+				<p:ajax event="rowEditCancel"
+					listener="#{areasController.onRowCancel}" update="tablaAreas" />
+
+
+				<p:column headerText="Nombre Area">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{area.nombreArea}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombreAreaEdit" value="#{area.nombreArea}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Descripción">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{area.descripcion}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombreDescEdit" value="#{area.descripcion}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Titular">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{area.titular}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombreTitularEdit" value="#{area.titular}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:52px" headerText="Opciones">
+					<p:rowEditor />
+				</p:column>
+
+				<p:column style="width:50px; text-align: center;">
+					<p:commandButton id="eliminarArea"
+						styleClass="fm-btn-error fm-btn-elevado"
+						onclick="PF('dialogEliminarArea').show()" process="tablaAreas"
+						update="tablaAreas" icon="ui-icon-trash">
+						<f:setPropertyActionListener value="#{area}"
+							target="#{areasController.areaSeleccionada}" for="eliminarArea" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog header="Areas" severity="alert"
+				message="¿Desea Eliminar el Registro?" showEffect="fade"
+				hideEffect="explode" widgetVar="dialogEliminarArea">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton id="EliminarArea" value="Si"
+						icon="ui-icon-circle-check" process="@this" iconPos="right"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						action="#{areasController.eliminarArea()}"
+						oncomplete="PF('dialogEliminarArea').hide()"
+						update="tablaAreas messages_generales growl" />
+					<p:commandButton id="cancelarEdicion" value="No"
+						icon="ui-icon-circle-close" process="@this"
+						update="tablaAreas messages_generales growl" iconPos="right"
+						styleClass="fm-btn-error fm-btn-elevado"
+						oncomplete="PF('dialogEliminarArea').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

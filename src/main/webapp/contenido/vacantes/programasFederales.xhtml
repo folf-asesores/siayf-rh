@@ -1,0 +1,339 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Programas Federales" />
+	<ui:param name="moduloTitulo" value="Programas Federales" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:dataTable id="programas"
+				value="#{programasFederales.view.programas}" var="e"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+				<f:facet name="header">
+					<div align="right">
+						<p:commandLink title="Nuevo registro"
+							action="#{programasFederales.visualizarRegistroPrograma()}"
+							update="form" process="@this">
+							<span class="ui-icon-plus fm-font-color-white" />
+						</p:commandLink>
+					</div>
+				</f:facet>
+				<p:column headerText="Programa">
+					<h:outputText value="#{e.programa}" />
+				</p:column>
+				<p:column headerText="Opciones">
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{programasFederales.visualizarDetallePrograma(e.idPrograma)}"
+						update="form" styleClass="fm-btn-exitoso fm-btn-elevado"></p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil" iconPos="right"
+						actionListener="#{programasFederales.seleccionarEdicionPrograma(e.idPrograma)}"
+						update="form" styleClass="fm-btn-exitoso fm-btn-elevado" />
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Nuevo Programa" showEffect="Slide"
+				id="nuevo_programa"
+				visible="#{programasFederales.view.mostrarRegistroPrograma}"
+				modal="true" closable="false" height="500" width="400">
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
+					<p:outputLabel for="programa" value="Programa:*" />
+					<p:inputText id="programa" style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{programasFederales.view.nuevoPrograma.programa}">
+					</p:inputText>
+
+
+					<p:outputLabel for="proyectoP" value="Proyecto" />
+					<p:selectOneMenu id="proyectoP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idProyecto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{programasFederales.view.listaProyectos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dependenciaP" value="Dependencia" />
+					<p:selectOneMenu id="dependenciaP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idDependencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaDependencias}" />
+						<p:ajax
+							listener="#{programasFederales.obtenerUnidadesResponsablesPrograma()}"
+							update="unidadResponsableP"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="unidadResponsableP" value="Unidad Responsable" />
+					<p:selectOneMenu id="unidadResponsableP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idUnidadResponsable}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaUnidadesResponsables}" />
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel for="fuenteP" value="Fuente Financiamiento" />
+					<p:selectOneMenu id="fuenteP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idFuenteFinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaFuentesFinanciamiento}" />
+						<p:ajax
+							listener="#{programasFederales.obtenerSubfuentesFinanciamientoProgramas()}"
+							update="subfuenteP"></p:ajax>
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="subfuenteP" value="Subfuente Financiamiento" />
+					<p:selectOneMenu id="subfuenteP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idSubfuentefinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaSubfuentesFinanciamiento}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tipoRecursoP" value="Tipo Recurso" />
+					<p:selectOneMenu id="tipoRecursoP" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.nuevoPrograma.idTipoRecurso}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaTiposRecursos}" />
+					</p:selectOneMenu>
+
+					<div align="right">
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							action="#{programasFederales.registrarPrograma()}"
+							oncomplete="mymessages();" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							action="#{programasFederales.ocultarRegistroPrograma()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</div>
+				</p:panelGrid>
+			</p:dialog>
+
+
+			<p:dialog header="Edición Programa" showEffect="Slide" id="edicion"
+				visible="#{programasFederales.view.mostrarEdicion}" modal="true"
+				closable="false" height="500" width="400">
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<f:facet name="header">
+						<p:messages id="errorEdicion" showDetail="true" autoUpdate="false"
+							severity="errorEdicion" closable="true" />
+					</f:facet>
+
+					<p:outputLabel for="programaE" value="Programa:*" />
+					<p:inputText id="programaE" style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{programasFederales.view.edicionPrograma.programa}">
+					</p:inputText>
+
+
+					<p:outputLabel for="proyectoE" value="Proyecto" />
+					<p:selectOneMenu id="proyectoE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idProyecto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{programasFederales.view.listaProyectos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="dependenciaE" value="Dependencia" />
+					<p:selectOneMenu id="dependenciaE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idDependencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaDependencias}" />
+						<p:ajax
+							listener="#{programasFederales.obtenerUnidadesResponsablesEdicionPrograma()}"
+							update="unidadResponsableE"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="unidadResponsableE" value="Unidad Responsable" />
+					<p:selectOneMenu id="unidadResponsableE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idUnidadResponsable}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaUnidadesResponsables}" />
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel for="fuenteE" value="Fuente Financiamiento" />
+					<p:selectOneMenu id="fuenteE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idFuenteFinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaFuentesFinanciamiento}" />
+						<p:ajax
+							listener="#{programasFederales.obtenerSubfuentesFinanciamientoEdicionPrograma()}"
+							update="subfuenteE"></p:ajax>
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="subfuenteE" value="Subfuente Financiamiento" />
+					<p:selectOneMenu id="subfuenteE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idSubfuentefinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaSubfuentesFinanciamiento}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tipoRecursoE" value="Tipo Recurso" />
+					<p:selectOneMenu id="tipoRecursoE" filter="true"
+						filterMatchMode="contains"
+						value="#{programasFederales.view.edicionPrograma.idTipoRecurso}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{programasFederales.view.listaTiposRecursos}" />
+					</p:selectOneMenu>
+
+					<div align="right">
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							action="#{programasFederales.editarPrograma()}"
+							oncomplete="mymessages();" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							action="#{programasFederales.ocultarEdicion()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</div>
+				</p:panelGrid>
+			</p:dialog>
+
+
+			<p:dialog header="Nuevo Detalle" id="nuevo_detalle"
+				visible="#{programasFederales.view.mostrarRegistroDetalle}"
+				modal="true" closable="false" height="500">
+
+				<p:dataTable id="detalles"
+					value="#{programasFederales.view.detalles}" var="d"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+					<p:column headerText="Estatus">
+						<h:outputText value="#{d.estatus}" />
+					</p:column>
+					<p:column headerText="Clave">
+						<h:outputText value="#{d.clave}" />
+					</p:column>
+					<p:column headerText="Descripcion">
+						<h:outputText value="#{d.descripcion}" />
+					</p:column>
+					<p:column headerText="Numero Personas">
+						<h:outputText value="#{d.numeroPersonas}" />
+					</p:column>
+					<p:column headerText="Meses Contratación">
+						<h:outputText value="#{d.mesesContratacion}" />
+					</p:column>
+					<p:column headerText="Precio Unitario">
+						<h:outputText value="#{d.precioUnitario}" />
+					</p:column>
+					<p:column headerText="Total">
+						<h:outputText value="#{d.totalGlobal}" />
+					</p:column>
+				</p:dataTable>
+
+
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:spacer></p:spacer>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<f:facet name="header">
+							<p:messages id="errorDetalle" showDetail="true"
+								autoUpdate="false" severity="error" closable="true" />
+						</f:facet>
+
+
+
+						<p:outputLabel for="clave" value="Clave:*" />
+						<p:inputText id="clave" style="text-transform:uppercase;"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							value="#{programasFederales.view.detallePrograma.clave}">
+						</p:inputText>
+
+						<p:outputLabel for="descripcionD" value="Descripcion:*" />
+						<p:inputTextarea id="descripcionD"
+							style="text-transform:uppercase;"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							value="#{programasFederales.view.detallePrograma.descripcion}"></p:inputTextarea>
+
+						<p:outputLabel for="costoUnitario" value="Costo Unitario:*" />
+						<p:inputText id="costoUnitario"
+							value="#{programasFederales.view.detallePrograma.costoUnitario}">
+						</p:inputText>
+
+
+						<p:outputLabel for="numero" value="Numero personas:*" />
+						<p:inputText id="numero"
+							value="#{programasFederales.view.detallePrograma.numeroPersonas}">
+							<p:ajax event="keyup" update="totalGlobal"
+								listener="#{programasFederales.calcularTotal()}"
+								process="costoUnitario,numero "></p:ajax>
+						</p:inputText>
+
+						<p:outputLabel for="totalGlobal" value="Total :*" />
+						<p:inputText id="totalGlobal" disabled="true"
+							value="#{programasFederales.view.detallePrograma.totalGlobal}">
+						</p:inputText>
+
+						<p:outputLabel for="tiempoMeses" value="Meses Contratación:*"
+							rendered="#{programasFederales.view.mostrarDetallePartida}" />
+						<p:inputText id="tiempoMeses"
+							value="#{programasFederales.view.detallePrograma.mesesContratacion}"
+							rendered="#{programasFederales.view.mostrarDetallePartida}">
+						</p:inputText>
+
+
+						<div align="right">
+							<p:commandButton icon="ui-icon-circle-check"
+								update="nuevo_detalle"
+								action="#{programasFederales.registrarDetallePrograma()}"
+								oncomplete="mymessages();" />
+							<p:spacer width="20" />
+							<p:commandButton icon="ui-icon-circle-close" update="form"
+								oncomplete="mymessages();" process="@this"
+								action="#{programasFederales.ocultarDetallePrograma()}"
+								styleClass="fm-btn-peligro fm-btn-elevado" />
+						</div>
+
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

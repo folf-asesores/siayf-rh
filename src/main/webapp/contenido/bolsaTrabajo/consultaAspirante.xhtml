@@ -1,0 +1,912 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Consulta Aspirante" />
+	<ui:param name="moduloTitulo"
+		value="Bolsa de Trabajo: Consulta Aspirante" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+
+				<p:outputPanel>
+
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="3"
+						columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+						<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+						<p:outputPanel id="outputCriterio">
+							<p:inputText id="criterio" required="true"
+								style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								requiredMessage="Ingrese nombre, rfc o curp"
+								validator="#{consultaAspirante.validarConsulta}"
+								value="#{consultaAspirante.view.filtro.criterio}"
+								placeholder="Nombre, RFC o CURP">
+
+								<p:clientValidator />
+								<p:ajax event="blur" update=":form:outputCriterio" />
+
+							</p:inputText>
+							<p:message for="criterio" />
+
+						</p:outputPanel>
+
+						<p:commandButton oncomplete="mymessages();"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" icon="ui-icon-search"
+							title="Buscar"
+							action="#{consultaAspirante.obtenerInfoAspirante()}"
+							styleClass="fm-btn-elevado" update="form" />
+
+					</p:panelGrid>
+
+				</p:outputPanel>
+
+				<p:dataTable id="aspirantes" var="a"
+					rendered="#{consultaAspirante.view.mostrarResultados}"
+					value="#{consultaAspirante.view.listaInfoAspirante}"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+					<p:column headerText="#{consultaAspirante.view.tipoBusquedaHeader}"
+						sortBy="#{a.profesionEspecialidad}"
+						filterBy="#{a.profesionEspecialidad}"
+						rendered="#{consultaAspirante.view.mostrarTipoBusquedaHeader}">
+						<h:outputText value="#{a.profesionEspecialidad}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{a.nombre}" />
+					</p:column>
+
+					<p:column headerText="Curp">
+						<h:outputText value="#{a.curp}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{a.rfc}" />
+					</p:column>
+
+					<p:column headerText="Dirección">
+						<h:outputText value="#{a.direccion}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{a.estatus}" />
+					</p:column>
+
+					<p:column headerText="Ver" style="text-align: center;" width="80">
+						<p:commandButton update="form" icon="fm-icon-eye" title="Ver"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							action="#{consultaAspirante.verDetalleAspirante(a.idAspirante)}" />
+
+					</p:column>
+				</p:dataTable>
+
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					columnClasses="ui-grid-col-2, ui-grid-col-10"
+					rendered="#{consultaAspirante.view.mostrarDetallesAspirante}">
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:commandButton value="DATOS GENERALES"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();"
+							action="#{consultaAspirante.menu(1)}" update="form"
+							process="@this" styleClass="fm-btn-elevado" />
+
+						<p:spacer height="10" />
+
+						<p:commandButton value="HISTORIAL ACADEMICO" update="form"
+							onsuccess="PF('statusDialog').hide()" oncomplete="mymessages();"
+							onstart="PF('statusDialog').show()" process="@this"
+							action="#{consultaAspirante.menu(2)}" styleClass="fm-btn-elevado" />
+
+						<p:spacer height="10" />
+
+						<p:commandButton value="EXPERIENCIA LABORAL" update="form"
+							onsuccess="PF('statusDialog').hide()" oncomplete="mymessages();"
+							onstart="PF('statusDialog').show()" process="@this"
+							action="#{consultaAspirante.menu(3)}" styleClass="fm-btn-elevado" />
+
+						<p:spacer height="10" />
+
+						<p:commandButton value="HABILIDADES PERSONALES" update="form"
+							onsuccess="PF('statusDialog').hide()" oncomplete="mymessages();"
+							onstart="PF('statusDialog').show()" process="@this"
+							action="#{consultaAspirante.menu(4)}" styleClass="fm-btn-elevado" />
+
+					</p:panelGrid>
+					<ui:remove>DATOS GENERALES</ui:remove>
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						id="datosGenerales"
+						rendered="#{consultaAspirante.view.mostrarDatosPersonales}">
+
+						<p:spacer></p:spacer>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+								<f:facet name="header">
+									<h3>Datos Generales</h3>
+								</f:facet>
+
+								<p:outputLabel for="nombre" value="Nombre:" />
+								<p:inputText id="nombre" disabled="true"
+									value="#{consultaAspirante.view.aspirante.nombre}" />
+
+								<p:outputLabel for="apellidoPaterno" value="Apellido Paterno:" />
+								<p:inputText id="apellidoPaterno" disabled="true"
+									value="#{consultaAspirante.view.aspirante.apellidoPaterno}" />
+
+								<p:outputLabel for="apellidoMaterno" value="Apellido Materno:" />
+								<p:inputText id="apellidoMaterno" disabled="true"
+									value="#{consultaAspirante.view.aspirante.apellidoMaterno}" />
+
+								<p:outputLabel for="rfc" value="RFC:" />
+								<p:inputText disabled="true" id="rfc"
+									value="#{consultaAspirante.view.aspirante.rfc}" />
+
+								<p:outputLabel for="curp" value="CURP:" />
+								<p:inputText id="curp" disabled="true"
+									value="#{consultaAspirante.view.aspirante.curp}" maxlength="18" />
+
+								<p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+								<p:calendar id="fechaNacimiento" showOn="button"
+									pattern="dd/MM/yyyy" disabled="true"
+									value="#{consultaAspirante.view.aspirante.fechaNacimiento}" />
+
+								<p:outputLabel for="estadoCivil" value="Estado Civil:" />
+								<p:selectOneMenu id="estadoCivil" disabled="true"
+									value="#{consultaAspirante.view.aspirante.estadoCivil}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems
+										value="#{consultaAspirante.view.listaEstadosCiviles}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="sexo" value="Sexo:" />
+								<p:selectOneMenu id="sexo" disabled="true"
+									value="#{consultaAspirante.view.aspirante.sexo}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems value="#{consultaAspirante.view.listaTiposSexo}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="tipoSangre" value="Tipo Sangre:" />
+								<p:selectOneMenu id="tipoSangre" disabled="true"
+									value="#{consultaAspirante.view.aspirante.tipoSangre}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems
+										value="#{consultaAspirante.view.listaTiposSangre}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="estatura" value="Estatura:" />
+								<p:inputText id="estatura" disabled="true"
+									value="#{consultaAspirante.view.aspirante.estatura}" />
+
+								<p:outputLabel for="peso" value="Peso:" />
+								<p:inputText id="peso" disabled="true"
+									value="#{consultaAspirante.view.aspirante.peso}" />
+
+								<p:outputLabel for="telefono" value="Telefono:" />
+								<p:inputText id="telefono" disabled="true"
+									value="#{consultaAspirante.view.aspirante.telefono}" />
+
+								<p:outputLabel for="correo" value="Correo:" />
+								<p:inputText id="correo" disabled="true"
+									value="#{consultaAspirante.view.aspirante.correoElectronico}" />
+
+								<p:outputLabel for="lugarNacimiento" value="Lugar Nacimiento:" />
+								<p:inputText id="lugarNacimiento" disabled="true"
+									value="#{consultaAspirante.view.aspirante.lugarNacimiento}" />
+
+								<p:outputLabel for="vive" value="Vive con: " />
+								<p:selectOneMenu id="vive" disabled="true"
+									value="#{consultaAspirante.view.aspirante.viveCon}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems value="#{consultaAspirante.view.listaViveCon}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="depende"
+									value="Personas que Dependen del Aspirante: " />
+								<p:selectManyCheckbox id="depende" layout="responsive"
+									disabled="true" columns="2"
+									value="#{consultaAspirante.view.personasDependientes}">
+									<f:selectItems
+										value="#{consultaAspirante.view.listaDependientes}"
+										var="depende" itemLabel="#{depende}" itemValue="#{depende}" />
+
+								</p:selectManyCheckbox>
+
+								<p:outputLabel for="noHijos" value="No. Hijos:" />
+								<p:inputText id="noHijos" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroHijos}" />
+
+								<p:outputLabel for="noPadres" value="No. Padres:" />
+								<p:inputText id="noPadres" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroPadres}" />
+
+								<p:outputLabel for="noOtros" value="No. Otros:" />
+								<p:inputText id="noOtros" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroHijos}" />
+							</p:panelGrid>
+
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+								<f:facet name="header">
+									<h3>Domicilio</h3>
+								</f:facet>
+
+								<p:outputLabel for="estado" value="Estado:" />
+								<p:selectOneMenu id="estado"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.idEstado}"
+									disabled="true">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+									<f:selectItems value="#{consultaAspirante.view.listaEstados}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="municipio" value="Municipio:" />
+								<p:selectOneMenu id="municipio" filter="true"
+									filterMatchMode="contains" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.idMunicipio}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems
+										value="#{consultaAspirante.view.listaMunicipios}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="asentamiento" value="Asentamiento:" />
+								<p:selectOneMenu id="asentamiento" filter="true"
+									filterMatchMode="contains" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.idAsentamiento}">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems
+										value="#{consultaAspirante.view.listaAsentamientos}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="calle" value="Calle:" />
+								<p:inputText id="calle" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.calle}" />
+
+								<p:outputLabel for="interior" value="Número Interior:" />
+								<p:inputText id="interior" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.numeroInterior}" />
+
+								<p:outputLabel for="exterior" value="Número Exterior: " />
+								<p:inputText id="exterior" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.numeroExterior}" />
+
+								<p:outputLabel for="cp" value="Codigo Postal: " />
+								<p:inputText id="cp" disabled="true"
+									value="#{consultaAspirante.view.aspirante.direccionDTO.codigoPostal}" />
+
+							</p:panelGrid>
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid">
+								<f:facet name="header">
+									<h3>Documentación</h3>
+								</f:facet>
+
+								<p:outputLabel for="afore" value="Afore:" />
+								<p:inputText id="afore" disabled="true"
+									value="#{consultaAspirante.view.aspirante.afore}" />
+
+								<p:outputLabel for="seguro" value="No. Seguro Social:" />
+								<p:inputText id="seguro" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroSeguroSocial}" />
+
+								<p:outputLabel for="cartilla" value="No. Cartilla Militar:" />
+								<p:inputText id="cartilla" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroCartillaMilitar}" />
+
+								<p:outputLabel for="pasaporte" value="No. Pasaporte:" />
+								<p:inputText id="pasaporte" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroPasaporte}" />
+
+								<p:outputLabel for="licencia" value="Tiene Licencia:" />
+								<p:selectBooleanButton id="licencia" onLabel="Si" offLabel="No"
+									onIcon="ui-icon-check" offIcon="ui-icon-cancel" disabled="true"
+									value="#{consultaAspirante.view.aspirante.tieneLicencia}" />
+
+								<p:outputLabel for="tipoLicencia" value="Tipo Licencia:" />
+								<p:selectOneMenu id="tipoLicencia" disabled="true"
+									value="#{consultaAspirante.view.aspirante.tipoLicencia}">
+									<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+									<f:selectItems
+										value="#{consultaAspirante.view.listaTiposLicencia}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel for="numeroLicencia" value="Número Licencia:" />
+								<p:inputText id="numeroLicencia" disabled="true"
+									value="#{consultaAspirante.view.aspirante.numeroLicencia}" />
+
+							</p:panelGrid>
+
+						</p:panelGrid>
+
+
+					</p:panelGrid>
+					<ui:remove>HISTORIAL ACADEMICO</ui:remove>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						id="historialAcademico"
+						rendered="#{consultaAspirante.view.mostrarHistorialAcademico}">
+
+						<f:facet name="header">
+							<h3>Historial Académico</h3>
+						</f:facet>
+
+						<p:dataTable var="h" editable="true"
+							rowKey="#{h.idHistorialAcademico}"
+							value="#{consultaAspirante.view.listaHistorialAcademico}"
+							paginator="true" rows="5"
+							emptyMessage="No se encontro ningún registro"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+							<p:column headerText="Escolaridad">
+								<h:outputText value="#{h.nombreEscolaridad}" />
+							</p:column>
+
+							<p:column headerText="Institución">
+								<h:outputText value="#{h.nombreInstitucion}" />
+							</p:column>
+
+							<p:column headerText="Constancia Máxima de Estudios">
+								<h:outputText value="#{h.estatusComprobanteEstudio}" />
+							</p:column>
+
+							<p:column headerText="Fecha de Expedición de Cedula Profesional">
+								<h:outputText value="#{h.fechaExpedicionCedula}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Número de Cedula Profesional">
+								<h:outputText value="#{h.numeroCedula}" />
+							</p:column>
+
+							<p:column headerText="Inicio-Fin">
+								<h:outputText value="#{h.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							-
+							<h:outputText value="#{h.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Nombre Curso">
+								<h:outputText value="#{h.nombreCurso}" />
+							</p:column>
+
+							<p:column headerText="Duración Curso">
+								<h:outputText value="#{h.duracion}" />
+							</p:column>
+
+							<p:column headerText="Cursando">
+								<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+									disabled="true" />
+							</p:column>
+
+							<p:column headerText="Máximo estudio">
+								<p:inputSwitch offLabel="No" onLabel="Si"
+									value="#{h.esMaximoEstudio}" disabled="true" />
+							</p:column>
+
+							<p:column style="width:60px;text-align: center;" headerText="Ver">
+
+								<p:commandButton update="form" icon="fm-icon-eye"
+									action="#{consultaAspirante.verDetalleHistorialAcademico(h)}"
+									title="Ver Historial Académico"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()" />
+
+							</p:column>
+						</p:dataTable>
+
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid "
+						rendered="#{consultaAspirante.view.mostrarHistorialAcedemicoSeleccionado}">
+
+						<f:facet name="header">
+							<h3>Detalle Historial Académico</h3>
+						</f:facet>
+
+						<p:outputLabel for="escolaridad" value="Escolaridad:" />
+						<p:selectOneMenu id="escolaridad" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.escolaridad}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems
+								value="#{consultaAspirante.view.listaEscolaridades}" />
+						</p:selectOneMenu>
+
+
+						<p:outputLabel for="institucion" value="Nombre de la Institución:" />
+						<p:inputText id="institucion" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.nombreInstitucion}">
+						</p:inputText>
+
+						<p:outputLabel for="comprobanteEstudio"
+							value="Ultimo Comprobante Estudio del Grado Academico: *" />
+						<p:selectOneMenu id="comprobanteEstudio" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.comprobanteEstudio}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems
+								value="#{consultaAspirante.view.listaComprobantesEstudio}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="fechaExpedicionCedula"
+							value="Fecha de Expedición de Cedula Profesional:" />
+						<p:calendar id="fechaExpedicionCedula" pattern="dd/MM/yyyy"
+							showOn="button" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.fechaExpedicionCedula}" />
+
+						<p:outputLabel for="numeroCedula"
+							value="Número de Cedula Profesional:" />
+						<p:inputText id="numeroCedula" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.numeroCedula}" />
+
+						<p:outputLabel for="nombreCurso"
+							value="Nombre de la escolaridad cursada:" />
+						<p:inputText id="nombreCurso" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.nombreCurso}" />
+
+						<p:outputLabel for="duracion" value="Duración:" />
+						<p:inputText id="duracion" disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.duracion}" />
+
+						<p:outputLabel for="fechaInicial" value="Fecha Inicial:" />
+						<p:calendar id="fechaInicial" showOn="button" pattern="dd/MM/yyyy"
+							disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.fechaInicial}" />
+
+						<p:outputLabel for="fechaFinal" value="Fecha Final:" />
+						<p:calendar id="fechaFinal" pattern="dd/MM/yyyy" showOn="button"
+							disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.fechaFinal}" />
+
+						<p:outputLabel for="cursando" value="Cursando:" />
+						<p:inputSwitch id="cursando" offLabel="No" onLabel="Si"
+							disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.cursando}" />
+
+						<p:outputLabel for="maximoEstudio"
+							value="¿Es el máximo grado de estudios?" />
+						<p:inputSwitch disabled="true"
+							value="#{consultaAspirante.view.historialAcademicoDTO.esMaximoEstudio}"
+							offLabel="No" onLabel="Si" id="maximoEstudio" />
+
+						<div />
+						<p:commandButton update="@form" value="Regresar"
+							action="#{consultaAspirante.cerrarDetalleHistorialAcademico()}"
+							icon="ui-icon-circle-arrow-w" iconPos="left"
+							oncomplete="mymessages();" />
+
+					</p:panelGrid>
+
+					<ui:remove> EXPERIENCIA LABORAL </ui:remove>
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						id="esperienciaLaboral"
+						rendered="#{consultaAspirante.view.mostrarExperienciaLaboral}">
+
+						<f:facet name="header">
+							<h3>Experiencia Laboral</h3>
+						</f:facet>
+
+						<p:dataTable var="e" editable="true" id="tablaExperienciaLaboral"
+							rowKey="#{e.idExperienciaLaboralAspirante}"
+							value="#{consultaAspirante.view.listaExperienciaLaboral}"
+							paginator="true" rows="5"
+							emptyMessage="No se encontro ningún registro"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+							<p:column headerText="Nombre de la Empresa/Institución">
+								<h:outputText value="#{e.nombreEmpresa}" />
+							</p:column>
+
+							<p:column headerText="Puesto">
+								<h:outputText value="#{e.puesto}" />
+							</p:column>
+
+							<p:column headerText="Duración">
+								<h:outputText value="#{e.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+								-
+								<h:outputText value="#{e.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column style="width:128px;text-align: center;"
+								headerText="Ver">
+								<p:commandButton update="form" icon="fm-icon-eye"
+									title="Ver Experiencia Laboral"
+									action="#{consultaAspirante.verDetalleExperienciaLaboral(e)}"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()" />
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						rendered="#{consultaAspirante.view.mostrarExperienciaLaboralSeleccionado}">
+
+						<f:facet name="header">
+							<h3>Detalle Experiencia Laboral</h3>
+						</f:facet>
+
+						<p:outputLabel for="nombreEmpresa"
+							value="Nombre de la Empresa e Institución:" />
+						<p:inputText id="nombreEmpresa" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.nombreEmpresa}" />
+
+						<p:outputLabel for="telefonoEmpresa" value="Teléfono:" />
+						<p:inputText id="telefonoEmpresa" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.telefono}" />
+
+						<p:outputLabel for="puestoDesempeniado"
+							value="Puesto Desempeñado:" />
+						<p:inputText id="puestoDesempeniado" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.puesto}" />
+
+						<p:outputLabel for="sueldoMensual" value="Sueldo Mensual:" />
+						<p:inputText id="sueldoMensual" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.sueldoMensual}"
+							placeholder="$00.00" />
+
+						<p:outputLabel for="anioInicial" value="Fecha Inicial:" />
+						<p:calendar id="anioInicial" showOn="button" pattern="dd/MM/yyy"
+							disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.fechaInicial}" />
+
+						<p:outputLabel for="anioFinal" value="Fecha Final:" />
+						<p:calendar id="anioFinal" showOn="button" pattern="dd/MM/yyy"
+							disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.fechaFinal}" />
+
+						<p:outputLabel for="correoElectronico" value="Correo Electronico:" />
+						<p:inputText id="correoElectronico" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.correoContacto}" />
+
+						<p:outputLabel for="nombreJefe" value="Nombre del Jefe Directo:" />
+						<p:inputText id="nombreJefe" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.nombreJefe}" />
+
+						<p:outputLabel for="puestoJefe" value="Puesto del Jefe:" />
+						<p:inputText id="puestoJefe" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.puestoJefe}" />
+
+						<p:outputLabel for="solicitarInformacion"
+							value="Solicitar Información:" />
+						<p:inputSwitch offLabel="No" onLabel="Si"
+							id="solicitarInformacion" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.solicitarInformacion}" />
+
+						<p:outputLabel for="razonNoSolicitar"
+							value="Razón por no Solicitar:" />
+						<p:inputTextarea id="razonNoSolicitar" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.razonNoSolicitar}" />
+
+						<p:outputLabel for="comentariosJefe" value="Comentarios:" />
+						<p:inputTextarea id="comentariosJefe" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.comentarios}" />
+
+						<p:outputLabel for="direccionEmpresa"
+							value="Dirección de la Empresa:" />
+						<p:inputTextarea id="direccionEmpresa" rows="3" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.direccionEmpresa}" />
+
+						<p:outputLabel for="motivoSeparacion"
+							value="Motivo de Separación:" />
+						<p:inputTextarea id="motivoSeparacion" disabled="true"
+							value="#{consultaAspirante.view.experienciaLaboral.motivoSeparacion}" />
+
+						<div />
+						<p:commandButton title="Regresar Experiencia Laboral"
+							update="@form" value="Regresar" icon="ui-icon-circle-arrow-w"
+							action="#{consultaAspirante.cerrarExperienciaLaboral()}"
+							iconPos="left" oncomplete="mymessages();" />
+
+					</p:panelGrid>
+
+					<ui:remove> HABILIDAD PERSONAL </ui:remove>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						id="encuestaPersonal"
+						rendered="#{consultaAspirante.view.mostrarHabilidadPersonal}">
+
+						<f:facet name="header">
+							<h3>Habilidades Personales</h3>
+						</f:facet>
+
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ">
+
+							<p:outputLabel for="idioma" value="¿Que Idiomas Habla?" />
+							<p:inputText id="idioma"
+								value="#{consultaAspirante.view.encuestaPersonal.idioma}"
+								disabled="true" />
+
+							<p:outputLabel for="nivelIdioma" value="Nivel de Idioma:" />
+							<p:panelGrid columnClasses="ui-grid-col-12" columns="1"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<p:inputText id="nivelIdioma" disabled="true"
+									value="#{consultaAspirante.view.encuestaPersonal.nivelIdioma}" />
+								<p:slider for="nivelIdioma" minValue="0" maxValue="100"
+									disabled="true" />
+							</p:panelGrid>
+
+							<p:outputLabel for="maquina"
+								value="¿Maquina de Oficina o de Taller que Sepa Dominar?" />
+							<p:inputText id="maquina"
+								value="#{consultaAspirante.view.encuestaPersonal.maquinaTallerDomina}"
+								disabled="true" />
+
+							<p:outputLabel for="funciones"
+								value="¿Funciones de Oficina que Domina?" />
+							<p:inputText id="funciones"
+								value="#{consultaAspirante.view.encuestaPersonal.funcionesOficinaDomina}"
+								disabled="true" />
+
+							<p:outputLabel for="softwareDomina" value="Software que Domina:" />
+							<p:inputText id="softwareDomina"
+								value="#{consultaAspirante.view.encuestaPersonal.softwareDomina}"
+								disabled="true" />
+
+							<p:outputLabel for="otrosTrabajos"
+								value="¿Otros Trabajos o Funciones que Domine?" />
+							<p:inputText id="otrosTrabajos"
+								value="#{consultaAspirante.view.encuestaPersonal.otrosTrabajosFunciones}"
+								disabled="true" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Datos Generales</h3>
+							</f:facet>
+
+							<p:outputLabel for="anuncio" value="¿Como Supo de Este Empleo?" />
+							<p:inputSwitch offLabel="Anuncio" onLabel="Otro Medio"
+								id="anuncio"
+								value="#{consultaAspirante.view.encuestaPersonal.anuncio}"
+								disabled="true" />
+
+							<p:outputLabel for="nombreAnuncio" value="Nombre del Otro Medio:" />
+							<p:inputText id="nombreAnuncio"
+								value="#{consultaAspirante.view.encuestaPersonal.otroMedio}"
+								disabled="true" />
+
+							<p:outputLabel for="parientes"
+								value="¿Tiene Familiares Trabajando en la Empresa e Institución?" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="parientes"
+								value="#{consultaAspirante.view.encuestaPersonal.parientes}"
+								disabled="true" />
+
+							<p:outputLabel for="nombrePariente"
+								value="Nombre del Familiar(es):" />
+							<p:inputText id="nombrePariente"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreParientes}"
+								disabled="true" />
+
+							<p:outputLabel for="afianzado" value="Afianzado:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="afianzado"
+								value="#{consultaAspirante.view.encuestaPersonal.afianzado}"
+								disabled="true" />
+
+							<p:outputLabel for="nombreCia"
+								value="Nombre de la Empresa e Institución:" />
+							<p:inputText id="nombreCia"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreAfianza}"
+								disabled="true" />
+
+							<p:outputLabel for="sindicato"
+								value="Afiliado a Algún Sindicato:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="sindicato"
+								value="#{consultaAspirante.view.encuestaPersonal.sindicato}"
+								disabled="true" />
+
+							<p:outputLabel for="nombreSindicato"
+								value="Nombre del Sindicato:" />
+							<p:inputText id="nombreSindicato"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreSindicato}"
+								disabled="true" />
+
+							<p:outputLabel for="seguroVida" value="Seguro de Vida:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="seguroVida"
+								value="#{consultaAspirante.view.encuestaPersonal.seguroVida}"
+								disabled="true" />
+
+							<p:outputLabel for="nombreSeguroVida"
+								value="Nombre de la Aseguradora:" />
+							<p:inputText id="nombreSeguroVida"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreSeguroVida}"
+								disabled="true" />
+
+							<p:outputLabel for="disposicionViajar"
+								value="Disposición a Viajar:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="disposicionViajar"
+								value="#{consultaAspirante.view.encuestaPersonal.disposicionViajar}"
+								disabled="true" />
+
+							<p:outputLabel for="razonNoViajar" value="Razón para no Viajar:" />
+							<p:inputText id="razonNoViajar"
+								value="#{consultaAspirante.view.encuestaPersonal.razonNoViajar}"
+								disabled="true" />
+
+							<p:outputLabel for="disposicionResidencia"
+								value="Disposición para Cambiar de Residencia:" />
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{consultaAspirante.view.encuestaPersonal.cambioResidencia}"
+								id="disposicionResidencia" disabled="true" />
+
+							<p:outputLabel for="razonNoResidencia"
+								value="Razón para no cambiar:" />
+							<p:inputText id="razonNoResidencia"
+								value="#{consultaAspirante.view.encuestaPersonal.razonNoCambioResidencia}"
+								disabled="true" />
+
+							<p:outputLabel for="fechaTrabajar"
+								value="Fecha para Empezar a Trabajar:" />
+							<p:calendar id="fechaTrabajar" showOn="button" disabled="true"
+								value="#{consultaAspirante.view.encuestaPersonal.fechaEmpezarTrabajar}" />
+						</p:panelGrid>
+
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Datos Económicos</h3>
+							</f:facet>
+
+							<p:outputLabel for="otrosIngresos" value="Otros Ingresos:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="otrosIngresos"
+								disabled="true"
+								value="#{consultaAspirante.view.encuestaPersonal.otroIngreso}" />
+
+							<p:outputLabel for="cualIngreso" value="Fuente de Ingresos:" />
+							<p:inputText id="cualIngreso"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreOtroIngreso}"
+								disabled="true" />
+
+							<p:outputLabel for="importeMensual" value="Importe Mensual:" />
+							<p:inputText id="importeMensual" placeholder="$00.00"
+								value="#{consultaAspirante.view.encuestaPersonal.importeOtroIngreso}"
+								disabled="true" />
+
+							<p:outputLabel for="trabajaConyuge" value="¿Su Cónyuge Trabaja?" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="trabajaConyuge"
+								value="#{consultaAspirante.view.encuestaPersonal.conyugeTrabajando}"
+								disabled="true" />
+
+							<p:outputLabel for="dondeTrabaja"
+								value="Nombre de la Empresa o Institución:" />
+							<p:inputText id="dondeTrabaja"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreTrabajoConyuge}"
+								disabled="true" />
+
+							<p:outputLabel for="percepcionMensual"
+								value="Percepción Mensual:" />
+							<p:inputText id="percepcionMensual" placeholder="$00.00"
+								value="#{consultaAspirante.view.encuestaPersonal.percepcionMensualConyuge}"
+								disabled="true" />
+
+							<p:outputLabel for="casaPropia" value="Casa Propia:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="casaPropia"
+								value="#{consultaAspirante.view.encuestaPersonal.casaPropia}"
+								disabled="true" />
+
+							<p:outputLabel for="rentaCasa" value="Renta Casa:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="rentaCasa"
+								disabled="true"
+								value="#{consultaAspirante.view.encuestaPersonal.rentaCasa}" />
+
+							<p:outputLabel for="rentaMensual" value="Renta Mensual:" />
+							<p:inputText id="rentaMensual"
+								value="#{consultaAspirante.view.encuestaPersonal.rentaMensual}"
+								placeholder="$00.00" disabled="true" />
+
+							<p:outputLabel for="automovilPropio" value="Automovil Propio:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="automovilPropio"
+								disabled="true"
+								value="#{consultaAspirante.view.encuestaPersonal.automovilPropio}" />
+
+							<p:outputLabel for="marcaAutomovil" value="Marca:" />
+							<p:inputText id="marcaAutomovil"
+								value="#{consultaAspirante.view.encuestaPersonal.marcaAutomovil}"
+								disabled="true" />
+
+							<p:outputLabel for="modeloAutomovil" value="Modelo:" />
+							<p:inputText id="modeloAutomovil"
+								value="#{consultaAspirante.view.encuestaPersonal.modeloAutomovil}"
+								disabled="true" />
+
+							<p:outputLabel for="tieneDeudas" value="Tiene Deudas:" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="tieneDeudas"
+								value="#{consultaAspirante.view.encuestaPersonal.deudas}"
+								disabled="true" />
+
+							<p:outputLabel for="conQuien"
+								value="Nombre de la Empresa o Institución:" />
+							<p:inputText id="conQuien"
+								value="#{consultaAspirante.view.encuestaPersonal.nombreDeuda}"
+								disabled="true" />
+
+							<p:outputLabel for="gastoMensual"
+								value="¿Cuanto Asciende los Gastos Mensuales?" />
+							<p:inputText id="gastoMensual" placeholder="$00.00"
+								disabled="true"
+								value="#{consultaAspirante.view.encuestaPersonal.gastoMensual}" />
+
+							<div />
+							<p:commandButton title="Cerrar" update="@form" value="Cerrar"
+								actionListener="#{consultaAspirante.regresarModulo()}"
+								icon="ui-icon-circle-close" iconPos="left"
+								styleClass="fm-btn-peligro fm-btn-elevado"
+								oncomplete="mymessages();" />
+
+						</p:panelGrid>
+
+
+					</p:panelGrid>
+
+
+				</p:panelGrid>
+
+			</p:panel>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,159 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        template="/plantillas/principal-con-menu.xhtml">
+    
+    <ui:param name="ventanaTitulo" value="Estrategia" />
+    
+    <ui:param name="moduloTitulo" value="Estrategia" />
+    <ui:param name="moduloSubtitulo" value="Estrategia" />
+    
+    <ui:define name="moduloContenido">
+        <h:form id="frmEstrategia" styleClass="fm-tarjeta">
+            
+            <p:dataTable id="tblEstrategia"
+                         value="#{estrategiaController.estrategias}" 
+                         var="estrategia" reflow="true" 
+                         paginatorAlwaysVisible="false"
+                         rows="15"
+                         currentPageReportTemplate="{currentPage} de {totalPages}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         emptyMessage="No se ha encontrado ninguna estrategia" >
+                
+                <f:facet name="header">
+                    <p:commandLink title="Agregar una nueva estrategia"
+                                   styleClass="fm-float-right"
+                                   onclick="PF('dlgNuevaEstrategiaWV').show()">
+                        <span class="ui-icon-plus fm-font-color-white"></span>
+                    </p:commandLink>
+                    <p:outputPanel styleClass="fm-clear-both" />
+                </f:facet>
+                
+                <p:column headerText="Código" width="100" styleClass="fm-texto-alineado-centro">
+                   #{estrategia.codigoEstrategia}
+                </p:column>
+                
+                <p:column headerText="Descripción">
+                   #{estrategia.estrategia} 
+                </p:column>
+                
+                <p:column width="60">
+                    <p:commandLink title="Editar"
+                                   update=":dlgEditarEstrategiaCuerpo"
+                                   oncomplete="PF('dlgEditarEstrategiaWV').show();">
+                        <f:setPropertyActionListener value="#{estrategia}" 
+                                                     target="#{estrategiaController.view.estrategia}" />
+                        <span class="ui-icon-pencil"></span>
+                    </p:commandLink>
+                    <p:commandLink title="Eliminar" 
+                                   actionListener="#{estrategiaController.eliminar(estrategia.idEstrategia)}"
+                                   update="tblEstrategia" >
+                        <span class="ui-icon-trash"></span>
+                        <p:confirm header="Confirmación" 
+                                   message="¿Realmente desea eliminar esta estrategia (codigo: #{estrategia.codigoEstrategia})?"
+                                   icon="ui-icon-alert" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+            
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sí" type="button" 
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" 
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+        
+        <p:dialog id="dlgNuevaEstrategia" 
+                      header="Agregar una nueva estrategia" closable="true"
+                      resizable="false"
+                      modal="true"
+                      widgetVar="dlgNuevaEstrategiaWV">
+            
+            <h:form id="dlgNuevaEstrategiaCuerpo">
+                <p:panelGrid layout="grid" columns="2" 
+                         columnClasses="ui-grid-col-4, ui-grid-col-8"
+                         styleClass="ui-panelgrid-blank">
+                    <p:outputLabel value="Código" for="txtCodigo" />
+                    <p:outputPanel>
+                        <p:inputText id="txtCodigo" type="number"
+                                     value="#{estrategiaController.view.estrategia.codigoEstrategia}"
+                                     validator="#{estrategiaController.validatorGuardar}">
+                            <p:ajax update="msgCodigo" />
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message id="msgCodigo" for="txtCodigo" />
+                    </p:outputPanel>
+
+                    <p:outputLabel value="Descripción"  for="txtDescripcion"/>
+                    <p:outputPanel>
+                        <p:inputTextarea id="txtDescripcion" 
+                                         value="#{estrategiaController.view.estrategia.estrategia}"
+                                         validator="#{estrategiaController.validatorGuardar}">
+                            <p:ajax update="msgDescripcion" />
+                            <p:clientValidator />
+                        </p:inputTextarea>
+                        <p:message id="msgDescripcion" for="txtDescripcion" />
+                    </p:outputPanel>
+                </p:panelGrid>
+            </h:form>
+
+            <f:facet name="footer">
+                <p:commandButton value="Cancelar" styleClass="fm-btn-inverso"
+                                 actionListener="#{estrategiaController.cancelar}"
+                                 process="@this"
+                                 update=":dlgNuevaEstrategiaCuerpo, :frmEstrategia:tblEstrategia" />
+                <p:commandButton value="Guardar" 
+                                 actionListener="#{estrategiaController.guardar}" 
+                                 update=":dlgNuevaEstrategiaCuerpo, :frmEstrategia:tblEstrategia"
+                                 process="@widgetVar(dlgNuevaEstrategiaWV)" />
+            </f:facet>
+        </p:dialog>
+        
+        <p:dialog id="dlgEditarEstrategia" 
+                  header="Editar estrategia" closable="true"
+                  resizable="false"
+                  modal="true"
+                  widgetVar="dlgEditarEstrategiaWV" >
+            
+            <h:form id="dlgEditarEstrategiaCuerpo">
+                <p:panelGrid layout="grid" columns="2" 
+                             columnClasses="ui-grid-col-4, ui-grid-col-8"
+                             styleClass="ui-panelgrid-blank">
+                    
+                    <p:outputLabel value="Código" for="txtCodigoEditar" />
+                    <h:outputText id="txtCodigoEditar" 
+                                  value="#{estrategiaController.view.estrategia.codigoEstrategia}" />
+                    
+                    <p:outputLabel value="Descripción"  for="txtDescripcionEditar"/>
+                    <p:outputPanel>
+                        <p:inputTextarea id="txtDescripcionEditar" 
+                                         value="#{estrategiaController.view.estrategia.estrategia}"
+                                         validator="#{estrategiaController.validatorGuardar}" >
+                            <p:clientValidator />
+                            <p:ajax update="msgDescripcionEditar" />
+                        </p:inputTextarea>
+                        <p:message id="msgDescripcionEditar" for="txtDescripcionEditar" />
+                    </p:outputPanel>
+                </p:panelGrid>
+            </h:form>
+            
+            <f:facet name="footer">
+                <p:commandButton value="Cancelar" styleClass="fm-btn-inverso"
+                                 actionListener="#{estrategiaController.cancelar}"
+                                 process="@this"
+                                 update="frmEstrategia" />
+                <p:commandButton value="Guardar" 
+                                 actionListener="#{estrategiaController.actualizar}" 
+                                 update=":dlgEditarEstrategiaCuerpo, :frmEstrategia:tblEstrategia"
+                                 process="@widgetVar(dlgEditarEstrategiaWV)" />
+            </f:facet>
+        </p:dialog>
+    </ui:define>            
+</ui:composition>

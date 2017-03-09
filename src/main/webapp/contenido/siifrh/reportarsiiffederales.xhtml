@@ -1,0 +1,365 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Importar Nomina" />
+	<ui:param name="moduloTitulo"
+		value="Importar Nomina #{reporteSiif.view.reporteSiifSelect.nombramiento}" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione los archivos DAT y TRA que desea importar. Este proceso puede demorar un tiempo" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" />
+			<p:outputPanel>
+				<!-- 				<p:outputPanel> -->
+				<p:row>
+					<p:column>
+						<p:commandButton value="Procesar" ajax="false" update=":form"
+							disabled="${!reporteSiif.view.panelUpload}"
+							onstart="PF('statusDialog').show()"
+							action="#{reporteSiif.importarFedCont}">
+						</p:commandButton>
+
+						<p:commandButton id="cancelar" value="Regresar"
+							style="float:right;" styleClass="fm-btn-elevdo" immediate="true"
+							action="#{reporteSiif.cancelarRH}" />
+					</p:column>
+				</p:row>
+				<p:panelGrid columns="3" styleClass="ui-responsive"
+					columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
+					rendered="${reporteSiif.view.panelUpload}" layout="grid">
+
+					<p:fileUpload id="dat" rendered="#{reporteSiif.view.panelNomina}"
+						value="#{reporteSiif.view.paqueteEntrada.dat}" mode="simple"
+						label="Seleccionar Archivo DAT" allowTypes="/(\.|\/)(dat)$/"
+						requiredMessage="El Archivo DAT es requerido"
+						invalidFileMessage="El Archivo debe tener la extención DAT"
+						style="width:50px;" skinSimple="true" />
+					<p:spacer rendered="#{reporteSiif.view.panelNomina}" />
+					<p:spacer rendered="#{reporteSiif.view.panelNomina}" />
+					<p:fileUpload id="tra" rendered="#{reporteSiif.view.panelNomina}"
+						value="#{reporteSiif.view.paqueteEntrada.tra}" mode="simple"
+						label="Seleccionar Archivo TRA" allowTypes="/(\.|\/)(tra)$/"
+						requiredMessage="El Archivo TRA es requerido"
+						invalidFileMessage="El Archivo debe tener la extención TRA"
+						skinSimple="true" />
+
+
+					<p:fileUpload id="cont"
+						rendered="#{reporteSiif.view.panelContrato}"
+						value="#{reporteSiif.view.paqueteEntrada.cont}" mode="simple"
+						label="Seleccionar Archivo EXCEL"
+						allowTypes="/(\.|\/)(xls|xlsx)$/"
+						requiredMessage="El Archivo XLS es requerido"
+						invalidFileMessage="El Archivo debe tener la extención XLS"
+						style="width:80px;" skinSimple="true" />
+
+					<p:spacer />
+					<p:spacer />
+					<p:outputLabel value="Tipo de Nomina" style="width:50px;" />
+					<p:selectOneMenu id="idTipoNomina"
+						value="#{reporteSiif.view.paqueteEntrada.idTipoNomina}"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						style="width:425px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reporteSiif.view.tipoNominaList}"
+							var="tipoNomina1"
+							itemLabel="#{tipoNomina1.idClasificacionNomina} - #{tipoNomina1.descripcion}"
+							itemValue="#{tipoNomina1.idTipoNomina}" />
+						<p:ajax update="msgTN" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgTN" for="idTipoNomina" />
+
+					<p:outputLabel value="Cuenta Bancaria" />
+					<p:selectOneMenu id="idCuentaBancaria"
+						value="#{reporteSiif.view.paqueteEntrada.idCuentaBancaria}"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						style="width:425px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reporteSiif.view.cuentaBancariaList}"
+							var="cuentaBancaria1"
+							itemLabel="#{cuentaBancaria1.claveCuenta} - #{cuentaBancaria1.numeroCuenta}, #{cuentaBancaria1.descripcion}"
+							itemValue="#{cuentaBancaria1.idCuentaBancaria}" />
+						<p:ajax update="msgCB" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgCB" for="idCuentaBancaria" />
+
+					<p:outputLabel value="Año de afectación" />
+					<p:inputText id="anioCriterio"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						value="#{reporteSiif.view.paqueteEntrada.anioAfectacion}">
+						<p:ajax update="msgAnio" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgAnio" for="anioCriterio" />
+
+					<p:outputLabel value="Quincena de afectación" />
+					<p:inputText id="periodoCriterio"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						value="#{reporteSiif.view.paqueteEntrada.periodoAfectacion}">
+						<p:ajax update="msgQuin" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgQuin" for="periodoCriterio" />
+
+					<p:outputLabel value="Fecha de Quincena" />
+					<p:calendar id="fechaQuincena"
+						value="#{reporteSiif.view.paqueteEntrada.fechaEnvio}"
+						pattern="dd/MM/yyyy">
+					</p:calendar>
+
+				</p:panelGrid>
+
+
+				<p:outputPanel styleClass="fm-tarjeta"
+					rendered="${reporteSiif.view.panelResume}">
+					<p:panelGrid columns="2" layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<p:outputLabel
+								value="Resultado del proceso de importación de los archivos" />
+						</f:facet>
+						<p:outputLabel value="Estatus" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.status}" />
+						<p:outputLabel value="Periodo" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.periodo}" />
+						<p:outputLabel value="Año" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.anio}" />
+						<p:outputLabel value="Fecha de importación" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.fechaImportado}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+						<p:outputLabel value="Cuenta bancaria" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.cuentaBancaria}" />
+						<p:outputLabel value="Tipo nomina" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.tipoNomina}" />
+						<p:outputLabel value="Nominas importadas" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalNomina}" />
+						<p:outputLabel value="Total de percepciones" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalPercepciones}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+						<p:outputLabel value="Total de deducciones" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalDeducciones}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+						<p:outputLabel value="Total neto" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalNeto}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+					</p:panelGrid>
+
+					<p:row>
+						<p:column>
+							<p:commandButton value="Consultar datos" ajax="false"
+								update=":form" disabled="#{reporteSiif.view.panelUpload}"
+								action="#{consultaDatosEncabezado.irPrincipal}">
+								<f:setPropertyActionListener
+									target="#{consultaDatosEncabezado.view.idSiifEncabezado}"
+									value="#{reporteSiif.view.siifEncabezadoSelect.idSIIFEncabezado}" />
+							</p:commandButton>
+							<p:commandButton value="Dispersion"
+								disabled="#{reporteSiif.view.panelUpload}"
+								action="#{reporteSiif.irDispersion()}" update="form"
+								style="float:right;">
+							</p:commandButton>
+
+							<p:spacer />
+							<p:commandButton id="gestionarEncabezado" value="Gestionar"
+								action="#{reporteSiif.irGestionarEncabezado()}" update=":form"
+								style="float:right;" ajax="false" />
+							<p:spacer />
+						</p:column>
+					</p:row>
+
+<!-- 						scrollable="true" scrollHeight="280"  -->
+					<p:dataTable id="siifEncabezadoList"
+						value="#{reporteSiif.view.siifBitacoraProcesada.siifEncabezadoList}"
+						var="siifEncabezadoItem"
+						rowKey="#{siifEncabezadoItem.idSIIFEncabezado}"
+						selection="#{reporteSiif.view.siifEncabezadoSelect}"
+
+						selectionMode="single"
+						emptyMessage="Registros no encontrados."
+						widgetVar="cellEncabezado">
+
+
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column headerText="Id nomina" />
+								<p:column headerText="Nombramiento" />
+								<p:column headerText="Poder" />
+								<p:column headerText="Tipo nomina" />
+								<p:column headerText="Fecha fin quincena" />
+								<p:column headerText="Tipo de emision" />
+								<p:column headerText="Cuenta bancaria" />
+								<p:column headerText="Percepciones" />
+								<p:column headerText="Deducciones" />
+								<p:column headerText="Neto" />
+								<p:column headerText="Inconsistencias" />
+							</p:row>
+						</p:columnGroup>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idNomina}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="${siifEncabezadoItem.nombramiento} ${siifEncabezadoItem.subPrograma}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idPoder}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idTipoNomina}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.fechaFinQuincena}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idTipoEmisionNomina}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.claveCuentaBancaria}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.percepciones}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.deducciones}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.neto}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="Personal: ${siifEncabezadoItem.inconsistenciaPersonal}"
+								rendered="${siifEncabezadoItem.inconsistenciaPersonal > 0}" />
+							<h:outputText
+								value="Laborales: ${siifEncabezadoItem.inconsistenciaLaboral}"
+								rendered="${siifEncabezadoItem.inconsistenciaLaboral > 0}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<p:outputPanel id="panelDatosEncabezado" styleClass="fm-tarjeta"
+						rendered="#{reporteSiif.view.panelEncabezado}">
+
+						<p:panelGrid columns="3" styleClass="ui-responsive"
+							columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
+							rendered="${reporteSiif.view.panelEncabezado}" layout="grid">
+
+
+
+							<p:outputLabel value="Tipo de Nomina" />
+
+							<p:selectOneMenu id="idTipoNominaEncabezado"
+								value="#{reporteSiif.view.encabezadoDTO.idTipoNomina}"
+								validator="#{reporteSiif.validatorReporteSiif}"
+								style="width:425px">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{reporteSiif.view.tipoNominaList}"
+									var="tipoNomina1"
+									itemLabel="#{tipoNomina1.idClasificacionNomina} - #{tipoNomina1.descripcion}"
+									itemValue="#{tipoNomina1.idTipoNomina}" />
+								<p:ajax update="msgTNEncabezado" />
+								<p:clientValidator />
+							</p:selectOneMenu>
+							<p:message id="msgTNEncabezado" for="idTipoNomina" />
+
+							<p:outputLabel for="idTipoEmisionNomina"
+								value="Tipo de Emision de Nomina" style="width:50px;" />
+							<p:selectOneMenu id="idTipoEmisionNomina"
+								value="#{reporteSiif.view.encabezadoDTO.idTipoEmisionNomina}"
+								validator="#{reporteSiif.validatorReporteSiif}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="T" itemValue="T" />
+								<f:selectItem itemLabel="C" itemValue="C" />
+								<p:ajax update="msgTENEncabezado" />
+								<p:clientValidator />
+							</p:selectOneMenu>
+							<p:message id="msgTENEncabezado" for="idTipoNomina" />
+
+							<p:outputLabel value="Cuenta Bancaria" />
+							<p:selectOneMenu id="idCuentaBancariaEncabezado"
+								value="#{reporteSiif.view.encabezadoDTO.idCuentaBancaria}"
+								validator="#{reporteSiif.validatorReporteSiif}"
+								style="width:425px">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItems value="#{reporteSiif.view.cuentaBancariaList}"
+									var="cuentaBancaria1"
+									itemLabel="#{cuentaBancaria1.claveCuenta} - #{cuentaBancaria1.numeroCuenta}, #{cuentaBancaria1.descripcion}"
+									itemValue="#{cuentaBancaria1.idCuentaBancaria}" />
+								<p:ajax update="msgCBEncabezado" />
+								<p:clientValidator />
+							</p:selectOneMenu>
+							<p:message id="msgCBEncabezado" for="idCuentaBancaria" />
+
+							<p:commandButton id="guardarEncabezado" value="Guardar"
+								actionListener="#{reporteSiif.guardarEncabezado()}"
+								update="form" process="@this" ajax="false" />
+							<p:spacer />
+							<p:commandButton value="Cancelar"
+								action="#{reporteSiif.cancelarEncabezado()}" immediate="true"
+								update=":form" style="float:right;" ajax="false" />
+
+						</p:panelGrid>
+
+					</p:outputPanel>
+				</p:outputPanel>
+				<!-- 					</p:outputPanel> -->
+			</p:outputPanel>
+
+			<!-- Mensaje de espera -->
+			<p:ajaxStatus onsuccess="PF('statusDialog').hide()" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<p:outputLabel value="Espere un momento por favor......" />
+				<br />
+				<p:graphicImage library="imagenes" name="load.gif" />
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

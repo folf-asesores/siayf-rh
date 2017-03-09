@@ -1,0 +1,211 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Administrar Horario Empleado" />
+	<ui:param name="moduloSubtitulo" value="" />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{administrarHorarioEmpleadoController.init}"
+			type="preRenderView" />
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmHorarioEmpleado" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+
+			<p:panel styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+				<p:panelGrid styleClass=" ui-noborder sin_borde  fm-contenedor-60">
+
+					<p:row>
+						<p:column styleClass="ui-grid-col-8">
+							<p:outputLabel value="Empleado:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-8">
+							<p:autoComplete id="empleado"
+								value="#{administrarHorarioEmpleadoController.horarioEmpleadoFormModel.idEmpleado}"
+								completeMethod="#{administrarHorarioEmpleadoController.buscarEmpleadoAutoComplete}"
+								var="infoEmpleadoDTO" itemLabel="#{infoEmpleadoDTO.nombre}"
+								itemValue="#{infoEmpleadoDTO.idEmpleado}" maxResults="12"
+								styleClass="fm-bloque input_lng" forceSelection="true">
+
+								<p:ajax event="itemSelect"
+									listener="#{administrarHorarioEmpleadoController.onItemSelect}"
+									update="messages_generales,grTablaHorarios" />
+
+							</p:autoComplete>
+
+
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column styleClass="ui-grid-col-12">
+							<p:panelGrid columns="1" layout="grid"
+								styleClass="ui-panelgrid-blank " id="grTablaHorarios">
+								<f:facet name="header">
+
+									<p:panelGrid columns="2" layout="grid"
+										styleClass="header-panel-grid">
+										<h2
+											style="text-align: left; font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">
+											Jornada.</h2>
+										<p:commandButton id="btnNuevoHorario" title="Nuevo"
+											icon="ui-icon-plus" styleClass="fm-btn-inverso aling_right "
+											immediate="true" update="dlgNuevoHorario,messages_generales"
+											actionListener="#{administrarHorarioEmpleadoController.nuevaJornadaEmpleado}" />
+									</p:panelGrid>
+
+
+								</f:facet>
+								<p:dataTable var="horario" id="tblHorarios"
+									styleClass="tabla-personalizada" widgetVar="tblHorarios"
+									emptyMessage="No se encontraron registros"
+									value="#{administrarHorarioEmpleadoController.listadoHorarioEmpleadoViewModel}">
+
+
+
+									<p:column width="300" headerText="Jornada">
+										<p:outputLabel value="#{horario.descripcion}"></p:outputLabel>
+
+
+									</p:column>
+									<p:column headerText="Inicio">
+										<p:outputLabel value="#{horario.fechaInicio}">
+
+										</p:outputLabel>
+
+									</p:column>
+									<p:column headerText="Fin">
+										<p:outputLabel value="#{horario.fechaFin}">
+
+										</p:outputLabel>
+									</p:column>
+									<p:column>
+										<p:commandButton id="eliminar" icon="ui-icon-trash "
+											title="Eliminar" update="frmHorarioEmpleado:grTablaHorarios"
+											immediate="true" styleClass="fm-btn-peligro"
+											actionListener="#{administrarHorarioEmpleadoController.eliminarJornada(horario)}">
+											<p:confirm header="Confirmacion"
+												message="¿Deseas quitar la jornada: #{horario.descripcion} de la lista? "
+												icon="ui-icon-alert" />
+										</p:commandButton>
+									</p:column>
+								</p:dataTable>
+								<p:confirmDialog global="true" showEffect="fade"
+									hideEffect="fade">
+									<p:commandButton value="Si" type="button"
+										styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+									<p:commandButton value="No" type="button"
+										styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+								</p:confirmDialog>
+
+
+							</p:panelGrid>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+
+			</p:panel>
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+
+
+		</h:form>
+
+		<!-- Formulario Regla -->
+		<p:dialog id="dlgNuevoHorario" widgetVar="dlgNuevoHorario"
+			header="Agregar Jornada" styleClass="fm-responsivo-50" modal="true">
+			<h:form id="frmNuevoHorario">
+				<p:messages id="messages_nueva_regla" autoUpdate="true"
+					closable="true" />
+				<p:panelGrid
+					styleClass="ui-panelgrid-blank ui-noborder sin_borde fm-responsivo-100">
+					<p:row>
+						<p:column colspan="3">
+							<p:outputLabel value="Horario:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="3">
+
+							<p:selectOneMenu
+								value="#{administrarHorarioEmpleadoController.horarioEmpleadoFormModel.idJornada}"
+								filter="true" filterMatchMode="startsWith">
+								<f:selectItems
+									value="#{administrarHorarioEmpleadoController.listadoJornada}"
+									var="jornada" itemLabel="#{jornada.descripcion}"
+									itemValue="#{jornada.idJornada}" />
+
+							</p:selectOneMenu>
+
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Inicio:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Fin:" />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:calendar id="finicio"
+								value="#{administrarHorarioEmpleadoController.horarioEmpleadoFormModel.fechaInicio}" />
+						</p:column>
+						<p:column>
+							<p:calendar id="ffin"
+								value="#{administrarHorarioEmpleadoController.horarioEmpleadoFormModel.fechaFin}" />
+						</p:column>
+						<p:column>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+
+						</p:column>
+						<p:column>
+							<br />
+							<p:commandButton icon="ui-icon-plus" value="Agregar"
+								id="btnAgregar"
+								actionListener="#{administrarHorarioEmpleadoController.guardarJordana}"
+								update="frmHorarioEmpleado:grTablaHorarios">
+
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" value="Regresar"
+								type="button" onclick="PF('dlgNuevoHorario').hide()" />
+
+						</p:column>
+
+						<p:column>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
+
+	</ui:define>
+</ui:composition>

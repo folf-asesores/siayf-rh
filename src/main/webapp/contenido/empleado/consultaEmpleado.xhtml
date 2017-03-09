@@ -1,0 +1,768 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Consulta Empleado" />
+	<ui:param name="moduloTitulo" value="Consulta Empleado" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:outputPanel>
+
+
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+					<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+					<p:outputPanel id="outputCriterio">
+						<p:inputText id="criterio" required="true"
+							requiredMessage="Ingrese el criterio"
+							validator="#{consultaEmpleado.validarConsulta}"
+							value="#{consultaEmpleado.view.filtro.criterio}">
+
+							<p:clientValidator />
+							<p:ajax event="blur" update=":form:outputCriterio" />
+
+						</p:inputText>
+						<p:message for="criterio" />
+
+					</p:outputPanel>
+
+					<p:commandButton oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado" update="form"
+						action="#{consultaEmpleado.obtenerConsultaEmpleado()}" />
+
+				</p:panelGrid>
+
+			</p:outputPanel>
+
+			<p:dataTable id="empleados"
+				value="#{consultaEmpleado.view.empleados}" var="e"
+				rendered="#{consultaEmpleado.view.mostrarResultadoConsulta}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+				<p:column headerText="#{consultaEmpleado.view.tipoBusquedaHeader}"
+					sortBy="#{e.profesionEspecialidad}"
+					filterBy="#{e.profesionEspecialidad}"
+					rendered="#{consultaEmpleado.view.mostrarTipoBusquedaHeader}">
+					<h:outputText value="#{e.profesionEspecialidad}" />
+				</p:column>
+
+				<p:column headerText="Tipo Trabajador">
+					<h:outputText value="#{e.tipoEmpleado}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{e.estatus}" />
+				</p:column>
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+				<p:column headerText="Ver" style="text-align: center;" width="80">
+					<p:commandButton update="form" icon="fm-icon-eye" title="Ver"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						action="#{consultaEmpleado.verMenuDetalle(e.idEmpleado)}">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="2" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid"
+				columnClasses="ui-grid-col-2, ui-grid-col-10"
+				rendered="#{consultaEmpleado.view.mostrarMenuDetalles}">
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:commandButton value="EXPEDIENTE UNICO DE PERSONAL"
+						onsuccess="PF('statusDialog').hide()"
+						actionListener="#{consultaEmpleado.menu(7)}"
+						onstart="PF('statusDialog').show()" update="form" process="@this"
+						styleClass="fm-btn-elevado" />
+					<p:spacer height="10" />
+
+					<p:commandButton value="DATOS GENERALES"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{consultaEmpleado.menu(1)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="DEPENDIENTES ECONOMICOS"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{consultaEmpleado.menu(8)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="DOMICILIO"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{consultaEmpleado.menu(2)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="HISTORIAL ACADEMICO" update="form"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" process="@this"
+						actionListener="#{consultaEmpleado.menu(3)}"
+						styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="EXPERIENCIA LABORAL" update="form"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" process="@this"
+						actionListener="#{consultaEmpleado.menu(6)}"
+						styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10"></p:spacer>
+
+					<p:commandButton value="PUESTO" update="form"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" process="@this"
+						actionListener="#{consultaEmpleado.menu(9)}"
+						styleClass="fm-btn-elevado" />
+
+					<p:spacer height="10"></p:spacer>
+
+					<p:commandButton value="BITACORA MOVIMIENTOS" update="form"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" process="@this"
+						actionListener="#{consultaEmpleado.menu(10)}"
+						styleClass="fm-btn-elevado" />
+
+				</p:panelGrid>
+
+				<ui:remove>DATOS GENERALES</ui:remove>
+
+				<p:panelGrid id="datos" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank"
+					rendered="#{consultaEmpleado.view.mostrarDatosGenerales}">
+
+					<div></div>
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+						<f:facet name="header">
+							<h3>Datos Generales</h3>
+						</f:facet>
+
+						<p:outputLabel value="Nombre Completo:" />
+						<p:inputText disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.nombreCompleto}" />
+
+						<p:outputLabel value="Tipo Empleado"></p:outputLabel>
+						<h:outputText
+							value="#{consultaEmpleado.view.datoGeneral.tipoEmpleado}" />
+
+						<p:outputLabel value="Estatus"></p:outputLabel>
+						<h:outputText value="#{consultaEmpleado.view.datoGeneral.estatus}" />
+
+						<p:outputLabel for="rfc" value="Rfc:" />
+						<p:inputText id="rfc" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.rfc}" />
+
+						<p:outputLabel for="curp" value="Curp" />
+						<p:inputText id="curp" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.curp}" />
+
+						<p:outputLabel for="nombre" value="Nombre:" />
+						<p:inputText id="nombre" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.nombre}" />
+
+						<p:outputLabel for="apellidoPaterno" value="Apellido Paterno:" />
+						<p:inputText id="apellidoPaterno" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.apellidoPaterno}" />
+
+						<p:outputLabel for="apellidoMaterno" value="Apellido Materno:" />
+						<p:inputText id="apellidoMaterno" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.apellidoMaterno}" />
+
+						<p:outputLabel for="sexo" value="Sexo:" />
+						<p:selectOneMenu id="sexo" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.idSexo}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{consultaEmpleado.view.listaTiposSexos}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="estadoCivil" value="Estado Civil:" />
+						<p:selectOneMenu id="estadoCivil" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.idEstadoCivil}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{consultaEmpleado.view.listaEstadosCiviles}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+						<p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy"
+							disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.fechaNacimiento}" />
+
+						<p:outputLabel for="lugarNacimiento" value="Lugar Nacimiento:" />
+						<p:inputText id="lugarNacimiento" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.lugarNacimiento}" />
+
+						<p:outputLabel for="telefonos" value="Telefonos:" />
+						<p:inputMask id="telefonos" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.telefonos}"
+							mask="(999) 999-9999" />
+
+						<p:watermark for="correo" value="Email Address" />
+						<p:message for="correo" />
+						<p:outputLabel for="correo" value="Correo Electronico:" />
+						<p:inputText id="correo" disabled="true"
+							validatorMessage="Formato de correo invalido"
+							value="#{consultaEmpleado.view.datoGeneral.correo}">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+
+
+						<p:outputLabel for="tipoSangre" value="Tipo Sangre:" />
+						<p:selectOneMenu id="tipoSangre" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.idTipoSangre}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{consultaEmpleado.view.listaTiposSangre}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="peso" value="Peso:" />
+						<p:inputText id="peso" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.peso}" />
+
+						<p:outputLabel for="estatura" value="Estatura:" />
+						<p:inputText id="estatura" disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.estatura}" />
+
+						<p:outputLabel for="dependientes" value="Tiene Dependientes" />
+						<p:inputSwitch id="dependientes" offLabel="No" onLabel="Si"
+							disabled="true"
+							value="#{consultaEmpleado.view.datoGeneral.tienePersonasDependientes}" />
+
+						<p:outputLabel for="parentesco" value="Parentesco:"
+							rendered="#{consultaEmpleado.view.datoGeneral.tienePersonasDependientes}" />
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							rendered="#{consultaEmpleado.view.datoGeneral.tienePersonasDependientes}">
+							<p:selectManyCheckbox id="parentesco" disabled="true"
+								value="#{consultaEmpleado.view.datoGeneral.parentescos}"
+								layout="grid" columns="1"
+								rendered="#{consultaEmpleado.view.datoGeneral.tienePersonasDependientes}">
+								<f:selectItem itemLabel="Conyuge" itemValue="CONYUGE" />
+								<f:selectItem itemLabel="Hijos" itemValue="HIJOS" />
+								<f:selectItem itemLabel="Padres" itemValue="PADRE" />
+								<f:selectItem itemLabel="Otros" itemValue="OTRO" />
+							</p:selectManyCheckbox>
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid" styleClass="ui-panelgrid-blank">
+								<p:inputText placeholder="Numero conyuges:" disabled="true"
+									value="#{consultaEmpleado.view.datoGeneral.numeroConyuges}" />
+								<p:inputText placeholder="Numero hijos:" disabled="true"
+									value="#{consultaEmpleado.view.datoGeneral.numeroHijos}" />
+								<p:inputText placeholder="Numero padres:" disabled="true"
+									value="#{consultaEmpleado.view.datoGeneral.numeroPadres}" />
+								<p:inputText placeholder="Numero otros:" disabled="true"
+									value="#{consultaEmpleado.view.datoGeneral.numeroOtros}" />
+							</p:panelGrid>
+						</p:panelGrid>
+
+					</p:panelGrid>
+					<div></div>
+
+				</p:panelGrid>
+
+				<ui:remove>DEPENDIENTES ECONOMICOS</ui:remove>
+				<p:panelGrid id="panelDependientesEconomicos" layout="grid"
+					styleClass="ui-panelgrid-blank" columns="3"
+					columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+					rendered="#{consultaEmpleado.view.mostrarDependientesEconomicos}">
+
+					<div />
+
+					<p:panelGrid id="oanelGridDetalleDependientes" columns="4"
+						columnClasses="ui-grid-col-3" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+						<f:facet name="header">
+							<h3>Dependientes</h3>
+						</f:facet>
+
+						<p:outputLabel value="Numero Padres" />
+						<p:outputLabel value="Numero Hijos" />
+						<p:outputLabel value="Numero conyuges" />
+						<p:outputLabel value="Numero otros" />
+
+						<p:inputText
+							value="#{consultaEmpleado.view.datoGeneral.numeroPadres}"
+							disabled="true" />
+						<p:inputText
+							value="#{consultaEmpleado.view.datoGeneral.numeroHijos}"
+							disabled="true" />
+						<p:inputText
+							value="#{consultaEmpleado.view.datoGeneral.numeroConyuges}"
+							disabled="true" />
+						<p:inputText
+							value="#{consultaEmpleado.view.datoGeneral.numeroOtros}"
+							disabled="true" />
+
+					</p:panelGrid>
+
+					<p:outputPanel />
+					<p:outputPanel />
+
+					<p:outputPanel>
+						<p:dataTable id="dataTableDependientes"
+							emptyMessage="No se encontrarón resultados"
+							value="#{consultaEmpleado.view.dependientesEconomicos}" var="d"
+							paginator="true" paginatorPosition="bottom" rows="5"
+							paginatorAlwaysVisible="false" rowsPerPageTemplate="5,10,15">
+
+							<p:column headerText="Parentesco">
+								<h:outputText value="#{d.parentesco}" />
+							</p:column>
+
+							<p:column headerText="Otro Parentesco">
+								<h:outputText value="#{d.otroParentesco}" />
+							</p:column>
+
+							<p:column headerText="Nombre">
+								<h:outputText value="#{d.nombreCompleto}" />
+							</p:column>
+
+							<p:column headerText="Fecha Nacimiento">
+								<h:outputText value="#{d.fechaNacimiento}">
+									<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Curp">
+								<h:outputText value="#{d.curp}" />
+							</p:column>
+
+							<p:column headerText="Sexo">
+								<h:outputText value="#{d.sexo}" />
+							</p:column>
+
+						</p:dataTable>
+					</p:outputPanel>
+
+					<div />
+
+				</p:panelGrid>
+
+
+				<ui:remove>DOMICILIO</ui:remove>
+
+				<p:panelGrid id="datosDomicilio" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank"
+					rendered="#{consultaEmpleado.view.mostrarDomicilio}">
+					<p:spacer></p:spacer>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+						styleClass="ui-panelgrid-blank">
+
+						<f:facet name="header">
+							<h3>Domicilio</h3>
+						</f:facet>
+
+						<p:outputLabel value="Direccion Completa" />
+						<p:outputLabel
+							value="#{consultaEmpleado.view.datoGeneral.direccionCompleta}" />
+
+						<p:outputLabel for="estado" value="Estado:" />
+						<p:selectOneMenu id="estado" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.idEstado}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{actualizarEmpleado.view.listaEstados}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="municipio" value="Municipio:" />
+						<p:selectOneMenu id="municipio" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.idMunicipio}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{consultaEmpleado.view.listaMuncipios}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="asentamiento" value="Asentamiento:" />
+						<p:selectOneMenu id="asentamiento" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.idAsentamiento}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{consultaEmpleado.view.listaPoblaciones}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="calle" value="Calle:" />
+						<p:inputText id="calle" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.calle}" />
+
+						<p:outputLabel for="interior" value="Numero Interior:" />
+						<p:inputText id="interior" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.numeroInterior}" />
+
+						<p:outputLabel for="exterior" value="Numero Exterior:" />
+						<p:inputText id="exterior" disabled="true"
+							value="#{consultaEmpleado.view.domicilio.numeroExterior}" />
+
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+				<ui:remove>HISTORIAL ACADEMICO</ui:remove>
+
+				<p:panelGrid id="historialAcademico" columns="1"
+					columnClasses="ui-grid-col-12" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					rendered="#{consultaEmpleado.view.mostrarHistorialAcademico}">
+
+					<f:facet name="header">
+						<p:messages id="infoHistorial" showDetail="true" autoUpdate="true"
+							severity="warning" closable="true" />
+						<h3>Historiales Academicos</h3>
+					</f:facet>
+
+					<p:dataTable id="historialBasico"
+						emptyMessage="No se encontrarón resultados"
+						value="#{consultaEmpleado.view.listaHistorialesAcademicos}"
+						var="h" rowKey="#{h.idHistorialAcademico}">
+
+						<p:column headerText="Escolaridad">
+							<h:outputText value="#{h.nombreEscolaridad }" />
+						</p:column>
+						<p:column headerText="Institucion">
+							<h:outputText value="#{h.nombreInstitucion}" />
+						</p:column>
+						<p:column headerText="Constancia Máxima de Estudios">
+							<h:outputText value="#{h.estatusComprobatorio}" />
+						</p:column>
+
+						<p:column headerText="Fecha de Expedición de Cedula Profesional">
+							<h:outputText value="#{h.fechaExpedicionCedula}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Número de Cedula Profesional">
+							<h:outputText value="#{h.numeroCedula}" />
+						</p:column>
+
+						<p:column headerText="Inicio-Fin">
+							<h:outputText value="#{h.fechaInicial}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+							<h:outputText value=" / " />
+							<h:outputText value="#{h.fechaFinal}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Nombre Curso">
+							<h:outputText value="#{h.nombreCurso}" />
+						</p:column>
+						<p:column headerText="Duración Curso">
+							<h:outputText value="#{h.duracion}" />
+						</p:column>
+						<p:column headerText="Cursando">
+							<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+								disabled="true" />
+						</p:column>
+						<p:column headerText="Máximo estudio">
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{h.esMaximoEstudio}" disabled="true" />
+						</p:column>
+						<p:column headerText="Tiene Documentación Adjunta">
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{h.tieneDocumentacion}" disabled="true" />
+						</p:column>
+
+						<p:column headerText="Opción"
+							style="width:70px;text-align: center;">
+							<p:commandButton icon="fm-icon-attach" update="form"
+								action="#{consultaEmpleado.visualizarAdjuntoDocumentoHistorial(h)}">
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+
+					<p:panelGrid id="adjuntoHistorial" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{consultaEmpleado.view.mostrarAdjuntoDocumentoHistorial}">
+						<p:spacer />
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Información Documento Adjunto</h3>
+							</f:facet>
+
+							<p:dataList emptyMessage="No se encontrarón resultados..."
+								value="#{consultaEmpleado.view.documentosAdjuntosGradoAcademico}"
+								var="d" type="ordered">
+								<f:facet name="header">
+									Usted ya ha adjuntado los siguientes documentos en
+										#{consultaEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}
+								</f:facet>
+
+								<p:outputLabel value="#{d.nombreAdjunto}" />
+								<p:spacer width="20" />
+								<p:commandButton icon="fm-icon-download" title="Descargar"
+									update="@form" iconPos="right" ajax="false"
+									actionListener="#{consultaEmpleado.descargarAdjunto(d)}"
+									oncomplete="mymessages();" />
+
+
+							</p:dataList>
+
+							<p:outputLabel value="Escolaridad a la que pertece el documento" />
+							<h:outputText
+								value="#{consultaEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}" />
+
+							<p:outputLabel value="Institución" />
+							<h:outputText
+								value="#{consultaEmpleado.view.historialAcademicoSeleccionado.nombreInstitucion}" />
+
+						</p:panelGrid>
+						<p:spacer />
+
+					</p:panelGrid>
+
+
+
+				</p:panelGrid>
+
+
+				<ui:remove>EXPERIENCIA LABORAL</ui:remove>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					id="experienciaLaboral"
+					rendered="#{consultaEmpleado.view.mostrarExperienciaLaboral}">
+
+					<f:facet name="header">
+						<h3>Experiencias Laborales</h3>
+					</f:facet>
+
+					<div />
+					<p:dataTable id="experienciasLaborales"
+						emptyMessage="No se encontrarón resultados"
+						value="#{consultaEmpleado.view.listaExperienciasLaborales}"
+						var="e" rowKey="#{e.idExperienciaLaboral}" paginator="true"
+						paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+						<p:column headerText="Empresa">
+							<h:outputText value="#{e.nombreEmpresa}" />
+						</p:column>
+
+						<p:column headerText="Puesto">
+							<h:outputText value="#{e.puestoAspirante}" />
+						</p:column>
+
+						<p:column headerText="Duración">
+							<h:outputText value="#{e.fechaInicial}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+							<h:outputText value=" / " />
+							<h:outputText value="#{e.fechaFinal}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+					</p:dataTable>
+					<div />
+
+				</p:panelGrid>
+
+
+				<ui:remove>BITACORA MOVIMIENTOS</ui:remove>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					id="bitacoras" rendered="#{consultaEmpleado.view.mostrarBitacora}">
+
+					<f:facet name="header">
+						<h3>Bitacoras Movimientos</h3>
+					</f:facet>
+
+					<div />
+					<p:dataTable id="bitacorasMovimientos"
+						emptyMessage="No se encontrarón resultados"
+						value="#{consultaEmpleado.view.bitacorasMovimientos}" var="e"
+						paginator="true" paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+						<p:column headerText="Movimiento">
+							<h:outputText value="#{e.tipoModificacion}" />
+						</p:column>
+
+						<p:column headerText="Fecha Movimiento">
+							<h:outputText value="#{e.fecha}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Usuario">
+							<h:outputText value="#{e.usuario}" />
+						</p:column>
+
+						<p:column headerText="Estado anterior">
+							<h:outputText value="#{e.lccAnterior}" />
+						</p:column>
+
+						<p:column headerText="Estado actual">
+							<h:outputText value="#{e.lccActual}" />
+						</p:column>
+
+						<p:column headerText="Comentarios">
+							<h:outputText value="#{e.comentarios}" />
+						</p:column>
+
+					</p:dataTable>
+					<div />
+
+				</p:panelGrid>
+
+				<ui:remove>EXPEDIENTE </ui:remove>
+				<p:panelGrid rendered="#{consultaEmpleado.view.mostrarExpediente}"
+					columns="1" columnClasses="ui-grid-col-12" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+
+					<f:facet name="header">
+						<h3>Documento Expediente</h3>
+					</f:facet>
+
+					<p:dataTable id="documentos"
+						emptyMessage="No se encontrarón resultados"
+						value="#{consultaEmpleado.view.documentosExpedientes}" var="a"
+						rowKey="#{a.idAdjunto}">
+						<p:column headerText="Documento">
+							<h:outputText value="#{a.documentoAdjuntable.descripcion}" />
+						</p:column>
+						<p:column headerText="Detalle">
+							<h:outputText value="#{a.detalle}" />
+						</p:column>
+						<p:column headerText="Ver" style="text-align: center;" width="80">
+							<p:commandButton icon="fm-icon-eye" title="Ver"
+								actionListener="#{consultaEmpleado.visualizarImagen(a.idAdjunto)}"
+								update="form" />
+
+						</p:column>
+					</p:dataTable>
+
+					<p:panelGrid id="visualizarDoc" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{consultaEmpleado.view.mostrarImagenExpediente}">
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Imagen Expediente</h3>
+							</f:facet>
+							<p:graphicImage
+								value="#{vistaPreviaService.vistaPreviaAdjuntoEmpleado}"
+								styleClass="fm-width-100">
+								<f:param name="idAdjunto"
+									value="#{consultaEmpleado.view.idImagenExpediente}" />
+							</p:graphicImage>
+
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+
+				<ui:remove>PUESTO</ui:remove>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid "
+					rendered="#{consultaEmpleado.view.mostrarPuesto}">
+					<f:facet name="header">
+						<h3>Información puesto y configuración laboral</h3>
+					</f:facet>
+					<p:outputLabel value="Tipo Plaza:" />
+					<h:outputText
+						value="#{consultaEmpleado.view.puesto.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Adscripción:" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Subadscripción:" />
+					<h:outputText
+						value="#{consultaEmpleado.view.puesto.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio:" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función:" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.funcion}"></h:outputText>
+
+					<p:outputLabel value="Proyecto" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.proyecto}"></h:outputText>
+
+					<p:outputLabel value="Dependencia" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.dependencia}"></h:outputText>
+
+					<p:outputLabel value="Unidad Responsable" />
+					<h:outputText
+						value="#{consultaEmpleado.view.puesto.unidadResponsable}"></h:outputText>
+
+
+					<p:outputLabel value="Fuente financiamiento" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.fuente}"></h:outputText>
+
+					<p:outputLabel value="Subfuente financiamiento" />
+					<h:outputText value="#{consultaEmpleado.view.puesto.subfuente}"></h:outputText>
+				</p:panelGrid>
+
+
+
+			</p:panelGrid>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

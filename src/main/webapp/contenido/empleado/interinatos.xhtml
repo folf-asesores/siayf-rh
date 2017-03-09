@@ -1,0 +1,513 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:param name="ventanaTitulo" value="Interinatos" />
+	<ui:param name="moduloTitulo" value="Interinatos" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panel rendered="#{interinato.view.mostrarBusqueda}">
+				<p:panelGrid layout="grid" columns="2"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+					<p:outputLabel for="tipoBusqueda" value="Tipo Busqueda:" />
+					<p:selectOneRadio id="tipoBusqueda"
+						value="#{interinato.view.tipoBusqueda}">
+						<f:selectItems value="#{interinato.view.tiposBusqueda}" />
+						<p:ajax listener="#{interinato.consultarCandidatosInterinato()}"
+							update="form"></p:ajax>
+					</p:selectOneRadio>
+				</p:panelGrid>
+
+
+				<p:dataTable id="vacantesDisponibles"
+					value="#{interinato.view.puestosDisponibles}" var="p"
+					paginator="true" paginatorPosition="bottom" rows="10">
+					<p:column headerText="Empleado">
+						<h:outputText value="#{p.empleado}" />
+					</p:column>
+
+					<p:column headerText="Contratación ">
+						<h:outputText value="#{p.contratacion}" />
+					</p:column>
+
+					<p:column headerText="Adscripción">
+						<h:outputText value="#{p.adscripcion}" />
+					</p:column>
+
+					<p:column headerText="Subadscripción">
+						<h:outputText value="#{p.subadscripcion}" />
+					</p:column>
+
+					<p:column headerText="Servicio">
+						<h:outputText value="#{p.servicio}" />
+					</p:column>
+
+					<p:column headerText="Función">
+						<h:outputText value="#{p.funcion}">
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Fecha Incio">
+						<h:outputText value="#{p.fechaInicio}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Fecha Fin">
+						<h:outputText value="#{p.fechaFin}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Motivo">
+						<h:outputText value="#{p.motivoPermiso}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Ver">
+						<p:commandButton update="form"
+							actionListener="#{interinato.seleccionarPuesto(p)}"
+							icon="fm-icon-eye" title="Ver">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+			</p:panel>
+
+
+
+
+
+			<p:tabView id="registro"
+				rendered="#{interinato.view.mostrarRegistro}">
+				<p:tab title="Registro Solicitud Interinato">
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="fm-tarjeta ui-fluid ">
+						<f:facet name="header">
+							<h3>Registro</h3>
+						</f:facet>
+						<p:outputLabel value="Propietario plaza:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.empleado}"></h:outputText>
+
+						<p:outputLabel value="Tipo Plaza:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.contratacion}"></h:outputText>
+
+						<p:outputLabel value="Adscripción:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.adscripcion}"></h:outputText>
+
+						<p:outputLabel value="Subadscripción:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.subadscripcion}"></h:outputText>
+
+						<p:outputLabel value="Servicio:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.servicio}"></h:outputText>
+
+						<p:outputLabel value="Función:" />
+						<h:outputText
+							value="#{interinato.view.puestoSeleccionado.funcion}"></h:outputText>
+
+
+						<p:outputLabel for="fechaIngreso" value="Fecha Ingreso Interino*" />
+						<p:calendar id="fechaIngreso"
+							value="#{interinato.view.registro.fechaIngreso}">
+						</p:calendar>
+
+						<p:outputLabel for="cuenta" value="Cuenta Bancaria Interino:*" />
+						<p:inputText id="cuenta"
+							value="#{interinato.view.registro.numeroCuenta}"></p:inputText>
+
+						<p:outputLabel for="tipoCandidato" value="Tipo Candidato:" />
+						<p:selectOneRadio id="tipoCandidato"
+							value="#{interinato.view.registro.tipoCandidato}">
+							<f:selectItems value="#{interinato.view.listaTipoCandidato}" />
+						</p:selectOneRadio>
+
+						<p:outputLabel for="criterio"
+							value="Ingrese nombre, curp, rfc o perfil:" />
+						<p:panelGrid layout="grid" columns="2"
+							styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+							columnClasses="ui-grid-col-11 column-padding-left-0, ui-grid-col-1">
+
+							<p:inputText id="criterio"
+								value="#{interinato.view.criterioBusqueda}">
+							</p:inputText>
+
+							<p:commandButton icon="ui-icon-search"
+								styleClass="fm-btn-elevado"
+								onsuccess="PF('statusDialog').hide()" update="form"
+								actionListener="#{interinato.consultarCandidato()}"
+								oncomplete="mymessages();" onstart="PF('statusDialog').show()"></p:commandButton>
+						</p:panelGrid>
+
+					</p:panelGrid>
+
+					<p:dataTable id="empleados"
+						rendered="#{interinato.view.mostrarConsultaEmpleado}"
+						value="#{interinato.view.empleados}" var="e" paginator="true"
+						paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+						<p:column headerText="Numero Empleado">
+							<h:outputText value="#{e.numeroEmpleado}" />
+						</p:column>
+						<p:column headerText="Nombre">
+							<h:outputText value="#{e.nombre}" />
+						</p:column>
+						<p:column headerText="Curp">
+							<h:outputText value="#{e.curp}" />
+						</p:column>
+
+						<p:column headerText="Rfc">
+							<h:outputText value="#{e.rfc}" />
+						</p:column>
+
+						<p:column headerText="Domicilio">
+							<h:outputText value="#{e.direccion}" />
+						</p:column>
+						<p:column headerText="Ver" style="text-align: center;">
+							<p:commandButton update="form"
+								actionListener="#{interinato.seleccionarEmpleado(e.idEmpleado)}"
+								icon="fm-icon-eye" title="Ver">
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+
+					<p:dataTable id="aspirantes" var="a"
+						rendered="#{interinato.view.mostrarConsultaAspirante}"
+						value="#{interinato.view.aspirantes}" paginator="true"
+						paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+						<p:column headerText="Nombre">
+							<h:outputText value="#{a.nombre}" />
+						</p:column>
+
+						<p:column headerText="Curp">
+							<h:outputText value="#{a.curp}" />
+						</p:column>
+
+						<p:column headerText="Rfc">
+							<h:outputText value="#{a.rfc}" />
+						</p:column>
+
+						<p:column headerText="Dirección">
+							<h:outputText value="#{a.direccion}" />
+						</p:column>
+
+						<p:column headerText="Estatus">
+							<h:outputText value="#{a.estatus}" />
+						</p:column>
+
+						<p:column headerText="Ver" style="text-align: center;">
+							<p:commandButton update="form"
+								actionListener="#{interinato.seleccionarAspirante(a.idAspirante)}"
+								icon="fm-icon-eye" title="Ver">
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+				</p:tab>
+
+				<p:tab title="Detalle Movimiento">
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="fm-tarjeta ui-fluid ">
+						<f:facet name="header">
+							<h3>Detalle movimiento</h3>
+						</f:facet>
+
+						<p:outputLabel value="Fecha Movimiento" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.fechaMovimiento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+
+						<p:outputLabel value="Usuario movimiento" />
+						<h:outputText value="#{interinato.view.detalleMovimiento.usuario}"></h:outputText>
+
+						<p:outputLabel value="Movimiento" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.movimiento}"></h:outputText>
+
+						<p:outputLabel value="Fecha Inicio" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.fechaInicio}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+
+						<p:outputLabel value="Fecha Fin" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.fechaFin}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+
+						<p:outputLabel value="Número Oficio" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.numeroOficio}"></h:outputText>
+
+						<p:outputLabel value="Observaciones" />
+						<h:outputText
+							value="#{interinato.view.detalleMovimiento.observaciones}"></h:outputText>
+
+
+						<p:outputLabel value="Estatus" />
+						<h:outputText value="#{interinato.view.detalleMovimiento.estatus}"></h:outputText>
+					</p:panelGrid>
+				</p:tab>
+
+				<p:tab title="Datos Laborales">
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="fm-tarjeta ui-fluid ">
+						<f:facet name="header">
+							<h3>Datos Laborales</h3>
+						</f:facet>
+
+						<p:outputLabel value="Número Laboral:" />
+						<h:outputText value="#{interinato.view.detalle.numeroEmpleado}" />
+
+						<p:outputLabel value="Proyecto:" />
+						<h:outputText value="#{interinato.view.detalle.proyecto}" />
+
+						<p:outputLabel value="Dependencia:" />
+						<h:outputText value="#{interinato.view.detalle.dependencia}" />
+
+						<p:outputLabel value="Unidad Responsable:" />
+						<h:outputText value="#{interinato.view.detalle.unidadResponsable}" />
+
+						<p:outputLabel value="Nombramiento:" />
+						<h:outputText value="#{interinato.view.detalle.nombramiento}" />
+
+						<p:outputLabel value="Puesto:" />
+						<h:outputText value="#{interinato.view.detalle.puesto}" />
+
+						<p:outputLabel value="Fuente financiamiento:" />
+						<h:outputText
+							value="#{interinato.view.detalle.fuenteFinanciamiento}" />
+
+						<p:outputLabel value="Subfuente Financiamiento:" />
+						<h:outputText
+							value="#{interinato.view.detalle.subfuenteFinanciamiento}" />
+
+						<p:outputLabel value="Tipo Recurso:" />
+						<h:outputText value="#{interinato.view.detalle.tipoRecurso}" />
+
+						<p:outputLabel value="Sueldo Bruto Mensual:" />
+						<h:outputText
+							value="#{interinato.view.detalle.sueldo.sueldoBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Asignacion Bruta Mensual:" />
+						<h:outputText
+							value="#{interinato.view.detalle.sueldo.asignacionBrutaMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="A.G.A. Bruta Mensual:" />
+						<h:outputText
+							value="#{interinato.view.detalle.sueldo.agaBrutaMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Total Bruto Mensual:" />
+						<h:outputText
+							value="#{interinato.view.detalle.sueldo.totalBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+					</p:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+			<p:dialog header="Empleado Candidato Interinato" showEffect="Slide"
+				id="empleado_candidato"
+				visible="#{interinato.view.mostrarConfirmacionEmpleado}"
+				modal="true" closable="false" height="500">
+				<f:facet name="header">
+					<p:messages id="errorEmpleado" showDetail="true" autoUpdate="false"
+						severity="error" closable="true" />
+				</f:facet>
+
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Empleado</h3>
+					</f:facet>
+					<p:outputLabel value="Estatus" />
+					<h:outputText value="#{interinato.view.empleado.estatus}"></h:outputText>
+
+					<p:outputLabel value="Empleado" />
+					<h:outputText value="#{interinato.view.empleado.nombre}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{interinato.view.empleado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{interinato.view.empleado.curp}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{interinato.view.empleado.edad}"></h:outputText>
+
+					<p:outputLabel value="Nacionalidad" />
+					<h:outputText value="#{interinato.view.empleado.nacionalidad}"></h:outputText>
+
+					<p:outputLabel value="Sexo" />
+					<h:outputText value="#{interinato.view.empleado.sexo}"></h:outputText>
+
+					<p:outputLabel value="Estado Civil" />
+					<h:outputText value="#{interinato.view.empleado.estadoCivil}"></h:outputText>
+
+					<p:outputLabel value="Domicilio" />
+					<h:outputText value="#{interinato.view.empleado.domicilio}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText value="#{interinato.view.empleado.estudios}"></h:outputText>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+
+				<p:panelGrid columns="2"
+					rendered="#{interinato.view.mostrarDetallePuestoActivo}"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Laboral</h3>
+					</f:facet>
+
+					<p:outputLabel value="Contratación Actual" />
+					<h:outputText value="#{interinato.view.empleado.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Nombramiento Actual" />
+					<h:outputText value="#{interinato.view.empleado.nombramiento}"></h:outputText>
+
+					<p:outputLabel value="Puesto" />
+					<h:outputText value="#{interinato.view.empleado.puesto}"></h:outputText>
+
+					<p:outputLabel value="Codigo Puesto" />
+					<h:outputText value="#{interinato.view.empleado.codigoPuesto}"></h:outputText>
+
+					<p:outputLabel value="Unidad Responsable" />
+					<h:outputText value="#{interinato.view.empleado.unidadResponsable}"></h:outputText>
+
+					<p:outputLabel value="Adscripción" />
+					<h:outputText value="#{interinato.view.empleado.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Lugar adscripción" />
+					<h:outputText value="#{interinato.view.empleado.lugarAdscripcion}"></h:outputText>
+
+					<p:outputLabel value="Area adscripción" />
+					<h:outputText value="#{interinato.view.empleado.areaAdscripcion}"></h:outputText>
+
+
+				</p:panelGrid>
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton icon="ui-icon-circle-check"
+							update="form, errorEmpleado" oncomplete="mymessages();"
+							actionListener="#{interinato.solicitarInterinato()}" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							actionListener="#{interinato.ocultarEmpleado()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+						<p:spacer width="20" />
+						<p:commandButton icon="fm-icon-eye" update="empleado_candidato"
+							oncomplete="popupwindow('#{interinato.view.consulta}', 'newwindow');" />
+
+
+					</div>
+				</f:facet>
+			</p:dialog>
+
+			<p:dialog header="Empleado Candidato Interinato" showEffect="Slide"
+				id="aspirante_candidato"
+				visible="#{interinato.view.mostrarConfirmacionAspirante}"
+				modal="true" closable="false" height="500">
+				<f:facet name="header">
+					<p:messages id="errorAspirante" showDetail="true"
+						autoUpdate="false" severity="error" closable="true" />
+				</f:facet>
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Aspirante</h3>
+					</f:facet>
+
+					<p:outputLabel value="Nombre" />
+					<h:outputText value="#{interinato.view.aspirante.nombre}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{interinato.view.aspirante.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{interinato.view.aspirante.curp}"></h:outputText>
+
+					<p:outputLabel value="Dirección" />
+					<h:outputText value="#{interinato.view.aspirante.direccion}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{interinato.view.aspirante. edad}"></h:outputText>
+
+					<p:outputLabel value="Nacionalidad" />
+					<h:outputText value="#{interinato.view.aspirante.nacionalidad}"></h:outputText>
+
+					<p:outputLabel value="Sexo" />
+					<h:outputText value="#{interinato.view.aspirante.sexo}"></h:outputText>
+
+					<p:outputLabel value="Estado civil" />
+					<h:outputText value="#{interinato.view.aspirante.estadoCivil}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText value="#{interinato.view.aspirante.estudios}"></h:outputText>
+				</p:panelGrid>
+
+
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton icon="ui-icon-circle-check"
+							update="form, errorAspirante" oncomplete="mymessages();"
+							actionListener="#{interinato.solicitarInterinato()}" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							actionListener="#{interinato.ocultarAspirante()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+						<p:spacer width="20" />
+						<p:commandButton icon="fm-icon-eye" update="aspirante_candidato"
+							oncomplete="popupwindow('#{interinato.view.consulta}', 'newwindow');" />
+
+
+					</div>
+				</f:facet>
+			</p:dialog>
+
+			<h:outputScript target="body">
+			   
+function popupwindow(url, title) {      
+    window.open(url , title, "toolbar=no, scrollbars=yes, resizable=yes, top=170, left=170, width=800, height=600");        
+}    
+
+
+			</h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

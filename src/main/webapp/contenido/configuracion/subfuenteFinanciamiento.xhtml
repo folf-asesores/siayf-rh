@@ -1,0 +1,169 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Subfuente de Financiamiento" />
+	<ui:param name="moduloTitulo"  value="Subfuente de Financiamiento" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{subfuenteFinanciamiento.view.panelPrincipal}">
+				<p:panelGrid columns="4" layout="grid" >
+												 
+						<p:commandButton value="Gestionar..." 
+										action="#{subfuenteFinanciamiento.irGestionarSubfuenteFinanciamiento()}"
+										update=":form"
+										ajax="false"
+										disabled="#{subfuenteFinanciamiento.view.disabledIrGestionarSub}" />
+						  				
+						<p:commandButton id="eliminar"  
+                 						 value="Eliminar..." 
+                 						 onclick="PF('eliminarConfirm').show()"
+                 						 disabled="#{subfuenteFinanciamiento.view.disabledIrGestionarSub}" >
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar esta SUBFUENTE DE FINANCIAMIENTO?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirm">
+    					<p:commandButton value="Si" 
+                     					 action="#{subfuenteFinanciamiento.eliminarSubfuenteFinanciamiento()}" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"
+                     					 update=":form" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"/> 
+                     					 
+						</p:confirmDialog> 
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{subfuenteFinanciamiento.irNuevoSubfuenteFinanciamiento()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				
+				<p:dataTable id="listSubfuenteFinanciamiento"
+							 value="#{subfuenteFinanciamiento.view.listSubfuenteFinanciamiento}"
+							 var="subfuenteFinanciamientoItem"
+							 rowKey="#{subfuenteFinanciamientoItem.idSubfuenteFinanciamiento}"
+							 selection="#{subfuenteFinanciamiento.view.subfuenteFinanciamientoSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 paginator="true" 
+							 rows="8"
+							 paginatorAlwaysVisible="false"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{subfuenteFinanciamiento.onRowSelectSubfuenteFinanciamiento}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{subfuenteFinanciamiento.onRowUnselectSubfuenteFinanciamiento}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column style="width:66px" headerText="ID Base 36" />
+							<p:column headerText="Subfuente de Financiamiento" />
+							<p:column style="width:246px" headerText="Fuente de Financiamiento" />
+							<p:column headerText="Financiamiento OPD" />
+							
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{subfuenteFinanciamientoItem.idBase36}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{subfuenteFinanciamientoItem.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamiento}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamientoOPD}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta" 
+						 rendered="#{subfuenteFinanciamiento.view.panelGestion}">
+				<p:focus context="panelGestion"/>
+				
+				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							 
+					<p:outputLabel for="Descripcion" value="Descripcion" />        			
+        			<p:inputText id="Descripcion" value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.descripcion}"
+        						 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
+        				<p:ajax update="msgDescripcion"/>
+        				<p:clientValidator/>		 
+        			</p:inputText>
+        			<p:message id="msgDescripcion" for="Descripcion"/>
+        			<p:spacer/>
+        			
+        			<p:outputLabel for="B36" value="Base 36" />    			
+        			<p:inputText id="B36" value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.idBase36}"
+        						 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
+        				<p:ajax update="msgB36"/>
+        				<p:clientValidator/>		 
+        			</p:inputText>
+        			<p:message id="msgB36" for="B36"/>
+        			<p:spacer/>
+        		
+        			<p:outputLabel for="FF" value="Fuente de Financiamiento"/>
+        			<p:selectOneMenu id="FF"
+        							 value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.idFuenteFinanciamiento}" 
+        							 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
+            			<f:selectItem itemLabel="Elije una..." itemValue="" />
+            			<f:selectItems value="#{subfuenteFinanciamiento.view.listFuenteFinanciamiento}" 
+            						   var="itemFF" 
+            						   itemLabel="#{itemFF.descripcion}" 
+            						   itemValue="#{itemFF.idFuenteFinanciamiento}" />
+            			<p:ajax update="msgFF"/>
+        				<p:clientValidator/>			   
+        			</p:selectOneMenu>
+        			<p:message id="msgFF" for="FF"/>
+        			<p:spacer/>
+        			
+        			<p:outputLabel for="FFOPD" value="Financiamiento OPD"/>        			
+        			<p:selectOneMenu id="FFOPD"
+        							 value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.idFuenteFinanciamientoOPD}" 
+        							 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
+            			<f:selectItem itemLabel="Elije una..." itemValue="" />
+            			<f:selectItems value="#{subfuenteFinanciamiento.view.listFuenteFinanciamientoOPD}" 
+            						   var="itemFFOPD" 
+            						   itemLabel="#{itemFFOPD.descripcion}" 
+            						   itemValue="#{itemFFOPD.idFuenteFinanciamientoOPD}" />
+            			<p:ajax update="msgFFOPD"/>
+        				<p:clientValidator/>			   
+        			</p:selectOneMenu>
+        			<p:message id="msgFFOPD" for="FFOPD"/>
+        			<p:spacer/>	
+        			
+					</p:panelGrid>	
+				<p:panelGrid id="btn1" columns="3" layout="grid">
+					<p:commandButton value="Guardar"
+									action="#{subfuenteFinanciamiento.guardarSubfuenteFinanciamiento}"
+									update=":form"
+									style="float:left;"
+									ajax="false"/>
+					<p/>
+					<p:commandButton value="Cancelar"
+									action="#{subfuenteFinanciamiento.irPrincipal()}"
+									update=":form"
+									style="float:right;"
+									ajax="false"/>
+				</p:panelGrid>
+				
+			</p:outputPanel>
+				
+		</h:form>
+	</ui:define>
+</ui:composition>

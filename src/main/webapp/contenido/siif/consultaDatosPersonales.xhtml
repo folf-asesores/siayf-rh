@@ -1,0 +1,795 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Consulta Datos" />
+	<ui:param name="moduloTitulo" value="Consulta Datos" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal" styleClass="fm-tarjeta">
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-2" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel value="BUSQUEDA" />
+					<p:spacer />
+				</p:panelGrid>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-9,ui-grid-col-1.5"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:spacer />
+					<p:spacer />
+					<p:commandButton id="cancelar" value="Regresar"
+						update=":form"
+						style="float:right;" styleClass="fm-btn-elevdo"
+						action="#{consultaDatosEncabezado.irPrincipal}">
+						<f:setPropertyActionListener
+									target="#{consultaDatosEncabezado.view.idSiifEncabezado}"
+									value="#{reporteSiif.view.siifEncabezadoSelect.idSIIFEncabezado}" />
+					</p:commandButton>
+				</p:panelGrid>
+				<p:panelGrid columns="4"
+					rendered="#{consultaDatosPersonales.view.busqueda}"
+					columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-2, ui-grid-col-4"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel for="rfc" value="RFC" />
+					<p:inputText id="rfc"
+						value="#{consultaDatosPersonales.view.rfcCriterio}"
+						validator="#{consultaDatosPersonales.validatorConsulta}">
+						<p:ajax update="msgRfc" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:commandButton value="Buscar"
+						action="#{consultaDatosPersonales.filtrarPorCriterios()}"
+						icon="ui-icon-search" update=":form" ajax="false"
+						render="listSiifDatosLaborales">
+					</p:commandButton>
+					<p:spacer />
+					<p:spacer />
+					<p:message id="msgRfc" for="rfc" />
+				</p:panelGrid>
+				<p:outputLabel value="DATOS PERSONALES" />
+				<p:spacer />
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:commandButton id="gestionarDatosPersonales" value="Gestionar..."
+						action="#{consultaDatosPersonales.irGestionarDatosPersonales()}"
+						update=":form" style="float:left;" ajax="false"
+						disabled="#{consultaDatosPersonales.view.disabledIrGestionarDatosPersonales}" />
+					<p:spacer />
+					<p:commandButton id="nuevoDatoPersonal" value="Nuevo..."
+						action="#{consultaDatosPersonales.irNuevoDatosPersonales()}"
+						immediate="true" update=":form" style="float:right;" ajax="false" />
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					rendered="#{consultaDatosPersonales.view.tabPersonales}">
+<!-- 					scrollable="true" scrollHeight="100" -->
+					<p:dataTable id="listDatoPersonal"
+						value="#{consultaDatosPersonales.view.listDatosPersonalesLista}"
+						var="datoItem" rowKey="#{datoItem.idEmpleadoDatosPersonales}"
+						selection="#{consultaDatosPersonales.view.datoPersonalesSelect}"
+						selectionMode="single"
+						emptyMessage="Registros no encontrados.">
+
+						<p:ajax event="rowSelect"
+							listener="#{consultaDatosPersonales.onRowSelectDatosPersonales}"
+							update=":form" />
+						<p:ajax event="rowUnselect"
+							listener="#{consultaDatosPersonales.onRowUnselectDatosPersonales}"
+							update=":form" />
+
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column headerText="ID Personal" />
+								<p:column headerText="RFC" />
+								<p:column headerText="Nombre" />
+								<p:column headerText="Ap. Paterno" />
+								<p:column headerText="Ap. Materno" />
+
+							</p:row>
+						</p:columnGroup>
+						<p:column>
+							<h:outputText value="#{datoItem.idEmpleadoDatosPersonales}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{datoItem.rfc}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{datoItem.nombre}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{datoItem.apellidoPaterno}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{datoItem.apellidoMaterno}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelDatosPersonales" styleClass="fm-tarjeta"
+				rendered="#{consultaDatosPersonales.view.panelDatosPersonales}">
+
+				<p:focus context="panelDatosPersonales" />
+				<p:panelGrid columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-5,ui-grid-col-4,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="DP" value="ID Empleado" />
+					<p:inputText id="DP"
+						value="#{consultaDatosPersonales.view.datoPersonal.idEmpleadoDatosPersonales}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgDP" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgDP" for="DP" />
+					<p:spacer />
+
+					<p:outputLabel for="rfcP" value="RFC" />
+					<p:inputText id="rfcP"
+						value="#{consultaDatosPersonales.view.datoPersonal.rfc}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgrfcP" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgrfcP" for="rfcP" />
+					<p:spacer />
+
+					<p:outputLabel for="apPat" value="Apellido Paterno" />
+					<p:inputText id="apPat"
+						value="#{consultaDatosPersonales.view.datoPersonal.apellidoPaterno}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgPat" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgPat" for="apPat" />
+					<p:spacer />
+
+					<p:outputLabel for="apMat" value="Apellido Materno" />
+					<p:inputText id="apMat"
+						value="#{consultaDatosPersonales.view.datoPersonal.apellidoMaterno}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgMat" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgMat" for="apMat" />
+					<p:spacer />
+
+					<p:outputLabel for="nom" value="Nombre (s)" />
+					<p:inputText id="nom"
+						value="#{consultaDatosPersonales.view.datoPersonal.nombre}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgNomb" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgNomb" for="nom" />
+					<p:spacer />
+
+					<p:outputLabel for="fenac" value="Fecha Nacimiento" />
+					<p:calendar id="fenac"
+						value="#{consultaDatosPersonales.view.datoPersonal.fechaNacimiento}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}"
+						pattern="dd/MM/yyyy">
+						<p:ajax update="msgFN" />
+						<p:clientValidator />
+					</p:calendar>
+					<p:message id="msgFN" for="fenac" />
+					<p:spacer />
+
+					<p:outputLabel for="sexo" value="Sexo" />
+					<p:inputText id="sexo"
+						value="#{consultaDatosPersonales.view.datoPersonal.sexo}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgSexo" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgSexo" for="sexo" />
+					<p:spacer />
+
+					<p:outputLabel for="local" value="Localidad" />
+					<p:inputText id="local"
+						value="#{consultaDatosPersonales.view.datoPersonal.idLocalidad}"
+						disabled="true" placeholder="no habilitado">
+					</p:inputText>
+					<p:spacer />
+					<p:spacer />
+
+					<p:outputLabel for="colonia" value="Colonia" />
+					<p:inputText id="colonia"
+						value="#{consultaDatosPersonales.view.datoPersonal.idColonia}"
+						disabled="true" placeholder="no habilitado">
+					</p:inputText>
+					<p:spacer />
+					<p:spacer />
+
+					<p:outputLabel for="calle" value="Calle" />
+					<p:inputText id="calle"
+						value="#{consultaDatosPersonales.view.datoPersonal.calle}"
+						disabled="true" placeholder="no habilitado">
+						<p:ajax update="msgCalle" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgCalle" for="calle" />
+					<p:spacer />
+
+					<p:outputLabel for="numExt" value="Numero Exterior" />
+					<p:inputText id="numExt"
+						value="#{consultaDatosPersonales.view.datoPersonal.numeroExterior}"
+						disabled="true" placeholder="no habilitado">
+						<p:ajax update="msgExt" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgExt" for="numExt" />
+					<p:spacer />
+
+					<p:outputLabel for="numInt" value="Numero Interior" />
+					<p:inputText id="numInt"
+						value="#{consultaDatosPersonales.view.datoPersonal.numeroInterior}"
+						disabled="true" placeholder="no habilitado">
+						<p:ajax update="msgInt" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgInt" for="numInt" />
+					<p:spacer />
+
+					<p:outputLabel for="cp" value="Codigo Postal" />
+					<p:inputText id="cp"
+						value="#{consultaDatosPersonales.view.datoPersonal.codigoPostal}"
+						disabled="true" placeholder="no habilitado">
+						<p:ajax update="msgCP" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgCP" for="cp" />
+					<p:spacer />
+
+					<p:outputLabel for="tel" value="Telefono" />
+					<p:inputText id="tel"
+						value="#{consultaDatosPersonales.view.datoPersonal.telefono}"
+						disabled="true" placeholder="no habilitado">
+						<p:ajax update="msgTel" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgTel" for="tel" />
+					<p:spacer />
+
+					<p:outputLabel for="idEdoEmp" value="ID Estado" />
+					<p:inputText id="idEdoEmp"
+						value="#{consultaDatosPersonales.view.datoPersonal.idEstadoEmpleado}"
+						validator="#{consultaDatosPersonales.validatorDatosPersonales}">
+						<p:ajax update="msgEdoEmp" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgEdoEmp" for="idEdoEmp" />
+					<p:spacer />
+
+				</p:panelGrid>
+				<div>
+					<p:commandButton id="guardarSubsidio" value="Guardar"
+						action="#{consultaDatosPersonales.guardarDatosPersonales}"
+						update=":form" ajax="false" />
+
+					<p:commandButton value="Cancelar"
+						action="#{consultaDatosPersonales.cancelarPersonales()}"
+						immediate="true" update=":form" style="float:right;" ajax="false" />
+				</div>
+			</p:outputPanel>
+
+			<p:spacer />
+			<p:spacer />
+
+			<p:outputPanel id="formDatos"
+				styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputPanel id="panelPrincipalLaborales"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-4, ui-grid-col-2,ui-grid-col-2, ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:outputLabel value="DATOS LABORALES" />
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid">
+						<p:panelGrid columns="3"
+							columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<p:commandButton id="gestionarDatosLaborales"
+								value="Gestionar..."
+								action="#{consultaDatosPersonales.irGestionarDatosLaborales()}"
+								update=":form" style="float:left;" ajax="false"
+								disabled="#{consultaDatosPersonales.view.disabledIrGestionarDatosLaborales}" />
+							<p:spacer />
+							<p:commandButton id="nuevoDatoLaboral" value="Nuevo..."
+								action="#{consultaDatosPersonales.irNuevoDatosLaborales()}"
+								immediate="true" update=":form" style="float:right;"
+								ajax="false" />
+
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid"
+						rendered="#{consultaDatosPersonales.view.tabLaborales}">
+<!-- 						scrollable="true" scrollHeight="100" -->
+						<p:dataTable id="listSiifDatosLaborales"
+							value="#{consultaDatosPersonales.view.listSiifDatosLaborales}"
+							var="datosItem" rowKey="#{datosItem.idDatoLaboral}"
+							selection="#{consultaDatosPersonales.view.siifDatosLaboralesSelect}"
+							selectionMode="single"
+							emptyMessage="Registros no encontrados.">
+							<p:ajax event="rowSelect"
+								listener="#{consultaDatosPersonales.onRowSelectDatosLaborales}"
+								update=":form" />
+							<p:ajax event="rowUnselect"
+								listener="#{consultaDatosPersonales.onRowUnselectDatosLaborales}"
+								update=":form" />
+
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column headerText="ID Laboral" />
+									<p:column headerText="RFC" />
+									<p:column headerText="ID Plaza" />
+									<p:column headerText="ID Puesto" />
+									<p:column headerText="Fecha Ingreso" />
+									<p:column headerText="Estado" />
+								</p:row>
+							</p:columnGroup>
+							<p:column>
+								<h:outputText value="#{datosItem.idEmpleadoDatosLaborales}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{datosItem.rfc}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{datosItem.idPlaza}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{datosItem.idPuesto}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{datosItem.fechaIngreso}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{datosItem.idEstadoEmpleado}" />
+							</p:column>							
+
+						</p:dataTable>
+					</p:panelGrid>
+				</p:outputPanel>
+
+				<p:outputPanel id="panelDatosLaborales" styleClass="fm-tarjeta"
+					rendered="#{consultaDatosPersonales.view.panelDatosLaborales}">
+
+					<p:focus context="panelDatosLaborales" />
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-2, ui-grid-col-5,ui-grid-col-4,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel for="idLaboral" value="ID Laboral" />
+						<p:inputText id="idLaboral"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idEmpleadoDatosLaborales}"
+							disabled="false"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgidLaboral" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgidLaboral" for="idLaboral" />
+						<p:spacer />
+
+						<p:outputLabel for="idPersonal" value="ID Personal" />
+						<p:inputText id="idPersonal"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idEmpleadoDatosPersonales}"
+							disabled="false">
+							
+						</p:inputText>
+						<p:message id="msgidPersonal" for="idPersonal" />
+						<p:spacer />
+
+						<p:outputLabel for="rfc2" value="RFC" />
+						<p:inputText id="rfc2"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.rfc}"
+							disabled="false"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgRfc2" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgRfc2" for="rfc2" />
+						<p:spacer />
+						
+						<p:outputLabel for="idRfc2" value="ID RFC" />
+						<p:inputText id="idRfc2"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idRfc}"
+							disabled="false"
+							>
+							<p:ajax update="msgIdRfc2" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgIdRfc2" for="idRfc2" />
+						<p:spacer />
+
+						<p:outputLabel for="plaza" value="ID Plaza" />
+						<p:inputText id="plaza"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idPlaza}"
+							disabled="false"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgPlaza" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPlaza" for="plaza" />
+						<p:spacer />
+
+						<p:outputLabel for="proyecto" value="Proyecto" />
+						<p:selectOneMenu id="proyecto"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idProyecto}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems
+								value="#{consultaDatosPersonales.view.listProyecto}"
+								var="itemPro" itemLabel="#{itemPro.descripcion}"
+								itemValue="#{itemPro.idProyecto}" />
+							<p:ajax update="msgPro" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgPro" for="proyecto" />
+						<p:spacer />
+
+						<p:outputLabel for="dependencia" value="Dependencia" />
+						<p:selectOneMenu id="dependencia"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idDependencia}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems
+								value="#{consultaDatosPersonales.view.listDependencia}"
+								var="itemDependencia"
+								itemLabel="#{itemDependencia.idDependencia}  - #{itemDependencia.descripcion}"
+								itemValue="#{itemDependencia.idDependencia}" />
+							<p:ajax update="msgDep" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgDep" for="dependencia" />
+						<p:spacer />
+
+						<p:outputLabel for="unidad" value="Unidad Responsable" />
+						<p:selectOneMenu id="unidad"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idUnidadResponsable}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems value="#{consultaDatosPersonales.view.listUnidad}"
+								var="itemUnidad"
+								itemLabel="#{itemUnidad.idUnidadResponsable} - #{itemUnidad.descripcion}"
+								itemValue="#{itemUnidad.idUnidadResponsable}" />
+							<p:ajax update="msgUnidad" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgUnidad" for="unidad" />
+						<p:spacer />
+
+						<p:outputLabel for="nombramiento" value="Nombramiento" />
+						<p:selectOneMenu id="nombramiento"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.nombramiento}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems
+								value="#{consultaDatosPersonales.view.listNombramiento}"
+								var="itemNombramiento"
+								itemLabel="#{itemNombramiento.nombramiento} - #{itemNombramiento.descripcion}"
+								itemValue="#{itemNombramiento.nombramiento}" />
+							<p:ajax update="msgNom" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgNom" for="nombramiento" />
+						<p:spacer />
+
+						<p:outputLabel for="puesto" value="Puesto" />
+						<p:selectOneMenu id="puesto"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idPuesto}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems value="#{consultaDatosPersonales.view.listPuesto}"
+								var="itemPuesto"
+								itemLabel="#{itemPuesto.codigo} - #{itemPuesto.puesto}"
+								itemValue="#{itemPuesto.codigo}" />
+							<p:ajax update="msgPuesto" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgPuesto" for="puesto" />
+						<p:spacer />
+
+						<p:outputLabel for="sindicato" value="Sindicato" />
+						<p:selectOneMenu id="sindicato"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idSindicato}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItem itemLabel="SI" itemValue="1" />
+							<f:selectItem itemLabel="NO" itemValue="0" />
+							<p:ajax update="msgSin" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgSin" for="sindicato" />
+						<p:spacer />
+
+						<p:outputLabel for="habilitado" value="Habilitado" />
+						<p:selectOneMenu id="habilitado"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idHabilitado}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItem itemLabel="SI" itemValue="1" />
+							<f:selectItem itemLabel="NO" itemValue="0" />
+							<p:ajax update="msgHab" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgHab" for="habilitado" />
+						<p:spacer />
+
+						<p:outputLabel for="fingreso" value="Fecha Ingreso" />
+						<p:calendar id="fingreso"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.fechaIngreso}"
+							pattern="dd/MM/yyyy"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgFI" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgFI" for="fingreso" />
+						<p:spacer />
+
+						<p:outputLabel for="noQ" value="No. de Quinquenio" />
+						<p:inputText id="noQ"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.noQuinquenios}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgNoQ" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgNoQ" for="noQ" />
+						<p:spacer />
+
+						<p:outputLabel for="sdoM" value="sueldo Mensual" />
+						<p:inputText id="sdoM"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.sueldoMensual}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgSdoM" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgSdoM" for="sdoM" />
+						<p:spacer />
+
+						<p:outputLabel for="percepcion" value="Percepcion Complementaria" />
+						<p:inputText id="percepcion"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.percepcionComplementaria}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgPerc" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPerc" for="percepcion" />
+						<p:spacer />
+
+						<p:outputLabel for="despensa" value="Despensa" />
+						<p:inputText id="despensa"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.despensa}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgDesp" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgDesp" for="despensa" />
+						<p:spacer />
+
+						<p:outputLabel for="incA" value="Incentivo de Ahorro" />
+						<p:inputText id="incA"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.incentivoAhorro}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgIncA" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgIncA" for="incA" />
+						<p:spacer />
+
+						<p:outputLabel for="compensacion" value="Compensacion" />
+						<p:inputText id="compensacion"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.compensacion}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgComp" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgComp" for="compensacion" />
+						<p:spacer />
+
+						<p:outputLabel for="quin" value="Quinquenio" />
+						<p:inputText id="quin"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.quinquenio}"
+							disabled="true" placeholder="no habilitado">
+							<p:ajax update="msgQuin" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgQuin" for="quin" />
+						<p:spacer />
+
+						<p:outputLabel for="cuenta" value="No. de Cuenta" />
+						<p:inputText id="cuenta"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.noCuenta}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgCuenta" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgCuenta" for="cuenta" />
+						<p:spacer />
+
+						<p:outputLabel for="policia" value="Policia" />
+						<p:selectOneMenu id="policia"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.policia}"
+							disabled="true" placeholder="no habilitado">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItem itemLabel="SI" itemValue="1" />
+							<f:selectItem itemLabel="NO" itemValue="0" />
+							<p:ajax update="msgPol" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgPol" for="policia" />
+						<p:spacer />
+
+						<p:outputLabel for="idFF" value="Fuente de Financiamiento" />
+						<p:selectOneMenu id="idFF"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idFuenteFinanciamiento}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems value="#{consultaDatosPersonales.view.listFF}"
+								var="itemFF"
+								itemLabel="#{itemFF.idFuenteFinanciamiento} - #{itemFF.descripcion}"
+								itemValue="#{itemFF.idFuenteFinanciamiento}" />
+							<p:ajax update="msgFF" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgFF" for="idFF" />
+						<p:spacer />
+
+						<p:outputLabel for="trecurso" value="Tipo de Recurso" />
+						<p:inputText id="trecurso"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idTipoRecurso}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgTR" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgTR" for="trecurso" />
+						<p:spacer />
+
+						<p:outputLabel for="idEE" value="Estado del Empleado" />
+						<p:inputText id="idEE"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idEstadoEmpleado}"
+							validator="#{consultaDatosPersonales.validatorDatosLaborales}">
+							<p:ajax update="msgEE" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgEE" for="idEE" />
+						<p:spacer />
+
+						<p:outputLabel for="idSF" value="Subfuente de Financiamiento" />
+						<p:selectOneMenu id="idSF"
+							value="#{consultaDatosPersonales.view.siifDatosLaborales.idSubfuenteFinanciamiento}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItems value="#{consultaDatosPersonales.view.listSF}"
+								var="itemSF" itemLabel="#{itemSF.idSubfuenteFinanciamiento} - #{itemSF.descripcion}"
+								itemValue="#{itemSF.idSubfuenteFinanciamiento}" />
+							<p:ajax update="msgSF" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgSF" for="idSF" />
+						<p:spacer />
+
+						<p:outputLabel for="idSF" value="Subfuente de Financiamiento" rendered="false"/>
+<!-- 						rendered="#{consultaDatosPersonales.view.panelSubfuentes}" -->
+						<p:outputPanel id="panelSubfuente" rendered="false">
+							<p:panelGrid columns="3"
+								columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<p:spacer />
+							</p:panelGrid>
+<!-- 							scrollable="true" scrollHeight="150" editable="true" -->
+							<p:dataTable id="listSiifLaboralesSubfuentes"
+								value="#{consultaDatosPersonales.view.listSiifLaboralesSubfuentes}"
+								var="siifItem" style="width:650px;"
+								rowKey="#{siifItem.idSiifLaboralesSubfuentes}"
+								selectionMode="single" editMode="cell"
+								selection="#{consultaDatosPersonales.view.siifLaboralesSubfuentesSelect}"
+								
+								emptyMessage="Registros no encontrados.">
+								<f:facet name="header">
+									<div align="right">
+										<p:commandLink title="Nuevo registro"
+											actionListener="#{consultaDatosPersonales.irNuevoSubfuente()}"
+											update=":form:listSiifLaboralesSubfuentes" ajax="true">
+											<span class="ui-icon-plus fm-font-color-white" />
+										</p:commandLink>
+									</div>
+								</f:facet>
+								<p:columnGroup type="header">
+									<p:row>
+										<p:column headerText="Subfuente de Financiamiento"
+											style="width:80%;" />
+										<p:column style="width:10%;" />
+									</p:row>
+								</p:columnGroup>
+								<p:column>
+									<p:cellEditor>
+										<f:facet name="output">
+											<h:selectOneMenu id="idSF"
+												value="#{siifItem.idSubfuenteFinanciamiento}">
+												<f:selectItem itemLabel="Elije uno..." itemValue="" />
+												<f:selectItems
+													value="#{siifLaboralesSubfuentes.view.listSubfuenteF}"
+													var="itemSubfuentes"
+													itemLabel="#{itemSubfuentes.descripcion}"
+													itemValue="#{itemSubfuentes.idSubfuenteFinanciamiento}" />
+											</h:selectOneMenu>
+										</f:facet>
+										<f:facet name="input">
+											<h:selectOneMenu id="SF"
+												value="#{siifItem.idSubfuenteFinanciamiento}">
+												<f:selectItem itemLabel="Elije uno..." itemValue="" />
+												<f:selectItems
+													value="#{siifLaboralesSubfuentes.view.listSubfuenteF}"
+													var="subfuentesItem"
+													itemLabel="#{subfuentesItem.descripcion}"
+													itemValue="#{subfuentesItem.idSubfuenteFinanciamiento}" />
+											</h:selectOneMenu>
+										</f:facet>
+									</p:cellEditor>
+								</p:column>
+								<p:column>
+									<p:commandButton icon="ui-icon-trash" update="form"
+										action="#{consultaDatosPersonales.mostrarDialogoEliminar()}"
+										title="Eliminar: #{siifItem.idSubfuenteFinanciamiento}"
+										styleClass="fm-btn-peligro fm-btn-elevado" process="@this">
+										<f:setPropertyActionListener value="#{siifItem}"
+											target="#{consultaDatosPersonales.view.siifLaboralesSubfuentesSelect}" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:outputPanel>
+						<p:spacer />
+						<p:spacer />
+
+					</p:panelGrid>
+					<p:spacer />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:commandButton id="guardarLaboral" value="Guardar"
+							action="#{consultaDatosPersonales.guardarDatosLaborales}"
+							update=":form" ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Cancelar"
+							action="#{consultaDatosPersonales.cancelarLaborales()}"
+							immediate="true" update=":form" style="float:right;" ajax="false" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:outputPanel>
+			<p:confirmDialog
+				message="¿Quiere eliminar la subfuente seleccionada?"
+				visible="#{consultaDatosPersonales.view.dialogoEliminar}"
+				showEffect="fade" id="confirm" hideEffect="explode"
+				widgetVar="eliminarConfirm">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+					<p:spacer />
+					<p:commandButton icon="ui-icon-circle-close" update="confirm"
+						action="#{consultaDatosPersonales.ocultarDialogoEliminar()}" />
+					<p:commandButton icon="ui-icon-circle-check"
+						action="#{consultaDatosPersonales.eliminarSubfuentes()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
+						update=":form:listSiifLaboralesSubfuentes" />
+					<p:spacer />
+				</p:panelGrid>
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

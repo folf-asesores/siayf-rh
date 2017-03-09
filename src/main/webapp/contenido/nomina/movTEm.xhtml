@@ -1,0 +1,132 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos de Nomina" />
+	<ui:param name="moduloTitulo" value="Movimientos de Nomina" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+
+
+			<p:panel id="panelPrincipal"
+				rendered="#{configuracionTiposMovimientoNominaController.mostrarPanelbusqueda}">
+
+				<p:outputLabel for="tipoMovimiento" value="Tipo Movimiento Nomina: " />
+				<p:selectOneMenu id="tipoMovimiento"
+					value="#{configuracionTiposMovimientoNominaController.timovSeleccionado}"
+					filter="true" filterMatchMode="startsWith">
+					<f:selectItem itemValue="0" itemLabel="Seleccione una opcion..." />
+					<f:selectItems
+						value="#{configuracionTiposMovimientoNominaController.itemsTiposMov}" />
+				</p:selectOneMenu>
+				<p:spacer width="30px" />
+
+				<p:commandButton id="continuar" value="Continuar"
+					actionListener="#{configuracionTiposMovimientoNominaController.buscarConfiguracion()}"
+					update="form" />
+				<br />
+				<br />
+
+			</p:panel>
+
+			<p:panel id="panelMov1" />
+			<p:panelGrid columns="4" id="grid1"
+				columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-2,ui-grid-col-3"
+				layout="grid" styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
+
+				<p:outputPanel>
+					<p:outputLabel for="fechaDoc" value="Fecha Documento: " />
+					<p:calendar id="fechaDoc"
+						value="#{movimientosFijos.newMovimientoFijoDTO.fechaDocumento}"
+						validator="#{movimientosFijos.validator}">
+						<p:ajax update="msgfechaDoc" event="blur" />
+						<p:clientValidator />
+					</p:calendar>
+					<p:message id="msgfechaDoc" for="fechaDoc" />
+				</p:outputPanel>
+				<p:outputPanel>
+					<p:outputLabel for="folio" value="Folio Documento: " />
+					<p:inputText id="folio"
+						value="#{movimientosFijos.newMovimientoFijoDTO.folio}"
+						validator="#{movimientosFijos.validator}">
+						<p:ajax update="msgfolio" event="blur" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfolio" for="folio" />
+				</p:outputPanel>
+				<p:spacer />
+				<p:spacer />
+
+				<p:outputPanel>
+					<p:outputLabel for="quincenaFinal" value="Quincena Final: " />
+					<p:selectOneMenu id="quincenaFinal"
+						value="#{movimientosFijos.newMovimientoFijoDTO.quincenaFinal}"
+						validator="#{movimientosFijos.validator}">
+						<f:selectItems value="#{movimientosFijos.quincenas}" />
+						<p:ajax update="msgquincenaFinal" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgquincenaFinal" for="quincenaFinal" />
+				</p:outputPanel>
+
+				<p:outputPanel>
+					<p:outputLabel for="anioFinal" value="Año final: " />
+					<p:inputText id="anioFinal" required="true"
+						requiredMessage="El año final es requerida"
+						value="#{movimientosFijos.newMovimientoFijoDTO.anioFinal}"
+						validator="#{movimientosFijos.validator}">
+						<p:ajax update="msganioFinal" event="blur" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msganioFinal" for="anioFinal" />
+				</p:outputPanel>
+
+				<p:outputPanel>
+					<p:outputLabel for="importeQuincenal" value="Importe a descontar: " />
+					<p:inputText id="importeQuincenal" placeholder="$00.00"
+						required="true" requiredMessage="El importe es requerida"
+						value="#{movimientosFijos.newMovimientoFijoDTO.importeDescontado}"
+						validator="#{movimientosFijos.validator}">
+						<p:ajax update="msgimporteQuincenal" event="blur" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgimporteQuincenal" for="importeQuincenal" />
+				</p:outputPanel>
+
+				<p:outputPanel>
+					<p:outputLabel for="concepto" value="Concepto: " />
+					<p:selectOneMenu id="concepto"
+						value="#{movimientosFijos.newMovimientoFijoDTO.idTerceroInstitucional}"
+						validator="#{movimientosFijos.validator}">
+						<p:ajax update="msgconcepto" />
+						<p:clientValidator />
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+						<f:selectItems value="#{movimientosFijos.listaConceptos}" />
+					</p:selectOneMenu>
+					<p:message id="msgconcepto" for="concepto" />
+				</p:outputPanel>
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:commandButton value="Agregar Movimiento" id="agregar"
+					disabled="#{movimientosFijos.permitirAltaMovimiento}"
+					icon="ui-icon-plusthick" iconPos="right"
+					update="tablemovimientos panelDatos"
+					actionListener="#{movimientosFijos.agregarMovimiento()}" />
+				<p:commandButton id="regresar" value="Regresar"
+					icon="ui-icon-closethick" style="height:60px" iconPos="right"
+					action="#{movimientosFijos.irInicio()}" process="@this"
+					styleClass="fm-btn-peligro fm-btn-elevado" />
+				<p:spacer />
+
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

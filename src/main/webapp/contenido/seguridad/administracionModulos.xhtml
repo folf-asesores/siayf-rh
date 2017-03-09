@@ -1,0 +1,184 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Modulos" />
+
+	<ui:param name="moduloTitulo" value="Modulos" />
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:messages id="messages_generales" showDetail="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+
+			<p:dataTable id="tablaModulos" var="modulo" scrollable="true"
+				widgetVar="modulosTable" rows="10" paginator="true"
+				paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30"
+				value="#{modulosController.listaModulos}" style="margin-bottom:20px">
+
+				<p:column headerText="Nombre Módulo" filterBy="#{modulo.nombre}"
+					filterMatchMode="contains">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{modulo.nombre}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombreModuloEdit" value="#{modulo.nombre}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="URL" filterBy="#{modulo.url}"
+					filterMatchMode="contains">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{modulo.url}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="urlEdit" value="#{modulo.url}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Habilitado" filterBy="#{modulo.habilitado}"
+					filterMatchMode="equals">
+					<f:facet name="filter">
+						<p:selectOneButton onchange="PF('modulosTable').filter()">
+							<f:converter converterId="javax.faces.Boolean" />
+							<f:selectItem itemLabel="Todo" itemValue="" />
+							<f:selectItem itemLabel="SI" itemValue="true" />
+							<f:selectItem itemLabel="NO" itemValue="false" />
+						</p:selectOneButton>
+					</f:facet>
+					<p:cellEditor>
+
+						<f:facet name="output">
+							<h:outputText value="#{modulo.habilitado?'SI':'NO'}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectBooleanButton id="habilitado"
+								value="#{modulo.habilitado}" onLabel="SI" offLabel="No"
+								style="width:60px" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Área" filterBy="#{modulo.nombreArea}"
+					filterMatchMode="contains">
+					<p:cellEditor>
+
+						<f:facet name="output">
+							<h:outputText value="#{modulo.nombreArea}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="nombreAreaEdit" value="#{modulo.nombreArea}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:50px; text-align: center;" headerText="Ver">
+					<p:commandButton id="detalleModulo"
+						styleClass="fm-btn-exitoso fm-btn-elevado" process="@this"
+						update="form" icon="ui-icon-search">
+						<f:setPropertyActionListener value="#{modulo}"
+							target="#{modulosController.moduloSeleccionado}"
+							for="detalleModulo" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+
+
+			<p:panel id="ConfiguracionModulo">
+				<p:panelGrid id="nuevoModuloGrid" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-4">
+
+					<p:outputLabel value="Nombre:" />
+					<p:outputPanel>
+						<p:inputText id="nombreModulo"
+							value="#{modulosController.moduloNew.nombre}"
+							validator="#{modulosController.validatorModulo}">
+							<p:ajax update="msgnombreModulo" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgnombreModulo" for="nombreModulo" />
+					</p:outputPanel>
+
+					<p:outputLabel for="url" value="URL:" />
+					<p:outputPanel>
+						<p:inputText id="url" value="#{modulosController.moduloNew.url}"
+							validator="#{modulosController.validatorModulo}">
+							<p:ajax update="msgUrl" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgUrl" for="url" />
+					</p:outputPanel>
+
+					<p:outputLabel value="Habilitado" />
+					<p:selectBooleanCheckbox
+						value="#{modulosController.moduloNew.habilitado}" />
+
+					<p:outputLabel for="idArea" value="Área" />
+					<p:outputPanel>
+						<p:selectOneMenu id="idArea"
+							value="#{modulosController.moduloNew.idArea}"
+							validator="#{modulosController.validatorModulo}">
+							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
+							<f:selectItems var="area" value="#{modulosController.listaAreas}"
+								itemValue="#{area.idArea}" itemLabel="#{area.nombreArea}" />
+							<p:ajax update="msgidArea" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgidArea" for="idArea" />
+					</p:outputPanel>
+					<p:spacer />
+
+					<p:commandButton id="guardarModulo" value="Agregar Modulo"
+						update="tablaModulos nuevoModuloGrid"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						actionListener="#{modulosController.agregarModulo()}"
+						icon="ui-icon-check" />
+				</p:panelGrid>
+			</p:panel>
+
+			<p:confirmDialog header="Modulo" severity="alert"
+				message="¿Desea Eliminar el Registro de #{modulosController.moduloSeleccionado.nombre}?"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEliminarModulo">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						process="@this" iconPos="right"
+						styleClass="fm-btn-exitoso fm-btn-elevado"
+						action="#{modulosController.eliminarModulo()}"
+						oncomplete="PF('dialogEliminarModulo').hide()"
+						update="tablaModulos messages_generales growl" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						process="@this" update="tablaModulos messages_generales growl"
+						iconPos="right" styleClass="fm-btn-error fm-btn-elevado"
+						oncomplete="PF('dialogEliminarModulo').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

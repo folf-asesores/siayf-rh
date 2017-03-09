@@ -1,0 +1,128 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+    
+        <ui:param name="ventanaTitulo" value="Areas" />
+        <ui:param name="moduloTitulo"  value="Areas" />
+	<ui:define name="moduloContenido">
+		<h:form id="formTree">
+			<p:growl id="messages" showDetail="true" />
+			<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
+				<p:selectBooleanButton id="value2" value="#{area.value2}"
+					onLabel="VERTICAL" offLabel="HORIZONTAL" style="width:180px">
+					<p:ajax update="tree" listener="#{area.addMessage}"
+						oncomplete="javascript:location.reload(true)" />
+				</p:selectBooleanButton>
+			</h:panelGrid>
+			<p:tree style="width:100%;" id="tree" value="#{area.root}" var="node"
+				selectionMode="single" selection="#{area.selectedNode}"
+				animate="true" cache="true" dynamic="true"
+				orientation="#{area.orientacion}">
+				<p:ajax event="expand" update=":formTree:panel"
+					listener="#{area.onNodeExpand}" />
+				<p:ajax event="collapse" update=":formTree:panel"
+					listener="#{area.onNodeCollapse}" />
+				<p:ajax event="select" update=":formTree:panel"
+					listener="#{area.onNodeSelect}" />
+				<p:ajax event="unselect" update=":formTree:tree"
+					listener="#{area.onNodeUnselect}" />
+				<p:treeNode expandedIcon="ui-icon-folder-open"
+					collapsedIcon="ui-icon-folder-collapsed">
+					<h:outputText value="#{node}" />
+				</p:treeNode>
+			</p:tree>
+			<p:panelGrid style="width:100%;" styleClass="ui-responsive"
+				id="panel">
+				<p:spacer></p:spacer>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Nueva Area" icon="ui-icon-plus"
+							type="button" iconPos="right" style="float:right;"
+							onclick="PF('dlg').show();"
+							disabled="#{area.areaView.habilitarBotonNuevaArea}" />
+						<p:commandButton value="Editar Area" icon="ui-icon-pencil"
+							type="button" iconPos="right" style="float:right;"
+							onclick="PF('dlg1').show();"
+							disabled="#{area.areaView.habilitarBotonEdicion}" />
+						<p:commandButton value="Eliminar Area" icon="ui-icon-trash"
+							type="button" iconPos="right" style="float:right;"
+							onclick="PF('dlg2').show();"
+							disabled="#{area.areaView.habilitarBotonEliminar}" />
+						<p:commandButton value="Información Area" icon="ui-icon-info"
+							type="button" iconPos="right" style="float:right;"
+							onclick="PF('dlg3').show();"
+							disabled="#{area.areaView.habilitarBotonNuevaArea}" />
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			<p:dialog header="Registrar Area" widgetVar="dlg" focus="area"
+				modal="true" dynamic="true">
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="area" value="Área:" />
+					<p:inputText id="area" label="area"
+						value="#{area.areaView.areaDTO.nombre}" />
+
+					<h:outputLabel for="descripcion" value="Descripción:" />
+					<p:inputText id="descripcion" label="descripcion"
+						value="#{area.areaView.areaDTO.descripcion}" />
+
+					<h:outputLabel for="tirular" value="Titular:" />
+					<p:inputText id="tirular" label="titular"
+						value="#{area.areaView.areaDTO.titular}" />
+
+					<p:commandButton value="Registrar" icon="ui-icon-plus"
+						actionListener="#{area.agregarArea}" iconPos="right"
+						style="float:right;" ajax="false" />
+				</h:panelGrid>
+			</p:dialog>
+
+			<p:dialog header="Editar Área" widgetVar="dlg1" focus="areaEditar"
+				modal="true" dynamic="true">
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="areaEditar" value="Área:" />
+					<p:inputText id="areaEditar" label="areaEditar"
+						value="#{area.areaView.editarAreaDTO.nombre}" />
+
+					<h:outputLabel for="descripcionEditar" value="Descripción:" />
+					<p:inputText id="descripcionEditar" label="descripcionEditar"
+						value="#{area.areaView.editarAreaDTO.descripcion}" />
+
+					<h:outputLabel for="tirularEditar" value="Titular:" />
+					<p:inputText id="tirularEditar" label="titularEditar"
+						value="#{area.areaView.editarAreaDTO.titular}" />
+
+					<p:commandButton value="Actualizar" icon="ui-icon-pencil"
+						actionListener="#{area.actualizarArbol}" iconPos="right"
+						style="float:right;" ajax="false" update="tree"
+						oncomplete="javascript:location.reload(true)" />
+				</h:panelGrid>
+			</p:dialog>
+
+			<p:dialog header="Desea Eliminar Información" widgetVar="dlg2"
+				modal="true" dynamic="true">
+				<p:commandButton value="SI" styleClass="ui-confirmdialog-yes"
+					icon="ui-icon-check" ajax="false"
+					actionListener="#{area.eliminarArea}" oncomplete="dlg2.hide()" />
+				<p:commandButton value="NO" styleClass="ui-confirmdialog-no"
+					icon="ui-icon-close" ajax="false" onclick="dlg2.hide()" />
+			</p:dialog>
+
+			<p:dialog header="Información Área" widgetVar="dlg3" modal="true"
+				dynamic="true">
+				<p:outputPanel id="detailArea" style="text-align:center;">
+					<p:panelGrid columns="2">
+						<h:outputText value="Nombre Área:" />
+						<h:outputText value="#{area.areaView.detailsAreaDTO.nombre}" />
+						<h:outputText value="Descripción:" />
+						<h:outputText value="#{area.areaView.detailsAreaDTO.descripcion}" />
+						<h:outputText value="Titular:" />
+						<h:outputText value="#{area.areaView.detailsAreaDTO.titular}" />
+					</p:panelGrid>
+				</p:outputPanel>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

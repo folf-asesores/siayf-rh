@@ -1,0 +1,506 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Impresión Nombramiento" />
+	<ui:param name="moduloTitulo" value="Impresión Nombramiento" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite administrar la descarga del nombramiento." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+
+			<p:panelGrid layout="grid"
+				rendered="#{impresionNombramiento.view.mostrarPrincipal}"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+				<p:outputLabel for="tipoNombramiento" value="Tipo de Nombramiento: " />
+				<p:outputLabel>
+					<p:selectOneMenu id="tipoNombramiento"
+						validator="#{impresionNombramiento.validatorTipoNombramiento}"
+						value="#{impresionNombramiento.view.tipoNombramiento}">
+						<f:selectItem itemLabel="Seleccione una opción..." itemValue="0" />
+						<f:selectItems
+							value="#{impresionNombramiento.view.itemsTipoNombramiento}" />
+						<p:ajax event="valueChange" update="form"
+							listener="#{impresionNombramiento.obtenerListaInfoNombramientoPoTipo()}" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message for="tipoNombramiento" />
+				</p:outputLabel>
+			</p:panelGrid>
+
+
+			<p:dataTable editable="true" var="n"
+				rendered="#{impresionNombramiento.view.mostrarPrincipal}"
+				value="#{impresionNombramiento.view.listaNombramiento}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Tipo Nombramiento">
+					<h:outputText value="#{n.tipoNombramiento}" />
+				</p:column>
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{n.nombreEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Clave Presupuestal">
+					<h:outputText value="#{n.clavePresupuestal}" />
+				</p:column>
+
+				<p:column headerText="Función">
+					<h:outputText value="#{n.funcion}" />
+
+				</p:column>
+
+				<p:column headerText="Sueldo">
+					<h:outputText value="#{n.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Domicilio Nombramiento">
+					<h:outputText value="#{n.domicilioNombramiento}" />
+
+				</p:column>
+
+				<p:column width="100" headerText="Descargar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form"
+						action="#{impresionNombramiento.mostrarDetalleNombramiento(n.idNombramiento, n.tipoNombramiento)}"
+						process="@this" oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" />
+				</p:column>
+
+
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive fm-tarjeta"
+				rendered="#{impresionNombramiento.view.mostrarConfirmacionImpresion}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:outputLabel />
+					<h:outputText value="Asunto: " />
+					<p:outputLabel value="NOMBRAMIENTO" />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:inputTextarea
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.textoUno}" />
+
+					<h:outputText
+						value=", se otorga #{impresionNombramiento.view.nombreTipoNombramiento} con los datos que a continuación se detallan:" />
+
+					<p:spacer />
+
+					<p:outputLabel value="Datos del Trabajador: "
+						style="text-decoration:underline;" />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:outputLabel value="NOMBRE:" />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+					</p:panelGrid>
+					<p:outputLabel value="Datos Laborales: "
+						style="text-decoration:underline;" />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:outputLabel value="CLAVE PRESUPUESTAL:" />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+
+						<p:outputLabel for="sustituye" value="SUSTITUYE A: " />
+						<p:inputText id="sustituye"
+							value="#{impresionNombramiento.view.clasificacionReporteDTO.sustituye}" />
+					</p:panelGrid>
+					<p:spacer />
+					<p:inputTextarea
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.textoDos}" />
+					<p:spacer />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+
+						<p:outputLabel value="A t e n t a m e n t e"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<p:outputLabel value="El Secretario de Salud en el Estado y"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel
+							value="Director General del O.P.D. Salud de Tlaxcala"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel value="DR. ALEJANDRO GUARNEROS CHUMACERO"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:spacer />
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive fm-tarjeta"
+				rendered="#{impresionNombramiento.view.mostrarFormalizado}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:outputLabel />
+					<p:spacer />
+					<p:spacer />
+
+
+					<p:spacer />
+					<h:outputText value="NOMBRAMIENTO" />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:inputTextarea
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.textoUno}" />
+
+					<h:outputText
+						value=", se otorga a Usted  #{impresionNombramiento.view.nombreTipoNombramiento} con efectos a partir del :" />
+					<p:calendar
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.fechaPosicionUno}"
+						pattern="dd-MM-yyyy" />
+
+					<h:outputText
+						value="y, con los datos que a continuación se detallan:" />
+
+					<p:spacer />
+
+					<p:outputLabel value="Datos del Trabajador: "
+						style="text-decoration:underline;" />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:outputLabel value="NOMBRE:" />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+					</p:panelGrid>
+					<p:outputLabel value="Datos Laborales: "
+						style="text-decoration:underline;" />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:outputLabel value="CLAVE PRESUPUESTAL:" />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+
+
+					</p:panelGrid>
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+
+						<p:outputLabel
+							value="____________________________________________"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel value="DR. ALEJANDRO GUARNEROS CHUMACERO"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:spacer />
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive fm-tarjeta"
+				rendered="#{impresionNombramiento.view.mostrarInterinato}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:outputLabel />
+					<h:outputText value="Asunto: " />
+					<p:outputLabel value="Se comunica Interinato" />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:inputTextarea
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.textoUno}" />
+
+					<h:outputText value="con fecha " />
+					<p:calendar
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.fechaPosicionUno}"
+						pattern="dd-MM-yyyy" />
+
+					<h:outputText
+						value="queda adscrito a Dirección General de Oficina Central dependiente de esta Secretaría de Salud en el Estado y Organismo Público Descentralizado Salud de Tlaxcala, con los datos presupuestales que a continuación se detallan:" />
+
+					<p:spacer />
+
+					<p:outputLabel value="Datos del Trabajador: "
+						style="text-decoration:underline;" />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:outputLabel value="FUNCIÓN:" />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+						<p:outputLabel value="..." />
+					</p:panelGrid>
+					<p:spacer />
+					<p:inputTextarea
+						value="#{impresionNombramiento.view.clasificacionReporteDTO.textoDos}" />
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+
+						<p:outputLabel
+							value="____________________________________________"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel value="DR. ALEJANDRO GUARNEROS CHUMACERO"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:spacer />
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{impresionNombramiento.view.mostrarOpcionDescarga}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<f:facet name="header">
+						<h3>Descargar Nombramiento</h3>
+					</f:facet>
+
+					<p:outputLabel for="adscripcion" value="Lugar De Adscripción: " />
+					<p:outputLabel id="outlAdscripcion">
+						<p:selectOneMenu id="adscripcion"
+							value="#{impresionNombramiento.view.tipoAdscripcion}"
+							validator="#{impresionNombramiento.validatorTipoAdscripcion}">
+							<f:selectItem itemLabel="Seleccione Una Opción..." itemValue="" />
+							<f:selectItems
+								value="#{impresionNombramiento.view.itemsTiposAdscripcion}" />
+							<p:ajax update="outlAdscripcion" process="@this" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message for="adscripcion" />
+					</p:outputLabel>
+					<p:outputLabel for="imprimir" value="Imprimir: " />
+					<p:inputSwitch id="imprimir" offLabel="NO" onLabel="SI"
+						value="#{impresionNombramiento.view.imprimirNombramiento}" />
+
+				</p:panelGrid>
+				<p:spacer />
+				<p:spacer />
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+						actionListener="#{impresionNombramiento.regresarModulo()}"
+						update="form" process="@this" />
+
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="@form" iconPos="right" ajax="false"
+						action="#{impresionNombramiento.descargarNombramiento()}"
+						rendered="#{impresionNombramiento.view.mostrarConfirmacionImpresion}"
+						oncomplete="mymessages();" />
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="@form" iconPos="right" ajax="false"
+						action="#{impresionNombramiento.descargarNombramientoFormalizado()}"
+						rendered="#{impresionNombramiento.view.mostrarFormalizado}"
+						oncomplete="mymessages();" />
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="@form" iconPos="right" ajax="false"
+						action="#{impresionNombramiento.descargarNombramientoInterinato()}"
+						rendered="#{impresionNombramiento.view.mostrarInterinato}"
+						oncomplete="mymessages();" />
+				</p:panelGrid>
+
+			</p:panelGrid>
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

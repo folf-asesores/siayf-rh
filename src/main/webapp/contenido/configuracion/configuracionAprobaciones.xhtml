@@ -1,0 +1,246 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuracion Aprobaciones" />
+	<ui:param name="moduloTitulo" value="Configuración Aprobaciones" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panelGrid columns="1" layout="grid" id="panelPrincipal"
+				columnClasses="ui-grid-col-12"
+				rendered="#{configuracionAprobacion.view.panelPrincipal}"
+				styleClass="ui-panelgrid-blank ui-fluid">
+
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-3, ui-grid-col-5,ui-grid-col-9"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="aprobacion" value="Seleccione una aprobación:" />
+					<p:selectOneMenu id="aprobacion"
+						value="#{configuracionAprobacion.view.idOperacion}">
+						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
+						<f:selectItems
+							value="#{configuracionAprobacion.view.listaOperaciones}" />
+
+						<p:ajax
+							listener="#{configuracionAprobacion.consultarUsuariosOperacion()}"
+							update="form" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+
+				<p:dataTable id="tablaConfiguraciones" editable="true" var="a"
+					scrollRows="10" scrollable="true" scrollHeight="300"
+					value="#{configuracionAprobacion.view.usuarios}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					rowsPerPageTemplate="5,15,50">
+					<f:facet name="header">
+						<div align="right">
+							<p:commandLink title="Nuevo registro"
+								action="#{configuracionAprobacion.mostrarRegistro()}"
+								update="form" process="@this">
+								<span class="ui-icon-plus fm-font-color-white" />
+							</p:commandLink>
+						</div>
+					</f:facet>
+
+					<p:column headerText="Nombre de Usuario">
+						<h:outputText value="#{a.usuario}" />
+					</p:column>
+
+					<p:column headerText="Aprobacion">
+						<h:outputText value="#{a.accion}" />
+					</p:column>
+
+					<p:column headerText="Movimiento">
+						<h:outputText value="#{a.movimiento}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{a.estatus}" />
+					</p:column>
+
+					<p:column width="100">
+						<p:commandButton icon="ui-icon-pencil" iconPos="right"
+							action="#{configuracionAprobacion.mostrarActualizacion(a)}"
+							title="Actualizar: #{a.usuario}" update="form"
+							styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+
+						<p:commandButton icon="ui-icon-trash" update="form"
+							title="Eliminar: #{a.usuario}"
+							styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
+							action="#{configuracionAprobacion.mostrarDialogEliminar(a.idConfiguracionAprobacion)}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+				layout="grid" id="panelActualizar"
+				rendered="#{configuracionAprobacion.view.panelActualizar}"
+				styleClass="ui-panelgrid-blank ui-fluid">
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<f:facet name="header">
+						<h3>Actualizar Configuración Aprobación</h3>
+					</f:facet>
+
+					<p:outputLabel for="aprobacionActualizar"
+						value="Seleccione una aprobación:" />
+					<p:selectOneMenu id="aprobacionActualizar" filter="true"
+						effect="size" required="true"
+						requiredMessage="Seleccione una aprobación"
+						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idAccionUsuario}">
+						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
+						<f:selectItems
+							value="#{configuracionAprobacion.view.listaOperaciones}" />
+						<p:ajax event="valueChange" update="msgAprobacion" />
+					</p:selectOneMenu>
+					<p:message id="msgAprobacion" for="aprobacionActualizar" />
+
+					<p:outputLabel for="usuarioActualizar"
+						value="Seleccione el usuario:" />
+					<p:selectOneMenu id="usuarioActualizar" filter="true" effect="size"
+						required="true" requiredMessage="Seleccione un usuario"
+						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idUsuario}">
+						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
+						<f:selectItems
+							value="#{configuracionAprobacion.view.listaUsuarioActivoItems}" />
+						<p:ajax event="valueChange" update="msgUsuario" />
+					</p:selectOneMenu>
+					<p:message id="msgUsuario" for="usuarioActualizar" />
+
+					<p:outputLabel for="estatusActualizar"
+						value="Seleccione el estatus:" />
+					<p:selectOneMenu id="estatusActualizar" filter="true" effect="size"
+						required="true" requiredMessage="Seleccione el estatus"
+						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.estatus}">
+						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
+						<f:selectItem itemLabel="INACTIVO" itemValue="1" />
+						<f:selectItem itemLabel="ACTIVO" itemValue="2" />
+						<p:ajax event="valueChange" update="msgEstatus" />
+					</p:selectOneMenu>
+					<p:message id="msgEstatus" for="estatusActualizar" />
+
+
+					<p:outputLabel for="tipoMovimientoEmpleadoActualizar"
+						value="Seleccione el tipo de movimiento:" />
+					<p:selectOneMenu id="tipoMovimientoEmpleadoActualizar"
+						filter="true" effect="size" required="true"
+						requiredMessage="Seleccione el tipo de movimiento"
+						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idTipoMovimiento}">
+						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
+						<f:selectItems
+							value="#{configuracionAprobacion.view.listaTipoMovimientoEmpleado}" />
+						<p:ajax event="valueChange" update="msgTipoMovimiento" />
+					</p:selectOneMenu>
+					<p:message id="msgTipoMovimiento"
+						for="tipoMovimientoEmpleadoActualizar" />
+
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:spacer />
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						value="Aceptar" oncomplete="mymessages();"
+						action="#{configuracionAprobacion.actualizarConfiguracionAprovacion()}" />
+
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this" value="Cancelar"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{configuracionAprobacion.regresarModulo()}" />
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+			</p:panelGrid>
+
+
+			<p:dialog
+				header="Asignar Usuarios #{configuracionAprobacion.view.operacionSeleccionada}"
+				id="asignacion"
+				visible="#{configuracionAprobacion.view.mostrarRegistro}"
+				modal="true" closable="false" height="350" width="400">
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:spacer />
+
+					<p:dataTable id="usuariosActivos" var="u" scrollable="true"
+						scrollHeight="250"
+						value="#{configuracionAprobacion.view.usuariosActivos}"
+						selection="#{configuracionAprobacion.view.usuariosSeleccionados}"
+						rowKey="#{u.idUsuario}" style="margin-bottom:0">
+
+						<p:column selectionMode="multiple"
+							style="width:26px;text-align:center" />
+
+						<p:column headerText="Empleados Activos">
+							<h:outputText value="#{u.nombre}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<p:separator />
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						title="Registrar"
+						actionListener="#{configuracionAprobacion.registrarConfiguracionAprobacion()}"
+						oncomplete="mymessages();" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this" title="Cancelar"
+						action="#{configuracionAprobacion.ocultarRegistro()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</div>
+			</p:dialog>
+
+			<p:dialog
+				header="¿Quiere eliminar la configuración aprobación seleccionado?"
+				visible="#{configuracionAprobacion.view.dialogEliminar}"
+				modal="true" showEffect="Slide" hideEffect="Drop">
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						oncomplete="mymessages();" process="@this"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{configuracionAprobacion.eliminarConfiguracionAprobacion()}" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						action="#{configuracionAprobacion.cerrarDialogEliminar()}" />
+				</div>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+

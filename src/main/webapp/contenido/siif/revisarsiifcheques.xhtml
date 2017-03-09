@@ -1,0 +1,114 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Revisar Cheque" />
+	<ui:param name="moduloTitulo" value="Revisar Cheque" />
+
+	<ui:define name="moduloContenido" >
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true" closable="true"
+				autoUpdate="true" />
+			<p:growl id="growl" showDetail="true" autoUpdate="true"
+				sticky="false" life="7000" />
+
+			<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+
+				<p:panelGrid id="panelGridFormulario"
+					styleClass=" ui-fluid ui-panelgrid-blank ui-fluid ui-responsive ui-noborder sin_borde  "
+					columns="6" columnClasses="ui-grid-col-3" layout="grid">
+
+					<p:outputLabel for="periodo" value="Periodo:" />
+					<p:inputText id="periodo"
+						value ="#{revisarCheque.view.revisarChequesDTO.periodo}" placeholder="*"/>
+
+					<p:outputLabel for="anio"
+						value="Año:" />
+					<p:inputText id="anio" placeholder="*"
+						value ="#{revisarCheque.view.revisarChequesDTO.anio}" />
+					
+					<p:outputLabel/>
+						
+					<p:commandButton icon="ui-icon-check" iconPos="right" update="form"
+					    value="#{revisarCheque.view.accionRevisarCheques}"
+					    action="#{revisarCheque.accionRevisarCheque()}"
+						oncomplete="mymessages();"
+						styleClass="fm-btn-exitoso fm-btn-elevado" />																								
+				
+				
+				</p:panelGrid>
+
+				<p:dataTable editable="true" var="r"
+					value="#{revisarCheque.view.obtenerListaRevisarChequesDTOs}"
+					emptyMessage="No se encontrarón resultados" 
+					paginator="true" rows="10" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<h3>Revisar Cheques</h3>
+					</f:facet>
+
+					<p:column headerText="No de Cuenta" width="100">
+						<h:outputText value="#{r.numeroCuenta}" />
+					</p:column>
+
+					<p:column headerText="RFC">
+						<h:outputText value="#{r.rfc}" />
+					</p:column>
+					
+					<p:column headerText="Cheque">
+						<h:outputText value="#{r.numCheq}" />
+					</p:column>
+					
+					<p:column headerText="Nombramiento">
+						<h:outputText value="#{r.nombramientoDescripcion}" />
+					</p:column>
+
+					<p:column width="100"> 
+											
+					</p:column>
+					
+				</p:dataTable>
+
+			</h:panelGroup>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+		</h:form>
+
+	</ui:define>
+
+	<ui:define name="bodyExtra">
+
+		<h:outputScript>
+		
+		
+		function mymessages() {
+			   setTimeout(function() { $('[id$=messages_generales]').hide(1000); }, 5500);
+			  
+			}
+	
+		</h:outputScript>
+
+	</ui:define>
+
+
+</ui:composition>

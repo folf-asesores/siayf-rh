@@ -1,0 +1,48 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/primefaces-folf-modena/plantillas/secundaria.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Dependencias" />
+	<ui:param name="moduloTitulo" value="Dependencias" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true" closable="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+           <p:panel id="panelBusqueda">
+           <p:panelGrid id="gridBusqueda" layout="grid" styleClass="ui-panelgrid-blank ui-fluid" columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-2,ui-grid-col-2,ui-grid-col-5">
+           
+           <p:outputLabel for="tipoDependencia" value="Tipo dependencia:" />
+           <p:selectOneMenu id="tipoDependencia" value="#{dependenciasController.tipoSeleccionado}">
+             <f:selectItem itemLabel="Seleccione una opcion" itemValue="0" />
+            <f:selectItems value="#{dependenciasController.tipos}" />
+            <p:ajax update="dependencias gridBusqueda" listener="#{dependenciasController.mostrarDepdenciasPorTipo()}" />
+           </p:selectOneMenu>
+           
+            <p:outputLabel for="dependencias" value="Dependencia:" />
+     
+           <p:selectOneMenu id="dependencias" value="#{dependenciasController.dependenciaSelecciada}">
+           <f:selectItem itemLabel="Seleccione una opcion" itemValue="0" />
+            <f:selectItems value="#{dependenciasController.itemsDep}" />
+           </p:selectOneMenu>
+           
+           </p:panelGrid>
+           <br/>
+           
+           <div align="center">
+            <p:button id="irInicio" value="Continuar"  outcome="/contenido/inicio.xhtml" />
+           </div>
+           
+           </p:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

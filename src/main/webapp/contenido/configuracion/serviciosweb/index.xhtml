@@ -1,0 +1,66 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuración" />
+	<ui:param name="moduloTitulo" value="Servicios Web" />
+	<ui:param name="moduloSubtitulo"
+		value="Configure los datos de los servicios web necesarios para el funcionamiento de los modulos del sistema" />
+	<ui:define name="moduloContenido">
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmListadoServiciosWeb" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" />
+
+
+			<p:dataTable var="servicio" id="tblServicios"
+				styleClass="tabla-personalizada" widgetVar="tblServicios"
+				value="#{serviciosWebController.listadoServiciosRSEntity}">
+
+				<f:facet name="header">
+					<p:button id="btnNuevaRegla" title="Nuevo" icon="ui-icon-plus"
+						styleClass=" aling_right " outcome="nuevo.xhtml" />
+				</f:facet>
+
+				<p:column headerText="Servicio" width="250">
+					<h:outputText value="#{servicio.servicio.toString()}" />
+				</p:column>
+				<p:column headerText="Dirección">
+					<h:outputText value="#{servicio.url}" />
+				</p:column>
+				<p:column headerText="Puerto" width="45">
+					<h:outputText value="#{servicio.puerto}" />
+				</p:column>
+				<p:column headerText="Contexto">
+					<h:outputText value="#{servicio.contexto}" />
+				</p:column>
+				<p:column headerText="Usuario" width="150">
+					<h:outputText value="#{servicio.usuario}" />
+				</p:column>
+				<p:column headerText="Activo" width="50">
+					<p:selectBooleanCheckbox value="#{servicio.activo}" disabled="true" />
+				</p:column>
+				<p:column headerText="Produccion" width="70">
+					<p:selectBooleanCheckbox value="#{servicio.produccion}"
+						disabled="true" />
+				</p:column>
+				<p:column style="width:32px;text-align: center">
+					<p:commandButton icon="ui-icon-pencil" title="Editar"
+						action="#{serviciosWebController.editar(servicio.idServicioRS)}">
+
+					</p:commandButton>
+				</p:column>
+
+
+			</p:dataTable>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Importar AFASPE / PROSPERA" />
+	<ui:param name="moduloTitulo" value="Importar Afaspe/Prospera a SIIF" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione los archivos xls/xlsx que desea importar. Este proceso puede demorar un tiempo" />
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" />
+			<p:outputPanel>
+				<p:column>
+					<p:commandButton value="Procesar" ajax="false" update=":form"
+						action="#{reportarSiifProspera.uploadFile}" />
+
+					<p:commandButton id="Cancelar" value="Cancelar"
+						style="float:right;" styleClass="fm-btn-elevdo"
+						action="#{reporteSiif.cancelar}" />
+				</p:column>
+			</p:outputPanel>
+			<p:panelGrid columns="1" styleClass="ui-responsive" layout="grid"> 
+				<p:row>
+					<p:column>
+						<p:fileUpload id="dat" value="#{reportarSiifProspera.view.paqueteEntrada.dat}"
+							mode="simple" label="Seleccionar Archivo DAT"
+							allowTypes="/(\.|\/)(xls|xlsx)$/"
+							requiredMessage="El Archivo XLS es requerido"
+							invalidFileMessage="El Archivo debe tener la extención XLS"
+							skinSimple="true" />
+						<br />
+						<p:fileUpload id="tra" value="#{reportarSiifProspera.view.paqueteEntrada.tra}"
+							mode="simple" label="Seleccionar Archivo TRA"
+							allowTypes="/(\.|\/)(xls|xlsx)$/"
+							requiredMessage="El Archivo XLS es requerido"
+							invalidFileMessage="El Archivo debe tener la extención XLS"
+							skinSimple="true" />
+					</p:column>
+				</p:row>
+				<p:row>
+				</p:row>
+				<p:panelGrid columns="3" layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3, ui-grid-col-5, ui-grid-col-4">
+				<p:outputLabel value="Tipo de Nomina" style="width:50px;" />
+					<p:selectOneMenu id="idTipoNomina"
+						value="#{reportarSiifProspera.view.paqueteEntrada.idTipoNomina}"
+						validator="#{reportarSiifProspera.validatorReporteSiif}"
+						style="width:425px">
+						
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reportarSiifProspera.view.tipoNominaList}"
+							var="tipoNomina1"
+							itemLabel="#{tipoNomina1.idClasificacionNomina} - #{tipoNomina1.descripcion}"
+							itemValue="#{tipoNomina1.idTipoNomina}" />
+						<p:ajax update="msgTN" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgTN" for="idTipoNomina" />
+
+					<p:outputLabel value="Cuenta Bancaria" />
+					<p:selectOneMenu id="idCuentaBancaria"
+						value="#{reportarSiifProspera.view.paqueteEntrada.idCuentaBancaria}"
+						validator="#{reportarSiifProspera.validatorReporteSiif}"
+						style="width:425px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reporteSiif.view.cuentaBancariaList}"
+							var="cuentaBancaria1"
+							itemLabel="#{cuentaBancaria1.claveCuenta} - #{cuentaBancaria1.numeroCuenta}, #{cuentaBancaria1.descripcion}"
+							itemValue="#{cuentaBancaria1.idCuentaBancaria}" />
+						<p:ajax update="msgCB" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgCB" for="idCuentaBancaria" />
+
+					<p:outputLabel value="Año de afectación" />
+					<p:inputText id="anioCriterio"
+						validator="#{reportarSiifProspera.validatorReporteSiif}"
+						value="#{reportarSiifProspera.view.paqueteEntrada.anioAfectacion}">
+						<p:ajax update="msgAnio" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgAnio" for="anioCriterio" />
+
+					<p:outputLabel value="Quincena de afectación" />
+					<p:inputText id="periodoCriterio"
+						value="#{reportarSiifProspera.view.paqueteEntrada.periodoAfectacion}"
+						validator="#{reportarSiifProspera.validatorReporteSiif}">
+						<p:ajax update="msgQuin" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgQuin" for="periodoCriterio" />
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

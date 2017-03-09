@@ -1,0 +1,429 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Conceptos de nómina de contratos" />
+	<ui:param name="moduloTitulo"  value="Conceptos de nómina de contratos" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:panelGrid columns="1"
+						 columnClasses="ui-grid-col-12"
+						 layout="grid"
+						 styleClass="ui-responsive"
+						 id="panelBusqueda"
+						 rendered="#{conceptosNominaContratos.view.panelPrincipal}">
+				<p:row>
+					<p:column>
+						<p:commandButton value="Gestionar..." 
+										action="#{conceptosNominaContratos.irGestionarConceptoNomina()}"
+										update=":form"
+										ajax="false"
+										disabled="#{conceptosNominaContratos.view.disabledIrGestionar}" />
+					</p:column>
+					<p:column>
+						<p:commandButton value="Nuevo..."
+										action="#{conceptosNominaContratos.irNuevoConceptoNomina()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+					</p:column>
+				</p:row>
+
+				<p:dataTable id="conceptoNominaLista"
+							 value="#{conceptosNominaContratos.view.conceptoNominaLista}"
+							 selection="#{conceptosNominaContratos.view.conceptoNominaSelect}"
+							 var="conceptoNomina" 
+							 rowKey="#{conceptoNomina.idConceptoNomina}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect" listener="#{conceptosNominaContratos.onRowSelectConceptoNomina}" update=":form" />
+					<p:ajax event="rowUnselect" listener="#{conceptosNominaContratos.onRowUnselectConceptoNomina}" update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Tipo"
+									  filterBy="#{conceptoNomina.tipoDescripcion}"
+									  filterMatchMode="contains"
+									  width="10%" />
+							<p:column headerText="Clave"
+									  filterBy="#{conceptoNomina.clave}"
+									  filterMatchMode="contains"
+									  width="10%" />
+							<p:column headerText="Descripción"
+									  filterBy="#{conceptoNomina.descripcion}"
+									  filterMatchMode="contains"
+									  width="20%" />
+							<p:column headerText="Categoria SAT"
+									  filterBy="#{conceptoNomina.categoriaSAT}"
+									  filterMatchMode="contains"
+									  width="20%" />
+							<p:column headerText="Estatus"
+									  filterBy="#{conceptoNomina.estatusConceptoNomina}"
+									  filterMatchMode="contains"
+									  width="10%" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.tipoStr}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.clave}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.categoriaSAT}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.estatusConceptoNomina}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:row>
+					<p:column colspan="2">
+						<p:commandButton value="Todos"
+										action="#{conceptosNominaContratos.irPrincipal()}"
+										update=":form"
+										ajax="false"
+										disabled="#{conceptosNominaContratos.view.disabledVerTodos}" >
+							<f:setPropertyActionListener target="#{conceptosNominaContratos.view.tipoSelect}" value="0" />
+						</p:commandButton>
+						<p:commandButton value="Percepciones"
+										action="#{conceptosNominaContratos.irPrincipal()}"
+										update=":form"
+										ajax="false"
+										disabled="#{conceptosNominaContratos.view.disabledVerPercepcion}" >
+							<f:setPropertyActionListener target="#{conceptosNominaContratos.view.tipoSelect}" value="1" />
+						</p:commandButton>
+
+						<p:commandButton value="Deducciones"
+										action="#{conceptosNominaContratos.irPrincipal()}"
+										update=":form"
+										ajax="false"
+										disabled="#{conceptosNominaContratos.view.disabledVerDeduccion}" >
+							<f:setPropertyActionListener target="#{conceptosNominaContratos.view.tipoSelect}" value="2" />
+						</p:commandButton>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{conceptosNominaContratos.view.panelGestion}">
+				<p:focus context="panelGestion"/>
+				<p:panelGrid columns="2"
+							 columnClasses="ui-grid-col-3,ui-grid-col-9"
+							 layout="grid"
+							 styleClass="ui-panelgrid-blank"
+							 id="panelInformacionNomina">
+
+					<p:outputLabel value="Clave" style="width:50px;"/>
+					<p:inputText id="clave"
+								 value="#{conceptosNominaContratos.view.conceptoNominaSelect.clave}"
+								 size="20" />
+
+					<p:outputLabel value="Tipo"/>
+					<p:selectOneMenu id="tipo"
+									 value="#{conceptosNominaContratos.view.conceptoNominaSelect.tipo}"
+					                 style="width:125px" >
+			            <f:selectItem itemLabel="" itemValue="" />
+			            <f:selectItem itemLabel="Percepción" itemValue="1" />
+			            <f:selectItem itemLabel="Deducción" itemValue="2" />
+			            <p:ajax update="categoriaSAT" listener="#{conceptosNominaContratos.updateCategoriaSAT()}" />
+			        </p:selectOneMenu>
+
+					<p:outputLabel value="Sueldo Base Principal"/>
+					<p:selectBooleanCheckbox value="#{conceptosNominaContratos.view.conceptoNominaSelect.base}" />
+
+					<p:outputLabel value="Estatus"/>
+					<p:selectOneMenu id="estatusConceptoNomina"
+									 value="#{conceptosNominaContratos.view.conceptoNominaSelect.idEstatusConceptoNomina}"
+									 style="width:125px">
+			            <f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{conceptosNominaContratos.view.estatusConceptoNominaLista}"
+										var="estatus"
+										itemLabel="#{estatus.estatus}"
+										itemValue="#{estatus.idEstatusConceptoNomina}"/>
+			        </p:selectOneMenu>
+
+					<p:outputLabel value="Descripción"/>
+					<p:inputText id="descripcion"
+								 value="#{conceptosNominaContratos.view.conceptoNominaSelect.descripcion}"
+								 size="80" />
+
+					<p:outputLabel value="Aplica para Aguinaldo"/>
+					<p:selectBooleanCheckbox value="#{conceptosNominaContratos.view.conceptoNominaSelect.aguinaldo}" />
+
+					<p:outputLabel value="Aplica para Retroactivo"/>
+					<p:selectBooleanCheckbox value="#{conceptosNominaContratos.view.conceptoNominaSelect.retroactivo}" />
+
+					<p:outputLabel value="Tatamiento Fiscal"/>
+					<p:selectOneMenu id="tratamiento"
+					                 value="#{conceptosNominaContratos.view.conceptoNominaSelect.tratamiento}" 
+					                 style="width:125px">
+			            <f:selectItem itemLabel="" itemValue="" />
+			            <f:selectItem itemLabel="Gravable" itemValue="true" />
+			            <f:selectItem itemLabel="Exento" itemValue="false" />
+			        </p:selectOneMenu>
+
+		            <h:outputLabel for="categoriaSAT" value="Categoría SAT" />
+					<p:selectOneMenu id="categoriaSAT"
+									 value="#{conceptosNominaContratos.view.conceptoNominaSelect.idCategoriaSAT}">
+			            <f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{conceptosNominaContratos.view.categoriaSatLista}"
+										var="categoria"
+										itemLabel="#{categoria.categoriaSAT}"
+										itemValue="#{categoria.idCategoriaSAT}"/>
+			        </p:selectOneMenu>
+
+		            <h:outputLabel for="observacion" value="Observación" />
+		            <p:inputTextarea id="observacion"
+		            				 value="#{conceptosNominaContratos.view.conceptoNominaSelect.observacion}"
+		            				 rows="1" cols="60"  />
+				</p:panelGrid>
+				<div>
+					<p:commandButton value="Guardar"
+									action="#{conceptosNominaContratos.guardarConceptoNomina()}"
+									update=":form"
+									ajax="false"/>
+
+					<p:commandButton value="Cancelar"
+									action="#{conceptosNominaContratos.irPrincipal()}"
+									update=":form"
+									style="float:right;"
+									ajax="false"/>
+				</div>
+
+<p:dialog header="Editar formula"
+		  widgetVar="dialogEditarFormula"
+		  modal="true"
+		  height="500">
+          <p:inputTextarea id="editarFormula"
+          				 value="#{conceptosNominaContratos.view.editarFormula}"
+          				 cols="90"
+          				 rows="2" 
+          				 autoResize="true" />
+		<p:ribbon>
+		    <p:tab title="Operadores">
+		        <p:ribbonGroup label="Aritméticos"
+		        			   style="width:140px">
+		            <p:commandButton type="button"
+		            				 title="Suma"
+		            				 value="+"
+		            				 onclick="insertText('form:editarFormula','+')"
+		            				 styleClass="fm-btn-informacion"
+		            				 style="width: 60px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Resta"
+		            				 value="-"
+		            				 onclick="insertText('form:editarFormula','-')"
+		            				 styleClass="fm-btn-informacion"
+		            				 style="width: 60px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="División"
+		            				 value="/"
+		            				 onclick="insertText('form:editarFormula','/')"
+		            				 styleClass="fm-btn-informacion"
+		            				 style="width: 60px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Multiplicación"
+		            				 value="*"
+		            				 onclick="insertText('form:editarFormula','*')"
+		            				 styleClass="fm-btn-informacion"
+		            				 style="width: 60px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Potencia"
+		            				 value="^"
+		            				 onclick="insertText('form:editarFormula','^')"
+		            				 styleClass="fm-btn-informacion"
+		            				 style="width: 60px !important; font-weight: bold;"/>
+		        </p:ribbonGroup>
+		 
+		        <p:ribbonGroup label="Relacionales"
+		        			   style="width:160px">
+		            <p:commandButton type="button"
+		            				 title="Igual"
+		            				 value="="
+		            				 onclick="insertText('form:editarFormula','=')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Diferente"
+		            				 value="!="
+		            				 onclick="insertText('form:editarFormula','!=')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Menor que"
+		            				 value="&lt; "
+		            				 onclick="insertText('form:editarFormula','&lt;')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Menor o igual que"
+		            				 value="&lt;="
+		            				 onclick="insertText('form:editarFormula','&lt;=')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Mayor que"
+		            				 value="&gt; "
+		            				 onclick="insertText('form:editarFormula','&gt;')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="Mayor o igual que"
+		            				 value="&gt;="
+		            				 onclick="insertText('form:editarFormula','&gt;=')"
+		            				 styleClass="fm-btn-exitoso"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		        </p:ribbonGroup>
+		 
+		        <p:ribbonGroup label="Lógicos"
+		        			   style="width:80px">
+		            <p:commandButton type="button"
+		            				 title="Y lógico"
+		            				 value="Y"
+		            				 onclick="insertText('form:editarFormula','Y')"
+		            				 styleClass="fm-btn-acento"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="O lógico"
+		            				 value="O"
+		            				 onclick="insertText('form:editarFormula','O')"
+		            				 styleClass="fm-btn-acento"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="No lógico"
+		            				 value="NO"
+		            				 onclick="insertText('form:editarFormula','NO')"
+		            				 styleClass="fm-btn-acento"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		        </p:ribbonGroup>
+		 
+		        <p:ribbonGroup label="Funciones" 
+		        			   style="width:80px">
+ 		            <p:commandButton type="button"
+		            				 title="SI(condición, valor, valor)"
+		            				 value="SI"
+		            				 onclick="insertText('form:editarFormula','SI(condición, valor, valor)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="MIN(valor, valor, ...)"
+		            				 value="MIN"
+		            				 onclick="insertText('form:editarFormula','MIN(valor, valor)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		            <p:commandButton type="button"
+		            				 title="MAX(valor, valor, ...)"
+		            				 value="MAX"
+		            				 onclick="insertText('form:editarFormula','MAX(valor, valor)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		 
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Impuestos" 
+		        			   style="width:80px">
+ 		            <p:commandButton type="button"
+		            				 title="Impuestos sobre la Renta"
+		            				 value="ISR"
+		            				 onclick="insertText('form:editarFormula','ISR(expresión)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+ 					<p:spacer height="80px"/>
+		        </p:ribbonGroup>
+		    </p:tab>
+
+		    <p:tab title="Constantes">
+		        <p:ribbonGroup label="Impuestos" 
+		        			   style="width:80px">
+ 		            <p:commandButton type="button"
+		            				 title="Impuestos sobre la Renta"
+		            				 value="ISR"
+		            				 onclick="insertText('form:editarFormula','ISR(expresión)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+		        </p:ribbonGroup>
+		    </p:tab>
+		    <p:tab title="Percepciones">
+		        <p:ribbonGroup label="Impuestos" 
+		        			   style="width:80px">
+ 		            <p:commandButton type="button"
+		            				 title="Impuestos sobre la Renta"
+		            				 value="ISR"
+		            				 onclick="insertText('form:editarFormula','ISR(expresión)')"
+		            				 styleClass="fm-btn-elevdo"
+		            				 style="width: 70px !important; font-weight: bold;"/>
+ 					<p:spacer height="70px"/>
+		        </p:ribbonGroup>
+		    </p:tab>
+		</p:ribbon>
+		<p:commandButton value="Probar"
+						actionListener="#{conceptosNominaContratos.probarFormula()}"
+						update="probarFormula"
+						process=":form"/>
+		<p:outputLabel id="probarFormula"
+					   value="#{conceptosNominaContratos.view.result}"/>
+		<div>
+			<p:commandButton value="Aceptar"
+							action="#{conceptosNominaContratos.agregarFormula()}"
+							update=":form"
+							process=":form"
+							ajax="false"/>
+
+			<p:commandButton value="Cerrar"
+							type="button"
+							onclick="PF('dialogEditarFormula').hide();"
+							style="float:right;"
+							ajax="false"/>
+		</div>
+	</p:dialog>
+</p:outputPanel>
+
+<h:outputScript target="body">
+	function insertText(areaId,text) {
+	    var txtarea = document.getElementById(areaId);
+	    var scrollPos = txtarea.scrollTop;
+	    var strPos = 0;
+	    var br = ((txtarea.selectionStart || txtarea.selectionStart === '0') ? 
+	        "ff" : (document.selection ? "ie" : false ) );
+	    if (br === "ie") { 
+	        txtarea.focus();
+	        var range = document.selection.createRange();
+	        range.moveStart ('character', -txtarea.value.length);
+	        strPos = range.text.length;
+	    }
+	    else if (br === "ff") strPos = txtarea.selectionStart;
+
+	    var front = (txtarea.value).substring(0,strPos);  
+	    var back = (txtarea.value).substring(strPos,txtarea.value.length); 
+	    txtarea.value=front+text+back;
+	    strPos = strPos + text.length;
+	    if (br === "ie") { 
+	        txtarea.focus();
+	        var range = document.selection.createRange();
+	        range.moveStart ('character', -txtarea.value.length);
+	        range.moveStart ('character', strPos);
+	        range.moveEnd ('character', 0);
+	        range.select();
+	    }
+	    else if (br === "ff") {
+	        txtarea.selectionStart = strPos;
+	        txtarea.selectionEnd = strPos;
+	        txtarea.focus();
+	    }
+	    txtarea.scrollTop = scrollPos;
+	}
+</h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

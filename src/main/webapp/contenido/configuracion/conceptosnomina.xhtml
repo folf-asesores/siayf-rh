@@ -1,0 +1,437 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Percepciones y Deducciones" />
+	<ui:param name="moduloTitulo" value="Percepciones y Deducciones" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:messages id="messages" autoUpdate="true" showDetail="true"
+				closable="true" />
+
+			<p:panel id="panelBusqueda"
+				rendered="#{conceptosNominaFederales.view.panelPrincipal}">
+
+				<p:outputPanel>
+					<p:commandButton value="Gestionar..."
+						action="#{conceptosNominaFederales.irGestionarConceptoNomina()}"
+						update=":form" ajax="false"
+						disabled="#{conceptosNominaFederales.view.disabledIrGestionar}" />
+
+					<p:commandButton value="Nuevo..."
+						action="#{conceptosNominaFederales.irNuevoConceptoNomina()}"
+						update=":form" style="float:right;" ajax="false" />
+
+				</p:outputPanel>
+
+				<p:dataTable id="conceptoNominaLista" rowsPerPageTemplate="5,10,35"
+					value="#{conceptosNominaFederales.view.conceptoNominaLista}"
+					selection="#{conceptosNominaFederales.view.conceptoNominaSelect}"
+					var="conceptoNomina" rowKey="#{conceptoNomina.idConceptoNomina}"
+					selectionMode="single" rows="5" paginator="true"
+					emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+						listener="#{conceptosNominaFederales.onRowSelectConceptoNomina}"
+						update=":form" />
+					<p:ajax event="rowUnselect"
+						listener="#{conceptosNominaFederales.onRowUnselectConceptoNomina}"
+						update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Tipo" />
+							<!-- 							<p:column headerText="Tipo nombramiento" -->
+							<!-- 								filterBy="#{conceptoNomina.nombramiento}" /> -->
+							<p:column headerText="Clave" filterBy="#{conceptoNomina.clave}" />
+							<p:column headerText="Descripción"
+								filterBy="#{conceptoNomina.descripcion}" />
+							<p:column headerText="Formula"
+								filterBy="#{conceptoNomina.formula}" />
+							<p:column headerText="Estatus"
+								filterBy="#{conceptoNomina.estatusConceptoNomina}" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText
+							value="#{conceptoNomina.tipo==1 ?'Percepción':'Deducción'}" />
+					</p:column>
+					<!-- 					<p:column> -->
+					<!-- 						<h:outputText value="#{conceptoNomina.nombramiento}" /> -->
+					<!-- 					</p:column> -->
+					<p:column>
+						<h:outputText value="#{conceptoNomina.clave}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.formula}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{conceptoNomina.estatusConceptoNomina}" />
+					</p:column>
+				</p:dataTable>
+
+				<p:outputPanel>
+					<p:commandButton value="Todos"
+						action="#{conceptosNominaFederales.irPrincipal()}"
+						update="conceptoNominaLista" ajax="false"
+						disabled="#{conceptosNominaFederales.view.disabledVerTodos}">
+						<f:setPropertyActionListener
+							target="#{conceptosNominaFederales.view.tipoSelect}" value="0" />
+					</p:commandButton>
+					<p:commandButton value="Percepciones"
+						action="#{conceptosNominaFederales.irPrincipal()}"
+						update="conceptoNominaLista" ajax="false"
+						disabled="#{conceptosNominaFederales.view.disabledVerPercepcion}">
+						<f:setPropertyActionListener
+							target="#{conceptosNominaFederales.view.tipoSelect}" value="1" />
+					</p:commandButton>
+
+					<p:commandButton value="Deducciones"
+						action="#{conceptosNominaFederales.irPrincipal()}"
+						update="conceptoNominaLista" ajax="false"
+						disabled="#{conceptosNominaFederales.view.disabledVerDeduccion}">
+						<f:setPropertyActionListener
+							target="#{conceptosNominaFederales.view.tipoSelect}" value="2" />
+					</p:commandButton>
+				</p:outputPanel>
+			</p:panel>
+			<p:panel id="panelTab"
+				rendered="#{conceptosNominaFederales.view.panelGestion}">
+				<p:tabView id="tabGestion">
+					<p:tab title="Datos Concepto">
+
+						<p:outputPanel id="panelGestion" styleClass="fm-tarjeta">
+							<p:focus context="panelGestion" />
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+								styleClass="ui-panelgrid-blank" id="panelInformacionNomina">
+
+								<p:outputLabel value="Clave" style="width:50px;" />
+								<p:inputText id="clave"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.clave}"
+									size="20" />
+
+								<p:outputLabel value="Tipo" />
+								<p:selectOneMenu id="tipo"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.tipo}"
+									style="width:125px">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItem itemLabel="Percepción" itemValue="1" />
+									<f:selectItem itemLabel="Deducción" itemValue="0" />
+									<p:ajax update="categoriaSAT"
+										listener="#{conceptosNominaFederales.updateCategoriaSAT()}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Sueldo Base Principal" />
+								<p:selectBooleanCheckbox
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.base}" />
+
+								<p:outputLabel value="Estatus" />
+								<p:selectOneMenu id="estatusConceptoNomina"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.idEstatusConceptoNomina}"
+									style="width:125px">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{conceptosNominaFederales.view.estatusConceptoNominaLista}"
+										var="estatus" itemLabel="#{estatus.estatus}"
+										itemValue="#{estatus.idEstatusConceptoNomina}" />
+								</p:selectOneMenu>
+
+								<p:outputLabel value="Descripción" />
+								<p:inputText id="descripcion"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.descripcion}"
+									size="80" />
+
+								<p:outputLabel value="Formula" />
+								<p:outputPanel>
+									<p:inputText id="formula"
+										value="#{conceptosNominaFederales.view.conceptoNominaSelect.formula}"
+										size="80" />
+									<p:commandButton icon="ui-icon-pencil"
+										action="#{conceptosNominaFederales.editarFormula()}"
+										process=":form" update=":form"
+										oncomplete="PF('dialogEditarFormula').show();" />
+								</p:outputPanel>
+
+
+								<p:outputLabel value="Aplica para Aguinaldo" />
+								<p:selectBooleanCheckbox
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.aguinaldo}" />
+
+								<p:outputLabel value="Aplica para Retroactivo" />
+								<p:selectBooleanCheckbox
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.retroactivo}" />
+
+								<p:outputLabel value="Tatamiento Fiscal" />
+								<p:selectOneMenu id="tratamiento"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.tratamiento}"
+									style="width:125px">
+									<f:selectItem itemLabel="Exento" itemValue="false" />
+									<f:selectItem itemLabel="Gravable" itemValue="true" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="categoriaSAT" value="Categoría SAT" />
+								<p:selectOneMenu id="categoriaSAT"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.idCategoriaSAT}">
+									<f:selectItem itemLabel="" itemValue="" />
+									<f:selectItems
+										value="#{conceptosNominaFederales.view.categoriaSatLista}"
+										var="categoria" itemLabel="#{categoria.categoriaSAT}"
+										itemValue="#{categoria.idCategoriaSAT}" />
+								</p:selectOneMenu>
+
+								<h:outputLabel for="observacion" value="Observación" />
+								<p:inputTextarea id="observacion"
+									value="#{conceptosNominaFederales.view.conceptoNominaSelect.observacion}"
+									rows="1" cols="60" />
+							</p:panelGrid>
+
+
+
+						</p:outputPanel>
+					</p:tab>
+
+
+					<!-- Seccion para configuracion concepto-puestos ********************************** -->
+					<p:tab title="Configuracion Concepto" id="tabPuestos">
+
+						<p:dataTable id="puestosTabla" var="puesto"  widgetVar="puestosWg"
+							value="#{conceptosNominaFederales.view.puestos}" rows="10"
+							paginator="true" 
+							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="10,15,25"
+							selection="#{conceptosNominaFederales.view.puestosSeleccionados}"
+							rowKey="#{puesto.idPuestoGeneral}"
+							 emptyMessage="No se encontraron resultados">
+					
+					 <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Puestos sin configurar:" />
+                
+            </p:outputPanel>
+        </f:facet>
+					
+							<p:column selectionMode="multiple"
+								style="width:36px;text-align:center" />
+							<p:column headerText="Codigo" filterBy="#{puesto.codigo}" filterMatchMode="contains">
+								<h:outputText value="#{puesto.codigo}" />
+							</p:column>
+							<p:column headerText="Descripcion Puesto" filterBy="#{puesto.puesto}" filterMatchMode="contains">
+								<h:outputText value="#{puesto.puesto}" />
+							</p:column>
+
+							<f:facet name="footer">
+								<p:commandButton id="agregarConfig" value="Agregar configuraciones"
+								actionListener="#{conceptosNominaFederales.guardarConfiguracionConceptosNew}"
+								update="puestosTabla :form:tabGestion:tablaCodigos" style="margin-top:5px;" styleClass="fm-btn-advertencia fm-btn-elevado" />
+							</f:facet>
+						</p:dataTable>
+			
+						<br />
+
+						<p:dataTable id="tablaCodigos" rows="10" paginator="true"
+							editable="true"
+							value="#{conceptosNominaFederales.view.configPuesto}"
+							var="configuracion">
+
+							<f:facet name="header">
+							<div>
+							<h:outputText value="Puestos configurados" />
+							</div>
+								<div align="right">
+									<p:commandButton value="Borrar configuraciones"
+										actionListener="#{conceptosNominaFederales.borrarTodasLasConfiguraciones()}"
+										update="tablaCodigos :form:tabGestion:puestosTabla" />
+								</div>
+							</f:facet>
+
+							<p:ajax event="rowEdit"
+								listener="#{conceptosNominaFederales.onRowEdit}"
+								update="tablaCodigos :form:messages :form:growl" />
+							<p:ajax event="rowEditCancel"
+								listener="#{conceptosNominaFederales.onRowCancel}"
+								update="tablaCodigos :form:messages :form:growl" />
+
+
+							<p:column headerText="Codigo"
+								filterBy="configuracion.codigoPuesto" filterMatchMode="contains">
+								<h:outputText value="#{configuracion.codigoPuesto}" />
+							</p:column>
+							<p:column headerText="Puesto" filterMatchMode="contains">
+								<h:outputText value="#{configuracion.descripcionPuesto}" />
+							</p:column>
+							<p:column headerText="Formula" filterMatchMode="contains">
+								<h:outputText value="#{configuracion.formula}" />
+							</p:column>
+							<p:column headerText="Importe Mensual" filterMatchMode="contains">
+								<h:outputText value="#{configuracion.importe_concepto}" />
+							</p:column>
+							<p:column headerText="Editar" style="width:42px">
+								<p:rowEditor rendered="#{configuracion.tipoPuesto==1}" />
+							</p:column>
+							<p:column headerText="Borrar" style="width:40px">
+								<p:commandButton id="eliminarConfiguracion" icon="ui-icon-trash"
+									styleClass="fm-btn-peligro fm-btn-elevado"
+									action="#{conceptosNominaFederales.eliminarConfiguracionPuesto()}"
+									update=":form:tabGestion:tablaCodigos tablaCodigos" ajax="false">
+									<f:setPropertyActionListener value="#{configuracion}"
+										for="eliminarConfiguracion"
+										target="#{conceptosNominaFederales.view.configuracionConceptoPuestoDTOSeleccionado}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+					</p:tab>
+
+
+				</p:tabView>
+				<div>
+					<p:commandButton value="Guardar"
+						action="#{conceptosNominaFederales.actualizarConceptoNomina()}"
+						update=":form" ajax="false" />
+
+
+					<p:commandButton value="Regresar"
+						action="#{conceptosNominaFederales.irPrincipal()}"
+						style="float:right;" update=":form panelInformacionNomina"
+						ajax="false" />
+
+					<p:commandButton value="Cancelar"
+						styleClass="fm-btn-error fm-btn-elevado"
+						action="#{conceptosNominaFederales.irPrincipal()}"
+						update=":form panelInformacionNomina" style="float:right;"
+						ajax="false" />
+				</div>
+			</p:panel>
+
+			<p:dialog header="Editar formula" widgetVar="dialogEditarFormula"
+				modal="true" height="450" width="500">
+				<h:outputText style="color:red; font-weight:bold"
+					value="(Al utilizar una constante el valor de la misma se vera reflejado hasta que se asigne a un puesto el concepto)" />
+				<br />
+				<p:inputTextarea id="editarFormula"
+					placeholder="Ingrese la formula*"
+					value="#{conceptosNominaFederales.view.editarFormula}" cols="60"
+					rows="2" autoResize="true" />
+				<br />
+				<p:commandButton value="Probar"
+					actionListener="#{conceptosNominaFederales.probarFormula()}"
+					update="probarFormula" process=":form" />
+				<h:outputText id="probarFormula"
+					value="#{conceptosNominaFederales.view.result}" />
+
+
+				<p:ribbon>
+					<p:tab title="Operadores">
+						<p:ribbonGroup label="Aritméticos" style="width:140px">
+							<p:commandButton type="button" title="Suma" value="+"
+								onclick="insertText('form:editarFormula','+')"
+								styleClass="fm-btn-informacion"
+								style="width: 60px !important; font-weight: bold;" />
+							<p:commandButton type="button" title="Resta" value="-"
+								onclick="insertText('form:editarFormula','-')"
+								styleClass="fm-btn-informacion"
+								style="width: 60px !important; font-weight: bold;" />
+							<p:commandButton type="button" title="División" value="/"
+								onclick="insertText('form:editarFormula','/')"
+								styleClass="fm-btn-informacion"
+								style="width: 60px !important; font-weight: bold;" />
+							<p:commandButton type="button" title="Multiplicación" value="*"
+								onclick="insertText('form:editarFormula','*')"
+								styleClass="fm-btn-informacion"
+								style="width: 60px !important; font-weight: bold;" />
+							<p:commandButton type="button" title="Potencia" value="^"
+								onclick="insertText('form:editarFormula','^')"
+								styleClass="fm-btn-informacion"
+								style="width: 60px !important; font-weight: bold;" />
+						</p:ribbonGroup>
+
+						<p:ribbonGroup label="Constantes" style="width:160px">
+							<p:commandButton type="button" title="Sueldo base" value="0700"
+								onclick="insertText('form:editarFormula','(EX0700)')"
+								styleClass="fm-btn-exitoso"
+								style="width: 70px !important; font-weight: bold;" />
+							<p:commandButton type="button" title="Asignacion bruta"
+								value="4200"
+								onclick="insertText('form:editarFormula','(EX4200)')"
+								styleClass="fm-btn-exitoso"
+								style="width: 70px !important; font-weight: bold;" />
+							<p:commandButton type="button"
+								title="Ayuda para gastos de actualizacion" value="55AG"
+								onclick="insertText('form:editarFormula','(EX55AG)')"
+								styleClass="fm-btn-exitoso"
+								style="width: 70px !important; font-weight: bold;" />
+
+						</p:ribbonGroup>
+
+
+
+
+						<p:ribbonGroup label="Impuestos" style="width:80px">
+							<p:commandButton type="button" title="Impuestos sobre la Renta"
+								value="ISR"
+								onclick="insertText('form:editarFormula','ISR(expresión)')"
+								styleClass="fm-btn-elevdo"
+								style="width: 70px !important; font-weight: bold;" />
+							<p:spacer height="80px" />
+						</p:ribbonGroup>
+					</p:tab>
+
+				</p:ribbon>
+
+				<div>
+					<p:commandButton value="Aceptar" icon="ui-icon-check"
+						action="#{conceptosNominaFederales.agregarFormula()}"
+						update=":form" process=":form" ajax="false" />
+
+					<p:commandButton value="Cerrar" type="button" icon="ui-icon-close"
+						onclick="PF('dialogEditarFormula').hide();" style="float:right;"
+						ajax="false" />
+				</div>
+			</p:dialog>
+
+			<h:outputScript target="body">
+	function insertText(areaId,text) {
+	    var txtarea = document.getElementById(areaId);
+	    var scrollPos = txtarea.scrollTop;
+	    var strPos = 0;
+	    var br = ((txtarea.selectionStart || txtarea.selectionStart === '0') ? 
+	        "ff" : (document.selection ? "ie" : false ) );
+	    if (br === "ie") { 
+	        txtarea.focus();
+	        var range = document.selection.createRange();
+	        range.moveStart ('character', -txtarea.value.length);
+	        strPos = range.text.length;
+	    }
+	    else if (br === "ff") strPos = txtarea.selectionStart;
+
+	    var front = (txtarea.value).substring(0,strPos);  
+	    var back = (txtarea.value).substring(strPos,txtarea.value.length); 
+	    txtarea.value=front+text+back;
+	    strPos = strPos + text.length;
+	    if (br === "ie") { 
+	        txtarea.focus();
+	        var range = document.selection.createRange();
+	        range.moveStart ('character', -txtarea.value.length);
+	        range.moveStart ('character', strPos);
+	        range.moveEnd ('character', 0);
+	        range.select();
+	    }
+	    else if (br === "ff") {
+	        txtarea.selectionStart = strPos;
+	        txtarea.selectionEnd = strPos;
+	        txtarea.focus();
+	    }
+	    txtarea.scrollTop = scrollPos;
+	}
+</h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

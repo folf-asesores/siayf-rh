@@ -1,0 +1,475 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Aprobación Candidato" />
+	<ui:param name="moduloTitulo" value="Aprobación Candidato" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite aprobar el candidato postulado para la vacante." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+	<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+
+
+			<p:dataTable emptyMessage="No se encontrarón resultados"
+				rendered="#{consultaCandidatoPostulado.view.mostrarTablaCandidatos}"
+				filteredValue="#{consultaCandidatoPostulado.view.filtroPostuladoVacante}"
+				value="#{consultaCandidatoPostulado.view.listaPostuladoVacante}"
+				var="c" widgetVar="vacante" paginator="true" rows="5"
+				paginatorAlwaysVisible="false" editable="true"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+					<div align="right">
+						<p:outputPanel>
+							<p:inputText id="globalFilter" onkeyup="PF('vacante').filter()"
+								style="width:500px"
+								placeholder="Buscar: Tipo Contratación o Puesto" />
+							<span class="ui-icon-search" />
+						</p:outputPanel>
+					</div>
+				</f:facet>
+
+				<p:ajax event="filter" ignoreAutoUpdate="true" />
+
+				<p:column style="width:50px;">
+					<p:rowToggler />
+				</p:column>
+
+				<p:column headerText="Tipo Contratación"
+					filterBy="#{c.tipoContratacion}" filterStyle="display:none"
+					style="font-weight:bolder;">
+					<h:outputText value="#{c.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Nombramiento" style="font-weight:bolder;">
+					<h:outputText value="#{c.nombramiento}" />
+				</p:column>
+
+				<p:column headerText="Folio Vacante" style="font-weight:bolder;">
+					<h:outputText value="#{c.folioVacante}" />
+				</p:column>
+
+				<p:column headerText="Codigo Puesto" style="font-weight:bolder;">
+					<h:outputText value="#{c.codigoPuesto}" />
+				</p:column>
+
+				<p:column headerText="puesto" filterBy="#{c.puesto}"
+					filterStyle="display:none" style="font-weight:bolder;">
+					<h:outputText value="#{c.puesto}" />
+				</p:column>
+
+				<p:column headerText="Sueldo" style="font-weight:bolder;">
+					<h:outputText value="#{c.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:rowExpansion >
+					<p:dataTable emptyMessage="No se encontro ningun resultado"
+						value="#{c.listaInfoCandidatoVacante}" var="cd" paginator="true"
+						rows="5" paginatorAlwaysVisible="false"
+						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column headerText="Tipo Candidato" style="font-weight:bolder;">
+							<h:outputText value="#{cd.nombreTipoCandidato}" />
+						</p:column>
+
+						<p:column headerText="Nombre Candidato"
+							style="font-weight:bolder;">
+							<h:outputText value="#{cd.nombreCandidato}" />
+						</p:column>
+
+						<p:column headerText="Seleccionado" style="font-weight:bolder;">
+							<h:outputText value="#{cd.seleccionado}" />
+						</p:column>
+
+						<p:column headerText="Opción"
+							style="text-align: center;font-weight:bolder;" width="80">
+							<p:commandButton icon="ui-icon-check" title="Ver Detalle Vacante"
+								onsuccess="PF('statusDialog').hide()" update="form"
+								oncomplete="mymessages();" onstart="PF('statusDialog').show()"
+								action="#{consultaCandidatoPostulado.mostrarDetalleCandidatoSeleccionado(c, cd)}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:rowExpansion>
+
+			</p:dataTable>
+
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{consultaCandidatoPostulado.view.mostrarDetalleCandidatoSeleccionado}">
+
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:commandButton value="DATALLE VACANTE"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();"
+						update="form" process="@this" styleClass="fm-btn-elevado"
+						action="#{consultaCandidatoPostulado.menu(1)}" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="DATOS GENERALES" update="form"
+						onsuccess="PF('statusDialog').hide()" oncomplete="mymessages();"
+						onstart="PF('statusDialog').show()" process="@this"
+						styleClass="fm-btn-elevado"
+						action="#{consultaCandidatoPostulado.menu(2)}" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="HISTORIAL ACADEMICO" update="form"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();"
+						process="@this" styleClass="fm-btn-elevado"
+						action="#{consultaCandidatoPostulado.menu(3)}" />
+
+					<p:spacer height="10" />
+
+					<p:commandButton value="EXPERIENCIA LABORAL" update="form"
+						onsuccess="PF('statusDialog').hide()" oncomplete="mymessages();"
+						onstart="PF('statusDialog').show()" process="@this"
+						styleClass="fm-btn-elevado"
+						action="#{consultaCandidatoPostulado.menu(4)}" />
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:panelGrid columns="3"
+						rendered="#{consultaCandidatoPostulado.view.mostrarDetalleVacante}"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel />
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Detalle Vacante</h3>
+							</f:facet>
+
+							<p:outputLabel for="tipoContratacion" value="Tipo Contratación:" />
+							<h:outputText id="tipoContratacion"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.tipoContratacion}" />
+
+							<p:outputLabel for="nombramiento" value="Nombramiento:" />
+							<h:outputText id="nombramiento"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.nombramiento}" />
+
+							<p:outputLabel for="folioVacante" value="Folio Vacante:" />
+							<h:outputText id="folioVacante"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.folioVacante}" />
+
+							<p:outputLabel for="codigoPuesto" value="Codigo Puesto:" />
+							<h:outputText id="codigoPuesto"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.codigoPuesto}" />
+
+							<p:outputLabel for="puesto" value="Puesto:" />
+							<h:outputText id="puesto"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.puesto}" />
+
+							<p:outputLabel for="sueldo" value="Sueldo:" />
+							<h:outputText id="sueldo" placeholder="$00.00"
+								value="#{consultaCandidatoPostulado.view.infoPostuladoVacanteDTO.sueldo}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:panelGrid>
+						<p:outputLabel />
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="3"
+						rendered="#{consultaCandidatoPostulado.view.mostrarDetalleGeneralCandidato}"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel />
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Datos Generales</h3>
+							</f:facet>
+
+							<p:outputLabel for="tipoCandidato" value="Tipo Candidato:" />
+							<h:outputText id="tipoCandidato"
+								value="#{consultaCandidatoPostulado.view.infoCandidatoVacanteDTO.nombreTipoCandidato}" />
+
+							<p:outputLabel for="nombreCandidato" value="Nombre Candidato:" />
+							<p:inputText id="nombreCandidato" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.nombreCompleto}" />
+
+							<p:outputLabel for="rfc" value="RFC:" />
+							<p:inputText id="rfc" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.rfc}" />
+
+							<p:outputLabel for="curp" value="CURP:" />
+							<p:inputText id="curp" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.curp}" />
+
+							<p:outputLabel for="direccionCompleta"
+								value="Dirección Completa:" />
+							<p:inputText id="direccionCompleta" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.direccionCompleta}" />
+
+							<p:outputLabel for="sexo" value="Sexo:" />
+							<p:selectOneMenu id="sexo" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.idSexo}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{consultaCandidatoPostulado.view.listaTiposSexos}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="estadoCivil" value="Estado Civil:" />
+							<p:selectOneMenu id="estadoCivil" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.idEstadoCivil}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{consultaCandidatoPostulado.view.listaEstadosCiviles}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:" />
+							<p:calendar id="fechaNacimiento" pattern="dd/MM/yyyy"
+								disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.fechaNacimiento}" />
+
+							<p:outputLabel for="lugarNacimiento" value="Lugar Nacimiento:" />
+							<p:inputText id="lugarNacimiento" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.lugarNacimiento}" />
+
+							<p:outputLabel for="telefonos" value="Telefonos:" />
+							<p:inputMask id="telefonos" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.telefonos}"
+								mask="(999) 999-9999" />
+
+							<p:watermark for="correo" value="Email Address" />
+							<p:message for="correo" />
+							<p:outputLabel for="correo" value="Correo Electronico:" />
+							<p:inputText id="correo" disabled="true"
+								validatorMessage="Formato de correo invalido"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.correo}">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+
+
+							<p:outputLabel for="tipoSangre" value="Tipo Sangre:" />
+							<p:selectOneMenu id="tipoSangre" disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.idTipoSangre}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{consultaCandidatoPostulado.view.listaTiposSangre}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="dependientes" value="Tiene Dependientes" />
+							<p:inputSwitch id="dependientes" offLabel="No" onLabel="Si"
+								disabled="true"
+								value="#{consultaCandidatoPostulado.view.datoGeneral.tienePersonasDependientes}" />
+
+							<p:outputLabel for="parentesco" value="Parentesco:"
+								rendered="#{consultaCandidatoPostulado.view.datoGeneral.tienePersonasDependientes}" />
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+								styleClass="ui-panelgrid-blank"
+								rendered="#{consultaCandidatoPostulado.view.datoGeneral.tienePersonasDependientes}">
+								<p:selectManyCheckbox id="parentesco" disabled="true"
+									value="#{consultaCandidatoPostulado.view.datoGeneral.parentescos}"
+									layout="grid" columns="1"
+									rendered="#{consultaCandidatoPostulado.view.datoGeneral.tienePersonasDependientes}">
+									<f:selectItem itemLabel="Conyuge" itemValue="CONYUGE" />
+									<f:selectItem itemLabel="Hijos" itemValue="HIJOS" />
+									<f:selectItem itemLabel="Padres" itemValue="PADRE" />
+									<f:selectItem itemLabel="Otros" itemValue="OTRO" />
+								</p:selectManyCheckbox>
+
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+									layout="grid" styleClass="ui-panelgrid-blank">
+									<p:inputText placeholder="Numero conyuges:" disabled="true"
+										value="#{consultaCandidatoPostulado.view.datoGeneral.numeroConyuges}" />
+									<p:inputText placeholder="Numero hijos:" disabled="true"
+										value="#{consultaCandidatoPostulado.view.datoGeneral.numeroHijos}" />
+									<p:inputText placeholder="Numero padres:" disabled="true"
+										value="#{consultaCandidatoPostulado.view.datoGeneral.numeroPadres}" />
+									<p:inputText placeholder="Numero otros:" disabled="true"
+										value="#{consultaCandidatoPostulado.view.datoGeneral.numeroOtros}" />
+								</p:panelGrid>
+
+
+							</p:panelGrid>
+							<p:outputLabel />
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						id="historialAcademico"
+						rendered="#{consultaCandidatoPostulado.view.mostrarDetalleHistorialAcademico}">
+
+						<f:facet name="header">
+							<h3>Historial Académico</h3>
+						</f:facet>
+
+						<p:dataTable var="h" editable="true"
+							rowKey="#{h.idHistorialAcademico}"
+							value="#{consultaCandidatoPostulado.view.listaHistorialAcademico}"
+							paginator="true" rows="5"
+							emptyMessage="No se encontro ningún registro"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+							<p:column headerText="Escolaridad">
+								<h:outputText value="#{h.nombreEscolaridad}" />
+							</p:column>
+
+							<p:column headerText="Institución">
+								<h:outputText value="#{h.nombreInstitucion}" />
+							</p:column>
+
+							<p:column headerText="Constancia Máxima de Estudios">
+								<h:outputText value="#{h.estatusComprobanteEstudio}" />
+							</p:column>
+
+							<p:column headerText="Fecha de Expedición de Cedula Profesional">
+								<h:outputText value="#{h.fechaExpedicionCedula}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Número de Cedula Profesional">
+								<h:outputText value="#{h.numeroCedula}" />
+							</p:column>
+
+							<p:column headerText="Inicio-Fin">
+								<h:outputText value="#{h.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							-
+							<h:outputText value="#{h.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Nombre Curso">
+								<h:outputText value="#{h.nombreCurso}" />
+							</p:column>
+
+							<p:column headerText="Duración Curso">
+								<h:outputText value="#{h.duracion}" />
+							</p:column>
+
+							<p:column headerText="Cursando">
+								<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+									disabled="true" />
+							</p:column>
+
+							<p:column headerText="Máximo estudio">
+								<p:inputSwitch offLabel="No" onLabel="Si"
+									value="#{h.esMaximoEstudio}" disabled="true" />
+							</p:column>
+
+
+						</p:dataTable>
+
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						id="esperienciaLaboral"
+						rendered="#{consultaCandidatoPostulado.view.mostrarDetalleExperienciaLaboral}">
+
+						<f:facet name="header">
+							<h3>Experiencia Laboral</h3>
+						</f:facet>
+
+						<p:dataTable var="e" editable="true" id="tablaExperienciaLaboral"
+							rowKey="#{e.idExperienciaLaboralAspirante}"
+							value="#{consultaCandidatoPostulado.view.listaExperienciaLaboral}"
+							paginator="true" rows="5"
+							emptyMessage="No se encontro ningún registro"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+							<p:column headerText="Nombre de la Empresa/Institución">
+								<h:outputText value="#{e.nombreEmpresa}" />
+							</p:column>
+
+							<p:column headerText="Puesto">
+								<h:outputText value="#{e.puesto}" />
+							</p:column>
+
+							<p:column headerText="Duración">
+								<h:outputText value="#{e.fechaInicial}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+								-
+								<h:outputText value="#{e.fechaFinal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+
+						</p:dataTable>
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel />
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<p:commandButton value="Regresar" icon="ui-icon-circle-arrow-w"
+								update="form" onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" oncomplete="mymessages();"
+								action="#{consultaCandidatoPostulado.regresarModulo()}" />
+
+							<p:commandButton value="Seleccionar Candidato"
+								icon="ui-icon-circle-check" iconPos="right" update="form"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" oncomplete="mymessages();"
+								action="#{consultaCandidatoPostulado.seleccionarCandidatoVacante()}" />
+
+						</p:panelGrid>
+						<p:outputLabel />
+
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+			</p:panelGrid>
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

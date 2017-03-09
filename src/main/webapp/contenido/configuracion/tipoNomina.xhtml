@@ -1,0 +1,292 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Tipos de Nominas" />
+	<ui:param name="moduloTitulo" value="Tipo Nomina" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración de los tipos de nomina. los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor"
+			enctype="multipart/form-data">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="false"
+				closable="true" globalOnly="true" />
+
+			<p:dataTable id="listTipoNomina"
+				rendered="#{tipoNomina.view.panelPrincipal}"
+				value="#{tipoNomina.view.listTipoNomina}" var="tipoNominaItem"
+				rowKey="#{tipoNominaItem.idTipoNomina}"
+				selection="#{tipoNomina.view.tipoNominaSelect}" scrollable="true"
+				scrollHeight="300" selectionMode="single"
+				emptyMessage="Registros no encontrados.">
+
+				<f:facet name="header">
+					<p:panelGrid columns="4"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						layout="grid"
+						columnClasses="ui-grid-col-9, ui-grid-col-1, ui-grid-col-1, ui-grid-col-1">
+						<p:spacer />
+						<p:commandButton icon="ui-icon-pencil" title="Actualizar"
+							styleClass="fm-btn-exitoso fm-btn-elevado"
+							action="#{tipoNomina.irGestionarTipoNomina()}" update=":form"
+							disabled="#{tipoNomina.view.disabledIrGestionar}" />
+
+						<p:commandButton id="eliminar" icon="ui-icon-trash"
+							title="Eliminar" update="form"
+							styleClass="fm-btn-peligro fm-btn-elevado"
+							action="#{tipoNomina.mostrarDialogo}"
+							disabled="#{tipoNomina.view.disabledIrGestionar}" />
+
+						<p:commandButton icon="ui-icon-circle-plus" title="Registrar"
+							action="#{tipoNomina.irNuevoTipoNomina()}" update=":form" />
+
+					</p:panelGrid>
+
+				</f:facet>
+
+				<p:ajax event="rowSelect"
+					listener="#{tipoNomina.onRowSelectTipoNomina}" update=":form" />
+				<p:ajax event="rowUnselect"
+					listener="#{tipoNomina.onRowUnselectTipoNomina}" update=":form" />
+
+				<p:column headerText="Tipo de Nomina">
+					<h:outputText value="#{tipoNominaItem.descripcion}" />
+				</p:column>
+				<p:column headerText="Tipo de Afectación">
+					<h:outputText value="#{tipoNominaItem.idTipoAfectacionNomina}" />
+				</p:column>
+				<p:column headerText="Clasificación de Nomina">
+					<h:outputText value="#{tipoNominaItem.idClasificacionNomina}" />
+				</p:column>
+				<p:column headerText="Reposición">
+					<h:outputText value="#{tipoNominaItem.esReposicion ? 'SI' : 'NO'}" />
+				</p:column>
+				<p:column headerText="Fuente de Financiamiento">
+					<p:selectOneMenu value="#{tipoNominaItem.idFuenteFinanciamiento}"
+						disabled="true">
+						<f:selectItem itemLabel="-" itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listFuente}"
+							var="itemFuente" itemLabel="#{itemFuente.descripcion}"
+							itemValue="#{itemFuente.idFuenteFinanciamiento}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column headerText="Subfuente de Financiamiento">
+					<p:selectOneMenu disabled="true"
+						value="#{tipoNominaItem.idSubfuenteFinanciamiento}">
+						<f:selectItem itemLabel="-" itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listSubfuente}"
+							var="itemSubfuente" itemLabel="#{itemSubfuente.descripcion}"
+							itemValue="#{itemSubfuente.idSubfuenteFinanciamiento}" />
+					</p:selectOneMenu>
+				</p:column>
+				<p:column headerText="Tipo de recurso">
+					<p:selectOneMenu disabled="true"
+						value="#{tipoNominaItem.idTipoRecurso}">
+						<f:selectItem itemLabel="-" itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listTipoRecurso}"
+							var="itemTipoRecurso" itemLabel="#{itemTipoRecurso.descripcion}"
+							itemValue="#{itemTipoRecurso.idTipoRecurso}" />
+					</p:selectOneMenu>
+				</p:column>
+
+				<p:column headerText="Ordinaria">
+					<h:outputText value="#{tipoNominaItem.ordinaria ? 'SI' : 'NO'}" />
+				</p:column>
+
+				<p:column headerText="Retroactiva">
+					<h:outputText value="#{tipoNominaItem.retroactiva ? 'SI' : 'NO'}" />
+				</p:column>
+
+				<p:column headerText="Prima Vacacional">
+					<h:outputText
+						value="#{tipoNominaItem.primaVacacional ? 'SI' : 'NO'}" />
+				</p:column>
+
+				<p:column headerText="Aguinaldo">
+					<h:outputText value="#{tipoNominaItem.aguinaldo ? 'SI' : 'NO'}" />
+				</p:column>
+
+				<p:column headerText="Área">
+					<p:selectOneMenu disabled="true" value="#{tipoNominaItem.area}">
+
+						<f:selectItem itemLabel="-" itemValue="0" />
+						<f:selectItem itemLabel="Nombramientos Federales" itemValue="1" />
+						<f:selectItem itemLabel="Contratos" itemValue="2" />
+						<f:selectItem itemLabel="Suplencias" itemValue="3" />
+
+					</p:selectOneMenu>
+				</p:column>
+
+			</p:dataTable>
+
+
+			<p:panelGrid columns="3"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" layout="grid"
+				rendered="#{tipoNomina.view.panelGestion}"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+				<p:spacer />
+
+				<p:panelGrid columns="1"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+					layout="grid" columnClasses="ui-grid-col-12">
+
+					<p:outputLabel for="Descripcion" value="Descripción: *" />
+					<p:inputText id="Descripcion"
+						value="#{tipoNomina.view.tipoNomina.descripcion}"
+						validator="#{tipoNomina.validatorTipo}">
+						<p:ajax update="msgDescripcion" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgDescripcion" for="Descripcion" />
+
+					<p:outputLabel for="Idta" value="Tipo de Afectación: *" />
+					<p:selectOneMenu id="Idta"
+						value="#{tipoNomina.view.tipoNomina.idTipoAfectacionNomina}"
+						validator="#{tipoNomina.validatorTipo}">
+						<f:selectItem itemLabel="Seleccione una..." itemValue="" />
+						<f:selectItem itemLabel="CONTABLE" itemValue="C" />
+						<f:selectItem itemLabel="PRESUPUESTAL" itemValue="P" />
+						<p:ajax update="msgIdta" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgIdta" for="Idta" />
+
+					<p:outputLabel for="idc" value="Clasificación de Nomina: *" />
+					<p:selectOneMenu id="idc"
+						value="#{tipoNomina.view.tipoNomina.idClasificacionNomina}"
+						validator="#{tipoNomina.validatorTipo}">
+						<f:selectItem itemLabel="Seleccione una..." itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listClasificacion}"
+							var="itemClasificacion"
+							itemLabel="#{itemClasificacion.descripcion}"
+							itemValue="#{itemClasificacion.clasificacionNomina}" />
+						<p:ajax update="msgidc" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgidc" for="idc" />
+
+					<p:outputLabel for="Idr" value="Reposición: *" />
+					<p:inputSwitch onLabel="SI" offLabel="NO" id="Idr"
+						value="#{tipoNomina.view.tipoNomina.esReposicion}"
+						validator="#{tipoNomina.validatorTipo}">
+						<p:ajax update="msgIdr" />
+						<p:clientValidator />
+					</p:inputSwitch>
+					<p:message id="msgIdr" for="Idr" />
+
+					<p:outputLabel for="iff" value="Fuente de Financiamiento" />
+					<p:selectOneMenu id="iff"
+						value="#{tipoNomina.view.tipoNomina.idFuenteFinanciamiento}">
+						<f:selectItem itemLabel="Elije uno..." itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listFuente}"
+							var="itemFuente" itemLabel="#{itemFuente.descripcion}"
+							itemValue="#{itemFuente.idFuenteFinanciamiento}" />
+					</p:selectOneMenu>
+					<p:spacer />
+
+					<p:outputLabel for="Isf" value="Subfuente de Financiamiento" />
+					<p:selectOneMenu id="Isf"
+						value="#{tipoNomina.view.tipoNomina.idSubfuenteFinanciamiento}">
+						<f:selectItem itemLabel="Elije uno..." itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listSubfuente}"
+							var="itemSubfuente" itemLabel="#{itemSubfuente.descripcion}"
+							itemValue="#{itemSubfuente.idSubfuenteFinanciamiento}" />
+					</p:selectOneMenu>
+					<p:spacer />
+
+					<p:outputLabel for="itr" value="Tipo de Recursos" />
+					<p:selectOneMenu id="itr"
+						value="#{tipoNomina.view.tipoNomina.idTipoRecurso}">
+						<f:selectItem itemLabel="Elije uno..." itemValue="" />
+						<f:selectItems value="#{tipoNomina.view.listTipoRecurso}"
+							var="itemTipoRecurso" itemLabel="#{itemTipoRecurso.descripcion}"
+							itemValue="#{itemTipoRecurso.idTipoRecurso}" />
+					</p:selectOneMenu>
+					<p:spacer />
+
+
+					<p:outputLabel for="ordinaria" value="Ordinaria: " />
+					<p:inputSwitch id="ordinaria" onLabel="SI" offLabel="NO"
+						value="#{tipoNomina.view.tipoNomina.ordinaria}" />
+					<p:spacer />
+
+					<p:outputLabel for="retroactiva" value="Retroactiva: " />
+					<p:inputSwitch id="retroactiva" onLabel="SI" offLabel="NO"
+						value="#{tipoNomina.view.tipoNomina.retroactiva}" />
+					<p:spacer />
+
+					<p:outputLabel for="primaVacacional" value="Prima Vacacional: " />
+					<p:inputSwitch id="primaVacacional" onLabel="SI" offLabel="NO"
+						value="#{tipoNomina.view.tipoNomina.primaVacacional}" />
+					<p:spacer />
+
+					<p:outputLabel for="aguinaldo" value="Aguinaldo: " />
+					<p:inputSwitch id="aguinaldo" onLabel="SI" offLabel="NO"
+						value="#{tipoNomina.view.tipoNomina.aguinaldo}" />
+					<p:spacer />
+
+					<p:outputLabel for="area" value="Área: " />
+					<p:selectOneMenu id="area" required="true"
+						requiredMessage="Seleccione el área"
+						value="#{tipoNomina.view.tipoNomina.area}">
+
+						<f:selectItem itemLabel="Seleccione una opción..." itemValue="" />
+						<f:selectItem itemLabel="Nombramientos Federales" itemValue="1" />
+						<f:selectItem itemLabel="Contratos" itemValue="2" />
+						<f:selectItem itemLabel="Suplencias" itemValue="3" />
+
+						<p:ajax event="valueChange" update="msgArea" />
+
+					</p:selectOneMenu>
+					<p:message id="msgArea" for="area" />
+					<p:spacer />
+
+					<p:panelGrid columns="2"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+						layout="grid" rendered="#{tipoNomina.view.panelGestion}"
+						columnClasses="ui-grid-col-6">
+
+						<p:commandButton value="Guardar" icon="ui-icon-disk"
+							action="#{tipoNomina.guardarTipoNomina}" update="@form" />
+
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							action="#{tipoNomina.irPrincipal()}" update="@form"
+							process="@this" />
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+
+			<p:confirmDialog
+				message="Esta seguro que desea borrar este TIPO DE NOMINA?"
+				visible="#{tipoNomina.dialogo}" showEffect="fade"
+				hideEffect="explode">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3">
+					<p:spacer />
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{tipoNomina.eliminarTipoNomina()}" update="@form" />
+					<p:commandButton value="No" update="@form"
+						icon="ui-icon-circle-close" action="#{tipoNomina.ocultarDialogo}" />
+					<p:spacer />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

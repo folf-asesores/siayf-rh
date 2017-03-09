@@ -1,0 +1,238 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Aprobación Candidato" />
+	<ui:param name="moduloTitulo" value="Aprobación Candidato" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para aprobar al candidato que será registrado como empleado." />
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+
+
+
+
+
+			<p:dataTable emptyMessage="No se encontrarón resultados"
+				rendered="#{aprobacionCandidato.view.mostrarPostulacionesDisponibles}"
+				value="#{aprobacionCandidato.view.postulacionesDisponibles}" var="p"
+				paginator="true" rows="5" paginatorAlwaysVisible="false"
+				editable="true"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+
+				<p:column headerText="Tipo Contratación">
+					<h:outputText value="#{p.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Fecha Postulación">
+					<h:outputText value="#{p.fechaPostulacion}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Tipo Postulación">
+					<h:outputText value="#{p.tipoPostulacion}" />
+				</p:column>
+
+				<p:column headerText="Puesto" style="font-weight:bolder;">
+					<h:outputText value="#{p.puesto}" />
+				</p:column>
+
+				<p:column headerText="Sueldo">
+					<h:outputText value="#{p.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Ultimo empleado">
+					<h:outputText value="#{p.ultimoEmpleado}" />
+				</p:column>
+				<p:column headerText="Agregar Detalle">
+
+					<p:commandButton icon="fm-icon-eye"
+						actionListener="#{aprobacionCandidato.mostrarCandidatosPostulados(p)}"
+						update="form" styleClass="fm-btn-exitoso fm-btn-elevado"></p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+
+			<h:panelGroup id="candidatosPostulados"
+				rendered="#{aprobacionCandidato.view.mostrarCandidatosPostulados}">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Postulación</h3>
+					</f:facet>
+					<p:outputLabel value="Tipo Contratación" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Fecha Postulación" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.fechaPostulacion}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Tipo Postulación" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.tipoPostulacion}"></h:outputText>
+
+					<p:outputLabel value="Puesto" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.puesto}"></h:outputText>
+
+					<p:outputLabel value="Sueldo" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.sueldo}"></h:outputText>
+
+					<p:outputLabel value="Ultimo Empleado" />
+					<h:outputText
+						value="#{aprobacionCandidato.view.postulacionSeleccionada.ultimoEmpleado}"></h:outputText>
+				</p:panelGrid>
+
+				<p:dataTable emptyMessage="No se encontro ningun resultado"
+					value="#{aprobacionCandidato.view.candidatosPostulados}" var="c"
+					paginator="true" rows="5" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<p:commandButton value="Regresar" icon="ui-icon-circle-arrow-w"
+							actionListener="#{aprobacionCandidato.ocultarCandidatosPostulados()}"
+							update="form" onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+					</f:facet>
+					<p:column headerText="Tipo Candidato">
+						<h:outputText value="#{c.tipoCandidato}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{c.rfc}" />
+					</p:column>
+
+					<p:column headerText="Curp">
+						<h:outputText value="#{c.curp}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{c.nombre}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{c.estatus}" />
+					</p:column>
+
+					<p:column headerText="Perfil">
+						<h:outputText value="#{c.estudios}" />
+					</p:column>
+
+					<p:column headerText="Ver">
+
+						<p:commandButton icon="fm-icon-eye"
+							actionListener="#{aprobacionCandidato.visualizarDetalleSeleccionado(c)}"
+							update="form" styleClass="fm-btn-exitoso fm-btn-elevado"></p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+
+				<p:dialog header="Detalle Candidato" showEffect="Slide"
+					id="detalle_candidato"
+					visible="#{aprobacionCandidato.view.mostrarDetalleSeleccionado}"
+					modal="true" closable="false" height="500">
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="fm-tarjeta ui-fluid ">
+						<f:facet name="header">
+							<h3>Información Candidato Seleccionado</h3>
+							<p:messages id="errorAprobacion" showDetail="true"
+								autoUpdate="false" severity="error" closable="true" />
+						</f:facet>
+						<p:outputLabel value="Nombre" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.nombre}"></h:outputText>
+
+						<p:outputLabel value="Rfc" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.rfc}"></h:outputText>
+
+						<p:outputLabel value="Curp" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.curp}"></h:outputText>
+
+						<p:outputLabel value="Edad" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.edad}"></h:outputText>
+						<p:outputLabel value="Sexo" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.sexo}"></h:outputText>
+						<p:outputLabel value="Domicilio" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.domicilio}"></h:outputText>
+
+						<p:outputLabel value="Estudios" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.estudios}"></h:outputText>
+
+						<p:outputLabel value="Tipo Candidato" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.tipoCandidato}"></h:outputText>
+
+						<p:outputLabel value="Estatus" />
+						<h:outputText
+							value="#{aprobacionCandidato.view.candidatoSeleccionado.estatus}"></h:outputText>
+
+
+					</p:panelGrid>
+
+					<f:facet name="footer">
+						<div align="center">
+							<p:commandButton icon="ui-icon-circle-check"
+								update="form, errorAprobacion" oncomplete="mymessages();"
+								actionListener="#{aprobacionCandidato.aprobarCandidato()}" />
+							<p:spacer width="20" />
+							<p:commandButton icon="ui-icon-circle-close" update="form"
+								oncomplete="mymessages();" process="@this"
+								actionListener="#{aprobacionCandidato.ocultarDetalleSeleccionado()}"
+								styleClass="fm-btn-peligro fm-btn-elevado" />
+							<p:spacer width="20" />
+							<p:commandButton icon="fm-icon-eye" update="detalle_candidato"
+								oncomplete="popupwindow('#{aprobacionCandidato.view.consulta}', 'newwindow');" />
+
+
+						</div>
+					</f:facet>
+
+
+				</p:dialog>
+
+			</h:panelGroup>
+
+			<h:outputScript target="body">
+			   
+function popupwindow(url, title) {      
+    window.open(url , title, "toolbar=no, scrollbars=yes, resizable=yes, top=170, left=170, width=800, height=600");        
+}    
+
+
+			</h:outputScript>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

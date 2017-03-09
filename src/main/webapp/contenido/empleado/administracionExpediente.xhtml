@@ -1,0 +1,526 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+administracionExpediente.xhtml
+Creado el Oct 18, 2016 12:29:19 PM
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Administración expediente empleado" />
+
+	<ui:param name="moduloTitulo"
+		value="Administración expediente empleado" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+	<ui:define name="moduloContenido">
+		<h:form id="frmAdministracionExpediente">
+			<p:messages for="info" showDetail="true" autoUpdate="false"
+				severity="info" closable="true" globalOnly="true" />
+
+			<!-- Panel para la búsqueda por criterio. -->
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel for="txtCriterio" value="Ingrese un criterio" />
+				<p:inputText id="txtCriterio"
+					value="#{administracionExpedienteEmpleado.view.criterio}"
+					placeholder="RFC o nombre completo"
+					validator="#{administracionExpedienteEmpleado.validatorBusqueda}">
+					<p:ajax update="msgCriterio" />
+					<p:clientValidator />
+				</p:inputText>
+
+				<p:commandButton id="btnBuscar" widgetVar="btnBuscarWV"
+					actionListener="#{administracionExpedienteEmpleado.consultarEmpleados}"
+					process="@this"
+					onclick="setTimeout(function() {PF('btnBuscarWV').disable();}, 1 * 1000);"
+					oncomplete="setTimeout(function() {PF('btnBuscarWV').enable();}, 1 * 1000);"
+					update="frmAdministracionExpediente" icon="ui-icon-search"
+					styleClass="fm-btn-elevado" />
+				<p:spacer />
+
+				<p:message id="msgCriterio" for="txtCriterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<!-- Tabla que muestra los resultados de la búsqueda. -->
+			<p:dataTable id="tblEmpleados"
+				value="#{administracionExpedienteEmpleado.view.empleados}" var="e"
+				rendered="#{administracionExpedienteEmpleado.view.mostrarResultadoConsulta}"
+				paginator="true" paginatorPosition="bottom" rows="10"
+				paginatorAlwaysVisible="false"
+				emptyMessage="No se ha encontrado ningún empleado.">
+				<p:column headerText="Tipo Trabajador">
+					<h:outputText value="#{e.tipoEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="RFC">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="CURP">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{e.estatus}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+
+				<p:column headerText="Ver" style="text-align: center;">
+					<p:commandButton update="frmAdministracionExpediente"
+						actionListener="#{administracionExpedienteEmpleado.seleccionarEmpleado(e.idEmpleado)}"
+						icon="fm-icon-eye" title="Ver" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{administracionExpedienteEmpleado.view.mostrarPanelCorrecciones}">
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Datos Personales</h3>
+					</f:facet>
+					<p:outputLabel value="Nombre:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.nombre}"></h:outputText>
+					<p:outputLabel value="Rfc:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.curp}"></h:outputText>
+
+					<p:outputLabel value="Tipo Empleado:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.tipoEmpleado}"></h:outputText>
+
+					<p:outputLabel value="Adscripción:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.adscripcion}"></h:outputText>
+					<p:outputLabel value="Subadscripción:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función:" />
+					<h:outputText
+						value="#{administracionExpedienteEmpleado.view.empleadoSeleccionado.funcion}"></h:outputText>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+
+			<p:outputPanel
+				rendered="#{administracionExpedienteEmpleado.view.mostrarPanelCorrecciones}"
+				styleClass="fm-tarjeta">
+
+
+				<p:tabView orientation="left" dynamic="true">
+					<p:ajax event="tabChange"
+						listener="#{administracionExpedienteEmpleado.onChange}" />
+					<p:tab id="tabExpediente" title="Expediente único de personal">
+						<p:panelGrid id="expedienteEmpleado" columns="3"
+							columnClasses="ui-grid-col-3,ui-grid-col-6,ui-grid-col-3"
+							layout="grid" styleClass="ui-panelgrid-blank">
+							<p:spacer />
+
+							<p:panelGrid id="contenidoExpediente" columns="1"
+								columnClasses="ui-grid-col-12" layout="grid"
+								styleClass="ui-panelgrid-blank"
+								rendered="#{administracionExpedienteEmpleado.view.mostrarExpediente}">
+
+								<p:panelGrid id="imagen" columns="3"
+									columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+									layout="grid" styleClass="ui-panelgrid-blank">
+									<p:spacer />
+
+									<h:graphicImage styleClass="fm-width-100" library="imagenes"
+										name="#{administracionExpedienteEmpleado.view.imagenExpediente}"
+										style="margin:auto; height:100px; width:auto;" />
+
+									<p:spacer />
+								</p:panelGrid>
+
+								<p:panelGrid id="aperturaExpediente" columns="1"
+									columnClasses="ui-grid-col-12" layout="grid"
+									styleClass="ui-panelgrid-blank"
+									rendered="#{administracionExpedienteEmpleado.view.mostrarAperturaExpediente}">
+									<f:facet name="header">
+										<h3>Aperturar Expediente</h3>
+									</f:facet>
+
+									<p:outputLabel for="numeroExpediente"
+										value="Número de expediente" />
+									<p:inputText id="numeroExpediente"
+										value="#{administracionExpedienteEmpleado.view.expediente.numeroExpediente}"
+										validator="#{administracionExpedienteEmpleado.validatorExpediente}">
+										<p:ajax update="msgNumeroExpediente" />
+										<p:clientValidator />
+									</p:inputText>
+									<p:message id="msgNumeroExpediente" for="numeroExpediente" />
+
+									<p:commandButton value="Aperturar"
+										actionListener="#{administracionExpedienteEmpleado.aperturarExpediente}"
+										update="frmAdministracionExpediente" />
+								</p:panelGrid>
+
+								<p:panelGrid id="expedienteAperturado" columns="1"
+									columnClasses="ui-grid-col-12" layout="grid"
+									styleClass="ui-panelgrid-blank"
+									rendered="#{administracionExpedienteEmpleado.view.mostrarActualizacionExpediente}">
+									<f:facet name="header">
+										<h3>Número de expediente:
+											#{administracionExpedienteEmpleado.view.numeroExpediente}</h3>
+									</f:facet>
+								</p:panelGrid>
+							</p:panelGrid>
+
+							<p:spacer />
+						</p:panelGrid>
+
+						<p:panelGrid id="expedienteDesgloce" columns="2"
+							columnClasses="ui-grid-col-4,ui-grid-col-8," layout="grid"
+							styleClass="ui-panelgrid-blank"
+							rendered="#{administracionExpedienteEmpleado.view.mostrarActualizacionExpediente}">
+
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<f:facet name="header">
+									<h3>Documento Expediente</h3>
+								</f:facet>
+
+								<p:selectOneMenu id="idDocumentoAdjuntableEmpleado"
+									value="#{administracionExpedienteEmpleado.view.idDocumentoAdjuntable}"
+									filter="true" filterMatchMode="contains">
+									<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+									<f:selectItems
+										value="#{administracionExpedienteEmpleado.view.listaTiposDocumentosExpediente}" />
+									<p:ajax update="archivoEmpleado" />
+								</p:selectOneMenu>
+
+								<p:fileUpload id="archivoEmpleado"
+									fileUploadListener="#{administracionExpedienteEmpleado.subirDocumentoAdjunto}"
+									label="Adjuntar" auto="true" mode="advanced"
+									allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/"
+									update="frmAdministracionExpediente"
+									invalidFileMessage="Tipo de archivo no permitido">
+									<f:attribute name="idEmpleado"
+										value="#{administracionExpedienteEmpleado.view.idEmpleadoSeleccionado}" />
+									<f:attribute name="idDocAdj"
+										value="#{administracionExpedienteEmpleado.view.idDocumentoAdjuntable}" />
+								</p:fileUpload>
+							</p:panelGrid>
+
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+								<p:dataTable id="documentos"
+									value="#{administracionExpedienteEmpleado.view.documentosExpedientes}"
+									var="a" rowKey="#{a.idAdjunto}"
+									emptyMessage="No se ha encontrado ningún documento adjunto.">
+									<p:column headerText="Documento">
+										<h:outputText value="#{a.documentoAdjuntable.descripcion}" />
+									</p:column>
+
+									<p:column headerText="Detalle">
+										<h:outputText value="#{a.detalle}" />
+									</p:column>
+
+									<p:column headerText="Opciones">
+										<p:commandButton icon="fm-icon-eye" title="Ver"
+											actionListener="#{administracionExpedienteEmpleado.visualizarImagen(a.idAdjunto)}"
+											oncomplete="PF('dlgVisualizarDocWV').show();"
+											update="frmAdministracionExpediente" />
+
+										<p:commandButton icon="fm-icon-download" title="Descargar"
+											actionListener="#{administracionExpedienteEmpleado.descargarAdjunto(a)}"
+											ajax="false" update="frmAdministracionExpediente" />
+
+										<p:commandButton icon="ui-icon-trash" title="Eliminar"
+											actionListener="#{administracionExpedienteEmpleado.eliminarAdjunto(a.idAdjunto)}"
+											update="frmAdministracionExpediente" />
+									</p:column>
+								</p:dataTable>
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:tab>
+
+					<!-- Historiales Académicos -->
+					<p:tab id="tabHistorialAcademico" title="Historial académico">
+						<p:panelGrid id="historialAcademico" columns="1"
+							columnClasses="ui-grid-col-12" layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<p:messages id="infoHistorial" showDetail="true"
+									autoUpdate="true" severity="warning" closable="true" />
+								<h3>Historiales Académicos</h3>
+							</f:facet>
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-9,ui-grid-col-3" layout="grid"
+								styleClass="ui-panelgrid-blank">
+								<p:spacer />
+
+								<p:commandButton value="Nuevo historial"
+									actionListener="#{administracionExpedienteEmpleado.visualizarRegistroHistorial()}"
+									update="frmAdministracionExpediente" />
+							</p:panelGrid>
+
+							<p:dataTable id="historialBasico"
+								value="#{administracionExpedienteEmpleado.view.historialesAcademicos}"
+								var="h" rowKey="#{h.idHistorialAcademico}"
+								emptyMessage="No se ha encontrado ningún historial académico.">
+								<p:column headerText="Escolaridad">
+									<h:outputText value="#{h.nombreEscolaridad }" />
+								</p:column>
+
+								<p:column headerText="Institución">
+									<h:outputText value="#{h.nombreInstitucion}" />
+								</p:column>
+								<p:column headerText="Constancia máxima de estudios">
+									<h:outputText value="#{h.estatusComprobatorio}" />
+								</p:column>
+
+								<p:column headerText="Fecha de expedición de Cedula Profesional">
+									<h:outputText value="#{h.fechaExpedicionCedula}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Número de Cedula Profesional">
+									<h:outputText value="#{h.numeroCedula}" />
+								</p:column>
+
+								<p:column headerText="Inicio-Fin">
+									<h:outputText value="#{h.fechaInicial}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+									</h:outputText>
+									<h:outputText value=" - " />
+									<h:outputText value="#{h.fechaFinal}">
+										<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Nombre curso">
+									<h:outputText value="#{h.nombreCurso}" />
+								</p:column>
+
+								<p:column headerText="Duración curso">
+									<h:outputText value="#{h.duracion}" />
+								</p:column>
+
+								<p:column headerText="Cursando">
+									<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+										disabled="true" />
+								</p:column>
+
+								<p:column headerText="Máximo estudio">
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										value="#{h.esMaximoEstudio}" disabled="true" />
+								</p:column>
+
+								<p:column headerText="Tiene documentación adjunta">
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										value="#{h.tieneDocumentacion}" disabled="true" />
+								</p:column>
+
+								<p:column headerText="Opciones"
+									style="width:70px;text-align: center;">
+									<p:commandButton icon="fm-icon-attach" title="Ver"
+										actionListener="#{administracionExpedienteEmpleado.visualizarAdjuntarDocumentoHistorial(h)}"
+										update="frmAdministracionExpediente" />
+								</p:column>
+							</p:dataTable>
+
+							<p:spacer />
+
+							<p:panelGrid id="registroHistorial" columns="3"
+								rendered="#{administracionExpedienteEmpleado.view.mostrarRegistroHistorial}"
+								columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+								layout="grid" styleClass="ui-panelgrid-blank">
+
+								<p:spacer />
+
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+									id="altaHistorial">
+									<f:facet name="header">
+										<h3>Registro historial</h3>
+									</f:facet>
+
+									<p:outputLabel for="escolaridad" value="Escolaridad*" />
+									<p:selectOneMenu id="escolaridad"
+										value="#{administracionExpedienteEmpleado.view.historial.idEscolaridad}">
+										<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+										<f:selectItems
+											value="#{administracionExpedienteEmpleado.view.listaEscolaridades}" />
+										<p:ajax
+											listener="#{administracionExpedienteEmpleado.visualizarDatosRequeridosCurso()}"
+											update="altaHistorial" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="institucion"
+										value="Nombre de la institución*" />
+									<p:inputText id="institucion"
+										value="#{administracionExpedienteEmpleado.view.historial.nombreInstitucion}" />
+
+									<p:outputLabel for="documentoComprobatorio"
+										value="Último comprobante estudio del grado académico*" />
+									<p:selectOneMenu id="documentoComprobatorio"
+										value="#{administracionExpedienteEmpleado.view.historial.idComprobanteEstudio}">
+										<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+										<f:selectItems
+											value="#{administracionExpedienteEmpleado.view.listaComprobantesEstudios}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="fechaExpedicionCedula"
+										value="Fecha de expedición de Cedula Profesional" />
+									<p:calendar id="fechaExpedicionCedula" pattern="dd/MM/yyyy"
+										value="#{administracionExpedienteEmpleado.view.historial.fechaExpedicionCedula}" />
+
+									<p:outputLabel for="numeroCedula"
+										value="Número de Cedula Profesional" />
+									<p:inputText id="numeroCedula"
+										value="#{administracionExpedienteEmpleado.view.historial.numeroCedula}" />
+
+									<p:outputLabel for="fechaInicial" value="Fecha inicial*" />
+									<p:calendar id="fechaInicial"
+										value="#{administracionExpedienteEmpleado.view.historial.fechaInicial}"
+										pattern="dd/MM/yyyy" />
+
+									<p:outputLabel for="fechaFinal" value="Fecha final" />
+									<p:calendar id="fechaFinal"
+										value="#{administracionExpedienteEmpleado.view.historial.fechaFinal}"
+										pattern="dd/MM/yyyy" />
+
+									<p:outputLabel for="nombreCurso"
+										value="Nombre de la escolaridad cursada*" />
+									<p:inputText id="nombreCurso"
+										value="#{administracionExpedienteEmpleado.view.historial.nombreCurso}" />
+
+									<p:outputLabel for="duracion"
+										value="Duración de la escolaridad complementaria*"
+										rendered="#{administracionExpedienteEmpleado.view.visualizarDatosCurso}" />
+									<p:inputText id="duracion"
+										value="#{administracionExpedienteEmpleado.view.historial.duracion}"
+										rendered="#{administracionExpedienteEmpleado.view.visualizarDatosCurso}" />
+
+									<p:outputLabel for="duracion" value="Cursando" />
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										value="#{administracionExpedienteEmpleado.view.historial.cursando}" />
+
+									<p:outputLabel for="maximoEstudio"
+										value="¿Es el máximo grado de estudios?" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="maximoEstudio"
+										value="#{administracionExpedienteEmpleado.view.historial.maximoEstudios}" />
+
+									<p:spacer />
+
+									<p:commandButton value="Guardar"
+										actionListener="#{administracionExpedienteEmpleado.registrarHistorialAcademico}"
+										update="frmAdministracionExpediente" />
+								</p:panelGrid>
+							</p:panelGrid>
+
+							<p:panelGrid id="adjuntoHistorial" columns="3"
+								columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+								layout="grid" styleClass="ui-panelgrid-blank"
+								rendered="#{administracionExpedienteEmpleado.view.mostrarAdjuntarDocumentoHistorial}">
+								<p:spacer />
+
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<f:facet name="header">
+										<h3>Información Documento Adjunto</h3>
+									</f:facet>
+
+									<p:dataList
+										value="#{administracionExpedienteEmpleado.view.documentacionActualHistorial}"
+										var="d" type="ordered"
+										emptyMessage="No se ha encontrado ningún documento.">
+										<f:facet name="header">
+                                            Usted ya ha adjuntado los siguientes documentos en #{administracionExpedienteEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}
+                                        </f:facet>
+
+                                        #{d}
+                                    </p:dataList>
+
+									<p:outputLabel
+										value="Escolaridad a la que pertece el documento" />
+									<h:outputText
+										value="#{administracionExpedienteEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}" />
+
+									<p:outputLabel value="Institución" />
+									<h:outputText
+										value="#{administracionExpedienteEmpleado.view.historialAcademicoSeleccionado.nombreInstitucion}" />
+
+									<p:outputLabel
+										value="Seleccione el tipo de documento que va a adjuntar*" />
+									<p:selectOneMenu id="idDocumentoAdjuntable"
+										value="#{administracionExpedienteEmpleado.view.idDocumentoAdjuntableHistorial}">
+										<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+										<f:selectItems
+											value="#{administracionExpedienteEmpleado.view.listaDocumentosHistorialAcademico}" />
+										<p:ajax update="archivo"></p:ajax>
+									</p:selectOneMenu>
+
+									<p:fileUpload id="archivo"
+										fileUploadListener="#{administracionExpedienteEmpleado.subirDocumentoAdjuntoHistorial}"
+										label="Subir archivo" auto="true" mode="advanced"
+										allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/"
+										update="frmAdministracionExpediente" />
+								</p:panelGrid>
+
+								<p:spacer />
+							</p:panelGrid>
+						</p:panelGrid>
+					</p:tab>
+				</p:tabView>
+			</p:outputPanel>
+
+			<p:dialog id="dlgVisualizarDoc" widgetVar="dlgVisualizarDocWV"
+				rendered="#{administracionExpedienteEmpleado.view.mostrarImagenExpediente}">
+				<f:facet name="header">
+					<h3>Vista previa</h3>
+				</f:facet>
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:graphicImage
+						value="#{vistaPreviaService.vistaPreviaAdjuntoEmpleado}"
+						styleClass="fm-width-100">
+						<f:param name="idAdjunto"
+							value="#{administracionExpedienteEmpleado.view.idImagenExpediente}" />
+					</p:graphicImage>
+				</p:panelGrid>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

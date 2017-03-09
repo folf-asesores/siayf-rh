@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+logout.xhtml
+Creado el 
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                 xmlns:f="http://xmlns.jcp.org/jsf/core"
+                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                 xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+                 xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                 xmlns:p="http://primefaces.org/ui"
+                 template="/plantillas/miniform-impl.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Login" />
+
+    <ui:param name="moduloEncabezadoTitulo" value="Login / Sign Up" />
+
+    <ui:define name="moduloEncabezadoIcono">
+        <span class="fm-icon-login"></span>
+    </ui:define>
+
+    <ui:define name="moduloContenido">
+        <p:growl id="growl" showDetail="true" autoUpdate="true" />
+        <ui:remove>
+            <!-- 
+                Eliminado temporalmente porque aún no se muestran los eventos 
+                de error.
+            -->
+            <p:messages id="messagesPass" showDetail="true" autoUpdate="true" />
+            <p:ajaxStatus onstart="PF('statusDialog').show();"
+                          onsuccess="PF('statusDialog').hide();" />            
+            <p:dialog modal="true" widgetVar="statusDialog" header="Cargando..."
+                      draggable="false" closable="false">
+                <p:graphicImage library="imagenes" name="load.gif" />
+            </p:dialog>
+        </ui:remove>
+        
+        <h:form id="login" pt:action="#{request.contextPath}/contenido/inicio.xhtml" >
+            <p:inputText id="nombreUsuario"
+                         placeholder="Usuario" required="true"
+                         requiredMessage="El nombre de usuario es requerido." />
+            <br />
+            
+            <p:inputText id="contrasenya"
+                         placeholder="Contraseña" type="password" required="true"
+                         requiredMessage="Se requiere una contraseña" />
+            <br />
+            <p:outputLabel value="Recordar Usuario   " />
+            <p:selectBooleanCheckbox id="mantenerSesion" />
+            <p:commandButton value="Entrar" update="login"
+                             ajax="false"
+                             icon="ui-icon-unlocked" iconPos="right" />
+        </h:form>
+    </ui:define>
+</ui:composition>

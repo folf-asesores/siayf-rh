@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        template="/plantillas/principal-con-menu.xhtml">
+    
+    <ui:param name="ventanaTitulo" value="Exportar expedientes" />
+
+    <ui:param name="moduloTitulo" value="Exportar expedientes" />
+
+    <ui:define name="moduloContenido">
+        <h:form id="form" styleClass="fm-tarjeta ui-fluid">
+            <p>Para iniciar la exportación haga clic en el botón</p>
+            <p:panelGrid columns="2" layout="grid" 
+                         columnClasses="ui-grid-col-2,ui-grid-col-10"
+                         styleClass="ui-panelgrid-blank">
+                <p:outputLabel value="Posición inicial" />
+                <p:inputText value="#{exportacionController.posicion}" />
+                
+                <p:outputLabel value="Tamaño de la exporación" />
+                <p:inputText value="#{exportacionController.tamanyo}" />
+            </p:panelGrid>
+            <p:outputPanel styleClass="fm-tarjeta-pie" >
+                <p:commandButton id="btnExportar" widgetVar="btnExportarWV" 
+                                 action="#{exportacionController.iniciarTarea()}" 
+                                 value="Iniciar exportación"
+                                 styleClass="fm-tarjeta-pie-boton fm-float-right"
+                                 onclick="PF('btnExportarWV').disable()"
+                                 oncomplete="PF('btnExportarWV').enable()"/>
+            </p:outputPanel>
+        </h:form>
+    </ui:define>
+            
+</ui:composition>

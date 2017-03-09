@@ -1,0 +1,345 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Editar Jornada" />
+	<ui:param name="moduloSubtitulo"
+		value="Capture la información y reglas de asistecia de la nueva jornada que se va a crear." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{editarJornadaController.init}"
+			type="preRenderView" />
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmFormNuevaJornada" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panelGrid columns="2" layout="grid">
+				<p:outputLabel value="Descripción de jornada:" />
+				<p:outputLabel value="¿Trabaja días festivos?" />
+				<p:inputText styleClass="fm-bloque input_lng"
+					value="#{editarJornadaController.jornadaFormModel.descripcion}"></p:inputText>
+				<p:inputSwitch onLabel="Si" offLabel="No" id="trabaja-dias-festivos"
+					widgetVar="trabaja-dias-festivos"
+					value="#{editarJornadaController.bTrabajaDiasNoLaborales}"></p:inputSwitch>
+
+
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ">
+					<f:facet name="header">
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="header-panel-grid">
+							<h2
+								style="text-align: left; font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">
+								Reglas de asistencia.</h2>
+							<p:commandButton id="btnNuevaRegla" title="Nuevo"
+								icon="ui-icon-plus" styleClass="fm-btn-inverso aling_right "
+								immediate="true" update="dlgNuevaRegla"
+								actionListener="#{editarJornadaController.nuevaReglaAsistencia}" />
+						</p:panelGrid>
+
+
+					</f:facet>
+					<p:dataTable var="reglasAsistencia" id="tblReglasAsistencia"
+						styleClass="tabla-personalizada" widgetVar="tblIncidencias"
+						emptyMessage="No se encontraron registros"
+						value="#{editarJornadaController.listadoReglaAsistencia}">
+
+
+
+						<p:column width="300" headerText="Incidencia">
+							<h:outputText value="#{reglasAsistencia.incidencia}" />
+						</p:column>
+						<p:column headerText="Min. Inicial">
+							<h:outputText value="#{reglasAsistencia.minutoInicial}" />
+						</p:column>
+						<p:column headerText="Min. Final">
+							<h:outputText value="#{reglasAsistencia.minutoFinal}" />
+						</p:column>
+						<p:column headerText="¿Tramite?">
+
+							<h:outputText value="Si"
+								rendered="#{reglasAsistencia.requiereTramite == 1}" />
+							<h:outputText value="No"
+								rendered="#{reglasAsistencia.requiereTramite == 0}" />
+						</p:column>
+						<p:column>
+
+							<p:commandButton id="eliminar" icon="ui-icon-trash "
+								title="Eliminar"
+								update="frmFormNuevaJornada:tblReglasAsistencia"
+								immediate="true" styleClass="fm-btn-peligro"
+								actionListener="#{editarJornadaController.eliminarReglaAsistencia(reglasAsistencia)}">
+								<p:confirm header="Confirmacion"
+									message="¿Deseas quitar la regla: #{reglasAsistencia.incidencia} de la lista? "
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+
+
+					</p:dataTable>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="Si" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="No" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+
+
+				</p:panelGrid>
+
+
+
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ">
+					<f:facet name="header">
+
+						<p:panelGrid columns="2" layout="grid"
+							styleClass="header-panel-grid">
+							<h2
+								style="text-align: left; font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">
+								Horario.</h2>
+							<p:commandButton id="btnNuevoHorario" title="Nuevo"
+								icon="ui-icon-plus" styleClass="fm-btn-inverso aling_right "
+								immediate="true"
+								actionListener="#{editarJornadaController.nuevoHorario}" />
+						</p:panelGrid>
+
+
+					</f:facet>
+					<p:dataTable var="horarioJornada" id="tblHorarioJornada"
+						styleClass="tabla-personalizada" widgetVar="tblHorarioJornada"
+						emptyMessage="No se encontraron registros"
+						value="#{editarJornadaController.listadoHorarioJornada}">
+
+
+
+						<p:column width="300" headerText="Dia">
+							<h:outputText value="#{horarioJornada.dia}" />
+						</p:column>
+						<p:column headerText="Entrada">
+							<h:outputText value="#{horarioJornada.horaEntrada}" />
+						</p:column>
+						<p:column headerText="Salida">
+							<h:outputText value="#{horarioJornada.horaSalida}" />
+						</p:column>
+						<p:column>
+
+							<p:commandButton id="eliminarHorario" icon="ui-icon-trash "
+								title="Eliminar" update="frmFormNuevaJornada:tblHorarioJornada"
+								immediate="true" styleClass="fm-btn-peligro"
+								actionListener="#{editarJornadaController.eliminarHorarioJornada(horarioJornada)}">
+								<p:confirm header="Confirmacion"
+									message="¿Deseas quitar el horario del  #{horarioJornada.dia} de la lista? "
+									icon="ui-icon-alert" />
+							</p:commandButton>
+						</p:column>
+
+
+					</p:dataTable>
+
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+				<p:spacer></p:spacer>
+				<p:ajaxStatus>
+					<f:facet name="start">
+						<center>
+							<p:graphicImage library="imagenes" name="load.gif" />
+						</center>
+					</f:facet>
+					<f:facet name="complete"></f:facet>
+				</p:ajaxStatus>
+				<p:panel
+					styleClass="ui-panelgrid-blank ui-noborder sin_borde  aling_right"
+					style="width:320px; ">
+
+					<p:commandButton icon="ui-icon-disk" value="Guardar"
+						validateClient="true" update="frmFormNuevaJornada"
+						action="#{editarJornadaController.guardarJornada}">
+
+					</p:commandButton>
+					<p:button icon="ui-icon-close" value="Regresar" type="button"
+						outcome="index.xhtml" />
+
+				</p:panel>
+
+			</p:panelGrid>
+
+
+		</h:form>
+
+		<!-- Formulario Regla -->
+		<p:dialog id="dlgNuevaRegla" widgetVar="dlgNuevaRegla"
+			header="Nueva regla" styleClass="fm-responsivo-50" modal="true">
+			<h:form id="dlgNuevaReglaAsistencia">
+				<p:messages id="messages_nueva_regla" autoUpdate="true"
+					closable="true" />
+				<p:panelGrid
+					styleClass="ui-panelgrid-blank ui-noborder sin_borde fm-responsivo-100">
+					<p:row>
+						<p:column colspan="3">
+							<p:outputLabel value="Incidencia:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="3">
+							<p:autoComplete id="descripcion_incidencia"
+								value="#{editarJornadaController.reglaAsistencia.idIncidencia}"
+								completeMethod="#{editarJornadaController.incidenciasAutoacompletar}"
+								var="incidencia" itemLabel="#{incidencia.descripcion}"
+								itemValue="#{incidencia.idIncidencia}" maxResults="8"
+								styleClass="fm-bloque input_lng">
+
+							</p:autoComplete>
+
+
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Min. Inicial:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Min. Final:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="¿Requiere Tramite?" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:spinner id="minInicial"
+								requiredMessage="Debe indicar el valor del minuto inicial"
+								value="#{editarJornadaController.reglaAsistencia.minutoInicio}"></p:spinner>
+						</p:column>
+						<p:column>
+							<p:spinner id="minFinal"
+								requiredMessage="Debe indicar el valor del minuto final"
+								value="#{editarJornadaController.reglaAsistencia.minutoFinal}"></p:spinner>
+						</p:column>
+						<p:column>
+							<p:inputSwitch id="requiere-tramite" onLabel="Si" offLabel="No"
+								widgetVar="requiere-tramite"
+								converter="mx.gob.saludtlax.rh.web.jornada.inputswitchconverter"
+								value="#{editarJornadaController.reglaAsistencia.requiereTramite}"></p:inputSwitch>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+
+						</p:column>
+						<p:column>
+							<br />
+							<p:commandButton icon="ui-icon-plus" value="Agregar"
+								actionListener="#{editarJornadaController.agregarNuevaIncidencia}"
+								update="frmFormNuevaJornada:tblReglasAsistencia">
+
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" value="Regresar"
+								type="button" onclick="PF('dlgNuevaRegla').hide()" />
+
+						</p:column>
+
+						<p:column>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<!-- Formulario Horario -->
+		<p:dialog id="dlgNuevHorario" widgetVar="dlgNuevoHorario"
+			header="Nuevo Horario" styleClass="fm-responsivo-50" modal="true">
+			<h:form id="dlgNuevoHorario">
+				<p:messages id="messages_nuevo_horario" autoUpdate="true"
+					closable="true" />
+				<p:panelGrid
+					styleClass="ui-panelgrid-blank ui-noborder sin_borde fm-responsivo-100">
+					<p:row>
+						<p:column colspan="2">
+							<p:outputLabel value="Dia:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="2">
+
+							<!-- <p:selectOneMenu id="dia" style="width:125px"
+								value="#{editarJornadaController.horarioJornada.idDia}">
+								<f:selectItem itemLabel="Lunes" itemValue="0" />
+								<f:selectItem itemLabel="Martes" itemValue="1" />
+								<f:selectItem itemLabel="Miercoles" itemValue="2" />
+								<f:selectItem itemLabel="Jueves" itemValue="3" />
+								<f:selectItem itemLabel="Viernes" itemValue="4" />
+								<f:selectItem itemLabel="Sabado" itemValue="5" />
+								<f:selectItem itemLabel="Domingo" itemValue="6" />
+							</p:selectOneMenu> -->
+							<p:selectCheckboxMenu label="Dias" style="width:125px"
+								value="#{editarJornadaController.diasSelecionados}">
+								<f:selectItem itemLabel="Lunes" itemValue="0" />
+								<f:selectItem itemLabel="Martes" itemValue="1" />
+								<f:selectItem itemLabel="Miercoles" itemValue="2" />
+								<f:selectItem itemLabel="Jueves" itemValue="3" />
+								<f:selectItem itemLabel="Viernes" itemValue="4" />
+								<f:selectItem itemLabel="Sabado" itemValue="5" />
+								<f:selectItem itemLabel="Domingo" itemValue="6" />
+							</p:selectCheckboxMenu>
+
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Entrada:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Salida:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:calendar id="hora-entrada" pattern="HH:mm" timeOnly="true"
+								value="#{editarJornadaController.horarioJornada.horaEntrada}" />
+						</p:column>
+						<p:column>
+							<p:calendar id="hora-salida" pattern="HH:mm" timeOnly="true"
+								value="#{editarJornadaController.horarioJornada.horaSalida}" />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+
+						</p:column>
+						<p:column>
+							<br />
+							<p:commandButton icon="ui-icon-plus" value="Agregar"
+								actionListener="#{editarJornadaController.agregarNuevoHorario}"
+								update="frmFormNuevaJornada:tblHorarioJornada">
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-close" value="Regresar"
+								type="button" onclick="PF('dlgNuevoHorario').hide()" />
+						</p:column>
+
+						<p:column>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+			</h:form>
+		</p:dialog>
+
+	</ui:define>
+</ui:composition>

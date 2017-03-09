@@ -1,0 +1,145 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Impresión Contrato" />
+	<ui:param name="moduloTitulo" value="Impresión Contrato" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite administrar la descarga del contrato." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:dataTable editable="true" var="c"
+				rendered="#{impresionContrato.view.mostrarPrincipal}"
+				value="#{impresionContrato.view.listaContrato}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Tipo Contrato">
+					<h:outputText value="#{c.nombreTipoContrato}" />
+				</p:column>
+				<p:column headerText="Número Contrato">
+					<h:outputText value="#{c.numeroContrato}" />
+				</p:column>
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{c.nombreCompletoEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Fecha Inicio">
+					<h:outputText value="#{c.fechaInicio}">
+						<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha Fin">
+					<h:outputText value="#{c.fechaFin}">
+						<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column width="100" headerText="Seleccionar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form"
+						action="#{impresionContrato.mostrarConfirmacionDescarga(c.idContrato, c.impreso, c.numeroContrato)}"
+						process="@this" />
+				</p:column>
+
+
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{impresionContrato.view.mostrarConfirmacionImpresion}">
+
+				<p:outputLabel />
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+
+					<f:facet name="header">
+						<h3>Descargar Contrato</h3>
+					</f:facet>
+
+					<p:outputLabel for="numeroContrato" value="Numero de Contrato: " />
+					<p:outputLabel>
+						<p:inputText id="numeroContrato"
+							validator="#{impresionContrato.validatorNumeroContrato}"
+							value="#{impresionContrato.view.numeroContrato}">
+							<p:ajax event="blur" update="form" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message for="numeroContrato" />
+					</p:outputLabel>
+
+					<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+						action="#{impresionContrato.regresarModulo()}" update="form"
+						oncomplete="mymessages();" process="@this" />
+
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="form" ajax="false" iconPos="right"
+						action="#{impresionContrato.descargarContrato()}"
+						oncomplete="mymessages();" />
+
+				</p:panelGrid>
+
+				<p:outputLabel />
+
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{impresionContrato.view.mostrarReimpresion}">
+
+				<p:outputLabel />
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<f:facet name="header">
+						<h3>Reimpresión Contrato</h3>
+					</f:facet>
+
+					<p:outputLabel value="Numero de Contrato: " />
+					<h:outputText value="#{impresionContrato.view.numeroContrato}"></h:outputText>
+
+					<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+						action="#{impresionContrato.regresarModulo()}" update="form"
+						oncomplete="mymessages();" process="@this" />
+
+					<p:commandButton value="Descargar" icon="fm-icon-download"
+						update="form" ajax="false" iconPos="right"
+						action="#{impresionContrato.descargarContrato()}"
+						oncomplete="mymessages();" />
+				</p:panelGrid>
+				<p:outputLabel />
+			</p:panelGrid>
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

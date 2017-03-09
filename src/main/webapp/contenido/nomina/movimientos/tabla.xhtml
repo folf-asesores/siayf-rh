@@ -1,0 +1,52 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos de nómina" />
+	<ui:param name="moduloTitulo" value="Movimientos de nómina" />
+	<br />
+	<br />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-tarjeta"
+			enctype="multipart/form-data">
+
+			<p:pickList id="pickList" converter="teamPickListConverter"
+				value="#{tablaController.puestosSeleccion}" var="puesto"
+				effect="bounce" itemValue="#{puesto}" itemLabel="puesto.codigo"
+				showCheckbox="true" responsive="true" showSourceFilter="true" 
+			 addLabel="Agregar" addAllLabel="Agregar Todo" removeAllLabel="Quitar todo"
+			 removeLabel="Quitar" 
+				showTargetFilter="true" filterMatchMode="contains">
+				
+				<p:column>
+				#{puesto.codigo}
+				</p:column>
+								
+				<p:column>
+				#{puesto.puesto}
+				</p:column>
+				
+			</p:pickList>
+
+			<p:commandButton id="citySubmit" value="Submit"
+				update="tablaCodigos" style="margin-top:5px" />
+				
+			<br />
+
+			<p:dataTable id="tablaCodigos" rows="10" paginator="true"
+				value="#{tablaController.puestosSeleccion.target}" var="codigo">
+
+				<p:column headerText="Codigo">
+					<h:outputText value="#{codigo.codigo}-#{codigo.puesto}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

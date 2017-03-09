@@ -1,0 +1,630 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Habilitación Suplentes" />
+
+	<ui:param name="moduloTitulo" value="Habilitación Suplentes" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:spacer height="30"></p:spacer>
+
+			<p:panelGrid layout="grid" columns="3"
+				styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+				columnClasses="ui-grid-col-4, ui-grid-col-4,ui-grid-col-4"
+				rendered="#{habilitacionSuplente.view.mostrarActivacion}">
+
+				<p:spacer></p:spacer>
+
+				<p:commandButton value="Activar"
+					actionListener="#{habilitacionSuplente.actualizarEstatus('ACTIVO')}"
+					update="form, messages_generales"></p:commandButton>
+				<p:spacer></p:spacer>
+
+				<p:spacer></p:spacer>
+
+				<p:commandButton value="Inactivar"
+					actionListener="#{habilitacionSuplente.actualizarEstatus('INACTIVO')}"
+					update="form, messages_generales"></p:commandButton>
+				<p:spacer></p:spacer>
+
+			</p:panelGrid>
+
+			<h:panelGroup id="panelGroupBusqueda"
+				rendered="#{habilitacionSuplente.view.mostrarBusqueda}">
+				<p:panelGrid columns="4" id="panelGridAlta"
+					columnClasses="ui-grid-col-2,ui-grid-col-3,ui-grid-col-3,ui-grid-col-4"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel value="Seleccione un filtro" />
+					<p:selectOneRadio
+						value="#{habilitacionSuplente.view.filtro.tipoConsulta}">
+						<f:selectItems
+							value="#{habilitacionSuplente.view.listaTiposBusqueda}">
+
+						</f:selectItems>
+						<p:ajax
+							listener="#{habilitacionSuplente.seleccionarTipoBusqueda()}"
+							update="panelGroupBusqueda, messages_generales"></p:ajax>
+					</p:selectOneRadio>
+					<p:inputText id="criterioSuplente"
+						rendered="#{habilitacionSuplente.view.mostrarCriterio}"
+						value="#{habilitacionSuplente.view.filtro.criterio}"></p:inputText>
+
+					<p:commandButton oncomplete="mymessages();"
+						rendered="#{habilitacionSuplente.view.mostrarCriterio}"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado"
+						update="panelGroupBusqueda, messages_generales"
+						action="#{habilitacionSuplente.consultarSuplentes()}" />
+				</p:panelGrid>
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+
+					<div align="right">
+						<p:commandButton title="Nuevo registro" value="Nuevo Suplente"
+							action="#{habilitacionSuplente.mostrarHabilitacion()}"
+							update="form" process="@this" icon="ui-icon-plus" iconPos="rigth">
+						</p:commandButton>
+					</div>
+
+
+				</p:panelGrid>
+
+				<p:dataTable id="tablaPuesto" editable="true" var="s"
+					scrollRows="10" scrollable="true"
+					value="#{habilitacionSuplente.view.suplentes}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{s.rfc}" />
+					</p:column>
+
+					<p:column headerText="Tipo Suplente">
+						<h:outputText value="#{s.tipoSuplente}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{s.nombre}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{s.estatus}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton icon="ui-icon-pencil" iconPos="right"
+							update="form" styleClass="fm-btn-exitoso fm-btn-elevado"
+							actionListener="#{habilitacionSuplente.mostrarActivacion(s.idSuplente)}"></p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</h:panelGroup>
+
+
+			<h:panelGroup id="panelGroupAlta"
+				rendered="#{habilitacionSuplente.view.mostrarHabilitacionSuplente}">
+
+				<p:panelGrid layout="grid" columns="4"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2">
+
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
+					<p:outputLabel value="¿Qué tipo de suplente desea habilitar?" />
+					<p:selectOneRadio
+						value="#{habilitacionSuplente.view.idTipoCandidato}">
+						<f:selectItems
+							value="#{habilitacionSuplente.view.tiposCandidatos}"></f:selectItems>
+						<p:ajax
+							listener="#{habilitacionSuplente.seleccionarTipoCandidato()}"
+							update="panelGroupAlta"></p:ajax>
+					</p:selectOneRadio>
+
+					<p:commandButton value="Regresar"
+						actionListener="#{habilitacionSuplente.ocultarHabilitacion()}"
+						update="form"></p:commandButton>
+
+				</p:panelGrid>
+
+
+
+
+
+
+				<p:panel id="panelBusquedaEmpleados"
+					rendered="#{habilitacionSuplente.view.mostrarEmpleado}">
+
+					<p:panelGrid layout="grid" columns="3"
+						styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-6">
+						<f:facet name="header">
+							<h3>Habilitación de empleado como suplente</h3>
+						</f:facet>
+						<p:outputLabel value="Ingrese rfc, curp o nombre:" />
+						<p:inputText id="criterio"
+							value="#{habilitacionSuplente.view.criterio}">
+						</p:inputText>
+
+						<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+							onsuccess="PF('statusDialog').hide()"
+							update="panelGroupAlta,error"
+							actionListener="#{habilitacionSuplente.consultarEmpleado()}"
+							oncomplete="mymessages();" onstart="PF('statusDialog').show()"></p:commandButton>
+
+					</p:panelGrid>
+					<p:spacer height="30"></p:spacer>
+					<p:dataTable id="empleados"
+						value="#{habilitacionSuplente.view.empleados}" var="e"
+						paginator="true" paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+						<p:column headerText="Nombre">
+							<h:outputText value="#{e.nombre}" />
+						</p:column>
+
+
+						<p:column headerText="Rfc">
+							<h:outputText value="#{e.rfc}" />
+						</p:column>
+
+						<p:column headerText="Dirección">
+							<h:outputText value="#{e.direccion}" />
+						</p:column>
+
+						<p:column headerText="Ver" style="text-align: center;">
+							<p:commandButton update="form"
+								actionListener="#{habilitacionSuplente.seleccionarEmpleado(e.idEmpleado)}"
+								icon="fm-icon-eye" title="Ver">
+							</p:commandButton>
+						</p:column>
+					</p:dataTable>
+
+				</p:panel>
+
+
+				<p:panel id="panelSuplenteNuevo"
+					rendered="#{habilitacionSuplente.view.mostrarAltaSuplente}">
+					<p:panelGrid layout="grid" columns="3"
+						styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+						columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2">
+						<p:spacer></p:spacer>
+
+						<p:panelGrid layout="grid" columns="2"
+							styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+							columnClasses="ui-grid-col-3,ui-grid-col-9 ">
+
+
+
+							<f:facet name="header">
+								<h3>Registro trabajador como suplente</h3>
+
+								<p:messages id="errorCandidato" showDetail="true"
+									autoUpdate="false" severity="error" closable="true" />
+
+							</f:facet>
+
+							<p:outputLabel for="rfc" value="RFC: *" />
+							<p:inputText style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								id="rfc"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.rfc}"
+								maxlength="13">
+							</p:inputText>
+
+							<p:outputLabel for="curp" value="CURP: *" />
+							<p:inputText id="curp" style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.curp}"
+								maxlength="18">
+
+							</p:inputText>
+
+							<p:outputLabel for="nombre" value="Nombre: *" />
+							<p:inputText id="nombre" style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.nombre}">
+							</p:inputText>
+
+							<p:outputLabel for="apellidoPaterno" value="Apellido Paterno: *" />
+							<p:inputText id="apellidoPaterno"
+								style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.apellidoPaterno}">
+							</p:inputText>
+
+							<p:outputLabel for="apellidoMaterno" value="Apellido Materno: *" />
+							<p:inputText id="apellidoMaterno"
+								style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.apellidoMaterno}">
+							</p:inputText>
+
+							<p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento: *" />
+							<p:calendar id="fechaNacimiento" showOn="button" locale="es"
+								pattern="dd/MM/yyyy" mask="true"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.fechaNacimiento}">
+							</p:calendar>
+
+
+							<p:outputLabel for="sexo" value="Sexo: *" />
+							<p:selectOneMenu id="sexo"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.sexo}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaTiposSexo}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="numero_personal" value="Número Personal: *" />
+							<p:inputText id="numero_personal"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.numeroPersonal}"></p:inputText>
+
+							<p:outputLabel for="telefono" value="Telefono: *" />
+							<p:inputText id="telefono"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.telefono}">
+							</p:inputText>
+
+							<p:outputLabel for="banco" value="Banco depósito: *" />
+							<p:selectOneMenu id="banco" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idBanco}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems value="#{habilitacionSuplente.view.listaBancos}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="cuenta" value="Cuenta: *" />
+							<p:inputText id="cuenta"
+								value="#{habilitacionSuplente.view.registroSuplente.numeroCuenta}"></p:inputText>
+							<p:spacer></p:spacer>
+							<h3>Domicilio</h3>
+
+							<p:outputLabel for="estado" value="Estado: *" />
+							<p:selectOneMenu id="estado"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.idEstado}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems value="#{habilitacionSuplente.view.listaEstados}" />
+								<p:ajax
+									listener="#{habilitacionSuplente.consultarMunicipioPorIdEstado()}"
+									update="municipio"></p:ajax>
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="municipio" value="Municipio: *" />
+							<p:selectOneMenu id="municipio" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.idMunicipio}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaMunicipios}" />
+								<p:ajax
+									listener="#{habilitacionSuplente.consultarAsentamientosPorIdMunicipio()}"
+									update="asentamiento"></p:ajax>
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="asentamiento" value="Asentamiento: *" />
+							<p:selectOneMenu id="asentamiento" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.idAsentamiento}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaAsentamientos}" />
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="calle" value="Calle: *" />
+							<p:inputText id="calle" style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.calle}">
+							</p:inputText>
+
+
+							<p:outputLabel for="interior" value="Número Interior:" />
+							<p:inputText id="interior" style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.numeroInterior}" />
+
+							<p:outputLabel for="exterior" value="Número Exterior: *" />
+							<p:inputText id="exterior" style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.numeroExterior}">
+							</p:inputText>
+
+
+							<p:outputLabel for="cp" value="Codigo Postal: *" />
+							<p:inputText id="cp"
+								value="#{habilitacionSuplente.view.registroSuplente.suplente.direccion.codigoPostal}">
+							</p:inputText>
+
+							<p:spacer></p:spacer>
+							<h3>Datos Laborales</h3>
+
+							<p:outputLabel for="numeroLaboral" value="Número Laboral: *" />
+							<p:inputText id="numeroLaboral"
+								value="#{habilitacionSuplente.view.registroSuplente.numeroLaboral}">
+							</p:inputText>
+
+
+							<p:outputLabel for="proyecto" value="Proyecto" />
+							<p:selectOneMenu id="proyecto" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idProyecto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaProyectos}" />
+							</p:selectOneMenu>
+
+
+							<p:outputLabel for="dependencia" value="Dependencia" />
+							<p:selectOneMenu id="dependencia" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idDependencia}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaDependencias}" />
+								<p:ajax
+									listener="#{habilitacionSuplente.obtenerUnidadesResponsables()}"
+									update="unidadResponsable"></p:ajax>
+							</p:selectOneMenu>
+
+							<p:outputLabel for="unidadResponsable" value="Unidad Responsable" />
+							<p:selectOneMenu id="unidadResponsable" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idUnidadResponsable}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaUnidadesResponsables}" />
+
+							</p:selectOneMenu>
+
+							<p:outputLabel for="centros" value="Centro responsabilidad:" />
+							<p:selectOneMenu id="centros" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idCentroResponsabilidad}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems
+									value="#{habilitacionSuplente.view.listaCentrosResponsabilidades}" />
+
+							</p:selectOneMenu>
+
+							<p:outputLabel for="puesto" value="Código Tabulador Suplencia:*" />
+							<p:selectOneMenu id="puesto" filter="true"
+								filterMatchMode="contains"
+								value="#{habilitacionSuplente.view.registroSuplente.idPuesto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{solicitudApertura.view.listaPuestos}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="metodo" value="Método de pago:" />
+							<p:selectOneMenu id="metodo"
+								value="#{habilitacionSuplente.view.registroSuplente.idMetodoPago}">
+								<f:selectItem itemLabel="DEPOSITO EN CUENTA" itemValue="2" />
+								<f:selectItem itemLabel="CHEQUE" itemValue="1" />
+							</p:selectOneMenu>
+
+							<p:spacer></p:spacer>
+							<p:commandButton value="Guardar"
+								actionListener="#{habilitacionSuplente.registrarSuplente()}"
+								update="form, errorCandidato"></p:commandButton>
+						</p:panelGrid>
+
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+
+				</p:panel>
+			</h:panelGroup>
+
+
+			<p:dialog header="Detalle Empleado" id="detalle_empleado"
+				visible="#{habilitacionSuplente.view.mostrarDetalleEmpleado}"
+				modal="true" closable="false" height="500">
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-3, ui-grid-col-9" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Empleado</h3>
+						<p:messages id="errorEmpleado" showDetail="true"
+							autoUpdate="false" severity="error" closable="true" />
+
+					</f:facet>
+
+					<p:outputLabel value="Empleado" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Empleado" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.tipoEmpleado}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.curp}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.edad}"></h:outputText>
+
+					<p:outputLabel value="Domicilio" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.domicilio}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.estudios}"></h:outputText>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-3, ui-grid-col-9" layout="grid"
+					styleClass="fm-tarjeta ui-fluid "
+					rendered="#{habilitacionSuplente.view.mostrarDetalleLaboral}">
+
+					<f:facet name="header">
+						<h3>Información Laboral</h3>
+					</f:facet>
+
+
+					<p:outputLabel value="Contratación Actual" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Nombramiento Actual" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.nombramiento}"></h:outputText>
+
+					<p:outputLabel value="Puesto" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.puesto}"></h:outputText>
+
+					<p:outputLabel value="Codigo Puesto" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.codigoPuesto}"></h:outputText>
+
+					<p:outputLabel value="Adscripción" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Subadscripción" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio" />
+					<h:outputText
+						value="#{habilitacionSuplente.view.empleado.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función" />
+					<h:outputText value="#{habilitacionSuplente.view.empleado.funcion}"></h:outputText>
+
+					<p:spacer></p:spacer>
+					<h3>Datos Suplente</h3>
+
+					<p:outputLabel for="numeroPersonalE" value="Número Personal: *" />
+					<p:inputText id="numeroPersonalE"
+						value="#{habilitacionSuplente.view.registroSuplente.suplente.numeroPersonal}">
+					</p:inputText>
+
+					<p:outputLabel for="bancoE" value="Banco depósito: *" />
+					<p:selectOneMenu id="bancoE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idBanco}">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+						<f:selectItems value="#{habilitacionSuplente.view.listaBancos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="cuentaE" value="Cuenta: *" />
+					<p:inputText id="cuentaE"
+						value="#{habilitacionSuplente.view.registroSuplente.numeroCuenta}"></p:inputText>
+
+
+					<p:spacer></p:spacer>
+					<h3>Datos Laborales</h3>
+
+					<p:outputLabel for="numeroLaboralE" value="Número Laboral: *" />
+					<p:inputText id="numeroLaboralE"
+						value="#{habilitacionSuplente.view.registroSuplente.numeroLaboral}">
+					</p:inputText>
+
+
+					<p:outputLabel for="proyectoE" value="Proyecto" />
+					<p:selectOneMenu id="proyectoE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idProyecto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{habilitacionSuplente.view.listaProyectos}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="dependenciaE" value="Dependencia" />
+					<p:selectOneMenu id="dependenciaE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idDependencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{habilitacionSuplente.view.listaDependencias}" />
+						<p:ajax
+							listener="#{habilitacionSuplente.obtenerUnidadesResponsables()}"
+							update="unidadResponsableE"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="unidadResponsableE" value="Unidad Responsable" />
+					<p:selectOneMenu id="unidadResponsableE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idUnidadResponsable}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{habilitacionSuplente.view.listaUnidadesResponsables}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="centrosE" value="Centro responsabilidad:" />
+					<p:selectOneMenu id="centrosE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idCentroResponsabilidad}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{habilitacionSuplente.view.listaCentrosResponsabilidades}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel for="puestoE" value="Código Tabulador Suplencia:" />
+					<p:selectOneMenu id="puestoE" filter="true"
+						filterMatchMode="contains"
+						value="#{habilitacionSuplente.view.registroSuplente.idPuesto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{solicitudApertura.view.listaPuestos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="metodoE" value="Método de pago:" />
+					<p:selectOneMenu id="metodoE"
+						value="#{habilitacionSuplente.view.registroSuplente.idMetodoPago}">
+						<f:selectItem itemLabel="DEPOSITO EN CUENTA" itemValue="2" />
+						<f:selectItem itemLabel="CHEQUE" itemValue="1" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:panelGrid columns="5"
+						columnClasses="ui-grid-col-1,ui-grid-col-4, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1 "
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+						<p:commandButton value="Guardar" icon="ui-icon-circle-check"
+							iconPos="right" styleClass="fm-btn-exitoso"
+							actionListener="#{habilitacionSuplente.registrarSuplente()}"
+							update="form, errorEmpleado"></p:commandButton>
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error"
+							actionListener="#{habilitacionSuplente.ocultarDetalleEmpleado()}"
+							update="form"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
+
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

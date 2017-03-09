@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-11-22T21:55:45 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kardes_listado" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9812149c-5d7e-4e2b-baeb-2efe4264e376">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQLLocalFOLF"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="fecha_inicio_consulta" class="java.lang.String"/>
+	<parameter name="fecha_fin_consulta" class="java.lang.String"/>
+	<parameter name="id_empleado_consulta" class="java.lang.Integer"/>
+	<parameter name="id_adscripcion_consulta" class="java.lang.Integer"/>
+	<parameter name="id_tipo_contratacion" class="java.lang.Integer"/>
+	<parameter name="id_departamento_consulta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[CALL usp_listado_empleados_kardex($P{fecha_inicio_consulta}, $P{fecha_fin_consulta},$P{id_empleado_consulta}, $P{id_adscripcion_consulta},$P{id_tipo_contratacion},$P{id_departamento_consulta});
+/*CALL usp_listado_empleados_kardex('2014-01-01', '2014-01-01',1, 1, 1);*/]]>
+	</queryString>
+	<field name="resultado_actualizacion" class="java.lang.Integer"/>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adscripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_contratacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_identificador_biometrico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_completo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cargo_jefe" class="java.lang.String"/>
+	<field name="nombre_jefe" class="java.lang.String"/>
+	<field name="cargo_realizo" class="java.lang.String"/>
+	<field name="nomre_realizo" class="java.lang.String"/>
+	<group name="grp_tipo_contratacion">
+		<groupExpression><![CDATA[$F{tipo_contratacion}]]></groupExpression>
+	</group>
+	<group name="grp_tipo_adscripcion">
+		<groupExpression><![CDATA[$F{tipo_contratacion}]]></groupExpression>
+	</group>
+	<group name="grp_id_empleado" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{id_empleado}]]></groupExpression>
+		<groupHeader>
+			<band height="85">
+				<subreport>
+					<reportElement x="0" y="50" width="800" height="30" uuid="d61234f2-b8ef-414f-8844-d7a252d363ad"/>
+					<subreportParameter name="fecha_inicio_consulta">
+						<subreportParameterExpression><![CDATA[$P{fecha_inicio_consulta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="fecha_fin_consulta">
+						<subreportParameterExpression><![CDATA[$P{fecha_fin_consulta}]]></subreportParameterExpression>
+					</subreportParameter>
+					<subreportParameter name="id_empleado_consulta">
+						<subreportParameterExpression><![CDATA[$F{id_empleado}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA["reportes/tarjeta_asistencia.jasper"]]></subreportExpression>
+				</subreport>
+				<textField>
+					<reportElement x="0" y="5" width="110" height="20" uuid="6062f58b-e6db-4e5c-8847-cc7f649fe6e1"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Unidad Responsable:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="110" y="5" width="170" height="20" uuid="d702c640-02bd-4e28-ac9b-0b594924222b"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{adscripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="5" width="110" height="20" uuid="ca0b6a93-e96c-4d84-87ac-c37970d46b94"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tipo Contrato:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="390" y="5" width="159" height="20" uuid="0365b550-b3de-44d6-8a47-1ee77575009c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_contratacion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="410" y="25" width="72" height="20" uuid="358b07c5-e388-459d-a8bd-0faea17c0cbc"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" # Empleado:"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="350" y="25" width="60" height="20" uuid="3659e047-b5a7-4ff5-ad3b-085cbecd135c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_identificador_biometrico}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="482" y="25" width="67" height="20" uuid="45f50f66-6559-486e-a6cb-fc35f190660b"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_empleado}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="25" width="70" height="20" uuid="ce02d7b6-0704-4fe2-bbe5-67e8127eab46"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["# Biometrico:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="50" y="26" width="230" height="19" uuid="757a8d96-79b3-4fea-995e-dcfb3ed1cde3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_completo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="26" width="50" height="19" uuid="ba3f9307-afa7-488f-b64c-e2a2d7eadef3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nombre:"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="55">
+				<textField>
+					<reportElement x="0" y="18" width="280" height="15" uuid="2d7d3ac9-ecf7-4b98-b417-b41a84314af7">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cargo_realizo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="34" width="280" height="14" uuid="1c50e5e4-594f-4ee1-86db-c217f81b5c53"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nomre_realizo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="480" y="17" width="320" height="15" uuid="64d605d7-0f26-4b2d-b88e-57f239aefa9e">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{cargo_jefe}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="480" y="33" width="320" height="15" uuid="ef66f94c-c2e8-4c23-8f9c-b9e3aad38008">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_jefe}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="86" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-2" width="130" height="77" uuid="91460fb7-a4f2-45ed-8387-abcfdc449cba"/>
+				<imageExpression><![CDATA["imagenes/salud.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="270" y="0" width="296" height="62" uuid="05fccf09-2f20-4843-b3cb-764975d4ab7f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["O.P.D. SALUD DE TLAXCALA " +"\n"+"DIRECCIÓN DE ADMINISTRACIÓN"+"\n"+"DEPARTAMENTO DE RECURSOS HUMANOS" +"\n" +"OFICINA DE RELACIONES LABORALES" +"\n" +"KARDEX EMPLEADO"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="80" height="15" uuid="823857d4-df1f-4c00-86e6-777495c7730e"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periodo del:"]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="81" y="60" width="59" height="15" uuid="b5635a1d-6080-4bcb-a293-9451c28cec4f">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_inicio_consulta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="60" width="20" height="15" uuid="c71b52d8-15c2-4651-9ec9-a7ac20f40505"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["al"]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="163" y="60" width="60" height="15" uuid="d18b8edf-e1ae-47f1-adfb-c2ea8f8a95e5">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_fin_consulta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy HH:mm">
+				<reportElement x="674" y="60" width="118" height="15" uuid="f6b4f414-933b-4cf9-9b7b-6ec5fb16a695">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement x="170" y="10" width="550" height="30" uuid="cc615387-4ab9-4582-bdfa-f883e1c17b4a"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[No se encontro información con los filtros proporcionados.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

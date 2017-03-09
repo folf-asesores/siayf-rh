@@ -1,0 +1,21 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="SALUD TLAXCALA - SIAYF" />
+
+    <ui:param name="moduloTitulo" value="Sistema Integral de Administración y Finanzas" />
+    <ui:param name="moduloSubtitulo" value="SIAYF-RH" />
+
+    <ui:define name="moduloContenido">
+        <h:form>
+            <p:graphicImage alt="Logo gobierno del estado de Tlaxcala"
+                            width="50%"
+                            style="display:block; margin: 0 auto;"
+                            library="imagenes"
+                            name="logo-encabezado-izquierdo.png" />
+        </h:form>
+    </ui:define>
+</ui:composition>

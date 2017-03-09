@@ -1,0 +1,237 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Reservacion Plaza Residencia Medica" />
+	<ui:param name="moduloTitulo"
+		value="Reservacion Plaza Residencia Medica" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Reservacion Plaza Residencia Medica" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{reservacionPlazaResidenciaMedica.view.mostrarPrincipal}">
+
+				<p:outputLabel for="criterio" value="Ingrese un criterio: " />
+
+				<p:inputText id="criterio"
+					value="#{reservacionPlazaResidenciaMedica.view.criterio}"
+					placeholder="Rfc">
+
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{reservacionPlazaResidenciaMedica.buscarEmpleados()}"
+					update="form" />
+
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="tablita" editable="true" var="n"
+				rendered="#{reservacionPlazaResidenciaMedica.view.mostrarPrincipal}"
+				value="#{reservacionPlazaResidenciaMedica.view.reservacionDetalleDTO}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="6" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{n.empleado}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{n.rfc}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{n.curp}" />
+				</p:column>
+
+				<p:column headerText="Motivo">
+					<h:outputText value="#{n.motivo}" />
+				</p:column>
+
+				<p:column width="100" headerText="Descargar"
+					style="text-align: center;">
+					<p:commandButton icon="ui-icon-check" update="form" process="@this"
+						actionListener="#{reservacionPlazaResidenciaMedica.contenidoReservacionMedica(n.idMovimiento)}"
+						oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{reservacionPlazaResidenciaMedica.view.mostrarReservacion}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-6, ui-grid-col-2, ui-grid-col-6"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<p:outputLabel />
+					<h:outputText value="Asunto: " />
+					<p:outputLabel
+						value="Se concede prorroga de licencia sin goce de sueldo en el puesto con funciones de base, para cursar el tercer año de 
+						la residencia médica de la especialidad en Imagenología." />
+
+					<h:outputText value="Chiautempan, Tlax., a" />
+					<p:spacer />
+					<p:spacer />
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<h:outputText
+						value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.presenteNombre}" />
+
+					<h:outputText
+						value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.presenteClaveUno}" />
+
+					<h:outputText
+						value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.presenteClaveDos}" />
+
+					<h:outputText value="P r e s e n t e" />
+
+					<p:spacer />
+
+					<p:inputTextarea
+						value="Hago de su conocimiento que de conformidad con lo dispuesto en los Artículos 148 Fracción VI de las Condiciones Generales de Trabajo de la Secretaría de Salud; 50 Fracción III y 51 Fracción IV del Reglamento de Capacitación y a la minuta de sesión ordinaria de la Comisión Central Mixta de Capacitación del #{reservacionPlazaResidenciaMedica.view.reservacionDTO.fecha} con sede en el Hospital de Especialidades “#{reservacionPlazaResidenciaMedica.view.reservacionDTO.encargado}”, en la Ciudad de Xalapa, Ver." />
+
+					<h:outputText
+						value=", con los datos que a continuación se especifican: " />
+
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+						<p:outputLabel value="Clave presupuestal:" />
+						<p:outputLabel
+							value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.clavePresupuestal}" />
+
+						<p:outputLabel value="Denominacion:" />
+						<p:outputLabel
+							value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.denominacion}" />
+
+						<p:outputLabel value="Adscripcion:" />
+						<p:outputLabel
+							value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.adscripcion}" />
+
+						<p:outputLabel value="Vigencia" />
+						<p:outputLabel
+							value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.vigencia}" />
+
+					</p:panelGrid>
+					<p:spacer />
+
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+						<h:outputText
+							value="Es de señalar que dicha licencia ha sido otorgada por ésta Dirección, en virtud de que le fue asignada beca por 
+						la Comisión Central Mixta de Capacitación." />
+
+						<h:outputText
+							value="Así mismo, solicito a usted, que #{reservacionPlazaResidenciaMedica.view.reservacionDTO.solicitud}, para su prórroga." />
+
+						<p:inputTextarea
+							value="Para el caso de improcedencia de prórroga de esta licencia y conforme a lo establecido por #{reservacionPlazaResidenciaMedica.view.reservacionDTO.posiciondos} para los efectos correspondientes." />
+
+						<h:outputText
+							value="Es importante mencionar que #{reservacionPlazaResidenciaMedica.view.reservacionDTO.posicionUno}." />
+
+					</p:panelGrid>
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:spacer />
+
+						<p:outputLabel value="A t e n t a m e n t e"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+
+						<p:outputLabel value="Directora de Administración de la"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel
+							value="Sría. de Salud en el Edo. y O.P.D. Salud de Tlaxcala"
+							style=" text-align: center;" />
+
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+						<p:spacer />
+
+						<p:outputLabel
+							value="#{reservacionPlazaResidenciaMedica.view.reservacionDTO.jefe}"
+							style=" text-align: center;" />
+
+						<p:spacer />
+					</p:panelGrid>
+
+					<h:outputText value="Con copia para:" style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+					<h:outputText value="....." style="font-size:14px;" />
+
+					<p:column width="100" headerText="Descargar"
+						style="text-align: center;">
+
+						<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+							<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+								actionListener="#{reservacionPlazaEleccionPopular.regresar()}"
+								update="form" process="@this" />
+
+							<p:commandButton value="Descargar" icon="fm-icon-download"
+								update="@form" iconPos="right" ajax="false"
+								action="#{reservacionPlazaResidenciaMedica.descargarReservacionPlazaResidenciaMedica()}"
+								rendered="#{reservacionPlazaResidenciaMedica.view.mostrarReservacion}"
+								oncomplete="mymessages();" />
+						</p:panelGrid>
+					</p:column>
+				</p:panelGrid>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,436 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Tablas ISR" />
+	<ui:param name="moduloTitulo" value="Tablas ISR" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="1" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{tablaRetencion.view.panelPrincipal}">
+
+				<p:separator />
+
+				<p:panelGrid columns="6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="ejercicioFiscal" value="Ejercicio Fiscal: " />
+					<p:outputPanel>
+						<p:selectOneMenu id="ejercicioFiscal" required="true"
+							requiredMessage="¡Seleccione un ejercicio fiscal!"
+							value="#{tablaRetencion.view.ejercicioFiscal}"
+							style="width:175px" filterMatchMode="exact" filter="true">
+							<f:selectItem itemLabel="Eliga uno..." itemValue="" />
+							<f:selectItems value="#{tablaRetencion.view.listAnio}"
+								var="itemEjercicio" itemLabel="#{itemEjercicio.ejercicioFiscal}"
+								itemValue="#{itemEjercicio.ejercicioFiscal}" />
+							<p:ajax event="valueChange" update=":form:msgEjercicioFiscal" />
+						</p:selectOneMenu>
+						<p:message id="msgEjercicioFiscal" for="ejercicioFiscal" />
+					</p:outputPanel>
+
+					<p:outputLabel />
+
+					<p:outputLabel for="periodicidad" value="Periodicidad:"
+						style="width:50px" />
+					<p:outputPanel>
+						<p:selectOneMenu id="periodicidad" required="true"
+							requiredMessage="¡Seleccione la periodicidad!"
+							value="#{tablaRetencion.view.periodicidad}" style="width:175px">
+							<f:selectItem itemLabel="Eliga uno..." itemValue="" />
+							<f:selectItems value="#{tablaRetencion.view.listPeriodicidad}"
+								var="itemPeriodicidad"
+								itemLabel="#{itemPeriodicidad.tipoPeriodo}"
+								itemValue="#{itemPeriodicidad.idTipoPeriodo}" />
+							<p:ajax event="valueChange" update=":form:menssagePeriodicidad" />
+						</p:selectOneMenu>
+						<p:message id="menssagePeriodicidad" for="periodicidad" />
+					</p:outputPanel>
+
+					<p:commandButton title="Buscar"
+						action="#{tablaRetencion.filtrarEjercicioFiscal}"
+						icon="ui-icon-search" update="form" />
+
+				</p:panelGrid>
+
+				<p:separator />
+
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:dataTable id="listTablaRetencion"
+						value="#{tablaRetencion.view.listTablaRetencion}"
+						var="tablaRetencionItem"
+						rowKey="#{tablaRetencionItem.idTarifaRetencion}"
+						selection="#{tablaRetencion.view.tablaRetencionSelect}"
+						scrollable="true" scrollHeight="300" selectionMode="single"
+						emptyMessage="Registros no encontrados.">
+
+						<f:facet name="header">
+							<div align="right">
+								<p:panelGrid columns="4"
+									columnClasses="ui-grid-col-9, ui-grid-col-1, ui-grid-col-1, ui-grid-col-1"
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+									<p:spacer />
+
+									<p:commandButton id="gestionarRetencion"
+										action="#{tablaRetencion.irGestionarTablaRetencion()}"
+										update="form" process="@this" icon="ui-icon-pencil"
+										style="float:right;" title="Actualizar Retención"
+										disabled="#{tablaRetencion.view.disabledIrGestionarTablaRetencion}" />
+
+									<p:commandButton id="eliminar" process="@this"
+										style="float:right;" icon="ui-icon-trash" title="Eliminar Retención"
+										styleClass="fm-btn-peligro fm-btn-elevado"
+										disabled="#{tablaRetencion.view.disabledIrGestionarTablaRetencion}"
+										onclick="PF('eliminarConfirmR').show()" />
+
+									<p:commandButton id="nuevaRetencion" process="@this"
+										icon="ui-icon-plusthick" title="Registrar Retención"
+										action="#{tablaRetencion.irNuevoTablaRetencion()}"
+										update="form" style="float:right;" />
+
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+						<p:ajax event="rowSelect"
+							listener="#{tablaRetencion.onRowSelectTablaRetencion}"
+							update=":form" />
+						<p:ajax event="rowUnselect"
+							listener="#{tablaRetencion.onRowUnselectTablaRetencion}"
+							update=":form" />
+
+						<p:column headerText="Limite Inferior">
+							<h:outputText value="#{tablaRetencionItem.limiteInferior}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Limite Superior">
+							<h:outputText value="#{tablaRetencionItem.limiteSuperior}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Cuota Fija">
+							<h:outputText value="#{tablaRetencionItem.cuotaFija}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Porcentaje Aplicable">
+							<h:outputText value="#{tablaRetencionItem.porcentajeAplicable}">
+								<f:convertNumber type="percent" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Periodicidad">
+							<h:outputText value="#{tablaRetencionItem.tipoPeriodo}" />
+						</p:column>
+						<p:column headerText="Ejercicio Fiscal">
+							<h:outputText value="#{tablaRetencionItem.ejercicioFiscal}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<p:dataTable id="listTablaSubsidio"
+						value="#{tablaRetencion.view.listTablaSubsidio}"
+						var="tablaSubsidioItem"
+						rowKey="#{tablaSubsidioItem.idTablaSubsidio}"
+						selection="#{tablaRetencion.view.tablaSubsidioSelect}"
+						scrollable="true" scrollHeight="300" selectionMode="single"
+						emptyMessage="Registros no encontrados.">
+
+						<f:facet name="header">
+							<div align="right">
+								<p:panelGrid columns="4"
+									columnClasses="ui-grid-col-9, ui-grid-col-1, ui-grid-col-1, ui-grid-col-1"
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+									<p:spacer />
+
+									<p:commandButton id="gestionarSubsidio"
+										action="#{tablaRetencion.irGestionarTablaSubsidio()}"
+										update="form" process="@this" icon="ui-icon-pencil"
+										style="float:right;" title="Actualizar Subsidio"
+										disabled="#{tablaRetencion.view.disabledIrGestionarTablaSubsidio}" />
+
+									<p:commandButton id="eliminar1" style="float:right;"
+										icon="ui-icon-trash" process="@this"
+										styleClass="fm-btn-peligro fm-btn-elevado"
+										onclick="PF('eliminarConfirm1').show()" title="Eliminar Subsidio"
+										disabled="#{tablaRetencion.view.disabledIrGestionarTablaSubsidio}" />
+
+									<p:commandButton id="nuevoSubsidio" title="Registrar Subsidio"
+										action="#{tablaRetencion.irNuevoTablaSubsidio()}"
+										update="form" process="@this" style="float:right;"
+										icon="ui-icon-plusthick" />
+
+								</p:panelGrid>
+							</div>
+						</f:facet>
+
+						<p:ajax event="rowSelect"
+							listener="#{tablaRetencion.onRowSelectTablaSubsidio}"
+							update=":form" />
+						<p:ajax event="rowUnselect"
+							listener="#{tablaRetencion.onRowUnselectTablaSubsidio}"
+							update=":form" />
+
+						<p:column headerText="Limite Inferior">
+							<h:outputText value="#{tablaSubsidioItem.limiteInferior}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Limite Superior">
+							<h:outputText value="#{tablaSubsidioItem.limiteSuperior}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Subsidio">
+							<h:outputText value="#{tablaSubsidioItem.subsidio}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Periodicidad">
+							<h:outputText value="#{tablaSubsidioItem.idTipoPeriodo}" />
+						</p:column>
+						<p:column headerText="Ejercicio Fiscal">
+							<h:outputText value="#{tablaSubsidioItem.ejercicioFiscal}" />
+						</p:column>
+					</p:dataTable>
+
+				</p:panelGrid>
+
+			</p:panelGrid>
+
+			<p:outputPanel id="panelTablaSubsidio" styleClass="fm-tarjeta"
+				rendered="#{tablaRetencion.view.panelTablaSubsidio}">
+
+				<p:focus context="panelTablaSubsidio" />
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:spacer />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<f:facet name="header">
+							<h3>Subsidio</h3>
+						</f:facet>
+
+						<p:outputLabel for="limiteInferiorS" value="Limite Inferior" />
+						<p:inputText id="limiteInferiorS"
+							value="#{tablaRetencion.view.tablaSubsidio.limiteInferior}"
+							validator="#{tablaRetencion.validatorSubsidio}">
+							<p:ajax update="msgLIS" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgLIS" for="limiteInferiorS" />
+						<p:spacer />
+
+						<p:outputLabel for="limiteSuperiorS" value="Limite Superior" />
+						<p:inputText id="limiteSuperiorS"
+							value="#{tablaRetencion.view.tablaSubsidio.limiteSuperior}"
+							validator="#{tablaRetencion.validatorSubsidio}">
+							<p:ajax update="msgLSS" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgLSS" for="limiteSuperiorS" />
+						<p:spacer />
+
+						<p:outputLabel for="subsidioS" value="Subsidio" />
+						<p:inputText id="subsidioS"
+							value="#{tablaRetencion.view.tablaSubsidio.subsidio}"
+							validator="#{tablaRetencion.validatorSubsidio}">
+							<p:ajax update="msgSubsidios" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgSubsidios" for="subsidioS" />
+						<p:spacer />
+
+						<p:outputLabel for="periodicidadS" value="Periodicidad" />
+						<p:selectOneMenu id="periodicidadS"
+							value="#{tablaRetencion.view.tablaSubsidio.idTipoPeriodo}"
+							validator="#{tablaRetencion.validatorSubsidio}">
+							<f:selectItem itemLabel="Eliga uno..." itemValue="" />
+							<f:selectItems value="#{tablaRetencion.view.listPeriodicidad}"
+								var="itemPeriodicidad"
+								itemLabel="#{itemPeriodicidad.tipoPeriodo}"
+								itemValue="#{itemPeriodicidad.idTipoPeriodo}" />
+							<p:ajax update="msgPer" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgPer" for="periodicidadS" />
+						<p:spacer />
+
+						<p:outputLabel for="ejercicioFiscalS" value="Ejercicio Fiscal" />
+						<p:inputText id="ejercicioFiscalS"
+							value="#{tablaRetencion.view.tablaSubsidio.ejercicioFiscal}"
+							validator="#{tablaRetencion.validatorSubsidio}">
+							<p:ajax update="msgEF" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgEF" for="ejercicioFiscalS" />
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:commandButton id="guardarSubsidio" value="Guardar"
+							action="#{tablaRetencion.guardarTablaSubsidio}" update=":form"
+							ajax="false" />
+
+						<p:commandButton value="Cancelar"
+							action="#{tablaRetencion.irPrincipal()}" update="@form"
+							process="@this" style="float:right;" />
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+			</p:outputPanel>
+
+
+
+			<p:outputPanel id="panelTablaRetencion" styleClass="fm-tarjeta"
+				rendered="#{tablaRetencion.view.panelTablaRetencion}">
+
+				<p:focus context="panelTablaRetencion" />
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-10, ui-grid-col-2 "
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:spacer />
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<f:facet name="header">
+							<h3>Retención</h3>
+						</f:facet>
+
+
+						<p:outputLabel for="limiteInferiorR" value="Limite Inferior" />
+						<p:inputText id="limiteInferiorR"
+							value="#{tablaRetencion.view.tablaRetencion.limiteInferior}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<p:ajax update="msgLIR" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgLIR" for="limiteInferiorR" />
+						<p:spacer />
+
+						<p:outputLabel for="limiteSuperiorR" value="Limite Superior" />
+						<p:inputText id="limiteSuperiorR"
+							value="#{tablaRetencion.view.tablaRetencion.limiteSuperior}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<p:ajax update="msgLSR" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgLSR" for="limiteSuperiorR" />
+						<p:spacer />
+
+						<p:outputLabel for="cuotaFijaR" value="Cuota Fija" />
+						<p:inputText id="cuotaFijaR"
+							value="#{tablaRetencion.view.tablaRetencion.cuotaFija}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<p:ajax update="msgCuota" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgCuota" for="cuotaFijaR" />
+						<p:spacer />
+
+						<p:outputLabel for="porcentajeAplicable"
+							value="Porcentaje Aplicable" />
+						<p:inputText id="porcentajeAplicable"
+							value="#{tablaRetencion.view.tablaRetencion.porcentajeAplicable}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<p:ajax update="msgPorcentaje" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPorcentaje" for="porcentajeAplicable" />
+						<p:spacer />
+
+						<p:outputLabel for="periodicidadR" value="Periodicidad" />
+						<p:selectOneMenu id="periodicidadR"
+							value="#{tablaRetencion.view.tablaRetencion.idTipoPeriodo}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<f:selectItem itemLabel="Eliga uno..." itemValue="" />
+							<f:selectItems value="#{tablaRetencion.view.listPeriodicidad}"
+								var="itemPeriodicidad"
+								itemLabel="#{itemPeriodicidad.tipoPeriodo}"
+								itemValue="#{itemPeriodicidad.idTipoPeriodo}" />
+							<p:ajax update="msgPeriodicidad" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgPeriodicidad" for="periodicidadR" />
+						<p:spacer />
+
+						<p:outputLabel for="ejercicioFiscalR" value="Ejercicio Fiscal" />
+						<p:inputText id="ejercicioFiscalR"
+							value="#{tablaRetencion.view.tablaRetencion.ejercicioFiscal}"
+							validator="#{tablaRetencion.validatorRetencion}">
+							<p:ajax update="msgEjercicio" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgEjercicio" for="ejercicioFiscalR" />
+						<p:spacer />
+					</p:panelGrid>
+					<p:spacer />
+					<p:spacer />
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:commandButton id="guardarRetencion" value="Guardar"
+							action="#{tablaRetencion.guardarTablaRetencion}" update=":form"
+							style="float:left;" ajax="false" />
+
+						<p:commandButton value="Cancelar"
+							action="#{tablaRetencion.irPrincipal()}" update="@form"
+							process="@this" style="float:right;" />
+
+					</p:panelGrid>
+					<p:spacer />
+				</p:panelGrid>
+
+
+			</p:outputPanel>
+
+			<p:confirmDialog
+				message="¿Esta seguro que desea borrar la Retención?"
+				showEffect="fade" hideEffect="explode" widgetVar="eliminarConfirmR">
+				<p:commandButton value="Si" process="@this"
+					action="#{tablaRetencion.eliminarTablaRetencion()}"
+					oncomplete="PF('eliminarConfirmR').hide()" update=":form" />
+				<p:commandButton value="No"
+					oncomplete="PF('eliminarConfirmR').hide()" />
+
+			</p:confirmDialog>
+
+			<p:confirmDialog message="¿Esta seguro que desea borrar el Subsidio?"
+				showEffect="fade" hideEffect="explode" widgetVar="eliminarConfirm1">
+				<p:commandButton value="Si"
+					action="#{tablaRetencion.eliminarTablaSubsidio()}" process="@this"
+					oncomplete="PF('eliminarConfirm1').hide()" update=":form" />
+				<p:commandButton value="No"
+					oncomplete="PF('eliminarConfirm1').hide()" />
+
+			</p:confirmDialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

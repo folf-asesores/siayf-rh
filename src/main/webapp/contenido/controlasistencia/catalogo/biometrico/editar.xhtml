@@ -1,0 +1,78 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Equipo Biometrico" />
+	<ui:param name="moduloSubtitulo"
+		value="Actualize la información del equipo biometrico." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{biometricoEditarController.init}"
+			type="preRenderView" />
+		<h:form id="frmEditarBiometricos" styleClass="fm-contenedor-100">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel id="divNuevoBiometrico" styleClass="fm-contenedor-70">
+				<p:panelGrid columns="2" layout="grid"
+					styleClass="fm-contenedor ui-noborder sin_borde">
+					<p:outputLabel value="Descripción:" />
+					<p:outputLabel value="Dirección IP:" />
+					<p:inputText styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.descripcion}"></p:inputText>
+					<p:inputText styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.iP}"></p:inputText>
+					<p:outputLabel value="Ubicación:" />
+					<p:outputLabel value="Clave Comunicacion:" />
+					<p:inputText styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.ubicacion}"></p:inputText>
+					<p:password styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.claveComunicacion}"></p:password>
+					<p:outputLabel value="Puerto:" />
+					<p:outputLabel value="Estatus:" />
+					<p:inputText styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.puerto}"></p:inputText>
+					<p:selectOneMenu styleClass="fm-bloque input_lng"
+						value="#{biometricoEditarController.biometricoFormModel.activo}">
+						<f:selectItem itemLabel="Activo" itemValue="1" />
+						<f:selectItem itemLabel="Inactivo" itemValue="0" />
+					</p:selectOneMenu>
+
+
+
+					<p:spacer></p:spacer>
+					<p:spacer></p:spacer>
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<center>
+								<p:graphicImage library="imagenes" name="load.gif" />
+							</center>
+						</f:facet>
+						<f:facet name="complete"></f:facet>
+					</p:ajaxStatus>
+					<p:panel
+						styleClass="ui-panelgrid-blank ui-noborder sin_borde  aling_right"
+						style="width:320px; ">
+
+						<p:commandButton icon="ui-icon-disk" value="Guardar"
+							validateClient="true" update="frmEditarBiometricos"
+							action="#{biometricoEditarController.guardar}">
+
+						</p:commandButton>
+						<p:button icon="ui-icon-close" value="Regresar" type="button"
+							outcome="index.xhtml" />
+
+					</p:panel>
+
+				</p:panelGrid>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

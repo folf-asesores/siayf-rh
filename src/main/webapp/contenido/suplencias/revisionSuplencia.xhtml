@@ -1,0 +1,575 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Revisión suplencia" />
+	<ui:param name="moduloTitulo" value="Revisión Suplencia" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para registrar suplencias." />
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="1" id="panel_busqueda" columnClasses=" ui-grid-col-12"
+				rendered="#{revisionSuplencia.view.mostrarBusqueda}">
+
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="2" columnClasses=" ui-grid-col-2, ui-grid-col-10">
+					<p:outputLabel value="Seleccione un filtro de búsqueda:" />
+					<p:selectOneRadio
+						value="#{revisionSuplencia.view.consulta.tipoConsulta}">
+						<f:selectItems
+							value="#{revisionSuplencia.view.listaTiposBusqueda}">
+						</f:selectItems>
+						<p:ajax listener="#{revisionSuplencia.seleccionarTipoBusqueda()}"
+							update="form" process="@this"></p:ajax>
+					</p:selectOneRadio>
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					rendered="#{revisionSuplencia.view.mostrarCamposBusquedaCriterio}"
+					columnClasses=" ui-grid-col-3, ui-grid-col-5,ui-grid-col-4 ">
+
+					<p:outputLabel for="criterio"
+						value="Ingrese nombre o rfc del suplente" />
+					<p:inputText id="criterio"
+						value="#{revisionSuplencia.view.consulta.criterio}"></p:inputText>
+					<p:commandButton oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado"
+						update="form,messages_generales"
+						action="#{revisionSuplencia.consultarQuincenasSuplente()}" />
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="4"
+					rendered="#{revisionSuplencia.view.mostrarCamposBusquedaCentro}"
+					columnClasses=" ui-grid-col-2, ui-grid-col-2,ui-grid-col-5,ui-grid-col-3 ">
+
+					<p:inputText id="num_quincena"
+						value="#{revisionSuplencia.view.consulta.quincena}"></p:inputText>
+					<p:inputText id="ejercicio_fiscal"
+						value="#{revisionSuplencia.view.consulta.ejercicio}"></p:inputText>
+
+					<p:selectOneMenu id="centros" filter="true"
+						filterMatchMode="contains"
+						value="#{revisionSuplencia.view.consulta.idCentroResponsabilidad}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{revisionSuplencia.view.listaCentrosResponsabilidades}" />
+					</p:selectOneMenu>
+					<p:commandButton oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado"
+						update="form, messages_generales"
+						action="#{revisionSuplencia.consultarQuincenasSuplente()}" />
+
+				</p:panelGrid>
+
+			</p:panelGrid>
+
+			<p:dataTable id="detalles" var="d" scrollRows="10" scrollable="true"
+				value="#{revisionSuplencia.view.quincenas}"
+				rendered="#{revisionSuplencia.view.mostrarBusqueda}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+				<p:column headerText="Suplente">
+					<h:outputText value="#{d.suplente}" />
+				</p:column>
+
+				<p:column headerText="Numero quincena">
+					<h:outputText value="#{d.numeroQuincena}" />
+				</p:column>
+
+				<p:column headerText="Ejercicio Fiscal">
+					<h:outputText value="#{d.ejercicioFiscal}" />
+				</p:column>
+
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{d.estatus}" />
+				</p:column>
+
+				<p:column headerText="Ver Desglose" style="text-align: center;">
+					<p:commandButton update="form"
+						actionListener="#{revisionSuplencia.mostrarDesglose(d)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+
+			<p:dataTable id="detallesPendientes" editable="true" var="d"
+				scrollRows="10" scrollable="true"
+				value="#{revisionSuplencia.view.detallesPendientes}"
+				rendered="#{revisionSuplencia.view.mostrarPendientes}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+					<h4>Detalles pendientes por aprobar</h4>
+
+				</f:facet>
+
+				<p:column headerText="Número quincena">
+					<h:outputText value="#{d.numeroQuincena}" />
+				</p:column>
+				<p:column headerText="Empleado">
+					<h:outputText value="#{d.nombreEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Tipo Suplencia">
+					<h:outputText value="#{d.tipoSuplencia}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{d.estatus}" />
+				</p:column>
+
+				<p:column headerText="Fecha Inicio">
+					<h:outputText value="#{d.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Fecha Fin">
+					<h:outputText value="#{d.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Días">
+					<h:outputText value="#{d.dias}" />
+				</p:column>
+
+				<p:column headerText="Total">
+					<h:outputText value="#{d.total}" />
+				</p:column>
+
+				<p:column headerText="Descuento">
+					<h:outputText value="#{d.conDescuento}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton icon="ui-icon-plus" update="form"
+						actionListener="#{revisionSuplencia.agregarSuplenciaPendiente(d.idDetalleSuplencia, d.idSuplenteAutorizado)}"
+						process="@this" oncomplete="mymessages();" />
+				</p:column>
+
+
+			</p:dataTable>
+
+
+
+			<p:spacer height="30"></p:spacer>
+			<p:dataTable id="detallesDesglose" var="d"
+				value="#{revisionSuplencia.view.detallesQuincena}"
+				rendered="#{revisionSuplencia.view.mostrarDesglose}"
+				emptyMessage="No se encontrarón resultados">
+
+				<f:facet name="header">
+					<h4>Suplencias de
+						#{revisionSuplencia.view.quincenaSeleccionada.suplente} de la
+						quincena
+						#{revisionSuplencia.view.quincenaSeleccionada.numeroQuincena}
+						#{revisionSuplencia.view.quincenaSeleccionada.ejercicioFiscal}</h4>
+					<p:commandButton value="Regresar búsqueda" icon="ui-icon-circle-arrow-w"
+						actionListener="#{revisionSuplencia.ocultarDesglose()}"
+						update="form" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+					<p:commandButton value="Enviar a cierre" icon="ui-icon-locked"
+						actionListener="#{revisionSuplencia.actualizarEstatusQuincenaSuplencia()}"
+						update="form" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+					<p:commandButton value="Regresar a captura"
+						icon="ui-icon-arrowthick-1-w"
+						actionListener="#{revisionSuplencia.regresarACaptura()}"
+						update="form" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+					<p:commandButton value="Consultar documentación"
+						icon="ui-icon-folder-collapsed"
+						actionListener="#{revisionSuplencia.mostrarAdjuntos()}"
+						update="form" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+					<p:commandButton value="Aprobar todos los detalles"
+						icon="ui-icon-refresh"
+						actionListener="#{revisionSuplencia.aprobarDetalles()}"
+						update="form" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+				</f:facet>
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column colspan="2" style="text-align:right;"
+							headerText="TOTAL DÍAS SUPLIDOS:" />
+						<p:column headerText="#{revisionSuplencia.view.totalDias}" />
+						<p:column colspan="3" style="text-align:right;"
+							headerText="TOTAL MONTO APROBADO $:" />
+						<p:column style="text-align:left"
+							headerText="#{revisionSuplencia.view.totalAprobado}" />
+						<p:column colspan="3" style="text-align:right"
+							headerText="TOTAL MONTO PENDIENTE $:" />
+						<p:column style="text-align:left"
+							headerText="#{revisionSuplencia.view.totalPendiente}" />
+					</p:row>
+
+					<p:row>
+						<p:column headerText="Empleado" />
+						<p:column headerText="Tipo Suplencia" />
+						<p:column headerText="Estatus" />
+						<p:column headerText="Rango fechas" />
+						<p:column headerText="Jornada" />
+						<p:column headerText="Días" />
+						<p:column headerText="Cantidad Diaria" />
+						<p:column headerText="Total" />
+						<p:column headerText="Descuento" />
+						<p:column headerText="Observaciones" />
+						<p:column headerText="Operaciones" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column>
+					<h:outputText value="#{d.nombreEmpleado}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.tipoSuplencia}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.estatus}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+					<h:outputText value="/" />
+					<h:outputText value="#{d.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.jornada}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.dias}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.cantidadDiaria}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.total}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.conDescuento}" />
+				</p:column>
+
+				<p:column>
+					<h:outputText value="#{d.observaciones}" />
+				</p:column>
+
+				<p:column>
+					<p:commandButton update="form"
+						action="#{revisionSuplencia.mostrarDetalle(d)}"
+						icon="ui-icon-check" title="Aprobar o rechazar">
+					</p:commandButton>
+
+					<p:commandButton update="form"
+						action="#{revisionSuplencia.mostrarDescuento(d)}"
+						icon="fm-icon-coins" title="Descuento">
+					</p:commandButton>
+				</p:column>
+
+
+
+			</p:dataTable>
+
+
+
+			<p:spacer height="30"></p:spacer>
+			<p:dialog header="Detalle Suplencia" id="detalleSuplencia"
+				visible="#{revisionSuplencia.view.mostrarDetalle}" modal="true"
+				closable="false" height="500" minWidth="500">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Suplencia seleccionada</h3>
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
+					<p:spacer></p:spacer>
+					<p:commandButton id="btnBuscar" title="Reporte asistencia"
+						icon="ui-icon-search"
+						action="#{revisionSuplencia.imprimirReporte}"
+						value="Reporte Asistencia" update="@all" />
+
+					<p:outputLabel for="estatus" value="Seleccione un estatus" />
+					<p:selectOneMenu id="estatus"
+						value="#{revisionSuplencia.view.estatus}">
+
+						<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+						<f:selectItems value="#{revisionSuplencia.view.listaEstatus}" />
+
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Tipo Suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.tipoSuplencia}"></h:outputText>
+
+					<p:outputLabel value="Empleado al que suple" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.nombreEmpleado}"></h:outputText>
+
+					<p:outputLabel value="Fecha inicio suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Fecha fin suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Días" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.dias}"></h:outputText>
+
+
+					<p:outputLabel value="Cantidad diaria:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.cantidadDiaria}"></h:outputText>
+
+
+					<p:outputLabel value="Total" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.total}"></h:outputText>
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid " rendered="false">
+					<f:facet name="header">
+						<h3>Movimiento</h3>
+					</f:facet>
+					<p:outputLabel value="Empleado al que suple" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.empleado}"></h:outputText>
+
+					<p:outputLabel value="Fecha Movimiento" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.fechaMovimiento}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Usuario movimiento" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.usuario}"></h:outputText>
+
+					<p:outputLabel value="Movimiento" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.movimiento}"></h:outputText>
+
+					<p:outputLabel value="Fecha Inicio" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Fecha Fin" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Número Oficio" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.numeroOficio}"></h:outputText>
+
+					<p:outputLabel value="Observaciones" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.observaciones}"></h:outputText>
+
+
+					<p:outputLabel value="Estatus" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.detalleMovimiento.estatus}"></h:outputText>
+
+
+				</p:panelGrid>
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						actionListener="#{revisionSuplencia.actualizarDetalleSuplencia()}"
+						oncomplete="mymessages();" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						actionListener="#{revisionSuplencia.ocultarDetalle()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</div>
+			</p:dialog>
+
+
+			<p:dialog header="Descuento Suplencia" id="descuento"
+				visible="#{revisionSuplencia.view.mostrarDescuento}" modal="true"
+				closable="false" height="500" minWidth="500">
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Suplencia seleccionada</h3>
+						<p:messages id="errorEdicion" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
+					<p:spacer></p:spacer>
+					<p:commandButton title="Reporte asistencia" icon="ui-icon-search"
+						action="#{revisionSuplencia.imprimirReporte}"
+						value="Reporte Asistencia" update="@all" />
+
+					<p:outputLabel value="Tipo Suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.tipoSuplencia}"></h:outputText>
+
+					<p:outputLabel value="Empleado al que suple" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.nombreEmpleado}"></h:outputText>
+
+					<p:outputLabel value="Fecha inicio suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Fecha fin suplencia:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Días" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.dias}"></h:outputText>
+
+
+					<p:outputLabel value="Cantidad diaria:" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.cantidadDiaria}"></h:outputText>
+
+
+					<p:outputLabel value="Total" />
+					<h:outputText
+						value="#{revisionSuplencia.view.detalleSeleccionado.total}"></h:outputText>
+
+					<p:outputLabel for="montoOriginal" value="Regresar monto original:" />
+					<p:selectBooleanButton id="montoOriginal" onLabel="Si"
+						offLabel="No" onIcon="ui-icon-check" offIcon="ui-icon-cancel"
+						value="#{revisionSuplencia.view.descuento.regresarImporteAnterior}">
+						<p:ajax update="importeDescuento" process="montoOriginal"></p:ajax>
+					</p:selectBooleanButton>
+
+					<p:outputLabel for="importeDescuento" value="Importe a descontar:" />
+					<p:inputText id="importeDescuento"
+						disabled="#{revisionSuplencia.view.descuento.regresarImporteAnterior}"
+						value="#{revisionSuplencia.view.descuento.importeADescontar}"></p:inputText>
+
+
+					<p:outputLabel for="motivo" value="Motivo descuento:"></p:outputLabel>
+					<p:inputTextarea id="motivo" style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{revisionSuplencia.view.descuento.motivoDescuento}"></p:inputTextarea>
+
+				</p:panelGrid>
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						actionListener="#{revisionSuplencia.descuentoSuplencia()}"
+						process="descuento" oncomplete="mymessages();" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						actionListener="#{revisionSuplencia.ocultarDescuento()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</div>
+			</p:dialog>
+
+
+			<p:dialog
+				header="Documentación soporte quincena #{revisionSuplencia.view.quincenaSeleccionada.numeroQuincena} #{revisionSuplencia.view.quincenaSeleccionada.ejercicioFiscal} #{revisionSuplencia.view.quincenaSeleccionada.suplente}"
+				id="dialog_documentacion"
+				visible="#{revisionSuplencia.view.mostrarDocumentacion}"
+				modal="true" closable="false" height="500" minWidth="400">
+
+				<p:dataTable emptyMessage="No se encontrarón resultados..."
+					value="#{revisionSuplencia.view.documentosAdjuntos}" var="d">
+					<p:column headerText="Nombre Adjunto">
+						<p:outputLabel value="#{d.nombreAdjunto}" />
+					</p:column>
+					<p:column headerText="Nombre Adjunto">
+						<p:outputLabel value="#{d.documentoAdjuntable.descripcion}" />
+					</p:column>
+					<p:column headerText="Opciones"
+						style="width:250px;text-align: center;">
+						<p:spacer width="20" />
+						<p:commandButton icon="fm-icon-download" title="Descargar"
+							update="@form" iconPos="right" ajax="false"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							actionListener="#{revisionSuplencia.descargarAdjunto(d)}"
+							oncomplete="mymessages(); scrollToAnchor();" />
+						<p:spacer width="20" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-4,ui-grid-col-4, ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error"
+							actionListener="#{revisionSuplencia.ocultarAdjuntos()}"
+							update="form"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
+
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

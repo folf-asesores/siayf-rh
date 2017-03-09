@@ -1,0 +1,196 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+        <ui:param name="ventanaTitulo" value="Plazas" />
+        
+	
+        <ui:param name="moduloTitulo"  value="Plazas" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+		
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panelGrid rendered="#{plaza.plazaView.habilitarFormulario}">
+				<p:panelGrid style="width:100%;  padding-top:25px;padding-left:15px">
+					<!-- Panel para dar de alta una nueva plaza -->
+					<p:spacer width="20" />
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel for="clave" value="Clave:" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText label="clave" id="clave"
+								value="#{plaza.plazaView.plazaDTO.clave}" required="true"
+								requiredMessage="La clave es requerida" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel for="nombre" value="Nombre: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText label="nombre" id="nombre"
+								value="#{plaza.plazaView.plazaDTO.nombrePlaza}" required="true"
+								requiredMessage="El nombre es requerido" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel for="adscripcion" value="Adscripción:" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText label="adscripcion" id="adscripcion"
+								value="#{plaza.plazaView.plazaDTO.adscripcion}" required="true"
+								requiredMessage="La adscripción es requerida" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Tipo de la Plaza: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:selectOneMenu value="#{plaza.plazaView.plazaDTO.tipo}"
+								required="true"
+								requiredMessage="Es necesario que seleccione un valor de ela lista ejemplo(Federal o Estatal)">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="ESTATAL" itemValue="ESTATAL" />
+								<f:selectItem itemLabel="FEDERAL" itemValue="FEDERAL" />
+							</p:selectOneMenu>
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Condición Laboral: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:selectOneMenu
+								value="#{plaza.plazaView.plazaDTO.condicionLaboral}"
+								required="true"
+								requiredMessage="Se requiere seleccione la condición laboral">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="CONFIANZA" itemValue="CONFIANZA" />
+								<f:selectItem itemLabel="BASE" itemValue="BASE" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+
+				<p:commandButton value="Guardar" icon="ui-icon-newwin"
+					iconPos="right" actionListener="#{plaza.registraPlaza()}"
+					update=":form" ajax="false" style="float:right;" process="@this"  />
+				<p:spacer width="10" />
+				<p:commandButton value="Cancelar" id="regresarRegistro"
+					iconPos="right" action="#{plaza.cancelar()}" update=":form"
+					process="@this" style="float:left;" />
+				<p:spacer width="20" />
+			</p:panelGrid>
+
+			<p:panelGrid rendered="#{plaza.plazaView.habilitarFormularioEdicion}">
+				<p:panelGrid style="width:100%;  padding-top:25px;padding-left:15px"
+					id="plazaEdicion">
+					<!-- Panel para editar la información de una plaza -->
+					<p:spacer width="20" />
+					<div style="text-align: left;">
+						<h:outputLabel>3.- Actualizar datos de una plaza.</h:outputLabel>
+					</div>
+					<p:spacer width="20" />
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Clave:" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText value="#{plaza.plazaView.editarPlazaDTO.clave}" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Nombre: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{plaza.plazaView.editarPlazaDTO.nombrePlaza}" />
+						</p:column>
+
+					</p:row>
+
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Adscripción:" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{plaza.plazaView.editarPlazaDTO.adscripcion}" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Tipo de la Plaza: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:selectOneMenu value="#{plaza.plazaView.editarPlazaDTO.tipo}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="ESTATAL" itemValue="ESTATAL" />
+								<f:selectItem itemLabel="FEDERAL" itemValue="FEDERAL" />
+							</p:selectOneMenu>
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Condición Laboral: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:selectOneMenu
+								value="#{plaza.plazaView.editarPlazaDTO.condicionLaboral}">
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="CONFIANZA" itemValue="CONFIANZA" />
+								<f:selectItem itemLabel="BASE" itemValue="BASE" />
+							</p:selectOneMenu>
+						</p:column>
+
+					</p:row>
+				</p:panelGrid>
+				<div align="center">
+					<p:commandButton value="Guardar Cambios" iconPos="right"
+						icon="ui-icon-refresh" actionListener="#{plaza.actualizarPlaza()}"
+						update=":form" ajax="false" style="float:right;" />
+					<p:spacer width="10" />
+
+					<p:commandButton id="eliminarPlaza" value="Eliminar Plaza"
+						title="Eliminar Plaza #{e.idPlaza}" icon="ui-icon-trash"
+						update="@form" process=":form" iconPos="right"
+						action="#{plaza.eliminarPlaza()}" ajax="false"
+						style="float:left;">
+					</p:commandButton>
+
+					<p:commandButton value="Cancelar" icon="ui-icon-home" id="regresarEdicion"
+						iconPos="right" action="#{plaza.cancelar()}" update=":form"
+						process="@this" style="float:left;" ajax="false" /> 
+				</div>
+			</p:panelGrid>
+
+                    <h:outputScript target="body">
+			// Controlamos que si pulsamos escape se cierre el formulario y nos redireccionea la página de inicio
+			$(document).keyup(function(event) {
+				if (event.which === 27) {
+					$("#form\\:regresarRegistro").click();
+					$("#form\\:regresarEdicion").click();
+				}
+			});
+                    </h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

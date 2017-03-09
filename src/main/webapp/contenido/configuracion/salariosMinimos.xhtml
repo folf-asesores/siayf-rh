@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Salario Minimo" />
+	<ui:param name="moduloTitulo" value="Salario Minimo" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración de los salarios minimos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="3" id="panelPrincipal"
+				rendered="#{salarioMinimo.view.panelPrincipal}"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+				layout="grid" styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+				<p:spacer />
+
+				<p:dataTable id="tablaTabulador" editable="true" var="s"
+					value="#{salarioMinimo.view.listaSalariosMinimos}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<f:facet name="header">
+						<p:panelGrid columns="3" id="irPanel"
+							columnClasses="ui-grid-col-4" layout="grid"
+							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+							<p:spacer />
+							<p:spacer />
+
+							<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+								iconPos="right" update="form" process="@this"
+								styleClass="fm-font-color-white"
+								action="#{salarioMinimo.mostrarNuevoRegistro()}" />
+						</p:panelGrid>
+					</f:facet>
+
+					<p:column headerText="Fecha">
+						<h:outputText value="#{s.fecha}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Salario Minimo">
+						<h:outputText value="#{s.salarioMinimo}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</p:column>
+
+					<p:column width="100">
+						<p:commandButton icon="ui-icon-pencil" iconPos="right"
+							title="Actualizar Salario Minimo" update="form"
+							styleClass="fm-btn-exitoso fm-btn-elevado" process="@this"
+							action="#{salarioMinimo.mostrarActualizacion(s)}" />
+
+						<p:commandButton icon="ui-icon-trash" update="form"
+							title="Eliminar Salario Minimo"
+							styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
+							action="#{salarioMinimo.mostrarDialogEliminar(s.idSalarioMinimo)}" />
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<p:spacer />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3" id="panelCrear"
+				rendered="#{salarioMinimo.view.panelCrear}"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+				layout="grid" styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+					<f:facet name="header">
+						<h3>Registrar Salario Minimo</h3>
+					</f:facet>
+
+					<p:outputLabel for="fechaCrear" value="Fecha: " />
+					<p:calendar id="fechaCrear" required="true"
+						requiredMessage="Seleccione la fecha" navigator="true"
+						value="#{salarioMinimo.view.creaSalarioMinimo.fecha}"
+						pattern="dd-MM-yyyy">
+						<p:ajax event="dateSelect" update=":form:messageFechaCrear" />
+						<p:ajax event="blur" update=":form:messageFechaCrear" />
+					</p:calendar>
+					<p:message id="messageFechaCrear" for="fechaCrear" />
+
+					<p:outputLabel for="salarioMinimoCrear" value="Salario Minimo:" />
+					<p:inputText id="salarioMinimoCrear" placeholder="$00.00"
+						required="true" requiredMessage="Ingrese el salario minimo"
+						value="#{salarioMinimo.view.creaSalarioMinimo.salarioMinimo}">
+						<p:ajax event="blur" update=":form:messageSalarioMinimoCrear" />
+					</p:inputText>
+					<p:message id="messageSalarioMinimoCrear" for="salarioMinimoCrear" />
+
+					<p:panelGrid columns="4" columnClasses="ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+						<p:spacer />
+
+						<p:commandButton icon="ui-icon-circle-check" update="@form"
+							value="Registrar" 
+							action="#{salarioMinimo.crearSalarioMinimo()}" />
+							
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" action="#{salarioMinimo.regresarModulo()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" value="Cancelar" />
+
+						<p:spacer />
+
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+
+				<p:spacer />
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="3" id="panelActualizar"
+				rendered="#{salarioMinimo.view.panelActualizar}"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+				layout="grid" styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+					<f:facet name="header">
+						<h3>Actualizar Salario Minimo</h3>
+					</f:facet>
+
+					<p:outputLabel for="fechaActualizar" value="Fecha: " />
+					<p:calendar id="fechaActualizar" required="true"
+						requiredMessage="Seleccione la fecha" navigator="true"
+						value="#{salarioMinimo.view.actualizarSalarioMinimo.fecha}"
+						pattern="dd-MM-yyyy">
+						<p:ajax event="dateSelect" update=":form:messsageFechaActualizar" />
+						<p:ajax event="blur" update=":form:messsageFechaActualizar" />
+					</p:calendar>
+					<p:message id="messsageFechaActualizar" for="fechaActualizar" />
+
+					<p:outputLabel for="salarioMinimoActualizar"
+						value="Salario Minimo:" />
+					<p:inputText id="salarioMinimoActualizar" placeholder="$00.00"
+						required="true" requiredMessage="Ingrese el salario minimo"
+						value="#{salarioMinimo.view.actualizarSalarioMinimo.salarioMinimo}">
+						<p:ajax event="blur" update=":form:messageSalarioMinimoActualizar" />
+					</p:inputText>
+					<p:message id="messageSalarioMinimoActualizar"
+						for="salarioMinimoActualizar" />
+
+					<p:panelGrid columns="4" columnClasses="ui-grid-col-3"
+						layout="grid"
+						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+						<p:spacer />
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+						value="Actualizar"
+							action="#{salarioMinimo.actualizarSalarioMinimo()}" />
+							
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							action="#{salarioMinimo.regresarModulo()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+
+						<p:spacer />
+
+					</p:panelGrid>
+
+				</p:panelGrid>
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+			<p:dialog header="¿Quiere Eliminar el Salario Minimo Seleccionado?"
+				visible="#{salarioMinimo.view.dialogEliminar}" modal="true"
+				showEffect="Slide" hideEffect="Drop">
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form" value="Si"
+						process="@this" styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{salarioMinimo.eliminarSalarioMinimo()}" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form" value="No"
+						process="@this" action="#{salarioMinimo.regresarModulo()}" />
+				</div>
+			</p:dialog>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

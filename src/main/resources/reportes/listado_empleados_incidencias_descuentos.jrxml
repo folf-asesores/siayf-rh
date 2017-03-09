@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-11-17T01:07:44 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="listado_empleados_incidencias_descuentos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="8a03668a-0242-4dee-a4a8-c584b6211ab4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQLLocalFOLF"/>
+	<parameter name="fecha_inicio_consulta" class="java.lang.String"/>
+	<parameter name="fecha_fin_consulta" class="java.lang.String"/>
+	<parameter name="id_empleado_consulta" class="java.lang.Integer"/>
+	<parameter name="id_adscripcion_consulta" class="java.lang.Integer"/>
+	<parameter name="id_tipo_contratacion_consulta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[CALL usp_ca_listado_incidencias_descuentos_empleados($P{fecha_inicio_consulta} ,  $P{fecha_fin_consulta} ,$P{id_empleado_consulta} ,$P{id_adscripcion_consulta} ,$P{id_tipo_contratacion_consulta});]]>
+	</queryString>
+	<field name="id_adscripcion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="adscripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_tipo_contratacion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipo_contratacion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_identificador_biometrico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_completo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="imagen" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="es_imagen" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_entrada" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_salida" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dia_semana" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dia_mes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="incidencia" class="java.lang.String"/>
+	<field name="incidencia_marca" class="java.lang.String"/>
+	<field name="id_incidencia" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="color_texto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cargo_jefe" class="java.lang.String"/>
+	<field name="nombre_jefe" class="java.lang.String"/>
+	<field name="cargo_realizo" class="java.lang.String"/>
+	<field name="nomre_realizo" class="java.lang.String"/>
+	<group name="grp_tipo_contratacion">
+		<groupExpression><![CDATA[$F{id_tipo_contratacion}]]></groupExpression>
+	</group>
+	<group name="grp_adscripcion">
+		<groupExpression><![CDATA[$F{id_adscripcion}]]></groupExpression>
+	</group>
+	<group name="grp_empleado">
+		<groupExpression><![CDATA[$F{id_empleado}]]></groupExpression>
+		<groupHeader>
+			<band height="67">
+				<textField>
+					<reportElement x="0" y="12" width="110" height="20" uuid="3754c7f8-21a8-4097-b51e-2d989e842459"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Unidad Responsable:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="110" y="12" width="170" height="20" uuid="7b91b1ad-391d-4263-8da2-4f046b79e932"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{adscripcion}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="12" width="110" height="20" uuid="d0854033-07af-4bf5-923c-be8c601fc467"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Tipo Contrato:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="390" y="12" width="159" height="20" uuid="76b6b014-7d39-4df3-a831-5d1dc106077c"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{tipo_contratacion}]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="482" y="32" width="67" height="20" uuid="7426a038-d558-498c-acd0-59ed41b9d346"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_empleado}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="410" y="32" width="72" height="20" uuid="3008d35c-ab2e-4976-bb0d-b5976a4a9558"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" # Empleado:"]]></textFieldExpression>
+				</textField>
+				<textField isBlankWhenNull="true">
+					<reportElement x="350" y="32" width="60" height="20" uuid="90fb41fd-4eec-4e00-9fe4-43783917cca3"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_identificador_biometrico}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="280" y="32" width="70" height="20" uuid="dd929ea1-4674-4afa-be81-96d55762f9a8"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["# Biometrico:"]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="50" y="33" width="230" height="19" uuid="1d036ece-2244-4798-90bf-9479bbf3fde1"/>
+					<textElement verticalAlignment="Middle">
+						<font size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{nombre_completo}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="0" y="33" width="50" height="19" uuid="e966be73-2d21-4e0c-8248-a9116d8e905e"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="9" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Nombre:"]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="0" y="54" width="80" height="13" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="aac56351-3672-4290-aa3b-9e097467e4b6"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<leftPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<bottomPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<rightPen lineWidth="0.5" lineColor="#2E2E2E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[FECHA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="80" y="54" width="110" height="13" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="67647188-926f-4069-b9a1-91db0f5d2d4b"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<leftPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<bottomPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<rightPen lineWidth="0.5" lineColor="#2E2E2E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[DIA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="190" y="54" width="100" height="13" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="dd7edf99-b626-46b4-ae03-604c1512f66e"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<leftPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<bottomPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<rightPen lineWidth="0.5" lineColor="#2E2E2E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[ENTRADA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="290" y="54" width="100" height="13" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="9448351c-480e-4bbd-8478-c25154396065"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<leftPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<bottomPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<rightPen lineWidth="0.5" lineColor="#2E2E2E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[SALIDA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="390" y="54" width="160" height="13" forecolor="#FFFFFF" backcolor="#B3B3B3" uuid="0f01ef88-023a-411b-a62b-87f1d40a1d07"/>
+					<box>
+						<topPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<leftPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<bottomPen lineWidth="0.5" lineColor="#2E2E2E"/>
+						<rightPen lineWidth="0.5" lineColor="#2E2E2E"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[INCIDENCIA]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="75" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="-2" width="130" height="62" uuid="a501cc71-10d7-4aba-882f-4c804e10f9f9"/>
+				<imageExpression><![CDATA["imagenes/salud.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="134" y="-2" width="296" height="62" uuid="37ad759d-99f3-47bc-8251-d27d0b4d4efa"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["O.P.D. SALUD DE TLAXCALA " +"\n"+"DIRECCIÓN DE ADMINISTRACIÓN"+"\n"+"DEPARTAMENTO DE RECURSOS HUMANOS" +"\n" +"OFICINA DE RELACIONES LABORALES"]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy HH:mm">
+				<reportElement x="432" y="58" width="118" height="15" uuid="270e9b71-7c3b-4890-9143-068fc9f25365">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="163" y="60" width="60" height="15" uuid="dd623cf8-86c3-4d2c-947d-711e1808ec1a">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_fin_consulta}]]></textFieldExpression>
+			</textField>
+			<textField pattern="M/d/yy">
+				<reportElement x="81" y="60" width="59" height="15" uuid="622fb196-631a-497a-89e2-e88dea944494">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<box bottomPadding="1">
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha_incio_consulta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="141" y="60" width="20" height="15" uuid="44d903c5-57d1-4e32-9bbd-d2b52f95ec04"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["al"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="60" width="80" height="15" uuid="20da81ea-f1b9-41c4-b602-b8fd4e5c1819"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Periodo del:"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="50"/>
+	</detail>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement x="0" y="10" width="550" height="30" uuid="dae1443d-0626-4e15-b208-136229a290b9"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[No se encontro información con los filtros proporcionados.]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

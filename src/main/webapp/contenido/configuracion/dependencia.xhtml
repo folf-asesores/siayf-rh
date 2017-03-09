@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+        <ui:param name="ventanaTitulo" value="Dependencia" />
+        <ui:param name="moduloTitulo" value="Dependencia" />
+	
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{dependencia.view.panelPrincipal}">
+				
+				<p:panelGrid columns="4" layout="grid" >
+						<p:commandButton value="Gestionar..." 
+										action="#{dependencia.irGestionarDependencia()}"
+										update=":form"
+										ajax="false"
+										disabled="#{dependencia.view.disabledIrGestionar}" />
+						  				
+						<p:commandButton id="eliminar"  
+                 						 value="Eliminar..." 
+                 						 onclick="PF('eliminarConfirm').show()"
+                 						 disabled="#{dependencia.view.disabledIrGestionar}" >
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar la DEPENDENCIA seleccionada?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirm">
+    					<p:commandButton value="Si" 
+                     					 action="#{dependencia.eliminarDependencia()}" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"
+                     					 update=":form" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"/> 
+                     					 
+						</p:confirmDialog> 
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{dependencia.irNuevoDependencia()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:dataTable id="listDependencia"
+							 value="#{dependencia.view.listDependencia}"
+							 var="dependenciaItem"
+							 rowKey="#{dependenciaItem.idDependencia}"
+							 selection="#{dependencia.view.dependenciaSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{dependencia.onRowSelectDependencia}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{dependencia.onRowUnselectDependencia}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column headerText="Dependencia" />
+							<p:column style="width:99px" headerText="Ramo" />
+							<p:column style="width:99px" headerText="Sector" />
+							<p:column style="width:99px" headerText="Clasificacion del Organismo" />
+							<p:column style="width:99px" headerText="Ente Publico" />
+							<p:column style="width:99px" headerText="Base36" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{dependenciaItem.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{dependenciaItem.idRamo}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{dependenciaItem.idSector}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{dependenciaItem.idClasificacionOrganismo}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{dependenciaItem.idEntePublico}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{dependenciaItem.idBase}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{dependencia.view.panelGestion}">
+				<p:focus context="panelGestion"/>				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							 
+					<p:outputLabel for="Dependencia" value="Dependencia:"/>        			
+        			<p:inputText id="Dependencia" value="#{dependencia.view.dependencia.descripcion}"
+        						 validator="#{dependencia.validatorDependencia}">
+        				<p:ajax update="msgDependencia"/>
+        				<p:clientValidator/>
+            		</p:inputText>	 
+            		<p:message id="msgDependencia" for="Dependencia"/>
+            		<p:spacer/>
+								 
+					<p:outputLabel value="Sector" for="Sector"/>			 
+					<p:inputText id="Sector" value="#{dependencia.view.dependencia.idSector}"
+								 validator="#{dependencia.validatorDependencia}">
+						<p:ajax update="msgSector"/>
+						<p:clientValidator/>
+					</p:inputText>
+					<p:message id="msgSector" for="Sector"/>
+					<p:spacer/>
+					
+					<p:outputLabel value="Base36" for="Base36"/>			 
+					<p:inputText id="Base36" value="#{dependencia.view.dependencia.idBase}"
+								 validator="#{dependencia.validatorDependencia}">
+						<p:ajax update="msgBase36"/>
+						<p:clientValidator/>
+					</p:inputText>
+					<p:message id="msgBase36" for="Base36"/>
+					<p:spacer/>
+					</p:panelGrid>	
+				
+				<div>
+				<p:panelGrid id="btn1" columns="3" layout="grid">
+					<p:commandButton value="Guardar"
+									action="#{dependencia.guardarDependencia}"
+									update=":form"
+									style="float:left;"
+									ajax="false"/>
+					<p/>
+					<p:commandButton value="Cancelar"
+									action="#{dependencia.irPrincipal()}"
+									update=":form"
+									immediate="true"
+									style="float:right;"
+									ajax="false"/>
+				</p:panelGrid>					
+				</div>		 				 	 			 
+			</p:outputPanel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

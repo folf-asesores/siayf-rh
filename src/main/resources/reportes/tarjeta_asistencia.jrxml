@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2016-11-27T17:50:17 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tarjeta_asistencia" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="817" leftMargin="20" rightMargin="5" topMargin="5" bottomMargin="20" uuid="6281ba00-7713-47b8-b141-1c2a2feee36e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQLLocalFOLF"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<import value="net.sf.jasperreports.engine.util.JRImageLoader"/>
+	<style name="Crosstab Data Text" hTextAlign="Center" hImageAlign="Center"/>
+	<parameter name="fecha_inicio_consulta" class="java.lang.String"/>
+	<parameter name="fecha_fin_consulta" class="java.lang.String"/>
+	<parameter name="id_empleado_consulta" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[CALL usp_ca_listado_kardex($P{fecha_inicio_consulta}  ,  $P{fecha_fin_consulta} ,  $P{id_empleado_consulta} );]]>
+	</queryString>
+	<field name="numero_identificador_biometrico" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_completo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rfc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="imagen" class="java.lang.Object">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="es_imagen" class="java.lang.Boolean">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_empleado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_entrada" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="hora_salida" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dia_semana" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dia_mes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="mes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="incidencia" class="java.lang.String"/>
+	<field name="incidencia_marca" class="java.lang.String"/>
+	<field name="id_incidencia" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="color_texto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<summary>
+		<band height="60" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<crosstab>
+				<reportElement x="0" y="0" width="810" height="60" isPrintWhenDetailOverflows="true" uuid="e02fc280-4071-43fb-946d-0f5e456ed19e">
+					<property name="net.sf.jasperreports.export.headertoolbar.table.name" value=""/>
+				</reportElement>
+				<rowGroup name="mes" width="70">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{mes}]]></bucketExpression>
+					</bucket>
+					<crosstabRowHeader>
+						<cellContents backcolor="#969696" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="70" height="20" forecolor="#FFFFFF" uuid="41c8cb40-9f44-4fd2-81c4-e77f3f419925"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($V{mes}==1) ? new String("ENERO"):
+	($V{mes}==2 ? new String("FEBRERO") :
+		($V{mes}==3 ? new String("MARZO"):
+			($V{mes}==4 ? new String("ABRIL"):
+				($V{mes}==5 ? new String("MAYO"):
+					($V{mes}==6 ? new String("JUNIO"):
+						($V{mes}==7 ? new String("JULIO"):
+							($V{mes}==8 ? new String("AGOSTO"):
+								($V{mes}==9 ? new String("SEPTIEMBRE"):
+									($V{mes}==10 ? new String("OCTUBRE"):
+										($V{mes}==11 ? new String("NOVIEMBRE"):
+											($V{mes}==12 ? new String("DICIEMBRE"): new String("")
+										)
+									)
+								)
+							)
+						)
+					)
+					
+			)
+		)
+	)
+)
+)]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabRowHeader>
+					<crosstabTotalRowHeader>
+						<cellContents/>
+					</crosstabTotalRowHeader>
+				</rowGroup>
+				<columnGroup name="dia_mes" height="30">
+					<bucket class="java.lang.Integer">
+						<bucketExpression><![CDATA[$F{dia_mes}]]></bucketExpression>
+					</bucket>
+					<crosstabColumnHeader>
+						<cellContents backcolor="#969696" mode="Opaque">
+							<box>
+								<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+							</box>
+							<textField>
+								<reportElement style="Crosstab Data Text" x="0" y="0" width="20" height="30" forecolor="#FFFFFF" uuid="eb9d8de6-cda8-4383-bb3f-d652f9eb271e">
+									<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{dia_mes}]]></textFieldExpression>
+							</textField>
+						</cellContents>
+					</crosstabColumnHeader>
+					<crosstabTotalColumnHeader>
+						<cellContents/>
+					</crosstabTotalColumnHeader>
+				</columnGroup>
+				<measure name="incidencia_marcaMeasure" class="java.lang.String" calculation="First">
+					<measureExpression><![CDATA[$F{incidencia_marca}]]></measureExpression>
+				</measure>
+				<measure name="esImagenMeasure" class="java.lang.Boolean" calculation="First">
+					<measureExpression><![CDATA[$F{es_imagen}]]></measureExpression>
+				</measure>
+				<measure name="imagenMeasure" class="java.io.InputStream" calculation="First">
+					<measureExpression><![CDATA[$F{imagen}]]></measureExpression>
+				</measure>
+				<measure name="color_texto" class="java.lang.String">
+					<measureExpression><![CDATA[$F{color_texto}]]></measureExpression>
+				</measure>
+				<crosstabCell width="20" height="20">
+					<cellContents>
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<frame>
+							<reportElement x="0" y="0" width="20" height="20" uuid="222d2072-1580-4b04-b96e-dfa781611d49"/>
+							<image>
+								<reportElement stretchType="RelativeToTallestObject" x="5" y="5" width="10" height="10" uuid="4efa17f0-5ba1-4950-8e41-daddca885a48">
+									<printWhenExpression><![CDATA[$V{esImagenMeasure} == true]]></printWhenExpression>
+								</reportElement>
+								<imageExpression><![CDATA[$V{imagenMeasure}]]></imageExpression>
+							</image>
+							<textField>
+								<reportElement key="" mode="Transparent" x="0" y="0" width="20" height="14" backcolor="#FFFFFF" uuid="890df989-fc42-4849-8105-92f8c3e560b8">
+									<printWhenExpression><![CDATA[$V{esImagenMeasure} == false]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+									<font size="8" isBold="true"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{color_texto} != null ? "<style forecolor='#"+$V{color_texto}+"'>"+$V{incidencia_marcaMeasure}+"</style>" : $V{incidencia_marcaMeasure}]]></textFieldExpression>
+							</textField>
+						</frame>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell height="25" rowTotalGroup="mes">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="ca2a1139-4bce-4b27-b8ec-0b2b5b17b751"/>
+							<textFieldExpression><![CDATA[$V{incidencia_marcaMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell width="50" columnTotalGroup="dia_mes">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="25c72869-1dbb-4f2b-99fb-abd6e5c65e71"/>
+							<textFieldExpression><![CDATA[$V{incidencia_marcaMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+				<crosstabCell rowTotalGroup="mes" columnTotalGroup="dia_mes">
+					<cellContents backcolor="#BFE1FF" mode="Opaque">
+						<box>
+							<pen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textField>
+							<reportElement style="Crosstab Data Text" x="0" y="0" width="50" height="25" uuid="60a84e60-fc0a-4070-a3b7-f27188539a7b"/>
+							<textFieldExpression><![CDATA[$V{incidencia_marcaMeasure}]]></textFieldExpression>
+						</textField>
+					</cellContents>
+				</crosstabCell>
+			</crosstab>
+		</band>
+	</summary>
+	<noData>
+		<band height="50">
+			<staticText>
+				<reportElement x="110" y="10" width="550" height="30" uuid="c9c01ce2-5dc5-4460-b4d9-a1432c5819a1"/>
+				<textElement textAlignment="Center">
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[No se encontro información para este empleado]]></text>
+			</staticText>
+		</band>
+	</noData>
+</jasperReport>

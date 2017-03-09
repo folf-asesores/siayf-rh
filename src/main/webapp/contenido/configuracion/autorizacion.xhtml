@@ -1,0 +1,306 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuracion ::: Autorizaciones" />
+	<ui:param name="moduloTitulo" value="Configuración Aprobaciones" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal" styleClass="fm-tarjeta"
+				rendered="#{autorizaciones.view.panelPrincipal}">
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:dataTable id="tablaPuesto" editable="true" var="a"
+						scrollRows="10" scrollable="true" scrollHeight="300"
+						value="#{autorizaciones.view.listaAutorizados}"
+						emptyMessage="No se encontrarón resultados" paginator="true"
+						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,15,50">
+						<f:facet name="header">
+							<div align="right">
+								<p:outputLabel value="Multiple" style="color:white" />
+								<p:commandLink title="Eliminar registros"
+									action="#{autorizaciones.irEliminar()}" update="form"
+									process="@this">
+									<span class="ui-icon-trash fm-font-color-white"
+										title="Multiple Eliminacion de Registros" />
+								</p:commandLink>
+								<p:commandLink title="Activa/Desactiva registros"
+									action="#{autorizaciones.irActualizar()}" update="form"
+									process="@this">
+									<span class="ui-icon-shuffle fm-font-color-white"
+										title="Activa/Desactiva Registros" />
+								</p:commandLink>
+								<p:commandLink title="Nuevos registros"
+									action="#{autorizaciones.irCrear()}" update="form"
+									process="@this">
+									<span class="ui-icon-plus fm-font-color-white"
+										title="Multiple Nuevos Registros" />
+								</p:commandLink>
+							</div>
+						</f:facet>
+
+						<p:column headerText="Nombre de Usuario" sortBy="#{a.usuario}"
+							filterBy="#{a.usuario}">
+							<h:outputText value="#{a.usuario}" />
+						</p:column>
+
+						<p:column headerText="Acciones" sortBy="#{a.accion}"
+							filterBy="#{a.accion}">
+							<h:outputText value="#{a.accion}" />
+						</p:column>
+
+						<p:column headerText="Activo" sortBy="#{a.activo}"
+							filterBy="#{a.activo}">
+							<h:outputText value="#{a.activo}" />
+						</p:column>
+
+						<p:column width="100">
+							<p:commandButton icon="ui-icon-pencil" iconPos="right"
+								action="#{autorizaciones.irActivar(a)}"
+								title="Actualizar: #{a.usuario}" update="form"
+								styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+
+							<p:commandButton icon="ui-icon-trash" update="form"
+								action="#{autorizaciones.mostrarDialogoEliminar()}"
+								title="Eliminar: #{a.usuario}"
+								styleClass="fm-btn-peligro fm-btn-elevado" process="@this">
+								<f:setPropertyActionListener value="#{a}"
+									target="#{autorizaciones.view.autorizados}" />
+							</p:commandButton>
+
+						</p:column>
+
+
+					</p:dataTable>
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelCrear" styleClass="fm-tarjeta"
+				rendered="#{autorizaciones.view.panelCrear}">
+				<p:focus context="panelCrear" />
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-5,ui-grid-col-5"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel for="accion" value="Accion" style="float:right" />
+					<p:selectOneMenu id="accion"
+						value="#{autorizaciones.view.autorizacion.idAccion}">
+						<f:selectItem itemLabel="Selecciona una..." itemValue="" />
+						<f:selectItems value="#{autorizaciones.view.listAutorizaciones}" />
+					</p:selectOneMenu>
+					<p:spacer />
+				</p:panelGrid>
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:dataTable id="listUsuarios" editable="true" scrollRows="10"
+						scrollable="true" scrollHeight="300"
+						value="#{autorizaciones.view.listaUsuarios}" var="usuariosItem"
+						selection="#{autorizaciones.view.usuariosLista}"
+						rowKey="#{usuariosItem.idUsuario}"
+						emptyMessage="No se encontrarón resultados" paginator="true"
+						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column headerText="ID" style="width:56px">
+							<h:outputText value="#{usuariosItem.idUsuario}" />
+						</p:column>
+						<p:column headerText="Nombre Usuario"
+							sortBy="#{usuariosItem.userName}"
+							filterBy="#{usuariosItem.userName}">
+							<h:outputText value="#{usuariosItem.userName}" />
+						</p:column>
+						<p:column headerText="Nombre" sortBy="#{usuariosItem.nombre}"
+							filterBy="#{usuariosItem.nombre}">
+							<h:outputText value="#{usuariosItem.nombre}" />
+						</p:column>
+						<p:column headerText="Apellido Paterno"
+							sortBy="#{usuariosItem.apellidoPaterno}"
+							filterBy="#{usuariosItem.apellidoPaterno}">
+							<h:outputText value="#{usuariosItem.apellidoPaterno}" />
+						</p:column>
+						<p:column headerText="Apellido Materno"
+							sortBy="#{usuariosItem.apellidoMaterno}"
+							filterBy="#{usuariosItem.apellidoMaterno}">
+							<h:outputText value="#{usuariosItem.apellidoMaterno}" />
+						</p:column>
+						<p:column selectionMode="multiple"
+							style="width:26px;text-align:center" />
+					</p:dataTable>
+				</p:panelGrid>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Guardar..."
+						action="#{autorizaciones.guardarAutorizacion()}" update=":form"
+						ajax="false" />
+					<p:spacer />
+					<p:commandButton value="Cancelar..."
+						action="#{autorizaciones.irPrincipal()}" update=":form"
+						ajax="false" />
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelActualizar" styleClass="fm-tarjeta"
+				rendered="#{autorizaciones.view.panelActualizar}">
+				<p:focus context="panelActualizar" />
+				<p:panelGrid columns="5"
+					columnClasses="ui-grid-col-3, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:spacer />
+					<p:outputLabel for="des" value="Activos/Desactivos"
+						style="float:right" />
+					<p:selectOneMenu id="des" value="#{autorizaciones.view.des}">
+						<f:selectItem itemLabel="Desactivados" itemValue="0" />
+						<f:selectItem itemLabel="Activos" itemValue="1" />
+					</p:selectOneMenu>
+					<p:spacer />
+					<p:commandButton value="Buscar..."
+						action="#{autorizaciones.buscar()}" update=":form" ajax="false" />
+				</p:panelGrid>
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:dataTable id="listAutorizados" editable="true" scrollRows="10"
+						scrollable="true" scrollHeight="300"
+						value="#{autorizaciones.view.listaAutorizados}"
+						var="autorizacionItem"
+						selection="#{autorizaciones.view.autorizadosSelect}"
+						rowKey="#{autorizacionItem.idAccionUsuario}"
+						emptyMessage="No se encontrarón resultados" paginator="true"
+						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column style="width:56px" headerText="ID">
+							<h:outputText value="#{autorizacionItem.idAccionUsuario}" />
+						</p:column>
+						<p:column headerText="Nombre Usuario"
+							sortBy="#{autorizacionItem.usuario}"
+							filterBy="#{autorizacionItem.usuario}">
+							<h:outputText value="#{autorizacionItem.usuario}" />
+						</p:column>
+						<p:column headerText="Accion" sortBy="#{autorizacionItem.accion}"
+							filterBy="#{autorizacionItem.accion}">
+							<h:outputText value="#{autorizacionItem.accion}" />
+						</p:column>
+						<p:column selectionMode="multiple"
+							style="width:26px;text-align:center" />
+					</p:dataTable>
+				</p:panelGrid>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Guardar..."
+						action="#{autorizaciones.actualizarAutorizacion()}" update=":form"
+						ajax="false" />
+					<p:spacer />
+					<p:commandButton value="Cancelar..."
+						action="#{autorizaciones.irPrincipal()}" update=":form"
+						ajax="false" />
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelEliminar" styleClass="fm-tarjeta"
+				rendered="#{autorizaciones.view.panelEliminar}">
+				<p:focus context="panelEliminar" />
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:dataTable id="listDesactivados" editable="true" scrollRows="10"
+						scrollable="true" scrollHeight="300"
+						value="#{autorizaciones.view.listaAutorizados}"
+						var="autorizacionItem"
+						selection="#{autorizaciones.view.autorizadosSelect}"
+						rowKey="#{autorizacionItem.idAccionUsuario}"
+						emptyMessage="No se encontrarón resultados" paginator="true"
+						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						rowsPerPageTemplate="5,10,15">
+
+						<p:column style="width:56px" headerText="ID">
+							<h:outputText value="#{autorizacionItem.idAccionUsuario}" />
+						</p:column>
+						<p:column headerText="Nombre Usuario"
+							sortBy="#{autorizacionItem.usuario}"
+							filterBy="#{autorizacionItem.usuario}">
+							<h:outputText value="#{autorizacionItem.usuario}" />
+						</p:column>
+						<p:column headerText="Accion" sortBy="#{autorizacionItem.accion}"
+							filterBy="#{autorizacionItem.accion}">
+							<h:outputText value="#{autorizacionItem.accion}" />
+						</p:column>
+						<p:column selectionMode="multiple"
+							style="width:26px;text-align:center" />
+					</p:dataTable>
+				</p:panelGrid>
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Eliminar..."
+						action="#{autorizaciones.eliminarAutorizacion()}" update=":form"
+						ajax="false" />
+					<p:spacer />
+					<p:commandButton value="Cancelar..."
+						action="#{autorizaciones.irPrincipal()}" update=":form"
+						ajax="false" />
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:dialog header="Activar/Desactivar Acciones" showEffect="Slide"
+				hideEffect="Drop" closable="false"
+				visible="#{autorizaciones.view.panelAccion}" modal="true">
+				<p:outputPanel id="panelGestion" styleClass="fm-tarjeta">
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-4,ui-grid-col-5" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel for="user" value="Usuario" />
+						<p:inputText id="user"
+							value="#{autorizaciones.view.autorizados.usuario}"
+							disabled="true" />
+
+						<p:outputLabel for="ac" value="Activo" />
+						<p:selectOneMenu id="ac"
+							value="#{autorizaciones.view.autorizados.activo}">
+							<f:selectItem itemLabel="Desactivo" itemValue="0" />
+							<f:selectItem itemLabel="Activo" itemValue="1" />
+						</p:selectOneMenu>
+					</p:panelGrid>
+					<p:panelGrid id="btn1" columns="3" layout="grid">
+						<p:commandButton value="Guardar"
+							action="#{autorizaciones.activar()}" update=":form"
+							style="float:left;" ajax="false" />
+						<p />
+						<p:commandButton value="Cancelar"
+							action="#{autorizaciones.irPrincipal()}" update=":form"
+							style="float:right;" ajax="false" />
+					</p:panelGrid>
+
+				</p:outputPanel>
+			</p:dialog>
+
+			<p:confirmDialog
+				message="¿Quiere eliminar al usuario #{autorizaciones.view.autorizados.usuario}"
+				visible="#{autorizaciones.view.dialogoEliminar}" showEffect="fade"
+				id="confirm" hideEffect="explode" widgetVar="eliminarConfirm">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+					<p:spacer />
+					<p:commandButton icon="ui-icon-circle-close" update="confirm"
+						action="#{autorizaciones.ocultarDialogoEliminar()}" />
+					<p:commandButton icon="ui-icon-circle-check"
+						action="#{autorizaciones.eliminar()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" update=":form" />
+					<p:spacer />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

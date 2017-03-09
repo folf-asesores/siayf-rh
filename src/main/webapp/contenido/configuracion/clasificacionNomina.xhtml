@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Clasificaciones de Nominas" />
+	<ui:param name="moduloTitulo"  value="Clasificacion Nomina" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+		<p:confirmDialog message="Esta seguro que desea borrar esta CLASIFICACION DE NOMINA?" 
+									 visible="#{clasificacionNomina.dialogo}" 
+                 					 showEffect="fade" id="confirm"
+                 					 hideEffect="explode" 
+                 					 widgetVar="eliminarConfirm">
+                 		<p:panelGrid columns="4" layout="grid"
+							 		 styleClass="ui-fluid ui-panelgrid-blank" 
+									 columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+						<p:spacer/>
+					<p:commandButton value="No" update="confirm"
+                    				 action="#{clasificacionNomina.ocultarDialogo}" />	
+    				<p:commandButton value="Si" 
+                    				 action="#{clasificacionNomina.eliminarClasificacionNomina()}" 
+                    				 update=":form" />
+                    	<p:spacer/>	
+                    	</p:panelGrid>		  			 
+					</p:confirmDialog> 
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{clasificacionNomina.view.panelPrincipal}">
+				<p:panelGrid columns="2" layout="grid" >
+												 
+						<p:commandButton value="Gestionar..." 
+										action="#{clasificacionNomina.irGestionarClasificacionNomina()}"
+										update=":form"
+										ajax="false"
+										disabled="#{clasificacionNomina.view.disabledIrGestionar}" />
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{clasificacionNomina.irNuevoClasificacionNomina()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:panelGrid columns="1" layout="grid">
+				<p:dataTable id="listClasificacionNomina"
+							 value="#{clasificacionNomina.view.listClasificacionNomina}"
+							 var="clasificacionNominaItem"
+							 rowKey="#{clasificacionNominaItem.idClasificacionNomina}"
+							 selection="#{clasificacionNomina.view.clasificacionNominaSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{clasificacionNomina.onRowSelectClasificacionNomina}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{clasificacionNomina.onRowUnselectClasificacionNomina}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column style="width:76px" headerText="ID" />
+							<p:column headerText="Clasificacion de Nomina" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{clasificacionNominaItem.clasificacionNomina}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{clasificacionNominaItem.descripcion}" />
+					</p:column>
+				</p:dataTable>
+				</p:panelGrid>
+			</p:outputPanel>
+
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta ui-fluid"
+						 rendered="#{clasificacionNomina.view.panelGestion}">
+				<p:focus context="panelGestion"/>
+				
+				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							 
+					<p:outputLabel for="Descripcion" value="Descripcion" />        			
+        			<p:inputText id="Descripcion" value="#{clasificacionNomina.view.clasificacionNomina.descripcion}"
+        						 validator="#{clasificacionNomina.validatorClasificacion}">
+        				<p:ajax update="msgDescripcion"/>
+        				<p:clientValidator/>
+        			</p:inputText>
+        			<p:message id="msgDescripcion" for="Descripcion"/>
+        			<p:spacer/>
+        			
+        			<p:outputLabel for="ID" value="ID de la Clasificacion"/>
+        			<p:inputText id="ID" value="#{clasificacionNomina.view.clasificacionNomina.clasificacionNomina}"
+        						 validator="#{clasificacionNomina.validatorClasificacion}">
+        				<p:ajax update="msgID"/>
+        				<p:clientValidator/>
+        			</p:inputText>
+        			<p:message id="msgID" for="ID"/>
+					<p:spacer/>
+						
+				</p:panelGrid>	
+					
+				<p:outputPanel styleClass="fm-tarjeta-pie">
+					<p:commandButton value="Guardar"
+									action="#{clasificacionNomina.guardarClasificacionNomina}"
+									update=":form"
+									styleClass="fm-float-left fm-tarjeta-pie-boton"
+									ajax="false"/>
+					
+					<p:commandButton value="Cancelar"
+									action="#{clasificacionNomina.irPrincipal()}"
+									update=":form"
+									immediate="true"
+									styleClass="fm-float-right fm-tarjeta-pie-boton"
+									ajax="false"/>
+									
+					<p:commandButton id="eliminar"  
+                 					 value="Eliminar..." update="confirm"
+                 					 action="#{clasificacionNomina.mostrarDialogo}"
+                					 styleClass="fm-float-right fm-tarjeta-pie-boton"
+                 					 rendered="#{clasificacionNomina.view.opEliminar}" />				
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

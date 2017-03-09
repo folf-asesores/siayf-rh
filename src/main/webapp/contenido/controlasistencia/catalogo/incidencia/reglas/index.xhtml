@@ -1,0 +1,203 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo"
+		value="Reglas Incidencia:  #{indexReglaIncidenciaController.incidenciaViewModel.descripcion}" />
+	<ui:param name="moduloSubtitulo"
+		value="Listado de reglas aplicables para la Incidencias." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{indexReglaIncidenciaController.init}"
+			type="preRenderView" />
+
+		<h:form id="frmFormReglasIncidencias">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel id="divListadoReglasIncidencias"
+				widgetVar="divListadoReglasIncidencias">
+
+				<p:dataTable var="reglaIncidencia" id="tblReglasIncidencias"
+					styleClass="tabla-personalizada" widgetVar="tblReglasIncidencias"
+					value="#{indexReglaIncidenciaController.listadoReglaIncidenciaViewModel}"
+					rows="100" paginator="true"
+					emptyMessage="No se encontraron registros">
+					<f:facet name="header">
+						<p:panelGrid columns="5" styleClass="sin_borde"
+							columnClasses="ui-grid-col-1 , ui-grid-col-2,ui-grid-col-3,ui-grid-col-6,ui-grid-col-1"
+							layout="grid">
+							<p:button id="btnRegresar" title="Regresar"
+								styleClass="fm-btn-advertencia" icon="ui-icon-arrowthick-1-w"
+								immediate="true"
+								outcome="/contenido/controlasistencia/catalogo/incidencia/index.xhtml?faces-redirect=true" />
+							<h:outputLabel value="Tipo Contratación:" />
+							<p:selectOneMenu id="tipoContratacion"
+								styleClass="fm-bloque input_lng"
+								value="#{indexReglaIncidenciaController.tipoContratacionSeleccionada}">
+								<f:selectItem itemLabel="TODOS" itemValue="0" />
+								<p:ajax
+									listener="#{indexReglaIncidenciaController.filtrarPorTipoContratacion}"
+									update="frmFormReglasIncidencias:divListadoReglasIncidencias" />
+								<f:selectItems
+									value="#{indexReglaIncidenciaController.listadoTiposContrataciones}" />
+							</p:selectOneMenu>
+
+							<p:spacer></p:spacer>
+
+
+
+							<p:commandButton id="btnNuevaRegla"
+								update="frmFormReglasIncidencias:dglNuevaReglaIncidencia"
+								title="Nueva Regla Incidencia" icon="ui-icon-document"
+								immediate="true"
+								actionListener="#{indexReglaIncidenciaController.nuevaReglaIncidencia}" />
+
+
+						</p:panelGrid>
+					</f:facet>
+					<p:column headerText="Maximo">
+						<h:outputText value="#{reglaIncidencia.maximo}" />
+					</p:column>
+					<p:column headerText="Tipo Calculo">
+						<h:outputText value="#{reglaIncidencia.tipoCalculo}" />
+					</p:column>
+					<p:column headerText="Tipo Acumulado">
+						<h:outputText value="#{reglaIncidencia.tipoAcumuladoDescripcion}" />
+					</p:column>
+
+					<p:column headerText="Tipo Contratación">
+						<h:outputText
+							value="#{reglaIncidencia.tipoContratacionDescripcion}" />
+					</p:column>
+					<p:column headerText="Antiguedad Inicio(Meses)">
+						<h:outputText value="#{reglaIncidencia.mesesAntiguedadInicio}" />
+					</p:column>
+					<p:column headerText="Antiguedad Fin(Meses)">
+						<h:outputText value="#{reglaIncidencia.mesesAntiguedadFin}" />
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="eliminar" icon="ui-icon-trash "
+							title="Eliminar"
+							update="frmFormReglasIncidencias:divListadoReglasIncidencias"
+							immediate="true" styleClass="fm-btn-peligro"
+							actionListener="#{indexReglaIncidenciaController.eliminarReglaIncidencia(reglaIncidencia)}">
+							<p:confirm header="Confirmacion"
+								message="¿Deseas quitar la regla: #{reglaIncidencia.maximo} #{reglaIncidencia.tipoCalculo}  por #{reglaIncidencia.tipoAcumuladoDescripcion}   de la lista? "
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+					<f:facet name="footer">
+						<p:ajaxStatus>
+							<f:facet name="start">
+								<center>
+									<p:graphicImage library="imagenes" name="load.gif" />
+								</center>
+							</f:facet>
+							<f:facet name="complete"></f:facet>
+						</p:ajaxStatus>
+					</f:facet>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</p:panel>
+
+			<p:dialog id="dglNuevaReglaIncidencia"
+				header="Nueva regla incidencia" widgetVar="dglNuevaReglaIncidencia"
+				modal="true" width="500px">
+
+				<p:messages id="messages_nueva_regla_incidencia"
+					styleClass="mensaje_error" showDetail="false" autoUpdate="true"
+					closable="true" escape="false" />
+
+				<p:ajaxStatus>
+					<f:facet name="start">
+						<center>
+							<p:graphicImage library="imagenes" name="load.gif" />
+						</center>
+					</f:facet>
+					<f:facet name="complete"></f:facet>
+				</p:ajaxStatus>
+
+				<p:panel styleClass="ui-noborder ui-panelgrid-blank sin_borde"
+					widgetVar="divEditarIncidencia">
+					<p:panelGrid columns="1" layout="grid" id="frmNuevaReglaIncidencia">
+						<f:facet name="header">
+							<h:outputText value="Informacion de la  regla." />
+							<br />
+						</f:facet>
+						<p:outputLabel for="tipo_contratacion" value="Tipo Contrato:" />
+						<p:selectOneMenu id="tipo_contratacion"
+							styleClass="fm-bloque input_lng"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.idTipoContratacion}">
+							<f:selectItems
+								value="#{indexReglaIncidenciaController.listadoTiposContrataciones}" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Maximo:" />
+						<p:spinner id="maxino" styleClass="fm-bloque input_lng"
+							requiredMessage="Debe indicar el valor del minuto final"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.maximo}">
+						</p:spinner>
+						<p:outputLabel value="Tipo Calculo:" />
+						<p:selectOneMenu id="tipo_calculo"
+							styleClass="fm-bloque input_lng"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.tipoCalculo}">
+							<f:selectItem itemLabel="DIA" itemValue="0" />
+							<f:selectItem itemLabel="HORA" itemValue="1" />
+
+						</p:selectOneMenu>
+						<p:outputLabel value="Tipo Acumulado:" />
+						<p:selectOneMenu id="tipo_acumualdo"
+							styleClass="fm-bloque input_lng"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.tipoAcumulado}">
+							<f:selectItem itemLabel="MES" itemValue="0" />
+							<f:selectItem itemLabel="QUINCENA" itemValue="1" />
+							<f:selectItem itemLabel="SEMANA" itemValue="2" />
+							<f:selectItem itemLabel="DIA" itemValue="3" />
+							<f:selectItem itemLabel="AÑO" itemValue="4" />
+							<f:selectItem itemLabel="AÑO LABORAL" itemValue="5" />
+						</p:selectOneMenu>
+						<p:outputLabel value="Antiguedad Inicio(Meses):" />
+
+						<p:spinner id="minimo_meses" styleClass="fm-bloque input_lng"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.mesesAntiguedadInicio}">
+						</p:spinner>
+						<p:outputLabel value="Antiguedad Fin(Meses):" />
+
+						<p:spinner id="minimo_meses_fin" styleClass="fm-bloque input_lng"
+							value="#{indexReglaIncidenciaController.reglaIncidenciaFormModel.mesesAntiguedadFin}">
+						</p:spinner>
+						<!-- <p:outputLabel value="Fecha Consultar Antiguedad:" />  -->
+						
+
+
+					</p:panelGrid>
+					<center>
+						<p:commandButton icon="ui-icon-disk" value="Guardar"
+							action="#{indexReglaIncidenciaController.crearNuevaReglaIncidencia}"
+							update="divListadoReglasIncidencias" validateClient="true">
+
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-close" value="Cancelar"
+							onclick="PF('divEditarIncidencia').hide();" />
+					</center>
+				</p:panel>
+			</p:dialog>
+
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

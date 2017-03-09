@@ -1,0 +1,176 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Consulta conceptos nomina" />
+	<ui:param name="moduloTitulo" value="Consulta conceptos nomina" />
+	<ui:param name="moduloSubtitulo"
+		value="Ingrese el criterio de busqueda" />
+	<ui:define name="moduloContenido">
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="form" styleClass="fm-contenedor">
+			<p:messages id="info" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-responsive fm-tarjeta ui-fluid">
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-5, ui-grid-col-1"
+					layout="grid" styleClass="ui-responsive ui-panelgrid-blank">
+
+					<p:inputText id="criterio"
+						placeholder="Buscar Empleado por RFC, Nombre, Apellidos o Número"
+						value="#{consultaConceptosEmpleadoController.criterioEmpleado}" size="80" />
+					<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+						update="form" action="#{consultaConceptosEmpleadoController.buscarEmpleados()}" />
+
+				</p:panelGrid>
+
+				<p:dataTable id="dataEmpleados" var="e" editable="true"
+					emptyMessage="No se encontrarón resultados"
+					rowKey="#{e.idEmpleado}" value="#{consultaConceptosEmpleadoController.empleadoLista}"
+					paginator="true" rows="10" paginatorAlwaysVisible="false"
+					rendered="#{consultaConceptosEmpleadoController.mostrarTablaEmpleados}">
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Nombre" />
+							<p:column headerText="CURP" />
+							<p:column headerText="RFC" />
+							<p:column headerText="Dirección" />
+							<p:column headerText="Numero de Empleado" />
+							<p:column headerText="Estatus" />
+							<p:column width="50" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{e.nombre}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.curp}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.rfc}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.direccion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.numeroEmpleado}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.estatus}" />
+					</p:column>
+					<p:column>
+						<p:commandButton update="form"
+							action="#{consultaConceptosEmpleadoController.irMovimientos(e)}"
+							icon="ui-icon-circle-check" styleClass="fm-btn-elevado" />
+					</p:column>
+				</p:dataTable>
+
+
+				<p:outputPanel id="panelFormulario"	rendered="#{!consultaConceptosEmpleadoController.mostrarTablaEmpleados}">
+					<p:ribbon>
+						<p:tab title="Generales">
+							<p:ribbonGroup label="Empleado">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.nombre}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="CURP">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.curp}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Edad">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.edad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nacionalidad">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.nacionalidad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Sexo">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.sexo}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estado Civil">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.estadoCivil}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estudios">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.estudios}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Domicilio">
+							<p:ribbonGroup label="Domicilio">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.domicilio}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Laborales">
+							<p:ribbonGroup label="Contratación">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.tipoContratacion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nombramiento">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.nombramiento}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Puesto">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.codigoPuesto}" />
+								<br />
+								<h:outputText value="#{consultaConceptosEmpleadoController.empleadoDatos.puesto}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Unidad Responsable">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.unidadResponsable}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Adscripción">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.adscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Area adscripción">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.areaAdscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Ultima Licencia">
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.licencia} " />
+								<h:outputText
+									value="#{consultaConceptosEmpleadoController.empleadoDatos.ultimaLicencia}">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:ribbonGroup>
+						</p:tab>
+					</p:ribbon>
+					<p:dataTable var="concepto" value="#{consultaConceptosEmpleadoController.conceptos}">
+					<p:column headerText="Clave">
+					 <h:outputText value="#{concepto.clave}" />
+					</p:column>
+					<p:column headerText="Descripción">
+					<h:outputText value="#{concepto.descripcion}" />
+					</p:column>
+					<p:column headerText="Tipo concepto">
+					<h:outputText value="#{concepto.tipo==1?'Percepcion':'Deduccion'}" />
+					</p:column>
+					<p:column headerText="Importe">
+					<h:outputText value="#{concepto.importe}" />
+					</p:column>
+					<f:facet name="footer" >
+					<h:outputText value="TOTAL:" style="font-size:16px; color:red; font-weight:bold"/> <h:outputText style="font-size:16px; color:#000; font-weight:bold" value="#{consultaConceptosEmpleadoController.total}"><f:convertNumber currencySymbol="$" type="currency"/> </h:outputText>
+					</f:facet>
+					</p:dataTable>
+									</p:outputPanel>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,123 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Movimientos de Empleados" />
+	<ui:param name="moduloTitulo"
+		value="Administrador de Reporte: Movimientos de Empleados" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<p:spacer />
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="1" columnClasses="ui-grid-col-12">
+						<p:outputLabel for="tipoReporte" value="Tipo Reporte: *" />
+						<p:outputLabel id="uotputTipoReporte">
+							<p:selectOneMenu id="tipoReporte"
+								validator="#{reporteMovimientoEmpleado.validatorTipoReporte}"
+								value="#{reporteMovimientoEmpleado.view.tipoReporte}">
+								<f:selectItem itemLabel="Seleccione una opción..." itemValue="" />
+								<f:selectItems
+									value="#{reporteMovimientoEmpleado.view.listaTipoReporte}" />
+								<p:ajax event="valueChange"
+									listener="#{reporteMovimientoEmpleado.mostrarPanelDescarga()}"
+									update="form" />
+								<p:clientValidator />
+
+							</p:selectOneMenu>
+							<p:message for="tipoReporte" />
+						</p:outputLabel>
+					</p:panelGrid>
+					<p:spacer />
+
+
+					<p:spacer
+						rendered="#{reporteMovimientoEmpleado.view.mostrarPanelDescargaReporte}" />
+					<p:panelGrid
+						rendered="#{reporteMovimientoEmpleado.view.mostrarPanelDescargaReporte}"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid" columns="1"
+						columnClasses="ui-grid-col-12">
+
+						<f:facet name="header">
+							<h3>#{reporteMovimientoEmpleado.view.tipoReporte}</h3>
+						</f:facet>
+
+						<p:outputLabel for="fechaInicial" value="Fecha Inicial: *" />
+						<p:outputLabel id="uotputFechaIncial">
+							<p:calendar id="fechaInicial" locale="es" pattern="dd-MM-yyyy"
+								validator="#{reporteMovimientoEmpleado.validatorHabilidadPersonal}"
+								value="#{reporteMovimientoEmpleado.view.fechaInicialComisionadoLicencia}"
+								navigator="true">
+								<p:ajax update="uotputFechaIncial" />
+
+								<p:clientValidator />
+							</p:calendar>
+							<p:message for="fechaInicial" />
+						</p:outputLabel>
+
+						<p:outputLabel for="fechaFinal" value="Fecha Final: *" />
+						<p:outputLabel id="uotputFechaFinal">
+							<p:calendar id="fechaFinal" locale="es" pattern="dd-MM-yyyy"
+								value="#{reporteMovimientoEmpleado.view.fechaFinalComisionadoLicencia}"
+								validator="#{reporteMovimientoEmpleado.validatorHabilidadPersonal}"
+								navigator="true">
+								<p:ajax update="uotputFechaFinal" />
+
+								<p:clientValidator />
+							</p:calendar>
+							<p:message for="fechaFinal" />
+						</p:outputLabel>
+
+						<p:outputLabel for="tipoContratacion"
+							rendered="#{reporteMovimientoEmpleado.view.mostrarSelectTipoContratacion}"
+							value="Tipo de Contratación: *" />
+						<p:selectOneMenu id="tipoContratacion" required="true"
+							requiredMessage="Seleccione el tipo de contratación."
+							rendered="#{reporteMovimientoEmpleado.view.mostrarSelectTipoContratacion}"
+							value="#{reporteMovimientoEmpleado.view.idTipoContratacion}">
+							<f:selectItem itemLabel="[Seleccione una Opción]" itemValue="" />
+							<f:selectItem itemLabel="CONTRATO ESTATAL" itemValue="1" />
+							<f:selectItem itemLabel="CONTRATO FEDERAL" itemValue="2" />
+							<p:ajax event="valueChange" update="msgTipoContratacion" />
+						</p:selectOneMenu>
+						<p:message id="msgTipoContratacion" for="tipoContratacion" />
+
+						<p:spacer />
+						<p:commandButton ajax="false" value="Descargar Reporte"
+							icon="fm-icon-download" oncomplete="mymessages();"
+							action="#{reporteMovimientoEmpleado.descargarExcel()}"
+							update="form" />
+
+					</p:panelGrid>
+					<p:spacer
+						rendered="#{reporteMovimientoEmpleado.view.mostrarPanelDescargaReporte}" />
+
+				</p:panelGrid>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

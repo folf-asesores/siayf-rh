@@ -1,0 +1,125 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Catálogo de Profesión" />
+	<ui:param name="moduloTitulo"  value="Catálogo de Profesión" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-responsive">
+				<p:row>
+					<p:column>
+						<p:commandButton value="Registrar" icon="ui-icon-plus"
+							iconPos="right" update=":form" style="float:left;"
+							action="#{profesion.abrirDialogoRegistro()}" />
+						<p:commandButton value="Actualizar" icon="ui-icon-pencil"
+							iconPos="right" update=":form"
+							disabled="#{profesion.profesion.habilitarOpciones}"
+							action="#{profesion.abrirDialogoActualizacion()}"
+							style="float:left;" />
+						<p:commandButton value="Eliminar" icon="ui-icon-trash"
+							disabled="#{profesion.profesion.habilitarOpciones}"
+							action="#{profesion.abrirDialogoEliminacion()}" iconPos="right"
+							update=":form" style="float:left;" />
+						<p:commandButton value="Inicio" icon="ui-icon-home"
+							action="#{profesion.irPaginaInicio()}" iconPos="right"
+							update=":form" style="float:left;" />
+					</p:column>
+				</p:row>
+
+				<p:dataTable var="p" editable="true" rowKey="#{p.idProfesion}"
+					emptyMessage="No se encontrarón resultados"
+					selection="#{profesion.profesion.seleccionarProfesion}"
+					value="#{profesion.profesion.listaProfesion}" paginator="true"
+					rows="10" paginatorAlwaysVisible="false" selectionMode="single">
+					<p:ajax event="rowSelect" listener="#{profesion.habilitarOpciones}"
+						update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Clave" rowspan="2" colspan="1" width="150" />
+							<p:column headerText="Profesión" rowspan="2" colspan="1" />
+						</p:row>
+					</p:columnGroup>
+
+					<h:outputText value="#{p.idProfesion}" style="display:none;" />
+
+					<p:column>
+						<h:outputText value="#{p.clave}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{p.profesion}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+			<p:dialog header="Registrar Profesión"
+				visible="#{profesion.profesion.dialogCrear}" modal="true"
+				dynamic="true">
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Clave:" />
+					<p:inputText value="#{profesion.profesion.crearProfesion.clave}" />
+
+					<h:outputLabel value="Profesión:" />
+					<p:inputText
+						value="#{profesion.profesion.crearProfesion.profesion}" />
+
+				</h:panelGrid>
+				<div align="center">
+					<p:commandButton value="Registrar" icon="ui-icon-circle-check"
+						action="#{profesion.crearProfesion()}" iconPos="right"
+						ajax="false" />
+					<p:spacer width="20" />
+					<p:commandButton value="Cerrar" icon="ui-icon-circle-close"
+						actionListener="#{profesion.cerrarDialogo()}" iconPos="right"
+						ajax="false" />
+				</div>
+			</p:dialog>
+			<p:dialog header="Actualizar Profesión"
+				visible="#{profesion.profesion.dialogActualizar}" modal="true"
+				dynamic="true">
+
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel value="Clave:" />
+					<p:inputText
+						value="#{profesion.profesion.seleccionarProfesion.clave}" />
+
+					<h:outputLabel value="Profesión:" />
+					<p:inputText
+						value="#{profesion.profesion.seleccionarProfesion.profesion}" />
+				</h:panelGrid>
+				<div align="center">
+					<p:commandButton value="Actualizar" icon="ui-icon-circle-check"
+						actionListener="#{profesion.actualizarProfesion()}"
+						iconPos="right" ajax="false" />
+					<p:spacer width="20" />
+					<p:commandButton value="Cerrar" icon="ui-icon-circle-close"
+						actionListener="#{profesion.cerrarDialogo()}" iconPos="right"
+						update="form" process="@this" ajax="false" />
+				</div>
+			</p:dialog>
+			<p:dialog header="¿Quiere eliminar la profesión seleccionado?"
+				visible="#{profesion.profesion.dialogEliminar}" modal="true"
+				dynamic="true">
+
+				<div align="center">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						actionListener="#{profesion.eliminarProfesion()}" iconPos="right"
+						ajax="false" />
+					<p:spacer width="20" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						actionListener="#{profesion.cerrarDialogo()}" iconPos="right"
+						ajax="false" />
+				</div>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

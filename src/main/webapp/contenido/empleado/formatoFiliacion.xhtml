@@ -1,0 +1,327 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Formato Filiación" />
+
+	<ui:param name="moduloTitulo" value="Formato Filiación" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="false" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panelGrid columns="3"
+				rendered="#{formatoFiliacion.view.principal}"
+				columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+				<p:inputText id="criterio" value="#{formatoFiliacion.view.criterio}"
+					placeholder="RFC o nombre completo"
+					validator="#{formatoFiliacion.validatorConsulta}">
+					<p:ajax update="msgCriterio" />
+					<p:clientValidator />
+				</p:inputText>
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()"
+					action="#{formatoFiliacion.consultarEmpleados()}" update="form" />
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="empleados"
+				emptyMessage="No se encontrarón resultados"
+				rendered="#{formatoFiliacion.view.principal}"
+				value="#{formatoFiliacion.view.listaEmpleados}" var="e"
+				paginator="true" paginatorPosition="bottom" rows="5">
+
+				<p:column headerText="Número Empleado" width="150"
+					style="text-align: center;">
+					<h:outputText value="#{e.numeroEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+				<p:column headerText="Ver" width="50" style="text-align: center;">
+					<p:commandButton update="form" icon="fm-icon-eye"
+						oncomplete="mymessages();" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{formatoFiliacion.mostrarFormulario(e.idEmpleado, e.nombre)}"
+						title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-3, ui-grid-col-6, ui-grid-col-3"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{formatoFiliacion.view.formulario}">
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<f:facet name="header">
+						<h3>Datos Generales</h3>
+					</f:facet>
+
+					<p:outputLabel value="Nombre Empleado" />
+					<h:outputText value="#{formatoFiliacion.view.nombreEmpleado}" />
+
+					<p:outputLabel for="filiacion" value="Filiación:" />
+					<p:inputText id="filiacion"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.filiacion}" />
+
+					<p:outputLabel for="nombrePadre" value="Nombre Padre:" />
+					<p:inputText id="nombrePadre" disabled="true"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombrePadre}" />
+
+					<p:outputLabel for="nombreMadre" value="Nombre Madre:" />
+					<p:inputText id="nombreMadre" disabled="true"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombreMadre}" />
+
+					<p:outputLabel for="actaNumero" value="Acta N°:" />
+					<p:inputText id="actaNumero"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.actaNumero}" />
+
+					<p:outputLabel for="foja" value="Foja:" />
+					<p:inputText id="foja"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.foja}" />
+
+					<p:outputLabel for="anio" value="Año:" />
+					<p:inputText id="anio"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.anio}" />
+
+					<p:outputLabel for="libro" value="Libro:" />
+					<p:inputText id="libro"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.libro}" />
+
+					<ui:remove>
+						<p:outputLabel for="cartillaSmn" value="Cartilla S.M.N.:" />
+						<p:inputText id="cartillaSmn"
+							value="#{formatoFiliacion.view.formatoFiliacionDTO.cartillaSmn}" />
+					</ui:remove>
+
+					<p:outputLabel for="clase" value="Clase S.M.N.:" />
+					<p:inputText id="clase"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.clabeCartilla}" />
+
+					<ui:remove>
+
+						<p:outputLabel for="conyuge" value="Nombre Esposo (A):" />
+						<p:inputText id="conyuge" disabled="true"
+							value="#{formatoFiliacion.view.formatoFiliacionDTO.nombreConyuge}" />
+
+						<p:outputLabel for="domicilio" value="Domicilio:" />
+						<p:inputText id="domicilio"
+							value="#{formatoFiliacion.view.formatoFiliacionDTO.domicilio}" />
+
+					</ui:remove>
+
+					<p:outputLabel for="extranjeros" value="Extranjeros:" />
+					<p:inputText id="extranjeros"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.extranjeros}" />
+
+					<p:outputLabel for="fecha" value="Fecha:" />
+					<p:calendar id="fecha" locale="es" navigator="true"
+						pattern="dd-MM-yyyy" effect="size"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.fecha}" />
+
+				</p:panelGrid>
+
+				<p:spacer />
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<f:facet name="header">
+						<h3>Referencias</h3>
+					</f:facet>
+
+					<p:outputLabel for="nombreConocidoUno"
+						value="Nombre Persona Conocida:" />
+					<p:inputText id="nombreConocidoUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombrePersonaConocidoUno}" />
+
+					<p:outputLabel for="domicilioConocidoUno"
+						value="Domicilio Persona Conocida:" />
+					<p:inputText id="domicilioConocidoUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.domicilioPersonaConocidoUno}" />
+
+					<p:outputLabel for="lugarConocidoUno"
+						value="Lugar Persona Conocida:" />
+					<p:inputText id="lugarConocidoUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.lugarPersonaConocidoUno}" />
+
+					<p:outputLabel for="nombreConocidoDos"
+						value="Nombre Segunda Persona Conocida:" />
+					<p:inputText id="nombreConocidoDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombrePersonaConocidoDos}" />
+
+					<p:outputLabel for="domicilioConocidoDos"
+						value="Domicilio Segunda Persona Conocida:" />
+					<p:inputText id="domicilioConocidoDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.domicilioPersonaConocidoDos}" />
+
+					<p:outputLabel for="lugarConocidoDos"
+						value="Lugar Segunda Persona Conocida:" />
+					<p:inputText id="lugarConocidoDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.lugarPersonaConocidoDos}" />
+
+					<p:outputLabel for="nombreParienteUno" value="Nombre Pariente:" />
+					<p:inputText id="nombreParienteUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombreParienteUno}" />
+
+					<p:outputLabel for="domicilioParienteUno"
+						value="Domicilio Pariente:" />
+					<p:inputText id="domicilioParienteUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.domicilioParienteUno}" />
+
+					<p:outputLabel for="lugarParienteUno" value="Lugar Pariente:" />
+					<p:inputText id="lugarParienteUno"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.lugarParienteUno}" />
+
+					<p:outputLabel for="nombreParienteDos"
+						value="Nombre Segundo Pariente:" />
+					<p:inputText id="nombreParienteDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.nombreParienteDos}" />
+
+					<p:outputLabel for="domicilioParienteDos"
+						value="Domicilio Segundo Pariente:" />
+					<p:inputText id="domicilioParienteDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.domicilioParienteDos}" />
+
+					<p:outputLabel for="lugarParienteDos"
+						value="Lugar Segundo Pariente:" />
+					<p:inputText id="lugarParienteDos"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.lugarParienteDos}" />
+
+					<p:outputLabel for="colorPiel" value="Color Piel:" />
+					<p:selectOneMenu id="colorPiel"
+						value="#{formatoFiliacion.view.idColorPiel}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaColorPiel}" />
+						<p:ajax event="valueChange" update=":form:colorPiel"
+							listener="#{formatoFiliacion.ajaxColorPiel()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="cabello" value="Cabello:" />
+					<p:selectOneMenu id="cabello"
+						value="#{formatoFiliacion.view.idCabello}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaCabello}" />
+						<p:ajax event="valueChange" update=":form:cabello"
+							listener="#{formatoFiliacion.ajaxCabello()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="frente" value="Frente:" />
+					<p:selectOneMenu id="frente"
+						value="#{formatoFiliacion.view.idFrente}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaFrente}" />
+						<p:ajax event="valueChange" update=":form:frente"
+							listener="#{formatoFiliacion.ajaxFrente()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="ceja" value="Ceja:" />
+					<p:selectOneMenu id="ceja" value="#{formatoFiliacion.view.idCeja}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaCeja}" />
+						<p:ajax event="valueChange" update=":form:ceja"
+							listener="#{formatoFiliacion.ajaxCejas()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="ojos" value="Ojos:" />
+					<p:selectOneMenu id="ojos" value="#{formatoFiliacion.view.idOjos}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaOjos}" />
+						<p:ajax event="valueChange" update=":form:ojos"
+							listener="#{formatoFiliacion.ajaxOjos()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="nariz" value="Nariz:" />
+					<p:selectOneMenu id="nariz"
+						value="#{formatoFiliacion.view.idNariz}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaNariz}" />
+						<p:ajax event="valueChange" update=":form:nariz"
+							listener="#{formatoFiliacion.ajaxNariz()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="boca" value="Boca:" />
+					<p:selectOneMenu id="boca" value="#{formatoFiliacion.view.idBoca}">
+						<f:selectItem itemLabel="Seleccione Una Opción" itemValue="" />
+						<f:selectItems value="#{formatoFiliacion.view.listaBoca}" />
+						<p:ajax event="valueChange" update=":form:boca"
+							listener="#{formatoFiliacion.ajaxBoca()}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="seniasVisibles" value="Señas Visibles:" />
+					<p:inputText id="seniasVisibles"
+						value="#{formatoFiliacion.view.formatoFiliacionDTO.seniasVisibles}" />
+
+					<p:commandButton value="Ver Formato Filiación" icon="fm-icon-eye"
+						update="@form" ajax="false"
+						actionListener="#{formatoFiliacion.verFormatoFiliacion()}"
+						iconPos="right" />
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+
+			</p:panelGrid>
+
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-4, ui-grid-col-8"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+				rendered="#{formatoFiliacion.view.mostrarExitoReporte}">
+
+				<p:outputLabel value="¡El reporte se genero correctamente!" />
+				<p:spacer />
+				<p:commandButton value="Regresar" icon="ui-icon-arrowthick-1-w"
+					update="@form" actionListener="#{formatoFiliacion.regresar()}" />
+
+			</p:panelGrid>
+
+			<p:outputPanel id="reporteNuevaVentana"
+				rendered="#{formatoFiliacion.view.mostrarReporteNuevaVentana}">
+				<h:outputScript>
+                window.open('#{request.contextPath}/#{formatoFiliacion.urlReporte}');
+            </h:outputScript>
+			</p:outputPanel>
+
+			<ui:remove>contenido/reportesLaborales/administradorReporte.xhtml?faces-redirect=true</ui:remove>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

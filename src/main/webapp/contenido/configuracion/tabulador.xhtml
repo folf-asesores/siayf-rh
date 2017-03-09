@@ -1,0 +1,359 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Tabulador" />
+	<ui:param name="moduloTitulo" value="Tabulador" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración de los tabuladores." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="2" id="panelGridAlta"
+				columnClasses="ui-grid-col-2,ui-grid-col-10" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid">
+
+				<p:outputLabel for="idTipoTabulador" value="Tipo Tabulador:" />
+				<p:selectOneMenu id="idTipoTabulador" effect="fade" filter="true"
+					filterMatchMode="contains"
+					value="#{tabulador.view.idTipoTabulador}">
+					<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+					<f:selectItems value="#{tabulador.view.listaTipoTabulador}" />
+					<p:clientValidator />
+					<p:ajax listener="#{tabulador.obtenerListaTabulador()}"
+						update="form" process="idTipoTabulador" />
+				</p:selectOneMenu>
+			</p:panelGrid>
+
+			<p:dataTable id="tablaTabulador" editable="true" var="t"
+				scrollRows="10" scrollable="true" scrollHeight="350"
+				value="#{tabulador.view.listaTabulador}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+					<div align="right">
+						<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+							oncomplete="scrollToAnchorPanel();"
+							action="#{tabulador.mostrarDialogoNuevoRegistro()}"
+							iconPos="right" update="form" process="@this"
+							styleClass="fm-font-color-white" />
+					</div>
+				</f:facet>
+
+				<p:column headerText="Tipo Tabulador">
+					<h:outputText value="#{t.descripcionTipoTabulador}" />
+				</p:column>
+
+				<p:column headerText="Ejercicio Fiscal">
+					<h:outputText value="#{t.ejercicioFiscal}" />
+				</p:column>
+
+				<p:column headerText="Rama">
+					<h:outputText value="#{t.nombreRamaPuesto}" />
+				</p:column>
+
+				<p:column headerText="Codigo" width="100"
+					sortBy="#{t.codigoPuestoGeneral}"
+					filterBy="#{t.codigoPuestoGeneral}">
+					<h:outputText value="#{t.codigoPuestoGeneral}" />
+				</p:column>
+
+				<p:column headerText="Puesto" sortBy="#{t.nombrePuestoGeneral}"
+					filterBy="#{t.nombrePuestoGeneral}">
+					<h:outputText value="#{t.nombrePuestoGeneral}" />
+				</p:column>
+
+
+				<p:column headerText="Subclasificacion"
+					sortBy="#{t.subClasificacion}" filterBy="#{t.subClasificacion}"
+					rendered="#{tabulador.view.mostrarEstatal}">
+					<h:outputText value="#{t.subClasificacion}" />
+				</p:column>
+
+				<p:column headerText="Sueldo Diario"
+					rendered="#{tabulador.view.mostrarUnicoPersonalSuplente}">
+					<h:outputText value="#{t.sueldoDiario}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Sueldo Bruto Mensual"
+					rendered="#{tabulador.view.mostrarFederal}">
+					<h:outputText value="#{t.sueldoBrutoMensual}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Asignación Bruta Mensual"
+					rendered="#{tabulador.view.mostrarFederal}">
+					<h:outputText value="#{t.asignacionBrutaMensual}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="A.G.A. Bruta Mensual"
+					rendered="#{tabulador.view.mostrarFederal}">
+					<h:outputText value="#{t.agaBrutaMensual}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Total Bruto Mensual"
+					rendered="#{tabulador.view.mostrarFederal}">
+					<h:outputText value="#{t.totalBrutoMensual}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Sueldo Base Mensual Minimo"
+					rendered="#{tabulador.view.mostrarEstatal}">
+					<h:outputText value="#{t.sueldoBaseMensualMinimo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Sueldo Base Mensual Medio"
+					rendered="#{tabulador.view.mostrarEstatal}">
+					<h:outputText value="#{t.sueldoBaseMensualMedio}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Sueldo Base Mensual Maximo"
+					rendered="#{tabulador.view.mostrarEstatal}">
+					<h:outputText value="#{t.sueldoBaseMensualMaximo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column width="100">
+					<p:commandButton icon="ui-icon-pencil" iconPos="right"
+						oncomplete="scrollToAnchorPanel();"
+						title="Actualizar: #{t.nombreRamaPuesto}-#{t.nivelTipoPuesto}"
+						action="#{tabulador.mostrarDialogoActualizar(t)}" update="form"
+						styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+
+					<p:commandButton icon="ui-icon-trash" update="form"
+						title="Eliminar: #{t.nombreRamaPuesto}-#{t.nivelTipoPuesto}"
+						action="#{tabulador.mostrarDialogoEliminar(t.idTabulador)}"
+						styleClass="fm-btn-peligro fm-btn-elevado" process="@this" />
+
+				</p:column>
+
+
+			</p:dataTable>
+
+			<p:spacer />
+
+			<p:panelGrid columns="3" id="irPanel"
+				columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+				layout="grid" rendered="#{tabulador.view.dialogoCrearActualizar}"
+				styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+				<f:facet name="header">
+					<h3>#{tabulador.view.accionTabulador}</h3>
+				</f:facet>
+
+				<p:spacer />
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+					<p:outputLabel for="tipoTabulador" value="Tipo Tabulador:" />
+					<p:outputPanel id="outputTipoTabulador">
+						<p:selectOneMenu id="tipoTabulador" effect="fade" filter="true"
+							filterMatchMode="startsWith"
+							validator="#{tabulador.validarCampo}"
+							value="#{tabulador.view.tabuladorDTO.idTipoTabulador}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{tabulador.view.listaTipoTabulador}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update="form" />
+						</p:selectOneMenu>
+						<p:message for="tipoTabulador" />
+					</p:outputPanel>
+
+					<p:outputLabel for="ejercicioFiscal" value="Ejercicio Fiscal:" />
+					<p:outputPanel id="outputEjercicioFiscal">
+						<p:selectOneMenu id="ejercicioFiscal" effect="fade" filter="true"
+							filterMatchMode="startsWith"
+							validator="#{tabulador.validarCampo}"
+							value="#{tabulador.view.tabuladorDTO.idEjercicioFiscal}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{tabulador.view.listaEjercicioFiscal}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update=":form:outputEjercicioFiscal" />
+						</p:selectOneMenu>
+						<p:message for="ejercicioFiscal" />
+					</p:outputPanel>
+
+					<p:outputLabel for="puestoGeneral" value="Puesto General:" />
+					<p:outputPanel id="outputPuestoGeneral">
+						<p:selectOneMenu id="puestoGeneral" effect="fade" filter="true"
+							filterMatchMode="startsWith"
+							validator="#{tabulador.validarCampo}"
+							value="#{tabulador.view.tabuladorDTO.idPuestoGeneral}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{tabulador.view.listaPuestoGeneral}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange"
+								listener="#{tabulador.obtenerInfoPuestoGeneral()}"
+								update=":form:outputPuestoGeneral :form:rama :form:codigo" />
+						</p:selectOneMenu>
+						<p:message for="puestoGeneral" />
+					</p:outputPanel>
+
+					<p:outputLabel for="rama" value="Rama:" />
+					<p:inputText id="rama" disabled="true"
+						value="#{tabulador.view.tabuladorDTO.nombreRamaPuesto}"
+						style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();" />
+
+					<p:outputLabel for="codigo" value="Codigo:" />
+					<p:inputText id="codigo" disabled="true"
+						value="#{tabulador.view.tabuladorDTO.codigoPuestoGeneral}"
+						style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();" />
+
+					<p:outputLabel for="sueldoBrutoMensual"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="Sueldo Bruto Mensual:" />
+					<p:inputText id="sueldoBrutoMensual" placeholder="$00.00"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="#{tabulador.view.tabuladorDTO.sueldoBrutoMensual}">
+						<p:ajax event="blur" listener="#{tabulador.sumaTotalFederal()}"
+							update="totalBrutoMensual" />
+					</p:inputText>
+
+					<p:outputLabel for="asignacionBrutaMensual"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="Asignación Bruta Mensual:" />
+					<p:inputText id="asignacionBrutaMensual"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						placeholder="$00.00"
+						value="#{tabulador.view.tabuladorDTO.asignacionBrutaMensual}">
+						<p:ajax event="blur" listener="#{tabulador.sumaTotalFederal()}"
+							update="totalBrutoMensual" />
+					</p:inputText>
+
+					<p:outputLabel for="agaBrutaMensual"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="A.G.A. Bruta Mensual:" />
+					<p:inputText id="agaBrutaMensual" placeholder="$00.00"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="#{tabulador.view.tabuladorDTO.agaBrutaMensual}">
+						<p:ajax event="blur" listener="#{tabulador.sumaTotalFederal()}"
+							update="totalBrutoMensual" />
+					</p:inputText>
+
+					<p:outputLabel for="totalBrutoMensual"
+						rendered="#{tabulador.view.mostrarInputFederal}"
+						value="Total Bruto Mensual:" />
+					<strong> <h:outputText id="totalBrutoMensual"
+							styleClass="fm-font-size-20 fm-font-color-green"
+							rendered="#{tabulador.view.mostrarInputFederal}"
+							value="#{tabulador.view.tabuladorDTO.totalBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</strong>
+
+					<p:outputLabel for="sueldoBaseMM"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="Sueldo Base Mensual Minimo:" />
+					<p:inputText id="sueldoBaseMM" placeholder="$00.00"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="#{tabulador.view.tabuladorDTO.sueldoBaseMensualMinimo}" />
+
+					<p:outputLabel for="sueldoBaseMMedio"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="Sueldo Base Mensual Medio:" />
+					<p:inputText id="sueldoBaseMMedio" placeholder="$00.00"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="#{tabulador.view.tabuladorDTO.sueldoBaseMensualMedio}" />
+
+					<p:outputLabel for="sueldoBaseMensualMaximo"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="Sueldo Base Mensual Maximo:" />
+					<p:inputText id="sueldoBaseMensualMaximo" placeholder="$00.00"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="#{tabulador.view.tabuladorDTO.sueldoBaseMensualMaximo}" />
+
+					<p:outputLabel for="subclasificacion"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						value="Subclasificación Tabulador:" />
+					<p:selectOneMenu id="subclasificacion" effect="fade" filter="true"
+						rendered="#{tabulador.view.mostrarInputEstatal}"
+						filterMatchMode="startsWith"
+						value="#{tabulador.view.tabuladorDTO.idSubClasificacion}">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+						<f:selectItems
+							value="#{tabulador.view.listaSubClasificacionTabulador}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="sueldoDiario"
+						rendered="#{tabulador.view.mostrarInputUnicoPersonalSuplente}"
+						value="Sueldo Diario:" />
+					<p:inputText id="sueldoDiario"
+						rendered="#{tabulador.view.mostrarInputUnicoPersonalSuplente}"
+						value="#{tabulador.view.tabuladorDTO.sueldoDiario}" />
+
+				</p:panelGrid>
+
+				<p:spacer />
+
+				<p:spacer />
+				<p:outputLabel>
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						actionListener="#{tabulador.accionRegistraActualizar()}"
+						oncomplete="mymessages();" />
+					<p:spacer height="20px" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						actionListener="#{tabulador.cerrarDialogoPrincipal()}"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</p:outputLabel>
+
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dialog header="¿Quiere Eliminar el Tabulador Seleccionado?"
+				visible="#{tabulador.view.dialogoEliminar}" modal="true"
+				showEffect="Slide" hideEffect="Drop">
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						oncomplete="mymessages();" process="@this"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{tabulador.eliminarTabulador()}" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						action="#{tabulador.cerrarDialogoAccionEliminar()}" />
+				</div>
+			</p:dialog>
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

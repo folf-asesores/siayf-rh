@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+productosNominaRfc.xhtml
+Creado el 03/Jan/2017 8:42:40 AM
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Producto nómina :: Abrir producto de nómina" />
+
+    <ui:param name="moduloTitulo" value="Abrir producto nómina con archivo por RFC" />
+    <ui:param name="moduloSubtitulo" value="Abrir un producto de nómina a partir de una archivo que contiene una lista de RFC" />
+
+    <ui:define name="moduloContenido">
+        <h:form id="frmAperturaNominaRfc">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:fileUpload fileUploadListener="#{aperturaNominaRfcController.procesarArchivo}" 
+                          mode="advanced" 
+                          update="messages, lstRfc, tblBitacora" 
+                          auto="true"
+                          allowTypes="/(\.|\/)(txt)$/"
+                          label="Seleccionar un archivo"
+                          invalidFileMessage="Ha seleccionado un archivo invalido, verifique el archivo sea de texto (.txt)." />
+
+            <p:dataList id="lstRfc" 
+            			value="#{aperturaNominaRfcController.listaRfc}"
+                        var="rfc" 
+                        type="ordered" 
+                        paginator="true"
+                        rows="10" 
+                        styleClass="paginated"
+                        emptyMessage="No se ha encontrado ningún RFC">
+                <f:facet name="header">
+                    Lista de  RFC
+                </f:facet>
+                <h:outputText value="#{rfc}" style="display:inline-block"/>
+            </p:dataList>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button"
+								styleClass="ui-confirmdialog-yes" 
+								icon="ui-icon-check" />
+				<p:commandButton value="No" 
+								type="button"
+								styleClass="ui-confirmdialog-no" 
+								icon="ui-icon-close" />
+			</p:confirmDialog>
+
+            <p:commandButton value="Abrir producto de nómina"
+                            actionListener="#{aperturaNominaRfcController.abrirProductoNomina}"
+							onsuccess="PF(`statusDialog`).hide()"
+							onstart="PF(`statusDialog`).show()"
+                            update="messages, tblBitacora">
+				<p:confirm header="Confirmacion"
+                             message="¿Desea abrir el producto de nómina? se podran registrar los movimientos de nómina a los empleados."
+                             icon="ui-icon-alert" />
+            </p:commandButton>
+            <p:dataTable id="tblBitacora" var="evento" value="#{aperturaNominaRfcController.bitacora.eventos}">
+                <p:column headerText="Fecha">
+                    <h:outputText value="#{evento.fechaHora}">
+                        <f:convertDateTime pattern="dd/MMM/yyyy hh:mm:ss a" />
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Categoria">
+                    <span class="#{aperturaNominaRfcController.obtenerIcono(evento.categoria)}"></span>
+                    #{evento.categoria.getValor()}
+                </p:column>
+                <p:column headerText="Mensaje">
+                    #{evento.mensaje}
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

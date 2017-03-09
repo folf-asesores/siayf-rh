@@ -1,0 +1,195 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Alta Voluntarios" />
+	<ui:param name="moduloTitulo" value="Alta Voluntarios" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<p:panel rendered="#{altaVoluntario.view.mostrarBusqueda}">
+				<p:panelGrid layout="grid" columns="3"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-3, ui-grid-col-7, ui-grid-col-2">
+					<p:outputLabel for="criterio"
+						value="Ingrese nombre, curp, rfc o perfil:" />
+					<p:inputText id="criterio" value="#{altaVoluntario.view.criterio}">
+					</p:inputText>
+
+					<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+						onsuccess="PF('statusDialog').hide()" update="form"
+						actionListener="#{altaVoluntario.consultarCandidato()}"
+						oncomplete="mymessages();" onstart="PF('statusDialog').show()"></p:commandButton>
+
+				</p:panelGrid>
+
+				<p:spacer height="20"></p:spacer>
+
+				<p:dataTable id="aspirantes" var="a"
+					value="#{altaVoluntario.view.aspirantes}" paginator="true"
+					paginatorPosition="bottom" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{a.nombre}" />
+					</p:column>
+
+					<p:column headerText="Curp">
+						<h:outputText value="#{a.curp}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{a.rfc}" />
+					</p:column>
+
+					<p:column headerText="Dirección">
+						<h:outputText value="#{a.direccion}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{a.estatus}" />
+					</p:column>
+
+					<p:column headerText="Ver" style="text-align: center;">
+						<p:commandButton update="form"
+							actionListener="#{altaVoluntario.seleccionarAspirante(a.idAspirante)}"
+							icon="fm-icon-eye" title="Ver">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+			<p:panel id="alta" rendered="#{altaVoluntario.view.mostrarAlta}">
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Aspirante</h3>
+					</f:facet>
+
+					<p:outputLabel value="Nombre" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.nombre}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.curp}"></h:outputText>
+
+					<p:outputLabel value="Dirección" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.direccion}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{altaVoluntario.view.aspirante. edad}"></h:outputText>
+
+					<p:outputLabel value="Nacionalidad" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.nacionalidad}"></h:outputText>
+
+					<p:outputLabel value="Sexo" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.sexo}"></h:outputText>
+
+					<p:outputLabel value="Estado civil" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.estadoCivil}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText value="#{altaVoluntario.view.aspirante.estudios}"></h:outputText>
+				</p:panelGrid>
+
+				<p:panelGrid columns="2"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Registro</h3>
+					</f:facet>
+
+
+					<p:outputLabel for="programa" value="Programas Federales:" />
+					<p:selectOneMenu id="programa"
+						value="#{altaVoluntario.view.alta.idPrograma}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaVoluntario.view.programas}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="sueldo" value="Sueldo:" />
+					<p:inputText id="sueldo"
+						value="#{altaVoluntario.view.alta.sueldoMensual}"></p:inputText>
+
+					<p:outputLabel for="cuenta" value="Número cuenta:" />
+					<p:inputText id="cuenta"
+						value="#{altaVoluntario.view.alta.numeroCuenta}"></p:inputText>
+
+					<p:outputLabel for="fecha_inicio" value="Fecha Inicio" />
+					<p:calendar id="fecha_inicio" pattern="dd-MM-yyyy" mask="true"
+						value="#{altaVoluntario.view.alta.fechaInicial}">
+					</p:calendar>
+
+					<p:outputLabel for="fecha_fin" value="Fecha Fin:" />
+					<p:calendar id="fecha_fin" pattern="dd-MM-yyyy" mask="true"
+						value="#{altaVoluntario.view.alta.fechaFinal}">
+					</p:calendar>
+
+					<p:outputLabel for="fecha_ingreso" value="Fecha Ingreso:" />
+					<p:calendar id="fecha_ingreso" pattern="dd-MM-yyyy" mask="true"
+						value="#{altaVoluntario.view.alta.fechaIngreso}">
+					</p:calendar>
+
+					<p:outputLabel for="adscripcion" value="Adscripción:" />
+					<p:selectOneMenu id="adscripcion"
+						value="#{altaVoluntario.view.alta.idAdscripcion}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaVoluntario.view.listaAdscripciones}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="areaAdscripcion" value="Subadscripción:" />
+					<p:selectOneMenu id="areaAdscripcion"
+						value="#{altaVoluntario.view.alta.idSubadscripcion}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaVoluntario.view.listaSubadscripcion}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="servicio" value="Servicio:" />
+					<p:selectOneMenu id="servicio"
+						value="#{altaVoluntario.view.alta.idServicio}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaVoluntario.view.listaServicio}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="funcion" value="Función" />
+					<p:selectOneMenu id="funcion"
+						value="#{altaVoluntario.view.alta.idFuncion}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaVoluntario.view.listaFuncion}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+
+				<p:panelGrid columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<p:spacer></p:spacer>
+					<p:commandButton value="Registrar"
+						actionListener="#{altaVoluntario.registrarVoluntario()}"
+						update="form"></p:commandButton>
+					<p:commandButton value="Cancelar"
+						actionListener="#{altaVoluntario.cancelar()}" update="form"></p:commandButton>
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

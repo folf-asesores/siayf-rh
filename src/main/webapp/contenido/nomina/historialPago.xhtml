@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Historial Pago" />
+	<ui:param name="moduloTitulo" value="Historial Pago" />
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:outputPanel>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+					<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+					<p:outputPanel id="outputCriterio">
+						<p:inputText id="criterio" required="true"
+							requiredMessage="Ingrese el criterio"
+							validator="#{consultaEmpleado.validarConsulta}"
+							value="#{historialPago.view.filtro.criterio}">
+
+							<p:clientValidator />
+							<p:ajax event="blur" update=":form:outputCriterio" />
+
+						</p:inputText>
+						<p:message for="criterio" />
+
+					</p:outputPanel>
+
+					<p:commandButton oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado" update="form"
+						action="#{historialPago.obtenerConsultaEmpleado()}" />
+
+				</p:panelGrid>
+
+			</p:outputPanel>
+
+			<p:dataTable id="empleados" value="#{historialPago.view.empleados}"
+				var="e" rendered="#{historialPago.view.mostrarResultadoConsulta}"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+				<p:column headerText="Tipo Trabajador">
+					<h:outputText value="#{e.tipoEmpleado}" />
+				</p:column>
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{e.estatus}" />
+				</p:column>
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+
+				<p:column headerText="Descargar" style="text-align: center;"
+					width="80">
+					<p:commandButton icon="fm-icon-download" update="@form"
+						action="#{historialPago.descargarProductoNomina(e.idEmpleado)}"
+						iconPos="right" ajax="false" oncomplete="mymessages();" />
+				</p:column>
+
+			</p:dataTable>
+
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

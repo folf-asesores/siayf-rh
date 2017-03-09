@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2016-12-29T21:05:16 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="nomina-suplencias--deducciones-total" pageWidth="500" pageHeight="100" orientation="Landscape" columnWidth="500" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d9eda390-3121-41ba-a4c4-4625ce84cd71">
+	<property name="net.sf.jasperreports.export.text.page.width" value="50"/>
+	<property name="net.sf.jasperreports.export.text.page.height" value="10"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="saludtlax-local"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="180"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="813"/>
+	<parameter name="ID_PRODUCTO_NOMINA" class="java.lang.Integer"/>
+	<queryString language="SQL">
+		<![CDATA[CALL usp_subreporte_nomina_suplencias_deducciones_total($P{ID_PRODUCTO_NOMINA});]]>
+	</queryString>
+	<field name="claveConcepto" class="java.lang.String"/>
+	<field name="descripcionConcepto" class="java.lang.String"/>
+	<field name="importe" class="java.math.BigDecimal"/>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="30" height="15" uuid="67572761-cda7-4f7a-bc86-60f439b6f8de">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{claveConcepto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="40" y="0" width="300" height="15" uuid="11c91a80-79ba-4016-a790-4e7baf80bd9f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textFieldExpression><![CDATA[$F{descripcionConcepto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00;¤-#,##0.00">
+				<reportElement x="350" y="0" width="140" height="15" uuid="e76e1148-cf37-4a5c-98cb-3055fbd96258">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{importe}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Configuración :: Notificación de errores" />
+    <ui:param name="moduloTitulo" value="Notificación de errores" />
+    <ui:param name="moduloSubtitulo" value="Este modulo permite administrar las personas que serán notificadas en caso de errores inesperados en el sistema" />
+
+    <ui:define name="moduloContenido">
+        <h:form id="frmNotificadorErrores">
+            <p:dataTable id="tblCorreosNotificacion"
+                         value="#{notificadorErroresController.view.correosNotificacion}"
+                         var="correoNotificacion"
+                         emptyMessage="No se ha encontrado ningún correo electrónico"
+                         paginator="true" paginatorPosition="bottom" rows="5"
+                         rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false"
+                         currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <p:commandLink actionListener="#{notificadorErroresController.mostrarDialogoNuevo()}"
+                                   update=":frmNotificadorErrores:dlgNuevoCorreoNotificacion"
+                                   title="Agregar correo electrónico"
+                                   styleClass="fm-float-right">
+                        <span class="ui-icon-plus fm-font-color-white"></span>
+                    </p:commandLink>
+                    <p:outputPanel styleClass="fm-clear-both" />
+                </f:facet>
+                
+                <p:column headerText="Alias">
+                    <h:outputText value="#{correoNotificacion.alias}" />
+                </p:column>
+
+                <p:column headerText="Correo electrónico">
+                    <h:outputText value="#{correoNotificacion.correoElectronico}" />
+                </p:column>
+                
+                <p:column headerText="Opciones" width="100" styleClass="fm-texto-alineado-centro">
+                    <p:commandLink actionListener="#{notificadorErroresController.mostrarDialogoEditar(correoNotificacion)}"
+                                   title="Editar #{correoNotificacion.alias}"
+                                   update=":frmNotificadorErrores:dlgEditarCorreoNotificacion">
+                        <span class="ui-icon-pencil"></span>
+                    </p:commandLink>
+                    <p:commandLink actionListener="#{notificadorErroresController.eliminar(correoNotificacion.idCorreoNotificacion)}"
+                                   title="Eliminar #{correoNotificacion.alias}"
+                                   update="frmNotificadorErrores">
+                        <span class="ui-icon-trash"></span>
+                        <p:confirm header="Eliminar #{correoNotificacion.alias}"
+                                   message="¿Desea eliminar el correo electrónico #{correoNotificacion.correoElectronico} de la lista?"
+                                   icon="ui-icon-alert"/>
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+            
+            <p:dialog id="dlgNuevoCorreoNotificacion"
+                      widgetVar="dlgNuevoCorreoNotificacionWV"
+                      visible="#{notificadorErroresController.view.mostrarDialogoNuevo}"
+                      header="Nuevo correo electrónico"
+                      modal="true" closable="false" resizable="false" >
+                <p:panelGrid layout="grid" columns="2"
+                             columnClasses="ui-grid-col-3, ui-grid-col-9"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel value="Alias" for="txtNuevoAlias" />
+                    <p:outputPanel>
+                        <p:inputText id="txtNuevoAlias"
+                                     value="#{notificadorErroresController.view.nuevoCorreoNotificacion.alias}">
+                            <p:clientValidator />
+                        </p:inputText>
+                        <p:message for="txtNuevoAlias" />
+                    </p:outputPanel>
+
+                    <p:outputLabel value="Correo electrónico" for="txtNuevoEmail"/>
+                    <p:outputPanel>
+                        <p:inputText id="txtNuevoEmail"
+                                     value="#{notificadorErroresController.view.nuevoCorreoNotificacion.correoElectronico}" />
+                        <p:message for="txtNuevoEmail" />
+                    </p:outputPanel>
+                </p:panelGrid>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Cancelar"
+                                     actionListener="#{notificadorErroresController.ocultarDialogoNuevo}"
+                                     update="frmNotificadorErrores" />
+                    <p:commandButton value="Guardar"
+                                     actionListener="#{notificadorErroresController.guardar}"
+                                     update="frmNotificadorErrores dlgNuevoCorreoNotificacion" />
+                </f:facet>
+            </p:dialog>
+            
+            <p:dialog id="dlgEditarCorreoNotificacion"
+                      widgetVar="dlgEditarCorreoNotificacionWV"
+                      visible="#{notificadorErroresController.view.mostrarDialogoEditar}"
+                      header="Editar correo electrónico"
+                      modal="true" closable="false" resizable="false" >
+                <p:panelGrid layout="grid" columns="2"
+                             columnClasses="ui-grid-col-3, ui-grid-col-9"
+                             styleClass="ui-panelgrid-blank">
+                    <p:outputLabel value="Alias" for="txtEditarAlias" />
+                    <p:outputPanel>
+                        <p:inputText id="txtEditarAlias"
+                                     value="#{notificadorErroresController.view.editarCorreoNotificacion.alias}" />
+                        <p:message for="txtEditarAlias" />
+                    </p:outputPanel>
+
+                    <p:outputLabel value="Correo electrónico" for="txtEditarEmail"/>
+                    <p:outputPanel>
+                        <p:inputText id="txtEditarEmail"
+                                     value="#{notificadorErroresController.view.editarCorreoNotificacion.correoElectronico}" />
+                        <p:message for="txtEditarEmail" />
+                    </p:outputPanel>
+                </p:panelGrid>
+                
+                <f:facet name="footer">
+                    <p:commandButton value="Cancelar"
+                                     actionListener="#{notificadorErroresController.ocultarDialogoEditar}"
+                                     update="frmNotificadorErrores" />
+                    <p:commandButton value="Actualizar"
+                                     actionListener="#{notificadorErroresController.actualizar}"
+                                     update="frmNotificadorErrores" />
+                </f:facet>
+            </p:dialog>
+            
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sí" type="button" styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

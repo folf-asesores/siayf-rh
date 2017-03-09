@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-01-30T12:37:25 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteCausalGlobal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="64db0d0a-0894-486a-9a44-43cf308600d5">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DatasourceJoséPablo"/>
+	<parameter name="quincena" class="java.lang.Integer"/>
+	<parameter name="eFiscal" class="java.lang.Integer"/>
+	<parameter name="cResponsabilidad" class="java.lang.Integer"/>
+	<parameter name="lugar" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[CALL usp_causal_global($P{quincena},$P{eFiscal},$P{cResponsabilidad});]]>
+	</queryString>
+	<field name="CAUSA" class="java.lang.String"/>
+	<field name="COUNT(ds.id_causa_suplencia)" class="java.lang.Long"/>
+	<field name="SUM(ds.dias)" class="java.math.BigDecimal"/>
+	<field name="SUM(ds.total)" class="java.math.BigDecimal"/>
+	<field name="numero_quincena" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ejercicio_fiscal" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="Total" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(ds.total)}]]></variableExpression>
+	</variable>
+	<group name="CAUSA">
+		<groupExpression><![CDATA[$F{CAUSA}]]></groupExpression>
+	</group>
+	<group name="COUNT(ds.id_causa_suplencia)">
+		<groupExpression><![CDATA[$F{COUNT(ds.id_causa_suplencia)}]]></groupExpression>
+	</group>
+	<group name="SUM(ds.dias)">
+		<groupExpression><![CDATA[$F{SUM(ds.dias)}]]></groupExpression>
+	</group>
+	<group name="SUM(ds.total)">
+		<groupExpression><![CDATA[$F{SUM(ds.total)}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="220" splitType="Stretch">
+			<frame>
+				<reportElement x="10" y="10" width="534" height="210" uuid="95c7fd7e-9a90-4397-8aa8-20708b12cd15"/>
+				<image>
+					<reportElement x="50" y="40" width="150" height="44" uuid="e7a77a3e-1bf2-4cc7-ba44-409c1fa88065"/>
+					<imageExpression><![CDATA["C:/Users/José Pablo/Desktop/SIAYF-RH/trunk/siayf-rh/src/main/resources/imagenes/logo_salud.png"]]></imageExpression>
+				</image>
+				<staticText>
+					<reportElement x="50" y="90" width="170" height="54" uuid="5e93e94a-a48a-416b-892b-d7aeb5fb46c8"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[C.P. LUZ MARIA PORTILLO GARCÍA DIRECTOR DE ADMINISTRACIÓN PRESENTE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="310" y="118" width="190" height="47" uuid="63d33fb8-8c02-4df0-8ca9-9adb14ffa78d"/>
+					<textElement>
+						<font size="9" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AT"N BIOL. FRANCISCO MENDEZ GARCÍA JEFE DE RECURSOS HUMANOS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="31" y="180" width="469" height="30" uuid="1df09494-6fe5-4dab-bb87-af9384d448c6"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[POR ESTE MEDIO ME PERMITO REMITIR A USTED, CAUSALES DE LAS INCIDENCIAS GENERADAS CORRESPONDIENTES A LA QUINCENA ___________]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="100" y="188" width="20" height="21" uuid="dd7d98ec-6ebe-4e22-9a9c-e9b0639f283c"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{numero_quincena}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="114" y="188" width="35" height="21" uuid="839fb252-d47d-40fb-8609-9fd1d3ae014d"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ejercicio_fiscal}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="42" y="2" width="196" height="30" uuid="b50b2549-1d84-4112-b543-44c64907edf3"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+					<leftPen lineWidth="0.6"/>
+					<bottomPen lineWidth="0.6"/>
+					<rightPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CAUSAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="238" y="2" width="96" height="30" uuid="7aeaf131-ac4b-42d6-89ae-b192640739f7"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+					<leftPen lineWidth="0.6"/>
+					<bottomPen lineWidth="0.6"/>
+					<rightPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUM DE CASOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="2" width="96" height="30" uuid="aca9c40c-ecfa-49f7-a574-1aee9f9923f7"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+					<leftPen lineWidth="0.6"/>
+					<bottomPen lineWidth="0.6"/>
+					<rightPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NUM DE DIAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="2" width="96" height="30" uuid="8ecb66a6-1a8c-48c2-85be-d27379876d02"/>
+				<box>
+					<topPen lineWidth="0.6"/>
+					<leftPen lineWidth="0.6"/>
+					<bottomPen lineWidth="0.6"/>
+					<rightPen lineWidth="0.6"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IMPORTE]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="42" y="0" width="196" height="20" uuid="16423aca-6709-49fa-91e8-3499417d0efe"/>
+				<box>
+					<topPen lineWidth="0.7"/>
+					<leftPen lineWidth="0.7"/>
+					<bottomPen lineWidth="0.7"/>
+					<rightPen lineWidth="0.7"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CAUSA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="238" y="0" width="96" height="20" uuid="e99a3cb5-a4ae-4a41-8fe4-61aecb4db94e"/>
+				<box>
+					<topPen lineWidth="0.7"/>
+					<leftPen lineWidth="0.7"/>
+					<bottomPen lineWidth="0.7"/>
+					<rightPen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COUNT(ds.id_causa_suplencia)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="334" y="0" width="96" height="20" uuid="dbaf2b62-2ed9-4fad-849b-34973b5f9316"/>
+				<box>
+					<topPen lineWidth="0.7"/>
+					<leftPen lineWidth="0.7"/>
+					<bottomPen lineWidth="0.7"/>
+					<rightPen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(ds.dias)}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="430" y="0" width="96" height="20" uuid="50c8291f-26ef-4168-990b-d71103be6c82"/>
+				<box>
+					<topPen lineWidth="0.7"/>
+					<leftPen lineWidth="0.7"/>
+					<bottomPen lineWidth="0.7"/>
+					<rightPen lineWidth="0.7"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SUM(ds.total)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="295" splitType="Stretch">
+			<frame>
+				<reportElement x="10" y="0" width="530" height="295" uuid="fbace644-68d2-4476-919b-6a96d891bd5f"/>
+				<staticText>
+					<reportElement x="20" y="257" width="450" height="15" uuid="a100ed6f-852b-4076-89bc-5bd58d2063d1"/>
+					<textElement>
+						<font size="6"/>
+					</textElement>
+					<text><![CDATA[C.C.P. C.P. VERONICA MIMIENTZI SALAMANCA.-  JEFE DEL DEPTO. DE PERSONAL EVENTUAL.- PRESENTE.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="85" y="201" width="170" height="40" uuid="209e7fce-9605-4246-b36d-061a2071a1ce"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[______________________________________L.A.E. LIZBETH VAZQUEZ NOYA  ADMINITRADOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="290" y="200" width="170" height="40" uuid="f7d981a1-39bd-4cd7-8d34-9f90a820f6ec"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[_____________________________________DR. ALEJANDRO ALVARADO GONZALEZ DIRECTOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="320" y="142" width="100" height="20" uuid="7414dce0-f659-4680-bf65-a8f5eb15913c"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[AUTORIZO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="213" y="7" width="100" height="13" uuid="9a9bc26e-1b39-41f9-b7cb-bc46b9875306"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[TOTAL:]]></text>
+				</staticText>
+				<rectangle>
+					<reportElement x="213" y="24" width="287" height="77" uuid="ce702504-e8f1-4884-b606-0c67ba181e5f"/>
+					<graphicElement>
+						<pen lineWidth="0.7"/>
+					</graphicElement>
+				</rectangle>
+				<staticText>
+					<reportElement x="100" y="51" width="100" height="30" uuid="417f3c53-a83b-4138-83e7-a96dba259eb9"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[OBSERVACIONES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="120" y="143" width="100" height="20" uuid="83372398-0dc0-4d00-9f57-a0f0c3ed6fbc"/>
+					<textElement textAlignment="Center">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[SOLICITO]]></text>
+				</staticText>
+				<textField pattern=" d  MMMMM  yyyy">
+					<reportElement stretchType="RelativeToBandHeight" x="347" y="114" width="99" height="20" uuid="ed278a4c-31a4-46c9-a469-15fbc056a129"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="163" y="114" width="170" height="20" uuid="ccd713eb-a592-4d76-be9e-97d726d4bfa3"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{lugar}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="340" y="117" width="14" height="14" uuid="17b5f738-50de-4362-9c4a-1cd5af8c670d"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[a]]></text>
+				</staticText>
+				<textField evaluationTime="Report" pattern="¤#,##0.##;¤-#,##0.##">
+					<reportElement x="318" y="5" width="70" height="14" uuid="08b8c560-b4dd-4227-b814-b0f5f389b06e"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{Total}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="6" splitType="Stretch"/>
+	</summary>
+</jasperReport>

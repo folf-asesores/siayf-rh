@@ -1,0 +1,286 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos Empleado" />
+	<ui:param name="moduloTitulo" value="Movimientos Empleado" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<h:panelGroup id="panelGroupBusqueda"
+				rendered="#{movimientoPersonal.view.mostrarPanelGroupBusqueda}">
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+					<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+					<p:inputText id="criterio"
+						value="#{movimientoPersonal.view.criterio}"></p:inputText>
+
+					<p:commandButton icon="ui-icon-search" title="Buscar"
+						styleClass="fm-btn-elevado" update="form,messages_generales"
+						action="#{movimientoPersonal.consultarEmpleado()}" />
+				</p:panelGrid>
+
+				<p:dataTable id="empleados"
+					value="#{movimientoPersonal.view.empleados}" var="e"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+					<p:column headerText="Tipo Contratacion">
+						<h:outputText value="#{e.tipoContratacion}" />
+					</p:column>
+					<p:column headerText="Folio Puesto">
+						<h:outputText value="#{e.folioVacante}" />
+					</p:column>
+					<p:column headerText="Código">
+						<h:outputText value="#{e.codigoPuesto}" />
+					</p:column>
+					<p:column headerText="Puesto">
+						<h:outputText value="#{e.puesto}" />
+					</p:column>
+					<p:column headerText="Folio Puesto">
+						<h:outputText value="#{e.folioVacante}" />
+					</p:column>
+					<p:column headerText="Numero Empleado">
+						<h:outputText value="#{e.numeroEmpleado}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{e.nombre}" />
+					</p:column>
+					<p:column headerText="Curp">
+						<h:outputText value="#{e.curp}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{e.rfc}" />
+					</p:column>
+
+					<p:column headerText="Domicilio">
+						<h:outputText value="#{e.direccion}" />
+					</p:column>
+
+					<p:column headerText="Seleccionar">
+						<p:commandButton update="form"
+							actionListener="#{movimientoPersonal.seleccionarEmpleado(e)}"
+							icon="fm-icon-eye" title="Ver">
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</h:panelGroup>
+
+			<h:panelGroup id="panelGroupMovimiento"
+				rendered="#{movimientoPersonal.view.mostrarPanelGroupMovimiento}">
+
+
+				<p:panelGrid id="panelGridInfoEmpleado" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:spacer></p:spacer>
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+						styleClass="fm-tarjeta ui-fluid ">
+
+						<f:facet name="header">
+							<h3>Datos Generales Empleado</h3>
+						</f:facet>
+
+						<p:outputLabel for="empleado" value="Empleado" />
+						<h:outputText id="empleado"
+							value="#{movimientoPersonal.view.infoEmpleado.nombre}"></h:outputText>
+
+						<p:outputLabel for="numeroEmpledo" value="Número Empleado" />
+						<h:outputText id="numeroEmpledo"
+							value="#{movimientoPersonal.view.infoEmpleado.numeroEmpleado}"></h:outputText>
+
+						<p:outputLabel for="rfc" value="Rfc:" />
+						<h:outputText id="rfc"
+							value="#{movimientoPersonal.view.infoEmpleado.rfc}"></h:outputText>
+
+						<p:outputLabel for="curp" value="Curp" />
+						<h:outputText id="curp"
+							value="#{movimientoPersonal.view.infoEmpleado.curp}"></h:outputText>
+
+						<p:outputLabel for="direccion" value="Dirección" />
+						<h:outputText id="direccion"
+							value="#{movimientoPersonal.view.infoEmpleado.direccion}"></h:outputText>
+
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+
+					<p:spacer></p:spacer>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="fm-tarjeta ui-fluid ">
+
+						<f:facet name="header">
+							<h3>Solicitud Movimiento</h3>
+						</f:facet>
+						<p:outputLabel for="padre" value="Movimiento Empleado" />
+						<p:selectOneMenu id="padre"
+							value="#{movimientoPersonal.view.idMovimientoPadre}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{movimientoPersonal.view.listaMovimientosPadre}" />
+
+							<p:ajax
+								listener="#{movimientoPersonal.consultarMovimientosHijos()}"
+								update="hijo"></p:ajax>
+						</p:selectOneMenu>
+
+						<p:outputLabel for="hijo" value="Movimiento Especifico Empleado" />
+						<p:selectOneMenu id="hijo" filter="true"
+							filterMatchMode="contains"
+							value="#{movimientoPersonal.view.movimiento.idMovimiento}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{movimientoPersonal.view.listaMovimientosHijos}" />
+							<p:ajax listener="#{movimientoPersonal.seleccionarMovimiento()}"
+								update="form"></p:ajax>
+						</p:selectOneMenu>
+
+						<p:outputLabel for="puesto" value="Puesto"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}" />
+						<p:selectOneMenu id="puesto" filter="true"
+							value="#{movimientoPersonal.view.idPuesto}"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}"
+							filterMatchMode="contains">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{movimientoPersonal.view.listaPuestos}" />
+							<p:ajax listener="#{movimientoPersonal.obtenerSalario()}"
+								update="form"></p:ajax>
+
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Sueldo Bruto Mensual:"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}" />
+						<h:outputText
+							value="#{movimientoPersonal.view.salario.sueldoBrutoMensual}"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Asignacion Bruta Mensual:"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}" />
+						<h:outputText
+							value="#{movimientoPersonal.view.salario.asignacionBrutaMensual}"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="A.G.A. Bruta Mensual:"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}" />
+						<h:outputText
+							value="#{movimientoPersonal.view.salario.agaBrutaMensual}"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Total Bruto Mensual:"
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}" />
+						<h:outputText
+							rendered="#{movimientoPersonal.view.mostrarModificacionPuesto}"
+							value="#{movimientoPersonal.view.salario.totalBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+
+
+						<p:outputLabel for="inicio_permiso" value="Fecha Inicio"
+							rendered="#{movimientoPersonal.view.mostrarFechas}" />
+						<p:calendar id="inicio_permiso"
+							value="#{movimientoPersonal.view.movimiento.fechaInicio}"
+							rendered="#{movimientoPersonal.view.mostrarFechas}">
+						</p:calendar>
+
+
+						<p:outputLabel for="fin_permiso" value="Fecha Fin"
+							rendered="#{movimientoPersonal.view.mostrarFechas}" />
+						<p:calendar id="fin_permiso"
+							value="#{movimientoPersonal.view.movimiento.fechaFin}"
+							rendered="#{movimientoPersonal.view.mostrarFechas}">
+						</p:calendar>
+
+						<p:outputLabel for="oficio" value="Numero Oficio:" />
+						<p:inputText id="oficio"
+							value="#{movimientoPersonal.view.movimiento.numeroOficio}"></p:inputText>
+
+
+
+
+						<p:outputLabel for="observaciones" value="Observaciones:" />
+						<p:inputTextarea id="observaciones"
+							value="#{movimientoPersonal.view.movimiento.observaciones}"></p:inputTextarea>
+
+
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+
+					<p:spacer rendered="#{movimientoPersonal.view.mostrarIncapacidad}"></p:spacer>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						rendered="#{movimientoPersonal.view.mostrarIncapacidad}">
+						<f:facet name="header">
+							<h3>Incapacidad</h3>
+						</f:facet>
+
+						<p:outputLabel for="diagnostico" value="Diagnostico:*" />
+						<p:inputText id="diagnostico"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.diagnostico}">
+						</p:inputText>
+
+						<p:outputLabel for="inicio" value="Fecha Inicio" />
+						<p:calendar id="inicio"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.fechaInicio}">
+						</p:calendar>
+
+						<p:outputLabel for="fin" value="Fecha Fin" />
+						<p:calendar id="fin"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.fechaInicio}">
+						</p:calendar>
+
+						<p:outputLabel for="noDias" value="Diagnostico:*" />
+						<p:inputText id="noDias"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.numeroDias}">
+						</p:inputText>
+
+						<p:outputLabel for="unidadAtencion" value="Unidad de atención" />
+						<p:inputText id="unidadAtencion"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.unidadAtencion}">
+						</p:inputText>
+
+						<p:outputLabel for="expedicion" value="Fecha Expedición" />
+						<p:calendar id="expedicion"
+							value="#{movimientoPersonal.view.movimiento.incapacidad.fechaExpedicion}">
+						</p:calendar>
+
+
+					</p:panelGrid>
+					<p:spacer rendered="#{movimientoPersonal.view.mostrarIncapacidad}"></p:spacer>
+
+
+					<p:spacer></p:spacer>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:commandButton value="Registrar"
+							actionListener="#{movimientoPersonal.crearMovimiento()}"
+							update="form,messages_generales"></p:commandButton>
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+
+				</p:panelGrid>
+
+			</h:panelGroup>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

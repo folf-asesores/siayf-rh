@@ -1,0 +1,92 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Consultar Asistencias Empleados" />
+	<ui:param name="moduloSubtitulo" value="Consulte Asistencia Empleados." />
+	<ui:define name="moduloContenido">
+
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmFormHorasExtraEmpleado" styleClass="fm-contenedor">
+
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel styleClass="fm-contenedor-100">
+				<p:panelGrid columns="3" layout="grid"
+					styleClass="fm-contenedor ui-noborder sin_borde"
+					columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-2">
+					<p:autoComplete id="empleado" placeholder="Nombre Empleado"
+						value="#{reporteHorasExtraController.empleadoDTO.idEmpleado}"
+						completeMethod="#{reporteHorasExtraController.buscarEmpleadoAutoComplete}"
+						var="infoEmpleadoDTO" itemLabel="#{infoEmpleadoDTO.nombre}"
+						itemValue="#{infoEmpleadoDTO.idEmpleado.toString()}"
+						maxResults="12" styleClass="fm-bloque input_lng"
+						forceSelection="true">
+
+					</p:autoComplete>
+
+					<p:selectOneMenu value="#{reporteHorasExtraController.tipoReporte}">
+						<f:selectItem itemLabel="Asistencia Listado" itemValue="1" />
+						<f:selectItem itemLabel="Kardex Asistencia" itemValue="2" />
+						<f:selectItem itemLabel="Horas Extra" itemValue="3" />
+						<f:selectItem itemLabel="Incidencias Acumulados" itemValue="4" />
+						<f:selectItem itemLabel="Listado Incidencias" itemValue="5" />
+					</p:selectOneMenu>
+
+					<p:commandButton id="btnBuscar" title="Generar Reportes"
+						icon="ui-icon-search"
+						action="#{reporteHorasExtraController.imprimirReporte}"
+						update="@all" />
+					<p:calendar id="fecha" placeholder="Fecha Inicio"
+						value="#{reporteHorasExtraController.fechaInicio}"
+						required="required" />
+					<p:calendar id="fechaFin" placeholder="Fecha Fin"
+						value="#{reporteHorasExtraController.fechaFin}"
+						required="required" />
+					<p:spacer></p:spacer>
+					<p:selectOneMenu id="idAdscripcion" filter="true"
+						filterMatchMode="startsWith" styleClass="fm-bloque input_lng"
+						value="#{reporteHorasExtraController.idAdscripcion}">
+						<f:selectItems
+							value="#{reporteHorasExtraController.adscripciones}" />
+					</p:selectOneMenu>
+					<p:selectOneMenu id="idDepartamentos"
+						styleClass="fm-bloque input_lng" filter="true"
+						filterMatchMode="startsWith"
+						value="#{reporteHorasExtraController.idDepartamentos}">
+						<f:selectItem
+							itemLabel="[-----------TODOS LOS DEPARTAMENTOS----------]"
+							itemValue="-1" />
+						<f:selectItems
+							value="#{reporteHorasExtraController.departamentos}" />
+					</p:selectOneMenu>
+
+
+					<p:selectOneMenu id="idTipoContratacion"
+						styleClass="fm-bloque input_lng" filter="true"
+						value="#{reporteHorasExtraController.idTipoContratacion}"
+						filterMatchMode="startsWith">
+						<f:selectItem
+							itemLabel="[-----TODOS LOS CONTRATOS------]"
+							itemValue="-1" />
+						<f:selectItems
+							value="#{reporteHorasExtraController.tipoContratacion}" />
+					</p:selectOneMenu>
+
+
+
+
+				</p:panelGrid>
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

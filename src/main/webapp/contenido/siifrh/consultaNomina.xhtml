@@ -1,0 +1,578 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Consulta Nomina" />
+	<ui:param name="moduloTitulo" value="ConsultaNomina" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:confirmDialog
+				message="El RFC ha sido modificado, si continua se afectara a los trailers relacionados....desea continuar?"
+				visible="#{tipoNomina.dialogo}" showEffect="fade" id="confirm"
+				hideEffect="explode" widgetVar="eliminarConfirm">
+				<p:panelGrid columns="4" layout="grid"
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+					<p:spacer />
+					<p:commandButton value="No" update="confirm"
+						action="#{consultaNomina.ocultarDialogo}" />
+					<p:commandButton value="Si"
+						action="#{consultaNomina.modificarTrailers}" update=":form" />
+					<p:spacer />
+				</p:panelGrid>
+			</p:confirmDialog>
+			<p:outputPanel id="panelPrincipal" styleClass="fm-tarjeta">
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-9,ui-grid-col-1.5"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:spacer />
+					<p:spacer />
+					<p:commandButton id="cancelar" value="Regresar"
+						style="float:right;" styleClass="fm-btn-elevdo"
+						action="#{consultaDatosEncabezado.cancelar}" />
+				</p:panelGrid>
+				<p:panelGrid columns="4" rendered="#{consultaNomina.view.busqueda}"
+					columnClasses="ui-grid-col-1, ui-grid-col-4,ui-grid-col-2, ui-grid-col-5"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel for="rfcCriterio" value="RFC" />
+					<p:inputText id="rfcCriterio"
+						value="#{consultaNomina.view.rfcCriterio}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgCriterio" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:commandButton value="Buscar"
+						action="#{consultaNomina.filtrarPorCriterios}"
+						icon="ui-icon-search" update=":form" ajax="false" />
+					<p:spacer />
+					<p:spacer />
+					<p:message id="msgCriterio" for="rfcCriterio" />
+				</p:panelGrid>
+				<p:outputLabel value="ESTRUCTURA NOMINA DATOS" />
+				<p:spacer />
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:commandButton id="gestionarEstructuraNomina"
+						value="Gestionar..." action="#{consultaNomina.irGestionarDatos()}"
+						update=":form" style="float:left;" ajax="false"
+						disabled="#{consultaNomina.view.disabledIrGestionarDatos}" />
+					<p:spacer />
+					<p:commandButton id="nuevaEstructuraNomina" value="Nueva..."
+						action="#{consultaNomina.irNuevoDatos()}" immediate="true"
+						update=":form" style="float:right;" ajax="false" />
+
+				</p:panelGrid>
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					rendered="#{consultaNomina.view.tabDat}">
+
+					<p:dataTable id="listEstructuraNomina"
+						value="#{consultaNomina.view.listEstructuraNomina}"
+						var="estructuraItem"
+						rowKey="#{estructuraItem.idEstructurasNominas}"
+						selection="#{consultaNomina.view.estructuraNominaSelect}"
+						scrollable="true" scrollHeight="150" selectionMode="single"
+						emptyMessage="Registros no encontrados.">
+						<p:ajax event="rowSelect"
+							listener="#{consultaNomina.onRowSelectDatos}" update=":form" />
+						<p:ajax event="rowUnselect"
+							listener="#{consultaNomina.onRowUnselectDatos}" update=":form" />
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column headerText="Nombre" />
+								<p:column headerText="CURP" />
+								<p:column headerText="RFC" />
+								<p:column headerText="No.Control" />
+							</p:row>
+						</p:columnGroup>
+						<p:column>
+							<h:outputText value="#{estructuraItem.nombre}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{estructuraItem.curp}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{estructuraItem.rfc}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{estructuraItem.numCtrol}" />
+						</p:column>
+					</p:dataTable>
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelDatos" styleClass="fm-tarjeta"
+				rendered="#{consultaNomina.view.panelDatos}">
+
+				<p:focus context="panelDatos" />
+				<p:panelGrid columns="4"
+					columnClasses="ui-grid-col-2, ui-grid-col-5,ui-grid-col-4,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="rfc" value="RFC" />
+					<p:inputText id="rfc"
+						value="#{consultaNomina.view.estructuraNomina.rfc}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgRfc" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgRfc" for="rfc" />
+					<p:spacer />
+
+					<p:outputLabel for="curp" value="CURP" />
+					<p:inputText id="curp"
+						value="#{consultaNomina.view.estructuraNomina.curp}"
+						disabled="true"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgCurp" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgCurp" for="curp" />
+					<p:spacer />
+
+					<p:outputLabel for="nombre" value="Nombre" />
+					<p:inputText id="nombre"
+						value="#{consultaNomina.view.estructuraNomina.nombre}"
+						disabled="true"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgNom" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgNom" for="nombre" />
+					<p:spacer />
+
+					<p:outputLabel for="banco" value="Banco" />
+					<p:inputText id="banco"
+						value="#{consultaNomina.view.estructuraNomina.bancoN}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgBanco" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgBanco" for="banco" />
+					<p:spacer />
+
+					<p:outputLabel for="numcta" value="No. Cuenta" />
+					<p:inputText id="numcta"
+						value="#{consultaNomina.view.estructuraNomina.numCta}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgnumcta" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgnumcta" for="numcta" />
+					<p:spacer />
+
+					<p:outputLabel for="funcion" value="Funcion" />
+					<p:inputText id="funcion"
+						value="#{consultaNomina.view.estructuraNomina.funcion}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfuncion" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfuncion" for="funcion" />
+					<p:spacer />
+
+					<p:outputLabel for="ur" value="UR" />
+					<p:inputText id="ur"
+						value="#{consultaNomina.view.estructuraNomina.ur}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgur" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgur" for="ur" />
+					<p:spacer />
+
+					<p:outputLabel for="fn" value="FN" />
+					<p:inputText id="fn"
+						value="#{consultaNomina.view.estructuraNomina.fn}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfn" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfn" for="fn" />
+					<p:spacer />
+
+					<p:outputLabel for="sf" value="SF" />
+					<p:inputText id="sf"
+						value="#{consultaNomina.view.estructuraNomina.sf}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgsf" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgsf" for="sf" />
+					<p:spacer />
+
+					<p:outputLabel for="pg" value="PG" />
+					<p:inputText id="pg"
+						value="#{consultaNomina.view.estructuraNomina.pg}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgpg" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgpg" for="pg" />
+					<p:spacer />
+
+					<p:outputLabel for="partida" value="Partida" />
+					<p:inputText id="partida"
+						value="#{consultaNomina.view.estructuraNomina.partida}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgPartida" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgPartida" for="partida" />
+					<p:spacer />
+
+					<p:outputLabel for="puesto" value="Puesto" />
+					<p:inputText id="puesto"
+						value="#{consultaNomina.view.estructuraNomina.puesto}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgPuesto" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgPuesto" for="puesto" />
+					<p:spacer />
+
+					<p:outputLabel for="cr" value="CR" />
+					<p:inputText id="cr"
+						value="#{consultaNomina.view.estructuraNomina.cr}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgcr" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgcr" for="cr" />
+					<p:spacer />
+
+					<p:outputLabel for="financiamiento" value="Financiamiento" />
+					<p:inputText id="financiamiento"
+						value="#{consultaNomina.view.estructuraNomina.financiamiento}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfinanciamiento" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfinanciamiento" for="financiamiento" />
+					<p:spacer />
+
+					<p:outputLabel for="fIgf" value="Fecha Ingreso GF" />
+					<p:inputText id="fIgf"
+						value="#{consultaNomina.view.estructuraNomina.fIgf}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfigf" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfigf" for="fIgf" />
+					<p:spacer />
+
+					<p:outputLabel for="fissa" value="Fecha Ingreso SS" />
+					<p:inputText id="fissa"
+						value="#{consultaNomina.view.estructuraNomina.fIssa}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfissa" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfissa" for="fissa" />
+					<p:spacer />
+
+					<p:outputLabel for="fReing" value="Fecha Reingreso" />
+					<p:inputText id="fReing"
+						value="#{consultaNomina.view.estructuraNomina.fReing}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgfReing" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgfReing" for="fReing" />
+					<p:spacer />
+
+					<p:outputLabel for="TP" value="Tipo de Pago" />
+					<p:inputText id="TP"
+						value="#{consultaNomina.view.estructuraNomina.tipoTrab}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgTP" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgTP" for="TP" />
+					<p:spacer />
+
+					<p:outputLabel for="clues" value="Clues" />
+					<p:inputText id="clues"
+						value="#{consultaNomina.view.estructuraNomina.clues}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgclues" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgclues" for="clues" />
+					<p:spacer />
+
+					<p:outputLabel for="nombramiento" value="Nombramiento" />
+					<p:inputText id="nombramiento"
+						value="#{consultaNomina.view.estructuraNomina.idNombramiento}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgnombramiento" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgnombramiento" for="nombramiento" />
+					<p:spacer />
+
+					<p:outputLabel for="TEmision" value="Tipo Emisio Nomina" />
+					<p:inputText id="TEmision"
+						value="#{consultaNomina.view.estructuraNomina.tipoEmisionNomina}"
+						validator="#{consultaNomina.validatorConsultaNomina}">
+						<p:ajax update="msgTemi" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgTemi" for="TEmision" />
+					<p:spacer />
+
+				</p:panelGrid>
+				<div>
+					<p:commandButton id="guardarSubsidio" value="Guardar"
+						action="#{consultaNomina.guardarDatos}" update=":form"
+						ajax="false" />
+
+					<p:commandButton value="Cancelar"
+						action="#{consultaNomina.cancelarDatos()}" immediate="true"
+						update=":form" style="float:right;" ajax="false" />
+				</div>
+			</p:outputPanel>
+
+			<p:outputPanel id="formTrailers"
+				styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputPanel id="panelTrailers"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-4, ui-grid-col-2,ui-grid-col-2, ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel value="ESTRUCTURA NOMINA TRAILERS" />
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid">
+						<p:panelGrid columns="3"
+							columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<p:commandButton id="gestionarTrailers" value="Gestionar..."
+								action="#{consultaNomina.irGestionarTrailers()}" update=":form"
+								style="float:left;" ajax="false"
+								disabled="#{consultaNomina.view.disabledIrGestionarTrailers}" />
+							<p:spacer />
+							<p:commandButton id="nuevoTrailer" value="Nuevo..."
+								action="#{consultaNomina.irNuevoTrailers()}" immediate="true"
+								update=":form" style="float:right;" ajax="false" />
+
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panelGrid columns="1" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid"
+						rendered="#{consultaNomina.view.tabTra}">
+
+						<p:dataTable id="listEstructuraNominaTrailers"
+							value="#{consultaNomina.view.listEstructuraNominaTrailers}"
+							var="traItem" rowKey="#{traItem.idEstructurasNominasTrailers}"
+							selection="#{consultaNomina.view.estructuraNominaTrailersSelect}"
+							scrollable="true" scrollHeight="200" selectionMode="single"
+							emptyMessage="Registros no encontrados.">
+							<p:ajax event="rowSelect"
+								listener="#{consultaNomina.onRowSelectTrailers}" update=":form" />
+							<p:ajax event="rowUnselect"
+								listener="#{consultaNomina.onRowUnselectTrailers}"
+								update=":form" />
+
+							<p:columnGroup type="header">
+								<p:row>
+									<p:column headerText="ID" />
+									<p:column headerText="RFC" />
+									<p:column headerText="No. Empleado" />
+									<p:column headerText="No. Control" />
+								</p:row>
+							</p:columnGroup>
+							<p:column>
+								<h:outputText value="#{traItem.idEstructurasNominasTrailers}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{traItem.rfc}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{traItem.numEmp}" />
+							</p:column>
+							<p:column>
+								<h:outputText value="#{traItem.numCtrol}" />
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
+				</p:outputPanel>
+
+				<p:outputPanel id="fTrailers" styleClass="fm-tarjeta"
+					rendered="#{consultaNomina.view.panelTrailers}">
+
+					<p:focus context="panelTrailers" />
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-2, ui-grid-col-5,ui-grid-col-4,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:outputLabel for="rfc2" value="RFC" />
+						<p:inputText id="rfc2"
+							value="#{consultaNomina.view.estructuraNominaTrailers.rfc}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgRfc2" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgRfc2" for="rfc2" />
+						<p:spacer />
+
+						<p:outputLabel for="numcheq" value="No. Cheque" />
+						<p:inputText id="numcheq"
+							value="#{consultaNomina.view.estructuraNominaTrailers.numCheq}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgncheq" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgncheq" for="numcheq" />
+						<p:spacer />
+
+						<p:outputLabel for="tconcep" value="Tipo de Concepto" />
+						<p:inputText id="tconcep"
+							value="#{consultaNomina.view.estructuraNominaTrailers.tConcep}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgtconcep" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgtconcep" for="tconcep" />
+						<p:spacer />
+
+						<p:outputLabel for="concep" value="Concepto" />
+						<p:inputText id="concep"
+							value="#{consultaNomina.view.estructuraNominaTrailers.concep}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgnconcep" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgnconcep" for="concep" />
+						<p:spacer />
+
+						<p:outputLabel for="importe" value="Importe" />
+						<p:inputText id="importe"
+							value="#{consultaNomina.view.estructuraNominaTrailers.importe}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgImp" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgImp" for="importe" />
+						<p:spacer />
+
+						<p:outputLabel for="anio" value="Año" />
+						<p:inputText id="anio"
+							value="#{consultaNomina.view.estructuraNominaTrailers.anio}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msganio" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msganio" for="anio" />
+						<p:spacer />
+
+						<p:outputLabel for="quin" value="Quincena" />
+						<p:inputText id="quin"
+							value="#{consultaNomina.view.estructuraNominaTrailers.qna}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgQna" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgQna" for="quin" />
+						<p:spacer />
+
+						<p:outputLabel for="pant" value="Pta. Ant." />
+						<p:inputText id="pant"
+							value="#{consultaNomina.view.estructuraNominaTrailers.ptaAnt}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgPant" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPant" for="pant" />
+						<p:spacer />
+
+						<p:outputLabel for="tpagos" value="Total Pagos" />
+						<p:inputText id="tpagos"
+							value="#{consultaNomina.view.estructuraNominaTrailers.totPagos}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgtot" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgtot" for="tpagos" />
+						<p:spacer />
+
+						<p:outputLabel for="pagoE" value="Pago en Efectivo" />
+						<p:inputText id="pagoE"
+							value="#{consultaNomina.view.estructuraNominaTrailers.pagoEfec}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgPago" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPago" for="pagoE" />
+						<p:spacer />
+
+						<p:outputLabel for="nomP" value="Nombre Producto" />
+						<p:inputText id="nomP"
+							value="#{consultaNomina.view.estructuraNominaTrailers.nomProd}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgNP" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgNP" for="nomP" />
+						<p:spacer />
+
+						<p:outputLabel for="noctrol" value="No. Control" />
+						<p:inputText id="noctrol"
+							value="#{consultaNomina.view.estructuraNominaTrailers.numCtrol}"
+							disabled="true"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgNC" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgNC" for="noctrol" />
+						<p:spacer />
+
+						<p:outputLabel for="sCheq" value="Sub Cheque" />
+						<p:inputText id="sCheq"
+							value="#{consultaNomina.view.estructuraNominaTrailers.subCheque}"
+							validator="#{consultaNomina.validatorConsultaNomina}">
+							<p:ajax update="msgSQ" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgSQ" for="sCheq" />
+						<p:spacer />
+
+
+					</p:panelGrid>
+					<p:spacer />
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-2, ui-grid-col-8,ui-grid-col-2"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:commandButton id="guardarLaboral" value="Guardar"
+							action="#{consultaNomina.guardarTrailers}" update=":form"
+							ajax="false" />
+						<p:spacer />
+						<p:commandButton value="Cancelar"
+							action="#{consultaNomina.cancelarTrailers()}" immediate="true"
+							update=":form" style="float:right;" ajax="false" />
+					</p:panelGrid>
+				</p:outputPanel>
+
+			</p:outputPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

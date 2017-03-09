@@ -1,0 +1,83 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Nomina" />
+	<ui:param name="moduloTitulo" value="Timbrar Nomina" />
+	<ui:param name="moduloSubtitulo"
+		value="Este proceso puede ser tardado..." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel id="divListadoNominasPorTimbrar">
+				<p:dataTable var="productosNominas" id="tblProductosNominas"
+					styleClass="tabla-personalizada" widgetVar="tblProductosNomina"
+					value="#{timbrarProductoNominaController.listadoProductosNominaDTO}"
+					rows="35" paginator="true"
+					emptyMessage="No se encontraron registros">
+
+					<p:column headerText="Tipo Nomina">
+						<h:outputText value="#{productosNominas.tipoNomina}" />
+					</p:column>
+					<p:column headerText="Periodo">
+						<h:outputText value="#{productosNominas.tipoPeriodo}" />
+					</p:column>
+					<p:column headerText="Tipo Contrato">
+						<h:outputText value="#{productosNominas.tipoContrato}" />
+					</p:column>
+					<p:column headerText="Descripción">
+						<h:outputText value="#{productosNominas.nombreProducto}" />
+					</p:column>
+					<p:column headerText="# Periodo">
+						<h:outputText value="#{productosNominas.numeroPeriodo}" />
+					</p:column>
+					<p:column headerText="Inicio">
+						<h:outputText value="#{productosNominas.inicioPeriodo}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column headerText="Fin">
+						<h:outputText value="#{productosNominas.finPeriodo}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+					<p:column style="width:42px;text-align: center">
+						<p:commandButton id="timbrar" icon="fm-icon-bell" title="Timbrar"
+							update="@all" immediate="true"
+							actionListener="#{timbrarProductoNominaController.timbrarNomina(productosNominas.idProductoNomina)}">
+							<p:confirm header="Confirmacion"
+								message="¿Deseas timbrar la nomina del periodo: #{productosNominas.numeroPeriodo} ? "
+								icon="fm-icon-info" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</p:panel>
+
+			<p:ajaxStatus onstart="PF('statusDialog').show()"
+				onsuccess="PF('statusDialog').hide()" />
+
+			<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+				closable="false" resizable="false" showHeader="false">
+				<center>
+					<p:graphicImage library="imagenes" name="load.gif" />
+				</center>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,85 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Consulta Voluntarios" />
+
+	<ui:param name="moduloTitulo" value="Consulta Voluntarios" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:spacer height="30"></p:spacer>
+
+			<p:panelGrid columns="4" id="panelGridAlta"
+				columnClasses="ui-grid-col-3,ui-grid-col-4,ui-grid-col-4,ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel value="Seleccione un tipo de búsqueda" />
+				<p:selectOneRadio
+					value="#{consultaVoluntario.view.consulta.tipoConsulta}">
+					<f:selectItems
+						value="#{consultaVoluntario.view.listaTiposConsulta}"></f:selectItems>
+					<p:ajax listener="#{consultaVoluntario.seleccionarTipoBusqueda()}"
+						update="form"></p:ajax>
+				</p:selectOneRadio>
+
+				<p:inputText value="#{consultaVoluntario.view.consulta.criterio}"
+					rendered="#{consultaVoluntario.view.mostrarCriterio}"></p:inputText>
+				<p:commandButton oncomplete="mymessages();"
+					rendered="#{consultaVoluntario.view.mostrarCriterio}"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					action="#{consultaVoluntario.consultarVoluntarios()}" />
+			</p:panelGrid>
+
+
+			<p:dataTable id="vacantesDisponibles"
+				value="#{consultaVoluntario.view.voluntarios}" var="p"
+				paginator="true" paginatorPosition="bottom" rows="10">
+				<p:column headerText="Curp">
+					<h:outputText value="#{p.curp}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{p.voluntario}" />
+				</p:column>
+
+				<p:column headerText="Sueldo">
+					<h:outputText value="#{p.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Programa">
+					<h:outputText value="#{p.programa}" />
+				</p:column>
+
+				<p:column headerText="Adscripción">
+					<h:outputText value="#{p.adscripcion}" />
+				</p:column>
+
+				<p:column headerText="Subadscripción">
+					<h:outputText value="#{p.subadscripcion}" />
+				</p:column>
+
+				<p:column headerText="Servicio">
+					<h:outputText value="#{p.servicio}" />
+				</p:column>
+
+				<p:column headerText="Función">
+					<h:outputText value="#{p.funcion}">
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

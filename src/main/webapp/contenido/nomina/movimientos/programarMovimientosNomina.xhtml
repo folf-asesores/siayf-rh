@@ -1,0 +1,251 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Programar Movimientos de Nomina" />
+	<ui:param name="moduloTitulo" value="Programar Movimientos de Nomina" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:messages id="messages" showDetail="true" closable="true" />
+	<p:ajaxStatus>
+								<f:facet name="start">
+									<center>
+										<p:graphicImage library="imagenes" name="load.gif" />
+									</center>
+								</f:facet>
+								<f:facet name="complete" />
+							</p:ajaxStatus>
+			<p:panel id="panelPrincipal"
+				rendered="#{programarMovimientoNominaController.mostrarPanelbusqueda}">
+				<p:dataTable id="movimientosTabla" var="movimiento" rows="10"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					value="#{programarMovimientoNominaController.listaMovimientos}">
+
+					<p:column headerText="Clave" filterBy="#{movimiento.clave}"
+						filterMatchMode="contains">
+						<h:outputText value="#{movimiento.clave}" />
+					</p:column>
+					<p:column headerText="Descripcion">
+						<h:outputText value="#{movimiento.descripcion}" />
+					</p:column>
+					<p:column style="width:42px;text-align: center" headerText="Ver">
+						<p:commandButton update="form"
+							action="#{programarMovimientoNominaController.buscarConfiguracion()}"
+							icon="ui-icon-search" title="View">
+							<f:setPropertyActionListener value="#{movimiento}"
+								target="#{programarMovimientoNominaController.tipoMovimientoSeleccionado}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+
+
+			<p:panel id="panelConfiguracion"
+				rendered="#{programarMovimientoNominaController.mostrarPanelConf}">
+
+				<h:outputText
+					style="font-weight:bold; font-size:20px; color:#B40404;"
+					value="#{programarMovimientoNominaController.tipoMovimientoSeleccionado.descripcion}" />
+				<p:spacer width="50px" />
+
+				<br />
+				<br />
+
+				<p:panelGrid>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Agregar programacion"
+								onclick="PF('agregarDlg').show();" icon="ui-icon-plus"
+								styleClass="fm-btn-informacion" />
+							<p:spacer />
+							<p:commandButton id="regreso" value="Regresar"
+								styleClass="fm-btn-acento"
+								action="#{programarMovimientoNominaController.regresar()}"
+								update="@form" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+						
+							<p:dataTable id="conceptosrelasionadosTabla" var="movimiento"
+								rows="5" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15"
+								value="#{programarMovimientoNominaController.listaMovimientoProgramados}">
+								<f:facet name="header">
+									<h:outputText value="Movimientos Programados" />
+								</f:facet>
+								<p:column headerText="Movimiento">
+									<h:outputText value="#{movimiento.movimiento}" />
+								</p:column>
+								<p:column headerText="Periodo de Aplicación">
+									<h:outputText value="#{movimiento.periodoAplicacion}" />
+								</p:column>
+								<p:column headerText="Periodo de Aplicación">
+									<h:outputText
+										value="#{movimiento.tipoAplicacion==1?'Puestos':movimiento.tipoAplicacion==2?'Tipo Contratacion':'NA'}" />
+								</p:column>
+								<p:column style="width:42px;text-align: center" headerText="Ver">
+									<p:commandButton update=":form:consultaMovPrg"
+										oncomplete="PF('consultaDlg').show()" icon="ui-icon-search"
+										action="#{programarMovimientoNominaController.cargarCatalogosEdicion()}"
+										title="View">
+										<f:setPropertyActionListener value="#{movimiento}"
+											target="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado}" />
+									</p:commandButton>
+								</p:column>
+								<p:column style="width:52px;text-align: center"
+									headerText="Eliminar">
+									<p:commandButton
+										update=":form:conceptosrelasionadosTabla :form:messages"
+										icon="ui-icon-trash" styleClass="fm-btn-peligro"
+										action="#{programarMovimientoNominaController.eliminar()}"
+										title="Eliminar">
+										<f:setPropertyActionListener value="#{movimiento}"
+											target="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado}" />
+										<p:confirm header="Confirmar"
+											message="Esta seguro de eliminar el registro?"
+											icon="ui-icon-alert" />
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+						</p:column>
+
+					</p:row>
+
+				</p:panelGrid>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+				<p:dialog widgetVar="consultaDlg" id="consultaMovPrg"
+					header="Consulta de movimiento programado" modal="true"
+					height="450" width="60%">
+					<p:panelGrid id="datosConsulta" columns="4"
+						columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-2,ui-grid-col-3"
+						layout="grid" styleClass="ui-responsive ui-panelgrid-blank">
+						<h:outputText value="Movimiento:" />
+						<h:outputText
+							value="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado.movimiento}" />
+
+						<h:outputText value="Descripcion:" />
+						<h:outputText
+							value="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado.descripcion}" />
+
+						<h:outputText value="Quincena Ejecucion:" />
+						<p:spinner id="quincena2" min="0" max="24"
+							value="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado.periodoAplicacion}" />
+
+						<h:outputText value="Aplicar por:" />
+						<p:selectOneRadio id="tipoAplicacionEdicion2"
+							value="#{programarMovimientoNominaController.movimientoProgramadoSeleccionado.tipoAplicacion}">
+							<f:selectItem itemLabel="Tipo Contratación" itemValue="1" />
+							<f:selectItem itemLabel="Puesto" itemValue="2" />
+							<p:ajax
+								listener="#{programarMovimientoNominaController.renderizarCamposEdicion()}"
+								update="consultaTabla" />
+						</p:selectOneRadio>
+					</p:panelGrid>
+
+					<p:dataTable id="consultaTabla" var="concepto" rows="5"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15"
+						value="#{programarMovimientoNominaController.opciones}"
+						selection="#{programarMovimientoNominaController.opcionesSeleccionadasEdicion}"
+						rowKey="#{concepto.id}">
+						<p:column selectionMode="multiple"
+							style="width:30px;text-align:center" />
+						<p:column headerText="Descripcion" filterBy="#{concepto.nombre}"
+							filterMatchMode="contains">
+							<h:outputText value="#{concepto.nombre}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<p:commandButton id="guardarConfiguracion"
+						styleClass="fm-btn-exitoso" value="Editar Configuracion"
+						update="form" icon="fm-icon-floppy"
+						actionListener="#{programarMovimientoNominaController.actualizarNuevaConfiguracion()}"
+						oncomplete="PF('consultaDlg').hide();" />
+					<p:spacer width="50px" />
+					<p:commandButton id="cancelar" value="Cancelar"
+						styleClass="fm-btn-peligro" onclick="PF('consultaDlg').hide();" />
+
+				</p:dialog>
+
+				<!-- ********************************Agregar Moficiacion***************************************************** -->
+				<p:dialog id="dialogAgregar" widgetVar="agregarDlg" modal="true"
+					height="450" width="60%"
+					header="Agreagr Programación de movimiento de nomina">
+
+					<p:panelGrid id="datosnew" columns="4"
+						columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-2,ui-grid-col-3"
+						layout="grid" styleClass="ui-responsive ui-panelgrid-blank">
+
+						<h:outputText value="Periodo Ejecucion:" />
+						<p:spinner id="quincenanew" min="0" max="24"
+							value="#{programarMovimientoNominaController.periodoAplicacion}" />
+
+						<h:outputText value="Aplicar por:" />
+						<p:selectOneRadio id="modoaplicacionnew"
+							value="#{programarMovimientoNominaController.modoAplicacion}">
+							<f:selectItem itemLabel="Tipo Contratación" itemValue="1" />
+							<f:selectItem itemLabel="Puesto" itemValue="2" />
+							<p:ajax
+								listener="#{programarMovimientoNominaController.renderizarCampos()}"
+								update="opcionesTablaNew" />
+						</p:selectOneRadio>
+
+						<h:outputText value="Descripción:" />
+						<p:inputText id="descripcionnew"
+							value="#{programarMovimientoNominaController.descripcion}" />
+					</p:panelGrid>
+					<br />
+
+					<p:dataTable id="opcionesTablaNew" var="conceptonew" rows="5"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15"
+						value="#{programarMovimientoNominaController.opciones}"
+						selection="#{programarMovimientoNominaController.opcionesSeleccionadas}"
+						rowKey="#{conceptonew.id}">
+						<p:column selectionMode="multiple"
+							style="width:30px;text-align:center" />
+						<p:column headerText="Descripcion"
+							filterBy="#{conceptonew.nombre}" filterMatchMode="contains">
+							<h:outputText value="#{conceptonew.nombre}" />
+						</p:column>
+
+					</p:dataTable>
+
+					<p:commandButton id="guardarNewConfiguracion"
+						styleClass="fm-btn-exitoso" value="Guardar Configuracion"
+						update=":form" icon="fm-icon-floppy"
+						actionListener="#{programarMovimientoNominaController.guardarNuevaConfiguracion()}"
+						oncomplete="PF('agregarDlg').hide();" />
+					<p:spacer width="50px" />
+					<p:commandButton id="cancelarNew" value="Cancelar"
+						styleClass="fm-btn-peligro" onclick="PF('agregarDlg').hide();" />
+				</p:dialog>
+
+				<!--  *****************************Moficicar Programacion**************************************************** -->
+
+
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

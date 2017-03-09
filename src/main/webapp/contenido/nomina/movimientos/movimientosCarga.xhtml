@@ -1,0 +1,133 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos Nomina" />
+	<ui:param name="moduloTitulo" value="Movimientos de Nomina" />
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<style type="text/css">
+.old {
+	background-color: #fca752 !important;
+	background-image: none !important;
+	color: #000000 !important;
+}
+</style>
+	</ui:define>
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				styleClass="ui-responsive fm-tarjeta ui-fluid">
+
+
+				<p:panel id="importarRegistros" header="Importar Movimientos">
+
+					<p:panelGrid id="controlesFiles" columns="5"
+						columnClasses="ui-grid-col-2, ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-2"
+						layout="grid" styleClass="ui-responsive ui-panelgrid-blank">
+
+						<p:fileUpload id="archivotxt" value="#{movimientosFijos.file}"
+							mode="simple" label="Seleccionar Archivo Txt"
+							allowTypes="/(\.|\/)(txt)$/"
+							requiredMessage="El Archivo Txt es requerido"
+							invalidFileMessage="El Archivo debe tener la extención txt"
+							skinSimple="true" />
+						<p:commandButton id="cargarArchivo" styleClass="fm-btn-exitoso"
+							icon="ui-icon-refresh" value="Cargar  archivo"
+							update="tablaInfoMov guardarinfoArchivo" ajax="false"
+							action="#{movimientosFijos.procesarArchivo()}" />
+
+						<p:spacer />
+
+						<p:commandButton id="guardarinfoArchivo" value="Guardar"
+							update="importarRegistros" icon="ui-icon-disk" iconPos="right"
+							disabled="#{movimientosFijos.activarBotonGuardar}"
+							action="#{movimientosFijos.guardarMovimientosArchivos()}"
+							styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+
+						<p:commandButton id="cancel" value="Regresar"
+							icon="ui-icon-closethick" update="@form" iconPos="right"
+							action="/contenido/nomina/movimientos/index.xhtml?faces-redirect=true" process="@this"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+
+					<p:ajaxStatus>
+						<f:facet name="start">
+							<center>
+								<p:graphicImage library="imagenes" name="load.gif" />
+							</center>
+						</f:facet>
+						<f:facet name="complete"></f:facet>
+					</p:ajaxStatus>
+					<p:dataTable var="infoMovimientos" id="tablaInfoMov"
+						rendered="#{movimientosFijos.mostrarTablaCargaInfo}"
+						value="#{movimientosFijos.listaMovimientoArchivo}"
+						rowStyleClass="#{infoMovimientos.statusRegistro !=null ? 'old' : null}">
+						<f:facet name="header">
+							<h:outputText
+								value="La tabla que se muestra a continuación es un resumen de la información contenida en el archivo seleccionado." />
+						</f:facet>
+						<p:column headerText="RFC">
+							<h:outputText value="#{infoMovimientos.rfc}" />
+						</p:column>
+
+						<p:column headerText="Tercero">
+							<h:outputText value="#{infoMovimientos.terceroInstitucional}" />
+						</p:column>
+
+						<p:column headerText="Quincena Final">
+							<h:outputText value="#{infoMovimientos.quincenaFinal}" />
+						</p:column>
+
+						<p:column headerText="Año Final">
+							<h:outputText value="#{infoMovimientos.anioFinal}" />
+						</p:column>
+						<p:column headerText="Monto">
+							<h:outputText value="#{infoMovimientos.importeDescontado}" />
+						</p:column>
+						<p:column headerText="Estado">
+							<h:outputText value="#{infoMovimientos.statusRegistro}" />
+						</p:column>
+					</p:dataTable>
+
+
+					<p:dataTable var="infoMovimientos" id="tablaInfoMovResult"
+						rendered="#{movimientosFijos.mostrarTablaResultCargaInfo}"
+						value="#{movimientosFijos.movimientosProcesados}">
+						<p:column headerText="RFC">
+							<h:outputText value="#{infoMovimientos.rfc}" />
+						</p:column>
+
+						<p:column headerText="Tercero Institucional">
+							<h:outputText value="#{infoMovimientos.terceroInstitucional}" />
+						</p:column>
+
+						<p:column headerText="Quincena Final">
+							<h:outputText value="#{infoMovimientos.quincenaFinal}" />
+						</p:column>
+
+						<p:column headerText="Año Final">
+							<h:outputText value="#{infoMovimientos.anioFinal}" />
+						</p:column>
+						<p:column headerText="Monto">
+							<h:outputText value="#{infoMovimientos.importeDescontado}" />
+						</p:column>
+						<p:column headerText="Estatus">
+							<h:outputText value="#{infoMovimientos.statusRegistro}" />
+						</p:column>
+					</p:dataTable>
+
+				</p:panel>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

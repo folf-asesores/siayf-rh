@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Jornadas" />
+	<ui:param name="moduloSubtitulo"
+		value="Listado de Jornadas que pueden ser asignados a los empleados." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{indexJornadaController.init}"
+			type="preRenderView" />
+		<h:form id="frmFormListadoIncidencias">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel id="divListadoJornadas">
+				<p:dataTable var="jornada" id="tblIncidencias"
+					styleClass="tabla-personalizada" widgetVar="tblJornadas"
+					value="#{indexJornadaController.listadoFormModel}" rows="35"
+					paginator="true" emptyMessage="No se encontraron registros"
+					filteredValue="#{incidenciaIndexController.listadoIncidenciasFiltrado}">
+					<f:facet name="header">
+						<p:panelGrid columns="3" styleClass="sin_borde"
+							columnClasses="ui-grid-col-3,ui-grid-col-8,ui-grid-col-1"
+							layout="grid">
+							<p:inputText id="globalFilter"
+								onkeyup="PF('tblJornadas').filter()" style="width:200px"
+								placeholder="Buscar" />
+							<p:spacer></p:spacer>
+							<p:button id="btnNuevo" title="Nuevo" 
+								icon="ui-icon-document" outcome="nueva.xhtml" />
+						</p:panelGrid>
+
+					</f:facet>
+					<p:column filterBy="#{jornada.descripcion}"
+						filterStyle="display:none;" filterMatchMode="contains"
+						headerText="Jornada">
+
+						<h:outputText value="#{jornada.descripcion}" />
+					</p:column>
+					<p:column style="width:42px;text-align: center">
+						<p:commandButton icon="ui-icon-pencil " title="Editar" 
+						action="#{indexJornadaController.editar(jornada.idJornada)}">
+
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

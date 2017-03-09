@@ -1,0 +1,1058 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                template="/plantillas/principal-con-menu.xhtml">
+    <ui:define name="headExtra">
+            <!-- CSS PERSONALIZADO  -->
+            <h:outputStylesheet library="css" name="siayf_rh.css" />
+    </ui:define>
+
+    <ui:param name="ventanaTitulo" value="Corrección Información" />
+
+    <ui:param name="moduloTitulo" value="Corrección Información" />
+
+    <ui:param name="moduloSubtitulo"
+              value="Los campos marcados con * son obligatorios." />
+
+    <ui:define name="moduloContenido">
+        <h:form id="form">
+            <p:messages for="info" showDetail="true" autoUpdate="false"
+                        severity="info" closable="true" globalOnly="true" />
+
+            <!-- Panel para la búsqueda por criterio. -->
+            <p:panelGrid columns="3"
+                         columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+                         layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                <p:outputLabel for="criterio" value="Ingrese un criterio" />
+                <p:inputText id="criterio"
+                        value="#{correccionEmpleado.view.criterio}"
+                        placeholder="RFC o nombre completo"
+                        validator="#{correccionEmpleado.validatorBusqueda}">
+                        <p:ajax update="msgCriterio" />
+                        <p:clientValidator />
+                </p:inputText>
+                
+                <p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+                        actionListener="#{correccionEmpleado.consultarEmpleados()}"
+                        update="form" />
+                <p:spacer />
+                
+                <p:message id="msgCriterio" for="criterio" />
+                <p:spacer />
+            </p:panelGrid>
+
+            <!-- Tabla que muestra los resultados de la búsqueda. -->
+            <p:dataTable id="empleados"
+                         value="#{correccionEmpleado.view.empleados}" var="e"
+                         rendered="#{correccionEmpleado.view.mostrarResultadoConsulta}"
+                         paginator="true" paginatorPosition="bottom" rows="10"
+                         paginatorAlwaysVisible="false"
+                         emptyMessage="No se ha encontrado ningún empleado." >
+                <p:column headerText="Número de empleado">
+                    <h:outputText value="#{e.numeroEmpleado}" />
+                </p:column>
+                
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{e.nombre}" />
+                </p:column>
+                
+                <p:column headerText="CURP">
+                    <h:outputText value="#{e.curp}" />
+                </p:column>
+
+                <p:column headerText="RFC">
+                    <h:outputText value="#{e.rfc}" />
+                </p:column>
+
+                <p:column headerText="Estado">
+                    <h:outputText value="#{e.estatus}" />
+                </p:column>
+
+                <p:column headerText="Domicilio">
+                    <h:outputText value="#{e.direccion}" />
+                </p:column>
+
+                <p:column headerText="Ver" style="text-align: center;">
+                    <p:commandButton update="form"
+                                     actionListener="#{correccionEmpleado.seleccionarEmpleado(e.idEmpleado, e.estatus)}"
+                                     icon="fm-icon-eye" title="Ver" />
+                </p:column>
+            </p:dataTable>
+
+            <!-- Panel con el menú y paneles para la corección de información. -->
+            <p:panelGrid columns="2"
+                         columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+                         styleClass="fm-tarjeta ui-fluid "
+                         rendered="#{correccionEmpleado.view.mostrarPanelCorrecciones}">
+
+                <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                             layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+                    <p:commandButton value="EXPEDIENTE ÚNICO DE PERSONAL"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(5)}"
+                                     update="form" process="@this" 
+                                     styleClass="fm-btn-elevado" />
+
+                    <p:spacer height="10" />
+
+                    <p:commandButton value="DATOS GENERALES"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(1)}"
+                                     update="form" process="@this" styleClass="fm-btn-elevado" />
+                    
+                    <p:spacer height="10" />
+
+                    <p:commandButton value="DEPENDIENTES ECONÓMICOS"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(6)}"
+                                     update="form" process="@this" styleClass="fm-btn-elevado" />
+                    
+                    <p:spacer height="10" />
+
+                    <p:commandButton value="DOMICILIO"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(2)}"
+                                     update="form" process="@this" styleClass="fm-btn-elevado" />
+                    
+                    <p:spacer height="10" />
+
+                    <p:commandButton value="HISTORIAL ACADÉMICO"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(3)}"
+                                     update="form" process="@this" styleClass="fm-btn-elevado" />
+                    
+                    <p:spacer height="10" />
+
+                    <p:commandButton value="EXPERIENCIA LABORAL"
+                                     styleClass="fm-btn-elevado"
+                                     actionListener="#{correccionEmpleado.renderizarPanelesCorrecciones(4)}"
+                                     update="form" process="@this" />
+                    
+                    <p:spacer height="10" />
+                </p:panelGrid>
+
+                <h:panelGroup>
+                    
+                    <!-- Datos generales -->
+                    <p:panelGrid id="datos" columns="3"
+                                 columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 rendered="#{correccionEmpleado.view.mostrarDatosGenerales}">
+
+                        <p:spacer />
+
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:messages id="infoDatos" showDetail="true"
+                                            autoUpdate="true"
+                                            severity="warning" closable="true" />
+                                <h3>Datos Generales</h3>
+                            </f:facet>
+
+                            <p:outputLabel value="Nombre completo" />
+                            <h:outputText value="#{correccionEmpleado.view.datosGenerales.nombreCompleto}" />
+
+                            <p:outputLabel for="rfc" value="RFC" />
+                            <h:outputText id="rfc" value="#{correccionEmpleado.view.datosGenerales.rfc}" />
+
+                            <p:outputLabel for="curp" value="CURP" />
+                            <p:inputText id="curp"
+                                         value="#{correccionEmpleado.view.datosGenerales.curp}"
+                                         validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgCurp" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgCurp" for="curp" />
+
+                            <p:outputLabel for="nombre" value="Nombre*" />
+                            <p:inputText id="nombre"
+                                         value="#{correccionEmpleado.view.datosGenerales.nombre}"
+                                         validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgNombre" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgNombre" for="nombre" />
+
+                            <p:outputLabel for="apellidoPaterno" value="Apellido paterno" />
+                            <p:inputText id="apellidoPaterno"
+                                         value="#{correccionEmpleado.view.datosGenerales.apellidoPaterno}"
+                                         validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgPaterno" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgPaterno" for="apellidoPaterno" />
+
+                            <p:outputLabel for="apellidoMaterno" value="Apellido materno*" />
+                            <p:inputText id="apellidoMaterno"
+                                         value="#{correccionEmpleado.view.datosGenerales.apellidoMaterno}"
+                                         validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgMaterno" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgMaterno" for="apellidoMaterno" />
+
+                            <p:outputLabel for="sexo" value="Sexo*" />
+                            <p:selectOneMenu id="sexo"
+                                             value="#{correccionEmpleado.view.datosGenerales.idSexo}"
+                                             validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaTiposSexos}" />
+                                <p:ajax update="msgSexo" />
+                                <p:clientValidator />
+                            </p:selectOneMenu>
+                            <p:message id="msgSexo" for="sexo" />
+
+                            <p:outputLabel for="estadoCivil" value="Estado civil*" />
+                            <p:selectOneMenu id="estadoCivil"
+                                             value="#{correccionEmpleado.view.datosGenerales.idEstadoCivil}"
+                                             validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaEstadosCiviles}" />
+                                <p:ajax update="msgCivil" />
+                                <p:clientValidator />
+                            </p:selectOneMenu>
+                            <p:message id="msgCivil" for="estadoCivil" />
+
+                            <p:outputLabel for="fechaNacimiento" value="Fecha de nacimiento*" />
+                            <p:calendar id="fechaNacimiento"
+                                        value="#{correccionEmpleado.view.datosGenerales.fechaNacimiento}"
+                                        validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgNacimiento" />
+                                <p:clientValidator />
+                            </p:calendar>
+                            <p:message id="msgNacimiento" for="fechaNacimiento" />
+
+                            <p:outputLabel for="lugarNacimiento" value="Lugar de nacimiento*" />
+                            <p:inputText id="lugarNacimiento"
+                                         value="#{correccionEmpleado.view.datosGenerales.lugarNacimiento}"
+                                         validator="#{correccionEmpleado.validatorDatosGenerales}">
+                                <p:ajax update="msgLugar" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgLugar" for="lugarNacimiento" />
+
+                            <p:outputLabel for="telefonos" value="Teléfonos*" />
+                            <p:inputMask id="telefonos"
+                                    value="#{correccionEmpleado.view.datosGenerales.telefonos}"
+                                    mask="(999) 999-9999" />
+
+                            <p:watermark for="correo" value="Correo electrónico" />
+                            <p:outputLabel for="correo" value="Correo electrónico*" />
+                            <p:inputText id="correo"
+                                         validatorMessage="Formato de correo invalido"
+                                         value="#{correccionEmpleado.view.datosGenerales.correo}">
+                                <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                            </p:inputText>
+                            <p:message for="correo" />
+
+                            <p:outputLabel for="tipoSangre" value="Tipo sangre*" />
+                            <p:selectOneMenu id="tipoSangre"
+                                             value="#{correccionEmpleado.view.datosGenerales.idTipoSangre}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaTiposSangre}" />
+                            </p:selectOneMenu>
+
+                            <p:outputLabel for="peso" value="Peso" />
+                            <p:inputText id="peso"
+                                         value="#{correccionEmpleado.view.datosGenerales.peso}" />
+
+                            <p:outputLabel for="estatura" value="Estatura" />
+                            <p:inputText id="estatura"
+                                         value="#{correccionEmpleado.view.datosGenerales.estatura}" />
+
+                            <p:outputLabel for="dependientes" value="Tiene dependientes" />
+                            <p:inputSwitch id="dependientes" offLabel="No" onLabel="Si"
+                                           value="#{correccionEmpleado.view.datosGenerales.tienePersonasDependientes}">
+                                <p:ajax update="form" />
+                            </p:inputSwitch>
+
+                            <p:outputLabel for="parentesco" value="Parentesco"
+                                           rendered="#{correccionEmpleado.view.datosGenerales.tienePersonasDependientes}" />
+                            <p:panelGrid columns="2"
+                                         columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+                                         styleClass="ui-panelgrid-blank"
+                                         rendered="#{correccionEmpleado.view.datosGenerales.tienePersonasDependientes}">
+                                <p:selectManyCheckbox id="parentesco"
+                                                      value="#{correccionEmpleado.view.datosGenerales.parentescos}"
+                                                      layout="grid" columns="1"
+                                                      rendered="#{correccionEmpleado.view.datosGenerales.tienePersonasDependientes}">
+                                    <f:selectItem itemLabel="Conyuge" 
+                                                  itemValue="CONYUGE" />
+                                    <f:selectItem itemLabel="Hijos"
+                                                  itemValue="HIJOS" />
+                                    <f:selectItem itemLabel="Padres"
+                                                  itemValue="PADRE" />
+                                    <f:selectItem itemLabel="Otros"
+                                                  itemValue="OTRO" />
+                                </p:selectManyCheckbox>
+
+                                <p:panelGrid columns="1"
+                                             columnClasses="ui-grid-col-12"
+                                             layout="grid"
+                                             styleClass="ui-panelgrid-blank">
+                                    <p:inputText placeholder="Número conyuges"
+                                                 value="#{correccionEmpleado.view.datosGenerales.numeroConyuges}" />
+                                    <p:inputText placeholder="Número hijos"
+                                                 value="#{correccionEmpleado.view.datosGenerales.numeroHijos}" />
+                                    <p:inputText placeholder="Número padres"
+                                                 value="#{correccionEmpleado.view.datosGenerales.numeroPadres}" />
+                                    <p:inputText placeholder="Número otros"
+                                                 value="#{correccionEmpleado.view.datosGenerales.numeroOtros}" />
+                                </p:panelGrid>
+                            </p:panelGrid>
+
+                            <p:spacer />
+                            
+                            <p:commandButton value="Guardar"
+                                             actionListener="#{correccionEmpleado.actualizarDatosGenerales()}"
+                                             update="form" />
+                        </p:panelGrid>
+
+                        <p:spacer />
+                    </p:panelGrid>
+
+                    <!-- Domicilio -->
+                    <p:panelGrid id="datosDomicilio" columns="3"
+                                 columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                 layout="grid" styleClass="ui-panelgrid-blank"
+                                 rendered="#{correccionEmpleado.view.mostrarDomicilio}">
+                        <p:spacer />
+
+                        <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <p:messages id="infoDomicilio" showDetail="true"
+                                            autoUpdate="true" severity="warning"
+                                            closable="true" />
+                                <h3>Domicilio</h3>
+                            </f:facet>
+
+                            <p:outputLabel value="Dirección completa" />
+                            <h:outputText value="#{correccionEmpleado.view.datosGenerales.direccionCompleta}" />
+
+                            <p:outputLabel for="estado" value="Estado*" />
+                            <p:selectOneMenu id="estado"
+                                             value="#{correccionEmpleado.view.domicilio.idEstado}"
+                                             validator="#{correccionEmpleado.validatorDomicilio}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaEstados}" />
+                                <p:ajax listener="#{correccionEmpleado.municipiosPorEstado()}"
+                                        update="msgEstado municipio"></p:ajax>
+                                <p:clientValidator />
+                            </p:selectOneMenu>
+                            <p:message id="msgEstado" for="estado" />
+
+                            <h:outputText value="#{correccionEmpleado.view.datosGenerales.direccionCompleta}" />
+                            <p:outputLabel for="municipio" value="Municipio*" />
+                            <p:selectOneMenu id="municipio"
+                                             value="#{correccionEmpleado.view.domicilio.idMunicipio}"
+                                             filter="true" filterMatchMode="contains"
+                                             validator="#{correccionEmpleado.validatorDomicilio}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaMuncipios}" />
+                                <p:ajax listener="#{correccionEmpleado.asentamientosPorMunicipio()}"
+                                        update="msgMunicipio, asentamiento" />
+                                <p:clientValidator />
+                            </p:selectOneMenu>
+                            <p:message id="msgMunicipio" for="municipio" />
+
+                            <p:outputLabel for="asentamiento" value="Asentamiento*" />
+                            <p:selectOneMenu id="asentamiento"
+                                             value="#{correccionEmpleado.view.domicilio.idAsentamiento}"
+                                             filter="true" filterMatchMode="contains"
+                                             validator="#{correccionEmpleado.validatorDomicilio}">
+                                <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                <f:selectItems value="#{correccionEmpleado.view.listaPoblaciones}" />
+                                <p:ajax update="msgAsentamiento" />
+                                <p:clientValidator />
+                            </p:selectOneMenu>
+                            <p:message id="msgAsentamiento" for="asentamiento" />
+
+                            <p:outputLabel for="calle" value="Calle*" />
+                            <p:inputText id="calle"
+                                         value="#{correccionEmpleado.view.domicilio.calle}"
+                                         validator="#{correccionEmpleado.validatorDomicilio}">
+                                <p:ajax update="msgCalle" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgCalle" for="calle" />
+
+                            <p:outputLabel for="exterior" value="Número exterior*" />
+                            <p:inputText id="exterior"
+                                         value="#{correccionEmpleado.view.domicilio.numeroExterior}"
+                                         validator="#{correccionEmpleado.validatorDomicilio}">
+                                <p:ajax update="msgExterior" />
+                                <p:clientValidator />
+                            </p:inputText>
+                            <p:message id="msgExterior" for="exterior" />
+
+                            <p:outputLabel for="interior" value="Número interior" />
+                            <p:inputText id="interior"
+                                         value="#{correccionEmpleado.view.domicilio.numeroInterior}" />
+
+                            <p:spacer />
+                            
+                            <p:commandButton value="Guardar"
+                                             actionListener="#{correccionEmpleado.actualizarDomicilio()}"
+                                             update="form" />
+                        </p:panelGrid>
+
+                        <p:spacer />
+                    </p:panelGrid>
+
+
+                    <!-- Historiales Académicos -->
+                    <p:panelGrid id="historialAcademico" columns="1"
+                                 columnClasses="ui-grid-col-12" layout="grid"
+                                 styleClass="ui-panelgrid-blank ui-fluid"
+                                 rendered="#{correccionEmpleado.view.mostrarHistorialAcademico}">
+                        <f:facet name="header">
+                            <p:messages id="infoHistorial" showDetail="true"
+                                        autoUpdate="true" severity="warning" closable="true" />
+                            <h3>Historiales Académicos</h3>
+                        </f:facet>
+
+                        <p:panelGrid columns="2"
+                                columnClasses="ui-grid-col-9,ui-grid-col-3" layout="grid"
+                                styleClass="ui-panelgrid-blank">
+                            <p:spacer />
+
+                            <p:commandButton value="Nuevo historial"
+                                             actionListener="#{correccionEmpleado.visualizarRegistroHistorial()}"
+                                             update="form" />
+                        </p:panelGrid>
+
+                        <p:dataTable id="historialBasico"
+                                     value="#{correccionEmpleado.view.historialesAcademicos}" var="h"
+                                     rowKey="#{h.idHistorialAcademico}">
+                            <p:column headerText="Escolaridad">
+                                <h:outputText value="#{h.nombreEscolaridad }" />
+                            </p:column>
+
+                            <p:column headerText="Institución">
+                                <h:outputText value="#{h.nombreInstitucion}" />
+                            </p:column>
+                            <p:column headerText="Constancia máxima de estudios">
+                                <h:outputText value="#{h.estatusComprobatorio}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha de expedición de Cedula Profesional">
+                                <h:outputText value="#{h.fechaExpedicionCedula}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Número de Cedula Profesional">
+                                <h:outputText value="#{h.numeroCedula}" />
+                            </p:column>
+
+                            <p:column headerText="Inicio-Fin">
+                                <h:outputText value="#{h.fechaInicial}">
+                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                                <h:outputText value=" - " />
+                                <h:outputText value="#{h.fechaFinal}">
+                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="Nombre curso">
+                                <h:outputText value="#{h.nombreCurso}" />
+                            </p:column>
+
+                            <p:column headerText="Duración curso">
+                                <h:outputText value="#{h.duracion}" />
+                            </p:column>
+
+                            <p:column headerText="Cursando">
+                                <p:inputSwitch offLabel="No" onLabel="Si"
+                                               value="#{h.cursando}"
+                                               disabled="true" />
+                            </p:column>
+
+                            <p:column headerText="Máximo estudio">
+                                <p:inputSwitch offLabel="No" onLabel="Si"
+                                               value="#{h.esMaximoEstudio}"
+                                               disabled="true" />
+                            </p:column>
+
+                            <p:column headerText="Tiene documentación adjunta">
+                                <p:inputSwitch offLabel="No" onLabel="Si"
+                                               value="#{h.tieneDocumentacion}"
+                                               disabled="true" />
+                            </p:column>
+
+                            <p:column headerText="Opciones"
+                                      style="width:70px;text-align: center;">
+                                <p:commandButton icon="fm-icon-attach"
+                                                 title="Ver"
+                                                 actionListener="#{correccionEmpleado.visualizarAdjuntarDocumentoHistorial(h)}"
+                                                 update="form" />
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:spacer />
+                            
+                        <p:panelGrid id="registroHistorial" columns="3"
+                                     columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     rendered="#{correccionEmpleado.view.mostrarRegistroHistorial}">
+                            <p:spacer />
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                                         layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+                                         rendered="#{correccionEmpleado.view.mostrarHistorialAcademico}"
+                                         id="altaHistorial">
+                                <f:facet name="header">
+                                    <h3>Registro historial</h3>
+                                </f:facet>
+
+                                <p:outputLabel for="escolaridad" value="Escolaridad*" />
+                                <p:selectOneMenu id="escolaridad"
+                                                 value="#{correccionEmpleado.view.historial.idEscolaridad}">
+                                    <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                    <f:selectItems value="#{correccionEmpleado.view.listaEscolaridades}" />
+                                    <p:ajax listener="#{correccionEmpleado.visualizarDatosRequeridosCurso()}"
+                                            update="altaHistorial" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="institucion"
+                                               value="Nombre de la institución*" />
+                                <p:inputText id="institucion"
+                                             value="#{correccionEmpleado.view.historial.nombreInstitucion}" />
+
+                                <p:outputLabel for="documentoComprobatorio"
+                                               value="Último comprobante estudio del grado académico*" />
+                                <p:selectOneMenu id="documentoComprobatorio"
+                                                 value="#{correccionEmpleado.view.historial.idComprobanteEstudio}">
+                                    <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                    <f:selectItems value="#{correccionEmpleado.view.listaComprobantesEstudios}" />
+                                </p:selectOneMenu>
+
+                                <p:outputLabel for="fechaExpedicionCedula"
+                                               value="Fecha de expedición de Cedula Profesional" />
+                                <p:calendar id="fechaExpedicionCedula"
+                                            pattern="dd/MM/yyyy"
+                                            value="#{correccionEmpleado.view.historial.fechaExpedicionCedula}" />
+
+                                <p:outputLabel for="numeroCedula"
+                                               value="Número de Cedula Profesional" />
+                                <p:inputText id="numeroCedula"
+                                             value="#{correccionEmpleado.view.historial.numeroCedula}" />
+
+                                <p:outputLabel for="fechaInicial" value="Fecha inicial*" />
+                                <p:calendar id="fechaInicial"
+                                            value="#{correccionEmpleado.view.historial.fechaInicial}" />
+
+                                <p:outputLabel for="fechaFinal" value="Fecha final" />
+                                <p:calendar id="fechaFinal" pattern="dd/MM/yyyy"
+                                            value="#{correccionEmpleado.view.historial.fechaFinal}" />
+
+                                <p:outputLabel for="nombreCurso"
+                                               value="Nombre de la escolaridad cursada*" />
+                                <p:inputText id="nombreCurso"
+                                             value="#{correccionEmpleado.view.historial.nombreCurso}" />
+
+                                <p:outputLabel for="duracion"
+                                               value="Duración de la escolaridad complementaria*"
+                                               rendered="#{correccionEmpleado.view.visualizarDatosCurso}" />
+                                <p:inputText id="duracion"
+                                             value="#{correccionEmpleado.view.historial.duracion}"
+                                             rendered="#{correccionEmpleado.view.visualizarDatosCurso}" />
+
+                                <p:outputLabel for="duracion" value="Cursando" />
+                                <p:inputSwitch offLabel="No" onLabel="Si"
+                                               value="#{correccionEmpleado.view.historial.cursando}" />
+
+                                <p:outputLabel for="maximoEstudio"
+                                               value="¿Es el máximo grado de estudios?" />
+                                <p:inputSwitch offLabel="No" onLabel="Si" id="maximoEstudio"
+                                               value="#{correccionEmpleado.view.historial.maximoEstudios}" />
+
+                                <p:spacer />
+
+                                <p:commandButton value="Guardar"
+                                                 actionListener="#{correccionEmpleado.registrarHistorialAcademico()}"
+                                                 update="form" />
+                            </p:panelGrid>
+                        </p:panelGrid>
+
+                        <p:panelGrid id="adjuntoHistorial" columns="3"
+                                     columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                     layout="grid"
+                                     styleClass="ui-panelgrid-blank"
+                                     rendered="#{correccionEmpleado.view.mostrarAdjuntarDocumentoHistorial}">
+                            <p:spacer />
+
+                            <p:panelGrid columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         layout="grid"
+                                         styleClass="ui-panelgrid-blank ui-fluid">
+                                <f:facet name="header">
+                                        <h3>Información Documento Adjunto</h3>
+                                </f:facet>
+
+                                <p:dataList value="#{correccionEmpleado.view.documentacionActualHistorial}"
+                                            var="d" type="ordered">
+                                    <f:facet name="header">
+                                        Usted ya ha adjuntado los siguientes documentos en #{correccionEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}
+                                    </f:facet>
+
+                                    #{d}
+                                </p:dataList>
+
+                                <p:outputLabel value="Escolaridad a la que pertece el documento" />
+                                <h:outputText value="#{correccionEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}" />
+
+                                <p:outputLabel value="Institución" />
+                                <h:outputText value="#{correccionEmpleado.view.historialAcademicoSeleccionado.nombreInstitucion}" />
+
+                                <p:outputLabel value="Seleccione el tipo de documento que va a adjuntar*" />
+                                <p:selectOneMenu id="idDocumentoAdjuntable"
+                                                 value="#{correccionEmpleado.view.idDocumentoAdjuntableHistorial}">
+                                    <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                    <f:selectItems value="#{correccionEmpleado.view.listaDocumentosHistorialAcademico}" />
+                                    <p:ajax update="archivo"></p:ajax>
+                                </p:selectOneMenu>
+
+                                <p:fileUpload id="archivo"
+                                              fileUploadListener="#{correccionEmpleado.subirDocumentoAdjuntoHistorial}"
+                                              label="Subir archivo" auto="true" mode="advanced"
+                                              allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/" update="form" />
+                            </p:panelGrid>
+
+                            <p:spacer />
+                        </p:panelGrid>
+                    </p:panelGrid>
+                    
+                    <!-- Expediente único de personal -->
+                    <h:panelGroup id="panelGroupExpediente"
+                                  rendered="#{correccionEmpleado.view.mostrarExpediente}">
+                        <p:panelGrid id="expedienteEmpleado" columns="3"
+                                     columnClasses="ui-grid-col-3,ui-grid-col-6,ui-grid-col-3"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:spacer />
+
+                            <p:panelGrid id="contenidoExpediente" columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         layout="grid"
+                                         styleClass="ui-panelgrid-blank"
+                                         rendered="#{correccionEmpleado.view.mostrarExpediente}">
+
+                                <p:panelGrid id="imagen" columns="3"
+                                             columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
+                                             layout="grid"
+                                             styleClass="ui-panelgrid-blank">
+                                    <p:spacer />
+
+                                    <h:graphicImage styleClass="fm-width-100"
+                                                    library="imagenes"
+                                                    name="#{correccionEmpleado.view.imagenExpediente}"
+                                                    style="margin:auto; height:100px; width:auto;" />
+
+                                    <p:spacer />
+                                </p:panelGrid>
+
+                                <p:panelGrid id="aperturaExpediente" columns="1"
+                                             columnClasses="ui-grid-col-12" layout="grid"
+                                             styleClass="ui-panelgrid-blank"
+                                             rendered="#{correccionEmpleado.view.mostrarAperturaExpediente}">
+                                    <f:facet name="header">
+                                        <h3>Aperturar Expediente</h3>
+                                    </f:facet>
+
+                                    <p:outputLabel for="numeroExpediente" value="Numero Expediente" />
+                                    <p:inputText id="numeroExpediente"
+                                                 value="#{correccionEmpleado.view.expediente.numeroExpediente}"
+                                                 validator="#{correccionEmpleado.validatorExpediente}">
+                                        <p:ajax update="msgNumeroExpediente" />
+                                        <p:clientValidator />
+                                    </p:inputText>
+                                    <p:message id="msgNumeroExpediente" for="numeroExpediente" />
+
+                                    <p:commandButton value="Aperturar"
+                                                     actionListener="#{correccionEmpleado.aperturarExpediente()}"
+                                                     update="form" />
+                                </p:panelGrid>
+
+                                <p:panelGrid id="expedienteAperturado" columns="1"
+                                             columnClasses="ui-grid-col-12" layout="grid"
+                                             styleClass="ui-panelgrid-blank"
+                                             rendered="#{correccionEmpleado.view.mostrarActualizacionExpediente}">
+                                    <f:facet name="header">
+                                        <h3>Número de expediente: #{correccionEmpleado.view.numeroExpediente}</h3>
+                                    </f:facet>
+                                </p:panelGrid>
+                            </p:panelGrid>
+                            
+                            <p:spacer />
+                        </p:panelGrid>
+
+                        <p:panelGrid id="expedienteDesgloce" columns="2"
+                                     columnClasses="ui-grid-col-4,ui-grid-col-8," layout="grid"
+                                     styleClass="ui-panelgrid-blank"
+                                     rendered="#{correccionEmpleado.view.mostrarActualizacionExpediente}">
+
+                            <p:panelGrid columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                                <f:facet name="header">
+                                    <h3>Documento Expediente</h3>
+                                </f:facet>
+
+                                <p:selectOneMenu id="idDocumentoAdjuntableEmpleado"
+                                                 value="#{correccionEmpleado.view.idDocumentoAdjuntable}"
+                                                 filter="true"
+                                                 filterMatchMode="contains">
+                                    <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                    <f:selectItems value="#{correccionEmpleado.view.listaTiposDocumentosExpediente}" />
+                                    <p:ajax update="archivoEmpleado" />
+                                </p:selectOneMenu>
+
+                                <p:fileUpload id="archivoEmpleado"
+                                        fileUploadListener="#{correccionEmpleado.subirDocumentoAdjunto}"
+                                        label="Adjuntar" auto="true" mode="advanced"
+                                        allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/" update="form"
+                                        invalidFileMessage="Tipo de archivo no permitido">
+                                    <f:attribute name="idEmpleado"
+                                                 value="#{correccionEmpleado.view.idEmpleadoSeleccionado}" />
+                                    <f:attribute name="idDocAdj"
+                                                 value="#{correccionEmpleado.view.idDocumentoAdjuntable}" />
+                                </p:fileUpload>
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                                    layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                                <p:dataTable id="documentos"
+                                             value="#{correccionEmpleado.view.documentosExpedientes}"
+                                             var="a" rowKey="#{a.idAdjunto}">
+                                    <p:column headerText="Documento">
+                                        <h:outputText value="#{a.documentoAdjuntable.descripcion}" />
+                                    </p:column>
+
+                                    <p:column headerText="Detalle">
+                                        <h:outputText value="#{a.detalle}" />
+                                    </p:column>
+
+                                    <p:column headerText="Opciones">
+                                        <p:commandButton icon="fm-icon-eye" title="Ver"
+                                                         actionListener="#{correccionEmpleado.visualizarImagen(a.idAdjunto)}"
+                                                         update="form" />
+
+                                        <p:commandButton icon="ui-icon-trash" title="Eliminar"
+                                                         actionListener="#{correccionEmpleado.eliminarAdjunto(a.idAdjunto)}"
+                                                         update="form" />
+
+                                        <p:commandButton icon="fm-icon-download" title="Descargar"
+                                                         actionListener="#{correccionEmpleado.descargarAdjunto(a)}"
+                                                         ajax="false" update="form" />
+                                    </p:column>
+                                </p:dataTable>
+                            </p:panelGrid>
+                        </p:panelGrid>
+
+                        <p:panelGrid id="visualizarDoc" columns="3"
+                                     columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                     layout="grid" styleClass="ui-panelgrid-blank"
+                                     rendered="#{correccionEmpleado.view.mostrarImagenExpediente}">
+                            <p:spacer />
+
+                            <p:panelGrid columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                                <f:facet name="header">
+                                    <h3>Imagen Expediente</h3>
+                                </f:facet>
+                                
+                                <p:graphicImage value="#{vistaPreviaService.vistaPreviaAdjuntoEmpleado}" styleClass="fm-width-100">
+                                    <f:param name="idAdjunto" value="#{correccionEmpleado.view.idImagenExpediente}" />
+                                </p:graphicImage>
+                            </p:panelGrid>
+                            
+                            <p:spacer />
+                        </p:panelGrid>
+                    </h:panelGroup>
+
+                    <!-- Dependientes económicos -->
+                    <h:panelGroup id="panelDependientesEconomicos"
+                                  rendered="#{correccionEmpleado.view.mostrarDependientesEconomicos}">
+                        <p:panelGrid id="oanelGridDetalleDependientes"
+                                     columns="4"
+                                     columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+                            <f:facet name="header">
+                                <h3>Dependientes</h3>
+                            </f:facet>
+
+                            <p:outputLabel value="Número Padres" />
+                            <p:outputLabel value="Número Hijos" />
+                            <p:outputLabel value="Número conyuges" />
+                            <p:outputLabel value="Número otros" />
+
+                            <p:inputText value="#{correccionEmpleado.view.datosGenerales.numeroPadres}"
+                                         disabled="true" />
+                            <p:inputText value="#{correccionEmpleado.view.datosGenerales.numeroHijos}"
+                                         disabled="true" />
+                            <p:inputText value="#{correccionEmpleado.view.datosGenerales.numeroConyuges}"
+                                         disabled="true" />
+                            <p:inputText value="#{correccionEmpleado.view.datosGenerales.numeroOtros}"
+                                         disabled="true" />
+                        </p:panelGrid>
+                        
+                        <p:spacer height="10"/>
+
+                        <p:dataTable id="dataTableDependientes" 
+                                     value="#{correccionEmpleado.view.dependientesEconomicos}"
+                                     var="d" paginator="true"
+                                     paginatorPosition="bottom" rows="10"
+                                     emptyMessage="No se ha encontrado ningún dependiente económico.">
+                            <p:column headerText="Parentesco">
+                                <h:outputText value="#{d.parentesco}" />
+                            </p:column>
+
+                            <p:column headerText="Otro Parentesco">
+                                <h:outputText value="#{d.otroParentesco}" />
+                            </p:column>
+                                
+                            <p:column headerText="Nombre">
+                                <h:outputText value="#{d.nombreCompleto}" />
+                            </p:column>
+
+                            <p:column headerText="Fecha Nacimiento">
+                                <h:outputText value="#{d.fechaNacimiento}">
+                                    <f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+                                </h:outputText>
+                            </p:column>
+
+                            <p:column headerText="CURP">
+                                <h:outputText value="#{d.curp}" />
+                            </p:column>
+
+                            <p:column headerText="Sexo">
+                                <h:outputText value="#{d.sexo}" />
+                            </p:column>
+
+                            <p:column headerText="Opciones">
+                                <p:commandButton icon="fm-icon-attach"
+                                                 title="Ver"
+                                                 actionListener="#{correccionEmpleado.visualizarAdjuntarDocumentoDependiente(d)}"
+                                                 update=":form:panelGridContenedorMovimientosDependientes"
+                                                 process="@this">
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:spacer height="10" />
+
+                        <p:panelGrid id="panelGridContenedorMovimientosDependientes"
+                                     columns="2"
+                                     columnClasses="ui-grid-col-6,ui-grid-col-6"
+                                     layout="grid"
+                                     styleClass="ui-panelgrid-blank ui-fluid">
+
+                                <p:panelGrid id="panelGridRegistroDependiente"
+                                             columns="1"
+                                             columnClasses="ui-grid-col-12"
+                                             layout="grid"
+                                             styleClass="ui-panelgrid-blank">
+                                    <f:facet name="header">
+                                            <h3>Registrar Dependiente Económico</h3>
+                                    </f:facet>
+
+                                    <p:outputLabel for="parentescoDependiente" value="Parentesco" />
+                                    <p:selectOneMenu id="parentescoDependiente"
+                                                     value="#{correccionEmpleado.view.dependiente.parentesco}"
+                                                     validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                        <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                        <f:selectItems value="#{correccionEmpleado.view.listaTiposParentescos}" />
+                                        <p:ajax listener="#{correccionEmpleado.visualizarrOtroParentesco()}"
+                                                update="otro,msgParentescoDependiente" />
+                                        <p:clientValidator />
+                                    </p:selectOneMenu>
+                                    <p:message id="msgParentescoDependiente"
+                                            for="parentescoDependiente" />
+
+                                    <p:outputLabel for="otro"
+                                                   value="Otro parentesco"
+                                                   rendered="#{correccionEmpleado.view.mostrarOtroParentesco}" />
+                                    <p:inputText id="otro"
+                                                 value="#{correccionEmpleado.view.dependiente.otroParentesco}"
+                                                 rendered="#{correccionEmpleado.view.mostrarOtroParentesco}"
+                                                 validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                        <p:ajax update="msgOtro" />
+                                        <p:clientValidator />
+                                    </p:inputText>
+                                    <p:message id="msgOtro" for="otro" />
+
+                                    <p:outputLabel for="nombreDependiente" value="Nombre" />
+                                    <p:inputText id="nombreDependiente"
+                                                 value="#{correccionEmpleado.view.dependiente.nombre}"
+                                                 validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                            <p:ajax update="msgNombreDep" />
+                                            <p:clientValidator />
+                                    </p:inputText>
+                                    <p:message id="msgNombreDep" for="nombreDependiente" />
+
+                                    <p:outputLabel for="paternoDependiente"
+                                                   value="Apellido paterno" />
+                                    <p:inputText id="paternoDependiente"
+                                                 value="#{correccionEmpleado.view.dependiente.apellidoPaterno}">
+                                    </p:inputText>
+
+                                    <p:outputLabel for="maternoDependiente"
+                                                   value="Apellido materno" />
+                                    <p:inputText id="maternoDependiente"
+                                                 value="#{correccionEmpleado.view.dependiente.apellidoMaterno}"
+                                                 validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                        <p:ajax update="msgAMDep" />
+                                        <p:clientValidator />
+                                    </p:inputText>
+                                    <p:message id="msgAMDep" for="maternoDependiente" />
+
+                                    <p:outputLabel for="curpDependiente" value="CURP" />
+                                    <p:inputText id="curpDependiente"
+                                                 value="#{correccionEmpleado.view.dependiente.curp}" />
+
+                                    <p:outputLabel for="fechaNacimientoDependiente"
+                                            value="Fecha de nacimiento" />
+                                    <p:calendar id="fechaNacimientoDependiente"
+                                                value="#{correccionEmpleado.view.dependiente.fechaNacimiento}"
+                                                validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                        <p:ajax update="msgFechaNacimiento" />
+                                        <p:clientValidator />
+                                    </p:calendar>
+                                    <p:message id="msgFechaNacimiento"
+                                               for="fechaNacimientoDependiente" />
+
+                                    <p:outputLabel for="sexoDependiente" value="Sexo" />
+                                    <p:selectOneRadio id="sexoDependiente"
+                                                      value="#{correccionEmpleado.view.dependiente.sexo}"
+                                                      validator="#{correccionEmpleado.validatorDependientesEconomicos}">
+                                        <f:selectItem itemLabel="Femenino" itemValue="FEMENINO" />
+                                        <f:selectItem itemLabel="Masculino" itemValue="MASCULINO" />
+                                        <p:ajax update="msgSexoDependiente" />
+                                        <p:clientValidator />
+                                    </p:selectOneRadio>
+                                    <p:message id="msgSexoDependiente" for="sexoDependiente" />
+
+                                    <p:spacer />
+                                    <p:commandButton value="Registrar"
+                                            actionListener="#{correccionEmpleado.registrarDependienteEconomico()}"
+                                            update="form" />
+                                </p:panelGrid>
+
+                                <p:panelGrid id="panelGridAdjuntoDependiente" columns="1"
+                                             columnClasses="ui-grid-col-12" layout="grid"
+                                             styleClass="ui-panelgrid-blank ui-fluid"
+                                             rendered="#{correccionEmpleado.view.mostrarAdjuntarDocumentoDependiente}">
+                                    <f:facet name="header">
+                                        <h3>Documento Dependiente</h3>
+                                    </f:facet>
+
+                                    <p:outputLabel for="idDocumentoAdjuntableDependiente"
+                                                   value="Documentos dependientes" />
+                                    <p:selectOneMenu id="idDocumentoAdjuntableDependiente"
+                                                     value="#{correccionEmpleado.view.idDocumentoAduntableDependiente}">
+                                        <f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+                                        <f:selectItems value="#{correccionEmpleado.view.listaDocumentosDependientes}" />
+                                        <p:ajax update="archivoDependiente" />
+                                    </p:selectOneMenu>
+
+                                    <p:fileUpload id="archivoDependiente"
+                                                  fileUploadListener="#{correccionEmpleado.subirDocumentoAdjuntoDependiente}"
+                                                  label="Adjuntar" auto="true"
+                                                  mode="advanced"
+                                                  allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/"
+                                                  update="form"
+                                                  invalidFileMessage="Tipo de archivo no permitido">
+                                        <f:attribute name="idEmpleado"
+                                                     value="#{correccionEmpleado.view.idEmpleadoSeleccionado}" />
+                                        <f:attribute name="idDocAdj"
+                                                     value="#{correccionEmpleado.view.idDocumentoAduntableDependiente}" />
+                                    </p:fileUpload>
+                                </p:panelGrid>
+                        </p:panelGrid>
+                    </h:panelGroup>
+                    
+                    <!-- Experiencias Laborales -->
+                    <p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+                                 layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+                                 id="experienciaLaboral"
+                                 rendered="#{correccionEmpleado.view.mostrarExperienciaLaboral}">
+                        <f:facet name="header">
+                            <h3>Experiencias Laborales</h3>
+                        </f:facet>
+                        
+                        <p:dataTable id="experienciasLaborales"
+                                     value="#{correccionEmpleado.view.experienciasLaborales}" var="e"
+                                     rowKey="#{e.idExperienciaLaboral}" paginator="true"
+                                     paginatorPosition="bottom" rows="10"
+                                     emptyMessage="No se ha encontrado ninguna experiencia laboral.">
+                            <p:column headerText="Empresa">
+                                <h:outputText value="#{e.nombreEmpresa}" />
+                            </p:column>
+                            
+                            <p:column headerText="Puesto">
+                                <h:outputText value="#{e.puestoAspirante}" />
+                            </p:column>
+
+                            <p:column headerText="Duración">
+                                <h:outputText value="#{e.fechaInicial} - #{e.fechaFinal}" />
+                            </p:column>
+                        </p:dataTable>
+                        
+                        <p:panelGrid id="registroExperiencia" columns="3"
+                                     columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+                                     layout="grid" styleClass="ui-panelgrid-blank">
+                            <p:spacer />
+
+                            <p:panelGrid columns="1"
+                                         columnClasses="ui-grid-col-12"
+                                         layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                                <f:facet name="header">
+                                    <h3>Registrar Experiencia Laboral</h3>
+                                </f:facet>
+                                
+                                <p:outputLabel for="nombreEmpresa"
+                                               value="Nombre de la Empresa o Institución*" />
+                                <p:inputText id="nombreEmpresa"
+                                             value="#{correccionEmpleado.view.experienciaLaboral.nombreEmpresa}"
+                                             validator="#{correccionEmpleado.validatorExperienciaLaboral}">
+                                    <p:ajax update="msgNombreEmpresa" />
+                                    <p:clientValidator />
+                                </p:inputText>
+                                <p:message id="msgNombreEmpresa" for="nombreEmpresa" />
+                                
+                                <p:outputLabel for="puestoDesempeado"
+                                               value="Puesto desempeñado*" />
+                                <p:inputText id="puestoDesempeado"
+                                             value="#{correccionEmpleado.view.experienciaLaboral.puestoAspirante}"
+                                             validator="#{correccionEmpleado.validatorExperienciaLaboral}">
+                                    <p:ajax update="msgPuestoDesempe" />
+                                    <p:clientValidator />
+                                </p:inputText>
+                                <p:message id="msgPuestoDesempe" for="puestoDesempeado" />
+
+                                <p:outputLabel for="anioInicial" value="Fecha inicial*" />
+                                <p:calendar id="anioInicial"
+                                            value="#{correccionEmpleado.view.experienciaLaboral.fechaInicial}"
+                                            pattern="dd/MM/yyyy" />
+
+                                <p:outputLabel for="anioFinal" value="Fecha final" />
+                                <p:calendar id="anioFinal"
+                                            value="#{correccionEmpleado.view.experienciaLaboral.fechaFinal}"
+                                            pattern="dd/MM/yyyy" />
+
+                                <p:spacer />
+                                <p:commandButton value="Registrar"
+                                                 actionListener="#{correccionEmpleado.registrarExperienciaLaboral()}"
+                                                 update="form" />
+                            </p:panelGrid>
+
+                            <p:spacer />
+                        </p:panelGrid>
+                    </p:panelGrid>
+                </h:panelGroup>
+            </p:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>

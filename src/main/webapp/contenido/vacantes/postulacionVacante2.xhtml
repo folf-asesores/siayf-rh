@@ -1,0 +1,350 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Postular Candidato" />
+	<ui:param name="moduloTitulo" value="Postular Candidato" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite postular los candidatos para la vacante." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+			<br />
+
+			<p:dataTable emptyMessage="No se encontrarón resultados"
+				rendered="#{seleccionVacante.view.mostrarTabla}"
+				filteredValue="#{seleccionVacante.view.filtroSeleccionVacante}"
+				value="#{seleccionVacante.view.listaSeleccionVacante}" var="s"
+				widgetVar="vacante" paginator="true" rows="5"
+				paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+					<div align="right">
+						<p:outputPanel>
+							<p:inputText id="globalFilter" onkeyup="PF('vacante').filter()"
+								style="width:360px"
+								placeholder="Buscar: Tipo Contratación o Folio Vacante" />
+							<span class="ui-icon-search" />
+						</p:outputPanel>
+					</div>
+				</f:facet>
+
+				<p:ajax event="filter" ignoreAutoUpdate="true" />
+
+				<p:column headerText="Tipo Contratación"
+					filterBy="#{s.tipoContratacion}" filterStyle="display:none">
+					<h:outputText value="#{s.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Nombramiento">
+					<h:outputText value="#{s.nombramiento}" />
+				</p:column>
+
+				<p:column headerText="Folio Vacante" filterBy="#{s.folioVacante}"
+					filterStyle="display:none">
+					<h:outputText value="#{s.folioVacante}" />
+				</p:column>
+
+				<p:column headerText="Codigo Puesto">
+					<h:outputText value="#{s.codigoPuesto}" />
+				</p:column>
+
+				<p:column headerText="puesto">
+					<h:outputText value="#{s.puesto}" />
+				</p:column>
+
+				<p:column headerText="Sueldo">
+					<h:outputText value="#{s.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opción" style="text-align: center;" width="80">
+					<p:commandButton icon="ui-icon-person" title="Seleccionar Vacante"
+						onsuccess="PF('statusDialog').hide()" update="form"
+						action="#{seleccionVacante.seleccionarCandidato(s)}"
+						oncomplete="mymessages();" onstart="PF('statusDialog').show()" />
+				</p:column>
+
+			</p:dataTable>
+
+			<p:panel
+				rendered="#{seleccionVacante.view.mostrarSeleccionCandidato}">
+
+				<p:panelGrid layout="grid" columns="3"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1">
+					<p:outputLabel />
+					<p:panelGrid layout="grid" columns="2"
+						styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+						columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+						<f:facet name="header">
+							<h3>Seleccionar Candidato</h3>
+						</f:facet>
+
+						<p:outputLabel for="tipoContratacion" value="Tipo Contratación:" />
+						<p:inputText id="tipoContratacion" disabled="true"
+							value="#{seleccionVacante.view.seleccionVacante.tipoContratacion}" />
+
+						<p:outputLabel for="nombramiento" value="Nombramiento:" />
+						<p:inputText id="nombramiento" disabled="true"
+							value="#{seleccionVacante.view.seleccionVacante.nombramiento}" />
+
+						<p:outputLabel for="folioVacante" value="Folio Vacante:" />
+						<p:inputText id="folioVacante" disabled="true"
+							value="#{seleccionVacante.view.seleccionVacante.folioVacante}" />
+
+						<p:outputLabel for="codigoPuesto" value="Codigo Puesto:" />
+						<p:inputText id="codigoPuesto" disabled="true"
+							value="#{seleccionVacante.view.seleccionVacante.codigoPuesto}" />
+
+						<p:outputLabel for="puesto" value="Puesto:" />
+						<p:inputText id="puesto" disabled="true"
+							value="#{seleccionVacante.view.seleccionVacante.puesto}" />
+
+						<p:outputLabel for="sueldo" value="Sueldo:" />
+						<p:inputText id="sueldo" disabled="true" placeholder="$00.00"
+							value="#{seleccionVacante.view.seleccionVacante.sueldo}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</p:inputText>
+
+					</p:panelGrid>
+					<p:outputLabel />
+					<p:outputLabel />
+
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="2" columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+						<p:outputLabel for="tipoCandidato" value="Tipo Candidato:" />
+						<p:outputPanel id="outputTipoCandidato">
+							<p:selectOneMenu id="tipoCandidato" effect="size"
+								title="Seleccionar para realizar la busqueda de los tipos de candidatos..."
+								validator="#{seleccionVacante.validarCampo}"
+								value="#{seleccionVacante.view.tipoCandidato}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems
+									value="#{seleccionVacante.view.listaTipoCandidato}" />
+								<p:ajax event="valueChange" update="form"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()"
+									oncomplete="mymessages(); mymessagesTable();"
+									listener="#{seleccionVacante.mostrarFiltroPerfil()}" />
+
+								<p:clientValidator />
+
+							</p:selectOneMenu>
+							<p:message for="tipoCandidato" />
+						</p:outputPanel>
+
+						<p:outputLabel
+							rendered="#{seleccionVacante.view.mostrarFiltroPerfil}"
+							for="tipoPerfil" value="Tipo Perfil:" />
+						<p:outputPanel
+							rendered="#{seleccionVacante.view.mostrarFiltroPerfil}"
+							id="outputTipoPerfil">
+							<p:selectOneMenu id="tipoPerfil" effect="size"
+								title="Seleccionar para realizar la busqueda de los tipos de candidatos..."
+								validator="#{seleccionVacante.validarCampo}"
+								value="#{seleccionVacante.view.tipoPerfil}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems value="#{seleccionVacante.view.listaTipoPerfil}" />
+								<p:ajax event="valueChange" update="form"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()"
+									oncomplete="mymessages(); mymessagesTable();"
+									listener="#{seleccionVacante.mostrarFiltroProfesionEspecialidad()}" />
+
+								<p:clientValidator />
+
+							</p:selectOneMenu>
+							<p:message for="tipoPerfil" />
+
+						</p:outputPanel>
+
+						<p:outputLabel
+							rendered="#{seleccionVacante.view.mostrarFiltroProfesion}"
+							for="tipoProfesion" value="Tipo Profesión:" />
+						<p:outputPanel
+							rendered="#{seleccionVacante.view.mostrarFiltroProfesion}"
+							id="outputTipoProfesion">
+							<p:selectOneMenu id="tipoProfesion" filter="true"
+								filterMatchMode="startsWith" effect="size"
+								title="Seleccionar para realizar la busqueda de los tipos de candidatos..."
+								validator="#{seleccionVacante.validarCampo}"
+								value="#{seleccionVacante.view.tipoProfesion}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems
+									value="#{seleccionVacante.view.listaTipoProfesion}" />
+								<p:ajax event="valueChange" update="form"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()"
+									oncomplete="mymessages(); mymessagesTable();"
+									listener="#{seleccionVacante.obtenerListaVacantePostular()}" />
+
+								<p:clientValidator />
+
+							</p:selectOneMenu>
+							<p:message for="tipoProfesion" />
+						</p:outputPanel>
+
+						<p:outputLabel
+							rendered="#{seleccionVacante.view.mostrarFiltroEspecialidad}"
+							for="tipoEspecialidad" value="Tipo Especialidad:" />
+						<p:outputPanel
+							rendered="#{seleccionVacante.view.mostrarFiltroEspecialidad}"
+							id="outputTipoEspecialidad">
+							<p:selectOneMenu id="tipoEspecialidad" filter="true"
+								filterMatchMode="startsWith" effect="size"
+								title="Seleccionar para realizar la busqueda de los tipos de candidatos..."
+								validator="#{seleccionVacante.validarCampo}"
+								value="#{seleccionVacante.view.tipoEspecialidad}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems
+									value="#{seleccionVacante.view.listaTipoEspecialidad}" />
+								<p:ajax event="valueChange" update="form"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()"
+									oncomplete="mymessages(); mymessagesTable();"
+									listener="#{seleccionVacante.obtenerListaVacantePostular()}" />
+
+								<p:clientValidator />
+
+							</p:selectOneMenu>
+							<p:message for="tipoEspecialidad" />
+						</p:outputPanel>
+
+					</p:panelGrid>
+					<p:outputLabel />
+
+				</p:panelGrid>
+
+				<br />
+				<p:messages id="messagesTable" showDetail="true"
+					globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+				<p:dataTable emptyMessage="No se encontrarón resultados..."
+					rowKey="#{v.idEmpleadoAspirante}"
+					value="#{seleccionVacante.view.listaVacantePostular}" var="v"
+					filteredValue="#{seleccionVacante.view.filtroVacantePostular}"
+					selection="#{seleccionVacante.view.listaSeleccionadaVacantePostular}"
+					selectionMode="Multiple" widgetVar="vacantesPostular"
+					paginator="true" rows="5" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" style="margin-bottom:0">
+
+					<f:facet name="header">
+						<div align="right">
+							<p:outputPanel>
+								<p:inputText id="globalFilter"
+									onkeyup="PF('vacantesPostular').filter()"
+									placeholder="Buscar: Nombre" />
+								<span class="ui-icon-search" />
+							</p:outputPanel>
+						</div>
+					</f:facet>
+
+					<p:ajax event="rowSelect" update="form" />
+					<p:ajax event="rowUnselect" update="form" />
+
+					<p:column headerText="#{seleccionVacante.view.headerPerfil}"
+						rendered="#{seleccionVacante.view.mostrarColumnaHeaderPerfil}">
+						<h:outputText value="#{v.nombreProfesionEspecialidad}" />
+					</p:column>
+
+					<p:column headerText="RFC">
+						<h:outputText value="#{v.rfc}" />
+					</p:column>
+
+					<p:column headerText="CURP">
+						<h:outputText value="#{v.curp}" />
+					</p:column>
+
+					<p:column headerText="Nombre" filterBy="#{v.nombreCompleto}"
+						filterStyle="display:none">
+						<h:outputText value="#{v.nombreCompleto}" />
+					</p:column>
+
+					<p:column headerText="Dirección">
+						<h:outputText value="#{v.direccionCompleta}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{v.status}" />
+					</p:column>
+
+				</p:dataTable>
+
+				<br />
+				<br />
+
+				<p:outputPanel>
+					<p:commandButton icon="ui-icon-arrowthick-1-w" value="Regresar"
+						styleClass="fm-btn-elevado" update="form" process="@this"
+						style="float:left;" oncomplete="mymessages();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						action="#{seleccionVacante.regresarPaginaSeleccionCandidato()}" />
+
+					<p:commandButton icon="ui-icon-check" iconPos="right"
+						oncomplete="mymessages(); mymessagesTable();"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" style="float:right;"
+						value="Postular" styleClass="fm-btn-elevado" update="form"
+						action="#{seleccionVacante.mostrarConfirmacionPostular()}"
+						process="@this" />
+				</p:outputPanel>
+
+				<br />
+				<br />
+
+				<p:dialog header="Postular Vacante Seleccionado" modal="true"
+					showEffect="Slide" hideEffect="Drop"
+					visible="#{seleccionVacante.view.mostrarConfirmacionPostular}"
+					width="auto">
+
+					<p:messages id="messages" showDetail="true" autoUpdate="false"
+						closable="true" globalOnly="true" />
+
+					<div align="center">
+						<p:commandButton title="Si" icon="ui-icon-check" update="form"
+							oncomplete="mymessages(); mymessagesTable();"
+							action="#{seleccionVacante.postularCandidatoVacante()}"
+							styleClass="fm-btn-elevado" />
+						<p:spacer width="20%" />
+						<p:commandButton title="No" icon="ui-icon-close"
+							oncomplete="mymessages(); mymessagesTable();"
+							styleClass="fm-btn-peligro fm-btn-elevado" update="form"
+							action="#{seleccionVacante.cerrarConfirmacionPostular()}" />
+					</div>
+
+				</p:dialog>
+
+			</p:panel>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+
+</ui:composition>

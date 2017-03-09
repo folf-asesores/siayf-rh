@@ -1,0 +1,127 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Movimientos de Nomina" />
+	<ui:param name="moduloTitulo" value="Movimientos de Nomina" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:messages id="messages" showDetail="true" closable="true" />
+
+			<p:panel id="panelPrincipal"
+				rendered="#{configuracionTiposMovimientoNominaController.mostrarPanelbusqueda}">
+				<p:dataTable id="movimientosTabla" var="movimiento" rows="10" filteredValue="#{configuracionTiposMovimientoNominaController.listaMovimientosfilter}"
+					paginator="true"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15"
+					value="#{configuracionTiposMovimientoNominaController.listaMovimientos}" widgetVar="movTable">
+
+  <f:facet name="header">
+            <p:outputPanel>
+                <h:outputText value="Buscar en todas las columnas:" />
+                <p:inputText id="globalFilter" onkeyup="PF('movTable').filter()" style="width:200px" placeholder="Ingrese el criterio"/>
+            </p:outputPanel>
+        </f:facet>
+
+					<p:column headerText="Clave" filterBy="#{movimiento.clave}" filterMatchMode="contains">
+						<h:outputText value="#{movimiento.clave}" />
+					</p:column>
+					<p:column headerText="Descripcion" filterBy="#{movimiento.descripcion}" filterMatchMode="contains">
+						<h:outputText value="#{movimiento.descripcion}" />
+					</p:column>
+					<p:column style="width:42px;text-align: center">
+						<p:commandButton update="form"
+							action="#{configuracionTiposMovimientoNominaController.buscarConfiguracion(movimiento)}"
+							icon="ui-icon-search" title="View">
+							<f:setPropertyActionListener value="#{movimiento}"
+								target="#{configuracionTiposMovimientoNominaController.tipoMovimientoSeleccionado}" />
+						</p:commandButton>
+					</p:column>
+
+				</p:dataTable>
+
+			</p:panel>
+
+
+			<p:panel id="panelConfiguracion"
+				rendered="#{configuracionTiposMovimientoNominaController.mostrarPanelConf}">
+
+				<h:outputText style="font-weight:bold; font-size:20px"
+					value="#{configuracionTiposMovimientoNominaController.tipoMovimientoSeleccionado.descripcion}" />
+				<p:spacer width="50px" />
+
+				<br />
+				<br />
+
+				<p:panelGrid>
+				<p:row>
+				<p:column>
+				<p:commandButton value="Modificar configuración" onclick="PF('edicionDlg').show();" icon="ui-icon-pencil" styleClass="fm-btn-informacion"/>
+				<p:spacer/>
+				<p:commandButton id="regreso" value="Regresar" styleClass="fm-btn-acento"
+						action="#{configuracionTiposMovimientoNominaController.regresar()}"
+						update="@form" />
+				</p:column>
+				</p:row>
+					<p:row>
+						<p:column>
+							<p:dataTable id="conceptosrelasionadosTabla" var="concepto"
+								rows="10" paginator="true"
+								paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15"
+								value="#{configuracionTiposMovimientoNominaController.listaConceptosSeleccionados}">
+								<f:facet name="header">
+									
+								</f:facet>
+								<p:column headerText="Clave">
+									<h:outputText value="#{concepto.clave}" />
+								</p:column>
+								<p:column headerText="Descripcion">
+									<h:outputText value="#{concepto.descripcion}" />
+								</p:column>
+
+							</p:dataTable>
+						</p:column>
+			
+					</p:row>
+
+				</p:panelGrid>
+
+				<p:dialog id="dialogEdicion" widgetVar="edicionDlg" modal="true" height="450" width="60%" header="Modificar Configuración de tipo de movimiento de nomina">
+					<p:dataTable id="conceptosTabla" var="concepto" rows="5"
+						paginator="true"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15"
+						value="#{configuracionTiposMovimientoNominaController.listaConceptos}"
+						selection="#{configuracionTiposMovimientoNominaController.listaConceptosSeleccionados}"
+						rowKey="#{concepto.idConceptoNomina}">
+						<p:column selectionMode="multiple"
+							style="width:30px;text-align:center" />
+						<p:column headerText="Clave" filterBy="#{concepto.clave}"
+							filterMatchMode="contains">
+							<h:outputText value="#{concepto.clave}" />
+						</p:column>
+						<p:column headerText="Descripcion">
+							<h:outputText value="#{concepto.descripcion}" />
+						</p:column>
+
+					</p:dataTable>
+					<p:commandButton id="guardarConfiguracion" styleClass="fm-btn-exitoso"
+						value="Guardar Configuracion" update="form" icon="fm-icon-floppy"
+						actionListener="#{configuracionTiposMovimientoNominaController.guardarConfiguracion()}" oncomplete="PF('edicionDlg').hide();" />
+					<p:spacer width="50px" />
+					<p:commandButton id="cancelar" value="Cancelar" styleClass="fm-btn-peligro"
+					onclick="PF('edicionDlg').hide();"/>
+				</p:dialog>
+			</p:panel>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

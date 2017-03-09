@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/miniform-impl.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Sin autorización || No puede ver esta notificacion" />
+	
+	<ui:param name="moduloEncabezadoTitulo" value="¡Acceso denegado!" />
+	
+	<ui:define name="moduloEncabezadoIcono">
+		<span class="fm-icon-eye-off fm-icon-color-informacion"></span>
+	</ui:define>
+	
+	<ui:define name="moduloContenido">
+		<p>Lo sentimos, pero la notificación que está tratando de ver
+                    no corresponde a su usuario.</p>
+
+            <p:button value="Regresar al inicio" href="/contenido/inicio.xhtml"
+                icon="ui-icon-home" styleClass="fm-btn-informacion"/>
+	</ui:define>
+	
+</ui:composition>

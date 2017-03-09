@@ -1,0 +1,93 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Consulta Suplencia" />
+	<ui:param name="moduloTitulo" value="Consulta Suplencia" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para registrar suplencias." />
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+				<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+				<p:inputText id="criterio" required="true"
+					value="#{consultaSuplencia.view.filtro.criterio}">
+				</p:inputText>
+
+				<p:commandButton oncomplete="mymessages();"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					action="#{consultaSuplencia.buscarSuplente()}" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="tablaPuesto" editable="true" var="s" scrollRows="10"
+				scrollable="true"
+				value="#{consultaSuplencia.view.suplentesAutorizados}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{s.rfc}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{s.nombre}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{s.estatus}" />
+				</p:column>
+
+				<p:column headerText="Tiplo Suplente">
+					<h:outputText value="#{s.tipoSuplente}" />
+				</p:column>
+
+				<p:column headerText="Ver">
+					<p:commandButton update="form:resumen"
+						actionListener="#{consultaSuplencia.seleccionarSuplente(s.idSuplente)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:spacer></p:spacer>
+
+			<p:dataTable id="resumen" var="s" scrollRows="10" scrollable="true"
+				value="#{consultaSuplencia.view.suplencias}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<p:column headerText="Año">
+					<h:outputText value="#{s.ejercicio}" />
+				</p:column>
+				<p:column headerText="Mes">
+					<h:outputText value="#{s.mes}" />
+				</p:column>
+				<p:column headerText="Total">
+					<h:outputText value="#{s.total}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>

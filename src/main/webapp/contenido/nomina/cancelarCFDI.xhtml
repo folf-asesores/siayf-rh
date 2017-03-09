@@ -1,0 +1,99 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Nomina" />
+	<ui:param name="moduloTitulo" value="Cancelar CFDI" />
+	<ui:param name="moduloSubtitulo"
+		value="Ingrese el folio fiscal a cancelar. Debera esperar 24Hrs despues del timbrado para cancelar el CFDI" />
+
+	<ui:define name="moduloContenido">
+		<f:event listener="#{cancelarCFDI.init}" type="preRenderView" />
+		<h:form id="frmCancelar" styleClass="fm-contenedor-100">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel styleClass="fm-contenedor-50">
+				<p:panelGrid columns="3" styleClass=" fm-contenedor-100 sin_borde">
+					<p:outputLabel>Folio Fiscal:</p:outputLabel>
+					<p:inputText styleClass="input_lng" value="#{cancelarCFDI.uuid}"></p:inputText>
+					<p:commandButton actionListener="#{cancelarCFDI.buscarCFDI}"
+						update="informacionCFDI" icon="ui-icon-search" />
+				</p:panelGrid>
+			</p:panel>
+			<br />
+			<p></p>
+			<p></p>
+			<p:spacer></p:spacer>
+			<p:panel id="informacionCFDI" styleClass="fm-contenedor-100">
+				<p:panelGrid styleClass=" fm-contenedor-100 sin_borde"
+					rendered="#{cancelarCFDI.mostrarInformacion}">
+					<p:row>
+						<p:column>
+							<p:outputLabel>Folio Fiscal:</p:outputLabel>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="#{cancelarCFDI.comprobante.uUID}" />
+						</p:column>
+						<p:column>
+							<p:outputLabel>Fecha:</p:outputLabel>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="#{cancelarCFDI.comprobante.fecha}" />
+						</p:column>
+
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel>RFC:</p:outputLabel>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="#{cancelarCFDI.comprobante.rFC}" />
+						</p:column>
+						<p:column>
+							<p:outputLabel>CUPR:</p:outputLabel>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="#{cancelarCFDI.comprobante.cURP}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel>Nombre:</p:outputLabel>
+						</p:column>
+						<p:column colspan="2">
+							<p:outputLabel value="#{cancelarCFDI.comprobante.nombre}" />
+						</p:column>
+						<p:column>
+							<p:commandButton actionListener="#{cancelarCFDI.cancelar}"
+							update="@all"
+								value="Cancelar CFDI" />
+								
+								<p:commandButton actionListener="#{cancelarCFDI.cancelarMasivo()}"
+							update="@all"
+								value="Cancelar CFDI Masivo" />
+								
+						</p:column>
+					</p:row>
+
+
+				</p:panelGrid>
+			</p:panel>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+
+		</h:form>
+		<br />
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,376 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Producto Nómina" />
+	<ui:param name="moduloTitulo" value="Producto Nómina" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="formPoll">
+			<p:poll widgetVar="pWV" interval="1" async="true"
+				listener="#{productosNomina.estaEnProcesoCalculo(2)}"
+				update="formPoll" onerror="PF('pWV').stop();" process="@this"
+				global="false" timeout="20000" ignoreAutoUpdate="true" />
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				id="proceso" columns="3"
+				rendered="#{productosNomina.view.proceso.enProceso}"
+				columnClasses="ui-grid-col-5,ui-grid-col-3, ui-grid-col-4">
+				<f:facet name="header">
+					<h3>Procesados
+						#{productosNomina.view.proceso.numeroProcesado}</h3>
+				</f:facet>
+				<p:spacer></p:spacer>
+				<p:graphicImage library="imagenes" name="progress.gif" height="200"
+					width="200" />
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+		</h:form>
+
+		<h:form id="form" styleClass="fm-tarjeta"
+			enctype="multipart/form-data">
+
+			<p:messages id="messages" 
+						showDetail="true" 
+						autoUpdate="true"
+						closable="true" 
+						globalOnly="true" />
+
+			<p:outputPanel id="panelFiltro"
+							rendered="#{productosNomina.view.panelFiltro}">
+				<p:commandButton id="filto" 
+								value="Buscar" 
+								icon="ui-icon-search"
+								update=":form" 
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()"
+								action="#{productosNomina.filtrarProductoNomina()}" />
+				<p:commandButton id="nuevo" 
+								value="Nuevo" 
+								icon="ui-icon-circle-plus"
+								update=":form" 
+								style="float:right;"
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()"
+								action="#{productosNomina.irNuevo()}" />
+				<br />
+				<p:panelGrid layout="grid" 
+								styleClass="ui-panelgrid-blank ui-fluid"
+								columns="2" 
+								columnClasses="ui-grid-col-3,ui-grid-col-9">
+					<ui:remove>
+						<p:outputLabel for="filtroidSubfuenteFinanciamiento"
+									value="Subfuente de Financiamiento" />
+						<p:selectOneMenu id="filtroidSubfuenteFinanciamiento"
+										value="#{productosNomina.view.filtro.idSubfuenteFinanciamiento}"
+										validator="#{productosNomina.validator.validatorProductoNomina}"
+										filter="true" 
+										filterMatchMode="contains">
+							<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+							<f:selectItems	value="#{productosNomina.view.subfuenteFinanciamientoList}"
+											var="subfuenteFinanciamientoFiltro"
+											itemValue="#{subfuenteFinanciamientoFiltro.idSubfuenteFinanciamiento}"
+											itemLabel="#{subfuenteFinanciamientoFiltro.descripcion}" />
+						</p:selectOneMenu>
+					</ui:remove>
+
+					<p:outputLabel for="filtroEjercicioFiscal" value="Ejercicio Fiscal" />
+					<p:inputText id="filtroEjercicioFiscal"
+								value="#{productosNomina.view.filtro.ejercicioFiscal}" />
+
+					<p:outputLabel for="filtroidTipoNomina" value="Tipo de Nómina" />
+					<p:selectOneMenu id="filtroidTipoNomina"
+						value="#{productosNomina.view.filtro.idTipoNomina}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems value="#{productosNomina.view.tipoNominaList}"
+							var="tipoNominaFiltro"
+							itemValue="#{tipoNominaFiltro.idTipoNomina}"
+							itemLabel="#{tipoNominaFiltro.descripcion}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="filtroidEstatus" value="Estatus" />
+					<p:selectOneMenu id="filtroidEstatus"
+									value="#{productosNomina.view.filtro.idEstatus}"
+									validator="#{productosNomina.validator.validatorProductoNomina}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems
+							value="#{productosNomina.view.estatusProductoNominaLista}"
+							var="estatusProductoNomina"
+							itemValue="#{estatusProductoNomina.idEstatusConceptoNomina}"
+							itemLabel="#{estatusProductoNomina.estatus}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<br />
+				<p:commandButton id="gestionar" 
+								value="Gestionar" 
+								update=":form"
+								action="#{productosNomina.irGestionar()}"
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()" />
+
+				<p:dataTable id="tablaProductoNomina"
+							value="#{productosNomina.view.filtroProductoNominaList}"
+							var="productoNominaItem"
+							selection="#{productosNomina.view.productoNominaSelect}"
+							selectionMode="single"
+							rowKey="#{productoNominaItem.idProductoNomina}">
+					<p:column headerText="Nombre" >
+						<h:outputText value="#{productoNominaItem.nombreProducto}" />
+					</p:column>
+					<p:column headerText="Contratación" >
+						<h:outputText value="#{productoNominaItem.tipoContratacion}" />
+					</p:column>
+					<p:column headerText="Periodo" >
+						<h:outputText value="#{productoNominaItem.periodoCalendario}" />
+					</p:column>
+					<p:column headerText="Tipo de Nómina" >
+						<h:outputText value="#{productoNominaItem.tipoNomina}" />
+					</p:column>
+					<p:column headerText="Estatus" >
+						<h:outputText value="#{productoNominaItem.estatus}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelForm"
+				rendered="#{productosNomina.view.panelForm}">
+				<p:commandButton id="detalle" 
+								value="Abrir Producto de nómina"
+								disabled="#{productosNomina.view.operacion}"
+								update="form, :formPoll" 
+								process="@this"
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()"
+								action="#{productosNomina.abrirNomina()}">
+					<p:confirm header="Confirmacion"
+								message="¿Desea abrir el producto de nómina? se podran registrar los movimientos de nómina a los empleados."
+								icon="ui-icon-alert" />
+				</p:commandButton>
+				<p:commandButton id="btnAbrirPorFC" 
+                                 value="Abrir con archivo..."
+                                 disabled="#{productosNomina.view.operacion}"
+                                 update="form, :formPoll" 
+                                 process="@this"
+                                 action="#{productosNomina.abrirNominaPorRfc()}">
+				</p:commandButton>
+				<p:commandButton id="eliminarProductoNomina" 
+								value="Eliminar" 
+								style="float:right"
+								update="form"
+								process="@this"
+								action="#{productosNomina.eliminarProductoNomina()}">
+					<p:confirm header="Confirmación"
+								message="¿Desea eliminar el producto de nómina? se perdera toda la información relacionada con este producto de nomina."
+								icon="ui-icon-alert" />
+				</p:commandButton>
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" 
+									type="button"
+	                                onsuccess="PF(`statusDialog`).hide()"
+	                                onstart="PF(`statusDialog`).show()"
+									styleClass="ui-confirmdialog-yes" 
+									icon="ui-icon-check" />
+					<p:commandButton value="No" 
+									type="button"
+									styleClass="ui-confirmdialog-no" 
+									icon="ui-icon-close" />
+				</p:confirmDialog>
+
+				<p:panelGrid layout="grid" 
+							styleClass="ui-panelgrid-blank ui-fluid"
+							columns="3"
+							columnClasses="ui-grid-col-3,ui-grid-col-6,ui-grid-col-3">
+					<f:facet name="header">
+						<p:messages id="errorProducto" 
+									showDetail="true"
+									autoUpdate="false" 
+									severity="error" 
+									closable="true" />
+					</f:facet>
+
+					<p:outputLabel for="nombreProducto" 
+									value="Nombre"
+									title="Nombre del Producto de  Nómina" />
+					<p:inputText id="nombreProducto"
+								value="#{productosNomina.view.productoNomina.nombreProducto}"
+								required="true">
+					</p:inputText>
+					<p:message id="msgnombreProducto" for="nombreProducto" />
+
+					<p:outputLabel for="idTipoContratacion" value="Tipo Contratación" />
+					<p:selectOneMenu id="idTipoContratacion"
+									value="#{productosNomina.view.productoNomina.idTipoContratacion}"
+									validator="#{productosNomina.validator.validatorProductoNomina}"
+									required="true" 
+									filter="true" 
+									filterMatchMode="contains">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems	value="#{productosNomina.view.tipoContratacionList}"
+										var="tipoContratacion"
+										itemValue="#{tipoContratacion.idTipoContratacion}"
+										itemLabel="#{tipoContratacion.tipoContratacion}" />
+					</p:selectOneMenu>
+					<p:message id="msgidTipoContratacion" for="idTipoContratacion" />
+
+
+					<p:outputLabel for="idSubfuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						value="Subfuente de Financiamiento" />
+					<p:selectOneMenu id="idSubfuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						value="#{productosNomina.view.productoNomina.idSubfuenteFinanciamiento}"
+						validator="#{productosNomina.validator.validatorProductoNomina}"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems
+							value="#{productosNomina.view.subfuenteFinanciamientoList}"
+							var="subfuenteFinanciamientoFiltro"
+							itemValue="#{subfuenteFinanciamientoFiltro.idSubfuenteFinanciamiento}"
+							itemLabel="#{subfuenteFinanciamientoFiltro.descripcion}" />
+						<p:ajax
+							listener="#{productosNomina.actualizarFuenteFinanciamiento}"
+							update="idFuenteFinanciamiento" />
+					</p:selectOneMenu>
+					<p:message id="msgSubfuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						for="idSubfuenteFinanciamiento" />
+
+					<p:outputLabel for="cambiarFuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						value="Cambiar Fuente de Financiamiento" />
+					<p:inputSwitch id="cambiarFuenteFinanciamiento"
+						value="#{productosNomina.view.productoNomina.cambiarFuenteFinanciamiento}"
+						rendered="#{productosNomina.view.renderedValido}" onLabel="Si"
+						offLabel="No">
+						<p:ajax listener="#{productosNomina.cambiarFuenteFinanciamiento}"
+							update="idFuenteFinanciamiento" />
+					</p:inputSwitch>
+					<p:message id="msgproductosNomina"
+						rendered="#{productosNomina.view.renderedValido}"
+						for="cambiarFuenteFinanciamiento" />
+
+					<p:outputLabel for="idFuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						value="Fuente de Financiamiento" />
+					<p:selectOneMenu id="idFuenteFinanciamiento"
+						value="#{productosNomina.view.productoNomina.idFuenteFinanciamiento}"
+						disabled="#{!productosNomina.view.cambiarFuenteFinanciamiento}"
+						rendered="#{productosNomina.view.renderedValido}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems
+							value="#{productosNomina.view.fuenteFinanciamientoList}"
+							var="fuenteFinanciamientoFiltro"
+							itemValue="#{fuenteFinanciamientoFiltro.idFuenteFinanciamiento}"
+							itemLabel="#{fuenteFinanciamientoFiltro.descripcion}" />
+						<p:ajax update="msgFuenteFinanciamiento" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgFuenteFinanciamiento"
+						rendered="#{productosNomina.view.renderedValido}"
+						for="idFuenteFinanciamiento" />
+
+					<p:outputLabel for="ejercicioFiscal" value="Ejercicio Fiscal" />
+					<p:inputText id="ejercicioFiscal"
+						value="#{productosNomina.view.productoNomina.ejercicioFiscal}">
+						<p:ajax listener="#{productosNomina.cambiarTipoPeriodoLista}"
+							update="idTipoPeriodo" />
+					</p:inputText>
+					<p:message id="msgEjercicioFiscal" for="ejercicioFiscal" />
+
+					<p:outputLabel for="idTipoPeriodo" value="Tipo de Periodo" />
+					<p:selectOneMenu id="idTipoPeriodo"
+						value="#{productosNomina.view.productoNomina.idTipoPeriodo}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems value="#{productosNomina.view.tipoPeriodoLista}"
+							var="nombramientoFiltro"
+							itemValue="#{nombramientoFiltro.idTipoPeriodo}"
+							itemLabel="#{nombramientoFiltro.tipoPeriodo}" />
+					</p:selectOneMenu>
+					<p:message id="msgidTipoPeriodo" for="idTipoPeriodo" />
+
+					<p:outputLabel for="numeroPeriodo" value="Periodo" />
+					<p:inputText id="numeroPeriodo"
+						value="#{productosNomina.view.productoNomina.numeroPeriodo}">
+						<p:ajax update=":form"
+							process="nombreProducto,idTipoContratacion,ejercicioFiscal,idTipoPeriodo,numeroPeriodo"
+							listener="#{productosNomina.cambiarFechasPeriodos()}" />
+					</p:inputText>
+					<p:message id="msgnumeroPeriodo" for="numeroPeriodo" />
+
+					<p:outputLabel for="inicioPeriodo" value="Inicio de Periodo" />
+					<p:calendar id="inicioPeriodo" pattern="dd/MM/yyyy"
+						value="#{productosNomina.view.productoNomina.inicioPeriodo}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<p:ajax update="msginicioPeriodo" />
+						<p:clientValidator />
+					</p:calendar>
+					<p:message id="msginicioPeriodo" for="inicioPeriodo" />
+
+					<p:outputLabel for="finPeriodo" value="Fin de Periodo" />
+					<p:calendar id="finPeriodo" pattern="dd/MM/yyyy"
+						value="#{productosNomina.view.productoNomina.finPeriodo}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<p:ajax update="msgfinPeriodo" />
+						<p:clientValidator />
+					</p:calendar>
+					<p:message id="msgfinPeriodo" for="finPeriodo" />
+
+					<p:outputLabel for="idTipoNomina" value="Tipo de Nómina" />
+					<p:selectOneMenu id="idTipoNomina"
+						value="#{productosNomina.view.productoNomina.idTipoNomina}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems value="#{productosNomina.view.tipoNominaList}"
+							var="tipoNominaFiltro"
+							itemValue="#{tipoNominaFiltro.idTipoNomina}"
+							itemLabel="#{tipoNominaFiltro.descripcion}" />
+						<p:ajax update="msgTipoNomina" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgTipoNomina" for="idTipoNomina" />
+
+					<p:outputLabel for="idEstatus" value="Estatus" />
+					<p:selectOneMenu id="idEstatus"
+						value="#{productosNomina.view.productoNomina.idEstatusProductoNomina}"
+						disabled="#{!productosNomina.view.habilitarEstatus}"
+						validator="#{productosNomina.validator.validatorProductoNomina}">
+						<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+						<f:selectItems
+							value="#{productosNomina.view.estatusProductoNominaLista}"
+							var="estatusProductoNomina"
+							itemValue="#{estatusProductoNomina.idEstatusConceptoNomina}"
+							itemLabel="#{estatusProductoNomina.estatus}" />
+						<p:ajax update="msgidEstatus" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgidEstatus" for="idEstatus" />
+
+
+				</p:panelGrid>
+
+
+
+				<p:commandButton id="guardar" 
+								value="Guardar" 
+								update="form"
+								actionListener="#{productosNomina.guardarProductoNomina()}">
+				</p:commandButton>
+				<p:commandButton id="calcelar" 
+								value="Regresar" 
+								style="float:right"
+								update="form"
+								process="@this"
+								action="#{productosNomina.irPrincipal()}">
+				</p:commandButton>
+
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

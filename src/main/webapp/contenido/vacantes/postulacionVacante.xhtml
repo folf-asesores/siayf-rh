@@ -1,0 +1,473 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Postulación Candidato" />
+	<ui:param name="moduloTitulo" value="Postulación Candidato" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite seleccionar candidatos para postularlos a una vacante." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+
+
+
+			<p:dataTable emptyMessage="No se encontrarón resultados"
+				value="#{postulacionVacante.view.puestosDisponibles}" var="s"
+				rendered="#{postulacionVacante.view.mostrarBusqueda}"
+				widgetVar="vacante" paginator="true" rows="5"
+				paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+				</f:facet>
+
+				<p:column headerText="Tipo Vacante">
+					<h:outputText value="#{s.tipoVacante}" />
+				</p:column>
+
+				<p:column headerText="Empleado anterior">
+					<h:outputText value="#{s.empleadoAnterior}" />
+				</p:column>
+
+				<p:column headerText="Tipo Contratación">
+					<h:outputText value="#{s.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Nombramiento">
+					<h:outputText value="#{s.tipoNombramiento}" />
+				</p:column>
+
+				<p:column headerText="Folio Vacante">
+					<h:outputText value="#{s.folioVacante}" />
+				</p:column>
+
+
+				<p:column headerText="Puesto">
+					<h:outputText value="#{s.puesto}" />
+				</p:column>
+
+				<p:column headerText="Sueldo">
+					<h:outputText value="#{s.sueldo}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Opción" style="text-align: center;" width="80">
+					<p:commandButton icon="ui-icon-person" title="Seleccionar Vacante"
+						onsuccess="PF('statusDialog').hide()" update="form"
+						action="#{postulacionVacante.seleccionarVacante(s.idPuesto)}"
+						oncomplete="mymessages();" onstart="PF('statusDialog').show()" />
+				</p:column>
+
+			</p:dataTable>
+
+
+
+
+			<h:panelGroup id="panelGroupPostulacion"
+				rendered="#{postulacionVacante.view.mostrarPostulacion}">
+
+
+				<p:panel>
+
+					<p:panelGrid layout="grid" columns="3"
+						styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+						columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1">
+
+
+						<p:spacer></p:spacer>
+						<p:panelGrid layout="grid" columns="2"
+							styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+							columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+							<f:facet name="header">
+								<h3>Información Vacante</h3>
+							</f:facet>
+
+							<p:outputLabel for="tipoContratacion" value="Tipo Contratación:" />
+							<p:inputText id="tipoContratacion" disabled="true"
+								value="#{postulacionVacante.view.puesto.tipoContratacion}" />
+
+							<p:outputLabel for="nombramiento" value="Nombramiento:" />
+							<p:inputText id="nombramiento" disabled="true"
+								value="#{postulacionVacante.view.puesto.tipoNombramiento}" />
+
+							<p:outputLabel for="folioVacante" value="Folio Vacante:" />
+							<p:inputText id="folioVacante" disabled="true"
+								value="#{postulacionVacante.view.puesto.numeroVacante}" />
+
+							<p:outputLabel for="codigoPuesto" value="Codigo Puesto:"
+								rendered="#{postulacionVacante.view.mostrarDetallePuesto}" />
+							<p:inputText id="codigoPuesto" disabled="true"
+								rendered="#{postulacionVacante.view.mostrarDetallePuesto}"
+								value="#{postulacionVacante.view.puesto.codigoPuesto}" />
+
+							<p:outputLabel for="puesto" value="Puesto:"
+								rendered="#{postulacionVacante.view.mostrarDetallePuesto}" />
+							<p:inputText id="puesto" disabled="true"
+								rendered="#{postulacionVacante.view.mostrarDetallePuesto}"
+								value="#{postulacionVacante.view.puesto.puesto}" />
+
+
+							<p:outputLabel for="puestoC" value="Seleccione un puesto:"
+								rendered="#{postulacionVacante.view.mostrarCapturaPuesto}" />
+							<p:selectOneMenu id="puestoC" filter="true"
+								filterMatchMode="contains"
+								rendered="#{postulacionVacante.view.mostrarCapturaPuesto}"
+								value="#{postulacionVacante.view.postulacion.idPuesto}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+								<f:selectItems value="#{postulacionVacante.view.listaPuestos}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="sueldo" value="Sueldo:" />
+							<p:inputText id="sueldo" disabled="true" placeholder="$00.00"
+								value="#{postulacionVacante.view.puesto.sueldoAutorizado}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</p:inputText>
+
+
+							<p:outputLabel for="tipoCandidato" value="Tipo Candidato:" />
+							<p:selectOneRadio id="tipoCandidato"
+								value="#{postulacionVacante.view.tipoCandidato}">
+								<f:selectItems
+									value="#{postulacionVacante.view.listaTipoCandidato}" />
+							</p:selectOneRadio>
+
+							<p:outputLabel for="criterio"
+								value="Ingrese nombre, curp, rfc o perfil:" />
+							<p:panelGrid layout="grid" columns="2"
+								styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+								columnClasses="ui-grid-col-11 column-padding-left-0, ui-grid-col-1">
+
+								<p:inputText id="criterio"
+									value="#{postulacionVacante.view.criterioBusqueda}">
+								</p:inputText>
+
+								<p:commandButton icon="ui-icon-search"
+									styleClass="fm-btn-elevado"
+									onsuccess="PF('statusDialog').hide()" update="form"
+									actionListener="#{postulacionVacante.consultarCandidato()}"
+									oncomplete="mymessages();" onstart="PF('statusDialog').show()"></p:commandButton>
+							</p:panelGrid>
+
+						</p:panelGrid>
+						<p:spacer></p:spacer>
+
+
+						<p:spacer
+							rendered="#{postulacionVacante.view.mostrarConsultaEmpleado}"></p:spacer>
+						<p:dataTable id="empleados"
+							rendered="#{postulacionVacante.view.mostrarConsultaEmpleado}"
+							value="#{postulacionVacante.view.empleados}" var="e"
+							paginator="true" paginatorPosition="bottom" rows="5"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+							<p:column headerText="Rfc">
+								<h:outputText value="#{e.rfc}" />
+							</p:column>
+							<p:column headerText="Nombre">
+								<h:outputText value="#{e.nombre}" />
+							</p:column>
+
+							<p:column headerText="Estatus">
+								<h:outputText value="#{e.estatus}" />
+							</p:column>
+
+
+							<p:column headerText="Curp">
+								<h:outputText value="#{e.curp}" />
+							</p:column>
+
+							<p:column headerText="Domicilio">
+								<h:outputText value="#{e.direccion}" />
+							</p:column>
+
+							<p:column headerText="Ver" style="text-align: center;">
+								<p:commandButton update="form"
+									actionListener="#{postulacionVacante.seleccionarEmpleado(e.idEmpleado)}"
+									icon="fm-icon-eye" title="Ver">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						<p:spacer
+							rendered="#{postulacionVacante.view.mostrarConsultaEmpleado}"></p:spacer>
+
+
+						<p:spacer
+							rendered="#{postulacionVacante.view.mostrarConsultaAspirante}"></p:spacer>
+						<p:dataTable id="aspirantes" var="a"
+							rendered="#{postulacionVacante.view.mostrarConsultaAspirante}"
+							value="#{postulacionVacante.view.aspirantes}" paginator="true"
+							paginatorPosition="bottom" rows="5"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+							<p:column headerText="Nombre">
+								<h:outputText value="#{a.nombre}" />
+							</p:column>
+
+							<p:column headerText="Curp">
+								<h:outputText value="#{a.curp}" />
+							</p:column>
+
+							<p:column headerText="Rfc">
+								<h:outputText value="#{a.rfc}" />
+							</p:column>
+
+							<p:column headerText="Dirección">
+								<h:outputText value="#{a.direccion}" />
+							</p:column>
+
+							<p:column headerText="Estatus">
+								<h:outputText value="#{a.estatus}" />
+							</p:column>
+
+							<p:column headerText="Ver" style="text-align: center;">
+								<p:commandButton update="form"
+									actionListener="#{postulacionVacante.seleccionarAspirante(a.idAspirante)}"
+									icon="fm-icon-eye" title="Ver">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+
+						<p:spacer
+							rendered="#{postulacionVacante.view.mostrarConsultaAspirante}"></p:spacer>
+
+					</p:panelGrid>
+
+				</p:panel>
+
+
+				<p:panel>
+
+					<p:panelGrid layout="grid" columns="3"
+						styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+						columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1">
+						<p:spacer></p:spacer>
+						<p:panelGrid layout="grid" columns="2"
+							styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+							columnClasses="ui-grid-col-2, ui-grid-col-10">
+							<f:facet name="header">
+								<h3>Candidatos Postulados</h3>
+							</f:facet>
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:dataTable emptyMessage="No se encontrarón resultados"
+						value="#{postulacionVacante.view.candidatosPostulados}" var="c"
+						widgetVar="vacante" paginator="true" rows="5"
+						paginatorAlwaysVisible="false"
+						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+						<f:facet name="header">
+						</f:facet>
+
+						<p:column headerText="Tipo candidato">
+							<h:outputText value="#{c.tipoCandidato}" />
+						</p:column>
+
+						<p:column headerText="Nombre">
+							<h:outputText value="#{c.nombre}" />
+						</p:column>
+
+						<p:column headerText="Rfc">
+							<h:outputText value="#{c.rfc}" />
+						</p:column>
+
+						<p:column headerText="Domicilio">
+							<h:outputText value="#{c.domicilio}" />
+						</p:column>
+
+						<p:column headerText="Perfil">
+							<h:outputText value="#{c.estudios}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panel>
+
+			</h:panelGroup>
+
+
+			<p:dialog header="Nuevo Candidato" showEffect="Slide"
+				id="nuevo_candidato"
+				visible="#{postulacionVacante.view.mostrarDetalle}" modal="true"
+				closable="false" height="500">
+				<f:facet name="header">
+					<p:messages id="errorPostulacion" showDetail="true"
+						autoUpdate="false" severity="error" closable="true" />
+				</f:facet>
+				<p:panelGrid columns="2"
+					rendered="#{postulacionVacante.view.mostrarDetalleEmpleado}"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Empleado</h3>
+					</f:facet>
+					<p:outputLabel value="Estatus" />
+					<h:outputText value="#{postulacionVacante.view.empleado.estatus}"></h:outputText>
+
+					<p:outputLabel value="Empleado" />
+					<h:outputText value="#{postulacionVacante.view.empleado.nombre}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{postulacionVacante.view.empleado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{postulacionVacante.view.empleado.curp}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{postulacionVacante.view.empleado.edad}"></h:outputText>
+
+					<p:outputLabel value="Nacionalidad" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.nacionalidad}"></h:outputText>
+
+					<p:outputLabel value="Sexo" />
+					<h:outputText value="#{postulacionVacante.view.empleado.sexo}"></h:outputText>
+
+					<p:outputLabel value="Estado Civil" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.estadoCivil}"></h:outputText>
+
+					<p:outputLabel value="Domicilio" />
+					<h:outputText value="#{postulacionVacante.view.empleado.domicilio}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText value="#{postulacionVacante.view.empleado.estudios}"></h:outputText>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+
+				<p:panelGrid columns="2"
+					rendered="#{postulacionVacante.view.mostrarDetallePuestoActivo}"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Laboral</h3>
+					</f:facet>
+
+					<p:outputLabel value="Contratación Actual" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Nombramiento Actual" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.nombramiento}"></h:outputText>
+
+					<p:outputLabel value="Puesto" />
+					<h:outputText value="#{postulacionVacante.view.empleado.puesto}"></h:outputText>
+
+					<p:outputLabel value="Codigo Puesto" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.codigoPuesto}"></h:outputText>
+
+					<p:outputLabel value="Unidad Responsable" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.unidadResponsable}"></h:outputText>
+
+					<p:outputLabel value="Adscripción" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Lugar adscripción" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.lugarAdscripcion}"></h:outputText>
+
+					<p:outputLabel value="Area adscripción" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.areaAdscripcion}"></h:outputText>
+
+					<p:outputLabel value="Ultima Licencia" />
+					<h:outputText value="#{postulacionVacante.view.empleado.licencia}"></h:outputText>
+
+					<p:outputLabel value="Fecha ultima licencia" />
+					<h:outputText
+						value="#{postulacionVacante.view.empleado.ultimaLicencia}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="2"
+					rendered="#{postulacionVacante.view.mostrarDetalleAspirante}"
+					columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<h3>Información Aspirante</h3>
+					</f:facet>
+
+					<p:outputLabel value="Nombre" />
+					<h:outputText value="#{postulacionVacante.view.aspirante.nombre}"></h:outputText>
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText value="#{postulacionVacante.view.aspirante.rfc}"></h:outputText>
+
+					<p:outputLabel value="Curp" />
+					<h:outputText value="#{postulacionVacante.view.aspirante.curp}"></h:outputText>
+
+					<p:outputLabel value="Dirección" />
+					<h:outputText
+						value="#{postulacionVacante.view.aspirante.direccion}"></h:outputText>
+
+					<p:outputLabel value="Edad" />
+					<h:outputText value="#{postulacionVacante.view.aspirante. edad}"></h:outputText>
+
+					<p:outputLabel value="Nacionalidad" />
+					<h:outputText
+						value="#{postulacionVacante.view.aspirante.nacionalidad}"></h:outputText>
+
+					<p:outputLabel value="Sexo" />
+					<h:outputText value="#{postulacionVacante.view.aspirante.sexo}"></h:outputText>
+
+					<p:outputLabel value="Estado civil" />
+					<h:outputText
+						value="#{postulacionVacante.view.aspirante.estadoCivil}"></h:outputText>
+
+					<p:outputLabel value="Estudios" />
+					<h:outputText value="#{postulacionVacante.view.aspirante.estudios}"></h:outputText>
+				</p:panelGrid>
+
+
+
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton icon="ui-icon-circle-check"
+							update="form, errorPostulacion" oncomplete="mymessages();"
+							actionListener="#{postulacionVacante.postularCandidato()}" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();"
+							actionListener="#{postulacionVacante.ocultarDetalle()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</div>
+				</f:facet>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

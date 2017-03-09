@@ -1,0 +1,306 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+        <ui:param name="ventanaTitulo" value="Ejercicio Fiscal" />
+        <ui:param name="moduloTitulo" value="Ejercicio Fiscal" />
+	
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{ejercicioFiscal.view.panelPrincipal}">
+				<p:panelGrid columns="4"
+							columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid">
+					<p:outputLabel value="Ejercicio Fiscal"/>
+					<p:inputText id="ejercicioFiscal"
+								 value="#{ejercicioFiscal.view.ejercicioFiscalCriterio}" 
+								 validator="#{ejercicioFiscal.validatorBusqueda}">
+						<p:ajax update="msgCrit" />
+						<p:clientValidator />
+					</p:inputText>	
+					<p:message id="msgCrit" for="ejercicioFiscal" />		 
+					<p:commandButton value="Buscar"
+									action="#{ejercicioFiscal.filtrarEjercicioFiscal}"
+									icon="ui-icon-search"
+									update="form"
+									ajax="false"/>
+				</p:panelGrid>
+				
+				<p:panelGrid columns="4" layout="grid" >
+												 
+						<p:commandButton value="Gestionar..." 
+										action="#{ejercicioFiscal.irGestionarEjercicioFiscal()}"
+										update=":form"
+										process="@this"
+										ajax="false"
+										disabled="#{ejercicioFiscal.view.disabledIrGestionar}" />
+						  				
+						<p:commandButton id="eliminar"  
+                 						 value="Eliminar..." 
+                 						 onclick="PF('eliminarConfirm').show()"
+                 						 process="@this"
+                 						 disabled="#{ejercicioFiscal.view.disabledIrGestionar}" >
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar el Ejercicio?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirm">
+    					<p:commandButton value="Si" 
+                     					 action="#{ejercicioFiscal.eliminarEjercicioFiscal()}" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"
+                     					 update=":form" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirm').hide()"/> 
+                     					 
+						</p:confirmDialog> 
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{ejercicioFiscal.irNuevoEjercicioFiscal()}"
+										update=":form"
+										process="@this"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:dataTable id="listEjercicioFiscal"
+							 value="#{ejercicioFiscal.view.listEjercicioFiscal}"
+							 var="ejercicioFiscalItem"
+							 rowKey="#{ejercicioFiscalItem.idEjercicioFiscal}"
+							 selection="#{ejercicioFiscal.view.ejercicioFiscalSelect}"
+							 scrollable="true"
+							 scrollHeight="300"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{ejercicioFiscal.onRowSelectEjercicioFiscal}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{ejercicioFiscal.onRowUnselectEjercicioFiscal}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column headerText="Ejercicio Fiscal" />
+							<p:column headerText="Inicio" />
+							<p:column headerText="Fin" />
+							<p:column headerText="Periodicidad" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{ejercicioFiscalItem.ejercicioFiscal}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{ejercicioFiscalItem.inicio}" >
+			                <f:convertDateTime pattern="MM/dd/yyyy" />
+			            </h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{ejercicioFiscalItem.fin}" >
+			                <f:convertDateTime pattern="MM/dd/yyyy" />
+			            </h:outputText>
+					</p:column>
+					<p:column>
+						<h:outputText value="#{ejercicioFiscalItem.periodicidad}" />
+					</p:column>
+				</p:dataTable>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{ejercicioFiscal.view.panelGestion}">
+				<p:focus context="panelGestion"/>				
+				<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4,ui-grid-col-4,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid" id="panelNuevoEjercicio">
+							 							 
+					<p:outputLabel for="EjercicioFiscal" value="Ejercicio Fiscal:"/>
+        			<p:inputText id="EjercicioFiscal" value="#{ejercicioFiscal.view.ejercicioFiscal.ejercicioFiscal}"
+        						 validator="#{ejercicioFiscal.validatorEjercicio}">
+        				<p:ajax update="msgEjercicio" />
+						<p:clientValidator />
+            		</p:inputText>	
+            		<p:message id="msgEjercicio" for="EjercicioFiscal" /> 
+            		<p:spacer/>
+								 
+					<p:outputLabel value="Inicio de Ejercicio" />			 
+					<p:calendar id="inicio" value="#{ejercicioFiscal.view.ejercicioFiscal.inicio}"
+								validator="#{ejercicioFiscal.validatorEjercicio}"
+								pattern="dd/MM/yyyy" >
+						<p:ajax update="msgInicio" />
+						<p:clientValidator />
+					</p:calendar>
+					<p:message id="msgInicio" for="inicio" />
+					<p:spacer/>
+								 
+					<p:outputLabel value="Final de Ejercicio" />			 
+					<p:calendar id="fin" value="#{ejercicioFiscal.view.ejercicioFiscal.fin}"
+								validator="#{ejercicioFiscal.validatorEjercicio}"
+								pattern="dd/MM/yyyy"  >
+						<p:ajax update="msgFin" />
+						<p:clientValidator />
+					</p:calendar>	
+					<p:message id="msgFin" for="fin" />	
+					<p:spacer/>
+
+					<p:outputLabel for="periodicidad1" value="Periodicidad:" />
+        			<p:selectOneMenu id="periodicidad1"
+        							 value="#{ejercicioFiscal.view.ejercicioFiscal.idPeriodicidad}" 
+        							 validator="#{ejercicioFiscal.validatorEjercicio}">
+            			<f:selectItem itemLabel="Elije uno..." itemValue="" />
+            			<f:selectItems value="#{ejercicioFiscal.view.listPeriodicidad}" 
+            						   var="itemPeriodicidad" 
+            						   itemLabel="#{itemPeriodicidad.tipoPeriodo}" 
+            						   itemValue="#{itemPeriodicidad.idTipoPeriodo}" />
+            				<p:ajax update="msgPeriodicidad" />
+							<p:clientValidator />
+        			</p:selectOneMenu>	
+        			<p:message id="msgPeriodicidad" for="periodicidad1" />
+        			<p:spacer/>
+					</p:panelGrid>	
+				
+				<p:panelGrid id="btn" columns="2" layout="grid"  rendered="#{ejercicioFiscal.view.opcionesPeriodo}">				  								                    					 					
+					<p:commandButton value="Nuevo..."
+									 action="#{ejercicioFiscal.nuevoPeriodoCalendario()}"
+									 update=":form:listPeriodoCalendario"
+									 ajax="false"/>
+									
+					<p:commandButton 	id="eliminarP"  
+                 						value="Eliminar..." 
+                 						onclick="PF('eliminarConfirmP').show()"
+                 						style="float:right;"
+                 						disabled="#{ejercicioFiscal.view.disabledEliminar}">
+						</p:commandButton>
+						<p:confirmDialog message="Esta seguro que desea borrar este Periodo?" 
+                 						 showEffect="fade"
+                 						 hideEffect="explode" 
+                 						 widgetVar="eliminarConfirmP">
+    					<p:commandButton value="Si" 
+                     					 action="#{ejercicioFiscal.eliminarPeriodoCalendario()}" 
+                     					 oncomplete="PF('eliminarConfirmP').hide()"
+                     					 update=":form:panelGestion" />
+    					<p:commandButton value="No" 
+                     					 oncomplete="PF('eliminarConfirmP').hide()"/> 
+                     					 
+						</p:confirmDialog>																						
+				</p:panelGrid>				
+				<p:dataTable id="listPeriodoCalendario"
+							 value="#{ejercicioFiscal.view.ejercicioFiscal.listPeriodoCalendario}"
+							 var="periodosItem"
+		 					 rowKey="#{periodosItem.idPeriodoCalendario}"
+		 					 selectionMode="single"
+		 					 editMode="cell"
+		 					 selection="#{ejercicioFiscal.view.periodoCalendarioSelect}"
+		 					 scrollable="true"
+		 					 scrollHeight="300"	
+		 					 editable="true"	
+		 					 rendered="#{ejercicioFiscal.view.opcionesPeriodo}" 			 
+		 					 emptyMessage="Registros no encontrados.">	 
+		 		<p:ajax event="cellEdit"
+							listener="#{ejercicioFiscal.onRowSelectPeriodoCalendario}" />
+				<p:ajax event="rowSelect"
+							listener="#{ejercicioFiscal.onRowSelectPeriodoCalendario}" 
+							update=":form" />
+				<p:ajax event="rowUnselect" 
+							listener="#{ejercicioFiscal.onRowUnselectPeriodoCalendario}" 
+							update=":form" />												
+				<p:columnGroup type="header">
+						<p:row>
+							<p:column style="width:46px" headerText="No. Periodo" />
+							<p:column headerText="Inicia Periodo" />
+							<p:column headerText="Finaliza Periodo" />
+							<p:column headerText="Periodo" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{periodosItem.numeroPeriodo}" />
+					</p:column>
+					<p:column > 
+						<p:cellEditor>
+						<f:facet name="output"><h:outputText value="#{periodosItem.inicioPeriodo}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText></f:facet>						
+						<f:facet name="input">
+						<p:calendar id="inicioPeriodo"
+								 	value="#{periodosItem.inicioPeriodo}"
+								 	validator="#{ejercicioFiscal.validatorPeriodo}"
+								 	pattern="dd/MM/yyyy"
+								 	size="20" >
+							<p:ajax update="msgInicioPeriodo" />
+							<p:clientValidator />
+						</p:calendar>	
+						<p:message id="msgInicioPeriodo" for="inicioPeriodo" />			 	
+						</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+						<h:outputText value="#{periodosItem.finPeriodo}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText></f:facet>						
+						<f:facet name="input" >
+						<p:calendar id="finPeriodo"
+									pattern="dd/MM/yyyy"
+								 	value="#{periodosItem.finPeriodo}"
+								 	validator="#{ejercicioFiscal.validatorPeriodo}"							
+								 	size="20" >
+							<p:ajax update="msgFinPeriodo" />
+							<p:clientValidator />
+						</p:calendar>	
+						<p:message id="msgFinPeriodo" for="finPeriodo" style="background-color:#FFFFFF"/>	 	
+						</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:selectOneMenu id="idTipoPeriodo" value="#{periodosItem.idTipoPeriodo}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+                        	<f:selectItems value="#{ejercicioFiscal.view.listTipoPeriodo}" 
+                        				   var="itemPeriodos" 
+            						  	   itemLabel="#{itemPeriodos.tipoPeriodo}" 
+            						   	   itemValue="#{itemPeriodos.idTipoPeriodo}" />
+                   			</h:selectOneMenu>
+
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu id="tp" value="#{periodosItem.idTipoPeriodo}"
+											 validator="#{ejercicioFiscal.validatorPeriodo}">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+                        	<f:selectItems value="#{ejercicioFiscal.view.listTipoPeriodo}" 
+                        				   var="itemPeriodos" 
+            						  	   itemLabel="#{itemPeriodos.tipoPeriodo}" 
+            						   	   itemValue="#{itemPeriodos.idTipoPeriodo}" />
+            					<p:ajax update="msgTp" />
+								<p:clientValidator />	   	   
+                   			</h:selectOneMenu>
+                   			<p:message id="msgTp" for="tp" />
+						</f:facet>
+						</p:cellEditor>
+					</p:column>
+												
+				</p:dataTable>
+				<div>
+				<p:panelGrid id="btn1" columns="3" layout="grid">
+					<p:commandButton value="Guardar"
+									action="#{ejercicioFiscal.guardarEjercicioFiscal}"
+									update=":form"
+									style="float:left;"
+									ajax="false"/>
+					<p/>
+					<p:commandButton value="Cancelar"
+									action="#{ejercicioFiscal.irPrincipal()}"
+									update=":form"
+									style="float:right;"
+									ajax="false"/>
+				</p:panelGrid>					
+				</div>		 				 	 			 
+			</p:outputPanel>			
+		</h:form>
+	</ui:define>
+</ui:composition>

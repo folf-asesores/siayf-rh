@@ -1,0 +1,291 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+                <h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Tabulador Federal" />
+	<ui:param name="moduloTitulo" value="Tabulador Federal" />
+
+	<ui:define name="moduloContenido" >
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+			<p:growl id="growl" showDetail="true" autoUpdate="true"
+				sticky="false" life="7000" globalOnly="true" />
+
+			<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+
+				<p:panelGrid id="panelGridFormulario"
+					styleClass=" ui-fluid ui-panelgrid-blank ui-fluid ui-responsive ui-noborder sin_borde  "
+					columns="4" columnClasses="ui-grid-col-3" layout="grid">
+
+					<p:outputLabel for="tipoTabulador" value="Tipo Tabulador:" />
+					<p:outputPanel id="outputTipoTabulador">
+						<p:selectOneMenu id="tipoTabulador" required="true"
+							validator="#{tabuladorFederal.validarCampo}"
+							value="#{tabuladorFederal.view.tabuladorFederal.idTipoTabulador}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems
+								value="#{tabuladorFederal.view.listaTipoTabulador}" />
+
+							<p:ajax update=":form:outputTipoTabulador" event="valueChange" />
+						</p:selectOneMenu>
+						<p:message for="tipoTabulador" />
+					</p:outputPanel>
+
+					<p:outputLabel for="ramaPuesto" value="Rama Puesto:" />
+					<p:outputPanel id="outputRamaPuesto">
+						<p:selectOneMenu id="ramaPuesto" required="true"
+							validator="#{tabuladorFederal.validarCampo}"
+							value="#{tabuladorFederal.view.idRamaPuesto}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{tabuladorFederal.view.listaRamaPuestos}" />
+
+							<p:ajax
+								update=":form:outputRamaPuesto :form:puesto :form:codigo :form:nivel :form:sueldoBrutoMensual :form:asignacionBrutaMensual :form:agaBrutaMensual :form:totalBrutoMensual"
+								event="valueChange"
+								listener="#{tabuladorFederal.obtenerListaPuestoPorIdRama()}" />
+						</p:selectOneMenu>
+						<p:message for="ramaPuesto" />
+					</p:outputPanel>
+
+					<p:outputLabel for="puesto" value="Puesto:" />
+					<p:outputPanel id="outputPuesto">
+						<p:selectOneMenu id="puesto" required="true"
+							validator="#{tabuladorFederal.validarCampo}"
+							value="#{tabuladorFederal.view.tabuladorFederal.idPuesto}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+
+							<f:selectItems value="#{tabuladorFederal.view.listaPuestos}" />
+							<p:ajax update=":form:codigo :form:outputPuesto"
+								event="valueChange"
+								listener="#{tabuladorFederal.obtenerInfoPuesto()}"
+								global="false" />
+
+						</p:selectOneMenu>
+						<p:message for="puesto" />
+					</p:outputPanel>
+
+					<p:outputLabel for="codigo" value="Codigo:" />
+					<p:inputText id="codigo" disabled="true"
+						value="#{tabuladorFederal.view.tabuladorFederal.codigoPuesto}"
+						placeholder="*" />
+
+					<p:outputLabel for="nivel" value="Nivel Empleado:" />
+
+					<p:selectOneMenu id="nivel"
+						value="#{tabuladorFederal.view.tabuladorFederal.idNivelEmpleado}">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+						<f:selectItems value="#{tabuladorFederal.view.listaNivelEmpleado}" />
+
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="sueldoBrutoMensual"
+						value="Sueldo Bruto Mensual:" />
+					<p:outputPanel id="outputSBM">
+						<p:inputText id="sueldoBrutoMensual" placeholder="$00.00"
+							validator="#{tabuladorFederal.validarCampo}"
+							value="#{tabuladorFederal.view.tabuladorFederal.sueldoBrutoMensual}">
+							<p:ajax event="blur"
+								update=":form:totalBrutoMensual :form:outputSBM"
+								listener="#{tabuladorFederal.totalBrutoMensual()}" />
+						</p:inputText>
+						<p:message for="sueldoBrutoMensual" />
+					</p:outputPanel>
+
+					<p:outputLabel for="asignacionBrutaMensual"
+						value="Asignación Bruta Mensual:" />
+					<p:outputPanel id="outputABM">
+						<p:inputText id="asignacionBrutaMensual" placeholder="$00.00"
+							validator="#{tabuladorFederal.validarCampo}"
+							value="#{tabuladorFederal.view.tabuladorFederal.asignacionBrutaMensual}">
+							<p:ajax event="blur"
+								update=":form:totalBrutoMensual :form:outputABM"
+								listener="#{tabuladorFederal.totalBrutoMensual()}" />
+						</p:inputText>
+						<p:message for="asignacionBrutaMensual" />
+					</p:outputPanel>
+
+					<p:outputLabel for="agaBrutaMensual" value="A.G.A Bruta Mensual:" />
+					<p:inputText id="agaBrutaMensual" placeholder="$00.00"
+						value="#{tabuladorFederal.view.tabuladorFederal.aGABrutaMensual}">
+
+						<p:ajax event="blur" update=":form:totalBrutoMensual"
+							listener="#{tabuladorFederal.totalBrutoMensual()}" />
+					</p:inputText>
+
+					<p:outputLabel for="totalBrutoMensual" value="Total Bruto Mensual:" />
+					<h:outputText id="totalBrutoMensual"
+						value="#{tabuladorFederal.view.tabuladorFederal.totalBrutoMensual}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+					<p:outputLabel />
+
+					<p:commandButton icon="ui-icon-check" iconPos="right"
+						update="form form2"
+						value="#{tabuladorFederal.view.accionTabuladorFederal}"
+						action="#{tabuladorFederal.crearActualizarTabuladorFederal()}"
+						styleClass="fm-btn-exitoso fm-btn-elevado" />
+				</p:panelGrid>
+			</h:panelGroup>
+		</h:form>
+		<h:form id="form2">
+			<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100">
+
+				<p:dataTable editable="true" var="t"
+					value="#{tabuladorFederal.view.listaTabuladorFederalDTO}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="10" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,15,20">
+
+					<f:facet name="header">
+						<h3>Tabuladores Federales</h3>
+					</f:facet>
+
+					<p:column style="width:10px;">
+						<p:rowToggler />
+					</p:column>
+
+					<p:column headerText="Número" width="10"
+						style="font-weight:bolder;">
+						<h:outputText value="#{t.numeroConsecutivo}" />
+					</p:column>
+
+					<p:column headerText="Puesto" width="100">
+						<h:outputText value="#{t.nombreRama}" />
+					</p:column>
+
+					<p:rowExpansion>
+						<p:dataTable emptyMessage="No se encontro ningun resultado"
+							value="#{t.listaTabuladorFederal}" var="f" paginator="true"
+							rows="5" paginatorAlwaysVisible="false"
+							currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15">
+
+							<p:column headerText="Tipo Tabulador"
+								sortBy="#{f.nombreTipoTabulador}" style="font-weight:bolder;">
+								<h:outputText value="#{f.nombreTipoTabulador}" />
+							</p:column>
+
+							<p:column headerText="Codigo" style="font-weight:bolder;">
+								<h:outputText value="#{f.codigoPuesto}" />
+							</p:column>
+
+							<p:column headerText="Nivel" style="font-weight:bolder;">
+								<h:outputText value="#{f.nivelEmpleado}" />
+							</p:column>
+
+							<p:column headerText="Puesto" style="font-weight:bolder;">
+								<h:outputText value="#{f.nombrePuesto}" />
+							</p:column>
+
+							<p:column headerText="Sueldo Bruto Mensual"
+								style="font-weight:bolder;">
+								<h:outputText value="#{f.sueldoBrutoMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Asignación Bruta Mensual"
+								style="font-weight:bolder;">
+								<h:outputText value="#{f.asignacionBrutaMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="A.G.A Bruta Mensual"
+								style="font-weight:bolder;">
+								<h:outputText value="#{f.aGABrutaMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+							</p:column>
+
+							<p:column headerText="Total Bruto Mensual"
+								style="font-weight:bolder;">
+								<h:outputText value="#{f.totalBrutoMensual}">
+									<f:convertNumber currencySymbol="$" type="currency" />
+								</h:outputText>
+							</p:column>
+
+							<p:column width="100">
+								<p:commandButton icon="ui-icon-pencil" iconPos="right"
+									title="Seleccionar #{t.nombreRama} - #{f.codigoPuesto} #{f.nombrePuesto}"
+									action="#{tabuladorFederal.seleccionarTabuladorFederal(f, t.idRamaPuesto)}"
+									update="form form2" styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+								<p:commandButton icon="ui-icon-trash"
+									update=":form2:dialogEliminar"
+									title="Seleccionar #{t.nombreRama} - #{f.codigoPuesto} #{f.nombrePuesto}"
+									action="#{tabuladorFederal.seleccionarMostrarDialogEliminar(f.idTabuladorFederal)}"
+									styleClass="fm-btn-peligro fm-btn-elevado" />
+
+							</p:column>
+						</p:dataTable>
+					</p:rowExpansion>
+
+				</p:dataTable>
+
+			</h:panelGroup>
+
+			<p:dialog id="dialogEliminar"
+				header="¿Quiere eliminar el tabulador federal seleccionado?"
+				visible="#{tabuladorFederal.view.dialogoEliminacionTabulador}"
+				modal="true" minimizable="true" maximizable="true" dynamic="true"
+				resizable="true">
+				<p:panelGrid columns="2"
+					styleClass="ui-fluid ui-panelgrid-blank" layout="grid">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						actionListener="#{tabuladorFederal.eliminarTabuladorFederal()}"
+						iconPos="right" ajax="false"
+						styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						actionListener="#{tabuladorFederal.cerrarDialogoEliminar()}"
+						iconPos="right" ajax="false"
+						styleClass="fm-btn-peligro fm-btn-elevado" />
+				</p:panelGrid>
+			</p:dialog>
+
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+		</h:form>
+	</ui:define>
+	<ui:define name="bodyExtra">
+
+		<h:outputScript>
+		
+		
+		function mymessages() {
+			   setTimeout(function() { $('[id$=messages_generales]').hide(1000); }, 5500);
+			  
+			}
+	
+		</h:outputScript>
+
+	</ui:define>
+</ui:composition>

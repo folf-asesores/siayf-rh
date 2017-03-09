@@ -1,0 +1,504 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="Movimientos a la Nómina" />
+	<ui:param name="moduloTitulo" value="Movimientos a la Nómina" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione el movimiento que desea gestionar" />
+	<ui:define name="moduloContenido">
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="form" styleClass="fm-contenedor">
+			<p:messages id="info" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				rendered="#{movimientos.view.panelElegirMovimiento}"
+				styleClass="ui-responsive fm-tarjeta ui-fluid">
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					columnClasses="ui-grid-col-3,ui-grid-col-7,ui-grid-col-2">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Clave de movimiento: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{movimientos.view.claveMovimiento}"></p:inputText>
+						</p:column>
+						<p:column>
+							<p:commandButton id="btnBuscar" title="Ir a gestionar movimiento"
+								icon="ui-icon-search" ajax="false" update=":form"
+								action="#{movimientos.irMovimiento}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panelGrid>
+
+			<p:accordionPanel
+				rendered="#{movimientos.view.panelElegirMovimiento}">
+				<c:forEach items="#{movimientos.view.movimientoLista}"
+					var="movimientoParent">
+
+					<p:tab title="#{movimientoParent.descripcion}">
+						<div class="ui-grid-row">
+							<div class="ui-panelgrid-cell ui-grid-col-4">
+								<p:panelGrid layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid" columns="2"
+									columnClasses="ui-grid-col-2,ui-grid-col-10">
+									<h:outputText value="#{movimientoParent.clave}" />
+									<p:commandButton value="#{movimientoParent.descripcion}"
+										title="Ir a gestionar movimiento..." icon="ui-icon-search"
+										ajax="false" update=":form"
+										action="#{movimientos.irMovimiento}">
+										<f:setPropertyActionListener
+											target="#{movimientos.view.claveMovimiento}"
+											value="#{movimientoParent.clave}" />
+									</p:commandButton>
+								</p:panelGrid>
+							</div>
+
+							<c:forEach items="#{movimientoParent.movimientosLista}"
+								var="movimiento" varStatus="estado">
+								<div class="ui-panelgrid-cell ui-grid-col-4">
+									<p:panelGrid layout="grid"
+										styleClass="ui-panelgrid-blank ui-fluid" columns="2"
+										columnClasses="ui-grid-col-2,ui-grid-col-10">
+										<h:outputText value="#{movimiento.clave}" />
+										<p:commandButton value="#{movimiento.descripcion}"
+											title="Ir a gestionar movimiento..." icon="ui-icon-search"
+											ajax="false" update=":form"
+											action="#{movimientos.irMovimiento}">
+											<f:setPropertyActionListener
+												target="#{movimientos.view.claveMovimiento}"
+												value="#{movimiento.clave}" />
+										</p:commandButton>
+									</p:panelGrid>
+								</div>
+							</c:forEach>
+						</div>
+					</p:tab>
+				</c:forEach>
+			</p:accordionPanel>
+
+
+
+			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
+				rendered="#{movimientos.view.panelElegirEmpleado}"
+				styleClass="ui-responsive fm-tarjeta ui-fluid">
+				<p:panelGrid columns="4"
+					columnClasses="ui-grid-col-5, ui-grid-col-1,ui-grid-col-2,ui-grid-col-2"
+					layout="grid" styleClass="ui-responsive ui-panelgrid-blank"
+					rendered="#{!movimientos.view.panelBusqueda}">
+
+					<p:inputText id="criterio"
+						placeholder="Buscar Empleado por RFC, Nombre, Apellidos o Número"
+						value="#{movimientos.view.criterioEmpleado}" size="80" />
+					<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+						update="form" action="#{movimientos.buscarEmpleados()}" />
+
+					<p:spacer rendered="#{!movimientos.esTercero}" />
+					<p:commandButton id="cargaMasiva" style="height:50px"
+						styleClass="fm-btn-acento" value="Cargar  registros masivamente"
+						update=":form" ajax="false" process="@this"
+						rendered="#{movimientos.esTercero}"
+						action="/contenido/nomina/movimientos/movimientosCarga.xhtml?faces-redirect=true" />
+
+					<p:commandButton id="mostrarMovimientos" style="height:50px"
+						styleClass="fm-btn-acento" value="Regresar" update=":form"
+						ajax="false" process="@this"
+						action="#{movimientos.regresarInicio()}" />
+				</p:panelGrid>
+
+				<p:dataTable id="dataEmpleados" var="e" editable="true"
+					emptyMessage="No se encontrarón resultados"
+					rowKey="#{e.idEmpleado}" value="#{movimientos.view.empleadoLista}"
+					paginator="true" rows="10" paginatorAlwaysVisible="false"
+					rendered="#{movimientos.view.mostrarTablaEmpleados}">
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="Nombre" />
+							<p:column headerText="CURP" />
+							<p:column headerText="RFC" />
+							<p:column headerText="Dirección" />
+							<p:column headerText="Numero de Empleado" />
+							<p:column headerText="Estatus" />
+							<p:column width="50" />
+						</p:row>
+					</p:columnGroup>
+					<p:column>
+						<h:outputText value="#{e.nombre}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.curp}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.rfc}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.direccion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.numeroEmpleado}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.estatus}" />
+					</p:column>
+					<p:column>
+						<p:commandButton update="form"
+							action="#{movimientos.irMovimientos(e)}"
+							icon="ui-icon-circle-check" styleClass="fm-btn-elevado" />
+					</p:column>
+				</p:dataTable>
+
+
+				<p:outputPanel id="panelFormulario"
+					rendered="#{movimientos.view.panelMovimientosFijos}">
+					<p:ribbon>
+						<p:tab title="Generales">
+							<p:ribbonGroup label="Empleado">
+								<h:outputText value="#{movimientos.view.empleadoDatos.nombre}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{movimientos.view.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="CURP">
+								<h:outputText value="#{movimientos.view.empleadoDatos.curp}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Edad">
+								<h:outputText value="#{movimientos.view.empleadoDatos.edad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nacionalidad">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.nacionalidad}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Sexo">
+								<h:outputText value="#{movimientos.view.empleadoDatos.sexo}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estado Civil">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.estadoCivil}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Estudios">
+								<h:outputText value="#{movimientos.view.empleadoDatos.estudios}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Domicilio">
+							<p:ribbonGroup label="Domicilio">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.domicilio}" />
+							</p:ribbonGroup>
+						</p:tab>
+						<p:tab title="Laborales">
+							<p:ribbonGroup label="Contratación">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.tipoContratacion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="RFC">
+								<h:outputText value="#{movimientos.view.empleadoDatos.rfc}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Nombramiento">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.nombramiento}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Puesto">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.codigoPuesto}" />
+								<br />
+								<h:outputText value="#{movimientos.view.empleadoDatos.puesto}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Unidad Responsable">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.unidadResponsable}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Adscripción">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.adscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Area adscripción">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.areaAdscripcion}" />
+							</p:ribbonGroup>
+							<p:ribbonGroup label="Ultima Licencia">
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.licencia} " />
+								<h:outputText
+									value="#{movimientos.view.empleadoDatos.ultimaLicencia}">
+									<f:convertDateTime pattern="dd-MM-yyyy" />
+								</h:outputText>
+							</p:ribbonGroup>
+						</p:tab>
+					</p:ribbon>
+				</p:outputPanel>
+			</p:panelGrid>
+
+
+			<p:panelGrid id="controles" columns="2"
+				rendered="#{movimientos.view.panelMovimientosFijos}"
+				columnClasses="ui-grid-col-3,ui-grid-col-2" layout="grid"
+				styleClass="ui-responsive ui-panelgrid-blank">
+
+				<p:commandButton value="Agregar Movimiento" id="agregar"
+					disabled="#{movimientos.view.permitirAltaMovimiento}"
+					icon="ui-icon-plusthick" iconPos="right" update="@form"
+					action="#{movimientos.iraFormulario}"
+					style="height:60px; widht:50px;" />
+
+				<p:commandButton id="regresar" value="Regresar" update="@form"
+					icon="ui-icon-closethick" style="height:60px;" iconPos="right"
+					action="#{movimientos.irInicio}" process="@this"
+					styleClass="fm-btn-peligro fm-btn-elevado" />
+
+			</p:panelGrid>
+			<p:panel id="panelDatos"
+				header="Movimientos --- #{movimientos.view.tipoMovimientoSeleccionado!=null?movimientos.view.tipoMovimientoSeleccionado.descripcion:'Terceros'}"
+				rendered="#{movimientos.view.panelMovimientosFijos}">
+
+				<p:ajaxStatus>
+					<f:facet name="start">
+						<center>
+							<p:graphicImage library="imagenes" name="load.gif" />
+						</center>
+					</f:facet>
+					<f:facet name="complete" />
+				</p:ajaxStatus>
+
+				<p:dataTable id="tablemovimientos" var="mov"
+					value="#{movimientos.view.listaMovimientos}"
+					emptyMessage="No se tienen registros de movimientso para el empleado.."
+					scrollable="true" rows="10" paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30" editable="true"
+					style="margin-bottom:20px">
+
+
+					<p:column filterBy="#{mov.folio}" headerText="Folio"
+						filterMatchMode="contains">
+						<h:outputText value="#{mov.folio}" />
+					</p:column>
+
+					<p:column filterBy="#{mov.quincenaFinal}"
+						rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}"
+						headerText="Quincena Final" filterMatchMode="contains">
+						<h:outputText value="#{mov.quincenaFinal}" />
+					</p:column>
+					<p:column filterBy="#{mov.anioFinal}" headerText="Año Final"
+						filterMatchMode="contains"
+						rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}">
+						<h:outputText value="#{mov.anioFinal}" />
+					</p:column>
+					<p:column filterBy="#{mov.terceroInstitucional}"
+						rendered="#{movimientos.view.claveMovimiento=='tr'}"
+						headerText="Tercero" filterMatchMode="contains">
+						<h:outputText value="#{mov.terceroInstitucional}" />
+					</p:column>
+					<p:column filterBy="#{mov.importeDescontado}"
+						rendered="#{movimientos.view.formaRegistroMovSeleccionado!=3}"
+						headerText="Importe" filterMatchMode="contains">
+						<h:outputText value="#{mov.importeDescontado}" />
+					</p:column>
+					<p:column filterBy="#{mov.dias}" headerText="No. Dias"
+						rendered="#{movimientos.view.formaRegistroMovSeleccionado==3}"
+						filterMatchMode="contains">
+						<h:outputText value="#{mov.dias}" />
+					</p:column>
+
+					<p:column style="width:52px" headerText="Editar">
+						<p:commandButton id="editarMovimiento"
+							styleClass="fm-btn-edit fm-btn-elevado"
+							oncomplete="PF('editMovDlg').show()" process="@this"
+							icon="ui-icon-pencil" update=":form:editDialog">
+							<f:setPropertyActionListener value="#{mov}"
+								target="#{movimientos.view.movimientoSeleccionado}"
+								for="editarMovimiento" />
+						</p:commandButton>
+					</p:column>
+
+					<p:column style="width:50px; text-align: center;"
+						headerText="Eliminar">
+						<p:commandButton id="eliminarMovimiento"
+							styleClass="fm-btn-error fm-btn-elevado"
+							onclick="PF('dialogEliminarMovimiento').show()"
+							process="tablemovimientos" update="tablemovimientos"
+							icon="ui-icon-trash">
+							<f:setPropertyActionListener value="#{mov}"
+								target="#{movimientos.view.movimientoSeleccionado}"
+								for="eliminarMovimiento" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:confirmDialog header="Movimiento Fijo" severity="alert"
+					message="¿Desea Eliminar el Registro ?" showEffect="fade"
+					hideEffect="explode" widgetVar="dialogEliminarMovimiento">
+					<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+						layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+						<p:commandButton value="Si" icon="ui-icon-circle-check"
+							process="@this" iconPos="right"
+							styleClass="fm-btn-exitoso fm-btn-elevado"
+							action="#{movimientos.eliminarMovimiento()}"
+							oncomplete="PF('dialogEliminarMovimiento').hide()"
+							update="tablemovimientos growl" />
+						<p:commandButton value="No" icon="ui-icon-circle-close"
+							process="@this" update="tablemovimientos growl" iconPos="right"
+							styleClass="fm-btn-error fm-btn-elevado"
+							oncomplete="PF('dialogEliminarMovimiento').hide()" />
+					</p:panelGrid>
+				</p:confirmDialog>
+			</p:panel>
+
+
+			<p:dialog id="editDialog" header="Editar Movimiento"
+				widgetVar="editMovDlg" modal="true" height="400">
+				<p:panelGrid columns="4" id="gridEdicion"
+					columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-2,ui-grid-col-3"
+					layout="grid"
+					styleClass="ui-responsive ui-panelgrid-blank">
+					
+						<p:outputLabel value="Quincena Inicial: "  />
+					    <h:outputText value="#{movimientos.view.movimientoSeleccionado.quincenaInicial}" />
+					    
+					    <p:outputLabel value="Año Inicial: " />
+					    <h:outputText value="#{movimientos.view.movimientoSeleccionado.anioInicial}" />
+					
+										
+					<p:outputLabel for="folioEdit" value="Folio Documento: " />
+					<p:outputPanel>
+						<p:inputText id="folioEdit"
+							value="#{movimientos.view.movimientoSeleccionado.folio}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgfolioEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgfolioEdit" for="folioEdit" />
+					</p:outputPanel>
+					
+					
+					
+					<p:outputLabel for="fechaDocEdit" value="Fecha Documento: " />
+					<p:outputPanel>
+						<p:calendar id="fechaDocEdit"
+							value="#{movimientos.view.movimientoSeleccionado.fechaDocumento}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgfechaDocEdit" event="blur" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgfechaDocEdit" for="fechaDocEdit" />
+					</p:outputPanel>
+					
+					
+
+
+					<p:outputLabel for="quincenaFinalEdit" value="Quincena Final: " rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}"/>
+					<p:outputPanel rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}">
+						<p:selectOneMenu id="quincenaFinalEdit"
+							value="#{movimientos.view.movimientoSeleccionado.quincenaFinal}"
+							validator="#{movimientos.view.validator}">
+							<f:selectItems value="#{movimientos.view.quincenas}" />
+							<p:ajax update="quincenaFinalEdit" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgquincenaFinalEdit" for="quincenaFinalEdit" />
+					</p:outputPanel>
+
+
+					<p:outputLabel for="anioFinalEdit" value="Año final: " rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}"/>
+					<p:outputPanel rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}">
+						<p:inputText id="anioFinalEdit"
+							value="#{movimientos.view.movimientoSeleccionado.anioFinal}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msganioFinalEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msganioFinalEdit" for="anioFinalEdit" />
+					</p:outputPanel>
+
+
+					<p:outputLabel for="importeQuincenalEdit" rendered="#{movimientos.view.formaRegistroMovSeleccionado!=3}"
+						value="Importe: " />
+					<p:outputPanel rendered="#{movimientos.view.formaRegistroMovSeleccionado!=4}">
+						<p:inputText id="importeQuincenalEdit" placeholder="$00.00"
+							value="#{movimientos.view.movimientoSeleccionado.importeDescontado}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgimporteQuincenalEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgimporteQuincenalEdit"
+							for="msgimporteQuincenalEdit" />
+					</p:outputPanel>
+
+					<p:outputLabel for="numDiasEdit" value="Número de Dias: " rendered="#{movimientos.view.formaRegistroMovSeleccionado==3}"/>
+					<p:outputPanel rendered="#{movimientos.view.formaRegistroMovSeleccionado==3}">
+						<p:inputText id="numDiasEdit"
+							value="#{movimientos.view.movimientoSeleccionado.dias}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgdiasEdit" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgdiasEdit" for="numDiasEdit" />
+					</p:outputPanel>
+
+					<p:outputLabel for="conceptoEdit" value="Concepto: " rendered="#{movimientos.view.formaRegistroMovSeleccionado==1}" />
+					<p:outputPanel rendered="#{movimientos.view.formaRegistroMovSeleccionado==1}">
+						<p:selectOneMenu id="conceptoEdit" disabled="true" 
+							value="#{movimientos.view.movimientoSeleccionado.idTerceroInstitucional}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgconceptoEdit" />
+							<p:clientValidator />
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{movimientos.view.listaConceptos}" />
+						</p:selectOneMenu>
+						<p:message id="msgconceptoEdit" for="conceptoEdit" />
+					</p:outputPanel>
+					
+					<p:outputLabel for="clave"
+							rendered="#{movimientos.view.movimientoSeleccionado.idTipoMovimiento==7 || movimientos.view.movimientoSeleccionado.idTipoMovimiento==12}"
+							value="Clave: " />
+					<p:outputPanel rendered="#{movimientos.view.movimientoSeleccionado.idTipoMovimiento==7 || movimientos.view.movimientoSeleccionado.idTipoMovimiento==12}">
+						
+						<p:inputText id="clave" placeholder="*"
+							required="true" requiredMessage="La clave es requerida."
+							value="#{movimientos.view.movimientoSeleccionado.clave}"
+							validator="#{movimientos.view.validator}">
+							<p:ajax update="msgclave" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgclave" for="clave" />
+					</p:outputPanel>
+
+					<f:facet name="footer">
+					<div align="right">
+						<p:commandButton value="Guardar Cambios" id="editarButton"
+							icon="ui-icon-plusthick" iconPos="right"
+							actionListener="#{movimientos.editarRegistro()}"
+							oncomplete="PF('editMovDlg').hide();"
+							update="tablemovimientos growl" style="height:60px; widht:50px" />
+						
+						<p:commandButton id="CancelarEdicion" value="Regresar"
+							icon="ui-icon-closethick" style="height:60px; widht:50px"
+							iconPos="right" onclick="PF('editMovDlg').hide();"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+							</div>
+					</f:facet>
+				</p:panelGrid>
+			</p:dialog>
+
+
+
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+		</h:form>
+	</ui:define>
+</ui:composition>

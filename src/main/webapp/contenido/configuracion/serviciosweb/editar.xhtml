@@ -1,0 +1,153 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuración" />
+	<ui:param name="moduloTitulo" value="Servicios Web" />
+	<ui:param name="moduloSubtitulo"
+		value="Capture la información del Servicio Web" />
+	<ui:define name="moduloContenido">
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+
+
+
+		<h:form id="frmNuevoServiciosWeb" styleClass="fm-contenedor">
+			<p:messages for="info" id="info" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" escape="true" />
+
+			<p:panel styleClass="fm-contenedor-50">
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					style="width:100%;">
+					<p:row>
+						<p:column style="width:100%">
+							<p:outputLabel value="Servicio:" style="width:100%" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Puerto:" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:selectOneMenu id="cmbServicio" style="width:100%"
+								value="#{servicioWebEditarController.servicioRSEntity.servicio}">
+								<f:selectItems value="#{servicioWebEditarController.servicios}"
+									var="servicio" itemValue="#{servicio}"
+									itemLabel="#{servicio.toString()}" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>
+							<p:inputText size="5"
+								value="#{servicioWebEditarController.servicioRSEntity.puerto}"></p:inputText>
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					style="width:100%;">
+					<p:row>
+						<p:column style="width:100%">
+							<p:outputLabel value="URL:" style="width:100%" />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:inputText id="url"
+								value="#{servicioWebEditarController.servicioRSEntity.url}"
+								validator="#{servicioWebEditarController.validarFormulario}">
+								<p:ajax update="msgurl" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgurl" for="url" />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:100%">
+							<p:outputLabel value="Contexto:" style="width:100%" />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:inputText
+								value="#{servicioWebEditarController.servicioRSEntity.contexto}"
+								style="width:100%"></p:inputText>
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+				<p:panelGrid styleClass="fm-contenedor ui-noborder sin_borde"
+					style="width:100%;">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Usuario:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Clave:" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Activo" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Productivo" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:inputText
+								value="#{servicioWebEditarController.servicioRSEntity.usuario}"></p:inputText>
+						</p:column>
+						<p:column>
+							<p:password
+								value="#{servicioWebEditarController.servicioRSEntity.clave}"></p:password>
+						</p:column>
+						<p:column>
+							<p:selectBooleanCheckbox
+								value="#{servicioWebEditarController.servicioRSEntity.activo}" />
+						</p:column>
+						<p:column>
+							<p:selectBooleanCheckbox
+								value="#{servicioWebEditarController.servicioRSEntity.produccion}" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				<p:panel styleClass=" ui-noborder sin_borde aling_right">
+					<p:commandButton icon="ui-icon-disk" value="Guardar"
+						action="#{servicioWebEditarController.guardarServicio}"
+						update="frmNuevoServiciosWeb"></p:commandButton>
+					<p:button icon="ui-icon-close" value="Regresar"
+						outcome="index.xhtml"></p:button>
+
+				</p:panel>
+			</p:panel>
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

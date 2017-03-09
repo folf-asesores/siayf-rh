@@ -1,0 +1,112 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:sit="http://xmlns.jcp.org/jsf/composite/composites"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Presupuestos" />
+		
+	<ui:param name="moduloTitulo" value="Presupuestos" />
+
+	<ui:param name="moduloSubtitulo" value="" />
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-tarjeta" enctype="multipart/form-data" >
+			
+		<h:panelGroup id="formulario" >
+	        <p:panel  header="Datos Generales" >         			
+				<p:panelGrid id="panelRegistrar" 
+					columns="2" layout="grid" 
+					styleClass="ui-fluid ui-panelgrid-blank"
+					columnClasses="ui-grid-col-3 , ui-grid-col-5 fm-texto-alineado-derecha" >
+					
+				
+                       
+                         <p:spacer/>
+                      <p:outputPanel styleClass="fm-float-right"  style="border: none;"  >	
+                      <p:commandButton value="Consultar Partidas" style="width:auto;"  process=":form"  
+                      icon="fm-icon-chart-pie" update=":form"  actionListener="#{catalogosWs.consultarConceptosPartidasNominas()}" iconPos="right"   />
+                     <p:commandButton value="Consultar Retenciones" style="width:auto;"  process=":form"  
+                      icon="fm-icon-chart-pie" update=":form"  actionListener="#{catalogosWs.consultaRetenciones()}" iconPos="right"   />
+                     
+                      
+					 
+     		          </p:outputPanel>           
+                         
+				</p:panelGrid>		
+				</p:panel>
+			
+		 <p:panel id="presupuestal" >
+			<p:spacer width="20" />
+			<h:panelGrid  columns="1" cellpadding="5" id="detallePresupuesto"   >
+				 
+				 <p:commandButton  style="width:auto;"  process=":form"  
+                      icon="ui-icon-refresh" update=":form"  actionListener="#{catalogosWs.actualizar()}" iconPos="right"   />				
+				<p:dataTable  value="#{catalogosWs.listaConceptos}" rendered="#{catalogosWs.panelConceptoPartidaNomina}"
+					var="i" emptyMessage="No existen registros "> 						
+					<f:facet name="header">					
+                        <p:outputLabel style="color:#FFFFFF;text-align:left;" > ELEMENTOS </p:outputLabel>                
+						
+				</f:facet>
+					   <p:column headerText="ID CONCEPTO NOMINA PARTIDA"><h:outputText value="#{i.id_concepto_partida_nomina}"/></p:column>
+					   <p:column headerText="ID CONCEPTO NOMINA"><h:outputText value="#{i.id_concepto_nomina}"/></p:column>
+					   <p:column headerText="DESCRIPCION CONCEPTO"><h:outputText value="#{i.descripcion_concepto_nomina}"/></p:column>
+					   <p:column headerText="ID NOMBRAMIENTO"><h:outputText value="#{i.id_nombramiento}"/></p:column>
+					   <p:column headerText="DESCRIPCION NOMBRAMIENTON"><h:outputText value="#{i.descripcion_nombramiento}"/></p:column>
+					   <p:column headerText="PARTIDA"><h:outputText value="#{i.id_partida}"/></p:column>
+					    <p:column headerText="DESCRIPCION PARTIDA"><h:outputText value="#{i.descripcion_partida}"/></p:column>
+					   
+		       </p:dataTable>	
+		       
+		       	 	<p:dataTable  value="#{catalogosWs.listaElementosRetenciones}" rendered="#{catalogosWs.panelDetalleRetenciones}"
+					var="i" emptyMessage="No existen registros "> 						
+					<f:facet name="header">					
+                        <p:outputLabel style="color:#FFFFFF;text-align:left;" > ELEMENTOS </p:outputLabel>                
+						
+				</f:facet>
+					   <p:column headerText="ID DETALLE RETENCION"><h:outputText value="#{i.id_detalle_retencion_cuenta_bancaria}"/></p:column>
+					   <p:column headerText="ID CONCEPTO NOMINA"><h:outputText value="#{i.id_concepto_nomina}"/></p:column>
+					   <p:column headerText="DESCRIPCION CONCEPTO"><h:outputText value="#{i.descripcion_concepto_nomina}"/></p:column>
+					   <p:column headerText="ID CUENTA CONTABLE"><h:outputText value="#{i.cuenta_contable_retencion}"/></p:column>
+					   <p:column headerText="DESCRIPCION CUENTA CONTABLE"><h:outputText value="#{i.descripcion_cuenta_contable}"/></p:column>
+					   <p:column headerText="CUENTA RETENCION"><h:outputText value="#{i.cuenta_retencion}"/></p:column>
+					   <p:column headerText="CUENTA CONTABLE BANCO"><h:outputText value="#{i.cuenta_contable_banco}"/></p:column>
+					   <p:column headerText="CUENTA  BANCO"><h:outputText value="#{i.descripcion_cuenta_banco}"/></p:column>
+					   
+		       </p:dataTable>      
+			</h:panelGrid>
+			</p:panel>
+
+				
+			    
+	            
+    
+    
+            <p:panel id="fin"  >
+            <p:outputPanel styleClass="fm-float-right"  style="border: none;">                      
+			<p:commandButton value="Cancelar" process="@this" style="width:auto;background-color: #74BFB4;"  action="#{consultarPresupuesto.cerrar()}"  icon="ui-icon-cancel" iconPos="right"  />
+     		</p:outputPanel>
+            </p:panel>
+
+     </h:panelGroup>
+     
+
+   
+     
+     
+     
+    <p:ajaxStatus>
+    <f:facet name="start">
+    <center>
+    <p:graphicImage library="imagenes" name="ajax-loader1.gif"   />
+    </center>
+    </f:facet>
+    <f:facet name="complete" />
+    </p:ajaxStatus> 
+     
+     
+</h:form>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,1065 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Actualizar Empleado" />
+
+	<ui:param name="moduloTitulo" value="Actualizar Empleado" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Los campos marcados con * son obligatorios." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" enctype="multipart/form-data">
+
+			<p:messages id="messages_generales" for="info" showDetail="true"
+				autoUpdate="true" severity="info" closable="true" globalOnly="true" />
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+				<p:inputText id="criterio"
+					value="#{actualizarEmpleado.view.criterio}"
+					placeholder="RFC o nombre completo"
+					validator="#{actualizarEmpleado.validatorConsulta}">
+					<p:ajax update="msgCriterio" />
+					<p:clientValidator />
+				</p:inputText>
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" process="@this"
+					actionListener="#{actualizarEmpleado.consultarEmpleados()}"
+					update="form" />
+				<p:spacer />
+				<p:message id="msgCriterio" for="criterio" />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:dataTable id="empleados"
+				emptyMessage="No se encontrarón resultados"
+				rendered="#{actualizarEmpleado.view.mostrarResultadoConsulta}"
+				value="#{actualizarEmpleado.view.empleados}" var="e"
+				paginator="true" paginatorPosition="bottom" rows="5">
+
+				<p:column headerText="Tipo Trabajador">
+					<h:outputText value="#{e.tipoEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{e.estatus}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+				<p:column headerText="Ver" width="50" style="text-align: center;">
+					<p:commandButton update="form" icon="fm-icon-eye"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{actualizarEmpleado.seleccionarEmpleado(e.idEmpleado)}"
+						title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="2"
+				columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+				styleClass="fm-tarjeta ui-fluid "
+				rendered="#{actualizarEmpleado.view.mostrarPanelCorrecciones}">
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+
+					<p:commandButton value="DATOS GENERALES"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{actualizarEmpleado.menu(1)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+					<p:spacer height="10" />
+
+					<p:commandButton value="DOMICILIO"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{actualizarEmpleado.menu(2)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+					<p:spacer height="10" />
+
+
+					<p:commandButton value="HISTORIAL ACADEMICO"
+						onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{actualizarEmpleado.menu(3)}" update="form"
+						process="@this" styleClass="fm-btn-elevado" />
+					<p:spacer height="10" />
+
+					<p:commandButton value="EXPERIENCIA LABORAL"
+						styleClass="fm-btn-elevado" onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()"
+						actionListener="#{actualizarEmpleado.menu(4)}" update="form"
+						process="@this" />
+					<p:spacer height="10" />
+
+
+				</p:panelGrid>
+
+				<ui:remove>DATOS GENERALES</ui:remove>
+
+				<p:panelGrid id="datos" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank"
+					rendered="#{actualizarEmpleado.view.mostrarDatosGenerales}">
+
+					<p:outputLabel />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<f:facet name="header">
+							<p:messages id="infoDatos" showDetail="true" autoUpdate="true"
+								severity="warning" closable="true" />
+							<h3>Datos Generales</h3>
+						</f:facet>
+
+						<p:outputLabel value="Nombre Completo:" />
+						<h:outputText
+							value="#{actualizarEmpleado.view.datosGenerales.nombreCompleto}" />
+
+						<p:outputLabel value="Tipo Empleado"></p:outputLabel>
+						<h:outputText
+							value="#{actualizarEmpleado.view.datosGenerales.tipoEmpleado}" />
+
+						<p:outputLabel value="Estatus"></p:outputLabel>
+						<h:outputText
+							value="#{actualizarEmpleado.view.datosGenerales.estatus}" />
+
+						<p:outputLabel for="rfc" value="RFC:" />
+						<p:inplace editor="true">
+							<p:inputText id="rfc"
+								value="#{actualizarEmpleado.view.datosGenerales.rfc}"
+								validator="#{actualizarEmpleado.validatorDatosGenerales}">
+								<p:ajax update="msgRfc" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:ajax event="save"
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:inplace>
+						<p:message id="msgRfc" for="rfc" />
+
+						<p:outputLabel for="curp" value="CURP:" />
+						<p:inplace editor="true">
+							<p:inputText id="curp"
+								value="#{actualizarEmpleado.view.datosGenerales.curp}"
+								validator="#{actualizarEmpleado.validatorDatosGenerales}">
+								<p:ajax update="msgCurp" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:ajax event="save"
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:inplace>
+						<p:message id="msgCurp" for="curp" />
+
+						<p:outputLabel for="nombre" value="Nombre:*" />
+						<p:inplace editor="true">
+							<p:inputText id="nombre"
+								value="#{actualizarEmpleado.view.datosGenerales.nombre}"
+								validator="#{actualizarEmpleado.validatorDatosGenerales}">
+								<p:ajax update="msgNombre" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:ajax event="save"
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:inplace>
+						<p:message id="msgNombre" for="nombre" />
+
+						<p:outputLabel for="apellidoPaterno" value="Apellido Paterno:" />
+						<p:inplace editor="true">
+							<p:inputText id="apellidoPaterno"
+								value="#{actualizarEmpleado.view.datosGenerales.apellidoPaterno}"
+								validator="#{actualizarEmpleado.validatorDatosGenerales}">
+								<p:ajax update="msgPaterno" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:ajax event="save"
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:inplace>
+						<p:message id="msgPaterno" for="apellidoPaterno" />
+
+
+						<p:outputLabel for="apellidoMaterno" value="Apellido Materno:*" />
+						<p:inplace editor="true">
+							<p:inputText id="apellidoMaterno"
+								value="#{actualizarEmpleado.view.datosGenerales.apellidoMaterno}"
+								validator="#{actualizarEmpleado.validatorDatosGenerales}">
+								<p:ajax update="msgMaterno" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:ajax event="save"
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:inplace>
+						<p:message id="msgMaterno" for="apellidoMaterno" />
+
+						<p:outputLabel for="sexo" value="Sexo:*" />
+						<p:selectOneMenu id="sexo"
+							value="#{actualizarEmpleado.view.datosGenerales.idSexo}"
+							validator="#{actualizarEmpleado.validatorDatosGenerales}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{actualizarEmpleado.view.listaTiposSexos}" />
+							<p:ajax update="msgSexo" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgSexo" for="sexo" />
+
+						<p:outputLabel for="estadoCivil" value="Estado Civil:*" />
+						<p:selectOneMenu id="estadoCivil"
+							value="#{actualizarEmpleado.view.datosGenerales.idEstadoCivil}"
+							validator="#{actualizarEmpleado.validatorDatosGenerales}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{actualizarEmpleado.view.listaEstadosCiviles}" />
+							<p:ajax update="msgCivil" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgCivil" for="estadoCivil" />
+
+						<p:outputLabel for="fechaNacimiento" value="Fecha Nacimiento:*" />
+						<p:calendar id="fechaNacimiento" pattern="dd-MM-yyyy" locale="es"
+							navigator="true"
+							value="#{actualizarEmpleado.view.datosGenerales.fechaNacimiento}"
+							validator="#{actualizarEmpleado.validatorDatosGenerales}">
+							<p:ajax update="msgNacimiento" />
+							<p:clientValidator />
+						</p:calendar>
+						<p:message id="msgNacimiento" for="fechaNacimiento" />
+
+						<p:outputLabel for="lugarNacimiento" value="Lugar Nacimiento:*" />
+						<p:inputText id="lugarNacimiento"
+							value="#{actualizarEmpleado.view.datosGenerales.lugarNacimiento}"
+							validator="#{actualizarEmpleado.validatorDatosGenerales}">
+							<p:ajax update="msgLugar" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgLugar" for="lugarNacimiento" />
+
+						<p:outputLabel for="telefonos" value="Telefonos:*" />
+						<p:inputMask id="telefonos"
+							value="#{actualizarEmpleado.view.datosGenerales.telefonos}"
+							mask="(999) 999-9999" />
+
+						<p:watermark for="correo" value="Email Address *" />
+						<p:message for="correo" />
+						<p:outputLabel for="correo" value="Correo Electronico:*" />
+						<p:inputText id="correo"
+							validatorMessage="Formato de correo invalido"
+							value="#{actualizarEmpleado.view.datosGenerales.correo}">
+							<f:validateRegex
+								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+						</p:inputText>
+
+						<p:outputLabel for="tipoSangre" value="Tipo Sangre:*" />
+						<p:selectOneMenu id="tipoSangre"
+							value="#{actualizarEmpleado.view.datosGenerales.idTipoSangre}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{actualizarEmpleado.view.listaTiposSangre}" />
+						</p:selectOneMenu>
+
+						<p:outputLabel for="peso" value="Peso" />
+						<p:inputText id="peso"
+							value="#{actualizarEmpleado.view.datosGenerales.peso}" />
+
+						<p:outputLabel for="estatura" value="Estatura" />
+						<p:inputText id="estatura"
+							value="#{actualizarEmpleado.view.datosGenerales.estatura}" />
+
+						<p:outputLabel for="dependientes" value="Tiene Dependientes" />
+						<p:inputSwitch id="dependientes" offLabel="No" onLabel="Si"
+							value="#{actualizarEmpleado.view.datosGenerales.tienePersonasDependientes}">
+							<p:ajax update="form"></p:ajax>
+						</p:inputSwitch>
+
+						<p:outputLabel for="parentesco" value="Parentesco"
+							rendered="#{actualizarEmpleado.view.datosGenerales.tienePersonasDependientes}" />
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+							styleClass="ui-panelgrid-blank"
+							rendered="#{actualizarEmpleado.view.datosGenerales.tienePersonasDependientes}">
+							<p:selectManyCheckbox id="parentesco"
+								value="#{actualizarEmpleado.view.datosGenerales.parentescos}"
+								layout="grid" columns="1"
+								rendered="#{actualizarEmpleado.view.datosGenerales.tienePersonasDependientes}">
+								<f:selectItem itemLabel="Conyuge" itemValue="CONYUGE" />
+								<f:selectItem itemLabel="Hijos" itemValue="HIJOS" />
+								<f:selectItem itemLabel="Padres" itemValue="PADRE" />
+								<f:selectItem itemLabel="Otros" itemValue="OTRO" />
+							</p:selectManyCheckbox>
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid" styleClass="ui-panelgrid-blank">
+								<p:inputText placeholder="Numero conyuges"
+									value="#{actualizarEmpleado.view.datosGenerales.numeroConyuges}" />
+								<p:inputText placeholder="Numero hijos"
+									value="#{actualizarEmpleado.view.datosGenerales.numeroHijos}" />
+								<p:inputText placeholder="Numero padres"
+									value="#{actualizarEmpleado.view.datosGenerales.numeroPadres}" />
+								<p:inputText placeholder="Numero otros"
+									value="#{actualizarEmpleado.view.datosGenerales.numeroOtros}" />
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<p:spacer />
+
+						<p:commandButton value="Actualizar">
+							<p:ajax
+								listener="#{actualizarEmpleado.mostrarDialogoConfirmacionDatosGenerales()}"
+								update="form" />
+						</p:commandButton>
+					</p:panelGrid>
+
+					<p:outputLabel />
+
+
+					<p:dialog modal="true"
+						visible="#{actualizarEmpleado.view.mostrarDialogoConfirmacionDatosGenerales}">
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid"
+							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+							<h:outputLabel for="comentarioRfc" value="Comentario:*" />
+							<p:outputLabel>
+								<p:inputTextarea id="comentarioRfc" rows="5" cols="30"
+									requiredMessage="Ingrese el comentario" counter="display"
+									maxlength="255" required="true"
+									value="#{actualizarEmpleado.view.datosGenerales.comentarioMovimiento}"
+									counterTemplate="{0} Quedan." autoResize="false" />
+
+								<h:outputText id="display" />
+								<p:message id="messageComentarioRfc" for="comentarioRfc" />
+							</p:outputLabel>
+
+						</p:panelGrid>
+
+						<div align="right">
+							<p:panelGrid columns="2" columnClasses="ui-grid-col-6"
+								layout="grid"
+								styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+								<p:commandButton value="Si" update="form"
+									oncomplete="scrollToAnchor();"
+									action="#{actualizarEmpleado.actualizarDatosGenerales()}"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+
+								<p:commandButton value="No" update="form" process="@this"
+									action="#{actualizarEmpleado.cerrarDialogoConfirmacionDatosGenerales()}"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:panelGrid>
+
+						</div>
+					</p:dialog>
+
+				</p:panelGrid>
+
+				<ui:remove>DOMICILIO</ui:remove>
+
+				<p:panelGrid id="datosDomicilio" columns="3"
+					columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+					layout="grid" styleClass="ui-panelgrid-blank"
+					rendered="#{actualizarEmpleado.view.mostrarDomicilio}">
+					<p:spacer />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<f:facet name="header">
+							<p:messages id="infoDomicilio" showDetail="true"
+								autoUpdate="true" severity="warning" closable="true" />
+							<h3>Domicilio</h3>
+						</f:facet>
+
+						<p:outputLabel value="Direccion Completa" />
+						<h:outputText
+							value="#{actualizarEmpleado.view.datosGenerales.direccionCompleta}" />
+
+						<p:outputLabel for="estado" value="Estado:*" />
+						<p:selectOneMenu id="estado"
+							value="#{actualizarEmpleado.view.domicilio.idEstado}"
+							validator="#{actualizarEmpleado.validatorDomicilio}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{actualizarEmpleado.view.listaEstados}" />
+							<p:ajax listener="#{actualizarEmpleado.municipiosPorEstado()}"
+								update="msgEstado municipio"></p:ajax>
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgEstado" for="estado" />
+
+						<p:outputLabel for="municipio" value="Municipio:*" />
+						<p:selectOneMenu id="municipio"
+							value="#{actualizarEmpleado.view.domicilio.idMunicipio}"
+							filter="true" filterMatchMode="contains"
+							validator="#{actualizarEmpleado.validatorDomicilio}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems value="#{actualizarEmpleado.view.listaMuncipios}" />
+							<p:ajax
+								listener="#{actualizarEmpleado.asentamientosPorMunicipio()}"
+								update="msgMunicipio, asentamiento"></p:ajax>
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgMunicipio" for="municipio" />
+
+						<p:outputLabel for="asentamiento" value="Asentamiento:*" />
+						<p:selectOneMenu id="asentamiento"
+							value="#{actualizarEmpleado.view.domicilio.idAsentamiento}"
+							filter="true" filterMatchMode="contains"
+							validator="#{actualizarEmpleado.validatorDomicilio}">
+							<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+							<f:selectItems
+								value="#{actualizarEmpleado.view.listaPoblaciones}" />
+							<p:ajax update="msgAsentamiento" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgAsentamiento" for="asentamiento" />
+
+						<p:outputLabel for="calle" value="Calle:*" />
+						<p:inputText id="calle"
+							value="#{actualizarEmpleado.view.domicilio.calle}"
+							validator="#{actualizarEmpleado.validatorDomicilio}">
+							<p:ajax update="msgCalle" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgCalle" for="calle" />
+
+						<p:outputLabel for="interior" value="Numero Interior:" />
+						<p:inputText id="interior"
+							value="#{actualizarEmpleado.view.domicilio.numeroInterior}" />
+
+						<p:outputLabel for="exterior" value="Numero Exterior:*" />
+						<p:inputText id="exterior"
+							value="#{actualizarEmpleado.view.domicilio.numeroExterior}"
+							validator="#{actualizarEmpleado.validatorDomicilio}">
+							<p:ajax update="msgExterior" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgExterior" for="exterior" />
+
+						<h:outputLabel for="comentarioDomicilio" value="Comentario:*" />
+						<p:outputLabel id="labelComentarioDomicilio">
+							<p:inputTextarea id="comentarioDomicilio" rows="5" cols="30"
+								validator="#{actualizarEmpleado.validatorDomicilio}"
+								counter="displayDomicilio" maxlength="255" required="true"
+								requiredMessage="Ingrese el comentario de modificación"
+								value="#{actualizarEmpleado.view.domicilio.comentarioMovimiento}"
+								counterTemplate="{0} Quedan." autoResize="false">
+								<p:ajax update="labelComentarioDomicilio" />
+								<p:clientValidator />
+							</p:inputTextarea>
+
+							<h:outputText id="displayDomicilio" />
+							<p:message id="messageComentario" for="comentarioDomicilio" />
+						</p:outputLabel>
+
+						<p:spacer />
+						<p:commandButton value="Actualizar" oncomplete="scrollToAnchor();"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							actionListener="#{actualizarEmpleado.actualizarDomicilio()}"
+							update="form" />
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<ui:remove>HISTORIAL ACADEMICO</ui:remove>
+
+				<p:panelGrid id="historialAcademico" columns="1"
+					columnClasses="ui-grid-col-12" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
+					rendered="#{actualizarEmpleado.view.mostrarHistorialAcademico}">
+
+					<f:facet name="header">
+						<p:messages id="infoHistorial" showDetail="true" autoUpdate="true"
+							severity="warning" closable="true" />
+						<h3>Historiales Academicos</h3>
+					</f:facet>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-9,ui-grid-col-3" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<p:spacer />
+						<p:commandButton value="Nuevo Historial"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							actionListener="#{actualizarEmpleado.visualizarRegistroHistorial()}"
+							update="form" />
+
+					</p:panelGrid>
+
+					<p:dataTable id="historialBasico"
+						emptyMessage="No se encontrarón resultados..."
+						value="#{actualizarEmpleado.view.historialesAcademicos}" var="h"
+						rows="5" rowKey="#{h.idHistorialAcademico}">
+
+						<p:column headerText="Escolaridad">
+							<h:outputText value="#{h.nombreEscolaridad }" />
+						</p:column>
+						<p:column headerText="Institucion">
+							<h:outputText value="#{h.nombreInstitucion}" />
+						</p:column>
+						<p:column headerText="Constancia Máxima de Estudios">
+							<h:outputText value="#{h.estatusComprobatorio}" />
+						</p:column>
+
+						<p:column headerText="Fecha de Expedición de Cedula Profesional">
+							<h:outputText value="#{h.fechaExpedicionCedula}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Número de Cedula Profesional">
+							<h:outputText value="#{h.numeroCedula}" />
+						</p:column>
+
+						<p:column headerText="Inicio-Fin">
+							<h:outputText value="#{h.fechaInicial}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+							<h:outputText value="/" />
+							<h:outputText value="#{h.fechaFinal}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Nombre Curso">
+							<h:outputText value="#{h.nombreCurso}" />
+						</p:column>
+						<p:column headerText="Duración Curso">
+							<h:outputText value="#{h.duracion}" />
+						</p:column>
+						<p:column headerText="Cursando">
+							<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+								disabled="true" />
+						</p:column>
+						<p:column headerText="Máximo estudio">
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{h.esMaximoEstudio}" disabled="true" />
+						</p:column>
+						<p:column headerText="Tiene Documentacion Adjunta">
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{h.tieneDocumentacion}" disabled="true" />
+						</p:column>
+						<p:column headerText="Opciones"
+							style="width:100px;text-align: center;">
+							<p:commandButton icon="ui-icon-pencil" iconPos="right"
+								title="Actualizar" update="form"
+								action="#{actualizarEmpleado.visualizarActualizarHistorial(h)}"
+								styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+							<ui:remove>
+								<p:spacer width="5" />
+
+								<p:commandButton icon="fm-icon-attach" title="Ver"
+									styleClass="fm-btn-exitoso fm-btn-elevado"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()"
+									actionListener="#{actualizarEmpleado.visualizarAdjuntoDocumentoHistorial(h)}"
+									update="form" />
+							</ui:remove>
+
+						</p:column>
+					</p:dataTable>
+
+					<p:spacer />
+					<p:panelGrid id="registroHistorial" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{actualizarEmpleado.view.mostrarRegistroHistorial}">
+
+						<p:spacer />
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							rendered="#{actualizarEmpleado.view.mostrarHistorialAcademico}"
+							id="altaHistorial">
+							<f:facet name="header">
+								<h3>Registro Historial</h3>
+							</f:facet>
+
+							<p:outputLabel for="escolaridad" value="Escolaridad*" />
+							<p:selectOneMenu id="escolaridad"
+								value="#{actualizarEmpleado.view.historial.idEscolaridad}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{actualizarEmpleado.view.listaEscolaridades}" />
+								<p:ajax
+									listener="#{actualizarEmpleado.visualizarDatosRequeridosCurso()}"
+									update="altaHistorial" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="institucion"
+								value="Nombre de la Institución*" />
+							<p:inputText id="institucion"
+								value="#{actualizarEmpleado.view.historial.nombreInstitucion}" />
+
+							<p:outputLabel for="documentoComprobatorio"
+								value="Ultimo Comprobante Estudio del Grado Academico*" />
+							<p:selectOneMenu id="documentoComprobatorio"
+								value="#{actualizarEmpleado.view.historial.idComprobanteEstudio}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{actualizarEmpleado.view.listaComprobantesEstudios}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="fechaExpedicionCedula"
+								value="Fecha de Expedición de Cedula Profesional:" />
+							<p:calendar id="fechaExpedicionCedula" pattern="dd-MM-yyyy"
+								locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.historial.fechaExpedicionCedula}" />
+
+							<p:outputLabel for="numeroCedula"
+								value="Número de Cedula Profesional:" />
+							<p:inputText id="numeroCedula"
+								value="#{actualizarEmpleado.view.historial.numeroCedula}" />
+
+							<p:outputLabel for="fechaInicial" value="Fecha Inicial*" />
+							<p:calendar id="fechaInicial" pattern="dd-MM-yyyy" locale="es"
+								navigator="true"
+								value="#{actualizarEmpleado.view.historial.fechaInicial}" />
+
+							<p:outputLabel for="fechaFinal" value="Fecha Final" />
+							<p:calendar id="fechaFinal" pattern="dd-MM-yyyy" locale="es"
+								navigator="true"
+								value="#{actualizarEmpleado.view.historial.fechaFinal}" />
+
+							<p:outputLabel for="nombreCurso"
+								value="Nombre de la escolaridad cursada*" />
+							<p:inputText id="nombreCurso"
+								value="#{actualizarEmpleado.view.historial.nombreCurso}" />
+							<p:outputLabel for="duracion"
+								value="Duración de la Escolaridad Complementaria*"
+								rendered="#{actualizarEmpleado.view.visualizarDatosCurso}" />
+							<p:inputText id="duracion"
+								value="#{actualizarEmpleado.view.historial.duracion}"
+								rendered="#{actualizarEmpleado.view.visualizarDatosCurso}" />
+							<p:outputLabel for="duracion" value="Cursando" />
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{actualizarEmpleado.view.historial.cursando}" />
+
+							<p:outputLabel for="maximoEstudio"
+								value="¿Es el máximo grado de estudios?" />
+							<p:inputSwitch offLabel="No" onLabel="Si" id="maximoEstudio"
+								value="#{actualizarEmpleado.view.historial.maximoEstudios}" />
+							<p:spacer />
+							<p:commandButton value="Registrar" oncomplete="scrollToAnchor();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()"
+								actionListener="#{actualizarEmpleado.registrarHistorialAcademico()}"
+								update="form" />
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panelGrid id="actualizarHistorial" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{actualizarEmpleado.view.mostrarActualizarHistorial}">
+
+						<p:spacer />
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Actualizar Historial</h3>
+							</f:facet>
+
+							<p:outputLabel for="escolaridadActualizar" value="Escolaridad*" />
+							<p:selectOneMenu id="escolaridadActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.escolaridad}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{actualizarEmpleado.view.listaEscolaridades}" />
+								<p:ajax
+									listener="#{actualizarEmpleado.visualizarDatosRequeridosCurso()}"
+									update="altaHistorial" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="institucionActualizar"
+								value="Nombre de la Institución*" />
+							<p:inputText id="institucionActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.nombreInstitucion}" />
+
+							<p:outputLabel for="documentoComprobatorioActualizar"
+								value="Ultimo Comprobante Estudio del Grado Academico*" />
+							<p:selectOneMenu id="documentoComprobatorioActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.documentoComprobatorio}">
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+								<f:selectItems
+									value="#{actualizarEmpleado.view.listaComprobantesEstudios}" />
+							</p:selectOneMenu>
+
+							<p:outputLabel for="fechaExpedicionCedulaActualizar"
+								value="Fecha de Expedición de Cedula Profesional:" />
+							<p:calendar id="fechaExpedicionCedulaActualizar"
+								pattern="dd-MM-yyyy" locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.fechaExpedicionCedula}" />
+
+							<p:outputLabel for="numeroCedulaActualizar"
+								value="Número de Cedula Profesional:" />
+							<p:inputText id="numeroCedulaActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.numeroCedula}" />
+
+							<p:outputLabel for="fechaInicialActualizar"
+								value="Fecha Inicial*" />
+							<p:calendar id="fechaInicialActualizar" pattern="dd-MM-yyyy"
+								locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.fechaInicial}" />
+
+							<p:outputLabel for="fechaFinalActualizar" value="Fecha Final" />
+							<p:calendar id="fechaFinalActualizar" pattern="dd-MM-yyyy"
+								locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.fechaFinal}" />
+
+							<p:outputLabel for="nombreCursoActualizar"
+								value="Nombre de la escolaridad cursada*" />
+							<p:inputText id="nombreCursoActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.nombreCurso}" />
+							<p:outputLabel for="duracionActualizar"
+								value="Duración de la Escolaridad Complementaria*"
+								rendered="#{actualizarEmpleado.view.visualizarDatosCurso}" />
+							<p:inputText id="duracionActualizar"
+								value="#{actualizarEmpleado.view.historial.duracion}"
+								rendered="#{actualizarEmpleado.view.visualizarDatosCurso}" />
+							<p:outputLabel for="duracionActualizar" value="Cursando" />
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.cursando}" />
+
+							<p:outputLabel for="maximoEstudioActualizar"
+								value="¿Es el máximo grado de estudios?" />
+							<p:inputSwitch offLabel="No" onLabel="Si"
+								id="maximoEstudioActualizar"
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.esMaximoEstudio}" />
+
+							<h:outputLabel for="comentarioHistorial" value="Comentario:*" />
+							<p:outputLabel>
+								<p:inputTextarea id="comentarioHistorial" rows="5" cols="30"
+									counter="displayHistorial" maxlength="255" required="true"
+									requiredMessage="Ingrese el comentario de modificación"
+									value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.comentarioMovimiento}"
+									counterTemplate="{0} Quedan." autoResize="false" />
+								<h:outputText id="displayHistorial" />
+								<p:message for="comentarioHistorial" />
+							</p:outputLabel>
+
+							<p:spacer />
+							<p:commandButton value="Actualizar"
+								oncomplete="scrollToAnchor();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()"
+								actionListener="#{actualizarEmpleado.actualizarHistorialAcademico()}"
+								update="form" />
+						</p:panelGrid>
+					</p:panelGrid>
+
+					<p:panelGrid id="adjuntoHistorial" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{actualizarEmpleado.view.mostrarAdjuntoDocumentoHistorial}">
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Información Documento Adjunto</h3>
+							</f:facet>
+
+							<p:dataTable emptyMessage="No se encontrarón resultados..."
+								value="#{actualizarEmpleado.view.documentosAdjuntosGradoAcademico}"
+								var="d" type="ordered">
+								<f:facet name="header">
+									Usted ya ha adjuntado los siguientes documentos en
+										#{actualizarEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}
+								</f:facet>
+								<p:column headerText="Nombre Adjunto">
+									<p:outputLabel value="#{d.nombreAdjunto}" />
+								</p:column>
+								<p:column headerText="Opciones"
+									style="width:250px;text-align: center;">
+									<p:spacer width="20" />
+									<p:commandButton icon="fm-icon-eye" title="Ver"
+										actionListener="#{actualizarEmpleado.visualizarImagen(d.idAdjunto)}"
+										update="form" oncomplete="scrollToAnchorVisualizar();" />
+									<p:spacer width="20" />
+									<p:commandButton icon="fm-icon-download" title="Descargar"
+										update="@form" iconPos="right" ajax="false"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()"
+										actionListener="#{actualizarEmpleado.descargarAdjunto(d)}"
+										oncomplete="mymessages(); scrollToAnchor();" />
+									<p:spacer width="20" />
+									<p:commandButton icon="ui-icon-trash" title="Eliminar"
+										oncomplete="scrollToAnchor();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()"
+										actionListener="#{actualizarEmpleado.eliminarAdjunto(d.idAdjunto)}"
+										update="form" />
+								</p:column>
+
+							</p:dataTable>
+
+							<p:outputLabel value="Escolaridad a la que pertece el documento" />
+							<h:outputText
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.nombreEscolaridad}" />
+
+							<p:outputLabel value="Institucion" />
+							<h:outputText
+								value="#{actualizarEmpleado.view.historialAcademicoSeleccionado.nombreInstitucion}" />
+
+							<p:outputLabel
+								value="Seleccione el tipo de documento que va a adjuntar*" />
+							<p:selectOneMenu id="idDocumentoAdjuntable"
+								value="#{actualizarEmpleado.view.idDocumentoAdjuntableHistorial}">
+								<f:selectItem itemLabel="Seleccione una opcion" itemValue="0" />
+								<f:selectItems
+									value="#{actualizarEmpleado.view.listaDocumentosHistorialAcademico}" />
+								<p:ajax update="archivo"></p:ajax>
+							</p:selectOneMenu>
+
+							<p:fileUpload id="archivo" oncomplete="scrollToAnchor();"
+								fileUploadListener="#{actualizarEmpleado.subirDocumentoAdjuntoHistorial}"
+								label="Subir archivo" auto="true" mode="advanced"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()"
+								allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/" update="form" />
+
+						</p:panelGrid>
+						<p:spacer />
+
+					</p:panelGrid>
+
+					<p:panelGrid id="visualizarDoc" columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank"
+						rendered="#{actualizarEmpleado.view.mostrarImagenExpediente}">
+						<p:spacer />
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Imagen Expediente</h3>
+							</f:facet>
+							<p:graphicImage
+								value="#{vistaPreviaService.vistaPreviaAdjuntoEmpleado}"
+								styleClass="fm-width-100">
+								<f:param name="idAdjunto"
+									value="#{actualizarEmpleado.view.idImagenExpediente}" />
+							</p:graphicImage>
+
+						</p:panelGrid>
+						<p:spacer />
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+				<ui:remove>EXPERIENCIAS LABORALES</ui:remove>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					id="experienciaLaboral"
+					rendered="#{actualizarEmpleado.view.mostrarExperienciaLaboral}">
+
+					<f:facet name="header">
+						<h3>Experiencias Laborales</h3>
+					</f:facet>
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-9,ui-grid-col-3" layout="grid"
+						styleClass="ui-panelgrid-blank">
+						<p:spacer />
+						<p:commandButton value="Nueva Experiencia Laboral"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							actionListener="#{actualizarEmpleado.visualizarRegistroExperiencia()}"
+							update="form" />
+
+					</p:panelGrid>
+
+					<p:dataTable id="experienciasLaborales"
+						emptyMessage="No se encontrarón resultados..."
+						value="#{actualizarEmpleado.view.experienciasLaborales}" var="e"
+						rowKey="#{e.idExperienciaLaboral}" paginator="true"
+						paginatorPosition="bottom" rows="10">
+						<p:column headerText="Empresa">
+							<h:outputText value="#{e.nombreEmpresa}" />
+						</p:column>
+						<p:column headerText="Puesto">
+							<h:outputText value="#{e.puestoAspirante}" />
+						</p:column>
+
+						<p:column headerText="Duración">
+							<h:outputText value="#{e.fechaInicial}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+							<h:outputText value="/" />
+							<h:outputText value="#{e.fechaFinal}">
+								<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Opción"
+							style="width:80px;text-align: center;">
+
+							<p:commandButton icon="ui-icon-pencil" iconPos="right"
+								title="Actualizar" update="form"
+								action="#{actualizarEmpleado.visualizarActualizarExperiencia(e)}"
+								styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+
+						</p:column>
+					</p:dataTable>
+
+					<p:panelGrid id="registroExperiencia" columns="3"
+						rendered="#{actualizarEmpleado.view.mostrarRegistroExperiencia}"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank">
+						<p:spacer></p:spacer>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<f:facet name="header">
+								<h3>Registrar Experiencia Laboral</h3>
+
+							</f:facet>
+							<p:outputLabel for="nombreEmpresa"
+								value="Nombre de la Empresa o Institución*" />
+							<p:inputText id="nombreEmpresa"
+								value="#{actualizarEmpleado.view.experienciaLaboral.nombreEmpresa}"
+								validator="#{actualizarEmpleado.validatorExperienciaLaboral}">
+								<p:ajax update="msgNombreEmpresa" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgNombreEmpresa" for="nombreEmpresa" />
+
+							<p:outputLabel for="puestoDesempeado" value="Puesto Desempeñado*" />
+							<p:inputText id="puestoDesempeado"
+								value="#{actualizarEmpleado.view.experienciaLaboral.puestoAspirante}"
+								validator="#{actualizarEmpleado.validatorExperienciaLaboral}">
+								<p:ajax update="msgPuestoDesempe" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgPuestoDesempe" for="puestoDesempeado" />
+
+							<p:outputLabel for="anioInicial" value="Fecha Inicial*" />
+							<p:calendar id="anioInicial" pattern="dd-MM-yyyy" locale="es"
+								navigator="true"
+								value="#{actualizarEmpleado.view.experienciaLaboral.fechaInicial}" />
+
+							<p:outputLabel for="anioFinal" value="Fecha Final" />
+							<p:calendar id="anioFinal" pattern="dd-MM-yyyy" locale="es"
+								navigator="true"
+								value="#{actualizarEmpleado.view.experienciaLaboral.fechaFinal}" />
+
+							<p:spacer />
+							<p:commandButton value="Registrar" oncomplete="scrollToAnchor();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()"
+								actionListener="#{actualizarEmpleado.registrarExperienciaLaboral()}"
+								update="form" />
+						</p:panelGrid>
+						<p:spacer />
+					</p:panelGrid>
+
+					<p:panelGrid id="actualizarExperiencia" columns="3"
+						rendered="#{actualizarEmpleado.view.mostrarActualizacionExperiencia}"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank">
+
+						<p:spacer />
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<f:facet name="header">
+								<h3>Actualizar Experiencia Laboral</h3>
+							</f:facet>
+
+							<p:outputLabel for="nombreEmpresaActualizar"
+								value="Nombre de la Empresa o Institución*" />
+							<p:inputText id="nombreEmpresaActualizar"
+								value="#{actualizarEmpleado.view.experienciaLaboralSeleccionado.nombreEmpresa}"
+								validator="#{actualizarEmpleado.validatorExperienciaLaboral}">
+								<p:ajax update="msgNombreEmpresaActualizar" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgNombreEmpresaActualizar"
+								for="nombreEmpresaActualizar" />
+
+							<p:outputLabel for="puestoDesempeadoActualizar"
+								value="Puesto Desempeñado*" />
+							<p:inputText id="puestoDesempeadoActualizar"
+								value="#{actualizarEmpleado.view.experienciaLaboralSeleccionado.puestoAspirante}"
+								validator="#{actualizarEmpleado.validatorExperienciaLaboral}">
+								<p:ajax update="msgPuestoDesempeActualizar" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgPuestoDesempeActualizar"
+								for="puestoDesempeadoActualizar" />
+
+							<p:outputLabel for="anioInicialActualizar" value="Fecha Inicial" />
+							<p:calendar id="anioInicialActualizar" pattern="dd-MM-yyyy"
+								locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.experienciaLaboralSeleccionado.fechaInicial}" />
+
+							<p:outputLabel for="anioFinalActualizar" value="Fecha Final" />
+							<p:calendar id="anioFinalActualizar" pattern="dd-MM-yyyy"
+								locale="es" navigator="true"
+								value="#{actualizarEmpleado.view.experienciaLaboralSeleccionado.fechaFinal}" />
+
+							<h:outputLabel for="comentarioExperiencia" value="Comentario:*" />
+							<p:outputLabel>
+								<p:inputTextarea id="comentarioExperiencia" rows="5" cols="30"
+									counter="displayExperiencia" maxlength="255" required="true"
+									requiredMessage="Ingrese el comentario de modificación"
+									value="#{actualizarEmpleado.view.experienciaLaboralSeleccionado.comentarioMovimiento}"
+									counterTemplate="{0} Quedan." autoResize="false" />
+								<h:outputText id="displayExperiencia" />
+								<p:message for="comentarioExperiencia" />
+							</p:outputLabel>
+
+							<p:spacer />
+							<p:commandButton value="Actualizar"
+								oncomplete="scrollToAnchor();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()"
+								action="#{actualizarEmpleado.actualizarExperienciaLaboral()}"
+								update="@form" />
+						</p:panelGrid>
+						<p:spacer />
+					</p:panelGrid>
+
+				</p:panelGrid>
+
+
+
+
+			</p:panelGrid>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Importar Nomina" />
+	<ui:param name="moduloTitulo" value="Importar Nomina" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione los archivos DAT y TRA que desea importar. Este proceso puede demorar un tiempo" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+
+			<p:growl id="growl" showDetail="true" />
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="4" styleClass="ui-panelgrid-blank ui-fluid"
+				columnClasses="ui-grid-col-1, ui-grid-col-5, ui-grid-col-5,  ui-grid-col-1"
+				layout="grid">
+				<p:outputLabel />
+
+				<p:commandButton value="Importar por Dat Tra" update=":form"
+					styleClass="fm-btn-exitoso fm-btn-elevado" icon="fm-icon-attach"
+					action="#{importarNomina.mostrarPanelDatTra()}"
+					oncomplete="mymessages();" />
+
+				<p:commandButton value="Importar por Excel" update=":form"
+					styleClass="fm-btn-exitoso fm-btn-elevado"
+					action="#{importarNomina.mostrarPanelExcel()}"
+					icon="ui-icon-folder-collapsed" oncomplete="mymessages();" />
+
+				<p:outputLabel />
+
+			</p:panelGrid>
+
+			<p:spacer height="50" />
+
+
+			<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid"
+				columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
+				rendered="#{importarNomina.view.mostrarDatTra}" layout="grid">
+
+				<f:facet name="header">
+					<h3>Importar DAT TRA</h3>
+				</f:facet>
+
+				<p:spacer />
+				<p:fileUpload id="dat"
+					value="#{importarNomina.view.paqueteEntrada.dat}" mode="simple"
+					label="Seleccionar Archivo DAT" allowTypes="/(\.|\/)(dat)$/"
+					requiredMessage="El Archivo DAT es requerido"
+					invalidFileMessage="El Archivo debe tener la extención DAT"
+					style="width:50px;" skinSimple="true" />
+				<p:spacer />
+				<p:spacer />
+				<p:fileUpload id="tra"
+					value="#{importarNomina.view.paqueteEntrada.tra}" mode="simple"
+					label="Seleccionar Archivo TRA" allowTypes="/(\.|\/)(tra)$/"
+					requiredMessage="El Archivo TRA es requerido" style="width:50px;"
+					invalidFileMessage="El Archivo debe tener la extención TRA"
+					skinSimple="true" />
+				<p:spacer />
+				<p:spacer />
+				<p:commandButton value="Importar DAT TRA" ajax="false"
+					update=":form" styleClass="fm-btn-exitoso fm-btn-elevado"
+					icon="fm-icon-attach" action="#{importarNomina.importarDatTra()}"
+					oncomplete="mymessages();" />
+				<p:spacer />
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="3" styleClass="ui-panelgrid-blank ui-fluid"
+				columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
+				rendered="#{importarNomina.view.mostrarExcel}" layout="grid">
+
+				<f:facet name="header">
+					<h3>Importar Archivos Excel DAT TRA</h3>
+				</f:facet>
+
+				<p:spacer />
+				<p:fileUpload id="datExcel"
+					value="#{importarNomina.view.paqueteEntrada.dat}" mode="simple"
+					label="Seleccionar Archivo EXCEL DAT"
+					allowTypes="/(\.|\/)(xls|xlsx)$/"
+					requiredMessage="El Archivo XLS es requerido"
+					invalidFileMessage="El Archivo debe tener la extención XLS"
+					skinSimple="true" />
+				<p:spacer />
+				<p:spacer />
+				<p:fileUpload id="traExcel"
+					value="#{importarNomina.view.paqueteEntrada.tra}" mode="simple"
+					label="Seleccionar Archivo EXCEL TRA"
+					allowTypes="/(\.|\/)(xls|xlsx)$/"
+					requiredMessage="El Archivo XLS es requerido"
+					invalidFileMessage="El Archivo debe tener la extención XLS"
+					skinSimple="true" />
+				<p:spacer />
+				<p:spacer />
+				<p:commandButton value="Importar Excel" ajax="false" update=":form"
+					styleClass="fm-btn-exitoso fm-btn-elevado"
+					action="#{importarNomina.importarExcel()}"
+					icon="ui-icon-folder-collapsed" oncomplete="mymessages();" />
+				<p:spacer />
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

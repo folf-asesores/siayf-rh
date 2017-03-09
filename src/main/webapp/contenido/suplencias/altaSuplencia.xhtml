@@ -1,0 +1,644 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Alta Suplencia" />
+	<ui:param name="moduloTitulo" value="Alta Suplencia" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para registrar suplencias." />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5"
+				rendered="#{altaSuplencia.view.mostrarBusqueda}">
+
+				<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+				<p:inputText id="criterio"
+					value="#{altaSuplencia.view.filtro.criterio}">
+				</p:inputText>
+
+				<p:commandButton oncomplete="mymessages();"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					actionListener="#{altaSuplencia.buscarSuplente()}" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="tablaPuesto" editable="true" var="s" scrollRows="10"
+				scrollable="true" value="#{altaSuplencia.view.suplentesAutorizados}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				rendered="#{altaSuplencia.view.mostrarBusqueda}">
+
+				<p:column headerText="Rfc">
+					<h:outputText value="#{s.rfc}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{s.nombre}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{s.estatus}" />
+				</p:column>
+
+				<p:column headerText="Tiplo Suplente">
+					<h:outputText value="#{s.tipoSuplente}" />
+				</p:column>
+
+				<p:column headerText="Opciones">
+					<p:commandButton update="form"
+						actionListener="#{altaSuplencia.seleccionarSuplente(s)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{altaSuplencia.view.mostrarDetalleSuplente}">
+
+				<p:spacer></p:spacer>
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Información Suplencia</h3>
+					</f:facet>
+
+					<p:outputLabel value="Quincena captura:" />
+					<h:outputText value="#{altaSuplencia.view.numeroQuincenaActual}" />
+
+					<p:outputLabel value="Ejercicio fiscal captura:" />
+					<h:outputText value="#{altaSuplencia.view.ejercicioActivo}" />
+
+					<p:outputLabel value="Estatus" />
+					<h:outputText
+						value="#{altaSuplencia.view.suplenteSeleccionado.estatus}"></h:outputText>
+
+
+					<p:outputLabel value="Rfc" />
+					<h:outputText
+						value="#{altaSuplencia.view.suplenteSeleccionado.rfc}"></h:outputText>
+
+					<p:outputLabel value="Nombre" />
+					<h:outputText
+						value="#{altaSuplencia.view.suplenteSeleccionado.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Suplente" />
+					<h:outputText
+						value="#{altaSuplencia.view.suplenteSeleccionado.tipoSuplente}"></h:outputText>
+
+					<p:outputLabel for="idDocumentoAdjuntable"
+						value="Seleccione el documento soporte que desea adjuntar" />
+					<p:selectOneMenu id="idDocumentoAdjuntable"
+						value="#{altaSuplencia.view.idDocumentoAdjuntable}"
+						disabled="#{altaSuplencia.view.bloquearAdjunto}">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listaDocumentos}" />
+						<p:ajax update="archivoSuplencia" />
+					</p:selectOneMenu>
+
+					<p:spacer></p:spacer>
+					<p:fileUpload id="archivoSuplencia"
+						disabled="#{altaSuplencia.view.bloquearAdjunto}"
+						fileUploadListener="#{altaSuplencia.subirDocumentoAdjunto}"
+						label="Adjuntar" auto="true" mode="advanced"
+						allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|tif?f)$/" update="form"
+						invalidFileMessage="Tipo de archivo no permitido">
+						<f:attribute name="idEmpleado"
+							value="#{altaSuplencia.view.altaSuplencia.idEmpleado}" />
+						<f:attribute name="idDocAdj"
+							value="#{altaSuplencia.view.idDocumentoAdjuntable}" />
+					</p:fileUpload>
+
+				</p:panelGrid>
+
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+
+
+
+			<p:dataTable id="detalles" editable="true" var="d" scrollRows="10"
+				scrollable="true" value="#{altaSuplencia.view.detallesSuplencias}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15"
+				rendered="#{altaSuplencia.view.mostrarDetalleSuplente}">
+
+				<f:facet name="header">
+					<p:panelGrid columns="5"
+						columnClasses="ui-grid-col-3,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-3"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:commandButton value="Regresar Búsqueda"
+							icon="ui-icon-circle-arrow-w"
+							actionListener="#{altaSuplencia.mostrarBusqueda()}" update="form"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+						<p:commandButton value="Enviar revisión"
+							icon="ui-icon-mail-closed"
+							actionListener="#{altaSuplencia.enviaraRevision()}" update="form"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+						<p:commandButton value="Registro suplencias por rango"
+							icon="ui-icon-plus"
+							actionListener="#{altaSuplencia.mostrarAltaSuplenciaRango()}"
+							update="form" onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+						<p:commandButton value="Registro suplencias por días"
+							icon="ui-icon-plus"
+							actionListener="#{altaSuplencia.mostrarAltaSuplenciaDias()}"
+							update="form" onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+
+						<p:commandButton value="Consultar documentación"
+							icon="ui-icon-folder-collapsed"
+							actionListener="#{altaSuplencia.mostrarAdjuntos()}" update="form"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" oncomplete="mymessages();" />
+					</p:panelGrid>
+
+				</f:facet>
+				<p:column headerText="Id">
+					<h:outputText value="#{d.idDetalleSuplencia}" />
+				</p:column>
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{d.nombreEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Tipo Suplencia">
+					<h:outputText value="#{d.tipoSuplencia}" />
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{d.estatus}" />
+				</p:column>
+
+				<p:column headerText="Rango fechas">
+					<h:outputText value="#{d.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+					<h:outputText value="/" />
+					<h:outputText value="#{d.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+				</p:column>
+
+				<p:column headerText="Cantidad Diaria">
+					<h:outputText value="#{d.cantidadDiaria}" />
+				</p:column>
+
+				<p:column headerText="Días">
+					<h:outputText value="#{d.dias}" />
+				</p:column>
+
+				<p:column headerText="Total">
+					<h:outputText value="#{d.total}" />
+				</p:column>
+
+
+				<p:column headerText="Descuento">
+					<h:outputText value="#{d.conDescuento}" />
+				</p:column>
+
+				<p:column headerText="Observaciones">
+					<h:outputText value="#{d.observaciones}" />
+				</p:column>
+
+
+				<p:column headerText="Opciones">
+					<p:commandButton icon="ui-icon-pencil" iconPos="right"
+						title="Editar"
+						actionListener="#{altaSuplencia.mostrarEdicionSuplencia(d)}"
+						update="form" styleClass="fm-btn-exitoso fm-btn-elevado"
+						process="@this" />
+
+					<p:commandButton icon="ui-icon-trash" update="form"
+						title="Eliminar"
+						actionListener="#{altaSuplencia.eliminarSuplencia(d.idDetalleSuplencia)}"
+						styleClass="fm-btn-peligro fm-btn-elevado" process="@this" />
+				</p:column>
+
+				<p:columnGroup type="footer">
+					<p:row>
+						<p:column colspan="8" style="text-align:right;"
+							footerText="Total Días:" />
+						<p:column style="text-align:left"
+							footerText="#{altaSuplencia.view.totalDias}" />
+						<p:column style="text-align:right" footerText="Total:" />
+						<p:column style="text-align:left"
+							footerText="#{altaSuplencia.view.totalSuplencias}" />
+					</p:row>
+				</p:columnGroup>
+
+
+			</p:dataTable>
+
+			<p:dialog header="Suplencia por rangos" id="nueva_suplencia"
+				visible="#{altaSuplencia.view.mostrarAltaSuplenciaRango}"
+				modal="true" closable="false" height="500" minWidth="400">
+
+				<p:panelGrid layout="grid" columns="2" id="altaSuplencia"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
+					<p:outputLabel for="tipoSuplencia" value="Motivo suplencia:" />
+					<p:selectOneMenu id="tipoSuplencia" filter="true"
+						filterMatchMode="contains"
+						value="#{altaSuplencia.view.altaSuplencia.idCausaSuplencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.tiposSuplencias}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarTipoSuplencia()}"
+							process="tipoSuplencia" update="altaSuplencia"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="criterioEmpleado" value="Criterio Empleado"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}" />
+					<p:inputText id="criterioEmpleado"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}"
+						value="#{altaSuplencia.view.criterioEmpleado}">
+						<p:ajax event="keyup" update="idEmpleado, error"
+							listener="#{altaSuplencia.buscarEmpleadoAutoComplete()}" />
+					</p:inputText>
+
+					<p:outputLabel for="idEmpleado" value="Seleccione un empleado:"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}" />
+					<p:selectOneMenu id="idEmpleado"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}"
+						value="#{altaSuplencia.view.altaSuplencia.idEmpleado}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listadoEmpleadoDTO}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="jornada" value="Seleccione una jornada" />
+					<p:selectOneMenu id="jornada"
+						value="#{altaSuplencia.view.altaSuplencia.idJornada}">
+						<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+						<f:selectItems value="#{altaSuplencia.view.listaJornadas}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarJornada()}"
+							process="jornada" update="tabulador, fecha_inicio,fecha_fin "></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tabulador" value="Tabulador autorizado:" />
+					<p:selectOneMenu id="tabulador" filter="true"
+						filterMatchMode="contains"
+						value="#{altaSuplencia.view.altaSuplencia.idTabulador}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listaTabuladores}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarTabulador()}"
+							process="tabulador" update="fecha_inicio,fecha_fin"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="fecha_inicio" value="Fecha Inicio" />
+					<p:calendar id="fecha_inicio"
+						value="#{altaSuplencia.view.altaSuplencia.fechaInicio}">
+						<p:ajax event="dateSelect" process="fecha_inicio"
+							listener="#{altaSuplencia.onDateSelect}" update="fecha_fin"></p:ajax>
+					</p:calendar>
+
+					<p:outputLabel for="fecha_fin" value="Fecha Fin" />
+					<p:calendar id="fecha_fin"
+						maxdate="#{altaSuplencia.view.fechaMaxima}"
+						value="#{altaSuplencia.view.altaSuplencia.fechaFin}">
+						<p:ajax listener="#{altaSuplencia.calcular()}"
+							update="dias, total, error" event="dateSelect"
+							process="tabulador, fecha_inicio, fecha_fin,tipoSuplencia,jornada, idEmpleado"></p:ajax>
+					</p:calendar>
+
+					<p:outputLabel value="Días:" />
+					<h:outputText id="dias"
+						value="#{altaSuplencia.view.altaSuplencia.dias}"></h:outputText>
+
+					<p:outputLabel value="Total:" />
+					<h:outputText id="total"
+						value="#{altaSuplencia.view.altaSuplencia.total}"></h:outputText>
+
+
+					<p:outputLabel for="observaciones" value="Observaciones"></p:outputLabel>
+					<p:inputTextarea id="observaciones"
+						style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{altaSuplencia.view.altaSuplencia.observaciones}"></p:inputTextarea>
+
+				</p:panelGrid>
+
+
+				<f:facet name="footer">
+					<p:panelGrid columns="5"
+						columnClasses="ui-grid-col-1,ui-grid-col-4, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1 "
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+						<p:commandButton value="Guardar" icon="ui-icon-circle-check"
+							iconPos="right" styleClass="fm-btn-exitoso"
+							process="nueva_suplencia"
+							actionListener="#{altaSuplencia.registrarDetalleRango()}"
+							update="form, error"></p:commandButton>
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error" process="@this"
+							actionListener="#{altaSuplencia.ocultarAltaSuplenciaRango()}"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
+			</p:dialog>
+
+			<p:dialog header="Edición suplencia" id="edicion_suplencia"
+				appendTo="form" visible="#{altaSuplencia.view.mostrarEdicion}"
+				modal="true" closable="false" height="500" minWidth="400">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<p:messages id="errorEdicion" showDetail="true" autoUpdate="false"
+							severity="errorEdicion" closable="true" />
+					</f:facet>
+
+					<p:outputLabel value="Motivo suplencia:" />
+					<h:outputText
+						value="#{altaSuplencia.view.detalleSeleccionado.tipoSuplencia}" />
+
+					<p:outputLabel value="Empleado:" />
+					<h:outputText
+						value="#{altaSuplencia.view.detalleSeleccionado.nombreEmpleado}" />
+
+					<p:outputLabel for="jornadaEdicion" value="Seleccione una jornada" />
+					<p:selectOneMenu id="jornadaEdicion"
+						value="#{altaSuplencia.view.edicion.idJornada}">
+						<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+						<f:selectItems value="#{altaSuplencia.view.listaJornadas}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarJornadaEdicion()}"
+							update="fecha_inicioE,fecha_finE,tabuladorE  "></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tabuladorE" value="Tabulador autorizado:" />
+					<p:selectOneMenu id="tabuladorE" filter="true"
+						filterMatchMode="contains"
+						value="#{altaSuplencia.view.edicion.idTabulador}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listaTabuladores}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarTabuladorEdicion()}"
+							update="fecha_inicioE,fecha_finE "></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="fecha_inicioE" value="Fecha Inicio" />
+					<p:calendar id="fecha_inicioE"
+						value="#{altaSuplencia.view.edicion.fechaInicio}">
+						<p:ajax event="dateSelect" process="fecha_inicioE"
+							listener="#{altaSuplencia.onDateSelectEdicion}"
+							update="fecha_finE"></p:ajax>
+					</p:calendar>
+
+					<p:outputLabel for="fecha_finE" value="Fecha Fin" />
+					<p:calendar id="fecha_finE"
+						maxdate="#{altaSuplencia.view.fechaMaxima}"
+						value="#{altaSuplencia.view.edicion.fechaFin}">
+						<p:ajax listener="#{altaSuplencia.calcularTotalesEditados()}"
+							update="diasE, totalE,  errorEdicion" event="dateSelect"></p:ajax>
+					</p:calendar>
+
+					<p:outputLabel value="Días:" />
+					<h:outputText id="diasE" value="#{altaSuplencia.view.edicion.dias}"></h:outputText>
+
+					<p:outputLabel value="Total:" />
+					<h:outputText id="totalE"
+						value="#{altaSuplencia.view.edicion.total}"></h:outputText>
+
+
+					<p:outputLabel for="observacionesE" value="Observaciones"></p:outputLabel>
+					<p:inputTextarea id="observacionesE"
+						style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{altaSuplencia.view.edicion.observaciones}"></p:inputTextarea>
+
+
+					<f:facet name="footer">
+						<p:panelGrid columns="5"
+							columnClasses="ui-grid-col-1,ui-grid-col-4, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1 "
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+							<p:spacer></p:spacer>
+							<p:commandButton value="Guardar" icon="ui-icon-circle-check"
+								iconPos="right" styleClass="fm-btn-exitoso"
+								actionListener="#{altaSuplencia.editarSuplencia()}"
+								process="edicion_suplencia" update="form, errorEdicion"></p:commandButton>
+							<p:spacer></p:spacer>
+							<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+								iconPos="right" styleClass="fm-btn-error"
+								actionListener="#{altaSuplencia.ocultarEdicion()}" update="form"></p:commandButton>
+							<p:spacer></p:spacer>
+						</p:panelGrid>
+					</f:facet>
+
+
+
+				</p:panelGrid>
+			</p:dialog>
+
+			<p:dialog header="Suplencia por días" id="dialog_suplencia_dias"
+				visible="#{altaSuplencia.view.mostrarAltaSuplenciaDias}"
+				modal="true" closable="false" height="500" minWidth="400">
+
+				<p:panelGrid layout="grid" columns="2" id="panel_suplencias_dias"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+					<f:facet name="header">
+						<p:messages id="errorDias" showDetail="true" autoUpdate="false"
+							closable="true" />
+					</f:facet>
+
+					<p:outputLabel for="tipoSuplenciaD" value="Motivo suplencia:" />
+					<p:selectOneMenu id="tipoSuplenciaD" filter="true"
+						filterMatchMode="contains"
+						value="#{altaSuplencia.view.altaSuplencia.idCausaSuplencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.tiposSuplencias}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarTipoSuplencia()}"
+							process="tipoSuplenciaD" update="panel_suplencias_dias"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="criterioEmpleadoD" value="Criterio Empleado"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}" />
+					<p:inputText id="criterioEmpleadoD"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}"
+						value="#{altaSuplencia.view.criterioEmpleado}">
+						<p:ajax event="keyup" update="idEmpleadoD, errorDias"
+							listener="#{altaSuplencia.buscarEmpleadoAutoComplete()}" />
+					</p:inputText>
+
+					<p:outputLabel for="idEmpleadoD" value="Seleccione un empleado:"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}" />
+					<p:selectOneMenu id="idEmpleadoD"
+						rendered="#{altaSuplencia.view.mostrarEmpleado}"
+						value="#{altaSuplencia.view.altaSuplencia.idEmpleado}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listadoEmpleadoDTO}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="jornadaD" value="Seleccione una jornada" />
+					<p:selectOneMenu id="jornadaD"
+						value="#{altaSuplencia.view.altaSuplencia.idJornada}">
+						<f:selectItem itemValue="" itemLabel="Seleccione una opción" />
+						<f:selectItems value="#{altaSuplencia.view.listaJornadas}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarJornada()}"
+							process="jornadaD" update="tabuladorD"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tabuladorD" value="Tabulador autorizado:" />
+					<p:selectOneMenu id="tabuladorD" filter="true"
+						filterMatchMode="contains"
+						value="#{altaSuplencia.view.altaSuplencia.idTabulador}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{altaSuplencia.view.listaTabuladores}" />
+						<p:ajax listener="#{altaSuplencia.seleccionarTabulador()}"
+							process="tabuladorD"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:outputLabel for="observacionesD" value="Observaciones"></p:outputLabel>
+					<p:inputTextarea id="observacionesD"
+						style="text-transform:uppercase;"
+						onkeyup="javascript:this.value=this.value.toUpperCase();"
+						value="#{altaSuplencia.view.altaSuplencia.observaciones}"></p:inputTextarea>
+
+					<p:outputLabel for="fechaRegistro" value="Fecha suplencia:" />
+					<p:calendar id="fechaRegistro"
+						maxdate="#{altaSuplencia.view.fechaMaxima}"
+						value="#{altaSuplencia.view.fechaSuplencia}" pattern="dd-MM-yyyy"
+						mask="true">
+					</p:calendar>
+
+					<p:spacer></p:spacer>
+					<p:commandButton value="Agregar Suplencia" icon="ui-icon-plus"
+						actionListener="#{altaSuplencia.agregarDia()}"
+						update="errorDias,panel_suplencias_dias"></p:commandButton>
+
+					<p:spacer></p:spacer>
+					<p:dataTable id="detallesAltasSuplencias" editable="true" var="d"
+						scrollRows="10" scrollable="true"
+						value="#{altaSuplencia.view.altasSuplencias}"
+						emptyMessage="No se encontrarón resultados" paginator="true"
+						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+
+
+						<p:column headerText="Fecha Inicio">
+							<h:outputText value="#{d.fechaInicio}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Fecha Fin">
+							<h:outputText value="#{d.fechaFin}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column headerText="Total Días">
+							<h:outputText value="#{d.dias}" />
+						</p:column>
+
+						<p:column headerText="Total ">
+							<h:outputText value="#{d.total}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:panelGrid>
+
+
+
+				<f:facet name="footer">
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-4,ui-grid-col-4, ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error"
+							actionListener="#{altaSuplencia.ocultarAltaSuplenciaDias()}"
+							update="form"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+
+				</f:facet>
+			</p:dialog>
+
+			<p:dialog
+				header="Documentación Quincena #{altaSuplencia.view.numeroQuincenaActual}"
+				id="dialog_documentacion"
+				visible="#{altaSuplencia.view.mostrarDocumentacion}" modal="true"
+				closable="false" height="500" minWidth="400">
+
+				<p:dataTable emptyMessage="No se encontrarón resultados..."
+					value="#{altaSuplencia.view.documentosAdjuntos}" var="d">
+					<p:column headerText="Nombre Adjunto">
+						<p:outputLabel value="#{d.nombreAdjunto}" />
+					</p:column>
+					<p:column headerText="Nombre Adjunto">
+						<p:outputLabel value="#{d.documentoAdjuntable.descripcion}" />
+					</p:column>
+					<p:column headerText="Opciones"
+						style="width:250px;text-align: center;">
+						<p:spacer width="20" />
+						<p:commandButton icon="fm-icon-download" title="Descargar"
+							update="@form" iconPos="right" ajax="false"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							actionListener="#{altaSuplencia.descargarAdjunto(d)}"
+							oncomplete="mymessages(); scrollToAnchor();" />
+						<p:spacer width="20" />
+					</p:column>
+
+				</p:dataTable>
+
+				<f:facet name="footer">
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-4,ui-grid-col-4, ui-grid-col-4"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error"
+							actionListener="#{altaSuplencia.ocultarAdjuntos()}" update="form"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
+
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

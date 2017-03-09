@@ -1,0 +1,362 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+
+	<ui:param name="ventanaTitulo" value="Mi buzón" />
+
+	<ui:param name="moduloTitulo" value="Mi buzón" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" escape="false" />
+
+			<h:panelGroup id="panel">
+
+				<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:spacer></p:spacer>
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<f:facet name="header">
+							<h3>Notificaciones</h3>
+						</f:facet>
+
+						<p:dataTable id="notificaciones"
+							value="#{miBuzon.view.misNotificaciones}" var="n"
+							paginator="true" paginatorPosition="bottom" rows="5"
+							currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+							paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+							<p:column headerText="Notificación">
+								<h:outputText value="#{n.accion}" />
+							</p:column>
+							<p:column headerText="Descripción">
+								<h:outputText value="#{n.descripcion}" />
+							</p:column>
+							<p:column headerText="Finalizada">
+								<h:outputText value="#{n.finalizado}" />
+							</p:column>
+
+							<p:column headerText="Ver">
+								<p:commandButton update="form"
+									actionListener="#{miBuzon.mostrarDetalleNotificacion(n.idBuzonAutorizacion, n.idAccion)}"
+									icon="fm-icon-eye" title="Ver">
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+				</p:panelGrid>
+
+
+				<p:dialog header="Detalle Notificacion" showEffect="Slide"
+					visible="#{miBuzon.view.mostrarAutorizacion}" id="nuevo_detalle"
+					modal="true" closable="false" height="500">
+
+					<p:panelGrid columns="3"
+						columnClasses="ui-grid-col-1,ui-grid-col-10,ui-grid-col-1"
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleAperturaVacante}"></p:spacer>
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+							styleClass="fm-tarjeta ui-fluid "
+							rendered="#{miBuzon.view.mostrarDetalleAperturaVacante}">
+							<f:facet name="header">
+								<h3>Detalle Vacante</h3>
+							</f:facet>
+
+							<p:outputLabel for="proyectoD" value="Proyecto" />
+							<h:outputText id="proyectoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.proyecto}"></h:outputText>
+
+							<p:outputLabel for="dependenciaD" value="Dependencia" />
+							<h:outputText id="dependenciaD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.dependencia}"></h:outputText>
+
+							<p:outputLabel for="unidadResponsableD"
+								value="Unidad Responsable" />
+							<h:outputText id="unidadResponsableD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.unidadResponsable}"></h:outputText>
+
+							<p:outputLabel for="tipoContratacionD" value="Tipo Contratación" />
+							<h:outputText id="tipoContratacionD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.tipoContratacion}"></h:outputText>
+
+
+							<p:outputLabel for="nombramientoD" value="Nombramiento" />
+							<h:outputText id="nombramientoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.nombramiento}"></h:outputText>
+
+
+							<p:outputLabel for="codigoPuestoD" value="Puesto" />
+							<h:outputText id="codigoPuestoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.codigoPuesto}"></h:outputText>
+
+
+							<p:outputLabel for="puestoD" value="Puesto" />
+							<h:outputText id="puestoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.puesto}"></h:outputText>
+
+
+							<p:outputLabel for="fuenteD" value="Fuente Financiamiento" />
+							<h:outputText id="fuenteD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.fuenteFinanciamiento}"></h:outputText>
+
+							<p:outputLabel for="subfuenteD" value="Subfuente Financiamiento" />
+							<h:outputText id="subfuenteD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.subfuenteFinanciamiento}"></h:outputText>
+
+							<p:outputLabel for="tipoRecursoD" value="Tipo Recurso" />
+							<h:outputText id="tipoRecursoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.tipoRecurso}"></h:outputText>
+
+							<p:outputLabel for="nombreCuentaD" value="Nombre Cuenta:" />
+							<h:outputText id="nombreCuentaD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.cuentaFinanciamiento}"></h:outputText>
+
+							<p:outputLabel for="tabuladorD" value="Tabulador:" />
+							<h:outputText id="tabuladorD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.tabulador}"></h:outputText>
+
+							<p:outputLabel for="sueldoTabuladorD" value="Sueldo Tabulador:" />
+							<h:outputText id="sueldoTabuladorD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.sueldoTabulador}"></h:outputText>
+
+							<p:outputLabel for="suedoD" value="Sueldo Autorizado:" />
+							<h:outputText id="suedoD"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionPresupuesto.sueldoAutorizado}"></h:outputText>
+						</p:panelGrid>
+
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleAperturaVacante}"></p:spacer>
+
+						<p:spacer
+							rendered="#{miBuzon.view.mostrarDetalleAperturaVacantePrograma}"></p:spacer>
+						<p:panelGrid columns="2"
+							columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+							styleClass="fm-tarjeta ui-fluid "
+							rendered="#{miBuzon.view.mostrarDetalleAperturaVacantePrograma}">
+							<f:facet name="header">
+								<h3>Detalle Vacantes Programa
+									#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.nombrePrograma}</h3>
+							</f:facet>
+
+							<p:outputLabel value="Proyecto"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.proyecto}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Dependencia"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.dependencia}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Unidad Responsable"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.unidadResponsable}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Tipo Contratación"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText value="CONTRATO FEDERAL"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+
+							<p:outputLabel value="Nombramiento"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText value="EVENTUAL"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+
+							<p:outputLabel value="Fuente Financiamiento"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.fuenteFinanciamiento}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Subfuente Financiamiento"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.subFuenteFinanciamiento}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Tipo Recurso"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.tipoRecurso}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Cuenta:"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.cuenta}"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"></h:outputText>
+
+							<p:outputLabel value="Clave:"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.clave}"></h:outputText>
+
+							<p:outputLabel value="Descripción" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.descripcion}"></h:outputText>
+
+							<p:outputLabel value="Numero Personas:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.numeroPersonas}"></h:outputText>
+							<p:outputLabel value="Meses Contratación"
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}" />
+							<h:outputText
+								rendered="#{miBuzon.view.mostrarDetalleLaboralPrograma}"
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.mesesContratacion}"></h:outputText>
+							<p:outputLabel value="Costo Unitario:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.precioUnitario}"></h:outputText>
+
+							<p:outputLabel value="Total Global" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.configuracionDetallePrograma.detallePrograma.totalGlobal}"></h:outputText>
+						</p:panelGrid>
+						<p:spacer
+							rendered="#{miBuzon.view.mostrarDetalleAperturaVacantePrograma}"></p:spacer>
+
+
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleMovimiento}"></p:spacer>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							rendered="#{miBuzon.view.mostrarDetalleMovimiento}">
+
+
+							<f:facet name="header">
+								<h3>Detalle movimiento</h3>
+							</f:facet>
+							<p:outputLabel value="Empleado" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.empleado}"></h:outputText>
+
+							<p:outputLabel value="Fecha Movimiento" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.fechaMovimiento}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+
+							<p:outputLabel value="Usuario movimiento" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.usuario}"></h:outputText>
+
+							<p:outputLabel value="Movimiento" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.movimiento}"></h:outputText>
+
+							<p:outputLabel value="Fecha Inicio" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.fechaInicio}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+
+							<p:outputLabel value="Fecha Fin" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.fechaFin}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+
+							<p:outputLabel value="Número Oficio" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.numeroOficio}"></h:outputText>
+
+							<p:outputLabel value="Observaciones" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleMovimiento.observaciones}"></h:outputText>
+
+
+
+						</p:panelGrid>
+
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleMovimiento}"></p:spacer>
+
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleSuplencia}"></p:spacer>
+						<p:panelGrid columns="2"
+							rendered="#{miBuzon.view.mostrarDetalleSuplencia}"
+							columnClasses="ui-grid-col-4,ui-grid-col-9" layout="grid"
+							styleClass="fm-tarjeta ui-fluid ">
+							<f:facet name="header">
+								<h3>Información Suplencia</h3>
+								<p:messages id="error" showDetail="true" autoUpdate="false"
+									severity="error" closable="true" />
+							</f:facet>
+							<p:outputLabel value="Suplente:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.nombreSuplente}"></h:outputText>
+							<p:outputLabel value="Tipo Suplencia:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.tipoSuplencia}"></h:outputText>
+
+
+							<p:outputLabel value="Fecha inicio suplencia:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.fechaInicio}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+
+							<p:outputLabel value="Fecha fin suplencia:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.fechaFin}">
+								<f:convertDateTime pattern="dd-MM-yyyy" />
+							</h:outputText>
+
+							<p:outputLabel value="Días" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.dias}"></h:outputText>
+
+
+							<p:outputLabel value="Cantidad diaria:" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.cantidadDiaria}"></h:outputText>
+
+
+							<p:outputLabel value="Total" />
+							<h:outputText
+								value="#{miBuzon.view.detalleAutorizacion.detalleSuplencia.total}"></h:outputText>
+
+						</p:panelGrid>
+						<p:spacer rendered="#{miBuzon.view.mostrarDetalleSuplencia}"></p:spacer>
+					</p:panelGrid>
+
+
+					<f:facet name="footer">
+						<div align="center">
+							<p:commandButton icon="ui-icon-circle-check"
+								update="form, messages_generales" oncomplete="mymessages();"
+								actionListener="#{miBuzon.autorizarMovimiento()}" />
+							<p:spacer width="20" />
+							<p:commandButton icon="ui-icon-circle-close" update="form"
+								oncomplete="mymessages();" process="@this"
+								actionListener="#{miBuzon.ocultarDetalleNotificacion()}"
+								styleClass="fm-btn-peligro fm-btn-elevado" />
+						</div>
+					</f:facet>
+				</p:dialog>
+			</h:panelGroup>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

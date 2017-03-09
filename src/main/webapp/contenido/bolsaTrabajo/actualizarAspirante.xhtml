@@ -1,0 +1,1737 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Actualización de Aspirante" />
+	<ui:param name="moduloTitulo"
+		value="Bolsa de Trabajo: Actualizar Aspirante" />
+	<ui:param name="moduloSubtitulo"
+		value="Capture la información del Aspirante. Al capturar queda actualizado la información del Aspirante." />
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+		
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+			
+				<p:outputPanel>
+
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="3"
+						columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+						<p:outputLabel for="criterio" value="Ingrese un Criterio:" />
+
+						<p:outputPanel id="outputCriterio">
+							<p:inputText id="criterio" required="true"
+								requiredMessage="Ingrese el criterio"
+								style="text-transform:uppercase;"
+								onkeyup="javascript:this.value=this.value.toUpperCase();"
+								validator="#{actualizacionAspirante.validarConsulta}"
+								value="#{actualizacionAspirante.view.filtro.criterio}"
+								placeholder="Nombre, RFC o CURP">
+
+								<p:clientValidator />
+								<p:ajax event="blur" update=":form:outputCriterio" />
+
+							</p:inputText>
+							<p:message for="criterio" />
+
+						</p:outputPanel>
+
+						<p:commandButton oncomplete="mymessages();"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()" icon="ui-icon-search"
+							title="Buscar"
+							action="#{actualizacionAspirante.obtenerInfoAspirante()}"
+							styleClass="fm-btn-elevado" update="form" process="@this" />
+
+					</p:panelGrid>
+
+				</p:outputPanel>
+
+				<p:dataTable id="aspirantes" var="a"
+					rendered="#{actualizacionAspirante.view.mostrarResultados}"
+					value="#{actualizacionAspirante.view.listaInfoAspirante}"
+					paginator="true" paginatorPosition="bottom" rows="5"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+					<p:column
+						headerText="#{actualizacionAspirante.view.tipoBusquedaHeader}"
+						sortBy="#{a.profesionEspecialidad}"
+						filterBy="#{a.profesionEspecialidad}"
+						rendered="#{actualizacionAspirante.view.mostrarTipoBusquedaHeader}">
+						<h:outputText value="#{a.profesionEspecialidad}" />
+					</p:column>
+
+					<p:column headerText="Nombre">
+						<h:outputText value="#{a.nombre}" />
+					</p:column>
+
+					<p:column headerText="Curp">
+						<h:outputText value="#{a.curp}" />
+					</p:column>
+
+					<p:column headerText="Rfc">
+						<h:outputText value="#{a.rfc}" />
+					</p:column>
+
+					<p:column headerText="Dirección">
+						<h:outputText value="#{a.direccion}" />
+					</p:column>
+
+					<p:column headerText="Estatus">
+						<h:outputText value="#{a.estatus}" />
+					</p:column>
+
+					<p:column headerText="Ver" style="text-align: center;" width="80">
+						<p:commandButton update="form" icon="fm-icon-eye" title="Ver"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							action="#{actualizacionAspirante.mostrarPanelDatosAspirante(a.idAspirante)}" />
+
+					</p:column>
+				</p:dataTable>
+
+				<h:panelGroup styleClass=" ui-noborder sin_borde  fm-contenedor-100"
+					rendered="#{actualizacionAspirante.view.mostrarPanelDatosAspirante}">
+
+					<p:panelGrid columns="2"
+						columnClasses="ui-grid-col-2, ui-grid-col-10" layout="grid"
+						styleClass="ui-fluid ui-panelgrid-blank ">
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+							<p:commandButton value="DATOS GENERALES" update="form"
+								action="#{actualizacionAspirante.menu(1)}" process="@this"
+								styleClass="fm-btn-elevado" oncomplete="mymessages();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" />
+
+							<p:spacer height="10" />
+
+							<p:commandButton value="HISTORIAL ACADEMICO" update="form"
+								action="#{actualizacionAspirante.menu(2)}" process="@this"
+								styleClass="fm-btn-elevado" oncomplete="mymessages();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" />
+
+							<p:spacer height="10" />
+
+							<p:commandButton value="EXPERIENCIA LABORAL" update="form"
+								action="#{actualizacionAspirante.menu(3)}" process="@this"
+								styleClass="fm-btn-elevado" oncomplete="mymessages();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" />
+
+							<p:spacer height="10" />
+
+							<p:commandButton value="HABILIDADES PERSONALES" update="form"
+								action="#{actualizacionAspirante.menu(4)}" process="@this"
+								styleClass="fm-btn-elevado" oncomplete="mymessages();"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" />
+
+
+
+						</p:panelGrid>
+
+						<p:panelGrid columns="3"
+							columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+							id="datosGenerales"
+							rendered="#{actualizacionAspirante.view.mostrarDatosPersonales}">
+
+							<p:outputLabel />
+
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+									<f:facet name="header">
+										<h3>Datos Generales</h3>
+									</f:facet>
+
+									<p:outputLabel for="nombre" value="Nombre: *" />
+									<p:outputPanel>
+										<p:inputText id="nombre" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.nombre}">
+											<p:ajax update="msgNombre" event="blur" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgNombre" for="nombre" />
+									</p:outputPanel>
+
+									<p:outputLabel for="apellidoPaterno"
+										value="Apellido Paterno: *" />
+									<p:outputPanel>
+										<p:inputText id="apellidoPaterno"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.apellidoPaterno}">
+											<p:ajax update="msgApellidoPaterno" event="blur" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgApellidoPaterno" for="apellidoPaterno" />
+									</p:outputPanel>
+
+									<p:outputLabel for="apellidoMaterno"
+										value="Apellido Materno: *" />
+									<p:outputPanel>
+										<p:inputText id="apellidoMaterno"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.apellidoMaterno}">
+											<p:ajax update="msgApellidoMaterno" event="blur" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgApellidoMaterno" for="apellidoMaterno" />
+									</p:outputPanel>
+
+									<p:outputLabel for="rfc" value="RFC: *" />
+									<p:outputPanel>
+										<p:inputText
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											id="rfc"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.rfc}"
+											maxlength="13">
+											<p:ajax event="blur" update="msgRfc" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgRfc" for="rfc" />
+									</p:outputPanel>
+
+									<p:outputLabel for="curp" value="CURP: *" />
+									<p:outputPanel>
+										<p:inputText id="curp"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.curp}"
+											maxlength="18">
+											<p:ajax event="blur" update="msgCurp" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgCurp" for="curp" />
+									</p:outputPanel>
+
+									<p:outputLabel for="fechaNacimiento"
+										value="Fecha Nacimiento: *" />
+									<p:outputPanel>
+										<p:calendar id="fechaNacimiento" showOn="button"
+											pattern="dd/MM/yyyy"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.fechaNacimiento}">
+											<p:ajax event="dateSelect" update="msgFechaNacimiento" />
+											<p:ajax event="blur" update="msgFechaNacimiento" />
+											<p:clientValidator />
+										</p:calendar>
+										<p:message id="msgFechaNacimiento" for="fechaNacimiento" />
+									</p:outputPanel>
+
+									<p:outputLabel for="estadoCivil" value="Estado Civil: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="estadoCivil"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.estadoCivil}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaEstadosCiviles}" />
+											<p:ajax event="valueChange" update="msgEstadoCivil" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message id="msgEstadoCivil" for="estadoCivil" />
+									</p:outputPanel>
+
+									<p:outputLabel for="sexo" value="Sexo: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="sexo"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.sexo}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaTiposSexo}" />
+											<p:ajax event="valueChange" update="msgSexo" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message id="msgSexo" for="sexo" />
+									</p:outputPanel>
+
+									<p:outputLabel for="tipoSangre" value="Tipo Sangre: *" />
+									<p:selectOneMenu id="tipoSangre"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.tipoSangre}">
+										<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+										<f:selectItems
+											value="#{actualizacionAspirante.view.listaTiposSangre}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="estatura" value="Estatura:" />
+									<p:inputText id="estatura"
+										validator="#{actualizacionAspirante.validatorDatosGenerales}"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.estatura}" />
+
+									<p:outputLabel for="peso" value="Peso:" />
+									<p:inputText id="peso"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.peso}" />
+
+									<p:outputLabel for="telefono" value="Telefono" />
+									<p:inputText id="telefono"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.telefono}" />
+
+									<p:outputLabel for="correo" value="Correo" />
+									<p:inputText id="correo"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.correoElectronico}" />
+
+									<p:outputLabel for="lugarNacimiento"
+										value="Lugar Nacimiento: *" />
+									<p:outputPanel>
+										<p:inputText id="lugarNacimiento"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDatosGenerales}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.lugarNacimiento}">
+											<p:clientValidator />
+											<p:ajax event="blur" update="msgLugarNacimiento" />
+										</p:inputText>
+										<p:message id="msgLugarNacimiento" for="lugarNacimiento" />
+									</p:outputPanel>
+
+									<p:outputLabel for="vive" value="Vive con: " />
+									<p:selectOneMenu id="vive"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.viveCon}">
+										<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+										<f:selectItems
+											value="#{actualizacionAspirante.view.listaViveCon}" />
+									</p:selectOneMenu>
+
+									<p:outputLabel for="depende"
+										value="Personas que Dependen del Aspirante : " />
+									<p:selectManyCheckbox id="depende" layout="responsive"
+										columns="2"
+										value="#{actualizacionAspirante.view.personasDependientes}">
+										<f:selectItems var="depende" itemLabel="#{depende}"
+											itemValue="#{depende}" />
+										<f:selectItems
+											value="#{actualizacionAspirante.view.listaDependientes}"
+											var="depende" itemLabel="#{depende}" itemValue="#{depende}" />
+									</p:selectManyCheckbox>
+
+									<p:outputLabel for="noHijos" value="No. Hijos" />
+									<p:inputText id="noHijos"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroHijos}" />
+
+									<p:outputLabel for="noPadres" value="No. Padres" />
+									<p:inputText id="noPadres"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroPadres}" />
+
+									<p:outputLabel for="noOtros" value="No. Otros" />
+									<p:inputText id="noOtros"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroOtros}" />
+
+								</p:panelGrid>
+
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+									<f:facet name="header">
+										<h3>Domicilio</h3>
+									</f:facet>
+
+									<p:outputLabel for="estado" value="Estado: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="estado"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.idEstado}"
+											validator="#{actualizacionAspirante.validatorDomicilio}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaEstados}" />
+											<p:ajax event="valueChange"
+												listener="#{actualizacionAspirante.municipiosPorEstado()}"
+												update="form" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message id="msgEstado" for="estado" />
+									</p:outputPanel>
+
+									<p:outputLabel for="municipio" value="Municipio: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="municipio" filter="true"
+											filterMatchMode="contains"
+											validator="#{actualizacionAspirante.validatorDomicilio}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.idMunicipio}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaMunicipios}" />
+											<p:ajax
+												listener="#{actualizacionAspirante.asentamientosPorMunicipio()}"
+												update="form" event="valueChange" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message id="msgMunicipio" for="municipio" />
+									</p:outputPanel>
+
+									<p:outputLabel for="asentamiento" value="Asentamiento: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="asentamiento" filter="true"
+											filterMatchMode="contains"
+											validator="#{actualizacionAspirante.validatorDomicilio}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.idAsentamiento}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaAsentamientos}" />
+											<p:ajax update="form" event="valueChange" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message for="asentamiento" />
+									</p:outputPanel>
+
+									<p:outputLabel for="calle" value="Calle: *" />
+									<p:outputPanel>
+										<p:inputText id="calle" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDomicilio}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.calle}">
+											<p:ajax event="blur" update="msgCalle" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgCalle" for="calle" />
+									</p:outputPanel>
+
+									<p:outputLabel for="interior" value="Número Interior: " />
+									<p:inputText id="interior" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.numeroInterior}" />
+
+									<p:outputLabel for="exterior" value="Número Exterior: *" />
+									<p:outputPanel>
+										<p:inputText id="exterior" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDomicilio}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.numeroExterior}">
+											<p:ajax event="blur" update="msgExterior" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgExterior" for="exterior" />
+									</p:outputPanel>
+
+									<p:outputLabel for="cp" value="Codigo Postal: *" />
+									<p:outputPanel>
+										<p:inputText id="cp"
+											validator="#{actualizacionAspirante.validatorDomicilio}"
+											value="#{actualizacionAspirante.view.actualizacionAspirante.direccionDTO.codigoPostal}">
+											<p:ajax event="blur" update="msgCp" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgCp" for="cp" />
+									</p:outputPanel>
+
+								</p:panelGrid>
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4, ui-grid-col-8 " layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+
+									<f:facet name="header">
+										<h3>Documentación</h3>
+									</f:facet>
+
+									<p:outputLabel for="afore" value="Afore" />
+									<p:inputText id="afore" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.afore}" />
+
+									<p:outputLabel for="seguro" value="No. Seguro Social" />
+									<p:inputText id="seguro" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroSeguroSocial}" />
+
+									<p:outputLabel for="cartilla" value="No. Cartilla Militar" />
+									<p:inputText id="cartilla" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroCartillaMilitar}" />
+
+									<p:outputLabel for="pasaporte" value="No. Pasaporte" />
+									<p:inputText id="pasaporte" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroPasaporte}" />
+
+									<p:outputLabel for="licencia" value="Tiene Licencia" />
+									<p:selectBooleanButton id="licencia" onLabel="Si" offLabel="No"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.tieneLicencia}"
+										onIcon="ui-icon-check" offIcon="ui-icon-cancel" />
+
+									<p:outputLabel for="tipoLicencia" value="Tipo Licencia" />
+									<p:selectOneMenu id="tipoLicencia"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.tipoLicencia}">
+										<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+										<f:selectItems
+											value="#{actualizacionAspirante.view.listaTiposLicencia}" />
+									</p:selectOneMenu>
+									<p:outputLabel for="numeroLicencia" value="Número Licencia" />
+									<p:inputText id="numeroLicencia"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.actualizacionAspirante.numeroLicencia}" />
+
+									<p:outputLabel />
+									<p:outputLabel />
+
+								</p:panelGrid>
+
+								<p:commandButton value="Actualizar" iconPos="rigth"
+									icon="ui-icon-check" title="Actualizar Datos Personales"
+									action="#{actualizacionAspirante.actualizarDatosGenerales()}"
+									update="form" oncomplete="mymessages(); scrollToAnchor();"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()" />
+
+							</p:panelGrid>
+
+
+							<p:outputLabel />
+
+
+						</p:panelGrid>
+
+						<ui:remove> HISTORIAL ACADEMICO </ui:remove>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							id="historialAcademico"
+							rendered="#{actualizacionAspirante.view.mostrarHistorialAcademico}">
+
+							<p:dataTable var="h" editable="true"
+								rowKey="#{h.idHistorialAcademico}"
+								value="#{actualizacionAspirante.view.listaHistorialAcademicoAspirante}"
+								paginator="true" rows="5"
+								emptyMessage="No se encontro ningún registro"
+								currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+								<f:facet name="header">
+									<div align="right">
+										<p:commandLink title="Nuevo registro" update="form"
+											oncomplete="mymessages();"
+											onsuccess="PF('statusDialog').hide()"
+											onstart="PF('statusDialog').show()"
+											action="#{actualizacionAspirante.mostrarNuevoRegistroHistorialAcademico()}"
+											process="@this">
+											<span class="ui-icon-plus fm-font-color-white" />
+										</p:commandLink>
+									</div>
+								</f:facet>
+
+								<p:column headerText="Escolaridad">
+									<h:outputText value="#{h.nombreEscolaridad}" />
+								</p:column>
+
+								<p:column headerText="Institución">
+									<h:outputText value="#{h.nombreInstitucion}" />
+								</p:column>
+
+								<p:column headerText="Constancia Máxima de Estudios">
+									<h:outputText value="#{h.estatusComprobanteEstudio}" />
+								</p:column>
+
+								<p:column headerText="Fecha de Expedición de Cedula Profesional">
+									<h:outputText value="#{h.fechaExpedicionCedula}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Número de Cedula Profesional">
+									<h:outputText value="#{h.numeroCedula}" />
+								</p:column>
+
+								<p:column headerText="Inicio-Fin">
+									<h:outputText value="#{h.fechaInicial}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+							-
+							<h:outputText value="#{h.fechaFinal}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText>
+								</p:column>
+
+								<p:column headerText="Nombre Curso">
+									<h:outputText value="#{h.nombreCurso}" />
+								</p:column>
+
+								<p:column headerText="Duración Curso">
+									<h:outputText value="#{h.duracion}" />
+								</p:column>
+
+								<p:column headerText="Cursando">
+									<p:inputSwitch offLabel="No" onLabel="Si" value="#{h.cursando}"
+										disabled="true" />
+								</p:column>
+
+								<p:column headerText="Máximo estudio">
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										value="#{h.esMaximoEstudio}" disabled="true" />
+								</p:column>
+
+								<p:column style="width:120px;text-align: center;"
+									headerText="Opciones">
+
+									<p:commandButton id="seleccionarHistorial"
+										title="Seleccionar Historial Academico" icon="ui-icon-pencil"
+										update="form" process="@this" oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()"
+										action="#{actualizacionAspirante.seleccionarHistorialAcademico(h)}" />
+									<p:spacer width="10" />
+									<p:commandButton id="eliminarHistorial"
+										title="Eliminar Historial Academico" icon="ui-icon-trash"
+										onclick="PF('dialogEliminarHistorial').show()"
+										styleClass="fm-btn-peligro fm-btn-elevado"
+										action="#{actualizacionAspirante.historialAcademicoSeleccionado(h)}"
+										oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()" process="@this" />
+
+								</p:column>
+							</p:dataTable>
+							<p:panelGrid columns="3"
+								columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+								rendered="#{actualizacionAspirante.view.mostrarPanelHistorialAcedemico}">
+
+								<p:outputLabel />
+
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid ">
+
+									<f:facet name="header">
+										<h3>
+											<h:outputText
+												value="#{actualizacionAspirante.view.accionHistorialAcademico} Historial Academico" />
+										</h3>
+									</f:facet>
+
+									<p:outputLabel for="escolaridad" value="Escolaridad: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="escolaridad"
+											validator="#{actualizacionAspirante.validatorDatosHistorialAcademico}"
+											value="#{actualizacionAspirante.view.historialAcademico.escolaridad}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaEscolaridades}" />
+											<p:ajax event="valueChange" update=":form:msgEscolaridad" />
+										</p:selectOneMenu>
+										<p:message id="msgEscolaridad" for="escolaridad" />
+									</p:outputPanel>
+
+									<p:outputLabel for="institucion"
+										value="Nombre de la Institución: *" />
+									<p:outputPanel>
+										<p:inputText id="institucion"
+											validator="#{registroAspirante.validatorDatosHistorialAcademico}"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.historialAcademico.nombreInstitucion}">
+											<p:ajax event="blur" update="msgInstitucion" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgInstitucion" for="institucion" />
+									</p:outputPanel>
+
+									<p:outputLabel for="comprobanteEstudio"
+										value="Ultimo Comprobante Estudio del Grado Academico: *" />
+									<p:outputPanel>
+										<p:selectOneMenu id="comprobanteEstudio"
+											validator="#{actualizacionAspirante.validatorDatosHistorialAcademico}"
+											value="#{actualizacionAspirante.view.historialAcademico.comprobanteEstudio}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaComprobantesEstudio}" />
+											<p:ajax event="valueChange" form="form" />
+											<p:clientValidator />
+										</p:selectOneMenu>
+										<p:message id="msgComprobanteEstudio" for="comprobanteEstudio" />
+									</p:outputPanel>
+
+									<p:outputLabel for="fechaExpedicionCedula"
+										value="Fecha de Expedición de Cedula Profesional:" />
+									<p:calendar id="fechaExpedicionCedula" pattern="dd/MM/yyyy"
+										showOn="button"
+										value="#{actualizacionAspirante.view.historialAcademico.fechaExpedicionCedula}" />
+
+									<p:outputLabel for="numeroCedula"
+										value="Número de Cedula Profesional:" />
+									<p:inputText id="numeroCedula"
+										value="#{actualizacionAspirante.view.historialAcademico.numeroCedula}" />
+
+									<p:outputLabel for="nombreCurso"
+										value="Nombre de la escolaridad cursada: *" />
+									<p:outputPanel>
+										<p:inputText id="nombreCurso"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorDatosHistorialAcademico}"
+											value="#{actualizacionAspirante.view.historialAcademico.nombreCurso}">
+											<p:ajax event="blur" update="msgNombreCurso" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgNombreCurso" for="nombreCurso" />
+									</p:outputPanel>
+
+									<p:outputLabel for="duracion" value="Duración:" />
+									<p:inputText id="duracion" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.historialAcademico.duracion}" />
+
+									<p:outputLabel for="fechaInicial" value="Fecha Inicial: *" />
+									<p:outputPanel>
+										<p:calendar id="fechaInicial" showOn="button"
+											pattern="dd/MM/yyyy"
+											validator="#{actualizacionAspirante.validatorDatosHistorialAcademico}"
+											value="#{actualizacionAspirante.view.historialAcademico.fechaInicial}">
+											<p:ajax event="dateSelect" update="msgFechaInicial" />
+											<p:ajax event="blur" update="msgFechaInicial" />
+											<p:clientValidator />
+										</p:calendar>
+										<p:message id="msgFechaInicial" for="fechaInicial" />
+									</p:outputPanel>
+
+									<p:outputLabel for="fechaFinal" value="Fecha Final:" />
+									<p:calendar id="fechaFinal" pattern="dd/MM/yyyy"
+										showOn="button"
+										value="#{actualizacionAspirante.view.historialAcademico.fechaFinal}" />
+
+									<p:outputLabel for="cursando" value="Cursando:" />
+									<p:inputSwitch id="cursando" offLabel="No" onLabel="Si"
+										value="#{actualizacionAspirante.view.historialAcademico.cursando}" />
+
+									<p:outputLabel for="maximoEstudio"
+										value="¿Es el máximo grado de estudios?" />
+									<p:inputSwitch
+										value="#{actualizacionAspirante.view.historialAcademico.esMaximoEstudio}"
+										offLabel="No" onLabel="Si" id="maximoEstudio" />
+
+								</p:panelGrid>
+								<p:outputLabel />
+								<p:outputLabel />
+								<p:commandButton update="form"
+									value="#{actualizacionAspirante.view.accionHistorialAcademico}"
+									icon="ui-icon-check"
+									action="#{actualizacionAspirante.registrarActualizarHistorialAcademico()}"
+									iconPos="right" style="float: right;"
+									oncomplete="mymessages(); scrollToAnchor();"
+									onsuccess="PF('statusDialog').hide()"
+									onstart="PF('statusDialog').show()" />
+								<p:outputLabel />
+
+							</p:panelGrid>
+						</p:panelGrid>
+
+						<ui:remove>PROFESION</ui:remove>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							id="profesion"
+							rendered="#{actualizacionAspirante.view.mostrarProfesion}">
+
+
+
+							<p:dataTable var="p" editable="true" rowKey="#{p.idProfesion}"
+								value="#{actualizacionAspirante.view.listaProfesion}"
+								paginator="true" rows="5"
+								emptyMessage="No se encontro ningún registro"
+								currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+								<f:facet name="header">
+									<div align="right">
+										<p:commandLink title="Nuevo registro" update="form"
+											oncomplete="mymessages();"
+											onsuccess="PF('statusDialog').hide()"
+											onstart="PF('statusDialog').show()"
+											action="#{actualizacionAspirante.mostrarNuevoRegistroProfesion()}"
+											process="@this">
+											<span class="ui-icon-plus fm-font-color-white" />
+										</p:commandLink>
+									</div>
+								</f:facet>
+
+								<p:column headerText="Profesión">
+									<h:outputText value="#{p.profesion}" />
+								</p:column>
+
+								<p:column style="width:120px;text-align: center;"
+									headerText="Opciones">
+
+									<p:commandButton title="Seleccionar Profesión"
+										icon="ui-icon-pencil" update="form" process="@this"
+										oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()"
+										action="#{actualizacionAspirante.seleccionarProfesion(p)}" />
+									<p:spacer width="10" />
+									<p:commandButton title="Eliminar Profesión"
+										icon="ui-icon-trash" onclick="PF('dialogProfesion').show()"
+										styleClass="fm-btn-peligro fm-btn-elevado"
+										oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()" process="@this"
+										action="#{actualizacionAspirante.dialogoProfesion(p.idProfesionAspiranteEmpleado)}" />
+
+								</p:column>
+
+							</p:dataTable>
+
+							<p:panelGrid columns="3"
+								rendered="#{actualizacionAspirante.view.mostrarFormularioPofesion}"
+								columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+								<f:facet name="header">
+									<h3>
+										<h:outputText
+											value="#{actualizacionAspirante.view.accionProfesion} Profesión" />
+									</h3>
+								</f:facet>
+
+								<p:outputLabel />
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+
+
+									<p:outputLabel for="tipoProfesion" value="Tipo Profesión:" />
+									<p:outputPanel id="outputTipoProfesion">
+										<p:selectOneMenu id="tipoProfesion" filter="true"
+											filterMatchMode="startsWith" effect="size"
+											validator="#{actualizacionAspirante.validarCampoProfesionEspecialidad}"
+											value="#{actualizacionAspirante.view.idProfesion}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaTipoProfesion}" />
+											<p:ajax event="valueChange" update="form"
+												onsuccess="PF('statusDialog').hide()"
+												onstart="PF('statusDialog').show()"
+												oncomplete="mymessages(); mymessagesTable();" />
+
+											<p:clientValidator />
+
+										</p:selectOneMenu>
+										<p:message for="tipoProfesion" />
+									</p:outputPanel>
+
+								</p:panelGrid>
+
+								<p:outputLabel />
+								<p:outputLabel />
+
+								<p:commandButton update="@form"
+									value="#{actualizacionAspirante.view.accionProfesion}"
+									icon="ui-icon-check" iconPos="right"
+									onsuccess="PF('statusDialog').hide()"
+									oncomplete="mymessages();" onstart="PF('statusDialog').show()"
+									action="#{actualizacionAspirante.registrarActualizarProfesion()}" />
+
+								<p:outputLabel />
+
+							</p:panelGrid>
+
+
+						</p:panelGrid>
+
+						<ui:remove>ESPECIALIDAD</ui:remove>
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+							id="especialidad"
+							rendered="#{actualizacionAspirante.view.mostrarEspecialidad}">
+
+
+
+							<p:dataTable var="e" editable="true" rowKey="#{e.idEspecialidad}"
+								value="#{actualizacionAspirante.view.listaEspecialidad}"
+								paginator="true" rows="5"
+								emptyMessage="No se encontro ningún registro"
+								currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+								<f:facet name="header">
+									<div align="right">
+										<p:commandLink title="Nuevo registro" update="form"
+											oncomplete="mymessages();"
+											onsuccess="PF('statusDialog').hide()"
+											onstart="PF('statusDialog').show()"
+											action="#{actualizacionAspirante.mostrarNuevoRegistroEspecialidad()}"
+											process="@this">
+											<span class="ui-icon-plus fm-font-color-white" />
+										</p:commandLink>
+									</div>
+								</f:facet>
+
+								<p:column headerText="Especialidad">
+									<h:outputText value="#{e.especialidad}" />
+								</p:column>
+
+								<p:column style="width:120px;text-align: center;"
+									headerText="Opciones">
+
+									<p:commandButton title="Seleccionar Especialidad"
+										icon="ui-icon-pencil" update="form" process="@this"
+										oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()"
+										action="#{actualizacionAspirante.seleccionarEspecialidad(e)}" />
+									<p:spacer width="10" />
+									<p:commandButton title="Eliminar Especialidad"
+										icon="ui-icon-trash" onclick="PF('dialogEspecialidad').show()"
+										styleClass="fm-btn-peligro fm-btn-elevado"
+										oncomplete="mymessages();"
+										onsuccess="PF('statusDialog').hide()"
+										onstart="PF('statusDialog').show()" process="@this"
+										action="#{actualizacionAspirante.dialogoEspecialidad(e.idEspecialidadAspiranteEmpleado)}" />
+
+								</p:column>
+
+							</p:dataTable>
+
+							<p:panelGrid columns="3"
+								rendered="#{actualizacionAspirante.view.mostrarFormularioEspecialidad}"
+								columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+								layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+								<f:facet name="header">
+									<h3>
+										<h:outputText
+											value="#{actualizacionAspirante.view.accionEspecialidad} Especialidad" />
+									</h3>
+								</f:facet>
+
+								<p:outputLabel />
+
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+
+
+									<p:outputLabel for="tipoEspecialidad"
+										value="Tipo Especialidad:" />
+									<p:outputPanel id="outputTipoEspecialidad">
+										<p:selectOneMenu id="tipoEspecialidad" filter="true"
+											filterMatchMode="startsWith" effect="size"
+											validator="#{actualizacionAspirante.validarCampoProfesionEspecialidad}"
+											value="#{actualizacionAspirante.view.idEspecialidad}">
+											<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+											<f:selectItems
+												value="#{actualizacionAspirante.view.listaTipoEspecialidad}" />
+											<p:ajax event="valueChange" update="form"
+												onsuccess="PF('statusDialog').hide()"
+												onstart="PF('statusDialog').show()"
+												oncomplete="mymessages(); mymessagesTable();" />
+
+											<p:clientValidator />
+
+										</p:selectOneMenu>
+										<p:message for="tipoEspecialidad" />
+									</p:outputPanel>
+
+
+								</p:panelGrid>
+
+								<p:outputLabel />
+
+								<p:outputLabel />
+
+								<p:commandButton update="@form"
+									value="#{actualizacionAspirante.view.accionEspecialidad}"
+									icon="ui-icon-check" iconPos="right"
+									onsuccess="PF('statusDialog').hide()"
+									oncomplete="mymessages();" onstart="PF('statusDialog').show()"
+									action="#{actualizacionAspirante.registrarActualizarEspecialidad()}" />
+
+								<p:outputLabel />
+
+							</p:panelGrid>
+
+						</p:panelGrid>
+
+						<ui:remove> EXPERIENCIA LABORAL </ui:remove>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+							id="esperienciaLaboral"
+							rendered="#{actualizacionAspirante.view.mostrarExperienciaLaboral}">
+
+							<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+								layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+								<f:facet name="header">
+									<h3>Experiencia Laboral</h3>
+								</f:facet>
+
+								<p:dataTable var="e" editable="true" paginator="true" rows="5"
+									emptyMessage="No se encontro ningún registro"
+									value="#{actualizacionAspirante.view.listaExperienciaLaboralAspirante}"
+									currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+									paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+									rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+									<f:facet name="header">
+										<div align="right">
+											<p:commandLink title="Nuevo registro" update="form"
+												oncomplete="mymessages();"
+												onsuccess="PF('statusDialog').hide()"
+												onstart="PF('statusDialog').show()"
+												action="#{actualizacionAspirante.mostrarNuevoRegistroExperiencia()}"
+												process="@this">
+												<span class="ui-icon-plus fm-font-color-white" />
+											</p:commandLink>
+										</div>
+									</f:facet>
+
+									<p:column headerText="Nombre de la Empresa/Institución">
+										<h:outputText value="#{e.nombreEmpresa}" />
+									</p:column>
+
+									<p:column headerText="Puesto">
+										<h:outputText value="#{e.puesto}" />
+									</p:column>
+
+									<p:column headerText="Duración">
+										<h:outputText value="#{e.fechaInicial}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+								-
+								<h:outputText value="#{e.fechaFinal}">
+											<f:convertDateTime pattern="dd/MM/yyyy" />
+										</h:outputText>
+									</p:column>
+
+									<p:column headerText="Opciones"
+										style="width:128px;text-align: center;">
+
+
+										<p:commandButton id="seleccionarExperienciaLaboral"
+											action="#{actualizacionAspirante.seleccionarExperienciaLaboral(e)}"
+											title="Seleccionar Experiencia Laboral" icon="ui-icon-pencil"
+											update="form" process="@this"
+											onsuccess="PF('statusDialog').hide()"
+											oncomplete="mymessages();"
+											onstart="PF('statusDialog').show()" />
+										<p:spacer width="10" />
+										<p:commandButton id="eliminarExperiencia" title="Eliminar"
+											action="#{actualizacionAspirante.experienciaLaboralSeleccionado(e)}"
+											icon="ui-icon-trash" onsuccess="PF('statusDialog').hide()"
+											oncomplete="mymessages();"
+											onstart="PF('statusDialog').show()"
+											styleClass="fm-btn-peligro fm-btn-elevado"
+											onclick="PF('dialogEliminarExperiencia').show()" />
+
+
+									</p:column>
+								</p:dataTable>
+
+								<p:panelGrid columns="3"
+									rendered="#{actualizacionAspirante.view.mostrarFormularioExperiencia}"
+									columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid ">
+
+									<f:facet name="header">
+										<h3>
+											<h:outputText
+												value="#{actualizacionAspirante.view.accionExperienciaLaboral} Experiencia Laboral" />
+										</h3>
+									</f:facet>
+
+									<p:outputLabel />
+
+									<p:panelGrid columns="2"
+										rendered="#{actualizacionAspirante.view.mostrarFormularioExperiencia}"
+										columnClasses="ui-grid-col-4, ui-grid-col-8" layout="grid"
+										styleClass="ui-panelgrid-blank ui-fluid ">
+
+										<p:outputLabel for="nombreEmpresa"
+											value="Nombre de la Empresa e Institución: *" />
+										<p:outputLabel>
+											<p:inputText id="nombreEmpresa"
+												style="text-transform:uppercase;"
+												onkeyup="javascript:this.value=this.value.toUpperCase();"
+												validator="#{actualizacionAspirante.validatorExperienciaLaboral}"
+												value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.nombreEmpresa}">
+												<p:ajax event="blur" update="msgNombreEmpresa" />
+												<p:clientValidator />
+											</p:inputText>
+											<p:message id="msgNombreEmpresa" for="nombreEmpresa" />
+										</p:outputLabel>
+
+										<p:outputLabel for="telefonoEmpresa" value="Teléfono:" />
+										<p:inputText id="telefonoEmpresa"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.telefono}" />
+
+										<p:outputLabel for="puestoDesempeniado"
+											value="Puesto Desempeñado: *" />
+										<p:outputPanel>
+											<p:inputText id="puestoDesempeniado"
+												style="text-transform:uppercase;"
+												onkeyup="javascript:this.value=this.value.toUpperCase();"
+												validator="#{actualizacionAspirante.validatorExperienciaLaboral}"
+												value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.puesto}">
+												<p:ajax event="blur" update="msgPuestoDesempeniado" />
+												<p:clientValidator />
+											</p:inputText>
+											<p:message id="msgPuestoDesempeniado"
+												for="puestoDesempeniado" />
+										</p:outputPanel>
+
+										<p:outputLabel for="sueldoMensual" value="Sueldo Mensual:" />
+										<p:inputText id="sueldoMensual" placeholder="$00.00"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.sueldoMensual}" />
+
+										<p:outputLabel for="anioInicial" value="Fecha Inicial: *" />
+										<p:outputPanel>
+											<p:calendar id="anioInicial" showOn="button"
+												pattern="dd/MM/yyy"
+												validator="#{actualizacionAspirante.validatorExperienciaLaboral}"
+												value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.fechaInicial}">
+												<p:ajax event="dateSelect" update="msgAnioInicial" />
+												<p:ajax event="blur" update="msgAnioInicial" />
+												<p:clientValidator />
+											</p:calendar>
+											<p:message id="msgAnioInicial" for="anioInicial" />
+										</p:outputPanel>
+
+										<p:outputLabel for="anioFinal" value="Fecha Final: *" />
+										<p:outputPanel>
+											<p:calendar id="anioFinal" showOn="button"
+												pattern="dd/MM/yyy"
+												validator="#{actualizacionAspirante.validatorExperienciaLaboral}"
+												value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.fechaFinal}">
+												<p:ajax event="dateSelect" update="msgAnioFinal" />
+												<p:ajax event="blur" update="msgAnioFinal" />
+												<p:clientValidator />
+											</p:calendar>
+											<p:message id="msgAnioFinal" for="anioFinal" />
+										</p:outputPanel>
+
+										<p:outputLabel for="correoElectronico"
+											value="Correo Electronico:" />
+										<p:inputText id="correoElectronico"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.correoContacto}" />
+
+										<p:outputLabel for="nombreJefe"
+											value="Nombre del Jefe Directo:" />
+										<p:inputText id="nombreJefe" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.nombreJefe}" />
+
+										<p:outputLabel for="puestoJefe" value="Puesto del Jefe:" />
+										<p:inputText id="puestoJefe" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.puestoJefe}" />
+
+										<p:outputLabel for="solicitarInformacion"
+											value="Solicitar Información:" />
+										<p:inputSwitch offLabel="No" onLabel="Si"
+											id="solicitarInformacion"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.solicitarInformacion}">
+
+											<p:ajax event="change"
+												listener="#{actualizacionAspirante.mostrarRazonNoSolicitarInformacion()}"
+												update="form" />
+										</p:inputSwitch>
+
+										<p:outputLabel for="razonNoSolicitar"
+											value="Razón por no Solicitar:" />
+										<p:inputTextarea id="razonNoSolicitar"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											disabled="#{actualizacionAspirante.view.mostrarRazonNosolicitar}"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.razonNoSolicitar}" />
+
+										<p:outputLabel for="comentariosJefe" value="Comentarios:" />
+										<p:inputTextarea id="comentariosJefe"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.comentarios}" />
+
+										<p:outputLabel for="direccionEmpresa"
+											value="Dirección de la Empresa:" />
+										<p:inputTextarea id="direccionEmpresa" rows="3"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.direccionEmpresa}" />
+
+										<p:outputLabel for="motivoSeparacion"
+											value="Motivo de Separación:" />
+										<p:inputTextarea id="motivoSeparacion"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											value="#{actualizacionAspirante.view.actualizacionExperienciaLaboral.motivoSeparacion}" />
+
+									</p:panelGrid>
+									<p:outputPanel />
+
+									<p:outputPanel />
+									<p:commandButton title="Actualizar Experiencia Laboral"
+										update="@form"
+										value="#{actualizacionAspirante.view.accionExperienciaLaboral}"
+										icon="ui-icon-check"
+										action="#{actualizacionAspirante.registrarActualizarExperienciaLaboral()}"
+										iconPos="right" onsuccess="PF('statusDialog').hide()"
+										oncomplete="mymessages(); scrollToAnchor();"
+										onstart="PF('statusDialog').show()" />
+									<p:outputPanel />
+
+								</p:panelGrid>
+
+
+							</p:panelGrid>
+
+
+						</p:panelGrid>
+
+						<ui:remove> habilidades personales</ui:remove>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+							id="encuestaPersonal"
+							rendered="#{actualizacionAspirante.view.mostrarEscuestaPersonal}">
+
+							<p:panelGrid columns="3"
+								columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+								layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+								<f:facet name="header">
+									<h3>Habilidades Personales</h3>
+								</f:facet>
+								<p:outputLabel />
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4, ui-grid-col-12" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid ">
+
+									<p:outputLabel for="idioma" value="Idioma que Dómine: *" />
+									<p:outputPanel>
+										<p:inputText id="idioma" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorHabilidadPersonal}"
+											value="#{actualizacionAspirante.view.habilidadesPersonales.idioma}">
+											<p:ajax event="blur" update="msgIdioma" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgIdioma" for="idioma" />
+									</p:outputPanel>
+
+									<p:outputLabel for="nivelIdioma" value="Nivel de Idioma:" />
+									<p:spinner id="nivelIdioma" min="0" max="100"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nivelIdioma}" />
+
+									<p:outputLabel for="maquina"
+										value="¿Maquina de Oficina o de Taller que Dómine? *" />
+									<p:outputPanel>
+										<p:inputText id="maquina" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorHabilidadPersonal}"
+											value="#{actualizacionAspirante.view.habilidadesPersonales.maquinaTallerDomina}">
+											<p:ajax event="blur" update="msgMaquina" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgMaquina" for="maquina" />
+									</p:outputPanel>
+
+									<p:outputLabel for="funciones"
+										value="¿Funciones de Oficina que Dómine? *" />
+									<p:outputPanel>
+										<p:inputText id="funciones" style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorHabilidadPersonal}"
+											value="#{actualizacionAspirante.view.habilidadesPersonales.funcionesOficinaDomina}">
+											<p:ajax event="blur" update="msgFunciones" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgFunciones" for="funciones" />
+									</p:outputPanel>
+
+									<p:outputLabel for="softwareDomina"
+										value="Software que Dómine: *" />
+									<p:outputPanel>
+										<p:inputText id="softwareDomina"
+											style="text-transform:uppercase;"
+											onkeyup="javascript:this.value=this.value.toUpperCase();"
+											validator="#{actualizacionAspirante.validatorHabilidadPersonal}"
+											value="#{actualizacionAspirante.view.habilidadesPersonales.softwareDomina}">
+											<p:ajax event="blur" update="msgSoftwareDomina" />
+											<p:clientValidator />
+										</p:inputText>
+										<p:message id="msgSoftwareDomina" for="softwareDomina" />
+									</p:outputPanel>
+
+
+									<p:outputLabel for="otrosTrabajos"
+										value="¿Otros Trabajos o Funciones que Domine?" />
+									<p:inputText id="otrosTrabajos"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.otrosTrabajosFunciones}" />
+								</p:panelGrid>
+								<p:outputLabel />
+
+								<p:outputLabel />
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+									<f:facet name="header">
+										<h3>Datos Generales</h3>
+									</f:facet>
+
+									<p:outputLabel for="anuncio" value="¿Como Supo de Este Empleo?" />
+									<p:inputSwitch offLabel="Anuncio" onLabel="Otro Medio"
+										id="anuncio"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.anuncio}">
+										<p:ajax update=":form:nombreAnuncio" event="change"
+											listener="#{actualizacionAspirante.mostrarTxtOtroMedio()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="nombreAnuncio"
+										value="Nombre del Otro Medio" />
+									<p:inputText id="nombreAnuncio"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.otroMedio}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtOtroMedio}" />
+
+									<p:outputLabel for="parientes"
+										value="¿Tiene Familiares Trabajando en la Empresa e Institución?" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="parientes"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.parientes}">
+										<p:ajax event="change" update=":form:nombrePariente"
+											listener="#{actualizacionAspirante.mostrarTxtNombresParientes()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="nombrePariente"
+										value="Nombre del Familiar(es)" />
+									<p:inputText id="nombrePariente"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreParientes}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtNombresParientes}" />
+
+									<p:outputLabel for="afianzado" value="Afianzado" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="afianzado"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.afianzado}">
+										<p:ajax event="change" update=":form:nombreCia"
+											listener="#{actualizacionAspirante.mostrarTxtNombreAfianza()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="nombreCia"
+										value="Nombre de la Empresa e Institución" />
+									<p:inputText id="nombreCia" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreAfianza}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtNombreAfianza}" />
+
+									<p:outputLabel for="sindicato"
+										value="Afiliado a Algún Sindicato" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="sindicato"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.sindicato}">
+										<p:ajax event="change" update=":form:nombreSindicato"
+											listener="#{actualizacionAspirante.mostrarTxtNombreSindicato()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="nombreSindicato"
+										value="Nombre del Sindicato" />
+									<p:inputText id="nombreSindicato"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreSindicato}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtNombreSindicato}" />
+
+									<p:outputLabel for="seguroVida" value="Seguro de Vida" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="seguroVida"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.seguroVida}">
+										<p:ajax event="change" update=":form:nombreSeguroVida"
+											listener="#{actualizacionAspirante.mostrarTxtNombreSegurVida()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="nombreSeguroVida"
+										value="Nombre de la Aseguradora" />
+									<p:inputText id="nombreSeguroVida"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreSeguroVida}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtNombreSegurVida}" />
+
+									<p:outputLabel for="disposicionViajar"
+										value="Disposición a Viajar" />
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										id="disposicionViajar"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.disposicionViajar}">
+										<p:ajax event="change" update=":form:razonNoViajar"
+											listener="#{actualizacionAspirante.mostrarTxtRazonNoViajar()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="razonNoViajar" value="Razón para no Viajar" />
+									<p:inputText id="razonNoViajar"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.razonNoViajar}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtRazonNoViajar}" />
+
+									<p:outputLabel for="disposicionResidencia"
+										value="Disposición para Cambiar de Residencia" />
+									<p:inputSwitch offLabel="No" onLabel="Si"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.cambioResidencia}"
+										id="disposicionResidencia">
+										<p:ajax event="change" update=":form:razonNoResidencia"
+											listener="#{actualizacionAspirante.mostrarTxtRazonNoCambioResidencia()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="razonNoResidencia"
+										value="Razón para no cambiar" />
+									<p:inputText id="razonNoResidencia"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.razonNoCambioResidencia}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtRazonNoCambioResidencia}" />
+
+									<p:outputLabel for="fechaTrabajar"
+										value="Fecha para Empezar a Trabajar" />
+									<p:calendar id="fechaTrabajar" showOn="button"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.fechaEmpezarTrabajar}" />
+								</p:panelGrid>
+								<p:outputLabel />
+
+								<p:outputLabel />
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+									<f:facet name="header">
+										<h3>Datos Económicos</h3>
+									</f:facet>
+
+									<p:outputLabel for="otrosIngresos" value="Otros Ingresos" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="otrosIngresos"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.otroIngreso}">
+										<p:ajax event="change"
+											update=":form:cualIngreso, :form:importeMensual"
+											listener="#{actualizacionAspirante.mostrarTxtOtrosIngresos()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="cualIngreso" value="Fuente de Ingresos" />
+									<p:inputText id="cualIngreso" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreOtroIngreso}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtOtrosIngresos}" />
+
+									<p:outputLabel for="importeMensual" value="Importe Mensual" />
+									<p:inputText id="importeMensual" placeholder="$00.00"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.importeOtroIngreso}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtOtrosIngresos}" />
+
+									<p:outputLabel for="trabajaConyuge"
+										value="¿Su Cónyuge Trabaja?" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="trabajaConyuge"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.conyugeTrabajando}">
+										<p:ajax event="change"
+											update=":form:dondeTrabaja, :form:percepcionMensual"
+											listener="#{actualizacionAspirante.mostrarTxtConyugeTrabaja()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="dondeTrabaja"
+										value="Nombre de la Empresa o Institución" />
+									<p:inputText id="dondeTrabaja"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreTrabajoConyuge}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtConyugeTrabaja}" />
+
+									<p:outputLabel for="percepcionMensual"
+										value="Percepción Mensual" />
+									<p:inputText id="percepcionMensual" placeholder="$00.00"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.percepcionMensualConyuge}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtConyugeTrabaja}" />
+
+									<p:outputLabel for="casaPropia" value="Casa Propia" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="casaPropia"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.casaPropia}">
+
+									</p:inputSwitch>
+
+									<p:outputLabel for="rentaCasa" value="Renta Casa" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="rentaCasa"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.rentaCasa}">
+										<p:ajax event="change" update=":form:rentaMensual"
+											listener="#{actualizacionAspirante.mostrarTxtPagaRenta()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="rentaMensual" value="Renta Mensual" />
+									<p:inputText id="rentaMensual"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.rentaMensual}"
+										placeholder="$00.00"
+										disabled="#{actualizacionAspirante.view.mostrarTxtPagaRenta}" />
+
+
+									<p:outputLabel for="automovilPropio" value="Automovil Propio" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="automovilPropio"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.automovilPropio}">
+										<p:ajax event="change"
+											update=":form:marcaAutomovil, :form:modeloAutomovil"
+											listener="#{actualizacionAspirante.mostrarTxtAutomovilPropio()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="marcaAutomovil" value="Marca" />
+									<p:inputText id="marcaAutomovil"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.marcaAutomovil}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtAutomovilPropio}" />
+
+									<p:outputLabel for="modeloAutomovil" value="Modelo" />
+									<p:inputText id="modeloAutomovil"
+										style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.modeloAutomovil}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtAutomovilPropio}" />
+
+									<p:outputLabel for="tieneDeudas" value="Tiene Deudas" />
+									<p:inputSwitch offLabel="No" onLabel="Si" id="tieneDeudas"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.deudas}">
+										<p:ajax event="change" update=":form:conQuien"
+											listener="#{actualizacionAspirante.mostrarTxtTieneDeudas()}" />
+									</p:inputSwitch>
+
+									<p:outputLabel for="conQuien"
+										value="Nombre de la Empresa o Institución" />
+									<p:inputText id="conQuien" style="text-transform:uppercase;"
+										onkeyup="javascript:this.value=this.value.toUpperCase();"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.nombreDeuda}"
+										disabled="#{actualizacionAspirante.view.mostrarTxtTieneDeudas}" />
+
+									<p:outputLabel for="gastoMensual"
+										value="¿Cuanto Asciende los Gastos Mensuales?" />
+									<p:inputText id="gastoMensual" placeholder="$00.00"
+										value="#{actualizacionAspirante.view.habilidadesPersonales.gastoMensual}" />
+
+								</p:panelGrid>
+								<p:outputLabel />
+
+								<p:outputLabel />
+								<p:commandButton update="@form"
+									value="#{actualizacionAspirante.view.accionEncuestaPersonal}"
+									icon="ui-icon-check"
+									action="#{actualizacionAspirante.registrarActualizarEncuestaPersonal()}"
+									iconPos="right" onsuccess="PF('statusDialog').hide()"
+									oncomplete="mymessages(); scrollToAnchor();"
+									onstart="PF('statusDialog').show()" />
+								<p:outputLabel />
+
+							</p:panelGrid>
+
+
+						</p:panelGrid>
+
+						<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+							layout="grid"
+							styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
+							id="adjuntarDocumento"
+							rendered="#{actualizacionAspirante.view.mostrarAdjuntarDocumento}">
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+								<f:facet name="header">
+									<h3>Adjuntar Documentos</h3>
+								</f:facet>
+							</p:panelGrid>
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+								style="text-align: center;"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+									layout="grid" style="text-align: center;"
+									styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+									<p:fileUpload mode="advanced" id="archivo"
+										allowTypes="/(\.|\/)(jpeg|png|pdf)$/" update="@this"
+										invalidFileMessage="El Formato del Archivo es Invalido"
+										label="Seleccionar archivo" uploadLabel="Cargar Archivo"
+										cancelLabel="Cancelar archivo" />
+								</p:panelGrid>
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+									style="text-align: center;"
+									styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+									<p:outputLabel id="descripcionDocumentoAdjunto"
+										value="Descripción: " />
+									<p:inputTextarea />
+								</p:panelGrid>
+
+
+							</p:panelGrid>
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+								style="text-align: center;"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12 "
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<div />
+								</p:panelGrid>
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+									<div />
+									<p:commandButton title="Registrar Documento Adjunto"
+										update="@form" value="Registrar" icon="ui-icon-disk"
+										iconPos="right" style="float: right;" />
+								</p:panelGrid>
+							</p:panelGrid>
+
+							<p:dataTable var="a" editable="true" paginator="true" rows="5"
+								emptyMessage="No se encuentra registrado ningún archivo"
+								currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+								paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+								rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+								<p:columnGroup type="header">
+									<p:row>
+										<p:column headerText="Nombre del Documento" colspan="1" />
+										<p:column headerText="Descripción" colspan="1" />
+
+										<p:column headerText="Eliminar" rowspan="2" colspan="1" />
+									</p:row>
+								</p:columnGroup>
+								<p:column>
+									<h:outputText value="#{a.nombreArchivo}" />
+								</p:column>
+
+								<p:column>
+									<h:outputText value="#{a.image}" />
+								</p:column>
+
+								<p:column style="width:128px;text-align: center;">
+
+									<p:commandButton id="eliminarDocumento" title="Eliminar"
+										icon="ui-icon-trash" update="form" process="@all">
+
+									</p:commandButton>
+								</p:column>
+							</p:dataTable>
+
+							<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+								style="text-align: center;"
+								styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+								<p:panelGrid columns="1" columnClasses="ui-grid-col-12 "
+									layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+									<div />
+								</p:panelGrid>
+								<p:panelGrid columns="2"
+									columnClasses="ui-grid-col-6, ui-grid-col-6" layout="grid"
+									styleClass="ui-panelgrid-blank ui-fluid">
+									<div />
+									<p:commandButton title="Finalizar Actualización de Aspirante"
+										update="@form" value="Finalizar" icon="ui-icon-check"
+										iconPos="right" style="float: rigth;" />
+								</p:panelGrid>
+							</p:panelGrid>
+						</p:panelGrid>
+
+					</p:panelGrid>
+
+				</h:panelGroup>
+
+			</p:panel>
+
+			<p:confirmDialog header="Historial Academico" severity="alert"
+				message="¿Desea Eliminar El Historial Académico Seleccionado?"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEliminarHistorial">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						iconPos="right"
+						action="#{actualizacionAspirante.eliminarHistorialAcademico()}"
+						oncomplete="PF('dialogEliminarHistorial').hide()" update="form" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						iconPos="right" oncomplete="PF('dialogEliminarHistorial').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:confirmDialog header="Profesión" severity="alert"
+				message="¿Desea Eliminar La Profesión Seleccionada?"
+				showEffect="fade" hideEffect="explode" widgetVar="dialogProfesion">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						iconPos="right"
+						action="#{actualizacionAspirante.eliminarProfesion()}"
+						oncomplete="PF('dialogProfesion').hide()" update="form" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						iconPos="right" oncomplete="PF('dialogProfesion').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:confirmDialog header="Especialidad" severity="alert"
+				message="¿Desea Eliminar La Especialidad Seleccionada?"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEspecialidad">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						iconPos="right"
+						action="#{actualizacionAspirante.eliminarEspecialidad()}"
+						oncomplete="PF('dialogEspecialidad').hide()" update="form" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						iconPos="right" oncomplete="PF('dialogEspecialidad').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+			<p:confirmDialog header="Experiencia Laboral" severity="alert"
+				message="¿Desea Eliminar La Experiencia Laboral Seleccionada?"
+				showEffect="fade" hideEffect="explode"
+				widgetVar="dialogEliminarExperiencia">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+					<p:commandButton value="Si" icon="ui-icon-circle-check"
+						iconPos="right"
+						action="#{actualizacionAspirante.eliminarExperienciaLaboral()}"
+						oncomplete="PF('dialogEliminarExperiencia').hide()" update="form" />
+					<p:commandButton value="No" icon="ui-icon-circle-close"
+						iconPos="right"
+						oncomplete="PF('dialogEliminarExperiencia').hide()" />
+				</p:panelGrid>
+			</p:confirmDialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

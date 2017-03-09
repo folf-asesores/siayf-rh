@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Nomina" />
+	<ui:param name="moduloTitulo" value="Timbrar Nominas" />
+	<ui:param name="moduloSubtitulo" value="Este proceso puede ser tardado" />
+
+	<ui:define name="moduloContenido">
+		<f:event listener="#{timbrarNomina.init}" type="preRenderView" />
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panelGrid columns="1" layout="grid" class="fm-contenedor-30">
+				<div class=" fm-font-size-40 fm-font-lighter fm-font-color-green">
+					<span class="fm-display-block">
+						#{timbrarNomina.totalNominaPendientePorTimbrar} </span> <span
+						class="fm-font-color-gray fm-font-size-12 fm-font-lighter fm-display-block">Nominas
+						pendiente por timbrar</span>
+				</div>
+				<div>
+					<p:commandButton icon="ui-icon-refresh" value="Procesar"
+						disabled="#{timbrarNomina.deshabilitar}"
+						action="#{timbrarNomina.timbrar}" />
+				</div>
+			</p:panelGrid>
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete"></f:facet>
+			</p:ajaxStatus>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

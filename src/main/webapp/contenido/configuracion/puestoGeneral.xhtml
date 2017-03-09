@@ -1,0 +1,287 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Puesto General" />
+	<ui:param name="moduloTitulo" value="Puesto General" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración de los puestos generales." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:dataTable id="tablaPuesto" editable="true" var="p" scrollRows="10"
+				scrollable="true" scrollHeight="350"
+				value="#{puestoGeneral.view.listaPuestoGeneral}"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				rows="5" paginatorAlwaysVisible="false"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+
+				<f:facet name="header">
+					<div align="right">
+						<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+							oncomplete="scrollToAnchorPanelNuevo();"
+							action="#{puestoGeneral.mostrarDialogoNuevoRegistro()}"
+							iconPos="right" update="form" process="@this"
+							styleClass="fm-font-color-white" />
+					</div>
+				</f:facet>
+
+
+				<p:column sortBy="#{p.codigo}" filterBy="#{p.codigo}"
+					headerText="Codigo" width="100">
+					<h:outputText value="#{p.codigo}" />
+				</p:column>
+
+				<p:column headerText="Puesto" sortBy="#{p.puesto}"
+					filterBy="#{p.puesto}">
+					<h:outputText value="#{p.puesto}" />
+				</p:column>
+
+				<p:column headerText="Tipo Puesto">
+					<h:outputText value="#{p.descripcionTipoPuesto}" />
+				</p:column>
+
+				<p:column headerText="Rama">
+					<h:outputText value="#{p.descripcionRama}" />
+				</p:column>
+
+				<p:column width="100">
+					<p:commandButton icon="ui-icon-pencil" iconPos="right"
+						action="#{puestoGeneral.mostrarDialogoActualizarRegistro(p)}"
+						title="Actualizar: #{p.codigo}-#{p.puesto}" update="form"
+						oncomplete="scrollToAnchorPanelActualizar();"
+						styleClass="fm-btn-exitoso fm-btn-elevado" process="@this" />
+
+					<p:commandButton icon="ui-icon-trash" update="form"
+						action="#{puestoGeneral.mostrarDialogoEliminar(p.idPuestoGeneral)}"
+						title="Eliminar: #{p.codigo}-#{p.puesto}"
+						styleClass="fm-btn-peligro fm-btn-elevado" process="@this" />
+
+				</p:column>
+
+
+			</p:dataTable>
+
+			<p:panel rendered="#{puestoGeneral.view.panelRegistro}">
+				<p:separator />
+				<p:panelGrid id="irPanelNuevo" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+					layout="grid" styleClass="ui-fluid ui-panelgrid-blank">
+
+					<f:facet name="header">
+						<h3>Registrar Puesto</h3>
+					</f:facet>
+
+					<p:spacer />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid"
+						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+						<p:outputLabel for="codigo" value="Codigo:" />
+						<p:inputText id="codigo" required="true"
+							requiredMessage="Ingrese el codigo"
+							value="#{puestoGeneral.view.puestoGeneralDTO.codigo}"
+							style="text-transform:uppercase;"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{puestoGeneral.validarCampoNuevo}">
+							<p:clientValidator />
+							<p:ajax event="blur" update="@form" process="@this" />
+						</p:inputText>
+						<p:message for="codigo" />
+
+
+						<p:outputLabel for="puesto" value="Puesto:" />
+
+						<p:inputText id="puesto" required="true"
+							requiredMessage="Ingrese el puesto"
+							value="#{puestoGeneral.view.puestoGeneralDTO.puesto}"
+							style="text-transform:uppercase;"
+							validator="#{puestoGeneral.validarCampoNuevo}"
+							onkeyup="javascript:this.value=this.value.toUpperCase();">
+							<p:clientValidator />
+							<p:ajax event="blur" update="@form" process="@this" />
+						</p:inputText>
+						<p:message for="puesto" />
+
+
+						<p:outputLabel for="tipoTabulador" value="Tipo Puesto:" />
+
+						<p:selectOneMenu id="tipoTabulador" required="true"
+							requiredMessage="Seleccione el tipo de puesto"
+							validator="#{puestoGeneral.validarCampoNuevo}"
+							value="#{puestoGeneral.view.puestoGeneralDTO.idTipoPuesto}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{puestoGeneral.view.listaTipoPuesto}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update="@form" process="@this" />
+						</p:selectOneMenu>
+						<p:message for="tipoTabulador" />
+
+
+						<p:outputLabel for="rama" value="Rama:" />
+
+						<p:selectOneMenu id="rama" required="true"
+							requiredMessage="Seleccione la Rama"
+							validator="#{puestoGeneral.validarCampoNuevo}"
+							value="#{puestoGeneral.view.puestoGeneralDTO.idRama}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{puestoGeneral.view.listaRama}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update="@form" process="@this" />
+						</p:selectOneMenu>
+						<p:message for="rama" />
+
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<p:spacer />
+					<p:outputLabel>
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							oncomplete="mymessages();"
+							action="#{puestoGeneral.accionRegistra()}" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							action="#{puestoGeneral.cerrarPanelesSecundarios()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:outputLabel>
+					<p:spacer />
+
+
+				</p:panelGrid>
+				<p:separator />
+			</p:panel>
+
+			<p:panel rendered="#{puestoGeneral.view.panelActualizar}">
+				<p:separator />
+				<p:panelGrid id="irPanelActualizar" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
+					layout="grid" styleClass="ui-fluid ui-panelgrid-blank">
+
+					<f:facet name="header">
+						<h3>Actualizar Puesto</h3>
+					</f:facet>
+
+					<p:spacer />
+
+					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+						layout="grid"
+						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+
+						<p:outputLabel for="codigoA" value="Codigo:" />
+						<p:inputText id="codigoA" required="true"
+							requiredMessage="Ingrese el codigo"
+							value="#{puestoGeneral.view.puestoGeneralDTOSeleccionado.codigo}"
+							style="text-transform:uppercase;"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{puestoGeneral.validarCampoActualizar}">
+							<p:clientValidator />
+							<p:ajax event="blur" update="msgCodigoA" />
+						</p:inputText>
+						<p:message id="msgCodigoA" for="codigoA" />
+
+
+						<p:outputLabel for="puestoA" value="Puesto:" />
+						<p:inputText id="puestoA" required="true"
+							requiredMessage="Ingrese el puesto"
+							value="#{puestoGeneral.view.puestoGeneralDTOSeleccionado.puesto}"
+							style="text-transform:uppercase;"
+							validator="#{puestoGeneral.validarCampoActualizar}"
+							onkeyup="javascript:this.value=this.value.toUpperCase();">
+							<p:clientValidator />
+							<p:ajax event="blur" update="msgPuestoA" />
+						</p:inputText>
+						<p:message id="msgPuestoA" for="puestoA" />
+
+
+						<p:outputLabel for="tipoTabuladorA" value="Tipo Puesto:" />
+						<p:selectOneMenu id="tipoTabuladorA" required="true"
+							requiredMessage="Seleccione el tipo de puesto"
+							validator="#{puestoGeneral.validarCampoActualizar}"
+							value="#{puestoGeneral.view.puestoGeneralDTOSeleccionado.idTipoPuesto}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{puestoGeneral.view.listaTipoPuesto}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update="msgTipoPuestoA" />
+						</p:selectOneMenu>
+						<p:message id="msgTipoPuestoA" for="tipoTabuladorA" />
+
+
+						<p:outputLabel for="ramaA" value="Rama:" />
+						<p:selectOneMenu id="ramaA" required="true"
+							requiredMessage="Seleccione la Rama"
+							validator="#{puestoGeneral.validarCampoActualizar}"
+							value="#{puestoGeneral.view.puestoGeneralDTOSeleccionado.idRama}">
+							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+							<f:selectItems value="#{puestoGeneral.view.listaRama}" />
+							<p:clientValidator />
+							<p:ajax event="valueChange" update="msgRamaA" />
+						</p:selectOneMenu>
+						<p:message id="msgRamaA" for="ramaA" />
+
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<p:spacer />
+					<p:outputLabel>
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							oncomplete="mymessages();"
+							action="#{puestoGeneral.accionActualizar()}" />
+						<p:spacer width="20" />
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							oncomplete="mymessages();" process="@this"
+							action="#{puestoGeneral.cerrarPanelesSecundarios()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:outputLabel>
+					<p:spacer />
+
+
+				</p:panelGrid>
+				<p:separator />
+			</p:panel>
+
+
+			<p:dialog header="¿Quiere eliminar el puesto general seleccionado?"
+				visible="#{puestoGeneral.view.dialogoEliminar}" modal="true"
+				showEffect="Slide" hideEffect="Drop">
+
+				<div align="right">
+					<p:commandButton icon="ui-icon-circle-check" update="form"
+						oncomplete="mymessages();" process="@this"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{puestoGeneral.eliminarPuestoGeneral()}" />
+					<p:spacer width="20" />
+					<p:commandButton icon="ui-icon-circle-close" update="form"
+						oncomplete="mymessages();" process="@this"
+						action="#{puestoGeneral.cerrarDialogoAccionEliminar()}" />
+				</div>
+			</p:dialog>
+
+		</h:form>
+
+
+
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,190 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Pensión Alimenticia" />
+	<ui:param name="moduloTitulo" value="Pensión Alimenticia : Agregar" />
+	<ui:param name="moduloSubtitulo"
+		value="Ingresa la información del beneficiario de la pensión, los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<f:metadata>
+			<f:viewParam name="r"
+				value="#{agregarPensionAlimenticiaController.rfc}" />
+		</f:metadata>
+
+		<h:form id="frmPensionAlimenticiaEmpleado" styleClass="fm-contenedor">
+
+			<p:messages id="info" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+
+				<p:panelGrid columns="1" layout="grid"
+					styleClass="header-panel-grid">
+
+					<h:outputText
+						value="#{agregarPensionAlimenticiaController.informacionEmpleadoDTO.rfc}.- #{agregarPensionAlimenticiaController.informacionEmpleadoDTO.nombre}"
+						style="font-size: 20px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;" />
+
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid "
+					columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<p:spacer />
+
+					<p:panelGrid layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid " columns="1"
+						columnClasses="ui-grid-col-12">
+
+						<p:outputLabel for="expediente" value="# Expediente: *" />
+						<p:inputText id="expediente"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.numeroExpediente}">
+							<p:ajax update="msgExpediente" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgExpediente" for="expediente" />
+
+						<p:outputLabel for="juzgado" value="# Juzgado: *" />
+						<p:inputText id="juzgado"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.numeroJuzgado}">
+							<p:ajax update="msgJuzgado" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgJuzgado" for="juzgado" />
+
+						<p:outputLabel for="oficio" value="Oficio: *" />
+						<p:inputText id="oficio"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.oficio}">
+							<p:ajax update="msgOficio" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgOficio" for="oficio" />
+
+						<p:outputLabel for="rfc" value="RFC: *" />
+						<p:inputText id="rfc"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.rfc}">
+							<p:ajax update="msgRFC" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgRFC" for="rfc" />
+
+						<p:outputLabel for="nombre" value="Nombre: *" />
+						<p:inputText id="nombre"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.beneficiario}"
+							styleClass="input_lng">
+							<p:ajax update="msgNombre" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgNombre" for="nombre" />
+
+						<p:outputLabel for="valor" value="Valor: *" />
+						<p:inputText id="valor"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.valor}">
+							<p:ajax update="msgValor" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgValor" for="valor" />
+
+						<p:outputLabel for="cuentaClabe"
+							value="Numero de Cuenta Bancaria:" />
+						<p:inputText id="cuentaClabe"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.numeroCuentaBancaria}" />
+
+						<p:outputLabel for="banco" value="Banco: " />
+						<p:selectOneMenu id="banco"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.idBanco}">
+							<f:selectItem itemLabel="[Selecciona una opción]" itemValue="0" />
+							<f:selectItems
+								value="#{agregarPensionAlimenticiaController.listadoBancos}" />
+							<p:ajax update="msgBanco" event="valueChange" />
+						
+						</p:selectOneMenu>
+						<p:message id="msgBanco" for="banco" />
+
+						<p:outputLabel for="tipo" value="Tipo: *" />
+						<p:selectOneMenu id="tipo"
+							onkeyup="javascript:this.value=this.value.toUpperCase();"
+							validator="#{agregarPensionAlimenticiaController.validatorDatosGenerales}"
+							value="#{agregarPensionAlimenticiaController.beneficiarioPensionAlimenticiaForm.idTipoCoutaPension}">
+							<f:selectItem itemLabel="[Selecciona una opción]" itemValue="0" />
+							<f:selectItems
+								value="#{agregarPensionAlimenticiaController.listadoTipoCoutas}" />
+							<p:ajax update="msgTipo" event="blur" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgTipo" for="tipo" />
+
+					</p:panelGrid>
+
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid " columns="2"
+						columnClasses="ui-grid-col-6">
+
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<div class="fm-tarjeta-pie">
+
+					<p:button icon="ui-icon-circle-arrow-w" value="Regresar"
+						styleClass="fm-btn-principal" process="@this"
+						update="frmPensionAlimenticiaEmpleado"
+						outcome="index.xhtml?i=#{agregarPensionAlimenticiaController.informacionEmpleadoDTO.idEmpleado}" />
+
+
+					<p:commandButton icon="ui-icon-circle-plus" value="Agregar"
+						iconPos="right" style="float:right;"
+						action="#{agregarPensionAlimenticiaController.guardarInformacionPension}"
+						update="frmPensionAlimenticiaEmpleado" />
+
+				</div>
+
+
+			</p:panel>
+
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+
+
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>

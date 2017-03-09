@@ -1,0 +1,450 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Usuarios" />
+
+	<ui:param name="moduloTitulo" value="Administración de Usuarios" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form">
+
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+
+			<p:panelGrid columns="1" id="panelGridPrincipal" style="width:100%;"
+				rendered="#{usuario.usuarioView.habilitarPanelInicial}">
+				<p:row>
+					<p:column>
+						<p:commandButton value="Nuevo Usuario" style="float:right;"
+							rendered="#{usuario.usuarioView.habilitarBotonNuevoUsuario}"
+							iconPos="right" icon="ui-icon-plus"
+							action="#{usuario.usuarioView.habilitarFormulario()}"
+							ajax="false" />
+						<p:commandButton value="Editar Usuario" style="float:right;"
+							ajax="false" iconPos="right" icon="ui-icon-pencil"
+							action="#{usuario.habilitarEdicion()}"
+							rendered="#{usuario.usuarioView.habilitarBotonesEdicion}" />
+						<p:commandButton value="Cancelar Edición"
+							style="float:right;background:#B0C4DE;"
+							action="#{usuario.usuarioView.cancelarEdicion()}"
+							rendered="#{usuario.usuarioView.habilitarBotonesEdicion}"
+							iconPos="right" icon="ui-icon-close" ajax="false" />
+						<p:commandButton value="Inhabilitar Usuario"
+							style="float:right;background:#B0C4DE;"
+							rendered="#{usuario.usuarioView.habilitarBotonesEdicion}"
+							iconPos="right" onclick="PF('inhabilitar').show();"
+							icon="ui-icon-close" />
+					</p:column>
+				</p:row>
+
+				<p:dialog header="Inhabilitar Usuario" widgetVar="inhabilitar"
+					modal="true">
+					<h:panelGrid columns="2" cellpadding="5">
+						<p:commandButton value="Aceptar" icon="ui-icon-plus"
+							update=":form" iconPos="right" process="@this" ajax="false"
+							action="#{usuario.inhabilitarUsuario()}" />
+						<p:commandButton value="Cancelar" styleClass="ui-confirmdialog-no"
+							icon="ui-icon-close" iconPos="right" style="float:right;"
+							ajax="false" />
+					</h:panelGrid>
+				</p:dialog>
+
+				<p:panelGrid id="gridBusqueda" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="4"
+					columnClasses="ui-grid-col-5,ui-grid-col-1, ui-grid-col-2,ui-grid-col-2">
+
+					<p:inputText value="#{usuario.criterio}"
+						placeholder="UserName, Correo Electrónico" size="30" />
+					<p:commandButton icon="ui-icon-search"
+						actionListener="#{usuario.buscarUsuario()}" ajax="false"
+						styleClass="fm-btn-elevado" process="@this,criterio">
+					</p:commandButton>
+
+
+					<p:outputPanel>
+						<p:outputLabel value="Usuarios Activos" />
+						<p:spacer width="20" />
+						<p:selectBooleanCheckbox value="#{usuario.activo}">
+							<p:ajax update=":form" listener="#{usuario.usuarios()}"
+								process="@this" />
+						</p:selectBooleanCheckbox>
+					</p:outputPanel>
+
+					<p:outputPanel>
+						<p:outputLabel value="Usuarios Inactivos" />
+						<p:spacer width="20" />
+						<p:selectBooleanCheckbox value="#{usuario.inactivo}">
+							<p:ajax update=":form" listener="#{usuario.usuarios()}"
+								process="@this" />
+						</p:selectBooleanCheckbox>
+					</p:outputPanel>
+				</p:panelGrid>
+
+				<!-- Panel con la información del usuario buscado -->
+				<p:panelGrid rendered="#{usuario.usuarioView.habilitarPanelUsuario}"
+					style="width:50%">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="UserName: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{usuario.usuarioView.usuarioDTO.userName}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Nombre: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{usuario.usuarioView.usuarioDTO.nombre}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Apellido Paterno: " />
+						</p:column>
+						<p:column>
+							<p:inputText
+								value="#{usuario.usuarioView.usuarioDTO.apellidoPaterno}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Apellido Materno: " />
+						</p:column>
+						<p:column>
+							<p:inputText
+								value="#{usuario.usuarioView.usuarioDTO.apellidoMaterno}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Correo Electrónico:" />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{usuario.usuarioView.usuarioDTO.correo}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Cargo: " />
+						</p:column>
+						<p:column>
+							<p:inputText value="#{usuario.usuarioView.usuarioDTO.cargo}"
+								disabled="true" />
+						</p:column>
+					</p:row>
+
+					<p:column>
+						<p:commandButton value="Editar" ajax="false" iconPos="right"
+							icon="ui-icon-pencil" action="#{usuario.edicionBusqueda()}" />
+						<p:column>
+							<p:commandButton value="Eliminar" ajax="false" iconPos="right"
+								style="background:#B0C4DE;" icon="ui-icon-close"
+								action="#{usuario.eliminarBusqueda()}" />
+						</p:column>
+					</p:column>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cancelar" ajax="false" iconPos="right"
+								style="background:#B0C4DE;" icon="ui-icon-close"
+								action="#{usuario.cancelarBusqueda()}" />
+						</p:column>
+
+						<p:column>
+							<p:commandButton value="Inhabilitar Usuario" iconPos="right"
+								style="background:#B0C4DE;" icon="ui-icon-close"
+								onclick="PF('inhabilitar').show();" />
+						</p:column>
+					</p:row>
+
+				</p:panelGrid>
+
+				<p:dataTable rendered="#{usuario.usuarioView.habilitarTabla}"
+					id="table" var="e" editable="true" rowKey="#{e.idUsuario}"
+					selection="#{usuario.usuarioView.seleccionarUsuario}" reflow="true"
+					value="#{usuario.usuarioView.usuarios}" paginator="true" rows="10"
+					paginatorAlwaysVisible="false" selectionMode="single">
+					<p:ajax event="rowSelect" process="@this"
+						listener="#{usuario.usuarioView.habilitarEdicion()}"
+						update=":form" />
+					<p:columnGroup type="header">
+						<p:row>
+							<p:column headerText="UserName" rowspan="2" colspan="1" />
+							<p:column headerText="Estatus" rowspan="2" colspan="1" />
+							<p:column headerText="Nombre" rowspan="2" colspan="1" />
+
+						</p:row>
+					</p:columnGroup>
+
+					<h:outputText value="#{e.idUsuario}" style="display:none;" />
+
+					<p:column>
+						<h:outputText value="#{e.userName}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{e.activo?'SI':'NO'}" />
+					</p:column>
+					<p:column>
+						<h:outputText
+							value="#{e.nombre} #{e.apellidoPaterno} #{e.apellidoMaterno}" />
+					</p:column>
+
+				</p:dataTable>
+			</p:panelGrid>
+			<!-- Panel para dar de alta una usuario -->
+			<p:panel id="panelAltaUsuario" header="Alta de Usuario"
+				rendered="#{usuario.usuarioView.habilitarFormulario}">
+
+				<p:panelGrid id="gridAltaUsuario" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-3">
+
+					<p:spacer />
+					<p:outputLabel for="username" value="UserName: " />
+					<p:outputPanel>
+						<p:inputText label="username" id="username" required="true"
+							requiredMessage="El nombre de usuario es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.userName}" />
+					</p:outputPanel>
+
+
+					<p:spacer />
+					<p:outputLabel for="password" value="Contraseña: " />
+					<p:outputPanel>
+						<p:inputText label="password" id="password" required="true"
+							requiredMessage="La contraseña de usuario es requerida"
+							value="#{usuario.password}" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:outputLabel for="nombre" value="Nombre: " />
+					<p:outputPanel>
+						<p:inputText label="nombre" id="nombre" required="true"
+							requiredMessage="El nombre es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.nombre}" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:outputLabel for="paterno" value="Apellido Paterno: " />
+					<p:outputPanel>
+						<p:inputText label="paterno" id="paterno" required="true"
+							requiredMessage="El apellido paterno es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.apellidoPaterno}" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:outputLabel for="materno" value="Apellido Materno: " />
+					<p:outputPanel>
+						<p:inputText label="materno" id="materno" required="true"
+							requiredMessage="El apellido materno es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.apellidoMaterno}" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:outputLabel for="correo" value="Correo Electrónico: " />
+					<p:outputPanel>
+						<p:inputText label="correo" id="correo" required="true"
+							requiredMessage="El correo electrónico es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.correo}" />
+					</p:outputPanel>
+					
+					<p:spacer />
+					<p:outputLabel for="telefono" value="Telefono fijo: " />
+					<p:outputPanel>
+						<p:inputText label="telefono" id="telefono" required="true"
+							requiredMessage="El telefono es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.telefono}" />
+					</p:outputPanel>
+					
+					<p:spacer />
+					<p:outputLabel for="celular" value="Telefono movil: " />
+					<p:outputPanel>
+						<p:inputText label="Celular" id="celular" required="true"
+							requiredMessage="El correo electrónico es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.celular}" />
+					</p:outputPanel>
+
+					<p:spacer />
+					<p:outputLabel for="cargo" value="Cargo: " />
+					<p:outputPanel>
+						<p:inputText label="cargo" id="cargo" required="true"
+							requiredMessage="El cargo es requerido"
+							value="#{usuario.usuarioView.usuarioDTO.cargo}" />
+					</p:outputPanel>
+					
+					<p:spacer />
+					<p:outputLabel for="adscripcion" value="Adscripción: " />
+					<p:outputPanel>
+					<p:selectOneMenu id="adscripcion" value="#{usuario.usuarioView.usuarioDTO.idAdscripcion}">
+					<f:selectItem  itemLabel="Seleccione una adscripción.." itemValue="0"/>
+					<f:selectItems value="#{usuario.listaAdscripciones}" />
+					</p:selectOneMenu>
+					</p:outputPanel>
+					
+					<p:spacer />
+					<p:outputLabel for="areaAdscripción" value="Area de Adscripción: " />
+					<p:outputPanel>
+					<p:selectOneMenu id="areaAdscripción" value="#{usuario.usuarioView.usuarioDTO.idAreaAdscripcion}">
+					<f:selectItem  itemLabel="Seleccione un area de adscripción.." itemValue="0"/>
+					<f:selectItems value="#{usuario.listaAreasAdscripciones}" />
+					</p:selectOneMenu>
+					</p:outputPanel>
+					
+					<p:spacer />
+					<p:outputLabel for="lugarAdscripcion" value="Lugar de Adscripción: " />
+					<p:outputPanel>
+					<p:selectOneMenu id="lugarAdscripcion" value="#{usuario.usuarioView.usuarioDTO.idLugarAdscripcion}">
+					<f:selectItem  itemLabel="Seleccione un lugar de adscripción.." itemValue="0"/>
+					<f:selectItems value="#{usuario.listaLugarAdscripciones}" />
+					</p:selectOneMenu>
+					</p:outputPanel>
+					
+					
+				</p:panelGrid>
+				<br />
+				<br />
+				<div align="center">
+					<p:commandButton value="Guardar" icon="ui-icon-newwin"
+						iconPos="right" actionListener="#{usuario.registrarUsuario()}"
+						update=":form" process="@this" ajax="false" />
+					<p:spacer width="50px" />
+					<p:commandButton value="Cancelar" id="regresarRegistro" icon="ui-icon-closethick"
+						iconPos="right" action="#{usuario.usuarioView.cancelar()}"
+						update=":form" process="@this" style="background:#B0C4DE;" />
+				</div>
+			</p:panel>
+
+
+			<p:panelGrid
+				rendered="#{usuario.usuarioView.habilitarFormularioEdicion}">
+				<p:panelGrid style="width:100%;  padding-top:25px;padding-left:15px"
+					id="usuarioEdicion">
+					<!-- Panel para editar la información de un usuario registrado -->
+					<p:spacer width="20" />
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="UserName: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.userName}" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Contraseña: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText value="#{usuario.usuarioView.usuarioDTO.password}" />
+						</p:column>
+					</p:row>
+
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Nombre: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.nombre}" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Apellido Paterno: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.apellidoPaterno}" />
+						</p:column>
+
+
+					</p:row>
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Apellido Materno: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.apellidoMaterno}" />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:outputLabel value="Correo Electrónico: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.correo}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column style="width:25%">
+							<p:outputLabel value="Cargo: " />
+						</p:column>
+
+						<p:column style="width:25%">
+							<p:inputText
+								value="#{usuario.usuarioView.editarUsuarioDTO.cargo}" />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Perfil: " />
+						</p:column>
+						<p:column>
+
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				<div align="center">
+					<p:commandButton value="Guardar Cambios" iconPos="right"
+						icon="ui-icon-refresh"
+						actionListener="#{usuario.actualizarUsuario()}" update=":form"
+						ajax="false" style="float:right;" />
+					<p:spacer width="10" />
+
+					<p:commandButton value="Eliminar Usuario"
+						title="Eliminar Usuario #{e.idUsuario}" icon="ui-icon-trash"
+						update="@form" process=":form" iconPos="right"
+						action="#{usuario.eliminar()}" ajax="false"
+						style="float:left;background:#B0C4DE;">
+					</p:commandButton>
+
+					<p:commandButton value="Cancelar" icon="ui-icon-home"
+						id="regresarEdicion" iconPos="right"
+						action="#{usuario.usuarioView.cancelar()}" update=":form"
+						process="@this" style="float:left;background:#B0C4DE;"
+						ajax="false" />
+				</div>
+			</p:panelGrid>
+
+			<h:outputScript target="body">
+			// Controlamos que si pulsamos escape se cierre el formulario y nos redireccionea la página de inicio
+			$(document).keyup(function(event) {
+				if (event.which === 27) {
+					$("#form\\:regresarRegistro").click();
+					$("#form\\:regresarEdicion").click();
+				}
+			});
+                    </h:outputScript>
+		</h:form>
+	</ui:define>
+</ui:composition>

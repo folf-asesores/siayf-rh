@@ -1,0 +1,269 @@
+﻿<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Importar Nomina Contrato" />
+	<ui:param name="moduloTitulo"
+		value="Importar Nomina Contrato#{reporteSiif.view.reporteSiifSelect.nombramiento}" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione los archivos DAT y TRA que desea importar. Este proceso puede demorar un tiempo" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" />
+
+			<p:outputPanel>
+				<p:row>
+					<p:column>
+						<p:commandButton value="Procesar" ajax="false" update=":form"
+							disabled="${!reporteSiif.view.panelUpload}"
+							action="#{reporteSiif.importarNominaContrato}">
+						</p:commandButton>
+
+						<p:commandButton id="cancelar" value="Regresar"
+							style="float:right;" styleClass="fm-btn-elevdo" immediate="true"
+							action="#{reporteSiif.cancelar}" />
+					</p:column>
+				</p:row>
+				<p:panelGrid columns="3" styleClass="ui-responsive"
+					columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
+					rendered="${reporteSiif.view.panelUpload}" layout="grid">
+
+					<p:fileUpload id="cont"
+						value="#{reporteSiif.view.paqueteEntrada.cont}" mode="simple"
+						label="Seleccionar Archivo EXCEL" allowTypes="/(\.|\/)(xls|xlsx)$/"
+						requiredMessage="El Archivo XLS es requerido"
+						invalidFileMessage="El Archivo debe tener la extención XLS"
+						style="width:80px;" skinSimple="true" />
+																
+					<p:spacer />
+					
+					<p:spacer />
+
+					<p:outputLabel value="Tipo de Nomina" style="width:50px;" />
+					<p:selectOneMenu id="idTipoNomina"
+						value="#{reporteSiif.view.paqueteEntrada.idTipoNomina}"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						style="width:425px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reporteSiif.view.tipoNominaList}"
+							var="tipoNomina1"
+							itemLabel="#{tipoNomina1.idClasificacionNomina} - #{tipoNomina1.descripcion}"
+							itemValue="#{tipoNomina1.idTipoNomina}" />
+						<p:ajax update="msgTN" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgTN" for="idTipoNomina" />
+
+					<p:outputLabel value="Cuenta Bancaria" />
+					<p:selectOneMenu id="idCuentaBancaria"
+						value="#{reporteSiif.view.paqueteEntrada.idCuentaBancaria}"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						style="width:425px">
+						<f:selectItem itemLabel="" itemValue="" />
+						<f:selectItems value="#{reporteSiif.view.cuentaBancariaList}"
+							var="cuentaBancaria1"
+							itemLabel="#{cuentaBancaria1.claveCuenta} - #{cuentaBancaria1.numeroCuenta}, #{cuentaBancaria1.descripcion}"
+							itemValue="#{cuentaBancaria1.idCuentaBancaria}" />
+						<p:ajax update="msgCB" />
+						<p:clientValidator />
+					</p:selectOneMenu>
+					<p:message id="msgCB" for="idCuentaBancaria" />
+
+					<p:outputLabel value="Año de afectación" />
+					<p:inputText id="anioCriterio"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						value="#{reporteSiif.view.paqueteEntrada.anioAfectacion}">
+						<p:ajax update="msgAnio" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgAnio" for="anioCriterio" />
+
+					<p:outputLabel value="Quincena de afectación" />
+					<p:inputText id="periodoCriterio"
+						validator="#{reporteSiif.validatorReporteSiif}"
+						value="#{reporteSiif.view.paqueteEntrada.periodoAfectacion}">
+						<p:ajax update="msgQuin" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgQuin" for="periodoCriterio" />
+				</p:panelGrid>
+
+				<p:outputPanel styleClass="fm-tarjeta"
+					rendered="${reporteSiif.view.panelResume}">
+					<p:panelGrid columns="2" layout="grid"
+						columnClasses="ui-grid-col-2, ui-grid-col-4"
+						styleClass="ui-panelgrid-blank">
+						<f:facet name="header">
+							<p:outputLabel
+								value="Resultado del proceso de importación de los archivos" />
+						</f:facet>
+						<p:outputLabel value="Estatus" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.status}" />
+						<p:outputLabel value="Periodo" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.periodo}" />
+						<p:outputLabel value="Año" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.anio}" />
+						<p:outputLabel value="Fecha de importación" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.fechaImportado}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+						<p:outputLabel value="Cuenta bancaria" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.cuentaBancaria}" />
+						<p:outputLabel value="Tipo nomina" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.tipoNomina}" />
+						<p:outputLabel value="Nominas importadas" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalNomina}" />
+						<p:outputLabel value="Total de percepciones" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalPercepciones}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+						<p:outputLabel value="Total de deducciones" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalDeducciones}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+						<p:outputLabel value="Total neto" />
+						<h:outputText
+							value="${reporteSiif.view.siifBitacoraProcesada.totalNeto}">
+							<f:convertNumber currencySymbol="$" type="currency"
+								locale="es_MX" />
+						</h:outputText>
+					</p:panelGrid>
+
+					<p:row>
+						<p:column>
+							<p:commandButton value="Consultar datos" ajax="false"
+								update=":form" disabled="#{reporteSiif.view.panelUpload}"
+								action="#{consultaDatosEncabezado.irPrincipal}">
+								<f:setPropertyActionListener
+									target="#{consultaDatosEncabezado.view.idSiifEncabezado}"
+									value="#{reporteSiif.view.siifEncabezadoSelect.idSIIFEncabezado}" />
+							</p:commandButton>
+						</p:column>						
+					</p:row>
+					
+					<p:contextMenu for="siifEncabezadoList" widgetVar="cMenu">
+						<p:menuitem value="Edit Cell" icon="ui-icon-search"
+							onclick="PF('cellEncabezado').showCellEditor();return false;" />
+						<p:menuitem value="Hide Menu" icon="ui-icon-close"
+							onclick="PF('cMenu').hide()" />
+					</p:contextMenu>
+
+					<p:dataTable id="siifEncabezadoList"
+						value="#{reporteSiif.view.siifBitacoraProcesada.siifEncabezadoList}"
+						var="siifEncabezadoItem"
+						rowKey="#{siifEncabezadoItem.idSIIFEncabezado}"
+						selection="#{reporteSiif.view.siifEncabezadoSelect}"
+						scrollable="true" scrollHeight="450" selectionMode="single"
+						emptyMessage="Registros no encontrados."
+						editable="true" editMode="cell" widgetVar="cellEncabezado">
+						
+						<p:ajax event="cellEdit" listener="#{reporteSiif.onCellEdit}" update=":form:growl" immediate="true" process="@this"/>
+
+						<p:columnGroup type="header">
+							<p:row>
+								<p:column headerText="Id nomina" />
+								<p:column headerText="Nombramiento" />
+								<p:column headerText="Poder" />
+								<p:column headerText="Tipo nomina" />
+								<p:column headerText="Fecha fin quincena" />
+								<p:column headerText="Tipo de emision" />
+								<p:column headerText="Cuenta bancaria" />
+								<p:column headerText="Percepciones" />
+								<p:column headerText="Deducciones" />
+								<p:column headerText="Neto" />
+								<p:column headerText="Inconsistencias" />
+							</p:row>
+						</p:columnGroup>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idNomina}" />
+						</p:column>
+						<p:column>
+							<h:outputText
+								value="${siifEncabezadoItem.nombramiento} ${siifEncabezadoItem.subPrograma}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idPoder}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idTipoNomina}" />
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.fechaFinQuincena}">
+								<f:convertDateTime pattern="dd/MM/yyyy" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.idTipoEmisionNomina}" />
+						</p:column>
+
+						<p:column>
+							<p:cellEditor>
+								<f:facet name="output">
+									<h:outputText value="${siifEncabezadoItem.claveCuentaBancaria}"/>
+								</f:facet>
+
+								<f:facet name="input">
+									<h:selectOneMenu value="#{siifEncabezadoItem.claveCuentaBancaria}" style="width:100%">
+										<f:selectItems value="#{reporteSiif.view.cuentaBancariaList}" var="itemCta"
+											itemLabel="#{itemCta.claveCuenta}" itemValue="#{itemCta.idCuentaBancaria}"/>
+									</h:selectOneMenu>
+								</f:facet>
+							</p:cellEditor>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.percepciones}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.deducciones}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText value="${siifEncabezadoItem.neto}">
+								<f:convertNumber currencySymbol="$" type="currency"
+									locale="es_MX" />
+							</h:outputText>
+						</p:column>
+
+						<p:column>
+							<h:outputText
+								value="Personal: ${siifEncabezadoItem.inconsistenciaPersonal}"
+								rendered="${siifEncabezadoItem.inconsistenciaPersonal > 0}" />
+							<h:outputText
+								value="Laborales: ${siifEncabezadoItem.inconsistenciaLaboral}"
+								rendered="${siifEncabezadoItem.inconsistenciaLaboral > 0}" />
+						</p:column>
+
+					</p:dataTable>
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

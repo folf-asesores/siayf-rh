@@ -1,0 +1,349 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Modificación Laboral" />
+	<ui:param name="moduloTitulo" value="Modificación Laboral" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para la edición de los datos laborales del empleado." />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5"
+				rendered="#{altaSuplencia.view.mostrarBusqueda}">
+
+				<p:outputLabel for="criterio" value="Ingrese rfc, nombre o curp:" />
+
+				<p:inputText id="criterio"
+					value="#{modificacionLaboral.view.filtro.criterio}">
+				</p:inputText>
+
+				<p:commandButton oncomplete="mymessages();"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					actionListener="#{modificacionLaboral.consultarEmpleado()}" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="empleados"
+				value="#{modificacionLaboral.view.empleados}" var="e"
+				paginator="true" paginatorPosition="bottom" rows="10">
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+				<p:column headerText="Empleado">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+				<p:column headerText="Tipo Contratación">
+					<h:outputText value="#{e.tipoContratacion}" />
+				</p:column>
+				<p:column headerText="Folio Vacante">
+					<h:outputText value="#{e.folioVacante}" />
+				</p:column>
+				<p:column headerText="Ver">
+					<p:commandButton update="form"
+						actionListener="#{modificacionLaboral.seleccionarEmpleado(e)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+
+					<p:commandButton update="form"
+						actionListener="#{modificacionLaboral.mostrarEdicionPrograma(e.idVacante)}"
+						icon="ui-icon-contact" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Información Puesto" id="info_puesto"
+				visible="#{modificacionLaboral.view.mostrarLaboral}" modal="true"
+				closable="false" height="500" width="700">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+						<h3>Información Puesto</h3>
+					</f:facet>
+					<p:outputLabel value="Propietario plaza:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Plaza:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Adscripción:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Subadscripción:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.funcion}"></h:outputText>
+
+				</p:panelGrid>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					id="panelLaborales" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<f:facet name="header">
+						<h3>Dato Laboral</h3>
+					</f:facet>
+
+					<p:outputLabel for="numeroEmpleado" value="Id dato Laboral:*" />
+					<p:inputText id="numeroEmpleado"
+						value="#{modificacionLaboral.view.datoLaboral.numeroEmpleado}"></p:inputText>
+
+
+					<p:outputLabel for="fecha_inicio" value="Fecha Inicio Labores:*" />
+					<p:calendar id="fecha_inicio" pattern="dd-MM-yyyy" mask="true"
+						value="#{modificacionLaboral.view.datoLaboral.fechaInicioLabores}">
+					</p:calendar>
+
+					<p:outputLabel for="proyecto" value="Proyecto" />
+					<p:selectOneMenu id="proyecto" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idProyecto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{modificacionLaboral.view.listaProyectos}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="dependencia" value="Dependencia" />
+					<p:selectOneMenu id="dependencia" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idDependencia}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{modificacionLaboral.view.listaDependencias}" />
+						<p:ajax
+							listener="#{modificacionLaboral.obtenerUnidadesResponsables()}"
+							update="unidadResponsable"></p:ajax>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="unidadResponsable" value="Unidad Responsable" />
+					<p:selectOneMenu id="unidadResponsable" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idUnidadResponsable}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{modificacionLaboral.view.listaUnidadesResponsables}" />
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel for="fuente" value="Fuente Financiamiento" />
+					<p:selectOneMenu id="fuente" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idFuenteFinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{modificacionLaboral.view.listaFuentesFinanciamiento}" />
+						<p:ajax
+							listener="#{modificacionLaboral.obtenerSubfuentesFinanciamiento()}"
+							update="subfuente"></p:ajax>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="subfuente" value="Subfuente Financiamiento" />
+					<p:selectOneMenu id="subfuente" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idSubfuenteFinanciamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{modificacionLaboral.view.listaSubfuentesFinanciamiento}" />
+					</p:selectOneMenu>
+
+
+					<p:outputLabel for="tipoRecurso" value="Tipo Recurso" />
+					<p:selectOneMenu id="tipoRecurso" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idTipoRecurso}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{modificacionLaboral.view.listaTiposRecursos}" />
+					</p:selectOneMenu>
+
+
+
+					<p:outputLabel for="puesto" value="Puesto" />
+					<p:selectOneMenu id="puesto" filter="true"
+						filterMatchMode="contains"
+						value="#{modificacionLaboral.view.datoLaboral.idPuesto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{modificacionLaboral.view.listaPuestos}" />
+						<p:ajax listener="#{modificacionLaboral.obtenerSalario()}"
+							update="salarioFederal, salarioEstatal, error"></p:ajax>
+					</p:selectOneMenu>
+
+					<p:panelGrid columns="2" id="salarioFederal"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid"
+						rendered="#{modificacionLaboral.view.mostrarSalarioFederal}">
+						<f:facet name="header">
+							<h3>Configuracion Salario Federal</h3>
+						</f:facet>
+
+						<p:outputLabel value="Sueldo Bruto Mensual:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.sueldoBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Asignacion Bruta Mensual:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.asignacionBrutaMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="A.G.A. Bruta Mensual:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.agaBrutaMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+						<p:outputLabel value="Total Bruto Mensual:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.totalBrutoMensual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</p:panelGrid>
+
+					<p:panelGrid columns="2" id="salarioEstatal"
+						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid"
+						rendered="#{modificacionLaboral.view.mostrarSalarioEstatal}">
+						<f:facet name="header">
+							<h3>Configuracion Salario Contrato Estatal</h3>
+						</f:facet>
+
+						<p:outputLabel value="Sueldo Base Mensual Minimo:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.sueldoBaseMensualMinimo}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+						<p:outputLabel value="Sueldo Base Mensual Medio:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.sueldoBaseMensualMedio}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+						<p:outputLabel value="Sueldo Base Mensual Máximo:" />
+						<h:outputText
+							value="#{modificacionLaboral.view.salario.sueldoBaseMensualMaximo}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+
+
+						<p:outputLabel for="sueldo" value="Sueldo:" />
+						<p:inputText id="sueldo"
+							value="#{modificacionLaboral.view.datoLaboral.sueldo}"></p:inputText>
+
+						<p:outputLabel for="sueldo_01" value="01   sueldo:" />
+						<p:inputText id="sueldo_01"
+							value="#{modificacionLaboral.view.datoLaboral.sueldo01}"></p:inputText>
+
+						<p:outputLabel for="sueldo_14" value="14  P. compensación. :" />
+						<p:inputText id="sueldo_14"
+							value="#{modificacionLaboral.view.datoLaboral.sueldo14}"></p:inputText>
+
+
+					</p:panelGrid>
+
+
+
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton
+							actionListener="#{modificacionLaboral.editarDatosLaborales()}"
+							update="form, error" value="Editar" />
+						<p:spacer width="20" />
+						<p:commandButton update="form, error" value="Cancelar"
+							actionListener="#{modificacionLaboral.ocultarEdicion()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+
+
+					</div>
+				</f:facet>
+
+			</p:dialog>
+
+			<p:dialog header="Información Puesto"
+				id="dialog_modificacion_programa"
+				visible="#{modificacionLaboral.view.mostrarPrograma}" modal="true"
+				closable="false" height="500" width="700">
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					id="panelGridPrograma" layout="grid"
+					styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<p:messages id="errorPrograma" showDetail="true"
+							autoUpdate="false" severity="error" closable="true" />
+						<h3>Información Puesto</h3>
+					</f:facet>
+					<p:outputLabel value="Propietario plaza:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Plaza:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Adscripción:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Subadscripción:" />
+					<h:outputText
+						value="#{modificacionLaboral.view.puesto.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función:" />
+					<h:outputText value="#{modificacionLaboral.view.puesto.funcion}"></h:outputText>
+
+					<p:outputLabel for="programa" value="Programas:" />
+					<p:selectOneMenu id="programa"
+						value="#{modificacionLaboral.view.idPrograma}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{modificacionLaboral.view.listaProgramas}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:panelGrid columns="5"
+						columnClasses="ui-grid-col-1,ui-grid-col-4, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1 "
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+						<p:commandButton value="Guardar" icon="ui-icon-circle-check"
+							iconPos="right" styleClass="fm-btn-exitoso"
+							action="#{modificacionLaboral.editarPrograma()}"
+							update="form, errorPrograma"></p:commandButton>
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error" process="@this"
+							update="form"
+							actionListener="#{modificacionLaboral.ocultarEdicionPrograma()}"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

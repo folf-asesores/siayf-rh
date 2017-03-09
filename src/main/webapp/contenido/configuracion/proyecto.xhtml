@@ -1,0 +1,221 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+        template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Proyecto" />
+    
+    <ui:param name="moduloTitulo" value="Proyecto" />
+    <ui:param name="moduloSubtitulo" value="Este modulo permite la administración de los proyectos." />
+    
+    <ui:define name="moduloContenido">
+        <h:form id="frmProyecto" styleClass="fm-tarjeta">
+            
+            <p:dataTable id="tblProyecto"
+                         value="#{proyectoController.proyectos}" 
+                         var="proyecto" reflow="true" 
+                         paginatorAlwaysVisible="false"
+                         rows="15"
+                         currentPageReportTemplate="{currentPage} de {totalPages}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+                         emptyMessage="No se ha encontrado ningún proyecto"
+                         rendered="#{proyectoController.view.visibleTablaProyecto}">
+                <f:facet name="header">
+                    <p:outputPanel styleClass="fm-float-left">
+                        <p:outputLabel value="Ejercicio fiscal" styleClass="fm-font-color-white" />
+                        <p:spacer width="10"/>
+                        <p:selectOneMenu value="#{proyectoController.view.ejercicioFiscal}">
+                            <f:selectItem itemValue="0" itemLabel="Selecione una opción" />
+                            <f:selectItems value="#{proyectoController.ejerciciosFiscales}" />
+                            <p:ajax update="tblProyecto" />
+                        </p:selectOneMenu>
+                    </p:outputPanel>
+                    
+                    <p:commandLink title="Agregar una nuevo proyecto"
+                                   styleClass="fm-float-right"
+                                   actionListener="#{proyectoController.mostrarPanelNuevo()}"
+                                   update="frmProyecto" >
+                        <span class="ui-icon-plus fm-font-color-white"></span>
+                    </p:commandLink>
+                    
+                    <p:outputPanel styleClass="fm-clear-both"></p:outputPanel>
+                </f:facet>
+                
+                <p:column headerText="Clave">
+                    <h:outputText value="#{proyecto.clave}"/>
+                </p:column>
+                
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{proyecto.nombre}"/>
+                </p:column>
+                
+                <p:column headerText="Área de adscripción">
+                    <h:outputText value="#{proyecto.claveAreaAdscripcion}"/>
+                </p:column>
+                
+                <p:column headerText="Opciones" >
+                    <p:commandLink title="Eliminar"
+                                   styleClass="fm-float-right"
+                                   actionListener="#{proyectoController.eliminar(proyecto.idProyecto)}"
+                                   update=":frmProyecto" >
+                        <span class="ui-icon-trash"></span>
+                        <p:confirm header="Confirmación" 
+                                   message="¿Realmente desea eliminar el proyecto: #{proyecto.nombre}?"
+                                   icon="ui-icon-alert" />
+                    </p:commandLink>
+                    <p:commandLink title="Editar #{proyecto.nombre}"
+                                   styleClass="fm-float-right"
+                                   actionListener="#{proyectoController.mostrarPanelNuevo()}"
+                                   update=":frmProyecto" >
+                        <span class="ui-icon-pencil"></span>
+                        <f:setPropertyActionListener value="#{proyecto}" 
+                                                     target="#{proyectoController.view.proyectoDTO}" />
+                        <f:setPropertyActionListener value="true" 
+                                                     target="#{proyectoController.view.editar}" />
+                    </p:commandLink>
+                    <p:commandLink title="Ver más detalles"
+                                   styleClass="fm-float-right"
+                                   oncomplete="PF('dlgProyectoDetalleWV').show();"
+                                   update=":dlgProyectoDetalleCuerpo" >
+                        <span class="fm-icon-eye"></span>
+                        <f:setPropertyActionListener value="#{proyecto}" 
+                                                     target="#{proyectoController.view.proyectoDTO}" />
+                    </p:commandLink>
+                </p:column>
+            </p:dataTable>
+            
+            <p:panelGrid id="pnlProyectoNuevo"
+                         columns="2" layout="grid" 
+                         rendered="#{proyectoController.view.visiblePanelNuevo}"
+                         columnClasses="ui-grid-col-3 fm-texto-alineado-derecha, ui-grid-col-9"
+                         styleClass="ui-panelgrid-blank">
+                    
+                <p:outputLabel value="Clave" for="txtClaveNuevo" />
+                <p:inputText id="txtClaveNuevo" value="#{proyectoController.view.proyectoDTO.clave}" />
+
+                <p:outputLabel value="Proyecto" for="txtNombreNuevo" />
+                <p:inputText id="txtNombreNuevo" value="#{proyectoController.view.proyectoDTO.nombre}" />
+
+                <p:outputLabel value="Ejercicio fiscal" for="somEjercicioFiscalNuevo" />
+                <p:selectOneMenu id="somEjercicioFiscalNuevo" 
+                                 value="#{proyectoController.view.proyectoDTO.ejercicioFiscal}">
+                    <f:selectItem itemValue="0" itemLabel="Selecione una opción" />
+                    <f:selectItems value="#{proyectoController.ejerciciosFiscales}" />
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Clave del área de adcripción" for="txtAreaAdcripcionNuevo" />
+                <p:inputText id="txtAreaAdcripcionNuevo" value="#{proyectoController.view.proyectoDTO.claveAreaAdscripcion}" />
+
+                <p:outputLabel value="Base 36" for="txtBase36Nuevo" />
+                <p:inputText id="txtBase36Nuevo" value="#{proyectoController.view.proyectoDTO.base36}" />
+
+                <p:outputLabel value="Dependencia" for="txtDependenciaNuevo" />
+                <p:autoComplete id="txtDependenciaNuevo" 
+                                value="#{proyectoController.view.proyectoDTO.idDependencia}"
+                                completeMethod="#{proyectoController.obtenerDependenciasPorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+
+                <p:outputLabel value="Unidad responsable" for="txtUnidadResponsableNuevo" />
+                <p:autoComplete id="txtUnidadResponsableNuevo" 
+                                value="#{proyectoController.view.proyectoDTO.idUnidadResponsable}"
+                                completeMethod="#{proyectoController.obtenerUnidadResponsablePorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+
+                <p:outputLabel value="Sector" for="txtSectorNuevo" />
+                <p:autoComplete id="txtSectorNuevo"
+                                value="#{proyectoController.view.proyectoDTO.idSector}"
+                                completeMethod="#{proyectoController.obtenerSectorPorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+
+                <p:outputLabel value="Estrategia" for="txtEstrategiaNuevo" />
+                <p:autoComplete id="txtEstrategiaNuevo" 
+                                value="#{proyectoController.view.proyectoDTO.idEstrategia}"
+                                completeMethod="#{proyectoController.obtenerEstrategiaPorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+
+                <p:outputLabel value="Línea de acción" for="txtLineaAccionNuevo" />
+                <p:autoComplete id="txtLineaAccionNuevo" 
+                                value="#{proyectoController.view.proyectoDTO.idLineaAccion}"
+                                completeMethod="#{proyectoController.obtenerLineaAccionPorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+
+                <p:outputLabel value="Área de adscripción" for="txtAreaAdscripcionNuevo" />
+                <p:autoComplete id="txtAreaAdscripcionNuevo"
+                                value="#{proyectoController.view.proyectoDTO.idAreaAdscripcion}"
+                                completeMethod="#{proyectoController.obtenerAreaAdscripcionPorConsulta}"
+                                forceSelection="true"
+                                converter="proyectoConverter" />
+                    
+                <f:facet name="footer">
+                    <p:commandButton value="Guardar" 
+                                     actionListener="#{proyectoController.guardar}"
+                                     update="frmProyecto" />
+                    <p:commandButton value="Cancelar" process="@this" 
+                                     actionListener="#{proyectoController.mostrarTablaProyecto}"
+                                     update="frmProyecto" />
+                </f:facet>
+            </p:panelGrid>
+            
+            <p:confirmDialog global="true">
+                <p:commandButton value="Sí" type="button" 
+                                 styleClass="ui-confirmdialog-yes"
+                                 icon="ui-icon-check"/>
+                <p:commandButton value="No" type="button" 
+                                 styleClass="ui-confirmdialog-no"
+                                 icon="ui-icon-close"/>
+            </p:confirmDialog>
+        </h:form>
+        
+        <p:dialog id="dlgProyectoDetalle"
+                  header="Detalle proyecto" closable="true"
+                  closeOnEscape="true"
+                  modal="true"
+                  widgetVar="dlgProyectoDetalleWV">
+            <h:form id="dlgProyectoDetalleCuerpo">
+                <p:panelGrid columns="2" layout="grid" 
+                             columnClasses="ui-grid-col-3 fm-texto-alineado-derecha, ui-grid-col-9"
+                             styleClass="ui-panelgrid-blank">
+                    
+                    <p:outputLabel value="Clave" for="txtClaveDetalle" />
+                    <h:outputText id="txtClaveDetalle" value="#{proyectoController.view.proyectoDTO.clave}" />
+                    
+                    <p:outputLabel value="Proyecto" for="txtNombreDetalle" />
+                    <h:outputText id="txtNombreDetalle" value="#{proyectoController.view.proyectoDTO.nombre}" />
+                    
+                    <p:outputLabel value="Clave del área de adcripción" for="txtAreaAdcripcionDetalle" />
+                    <h:outputText id="txtAreaAdcripcionDetalle" value="#{proyectoController.view.proyectoDTO.claveAreaAdscripcion}" />
+                    
+                    <p:outputLabel value="Base 36" for="txtBase36Detalle" />
+                    <h:outputText id="txtBase36Detalle" value="#{proyectoController.view.proyectoDTO.base36}" />
+                    
+                    <p:outputLabel value="Dependencia" for="txtDependenciaDetalle" />
+                    <h:outputText id="txtDependenciaDetalle" value="#{proyectoController.getDescripcionDependencia(proyectoController.view.proyectoDTO.idDependencia)}" />
+                    
+                    <p:outputLabel value="Unidad responsable" for="txtUnidadResponsableDetalle" />
+                    <h:outputText id="txtUnidadResponsableDetalle" value="#{proyectoController.getDescripcionUnidadResponsable(proyectoController.view.proyectoDTO.idUnidadResponsable)}" />
+                    
+                    <p:outputLabel value="Sector" for="txtSectorDetalle" />
+                    <h:outputText id="txtSectorDetalle" value="#{proyectoController.getDescripcionSector(proyectoController.view.proyectoDTO.idSector)}" />
+                    
+                    <p:outputLabel value="Línea de acción" for="txtLineaAccionDetalle" />
+                    <h:outputText id="txtLineaAccionDetalle" value="#{proyectoController.getDescripcionLineaAccion(proyectoController.view.proyectoDTO.idLineaAccion)}" />
+                    
+                    <p:outputLabel value="Estrategia" for="txtEstrategiaDetalle" />
+                    <h:outputText id="txtEstrategiaDetalle" value="#{proyectoController.getDescripcionEstrategia(proyectoController.view.proyectoDTO.idEstrategia)}" />
+
+                    <p:outputLabel value="Área de adscripción" for="txtAreaAdscripcionDetalle" />
+                    <h:outputText id="txtAreaAdscripcionDetalle" value="#{proyectoController.getDescripcionAreaAdscripcion(proyectoController.view.proyectoDTO.idAreaAdscripcion)}" />
+                </p:panelGrid>
+            </h:form>
+        </p:dialog>
+    </ui:define>
+</ui:composition>

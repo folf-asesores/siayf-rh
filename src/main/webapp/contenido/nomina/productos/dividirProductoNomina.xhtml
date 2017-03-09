@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Nómina :: Dividir producto de nómina" />
+    <ui:param name="moduloTitulo" value="Dividir producto de nómina" />
+    <ui:param name="moduloSubtitulo" value="" />
+
+    <ui:define name="moduloContenido">
+        <h:form id="frmDividirProductoNomina" >
+            <p:fileUpload fileUploadListener="#{dividirProductoNominaController.cargarArchivoRfc}"
+                          allowTypes="/(\.|\/)(txt)$/" auto="true"
+                          label="Cargar lista de RFC"
+                          invalidFileMessage="El tipo de archivo que ha indicado es invalido." />
+            
+            <p:dataTable id="tblProductoNomina" value="#{dividirProductoNominaController.view.productoNomina}"
+                         var="nominaEmpleado" selection="#{dividirProductoNominaController.view.productoNominaSeleccionado}"
+                         rowKey="#{nominaEmpleado.idNominaEmpleado}"
+                         filteredValue="#{dividirProductoNominaController.view.productoNominaFiltrados}"
+                         paginator="true"
+                         rows="25"
+                         paginatorAlwaysVisible="false">
+                <f:facet name="header">
+                    <p:outputPanel styleClass="fm-float-right">
+                        <p:inputText value="#{dividirProductoNominaController.view.nombreProductoNominaNuevo}"
+                                     placeholder="Nombre del producto de nómina"
+                                     title="El nombre para el nuevo producto de nómina."/>
+                        <p:commandButton value="Dividir"
+                                         actionListener="#{dividirProductoNominaController.dividirNomina}"
+                                         update=":frmDividirProductoNomina:tblProductoNomina"/>
+                    </p:outputPanel>
+                    <p:outputPanel styleClass="fm-clear-both"/>
+                </f:facet>
+
+                <p:column selectionMode="multiple" />
+                
+                <p:column headerText="Consecutivo">
+                    <h:outputText value="#{nominaEmpleado.consecutivo}" />
+                </p:column>
+                
+                <p:column headerText="RFC" filterBy="#{nominaEmpleado.rfc}">
+                    <h:outputText value="#{nominaEmpleado.rfc}" />
+                </p:column>
+                
+                <p:column headerText="Nombre del empleado">
+                    <h:outputText value="#{nominaEmpleado.nombreEmpleado}" />
+                </p:column>
+
+                <p:column headerText="Percepciones">
+                    <h:outputText value="#{nominaEmpleado.percepciones}" >
+                        <f:convertNumber type="currency" currencySymbol="$" locale="es-MX" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Deducciones">
+                    <h:outputText value="#{nominaEmpleado.deducciones}" >
+                        <f:convertNumber type="currency" currencySymbol="$" locale="es-MX" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Neto">
+                    <h:outputText value="#{nominaEmpleado.neto}" >
+                        <f:convertNumber type="currency" currencySymbol="$" locale="es-MX" />
+                    </h:outputText>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>

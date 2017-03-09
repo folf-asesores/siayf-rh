@@ -1,0 +1,510 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Administración Movimientos ISSSTE" />
+	<ui:param name="moduloTitulo" value="Administración Movimientos ISSSTE" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid columns="6"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{movimientosIssste.view.administracionMovimientos}">
+
+				<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+				<p:outputLabel>
+					<p:inputText id="criterio"
+						value="#{movimientosIssste.view.criterio}"
+						placeholder="RFC, Nombre"
+						validator="#{movimientosIssste.validatorConsulta}">
+						<p:ajax event="blur" update="msgCriterio" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgCriterio" for="criterio" />
+				</p:outputLabel>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					action="#{movimientosIssste.consultarMovimiento()}"
+					onstart="PF(`statusDialog`).show()" update="form" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="movimientos"
+				emptyMessage="No se encontrarón resultados"
+				value="#{movimientosIssste.view.listaMovimiento}" var="m"
+				paginator="true" paginatorPosition="bottom" rows="5"
+				selection="#{movimientosIssste.view.movimientoSeleccinado}"
+				selectionMode="single" rowKey="#{m.idMovimientoIsssteEmpleado}"
+				rendered="#{movimientosIssste.view.administracionMovimientos}">
+
+				<f:facet name="header">
+					<p:commandLink title="Baja ISSSTE" styleClass="fm-float-right"
+						disabled="#{movimientosIssste.view.opcionDisponibles}"
+						action="#{movimientosIssste.mostrarPanelBaja()}"
+						onsuccess="PF(`statusDialog`).hide()" ajax="true"
+						onstart="PF(`statusDialog`).show()" update="form" process="@this">
+						<span class="ui-icon-trash fm-font-color-white fm-btn-elevado" />
+					</p:commandLink>
+
+					<p:commandLink title="Modificación Sueldo Trabajador"
+						disabled="#{movimientosIssste.view.opcionDisponibles}"
+						styleClass="fm-float-right" onsuccess="PF(`statusDialog`).hide()"
+						action="#{movimientosIssste.mostrarPanelModificacion()}"
+						ajax="true" onstart="PF(`statusDialog`).show()" update="form">
+						<span class="ui-icon-pencil fm-font-color-white fm-btn-elevado" />
+					</p:commandLink>
+
+					<p:commandLink title="Alta Trabajador" styleClass="fm-float-right"
+						action="#{movimientosIssste.mostrarPanelAlta()}"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()" update="form" process="@this">
+						<span class="ui-icon-plusthick fm-font-color-white fm-btn-elevado" />
+					</p:commandLink>
+
+					<p:outputPanel styleClass="fm-clear-both" />
+				</f:facet>
+
+				<p:ajax event="rowSelect"
+					listener="#{movimientosIssste.onRowSelect}" update="form" />
+				<p:ajax event="rowUnselect"
+					listener="#{movimientosIssste.onRowUnselect}" update="form" />
+
+				<p:column headerText="RFC" width="100" style="text-aling: center;">
+					<h:outputText value="#{m.rfc}" />
+				</p:column>
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{m.nombreEmpleado}" />
+				</p:column>
+
+				<p:column headerText="Movimiento">
+					<h:outputText value="#{m.tipoMovimientoIssste}" />
+				</p:column>
+
+				<p:column headerText="No. Seguro Social">
+					<h:outputText value="#{m.numeroSeguroSocial}" />
+				</p:column>
+
+				<p:column headerText="Sueldo básico cotización ISSSTE">
+					<h:outputText value="#{m.sueldoIssste}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Sueldo básico cotización SAR">
+					<h:outputText value="#{m.sueldoSar}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Total Remuneración">
+					<h:outputText value="#{m.totalRemuneracion}">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Descargar" style="text-align: center;">
+
+					<p:commandButton icon="fm-icon-download" ajax="true" update="form"
+						action="#{movimientosIssste.descargarMovimientoIssste(m)}" />
+
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="1"
+				rendered="#{movimientosIssste.view.altaTrabajador}"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+				<f:facet name="header" style="text-aling: left;">
+					<h3>Alta Trabajador</h3>
+				</f:facet>
+			</p:panelGrid>
+
+			<p:panelGrid columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-6, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{movimientosIssste.view.altaTrabajador}">
+
+				<p:outputLabel for="criterios" value="Ingrese un criterio: *" />
+				<p:outputLabel>
+					<p:inputText id="criterios"
+						value="#{movimientosIssste.view.criterio}"
+						placeholder="RFC, Nombre"
+						validator="#{movimientosIssste.validatorConsulta}">
+						<p:ajax event="blur" update="msgCriterios" />
+						<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgCriterios" for="criterios" />
+				</p:outputLabel>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					actionListener="#{movimientosIssste.consultarEmpleados}"
+					update="form" />
+
+				<p:commandButton icon="ui-icon-circle-arrow-w"
+					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" title="Regresar"
+					actionListener="#{movimientosIssste.regresar()}" update="form"
+					process="@this" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="empleados1"
+				rendered="#{movimientosIssste.view.altaTrabajador}"
+				value="#{movimientosIssste.view.listaEmpleados}" var="e"
+				emptyMessage="No se encontrarón resultados" paginator="true"
+				paginatorPosition="bottom" rows="5">
+
+				<p:column headerText="RFC" width="100" style="text-aling: center;">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+
+				<p:column headerText="Curp">
+					<h:outputText value="#{e.curp}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+
+				<p:column headerText="Tipo contratación">
+					<h:outputText value="#{e.tipoContratacion}" />
+				</p:column>
+
+				<p:column headerText="Tipo nombramiento">
+					<h:outputText value="#{e.nombramiento}" />
+				</p:column>
+
+				<p:column headerText="Domicilio">
+					<h:outputText value="#{e.direccion}" />
+				</p:column>
+
+				<p:column headerText="Seleccionar Empleado"
+					style="text-align: center;">
+					<p:commandButton update="form"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()"
+						actionListener="#{movimientosIssste.seleccionarEmpleado(e)}"
+						icon="ui-icon-person" title="Seleccionar Empleado" />
+				</p:column>
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				rendered="#{movimientosIssste.view.formularioAltaTrabajador}"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+				<p:spacer />
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive">
+
+					<f:facet name="header">
+						<h3>Datos del Empleado</h3>
+					</f:facet>
+
+					<p:outputLabel for="nombreCompleto2" value="Nombre Completo: " />
+					<h:outputText id="nombreCompleto2"
+						value="#{movimientosIssste.view.empleadoSeleccionado.nombre}" />
+
+					<p:outputLabel for="curp2" value="C.U.R.P.: " />
+					<h:outputText id="curp2"
+						value="#{movimientosIssste.view.empleadoSeleccionado.curp}" />
+
+					<p:outputLabel for="rfc2" value="R.F.C.: " />
+					<h:outputText id="rfc2"
+						value="#{movimientosIssste.view.empleadoSeleccionado.rfc}" />
+
+					<p:outputLabel for="domicilio2" value="Domicilio Completo: " />
+					<h:outputText id="domicilio2"
+						value="#{movimientosIssste.view.empleadoSeleccionado.direccion}" />
+
+				</p:panelGrid>
+				<p:spacer />
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<f:facet name="header">
+						<h3>Registrar Trabajador</h3>
+					</f:facet>
+
+
+					<p:outputLabel for="cobro" value="Clave de cobro: " />
+					<h:outputText id="cobro"
+						value="#{movimientosIssste.view.empleadoSeleccionado.claveCobro}" />
+
+					<p:outputLabel for="nombramiento" value="Nombramiento: " />
+					<p:selectOneMenu id="nombramiento" required="true"
+						requiredMessage="Seleccione el nombramiento"
+						value="#{movimientosIssste.view.altaTrabajadorDTO.idTipoNombramiento}"
+						effect="size" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+						<f:selectItems value="#{movimientosIssste.view.listaNombramiento}" />
+					</p:selectOneMenu>
+					<p:message id="msgnombramiento" for="nombramiento" />
+
+					<p:outputLabel for="salario" value="Nivel salarial: " />
+					<p:selectOneMenu id="salario" effect="size" filter="true"
+						required="true" requiredMessage="Seleccione el nivel salarial"
+						value="#{movimientosIssste.view.altaTrabajadorDTO.idNivelSalarial}"
+						filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+						<f:selectItems value="#{movimientosIssste.view.listaNivelSalario}" />
+					</p:selectOneMenu>
+					<p:message id="msgsalario" for="salario" />
+
+					<h:outputLabel for="cotizacioni" value="Sueldo cotización ISSSTE: " />
+					<p:inputText id="cotizacioni" required="true"
+						requiredMessage="Ingrese el Sueldo ISSSTE"
+						value="#{movimientosIssste.view.altaTrabajadorDTO.sueldoIssste}">
+						<p:ajax event="blur" update=":form:msgcotizacioni" />
+					</p:inputText>
+					<p:message id="msgcotizacioni" for="cotizacioni" />
+
+					<p:outputLabel for="cotizacions" value="Sueldo cotización SAR: " />
+					<p:inputText id="cotizacions" required="true"
+						requiredMessage="Ingrese el Sueldo SAR"
+						value="#{movimientosIssste.view.altaTrabajadorDTO.sueldoSar}">
+						<p:ajax event="blur" update=":form:msgcotizacions" />
+					</p:inputText>
+					<p:message id="msgcotizacions" for="cotizacions" />
+
+					<p:outputLabel for="remuneracion" value="Remuneración total: " />
+					<p:inputText id="remuneracion" required="true"
+						requiredMessage="Ingrese el Sueldo Total"
+						value="#{movimientosIssste.view.altaTrabajadorDTO.totalRemuneracion}">
+
+						<p:ajax event="blur" update=":form:msgremuneracion" />
+					</p:inputText>
+					<p:message id="msgremuneracion" for="remuneracion" />
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Registrar" styleClass="fm-btn-elevado"
+						action="#{movimientosIssste.altaTrabajador()}" update="form"
+						onsuccess="PF(`statusDialog`).hide()" ajax="false"
+						onstart="PF(`statusDialog`).show()" />
+
+					<p:commandButton value="Cancelar" styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()" process="@this"
+						action="#{movimientosIssste.cerrarFormularioAltaTrabajador()}"
+						update="form" onstart="PF(`statusDialog`).show()" />
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+
+			<p:panelGrid columns="1"
+				rendered="#{movimientosIssste.view.bajaIssste}"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+				<f:facet name="header" style="text-aling: left;">
+					<h3>Baja ISSSTE</h3>
+				</f:facet>
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				rendered="#{movimientosIssste.view.bajaIssste}"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="rfc3" value="Rfc " />
+					<h:outputText id="rfc3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.rfc}" />
+
+					<p:outputLabel for="Curp3" value="Curp " />
+					<h:outputText id="Curp3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.curp}" />
+
+					<p:outputLabel for="nombre3" value="Nombre " />
+					<h:outputText id="nombre3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.nombreEmpleado}" />
+
+					<p:outputLabel for="domicilio3" value="Domicilio: " />
+					<h:outputText id="domicilio3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.domicilio}" />
+
+					<p:outputLabel for="clavedecobro3" value="Clave de cobro: " />
+					<h:outputText id="clavedecobro3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.claveCobro}" />
+
+					<p:outputLabel for="nombramiento3" value="Nombramiento: " />
+					<h:outputText id="nombramiento3"
+						value="#{movimientosIssste.view.movimientoSeleccinado.nombramiento}" />
+
+					<h:outputLabel for="cotizacionIssste3"
+						value="Sueldo cotización ISSSTE: " />
+					<p:inputText id="cotizacionIssste3" required="true"
+						requiredMessage="Ingrese el Sueldo ISSSTE"
+						value="#{movimientosIssste.view.bajaTrabajadorDTO.sueldoIssste}">
+						<p:ajax event="blur" update="form" />
+					</p:inputText>
+					<p:message id="msgcotizacioniss3" for="cotizacionIssste3" />
+
+					<p:outputLabel for="cotizacionsar3" value="Sueldo cotización SAR: " />
+					<p:inputText id="cotizacionsar3" required="true"
+						value="#{movimientosIssste.view.bajaTrabajadorDTO.sueldoSar}"
+						requiredMessage="Ingrese el Sueldo SAR">
+						<p:ajax event="blur" update="form" />
+					</p:inputText>
+					<p:message id="msgcotizacionsar3" for="cotizacionsar3" />
+
+					<p:outputLabel for="remuneraciontotal3"
+						value="Remuneración total: " />
+					<p:inputText id="remuneraciontotal3" required="true"
+						value="#{movimientosIssste.view.bajaTrabajadorDTO.totalRemuneracion}"
+						requiredMessage="Ingrese el Sueldo Total">
+						<p:ajax event="blur" update="form" />
+					</p:inputText>
+					<p:message id="msgremuneraciontotal3" for="remuneraciontotal3" />
+
+					<p:outputLabel for="causabaja3" value="Causa de la baja: " />
+					<p:selectOneMenu id="causabaja3" required="true"
+						requiredMessage="Seleccione la causa de la baja"
+						value="#{movimientosIssste.view.bajaTrabajadorDTO.idCausaBaja}"
+						effect="size" filter="true" filterMatchMode="startsWith">
+						<f:selectItem itemLabel="Seleccione una opción" itemValue="" />
+						<f:selectItems value="#{movimientosIssste.view.listaCausaBaja}" />
+					</p:selectOneMenu>
+					<p:message id="msgcausabaja3" for="causabaja3" />
+
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Registrar" styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()" update="form" ajax="false"
+						action="#{movimientosIssste.bajaTrabajador()}"
+						onstart="PF(`statusDialog`).show()" />
+
+					<p:commandButton value="Cancelar" styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()" update="form"
+						process="@this" action="#{movimientosIssste.regresar()}"
+						onstart="PF(`statusDialog`).show()" />
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+			<p:panelGrid columns="1"
+				rendered="#{movimientosIssste.view.sueldoTrabajador}"
+				columnClasses="ui-grid-col-2, ui-grid-col-3, ui-grid-col-7"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+				<f:facet name="header" style="text-aling: left;">
+					<h3>Modificación Sueldo Trabajador</h3>
+				</f:facet>
+			</p:panelGrid>
+
+			<p:panelGrid columns="3"
+				rendered="#{movimientosIssste.view.sueldoTrabajador}"
+				columnClasses="ui-grid-col-1, ui-grid-col-10, ui-grid-col-1"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
+					<p:outputLabel for="rfcc" value="Rfc " />
+					<h:outputText id="rfcc"
+						value="#{movimientosIssste.view.movimientoSeleccinado.rfc}" />
+
+					<p:outputLabel for="Curp" value="Curp " />
+					<h:outputText id="Curp"
+						value="#{movimientosIssste.view.movimientoSeleccinado.curp}" />
+
+					<p:outputLabel for="nombreper" value="Nombre " />
+					<h:outputText id="nombreper"
+						value="#{movimientosIssste.view.movimientoSeleccinado.nombreEmpleado}" />
+
+					<p:outputLabel for="domicilioper" value="Domicilio: " />
+					<h:outputText id="domicilioper"
+						value="#{movimientosIssste.view.movimientoSeleccinado.domicilio}" />
+
+					<p:outputLabel for="clavedecobro" value="Clave de cobro: " />
+					<h:outputText id="clavedecobro"
+						value="#{movimientosIssste.view.movimientoSeleccinado.claveCobro}" />
+
+					<p:outputLabel for="nombramientoper" value="Nombramiento: " />
+					<h:outputText id="nombramientoper"
+						value="#{movimientosIssste.view.movimientoSeleccinado.nombramiento}" />
+
+					<h:outputLabel for="cotizacioniss"
+						value="Sueldo cotización ISSSTE: " />
+					<p:inputText id="cotizacioniss" required="true"
+						requiredMessage="Ingrese el Sueldo ISSSTE"
+						value="#{movimientosIssste.view.modificacionTrabajadorDTO.sueldoIssste}">
+						<p:ajax event="blur" update=":form:msgcotizacioniss" />
+					</p:inputText>
+					<p:message id="msgcotizacioniss" for="cotizacioniss" />
+
+					<p:outputLabel for="cotizacionsar" value="Sueldo cotización SAR: " />
+					<p:inputText id="cotizacionsar" required="true"
+						value="#{movimientosIssste.view.modificacionTrabajadorDTO.sueldoSar}"
+						requiredMessage="Ingrese el Sueldo SAR">
+						<p:ajax event="blur" update=":form:msgcotizacionsar" />
+					</p:inputText>
+					<p:message id="msgcotizacionsar" for="cotizacionsar" />
+
+					<p:outputLabel for="remuneraciontotal" value="Remuneración total: " />
+					<p:inputText id="remuneraciontotal" required="true"
+						value="#{movimientosIssste.view.modificacionTrabajadorDTO.totalRemuneracion}"
+						requiredMessage="Ingrese el Sueldo Total">
+						<p:ajax event="blur" update=":form:msgremuneraciontotal" />
+					</p:inputText>
+					<p:message id="msgremuneraciontotal" for="remuneraciontotal" />
+
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-6" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<p:commandButton value="Modificar Sueldo"
+						action="#{movimientosIssste.modificarSueldo()}" update="form"
+						ajax="false" styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()" />
+
+					<p:commandButton value="Cancelar" styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()" update="form"
+						process="@this" action="#{movimientosIssste.regresar()}"
+						onstart="PF(`statusDialog`).show()" />
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+			<p:outputPanel id="nuevaVentanaReporte"
+				rendered="#{movimientosIssste.view.ventanaNuevoReporte}">
+				<h:outputScript>
+                window.open('#{request.contextPath}/#{movimientosIssste.view.urlReporte}');
+            </h:outputScript>
+			</p:outputPanel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

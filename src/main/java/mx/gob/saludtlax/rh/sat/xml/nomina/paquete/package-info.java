@@ -1,0 +1,3 @@
+
+@javax.xml.bind.annotation.XmlSchema(namespace = "http://www.sat.gob.mx/Nomina/Paquete", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+package mx.gob.saludtlax.rh.sat.xml.nomina.paquete;

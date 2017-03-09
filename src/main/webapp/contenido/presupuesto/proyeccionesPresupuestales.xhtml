@@ -1,0 +1,484 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Proyecciones Presupuestales" />
+	<ui:param name="moduloTitulo" value="Proyecciones Presupuestales" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite proyecciones presupuestales" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+
+				<p:outputLabel for="criterio" value="Año de presupuesto: " />
+				<p:inputText id="criterio"
+					value="#{proyeccionesPresupuestales.view.anioPresupuesto}"
+					placeholder="Ingrese un criterio de búsqueda">
+				</p:inputText>
+
+				<p:outputLabel for="nombramiento" value="Nombramiento: " />
+				<p:selectOneMenu id="nombramiento"
+					value="#{proyeccionesPresupuestales.view.idTipoNombramiento}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems
+						value="#{proyeccionesPresupuestales.view.listaTipoNombramiento}"
+						var="tipoNombramiento"
+						itemValue="#{tipoNombramiento.idTipoNombramiento}"
+						itemLabel="#{tipoNombramiento.descripcion}" />
+				</p:selectOneMenu>
+
+				<p:commandButton value="Buscar" icon="ui-icon-search"
+					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					action="#{proyeccionesPresupuestales.obtenerProyeccionesPresupuestales()}"
+					ajax="false" update="form" />
+
+			</p:panelGrid>
+
+			<p:dataTable id="listaProyecciones"
+				value="#{proyeccionesPresupuestales.view.listaProyecciones}"
+				var="proyeccion" emptyMessage="No se encontrarón resultados"
+				rendered="#{proyeccionesPresupuestales.view.mostrarPrincipal}">
+
+				<f:facet name="header">
+
+					<p:panelGrid layout="grid"
+						rendered="#{proyeccionesPresupuestales.view.mostrarOpcionDescarga}"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+						columnClasses=" ui-grid-col-8, ui-grid-col-2, ui-grid-col-2">
+						<p:spacer />
+						<p:commandButton value="Descargar Contrato"
+							icon="fm-icon-download" update="@form" iconPos="right"
+							ajax="false"
+							action="#{proyeccionesPresupuestales.descargarContrato()}"
+							oncomplete="mymessages();" />
+						<p:commandButton value="Descargar Proyección"
+							icon="fm-icon-download" update="@form" iconPos="right"
+							ajax="false"
+							action="#{proyeccionesPresupuestales.descargarContratoProyeccion()}"
+							oncomplete="mymessages();" />
+					</p:panelGrid>
+
+				</f:facet>
+
+				<p:column headerText="Partida" style="width:20%; ">
+					<p:commandLink id="partidaProyecciones" update="form"
+						actionListener="#{proyeccionesPresupuestales.seleccionarEdicionProyeccion(proyeccion)}">
+						<h:outputText id="idPartida#{proyeccion.partida}"
+							value="#{proyeccion.partida}" style="font-size:12px !important">
+						</h:outputText>
+					</p:commandLink>
+
+
+				</p:column>
+
+				<p:column headerText="Enero" style="width:8%;">
+					<h:outputText value="#{proyeccion.enero}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Febrero" style="width:8%;">
+					<h:outputText value="#{proyeccion.febrero}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Marzo" style="width:8%;">
+					<h:outputText value="#{proyeccion.marzo}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Abril" style="width:8%;">
+					<h:outputText value="#{proyeccion.abril}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Mayo" style="width:8%;">
+					<h:outputText value="#{proyeccion.mayo}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Junio" style="width:8%;">
+					<h:outputText value="#{proyeccion.junio}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Julio" style="width:8%;">
+					<h:outputText value="#{proyeccion.julio}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Agosto" style="width:8%;">
+					<h:outputText value="#{proyeccion.agosto}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Septiembre" style="width:8%;">
+					<h:outputText value="#{proyeccion.septiembre}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Octubre" style="width:8%;">
+					<h:outputText value="#{proyeccion.octubre}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Noviembre" style="width:8%;">
+					<h:outputText value="#{proyeccion.noviembre}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Diciembre" style="width:8%;">
+					<h:outputText value="#{proyeccion.diciembre}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:panelGrid id="dialogPartida" columns="4"
+				columnClasses="ui-grid-col-6, ui-grid-col-6, ui-grid-col-6, ui-grid-col-6"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{proyeccionesPresupuestales.view.mostrarProyeccion}">
+
+				<p:outputLabel value="Mes" style="font-size:20px !important" />
+				<p:outputLabel value="Monto" style="font-size:20px !important" />
+				<p:outputLabel value="Porcentaje " style="font-size:20px !important" />
+				<p:outputLabel value="Aumento" style="font-size:20px !important" />
+
+				<p:outputLabel id="mes" value="Enero"
+					style="font-size:18px !important" />
+
+				<h:outputText id="monto" style="text-transform:uppercase;"
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.enero}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText id="porcentajeIncremento"
+					style="text-transform:uppercase;"
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeEnero}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText id="aumento"
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionEnero}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Febrero" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.febrero}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeFebrero}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionFebrero}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Marzo" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.marzo}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeMarzo}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionMarzo}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Abril" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.abril}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeAbril}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionAbril}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Mayo" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.mayo}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeMayo}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionMayo}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Junio" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.junio}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeJunio}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionJunio}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Julio" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.julio}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeJulio}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionJulio}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Agosto" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.agosto}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeAgosto}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionAgosto}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Septiembre" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.septiembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeSeptiembre}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText style="text-transform:uppercase;"
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionSeptiembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Octubre" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.octubre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeOctubre}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionOctubre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Noviembre" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.noviembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeNoviembre}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionNoviembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Diciembre" style="font-size:18px !important" />
+
+				<h:outputText style="text-transform:uppercase;"
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.diciembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:inputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeDiciembre}">
+					<p:ajax event="blur" update=":form:dialogPartida"
+						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</p:inputText>
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.proyeccionDiciembre}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:outputLabel value="Total" style="font-size:18px !important" />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.montoTotal}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+
+				<p:spacer />
+
+				<h:outputText
+					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.aumentoTotal}">
+					<f:convertNumber pattern="###,##0.00" type="currency"
+						locale="en-US" maxFractionDigits="2" />
+				</h:outputText>
+			</p:panelGrid>
+
+			<p:panelGrid columns="2"
+				columnClasses="ui-grid-col-20, ui-grid-col-20" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{proyeccionesPresupuestales.view.mostrarProyeccion}">
+				<div align="right">
+					<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+						update="form"
+						action="#{proyeccionesPresupuestales.ocultarEdicionProyeccion()}" />
+				</div>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

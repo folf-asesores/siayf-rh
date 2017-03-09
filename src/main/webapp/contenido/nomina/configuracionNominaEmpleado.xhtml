@@ -1,0 +1,156 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+<ui:param name="ventanaTitulo" value="Configuración de Nómina de Empleado" />
+<ui:param name="moduloTitulo" value="Configuración de Nómina de Empleado" /><br/>
+
+<ui:define name="moduloContenido">
+<h:form id="form" styleClass="fm-tarjeta"
+ 				enctype="multipart/form-data">
+	<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
+
+	<p:outputPanel id="panelFiltro"
+				rendered="#{configNominaEmpleado.view.mostrarBusqueda}">
+		<p:panelGrid columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-3,ui-grid-col-7"
+					layout="grid" 
+					styleClass="ui-panelgrid-blank ui-fluid">
+			<p:outputLabel for="criterio" value="Ingrese un criterio: *" />
+			<p:inputText id="criterio"
+						value="#{configNominaEmpleado.view.criterio}"
+						placeholder="RFC o nombre completo"
+						validator="#{configNominaEmpleado.validatorConsulta}">
+				<p:ajax update="msgCriterio" />
+				<p:clientValidator />
+			</p:inputText>
+			<p:commandButton icon="ui-icon-search" 
+							styleClass="fm-btn-elevado"
+							onsuccess="PF('statusDialog').hide()"
+							onstart="PF('statusDialog').show()"
+							process="@this"
+							action="#{configNominaEmpleado.buscarEmpleado}"
+							update="form" />
+			<p:spacer />
+			<p:message id="msgCriterio" for="criterio" />
+			<p:spacer />
+		</p:panelGrid>
+
+		<p:dataTable id="empleados"
+			emptyMessage="No se encontrarón resultados"
+			rendered="#{configNominaEmpleado.view.mostrarResultados}"
+			value="#{configNominaEmpleado.view.empleados}" var="e"
+			paginator="true" paginatorPosition="bottom" rows="5">
+
+			<p:column headerText="Número Empleado" width="150"
+				style="text-align: center;">
+				<h:outputText value="#{e.numeroEmpleado}" />
+			</p:column>
+
+			<p:column headerText="Nombre">
+				<h:outputText value="#{e.nombre}" />
+			</p:column>
+
+			<p:column headerText="Curp">
+				<h:outputText value="#{e.curp}" />
+			</p:column>
+
+			<p:column headerText="Rfc">
+				<h:outputText value="#{e.rfc}" />
+			</p:column>
+
+			<p:column headerText="Domicilio">
+				<h:outputText value="#{e.direccion}" />
+			</p:column>
+			<p:column headerText="Ver" width="50" style="text-align: center;">
+				<p:commandButton update="form" icon="fm-icon-eye"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()"
+					actionListener="#{configNominaEmpleado.seleccionarEmpleado(e.idEmpleado)}"
+					title="Ver">
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</p:outputPanel>
+
+	<p:outputPanel id="panelFormulario"
+				rendered="#{configNominaEmpleado.view.mostrarFormulario}">
+		<p:ribbon>
+		    <p:tab title="Generales">
+		        <p:ribbonGroup label="Empleado">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.nombre}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="RFC">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.rfc}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="CURP">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.curp}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Edad">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.edad}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Nacionalidad">
+					<h:outputText
+						value="#{configNominaEmpleado.view.empleadoDatos.nacionalidad}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Sexo">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.sexo}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Estado Civil">
+					<h:outputText
+						value="#{configNominaEmpleado.view.empleadoDatos.estadoCivil}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Estudios">
+					<h:outputText
+						value="#{configNominaEmpleado.view.empleadoDatos.estudios}" />
+		        </p:ribbonGroup>
+			</p:tab>
+		    <p:tab title="Domicilio">
+		        <p:ribbonGroup label="Domicilio">
+					<h:outputText
+						value="#{configNominaEmpleado.view.empleadoDatos.domicilio}" />
+		        </p:ribbonGroup>
+			</p:tab>
+		    <p:tab title="Laborales">
+		        <p:ribbonGroup label="Contratación">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.tipoContratacion}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="RFC">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.rfc}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Nombramiento">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.nombramiento}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Puesto">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.codigoPuesto}" />
+					<br />
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.puesto}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Unidad Responsable">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.unidadResponsable}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Adscripción">
+						<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.adscripcion}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Lugar adscripción">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.lugarAdscripcion}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Area adscripción">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.areaAdscripcion}" />
+		        </p:ribbonGroup>
+		        <p:ribbonGroup label="Ultima Licencia">
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.licencia} " />
+					<h:outputText value="#{configNominaEmpleado.view.empleadoDatos.ultimaLicencia}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+		        </p:ribbonGroup>
+		    </p:tab>
+		</p:ribbon>
+	</p:outputPanel>
+</h:form>
+</ui:define>
+</ui:composition>

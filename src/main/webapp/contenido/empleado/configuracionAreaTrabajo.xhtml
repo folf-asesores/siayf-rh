@@ -1,0 +1,232 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Configuración Área Trabajo" />
+
+	<ui:param name="moduloTitulo" value="Configuración Área Trabajo" />
+
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid" id="busqueda"
+				rendered="#{configuracionArea.view.mostrarBusqueda}">
+				<p:outputLabel for="filtro" value="Tipo Ubicacion" />
+				<p:selectOneMenu id="filtro"
+					value="#{configuracionArea.view.idFiltro}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems value="#{configuracionArea.view.listaUbicaciones}" />
+					<p:ajax listener="#{configuracionArea.seleccionarFiltro()}"
+						update="vacantesDisponibles,messages_generales, busqueda"
+						process="filtro"></p:ajax>
+				</p:selectOneMenu>
+
+				<p:outputLabel for="dependencia" value="Dependencia"
+					rendered="#{configuracionArea.view.mostrarUnidades}" />
+				<p:selectOneMenu id="dependencia" filter="true"
+					filterMatchMode="contains"
+					value="#{configuracionArea.view.idDependencia}"
+					rendered="#{configuracionArea.view.mostrarUnidades}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems value="#{configuracionArea.view.listaDependencias}" />
+					<p:ajax
+						listener="#{configuracionArea.obtenerUnidadesResponsables()}"
+						update="unidad" process="dependencia"></p:ajax>
+				</p:selectOneMenu>
+
+
+				<p:outputLabel for="unidad" value="Unidad Responsable"
+					rendered="#{configuracionArea.view.mostrarUnidades}" />
+				<p:selectOneMenu id="unidad"
+					value="#{configuracionArea.view.idContexto}"
+					rendered="#{configuracionArea.view.mostrarUnidades}" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems
+						value="#{configuracionArea.view.listaUnidadesResponsables}" />
+					<p:ajax listener="#{configuracionArea.buscarEmpleados()}"
+						update="vacantesDisponibles, messages_generales"
+						process="unidad, filtro"></p:ajax>
+				</p:selectOneMenu>
+
+				<p:spacer rendered="#{configuracionArea.view.mostrarCriterio}"></p:spacer>
+				<p:inputText id="criterio"
+					value="#{configuracionArea.view.criterio}"
+					rendered="#{configuracionArea.view.mostrarCriterio}">
+					<p:ajax event="keyup"
+						update="vacantesDisponibles, messages_generales"
+						listener="#{configuracionArea.buscarEmpleadoCriterio()}" />
+				</p:inputText>
+			</p:panelGrid>
+
+
+			<p:dataTable id="vacantesDisponibles"
+				value="#{configuracionArea.view.puestosEmpleados}" var="d"
+				paginator="true" paginatorPosition="bottom" rows="10"
+				rendered="#{configuracionArea.view.mostrarBusqueda}">
+				<p:column headerText="Empleado">
+					<h:outputText value="#{d.nombreEmpleado}" />
+				</p:column>
+				<p:column headerText="Unidad Responsable">
+					<h:outputText value="#{d.unidadResponsable}" />
+				</p:column>
+				<p:column headerText="Tipo Contratación">
+					<h:outputText value="#{d.tipoContratacion}" />
+				</p:column>
+				<p:column headerText="Nombramiento">
+					<h:outputText value="#{d.nombramiento}" />
+				</p:column>
+
+				<p:column headerText="Número Vacante">
+					<h:outputText value="#{d.folioVacante}" />
+				</p:column>
+
+				<p:column headerText="Código Puesto">
+					<h:outputText value="#{d.codigoPuesto}" />
+				</p:column>
+				<p:column headerText="Puesto">
+					<h:outputText value="#{d.puesto}" />
+				</p:column>
+
+				<p:column headerText="Ver">
+					<p:commandButton update="form"
+						actionListener="#{configuracionArea.obtenerDetalle(d.idInventarioVacante)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{configuracionArea.view.mostrarDetalle}">
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Detalle Empleado</h3>
+					</f:facet>
+
+					<p:outputLabel value="Empleado" />
+					<h:outputText value="#{configuracionArea.view.puesto.nombre}"></h:outputText>
+
+					<p:outputLabel value="Número Empleado" />
+					<h:outputText
+						value="#{configuracionArea.view.puesto.numeroEmpleado}"></h:outputText>
+
+					<p:outputLabel value="Proyecto" />
+					<h:outputText value="#{configuracionArea.view.puesto.proyecto}"></h:outputText>
+
+					<p:outputLabel value="Dependencia" />
+					<h:outputText value="#{configuracionArea.view.puesto.dependencia}"></h:outputText>
+
+					<p:outputLabel value="Unidad Responsable" />
+					<h:outputText
+						value="#{configuracionArea.view.puesto.unidadResponsable}"></h:outputText>
+
+					<p:outputLabel value="Tipo Contratacion" />
+					<h:outputText
+						value="#{configuracionArea.view.puesto.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Tipo Nombramiento" />
+					<h:outputText
+						value="#{configuracionArea.view.puesto.tipoNombramiento}"></h:outputText>
+
+					<p:outputLabel value="Código Puesto" />
+					<h:outputText value="#{configuracionArea.view.puesto.codigoPuesto}"></h:outputText>
+
+					<p:outputLabel value="Puesto" />
+					<h:outputText value="#{configuracionArea.view.puesto.puesto}"></h:outputText>
+
+					<p:outputLabel value="Folio Puesto" />
+					<h:outputText
+						value="#{configuracionArea.view.puesto.numeroVacante}"></h:outputText>
+
+
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Configuración Área Trabajo</h3>
+					</f:facet>
+					<p:outputLabel for="adscripcion" value="Adscripción:" />
+					<p:selectOneMenu id="adscripcion"
+						value="#{configuracionArea.view.ubicacion.idAdscripcion}"
+						filter="true" filterMatchMode="contains"
+						disabled="#{configuracionArea.view.bloquearAdscripcion}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{configuracionArea.view.listaAdscripciones}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="areaAdscripcion" value="Subadscripción:" />
+					<p:selectOneMenu id="areaAdscripcion"
+						value="#{configuracionArea.view.ubicacion.idSubadscripcion}"
+						filter="true" filterMatchMode="contains"
+						disabled="#{configuracionArea.view.bloquearSubadscripcion}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{configuracionArea.view.listaSubadscripcion}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="servicio" value="Servicio:" />
+					<p:selectOneMenu id="servicio"
+						value="#{configuracionArea.view.ubicacion.idServicio}"
+						filter="true" filterMatchMode="contains"
+						disabled="#{configuracionArea.view.bloquearServicio}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{configuracionArea.view.listaServicio}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="funcion" value="Función" />
+					<p:selectOneMenu id="funcion"
+						value="#{configuracionArea.view.ubicacion.idFuncion}"
+						filter="true" filterMatchMode="contains"
+						disabled="#{configuracionArea.view.bloquearFuncion}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{configuracionArea.view.listaFuncion}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="clue" value="Clue:" />
+					<p:selectOneMenu id="clue"
+						value="#{configuracionArea.view.ubicacion.idClue}" filter="true"
+						filterMatchMode="contains"
+						disabled="#{configuracionArea.view.bloquearClues}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{configuracionArea.view.listaClues}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="responsabilidad"
+						value="Centro Responsabilidad:" />
+					<p:selectOneMenu id="responsabilidad"
+						value="#{configuracionArea.view.ubicacion.idCentroResponsabilidad}"
+						filter="true" filterMatchMode="contains">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems
+							value="#{configuracionArea.view.listaCentrosResponsabilidad}" />
+					</p:selectOneMenu>
+
+					<p:commandButton value="Ubicar Empleado"
+						update="form,messages_generales "
+						actionListener="#{configuracionArea.ubicarEmpleado()}"></p:commandButton>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

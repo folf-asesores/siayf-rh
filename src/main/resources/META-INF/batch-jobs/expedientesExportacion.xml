@@ -1,0 +1,24 @@
+<!--
+expedientesExportacion.xml
+Creado el Sep 5, 2016 12:35:26 PM
+-->
+
+<job id="expedientesExportacion" version="1.0"
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee" >
+    <properties>
+        <property name="logFile" value="log.txt" />
+    </properties>
+    
+    <step id="exportar">
+        <chunk item-count="1">
+            <reader ref="expedientesReader" />
+            <processor ref="expedientesProcessor" />
+            <writer ref="expedientesWriter" />
+            <skippable-exception-classes>
+                <include class="javax.transaction.RollbackException"/>
+                <include class="javax.ejb.EJBTransactionRolledbackException"/>
+            </skippable-exception-classes>
+        </chunk>
+        <end on="COMPLETED"/>
+    </step>
+</job>

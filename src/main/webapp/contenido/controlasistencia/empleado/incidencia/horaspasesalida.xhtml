@@ -1,0 +1,68 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+	<ui:param name="moduloTitulo" value="Consultar total horas pase salida" />
+	<ui:param name="moduloSubtitulo"
+		value="Consulte el total de horas por pases de salida por medio del nombre y el rango de fechas." />
+	<ui:define name="moduloContenido">
+		<f:event listener="#{horasPaseSalidaEmpleadoController.init}"
+			type="preRenderView" />
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="frmFormNuevaIncidenciaEmpleado" styleClass="fm-contenedor">
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel styleClass="fm-contenedor-100">
+				<p:panelGrid columns="5" layout="grid"
+					styleClass="fm-contenedor ui-noborder sin_borde"
+					columnClasses="ui-grid-col-5,ui-grid-col-3,ui-grid-col-3,ui-grid-col-1">
+					<p:autoComplete id="empleado"
+						value="#{horasPaseSalidaEmpleadoController.model.idEmpleado}"
+						completeMethod="#{horasPaseSalidaEmpleadoController.buscarEmpleadoAutoComplete}"
+						var="infoEmpleadoDTO" itemLabel="#{infoEmpleadoDTO.nombre}"
+						itemValue="#{infoEmpleadoDTO.idEmpleado}" maxResults="12"
+						styleClass="fm-bloque input_lng" forceSelection="true">
+
+					</p:autoComplete>
+
+					<p:calendar id="fecha" placeholder="Fecha Inicio"
+						value="#{horasPaseSalidaEmpleadoController.model.fechaInicio}" />
+					<p:calendar id="fechaFin" placeholder="Fecha Fin"
+						value="#{horasPaseSalidaEmpleadoController.model.fechaFin}" />
+
+					<p:commandButton id="btnBuscar" title="Buscar"
+						icon="ui-icon-search"
+						action="#{horasPaseSalidaEmpleadoController.buscarIncidenciaEmpleado}"
+						update="dvTablaIncidenciasEmpleado" />
+					<p:button id="btnNuevo" title="Nueva Incidencia"
+						outcome="agregar.xhtml" icon="ui-icon-document" />
+				</p:panelGrid>
+
+				<p:panel id="dvTablaIncidenciasEmpleado"
+					styleClass="ui-noborder sin_borde">
+
+					<p:panel
+						rendered="#{horasPaseSalidaEmpleadoController.mostrarDetalle}">
+						<div class=" fm-font-size-40 fm-font-lighter fm-font-color-green">
+							<span class="fm-display-block">
+								#{horasPaseSalidaEmpleadoController.totalHoras} </span> <span
+								class="fm-font-color-gray fm-font-size-12 fm-font-lighter fm-display-block">Total Horas Pase Salida</span>
+						</div>
+					</p:panel>
+
+				</p:panel>
+
+
+
+			</p:panel>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>

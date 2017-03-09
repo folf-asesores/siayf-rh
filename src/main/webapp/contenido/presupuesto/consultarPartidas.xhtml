@@ -1,0 +1,188 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Consultar Partidas" />
+	<ui:param name="moduloTitulo" value="Consultar Partidas" />
+
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite consultar partidas" />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+				<p:outputLabel for="criterio" value="RFC: " />
+				<p:inputText id="criterio" value="#{consultarPartida.view.rfc}"
+					placeholder="Ingrese un criterio de búsqueda">
+				</p:inputText>
+
+				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					action="#{consultarPartida.consultarPartidasPorRfc()}" ajax="false"
+					update=":form" />
+
+				<p:outputLabel for="unidadResponsable" value="Unidad Responsable: " />
+				<p:selectOneMenu id="unidadResponsable"
+					value="#{consultarPartida.view.idUnidadResponsable}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems
+						value="#{consultarPartida.view.listaUnidadResponsable}"
+						var="unidadResponsable"
+						itemValue="#{unidadResponsable.idUnidadResponsable}"
+						itemLabel="#{unidadResponsable.descripcion}" />
+				</p:selectOneMenu>
+
+				<p:commandButton icon="ui-icon-search" 
+				     			 styleClass="fm-btn-elevado"
+								 onsuccess="PF(`statusDialog`).hide()"
+							     onstart="PF(`statusDialog`).show()"
+								 action="#{consultarPartida.consultarPartidasPorUnidadResponsable()}"
+								 ajax="false"
+							 	 update=":form"/>
+
+				<p:outputLabel for="nombramiento" value="Nombramiento: " />
+				<p:selectOneMenu id="nombramiento"
+					value="#{consultarPartida.view.idTipoNombramiento}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems
+						value="#{consultarPartida.view.listaTipoNombramiento}"
+						var="tipoNombramiento"
+						itemValue="#{tipoNombramiento.idTipoNombramiento}"
+						itemLabel="#{tipoNombramiento.descripcion}" />
+				</p:selectOneMenu>
+
+				<p:commandButton icon="ui-icon-search" 
+				                 styleClass="fm-btn-elevado"
+				               	 onsuccess="PF(`statusDialog`).hide()"
+				 	             onstart="PF(`statusDialog`).show()" 
+				 	             action="#{consultarPartida.consultarPartidasPorTipoNombramiento()}" 
+				 	             ajax="false"
+								 update=":form" />
+			</p:panelGrid>
+
+			<p:dataTable id="listaConsultaPartida"
+				         value="#{consultarPartida.view.listaConsultaPartida}"
+				         var="consultaPartida" 
+				         emptyMessage="No se encontrarón resultados">
+
+				<p:column headerText="Partida" style="width:20%; ">
+					<h:outputText id="idPartida#{consultaPartida.partida}"
+								value="#{consultaPartida.partida}"
+								style="font-size:12px !important" >
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Enero" style="width:6%;">
+					<h:outputText value="#{consultaPartida.enero}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Febrero" style="width:6%;">
+				<h:outputText value="#{consultaPartida.febrero}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Marzo" style="width:6%;">
+				<h:outputText value="#{consultaPartida.marzo}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Abril" style="width:6%;">
+				<h:outputText value="#{consultaPartida.abril}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Mayo" style="width:6%;">
+				<h:outputText value="#{consultaPartida.mayo}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Junio" style="width:6%;">
+				<h:outputText value="#{consultaPartida.junio}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Julio" style="width:6%;">
+				<h:outputText value="#{consultaPartida.julio}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Agosto" style="width:6%;">
+				<h:outputText value="#{consultaPartida.agosto}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Septiembre" style="width:8%;">
+				<h:outputText value="#{consultaPartida.septiembre}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Octubre" style="width:6%;">
+				<h:outputText value="#{consultaPartida.octubre}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Noviembre" style="width:6%;">
+				<h:outputText value="#{consultaPartida.noviembre}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+				<p:column headerText="Diciembre" style="width:6%;">
+				<h:outputText value="#{consultaPartida.diciembre}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+				
+				<p:column headerText="Total" style="width:6%;">
+				<h:outputText value="#{consultaPartida.total}"
+						style="font-size:12px !important" >
+						<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

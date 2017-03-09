@@ -1,0 +1,198 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	
+	<ui:param name="ventanaTitulo" value="Cuentas Bancarias" />
+	<ui:param name="moduloTitulo"  value="Cuenta Bancaria" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+		<p:confirmDialog message="Esta seguro que desea borrar este TIPO DE NOMINA?" 
+						visible="#{cuentaBancaria.dialogo}" 
+                 		showEffect="fade" id="confirm"
+                 		hideEffect="explode" 
+                 		widgetVar="eliminarConfirm">
+                 	<p:panelGrid columns="4" layout="grid"
+							 	 styleClass="ui-fluid ui-panelgrid-blank" 
+								 columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+					<p:spacer/>
+					<p:commandButton value="No"  update="confirm"
+                    				 action="#{cuentaBancaria.ocultarDialogo}" />	
+    				<p:commandButton value="Si" 
+                    				 action="#{cuentaBancaria.eliminarCuentaBancaria()}" 
+                    				 update=":form" />
+                    <p:spacer/>	
+                    </p:panelGrid>		  			 
+				</p:confirmDialog>
+			<p:outputPanel id="panelPrincipal"
+		   				 styleClass="fm-tarjeta"
+						 rendered="#{cuentaBancaria.view.panelPrincipal}">
+			
+				<p:panelGrid columns="2" layout="grid" >								 
+						<p:commandButton value="Gestionar..." 
+										action="#{cuentaBancaria.irGestionarCuentaBancaria()}"
+										update=":form"
+										ajax="false"
+										disabled="#{cuentaBancaria.view.disabledIrGestionar}" />
+                     					 					
+						<p:commandButton value="Nuevo..."
+										action="#{cuentaBancaria.irNuevoCuentaBancaria()}"
+										update=":form"
+										style="float:right;"
+										ajax="false"/>
+				</p:panelGrid>
+				<p:panelGrid  columns="1" layout="grid">
+				<p:dataTable id="listCuentaBancaria"
+							 value="#{cuentaBancaria.view.listCuentaBancaria}"
+							 var="cuentaBancariaItem"
+							 rowKey="#{cuentaBancariaItem.idCuentaBancaria}"
+							 selection="#{cuentaBancaria.view.cuentaBancariaSelect}"
+							 scrollable="true"
+							 scrollHeight="400"
+							 selectionMode="single"
+							 emptyMessage="Registros no encontrados.">
+					<p:ajax event="rowSelect"
+							listener="#{cuentaBancaria.onRowSelectCuentaBancaria}" 
+							update=":form" />
+					<p:ajax event="rowUnselect" 
+							listener="#{cuentaBancaria.onRowUnselectCuentaBancaria}" 
+							update=":form" />				 
+					<p:columnGroup type="header">
+						<p:row>							
+							<p:column style="width:56px" headerText="ID" />
+							<p:column style="width:106px" headerText="Banco" />
+							<p:column headerText="Numero de Cuenta" />
+							<p:column headerText="Cuenta Bancaria" />
+							<p:column headerText="Fuente de Financiamiento" />
+							<p:column style="width:106px" headerText="Ejercicio Fiscal" />
+						</p:row>
+					</p:columnGroup>					
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.claveCuenta}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.banco}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.numeroCuenta}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.descripcion}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.fuenteFinanciamiento}" />
+					</p:column>
+					<p:column>
+						<h:outputText value="#{cuentaBancariaItem.ejercicioFiscal}" />
+					</p:column>
+				</p:dataTable>
+				</p:panelGrid>
+			</p:outputPanel>
+
+			<p:outputPanel id="panelGestion"
+		   				 styleClass="fm-tarjeta ui-fluid"
+						 rendered="#{cuentaBancaria.view.panelGestion}">
+				<p:focus context="panelGestion"/>
+
+				<p:panelGrid columns="3"
+							 styleClass="ui-panelgrid-blank"
+							 layout="grid"
+							 columnClasses="ui-grid-col-3, ui-grid-col-7, ui-grid-col-2"
+							 id="panelGestionar">
+					
+					<p:outputLabel for="Clave" value="ID de la Cuenta " />        			
+        			<p:inputText id="Clave" value="#{cuentaBancaria.view.cuentaBancaria.claveCuenta}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgClave" />
+						<p:clientValidator />
+        			</p:inputText>
+        			<p:message id="msgClave" for="Clave" />
+							 
+					<p:outputLabel for="Descripcion" value="Descripcion " />        			
+        			<p:inputText id="Descripcion" value="#{cuentaBancaria.view.cuentaBancaria.descripcion}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgDescripcion" />
+						<p:clientValidator />			 
+        			</p:inputText>
+        			<p:message id="msgDescripcion" for="Descripcion" />
+
+        			<p:outputLabel for="Banco" value="Banco " />
+        			<p:inputText id="Banco" value="#{cuentaBancaria.view.cuentaBancaria.banco}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgBanco" />
+						<p:clientValidator />
+        			</p:inputText>
+        			<p:message id="msgBanco" for="Banco" />
+					
+					<p:outputLabel for="noCuenta" value="Numero de Cuenta " />        			
+        			<p:inputText id="noCuenta" value="#{cuentaBancaria.view.cuentaBancaria.numeroCuenta}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgnoCuenta" />
+						<p:clientValidator />
+        			</p:inputText>
+        			<p:message id="msgnoCuenta" for="noCuenta" />
+
+        			<p:outputLabel for="FF" value="Fuente de Financiamiento " />
+        			<p:inputText id="FF" value="#{cuentaBancaria.view.cuentaBancaria.fuenteFinanciamiento}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgFF" />
+						<p:clientValidator />
+        			</p:inputText>
+        			<p:message id="msgFF" for="FF" />
+        			
+        			<p:outputLabel for="EjFis" value="Ejercicio Fiscal " />        			
+        			<p:inputText id="EjFis" value="#{cuentaBancaria.view.cuentaBancaria.ejercicioFiscal}" 
+        						 validator="#{cuentaBancaria.validatorCuentaBancaria}">
+        				<p:ajax update="msgEjFis" />
+						<p:clientValidator />
+        			</p:inputText>
+        			<p:message id="msgEjFis" for="EjFis" />
+
+				</p:panelGrid>	
+				
+				<p:confirmDialog message="Esta seguro que desea borrar este TIPO DE NOMINA?" 
+                 				 showEffect="fade"
+                 				 hideEffect="explode" 
+                 				 widgetVar="eliminarConfirm">
+                 	<p:panelGrid columns="4" layout="grid"
+							 	 styleClass="ui-fluid ui-panelgrid-blank" 
+								 columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3">
+					<p:spacer/>
+					<p:commandButton value="No" 
+                    				 oncomplete="PF('eliminarConfirm').hide()"/>	
+    				<p:commandButton value="Si" 
+                    				 action="#{cuentaBancaria.eliminarCuentaBancaria()}" 
+                    				 oncomplete="PF('eliminarConfirm').hide()"
+                    				 update=":form" />
+                    <p:spacer/>	
+                    </p:panelGrid>		  			 
+				</p:confirmDialog>                  						 
+                 						 
+				<p:outputPanel styleClass="fm-tarjeta-pie">
+					<p:commandButton value="Guardar"
+									action="#{cuentaBancaria.guardarCuentaBancaria}"
+									update=":form"
+									styleClass="fm-float-left fm-tarjeta-pie-boton"
+									ajax="false"/>
+					
+					<p:commandButton value="Cancelar"
+									action="#{cuentaBancaria.irPrincipal()}"
+									update=":form"
+									immediate="true"
+									styleClass="fm-float-right fm-tarjeta-pie-boton"
+									ajax="false"/>
+											
+					<p:commandButton id="eliminar"  
+                 					 value="Eliminar..." update="confirm"
+                 					 action="#{cuentaBancaria.mostrarDialogo}"
+                					 styleClass="fm-float-right fm-tarjeta-pie-boton"
+                 					 rendered="#{cuentaBancaria.view.opEliminar}" />                 						             
+											
+				</p:outputPanel>
+			</p:outputPanel>
+		</h:form>
+	</ui:define>
+</ui:composition>

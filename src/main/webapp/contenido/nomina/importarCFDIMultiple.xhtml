@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Nomina" />
+	<ui:param name="moduloTitulo" value="Importar CFDI nomina" />
+	<ui:param name="moduloSubtitulo"
+		value="Seleccione el archivo que desea importar. Este proceso puede ser tardado" />
+
+	<ui:define name="moduloContenido">
+	
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" />
+			<p:panelGrid columns="1" layout="grid" id="div-subir-archivo">
+				<p:fileUpload id="uploadArchivo"
+					fileUploadListener="#{importarCFDIController.handleFileUpload}"
+					mode="advanced" sizeLimit="1000000000"
+					uploadLabel="Procesar archivo"
+					update="growl,div-tabla"
+					multiple="true"
+					cancelLabel="Cancelar carga.." label="Seleccionar XML"
+					allowTypes="/(\.|\/)(xml)$/" />
+
+
+			</p:panelGrid>
+			
+			<p:panelGrid columns="1" layout="grid" id="div-tabla">
+
+				<p:dataTable var="cfdi" id="tblDocumentos"
+					styleClass="tabla-personalizada" widgetVar="tblDocumentos"
+					value="#{importarCFDIController.listadoComprobanteNomina}"
+					rows="450" paginator="true"
+					emptyMessage="No se encontraron registros"
+					rendered="#{importarCFDIController.mostrarTabla}">
+
+					<p:column headerText="Id">
+						<h:outputText value="#{cfdi.id}" />
+					</p:column>
+					<p:column headerText="Numero">
+						<h:outputText value="#{cfdi.id}" />
+					</p:column>
+					<p:column headerText="Folio Fiscal">
+						<h:outputText value="#{cfdi.complementoTimbre.UUID}" />
+					</p:column>
+					<p:column headerText="RFC">
+						<h:outputText value="#{cfdi.comprobanteCFDI.receptor.rfc}" />
+					</p:column>
+					<p:column headerText="Nombre">
+						<h:outputText value="#{cfdi.comprobanteCFDI.receptor.nombre}" />
+					</p:column>
+					<p:column headerText="Importe">
+						<h:outputText value="#{cfdi.comprobanteCFDI.total}" />
+					</p:column>
+					<p:column headerText="F. Pago">
+						<h:outputText value="#{cfdi.comprobanteCFDI.formaDePago}" />
+					</p:column>
+					<p:column headerText="Fecha">
+						<h:outputText value="#{cfdi.comprobanteCFDI.fecha}" />
+					</p:column>
+
+
+				</p:dataTable>
+
+			</p:panelGrid>
+
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

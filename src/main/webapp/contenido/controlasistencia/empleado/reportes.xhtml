@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+descuentosporfaltasinjustificadas.xhtml
+Creado el 08/Nov/2016 5:22:59 PM
+
+-->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/plantillas/principal-con-menu.xhtml">
+
+    <ui:param name="ventanaTitulo" value="Control de Asistencia" />
+
+    <ui:param name="moduloTitulo" value="Reportes de control de asitencia" />
+    <ui:param name="moduloSubtitulo" value="Reportes de control de asitencia." />
+
+    <ui:define name="moduloContenido">
+        <h:outputStylesheet library="css" name="siayf_rh.css" />
+        <h:form id="frmDescuentos" styleClass="fm-tarjeta ui-fluid">
+            <p:panelGrid id="pnlDescuentos" layout="grid" columns="4" 
+                         columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+                         styleClass="ui-panelgrid-blank">
+                <p:outputLabel value="Reporte" for="somTipoReporte" />
+                <p:selectOneMenu id="somTipoReporte"
+                                 value="#{descuentosController.tipoReporte}" >
+                    <f:selectItem itemValue="1" itemLabel="8001 - DESCUENTOS POR FALTAS INJUSTIFICADAS" />
+                    <f:selectItem itemValue="2" itemLabel="9201 - PRIMA DOMINICAL" />
+                    <f:selectItem itemValue="3" itemLabel="9204 - PAGO DE ESTIMULO TRIMESTRAL" />
+                    <f:selectItem itemValue="4" itemLabel="9205 - PAGO DE ESTIMULO ANUAL" />
+                    <f:selectItem itemValue="5" itemLabel="9207 - PAGO DE ESTIMULO POR ASISTENCIA PERFECTA" />
+                    <f:selectItem itemValue="6" itemLabel="     - REPORTE ÚNICO DE INCIDENCIAS" />
+                </p:selectOneMenu>
+                
+                <p:spacer />
+                <p:spacer />
+                
+                <p:outputLabel value="Adscripción" for="somIdAdscripcion" />
+                <p:selectOneMenu id="somIdAdscripcion"
+                                 value="#{descuentosController.idAdscripcion}"
+                                 filter="true"
+                                 filterMatchMode="contains">
+                    <f:selectItems value="#{descuentosController.adscripciones}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Tipo contratación" for="txtTipoContratacion" />
+                <p:selectOneMenu id="txtTipoContratacion"
+                             value="#{descuentosController.tipoContratacion}">
+                    <f:selectItems value="#{descuentosController.tipoContrataciones}" />
+                </p:selectOneMenu>
+                
+                <p:outputLabel value="Fecha inicio" for="txtFechaInicio" />
+                <p:calendar id="txtFechaInicio"
+                            value="#{descuentosController.fechaInicio}"
+                            pattern="dd/MM/yyy" />
+                
+                <p:outputLabel value="Fecha fin" for="txtFechaFin" />
+                <p:calendar id="txtFechaFin"
+                            value="#{descuentosController.fechaFin}"
+                            pattern="dd/MM/yyy" />
+                
+                <p:outputLabel value="Quincena de aplicación del movimento" for="txtQuincenaAplicacionMovimiento" />
+                <p:inputText id="txtQuincenaAplicacionMovimiento"
+                             value="#{descuentosController.quincenaAplicacionMovimiento}" />
+                
+                <p:outputLabel value="Año de aplicación del movimento" for="txtAnyoAplicacionMovimiento" />
+                <p:inputText id="txtAnyoAplicacionMovimiento"
+                             value="#{descuentosController.anyoAplicacionMovimiento}" />
+
+                <f:facet name="footer" >
+                    <p:outputPanel styleClass="fm-tarjeta-pie">
+                        <p:commandButton id="btnVisualizarReporte" value="Ver reporte" 
+                                         actionListener="#{descuentosController.previsualizarReporte}"
+                                         oncomplete="PF('dlgReporteWV').show();"
+                                         update="dlgReporte"
+                                         icon="fm-icon-eye"
+                                         styleClass="fm-tarjeta-pie-boton fm-btn-inverso fm-float-right"/>
+                        <p:commandButton id="btnDescargarReporte" value="Descargar reporte" 
+                                         actionListener="#{descuentosController.descargarReporte}"
+                                         ajax="false"
+                                         icon="fm-icon-download"
+                                         styleClass="fm-tarjeta-pie-boton fm-btn-inverso fm-float-right"/>
+                    </p:outputPanel>
+                </f:facet>
+            </p:panelGrid>
+            
+            <p:dialog id="dlgReporte" widgetVar="dlgReporteWV" 
+                      header="Visor de reportes" 
+                      width="90%" height="560px"
+                      closable="true"
+                      modal="true"
+                      resizable="false" responsive="true" closeOnEscape="true">
+                <p:media id="mediaViewer" value="#{administradorReporte.stream}"
+                         width="100%" height="100%" player="pdf" >
+                    <f:param name="referencia" value="#{descuentosController.referencia}" />
+                </p:media>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

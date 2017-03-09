@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Consultar Movimientos" />
+	<ui:param name="moduloTitulo" value="Consultar Movimientos" />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				globalOnly="true" autoUpdate="false" closable="true" escape="false" />
+			<p:panelGrid columns="2" columnClasses="ui-grid-col-2,ui-grid-col-10"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid" id="busqueda"
+				rendered="#{consultaMovimiento.view.mostrarBusqueda}">
+				<p:outputLabel for="filtro" value="Tipo Consulta" />
+				<p:selectOneMenu id="filtro"
+					value="#{consultaMovimiento.view.idFiltro}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems value="#{consultaMovimiento.view.listaFiltros}" />
+					<p:ajax listener="#{consultaMovimiento.seleccionarFiltro()}"
+						update="form,messages_generales" process="filtro"></p:ajax>
+				</p:selectOneMenu>
+
+				<p:outputLabel for="padres" value="Movimientos"
+					rendered="#{consultaMovimiento.view.mostrarPadres}" />
+				<p:selectOneMenu id="padres" filter="true"
+					filterMatchMode="contains"
+					value="#{consultaMovimiento.view.idPadre}"
+					rendered="#{consultaMovimiento.view.mostrarPadres}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems value="#{consultaMovimiento.view.listaMovimientos}" />
+					<p:ajax listener="#{consultaMovimiento.seleccionarPadre()}"
+						update="form"></p:ajax>
+				</p:selectOneMenu>
+
+				<p:outputLabel for="hijos" value="Movimientos Especificos"
+					rendered="#{consultaMovimiento.view.mostrarHijos}" />
+				<p:selectOneMenu id="hijos" filter="true" filterMatchMode="contains"
+					value="#{consultaMovimiento.view.idHijo}"
+					rendered="#{consultaMovimiento.view.mostrarHijos}">
+					<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+					<f:selectItems
+						value="#{consultaMovimiento.view.listaMovimientosHijos}" />
+					<p:ajax listener="#{consultaMovimiento.consultarMovimientos()}"
+						update="form"></p:ajax>
+				</p:selectOneMenu>
+				
+				<p:outputLabel  value="Fecha Inicial"
+					rendered="#{consultaMovimiento.view.fechas}" />
+				 <p:calendar  value="#{consultaMovimiento.view.fechaInicial}" rendered="#{consultaMovimiento.view.fechas}" >
+				 	<p:ajax event="dateSelect" listener="#{consultaMovimiento.asignarFecha()}"
+						update="form"></p:ajax>
+				 </p:calendar>	
+					
+				<p:outputLabel value="Fecha Final"
+					rendered="#{consultaMovimiento.view.fechas}" />
+				<p:calendar  value="#{consultaMovimiento.view.fechaFinal}" rendered="#{consultaMovimiento.view.fechas}" >
+				<p:ajax  event="dateSelect" listener="#{consultaMovimiento.consultarMovimientos()}"
+						update="form"></p:ajax>
+				</p:calendar>
+				
+				<p:outputLabel  value="RFC o NOMBRE"
+					rendered="#{consultaMovimiento.view.rfc}" />
+				<p:inputText  value="#{consultaMovimiento.view.parametro}"  rendered="#{consultaMovimiento.view.rfc}" >
+				<p:ajax  event="blur" listener="#{consultaMovimiento.consultarMovimientos()}"
+						update="form"></p:ajax>
+				</p:inputText>
+          
+				
+			</p:panelGrid>
+
+			<p:dataTable id="movimientos"
+				value="#{consultaMovimiento.view.movimientos}" var="m"
+				paginator="true" paginatorPosition="bottom" rows="10"
+				rendered="#{consultaMovimiento.view.mostrarBusqueda}">
+
+				<p:column headerText="Empleado">
+					<h:outputText value="#{m.empleado}" />
+				</p:column>
+				<p:column headerText="Fecha Movimiento">
+					<h:outputText value="#{m.fechaMovimiento}" />
+				</p:column>
+				<p:column headerText="Usuario">
+					<h:outputText value="#{m.usuario}" />
+				</p:column>
+				<p:column headerText="Movimiento">
+					<h:outputText value="#{m.movimientoHijo}" />
+				</p:column>
+				<p:column headerText="Fecha Inicio">
+					<h:outputText value="#{m.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Fecha Fin">
+					<h:outputText value="#{m.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+				</p:column>
+
+
+				<p:column headerText="Ver">
+					<p:commandButton update="form"
+						actionListener="#{consultaMovimiento.obtenerDetalleMovimiento(m.idMovimiento)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+
+			<p:panelGrid columns="3"
+				columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				rendered="#{consultaMovimiento.view.mostrarDetalle}">
+
+				<p:spacer></p:spacer>
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<h3>Detalle movimiento</h3>
+					</f:facet>
+					<p:outputLabel value="Empleado" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.empleado}"></h:outputText>
+
+					<p:outputLabel value="Fecha Movimiento" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.fechaMovimiento}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Usuario movimiento" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.usuario}"></h:outputText>
+
+					<p:outputLabel value="Movimiento" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.movimiento}"></h:outputText>
+
+					<p:outputLabel value="Fecha Inicio" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.fechaInicio}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Fecha Fin" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.fechaFin}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:outputText>
+
+					<p:outputLabel value="Número Oficio" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.numeroOficio}"></h:outputText>
+
+					<p:outputLabel value="Observaciones" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.observaciones}"></h:outputText>
+
+
+					<p:outputLabel value="Estatus" />
+					<h:outputText
+						value="#{consultaMovimiento.view.detalleMovimiento.estatus}"></h:outputText>
+				</p:panelGrid>
+				<p:spacer></p:spacer>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
