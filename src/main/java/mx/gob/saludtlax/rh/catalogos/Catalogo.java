@@ -173,5 +173,5 @@ public interface Catalogo {
 	
 	public List<CatalogoDTO> consultarMetodosPago();
 
-
+	public CatalogoDTO obtenerAdscripcionPorId(Integer idAdscripcion);
 }

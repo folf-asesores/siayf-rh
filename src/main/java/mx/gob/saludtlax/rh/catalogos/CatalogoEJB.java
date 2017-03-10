@@ -59,8 +59,7 @@ public class CatalogoEJB implements Catalogo {
 	 * (java.lang.Integer)
 	 */
 	@Override
-	public List<CatalogoDTO> consultarAsantamientosPorMunicipios(
-			Integer idMunicipio) {
+	public List<CatalogoDTO> consultarAsantamientosPorMunicipios(Integer idMunicipio) {
 		return catalogosService.consultarAsentamientosPorMunicipio(idMunicipio);
 	}
 
@@ -112,8 +111,7 @@ public class CatalogoEJB implements Catalogo {
 	 * .String, java.lang.Integer)
 	 */
 	@Override
-	public List<CatalogoDTO> plazasDisponibles(String idNombramiento,
-			Integer idNivel) {
+	public List<CatalogoDTO> plazasDisponibles(String idNombramiento, Integer idNivel) {
 		return catalogosService.plazasDisponibles(idNombramiento, idNivel);
 	}
 
@@ -134,8 +132,7 @@ public class CatalogoEJB implements Catalogo {
 	 * consultaMovimientosAutorizadosPorPadre(java.lang.Integer)
 	 */
 	@Override
-	public List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(
-			Integer idPadre) {
+	public List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(Integer idPadre) {
 		return catalogosService.consultaMovimientosAutorizadosPorPadre(idPadre);
 	}
 
@@ -188,11 +185,9 @@ public class CatalogoEJB implements Catalogo {
 	}
 
 	@Override
-	public List<CatalogoDTO> consultarDocumentosExpedientesClasificacion(
-			String clasificacion) {
+	public List<CatalogoDTO> consultarDocumentosExpedientesClasificacion(String clasificacion) {
 
-		return catalogosService
-				.consultarTiposDocumentosExpedienteCapturistas(clasificacion);
+		return catalogosService.consultarTiposDocumentosExpedienteCapturistas(clasificacion);
 	}
 
 	@Override
@@ -226,10 +221,8 @@ public class CatalogoEJB implements Catalogo {
 	}
 
 	@Override
-	public List<CatalogoDTO> listaUnidadesResponsablesPorDependencia(
-			Integer idDependencia) {
-		return catalogosService
-				.consultarUnidadesRepondablesPorDependencia(idDependencia);
+	public List<CatalogoDTO> listaUnidadesResponsablesPorDependencia(Integer idDependencia) {
+		return catalogosService.consultarUnidadesRepondablesPorDependencia(idDependencia);
 	}
 
 	@Override
@@ -239,11 +232,9 @@ public class CatalogoEJB implements Catalogo {
 	}
 
 	@Override
-	public List<CatalogoDTO> listaSubfuentesFinanciamientosPorFinanciamiento(
-			Integer idFuenteFinanciamiento) {
+	public List<CatalogoDTO> listaSubfuentesFinanciamientosPorFinanciamiento(Integer idFuenteFinanciamiento) {
 
-		return catalogosService
-				.consultarSubfuentesFinanciamientosPorFinanciamiento(idFuenteFinanciamiento);
+		return catalogosService.consultarSubfuentesFinanciamientosPorFinanciamiento(idFuenteFinanciamiento);
 	}
 
 	@Override
@@ -253,11 +244,9 @@ public class CatalogoEJB implements Catalogo {
 	}
 
 	@Override
-	public List<CatalogoDTO> consultarNombramientosPorContratacion(
-			Integer tipoContratacion) {
+	public List<CatalogoDTO> consultarNombramientosPorContratacion(Integer tipoContratacion) {
 
-		return catalogosService
-				.consultarNombramientosPorContratacion(tipoContratacion);
+		return catalogosService.consultarNombramientosPorContratacion(tipoContratacion);
 	}
 
 	@Override
@@ -416,7 +405,7 @@ public class CatalogoEJB implements Catalogo {
 
 	@Override
 	public List<CatalogoDTO> consultarTiposContratacion() {
-		
+
 		return catalogosService.consultarTiposContratacion();
 	}
 
@@ -432,9 +421,10 @@ public class CatalogoEJB implements Catalogo {
 
 	@Override
 	public List<CatalogoDTO> obtenerListaTipoMovimientoEmpleado() {
-		
+
 		return catalogosService.obtenerListaTipoMovimientoEmpleado();
 	}
+
 	@Override
 	public List<CatalogoDTO> consultarRiesgos() {
 		return catalogosService.consultarRiesgos();
@@ -443,6 +433,11 @@ public class CatalogoEJB implements Catalogo {
 	@Override
 	public List<CatalogoDTO> consultarMetodosPago() {
 		return catalogosService.consultarMetodosPago();
+	}
+
+	@Override
+	public CatalogoDTO obtenerAdscripcionPorId(Integer idAdscripcion) {
+		return catalogosService.obtenerAdscripcionPorId(idAdscripcion);
 	}
 
 }
