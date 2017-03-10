@@ -276,8 +276,6 @@ public class ReporteSiifController {
 	public String generarDetalleSerica() {
 
 		// byte[] layout = serica.getDetalleSerica();
-		
-
 
 		byte[] layout = serica.getDetallerSericaPeriodo(Integer.valueOf(view.getPeriodoCriterio()),
 				view.getAnioCriterio());
@@ -524,6 +522,15 @@ public class ReporteSiifController {
 				throw new ValidatorException(facesMessage);
 			}
 			break;
+		case "idNominaEncabezado":
+			Integer ID = (Integer) value;
+			if (!ValidacionUtil.esNumeroPositivo(ID)) {
+				System.out.println("Si entro");
+				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+						"Por favor ingrese un ID de Nomina Correcto");
+				context.addMessage(component.getClientId(), facesMessage);
+				throw new ValidatorException(facesMessage);
+			}			break;
 		default:
 			break;
 		}

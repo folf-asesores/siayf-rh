@@ -18,9 +18,9 @@ Creado el Oct 21, 2016 12:19:29 PM
 		value="Los campos marcados con * son obligatorios." />
 
 	<ui:define name="moduloContenido">
-	
+
 		<h:form id="frmAdministracionExpediente" styleClass="ui-fluid">
-		
+
 			<p:messages for="info" showDetail="true" autoUpdate="false"
 				severity="info" closable="true" globalOnly="true" />
 			<p:messages id="infoHistorial" showDetail="true" autoUpdate="true"
@@ -35,14 +35,14 @@ Creado el Oct 21, 2016 12:19:29 PM
 					<p:outputLabel value="Buscar" for="txtCriterioBusqueda" />
 					<p:inputText id="txtCriterioBusqueda"
 						value="#{administracionExpedienteAspirante.view.criterio}"
-						placeholder="RFC, CURP o nombre completo"
+						placeholder="NOMBRE, RFC o CURP"
 						validator="#{administracionExpedienteAspirante.validarBusqueda}">
-						<p:ajax update="msgCriterioBusqueda" />
+						<p:ajax event="blur" update="msgCriterioBusqueda" />
 						<p:clientValidator />
 					</p:inputText>
 					<p:commandButton id="btnBuscar" widgetVar="btnBuscarWV"
 						actionListener="#{administracionExpedienteAspirante.consultarAspirantes}"
-						process="@this" update="frmAdministracionExpediente"
+						update="frmAdministracionExpediente"
 						onclick="setTimeout(function() {PF('btnBuscarWV').disable();}, 1 * 1000);"
 						oncomplete="setTimeout(function() {PF('btnBuscarWV').enable();}, 1 * 1000);"
 						icon="ui-icon-search" styleClass="fm-btn-elevado" />
@@ -272,10 +272,9 @@ Creado el Oct 21, 2016 12:19:29 PM
 
 								<p:column headerText="Opciones"
 									style="width:70px; text-align: center;">
-									<p:commandButton icon="fm-icon-attach" title="Ver"
+									<p:commandButton icon="fm-icon-eye" title="Ver"
 										actionListener="#{administracionExpedienteAspirante.visualizarAdjuntarDocumentoHistorial(h)}"
-										update="frmAdministracionExpediente">
-									</p:commandButton>
+										update="frmAdministracionExpediente" />
 								</p:column>
 							</p:dataTable>
 
@@ -390,7 +389,7 @@ Creado el Oct 21, 2016 12:19:29 PM
 								layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
 								rendered="#{administracionExpedienteAspirante.view.mostrarAdjuntarDocumentoHistorial}">
 								<f:facet name="header">
-									<h3>Informacion Documento Adjunto</h3>
+									<h3>Información Documento Adjunto</h3>
 								</f:facet>
 
 								<p:dataTable emptyMessage="No ha encontrado ningún documento."
@@ -415,11 +414,9 @@ Creado el Oct 21, 2016 12:19:29 PM
 											update="frmAdministracionExpediente" iconPos="right"
 											ajax="false" onsuccess="PF('statusDialog').hide()"
 											onstart="PF('statusDialog').show()"
-											actionListener="#{administracionExpedienteAspirante.descargarAdjunto(d)}"
-											oncomplete="mymessages(); scrollToAnchor();" />
+											actionListener="#{administracionExpedienteAspirante.descargarAdjunto(d)}" />
 										<p:spacer width="20" />
 										<p:commandButton icon="ui-icon-trash" title="Eliminar"
-											oncomplete="scrollToAnchor();"
 											onsuccess="PF('statusDialog').hide()"
 											onstart="PF('statusDialog').show()"
 											actionListener="#{administracionExpedienteAspirante.eliminarAdjunto(d.idAdjunto)}"
@@ -432,7 +429,7 @@ Creado el Oct 21, 2016 12:19:29 PM
 								<h:outputText
 									value="#{administracionExpedienteAspirante.view.historialAcademicoSeleccionado.nombreEscolaridad}" />
 
-								<p:outputLabel value="Institucion" />
+								<p:outputLabel value="Institución" />
 								<h:outputText
 									value="#{administracionExpedienteAspirante.view.historialAcademicoSeleccionado.nombreInstitucion}" />
 

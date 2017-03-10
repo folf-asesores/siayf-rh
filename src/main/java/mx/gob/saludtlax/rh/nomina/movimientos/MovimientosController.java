@@ -15,7 +15,6 @@ import javax.inject.Inject;
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.empleados.administracion.Empleado;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
-import mx.gob.saludtlax.rh.nomina.movimientosnomina.TipoMovimientosNominaEJB;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.BusinessException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.SelectItemsUtil;

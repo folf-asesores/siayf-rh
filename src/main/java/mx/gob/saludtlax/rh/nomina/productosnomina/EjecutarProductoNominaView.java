@@ -35,7 +35,16 @@ public class EjecutarProductoNominaView implements Serializable {
     private Boolean panelDetalleConceptos;
     private Boolean panelDetalleGestionFaltas;
     private Boolean panelPensiones;
+    private Boolean panelPagosForm;
+    private Boolean panelCheques;
 	private DualListModel<FaltaContadaDTO> faltasGestionar;
+	private List<PagoNominaDTO> pagoNominaList;
+	private PagoNominaDTO pagoNominaSelect;
+	private Boolean operacion;
+    private Integer ultimoNumeroCheque;
+	private boolean habilitarOpcionRetener = true;
+	private boolean habilitarOpcionAutorizado = true;
+	private Boolean usuarioAutoriza;
 
 	public void showPanelPrincipal() {
 		panelPrincipal = Boolean.TRUE;
@@ -43,6 +52,8 @@ public class EjecutarProductoNominaView implements Serializable {
         panelPensiones = Boolean.FALSE;
         panelDetalleConceptos = Boolean.FALSE;
         panelDetalleGestionFaltas = Boolean.FALSE;
+        panelPagosForm = Boolean.FALSE;
+        panelCheques = Boolean.FALSE;
 	}
 
 	public void showPanelDetalle() {
@@ -51,6 +62,8 @@ public class EjecutarProductoNominaView implements Serializable {
         panelPensiones = Boolean.FALSE;
         panelDetalleConceptos = Boolean.TRUE;
         panelDetalleGestionFaltas = Boolean.FALSE;
+        panelPagosForm = Boolean.FALSE;
+        panelCheques = Boolean.FALSE;
 	}
 
 	public void showGestionFaltas() {
@@ -59,6 +72,8 @@ public class EjecutarProductoNominaView implements Serializable {
         panelPensiones = Boolean.FALSE;
 		panelDetalleConceptos = Boolean.FALSE;
         panelDetalleGestionFaltas = Boolean.TRUE;
+        panelPagosForm = Boolean.FALSE;
+        panelCheques = Boolean.FALSE;
 	}
 
 	public void showPanelPension() {
@@ -67,6 +82,29 @@ public class EjecutarProductoNominaView implements Serializable {
         panelPensiones = Boolean.TRUE;
 		panelDetalleConceptos = Boolean.FALSE;
         panelDetalleGestionFaltas = Boolean.FALSE;
+        panelPagosForm = Boolean.FALSE;
+        panelCheques = Boolean.FALSE;
+	}
+
+
+	public void showPanelPagosForm() {
+        panelPagosForm = Boolean.TRUE;
+		panelPrincipal = Boolean.FALSE;
+		panelDetalle = Boolean.FALSE;
+        panelPensiones = Boolean.FALSE;
+		panelDetalleConceptos = Boolean.FALSE;
+        panelDetalleGestionFaltas = Boolean.FALSE;
+        panelCheques = Boolean.FALSE;
+	}
+
+	public void showPanelCheques() {
+        panelCheques = Boolean.TRUE;
+		panelPrincipal = Boolean.FALSE;
+		panelDetalle = Boolean.FALSE;
+        panelPensiones = Boolean.FALSE;
+		panelDetalleConceptos = Boolean.FALSE;
+        panelDetalleGestionFaltas = Boolean.FALSE;
+        panelPagosForm = Boolean.FALSE;
 	}
 
 	public List<FuenteFinanciamientoOPDDTO> getFuenteFinanciamientoList() {
@@ -182,5 +220,59 @@ public class EjecutarProductoNominaView implements Serializable {
 	}
 	public void setPanelPrincipal(Boolean panelPrincipal) {
 		this.panelPrincipal = panelPrincipal;
+	}
+	public boolean isHabilitarOpcionRetener() {
+		return habilitarOpcionRetener;
+	}
+	public void setHabilitarOpcionRetener(boolean habilitarOpcionRetener) {
+		this.habilitarOpcionRetener = habilitarOpcionRetener;
+	}
+	public boolean isHabilitarOpcionAutorizado() {
+		return habilitarOpcionAutorizado;
+	}
+	public void setHabilitarOpcionAutorizado(boolean habilitarOpcionAutorizado) {
+		this.habilitarOpcionAutorizado = habilitarOpcionAutorizado;
+	}
+	public List<PagoNominaDTO> getPagoNominaList() {
+		return pagoNominaList;
+	}
+	public void setPagoNominaList(List<PagoNominaDTO> pagoNominaList) {
+		this.pagoNominaList = pagoNominaList;
+	}
+	public PagoNominaDTO getPagoNominaSelect() {
+		return pagoNominaSelect;
+	}
+	public void setPagoNominaSelect(PagoNominaDTO pagoNominaSelect) {
+		this.pagoNominaSelect = pagoNominaSelect;
+	}
+	public Boolean getOperacion() {
+		return operacion;
+	}
+	public void setOperacion(Boolean operacion) {
+		this.operacion = operacion;
+	}
+	public Boolean getPanelPagosForm() {
+		return panelPagosForm;
+	}
+	public void setPanelPagosForm(Boolean panelPagosForm) {
+		this.panelPagosForm = panelPagosForm;
+	}
+	public Boolean getPanelCheques() {
+		return panelCheques;
+	}
+	public void setPanelCheques(Boolean panelCheques) {
+		this.panelCheques = panelCheques;
+	}
+	public Integer getUltimoNumeroCheque() {
+		return ultimoNumeroCheque;
+	}
+	public void setUltimoNumeroCheque(Integer ultimoNumeroCheque) {
+		this.ultimoNumeroCheque = ultimoNumeroCheque;
+	}
+	public Boolean getUsuarioAutoriza() {
+		return usuarioAutoriza;
+	}
+	public void setUsuarioAutoriza(Boolean usuarioAutoriza) {
+		this.usuarioAutoriza = usuarioAutoriza;
 	}
 }

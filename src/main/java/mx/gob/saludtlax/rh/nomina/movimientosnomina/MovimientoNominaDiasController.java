@@ -96,6 +96,7 @@ public class MovimientoNominaDiasController implements Serializable{
 			
 			if(newMovimientoFijoDTO.getIdEmpleado()!=null){
 				newMovimientoFijoDTO.setIdTipoMovimiento(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+				movimientoFijoService.crear(newMovimientoFijoDTO);
 			movimientoFijoService.crear(newMovimientoFijoDTO);
 			JSFUtils.infoMessage("", "El movimiento se registro correctamente.");
 			}

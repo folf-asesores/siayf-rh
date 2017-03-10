@@ -50,6 +50,13 @@ public class SIIFLayoutStoredProcedure {
     private static final String OBTENER_DETALLE_NOMINA_RH = "call usp_obtener_detalle_nomina_rh(?)";
     private static final String OBTENER_DETALLE_PAGO_NOMINA_RH = "call usp_obtener_detalle_pago_nomina_rh(?)";
     
+    private static final String OBTENER_DATOS_PERSONALES_RH_CONT = "call usp_obtener_datos_personales_rh_cont(?,?)";
+    private static final String OBTENER_DATOS_LABORALES_RH_CONT = "call usp_obtener_datos_laborales_rh_cont(?)";
+    private static final String OBTENER_DETALLE_NOMINA_RH_CONT = "call usp_obtener_detalle_nomina_rh_cont(?)";
+    private static final String OBTENER_DETALLE_PAGO_NOMINA_RH_CONT = "call usp_obtener_detalle_pago_nomina_rh_cont(?)";
+    
+    private static final String OBTENER_DATOS_PERSONALES_RH_CONTRATO = "call usp_obtener_datos_personales_rh_contrato(?,?)";
+    
     @PersistenceContext(name = "siayfrhPU")
     private EntityManager em;
     
@@ -126,7 +133,8 @@ public class SIIFLayoutStoredProcedure {
             dato.setIdFuenteFinanciamiento(((Integer)  obj[22]).intValue());
             dato.setIdSubfuentefinanciamiento(((Integer)  obj[23]).intValue());
             dato.setIdTipoRecurso((Integer)  obj[24]);
-            dato.setIdEstadoEmpleado(((String) obj[25]).charAt(0));
+            //dato.setIdEstadoEmpleado(((String) obj[25]).charAt(0));!= null ? ((String) obj[14]).charAt(0) : 'A')
+            dato.setIdEstadoEmpleado('A');
             dato.setIdNomina(((Integer)  obj[26]).intValue());
             
             datosLaboralesDTOs.add(dato);
@@ -586,10 +594,11 @@ public class SIIFLayoutStoredProcedure {
         return datosDetallePagoNomina;
     }
     
-    public List<DatosPersonalesDTO> obtenerDatosPersonalesRH(int idProductoNomina) {
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesRhCont(int idProductoNomina, int idNomina) {
     	//LOGGER.debug("idEncabezado:::" + +idEncabezado);
-        Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_RH);        
+        Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_RH_CONTRATO);        
         query.setParameter(1, idProductoNomina);
+        query.setParameter(2, idNomina);
         @SuppressWarnings("unchecked")
 		List<Object[]> result = query.getResultList();
         List<DatosPersonalesDTO> datosPersonalesDTOs = new ArrayList<>();        
@@ -717,5 +726,41 @@ public class SIIFLayoutStoredProcedure {
         }
         
         return datosDetallePagoNomina;
+    }
+    
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesRH(int idProductoNomina, int idNomina) {
+    	//LOGGER.debug("idEncabezado:::" + +idEncabezado);
+        Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_RH_CONT);        
+        query.setParameter(1, idProductoNomina);
+        query.setParameter(2, idNomina);
+        @SuppressWarnings("unchecked")
+		List<Object[]> result = query.getResultList();
+        List<DatosPersonalesDTO> datosPersonalesDTOs = new ArrayList<>();        
+        for(Object[] obj : result){
+            DatosPersonalesDTO dato = new DatosPersonalesDTO();
+            
+            dato.setIdEmpleadoDatosPersonales((Integer) obj[0]);
+            dato.setRfc((String) obj[1]);
+            dato.setApellidoPaterno((String) obj[2]);
+            dato.setApellidoMaterno((String) obj[3]);
+            dato.setNombre((String) obj[4]);
+            dato.setFechaNacimineto((Date) obj[5]);
+            dato.setSexo( obj[6] != null ? ((String) obj[6]).charAt(0) :' ');
+//            dato.setIdLocalidad(obj[7] != null ? ((BigInteger) obj[7]).intValue():0);
+//            dato.setIdColonia(obj[8] != null ? ((BigInteger) obj[8]).intValue() : 0);
+            dato.setIdLocalidad((String) obj[7]);
+            dato.setIdColonia((String) obj[8]);
+            dato.setCalle( obj[9] != null ? ((String) obj[9]) : "NULL");
+            dato.setNumeroExterior( obj[10] != null ? ((String)obj[10]) : "NULL");
+            dato.setNumeroInterior( obj[11] != null ? ((String)obj[11]) : "NULL");
+            dato.setCodigoPostal( obj[12] != null ? ( (String)obj[12]) : "NULL");
+            dato.setTelefono( obj[13] != null ? ((String)obj[13]) : "NULL");
+            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdNomina((Integer) obj[15]);
+
+            datosPersonalesDTOs.add(dato);
+        }
+        
+        return datosPersonalesDTOs;
     }
 }

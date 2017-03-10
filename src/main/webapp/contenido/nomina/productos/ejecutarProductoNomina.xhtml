@@ -5,645 +5,1014 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	template="/plantillas/principal-con-menu.xhtml">
 
-	<ui:param name="ventanaTitulo" value="Producto de Nómina" />
-	<ui:param name="moduloTitulo" value="Producto de Nómina" />
+<ui:param name="ventanaTitulo" value="Producto de Nómina" />
+<ui:param name="moduloTitulo" value="Producto de Nómina" />
 
-	<ui:define name="moduloContenido">
-		<h:form id="form" styleClass="fm-contenedor">
-			<p:messages id="messages_generales" showDetail="true"
-				autoUpdate="false" closable="true" globalOnly="false" />
+<ui:define name="moduloContenido">
+<h:form id="form"
+		styleClass="fm-contenedor">
+<p:messages id="messages_generales" 
+			showDetail="true"
+			autoUpdate="false" 
+			closable="true" 
+			globalOnly="false" />
 
-			<p:panel styleClass="fm-contenedor-100 ">
+<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+	<p:commandButton value="Si" 
+					type="button"
+					styleClass="ui-confirmdialog-yes"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" 
+					icon="ui-icon-check" />
+	<p:commandButton value="No" 
+					type="button"
+					styleClass="ui-confirmdialog-no" 
+					icon="ui-icon-close" />
+</p:confirmDialog>
 
-				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-					<p:commandButton value="Si" type="button"
-						styleClass="ui-confirmdialog-yes"
-						onsuccess="PF(`statusDialog`).hide()"
-						onstart="PF(`statusDialog`).show()" icon="ui-icon-check" />
-					<p:commandButton value="No" type="button"
-						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-				</p:confirmDialog>
-
-				<p:outputPanel id="panelPrincipal"
-					rendered="#{ejecutarProductoNomina.view.panelPrincipal}">
-					<p:commandButton value="Pensiones"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and !productosNomina.view.panelPensiones}"
-						action="#{productosNomina.irPensiones()}"
-						icon="ui-icon-circle-arrow-e" iconPos="right"
-						onsuccess="PF(`statusDialog`).hide()"
-						onstart="PF(`statusDialog`).show()" immediate="true" ajax="false" />
-					<ui:remove>
-						<!-- No se muestra por ahora hasta que la funcionalidad este completamente estable. -->
-						<p:commandButton value="Dividir nómina"
-							rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3}"
-							action="#{productosNomina.irDividirNomina}"
-							onstart="PF('statusDialog').show()" iconPos="right"
-							onsuccess="PF('statusDialog').hide()" immediate="true"
-							ajax="false" />
-					</ui:remove>
-					<p:commandButton value="Producto" icon="fm-icon-download"
+<p:outputPanel id="panelInfo"
+				styleClass="fm-tarjeta">
+    <p:menuButton value="Opciones">
+        <p:menuitem value="Pensiones..."
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina > 3 and !ejecutarProductoNomina.view.panelPensiones}"
+					action="#{ejecutarProductoNomina.irPensiones()}"
+					icon="ui-icon-circle-arrow-e"
+					iconPos="right"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					immediate="true"
+					ajax="false" />
+        <p:menuitem value="Cheques..."
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina == 5}"
+					action="#{ejecutarProductoNomina.irCheques()}"
+					icon="ui-icon-circle-arrow-e"
+					iconPos="right"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					immediate="true"
+					ajax="false" />
+        <p:menuitem value="Pedir autorización..."
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina == 5}"
+					action="#{ejecutarProductoNomina.pedirAutorizacionProductoNomina()}"
+					icon="ui-icon-circle-arrow-e"
+					iconPos="right"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					immediate="true"
+					ajax="false">
+			<p:confirm header="Confirmacion"
+						message="¿Desea solicitar la autorización de la nómina?"
+						icon="ui-icon-alert" />
+		</p:menuitem>
+	</p:menuButton>
+	<ui:remove>
+		<!-- No se muestra por ahora hasta que la funcionalidad este completamente estable. -->
+		<p:commandButton value="Dividir nómina"
+						action="#{productosNomina.irDividirNomina}"
+						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3}"
+			            immediate="true"
 						ajax="false"
-						actionListener="#{productosNomina.descargarProductoNomina()}"
-						onclick="PrimeFaces.monitorDownload(start, stop);" iconPos="right"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }">
-						<p:fileDownload value="#{productosNomina.reporte}" />
-					</p:commandButton>
-					<p:commandButton value="Nómina" icon="fm-icon-download"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idArea == 1}"
-						actionListener="#{productosNomina.descargarNominaFederales()}"
-						iconPos="right" onclick="PrimeFaces.monitorDownload(start, stop);"
-						process="@this" immediate="true" ajax="false" />
-					<p:commandButton value="Nómina" icon="fm-icon-download"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idTipoContratacion == 1 }"
-						actionListener="#{productosNomina.descargarNominaEventuales()}"
-						iconPos="right" onclick="PrimeFaces.monitorDownload(start, stop);"
-						ajax="false">
-						<p:fileDownload value="#{productosNomina.reporte}" />
-					</p:commandButton>
-					<p:commandButton value="Nómina" icon="fm-icon-download"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idTipoContratacion == 11 }"
-						actionListener="#{productosNomina.descargarNominaSuplencia(productosNomina.view.productoNomina.idProductoNomina)}"
-						onclick="PrimeFaces.monitorDownload(start, stop);" process="@this"
-						iconPos="right" immediate="true" ajax="false" />
-					<p:commandButton value="Comprobantes" icon="fm-icon-download"
-						rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina > 3 and ejecutarProductoNomina.view.productoNomina.idArea == 2}"
-						actionListener="#{ejecutarProductoNomina.descargarComprobantes(ejecutarProductoNomina.view.productoNomina.idProductoNomina)}"
-						ajax="false" immediate="true" iconPos="right"
-						onclick="PrimeFaces.monitorDownload(start, stop);">
-						<p:fileDownload value="#{ejecutarProductoNomina.reporte}" />
-					</p:commandButton>
-					<p:commandButton value="Firmas" icon="fm-icon-download"
-						rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina > 3 and ejecutarProductoNomina.view.productoNomina.idArea == 2}"
-						actionListener="#{ejecutarProductoNomina.descargarListadoFirmas(ejecutarProductoNomina.view.productoNomina.idProductoNomina)}"
-						ajax="false" immediate="true" iconPos="right"
-						onclick="PrimeFaces.monitorDownload(start, stop);">
-						<p:fileDownload value="#{ejecutarProductoNomina.reporte}" />
-					</p:commandButton>
-					<p:commandButton value="Dipersión"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 4}"
-						actionListener="#{productosNomina.descargarDispersion(productosNomina.view.productoNomina.idProductoNomina)}"
-						onsuccess="PF(`statusDialog`).hide()" iconPos="right"
-						onstart="PF(`statusDialog`).show()" ajax="false"
-						onclick="PrimeFaces.monitorDownload(start, stop);" process="@this"
-						immediate="true" icon="fm-icon-download">
-						<p:fileDownload value="#{productosNomina.reporte}" />
-					</p:commandButton>
-					<p:commandButton id="datytra" icon="fm-icon-download"
-						value="DAT y TRA"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 4 }"
-						action="#{productosNomina.generarDatTra()}" iconPos="right"
-						onclick="PrimeFaces.monitorDownload(start, stop);" process="@this"
-						immediate="true" ajax="false" />
-					<p:commandButton id="layout" icon="fm-icon-download"
-						value="Layouts"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 4 }"
-						action="#{productosNomina.generarLayout()}" iconPos="right"
-						onclick="PrimeFaces.monitorDownload(start, stop);" process="@this"
-						immediate="true" ajax="false" />
+						onstart="PF('statusDialog').show()"
+						onsuccess="PF('statusDialog').hide()"
+						icon="ui-icon-extlink"
+						iconPos="right" />
+	</ui:remove>
+    <p:menuButton value="Reportes"
+				style="float:right">
+              <p:menuitem value="Pago general" 
+                          icon="fm-icon-download"
+                          rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idTipoContratacion == 1 }"
+                          actionListener="#{productosNomina.descargarPagoGeneral()}"
+                          iconPos="right" 
+                          onclick="PrimeFaces.monitorDownload(start, stop);"
+                          ajax="false">
+                  <p:fileDownload value="#{productosNomina.reporte}" />
+              </p:menuitem>
+        <p:menuitem value="Producto" 
+		        	icon="fm-icon-download"
+					ajax="false"
+					actionListener="#{productosNomina.descargarProductoNomina()}"
+					onclick="PrimeFaces.monitorDownload(start, stop);" 
+					iconPos="right"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }">
+			<p:fileDownload value="#{productosNomina.reporte}" />
+		</p:menuitem>
+        <p:menuitem value="Nómina" 
+			        icon="fm-icon-download"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idArea == 1}"
+					actionListener="#{productosNomina.descargarNominaFederales()}"
+					iconPos="right" 
+					onclick="PrimeFaces.monitorDownload(start, stop);"
+					process="@this" 
+					immediate="true" 
+					ajax="false" />
+        <p:menuitem value="Prenómina"
+			        icon="fm-icon-download"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idTipoContratacion == 1 }"
+					actionListener="#{productosNomina.descargarPrenominaEventuales()}"
+					iconPos="right" 
+					onclick="PrimeFaces.monitorDownload(start, stop);"
+					ajax="false">
+			<p:fileDownload value="#{productosNomina.reporte}" />
+		</p:menuitem>
+        <p:menuitem value="Prenómina" 
+			        icon="fm-icon-download"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and productosNomina.view.productoNomina.idTipoContratacion == 11 }"
+					actionListener="#{productosNomina.descargarNominaSuplencia(productosNomina.view.productoNomina.idProductoNomina)}"
+					onclick="PrimeFaces.monitorDownload(start, stop);" 
+					process="@this"
+					iconPos="right" 
+					immediate="true" 
+					ajax="false" />
+        <p:menuitem value="Comprobantes" 
+			        icon="fm-icon-download"
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina > 3 and ejecutarProductoNomina.view.productoNomina.idArea == 2}"
+					actionListener="#{ejecutarProductoNomina.descargarComprobantes(ejecutarProductoNomina.view.productoNomina.idProductoNomina)}"
+					ajax="false" 
+					immediate="true" 
+					iconPos="right"
+					onclick="PrimeFaces.monitorDownload(start, stop);">
+			<p:fileDownload value="#{ejecutarProductoNomina.reporte}" />
+		</p:menuitem>
+        <p:menuitem value="Firmas" 
+			        icon="fm-icon-download"
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina > 3 and ejecutarProductoNomina.view.productoNomina.idArea == 2}"
+					actionListener="#{ejecutarProductoNomina.descargarListadoFirmas(ejecutarProductoNomina.view.productoNomina.idProductoNomina)}"
+					ajax="false" 
+					immediate="true" 
+					iconPos="right"
+					onclick="PrimeFaces.monitorDownload(start, stop);">
+			<p:fileDownload value="#{ejecutarProductoNomina.reporte}" />
+		</p:menuitem>
+        <p:menuitem value="Dispersión"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 4}"
+					actionListener="#{productosNomina.descargarDispersion(productosNomina.view.productoNomina.idProductoNomina)}"
+					onsuccess="PF(`statusDialog`).hide()" 
+					iconPos="right"
+					onstart="PF(`statusDialog`).show()" 
+					ajax="false"
+					onclick="PrimeFaces.monitorDownload(start, stop);" 
+					process="@this"
+					immediate="true" 
+					icon="fm-icon-download">
+			<p:fileDownload value="#{productosNomina.reporte}" />
+		</p:menuitem>
+        <p:separator />
+        <p:menuitem id="datytra" 
+			        icon="fm-icon-download"
+					value="DAT y TRA" 
+					update=":form" 
+					process="@this"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
+					action="#{productosNomina.generarDatTra()}"
+					onclick="PrimeFaces.monitorDownload(start, stop);" 
+					ajax="false" />
+        <p:menuitem id="layout" 
+			        icon="fm-icon-download" 
+			        value="Layout"
+					update="form" 
+					process="@this"
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
+					action="#{productosNomina.generarLayout()}"
+					onclick="PrimeFaces.monitorDownload(start, stop);" 
+					ajax="false" />
+    </p:menuButton>
+	<p:panelGrid id="productoNomina"
+				layout="grid"
+				styleClass="ui-panelgrid-blank"
+				columns="4"
+				columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-3,ui-grid-col-3">
+		<h:outputLabel value="Producto: " />
+		<h:outputText id="nombreProducto"
+			value="#{ejecutarProductoNomina.view.productoNomina.nombreProducto}" />
 
-					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-						columns="4"
-						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
+		<h:outputLabel value="Contratación: " />
+		<h:outputText id="tipoContratacion"
+			value="#{ejecutarProductoNomina.view.productoNomina.tipoContratacion}" />
 
-						<h:outputLabel value="Producto: " />
-						<h:outputText id="nombreProducto"
-							value="#{ejecutarProductoNomina.view.productoNomina.nombreProducto}" />
+		<h:outputLabel value="Ejercicio Fiscal: " />
+		<h:outputText id="ejercicioFiscal"
+			value="#{ejecutarProductoNomina.view.productoNomina.ejercicioFiscal}" />
 
+		<h:outputLabel value="Tipo de periodo: " />
+		<h:outputText id="tipoPeriodo"
+			value="#{ejecutarProductoNomina.view.productoNomina.tipoPeriodo}" />
 
-						<h:outputLabel value="Contratación: " />
-						<h:outputText id="tipoContratacion"
-							value="#{ejecutarProductoNomina.view.productoNomina.tipoContratacion}" />
+		<h:outputLabel value="Periodo: " />
+		<h:outputText id="numeroPeriodo"
+			value="#{ejecutarProductoNomina.view.productoNomina.numeroPeriodo}" />
 
-						<h:outputLabel value="Ejercicio Fiscal: " />
-						<h:outputText id="ejercicioFiscal"
-							value="#{ejecutarProductoNomina.view.productoNomina.ejercicioFiscal}" />
+		<h:outputLabel value="Inicio periodo: " />
+		<h:outputText id="inicioPeriodo"
+			value="#{ejecutarProductoNomina.view.productoNomina.inicioPeriodo}">
+			<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+		</h:outputText>
 
-						<h:outputLabel value="Tipo de perioro: " />
-						<h:outputText id="tipoPeriodo" disabled="true"
-							value="#{ejecutarProductoNomina.view.productoNomina.tipoPeriodo}" />
+		<h:outputLabel value="Fin periodo: " />
+		<h:outputText id="finPeriodo"
+			value="#{ejecutarProductoNomina.view.productoNomina.finPeriodo}">
+			<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+		</h:outputText>
 
-						<h:outputLabel value="Periodo: " />
-						<h:outputText id="numeroPeriodo"
-							value="#{ejecutarProductoNomina.view.productoNomina.numeroPeriodo}" />
+		<h:outputLabel value="Tipo de nómina: " />
+		<h:outputText id="tipoNomina"
+			value="#{ejecutarProductoNomina.view.productoNomina.tipoNomina}" />
 
-						<h:outputLabel value="Inicio periodo: " />
-						<h:outputText id="inicioPeriodo"
-							value="#{ejecutarProductoNomina.view.productoNomina.inicioPeriodo}">
-							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-						</h:outputText>
+		<h:outputLabel value="Estatus: " />
+		<h:outputText id="estatusProductoNomina"
+					value="#{ejecutarProductoNomina.view.productoNomina.estatusProductoNomina}" />
+	</p:panelGrid>
+</p:outputPanel>
 
-						<h:outputLabel value="Fin periodo: " />
-						<h:outputText id="finPeriodo"
-							value="#{ejecutarProductoNomina.view.productoNomina.finPeriodo}">
-							<f:convertDateTime type="date" pattern="dd-MM-yyyy" />
-						</h:outputText>
-
-						<h:outputLabel value="Tipo de nómina: " />
-						<h:outputText id="tipoNomina"
-							value="#{ejecutarProductoNomina.view.productoNomina.tipoNomina}" />
-
-						<h:outputLabel value="Estatus: " />
-						<h:outputText id="estatusProductoNomina"
-							value="#{ejecutarProductoNomina.view.productoNomina.estatusProductoNomina}" />
-
-					</p:panelGrid>
-
-					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-						columns="3"
-						columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2">
-
-						<h:outputLabel value="Fuente de financiamiento" />
-						<p:selectOneMenu id="fuenteFinanciamiento" filter="true"
-							filterMatchMode="contains"
-							value="#{ejecutarProductoNomina.view.productoNomina.idFuenteFinanciamiento}"
-							validator="#{ejecutarProductoNomina.validator.validatorProductoNomina}"
-							disabled="#{ejecutarProductoNomina.view.editar}">
-							<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
-							<f:selectItems
-								value="#{ejecutarProductoNomina.view.fuenteFinanciamientoList}"
-								var="fuenteFinanciamientoFiltro"
-								itemValue="#{fuenteFinanciamientoFiltro.idFuenteFinanciamiento}"
-								itemLabel="#{fuenteFinanciamientoFiltro.descripcion}" />
-						</p:selectOneMenu>
-						<p:spacer />
-
-						<h:outputLabel value="Subfuente de financiamiento" />
-						<p:selectOneMenu id="idSubfuenteFinanciamiento" filter="true"
-							filterMatchMode="contains"
-							value="#{ejecutarProductoNomina.view.productoNomina.idSubfuenteFinanciamiento}"
-							disabled="#{ejecutarProductoNomina.view.editar}">
-							<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
-							<f:selectItems
-								value="#{ejecutarProductoNomina.view.subfuenteFinanciamientoList}"
-								var="subfuenteFinanciamientoFiltro"
-								itemValue="#{subfuenteFinanciamientoFiltro.idSubfuenteFinanciamiento}"
-								itemLabel="#{subfuenteFinanciamientoFiltro.descripcion}" />
-						</p:selectOneMenu>
-						<p:spacer />
-
-						<h:outputLabel value="Fecha de pago" />
-						<p:calendar id="fechaPago" pattern="dd/MM/yyyy"
-							value="#{ejecutarProductoNomina.view.productoNomina.fechaPago}"
-							validator="#{ejecutarProductoNomina.validator.validatorProductoNomina}"
-							disabled="#{ejecutarProductoNomina.view.editar}">
-						</p:calendar>
-						<p:spacer />
-
-						<h:outputLabel value="Banco" />
-						<p:selectOneMenu id="idBanco" filter="true"
-							filterMatchMode="contains"
-							value="#{ejecutarProductoNomina.view.productoNomina.idBanco}"
-							disabled="#{ejecutarProductoNomina.view.editar}">
-							<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
-							<f:selectItems value="#{ejecutarProductoNomina.view.bancoList}"
-								var="banco" itemValue="#{banco.idBanco}"
-								itemLabel="#{banco.nombreCorto}" />
-						</p:selectOneMenu>
-						<p:spacer />
-
-						<h:outputLabel value="Cuenta bancaria" />
-						<p:selectOneMenu id="idCuentaBancaria" filter="true"
-							filterMatchMode="contains"
-							value="#{ejecutarProductoNomina.view.productoNomina.idCuentaBancaria}"
-							disabled="#{ejecutarProductoNomina.view.editar}">
-							<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
-							<f:selectItems
-								value="#{ejecutarProductoNomina.view.cuentaBancariaList}"
-								var="cuentaBancaria"
-								itemValue="#{cuentaBancaria.idCuentaBancaria}"
-								itemLabel="#{cuentaBancaria.descripcion}" />
-						</p:selectOneMenu>
-						<p:spacer />
-
-						<h:outputLabel value="Número de cheque inicial" />
-						<p:inputText id="numeroInicioCheques"
-							value="#{ejecutarProductoNomina.view.productoNomina.numeroInicioCheques}"
-							disabled="#{ejecutarProductoNomina.view.editar}" required="true" />
-					</p:panelGrid>
-
-					<p:commandButton id="autorizarProductoNomina"
-						value="Autorizar producto de nomina"
+<p:outputPanel id="panelPrincipal"
+				styleClass="fm-tarjeta"
+				rendered="#{ejecutarProductoNomina.view.panelPrincipal}">
+	<div>
+		<p:commandButton id="autorizarProductoNomina"
+						value="Autorizar Producto de Nómina"
 						update="form,messages_generales"
 						onsuccess="PF(`statusDialog`).hide()"
 						onstart="PF(`statusDialog`).show()"
 						action="#{ejecutarProductoNomina.autorizarProductoNomina()}"
-						disabled="#{ejecutarProductoNomina.view.editar}">
-						<p:confirm header="Confirmacion"
-							message="¿Autorizar producto de nomina?" icon="ui-icon-alert" />
-					</p:commandButton>
-
-					<p:dataTable id="nominaEmpleadoList"
+						styleClass="fm-btn-exitoso"
+						disabled="#{!ejecutarProductoNomina.view.usuarioAutoriza}"
+						icon="fm-icon-ok"
+						rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina == 6}">
+			<p:confirm header="Confirmacion"
+						message="¿Autorizar producto de nomina?" 
+						icon="ui-icon-alert" />
+		</p:commandButton>
+		<p:commandButton id="devolverProductoNomina"
+						value="Devolver Producto de Nómina"
+						style="float:right;"
+						update="form,messages_generales"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()"
+						action="#{ejecutarProductoNomina.devolverProductoNomina()}"
+						styleClass="fm-btn-advertencia"
+						disabled="#{!ejecutarProductoNomina.view.usuarioAutoriza}"
+						icon="ui-icon-minus"
+						rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina == 6}">
+			<p:confirm header="Confirmacion"
+						message="Desea devolver producto de nomina?, regresara a prevalidación." 
+						icon="ui-icon-alert" />
+		</p:commandButton>
+	</div>
+	<p:tabView>
+        <p:tab title="Toda la nómina">
+			<p:dataTable id="nominaEmpleadoList"
 						value="#{ejecutarProductoNomina.view.nominaEmpleadoList}"
-						var="productoNominaDetalleItem" rows="5" paginator="true"
+						var="productoNominaDetalleItem" 
+						rows="5" 
+						paginator="true"
 						paginatorPosition="bottom"
 						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
 						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,20,50" style="margin-bottom:20px">
-						<p:column headerText="Consecutivo" width="5%">
-							<h:outputText value="#{productoNominaDetalleItem.consecutivo}" />
-						</p:column>
-						<p:column headerText="RFC" width="12%"
-							filterBy="#{productoNominaDetalleItem.rfc}"
+						rowsPerPageTemplate="5,10,20,50" 
+			            emptyMessage="No se ha encontrado ningún registro">
+				<p:column headerText="RFC" 
+						width="16%"
+						filterBy="#{productoNominaDetalleItem.rfc}"
+						filterMatchMode="contains">
+					<h:outputText value="#{productoNominaDetalleItem.rfc}" />
+				</p:column>
+				<p:column headerText="Empleado" 
+						width="34%"
+						filterBy="#{productoNominaDetalleItem.empleado}"
+						filterMatchMode="contains">
+					<h:outputText value="#{productoNominaDetalleItem.empleado}" />
+				</p:column>
+				<p:column headerText="Percepciones" 
+						width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.percepciones}">
+						<f:convertNumber pattern="###,##0.00" 
+										type="currency"
+										locale="en-US" 
+										maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Deducciones" width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.deducciones}">
+						<f:convertNumber pattern="###,##0.00" 
+										type="currency"
+										locale="en-US" 
+										maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Neto" width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.neto}">
+						<f:convertNumber pattern="###,##0.00" type="currency"
+							locale="en-US" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Cheque"
+							width="14%"
+							filterBy="#{productoNominaDetalleItem.numeroCheque}"
 							filterMatchMode="contains">
-							<h:outputText value="#{productoNominaDetalleItem.rfc}" />
-						</p:column>
-						<p:column headerText="Empleado" width="33%"
-							filterBy="#{productoNominaDetalleItem.empleado}"
-							filterMatchMode="contains">
-							<h:outputText value="#{productoNominaDetalleItem.empleado}" />
-						</p:column>
-						<p:column headerText="Percepciones" width="15%">
-							<h:outputText value="#{productoNominaDetalleItem.percepciones}">
-								<f:convertNumber pattern="###,##0.00" type="currency"
-									locale="en-US" maxFractionDigits="2" />
-							</h:outputText>
-						</p:column>
-						<p:column headerText="Deducciones" width="15%">
-							<h:outputText value="#{productoNominaDetalleItem.deducciones}">
-								<f:convertNumber pattern="###,##0.00" type="currency"
-									locale="en-US" maxFractionDigits="2" />
-							</h:outputText>
-						</p:column>
-						<p:column headerText="Neto" width="15%">
-							<h:outputText value="#{productoNominaDetalleItem.neto}">
-								<f:convertNumber pattern="###,##0.00" type="currency"
-									locale="en-US" maxFractionDigits="2" />
-							</h:outputText>
-						</p:column>
-
-						<p:column headerText="Ver" width="10%" style="text-align: center;">
-							<p:commandButton update="form" process="@this"
-								actionListener="#{ejecutarProductoNomina.irDetalleNomina(productoNominaDetalleItem)}"
-								icon="fm-icon-eye" onsuccess="PF(`statusDialog`).hide()"
-								onstart="PF(`statusDialog`).show()" title="Ver">
-							</p:commandButton>
-						</p:column>
-					</p:dataTable>
-				</p:outputPanel>
-
-				<p:outputPanel rendered="#{productosNomina.view.panelPensiones}">
-					<p:dataTable id="pensionesNominaList" var="pensionNomina"
-						value="#{productosNomina.view.pensionesNominaList}"
-						emptyMessage="No se encontrarón resultados" paginator="true"
-						rows="10" paginatorAlwaysVisible="false"
+					<h:outputText value="#{productoNominaDetalleItem.numeroCheque}" />
+				</p:column>
+				<p:column headerText="Ver" width="9%" style="text-align: center;">
+					<p:commandButton update="form" process="@this"
+						actionListener="#{ejecutarProductoNomina.irDetalleNomina(productoNominaDetalleItem)}"
+						icon="fm-icon-eye" onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+        </p:tab>
+        <p:tab title="Pagos">
+			<p:commandButton value="Gestionar..." 
+							action="#{ejecutarProductoNomina.obtenerPagoNomina()}"
+							update=":form"
+							ajax="false"
+							disabled="false" />
+			<p:commandButton value="Nuevo..."
+							action="#{ejecutarProductoNomina.irNuevoPagoNomina()}"
+							update=":form"
+							style="float:right;"
+							disabled="#{ejecutarProductoNomina.view.editar}"
+							ajax="false"/>
+			<p:dataTable id="listPagoNomina"
+						value="#{ejecutarProductoNomina.view.pagoNominaList}"
+						var="pagoNominaItem"
+						rowKey="#{pagoNominaItem.idPagoNomina}"
+						selection="#{ejecutarProductoNomina.view.pagoNominaSelect}"
+						rows="5"
+						paginator="true"
 						paginatorPosition="bottom"
 						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
-						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-						rowsPerPageTemplate="5,10,20">
-						<p:columnGroup type="header">
-							<p:row>
-								<p:column colspan="2" headerText="Empleado" />
-								<p:column colspan="2" headerText="Beneficiario" />
-								<p:column colspan="2" headerText="Pension" />
-							</p:row>
-						</p:columnGroup>
-						<p:column headerText="RFC">
-							<h:outputText value="#{pensionNomina.rfcEmpleado}" />
-						</p:column>
-						<p:column headerText="Empleado">
-							<h:outputText value="#{pensionNomina.empleado}" />
-						</p:column>
-						<p:column headerText="RFC">
-							<h:outputText value="#{pensionNomina.rfcBeneficiario}" />
-						</p:column>
-						<p:column headerText="Beneficiario">
-							<h:outputText value="#{pensionNomina.beneficiario}" />
-						</p:column>
-						<p:column headerText="fechaPago">
-							<h:outputText value="#{pensionNomina.fechaPago}" />
-						</p:column>
-						<p:column headerText="Monto">
-							<h:outputText value="#{pensionNomina.pago}" />
-						</p:column>
-					</p:dataTable>
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50" 
+						selectionMode="single"
+						emptyMessage="Registros no encontrados.">
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column width="21%" headerText="Fuente de F." />
+						<p:column width="29%" headerText="Subfuente de F." />
+						<p:column width="10%" headerText="Fecha pago" />
+						<p:column width="20%" headerText="Banco" />
+						<p:column width="20%" headerText="Cuenta Bancaria" />
+					</p:row>
+				</p:columnGroup>
+				<p:column>
+					<h:outputText value="#{pagoNominaItem.fuenteFinanciamiento}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{pagoNominaItem.subfuenteFinanciamiento}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{pagoNominaItem.fechaPago}" >
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column>
+					<h:outputText value="#{pagoNominaItem.banco}" />
+				</p:column>
+				<p:column>
+					<h:outputText value="#{pagoNominaItem.cuentaBancaria}" />
+				</p:column>
+			</p:dataTable>
+		</p:tab>
+    </p:tabView>
+</p:outputPanel>
 
-					<div class="fm-tarjeta-pie">
-						<p:commandButton id="pensionesRegresar" value="Regresar"
-							update="form" process="@this" styleClass="fm-btn-principal"
-							onsuccess="PF(`statusDialog`).hide()"
-							onstart="PF(`statusDialog`).show()" icon="ui-icon-circle-arrow-w"
-							action="#{productosNomina.irPrincipalDetalleNomina()}" />
-					</div>
+<p:outputPanel id="panelPagosForm"
+				styleClass="fm-tarjeta"
+				rendered="#{ejecutarProductoNomina.view.panelPagosForm}">
+	<p:commandButton id="eliminar"
+    				value="Eliminar..."
+					update="form"
+  					onstart="PF(`statusDialog`).show()"
+ 					onsuccess="PF(`statusDialog`).hide()"
+        			action="#{ejecutarProductoNomina.eliminarPagoNomina()}"
+					disabled="#{ejecutarProductoNomina.view.editar}"
+					style="float:right;">
+		<p:confirm header="Confirmación"
+					message="¿Desea eliminar el pago de nómina?"
+					icon="ui-icon-alert" />
+	</p:commandButton>
 
-				</p:outputPanel>
+	<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses="ui-grid-col-4,ui-grid-col-6,ui-grid-col-2">
+		<h:outputLabel value="Fuente de financiamiento" />
+		<p:selectOneMenu id="fuenteFinanciamiento"
+						filter="true"
+						filterMatchMode="contains"
+						value="#{ejecutarProductoNomina.view.pagoNominaSelect.idFuenteFinanciamiento}"
+						disabled="#{ejecutarProductoNomina.view.editar}">
+			<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+			<f:selectItems	value="#{ejecutarProductoNomina.view.fuenteFinanciamientoList}"
+							var="fuenteFinanciamientoFiltro"
+							itemValue="#{fuenteFinanciamientoFiltro.idFuenteFinanciamiento}"
+							itemLabel="#{fuenteFinanciamientoFiltro.descripcion}" />
+		</p:selectOneMenu>
+		<p:spacer />
 
-				<p:outputPanel id="detalle"
-					rendered="#{ejecutarProductoNomina.view.panelDetalle}">
+		<h:outputLabel value="Subfuente de financiamiento" />
+		<p:selectOneMenu id="idSubfuenteFinanciamiento" filter="true"
+			filterMatchMode="contains"
+			value="#{ejecutarProductoNomina.view.pagoNominaSelect.idSubfuenteFinanciamiento}"
+			disabled="#{ejecutarProductoNomina.view.editar}">
+			<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+			<f:selectItems
+				value="#{ejecutarProductoNomina.view.subfuenteFinanciamientoList}"
+				var="subfuenteFinanciamientoFiltro"
+				itemValue="#{subfuenteFinanciamientoFiltro.idSubfuenteFinanciamiento}"
+				itemLabel="#{subfuenteFinanciamientoFiltro.descripcion}" />
+		</p:selectOneMenu>
+		<p:spacer />
 
-					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-						columns="3"
-						columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
-						<h:outputLink id="iempleado" value="#">
-							<p:inputText id="empleado"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.empleado}">
-							</p:inputText>
-							<p:tooltip id="templeado" for="iempleado" value="Empleado" />
-						</h:outputLink>
+		<h:outputLabel value="Fecha de pago" />
+		<p:calendar id="fechaPago" pattern="dd/MM/yyyy" navigator="true"
+			value="#{ejecutarProductoNomina.view.pagoNominaSelect.fechaPago}"
+			disabled="#{ejecutarProductoNomina.view.editar}">
+		</p:calendar>
+		<p:spacer />
 
-						<h:outputLink id="irfc" value="#">
-							<p:inputText id="rfc"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.rfc}"></p:inputText>
-							<p:tooltip id="trfc" for="irfc" value="RFC" />
-						</h:outputLink>
+		<h:outputLabel value="Banco" />
+		<p:selectOneMenu id="idBanco" filter="true"
+			filterMatchMode="contains"
+			value="#{ejecutarProductoNomina.view.pagoNominaSelect.idBanco}"
+			disabled="#{ejecutarProductoNomina.view.editar}">
+			<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+			<f:selectItems value="#{ejecutarProductoNomina.view.bancoList}"
+				var="banco" itemValue="#{banco.idBanco}"
+				itemLabel="#{banco.nombreCorto}" />
+		</p:selectOneMenu>
+		<p:spacer />
 
-						<h:outputLink id="iidPuestoGeneral" value="#">
-							<p:inputText id="idPuestoGeneral"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.puestoGeneral}"></p:inputText>
-							<p:tooltip id="tidPuestoGeneral" for="iidPuestoGeneral"
-								value="Puesto general" />
-						</h:outputLink>
+		<h:outputLabel value="Cuenta bancaria"
+						for="idCuentaBancaria" />
+		<p:selectOneMenu id="idCuentaBancaria" 
+						filter="true"
+						filterMatchMode="contains"
+						value="#{ejecutarProductoNomina.view.pagoNominaSelect.idCuentaBancaria}"
+						disabled="#{ejecutarProductoNomina.view.editar}">
+			<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+			<f:selectItems
+				value="#{ejecutarProductoNomina.view.cuentaBancariaList}"
+				var="cuentaBancaria"
+				itemValue="#{cuentaBancaria.idCuentaBancaria}"
+				itemLabel="#{cuentaBancaria.descripcion}" />
+		</p:selectOneMenu>
+		<p:spacer />
 
-						<h:outputLink id="iidTipoCOntratacion" value="#">
-							<p:inputText id="idTipoCOntratacion"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoContratacion}"></p:inputText>
-							<p:tooltip id="tidTipoCOntratacion" for="iidTipoCOntratacion"
-								value="Tipo de contratación" />
-						</h:outputLink>
+		<h:outputLabel value="Replicar en el Padrón"
+						title="Replicar agrupación en el Padrón de Empleados"
+						for="aplicarPadron" />
+		<p:selectBooleanCheckbox id="aplicarPadron"
+								value="#{ejecutarProductoNomina.view.pagoNominaSelect.aplicarPadron}" />
+		<p:spacer />
+	</p:panelGrid>
 
-						<h:outputLink id="iidTipoNombramiento" value="#">
-							<p:inputText id="idTipoNombramiento"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoNombramiento}"></p:inputText>
-							<p:tooltip id="tidTipoNombramiento" for="iidTipoNombramiento"
-								value="Tipo de nombramiento" />
-						</h:outputLink>
-
-						<h:outputLink id="iidProyecto" value="#">
-							<p:inputText id="idProyecto"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.proyecto}"></p:inputText>
-							<p:tooltip id="tidProyecto" for="iidProyecto" value="Proyecto" />
-						</h:outputLink>
-
-						<h:outputLink id="iidDependencia" value="#">
-							<p:inputText id="idDependencia"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.dependencia}"></p:inputText>
-							<p:tooltip id="tidDependencia" for="iidDependencia"
-								value="Dependencia" />
-						</h:outputLink>
-
-						<h:outputLink id="iidUnidadResponsable" value="#">
-							<p:inputText id="idUnidadResponsable"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.unidadResponsable}"></p:inputText>
-							<p:tooltip id="tidUnidadResponsable" for="iidUnidadResponsable"
-								value="Unidad responsable" />
-						</h:outputLink>
-
-						<h:outputLink id="iidFuente" value="#">
-							<p:inputText id="idFuente"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fuenteFinanciamiento}"></p:inputText>
-							<p:tooltip id="tidFuente" for="iidFuente"
-								value="Fuente de financiamiento" />
-						</h:outputLink>
-
-						<h:outputLink id="iidSubfuente" value="#">
-							<p:inputText id="idSubfuente"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.subfuenteFinanciamiento}"></p:inputText>
-							<p:tooltip id="tidSubfuente" for="iidSubfuente"
-								value="Subfuente de financiamiento" />
-						</h:outputLink>
-
-						<h:outputLink id="iidTipoRecurso" value="#">
-							<p:inputText id="idTipoRecurso"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoRecurso}"></p:inputText>
-							<p:tooltip id="tidTipoRecurso" for="iidTipoRecurso"
-								value="tipo de recurso" />
-						</h:outputLink>
-
-						<h:outputLink id="icentroResponsabilidad" value="#">
-							<p:inputText id="centroResponsabilidad"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.centroResponsabilidad}"></p:inputText>
-							<p:tooltip id="tcentroResponsabilidad"
-								for="icentroResponsabilidad" value="Centro de responsabilidad" />
-						</h:outputLink>
-
-						<h:outputLink id="iprograma" value="#">
-							<p:inputText id="programa"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.programa}"></p:inputText>
-							<p:tooltip id="tprograma" for="iprograma" value="Programa" />
-						</h:outputLink>
-						<h:outputLink id="ifechaInicioLabores" value="#">
-							<p:inputText id="fechaInicioLabores"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fechaInicioLabores}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</p:inputText>
-							<p:tooltip id="tfechaInicioLabores" for="ifechaInicioLabores"
-								value="Fecha de Inicio de Labores" />
-						</h:outputLink>
-						<h:outputLink id="imetodoPago" value="#">
-							<p:inputText id="metodoPago"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.metodoPago}"></p:inputText>
-							<p:tooltip id="tmetodoPago" for="imetodoPago"
-								value="Método de pago" />
-						</h:outputLink>
-
-						<h:outputLink id="inumeroCuenta" value="#">
-							<p:inputText id="numeroCuenta"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.numeroCuenta}"></p:inputText>
-							<p:tooltip id="tnumeroCuenta" for="inumeroCuenta"
-								value="Número de cuenta" />
-						</h:outputLink>
-
-						<h:outputLink id="iconsecutivo" value="#">
-							<p:inputText id="consecutivo"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.consecutivo}"></p:inputText>
-							<p:tooltip id="tconsecutivo" for="iconsecutivo"
-								value="Consecutivo" />
-						</h:outputLink>
-
-						<h:outputLink id="inumeroCheque" value="#">
-							<p:inputText id="numeroCheque"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.numeroCheque}"></p:inputText>
-							<p:tooltip id="tnumeroCheque" for="inumeroCheque"
-								value="Número del cheque" />
-						</h:outputLink>
-
-						<h:outputLink id="inominainicioPeriodo" value="#">
-							<p:inputText id="nominainicioPeriodo"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.inicioPeriodo}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</p:inputText>
-							<p:tooltip id="tnominainicioPeriodo" for="inominainicioPeriodo"
-								value="Inicio Periodo" />
-						</h:outputLink>
-
-						<h:outputLink id="nominafinPeriodo" value="#">
-							<p:inputText id="inominafinPeriodo"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.finPeriodo}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</p:inputText>
-							<p:tooltip id="tnominafinPeriodo" for="inominafinPeriodo"
-								value="Fin periodo" />
-						</h:outputLink>
-
-						<h:outputLink id="nominafechaPago" value="#">
-							<p:inputText id="inominafechaPago"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fechaPago}">
-								<f:convertDateTime pattern="dd/MM/yyyy" />
-							</p:inputText>
-							<p:tooltip id="tnominafechaPago" for="inominafechaPago"
-								value="Fecha pago" />
-						</h:outputLink>
-
-						<h:outputLink id="iper" value="#">
-							<p:inputText id="per"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.percepciones}"></p:inputText>
-							<p:tooltip id="tper" for="iper" value="Percepciones" />
-						</h:outputLink>
-
-						<h:outputLink id="ded" value="#">
-							<p:inputText id="ided"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.deducciones}"></p:inputText>
-							<p:tooltip id="tded" for="ided" value="Deduciiones" />
-						</h:outputLink>
-
-						<h:outputLink id="inet" value="#">
-							<p:inputText id="net"
-								value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.neto}"></p:inputText>
-							<p:tooltip id="tnet" for="inet" value="Neto" />
-						</h:outputLink>
-					</p:panelGrid>
-
-					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-						columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6"
-						rendered="#{ejecutarProductoNomina.view.panelDetalleConceptos}">
-
-						<p:dataTable id="idPercepcionesList"
-							value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.percepcionesList}"
-							selectionMode="single"
-							rowKey="#{percepcionItem.idConceptosNominaEmpleado}"
-							emptyMessage="No hay Percepciones" var="percepcionItem">
-							<p:columnGroup type="header">
-								<p:row>
-									<p:column width="10%" rowspan="2" headerText="Clave" />
-									<p:column width="10%" rowspan="2" headerText="SAT" />
-									<p:column width="40%" rowspan="2" headerText="Percepciones" />
-									<p:column width="40%" colspan="2" headerText="Importe" />
-								</p:row>
-								<p:row>
-									<p:column headerText="Excento" />
-									<p:column headerText="Gravado" />
-								</p:row>
-							</p:columnGroup>
-							<p:column>
-								<h:outputText value="#{percepcionItem.clave}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{percepcionItem.tipoSat}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{percepcionItem.concepto}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{percepcionItem.importeExcento}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{percepcionItem.importeGravado}" />
-							</p:column>
-						</p:dataTable>
-
-						<p:dataTable id="idDeduccionesList"
-							value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.deduccionesList}"
-							selectionMode="single"
-							rowKey="#{deduccionItem.idConceptosNominaEmpleado}"
-							emptyMessage="No hay Deducciones" var="deduccionItem">
-							<p:columnGroup type="header">
-								<p:row>
-									<p:column width="10%" rowspan="2" headerText="Clave" />
-									<p:column width="10%" rowspan="2" headerText="SAT" />
-									<p:column width="40%" rowspan="2" headerText="Deducciones" />
-									<p:column width="40%" colspan="2" headerText="Importe" />
-									<p:column width="10%" rowspan="2" headerText="Ver" />
-								</p:row>
-								<p:row>
-									<p:column headerText="Excento" />
-									<p:column headerText="Gravado" />
-								</p:row>
-							</p:columnGroup>
-							<p:column>
-								<h:outputText value="#{deduccionItem.clave}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{deduccionItem.tipoSat}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{deduccionItem.concepto}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{deduccionItem.importeExcento}" />
-							</p:column>
-							<p:column>
-								<h:outputText value="#{deduccionItem.importeGravado}" />
-							</p:column>
-							<p:column>
-								<p:commandButton update="form" process="@this"
-									actionListener="#{ejecutarProductoNomina.irGestionarConcepto(deduccionItem)}"
-									icon="fm-icon-eye" title="Ver"
+    <p:tabView id="pagosTabView">
+        <p:tab title="Nómina del pago">
+			<p:dataTable id="nominaEmpleadoListPago"
+						value="#{ejecutarProductoNomina.view.nominaEmpleadoList}"
+						var="productoNominaDetalleItem" 
+						rows="5"
+						paginator="true"
+						paginatorPosition="bottom"
+						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50" 
+			            emptyMessage="No se ha encontrado ningún registro">
+				<p:column headerText="RFC" 
+						width="16%"
+						filterBy="#{productoNominaDetalleItem.rfc}"
+						filterMatchMode="contains">
+					<h:outputText value="#{productoNominaDetalleItem.rfc}" />
+				</p:column>
+				<p:column headerText="Empleado" 
+						width="33%"
+						filterBy="#{productoNominaDetalleItem.empleado}"
+						filterMatchMode="contains">
+					<h:outputText value="#{productoNominaDetalleItem.empleado}" />
+				</p:column>
+				<p:column headerText="Percepciones" 
+						width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.percepciones}">
+						<f:convertNumber pattern="###,##0.00" 
+										type="currency"
+										locale="en-US" 
+										maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Deducciones" width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.deducciones}">
+						<f:convertNumber pattern="###,##0.00" 
+										type="currency"
+										locale="en-US" 
+										maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Neto" width="12%">
+					<h:outputText value="#{productoNominaDetalleItem.neto}">
+						<f:convertNumber pattern="###,##0.00" type="currency"
+							locale="en-US" maxFractionDigits="2" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Cheque"
+							width="14%"
+							filterBy="#{productoNominaDetalleItem.numeroCheque}"
+							filterMatchMode="contains">
+					<h:outputText value="#{productoNominaDetalleItem.numeroCheque}" />
+				</p:column>
+				<p:column headerText="Ver"
+						width="11%"
+						style="text-align: center;">
+					<p:commandButton update="form" 
+									process="@this"
+									actionListener="#{ejecutarProductoNomina.irDetalleNomina(productoNominaDetalleItem)}"
+									icon="fm-icon-eye" 
 									onsuccess="PF(`statusDialog`).hide()"
-									onstart="PF(`statusDialog`).show()"
-									rendered="#{deduccionItem.idConceptoNominaEventuales == 13}">
-								</p:commandButton>
-							</p:column>
-						</p:dataTable>
-					</p:panelGrid>
+									onstart="PF(`statusDialog`).show()" 
+									title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+        </p:tab>
+        <p:tab title="RFCs del pago">
+			<p:inputTextarea id="listaRfc"
+							value="#{ejecutarProductoNomina.view.pagoNominaSelect.listaRfc}"
+							autoResize="false"
+							styleClass="listaRfc"
+							rows="30" 
+							cols="20">
+			</p:inputTextarea>
+        </p:tab>
+    </p:tabView>
+</p:outputPanel>
 
-					<p:outputPanel
-						rendered="#{ejecutarProductoNomina.view.panelDetalleGestionFaltas}">
-						<p:panelGrid layout="grid"
-							styleClass="ui-panelgrid-blank ui-fluid" columns="1"
-							columnClasses="ui-grid-col-12">
-							<p:pickList id="pickList" converter="faltaContadaConverter"
-								value="#{ejecutarProductoNomina.view.faltasGestionar}"
-								var="falta" effect="bounce" itemValue="#{falta}"
-								showCheckbox="true" responsive="true" addLabel="Agregar"
-								addAllLabel="Agregar Todo" removeAllLabel="Quitar todo"
-								removeLabel="Quitar" showTargetFilter="true"
-								filterMatchMode="contains" showSourceFilter="true">
-								<f:facet name="sourceCaption">Incluir</f:facet>
-								<f:facet name="targetCaption">Excluir</f:facet>
-								<p:column>
-									<h:outputText value="${falta.fechaFalta}">
-									</h:outputText>
-								</p:column>
-							</p:pickList>
-						</p:panelGrid>
-					</p:outputPanel>
+<p:outputPanel rendered="#{ejecutarProductoNomina.view.panelPensiones}">
+	<p:dataTable id="pensionesNominaList" 
+				var="pensionNomina"
+				value="#{productosNomina.view.pensionesNominaList}"
+				emptyMessage="No se encontrarón resultados" 
+				paginator="true"
+				rows="10" 
+				paginatorAlwaysVisible="false"
+				paginatorPosition="bottom"
+				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,20">
+		<p:columnGroup type="header">
+			<p:row>
+				<p:column colspan="2" headerText="Empleado" />
+				<p:column colspan="2" headerText="Beneficiario" />
+				<p:column colspan="2" headerText="Pension" />
+			</p:row>
+		</p:columnGroup>
+		<p:column headerText="RFC">
+			<h:outputText value="#{pensionNomina.rfcEmpleado}" />
+		</p:column>
+		<p:column headerText="Empleado">
+			<h:outputText value="#{pensionNomina.empleado}" />
+		</p:column>
+		<p:column headerText="RFC">
+			<h:outputText value="#{pensionNomina.rfcBeneficiario}" />
+		</p:column>
+		<p:column headerText="Beneficiario">
+			<h:outputText value="#{pensionNomina.beneficiario}" />
+		</p:column>
+		<p:column headerText="fechaPago">
+			<h:outputText value="#{pensionNomina.fechaPago}" />
+		</p:column>
+		<p:column headerText="Monto">
+			<h:outputText value="#{pensionNomina.pago}" />
+		</p:column>
+	</p:dataTable>
+</p:outputPanel>
 
-					<div class="fm-tarjeta-pie">
-						<p:commandButton id="retener" value="Retener" update="form"
-							process="@this" style="float:right;" icon="ui-icon-cancel"
-							action="#{ejecutarProductoNomina.retenerNominaEmpleado()}">
-							<p:confirm header="Confirmación"
-								message="¿Deseas retener la nomina? " icon="ui-icon-alert" />
-						</p:commandButton>
+<p:outputPanel id="detalle"
+				rendered="#{ejecutarProductoNomina.view.panelDetalle}">
+	<p:panelGrid layout="grid" 
+				styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+		<h:outputLink id="iempleado" value="#">
+			<p:inputText id="empleado"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.empleado}">
+			</p:inputText>
+			<p:tooltip id="templeado" for="iempleado" value="Empleado" />
+		</h:outputLink>
 
-						<p:commandButton id="irPrincipalDetalleNomina" value="Regresar"
-							update="form" process="@this" style="float:left;"
-							icon="ui-icon-circle-arrow-w"
-							action="#{ejecutarProductoNomina.irPrincipal()}" />
+		<h:outputLink id="irfc" value="#">
+			<p:inputText id="rfc"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.rfc}"></p:inputText>
+			<p:tooltip id="trfc" for="irfc" value="RFC" />
+		</h:outputLink>
 
+		<h:outputLink id="iidPuestoGeneral" value="#">
+			<p:inputText id="idPuestoGeneral"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.puestoGeneral}"></p:inputText>
+			<p:tooltip id="tidPuestoGeneral" for="iidPuestoGeneral"
+				value="Puesto general" />
+		</h:outputLink>
 
-					</div>
+		<h:outputLink id="iidTipoCOntratacion" value="#">
+			<p:inputText id="idTipoCOntratacion"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoContratacion}"></p:inputText>
+			<p:tooltip id="tidTipoCOntratacion" for="iidTipoCOntratacion"
+				value="Tipo de contratación" />
+		</h:outputLink>
 
-					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-						<p:button value="Si" type="button"
-							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
-						<p:commandButton value="No" type="button"
-							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-					</p:confirmDialog>
+		<h:outputLink id="iidTipoNombramiento" value="#">
+			<p:inputText id="idTipoNombramiento"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoNombramiento}"></p:inputText>
+			<p:tooltip id="tidTipoNombramiento" for="iidTipoNombramiento"
+				value="Tipo de nombramiento" />
+		</h:outputLink>
 
-				</p:outputPanel>
+		<h:outputLink id="iidProyecto" value="#">
+			<p:inputText id="idProyecto"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.proyecto}"></p:inputText>
+			<p:tooltip id="tidProyecto" for="iidProyecto" value="Proyecto" />
+		</h:outputLink>
 
-			</p:panel>
+		<h:outputLink id="iidDependencia" value="#">
+			<p:inputText id="idDependencia"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.dependencia}"></p:inputText>
+			<p:tooltip id="tidDependencia" for="iidDependencia"
+				value="Dependencia" />
+		</h:outputLink>
 
-		</h:form>
+		<h:outputLink id="iidUnidadResponsable" value="#">
+			<p:inputText id="idUnidadResponsable"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.unidadResponsable}"></p:inputText>
+			<p:tooltip id="tidUnidadResponsable" for="iidUnidadResponsable"
+				value="Unidad responsable" />
+		</h:outputLink>
 
-		<h:outputScript target="body">
-					function start() {
-					    PF('statusDialog').show();
-					}
-					
-					function stop() {
-					    PF('statusDialog').hide();
-					}
-        </h:outputScript>
-	</ui:define>
+		<h:outputLink id="iidFuente" value="#">
+			<p:inputText id="idFuente"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fuenteFinanciamiento}"></p:inputText>
+			<p:tooltip id="tidFuente" for="iidFuente"
+				value="Fuente de financiamiento" />
+		</h:outputLink>
+
+		<h:outputLink id="iidSubfuente" value="#">
+			<p:inputText id="idSubfuente"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.subfuenteFinanciamiento}"></p:inputText>
+			<p:tooltip id="tidSubfuente" for="iidSubfuente"
+				value="Subfuente de financiamiento" />
+		</h:outputLink>
+
+		<h:outputLink id="iidTipoRecurso" value="#">
+			<p:inputText id="idTipoRecurso"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.tipoRecurso}"></p:inputText>
+			<p:tooltip id="tidTipoRecurso" for="iidTipoRecurso"
+				value="tipo de recurso" />
+		</h:outputLink>
+
+		<h:outputLink id="icentroResponsabilidad" value="#">
+			<p:inputText id="centroResponsabilidad"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.centroResponsabilidad}"></p:inputText>
+			<p:tooltip id="tcentroResponsabilidad"
+				for="icentroResponsabilidad" value="Centro de responsabilidad" />
+		</h:outputLink>
+
+		<h:outputLink id="iprograma" value="#">
+			<p:inputText id="programa"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.programa}"></p:inputText>
+			<p:tooltip id="tprograma" for="iprograma" value="Programa" />
+		</h:outputLink>
+		<h:outputLink id="ifechaInicioLabores" value="#">
+			<p:inputText id="fechaInicioLabores"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fechaInicioLabores}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputText>
+			<p:tooltip id="tfechaInicioLabores" for="ifechaInicioLabores"
+				value="Fecha de Inicio de Labores" />
+		</h:outputLink>
+		<h:outputLink id="imetodoPago" value="#">
+			<p:inputText id="metodoPago"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.metodoPago}"></p:inputText>
+			<p:tooltip id="tmetodoPago" for="imetodoPago"
+				value="Método de pago" />
+		</h:outputLink>
+
+		<h:outputLink id="inumeroCuenta" value="#">
+			<p:inputText id="numeroCuenta"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.numeroCuenta}"></p:inputText>
+			<p:tooltip id="tnumeroCuenta" for="inumeroCuenta"
+				value="Número de cuenta" />
+		</h:outputLink>
+
+		<h:outputLink id="iconsecutivo" value="#">
+			<p:inputText id="consecutivo"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.consecutivo}"></p:inputText>
+			<p:tooltip id="tconsecutivo" for="iconsecutivo"
+				value="Consecutivo" />
+		</h:outputLink>
+
+		<h:outputLink id="inumeroCheque" value="#">
+			<p:inputText id="numeroCheque"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.numeroCheque}"></p:inputText>
+			<p:tooltip id="tnumeroCheque" for="inumeroCheque"
+				value="Número del cheque" />
+		</h:outputLink>
+
+		<h:outputLink id="inominainicioPeriodo" value="#">
+			<p:inputText id="nominainicioPeriodo"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.inicioPeriodo}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputText>
+			<p:tooltip id="tnominainicioPeriodo" for="inominainicioPeriodo"
+				value="Inicio Periodo" />
+		</h:outputLink>
+
+		<h:outputLink id="nominafinPeriodo" value="#">
+			<p:inputText id="inominafinPeriodo"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.finPeriodo}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputText>
+			<p:tooltip id="tnominafinPeriodo" for="inominafinPeriodo"
+				value="Fin periodo" />
+		</h:outputLink>
+
+		<h:outputLink id="nominafechaPago" value="#">
+			<p:inputText id="inominafechaPago"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.fechaPago}">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</p:inputText>
+			<p:tooltip id="tnominafechaPago" for="inominafechaPago"
+				value="Fecha pago" />
+		</h:outputLink>
+
+		<h:outputLink id="iper" value="#">
+			<p:inputText id="per"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.percepciones}"></p:inputText>
+			<p:tooltip id="tper" for="iper" value="Percepciones" />
+		</h:outputLink>
+
+		<h:outputLink id="ded" value="#">
+			<p:inputText id="ided"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.deducciones}"></p:inputText>
+			<p:tooltip id="tded" for="ided" value="Deduciiones" />
+		</h:outputLink>
+
+		<h:outputLink id="inet" value="#">
+			<p:inputText id="net"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.neto}"></p:inputText>
+			<p:tooltip id="tnet" for="inet" value="Neto" />
+		</h:outputLink>
+
+		<h:outputLink id="iestatus" value="#">
+			<p:inputText id="estatus"
+				value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.idEstatusNominaEmpleado}"></p:inputText>
+			<p:tooltip id="testatus" for="iestatus" value="Estatus nómina empleado" />
+		</h:outputLink>
+	</p:panelGrid>
+	<p:panelGrid layout="grid"
+		styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+		columnClasses="ui-grid-col-6,ui-grid-col-6"
+		rendered="#{ejecutarProductoNomina.view.panelDetalleConceptos}">
+		<p:dataTable id="idPercepcionesList"
+			value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.percepcionesList}"
+			selectionMode="single"
+			rowKey="#{percepcionItem.idConceptosNominaEmpleado}"
+			emptyMessage="No hay Percepciones" var="percepcionItem">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column width="10%" rowspan="2" headerText="Clave" />
+					<p:column width="10%" rowspan="2" headerText="SAT" />
+					<p:column width="40%" rowspan="2" headerText="Percepciones" />
+					<p:column width="40%" colspan="2" headerText="Importe" />
+				</p:row>
+				<p:row>
+					<p:column headerText="Excento" />
+					<p:column headerText="Gravado" />
+				</p:row>
+			</p:columnGroup>
+			<p:column>
+				<h:outputText value="#{percepcionItem.clave}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{percepcionItem.tipoSat}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{percepcionItem.concepto}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{percepcionItem.importeExcento}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{percepcionItem.importeGravado}" />
+			</p:column>
+		</p:dataTable>
+
+		<p:dataTable id="idDeduccionesList"
+					value="#{ejecutarProductoNomina.view.nominaEmpleadoSelect.deduccionesList}"
+					selectionMode="single"
+					rowKey="#{deduccionItem.idConceptosNominaEmpleado}"
+					emptyMessage="No hay Deducciones" 
+					var="deduccionItem">
+			<p:columnGroup type="header">
+				<p:row>
+					<p:column width="10%" rowspan="2" headerText="Clave" />
+					<p:column width="10%" rowspan="2" headerText="SAT" />
+					<p:column width="40%" rowspan="2" headerText="Deducciones" />
+					<p:column width="40%" colspan="2" headerText="Importe" />
+					<p:column width="10%" rowspan="2" headerText="Ver" />
+				</p:row>
+				<p:row>
+					<p:column headerText="Excento" />
+					<p:column headerText="Gravado" />
+				</p:row>
+			</p:columnGroup>
+			<p:column>
+				<h:outputText value="#{deduccionItem.clave}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{deduccionItem.tipoSat}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{deduccionItem.concepto}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{deduccionItem.importeExcento}" />
+			</p:column>
+			<p:column>
+				<h:outputText value="#{deduccionItem.importeGravado}" />
+			</p:column>
+			<p:column>
+				<p:commandButton update="form" process="@this"
+					actionListener="#{ejecutarProductoNomina.irGestionarConcepto(deduccionItem)}"
+					icon="fm-icon-eye" title="Ver"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					rendered="#{deduccionItem.idConceptoNominaEventuales == 13}">
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</p:panelGrid>
+	<p:outputPanel
+		rendered="#{ejecutarProductoNomina.view.panelDetalleGestionFaltas}">
+		<p:panelGrid layout="grid"
+			styleClass="ui-panelgrid-blank ui-fluid" columns="1"
+			columnClasses="ui-grid-col-12">
+			<p:pickList id="pickList" converter="faltaContadaConverter"
+				value="#{ejecutarProductoNomina.view.faltasGestionar}"
+				var="falta" effect="bounce" itemValue="#{falta}"
+				showCheckbox="true" responsive="true" addLabel="Agregar"
+				addAllLabel="Agregar Todo" removeAllLabel="Quitar todo"
+				removeLabel="Quitar" showTargetFilter="true"
+				filterMatchMode="contains" showSourceFilter="true">
+				<f:facet name="sourceCaption">Incluir</f:facet>
+				<f:facet name="targetCaption">Excluir</f:facet>
+				<p:column>
+					<h:outputText value="${falta.fechaFalta}">
+					</h:outputText>
+				</p:column>
+			</p:pickList>
+		</p:panelGrid>
+	</p:outputPanel>
+</p:outputPanel>
+
+<p:outputPanel rendered="#{ejecutarProductoNomina.view.panelCheques}">
+	<p:panelGrid layout="grid" 
+				styleClass="ui-panelgrid-blank ui-fluid"
+				columns="2"
+				columnClasses="ui-grid-col-4,ui-grid-col-8">
+		<h:outputLabel value="Último número de cheque" />
+		<h:outputLabel value="#{ejecutarProductoNomina.view.ultimoNumeroCheque}" />
+		<h:outputLabel value="Número de cheque inicial" />
+		<p:inputText id="numeroInicioCheques"
+					value="#{ejecutarProductoNomina.view.productoNomina.numeroInicioCheques}"
+					disabled="#{ejecutarProductoNomina.view.editar}"
+					required="true" />
+	</p:panelGrid>
+</p:outputPanel>
+
+<div id="bottomBarButtons">
+	<p:commandButton id="guardarPagoNomina"
+  					value="Guardar"
+					update="form" 
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" 
+  					rendered="#{ejecutarProductoNomina.view.panelPagosForm}"
+					disabled="#{ejecutarProductoNomina.view.editar}"
+      				action="#{ejecutarProductoNomina.guardarPagoNomina()}">
+	</p:commandButton>
+
+	<p:commandButton id="generarNumeracionCheques"
+  					value="Generar numeración de cheques"
+					update="form" 
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" 
+  					rendered="#{ejecutarProductoNomina.view.panelCheques}"
+      				action="#{ejecutarProductoNomina.generarNumeracionCheques()}">
+	</p:commandButton>
+
+	<p:commandButton id="regresarProductoNomina" 
+					value="Regresar"
+					update="form" 
+					process="@this" 
+					styleClass="fm-btn-principal"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					rendered="#{ejecutarProductoNomina.view.panelPrincipal}"
+					icon="ui-icon-circle-arrow-w"
+					style="float:right;"
+					action="#{ejecutarProductoNomina.irPrincipalFiltro()}" />
+	<p:commandButton id="irPrincipalDetalleNomina"
+					value="Regresar"
+					update="form" 
+					process="@this" 
+					style="float:right;"
+					icon="ui-icon-circle-arrow-w"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()"
+					rendered="#{ejecutarProductoNomina.view.panelDetalle or ejecutarProductoNomina.view.panelPagosForm or ejecutarProductoNomina.view.panelPensiones or ejecutarProductoNomina.view.panelCheques}"
+					action="#{ejecutarProductoNomina.irPrincipal()}" />
+	<p:commandButton id="retener" 
+					value="Retener" 
+					update="form"
+					process="@this" 
+					style="float:right;" 
+					icon="ui-icon-cancel"
+					iconPos="right"
+					disabled="#{ejecutarProductoNomina.view.habilitarOpcionRetener}"
+					rendered="#{ejecutarProductoNomina.view.panelDetalle}"
+					action="#{ejecutarProductoNomina.retenerNominaEmpleado()}">
+		<p:confirm header="Confirmación"
+					message="¿Desea retener la nomina? " 
+					icon="ui-icon-alert" />
+	</p:commandButton>
+
+	<p:commandButton id="cancelar" 
+					value="Cancelar" 
+					update="form"
+					process="@this" 
+					style="float:right;" 
+					icon="ui-icon-circle-close"
+					iconPos="right"
+					rendered="#{ejecutarProductoNomina.view.panelDetalle}"
+					action="#{ejecutarProductoNomina.cancelarNominaEmpleado()}">
+		<p:confirm header="Confirmación"
+					message="¿Desea cancelar la nomina?" 
+					icon="ui-icon-alert" />
+	</p:commandButton>
+
+	<p:commandButton id="habilitar"
+					value="Habilitar"
+					update="form"
+					process="@this"
+					style="float:right;"
+					icon="ui-icon-circle-check"
+					iconPos="right"
+					disabled="#{ejecutarProductoNomina.view.habilitarOpcionAutorizado}"
+					rendered="#{ejecutarProductoNomina.view.panelDetalle}"
+					action="#{ejecutarProductoNomina.autorizarNominaEmpleado()}">
+		<p:confirm header="Confirmación"
+					message="¿Deseas habilitar la nomina? " 
+					icon="ui-icon-alert" />
+	</p:commandButton>
+	<p:confirmDialog global="true" 
+					showEffect="fade" 
+					hideEffect="fade">
+		<p:commandButton value="Si" 
+						type="button"
+						styleClass="ui-confirmdialog-yes" 
+						icon="ui-icon-check" />
+		<p:commandButton value="No" 
+						type="button"
+						styleClass="ui-confirmdialog-no" 
+						icon="ui-icon-close" />
+	</p:confirmDialog>
+</div>
+
+<h:outputScript target="body">
+	function start() {
+	    PF('statusDialog').show();
+	}
+	function stop() {
+	    PF('statusDialog').hide();
+	}
+</h:outputScript>
+<script>
+    jQuery(document).ready(function() {
+    	$('form').off('keypress.disableAutoSubmitOnEnter').on('keypress.disableAutoSubmitOnEnter', function(event) {
+    	    if (event.which === $.ui.keyCode.ENTER  &amp;&amp; $(event.target).is(':input:not(textarea,:button,:submit,:reset)')) {
+    	        event.preventDefault();
+    	    }
+    	}); 
+    	 /*    
+		$(PrimeFaces.escapeClientId("form:pagosTabView:listaRfc")).keypress(function(event) {
+			// Enter was pressed without shift key
+					    alert("Function is Called on " + event.keyCode);
+			
+			if (event.keyCode == 13) {
+			    // prevent default behavior
+			    e.preventDefault();
+			}
+			});
+*/
+    });
+</script>
+</h:form>
+</ui:define>
 </ui:composition>

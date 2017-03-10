@@ -42,6 +42,19 @@
 						<f:selectItem itemLabel="Activo" itemValue="1" />
 						<f:selectItem itemLabel="Inactivo" itemValue="0" />
 					</p:selectOneMenu>
+					
+					<p:spacer></p:spacer>
+					<p:outputLabel value="Unidad:" />
+					<p:spacer></p:spacer>
+
+					<p:selectOneMenu styleClass="fm-bloque input_lng"
+						value="#{biometricoNuevoController.biometricoFormModel.idClienteBiometrico}">
+						<f:selectItems
+							value="#{biometricoNuevoController.listadoBiometricos}"
+							var="unidad" itemValue="#{unidad.idClienteBiometricoFormModel}"
+							itemLabel="#{unidad.unidad}" itemDescription="#{unidad.unidad}"></f:selectItems>
+
+					</p:selectOneMenu>
 
 
 

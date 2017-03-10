@@ -36,9 +36,16 @@ public class PuestoEmpleadoDTO {
 	private String funcion;
 	private Integer idFuncion;
 	private BigDecimal sueldoAutorizado;
+	private Boolean seguroPopular;
 
-	
-	
+	public Boolean getSeguroPopular() {
+		return seguroPopular;
+	}
+
+	public void setSeguroPopular(Boolean seguroPopular) {
+		this.seguroPopular = seguroPopular;
+	}
+
 	public Integer getIdPrograma() {
 		return idPrograma;
 	}

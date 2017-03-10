@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.EnumEstatusAspirante;
+import mx.gob.saludtlax.rh.empleados.administracion.BitacoraEmpleadoDTO;
+import mx.gob.saludtlax.rh.empleados.administracion.BitacoraModificacionService;
 import mx.gob.saludtlax.rh.empleados.administracion.EnumEstatusEmpleado;
 import mx.gob.saludtlax.rh.empleados.administracion.EnumTipoEmpleado;
 import mx.gob.saludtlax.rh.empleados.datolaboral.ConfiguracionPresupuestal;
@@ -90,6 +92,8 @@ public class AutorizacionesService {
 	@Inject
 	private AspiranteRepository aspiranteRepository;
 	@Inject
+	private BitacoraModificacionService bitacoraModificacionService;
+	@Inject
 	private ConfiguracionAprobacionRepository accionesUsuariosRepository;
 	@Inject
 	private OperacionSistemaRepository operacionSistemaRepository;
@@ -143,17 +147,13 @@ public class AutorizacionesService {
 	public void iniciarProcesoAprobacion(NuevaAutorizacionDTO dto) {
 		List<ConfiguracionAprobacionEntity> usuariosQueDebenAutorizar = new ArrayList<>();
 		if (dto.getIdAccion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
-			usuariosQueDebenAutorizar = accionesUsuariosRepository
-					.usuariosPorAccionMovimiento(dto.getIdAccion(),
-							dto.getTipoMovimiento());
+			usuariosQueDebenAutorizar = accionesUsuariosRepository.usuariosPorAccionMovimiento(dto.getIdAccion(),
+					dto.getTipoMovimiento());
 		} else {
-			usuariosQueDebenAutorizar = accionesUsuariosRepository
-					.usuariosPorAccion(dto.getIdAccion());
+			usuariosQueDebenAutorizar = accionesUsuariosRepository.usuariosPorAccion(dto.getIdAccion());
 		}
 
-		
-		OperacionSistemaEntity operacion = operacionSistemaRepository
-				.obtenerPorId(dto.getIdAccion());
+		OperacionSistemaEntity operacion = operacionSistemaRepository.obtenerPorId(dto.getIdAccion());
 
 		BuzonAutorizacionesEntity buzonAutorizacion = new BuzonAutorizacionesEntity();
 		buzonAutorizacion.setAccion(operacion);
@@ -179,40 +179,36 @@ public class AutorizacionesService {
 		parametros.put("idAccion", operacion.getIdOperacion().toString());
 		parametros.put("idBuzon", buzonAutorizacion.getIdBuzon().toString());
 
-		UsuarioEntity usuarioEmisor = usuarioRepository
-				.obtenerPorId(buzonAutorizacion.getIdUsuario());
+		UsuarioEntity usuarioEmisor = usuarioRepository.obtenerPorId(buzonAutorizacion.getIdUsuario());
 		String cuerpo = "";
 		Modulo modulo = Modulo.MI_BUZON;
 		if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
-			cuerpo = MessageFormat.format(
-					"El usuario {0} ha solicitado la apertura de un",
+			cuerpo = MessageFormat.format("El usuario {0} ha solicitado la apertura de un",
 					usuarioEmisor.getUserName());
-		} else if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
+		} else if (operacion
+				.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
 
-			cuerpo = MessageFormat.format(
-					"El usuario {0} ha solicitado la apertura de "
-							+ dto.getMensajeNotificacion(),
+			cuerpo = MessageFormat.format("El usuario {0} ha solicitado la apertura de " + dto.getMensajeNotificacion(),
 					usuarioEmisor.getUserName());
 		} else if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_VOLUNTARIO
 				|| operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_INTERINATO) {
-			cuerpo = MessageFormat.format(
-					"El usuario {0} ha solicitado la apertura de "
-							+ dto.getMensajeNotificacion(),
+			cuerpo = MessageFormat.format("El usuario {0} ha solicitado la apertura de " + dto.getMensajeNotificacion(),
 					usuarioEmisor.getUserName());
 		} else if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL
 				|| operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
 			cuerpo = MessageFormat.format(
-					"El usuario {0} ha solicitado el movimiento de "
-							+ dto.getMensajeNotificacion(),
+					"El usuario {0} ha solicitado el movimiento de " + dto.getMensajeNotificacion(),
 					usuarioEmisor.getUserName());
 		} else if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL) {
-			cuerpo = MessageFormat.format(
-					"El usuario {0} ha solicitado " + dto.getMensajeNotificacion(), usuarioEmisor.getUserName());
+			cuerpo = MessageFormat.format("El usuario {0} ha solicitado " + dto.getMensajeNotificacion(),
+					usuarioEmisor.getUserName());
 			modulo = Modulo.AUTORIZAR_NOMINA;
+		} else if (operacion.getIdOperacion() == EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO) {
+			cuerpo = MessageFormat.format("El usuario {0} ha modificado el sueldo de   " + dto.getMensajeNotificacion(),
+					usuarioEmisor.getUserName());
 		}
 
-		NotificacionDTO notificacionDTO = new NotificacionDTO(
-				buzonAutorizacion.getIdUsuario(), modulo,
+		NotificacionDTO notificacionDTO = new NotificacionDTO(buzonAutorizacion.getIdUsuario(), modulo,
 				operacion.getOperacion(), cuerpo, idsDestinatarios, parametros);
 
 		notificacionEJB.enviar(notificacionDTO);
@@ -221,12 +217,10 @@ public class AutorizacionesService {
 	/**
 	 * Consulta el buzon de autorizaciones solicitadas del usuario
 	 */
-	protected List<BuzonAutorizacionDTO> solicitudesAutorizacionesUsuario(
-			Integer idUsuario, boolean autorizadas) {
+	protected List<BuzonAutorizacionDTO> solicitudesAutorizacionesUsuario(Integer idUsuario, boolean autorizadas) {
 
 		List<BuzonAutorizacionesEntity> autorizaciones = buzonAutorizacionesRepository
-				.solicitudesAutorizacionesUsuarioPorEstatus(idUsuario,
-						autorizadas);
+				.solicitudesAutorizacionesUsuarioPorEstatus(idUsuario, autorizadas);
 		List<BuzonAutorizacionDTO> lista = new ArrayList<BuzonAutorizacionDTO>();
 		if (autorizaciones.isEmpty()) {
 			for (BuzonAutorizacionesEntity entity : autorizaciones) {
@@ -236,12 +230,8 @@ public class AutorizacionesService {
 				if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
 					ConfiguracionPresupuestoEntity conf = configuracionPresupuestoRepository
 							.obtenerPorId(entity.getIdEntidadContexto());
-					String descripcion = conf.getTipoContratacion()
-							.getTipoContratacion()
-							+ "-"
-							+ conf.getPuesto().getPuesto()
-							+ "-"
-							+ conf.getSueldo();
+					String descripcion = conf.getTipoContratacion().getTipoContratacion() + "-"
+							+ conf.getPuesto().getPuesto() + "-" + conf.getSueldo();
 					dto.setDescripcion(descripcion);
 				}
 				if (entity.isFinalizado()) {
@@ -264,8 +254,7 @@ public class AutorizacionesService {
 	 * @param idUsuario
 	 * @param autorizado
 	 */
-	protected List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(
-			Integer idUsuario, boolean autorizado) {
+	protected List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado) {
 		List<BuzonAutorizacionesEntity> autorizaciones = detalleBuzonAutorizacionRepository
 				.autorizacionesUsuarioEstatus(idUsuario, autorizado);
 		List<BuzonAutorizacionDTO> lista = new ArrayList<BuzonAutorizacionDTO>();
@@ -278,25 +267,19 @@ public class AutorizacionesService {
 				if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
 					ConfiguracionPresupuestoEntity conf = configuracionPresupuestoRepository
 							.obtenerPorId(entity.getIdEntidadContexto());
-					String descripcion = conf.getTipoContratacion()
-							.getTipoContratacion()
-							+ "-"
-							+ conf.getPuesto().getPuesto()
-							+ "-"
-							+ conf.getSueldo();
+					String descripcion = conf.getTipoContratacion().getTipoContratacion() + "-"
+							+ conf.getPuesto().getPuesto() + "-" + conf.getSueldo();
 					dto.setDescripcion(descripcion);
-				} else if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
+				} else if (entity.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
 					String descripcionDetalle = detalleProgramaRepository
-							.obtenerDescripcionDetalle(entity
-									.getIdEntidadContexto());
+							.obtenerDescripcionDetalle(entity.getIdEntidadContexto());
 					dto.setDescripcion(descripcionDetalle);
 				} else if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
 					MovimientoEmpleadoEntity movimiento = movimientoEmpleadoRepository
 							.obtenerPorId(entity.getIdEntidadContexto());
-					String descripcionDetalle = movimiento.getMovimiento()
-							.getMovimiento().toUpperCase()
-							+ " al empleado "
-							+ movimiento.getEmpleado().getNombreCompleto();
+					String descripcionDetalle = movimiento.getMovimiento().getMovimiento().toUpperCase()
+							+ " al empleado " + movimiento.getEmpleado().getNombreCompleto();
 					dto.setDescripcion(descripcionDetalle);
 				}
 				if (entity.isFinalizado()) {
@@ -319,21 +302,16 @@ public class AutorizacionesService {
 		if (solicitudAprobacion != null) {
 
 			DetalleBuzonAutorizacionEntity detalleSolicitud = detalleBuzonAutorizacionRepository
-					.detalleBuzonPorBuzonUsuario(autorizacionDTO.getIdBuzon(),
-							autorizacionDTO.getIdUsuario());
+					.detalleBuzonPorBuzonUsuario(autorizacionDTO.getIdBuzon(), autorizacionDTO.getIdUsuario());
 
 			if (detalleSolicitud == null) {
-				throw new ReglaNegocioException(
-						"El usuario no tiene configurada una aprobación para la operación"
-								+ autorizacionDTO.getIdBuzon(),
-						ReglaNegocioCodigoError.SIN_REGISTRO);
+				throw new ReglaNegocioException("El usuario no tiene configurada una aprobación para la operación"
+						+ autorizacionDTO.getIdBuzon(), ReglaNegocioCodigoError.SIN_REGISTRO);
 			}
 
 			if (detalleSolicitud.isAutorizado()) {
 				throw new ReglaNegocioException(
-						"El usuario ya ha autorizado la operación"
-								+ solicitudAprobacion.getAccion()
-										.getOperacion(),
+						"El usuario ya ha autorizado la operación" + solicitudAprobacion.getAccion().getOperacion(),
 						ReglaNegocioCodigoError.YA_AUTORIZADO);
 			}
 
@@ -343,66 +321,56 @@ public class AutorizacionesService {
 			detalleBuzonAutorizacionRepository.actualizar(detalleSolicitud);
 
 			List<DetalleBuzonAutorizacionEntity> usuariosPendientesPorAutorizar = detalleBuzonAutorizacionRepository
-					.detallesBuzonPorEstatus(autorizacionDTO.getIdBuzon(),
-							false);
+					.detallesBuzonPorEstatus(autorizacionDTO.getIdBuzon(), false);
 			String cuerpo = "";
-			UsuarioEntity usuarioEmisor = usuarioRepository
-					.obtenerPorId(autorizacionDTO.getIdUsuario());
+			UsuarioEntity usuarioEmisor = usuarioRepository.obtenerPorId(autorizacionDTO.getIdUsuario());
 
 			// Si ya no hay usuarios pendientes por autorizar entonces se
 			// procede a aprobar la operación.
 			if (usuariosPendientesPorAutorizar.isEmpty()) {
 
-				if (solicitudAprobacion.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
+				if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
 
 					AperturaVacanteDTO aperturaVacanteDTO = new AperturaVacanteDTO();
-					aperturaVacanteDTO
-							.setIdConfiguracionPresupuesto(solicitudAprobacion
-									.getIdEntidadContexto());
-					aperturaVacanteDTO
-							.setTipoApertura(EnumTipoApertura.APERTURA_INDIVIDUAL);
-					aperturaVacanteService
-							.crearPuestoAutorizado(aperturaVacanteDTO);
+					aperturaVacanteDTO.setIdConfiguracionPresupuesto(solicitudAprobacion.getIdEntidadContexto());
+					aperturaVacanteDTO.setTipoApertura(EnumTipoApertura.APERTURA_INDIVIDUAL);
+					aperturaVacanteService.crearPuestoAutorizado(aperturaVacanteDTO);
 
 					solicitudAprobacion.setFinalizado(true);
 
 					String tipoContratacion = configuracionPresupuestoRepository
-							.obtenerTipoContratacionConfiguracion(solicitudAprobacion
-									.getIdEntidadContexto());
+							.obtenerTipoContratacionConfiguracion(solicitudAprobacion.getIdEntidadContexto());
 
-					cuerpo = MessageFormat.format(
-							"El usuario {0} ha autorizado la apertura de una nueva vacante para "
-									+ tipoContratacion.toLowerCase(),
-							usuarioEmisor.getUserName());
-				} else if (solicitudAprobacion.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
+					cuerpo = MessageFormat.format("El usuario {0} ha autorizado la apertura de una nueva vacante para "
+							+ tipoContratacion.toLowerCase(), usuarioEmisor.getUserName());
+				} else if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
 
 					String detallePrograma = detalleProgramaRepository
-							.obtenerDescripcionDetalle(solicitudAprobacion
-									.getIdEntidadContexto());
-					aperturaVacanteService
-							.crearPuestosProgramaFederal(solicitudAprobacion
-									.getIdEntidadContexto());
-					cuerpo = MessageFormat.format(
-							"El usuario {0} ha autorizado la apertura de las vacantes para "
-									+ detallePrograma.toUpperCase(),
-							usuarioEmisor.getUserName());
-				} else if (solicitudAprobacion.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
-					cuerpo = autorizarMovimiento(solicitudAprobacion
-							.getIdEntidadContexto());
+							.obtenerDescripcionDetalle(solicitudAprobacion.getIdEntidadContexto());
+					aperturaVacanteService.crearPuestosProgramaFederal(solicitudAprobacion.getIdEntidadContexto());
+					cuerpo = MessageFormat.format("El usuario {0} ha autorizado la apertura de las vacantes para "
+							+ detallePrograma.toUpperCase(), usuarioEmisor.getUserName());
+				} else if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
+					cuerpo = autorizarMovimiento(solicitudAprobacion.getIdEntidadContexto());
 
-				} else if (solicitudAprobacion.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
-					String mensaje = autorizarSuplencia(solicitudAprobacion
-							.getIdEntidadContexto());
-					cuerpo = MessageFormat.format(
-							"El usuario {0} ha autorizado la " + mensaje,
+				} else if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
+					String mensaje = autorizarSuplencia(solicitudAprobacion.getIdEntidadContexto());
+					cuerpo = MessageFormat.format("El usuario {0} ha autorizado la " + mensaje,
 							usuarioEmisor.getUserName());
-				} else if (solicitudAprobacion.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_INTERINATO) {
-					aprobarInterinato(solicitudAprobacion
-							.getIdEntidadContexto());
+				} else if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_INTERINATO) {
+					aprobarInterinato(solicitudAprobacion.getIdEntidadContexto());
 
-					cuerpo = MessageFormat
-							.format("El usuario {0} ha autorizado la apertura de interinato ",
-									usuarioEmisor.getUserName());
+					cuerpo = MessageFormat.format("El usuario {0} ha autorizado la apertura de interinato ",
+							usuarioEmisor.getUserName());
+				} else if (solicitudAprobacion.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO) {
+					cuerpo = MessageFormat.format("El usuario {0} se ha enterado de la modificación de salario ",
+							usuarioEmisor.getUserName());
 				}
 
 			}
@@ -412,145 +380,108 @@ public class AutorizacionesService {
 
 			Map<String, String> parametros = new HashMap<>();
 
-			NotificacionDTO notificacionDTO = new NotificacionDTO(
-					autorizacionDTO.getIdUsuario(), Modulo.SIN_MODULO,
+			NotificacionDTO notificacionDTO = new NotificacionDTO(autorizacionDTO.getIdUsuario(), Modulo.SIN_MODULO,
 					"AUTORIZACIÓN", cuerpo, idsDestinatarios, parametros);
 
 			notificacionEJB.enviar(notificacionDTO);
 		} else {
-			throw new ValidacionException(
-					"No se encontraron el buzon de notificaciones especificado",
+			throw new ValidacionException("No se encontraron el buzon de notificaciones especificado",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 	}
 
 	private void aprobarInterinato(Integer idInterinato) {
 		if (!ValidacionUtil.esNumeroPositivo(idInterinato)) {
-			throw new ValidacionException(
-					"El interinato para aprobación es requerido.",
+			throw new ValidacionException("El interinato para aprobación es requerido.",
 					ValidacionCodigoError.VALOR_REQUERIDO);
 		}
-		InterinatoEntity interinato = interinatoRepository
-				.obtenerPorId(idInterinato);
+		InterinatoEntity interinato = interinatoRepository.obtenerPorId(idInterinato);
 		EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository
 				.obtenerPorId(EnumEstatusConfiguracion.ACTIVO);
 		TiposNombramientosEntity nombramiento = tiposNombramientosRepository
 				.nombramientoPorId(EnumTipoNombramiento.INTERINOS);
 		TipoContratacionEntity tipoContratacion = tipoContratacionRepository
 				.obtenerPorId(EnumTipoContratacion.INTERINATO);
-		EstatusPuestosEntity estatusPuesto = estatusPuestoRepository
-				.obtenerPorId(EnumEstatusPuesto.EMPLEADO_ACTIVO);
+		EstatusPuestosEntity estatusPuesto = estatusPuestoRepository.obtenerPorId(EnumEstatusPuesto.EMPLEADO_ACTIVO);
 
-		InventarioVacanteEntity puestoPropietario = interinato
-				.getPuestoPropietario();
+		InventarioVacanteEntity puestoPropietario = interinato.getPuestoPropietario();
 
-		interinato.setIdEmpleadoPropietario(puestoPropietario
-				.getEmpleadoActivo().getIdEmpleado());
+		interinato.setIdEmpleadoPropietario(puestoPropietario.getEmpleadoActivo().getIdEmpleado());
 
 		// Crear el puesto.
-		ConfiguracionPresupuestoEntity datosLaboralesPropietario = puestoPropietario
-				.getConfiguracion();
+		ConfiguracionPresupuestoEntity datosLaboralesPropietario = puestoPropietario.getConfiguracion();
 		ConfiguracionPresupuestoEntity datosLaboralesInterino = new ConfiguracionPresupuestoEntity();
-		datosLaboralesInterino.setDependencia(datosLaboralesPropietario
-				.getDependencia());
+		datosLaboralesInterino.setDependencia(datosLaboralesPropietario.getDependencia());
 
 		datosLaboralesInterino.setEstatus(estatus);
-		datosLaboralesInterino.setFechaAltaConfiguracion(FechaUtil
-				.fechaActual());
-		datosLaboralesInterino
-				.setFuenteFinanciamiento(datosLaboralesPropietario
-						.getFuenteFinanciamiento());
+		datosLaboralesInterino.setFechaAltaConfiguracion(FechaUtil.fechaActual());
+		datosLaboralesInterino.setFuenteFinanciamiento(datosLaboralesPropietario.getFuenteFinanciamiento());
 		// datosLaboralesInterino.setIdPlaza(idPlaza);
 		datosLaboralesInterino.setNombramiento(nombramiento);
 		// datosLaboralesInterino.setNumeroEmpleado(numeroEmpleado);
-		datosLaboralesInterino.setProyecto(datosLaboralesPropietario
-				.getProyecto());
+		datosLaboralesInterino.setProyecto(datosLaboralesPropietario.getProyecto());
 		datosLaboralesInterino.setPuesto(datosLaboralesPropietario.getPuesto());
-		datosLaboralesInterino
-				.setSubfuenteFinanciamiento(datosLaboralesPropietario
-						.getSubfuenteFinanciamiento());
+		datosLaboralesInterino.setSubfuenteFinanciamiento(datosLaboralesPropietario.getSubfuenteFinanciamiento());
 		// datosLaboralesInterino.setSueldo(sueldo);
-		datosLaboralesInterino.setTabulador(datosLaboralesInterino
-				.getTabulador());
+		datosLaboralesInterino.setTabulador(datosLaboralesInterino.getTabulador());
 		datosLaboralesInterino.setTipoContratacion(tipoContratacion);
-		datosLaboralesInterino.setTipoRecurso(datosLaboralesInterino
-				.getTipoRecurso());
-		datosLaboralesInterino.setUnidadResponsable(datosLaboralesInterino
-				.getUnidadResponsable());
+		datosLaboralesInterino.setTipoRecurso(datosLaboralesInterino.getTipoRecurso());
+		datosLaboralesInterino.setUnidadResponsable(datosLaboralesInterino.getUnidadResponsable());
 
 		if (interinato.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-			AspiranteEntity aspiranteEntity = aspiranteRepository
-					.obtenerPorId(interinato.getIdContexto());
+			AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(interinato.getIdContexto());
 			if (aspiranteEntity == null) {
-				throw new SistemaException(
-						"No se encontró aspirante con identificador "
-								+ interinato.getIdContexto(),
+				throw new SistemaException("No se encontró aspirante con identificador " + interinato.getIdContexto(),
 						SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
 			}
 
-			if (aspiranteEntity.getIdEstatus().equals(
-					EnumEstatusAspirante.EMPLEADO)) {
-				throw new ReglaNegocioException(
-						"El aspirante se encuentra activo como empleado",
+			if (aspiranteEntity.getIdEstatus().equals(EnumEstatusAspirante.EMPLEADO)) {
+				throw new ReglaNegocioException("El aspirante se encuentra activo como empleado",
 						ReglaNegocioCodigoError.YA_REGISTRADO);
 			}
 
 			if (empleadoRepository.existeEmpleadoRfc(aspiranteEntity.getRfc())) {
-				throw new ReglaNegocioException(
-						"El rfc del aspirante está asignado a un empleado.",
+				throw new ReglaNegocioException("El rfc del aspirante está asignado a un empleado.",
 						ReglaNegocioCodigoError.RFC_REGISTRADO);
 			}
 
-			if (empleadoRepository.existeEmpleadoConCurp(aspiranteEntity
-					.getCurp())) {
-				throw new ReglaNegocioException(
-						"El curp del aspirante está asignado a un empleado",
+			if (empleadoRepository.existeEmpleadoConCurp(aspiranteEntity.getCurp())) {
+				throw new ReglaNegocioException("El curp del aspirante está asignado a un empleado",
 						ReglaNegocioCodigoError.CURP_REGISTRADA);
 			}
 
-			TipoEmpleadoEntity tipoEmpleado = tipoEmpleadoRepository
-					.obtenerPorId(EnumTipoEmpleado.EMPLEADO);
+			TipoEmpleadoEntity tipoEmpleado = tipoEmpleadoRepository.obtenerPorId(EnumTipoEmpleado.EMPLEADO);
 			EmpleadoEntity nuevoEmpleado = new EmpleadoEntity();
-			nuevoEmpleado.setApellidoMaterno(aspiranteEntity
-					.getApellidoMaterno());
-			nuevoEmpleado.setApellidoPaterno(aspiranteEntity
-					.getApellidoPaterno());
-			nuevoEmpleado.setCorreoElectronico(aspiranteEntity
-					.getCorreoElectronico());
+			nuevoEmpleado.setApellidoMaterno(aspiranteEntity.getApellidoMaterno());
+			nuevoEmpleado.setApellidoPaterno(aspiranteEntity.getApellidoPaterno());
+			nuevoEmpleado.setCorreoElectronico(aspiranteEntity.getCorreoElectronico());
 			nuevoEmpleado.setCurp(aspiranteEntity.getCurp());
-			nuevoEmpleado.setDireccionCompleta(aspiranteEntity
-					.getDireccionCompleta());
+			nuevoEmpleado.setDireccionCompleta(aspiranteEntity.getDireccionCompleta());
 			nuevoEmpleado.setEstadoCivil(aspiranteEntity.getEstadoCivil());
 			nuevoEmpleado.setEstatura(aspiranteEntity.getEstatura());
 			nuevoEmpleado.setFechaAlta(FechaUtil.fechaActual());
 			nuevoEmpleado.setFechaIngreso(interinato.getFechaIngreso());
-			nuevoEmpleado.setFechaNacimiento(aspiranteEntity
-					.getFechaNacimiento());
+			nuevoEmpleado.setFechaNacimiento(aspiranteEntity.getFechaNacimiento());
 			nuevoEmpleado.setIdEstatus(EnumEstatusEmpleado.ACTIVO);
 			// nuevoEmpleado.setIdFoto(idFoto);
 			nuevoEmpleado.setIdSexo(aspiranteEntity.getIdSexo());
-			nuevoEmpleado.setLugarNacimiento(aspiranteEntity
-					.getLugarNacimiento());
+			nuevoEmpleado.setLugarNacimiento(aspiranteEntity.getLugarNacimiento());
 			nuevoEmpleado.setNacionalidad(aspiranteEntity.getNacionalidad());
 			nuevoEmpleado.setNombre(aspiranteEntity.getNombre());
-			nuevoEmpleado
-					.setNombreCompleto(aspiranteEntity.getNombreCompleto());
-			nuevoEmpleado
-					.setNumeroConyuges(aspiranteEntity.getNumeroConyuges());
+			nuevoEmpleado.setNombreCompleto(aspiranteEntity.getNombreCompleto());
+			nuevoEmpleado.setNumeroConyuges(aspiranteEntity.getNumeroConyuges());
 			nuevoEmpleado.setNumeroCuenta(interinato.getNumeroCuenta());
 			nuevoEmpleado.setNumeroHijos(aspiranteEntity.getNumeroHijos());
 			nuevoEmpleado.setNumeroOtros(aspiranteEntity.getNumeroOtros());
 			nuevoEmpleado.setNumeroPadres(aspiranteEntity.getNumeroPadres());
 			// nuevoEmpleado.setOtroParentesco(aspiranteEntity.get);
-			nuevoEmpleado.setPaisNacionalidad(aspiranteEntity
-					.getPaisNacionalidad());
+			nuevoEmpleado.setPaisNacionalidad(aspiranteEntity.getPaisNacionalidad());
 			// nuevoEmpleado.setPersonasDependientes(aspiranteEntity.get);
 			nuevoEmpleado.setPeso(aspiranteEntity.getPeso());
 			nuevoEmpleado.setRfc(aspiranteEntity.getRfc());
 			nuevoEmpleado.setTelefono(aspiranteEntity.getTelefono());
 			// nuevoEmpleado.setTieneLicencia(aspiranteEntity.get);
-			nuevoEmpleado.setTienePersonasDependientes(aspiranteEntity
-					.getTienePersonasDependientes());
+			nuevoEmpleado.setTienePersonasDependientes(aspiranteEntity.getTienePersonasDependientes());
 			nuevoEmpleado.setTipoSangre(aspiranteEntity.getTipoSangre());
 			nuevoEmpleado.setViveCon(aspiranteEntity.getViveCon());
 			nuevoEmpleado.setTipoEmpleado(tipoEmpleado);
@@ -562,12 +493,10 @@ public class AutorizacionesService {
 			aspiranteRepository.actualizar(aspiranteEntity);
 			datosLaboralesInterino.setEmpleado(nuevoEmpleado);
 		} else if (interinato.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-			EmpleadoEntity empleado = empleadoRepository
-					.obtenerPorId(interinato.getIdContexto());
+			EmpleadoEntity empleado = empleadoRepository.obtenerPorId(interinato.getIdContexto());
 			if (empleado == null) {
 				throw new ValidacionException(
-						"No se encontró al empleado con identificador "
-								+ interinato.getIdContexto(),
+						"No se encontró al empleado con identificador " + interinato.getIdContexto(),
 						ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 			}
 			empleado.setFechaIngreso(interinato.getFechaIngreso());
@@ -584,8 +513,7 @@ public class AutorizacionesService {
 		if (ultimoFolio != null) {
 			siguienteNumeroVacante = ultimoFolio + 1;
 		}
-		String folioVacante = generarFolioVacante(siguienteNumeroVacante,
-				tipoContratacion.getCodigo());
+		String folioVacante = generarFolioVacante(siguienteNumeroVacante, tipoContratacion.getCodigo());
 
 		InventarioVacanteEntity nuevaVacante = new InventarioVacanteEntity();
 		nuevaVacante.setCodigoVacante(tipoContratacion.getCodigo());
@@ -607,8 +535,7 @@ public class AutorizacionesService {
 
 	}
 
-	private String generarFolioVacante(Integer siguienteNumeroVacante,
-			String codigoContratacion) {
+	private String generarFolioVacante(Integer siguienteNumeroVacante, String codigoContratacion) {
 		String folioVacante = "";
 
 		if (siguienteNumeroVacante < 10) {
@@ -623,11 +550,9 @@ public class AutorizacionesService {
 	}
 
 	private String autorizarSuplencia(Integer idDetalleSuplencia) {
-		DetalleSuplenciaEntity suplencia = detalleSuplenciaRepository
-				.obtenerPorId(idDetalleSuplencia);
+		DetalleSuplenciaEntity suplencia = detalleSuplenciaRepository.obtenerPorId(idDetalleSuplencia);
 		if (suplencia == null) {
-			throw new ValidacionException(
-					"No se encontró registro de la suplencia que se requiere aprobar.",
+			throw new ValidacionException("No se encontró registro de la suplencia que se requiere aprobar.",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 
@@ -635,30 +560,23 @@ public class AutorizacionesService {
 		detalleSuplenciaRepository.actualizar(suplencia);
 
 		String mensaje = " la suplencia por falta de recurso del suplente "
-				+ suplencia.getQuincena().getSuplente().getEmpleado()
-						.getNombreCompleto();
+				+ suplencia.getQuincena().getSuplente().getEmpleado().getNombreCompleto();
 		return mensaje;
 	}
 
 	private String autorizarMovimiento(Integer idMovimiento) {
-		MovimientoEmpleadoEntity movimientoEmpleado = movimientoEmpleadoRepository
-				.obtenerPorId(idMovimiento);
+		MovimientoEmpleadoEntity movimientoEmpleado = movimientoEmpleadoRepository.obtenerPorId(idMovimiento);
 		if (movimientoEmpleado == null) {
-			throw new ValidacionException("El movimiento con identificador "
-					+ idMovimiento + " no se ha encontrado",
+			throw new ValidacionException("El movimiento con identificador " + idMovimiento + " no se ha encontrado",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 		TipoMovimientoEmpleadoEntity movimiento = tipoMovimientoEmpleadoRepository
-				.obtenerPorId(movimientoEmpleado.getMovimiento()
-						.getIdTipoMovimiento());
-		InventarioVacanteEntity puesto = movimientoEmpleado
-				.getInventarioVacante();
+				.obtenerPorId(movimientoEmpleado.getMovimiento().getIdTipoMovimiento());
+		InventarioVacanteEntity puesto = movimientoEmpleado.getInventarioVacante();
 		EmpleadoEntity empleadoMovimiento = movimientoEmpleado.getEmpleado();
-		ConfiguracionPresupuestoEntity configuracionPresupuestal = puesto
-				.getConfiguracion();
+		ConfiguracionPresupuestoEntity configuracionPresupuestal = puesto.getConfiguracion();
 		if (movimiento.getIdPadre() == EnumTipoMovimiento.BAJAS_DEFINITIVAS) {
-			EstatusPuestosEntity estatusPuesto = estatusPuestoRepository
-					.obtenerPorId(EnumEstatusPuesto.LIBERADA);
+			EstatusPuestosEntity estatusPuesto = estatusPuestoRepository.obtenerPorId(EnumEstatusPuesto.LIBERADA);
 			puesto.setDisponible("SI");
 			puesto.setUltimoEmpleado(empleadoMovimiento);
 			puesto.setEstatus(estatusPuesto);
@@ -673,8 +591,7 @@ public class AutorizacionesService {
 			EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository
 					.obtenerPorId(EnumEstatusConfiguracion.INACTIVO);
 			configuracionPresupuestal.setEstatus(estatus);
-			configuracionPresupuestoRepository
-					.actualizar(configuracionPresupuestal);
+			configuracionPresupuestoRepository.actualizar(configuracionPresupuestal);
 
 		}
 		if (movimiento.getIdPadre() == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA
@@ -682,10 +599,8 @@ public class AutorizacionesService {
 				|| movimiento.getIdPadre() == EnumTipoMovimiento.LICENCIAS_C_S_S
 				|| movimiento.getIdPadre() == EnumTipoMovimiento.LICENCIAS_D_C_S
 				|| movimiento.getIdPadre() == EnumTipoMovimiento.LICENCIAS_D_S_S) {
-			EstatusPuestosEntity estatus = estatusPuestoRepository
-					.obtenerPorId(EnumEstatusPuesto.EMPLEADO_EN_PERMISO);
-			puesto.setFechaInicioPermiso(movimientoEmpleado
-					.getFechaInicioPermiso());
+			EstatusPuestosEntity estatus = estatusPuestoRepository.obtenerPorId(EnumEstatusPuesto.EMPLEADO_EN_PERMISO);
+			puesto.setFechaInicioPermiso(movimientoEmpleado.getFechaInicioPermiso());
 			puesto.setFechaFinPermiso(movimientoEmpleado.getFechaFinPermiso());
 			puesto.setMovimientoPermiso(movimientoEmpleado);
 			puesto.setEstatus(estatus);
@@ -701,8 +616,7 @@ public class AutorizacionesService {
 		}
 
 		movimientoEmpleado.setFechaAutorizacion(FechaUtil.fechaActual());
-		movimientoEmpleado
-				.setEstatusMovimiento(EnumEstatusMovimiento.AUTORIZADO);
+		movimientoEmpleado.setEstatusMovimiento(EnumEstatusMovimiento.AUTORIZADO);
 		movimientoEmpleadoRepository.actualizar(movimientoEmpleado);
 
 		String mensaje = movimiento.getMovimiento() + " al empleado "
@@ -711,12 +625,10 @@ public class AutorizacionesService {
 	}
 
 	protected DetalleAutorizacionDTO obtenerDetalleAutorizacion(Integer idBuzon) {
-		BuzonAutorizacionesEntity buzon = buzonAutorizacionesRepository
-				.obtenerPorId(idBuzon);
+		BuzonAutorizacionesEntity buzon = buzonAutorizacionesRepository.obtenerPorId(idBuzon);
 		if (buzon == null) {
-			throw new ReglaNegocioException(
-					"No se ha encontrado solicitud con identificador "
-							+ idBuzon, ReglaNegocioCodigoError.SIN_REGISTRO);
+			throw new ReglaNegocioException("No se ha encontrado solicitud con identificador " + idBuzon,
+					ReglaNegocioCodigoError.SIN_REGISTRO);
 		}
 
 		DetalleAutorizacionDTO dto = new DetalleAutorizacionDTO();
@@ -728,7 +640,8 @@ public class AutorizacionesService {
 					.obtenerDetalleConfiguracionId(buzon.getIdEntidadContexto());
 
 			dto.setConfiguracionPresupuesto(detalleConfiguracion);
-		} else if (buzon.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE
+		} else if (buzon.getAccion()
+				.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE
 				|| buzon.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_VOLUNTARIO) {
 
 			ConfiguracionDetalleProgramaDTO configuracionDetallePrograma = programaService
@@ -740,26 +653,25 @@ public class AutorizacionesService {
 			dto.setDetalleMovimiento(detalleMovimiento);
 
 		} else if (buzon.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
-			DetalleSuplenciaDTO detalle = obtenerDetalleSuplenciaPorId(buzon
-					.getIdEntidadContexto());
+			DetalleSuplenciaDTO detalle = obtenerDetalleSuplenciaPorId(buzon.getIdEntidadContexto());
 			dto.setDetalleSuplencia(detalle);
+		} else if (buzon.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO) {
+			BitacoraEmpleadoDTO bitacora = bitacoraModificacionService
+					.obtenerBitacoraPorId(buzon.getIdEntidadContexto());
+			dto.setBitacora(bitacora);
 		}
 
 		return dto;
 
 	}
 
-	protected DetalleSuplenciaDTO obtenerDetalleSuplenciaPorId(
-			Integer idDetalleSuplencia) {
+	protected DetalleSuplenciaDTO obtenerDetalleSuplenciaPorId(Integer idDetalleSuplencia) {
 		if (idDetalleSuplencia == null) {
-			throw new ValidacionException("",
-					ValidacionCodigoError.VALOR_REQUERIDO);
+			throw new ValidacionException("", ValidacionCodigoError.VALOR_REQUERIDO);
 		}
-		DetalleSuplenciaEntity detalle = detalleSuplenciaRepository
-				.obtenerPorId(idDetalleSuplencia);
+		DetalleSuplenciaEntity detalle = detalleSuplenciaRepository.obtenerPorId(idDetalleSuplencia);
 		if (detalle == null) {
-			throw new ValidacionException(
-					"No se encontró registro del detalle de la suplencia",
+			throw new ValidacionException("No se encontró registro del detalle de la suplencia",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 
@@ -769,8 +681,7 @@ public class AutorizacionesService {
 		dto.setEstatus(detalle.getEstatus());
 		dto.setFechaFin(detalle.getFechaFin());
 		dto.setFechaInicio(detalle.getFechaInicio());
-		dto.setNombreSuplente(detalle.getQuincena().getSuplente().getEmpleado()
-				.getNombreCompleto());
+		dto.setNombreSuplente(detalle.getQuincena().getSuplente().getEmpleado().getNombreCompleto());
 		dto.setNumeroQuincena(detalle.getQuincena().getNumeroQuincena());
 		dto.setTipoSuplencia(detalle.getTipoSuplencia().getCausaSuplencia());
 		dto.setTotal(detalle.getTotal());
@@ -783,13 +694,16 @@ public class AutorizacionesService {
 	}
 
 	public Integer obtenerIdEntidadContexto(Integer idBuzon) {
-		BuzonAutorizacionesEntity buzon = buzonAutorizacionesRepository
-				.obtenerPorId(idBuzon);
+		BuzonAutorizacionesEntity buzon = buzonAutorizacionesRepository.obtenerPorId(idBuzon);
 		if (buzon == null) {
-			throw new ReglaNegocioException(
-					"No se ha encontrado solicitud con identificador "
-							+ idBuzon, ReglaNegocioCodigoError.SIN_REGISTRO);
+			throw new ReglaNegocioException("No se ha encontrado solicitud con identificador " + idBuzon,
+					ReglaNegocioCodigoError.SIN_REGISTRO);
 		}
 		return buzon.getIdEntidadContexto();
+	}
+
+	public Boolean esUsuarioAutoriza(Integer idOperacion,Integer idEntidadContexto, Integer idUsuario) {
+		OperacionSistemaEntity operacion = operacionSistemaRepository.obtenerPorId(idOperacion);
+		return buzonAutorizacionesRepository.esUsuarioAutorizaNomina(operacion, idEntidadContexto, idUsuario);
 	}
 }

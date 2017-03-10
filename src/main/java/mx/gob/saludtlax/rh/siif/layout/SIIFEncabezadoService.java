@@ -99,11 +99,23 @@ public class SIIFEncabezadoService {
         query.executeUpdate();
        
     }
+    
+    protected List<SIIFEncabezadoDTO> consultarEncabezadoRH(int idProductoNomina) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_encabezados_rh_cont(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina);
+        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+
+        @SuppressWarnings("unchecked")
+        List<SIIFEncabezadoDTO> siifEncabezadoList = (List<SIIFEncabezadoDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
 
 
     protected List<SIIFEncabezadoDTO> consultarEncabezadoFinal(String periodo, int anyo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL sp_generar_encabezado_siif_final(:anyo, :periodo)")
+        Query query = session.createSQLQuery("CALL usp_generar_encabezado_siif_final(:anyo, :periodo)")
                 .setParameter("anyo", anyo)
                 .setParameter("periodo", periodo);
         query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
@@ -274,6 +286,48 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
     
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHCont(Integer id_producto_nomina,Integer id_programa) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_cont(:id_producto_nomina, :id_programa)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setParameter("id_programa", id_programa);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        List<EstructuraContratosDatDTO> siifEncabezadoList = (List<EstructuraContratosDatDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHCont(Integer id_producto_nomina,Integer id_programa) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_cont(:id_producto_nomina, :id_programa)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setParameter("id_programa", id_programa);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        List<EstructuraContratosTrailersDTO> siifEncabezadoList = (List<EstructuraContratosTrailersDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContrato(Integer id_producto_nomina) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_contrato(:id_producto_nomina)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        List<EstructuraContratosDatDTO> siifEncabezadoList = (List<EstructuraContratosDatDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContrato(Integer id_producto_nomina) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_contrato(:id_producto_nomina)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        List<EstructuraContratosTrailersDTO> siifEncabezadoList = (List<EstructuraContratosTrailersDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
     protected List<EstructuraContratosDatDTO> crearDatProdNom(Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_crear_dat_rh_dev(:id_producto_nomina)");
@@ -330,7 +384,81 @@ public class SIIFEncabezadoService {
         }
         return seguroPopularList;
     }
+    
+    @SuppressWarnings("unchecked")
+    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRHCont(int idProductoNomina) {
+        List<Object[]> objetos;
+        List<EstructuraSeguroPopularDTO> seguroPopularList = new ArrayList<>();
+        objetos = (List<Object[]>) entityManager.createNativeQuery("CALL usp_generar_seguro_popular_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina).getResultList();
 
+        if (objetos.size() > 0) {
+            for (Object[] obj : objetos) {
+
+                EstructuraSeguroPopularDTO dto = new EstructuraSeguroPopularDTO();
+                //BigInteger numero =((BigInteger)obj[0]);
+                Integer numero = ((Integer) obj[0]);
+                dto.setNumero(numero.intValue());
+                dto.setMes((String) obj[1]);
+                dto.setEstado((String) obj[2]);
+                dto.setCentro((String) obj[3]);
+                dto.setClues((String) obj[4]);
+                dto.setUnidad((String) obj[5]);
+                dto.setAdscripcion((String) obj[6]);
+                dto.setPuesto((String) obj[7]);
+                dto.setClave((String) obj[8]);
+                dto.setServicio((String) obj[9]);
+                dto.setRama((String) obj[10]);
+                dto.setNombre((String) obj[11]);
+                dto.setRfc((String) obj[12]);
+                dto.setTurno((String) obj[13]);
+                dto.setFingreso((String) obj[14]);
+                dto.setSueldoBase((BigDecimal) obj[15]);
+                dto.setPercepcion((BigDecimal) obj[16]);
+                dto.setDeduccion((BigDecimal) obj[17]);
+                dto.setNeto((BigDecimal) obj[18]);
+                seguroPopularList.add(dto);
+            }
+        }
+        return seguroPopularList;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRH(int idProductoNomina) {
+        List<Object[]> objetos;
+        List<EstructuraSeguroPopularDTO> seguroPopularList = new ArrayList<>();
+        objetos = (List<Object[]>) entityManager.createNativeQuery("CALL usp_generar_seguro_popular_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina).getResultList();
+
+        if (objetos.size() > 0) {
+            for (Object[] obj : objetos) {
+
+                EstructuraSeguroPopularDTO dto = new EstructuraSeguroPopularDTO();
+                //BigInteger numero =((BigInteger)obj[0]);
+                Integer numero = ((Integer) obj[0]);
+                dto.setNumero(numero.intValue());
+                dto.setMes((String) obj[1]);
+                dto.setEstado((String) obj[2]);
+                dto.setCentro((String) obj[3]);
+                dto.setClues((String) obj[4]);
+                dto.setUnidad((String) obj[5]);
+                dto.setAdscripcion((String) obj[6]);
+                dto.setPuesto((String) obj[7]);
+                dto.setClave((String) obj[8]);
+                dto.setServicio((String) obj[9]);
+                dto.setRama((String) obj[10]);
+                dto.setNombre((String) obj[11]);
+                dto.setRfc((String) obj[12]);
+                dto.setTurno((String) obj[13]);
+                dto.setFingreso((String) obj[14]);
+                dto.setSueldoBase((BigDecimal) obj[15]);
+                dto.setPercepcion((BigDecimal) obj[16]);
+                dto.setDeduccion((BigDecimal) obj[17]);
+                dto.setNeto((BigDecimal) obj[18]);
+                seguroPopularList.add(dto);
+            }
+        }
+        return seguroPopularList;
+    }
+    
     private static List<SIIFEncabezadoDTO> convertirListaEncabezadosEntidadesADTOs(List<SIIFEncabezadoEntity> encabezadoEntidades) {
         List<SIIFEncabezadoDTO> encabezadoDTOs = new ArrayList<>();
 
@@ -377,27 +505,57 @@ public class SIIFEncabezadoService {
 			if (listaEstructura.isEmpty()) {
 				throw new ReglaNegocioException("No existen registros de datos");
 			}else{
-				int num=1;
-				LOGGER.debugv("Lista tamaño: ", listaEstructura.size());
+				int a=1;
+				//LOGGER.debugv("Lista tamaño: ", listaEstructura.size());
 				for (EstructuraContratosDatDTO dat : listaEstructura) {
-//					LOGGER.debugv("ID: ", dat.getIdEstructurasContratos());
-//					LOGGER.debugv("Formato Nombre: ", formatoNombre(dat.getNombre()));
-					//EstructuraContratoEntity estructuraEntity = estructuraDatDAO.obtenerPorId(dat.getIdEstructurasContratos());					
-					//estructuraEntity.setNumEmp(dat.getNumEmp()+num);
-					//estructuraEntity.setNombre(formatoNombre(dat.getNombre()));										
-					//estructuraEntity.setNumCtrol(num+1);					
-					//estructuraDatDAO.actualizar(estructuraEntity);
-					Query query = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
+					Query queryA = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
 							"SET d.num_emp = (:num_emp), " +
 							"d.nombre = (:nombre), " +
 							"d.num_ctrol = (:num) " +
-							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)")
+							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos) "
+							+ "AND d.id_programa = 23")
 							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
-							.setParameter("num_emp", formatoNumEmp(num))
+							.setParameter("num_emp", formatoNumEmp(a))
 							.setParameter("nombre",formatoNombre(dat.getNombre()))
-							.setParameter("num", num+1);
-							query.executeUpdate();
-					num=num+1;
+							.setParameter("num", a+1);
+							queryA.executeUpdate();
+					if(dat.getIdPrograma()!= null && dat.getIdPrograma()==23){
+						a=a+1;
+					}
+				}
+				int f=1;
+				for (EstructuraContratosDatDTO dat : listaEstructura) {
+					Query queryF = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
+							"SET d.num_emp = (:num_emp), " +
+							"d.nombre = (:nombre), " +
+							"d.num_ctrol = (:num) " +
+							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+							+ "AND d.id_programa = 27")
+							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
+							.setParameter("num_emp", formatoNumEmp(f))
+							.setParameter("nombre",formatoNombre(dat.getNombre()))
+							.setParameter("num", f+1);
+							queryF.executeUpdate();
+					if(dat.getIdPrograma()!= null && dat.getIdPrograma()==27){
+						f=f+1;
+					}					
+				}
+				int c=1;
+				for (EstructuraContratosDatDTO dat : listaEstructura) {
+					Query queryC = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
+							"SET d.num_emp = (:num_emp), " +
+							"d.nombre = (:nombre), " +
+							"d.num_ctrol = (:num) " +
+							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+							+ "AND ( d.id_programa != 23 AND d.id_programa != 27)")
+							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
+							.setParameter("num_emp", formatoNumEmp(c))
+							.setParameter("nombre",formatoNombre(dat.getNombre()))
+							.setParameter("num", c+1);
+							queryC.executeUpdate();
+					if(dat.getIdPrograma()!= null && dat.getIdPrograma()!=23 && dat.getIdPrograma()!=27){
+							c=c+1;
+					}
 				}
 			}
 		} catch (PersistenceException ex) {
@@ -418,7 +576,28 @@ public class SIIFEncabezadoService {
 						"t.num_ctrol = d.num_ctrol " + 
 						"WHERE t.id_producto_nomina = (:id_producto_nomina)")
 						.setParameter("id_producto_nomina",id_producto_nomina);
-			query.executeUpdate();					
+			query.executeUpdate();	
+			//Actualiza No_Trail
+			Query querytra = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d " +	
+					"SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t " + 
+					"WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) " +
+					"WHERE d.id_producto_nomina = (:id_producto_nomina) ")
+					.setParameter("id_producto_nomina",id_producto_nomina);
+		query.executeUpdate();	
+		
+	}
+    
+    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+    public void actualizarNoTrailer(int id_producto_nomina) {
+		
+		Session session = entityManager.unwrap(Session.class);		
+				
+		Query query = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d " +	
+					"SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t " + 
+					"WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) " +
+					"WHERE d.id_producto_nomina = (:id_producto_nomina) ")
+					.setParameter("id_producto_nomina",id_producto_nomina);
+		query.executeUpdate();	
 		
 	}
     
@@ -476,8 +655,8 @@ public class SIIFEncabezadoService {
           }
          int cont=1; 
         while (!pila.empty()){
-            if(cont==1) formato=formato+pila.pop() + "*"; 
-            else if (cont==2)  formato=formato+pila.pop() + "_"; 
+            if(cont==1) formato=formato+pila.pop() + "/"; 
+            else if (cont==2)  formato=pila.pop() + ","+formato; 
             else   formato=formato+pila.pop() + " "; 
             cont++;   
         }	
@@ -509,8 +688,7 @@ public class SIIFEncabezadoService {
     	String edo="29", cero="";
     	for(int i=0;i<8-numCtrol.length();i++){
     		cero+="0";
-    	}
-      	
+    	}      	
         return edo+cero+numCtrol;
     }
 

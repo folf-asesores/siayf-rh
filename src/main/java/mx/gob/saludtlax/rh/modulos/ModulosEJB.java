@@ -35,5 +35,11 @@ public class ModulosEJB implements Modulos {
 	public List<AreaDTO> listaArea(){
 		return service.listaArea();
 	}
+
+	@Override
+	public ModuloDTO obtenerModuloPorId(Integer idModulo) {
+		
+		return service.obtenerModuloPorId(idModulo);
+	}
 	
 }

@@ -1,12 +1,10 @@
 package mx.gob.saludtlax.rh.persistencia;
 
-import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
-import mx.gob.saludtlax.rh.nomina.movimientos.TipoMovimientoDTO;
 import mx.gob.saludtlax.rh.nomina.movimientosnomina.TipoMovimientoNominaDTO;
 
 public class TiposMovimientosNominaRepository extends GenericRepository<TiposMovimientosNominaEntity, Integer> {

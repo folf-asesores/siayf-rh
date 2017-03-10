@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Seguridad: Administración Modulo" />
+	<ui:param name="moduloTitulo" value="Seguridad: Administración Modulo" />
+	<ui:param name="moduloSubtitulo"
+		value="Permite la administración de los modulos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
+
+				<p:dataTable id="tablaModulos" var="modulo" widgetVar="modulosTable"
+					rows="10" paginator="true" paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30"
+					emptyMessage="No se encontrarón resultados..."
+					value="#{administracionModulo.view.listaModulo}"
+					style="margin-bottom:20px">
+
+					<f:facet name="header">
+
+						<p:panelGrid columns="5" layout="grid"
+							columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-2"
+							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+							<p:spacer />
+							<p:spacer />
+							<h3
+								style="text-align: center; font-size: 25px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">Modulos
+								Registrados</h3>
+							<p:spacer />
+							<p:button id="btnNuevaRegla" title="Nuevo" icon="ui-icon-plus"
+								styleClass="fm-btn-inverso aling_right " immediate="true"
+								update="@all" outcome="crearModulo.xhtml" style="float:right;" />
+						</p:panelGrid>
+
+
+					</f:facet>
+
+
+					<p:column headerText="Nombre Módulo" filterBy="#{modulo.nombre}"
+						filterMatchMode="contains">
+						<h:outputText value="#{modulo.nombre}" />
+					</p:column>
+
+					<p:column headerText="URL" filterBy="#{modulo.url}"
+						filterMatchMode="contains">
+						<h:outputText value="#{modulo.url}" />
+					</p:column>
+
+					<p:column headerText="Habilitado" filterBy="#{modulo.habilitado}"
+						filterMatchMode="exact">
+						<f:facet name="filter">
+							<p:selectOneMenu onchange="PF('modulosTable').filter()">
+								<f:converter converterId="javax.faces.Boolean" />
+								<f:selectItem itemLabel="Todo" itemValue="" />
+								<f:selectItem itemLabel="SI" itemValue="true" />
+								<f:selectItem itemLabel="NO" itemValue="false" />
+							</p:selectOneMenu>
+						</f:facet>
+						<h:outputText value="#{modulo.habilitado?'SI':'NO'}" />
+					</p:column>
+
+					<p:column headerText="Área" filterBy="#{modulo.nombreArea}"
+						filterMatchMode="contains">
+						<h:outputText value="#{modulo.nombreArea}" />
+					</p:column>
+
+
+					<p:column style="text-align: center;" headerText="Opciones">
+
+						<p:button id="btnModulo" title="Editar" icon="ui-icon-pencil"
+							immediate="true" update="@all"
+							outcome="editarModulo.xhtml?i=#{modulo.id_modulo}" />
+
+						<p:commandButton id="eliminarModulo"
+							styleClass="fm-btn-error fm-btn-elevado" process="tablaModulos"
+							update="tablaModulos" icon="ui-icon-trash"
+							action="#{administracionModulo.eliminarModulo(modulo.id_modulo)}">
+							<p:confirm header="Confirmacion"
+								message="¿Deseas quitar el registro: #{modulo.nombre} de la lista? "
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"  update="form"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+			</p:panel>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

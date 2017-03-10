@@ -41,9 +41,9 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
      * Constructor que se puede emplear en la generación del archivo de texto.
      *
      * @param numeroCuenta el número de cuenta.
-     * @param numeroCheque el número de cheque.
-     * @param nombreEmpleado el nombre del empleado.
      * @param monto el monto del pago.
+     * @param nombreEmpleado el nombre del empleado.
+     * @param numeroCheque el número de cheque.
      * @param nombreProducto el nombre del producto de nómina.
      */
     public DispersionDTO(String numeroCuenta, BigDecimal monto, String nombreEmpleado, String numeroCheque, String nombreProducto) {
@@ -60,11 +60,11 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
      * Constructor que se puede emplear en la generación de la hoja de cálculo
      * (Excel).
      * 
+     * @param nombreEmpleado el nombre del empleado.
      * @param numeroCuenta el número de cuenta.
      * @param monto el monto del pago.
-     * fechaPago leyenda una fechaPago que describe si es la primera o quincena de pago.
      * @param fuenteFinanciamiento la fuente del financiamiento del empleado.
-     * @param nombreEmpleado el nombre del empleado.
+     * @param fechaPago la fecha de pago.
      */
     public DispersionDTO(String nombreEmpleado, String numeroCuenta, BigDecimal monto, String fuenteFinanciamiento, Date fechaPago) {
         this.numeroCuenta = numeroCuenta;
@@ -222,7 +222,7 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
         return "DispersionDTO{" 
                 + "numeroCuenta=" + numeroCuenta
                 + ", monto=" + monto
-                + ", leyenda=" + fechaPago
+                + ", fechaPago=" + fechaPago
                 + ", nombreEmpleado=" + nombreEmpleado
                 + ", fuenteFinanciamiento=" + fuenteFinanciamiento
                 + ", numeroCheque=" + numeroCheque

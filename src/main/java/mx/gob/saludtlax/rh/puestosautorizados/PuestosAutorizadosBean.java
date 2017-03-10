@@ -24,6 +24,8 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 	@Inject
 	private ConsultaPuestoService consultaPuestoService;
 	@Inject
+	private EstructurasService estructurasService;
+	@Inject
 	private PuestoAutorizadoService puestoAutorizadoService;
 	@Inject
 	private PuestosEmpleadosService puestosEmpleadoService;
@@ -86,6 +88,16 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 	@Override
 	public List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion) {
 		return consultaPuestoService.consultarEmpleadosInventarioPorContratacion(tipoContratacion);
+	}
+
+	@Override
+	public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO) {
+		estructurasService.actualizarEstructuraContrato(estructuraContratoDTO);
+	}
+
+	@Override
+	public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto) {
+		return consultaPuestoService.obtenerEstructuraContratoPuesto(idPuesto);
 	}
 
 }

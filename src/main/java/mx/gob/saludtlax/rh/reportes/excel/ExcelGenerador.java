@@ -9,10 +9,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import mx.gob.saludtlax.rh.acumulados.AcumuladoExcel;
 import mx.gob.saludtlax.rh.acumulados.AcumuladosDTO;
 import mx.gob.saludtlax.rh.empleados.detallesempleado.DetalleEmpleado;
@@ -28,8 +28,10 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPago;
 import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPagoDetalleDTO;
+import mx.gob.saludtlax.rh.nomina.productosnomina.EnumEstatusProductoNomina;
 import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
+import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesEJB;
@@ -54,12 +56,12 @@ import org.jboss.logging.Logger;
 public class ExcelGenerador implements Generador, Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5384835789936086358L;
 
     private static final Logger LOGGER = Logger.getLogger(ExcelGenerador.class);
-    
+
     private static final String PATRON_FECHA_BASE_DE_DATOS = "yyyy-MM-dd";
     private static final String CONSULTA_NOMINA_SERVICE_BEAN = "java:module/ConsultaNominaService";
     private static final String CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN = "java:module/MovimientoEmpleadoReporteService";
@@ -70,6 +72,7 @@ public class ExcelGenerador implements Generador, Serializable {
     private static final String HISTORIAL_PAGO_BEAN = "java:module/HistorialPagoEJB";
     private static final String RELACION_PERSONAL_SUPLENTE_BEAN = "java:module/RelacionPersonalSuplenteEJB";
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
+    private static final String PAGO_GENERAL_BEAN = "java:module/PagoGeneralReporteEJB";
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -77,7 +80,6 @@ public class ExcelGenerador implements Generador, Serializable {
         String nombreReporte = parametros.get("REPORTE_NOMBRE");
         byte[] bytes = null;
 
-        
         if (almacenReportesExcel.extisteReporte(nombreReporte)) {
             switch (nombreReporte) {
                 case "acumulados": {
@@ -90,7 +92,8 @@ public class ExcelGenerador implements Generador, Serializable {
                             .listaConsultaNominaPorNombramiento(tipoNombramiento, quincenaInicial, quincenaFinal, anio);
                     AcumuladoExcel acumuladosExcel = new AcumuladoExcel();
                     bytes = acumuladosExcel.generar(detalles);
-                } break;
+                }
+                break;
 
                 case "comisionado_licencia": {
                     Date fechaInicial = FechaUtil.getFecha(
@@ -112,7 +115,8 @@ public class ExcelGenerador implements Generador, Serializable {
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
-                } break;
+                }
+                break;
 
                 case "consentrado_alta_baja": {
                     Integer idTipoContratacionConsentrado = Integer.parseInt(parametros.get("ID_TIPO_CONTRATACION"));
@@ -136,19 +140,22 @@ public class ExcelGenerador implements Generador, Serializable {
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
-                } break;
+                }
+                break;
 
                 case "seguro_popular": {
                     SeguroPopularReporte seguroPopularBean = getSeguroPopularReporteBean();
                     bytes = seguroPopularBean.obtenerReporte();
-                } break;
+                }
+                break;
 
                 case "seguro_popular_reporte": {
                     String anyo = parametros.get("ANYO");
                     Integer quincena = Integer.parseInt(parametros.get("QUINCENA"));
                     SeguroPopularReporte seguroPopularBeanReporte = getSeguroPopularReporteBean();
                     bytes = seguroPopularBeanReporte.obtenerReporte(anyo, quincena);
-                } break;
+                }
+                break;
 
                 case "contrato_estatal_federal": {
                     Integer anyoPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
@@ -159,7 +166,8 @@ public class ExcelGenerador implements Generador, Serializable {
                     ContratoExcel contratoExcel = new ContratoExcel();
 
                     bytes = contratoExcel.generar(proyeccionesPresupuestales);
-                } break;
+                }
+                break;
 
                 case "contrato_estatal_federal_proyeccion": {
                     Integer anioPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
@@ -171,7 +179,8 @@ public class ExcelGenerador implements Generador, Serializable {
                     ContratoProyeccionExcel contratoProyeccionExcel = new ContratoProyeccionExcel();
 
                     bytes = contratoProyeccionExcel.generar(proyecciones);
-                } break;
+                }
+                break;
 
                 case "detalle_empleado": {
 
@@ -183,7 +192,8 @@ public class ExcelGenerador implements Generador, Serializable {
                     DetalleEmpleadoExcel detalleEmpleadoExcel = new DetalleEmpleadoExcel();
 
                     bytes = detalleEmpleadoExcel.generar(detalleEmpleado);
-                } break;
+                }
+                break;
 
                 case "producto_nomina": {
 
@@ -194,7 +204,42 @@ public class ExcelGenerador implements Generador, Serializable {
 
                     if (!listaProductoNomina.isEmpty()) {
                         ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
+                        bytes = productoNominaExcel.generar(listaProductoNomina);
+                    } else {
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados en el producto nomina: ",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
+                    }
+                }
+                break;
 
+                case "producto_nomina_estatus": {
+
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idEstatus = Integer.parseInt(parametros.get("ID_ESTATUS"));
+
+                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                            .obtenerListaProductoNominaPorIdProductoEstatus(idProducto, idEstatus);
+
+                    if (!listaProductoNomina.isEmpty()) {
+                        ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
+
+                        bytes = productoNominaExcel.generar(listaProductoNomina);
+                    } else {
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados en el producto nomina con el estatus "
+                                + EnumEstatusProductoNomina.obtenerEstatus(idEstatus),
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
+                    }
+                }
+                break;
+                case "producto_nomina_suplencia": {
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                            .obtenerListaProductoNominaPorIdProducto(idProducto);
+
+                    if (!listaProductoNomina.isEmpty()) {
+                        ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
                         bytes = productoNominaExcel.generar(listaProductoNomina);
                     } else {
                         throw new ReglaNegocioException(
@@ -202,7 +247,8 @@ public class ExcelGenerador implements Generador, Serializable {
                                 + idProducto.toString(),
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
-                } break;
+                }
+                break;
 
                 case "historial_pago": {
 
@@ -222,7 +268,8 @@ public class ExcelGenerador implements Generador, Serializable {
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
-                } break;
+                }
+                break;
 
                 case "relacion_personal_suplente": {
 
@@ -245,15 +292,23 @@ public class ExcelGenerador implements Generador, Serializable {
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
-                } break;
+                }
+                break;
 
-                case "dispersion": {
+                case "dispersion_nomina": {
                     Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     bytes = getDispersion().generarReporte(idProducto, true);
-                } break;
+                }
+                break;
+
+                case "pago_general": {
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    PagoGeneralReporte pagoGeneral = getBean(PagoGeneralReporte.class);
+                    bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes() : pagoGeneral.generarReporte(idProducto);
+                }
+                break;
             }
         }
-
         return bytes;
     }
 
@@ -371,8 +426,28 @@ public class ExcelGenerador implements Generador, Serializable {
                     .lookup(DISPERSION_BEAN);
             return dispersion;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", RELACION_PERSONAL_SUPLENTE_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISPERSION_BEAN, ex.getCause());
             return null;
         }
     }
+
+    private <T> T getBean(Class<T> clase) {
+        String bean = "";
+        try {
+            switch (clase.getName()) {
+                case "mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte":
+                    bean = PAGO_GENERAL_BEAN;
+                    break;
+                default:
+                    return null;
+            }
+
+            Context initContext = new InitialContext();
+            return (T) initContext.lookup(bean);
+        } catch (NamingException ex) {
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean, ex.getCause());
+            return null;
+        }
+    }
+
 }

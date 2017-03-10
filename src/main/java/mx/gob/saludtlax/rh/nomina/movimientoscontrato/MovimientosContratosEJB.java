@@ -1,5 +1,6 @@
 package mx.gob.saludtlax.rh.nomina.movimientoscontrato;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -52,8 +53,8 @@ public class MovimientosContratosEJB {
 	public boolean esMovimientoFijo(Integer idConceptoContratos) {
         return conceptoNominaContratosService.esMovimientoFijo (idConceptoContratos);
 	}
-	
-	public void guardarDetalle(DetalleMovimientoContratoDTO dto){
+
+	public void guardarDetalle(DetalleMovimientoContratoDTO dto) {
 		service.guardarDetalle(dto);
 	}
 
@@ -62,4 +63,22 @@ public class MovimientosContratosEJB {
                 nominaEmpleadoService.obntenerNominasActivaPorEmpleado(idEmpleado);
         return productosNominaService.obtenerProductoNominaLista(nominaEmpleadoLista);
     }
+
+	public BigDecimal calcularDescuentoFaltas(MovimientoContratosDTO movimientoContratos) {
+		BigDecimal monto = nominaEmpleadoService.calcularDescuentoFaltas(movimientoContratos);
+		return monto;
+	}
+
+	public void eliminarMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
+		service.eliminarMovimiento(movimientoContratos);
+	}
+
+
+	public void actualizarMovimientoContratos(MovimientoContratosDTO movimientoContratos) {
+		service.actualizarMovimientoContratos(movimientoContratos);
+	}
+
+	public MovimientoContratosDTO obtenerMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
+		return service.obtenerMovimientoContrato(movimientoContratos);
+	}
 }

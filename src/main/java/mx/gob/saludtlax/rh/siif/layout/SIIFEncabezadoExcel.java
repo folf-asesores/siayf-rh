@@ -11,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
@@ -21,18 +22,23 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosDatDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
 import mx.gob.saludtlax.rh.util.FechaUtil;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jboss.logging.Logger;
 
 /**
  *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
-public class SIIFEncabezadoExcel {
+public class SIIFEncabezadoExcel implements Serializable {
 
+    private static final long serialVersionUID = 749345586381372642L;
+    private static final Logger LOGGER = Logger.getLogger(SIIFEncabezadoExcel.class.getName());
+    
     private final InputStream is = SIIFEncabezadoExcel.class.getResourceAsStream("/encabezado--plantilla.xlsx");
     private final InputStream isFinal = SIIFEncabezadoExcel.class.getResourceAsStream("/encabezado--plantilla--final.xlsx");
     private final InputStream isSegPop = SIIFEncabezadoExcel.class.getResourceAsStream("/plantilla--segpop.xlsx");
@@ -108,7 +114,7 @@ public class SIIFEncabezadoExcel {
         hoja = libro.getSheet(NOMBRE_HOJA);
     }
 
-    private void cargarPlantillaSegPop() throws IOException {
+    private void cargarPlantillaSegPop() throws IOException {    	
         libro = new XSSFWorkbook(isSegPop);
         hoja = libro.getSheet(NOMBRE_HOJA_SEGURO_POPULAR);
     }
@@ -126,6 +132,9 @@ public class SIIFEncabezadoExcel {
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
             libro.write(byteArrayOutputStream);
             bytes = byteArrayOutputStream.toByteArray();
+            libro.close();
+            is.close();
+            isFinal.close();
         }
 
         return bytes;
@@ -133,90 +142,79 @@ public class SIIFEncabezadoExcel {
 
     
     private byte[] obtenerBytesTraZip() throws IOException {
-     
-    	File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.tra");
-    	//File file = new File("/PRDO.tra");
-        FileInputStream fis = new FileInputStream(archivo);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    	// File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.tra");
+    	// File file = new File("/PRDO.tra");
         byte[] buf = new byte[1024];
-        try {
+        byte[] bytes = null;
+        try (FileInputStream fis = new FileInputStream(archivo);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();) {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 bos.write(buf, 0, readNum); //no doubt here is 0
                 //Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
                 //System.out.println("read " + readNum + " bytes,");
             }
+            bytes = bos.toByteArray();
         } catch (IOException ex) {
-            //Logger.getLogger(genJpeg.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
-        byte[] bytes = bos.toByteArray();
- 
-
 
         return bytes;
     }
     
     private byte[] obtenerBytesDatZip() throws IOException {
- 
-     	File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.dat");
-     	//File file = new File("/PRDO.dat");
-         FileInputStream fis = new FileInputStream(archivo);
-         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-         byte[] buf = new byte[1024];
-         try {
-             for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                 bos.write(buf, 0, readNum); //no doubt here is 0
-                 //Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
-                 //System.out.println("read " + readNum + " bytes,");
-             }
-         } catch (IOException ex) {
-             //Logger.getLogger(genJpeg.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         byte[] bytes = bos.toByteArray();
-  
+        // File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.dat");
+        // File file = new File("/PRDO.dat");
+        byte[] bytes = null;
+        try (FileInputStream fis = new FileInputStream(archivo);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buf = new byte[1024];
 
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum); // no doubt here is 0
+                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+            }
 
-         return bytes;
-     }
+            bytes = bos.toByteArray();
+        } catch (IOException ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+        return bytes;
+    }
     
 
     private byte[] obtenerBytesTraContZip(String producto) throws IOException {
-            	
-        FileInputStream fis = new FileInputStream(archivo);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        try {
+        byte[] bytes = null;    	
+        try (FileInputStream fis = new FileInputStream(archivo);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buf = new byte[1024];
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readNum); //no doubt here is 0
-                //Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+                bos.write(buf, 0, readNum); // no doubt here is 0
+                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
             }
+            bytes = bos.toByteArray();
         } catch (IOException ex) {
-            //Logger.getLogger(genJpeg.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.getMessage(), ex);
         }
-        byte[] bytes = bos.toByteArray();
 
         return bytes;
     }
     
     private byte[] obtenerBytesDatContZip(String producto) throws IOException {
- 
      	//File file = new File("c:/Users/FOLF-LMST/Documents/datytra/"+producto+".dat");
      	//File file = new File("/PRDO.dat");
-         FileInputStream fis = new FileInputStream(archivo);
-         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-         byte[] buf = new byte[1024];
-         try {
-             for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                 bos.write(buf, 0, readNum); //no doubt here is 0
-                 //Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
-                 //System.out.println("read " + readNum + " bytes,");
-             }
+        byte[] buf = new byte[1024];
+        byte[] bytes = null;
+        try (FileInputStream fis = new FileInputStream(archivo);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            for (int readNum; (readNum = fis.read(buf)) != -1;) {
+                bos.write(buf, 0, readNum); // no doubt here is 0
+                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+                //System.out.println("read " + readNum + " bytes,");
+            }
+            bytes = bos.toByteArray();
          } catch (IOException ex) {
-             //Logger.getLogger(genJpeg.class.getName()).log(Level.SEVERE, null, ex);
+            LOGGER.error(ex.getMessage(), ex);
          }
-         byte[] bytes = bos.toByteArray();
-  
-
-
          return bytes;
      }
     
@@ -376,22 +374,42 @@ public class SIIFEncabezadoExcel {
             celdaRfc.setCellValue(detalle.getRfc());
 
             Cell celdaTurno = filaDetalle.createCell(COLUMNA_TURNO);
-            celdaTurno.setCellValue(detalle.getTurno());
+            if(detalle.getTurno()!=null){
+            	celdaTurno.setCellValue(detalle.getTurno());
+            }else{
+            	celdaTurno.setCellValue(" ");
+            }
 
             Cell celdaFecha = filaDetalle.createCell(COLUMNA_FECHA);
             celdaFecha.setCellValue(detalle.getFingreso());
 
             Cell celdaSueldo = filaDetalle.createCell(COLUMNA_SUELDO);
-            celdaSueldo.setCellValue(detalle.getSueldoBase().toString());
-
+            if(detalle.getSueldoBase()!=null){
+            	celdaSueldo.setCellValue(detalle.getSueldoBase().toString());
+            }else{
+            	celdaSueldo.setCellValue("0.0");
+            }
+            
             Cell celdaPercepcion = filaDetalle.createCell(COLUMNA_PERCEPCIONES_NETAS);
-            celdaPercepcion.setCellValue(detalle.getPercepcion().toString());
+            if(detalle.getPercepcion()!=null){
+            	celdaPercepcion.setCellValue(detalle.getPercepcion().toString());
+            }else{
+            	celdaPercepcion.setCellValue("0.0");
+            }            	
 
             Cell celdaDeduccion = filaDetalle.createCell(COLUMNA_DEDUCCIONES_NETAS);
-            celdaDeduccion.setCellValue(detalle.getDeduccion().toString());
+            if(detalle.getDeduccion()!=null){
+            	celdaDeduccion.setCellValue(detalle.getDeduccion().toString());
+            }else{
+            	celdaDeduccion.setCellValue("0.0");
+            }            
 
             Cell celdaNetas = filaDetalle.createCell(COLUMNA_NETAS);
-            celdaNetas.setCellValue(detalle.getNeto().toString());
+            if(detalle.getNeto()!=null){
+            	celdaNetas.setCellValue(detalle.getNeto().toString());
+            }else{
+            	celdaNetas.setCellValue("0.0");
+            }            
 
             i++;
             hoja.shiftRows(i, i + 1, 1);
@@ -401,311 +419,443 @@ public class SIIFEncabezadoExcel {
     
     private void llenarDetallesTra(List<EstructuraContratosTrailersDTO> listaDetallesAnexo) {
         //int i = FILA_INICIO_DETALLE;
-        System.out.println("Lista Tra:::"+listaDetallesAnexo.size());
+        System.out.println("Lista Tra:::" + listaDetallesAnexo.size());
         String fileName = "c:\\Users\\FOLF-LMST\\Documents\\datytra\\PRDO.tra"; //location of generated report
         //String fileName = "\\PRDO.tra"; //location of generated report
-                    
-        try
-		{
-		 writer = new FileWriter(fileName);
-		
-		 for (EstructuraContratosTrailersDTO detalle : listaDetallesAnexo) {                   			   
-               
-			 writer.append(detalle.getRfc());
-			 writer.append('|');
-			 writer.append(detalle.getNumEmp());
-			 writer.append('|');
-			 writer.append(detalle.getNumCheq());
-			 writer.append('|');
-			 writer.append(detalle.gettConcep().toString());
-			 writer.append('|');
-			 writer.append(detalle.getConcep());
-			 writer.append('|');
-			 writer.append(detalle.getImporte().toString());
-			 writer.append('|');
-			 writer.append(detalle.getAnio());
-			 writer.append('|');
-			 writer.append(detalle.getQna());
-			 writer.append('|');
-			 writer.append(detalle.getPtaAnt());
-			 writer.append('|');
-			 writer.append(detalle.getNumCheq());
-			 writer.append('|');
-			 writer.append(detalle.getTotPagos());
-			 writer.append('|');
-			 writer.append(detalle.getPagoEfec());
-			 writer.append('|');			 
-			 writer.append(detalle.getNumCheq());
-			 writer.append('|');
-			 writer.append(detalle.getNomProd());
-			 writer.append('|');
-			 writer.append(detalle.getNumControl().toString());			   
-			 writer.append('\n');
-			
-		 }
-                 writer.close();
-		}
-		catch(IOException e)
-		{
-		 e.printStackTrace();
-		} 
+
+        try {
+            writer = new FileWriter(fileName);
+
+            for (EstructuraContratosTrailersDTO detalle : listaDetallesAnexo) {
+
+                writer.append(detalle.getRfc());
+                writer.append('|');
+                writer.append(detalle.getNumEmp());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.gettConcep().toString());
+                writer.append('|');
+                writer.append(detalle.getConcep());
+                writer.append('|');
+                writer.append(detalle.getImporte().toString());
+                writer.append('|');
+                writer.append(detalle.getAnio());
+                writer.append('|');
+                writer.append(detalle.getQna());
+                writer.append('|');
+                writer.append(detalle.getPtaAnt());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.getTotPagos());
+                writer.append('|');
+                writer.append(detalle.getPagoEfec());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.getNomProd());
+                writer.append('|');
+                writer.append(detalle.getNumControl().toString());
+                writer.append('\n');
+            }
+            writer.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
-   
     
     private void llenarDetallesDat(List<EstructuraContratosDatDTO> listaDetallesAnexo) {
         //int i = FILA_INICIO_DETALLE;
-        System.out.println("Lista Dat:::"+listaDetallesAnexo.size());
+        System.out.println("Lista Dat:::" + listaDetallesAnexo.size());
         String fileName = "c:\\Users\\FOLF-LMST\\Documents\\datytra\\PRDO.dat"; //location of generated report        
         //String fileName = "\\PRDO.dat"; //location of generated report
-                            
-        try
-		{
-		 writer = new FileWriter(fileName);
-		 
-		 for (EstructuraContratosDatDTO detalle : listaDetallesAnexo) {   
-			 //
-               
-			 writer.append(detalle.getRfc());writer.append('|');
-			 writer.append(detalle.getNumEmp());writer.append('|');
-			 writer.append(detalle.getCurp());writer.append('|');
-			 writer.append(detalle.getNombre());writer.append('|');
-			 writer.append(detalle.getSar());writer.append('|');
-			 writer.append(detalle.getBancoA());writer.append('|');
-			 writer.append(detalle.getBancoN());writer.append('|');
-			 writer.append(detalle.getNumCta());writer.append('|');
-			 writer.append(detalle.getClabe());writer.append('|');
-			 writer.append(detalle.getFuncion());writer.append('|');
-			 writer.append(detalle.getCp());writer.append('|');
-			 writer.append(detalle.getCalle());writer.append('|');
-			 writer.append(detalle.getPuesto());writer.append('|');
-			 writer.append(detalle.getDesPuesto());writer.append('|');
-			 writer.append(detalle.getUr());writer.append('|');
-			 writer.append(detalle.getGf());writer.append('|');
-			 writer.append(detalle.getFn());writer.append('|');
-			 writer.append(detalle.getSf());writer.append('|');
-			 writer.append(detalle.getPg());writer.append('|');
-			 writer.append(detalle.getAi());writer.append('|');
-			 writer.append(detalle.getPp());writer.append('|');
-			 writer.append(detalle.getPartida());writer.append('|');
-			 writer.append(detalle.getPuestoTab());writer.append('|');
-			 writer.append(detalle.getNumPto());writer.append('|');
-			 writer.append(detalle.getEdo());writer.append('|');
-			 writer.append(detalle.getMpio());writer.append('|');
-			 writer.append(detalle.getCr());writer.append('|');
-			 writer.append(detalle.getCi());writer.append('|');
-			 writer.append(detalle.getPagaD());writer.append('|');
-			 writer.append(detalle.getFinanciamiento());writer.append('|');
-			 writer.append(detalle.getTabPto());writer.append('|');
-			 writer.append(detalle.getNivel());writer.append('|');
-			 writer.append(detalle.getRango());writer.append('|');
-			 writer.append(detalle.getIndMando());writer.append('|');
-			 writer.append(detalle.getHoras());writer.append('|');
-			 writer.append(detalle.getPorcent());writer.append('|');
-			 writer.append(detalle.getTipoTrab());writer.append('|');
-			 writer.append(detalle.getNivelPto());writer.append('|');
-			 writer.append(detalle.getIndEmp());writer.append('|');
-			 writer.append(detalle.getFecInicial());writer.append('|');
-			 writer.append(detalle.getFecFinal());writer.append('|');
-			 writer.append(detalle.getFecIngreso());writer.append('|');
-			 writer.append(detalle.getTipoMov());writer.append('|');
-			 writer.append(detalle.getfPago());writer.append('|');
-			 writer.append(detalle.getpPagoI());writer.append('|');
-			 writer.append(detalle.getpPagoF());writer.append('|');
-			 writer.append(detalle.getpQnaI());writer.append('|');
-			 writer.append(detalle.getpQnaF());writer.append('|');
-			 writer.append(detalle.getQnaReal());writer.append('|');
-			 writer.append(detalle.getAnioReal());writer.append('|');
-			 writer.append(detalle.getTipoPago().toString());writer.append('|');
-			 writer.append(detalle.getInstruA());writer.append('|');
-			 writer.append(detalle.getInstruN());writer.append('|');
-			 writer.append(detalle.getPer().toPlainString());writer.append('|');
-			 if(detalle.getDed().equals(null))
-				 writer.append("0");
-			 else
-				 writer.append(detalle.getDed().toString());
-			 writer.append('|');
-			 writer.append(detalle.getNeto().toPlainString());writer.append('|');
-			 writer.append(detalle.getNoTrail().toString());writer.append('|');
-			 writer.append(detalle.getDiasLab().toString());writer.append('|');
-			 writer.append(detalle.getNomProd());writer.append('|');
-			 writer.append(detalle.getNumCtrol().toString());writer.append('|');
-			 writer.append(detalle.getNumCheq());writer.append('|');
-			 writer.append(detalle.getDigVer());writer.append('|');
-			 writer.append(detalle.getJornada().toString());writer.append('|');
-			 writer.append(detalle.getDiasP());writer.append('|');
-			 writer.append(detalle.getCicloF());writer.append('|');
-			 writer.append(detalle.getNumAport());writer.append('|');
-			 writer.append(detalle.getAcumF().toString());writer.append('|');
-			 writer.append(detalle.getFaltas().toString());writer.append('|');
-			 writer.append(detalle.getClues());writer.append('|');
-			 writer.append(detalle.getPorPen01().toString());writer.append('|');
-			 writer.append(detalle.getPorPen02().toString());writer.append('|');
-			 writer.append(detalle.getPorPen03().toString());writer.append('|');
-			 writer.append(detalle.getPorPen04().toString());writer.append('|');
-			 writer.append(detalle.getPorPen05().toString());writer.append('|');
-			 writer.append(detalle.getIssste().toString());writer.append('|');
-			 writer.append(detalle.getTipoUni().toString());writer.append('|');
-			 writer.append(detalle.getCrespDes());writer.append('|');
-		   
-			 writer.append('\n');
-			
-		 }
-             writer.close();
-		}
-		catch(IOException e)
-		{
-		 e.printStackTrace();
-		} 
+
+        try {
+            writer = new FileWriter(fileName);
+
+            for (EstructuraContratosDatDTO detalle : listaDetallesAnexo) {
+                writer.append(detalle.getRfc());
+                writer.append('|');
+                writer.append(detalle.getNumEmp());
+                writer.append('|');
+                writer.append(detalle.getCurp());
+                writer.append('|');
+                writer.append(detalle.getNombre());
+                writer.append('|');
+                writer.append(detalle.getSar());
+                writer.append('|');
+                writer.append(detalle.getBancoA());
+                writer.append('|');
+                writer.append(detalle.getBancoN());
+                writer.append('|');
+                writer.append(detalle.getNumCta());
+                writer.append('|');
+                writer.append(detalle.getClabe());
+                writer.append('|');
+                writer.append(detalle.getFuncion());
+                writer.append('|');
+                writer.append(detalle.getCp());
+                writer.append('|');
+                writer.append(detalle.getCalle());
+                writer.append('|');
+                writer.append(detalle.getPuesto());
+                writer.append('|');
+                writer.append(detalle.getDesPuesto());
+                writer.append('|');
+                writer.append(detalle.getUr());
+                writer.append('|');
+                writer.append(detalle.getGf());
+                writer.append('|');
+                writer.append(detalle.getFn());
+                writer.append('|');
+                writer.append(detalle.getSf());
+                writer.append('|');
+                writer.append(detalle.getPg());
+                writer.append('|');
+                writer.append(detalle.getAi());
+                writer.append('|');
+                writer.append(detalle.getPp());
+                writer.append('|');
+                writer.append(detalle.getPartida());
+                writer.append('|');
+                writer.append(detalle.getPuestoTab());
+                writer.append('|');
+                writer.append(detalle.getNumPto());
+                writer.append('|');
+                writer.append(detalle.getEdo());
+                writer.append('|');
+                writer.append(detalle.getMpio());
+                writer.append('|');
+                writer.append(detalle.getCr());
+                writer.append('|');
+                writer.append(detalle.getCi());
+                writer.append('|');
+                writer.append(detalle.getPagaD());
+                writer.append('|');
+                writer.append(detalle.getFinanciamiento());
+                writer.append('|');
+                writer.append(detalle.getTabPto());
+                writer.append('|');
+                writer.append(detalle.getNivel());
+                writer.append('|');
+                writer.append(detalle.getRango());
+                writer.append('|');
+                writer.append(detalle.getIndMando());
+                writer.append('|');
+                writer.append(detalle.getHoras());
+                writer.append('|');
+                writer.append(detalle.getPorcent());
+                writer.append('|');
+                writer.append(detalle.getTipoTrab());
+                writer.append('|');
+                writer.append(detalle.getNivelPto());
+                writer.append('|');
+                writer.append(detalle.getIndEmp());
+                writer.append('|');
+                writer.append(detalle.getFecInicial());
+                writer.append('|');
+                writer.append(detalle.getFecFinal());
+                writer.append('|');
+                writer.append(detalle.getFecIngreso());
+                writer.append('|');
+                writer.append(detalle.getTipoMov());
+                writer.append('|');
+                writer.append(detalle.getfPago());
+                writer.append('|');
+                writer.append(detalle.getpPagoI());
+                writer.append('|');
+                writer.append(detalle.getpPagoF());
+                writer.append('|');
+                writer.append(detalle.getpQnaI());
+                writer.append('|');
+                writer.append(detalle.getpQnaF());
+                writer.append('|');
+                writer.append(detalle.getQnaReal());
+                writer.append('|');
+                writer.append(detalle.getAnioReal());
+                writer.append('|');
+                writer.append(detalle.getTipoPago().toString());
+                writer.append('|');
+                writer.append(detalle.getInstruA());
+                writer.append('|');
+                writer.append(detalle.getInstruN());
+                writer.append('|');
+                writer.append(detalle.getPer().toPlainString());
+                writer.append('|');
+                writer.append(detalle.getDed() == null ? "0" : detalle.getDed().toString());
+                writer.append('|');
+                writer.append(detalle.getNeto().toPlainString());
+                writer.append('|');
+                writer.append(detalle.getNoTrail().toString());
+                writer.append('|');
+                writer.append(detalle.getDiasLab().toString());
+                writer.append('|');
+                writer.append(detalle.getNomProd());
+                writer.append('|');
+                writer.append(detalle.getNumCtrol().toString());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.getDigVer());
+                writer.append('|');
+                writer.append(detalle.getJornada());
+                writer.append('|');
+                writer.append(detalle.getDiasP());
+                writer.append('|');
+                writer.append(detalle.getCicloF());
+                writer.append('|');
+                writer.append(detalle.getNumAport());
+                writer.append('|');
+                writer.append(detalle.getAcumF().toString());
+                writer.append('|');
+                writer.append(detalle.getFaltas().toString());
+                writer.append('|');
+                writer.append(detalle.getClues());
+                writer.append('|');
+                writer.append(detalle.getPorPen01().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen02().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen03().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen04().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen05().toString());
+                writer.append('|');
+                writer.append(detalle.getIssste().toString());
+                writer.append('|');
+                writer.append(detalle.getTipoUni().toString());
+                writer.append('|');
+                writer.append(detalle.getCrespDes());
+                writer.append('|');
+
+                writer.append('\n');
+
+            }
+            writer.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
     
     
-    private void llenarDetallesTraCont(List<EstructuraContratosTrailersDTO> listaDetallesAnexo,String producto) {                        
-        try
-		{
-         Path path = Files.createTempFile(producto, ".tra");
-         archivo = path.toFile();
-		 writer = new FileWriter(archivo);
-		
-		 for (EstructuraContratosTrailersDTO detalle : listaDetallesAnexo) {                   			   
-               
-			 writer.append(detalle.getRfc());
-			 writer.append('|');
-			 writer.append(detalle.getNumEmp());
-			 writer.append('|');
-			 writer.append(detalle.getNumCheq());
-			 writer.append('|');
-			 writer.append(detalle.gettConcep().toString());
-			 writer.append('|');
-			 writer.append(detalle.getConcep());
-			 writer.append('|');
-			 writer.append(detalle.getImporte().toString());
-			 writer.append('|');
-			 writer.append(detalle.getAnio());
-			 writer.append('|');
-			 writer.append(detalle.getQna());
-			 writer.append('|');
-			 writer.append(detalle.getPtaAnt());
-			 writer.append('|');
-			 writer.append(detalle.getTotPagos());
-			 writer.append('|');
-			 writer.append(detalle.getPagoEfec());
-			 writer.append('|');
-			 writer.append(detalle.getNomProd());
-			 writer.append('|');
-			 writer.append(detalle.getNumControl().toString());			   
-			 writer.append('\n');
-			
-		 }
-                 writer.close();
-		}
-		catch(IOException e)
-		{
-		 e.printStackTrace();
-		} 
+    private void llenarDetallesTraCont(List<EstructuraContratosTrailersDTO> listaDetallesAnexo, String producto) {
+        try {
+            Path path = Files.createTempFile(producto, ".tra");
+            archivo = path.toFile();
+            writer = new FileWriter(archivo);
+
+            for (EstructuraContratosTrailersDTO detalle : listaDetallesAnexo) {
+
+                writer.append(detalle.getRfc());
+                writer.append('|');
+                writer.append(detalle.getNumEmp());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.gettConcep().toString());
+                writer.append('|');
+                writer.append(detalle.getConcep());
+                writer.append('|');
+                writer.append(detalle.getImporte().toString());
+                writer.append('|');
+                writer.append(detalle.getAnio());
+                writer.append('|');
+                writer.append(detalle.getQna());
+                writer.append('|');
+                writer.append(detalle.getPtaAnt());
+                writer.append('|');
+                writer.append(detalle.getTotPagos());
+                writer.append('|');
+                writer.append(detalle.getPagoEfec());
+                writer.append('|');
+                writer.append(detalle.getNomProd());
+                writer.append('|');
+                writer.append(detalle.getNumControl().toString());
+                writer.append('\n');
+
+            }
+            writer.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
    
     
     private void llenarDetallesDatCont(List<EstructuraContratosDatDTO> listaDetallesAnexo,String producto) {                            
-        try
-		{
-        Path path = Files.createTempFile(producto, ".dat");
-        archivo = path.toFile();
-   		writer = new FileWriter(archivo);
-		 
-		 for (EstructuraContratosDatDTO detalle : listaDetallesAnexo) {   
-			 //
-               
-			 writer.append(detalle.getRfc());writer.append('|');
-			 writer.append(detalle.getNumEmp());writer.append('|');
-			 writer.append(detalle.getCurp());writer.append('|');
-			 writer.append(detalle.getNombre());writer.append('|');
-			 writer.append(detalle.getSar());writer.append('|');
-			 writer.append(detalle.getBancoA());writer.append('|');
-			 writer.append(detalle.getBancoN());writer.append('|');
-			 writer.append(detalle.getNumCta());writer.append('|');
-			 writer.append(detalle.getClabe());writer.append('|');
-			 writer.append(detalle.getFuncion());writer.append('|');
-			 writer.append(detalle.getCp());writer.append('|');
-			 writer.append(detalle.getCalle());writer.append('|');
-			 writer.append(detalle.getPuesto());writer.append('|');
-			 writer.append(detalle.getDesPuesto());writer.append('|');
-			 writer.append(detalle.getUr());writer.append('|');
-			 writer.append(detalle.getGf());writer.append('|');
-			 writer.append(detalle.getFn());writer.append('|');
-			 writer.append(detalle.getSf());writer.append('|');
-			 writer.append(detalle.getPg());writer.append('|');
-			 writer.append(detalle.getAi());writer.append('|');
-			 writer.append(detalle.getPp());writer.append('|');
-			 writer.append(detalle.getPartida());writer.append('|');
-			 writer.append(detalle.getPuestoTab());writer.append('|');
-			 writer.append(detalle.getNumPto());writer.append('|');
-			 writer.append(detalle.getEdo());writer.append('|');
-			 writer.append(detalle.getMpio());writer.append('|');
-			 writer.append(detalle.getCr());writer.append('|');
-			 writer.append(detalle.getCi());writer.append('|');
-			 writer.append(detalle.getPagaD());writer.append('|');
-			 writer.append(detalle.getFinanciamiento());writer.append('|');
-			 writer.append(detalle.getTabPto());writer.append('|');
-			 writer.append(detalle.getNivel());writer.append('|');
-			 writer.append(detalle.getRango());writer.append('|');
-			 writer.append(detalle.getIndMando());writer.append('|');
-			 writer.append(detalle.getHoras());writer.append('|');
-			 writer.append(detalle.getPorcent());writer.append('|');
-			 writer.append(detalle.getTipoTrab());writer.append('|');
-			 writer.append(detalle.getNivelPto());writer.append('|');
-			 writer.append(detalle.getIndEmp());writer.append('|');
-			 writer.append(detalle.getFecInicial());writer.append('|');
-			 writer.append(detalle.getFecFinal());writer.append('|');
-			 writer.append(detalle.getFecIngreso());writer.append('|');
-			 writer.append(detalle.getTipoMov());writer.append('|');
-			 writer.append(detalle.getfPago());writer.append('|');
-			 writer.append(detalle.getpPagoI());writer.append('|');
-			 writer.append(detalle.getpPagoF());writer.append('|');
-			 writer.append(detalle.getpQnaI());writer.append('|');
-			 writer.append(detalle.getpQnaF());writer.append('|');
-			 writer.append(detalle.getQnaReal());writer.append('|');
-			 writer.append(detalle.getAnioReal());writer.append('|');
-			 writer.append(detalle.getTipoPago().toString());writer.append('|');
-			 writer.append(detalle.getInstruA());writer.append('|');
-			 writer.append(detalle.getInstruN());writer.append('|');
-			 writer.append(detalle.getPer().toPlainString());writer.append('|');
-			 if(detalle.getDed().equals(null))
-				 writer.append("0");
-			 else
-				 writer.append(detalle.getDed().toString());
-			 writer.append('|');
-			 writer.append(detalle.getNeto().toPlainString());writer.append('|');
-			 writer.append(detalle.getNoTrail().toString());writer.append('|');
-			 writer.append(detalle.getDiasLab().toString());writer.append('|');
-			 writer.append(detalle.getNomProd());writer.append('|');
-			 writer.append(detalle.getNumCtrol().toString());writer.append('|');
-			 writer.append(detalle.getNumCheq());writer.append('|');
-			 writer.append(detalle.getDigVer());writer.append('|');
-			 writer.append(detalle.getJornada().toString());writer.append('|');//modificado
-			 writer.append(detalle.getDiasP());writer.append('|');
-			 writer.append(detalle.getCicloF());writer.append('|');
-			 writer.append(detalle.getNumAport());writer.append('|');
-			 writer.append(detalle.getAcumF().toString());writer.append('|');
-			 writer.append(detalle.getFaltas().toString());writer.append('|');
-			 writer.append(detalle.getClues());writer.append('|');
-			 writer.append(detalle.getPorPen01().toString());writer.append('|');
-			 writer.append(detalle.getPorPen02().toString());writer.append('|');
-			 writer.append(detalle.getPorPen03().toString());writer.append('|');
-			 writer.append(detalle.getPorPen04().toString());writer.append('|');
-			 writer.append(detalle.getPorPen05().toString());writer.append('|');
-			 writer.append(detalle.getIssste().toString());writer.append('|');
-			 writer.append(detalle.getTipoUni().toString());writer.append('|');
-			 writer.append(detalle.getCrespDes());writer.append('|');
-		   
-			 writer.append('\n');
-			
-		 }
-             writer.close();
-		}
-		catch(IOException e)
-		{
-		 e.printStackTrace();
-		} 
+        try {
+            Path path = Files.createTempFile(producto, ".dat");
+            archivo = path.toFile();
+            writer = new FileWriter(archivo);
+
+            for (EstructuraContratosDatDTO detalle : listaDetallesAnexo) {
+                //
+
+                writer.append(detalle.getNumEmp());
+                writer.append('|');
+                writer.append(detalle.getRfc());
+                writer.append('|');
+                writer.append(detalle.getCurp());
+                writer.append('|');
+                writer.append(detalle.getNombre());
+                writer.append('|');
+                writer.append(detalle.getSar());
+                writer.append('|');
+                writer.append(detalle.getBancoA());
+                writer.append('|');
+                writer.append(detalle.getBancoN());
+                writer.append('|');
+                writer.append(detalle.getNumCta());
+                writer.append('|');
+                writer.append(detalle.getClabe());
+                writer.append('|');
+                writer.append(detalle.getFuncion());
+                writer.append('|');
+                writer.append(detalle.getCp());
+                writer.append('|');
+                writer.append(detalle.getCalle());
+                writer.append('|');
+                writer.append(detalle.getPuesto());
+                writer.append('|');
+                writer.append(detalle.getDesPuesto());
+                writer.append('|');
+                writer.append(detalle.getUr());
+                writer.append('|');
+                writer.append(detalle.getGf());
+                writer.append('|');
+                writer.append(detalle.getFn());
+                writer.append('|');
+                writer.append(detalle.getSf());
+                writer.append('|');
+                writer.append(detalle.getPg());
+                writer.append('|');
+                writer.append(detalle.getAi());
+                writer.append('|');
+                writer.append(detalle.getPp());
+                writer.append('|');
+                writer.append(detalle.getPartida());
+                writer.append('|');
+                writer.append(detalle.getPuestoTab());
+                writer.append('|');
+                writer.append(detalle.getNumPto());
+                writer.append('|');
+                writer.append(detalle.getEdo());
+                writer.append('|');
+                writer.append(detalle.getMpio());
+                writer.append('|');
+                writer.append(detalle.getCr());
+                writer.append('|');
+                writer.append(detalle.getCi());
+                writer.append('|');
+                writer.append(detalle.getPagaD());
+                writer.append('|');
+                writer.append(detalle.getFinanciamiento());
+                writer.append('|');
+                writer.append(detalle.getTabPto());
+                writer.append('|');
+                writer.append(detalle.getNivel());
+                writer.append('|');
+                writer.append(detalle.getRango());
+                writer.append('|');
+                writer.append(detalle.getIndMando());
+                writer.append('|');
+                writer.append(detalle.getHoras());
+                writer.append('|');
+                writer.append(detalle.getPorcent());
+                writer.append('|');
+                writer.append(detalle.getTipoTrab());
+                writer.append('|');
+                writer.append(detalle.getNivelPto());
+                writer.append('|');
+                writer.append(detalle.getIndEmp());
+                writer.append('|');
+                writer.append(detalle.getFecInicial());
+                writer.append('|');
+                writer.append(detalle.getFecFinal());
+                writer.append('|');
+                writer.append(detalle.getFecIngreso());
+                writer.append('|');
+                writer.append(detalle.getTipoMov());
+                writer.append('|');
+                writer.append(detalle.getfPago());
+                writer.append('|');
+                writer.append(detalle.getpPagoI());
+                writer.append('|');
+                writer.append(detalle.getpPagoF());
+                writer.append('|');
+                writer.append(detalle.getpQnaI());
+                writer.append('|');
+                writer.append(detalle.getpQnaF());
+                writer.append('|');
+                writer.append(detalle.getQnaReal());
+                writer.append('|');
+                writer.append(detalle.getAnioReal());
+                writer.append('|');
+                writer.append(detalle.getTipoPago().toString());
+                writer.append('|');
+                writer.append(detalle.getInstruA());
+                writer.append('|');
+                writer.append(detalle.getInstruN());
+                writer.append('|');
+                writer.append(detalle.getPer() == null ? "0" : detalle.getPer().toPlainString());
+                writer.append('|');
+                writer.append(detalle.getDed() == null ? "0" : detalle.getDed().toString());
+                writer.append('|');
+                writer.append(detalle.getNeto() == null ? "0" : detalle.getNeto().toPlainString());
+                writer.append('|');
+                writer.append(detalle.getNoTrail().toString());
+                writer.append('|');
+                writer.append(detalle.getDiasLab().toString());
+                writer.append('|');
+                writer.append(detalle.getNomProd());
+                writer.append('|');
+                writer.append(detalle.getNumCtrol().toString());
+                writer.append('|');
+                writer.append(detalle.getNumCheq());
+                writer.append('|');
+                writer.append(detalle.getDigVer());
+                writer.append('|');
+                writer.append(detalle.getJornada());
+                writer.append('|');//modificado
+                writer.append(detalle.getDiasP());
+                writer.append('|');
+                writer.append(detalle.getCicloF());
+                writer.append('|');
+                writer.append(detalle.getNumAport());
+                writer.append('|');
+                //writer.append(detalle.getAcumF().toString());writer.append('|');
+                writer.append(' ');
+                writer.append('|');
+                //writer.append(detalle.getFaltas().toString());writer.append('|');
+                writer.append(' ');
+                writer.append('|');
+                writer.append(detalle.getClues());
+                writer.append('|');
+                writer.append(detalle.getPorPen01().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen02().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen03().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen04().toString());
+                writer.append('|');
+                writer.append(detalle.getPorPen05().toString());
+                writer.append('|');
+                writer.append(detalle.getIssste().toString());
+                writer.append('|');
+                writer.append(detalle.getTipoUni().toString());
+                writer.append('|');
+                writer.append(detalle.getCrespDes());
+                writer.append('|');
+
+                writer.append('\n');
+
+            }
+            writer.close();
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+        }
     }
 
     /**
@@ -739,52 +889,49 @@ public class SIIFEncabezadoExcel {
 
     }
 
-     
-        public byte[] generarDat(List<EstructuraContratosDatDTO> listaDetalles) {
-            try {
-                    
-                    llenarDetallesDat(listaDetalles);
-                    return obtenerBytesDatZip();
-            } catch (IOException e) {
-                    throw new ReglaNegocioException(
-                                    "Ocurrio un error al leer la platilla");
-            }
-        }
-        
-        public byte[] generarTraCont(List<EstructuraContratosTrailersDTO> listaDetalles,String producto) {
-            try {
-                    
-                    llenarDetallesTraCont(listaDetalles,producto);
-                    return obtenerBytesTraContZip(producto);
-            } catch (IOException e) {
-            		e.printStackTrace();
-                    throw new ReglaNegocioException( "Ocurrio un error al leer la platilla: "+e.getMessage());
-            		
-            }
-        }
-        
-        public byte[] generarDatCont(List<EstructuraContratosDatDTO> listaDetalles, String producto) {
-            try {
-                    
-                    llenarDetallesDatCont(listaDetalles,producto);
-                    return obtenerBytesDatContZip(producto);
-            } catch (IOException e) {
-            		e.printStackTrace();
-                    throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
-            }
-        }
-        
-        public byte[] generarSeguroPopular(List<EstructuraSeguroPopularDTO> listaDetalles) {
-            try {
-            		cargarPlantillaSegPop();
-                    llenarDetallesSeguroPopular(listaDetalles);
-                    return obtenerBytes();
-            } catch (IOException e) {
-                    throw new ReglaNegocioException(
-                                    "Ocurrio un error al leer la platilla");
-            }
-        }
+    public byte[] generarDat(List<EstructuraContratosDatDTO> listaDetalles) {
+        try {
 
-    
+            llenarDetallesDat(listaDetalles);
+            return obtenerBytesDatZip();
+        } catch (IOException e) {
+            throw new ReglaNegocioException(
+                    "Ocurrio un error al leer la platilla");
+        }
+    }
+
+    public byte[] generarTraCont(List<EstructuraContratosTrailersDTO> listaDetalles, String producto) {
+        try {
+
+            llenarDetallesTraCont(listaDetalles, producto);
+            return obtenerBytesTraContZip(producto);
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new ReglaNegocioException("Ocurrio un error al leer la platilla: " + e.getMessage());
+
+        }
+    }
+
+    public byte[] generarDatCont(List<EstructuraContratosDatDTO> listaDetalles, String producto) {
+        try {
+
+            llenarDetallesDatCont(listaDetalles, producto);
+            return obtenerBytesDatContZip(producto);
+        } catch (IOException e) {
+            LOGGER.error(e.getMessage(), e);
+            throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
+        }
+    }
+
+    public byte[] generarSeguroPopular(List<EstructuraSeguroPopularDTO> listaDetalles) {
+        try {
+            cargarPlantillaSegPop();
+            llenarDetallesSeguroPopular(listaDetalles);
+            return obtenerBytes();
+        } catch (IOException e) {
+            throw new ReglaNegocioException(
+                    "Ocurrio un error al leer la platilla");
+        }
+    }
+
 }
-

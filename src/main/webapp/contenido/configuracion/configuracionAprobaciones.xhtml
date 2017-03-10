@@ -102,11 +102,13 @@
 					</f:facet>
 
 					<p:outputLabel for="aprobacionActualizar"
-						value="Seleccione una aprobación:" />
-					<p:selectOneMenu id="aprobacionActualizar" filter="true"
-						effect="size" required="true"
-						requiredMessage="Seleccione una aprobación"
-						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idAccionUsuario}">
+									value="Seleccione una aprobación:"/>
+					<p:selectOneMenu id="aprobacionActualizar" 
+									filter="true"
+									effect="size" 
+									required="true"
+									requiredMessage="Seleccione una aprobación"
+									value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idAccionUsuario}">
 						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
 						<f:selectItems
 							value="#{configuracionAprobacion.view.listaOperaciones}" />
@@ -140,11 +142,13 @@
 
 
 					<p:outputLabel for="tipoMovimientoEmpleadoActualizar"
-						value="Seleccione el tipo de movimiento:" />
+						           value="Seleccione el tipo de movimiento:"
+						           rendered="#{configuracionAprobacion.view.aplicaMovimientos}" />
 					<p:selectOneMenu id="tipoMovimientoEmpleadoActualizar"
 						filter="true" effect="size" required="true"
 						requiredMessage="Seleccione el tipo de movimiento"
-						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idTipoMovimiento}">
+						value="#{configuracionAprobacion.view.actualizarConfiguracionAprobacion.idTipoMovimiento}"
+									rendered="#{configuracionAprobacion.view.aplicaMovimientos}" >
 						<f:selectItem itemLabel="Selecciona una opción" itemValue="" />
 						<f:selectItems
 							value="#{configuracionAprobacion.view.listaTipoMovimientoEmpleado}" />

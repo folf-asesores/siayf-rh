@@ -43,6 +43,8 @@ public class ConceptoNominaContratosEntity implements Serializable {
 	private Boolean aguinaldo;
 	@Column(name = "retroactivo")
 	private Boolean retroactivo;
+	@Column(name = "aplica_movimientos")
+	private Boolean aplicaMovimiento;
 	@Column(name = "tratamiento")
 	private Boolean tratamiento;
 	@ManyToOne(fetch = FetchType.LAZY)

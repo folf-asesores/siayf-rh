@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import org.apache.batik.bridge.NoLoadExternalResourceSecurity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
@@ -109,6 +110,54 @@ public class MovimientoFijoRepository extends GenericRepository<MovimientoFijoEn
 		}
 		
 		return datosDto2;
+	}
+	
+	
+	public List<MovimientoNominaDTO> obtenerMovimiento(Integer idEmpleado,Integer tipoMovimiento){
+		
+		try{
+		Session session = em.unwrap(Session.class);
+		Query query = session.createSQLQuery("SELECT "
+				+ "id_movimiento_fijo AS idMovimientoFijo, "
+				+ "id_tercero_institucional AS idTerceroInstitucional, "
+				+ "id_empleado AS idEmpleado, "
+				+ "rfc AS rfc, "
+				+ "quincena_operacion as quincenaOperacion, "
+				+ "anyo_operacion AS anyoOperacion, "
+				+ "importe_descontado AS importeDescontado, "
+				+ "quincena_inicial AS quincenaInicial, "
+				+ "quincena_final AS quincenaFinal, "
+				+ "anio_final AS anioFinal, "
+				+ "anio_inicial as anioInicial, "
+				+ "fecha_documento as fechaDocumento, "
+				+ "folio_documento as folio,"
+				+ "id_tipo_movimiento as idTipoMovimiento,"
+				+ "dias as dias,"
+				+ "clave,"
+				+ "estatus "
+				+ "FROM movimientos_empleado_nomina where id_empleado=:idEmpleado and id_tipo_movimiento=:idTipoMovimiento and estatus=1")
+				.setParameter("idEmpleado", idEmpleado)
+				.setParameter("idTipoMovimiento", tipoMovimiento);		
+		query.setResultTransformer(Transformers.aliasToBean(MovimientoNominaDTO.class));
+		@SuppressWarnings("unchecked")
+		List<MovimientoNominaDTO> datosDto = (List<MovimientoNominaDTO>) query.list();
+		List<MovimientoNominaDTO> datosDto2= new ArrayList<>();
+		
+		for(MovimientoNominaDTO dto: datosDto){
+			if(dto.getIdTerceroInstitucional()!=null){
+			TerceroInstitucionalEntity tI = em.createQuery("Select t From TerceroInstitucionalEntity as t where t.idTerceroInstitucional=:idTercero", TerceroInstitucionalEntity.class)
+					.setParameter("idTercero", dto.getIdTerceroInstitucional()).getSingleResult();
+			
+			dto.setTerceroInstitucional(tI.getNumero()+"-"+tI.getConceptoDeduccion()+"-"+tI.getContrapartidaIdentificadora());
+			}
+			datosDto2.add(dto);
+		
+		}
+		
+		return datosDto2;
+		}catch(NoResultException e){
+			return null;
+		}
 	}
 	
 	public List<MovimientoNominaDTO> obtenerMovimientosFijos(){

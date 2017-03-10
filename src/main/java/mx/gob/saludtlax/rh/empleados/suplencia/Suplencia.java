@@ -84,4 +84,16 @@ public interface Suplencia {
 
 	public void regresarARevision(Integer idQuincena);
 
+	/**
+	 * Registra los movimientos del suplente
+	 */
+	public void crearMovimientoSuplente(MovimientoSuplenteDTO movimiento);
+
+	/**
+	 * Consultar las vacaciones e incapacidades de los suplentes.
+	 * 
+	 * @param filtro
+	 *            parámetros de consulta
+	 */
+	public List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro);
 }

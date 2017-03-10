@@ -16,6 +16,7 @@ public class EnumTiposAccionesAutorizacion {
 	public static final int APERTURA_INTERINATO = 4;
 	public static final int MOVIMIENTOS_PERSONAL = 5;
 	public static final int SUPLENCIA_POR_RECURSO = 6;
-    public static final int AUTORIZAR_PRODUCTO_NOMINA_ESTATAL = 7;
-    public static final int AUTORIZAR_PRODUCTO_NOMINA_FEDERAL = 8;
+	public static final int AUTORIZAR_PRODUCTO_NOMINA_ESTATAL = 7;
+	public static final int AUTORIZAR_PRODUCTO_NOMINA_FEDERAL = 8;
+	public static final int MODIFICACION_SUELDO = 9;
 }

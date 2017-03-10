@@ -1,0 +1,118 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Seguridad: Configuración Modulo-Acción" />
+	<ui:param name="moduloTitulo"
+		value="Seguridad: Configuración Modulo-Acción" />
+	<ui:param name="moduloSubtitulo"
+		value="Permite la configuración de los modulos y sus acciones." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+
+			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
+
+				<p:dataTable id="tablaConfiguracionModuloAccion"
+					var="configuracionModuloAccion" rows="10" paginator="true"
+					paginatorPosition="bottom"
+					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30"
+					value="#{configModuloAccion.view.listaConfiguracionModuloAccion}"
+					filteredValue="#{configModuloAccion.view.filtroConfiguracionModuloAccion}"
+					style="margin-bottom:20px" rowIndexVar="index"
+					widgetVar="confiTable"
+					emptyMessage="No se encontrarón resultados..."
+					paginatorAlwaysVisible="false">
+
+					<f:facet name="header">
+						<p:panelGrid columns="5" layout="grid"
+							columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-2"
+							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+							<p:spacer />
+							<p:spacer />
+							<h3
+								style="text-align: center; font-size: 25px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">Configuraciones
+								Registradas</h3>
+							<p:spacer />
+							<p:button id="btnNuevaRegla" title="Nuevo" icon="ui-icon-plus"
+								styleClass="fm-btn-inverso aling_right " immediate="true"
+								update="@all" outcome="nuevo.xhtml" style="float:right;" />
+						</p:panelGrid>
+					</f:facet>
+
+					<p:column headerText="No." width="60" style="text-align: center;">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="Nombre Configuración"
+						filterMatchMode="contains"
+						filterBy="#{configuracionModuloAccion.nombreConfiguracion}">
+						<h:outputText
+							value="#{configuracionModuloAccion.nombreConfiguracion}" />
+					</p:column>
+
+					<p:column headerText="Módulo" filterMatchMode="contains"
+						filterBy="#{configuracionModuloAccion.modulo.nombre}">
+						<h:outputText value="#{configuracionModuloAccion.modulo.nombre}" />
+					</p:column>
+						<p:column headerText="Area" filterMatchMode="contains"
+						filterBy="#{configuracionModuloAccion.modulo.nombreArea}">
+						<h:outputText value="#{configuracionModuloAccion.modulo.nombreArea}" />
+					</p:column>
+
+					<p:column style="text-align: center;" headerText="Opciones">
+
+						<p:button id="btnModulo" title="Editar" icon="ui-icon-pencil"
+							immediate="true" update="@all"
+							outcome="editar.xhtml?i=#{configuracionModuloAccion.id_configuracion_modulo_accion}" />
+
+						<p:commandButton id="eliminarModulo"
+							styleClass="fm-btn-error fm-btn-elevado" process="form"
+							update="form" icon="ui-icon-trash"
+							action="#{configModuloAccion.eliminarConfiguracion(configuracionModuloAccion.id_configuracion_modulo_accion)}">
+							<p:confirm header="Confirmacion"
+								message="¿Deseas quitar el registro: #{configuracionModuloAccion.nombreConfiguracion} de la lista? "
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+			<div class="fm-tarjeta-pie">
+
+				<p:button icon="ui-icon-home" value="Inicio"
+					styleClass="fm-btn-principal" process="@this" update="form"
+					outcome="/contenido/inicio.xhtml" />
+
+			</div>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" update="form"
+					styleClass="ui-confirmdialog-yes fm-btn-error fm-btn-elevado"
+					icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

@@ -101,7 +101,7 @@ public class HistorialPagoController implements Serializable {
 
 			}
 
-			JSFUtils.infoMessage("Descargar Historial PAgo: ", "Se descargo correctamente...");
+			JSFUtils.infoMessage("Descargar Historial Pago: ", "Se descargo correctamente...");
 
 		} catch (NullPointerException | IllegalArgumentException | IOException exception) {
 

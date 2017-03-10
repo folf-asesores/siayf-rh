@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,6 +40,13 @@ public class ArchivoUtil {
     private static final float PDF_ESCALA = 0.5f;
     private static final int IMAGEN_ANCHO = 256;
     private static final int IMAGEN_ALTO = 256;
+    private static final String SEPARADOR_DE_ARCHIVO = System.getProperty("file.separator");
+    private static final String SEPARADOR_DE_ARCHIVO_UNIX = "\n";
+    private static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
+    private static final String CARPETA_USUARIO = System.getProperty("user.home");
+    private static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
+    private static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+    private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
     
     /**
      * Permite obtener el nombre del archivo sin extensión además de
@@ -178,7 +186,7 @@ public class ArchivoUtil {
             ruta = "";
         }
 
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(System.getProperty("user.home"), ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
         Path rutaArchivo = Paths.get(rutaReal.toString(), nombreArchivo);
         
         return Files.readAllBytes(rutaArchivo);
@@ -198,7 +206,7 @@ public class ArchivoUtil {
         } else if(ValidacionUtil.esCadenaVacia(fileName)) {
             LOGGER.error("El nombre del archivo a guardar esta vacio.");
         } else {
-            String filePath = System.getProperty("user.home") + "/" + fileName;
+            String filePath = CARPETA_USUARIO + SEPARADOR_DE_ARCHIVO + fileName;
             Path path = Paths.get(filePath);
             Files.write(path, file);
         }
@@ -231,7 +239,7 @@ public class ArchivoUtil {
             byte [] archivo, boolean sobreescribir, boolean usarCarpetaUsuario)
             throws IOException {
 
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(System.getProperty("user.home"), ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
         Path rutaArchivo = Paths.get(rutaReal.toString(), nombreArchivo);
         
         if (Files.notExists(rutaReal)) {
@@ -258,8 +266,8 @@ public class ArchivoUtil {
     public static void moverArchivo(String origen, String destino, 
             boolean usarCarpetaUsuario) {
         try {
-            Path rutaOrigen = usarCarpetaUsuario ? Paths.get(System.getProperty("user.home"), origen) :  Paths.get(origen);
-            Path rutaDestino = usarCarpetaUsuario ? Paths.get(System.getProperty("user.home"), destino) : Paths.get(destino);
+            Path rutaOrigen = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, origen) :  Paths.get(origen);
+            Path rutaDestino = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, destino) : Paths.get(destino);
 
             Files.move(rutaOrigen, rutaDestino);
         } catch (IOException ex) {
@@ -291,11 +299,11 @@ public class ArchivoUtil {
     public static void eliminarArchivoSoloConNombre(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
         List<Path> archivosPorEliminar = new ArrayList<>();
         
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(System.getProperty("user.home"), ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
         
         try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(rutaReal)) {
             for (Path path : directoryStream) {
-                String archivoSinExtension = obtenerNombreSinExtension(path.toString().replace(rutaReal.toString() + '/', ""));
+                String archivoSinExtension = obtenerNombreSinExtension(path.toString().replace(rutaReal.toString() + SEPARADOR_DE_ARCHIVO, ""));
                 
                 if(nombreArchivo.equals(archivoSinExtension)){
                     archivosPorEliminar.add(path);
@@ -400,6 +408,47 @@ public class ArchivoUtil {
         LOGGER.error("No se ha logrado generar la vista previa del archivo.");
         return null;
     }
+
+    /**
+     * Permite convertir un archivo de texto plano con códificación UTF-8 y
+     * caracteres de fin de línea tipo UNIX a formato de windows.
+     * 
+     * @param archivo un arreglo de bytes que representa un archivo de texto plano.
+     * @return un arreglo de bytes que representa un archivo de texto plano con
+     * códificación de Windows.
+     * @throws IOException en caso de que haya error de lectura o escritura al
+     * crear los archivos temporales.
+     */
+    public static byte[] codificarComoWindows(final byte[] archivo) throws IOException {
+        if(archivo == null) {
+            throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
+        }
+        
+        LOGGER.info("Iniciando la conversión a formato de Windows.");
+        Path archivoTemporal = Files.createTempFile("origen", ".txt");
+        Files.write(archivoTemporal, archivo);
+        
+        if (!SEPARADOR_DE_ARCHIVO_WINDOWS.equals(SEPARADOR_DE_ARCHIVO)) {
+            System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO_WINDOWS);
+        }
+
+        List<String> lineas = Files.readAllLines(archivoTemporal, UTF8_CHARSET);
+        List<String> lineasNuevas = new ArrayList<>();
+        for(String linea : lineas) {
+            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            lineasNuevas.add(nuevaLinea);
+        }
+
+        Path archivoTemporalWin = Files.createTempFile("destino", ".txt");
+        Files.write(archivoTemporalWin, lineasNuevas, WINDOWS_LATIN_CHARSET);
+        System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO);
+
+        byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
+        LOGGER.info("La conversión en formato de Windows se ha completado correctamente.");
+        Files.delete(archivoTemporal);
+        Files.delete(archivoTemporalWin);
+        return archivoWindows;
+    }
     
     /**
      * Permite obtener el nombre del archivo sin extensión y estandariza el 
@@ -413,9 +462,9 @@ public class ArchivoUtil {
         String nombreSinExtension = FilenameUtils.removeExtension(nombreArchivo);
 
         nombreSinExtension = nombreSinExtension.toLowerCase();
-        nombreSinExtension = nombreSinExtension.replace('\u00e0', 'a');
-        nombreSinExtension = nombreSinExtension.replace('\u00e1', 'a');
-        nombreSinExtension = nombreSinExtension.replace('\u00e8', 'e');
+        nombreSinExtension = nombreSinExtension.replace('\u00e0', 'a'); // a con acento agudo
+        nombreSinExtension = nombreSinExtension.replace('\u00e1', 'a'); // a con acento grave
+        nombreSinExtension = nombreSinExtension.replace('\u00e8', 'e'); 
         nombreSinExtension = nombreSinExtension.replace('\u00e9', 'e');
         nombreSinExtension = nombreSinExtension.replace('\u00ec', 'i');
         nombreSinExtension = nombreSinExtension.replace('\u00ed', 'i');

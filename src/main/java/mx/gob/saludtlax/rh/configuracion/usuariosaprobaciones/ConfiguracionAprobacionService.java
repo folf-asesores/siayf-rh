@@ -12,6 +12,7 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionAprobacionEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionAprobacionRepository;
+import mx.gob.saludtlax.rh.persistencia.OperacionSistemaEntity;
 import mx.gob.saludtlax.rh.persistencia.OperacionSistemaRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoMovimientoEmpleadoRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
@@ -69,8 +70,9 @@ public class ConfiguracionAprobacionService {
 
 		}
 
-		entity.setTipoMovimientoEmpleado(tipoMovimientoEmpleadoRepository.obtenerPorId(dto.getIdTipoMovimiento()));
-
+		if (entity.getAccion() != null && entity.getAccion().getAplicaMovimiento()) {
+			entity.setTipoMovimientoEmpleado(tipoMovimientoEmpleadoRepository.obtenerPorId(dto.getIdTipoMovimiento()));
+		}
 		accionesUsuariosRepository.actualizar(entity);
 	}
 
@@ -166,6 +168,11 @@ public class ConfiguracionAprobacionService {
 	public String obtenerDescripcionOperacion(Integer idOperacion) {
 		return operacionSistemaRepository.obtenerDescripcionOperacion(idOperacion);
 
+	}
+
+	public Boolean obtenerAplicaMovimientos(Integer idAccionUsuario) {
+		OperacionSistemaEntity accion = operacionSistemaRepository.obtenerPorId(idAccionUsuario);
+		return accion.getAplicaMovimiento() == null ? Boolean.FALSE : accion.getAplicaMovimiento();
 	}
 
 }

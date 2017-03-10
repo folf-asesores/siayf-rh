@@ -8,6 +8,7 @@ package mx.gob.saludtlax.rh.reportes;
 
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,8 +37,8 @@ public class BitacoraReporteEJB implements BitacoraReporte {
     @Inject private UsuarioRepository empleadoRepository;
         
     @Override
-    public String obtenerReferencia(Map<String, String> parametros){
-        if(parametros == null || parametros.isEmpty()){
+    public String obtenerReferencia(Map<String, String> parametros) {
+        if(parametros == null || parametros.isEmpty()) {
             throw new NullPointerException("No se puede generar un reporte sin parametros");
         }
 
@@ -69,12 +70,13 @@ public class BitacoraReporteEJB implements BitacoraReporte {
 
         String uuid = UUID.randomUUID().toString().substring(0, 32);
         entidad.setIdReferencia(uuid);
-        entidad.setFechaGeneracion(Calendar.getInstance().getTime());
+        Date fecha = Calendar.getInstance().getTime();
+        entidad.setFechaGeneracion(fecha);
+        //entidad.setHoraGeneracion(fecha);
 
         entidad.setReporteParametros(reporteParametros);
 
         String id = bitacoraReporteRepository.crear(entidad).getIdReferencia();
-
         return id;
     }
 

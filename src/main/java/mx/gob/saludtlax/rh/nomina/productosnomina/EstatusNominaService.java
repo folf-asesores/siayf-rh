@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 
+import mx.gob.saludtlax.rh.empleados.administracion.BitacoraModificacionService;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
@@ -34,11 +35,35 @@ public class EstatusNominaService implements Serializable {
 	@Inject
 	private NominaEmpleadoRepository nominaEmpleadoRepository;
 
-	protected void retenerNominaEmpleado(Integer idEstatusNominaEmpleadoRetenido, Integer idNominaEmpleado) {
+	@Inject
+	private BitacoraModificacionService bitacoraModificacionService;
 
-		String contexto = "retenerNominaEmpleado:";
+	public Integer obtenerEstatusPorIdProductoNomina(Integer idProductoNominaEmpleado) {
 
-		if (!ValidacionUtil.esNumeroPositivoInt(idEstatusNominaEmpleadoRetenido)) {
+		String contexto = "obtenerEstatusPorIdProductoNomina: ";
+
+		if (!ValidacionUtil.esNumeroPositivoInt(idProductoNominaEmpleado)) {
+			throw new ValidacionException(contexto + "El id del producto nomina empleado es requerido",
+					ValidacionCodigoError.VALOR_REQUERIDO);
+		}
+
+		Integer estatus = nominaEmpleadoRepository.obtenerEstatusPorIdProductoNomina(idProductoNominaEmpleado);
+
+		if (estatus == null) {
+			throw new ReglaNegocioException(contexto + "El estatus nomina empleado no se encuentra registrado.",
+					ReglaNegocioCodigoError.SIN_REGISTRO);
+		}
+
+		return estatus;
+
+	}
+
+	protected void actualizarEstatusNominaEmpleado(Integer idEstatusNominaEmpleado, Integer idNominaEmpleado,
+			Integer idUsuario) {
+
+		String contexto = "actualizarEstatusNominaEmpleado: ";
+
+		if (!ValidacionUtil.esNumeroPositivoInt(idEstatusNominaEmpleado)) {
 			throw new ValidacionException(contexto + "El id del estatus nomina empleado es requerido",
 					ValidacionCodigoError.VALOR_REQUERIDO);
 		}
@@ -49,7 +74,7 @@ public class EstatusNominaService implements Serializable {
 		}
 
 		EstatusNominasEmpleadoEntity estatusNominasEmpleadoEntity = estatusNominasEmpleadoRepository
-				.obtenerPorId(idEstatusNominaEmpleadoRetenido);
+				.obtenerPorId(idEstatusNominaEmpleado);
 
 		if (estatusNominasEmpleadoEntity == null) {
 			throw new ReglaNegocioException(contexto + "El estatus nomina empleado no se encuentra registrado.",
@@ -64,9 +89,21 @@ public class EstatusNominaService implements Serializable {
 		}
 
 		if (nominaEmpleadoEntity.getIdEstatusNominaEmpleado() == estatusNominasEmpleadoEntity) {
-			throw new ReglaNegocioException(contexto + "La nomina empleado ya se encuentra con el estatus retenido.",
+			throw new ReglaNegocioException(
+					contexto + "La nomina empleado ya se encuentra con el estatus "
+							+ EnumEstatusProductoNomina.obtenerEstatus(idEstatusNominaEmpleado),
 					ReglaNegocioCodigoError.SIN_REGISTRO);
 		}
+
+		Integer movimientoEstatus = 1;// ESTA PARTE SI SE REQUIERE PULIR, SE
+										// PUEDE REALIZAR CON UN CATALOGO EXTRA,
+										// POR EL MOMENTO SOLO UTILIZO EL NUMERO
+										// 1 COMO EL MOVIMIENTO PARA EL ESTATUS
+
+		// ADMINISTRA LOS MOVIMIENTOS DE LOS ESTATUS DEL PRODUCTO NOMINA
+		// EMPLEADO
+		bitacoraModificacionService.registrarBitacoraProductoNominaEmpleado(nominaEmpleadoEntity,
+				EnumEstatusProductoNomina.obtenerEstatus(idEstatusNominaEmpleado), idUsuario, movimientoEstatus);
 
 		nominaEmpleadoEntity.setIdEstatusNominaEmpleado(estatusNominasEmpleadoEntity);
 

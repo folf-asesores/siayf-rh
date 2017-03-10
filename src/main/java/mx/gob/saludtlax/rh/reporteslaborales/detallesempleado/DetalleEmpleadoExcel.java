@@ -148,6 +148,8 @@ public class DetalleEmpleadoExcel implements Serializable {
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			libro.write(byteArrayOutputStream);
 			bytes = byteArrayOutputStream.toByteArray();
+                        libro.close();
+                        is.close();
 		}
 
 		return bytes;

@@ -23,5 +23,7 @@ public class EnumTipoFiltro {
     public static final int NOMBRE_RFC_CURP_PROFESION = 2;
     
     public static final int NOMBRE_RFC_CURP_ACTIVOS = 3;
+    
+    public static final int NOMBRE_RFC_CURP_CONTRATACION = 4;
 
 }

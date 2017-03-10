@@ -25,5 +25,7 @@ public class EnumTipoModificacionEmpleado {
 	public static final Integer MOVIMIENTO_AUTORIZADO = 12;
 	public static final Integer SOLICITUD_MOVIMIENTO = 13;
 	public static final Integer AREA_LABORAL = 14;
+	public static final Integer ACTUALIZACION_PRODUCTO_NOMINA = 15;
+	public static final Integer ACTUALIZACION_ESTRUCTURA_NOMINA = 16;
 
 }

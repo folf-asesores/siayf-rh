@@ -32,17 +32,23 @@ public class OperacionSistemaEntity implements Serializable {
 
 	@Column(name = "operacion")
 	private String operacion;
+	
+	@Column(name = "aplica_movimiento")
+	private Boolean aplicaMovimiento;
 
 	public String getOperacion() {
 		return operacion;
 	}
-
 	public void setOperacion(String operacion) {
 		this.operacion = operacion;
 	}
-
 	public Integer getIdOperacion() {
 		return idOperacion;
 	}
-
+	public Boolean getAplicaMovimiento() {
+		return aplicaMovimiento;
+	}
+	public void setAplicaMovimiento(Boolean aplicaMovimiento) {
+		this.aplicaMovimiento = aplicaMovimiento;
+	}
 }

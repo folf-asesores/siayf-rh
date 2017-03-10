@@ -40,4 +40,9 @@ public class ConfiguracionAprobacionesBean implements ConfiguracionAprobaciones 
 		configuracionAutorizacionService.eliminaConfiguracionAutorizacion(idConfiguracionAprobacion);
 	}
 
+	@Override
+	public Boolean aplicaMovimientos(Integer idAccionUsuario) {
+		return configuracionAutorizacionService.obtenerAplicaMovimientos(idAccionUsuario);
+	}
+
 }

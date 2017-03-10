@@ -71,8 +71,7 @@ public class BusquedaEmpleadoService {
 	 * @param criterio
 	 *            nombre, rfc o curp.
 	 */
-	public List<InfoAspiranteDTO> aspirantesDisponiblesPorCriterio(
-			String criterio) {
+	public List<InfoAspiranteDTO> aspirantesDisponiblesPorCriterio(String criterio) {
 		if (ValidacionUtil.esCadenaVacia(criterio)) {
 			throw new ValidacionException(
 					"Busqueda aspirantes: El criterio de busqueda es requerido, ingrese un criterio.",
@@ -252,27 +251,22 @@ public class BusquedaEmpleadoService {
 
 		AspiranteDTO aspiranteDTO = new AspiranteDTO();
 
-		AspiranteEntity aspiranteEntity = aspiranteRepository
-				.obtenerPorId(IdAspirante);
+		AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(IdAspirante);
 
 		if (aspiranteEntity == null) {
-			throw new ReglaNegocioException(contexto
-					+ " No se ha encontrado registro con el identificador "
-					+ IdAspirante, ReglaNegocioCodigoError.SIN_REGISTRO);
+			throw new ReglaNegocioException(
+					contexto + " No se ha encontrado registro con el identificador " + IdAspirante,
+					ReglaNegocioCodigoError.SIN_REGISTRO);
 		} else {
 			aspiranteDTO.setIdAspirante(aspiranteEntity.getIdAspirante());
 			aspiranteDTO.setNombre(aspiranteEntity.getNombre());
-			aspiranteDTO.setApellidoPaterno(aspiranteEntity
-					.getApellidoPaterno());
-			aspiranteDTO.setApellidoMaterno(aspiranteEntity
-					.getApellidoMaterno());
+			aspiranteDTO.setApellidoPaterno(aspiranteEntity.getApellidoPaterno());
+			aspiranteDTO.setApellidoMaterno(aspiranteEntity.getApellidoMaterno());
 			aspiranteDTO.setRfc(aspiranteEntity.getRfc());
 			aspiranteDTO.setCurp(aspiranteEntity.getCurp());
-			aspiranteDTO.setFechaNacimiento(aspiranteEntity
-					.getFechaNacimiento());
+			aspiranteDTO.setFechaNacimiento(aspiranteEntity.getFechaNacimiento());
 			aspiranteDTO.setTelefono(aspiranteEntity.getTelefono());
-			aspiranteDTO.setCorreoElectronico(aspiranteEntity
-					.getCorreoElectronico());
+			aspiranteDTO.setCorreoElectronico(aspiranteEntity.getCorreoElectronico());
 			aspiranteDTO.setNumeroHijos(aspiranteEntity.getNumeroHijos());
 			aspiranteDTO.setNumeroConyuges(aspiranteEntity.getNumeroConyuges());
 			aspiranteDTO.setNumeroPadres(aspiranteEntity.getNumeroPadres());
@@ -282,69 +276,52 @@ public class BusquedaEmpleadoService {
 
 			// Validando si existe nacionalidad
 			if (aspiranteEntity.getPaisNacionalidad() != null) {
-				aspiranteDTO.setIdPaisNacionalidad(aspiranteEntity
-						.getPaisNacionalidad().getIdPais());
+				aspiranteDTO.setIdPaisNacionalidad(aspiranteEntity.getPaisNacionalidad().getIdPais());
 			}
 
 			aspiranteDTO.setEstadoCivil(aspiranteEntity.getEstadoCivil());
 			// Validando cargo o puesto si existe
 			if (aspiranteEntity.getCargo() != null) {
-				aspiranteDTO.setIdPuesto(aspiranteEntity.getCargo()
-						.getIdPuestoGeneral());
+				aspiranteDTO.setIdPuesto(aspiranteEntity.getCargo().getIdPuestoGeneral());
 			}
 
 			aspiranteDTO.setSexo(aspiranteEntity.getIdSexo());
-			aspiranteDTO.setLugarNacimiento(aspiranteEntity
-					.getLugarNacimiento());
+			aspiranteDTO.setLugarNacimiento(aspiranteEntity.getLugarNacimiento());
 
 			aspiranteDTO.setPeso(aspiranteEntity.getPeso());
 			aspiranteDTO.setEstatura(aspiranteEntity.getEstatura());
 			aspiranteDTO.setViveCon(aspiranteEntity.getViveCon());
-			aspiranteDTO.setTienePersonasDependientes(aspiranteEntity
-					.getTienePersonasDependientes());
+			aspiranteDTO.setTienePersonasDependientes(aspiranteEntity.getTienePersonasDependientes());
 
 			List<DocumentacionEntity> listaDocumentacion = documentacionRepository
-					.documentacionesPorIdAspirante(aspiranteEntity
-							.getIdAspirante());
+					.documentacionesPorIdAspirante(aspiranteEntity.getIdAspirante());
 
 			if (!listaDocumentacion.isEmpty()) {
 
 				for (DocumentacionEntity documentacionEntity : listaDocumentacion) {
 
 					// Documentación
-					if (documentacionEntity.getTipoDocumento().equals(
-							EnumTipoDocumento.AFORE)) {
+					if (documentacionEntity.getTipoDocumento().equals(EnumTipoDocumento.AFORE)) {
 
-						aspiranteDTO.setAfore(documentacionEntity
-								.getDocumento());
+						aspiranteDTO.setAfore(documentacionEntity.getDocumento());
 
 					}
-					if (documentacionEntity.getTipoDocumento().equals(
-							EnumTipoDocumento.SEGURO_SOCIAL)) {
-						aspiranteDTO.setNumeroSeguroSocial(documentacionEntity
-								.getDocumento());
+					if (documentacionEntity.getTipoDocumento().equals(EnumTipoDocumento.SEGURO_SOCIAL)) {
+						aspiranteDTO.setNumeroSeguroSocial(documentacionEntity.getDocumento());
 
 					}
-					if (documentacionEntity.getTipoDocumento().equals(
-							EnumTipoDocumento.CARTILLA_MILITAR)) {
-						aspiranteDTO
-								.setNumeroCartillaMilitar(documentacionEntity
-										.getDocumento());
+					if (documentacionEntity.getTipoDocumento().equals(EnumTipoDocumento.CARTILLA_MILITAR)) {
+						aspiranteDTO.setNumeroCartillaMilitar(documentacionEntity.getDocumento());
 
 					}
-					if (documentacionEntity.getTipoDocumento().equals(
-							EnumTipoDocumento.PASAPORTE)) {
-						aspiranteDTO.setNumeroPasaporte(documentacionEntity
-								.getDocumento());
+					if (documentacionEntity.getTipoDocumento().equals(EnumTipoDocumento.PASAPORTE)) {
+						aspiranteDTO.setNumeroPasaporte(documentacionEntity.getDocumento());
 
 					}
-					if (documentacionEntity.getTipoDocumento().equals(
-							EnumTipoDocumento.LICENCIA)) {
+					if (documentacionEntity.getTipoDocumento().equals(EnumTipoDocumento.LICENCIA)) {
 						aspiranteDTO.setTieneLicencia(true);
-						aspiranteDTO.setNumeroLicencia(documentacionEntity
-								.getDocumento());
-						aspiranteDTO.setTipoLicencia(documentacionEntity
-								.getTipoLicencia());
+						aspiranteDTO.setNumeroLicencia(documentacionEntity.getDocumento());
+						aspiranteDTO.setTipoLicencia(documentacionEntity.getTipoLicencia());
 
 					}
 				}
@@ -352,32 +329,25 @@ public class BusquedaEmpleadoService {
 			}
 
 			DireccionEntity direccionEntity = direccionEmpleadoRepository
-					.consultarDireccionAspirantePorId(aspiranteEntity
-							.getIdAspirante());
+					.consultarDireccionAspirantePorId(aspiranteEntity.getIdAspirante());
 
 			if (direccionEntity != null) {
 
 				DireccionDTO direccionDTO = new DireccionDTO();
 
 				direccionDTO.setCalle(direccionEntity.getCalle());
-				direccionDTO.setNumeroExterior(direccionEntity
-						.getNumeroExterior());
-				direccionDTO.setNumeroInterior(direccionEntity
-						.getNumeroInterior());
+				direccionDTO.setNumeroExterior(direccionEntity.getNumeroExterior());
+				direccionDTO.setNumeroInterior(direccionEntity.getNumeroInterior());
 				direccionDTO.setCodigoPostal(direccionEntity.getCodigoPostal());
 
-				direccionDTO
-						.setIdEstado(direccionEntity.getEstado() == null ? 0
-								: direccionEntity.getEstado().getIdEstado());
+				direccionDTO.setIdEstado(
+						direccionEntity.getEstado() == null ? 0 : direccionEntity.getEstado().getIdEstado());
 
-				direccionDTO
-						.setIdMunicipio(direccionEntity.getMunicipio() == null ? 0
-								: direccionEntity.getMunicipio()
-										.getIdMunicipio());
+				direccionDTO.setIdMunicipio(
+						direccionEntity.getMunicipio() == null ? 0 : direccionEntity.getMunicipio().getIdMunicipio());
 
-				direccionDTO.setIdAsentamiento(direccionEntity
-						.getAsentamiento() == null ? 0 : direccionEntity
-						.getAsentamiento().getIdAsentamiento());
+				direccionDTO.setIdAsentamiento(direccionEntity.getAsentamiento() == null ? 0
+						: direccionEntity.getAsentamiento().getIdAsentamiento());
 
 				aspiranteDTO.setDireccionDTO(direccionDTO);
 			}
@@ -390,18 +360,15 @@ public class BusquedaEmpleadoService {
 
 	protected List<InfoEmpleadoDTO> consultaEmpleadoPorCriterio(String criterio) {
 		if (ValidacionUtil.esCadenaVacia(criterio)) {
-			throw new ValidacionException(
-					"El criterio de busqueda es requerido, ingrese uno.",
+			throw new ValidacionException("El criterio de busqueda es requerido, ingrese uno.",
 					ValidacionCodigoError.VALOR_REQUERIDO);
 		}
 
 		if (criterio.trim().length() < 4) {
-			throw new ValidacionException(
-					"El criterio de la busqueda debe contener minimo 4 letras.",
+			throw new ValidacionException("El criterio de la busqueda debe contener minimo 4 letras.",
 					ValidacionCodigoError.VALOR_MUY_CORTO);
 		}
-		List<InfoEmpleadoDTO> empleados = empleadoRepository
-				.consultarEmpleadoPorCriterio(criterio);
+		List<InfoEmpleadoDTO> empleados = empleadoRepository.consultarEmpleadoPorCriterio(criterio);
 		return empleados;
 
 	}
@@ -411,27 +378,24 @@ public class BusquedaEmpleadoService {
 		List<InfoEmpleadoDTO> empleados = new ArrayList<InfoEmpleadoDTO>();
 
 		if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP) {
-			empleados = empleadoRepository
-					.consultarEmpleadoPorCriterio(filtroDTO.getCriterio());
+			empleados = empleadoRepository.consultarEmpleadoPorCriterio(filtroDTO.getCriterio());
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION) {
-			empleados = empleadoRepository
-					.empleadosPorCriteriosPerfil(filtroDTO.getCriterio());
+			empleados = empleadoRepository.empleadosPorCriteriosPerfil(filtroDTO.getCriterio());
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP_ACTIVOS) {
 			System.out.println("entro a consulta de activos");
-			empleados = empleadoRepository
-					.consultarEmpleadosActivosPorCriterio(filtroDTO
-							.getCriterio());
+			empleados = empleadoRepository.consultarEmpleadosActivosPorCriterio(filtroDTO.getCriterio());
 		}
 
 		return empleados;
 	}
 
-	protected List<InfoEmpleadoDTO> consultarEmpleadosConPuestosActivos(
-			FiltroDTO filtroDTO) {
+	protected List<InfoEmpleadoDTO> consultarEmpleadosConPuestosActivos(FiltroDTO filtroDTO) {
 		List<InfoEmpleadoDTO> empleados = new ArrayList<InfoEmpleadoDTO>();
 		if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP) {
-			empleados = inventarioPuestosRepository
-					.empleadosPorCriterio(filtroDTO.getCriterio());
+			empleados = inventarioPuestosRepository.empleadosPorCriterio(filtroDTO.getCriterio());
+		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION) {
+			empleados = inventarioPuestosRepository.empleadosPorCriterioTipoContratacion(filtroDTO.getCriterio(),
+					filtroDTO.getId());
 		}
 
 		return empleados;
@@ -441,9 +405,8 @@ public class BusquedaEmpleadoService {
 		String contexto = "Consulta Empleado: ";
 		EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
 		if (empleado == null) {
-			throw new ReglaNegocioException(contexto
-					+ "No se ha encontrado empleado con identificador "
-					+ idEmpleado, ReglaNegocioCodigoError.SIN_REGISTRO);
+			throw new ReglaNegocioException(contexto + "No se ha encontrado empleado con identificador " + idEmpleado,
+					ReglaNegocioCodigoError.SIN_REGISTRO);
 		}
 
 		DatosGeneralesDTO dto = new DatosGeneralesDTO();
@@ -463,19 +426,16 @@ public class BusquedaEmpleadoService {
 		dto.setPeso(empleado.getPeso());
 		dto.setRfc(empleado.getRfc());
 		dto.setTelefonos(empleado.getTelefono());
-		dto.setTienePersonasDependientes(empleado
-				.getTienePersonasDependientes());
+		dto.setTienePersonasDependientes(empleado.getTienePersonasDependientes());
 		dto.setDireccionCompleta(empleado.getDireccionCompleta());
 		dto.setIdFoto(empleado.getIdFoto());
 		dto.setNombre(empleado.getNombre());
 		dto.setApellidoMaterno(empleado.getApellidoMaterno());
 		dto.setApellidoPaterno(empleado.getApellidoPaterno());
 
-		if (dto.getTienePersonasDependientes() != null
-				&& dto.getTienePersonasDependientes()) {
+		if (dto.getTienePersonasDependientes() != null && dto.getTienePersonasDependientes()) {
 			List<String> parentescos = new ArrayList<>();
-			if (empleado.getNumeroConyuges() != null
-					&& empleado.getNumeroConyuges() > 0) {
+			if (empleado.getNumeroConyuges() != null && empleado.getNumeroConyuges() > 0) {
 				dto.setNumeroConyuges(empleado.getNumeroConyuges());
 				parentescos.add("CONYUGE");
 			}
@@ -483,13 +443,11 @@ public class BusquedaEmpleadoService {
 				dto.setNumeroHijos(empleado.getNumeroHijos());
 				parentescos.add("HIJOS");
 			}
-			if (empleado.getNumeroPadres() != null
-					&& empleado.getNumeroPadres() > 0) {
+			if (empleado.getNumeroPadres() != null && empleado.getNumeroPadres() > 0) {
 				dto.setNumeroPadres(empleado.getNumeroPadres());
 				parentescos.add("PADRE");
 			}
-			if (empleado.getNumeroOtros() != null
-					&& empleado.getNumeroOtros() > 0) {
+			if (empleado.getNumeroOtros() != null && empleado.getNumeroOtros() > 0) {
 				dto.setNumeroOtros(empleado.getNumeroOtros());
 				parentescos.add("OTRO");
 			}
@@ -502,8 +460,7 @@ public class BusquedaEmpleadoService {
 
 	protected DomicilioDTO obtenerDomicilioEmpleado(Integer idEmpleado) {
 
-		DireccionEntity direccionEntity = direccionEmpleadoRepository
-				.consultarDireccionEmpleadoPorId(idEmpleado);
+		DireccionEntity direccionEntity = direccionEmpleadoRepository.consultarDireccionEmpleadoPorId(idEmpleado);
 
 		DomicilioDTO direccionDTO = new DomicilioDTO();
 		if (direccionEntity == null) {
@@ -513,10 +470,8 @@ public class BusquedaEmpleadoService {
 			direccionDTO.setCalle(direccionEntity.getCalle());
 			direccionDTO.setCodigoPostal(direccionEntity.getCodigoPostal());
 
-			direccionDTO.setIdMunicipio(direccionEntity.getMunicipio()
-					.getIdMunicipio());
-			direccionDTO.setIdAsentamiento(direccionEntity.getAsentamiento()
-					.getIdAsentamiento());
+			direccionDTO.setIdMunicipio(direccionEntity.getMunicipio().getIdMunicipio());
+			direccionDTO.setIdAsentamiento(direccionEntity.getAsentamiento().getIdAsentamiento());
 			direccionDTO.setNumeroExterior(direccionEntity.getNumeroExterior());
 			direccionDTO.setNumeroInterior(direccionEntity.getNumeroInterior());
 			direccionDTO.setTieneDireccion(true);
@@ -525,8 +480,7 @@ public class BusquedaEmpleadoService {
 		return direccionDTO;
 	}
 
-	protected List<ExperienciaLaboralDTO> listaExperienciaLaboralPorIdEmpleado(
-			Integer idAspirante) {
+	protected List<ExperienciaLaboralDTO> listaExperienciaLaboralPorIdEmpleado(Integer idAspirante) {
 		List<ExperienciaLaboralDTO> experienciasLaboralesDTO = new ArrayList<>();
 
 		List<ExperienciaLaboralEntity> experienciasLaboralesEntities = experienciaLaboralRepository
@@ -568,21 +522,17 @@ public class BusquedaEmpleadoService {
 		return empleadoRepository.obtenerListaEmpleadoCandidato();
 	}
 
-	public InfoCandidatoDTO obtenerInformacionCandidatoEmpleado(
-			Integer idEmpleado) {
-		EmpleadoEntity empleadoEntity = empleadoRepository
-				.obtenerPorId(idEmpleado);
+	public InfoCandidatoDTO obtenerInformacionCandidatoEmpleado(Integer idEmpleado) {
+		EmpleadoEntity empleadoEntity = empleadoRepository.obtenerPorId(idEmpleado);
 		if (empleadoEntity == null) {
-			throw new ReglaNegocioException(
-					"No se ha encontrado empleado con identificador "
-							+ idEmpleado, ReglaNegocioCodigoError.SIN_REGISTRO);
+			throw new ReglaNegocioException("No se ha encontrado empleado con identificador " + idEmpleado,
+					ReglaNegocioCodigoError.SIN_REGISTRO);
 		}
 
 		InfoCandidatoDTO infoCandidatoDTO = new InfoCandidatoDTO();
 		infoCandidatoDTO.setCurp(empleadoEntity.getCurp());
 		infoCandidatoDTO.setDomicilio(empleadoEntity.getDireccionCompleta());
-		infoCandidatoDTO.setEdad(FechaUtil.calcularEdad(empleadoEntity
-				.getFechaNacimiento()));
+		infoCandidatoDTO.setEdad(FechaUtil.calcularEdad(empleadoEntity.getFechaNacimiento()));
 		infoCandidatoDTO.setEstadoCivil(empleadoEntity.getEstadoCivil());
 		infoCandidatoDTO.setNacionalidad(empleadoEntity.getNacionalidad());
 		infoCandidatoDTO.setNombre(empleadoEntity.getNombreCompleto());
@@ -590,8 +540,7 @@ public class BusquedaEmpleadoService {
 		infoCandidatoDTO.setSexo(empleadoEntity.getIdSexo());
 
 		String estudios = "";
-		List<String> listaEstudios = historialAcademicoRepository
-				.consultaEstudiosProfesionistasEmpleado(idEmpleado);
+		List<String> listaEstudios = historialAcademicoRepository.consultaEstudiosProfesionistasEmpleado(idEmpleado);
 		if (!listaEstudios.isEmpty()) {
 			for (String estudio : listaEstudios) {
 				estudios = estudio + "/";
@@ -608,25 +557,20 @@ public class BusquedaEmpleadoService {
 	protected EmpleadoDetalladoDTO obtenerInformacionEmpleado(Integer idEmpleado) {
 
 		if (idEmpleado == null) {
-			throw new ValidacionException(
-					"Es requerido el identificador del empleado para obtener su información",
+			throw new ValidacionException("Es requerido el identificador del empleado para obtener su información",
 					ValidacionCodigoError.VALOR_REQUERIDO);
 
 		}
 
-		String estatusEmpleado = empleadoRepository
-				.obtenerEstatusEmpleado(idEmpleado);
-		Integer idTipoEmpleado = empleadoRepository
-				.obtenerTipoEmpleado(idEmpleado);
+		String estatusEmpleado = empleadoRepository.obtenerEstatusEmpleado(idEmpleado);
+		Integer idTipoEmpleado = empleadoRepository.obtenerTipoEmpleado(idEmpleado);
 
 		EmpleadoDetalladoDTO dto = new EmpleadoDetalladoDTO();
 		dto.setEstatus(estatusEmpleado);
 
-		if (estatusEmpleado.equals(EnumEstatusEmpleado.INACTIVO)
-				|| idTipoEmpleado == EnumTipoEmpleado.SUPLENTE) {
+		if (estatusEmpleado.equals(EnumEstatusEmpleado.INACTIVO) || idTipoEmpleado == EnumTipoEmpleado.SUPLENTE) {
 
-			EmpleadoEntity empleado = empleadoRepository
-					.obtenerPorId(idEmpleado);
+			EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
 			dto.setCurp(empleado.getCurp());
 			dto.setDomicilio(empleado.getDireccionCompleta());
 			dto.setEdad(FechaUtil.calcularEdad(empleado.getFechaNacimiento()));
@@ -646,20 +590,17 @@ public class BusquedaEmpleadoService {
 
 		} else {
 
-			InventarioVacanteEntity puesto = inventarioVacanteRepository
-					.obtenerPuestoPorIdEmpleado(idEmpleado);
+			InventarioVacanteEntity puesto = inventarioVacanteRepository.obtenerPuestoPorIdEmpleado(idEmpleado);
 
 			if (puesto == null) {
 
-				throw new ReglaNegocioException(
-						"El empleado no se encuentra activo.",
+				throw new ReglaNegocioException("El empleado no se encuentra activo.",
 						ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
 
 			}
 
 			if (puesto.getConfiguracion() == null) {
-				throw new ValidacionException(
-						"El empleado no tiene asignado dato laboral",
+				throw new ValidacionException("El empleado no tiene asignado dato laboral",
 						ValidacionCodigoError.VALOR_REQUERIDO);
 			}
 
@@ -671,8 +612,7 @@ public class BusquedaEmpleadoService {
 			}
 
 			if (puesto.getSubadscripcion() != null) {
-				dto.setAreaAdscripcion(puesto.getSubadscripcion()
-						.getSubadscripcion());
+				dto.setAreaAdscripcion(puesto.getSubadscripcion().getSubadscripcion());
 			} else {
 				dto.setAreaAdscripcion("SIN ASIGNAR");
 			}
@@ -687,40 +627,28 @@ public class BusquedaEmpleadoService {
 				dto.setFuncion("SIN ASIGNAR");
 			}
 
-			dto.setCodigoPuesto(puesto.getConfiguracion().getPuesto()
-					.getCodigo());
+			dto.setCodigoPuesto(puesto.getConfiguracion().getPuesto().getCodigo());
 			dto.setCurp(puesto.getConfiguracion().getEmpleado().getCurp());
-			dto.setDomicilio(puesto.getConfiguracion().getEmpleado()
-					.getDireccionCompleta());
-			dto.setEdad(FechaUtil.calcularEdad(puesto.getConfiguracion()
-					.getEmpleado().getFechaNacimiento()));
-			dto.setEstadoCivil(puesto.getConfiguracion().getEmpleado()
-					.getEstadoCivil());
-			if (!ValidacionUtil.esCadenaVacia(puesto.getConfiguracion()
-					.getEmpleado().getPerfilAcademico())) {
-				dto.setEstudios(puesto.getConfiguracion().getEmpleado()
-						.getPerfilAcademico());
+			dto.setDomicilio(puesto.getConfiguracion().getEmpleado().getDireccionCompleta());
+			dto.setEdad(FechaUtil.calcularEdad(puesto.getConfiguracion().getEmpleado().getFechaNacimiento()));
+			dto.setEstadoCivil(puesto.getConfiguracion().getEmpleado().getEstadoCivil());
+			if (!ValidacionUtil.esCadenaVacia(puesto.getConfiguracion().getEmpleado().getPerfilAcademico())) {
+				dto.setEstudios(puesto.getConfiguracion().getEmpleado().getPerfilAcademico());
 			} else {
 				dto.setEstudios("SIN REGISTRO");
 			}
 
 			dto.setIdTipoContratacion(puesto.getTipoContratacion().getId());
 
-			dto.setNacionalidad(puesto.getConfiguracion().getEmpleado()
-					.getNacionalidad());
-			dto.setNombramiento(puesto.getConfiguracion().getNombramiento()
-					.getNombramiento());
-			dto.setNombre(puesto.getConfiguracion().getEmpleado()
-					.getNombreCompleto());
+			dto.setNacionalidad(puesto.getConfiguracion().getEmpleado().getNacionalidad());
+			dto.setNombramiento(puesto.getConfiguracion().getNombramiento().getNombramiento());
+			dto.setNombre(puesto.getConfiguracion().getEmpleado().getNombreCompleto());
 			dto.setPuesto(puesto.getConfiguracion().getPuesto().getPuesto());
 			dto.setRfc(puesto.getConfiguracion().getEmpleado().getRfc());
 			dto.setSexo(puesto.getConfiguracion().getEmpleado().getIdSexo());
-			dto.setTipoContratacion(puesto.getTipoContratacion()
-					.getTipoContratacion());
-			dto.setUnidadResponsable(puesto.getConfiguracion()
-					.getUnidadResponsable().getDescripcion());
-			dto.setTipoEmpleado(puesto.getEmpleadoActivo().getTipoEmpleado()
-					.getTipoEmpleado());
+			dto.setTipoContratacion(puesto.getTipoContratacion().getTipoContratacion());
+			dto.setUnidadResponsable(puesto.getConfiguracion().getUnidadResponsable().getDescripcion());
+			dto.setTipoEmpleado(puesto.getEmpleadoActivo().getTipoEmpleado().getTipoEmpleado());
 
 			// TODO checar
 			/*
@@ -738,17 +666,14 @@ public class BusquedaEmpleadoService {
 		return dto;
 	}
 
-	protected List<InfoEmpleadoDTO> empleadosPorCriterioTipoContratacion(
-			String criterio) {
+	protected List<InfoEmpleadoDTO> empleadosPorCriterioTipoContratacion(String criterio) {
 
 		return inventarioVacanteRepository.consultaEmpleadosFederales(criterio);
 	}
 
-	protected List<InfoEmpleadoDTO> empleadosPorCriterioConNombramiento(
-			String criterio) {
+	protected List<InfoEmpleadoDTO> empleadosPorCriterioConNombramiento(String criterio) {
 
-		return inventarioVacanteRepository
-				.empleadosPorCriterioConNombramiento(criterio);
+		return inventarioVacanteRepository.empleadosPorCriterioConNombramiento(criterio);
 	}
 
 }

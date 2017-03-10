@@ -67,6 +67,15 @@ public class NominaEmpleadoDTO implements Serializable {
 	private Integer numeroIdLaboral;
 	private Integer idFuncion;
 	private String funcion;
+	private String curp;
+	private String nombreCompleto;
+	private String fechaIngreso;
+	private String subfuncion;
+	private String financiamiento;
+	private Date fechaInicio;
+	private Date fechaFin;
+	private String jornada;
+	private String clues;
 	private List<ConceptosNominaEmpleadosDTO> percepcionesList;
 	private List<ConceptosNominaEmpleadosDTO> deduccionesList;
 
@@ -412,4 +421,58 @@ public class NominaEmpleadoDTO implements Serializable {
     public void setDeduccionesList(List<ConceptosNominaEmpleadosDTO> deduccionesList) {
         this.deduccionesList = deduccionesList;
     }
+	public String getCurp() {
+		return curp;
+	}
+	public void setCurp(String curp) {
+		this.curp = curp;
+	}
+	public String getNombreCompleto() {
+		return nombreCompleto;
+	}
+	public void setNombreCompleto(String nombreCompleto) {
+		this.nombreCompleto = nombreCompleto;
+	}
+	public String getFechaIngreso() {
+		return fechaIngreso;
+	}
+	public void setFechaIngreso(String fechaIngreso) {
+		this.fechaIngreso = fechaIngreso;
+	}
+	public String getSubfuncion() {
+		return subfuncion;
+	}
+	public void setSubfuncion(String subfuncion) {
+		this.subfuncion = subfuncion;
+	}
+	public String getFinanciamiento() {
+		return financiamiento;
+	}
+	public void setFinanciamiento(String financiamiento) {
+		this.financiamiento = financiamiento;
+	}
+	public Date getFechaInicio() {
+		return fechaInicio;
+	}
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	public Date getFechaFin() {
+		return fechaFin;
+	}
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+	public String getJornada() {
+		return jornada;
+	}
+	public void setJornada(String jornada) {
+		this.jornada = jornada;
+	}
+	public String getClues() {
+		return clues;
+	}
+	public void setClues(String clues) {
+		this.clues = clues;
+	}
 }

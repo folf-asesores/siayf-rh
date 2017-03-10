@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -57,32 +56,35 @@ public class HistorialPagoExcel implements Serializable {
 	/**
 	 * columna de cada detalles
 	 */
-	private static final int RFC = 0;
-	private static final int NOMBRE_EMPLEADO = 1;
-	private static final int FECHA_INGRESO = 2;
-	private static final int CENTRO_RESPONSABILIDAD = 3;
-	private static final int CONCEPTO_CENTRO_RESPONSABILIDAD = 4;
-	private static final int FUNCION = 5;
-	private static final int PROGRAMA = 6;
-	private static final int HONORARIOS_ASIMILABLES = 7;
-	private static final int SUPLENCIAS = 8;
-	private static final int DIAS_ECONOMICOS = 9;
-	private static final int PERCEPCION_COMPLEMENTARIA = 10;
-	private static final int BONO = 11;
-	private static final int AGUINALDO = 12;
-	private static final int SUBSIDIO = 13;
-	private static final int PRIMA_VACACIONAL = 14;
-	private static final int BONIFICACION_FALTA = 15;
-	private static final int RETROACTIVO = 16;
-	private static final int OTROS = 17;
-	private static final int FALTAS_RETARDOS = 18;
-	private static final int ISR = 19;
-	private static final int RESPONSABILIDADES = 20;
-	private static final int PRESTAMO = 21;
-	private static final int JUICIO_MERCANTIL = 22;
-	private static final int CUOTA_SINDICAL = 23;
-	private static final int PENSION_ALIMENTICIA = 24;
-	private static final int COLUMNA_TOTAL = 25;
+	private static final int NOMBRE_PRODUCTO = 0;
+	private static final int INICIO_PERIODO = 1;
+	private static final int FIN_PERIODO = 2;
+	private static final int RFC = 3;
+	private static final int NOMBRE_EMPLEADO = 4;
+	private static final int FECHA_INGRESO = 5;
+	private static final int CENTRO_RESPONSABILIDAD = 6;
+	private static final int CONCEPTO_CENTRO_RESPONSABILIDAD = 7;
+	private static final int FUNCION = 8;
+	private static final int PROGRAMA = 9;
+	private static final int HONORARIOS_ASIMILABLES = 10;
+	private static final int SUPLENCIAS = 11;
+	private static final int DIAS_ECONOMICOS = 12;
+	private static final int PERCEPCION_COMPLEMENTARIA = 13;
+	private static final int BONO = 14;
+	private static final int AGUINALDO = 15;
+	private static final int SUBSIDIO = 16;
+	private static final int PRIMA_VACACIONAL = 17;
+	private static final int BONIFICACION_FALTA = 18;
+	private static final int RETROACTIVO = 19;
+	private static final int OTROS = 20;
+	private static final int FALTAS_RETARDOS = 21;
+	private static final int ISR = 22;
+	private static final int RESPONSABILIDADES = 23;
+	private static final int PRESTAMO = 24;
+	private static final int JUICIO_MERCANTIL = 25;
+	private static final int CUOTA_SINDICAL = 26;
+	private static final int PENSION_ALIMENTICIA = 27;
+	private static final int COLUMNA_TOTAL = 28;
 
 	/**
 	 * Totales
@@ -134,6 +136,8 @@ public class HistorialPagoExcel implements Serializable {
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			libro.write(byteArrayOutputStream);
 			bytes = byteArrayOutputStream.toByteArray();
+                        libro.close();
+                        is.close();
 		}
 
 		return bytes;
@@ -164,13 +168,24 @@ public class HistorialPagoExcel implements Serializable {
 		int i = FILA_INICIO_DETALLE;
 		int filaTotales = FILA_INICIO_DETALLE;
 
-		String pattern = "#,##0.00#";
+//		String pattern = "#,##0.00#";
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		for (HistorialPagoDetalleDTO detalle : estructura) {
 
 			Row filaDetalle = hoja.createRow(i);
+
+			Cell celdaNombreProducto = filaDetalle.createCell(NOMBRE_PRODUCTO);
+			celdaNombreProducto.setCellValue(detalle.getNombreProducto());
+
+			Cell celdaInicioPeriodo = filaDetalle.createCell(INICIO_PERIODO);
+			celdaInicioPeriodo.setCellValue(
+					detalle.getInicioPeriodo() == null ? "" : simpleDateFormat.format(detalle.getInicioPeriodo()));
+
+			Cell celdaFinPeriodo = filaDetalle.createCell(FIN_PERIODO);
+			celdaFinPeriodo.setCellValue(
+					detalle.getFinPeriodo() == null ? "" : simpleDateFormat.format(detalle.getFinPeriodo()));
 
 			Cell celdaRfc = filaDetalle.createCell(RFC);
 			celdaRfc.setCellValue(detalle.getRfc());

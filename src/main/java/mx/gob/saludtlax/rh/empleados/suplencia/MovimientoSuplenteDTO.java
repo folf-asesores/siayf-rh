@@ -11,6 +11,11 @@ import java.util.Date;
  * @Since 11/01/2017 11:11:45
  */
 public class MovimientoSuplenteDTO {
+	private String nombreSuplente;
+	private String usuario;
+	private int totalDias;
+	private Date fechaMovimiento;
+	// Alta movimiento
 	private String movimiento;
 	private Integer idSuplente;
 	private Date fechaInicio;
@@ -18,6 +23,38 @@ public class MovimientoSuplenteDTO {
 	private int ejercicioFiscalPeriodo;
 	private int idUsuario;
 	private String observaciones;
+
+	public int getTotalDias() {
+		return totalDias;
+	}
+
+	public void setTotalDias(int totalDias) {
+		this.totalDias = totalDias;
+	}
+
+	public Date getFechaMovimiento() {
+		return fechaMovimiento;
+	}
+
+	public void setFechaMovimiento(Date fechaMovimiento) {
+		this.fechaMovimiento = fechaMovimiento;
+	}
+
+	public String getNombreSuplente() {
+		return nombreSuplente;
+	}
+
+	public void setNombreSuplente(String nombreSuplente) {
+		this.nombreSuplente = nombreSuplente;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
 
 	public String getObservaciones() {
 		return observaciones;

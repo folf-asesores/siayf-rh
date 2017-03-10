@@ -161,8 +161,19 @@ public class EjercicioFiscalService {
 	public List<PeriodoCalendarioDTO> listaPeriodoCalendarioPorIdEjercicioFiscal(Integer idEjercicioFiscal) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session
-				.createSQLQuery(
-						"SELECT * FROM periodos p WHERE p.idEjercicioFiscal = :idEjercicioFiscal ORDER BY inicioPeriodo")
+				.createSQLQuery("SELECT                                                                 "
+						+ "	pc.id_periodo_calendario 		AS idPeriodoCalendario,                     "
+						+ "	pc.inicio_periodo 				AS inicioPeriodo,                      		"
+						+ "	pc.fin_periodo 					AS finPeriodo,                      		"
+						+ "	pc.numero_periodo 				AS numeroPeriodo,                      		"
+						+ "	pc.id_ejercicio_fiscal 			AS idEjercicioFiscal,                       "
+						+ "	tp.id_tipo_periodo 				AS idTipoPeriodo                            "
+						+ "	FROM periodos_calendarios AS pc                                             "
+						+ "	INNER JOIN tipos_periodos AS tp                                             "
+						+ "	ON tp.id_tipo_periodo = pc.tipo_periodo                                     "
+						+ "	WHERE                                                                  		"
+						+ "	pc.id_ejercicio_fiscal = :idEjercicioFiscal                                 "
+						+ "	ORDER BY pc.inicio_periodo                                            		")
 				.setParameter("idEjercicioFiscal", idEjercicioFiscal);
 		query.setResultTransformer(Transformers.aliasToBean(PeriodoCalendarioDTO.class));
 		@SuppressWarnings("unchecked")

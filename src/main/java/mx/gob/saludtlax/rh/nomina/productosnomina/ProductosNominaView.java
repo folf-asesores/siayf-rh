@@ -48,6 +48,7 @@ public class ProductosNominaView implements Serializable {
     private Boolean panelDetalleGestionFaltas;
     private Boolean panelCalculoNomina;
     private Boolean panelPensiones;
+    private Boolean panelActualizarNomina;
 	private Boolean habilitarEstatus;
 	private Boolean renderedValido;
 	private Boolean mostrarTablaNominaEmpleado;
@@ -57,15 +58,29 @@ public class ProductosNominaView implements Serializable {
 	private ProcesoDTO proceso = new ProcesoDTO();
 	private Boolean operacion;
 	private List<TipoPeriodoDTO> tipoPeriodoLista;
+    private DualListModel<FaltaContadaDTO> faltasGestionar;
+    private List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList;
+    private List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoSelectList;
 
-	private DualListModel<FaltaContadaDTO> faltasGestionar;
-
+    
+    private Boolean mostrarCalendarios = false;
+    
 	public ProductosNominaView(){
 		productoNomina = new ProductoNominaDTO();
 	}
 
 	public void panelCalculoNomina() {
 	    panelCalculoNomina = Boolean.TRUE;
+        panelDetalle = Boolean.FALSE;
+        panelPensiones = Boolean.FALSE;
+        mostrarNominaErronea = Boolean.FALSE;
+        mostrarTablaNominaEmpleado = Boolean.FALSE;
+	    panelActualizarNomina = Boolean.FALSE;
+    }
+
+	public void panelActualizarNomina() {
+	    panelCalculoNomina = Boolean.FALSE;
+	    panelActualizarNomina = Boolean.TRUE;
         panelDetalle = Boolean.FALSE;
         panelPensiones = Boolean.FALSE;
         mostrarNominaErronea = Boolean.FALSE;
@@ -81,6 +96,8 @@ public class ProductosNominaView implements Serializable {
 		panelPrincipalDetalle = Boolean.TRUE;
         mostrarTablaNominaEmpleado = Boolean.TRUE;
 		panelDetalle = Boolean.FALSE;
+	    panelActualizarNomina = Boolean.FALSE;
+	    panelCalculoNomina = Boolean.FALSE;
 	}
 
 	public void showPanelForm() {
@@ -96,6 +113,7 @@ public class ProductosNominaView implements Serializable {
 		panelDetalle = Boolean.FALSE;
         panelCalculoNomina = Boolean.FALSE;
         panelPensiones = Boolean.FALSE;
+        panelActualizarNomina = Boolean.FALSE;
 	}
 
 	public void showPanelDetalle() {
@@ -118,6 +136,14 @@ public class ProductosNominaView implements Serializable {
         panelDetalle = Boolean.FALSE;
         mostrarNominaErronea = Boolean.FALSE;
         mostrarTablaNominaEmpleado = Boolean.FALSE;
+	}
+
+	public void showCalendarFaltas(){
+		if (productoNomina.getCalcularFaltas()) {
+			mostrarCalendarios = true;
+		} else {
+			mostrarCalendarios = false;
+		}
 	}
 
 	public ProcesoDTO getProceso() {
@@ -342,5 +368,38 @@ public class ProductosNominaView implements Serializable {
 	}
 	public void setFaltasGestionar(DualListModel<FaltaContadaDTO> faltasGestionar) {
 		this.faltasGestionar = faltasGestionar;
+	}
+
+	public Boolean getPanelActualizarNomina() {
+		return panelActualizarNomina;
+	}
+
+	public void setPanelActualizarNomina(Boolean panelActualizarNomina) {
+		this.panelActualizarNomina = panelActualizarNomina;
+	}
+    public List<ActualizarNominaEmpleadoDTO> getActualizarNominaEmpleadoList() {
+        return actualizarNominaEmpleadoList;
+    }
+    public void setActualizarNominaEmpleadoList(List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList) {
+        this.actualizarNominaEmpleadoList = actualizarNominaEmpleadoList;
+    }
+
+    public List<ActualizarNominaEmpleadoDTO> getActualizarNominaEmpleadoSelectList() {
+        return actualizarNominaEmpleadoSelectList;
+    }
+
+    public void setActualizarNominaEmpleadoSelectList(
+            List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoSelectList) {
+        this.actualizarNominaEmpleadoSelectList = actualizarNominaEmpleadoSelectList;
+    }
+
+	
+
+	public Boolean getMostrarCalendarios() {
+		return mostrarCalendarios;
+	}
+
+	public void setMostrarCalendarios(Boolean mostrarCalendarios) {
+		this.mostrarCalendarios = mostrarCalendarios;
 	}
 }

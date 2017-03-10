@@ -57,7 +57,7 @@ public class JasperReportsGenerador implements Generador {
         }
 
         JasperReport jr = compilador.compilar(reporte.getInputStream());
-        
+
         return compilador.generarReporte(jr, parametrosReporte, parametros.get("TIPO_REPORTE"));
     }
 

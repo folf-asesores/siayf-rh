@@ -150,10 +150,14 @@ public class QuincenasSuplenciasRepository extends GenericRepository<QuincenasSu
 	}
 
 	public QuincenasSuplenciasEntity obtenerPorNominaEmpleado(NominaEmpleadoEntity nominaEmpleadoEntity) {
-		return em.createQuery(
-						"SELECT q FROM QuincenasSuplenciasEntity AS q WHERE q.idNomina =:nominaEmpleadoEntity",
-						QuincenasSuplenciasEntity.class)
-				.setParameter("nominaEmpleadoEntity", nominaEmpleadoEntity.getIdNominaEmpleado()).getSingleResult();
+		try {
+			return em
+					.createQuery("SELECT q FROM QuincenasSuplenciasEntity AS q WHERE q.idNomina =:nominaEmpleadoEntity",
+							QuincenasSuplenciasEntity.class)
+					.setParameter("nominaEmpleadoEntity", nominaEmpleadoEntity.getIdNominaEmpleado()).getSingleResult();
+		} catch (NoResultException exception) {
+			return null;
+		}
 	}
 
 }

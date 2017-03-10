@@ -56,6 +56,10 @@ public interface SIIFLayout extends Serializable {
     
     int verificaProductoNomina(Integer idProductoNomina);
     
+    byte[] getLayoutSeguroPopularRH(Integer idProductoNomina);
+
+	byte[] getDatTraProdNomRH_Cont(Integer idProductoNomina);
+    
 
     
 }

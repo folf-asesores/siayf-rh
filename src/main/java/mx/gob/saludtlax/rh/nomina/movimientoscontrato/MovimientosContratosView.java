@@ -1,5 +1,6 @@
 package mx.gob.saludtlax.rh.nomina.movimientoscontrato;
 
+import java.util.Date;
 import java.util.List;
 
 import mx.gob.saludtlax.rh.configuracion.conceptosnomina.ConceptoNominaDTO;
@@ -20,7 +21,6 @@ public class MovimientosContratosView {
     private List<ConceptoNominaDTO> conceptos;
     private String criterio;
     private MovimientoContratosDTO movimientoContratos;
-    private MovimientoContratosDTO movimientoContratoDTOSelected = new MovimientoContratosDTO();
     private List<MovimientoContratosDTO> movimientoContratosLista;
     private List<ConceptoNominaContratosDTO> listaConceptos;
     private List<ProductoNominaDTO> productoNominaLista;
@@ -31,47 +31,33 @@ public class MovimientosContratosView {
     private boolean desabilitarFijos;
     private boolean habilitarFaltas;
     private Boolean consultaMovimientos;
-
-    private Boolean gestionarMovimiento;
     private Boolean mostrarTablaMovimientos;
-    
     private Boolean mostrarInfoEmpleado;
+    private Boolean nuevo;
+    private Date fechaFalta;
 
 	public void panelBusqueda() {
         mostrarBusqueda = true;
         mostrarMovimientos = false;
         mostrarFormulario = false;
         mostrarTablaMovimientos = false;
-        gestionarMovimiento = false;
         mostrarInfoEmpleado = false;
     }
     public void panelMovimientos() {
         mostrarBusqueda = false;
         mostrarMovimientos = true;
         mostrarFormulario = false;
-        gestionarMovimiento = false;
         mostrarTablaMovimientos = true;
         mostrarInfoEmpleado = true;
     }
-    
-    public void mostrarGestionMovimiento(){
-    	  mostrarBusqueda = false;
-          mostrarMovimientos = true;
-          mostrarFormulario = false;
-          gestionarMovimiento = true;
-          mostrarTablaMovimientos = false;
-          mostrarInfoEmpleado = true;
-    }
-    
+
     public void panelFormulario() {
         mostrarBusqueda = false;
         mostrarMovimientos = false;
         mostrarFormulario = true;
         mostrarTablaMovimientos = false;
-        gestionarMovimiento = false;
         mostrarInfoEmpleado = true;
     }
-
 
     public List<InfoEmpleadoDTO> getEmpleados() {
         return empleados;
@@ -157,18 +143,6 @@ public class MovimientosContratosView {
 	public void setDesabilitarFijos(boolean desabilitarFijos) {
 		this.desabilitarFijos = desabilitarFijos;
 	}
-	public MovimientoContratosDTO getMovimientoContratoDTOSelected() {
-		return movimientoContratoDTOSelected;
-	}
-	public void setMovimientoContratoDTOSelected(MovimientoContratosDTO movimientoContratoDTOSelected) {
-		this.movimientoContratoDTOSelected = movimientoContratoDTOSelected;
-	}
-	public Boolean getGestionarMovimiento() {
-		return gestionarMovimiento;
-	}
-	public void setGestionarMovimiento(Boolean gestionarMovimiento) {
-		this.gestionarMovimiento = gestionarMovimiento;
-	}
 	public Boolean getMostrarTablaMovimientos() {
 		return mostrarTablaMovimientos;
 	}
@@ -193,4 +167,16 @@ public class MovimientosContratosView {
     public void setHabilitarFaltas(boolean habilitarFaltas) {
         this.habilitarFaltas = habilitarFaltas;
     }
-}
+	public Date getFechaFalta() {
+		return fechaFalta;
+	}
+	public void setFechaFalta(Date fechaFalta) {
+		this.fechaFalta = fechaFalta;
+	}
+	public Boolean getNuevo() {
+		return nuevo;
+	}
+	public void setNuevo(Boolean nuevo) {
+		this.nuevo = nuevo;
+	}
+ }

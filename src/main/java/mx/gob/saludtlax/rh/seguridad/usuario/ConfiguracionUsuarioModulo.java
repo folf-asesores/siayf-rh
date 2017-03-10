@@ -15,5 +15,7 @@ public interface ConfiguracionUsuarioModulo {
 	List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(Integer idUsuario);
 	
 	Boolean tienePermiso(String permiso,Integer idUsuario);
+
+	List<ConfiguracionUsuarioModuloDTO> obtenerListaRestantePorUsuario(Integer idUsuario);
 	
 }

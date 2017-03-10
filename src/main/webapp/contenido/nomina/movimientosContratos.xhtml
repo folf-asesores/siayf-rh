@@ -7,23 +7,21 @@
 	template="/plantillas/principal-con-menu.xhtml">
 
 	<ui:param name="ventanaTitulo"
-		value="Movimientos de nómina de Empleados de contrato" />
+			value="Movimientos de nómina de Empleados de contrato" />
 	<ui:param name="moduloTitulo"
-		value="Movimientos de nómina de Empleados de contrato" />
-	<br />
+			value="Movimientos de nómina de Empleados de contrato" />
 
 	<ui:define name="moduloContenido">
 		<h:form id="form" 
 				styleClass="fm-tarjeta"
 				enctype="multipart/form-data">
-
 			<p:messages id="messages" 
 						showDetail="true" 
 						autoUpdate="true"
 						closable="true" 
 						globalOnly="true" />
 			<p:outputPanel id="panelFiltro"
-				rendered="#{movimientosContratos.view.mostrarBusqueda}">
+							rendered="#{movimientosContratos.view.mostrarBusqueda}">
 				<p:panelGrid columns="3"
 					columnClasses="ui-grid-col-3, ui-grid-col-5,ui-grid-col-4"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
@@ -81,7 +79,6 @@
 					</p:column>
 				</p:dataTable>
 			</p:outputPanel>
-
 			<p:outputPanel id="panelInfoEmpleado"
 				rendered="#{movimientosContratos.view.mostrarInfoEmpleado}">
 				<p:ribbon>
@@ -145,8 +142,7 @@
 					</p:tab>
 				</p:ribbon>
 			</p:outputPanel>
-
-			<p:outputPanel id="panelFormulario"
+			<p:outputPanel id="mostrarMovimientos"
 				rendered="#{movimientosContratos.view.mostrarMovimientos}">
 				<p:commandButton id="atras" 
 								icon="ui-icon-circle-arrow-w"
@@ -179,10 +175,9 @@
 						<p:row>
 							<p:column headerText="Ver Detalle" />
 							<p:column headerText="Movimiento" />
-							<p:column headerText="RFC" />
+							<p:column headerText="Nómina" />
 							<p:column headerText="Folio" />
-							<p:column headerText="Año final" />
-							<p:column headerText="Quincena final" />
+							<p:column headerText="Estatus" />
 							<p:column headerText="Monto" />
 							<p:column headerText="Gestionar" />
 						</p:row>
@@ -194,28 +189,26 @@
 						<h:outputText value="#{consultaNominaItem.descripcion_concepto}" />
 					</p:column>
 					<p:column>
-						<h:outputText value="#{consultaNominaItem.rfc}" />
+						<h:outputText value="#{consultaNominaItem.nomina}" />
 					</p:column>
 					<p:column>
 						<h:outputText value="#{consultaNominaItem.folioDocumento}" />
 					</p:column>
 					<p:column>
-						<h:outputText value="#{consultaNominaItem.anioFinal}" />
-					</p:column>
-					<p:column>
-						<h:outputText value="#{consultaNominaItem.periodoFinal}" />
+						<h:outputText value="#{consultaNominaItem.estatus}" />
 					</p:column>
 					<p:column>
 						<h:outputText value="#{consultaNominaItem.monto}" />
 					</p:column>
 					<p:column style="width:50px; text-align: center;" headerText="Ver">
 						<p:commandButton id="opcionesModulo"
-							styleClass="fm-btn-exitoso fm-btn-elevado" process="@this"
-							update="form" icon="ui-icon-search"
-							actionListener="#{movimientosContratos.view.mostrarGestionMovimiento()}">
+										styleClass="fm-btn-exitoso fm-btn-elevado" 
+										process="@this"
+										update="form"
+										icon="ui-icon-search"
+										action="#{movimientosContratos.irGestionMovimiento()}">
 							<f:setPropertyActionListener value="#{consultaNominaItem}"
-								target="#{movimientosContratos.view.movimientoContratoDTOSelected}"
-								for="detalleModulo" />
+														target="#{movimientosContratos.view.movimientoContratos}" />
 						</p:commandButton>
 					</p:column>
 					<p:rowExpansion>
@@ -239,136 +232,199 @@
 							</p:column>
 						</p:dataTable>
 					</p:rowExpansion>
-
 				</p:dataTable>
 			</p:outputPanel>
-			<p:outputPanel id="panelGentionMovimiento" 
-				rendered="#{movimientosContratos.view.gestionarMovimiento}">
-
-				<p:commandButton id="atras2" 
-								icon="ui-icon-circle-arrow-w"
-								label="Atras" 
-								styleClass="fm-btn-advertencia fm-btn-elevado"
-								alt="Atras"
-								rendered="#{movimientosContratos.view.gestionarMovimiento}"
-								actionListener="#{movimientosContratos.irMovimientos()}"
-								update="@form" 
-								process="@this" 
-								value="Atras" />
-				<p:spacer width="60px" />
-				<p:commandButton id="cancelarMov" 
-								icon="ui-icon-closethick"
-								label="Atras" 
-								styleClass="fm-btn-peligro fm-btn-elevado"
-								value="Cancelar Movimiento" />
-				<p:panelGrid columns="2" 
-							id="gestionMovimiento" 
-							columnClasses="ui-grid-col-3, ui-grid-col-9" 
-							layout="grid"
-							styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
-					<p:outputLabel for="conceptoGestion" 
-									value="Concepto de nomina: " />
-					<p:outputPanel>
-						<p:selectOneMenu id="conceptoGestion" 
-										disabled="true"
-										required="true"
-										value="#{movimientosContratos.view.movimientoContratoDTOSelected.idConceptoContratos}">
-							<p:ajax update="msgconceptoGestion" />
-							<p:clientValidator />
-							<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
-							<f:selectItems value="#{movimientosContratos.view.listaConceptos}"
+			<p:outputPanel id="panelFormularioMovimientosContratos"
+							rendered="#{movimientosContratos.view.mostrarFormulario}">
+				<p:panel id="panelFormularioMovimiento" 
+						header="Movimiento">
+					<p:panelGrid columns="2"
+								columnClasses="ui-grid-col-3, ui-grid-col-9" 
+								layout="grid"
+								styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
+						<p:outputLabel for="idNominaEmpleado" value="Nomina: " />
+						<p:outputPanel>
+							<p:selectOneMenu id="idNominaEmpleado"
+											required="true"
+											value="#{movimientosContratos.view.movimientoContratos.idNominaEmpleado}">
+								<p:ajax update="messages" />
+								<p:clientValidator />
+								<f:selectItems value="#{movimientosContratos.view.productoNominaLista}"
 											var="conceptos" 
-											itemValue="#{conceptos.idConceptoNomina}"
-											itemLabel="#{conceptos.descripcion}" />
-						</p:selectOneMenu>
-						<p:message id="msgconceptoGestion" for="conceptoGestion" />
-					</p:outputPanel>
+											itemValue="#{conceptos.idNominaEmpleado}"
+											itemLabel="#{conceptos.nombreProducto}" />
+							</p:selectOneMenu>
+							<p:message id="msgidNominaEmpleado" for="idNominaEmpleado" />
+						</p:outputPanel>
 
-					<p:outputLabel for="fechaDocGestion" value="Fecha Documento: " />
-					<p:outputPanel>
-						<p:calendar id="fechaDocGestion"
-									value="#{movimientosContratos.view.movimientoContratoDTOSelected.fechaDocumento}">
-							<p:ajax update="msgfechaDocGestion" event="blur" />
-							<p:clientValidator />
-						</p:calendar>
-						<p:message id="msgfechaDocGestion" for="fechaDocGestion" />
-					</p:outputPanel>
+						<p:outputLabel for="concepto" value="Concepto de nomina: " />
+						<p:outputPanel>
+							<p:selectOneMenu id="concepto"
+											required="true"
+											requiredMessage="El concepto es requerido."
+											value="#{movimientosContratos.view.movimientoContratos.idConceptoContratos}">
+								<p:ajax update="msgconcepto" />
+								<p:clientValidator />
+								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
+								<f:selectItems	value="#{movimientosContratos.view.listaConceptos}"
+												var="conceptos"
+												itemValue="#{conceptos.idConceptoNomina}"
+												itemLabel="#{conceptos.descripcion}" />
+								<p:ajax listener="#{movimientosContratos.actualizarFormulario}"
+										update="form" />
+							</p:selectOneMenu>
+							<p:message id="msgconcepto" for="concepto" />
+						</p:outputPanel>
 
-					<p:outputLabel for="folioGestion" value="Folio Documento: " />
-					<p:outputPanel>
-						<p:inputText id="folioGestion" required="true"
-							placeholder="* Folio del documento que solicita el movimiento"
-							requiredMessage="El campo folio es requerido."
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.folioDocumento}">
-							<p:ajax update="msgfolioGestion" event="blur" />
-							<p:clientValidator />
-						</p:inputText>
-						<p:message id="msgfolioGestion" for="folioGestion" />
-					</p:outputPanel>
+						<p:outputLabel for="fechaDoc" value="Fecha del oficio: " />
+						<p:outputPanel>
+							<p:calendar id="fechaDoc"
+										placeholder="* Fecha del oficio que solicita el movimiento"
+										value="#{movimientosContratos.view.movimientoContratos.fechaDocumento}">
+								<p:ajax update="msgfechaDoc" event="blur" />
+								<p:clientValidator />
+							</p:calendar>
+							<p:message id="msgfechaDoc" for="fechaDoc" />
+						</p:outputPanel>
 
+						<p:outputLabel for="folio" value="Folio del oficio: " />
+						<p:outputPanel>
+							<p:inputText id="folio" 
+										placeholder="* Folio del oficio que solicita el movimiento"
+										value="#{movimientosContratos.view.movimientoContratos.folioDocumento}">
+								<p:ajax update="msgfolio" event="blur" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgfolio" for="folio" />
+						</p:outputPanel>
 
+						<p:outputLabel for="quincenaFinal" 
+										value="Periodo Final: "
+										rendered="false" />
+						<p:outputPanel rendered="false">
+							<p:inputText id="quincenaFinal"
+								placeholder="*Número de quincena en terminara de aplicarse el movimiento"
+								value="#{movimientosContratos.view.movimientoContratos.periodoFinal}">
+								<p:ajax update="msgquincenaFinal" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgquincenaFinal" for="quincenaFinal" />
+						</p:outputPanel>
 
-					<p:outputLabel for="quincenaFinalGestion" value="Periodo Final: "
-						rendered="false" />
-					<p:outputPanel rendered="false">
-						<p:inputText id="quincenaFinalGestion"
-							placeholder="*Número de quincena en terminara de aplicarse el movimiento"
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.periodoFinal}">
-							<p:ajax update="msgquincenaFinalGestion" />
-							<p:clientValidator />
-						</p:inputText>
-						<p:message id="msgquincenaFinalGestion"
-							for="quincenaFinalGestion" />
-					</p:outputPanel>
+						<p:outputLabel for="anioFinal" 
+										value="Año final: "
+										rendered="false" />
+						<p:outputPanel rendered="false">
+							<p:inputText id="anioFinal" 
+										required="true"
+										placeholder="* Año en que dejara de aplicarse el movimiento"
+										requiredMessage="El año final es requerida"
+										value="#{movimientosContratos.view.movimientoContratos.anioFinal}">
+								<p:ajax update="msganioFinal" event="blur" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msganioFinal" for="anioFinal" />
+						</p:outputPanel>
 
-					<p:outputLabel for="anioFinalGestion" value="Año final: " />
-					<h:outputText id="anioFinalGestion"
-						value="#{movimientosContratos.view.movimientoContratoDTOSelected.anioFinal}" />
+						<p:outputLabel for="fechaFalta"
+									   rendered="#{movimientosContratos.view.habilitarFaltas}"
+									   value="Faltas: " />
+						<p:outputPanel rendered="#{movimientosContratos.view.habilitarFaltas}">
+							<p:panelGrid columns="2"
+										columnClasses="ui-grid-col-6,ui-grid-col-6"
+										layout="grid" 
+										styleClass="ui-panelgrid-blank ui-fluid">
+								<p:calendar id="fechaFalta"
+											value="#{movimientosContratos.view.fechaFalta}">
+								</p:calendar>
+								<p:commandButton id="agregarfalta"
+												title="Agregar falta" 
+												update=":form"
+												icon="ui-icon-plus"
+												styleClass="fm-btn-elevado" 
+												process="@this,:form:fechaFalta,:form:idNominaEmpleado"
+												actionListener="#{movimientosContratos.agregarFalta}" />
+							</p:panelGrid>
 
+							<p:dataTable id="faltaContadaList"
+										rows="10"
+										paginator="true"
+										value="#{movimientosContratos.view.movimientoContratos.faltaContadaList}"
+										emptyMessage="No se tienen faltas"
+						    			paginatorPosition="bottom"
+						    			var="falta" >
+						        <f:facet name="header">
+						            Lista de Faltas
+						        </f:facet>
+								<p:column width="16em">
+							        <h:outputText value="#{falta.fechaFalta}">
+							        	<f:convertDateTime pattern="dd/MM/yyyy" />
+							        </h:outputText>
+							        <p:spacer width="30px" />
+							        <p:commandButton id="eliminarFalta"
+							        				action="#{movimientosContratos.eliminarFalta}"
+													styleClass="fm-btn-elevado"
+													process="@this"
+													icon="ui-icon-trash"
+							        				update=":form">
+							            <f:setPropertyActionListener value="#{falta.fechaFalta}" target="#{movimientosContratos.view.fechaFalta}" />
+							        </p:commandButton>
+								</p:column>
+							</p:dataTable>
+							<p:message id="msgfechaFalta" for="fechaFalta" />
+						</p:outputPanel>
 
-					<p:outputLabel for="importeQuincenalGestion"
-						value="Importe global: " />
-					<p:outputPanel>
-						<p:inputText id="importeQuincenalGestion" placeholder="$00.00"
-							required="true" requiredMessage="El importe es requerida"
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.monto}">
-							<p:ajax update="msgimporteQuincenalGestion" event="blur" />
-							<p:clientValidator />
-						</p:inputText>
-						<p:message id="msgimporteQuincenalGestion"
-							for="importeQuincenalGestion" />
-					</p:outputPanel>
+						<p:outputLabel for="importeQuincenal" value="Importe global: " />
+						<p:outputPanel>
+							<p:inputText id="importeQuincenal" 
+										placeholder="00.00"
+										required="true" 
+										requiredMessage="El importe es requerida"
+										value="#{movimientosContratos.view.movimientoContratos.monto}">
+								<p:ajax update="msgimporteQuincenal" event="blur" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgimporteQuincenal" for="importeQuincenal" />
+						</p:outputPanel>
 
-					<p:outputLabel for="numeroPagosGestion" value="Número de pagos: "
-						rendered="#{movimientosContratos.view.desabilitarFijos}" />
-					<p:outputPanel
-						rendered="#{movimientosContratos.view.desabilitarFijos}">
-						<p:spinner id="numeroPagosGestion"
-							placeholder="*Número de pagos a realizar." required="true"
-							requiredMessage="El numero de pagos es requerido"
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.numeroAbonos}">
-							<p:ajax update="msgnumeroPagosGestion" event="blur" />
-							<p:clientValidator />
-						</p:spinner>
-						<p:message id="msgnumeroPagosGestion" for="numeroPagosGestion" />
-					</p:outputPanel>
+						<p:outputLabel for="numeroPagos" 
+										value="Número de pagos: "
+										rendered="#{movimientosContratos.view.desabilitarFijos}" />
+						<p:outputPanel rendered="#{movimientosContratos.view.desabilitarFijos}">
+							<p:spinner id="numeroPagos"
+										placeholder="*Número de pagos a realizar." required="true"
+										requiredMessage="El numero de pagos es requerido"
+										value="#{movimientosContratos.view.movimientoContratos.numeroAbonos}">
+								<p:ajax update="msgnumeroPagos" event="blur" />
+								<p:clientValidator />
+							</p:spinner>
+							<p:message id="msgnumeroPagos" for="numeroPagos" />
+						</p:outputPanel>
 
-					<p:outputLabel for="tipoPeriodosGestion" value="Tipo Periodo: "
-						rendered="#{movimientosContratos.view.desabilitarFijos}" />
-					<p:outputPanel
-						rendered="#{movimientosContratos.view.desabilitarFijos}">
-						<p:selectOneMenu id="tipoPeriodosGestion"
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.idTipoPeriodo}">
-							<f:selectItem itemValue="4" itemLabel="Quincenal" />
-							<f:selectItem itemValue="5" itemLabel="Mensual" />
-						</p:selectOneMenu>
-					</p:outputPanel>
-				</p:panelGrid>
+						<p:outputLabel for="tipoPeriodos" 
+										value="Tipo Periodo: "
+										rendered="#{movimientosContratos.view.desabilitarFijos}" />
+						<p:outputPanel rendered="#{movimientosContratos.view.desabilitarFijos}">
+							<p:selectOneMenu id="tipoPeriodos"
+								value="#{movimientosContratos.view.movimientoContratos.idTipoPeriodo}">
+								<f:selectItem itemValue="4" itemLabel="Quincenal" />
+								<f:selectItem itemValue="5" itemLabel="Mensual" />
+							</p:selectOneMenu>
+						</p:outputPanel>
 
-				<br/>
-				<p:dataTable id="detalleMovSelecccionado"
-							emptyMessage="No existen detalles para mostrar."
-							value="#{movimientosContratos.view.movimientoContratoDTOSelected.listaDetalles}" var="detalle">
+						<p:outputLabel for="estatus" value="Estatus: " />
+						<p:outputPanel>
+							<p:inputText id="estatus" 
+										readonly="true"
+										value="#{movimientosContratos.view.movimientoContratos.estatus}">
+							</p:inputText>
+						</p:outputPanel>
+
+						<p:dataTable id="detalleMovSelecccionado"
+									emptyMessage="No existen detalles para mostrar."
+									value="#{movimientosContratos.view.movimientoContratos.listaDetalles}" 
+									rendered="#{movimientosContratos.view.desabilitarFijos}"
+									var="detalle">
 							<p:column headerText="Número de pago">
 								<h:outputText value="#{detalle.numeroPago}" />
 							</p:column>
@@ -385,163 +441,50 @@
 								<h:outputText value="#{detalle.descuento}" />
 							</p:column>
 						</p:dataTable>
-			</p:outputPanel>
-
-			<p:outputPanel id="panelFormularioMovimientosContratos"
-				rendered="#{movimientosContratos.view.mostrarFormulario}">
-				<p:panel id="panelFormularioMovimiento" header="Movimiento">
-					<p:panelGrid columns="2"
-								columnClasses="ui-grid-col-3, ui-grid-col-9" 
-								layout="grid"
-								styleClass="ui-responsive ui-panelgrid-blank ui-fluid">
-						<p:outputLabel for="idNominaEmpleado" value="Nomina: " />
-						<p:outputPanel>
-							<p:selectOneMenu id="idNominaEmpleado"
-											required="true"
-											value="#{movimientosContratos.view.movimientoContratos.idNominaEmpleado}">
-								<p:ajax update="msgconceptoGestion" />
-								<p:clientValidator />
-								<f:selectItems value="#{movimientosContratos.view.productoNominaLista}"
-											var="conceptos" 
-											itemValue="#{conceptos.idNominaEmpleado}"
-											itemLabel="#{conceptos.nombreProducto}" />
-							</p:selectOneMenu>
-							<p:message id="msgidNominaEmpleado" for="idNominaEmpleado" />
-						</p:outputPanel>
-
-						<p:outputLabel for="concepto" value="Concepto de nomina: " />
-						<p:outputPanel>
-							<p:selectOneMenu id="concepto"
-											value="#{movimientosContratos.view.movimientoContratos.idConceptoContratos}">
-								<p:ajax update="msgconcepto" />
-								<p:clientValidator />
-								<f:selectItem itemLabel="Seleccione una opción" itemValue="0" />
-								<f:selectItems	value="#{movimientosContratos.view.listaConceptos}"
-												var="conceptos"
-												itemValue="#{conceptos.idConceptoNomina}"
-												itemLabel="#{conceptos.descripcion}" />
-								<p:ajax listener="#{movimientosContratos.actualizarFormulario}"
-										update="form" />
-							</p:selectOneMenu>
-							<p:message id="msgconcepto" for="concepto" />
-						</p:outputPanel>
-
-						<p:outputLabel for="fechaDoc" value="Fecha Documento: " />
-						<p:outputPanel>
-							<p:calendar id="fechaDoc"
-								value="#{movimientosContratos.view.movimientoContratos.fechaDocumento}">
-								<p:ajax update="msgfechaDoc" event="blur" />
-								<p:clientValidator />
-							</p:calendar>
-							<p:message id="msgfechaDoc" for="fechaDoc" />
-						</p:outputPanel>
-
-						<p:outputLabel for="folio" value="Folio Documento: " />
-						<p:outputPanel>
-							<p:inputText id="folio" required="true"
-								placeholder="* Folio del documento que solicita el movimiento"
-								requiredMessage="El campo folio es requerido."
-								value="#{movimientosContratos.view.movimientoContratos.folioDocumento}">
-								<p:ajax update="msgfolio" event="blur" />
-								<p:clientValidator />
-							</p:inputText>
-							<p:message id="msgfolio" for="folio" />
-						</p:outputPanel>
-
-
-
-						<p:outputLabel for="quincenaFinal" value="Periodo Final: "
-							rendered="false" />
-						<p:outputPanel rendered="false">
-							<p:inputText id="quincenaFinal"
-								placeholder="*Número de quincena en terminara de aplicarse el movimiento"
-								value="#{movimientosContratos.view.movimientoContratos.periodoFinal}">
-								<p:ajax update="msgquincenaFinal" />
-								<p:clientValidator />
-							</p:inputText>
-							<p:message id="msgquincenaFinal" for="quincenaFinal" />
-						</p:outputPanel>
-
-						<p:outputLabel for="anioFinal" value="Año final: "
-							rendered="false" />
-						<p:outputPanel rendered="false">
-							<p:inputText id="anioFinal" required="true"
-								placeholder="* Año en que dejara de aplicarse el movimiento"
-								requiredMessage="El año final es requerida"
-								value="#{movimientosContratos.view.movimientoContratos.anioFinal}">
-								<p:ajax update="msganioFinal" event="blur" />
-								<p:clientValidator />
-							</p:inputText>
-							<p:message id="msganioFinal" for="anioFinal" />
-						</p:outputPanel>
-
-						<p:outputLabel for="anioFinal" value="Año final: "
-							rendered="false" />
-						<p:outputPanel rendered="false">
-							<p:inputText id="anioFinal" required="true"
-								placeholder="* Año en que dejara de aplicarse el movimiento"
-								requiredMessage="El año final es requerida"
-								value="#{movimientosContratos.view.movimientoContratos.anioFinal}">
-								<p:ajax update="msganioFinal" event="blur" />
-								<p:clientValidator />
-							</p:inputText>
-							<p:message id="msganioFinal" for="anioFinal" />
-						</p:outputPanel>
-
-						<p:outputLabel for="importeQuincenal" value="Importe global: " />
-						<p:outputPanel>
-							<p:inputText id="importeQuincenal" placeholder="$00.00"
-								required="true" requiredMessage="El importe es requerida"
-								value="#{movimientosContratos.view.movimientoContratos.monto}">
-								<p:ajax update="msgimporteQuincenal" event="blur" />
-								<p:clientValidator />
-							</p:inputText>
-							<p:message id="msgimporteQuincenal" for="importeQuincenal" />
-						</p:outputPanel>
-
-						<p:outputLabel for="numeroPagos" value="Número de pagos: "
-							rendered="#{movimientosContratos.view.desabilitarFijos}" />
-						<p:outputPanel
-							rendered="#{movimientosContratos.view.desabilitarFijos}">
-							<p:spinner id="numeroPagos"
-								placeholder="*Número de pagos a realizar." required="true"
-								requiredMessage="El numero de pagos es requerido"
-								value="#{movimientosContratos.view.movimientoContratos.numeroAbonos}">
-								<p:ajax update="msgnumeroPagos" event="blur" />
-								<p:clientValidator />
-							</p:spinner>
-							<p:message id="msgnumeroPagos" for="numeroPagos" />
-						</p:outputPanel>
-
-						<p:outputLabel for="tipoPeriodos" value="Tipo Periodo: "
-							rendered="#{movimientosContratos.view.desabilitarFijos}" />
-						<p:outputPanel
-							rendered="#{movimientosContratos.view.desabilitarFijos}">
-							<p:selectOneMenu id="tipoPeriodos"
-								value="#{movimientosContratos.view.movimientoContratos.idTipoPeriodo}">
-								<f:selectItem itemValue="4" itemLabel="Quincenal" />
-								<f:selectItem itemValue="5" itemLabel="Mensual" />
-							</p:selectOneMenu>
-						</p:outputPanel>
 					</p:panelGrid>
 				</p:panel>
 				<br />
 				<p:commandButton id="agregar" 
-								value="Agregar Movimiento"
-								icon="ui-icon-plusthick" 
+								value="Guardar Movimiento"
+								icon="ui-icon-plusthick"
 								iconPos="right"
 								update="panelFormularioMovimiento"
 								actionListener="#{movimientosContratos.agregarMovimiento()}" />
-				<p:commandButton id="regresar" 
-								value="Regresar"
-								icon="ui-icon-closethick" 
+				<p:commandButton id="eliminarMovimientoContrato" 
+								value="Eliminar"
+								icon="ui-icon-trash"
 								iconPos="right" 
 								style="float:right"
-								action="#{movimientosContratos.irMovimientos()}" 
-								process="@this"
+								action="#{movimientosContratos.eliminarMovimientoContrato()}" 
 								update="form" 
+								disabled="#{movimientosContratos.view.movimientoContratos.idEstatus != 1}"
+								styleClass="fm-btn-peligro" >
+					<p:confirm header="Confirmacion"
+								message="¿Eliminar el movimiento a la nómina?, se perdera el registro."
+								icon="ui-icon-alert" />
+				</p:commandButton>
+				<p:commandButton id="regresar"
+								value="Regresar"
+								icon="ui-icon-closethick"
+								iconPos="right" 
+								style="float:right"
+								action="#{movimientosContratos.irMovimientos()}"
+								process="@this"
+								update="form"
 								styleClass="fm-btn-peligro" />
 			</p:outputPanel>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" 
+								type="button"
+								styleClass="ui-confirmdialog-yes" 
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()"
+								icon="ui-icon-check" />
+				<p:commandButton value="No" 
+								type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>

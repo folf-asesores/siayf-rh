@@ -47,6 +47,12 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
 
         ExcelReporte productoNominaReporte = new ExcelReporte(
                 "Producto_Nomina.xlsx", "plantillas/nommina/");
+        
+        ExcelReporte prooductoNominaEstatusReporte = new ExcelReporte(
+        		"Producto_Nomina.xlsx", "plantillas/nommina/");
+
+        ExcelReporte productoNominaSuplenciaReporte = new ExcelReporte(
+                "Producto_Nomina.xlsx", "plantillas/nommina/");
 
         ExcelReporte historialPagoReporte = new ExcelReporte(
                 "Historial_Pago.xlsx", "plantillas/nommina/");
@@ -55,6 +61,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
                 "Relacion_Personal_Suplente.xlsx", "plantillas/suplencia/");
 
         ExcelReporte dispercionReporte = new ExcelReporte(null, null); // 1.
+        ExcelReporte pagoGeneralReporte = new ExcelReporte(null, null); // 1.
 
         REPORTES = new HashMap<>();
         REPORTES.put("acumulados", acumulados);
@@ -66,9 +73,13 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
         REPORTES.put("contrato_estatal_federal_proyeccion", proyeccionesPresupuestalesContrato);
         REPORTES.put("detalle_empleado", detalleEmpleado);
         REPORTES.put("producto_nomina", productoNominaReporte);
+        REPORTES.put("producto_nomina_suplencia", productoNominaSuplenciaReporte);
+        REPORTES.put("producto_nomina_estatus",prooductoNominaEstatusReporte);
         REPORTES.put("historial_pago", historialPagoReporte);
         REPORTES.put("relacion_personal_suplente", relacionPersonalSuplenteReporte);
         REPORTES.put("dispersion_nomina", dispercionReporte);
+        REPORTES.put("pago_general", pagoGeneralReporte);
+        
     }
 
     @Override
@@ -77,7 +88,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
     }
 
     @Override
-    public boolean extisteReporte(String nombreReporte) {
+	public boolean extisteReporte(String nombreReporte) {
         return REPORTES.containsKey(nombreReporte);
     }
 

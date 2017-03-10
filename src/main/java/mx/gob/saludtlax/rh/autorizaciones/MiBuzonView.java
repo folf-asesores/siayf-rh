@@ -23,8 +23,17 @@ public class MiBuzonView {
 	private boolean mostrarDetalleLaboralPrograma;
 	private boolean mostrarDetalleMovimiento;
 	private boolean mostrarDetalleSuplencia;
+	private boolean mostrarDetalleModificacionSueldo;
 	private Integer idAccion;
 	private Integer idUsuarioLogeado;
+
+	public boolean isMostrarDetalleModificacionSueldo() {
+		return mostrarDetalleModificacionSueldo;
+	}
+
+	public void setMostrarDetalleModificacionSueldo(boolean mostrarDetalleModificacionSueldo) {
+		this.mostrarDetalleModificacionSueldo = mostrarDetalleModificacionSueldo;
+	}
 
 	public boolean isMostrarDetalleSuplencia() {
 		return mostrarDetalleSuplencia;

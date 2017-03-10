@@ -9,6 +9,8 @@ import javax.persistence.PersistenceException;
 
 import org.jboss.logging.Logger;
 
+import mx.gob.saludtlax.rh.excepciones.SeguridadCodigoError;
+import mx.gob.saludtlax.rh.excepciones.SeguridadException;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
@@ -236,6 +238,27 @@ public class UsuarioService {
 			}
 		}
 		return lista;
+	}
+
+	/**
+	 * Valida que el usuario exista y esté activo
+	 * 
+	 * @param idUsuario
+	 *            identificador del usuario
+	 * @return UsuarioEntity entidad del usuario
+	 **/
+	public UsuarioEntity validarUsuario(int idUsuario) {
+		UsuarioEntity usuario = usuarioRepository.obtenerPorId(idUsuario);
+		if (usuario == null) {
+			throw new SistemaException("No se encontró usuario con identificador " + idUsuario,
+					SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+		}
+
+		if (!usuario.isActivo()) {
+			throw new SeguridadException("El usuario está inactivo, no puede realizar la operación",
+					SeguridadCodigoError.USUARIO_INACTIVO);
+		}
+		return usuario;
 	}
 
 }

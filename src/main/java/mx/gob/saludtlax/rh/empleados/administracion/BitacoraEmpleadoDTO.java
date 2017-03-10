@@ -21,6 +21,15 @@ public class BitacoraEmpleadoDTO {
 	private Integer idUsuario;
 	private String usuario;
 	private Date fecha;
+	private String nombreEmpleado;
+
+	public String getNombreEmpleado() {
+		return nombreEmpleado;
+	}
+
+	public void setNombreEmpleado(String nombreEmpleado) {
+		this.nombreEmpleado = nombreEmpleado;
+	}
 
 	public Date getFecha() {
 		return fecha;

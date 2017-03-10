@@ -142,6 +142,55 @@ public class InventarioVacanteEntity implements Serializable {
 	@Column(name = "id_plaza")
 	private String numeroPuestoAutorizado;
 
+	@Column(name = "funcion")
+	private String funcionEspecifica;
+
+	@Column(name = "subfuncion")
+	private String subfuncion;
+
+	@Column(name = "financiamiento")
+	private String financiamiento;
+
+	@Column(name = "jornada")
+	private String jornada;
+
+	public String lccEstructuraContrato() {
+		return "InventarioVacanteEntity [funcionEspecifica=" + funcionEspecifica + ", subfuncion=" + subfuncion
+				+ ", financiamiento=" + financiamiento + ", jornada=" + jornada + "]";
+	}
+
+	public String getFuncionEspecifica() {
+		return funcionEspecifica;
+	}
+
+	public void setFuncionEspecifica(String funcionEspecifica) {
+		this.funcionEspecifica = funcionEspecifica;
+	}
+
+	public String getSubfuncion() {
+		return subfuncion;
+	}
+
+	public void setSubfuncion(String subfuncion) {
+		this.subfuncion = subfuncion;
+	}
+
+	public String getFinanciamiento() {
+		return financiamiento;
+	}
+
+	public void setFinanciamiento(String financiamiento) {
+		this.financiamiento = financiamiento;
+	}
+
+	public String getJornada() {
+		return jornada;
+	}
+
+	public void setJornada(String jornada) {
+		this.jornada = jornada;
+	}
+
 	public PuestoGeneralEntity getPuestoAutorizado() {
 		return puestoAutorizado;
 	}

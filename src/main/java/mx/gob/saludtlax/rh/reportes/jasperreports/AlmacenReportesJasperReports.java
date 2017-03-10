@@ -92,23 +92,23 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         listadoFirmas.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
         REPORTES.put("listado-firmas", listadoFirmas);
 
-        JasperReporte nominaEventualesPercepciones = new JasperReporte("nomina_eventuales--percepciones.jrxml", "reportes/");
-        JasperReporte nominaEventualesPercepcionesTotal = new JasperReporte("nomina_eventuales--percepciones-total.jrxml", "reportes/");
-        JasperReporte nominaEventualesPercepcionesCentroResponsabilidad = new JasperReporte("nomina_eventuales--percepciones-centro-responsabilidad.jrxml", "reportes/");
+        JasperReporte prenominaEventualesPercepciones = new JasperReporte("prenomina_eventuales--percepciones.jrxml", "reportes/");
+        JasperReporte prenominaEventualesPercepcionesTotal = new JasperReporte("prenomina_eventuales--percepciones-total.jrxml", "reportes/");
+        JasperReporte prenominaEventualesPercepcionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--percepciones-centro-responsabilidad.jrxml", "reportes/");
         
-        JasperReporte nominaEventualesDeducccionesTotal = new JasperReporte("nomina_eventuales--deducciones-total.jrxml", "reportes/");
-        JasperReporte nominaEventualesDeducccionesCentroResponsabilidad = new JasperReporte("nomina_eventuales--deducciones-centro-responsabilidad.jrxml", "reportes/");
-        JasperReporte nominaEventualesDeduccciones = new JasperReporte("nomina_eventuales--deducciones.jrxml", "reportes/");
-        JasperReporte nominaEventuales = new JasperReporte("nomina_eventuales.jrxml", "reportes/");
+        JasperReporte prenominaEventualesDeduccciones = new JasperReporte("prenomina_eventuales--deducciones.jrxml", "reportes/");
+        JasperReporte prenominaEventualesDeducccionesTotal = new JasperReporte("prenomina_eventuales--deducciones-total.jrxml", "reportes/");
+        JasperReporte prenominaEventualesDeducccionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--deducciones-centro-responsabilidad.jrxml", "reportes/");
+        JasperReporte prenominaEventuales = new JasperReporte("prenomina_eventuales.jrxml", "reportes/");
         
-        nominaEventuales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", nominaEventualesPercepciones);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", nominaEventualesPercepcionesCentroResponsabilidad);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", nominaEventualesPercepcionesTotal);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", nominaEventualesDeduccciones);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", nominaEventualesDeducccionesCentroResponsabilidad);
-        nominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", nominaEventualesDeducccionesTotal);
-        REPORTES.put("nomina_eventuales", nominaEventuales);
+        prenominaEventuales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", prenominaEventualesPercepciones);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", prenominaEventualesPercepcionesTotal);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesPercepcionesCentroResponsabilidad);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", prenominaEventualesDeduccciones);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", prenominaEventualesDeducccionesTotal);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesDeducccionesCentroResponsabilidad);
+        REPORTES.put("prenomina_eventuales", prenominaEventuales);
 
         JasperReporte nominaFederalesPercepciones = new JasperReporte("nomina_federales--percepciones.jrxml", "reportes/");
         JasperReporte nominaFederalesPercepcionesTotal = new JasperReporte("nomina_federales--percepciones-total.jrxml", "reportes/");

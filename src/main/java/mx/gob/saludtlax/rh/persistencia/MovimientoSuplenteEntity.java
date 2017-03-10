@@ -69,7 +69,7 @@ public class MovimientoSuplenteEntity implements Serializable {
 	private int totalDias;
 
 	@Column(name = "observaciones")
-	private int observaciones;
+	private String observaciones;
 
 	@Column(name = "estatus")
 	private String estatus;
@@ -142,11 +142,11 @@ public class MovimientoSuplenteEntity implements Serializable {
 		this.ejercicioFiscalPeriodo = ejercicioFiscalPeriodo;
 	}
 
-	public int getObservaciones() {
+	public String getObservaciones() {
 		return observaciones;
 	}
 
-	public void setObservaciones(int observaciones) {
+	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
 	}
 

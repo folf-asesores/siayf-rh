@@ -16,4 +16,6 @@ public interface ConfiguracionAprobaciones {
 	public void actualizarConfiguracionAprobacion(ActualizacionConfiguracionAprobacionDTO dto);
 
 	public void eliminarConfiguracionAprobacion(Integer idConfiguracionAprobacion);
+
+	public Boolean aplicaMovimientos(Integer idAccionUsuario);
 }

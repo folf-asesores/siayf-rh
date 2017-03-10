@@ -1,7 +1,7 @@
 /*
  * SeguroPopularReporteExcel.java
  * Creado el 09/Dec/2016 6:32:39 PM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.siif.seguropopular;
 
@@ -21,9 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.logging.Logger;
 
 /**
- * Esta clase se encarga de trabajar el archivo de Excel (plantilla) para 
+ * Esta clase se encarga de trabajar el archivo de Excel (plantilla) para
  * generar el reporte de seguro popular.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class SeguroPopularReporteExcel implements Serializable {
@@ -99,7 +99,7 @@ public class SeguroPopularReporteExcel implements Serializable {
     private Workbook libro;
     /** Objeto que representa la hoja de Excel sobre la cual se trabajará. */
     private Sheet hoja;
-    
+
     /**
      * Este método carga la plantilla según el anexo, llama al método
      * {@link #llenarDetalles(List) llenarDetalles} para llenar el archivo de
@@ -119,7 +119,7 @@ public class SeguroPopularReporteExcel implements Serializable {
             throw new SistemaException("Error de lectura/escritura", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
-    
+
     /**
      * Carga de la plantilla y prepara el libro y la hoja para que se puedan
      * usar.
@@ -135,7 +135,7 @@ public class SeguroPopularReporteExcel implements Serializable {
 
     /**
      * Se encarga de llenar la lista de los detalles.
-     * 
+     *
      * @param detalles los datos que representa los detalles del reporte.
      */
     private void llenarDetalles(List<SeguroPopularReporteDTO> detalles) {
@@ -143,7 +143,7 @@ public class SeguroPopularReporteExcel implements Serializable {
 
         for (SeguroPopularReporteDTO detalle : detalles) {
             Row fila = hoja.createRow(iteradorFila);
-            
+
             for(int iteradorColumna = NUMERO_CONSECUTIVO; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
                 Cell celda = fila.createCell(iteradorColumna);
                 switch(iteradorColumna) {
@@ -193,7 +193,11 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getFechaIngreso());
                         break;
                     case C07_SUELDO_BASE:
-                        celda.setCellValue(detalle.getC07SueldoBase().doubleValue());
+                        if (detalle.getC07SueldoBase()!=null) {
+                            celda.setCellValue(detalle.getC07SueldoBase().doubleValue());
+                        } else{
+                            celda.setCellValue(0.0);
+                        }
                         break;
                     case C30_COMPENSACION_RIESGO:
                         celda.setCellValue(detalle.getC30CompensacionRiesgo().doubleValue());
@@ -223,7 +227,11 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getCqqPrimaQuinquenal().doubleValue());
                         break;
                     case PERCEPCION_TOTAL:
-                        celda.setCellValue(detalle.getPercepcionTotal().doubleValue());
+                        if (detalle.getPercepcionTotal()!=null) {
+                            celda.setCellValue(detalle.getPercepcionTotal().doubleValue());
+                        } else{
+                            celda.setCellValue(0.0);
+                        }
                         break;
                     case C01_IMPUESTO_SOBRE_RENTA:
                         celda.setCellValue(detalle.getC01ImpuestoSobreRenta().doubleValue());
@@ -316,10 +324,18 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getCasAhorroSolidario().doubleValue());
                         break;
                     case DEDUCCION_TOTAL:
-                        celda.setCellValue(detalle.getDeduccionTotal().doubleValue());
+                        if (detalle.getDeduccionTotal()!=null) {
+                            celda.setCellValue(detalle.getDeduccionTotal().doubleValue());
+                        } else{
+                            celda.setCellValue(0.0);
+                        }
                         break;
                     case PERCEPCION_NETA:
-                        celda.setCellValue(detalle.getPercepcionNeta().doubleValue());
+                        if (detalle.getPercepcionNeta()!=null) {
+                            celda.setCellValue(detalle.getPercepcionNeta().doubleValue());
+                        } else{
+                            celda.setCellValue(0.0);
+                        }
                         break;
                     default:
                         // No hará nada.
@@ -331,7 +347,7 @@ public class SeguroPopularReporteExcel implements Serializable {
             hoja.shiftRows(iteradorFila, iteradorFila + 1, 1);
         }
     }
-    
+
     private void llenarTotales(List<SeguroPopularReporteDTO> detalles) {
         BigDecimal c07SueldoBaseTotal = BigDecimal.ZERO;
         BigDecimal c30CompensacionRiesgoTotal = BigDecimal.ZERO;
@@ -376,13 +392,18 @@ public class SeguroPopularReporteExcel implements Serializable {
         BigDecimal casAhorroSolidarioTotal = BigDecimal.ZERO;
         BigDecimal deduccionGranTotal = BigDecimal.ZERO;
         BigDecimal percepcionNetaTotal = BigDecimal.ZERO;
+        BigDecimal cero = BigDecimal.ZERO;
 
         for (SeguroPopularReporteDTO detalle : detalles) {
             for(int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
                 switch(iteradorColumna) {
-                    case C07_SUELDO_BASE:
-                        c07SueldoBaseTotal = c07SueldoBaseTotal.add(detalle.getC07SueldoBase());
-                        break;
+                case C07_SUELDO_BASE:
+                        if (detalle.getC07SueldoBase() != null) {
+                            c07SueldoBaseTotal = c07SueldoBaseTotal.add(detalle.getC07SueldoBase());
+                        } else {
+                            c07SueldoBaseTotal = c07SueldoBaseTotal.add(cero);
+                        }
+                    break;
                     case C30_COMPENSACION_RIESGO:
                         c30CompensacionRiesgoTotal = c30CompensacionRiesgoTotal.add(detalle.getC30CompensacionRiesgo());
                         break;
@@ -515,10 +536,10 @@ public class SeguroPopularReporteExcel implements Serializable {
                 }
             }
         }
-        
+
         int ultimaFila = hoja.getLastRowNum() + 1;
         Row fila = hoja.createRow(ultimaFila);
-        
+
         for(int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
             Cell celda = fila.createCell(iteradorColumna);
             switch(iteradorColumna) {
@@ -657,7 +678,7 @@ public class SeguroPopularReporteExcel implements Serializable {
             }
         }
     }
-    
+
     /**
      * Devuelve el contenido del archivo cargado como un arreglo de bytes.
      *

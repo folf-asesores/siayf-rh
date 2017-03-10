@@ -17,12 +17,12 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoRepository;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoEntity;
-import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDRepository;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDEntity;
+import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDRepository;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoRepository;
+import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoEntity;
 import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoRepository;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoEntity;
 
 @Stateless
 public class FuenteFinanciamientoService {
@@ -208,11 +208,13 @@ public class FuenteFinanciamientoService {
 
 	public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoNomina() {
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery("SELECT " + " id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-				+ " id_fuente_financiamiento AS idFuenteFinanciamiento, "
-				+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, " + " id_base_36 AS idBase36, "
-				+ " descripcion AS descripcion " + " FROM subfuentes_financiamientos_temp ");
-
+		Query query = session.createSQLQuery(" SELECT                                                   "
+				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                           "
+				+ " id_fuente_financiamiento AS idFuenteFinanciamiento,                                 "
+				+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD,                          "
+				+ " id_base_36 AS idBase36,                                                             "
+				+ " descripcion AS descripcion                                                          "
+				+ " FROM subfuentes_financiamientos_temp                                                ");
 		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
 		@SuppressWarnings("unchecked")
 		List<SubfuenteFinanciamientoDTO> result = (List<SubfuenteFinanciamientoDTO>) query.list();
@@ -223,13 +225,16 @@ public class FuenteFinanciamientoService {
 			Integer tipoDepartamento) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session
-				.createSQLQuery("SELECT " + " id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-						+ " id_fuente_financiamiento AS idFuenteFinanciamiento, "
-						+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, " + " id_base_36 AS idBase36, "
-						+ " descripcion AS descripcion " + " FROM subfuentes_financiamientos_temp " + " WHERE "
-						+ " id_departamento = :tipoDepartamento")
+				.createSQLQuery(" SELECT                                                                "
+						+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                   "
+						+ " id_fuente_financiamiento AS idFuenteFinanciamiento,                         "
+						+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD,                  "
+						+ " id_base_36 AS idBase36,                                                     "
+						+ " descripcion AS descripcion                                                  "
+						+ " FROM subfuentes_financiamientos_temp                                        "
+						+ " WHERE                                                                       "
+						+ " id_departamento = :tipoDepartamento                                         ")
 				.setParameter("tipoDepartamento", tipoDepartamento);
-
 		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
 		@SuppressWarnings("unchecked")
 		List<SubfuenteFinanciamientoDTO> result = (List<SubfuenteFinanciamientoDTO>) query.list();

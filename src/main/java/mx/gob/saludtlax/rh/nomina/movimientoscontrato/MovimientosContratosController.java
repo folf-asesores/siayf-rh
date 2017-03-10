@@ -3,7 +3,9 @@ package mx.gob.saludtlax.rh.nomina.movimientoscontrato;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -20,6 +22,7 @@ import mx.gob.saludtlax.rh.empleados.administracion.Empleado;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.nomina.productosnomina.FaltaContadaDTO;
 import mx.gob.saludtlax.rh.seguridad.autenticacion.AutenticacionUtil;
 import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 import mx.gob.saludtlax.rh.util.FechaUtil;
@@ -41,7 +44,7 @@ public class MovimientosContratosController implements Serializable {
     @Inject private MovimientosContratosView view;
 
     @PostConstruct
-    public void configuracionNominaEmpleado () {
+    public void initMovimientosContratos () {
         view.panelBusqueda();
         view.setListaConceptos(ejb.obtenerConceptosLista(true) );
     }
@@ -170,49 +173,50 @@ public class MovimientosContratosController implements Serializable {
         if (view.getProductoNominaLista().isEmpty()) {
             JSFUtils.errorMessage("Debe existir un producto de nomina disponible para registrar el movimiento", "");
         }
+        view.setNuevo(Boolean.TRUE);
     	view.panelFormulario();
     	return null;
     }
 
-    public String agregarMovimiento() {
-        MovimientoContratosDTO dtoNew = new MovimientoContratosDTO();
-    	dtoNew = view.getMovimientoContratos();
-    	dtoNew.setAbonado(new BigDecimal(0));
-    	dtoNew.setSaldo(view.getMovimientoContratos().getMonto());
-    	System.out.println("empleado::" + view.getEmpleadoSelect().getIdEmpleado());
-    	dtoNew.setAnioInicial(FechaUtil.ejercicioActual());
-    	System.out.println("view.getMovimientoContratos().getIdNominaEmpleado():: " + view.getMovimientoContratos().getIdNominaEmpleado());
-    	dtoNew.setIdNominaEmpleado(view.getMovimientoContratos().getIdNominaEmpleado());
-    	dtoNew.setIdConceptoContratos(view.getMovimientoContratos().getIdConceptoContratos());
-    	//1:abierto  :: 2:en proceso 3:inactivo
-    	dtoNew.setIdEstatus(1);
-        dtoNew.setNumeroAbonos(view.getMovimientoContratos().getNumeroAbonos() != null ? view.getMovimientoContratos().getNumeroAbonos() : 0);
-        dtoNew.setRfc(view.getEmpleadoDatos().getRfc());
-        dtoNew.setIdEmpleado(view.getEmpleadoSelect().getIdEmpleado());
-        Integer idMovimiento = ejb.crear(dtoNew);
+	public String agregarMovimiento() {
+		if (view.getNuevo()) {
+			view.getMovimientoContratos().setAbonado(new BigDecimal(0));
+			view.getMovimientoContratos().setSaldo(view.getMovimientoContratos().getMonto());
+			view.getMovimientoContratos().setAnioInicial(FechaUtil.ejercicioActual());
+			view.getMovimientoContratos().setIdNominaEmpleado(view.getMovimientoContratos().getIdNominaEmpleado());
+			view.getMovimientoContratos().setIdConceptoContratos(view.getMovimientoContratos().getIdConceptoContratos());
+			// 1:Registrado
+			view.getMovimientoContratos().setIdEstatus(1);
+			view.getMovimientoContratos().setNumeroAbonos(view.getMovimientoContratos().getNumeroAbonos() != null
+					? view.getMovimientoContratos().getNumeroAbonos() : 0);
+			view.getMovimientoContratos().setRfc(view.getEmpleadoDatos().getRfc());
+			view.getMovimientoContratos().setIdEmpleado(view.getEmpleadoSelect().getIdEmpleado());
+			Integer idMovimiento = ejb.crear(view.getMovimientoContratos());
 
-        BigDecimal descuento = new BigDecimal(0);
-        if (dtoNew.getNumeroAbonos() != null && dtoNew.getNumeroAbonos() > 0) {
-            descuento = dtoNew.getMonto().divide(new BigDecimal(dtoNew.getNumeroAbonos()), 2, RoundingMode.HALF_UP);
-        }
-        for (int i = 1; i <= dtoNew.getNumeroAbonos(); i++) {
-            DetalleMovimientoContratoDTO detalleDto = new DetalleMovimientoContratoDTO();
-            detalleDto.setAbono(descuento.multiply(new BigDecimal(i)));
-            detalleDto.setDescuento(descuento);
-            detalleDto.setFechaRegistro(new Date());
-            detalleDto.setIdMovimientoContrato(idMovimiento);
-            detalleDto.setMonto(dtoNew.getMonto());
-            detalleDto.setNumeroPago(i);
+			BigDecimal descuento = new BigDecimal(0);
+			if (view.getMovimientoContratos().getNumeroAbonos() != null && view.getMovimientoContratos().getNumeroAbonos() > 0) {
+				descuento = view.getMovimientoContratos().getMonto().divide(new BigDecimal(view.getMovimientoContratos().getNumeroAbonos()), 2, RoundingMode.HALF_UP);
+			}
 
-            BigDecimal saldo = dtoNew.getMonto().subtract(detalleDto.getAbono());
-            System.out.println("saldo." + dtoNew.getMonto().subtract(detalleDto.getAbono()) + " " + saldo);
-            detalleDto.setSaldo(saldo);
+			for (int i = 1; i <= view.getMovimientoContratos().getNumeroAbonos(); i++) {
+				DetalleMovimientoContratoDTO detalleDto = new DetalleMovimientoContratoDTO();
+				detalleDto.setAbono(descuento.multiply(new BigDecimal(i)));
+				detalleDto.setDescuento(descuento);
+				detalleDto.setFechaRegistro(new Date());
+				detalleDto.setIdMovimientoContrato(idMovimiento);
+				detalleDto.setMonto(view.getMovimientoContratos().getMonto());
+				detalleDto.setNumeroPago(i);
 
-            ejb.guardarDetalle(detalleDto);
-        }
-
-        JSFUtils.infoMessage("Correcto:", "El movimiento se registro exitosamente.");
-        view.setMovimientoContratos(new MovimientoContratosDTO());
+				BigDecimal saldo = view.getMovimientoContratos().getMonto().subtract(detalleDto.getAbono());
+				System.out.println("saldo." + view.getMovimientoContratos().getMonto().subtract(detalleDto.getAbono()) + " " + saldo);
+				detalleDto.setSaldo(saldo);
+				ejb.guardarDetalle(detalleDto);
+			}
+	        JSFUtils.infoMessage("Correcto:", "El movimiento se registro exitosamente.");
+		} else {
+			ejb.actualizarMovimientoContratos(view.getMovimientoContratos());
+	        JSFUtils.infoMessage("Correcto:", "El movimiento se actualizó exitosamente.");
+		}
         view.panelFormulario();
         return null;
     }
@@ -294,20 +298,73 @@ public class MovimientosContratosController implements Serializable {
     	return null;
     }
 
-    public String irPanelBusqeuda(){
-    	
-     view.panelBusqueda();
-     return null;
+	public String irPanelBusqeuda() {
+		view.panelBusqueda();
+		return null;
+	}
+
+    public String irGestionMovimiento() {
+        view.setNuevo(Boolean.FALSE);
+		view.setProductoNominaLista(ejb.obtenerProductoNominaLista(view.getEmpleadoSelect().getIdEmpleado()));
+    	view.setMovimientoContratos(ejb.obtenerMovimientoContrato(view.getMovimientoContratos()));
+	    if (view.getProductoNominaLista().isEmpty()) {
+	        JSFUtils.errorMessage("Debe existir un producto de nomina disponible para registrar el movimiento", "");
+	    }
+	    actualizarFormulario();
+		view.panelFormulario();
+		return null;
     }
-    
-    
+
     public String actualizarFormulario() {
         view.setHabilitarFaltas(view.getMovimientoContratos().getIdConceptoContratos().equals(13));
+        if (view.isHabilitarFaltas() && view.getMovimientoContratos().getFaltaContadaList() == null) {
+        	List<FaltaContadaDTO> faltaContadaList = new ArrayList<>();
+        	view.getMovimientoContratos().setFaltaContadaList(faltaContadaList);
+        }
         view.setDesabilitarFijos(ejb.esMovimientoFijo(view.getMovimientoContratos().getIdConceptoContratos()));
     	return null;
     }
 
-    public MovimientosContratosView getView() {
-        return view;
-    }
+    public String agregarFalta() {
+    	FaltaContadaDTO faltaContada = new FaltaContadaDTO();
+    	faltaContada.setFechaFalta(new Date(view.getFechaFalta().getTime()));
+    	Boolean noExiste =Boolean.TRUE;
+    	for (FaltaContadaDTO faltaContadaTem : view.getMovimientoContratos().getFaltaContadaList()) {
+    		if (faltaContadaTem.getFechaFalta().equals(view.getFechaFalta())) {
+    			noExiste =Boolean.FALSE;
+    	    	break;
+    		}
+		}
+    	if (noExiste) {
+        	view.getMovimientoContratos().getFaltaContadaList().add(faltaContada);
+        	view.getMovimientoContratos().setMonto(ejb.calcularDescuentoFaltas(view.getMovimientoContratos()));
+    	}
+		return null;
+	}
+
+    public String eliminarFalta() {
+    	for (FaltaContadaDTO faltaContada : view.getMovimientoContratos().getFaltaContadaList()) {
+    		if (faltaContada.getFechaFalta().equals(view.getFechaFalta())) {
+    	    	view.getMovimientoContratos().getFaltaContadaList().remove(faltaContada);
+            	view.getMovimientoContratos().setMonto(ejb.calcularDescuentoFaltas(view.getMovimientoContratos()));
+    	    	break;
+    		}
+    	}
+		return null;
+	}
+
+
+    public String eliminarMovimientoContrato() {
+		if (view.getMovimientoContratos().getIdEstatus() == 1) {
+			ejb.eliminarMovimientoContrato(view.getMovimientoContratos());
+	        view.setMovimientoContratosLista(ejb.obtenerMovimientosNominaEmpleadoLista(view.getEmpleadoSelect().getIdEmpleado()));
+	    	view.panelMovimientos();
+            JSFUtils.infoMessage("El movimiento se ha eliminado exitosamente", "");
+		} else {
+            JSFUtils.errorMessage("El movimiento ya esta considerado en la nómina", "");
+		}
+		return null;
+	}
+
+    public MovimientosContratosView getView() {return view;}
 }

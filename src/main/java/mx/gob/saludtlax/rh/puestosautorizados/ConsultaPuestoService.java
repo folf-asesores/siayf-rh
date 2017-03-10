@@ -8,6 +8,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
+import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.InventarioVacanteEntity;
@@ -129,6 +133,7 @@ public class ConsultaPuestoService {
 		puestoEmpleado.setUnidadResponsable(puesto.getConfiguracion().getUnidadResponsable().getDescripcion());
 		puestoEmpleado.setSueldoAutorizado(puesto.getConfiguracion().getSueldo());
 		puestoEmpleado.setIdPuesto(puesto.getIdVacante());
+		puestoEmpleado.setSeguroPopular(puesto.isSeguroPopular());
 
 		return puestoEmpleado;
 	}
@@ -282,12 +287,12 @@ public class ConsultaPuestoService {
 				.consultarEmpleadosInventarioPorContratacion(tipoContratacion);
 		if (!puestos.isEmpty()) {
 			for (InventarioVacanteEntity p : puestos) {
-				
+
 				DetallePuestoDTO dto = new DetallePuestoDTO();
-				if(p.getPuestoAutorizado() != null){
+				if (p.getPuestoAutorizado() != null) {
 					dto.setCodigoAutorizado(p.getPuestoAutorizado().getCodigo());
 					dto.setDescripcionCodigoAutorizado(p.getPuestoAutorizado().getPuesto());
-				}				
+				}
 				dto.setRfc(p.getEmpleadoActivo().getRfc());
 				dto.setEmpleado(p.getEmpleadoActivo().getNombreCompleto());
 				dto.setIdPuesto(p.getIdVacante());
@@ -302,6 +307,26 @@ public class ConsultaPuestoService {
 			}
 		}
 		return detalles;
+	}
+
+	protected EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto) {
+		InventarioVacanteEntity puesto = inventarioVacanteRepository.obtenerPorId(idPuesto);
+		if (puesto == null) {
+			throw new SistemaException("No existe el puesto con identificador " + idPuesto,
+					SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+		}
+
+		if (puesto.getTipoContratacion().getId() != EnumTipoContratacion.CONTRATO_ESTATAL) {
+			throw new ReglaNegocioException("La estructura solo está permitida para contrato estatal.",
+					ReglaNegocioCodigoError.TIPO_CONTRATACION_NO_PERMITIDA);
+		}
+		EstructuraContratoDTO estructura = new EstructuraContratoDTO();
+		estructura.setFinanciamiento(puesto.getFinanciamiento());
+		estructura.setFuncion(puesto.getFuncionEspecifica());
+		estructura.setJornada(puesto.getJornada());
+		estructura.setSubfuncion(puesto.getSubfuncion());
+
+		return estructura;
 	}
 
 }

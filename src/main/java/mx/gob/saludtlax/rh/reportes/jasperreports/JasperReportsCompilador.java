@@ -1,4 +1,4 @@
-/*
+    /*
  * JasperReportsCompilador.java
  * Creado el 9/Sep/2016 1:37:04 PM
  *
@@ -7,6 +7,7 @@
 package mx.gob.saludtlax.rh.reportes.jasperreports;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -37,7 +39,7 @@ import org.jboss.logging.Logger;
  */
 public class JasperReportsCompilador {
 
-    private static final String DATASOURCE_NAME = "java:jboss/datasources/SIAYFRHDS";
+    private static final String DATASOURCE_NAME = "java:jboss/datasources/SIAYFRHDSESP";
     private static final Logger LOGGER = Logger
             .getLogger(JasperReportsCompilador.class.getName());
 
@@ -52,14 +54,16 @@ public class JasperReportsCompilador {
      */
     public JasperReport compilar(InputStream inputStream) {
         LOGGER.debug("Iniciando la compilación del archivo .jrxml");
-        JasperReport jasper;
+        JasperReport jasper = null;
 
         try {
             jasper = JasperCompileManager.compileReport(inputStream);
             LOGGER.debug("La compilación del archivo .jrxml se ha completado");
+            inputStream.close();
         } catch (JRException ex) {
-            jasper = null;
             LOGGER.errorv("Error durante la compilaci\u00f3n de archivo JRXML. {0} ", ex.getMessage());
+        } catch (IOException ex) {
+            LOGGER.errorv("Error al cerrar el inputStream: {0}", ex);
         }
 
         return jasper;
@@ -105,19 +109,23 @@ public class JasperReportsCompilador {
                     LOGGER.info("La generación del archivo .pdf se ha completado");
                 } else if("txt".equalsIgnoreCase(tipoReporte)) {
                     LOGGER.info("Iniciando la generación del reporte txt");
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parametros, conexion);
-                    SimpleExporterInput sei = new SimpleExporterInput(jasperPrint);
-                    SimpleTextReportConfiguration strc = new SimpleTextReportConfiguration();
-                    SimpleWriterExporterOutput sweo = new SimpleWriterExporterOutput(baos);
+                    try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parametros, conexion);
+                        SimpleExporterInput sei = new SimpleExporterInput(jasperPrint);
+                        SimpleTextReportConfiguration strc = new SimpleTextReportConfiguration();
+                        SimpleWriterExporterOutput sweo = new SimpleWriterExporterOutput(baos);
+                        
+                        JRTextExporter exporter = new JRTextExporter();
+                        exporter.setExporterInput(sei);
+                        exporter.setConfiguration(strc);
+                        exporter.setExporterOutput(sweo);
+                        exporter.exportReport();
 
-                    JRTextExporter exporter = new JRTextExporter();
-                    exporter.setExporterInput(sei);
-                    exporter.setConfiguration(strc);
-                    exporter.setExporterOutput(sweo);
-                    exporter.exportReport();
-
-                    bytesReporte = baos.toByteArray();
+                        bytesReporte = ArchivoUtil.codificarComoWindows(baos.toByteArray());
+                        LOGGER.info("La generación del reporte se ha completado.");
+                    } catch (IOException ex) {
+                        LOGGER.error(ex.getCause(), ex);
+                    }
                     LOGGER.info("La generación del archivo .txt se ha completado");
                 }
             }

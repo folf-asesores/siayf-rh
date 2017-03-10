@@ -20,6 +20,7 @@ import mx.gob.saludtlax.rh.configuracion.puestogeneral.PuestoGeneral;
 import mx.gob.saludtlax.rh.configuracion.puestogeneral.PuestoGeneralDTO;
 import mx.gob.saludtlax.rh.configuracion.tabulador.Tabulador;
 import mx.gob.saludtlax.rh.configuracion.tabulador.TabuladorDTO;
+import mx.gob.saludtlax.rh.nomina.EvaluadorService;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
@@ -47,6 +48,8 @@ public class ConceptosNominaFederalesController implements Serializable {
 	private BigDecimal sueldoBase= BigDecimal.ZERO;
 	private BigDecimal asignacionbruta= BigDecimal.ZERO;
 	private BigDecimal ayudagastosactualiazacion= BigDecimal.ZERO;
+	
+	  @Inject private EvaluadorService evaluadorService;
 
 	@PostConstruct
 	public void conceptosInit() {
@@ -193,7 +196,6 @@ public class ConceptosNominaFederalesController implements Serializable {
 				newConfigConcepto.setCodigoPuesto(puesto.getCodigo());
 				newConfigConcepto.setDecripcionConcepto(view.getConceptoNominaSelect().getDescripcion());
 				newConfigConcepto.setDescripcionPuesto(puesto.getPuesto());
-
 				if (view.getResult() != null) {
 
 					BigDecimal newImport = new BigDecimal(view.getResult().trim());
@@ -209,28 +211,7 @@ public class ConceptosNominaFederalesController implements Serializable {
 							FechaUtil.ejercicioActual());
 					System.out.println("tabulador " + tabulador.getIdTabulador() + "--- "
 							+ view.getConceptoNominaSelect().getClave());
-					if (view.getConceptoNominaSelect().getClave().contentEquals("0700")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-						newConfigConcepto.setImporte_concepto(
-								tabulador.getSueldoBrutoMensual().setScale(2, RoundingMode.HALF_EVEN));
-						newConfigConcepto.setFormula("EX0700");
-					}
-
-					if (view.getConceptoNominaSelect().getClave().contentEquals("4200")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-						newConfigConcepto.setImporte_concepto(tabulador.getAsignacionBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
-						newConfigConcepto.setFormula("(EX4200)");
-					}
-
-					if (view.getConceptoNominaSelect().getClave().contentEquals("55AG")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-						newConfigConcepto.setImporte_concepto(
-								tabulador.getAgaBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
-						newConfigConcepto.setFormula("(EX55AG)");
-					}
+					
 				} catch (NullPointerException ex) {
 					JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto " + puesto.getCodigo());
 				}
@@ -239,13 +220,19 @@ public class ConceptosNominaFederalesController implements Serializable {
 				newConfigConcepto.setTipoPuesto(puesto.getIdTipoPuesto());
 				
 				if(view.getConceptoNominaSelect().getFormula()!=null){
+					
+				
 					newConfigConcepto.setFormula(view.getConceptoNominaSelect().getFormula());
 					String formulanueva = newConfigConcepto.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual()+"");
+				formulanueva = formulanueva.replace("C30","0");
+				formulanueva = formulanueva.replace("CA1","0");
 				formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual()+"");
 				formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual()+"");
 				String resFormula = ejb.evaluarFormula(formulanueva);
-				System.out.println("cambiar valor constante :. " +formulanueva +" "+ resFormula );
+				
 				BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
+				
+				
 				newConfigConcepto.setImporte_concepto(valorFormula);
 				}
 				listNewConfigDto.add(newConfigConcepto);

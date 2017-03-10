@@ -29,24 +29,29 @@ import org.jboss.logging.Logger;
  * 
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
-@WebServlet(name = "notificador", urlPatterns = {"/notificador-de-excepciones", "/notificador-de-error"}, initParams = {
-    @WebInitParam(name = "he", value = ""),
-    @WebInitParam(name = "tp", value = ""),
-    @WebInitParam(name = "msg", value = ""),
-    @WebInitParam(name = "st", value = ""),
-    @WebInitParam(name = "un", value = ""),
-    @WebInitParam(name = "et", value = "")})
+@WebServlet(name = "notificador", urlPatterns = {"/notificador-de-excepciones",
+    "/notificador-de-error"},
+        initParams = {
+            @WebInitParam(name = "he", value = ""),
+            @WebInitParam(name = "tp", value = ""),
+            @WebInitParam(name = "msg", value = ""),
+            @WebInitParam(name = "st", value = ""),
+            @WebInitParam(name = "un", value = ""),
+            @WebInitParam(name = "et", value = "")})
 public class NotificadorExcepcionServlet extends HttpServlet {
     
     private static final long serialVersionUID = 5393837855516135464L;
-    private static final Logger LOGGER = Logger.getLogger(NotificadorExcepcionServlet.class.getName());
-    private static final boolean DEBUG;
-    
+    private static final Logger LOGGER = Logger
+            .getLogger(NotificadorExcepcionServlet.class.getName());
+    private static final String PLANTILLA_MENSAJE_ERROR = 
+            "Detalle de la excepción:\n"
+            + "\tTipo: {0}\n"
+            + "\tMensaje: {1}\n"
+            + "\tPila de seguimiento: {2}\n"
+            + "\tHora y fecha de la excepción: {3}\n"
+            + "\tNombre de usuario: {4}\n";
+
     @Inject private NotificadorExcepcion notificadorExcepcion;
-    
-    static {
-        DEBUG = false;
-    }
     
    /**
      * Handles the HTTP <code>POST</code> method.
@@ -57,13 +62,15 @@ public class NotificadorExcepcionServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response)
             throws ServletException, IOException {
         boolean hasException = Boolean.valueOf(request.getParameter("he"));
         
         if(hasException){
             HttpSession session = request.getSession();            
-            UsuarioDTO usuario = (UsuarioDTO) session.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) session.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
             
             String type = request.getParameter("tp");
             String message = request.getParameter("msg");
@@ -71,11 +78,8 @@ public class NotificadorExcepcionServlet extends HttpServlet {
             String username = usuario.getUserName();
             String exceptionTime = request.getParameter("et");
             
-            log(Logger.Level.INFO, "Tipo: {0}", type);
-            log(Logger.Level.INFO, "Mensaje: {0}", message);
-            log(Logger.Level.INFO, "Pila de seguimiento: {0}", stackTrace);
-            log(Logger.Level.INFO, "Hora y fecha de la excepción: {0}", exceptionTime);
-            log(Logger.Level.INFO, "Nombre de usuario: {0}", username);
+            LOGGER.debugv(PLANTILLA_MENSAJE_ERROR, type, message, stackTrace,
+                    exceptionTime, username);
             
             switch(type) {
                 case "java.lang.NullPointerException" :
@@ -84,7 +88,8 @@ public class NotificadorExcepcionServlet extends HttpServlet {
                 case "mx.gob.saludtlax.rh.excepciones.BusinessException" :
                 case "mx.gob.saludtlax.rh.excepciones.ReglaNegocioException" :
                 case "mx.gob.saludtlax.rh.excepciones.SistemaException" :
-                    notificadorExcepcion.notificar(username, type, message, stackTrace, exceptionTime);
+                    notificadorExcepcion.notificar(username, type, message,
+                            stackTrace, exceptionTime);
                     break;
                 default:
                     //Do nothing
@@ -100,12 +105,7 @@ public class NotificadorExcepcionServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "This Servlet allows to notify when some exception occurred and sending it via e-mail.";
-    }
-    
-    private void log(Logger.Level level, String mensaje, Object parametro){
-        if(DEBUG){
-            LOGGER.logv(level, mensaje, parametro);
-        }
+        return "This Servlet allows to notify when some exception occurred and"
+                + " sending it via e-mail.";
     }
 }

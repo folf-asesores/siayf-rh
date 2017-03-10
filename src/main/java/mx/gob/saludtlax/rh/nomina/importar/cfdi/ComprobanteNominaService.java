@@ -674,7 +674,7 @@ public class ComprobanteNominaService implements Serializable {
 		// Empezamos por crear el comprobante
 		ComprobanteEntity comprobanteEntity = comprobanteDAO.buscarComprobanteTimbrado(
 				datosComprobante.getComprobanteCFDI().getReceptor().getRfc(),
-				datosComprobante.getComplementoNomina12().getFechaPago().toGregorianCalendar().getTime(),
+				datosComprobante.getComplementoNomina().getFechaPago().toGregorianCalendar().getTime(),
 				datosComprobante.getComprobanteCFDI().getTotal(),
 				new Integer(datosComprobante.getComprobanteCFDI().getFolio()));
 
@@ -684,14 +684,14 @@ public class ComprobanteNominaService implements Serializable {
 			//comprobanteEntity.setBanco(datosComprobante.getComplementoNomina().getBanco());
 			comprobanteEntity.setCadenaOriginal(datosComprobante.getCadenaOriginal());
 			comprobanteEntity.setCalle(datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getCalle());
-			if (datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria() != null)
-				comprobanteEntity.setcLABE(datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria().toString());
+			if (datosComprobante.getComplementoNomina().getCuentaBancaria() != null)
+				comprobanteEntity.setcLABE(datosComprobante.getComplementoNomina().getCuentaBancaria().toString());
 			comprobanteEntity.setCodigoPostal(
 					datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getCodigoPostal());
 			comprobanteEntity
 					.setColonia(datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getColonia());
 			comprobanteEntity.setComprobanteXML(datosComprobante.getComprobanteXML().getBytes());
-			comprobanteEntity.setcURP(datosComprobante.getComplementoNomina12().getReceptor().getCurp());
+			comprobanteEntity.setcURP(datosComprobante.getComplementoNomina().getCURP());
 			/*if (datosComprobante.getComplementoNomina12().getDeducciones() != null) {
 				comprobanteEntity.setDeduccionTotalExcento(
 						datosComprobante.getComplementoNomina12().getDeducciones().getTotalExento());
@@ -699,24 +699,24 @@ public class ComprobanteNominaService implements Serializable {
 						datosComprobante.getComplementoNomina().getDeducciones().getTotalGravado());
 			}*/
 
-			comprobanteEntity.setDepartamento(datosComprobante.getComplementoNomina12().getReceptor().getDepartamento());
+			comprobanteEntity.setDepartamento(datosComprobante.getComplementoNomina().getDepartamento());
 			comprobanteEntity.setDescuento(datosComprobante.getComprobanteCFDI().getDescuento());
 			comprobanteEntity.setEstado(datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getEstado());
 
 			comprobanteEntity
 					.setFecha(datosComprobante.getComprobanteCFDI().getFecha().toGregorianCalendar().getTime());
 			comprobanteEntity.setFechaFinalPago(
-					datosComprobante.getComplementoNomina12().getFechaFinalPago().toGregorianCalendar().getTime());
+					datosComprobante.getComplementoNomina().getFechaFinalPago().toGregorianCalendar().getTime());
 			comprobanteEntity.setFechaFolioFiscalOriginal(
 					datosComprobante.getComplementoTimbre().getFechaTimbrado().toGregorianCalendar().getTime());
 			comprobanteEntity.setFechaInicialPago(
-					datosComprobante.getComplementoNomina12().getFechaInicialPago().toGregorianCalendar().getTime());
-			if (datosComprobante.getComplementoNomina12().getReceptor().getFechaInicioRelLaboral() != null) {
-				comprobanteEntity.setFechaInicioRelacionLaboral(datosComprobante.getComplementoNomina12().getReceptor()
+					datosComprobante.getComplementoNomina().getFechaInicialPago().toGregorianCalendar().getTime());
+			if (datosComprobante.getComplementoNomina().getFechaInicioRelLaboral() != null) {
+				comprobanteEntity.setFechaInicioRelacionLaboral(datosComprobante.getComplementoNomina()
 						.getFechaInicioRelLaboral().toGregorianCalendar().getTime());
 			}
 			comprobanteEntity.setFechaPago(
-					datosComprobante.getComplementoNomina12().getFechaPago().toGregorianCalendar().getTime());
+					datosComprobante.getComplementoNomina().getFechaPago().toGregorianCalendar().getTime());
 			comprobanteEntity.setFechaTimbrado(
 					datosComprobante.getComplementoTimbre().getFechaTimbrado().toGregorianCalendar().getTime());
 			comprobanteEntity.setFolio(datosComprobante.getComprobanteCFDI().getFolio());
@@ -739,26 +739,26 @@ public class ComprobanteNominaService implements Serializable {
 			comprobanteEntity.setNombre(datosComprobante.getComprobanteCFDI().getReceptor().getNombre());
 			comprobanteEntity.setNumeroCertificadoSAT(datosComprobante.getComplementoTimbre().getNoCertificadoSAT());
 			comprobanteEntity.setNumeroCuentaPago(datosComprobante.getComprobanteCFDI().getNumCtaPago());
-			comprobanteEntity.setNumeroDiasPagados(datosComprobante.getComplementoNomina12().getNumDiasPagados());
-			comprobanteEntity.setNumeroEmpleado(datosComprobante.getComplementoNomina12().getReceptor().getNumEmpleado());
-			comprobanteEntity.setNumeroSeguridadSocial(datosComprobante.getComplementoNomina12().getReceptor().getNumSeguridadSocial());
+			comprobanteEntity.setNumeroDiasPagados(datosComprobante.getComplementoNomina().getNumDiasPagados());
+			comprobanteEntity.setNumeroEmpleado(datosComprobante.getComplementoNomina().getNumEmpleado());
+			comprobanteEntity.setNumeroSeguridadSocial(datosComprobante.getComplementoNomina().getNumSeguridadSocial());
 			comprobanteEntity.setNumXML(datosComprobante.getNum().toString());
 			comprobanteEntity.setPais(datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getPais());
 			/*comprobanteEntity.setPercepcionTotalExcento(
 					datosComprobante.getComplementoNomina().getPercepciones().getTotalExento());
 			comprobanteEntity.setPercepcionTotalGravado(
 					datosComprobante.getComplementoNomina().getPercepciones().getTotalGravado());*/
-			comprobanteEntity.setPeriocidadPago(datosComprobante.getComplementoNomina12().getReceptor().getPeriodicidadPago());
-			comprobanteEntity.setPuesto(datosComprobante.getComplementoNomina12().getReceptor().getPuesto());
+			comprobanteEntity.setPeriocidadPago(datosComprobante.getComplementoNomina().getPeriodicidadPago());
+			comprobanteEntity.setPuesto(datosComprobante.getComplementoNomina().getPuesto());
 			comprobanteEntity
 					.setReferencia(datosComprobante.getComprobanteCFDI().getReceptor().getDomicilio().getReferencia());
-			comprobanteEntity.setRegistroPatronal(datosComprobante.getComplementoNomina12().getEmisor().getRegistroPatronal());
+			comprobanteEntity.setRegistroPatronal(datosComprobante.getComplementoNomina().getRegistroPatronal());
 			comprobanteEntity.setrFC(datosComprobante.getComprobanteCFDI().getReceptor().getRfc());
-			comprobanteEntity.setRiesgoPuesto(new  Integer(datosComprobante.getComplementoNomina12().getReceptor().getRiesgoPuesto()));
+			//comprobanteEntity.setRiesgoPuesto(new  Integer(datosComprobante.getComplementoNomina().getRiesgoPuesto()));
 			comprobanteEntity
-					.setSalarioBaseCotizacionAport(datosComprobante.getComplementoNomina12().getReceptor().getSalarioBaseCotApor());
+					.setSalarioBaseCotizacionAport(datosComprobante.getComplementoNomina().getSalarioBaseCotApor());
 			comprobanteEntity
-					.setSalarioDiarioIntegrado(datosComprobante.getComplementoNomina12().getReceptor().getSalarioDiarioIntegrado());
+					.setSalarioDiarioIntegrado(datosComprobante.getComplementoNomina().getSalarioDiarioIntegrado());
 			comprobanteEntity.setSello(datosComprobante.getComprobanteCFDI().getSello());
 			comprobanteEntity.setSelloCFDI(datosComprobante.getComplementoTimbre().getSelloCFD());
 			comprobanteEntity.setSerie(datosComprobante.getComprobanteCFDI().getSerie());
@@ -767,8 +767,8 @@ public class ComprobanteNominaService implements Serializable {
 			comprobanteEntity.setSubTotal(datosComprobante.getComprobanteCFDI().getSubTotal());
 			comprobanteEntity.setTipoCambio(datosComprobante.getComprobanteCFDI().getTipoCambio());
 			comprobanteEntity.setTipoComprobante(datosComprobante.getComprobanteCFDI().getTipoDeComprobante());
-			comprobanteEntity.setTipoContrato(datosComprobante.getComplementoNomina12().getReceptor().getTipoContrato());
-			comprobanteEntity.setTipoJornada(datosComprobante.getComplementoNomina12().getReceptor().getTipoJornada());
+			comprobanteEntity.setTipoContrato(datosComprobante.getComplementoNomina().getTipoContrato());
+			comprobanteEntity.setTipoJornada(datosComprobante.getComplementoNomina().getTipoJornada());
 			comprobanteEntity.setTotal(datosComprobante.getComprobanteCFDI().getTotal());
 			comprobanteEntity.setTotalImpuestoRetenidos(
 					datosComprobante.getComprobanteCFDI().getImpuestos().getTotalImpuestosRetenidos());
@@ -777,7 +777,7 @@ public class ComprobanteNominaService implements Serializable {
 			;
 			comprobanteEntity.setuUID(datosComprobante.getComplementoTimbre().getUUID());
 			comprobanteEntity.setVersion(datosComprobante.getComprobanteCFDI().getVersion());
-			comprobanteEntity.setVersionNomina(datosComprobante.getComplementoNomina12().getVersion());
+			comprobanteEntity.setVersionNomina(datosComprobante.getComplementoNomina().getVersion());
 			comprobanteEntity.setVersionTimbre(datosComprobante.getComplementoTimbre().getVersion());
 			comprobanteEntity.setSelloSAT(datosComprobante.getComplementoTimbre().getSelloSAT());
 

@@ -114,6 +114,16 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 
 	}
 
+	public List<InventarioVacanteEntity> consultaEmpleadosPorTipoNombramiento(Integer idTipoNombramiento) {
+		List<InventarioVacanteEntity> inventario = em
+				.createQuery(
+						"SELECT i FROM InventarioVacanteEntity AS i WHERE i.nombramiento.idTipoNombramiento =:tipoNombramiento and i.estatus.idEstatus=4",
+						InventarioVacanteEntity.class)
+				.setParameter("tipoNombramiento", idTipoNombramiento).getResultList();
+		return inventario;
+
+	}
+
 	public List<InfoPuestoDTO> consultaVacantesPorTipoContratacionEstatus(Integer tipoContratacion, String disponible) {
 		List<InfoPuestoDTO> inventario = em
 				.createQuery(
@@ -232,6 +242,21 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
 		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
 				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO").getResultList();
+
+		return resultado;
+	}
+
+	public List<InfoEmpleadoDTO> empleadosPorCriterioTipoContratacion(String criterio, Integer tipoContratacion) {
+		String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(i.empleadoActivo.idEmpleado, "
+				+ "i.empleadoActivo.nombreCompleto, i.empleadoActivo.curp, i.empleadoActivo.rfc, "
+				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
+				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
+				+ "FROM InventarioVacanteEntity AS i WHERE (i.empleadoActivo.nombreCompleto LIKE :criterio "
+				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) AND i.disponible =:disponible AND i.tipoContratacion.id =:tipoContratacion"
+				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
+		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
+				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO")
+				.setParameter("tipoContratacion", tipoContratacion).getResultList();
 
 		return resultado;
 	}
@@ -462,5 +487,14 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 						"SELECT i FROM InventarioVacanteEntity AS i WHERE i.tipoContratacion.id =:tipoContratacion",
 						InventarioVacanteEntity.class)
 				.setParameter("tipoContratacion", tipoContratacion).getResultList();
+	}
+
+	public InventarioVacanteEntity obtenerInventarioVacantePorConfiguracionPresupuesto(
+			ConfiguracionPresupuestoEntity configuracionPresupuestoEntity) {
+		return em
+				.createQuery(
+						"SELECT i FROM InventarioVacanteEntity AS i WHERE i.configuracion =:configuracionPresupuestoEntity",
+						InventarioVacanteEntity.class)
+				.setParameter("configuracionPresupuestoEntity", configuracionPresupuestoEntity).getSingleResult();
 	}
 }

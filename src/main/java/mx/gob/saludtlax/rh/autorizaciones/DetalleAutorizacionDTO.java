@@ -3,6 +3,7 @@
  */
 package mx.gob.saludtlax.rh.autorizaciones;
 
+import mx.gob.saludtlax.rh.empleados.administracion.BitacoraEmpleadoDTO;
 import mx.gob.saludtlax.rh.empleados.datolaboral.DetalleConfiguracionPresupuestoDTO;
 import mx.gob.saludtlax.rh.empleados.movimientos.DetalleMovimientoDTO;
 import mx.gob.saludtlax.rh.empleados.suplencia.DetalleSuplenciaDTO;
@@ -19,6 +20,15 @@ public class DetalleAutorizacionDTO {
 	private ConfiguracionDetalleProgramaDTO configuracionDetallePrograma;
 	private DetalleMovimientoDTO detalleMovimiento;
 	private DetalleSuplenciaDTO detalleSuplencia;
+	private BitacoraEmpleadoDTO bitacora;
+
+	public BitacoraEmpleadoDTO getBitacora() {
+		return bitacora;
+	}
+
+	public void setBitacora(BitacoraEmpleadoDTO bitacora) {
+		this.bitacora = bitacora;
+	}
 
 	public DetalleSuplenciaDTO getDetalleSuplencia() {
 		return detalleSuplencia;

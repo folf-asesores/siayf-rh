@@ -13,6 +13,8 @@ import java.util.List;
 public class BuzonAutorizacionesRepository extends
 		GenericRepository<BuzonAutorizacionesEntity, Integer> {
 
+	private static final long serialVersionUID = -1159203469352201806L;
+
 	/**
 	 * Consulta el buzon de autorizaciones del usuario por estatus
 	 * 
@@ -33,5 +35,21 @@ public class BuzonAutorizacionesRepository extends
 		return autorizaciones;
 	}
 
-
+	public Boolean esUsuarioAutorizaNomina(OperacionSistemaEntity accion, Integer idEntidadContexto,
+			Integer idUsuario) {
+		List<BuzonAutorizacionesEntity> autorizaciones = em
+				.createQuery(
+						" SELECT b                                                                       "
+								+ " FROM BuzonAutorizacionesEntity AS b                                  "
+								+ " WHERE                                                                "
+								+ " b.accion =:accion                                                    "
+								+ " AND                                                                  "
+								+ " b.idEntidadContexto =:idEntidadContexto                              "
+								+ " AND                                                                  "
+								+ " b.idUsuario =:idUsuario                                              ",
+						BuzonAutorizacionesEntity.class)
+				.setParameter("accion", accion).setParameter("idEntidadContexto", idEntidadContexto)
+				.setParameter("idUsuario", idUsuario).getResultList();
+		return !autorizaciones.isEmpty();
+	}
 }

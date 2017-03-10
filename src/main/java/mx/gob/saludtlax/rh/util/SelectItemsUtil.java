@@ -14,6 +14,7 @@ import mx.gob.saludtlax.rh.catalogos.CatalogoDTO;
 import mx.gob.saludtlax.rh.empleados.interinatos.EnumTipoBusquedaInterinato;
 import mx.gob.saludtlax.rh.empleados.suplencia.EnumEstatusSuplencia;
 import mx.gob.saludtlax.rh.empleados.suplencia.EnumTipoConsultaSuplencia;
+import mx.gob.saludtlax.rh.empleados.suplencia.EnumTipoMovimientoSuplente;
 import mx.gob.saludtlax.rh.voluntarios.EnumTipoConsultaVoluntario;
 
 /**
@@ -648,4 +649,95 @@ public class SelectItemsUtil {
 		lista.add(dos);
 		return lista;
 	}
+
+	public static List<SelectItem> listaTiposMovimientosSuplentes() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem(EnumTipoMovimientoSuplente.VACACIONES, EnumTipoMovimientoSuplente.VACACIONES);
+		SelectItem dos = new SelectItem(EnumTipoMovimientoSuplente.INCAPACIDAD, EnumTipoMovimientoSuplente.INCAPACIDAD);
+		lista.add(uno);
+		lista.add(dos);
+		return lista;
+	}
+
+	public static List<SelectItem> listaFuncionesEspecificas() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("1", "MÉDICO ESPECIALISTA");
+		SelectItem dos = new SelectItem("2", "MÉDICO GENERAL");
+		SelectItem tres = new SelectItem("3", "CIRUJANO DENTISTA");
+		SelectItem cuatro = new SelectItem("4", "ODONTÓLOGOS");
+		SelectItem cinco = new SelectItem("5", "ENFERMERAS Y AUXILIAR DE ENFERMERÍA");
+		SelectItem seis = new SelectItem("6", "PARAMÉDICA (TÉCNICO, LABORATORISTA)");
+		SelectItem siete = new SelectItem("7", "AFINES");
+		SelectItem ocho = new SelectItem("8", "SOPORTES ADMINISTRATIVOS (PERSONAL CONFIANZA)");
+		SelectItem nueve = new SelectItem("9", "APOYOS ADMINISTRATIVOS (PERSONAL BASE)");
+		SelectItem diez = new SelectItem("10", "PERSONAL DE MANDO");
+		SelectItem once = new SelectItem("11", "INVESTIGADOR");
+		SelectItem doce = new SelectItem("12", "MÉDICO RESIDENTE");
+
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+		lista.add(cuatro);
+		lista.add(cinco);
+		lista.add(seis);
+		lista.add(siete);
+		lista.add(ocho);
+		lista.add(nueve);
+		lista.add(diez);
+		lista.add(once);
+		lista.add(doce);
+		return lista;
+	}
+
+	public static List<SelectItem> listaFinanciamientos() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("01", "FASSA");
+		SelectItem dos = new SelectItem("02", "SEGURO POPULAR");
+		SelectItem tres = new SelectItem("03", "RECURSOS ESTATALES");
+		SelectItem cuatro = new SelectItem("04", "CUOTA RECUPERACIÓN");
+		SelectItem cinco = new SelectItem("05", "OPORTUNIDADES (SUBSIDIOS)");
+		SelectItem seis = new SelectItem("06", "RECURSO RAMO 12 (610)");
+		SelectItem siete = new SelectItem("07", "RECURSOS RAMO 12 (X00)");
+		SelectItem ocho = new SelectItem("08", "FASSA + SEGURO POPULAR");
+		SelectItem nueve = new SelectItem("09", "FASSA + RECURSOS ESTATALES");
+		SelectItem diez = new SelectItem("10", "FASSA + RECURSOS RAMO 12");
+		SelectItem once = new SelectItem("11", "RECURSO RAMO 12 (AFASPE)");
+		SelectItem doce = new SelectItem("12", "SEGURO POPULAR + RECURSOS ESTATALES");
+		SelectItem trece = new SelectItem("13", "CARAVANAS DE LA SALUD");
+		SelectItem catorce = new SelectItem("14", "FASSA + OPORTUNIDADES + CUOTAS DE RECUPERACIÓN");
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+		lista.add(cuatro);
+		lista.add(cinco);
+		lista.add(seis);
+		lista.add(siete);
+		lista.add(ocho);
+		lista.add(nueve);
+		lista.add(diez);
+		lista.add(once);
+		lista.add(doce);
+		lista.add(trece);
+		lista.add(catorce);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaJornadas() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("01", "JORNADA DIURNA ÁREA MÉDICA (MÁXIMO 8.0 HRS)");
+		SelectItem dos = new SelectItem("02", "JORNADA DIURNA GRUPO AFÍN ADMVO. (7.0 HRS)");
+		SelectItem tres = new SelectItem("03", "JORNADA MIXTA ÁREA MÉDICA (7.5 HRS)");
+		SelectItem cuatro = new SelectItem("04", "JORNADA ESPECIAL (12.0 HRS)");
+		SelectItem cinco = new SelectItem("05", "JORNADA DIURNA (6.0 HRS)");
+
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+		lista.add(cuatro);
+		lista.add(cinco);
+
+		return lista;
+	}
+
 }

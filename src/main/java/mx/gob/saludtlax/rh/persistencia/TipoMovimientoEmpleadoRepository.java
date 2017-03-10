@@ -43,7 +43,7 @@ public class TipoMovimientoEmpleadoRepository extends GenericRepository<TipoMovi
 
 	public List<TipoMovimientoEmpleadoEntity> consultaMovimientos() {
 		List<TipoMovimientoEmpleadoEntity> movimientos = em.createQuery(
-				"SELECT m FROM TipoMovimientoEmpleadoEntity AS m WHERE m.idPadre > 0 AND  m.visualizarMovimiento =true",
+				"SELECT m FROM TipoMovimientoEmpleadoEntity AS m WHERE m.visualizarMovimiento =true",
 				TipoMovimientoEmpleadoEntity.class).getResultList();
 		return movimientos;
 	}

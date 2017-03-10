@@ -13,6 +13,7 @@
 
 	<ui:param name="ventanaTitulo" value="Consultar Partidas" />
 	<ui:param name="moduloTitulo" value="Consultar Partidas" />
+	
 
 	<ui:param name="moduloSubtitulo"
 		value="Este modulo permite consultar partidas" />
@@ -28,16 +29,28 @@
 				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
 				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
 
-				<p:outputLabel for="criterio" value="RFC: " />
-				<p:inputText id="criterio" value="#{consultarPartida.view.rfc}"
-					placeholder="Ingrese un criterio de búsqueda">
-				</p:inputText>
+			<p:outputLabel for="rfc" value="RFC: " />
+				<p:outputPanel>
+				   <p:inputText
+				    placeholder="Ingrese un criterio de búsqueda"
+				    validator="#{consultarPartida.validatorDatosGenerales}"
+					onkeyup="javascript:this.value=this.value.toUpperCase();"
+					id="rfc" value="#{consultarPartida.view.rfc}"
+					maxlength="13">
+					<p:ajax event="blur" update="msgRfc" />
+					<p:clientValidator />
+					</p:inputText>
+					<p:message id="msgRfc" for="rfc" />
+					</p:outputPanel>
 
-				<p:commandButton icon="ui-icon-search" styleClass="fm-btn-elevado"
-					onsuccess="PF(`statusDialog`).hide()"
-					onstart="PF(`statusDialog`).show()"
-					action="#{consultarPartida.consultarPartidasPorRfc()}" ajax="false"
-					update=":form" />
+				<p:commandButton icon="ui-icon-search" 
+							    styleClass="fm-btn-elevado"
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()"
+								action="#{consultarPartida.consultarPartidasPorRfc()}" 
+								process="@this,:form:rfc"
+								update=":form" 
+								id="gestionar"/>
 
 				<p:outputLabel for="unidadResponsable" value="Unidad Responsable: " />
 				<p:selectOneMenu id="unidadResponsable"
@@ -55,7 +68,7 @@
 								 onsuccess="PF(`statusDialog`).hide()"
 							     onstart="PF(`statusDialog`).show()"
 								 action="#{consultarPartida.consultarPartidasPorUnidadResponsable()}"
-								 ajax="false"
+								 process="@this, :form:unidadResponsable"
 							 	 update=":form"/>
 
 				<p:outputLabel for="nombramiento" value="Nombramiento: " />
@@ -74,16 +87,80 @@
 				               	 onsuccess="PF(`statusDialog`).hide()"
 				 	             onstart="PF(`statusDialog`).show()" 
 				 	             action="#{consultarPartida.consultarPartidasPorTipoNombramiento()}" 
-				 	             ajax="false"
+							     process="@this, :form:nombramiento"
 								 update=":form" />
-			</p:panelGrid>
+								 
+				<p:outputLabel for="dependencia" value="Dependencia: " />
+				<p:selectOneMenu id="dependencia" 
+			 		value="#{consultarPartida.view.idDependencia}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems
+						value="#{consultarPartida.view.listaDependencia}"
+						var="dependencia"
+						itemValue="#{dependencia.idDependencia}"
+						itemLabel="#{dependencia.descripcion}" />
+				</p:selectOneMenu>
+				
+				<p:commandButton icon="ui-icon-search" 
+				                 styleClass="fm-btn-elevado"
+				               	 onsuccess="PF(`statusDialog`).hide()"
+				 	             onstart="PF(`statusDialog`).show()" 
+				 	             action="#{consultarPartida.consultarPartidasPorDependencia()}" 
+							     process="@this, :form:dependencia"
+								 update=":form"/>			 
+								 
+				</p:panelGrid>
+			
+			<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+				
+				<p:outputLabel  value="Periodo: " />
+				<p:outputLabel  value="Inicio " />
+				<p:outputLabel  value="Fin " />	     				
+				
+				<p:outputLabel for="mesInicio" value="Mes: " />				
+				<p:selectOneMenu id="mesInicio"
+								 filter="true"
+								 filterMatchMode="contains"
+						         value="#{consultarPartida.view.listaQuincena}">
+				    <f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+				  	<f:selectItems value="#{consultarPartida.view.listaQuincena}" />
+				</p:selectOneMenu>
+				
+				<p:selectOneMenu id="mesFin"
+					             filter="true"
+								 filterMatchMode="contains"
+								 value="#{consultarPartida.view.listaQuincena}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems value="#{consultarPartida.view.listaQuincena}" />
+				</p:selectOneMenu>
+				
+				</p:panelGrid>
+				
+				<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+				
+				<p:commandButton value="Descargar Reporte"
+								icon="fm-icon-download" 
+								update="@form" 
+								ajax="false"
+								iconPos="right"
+								process="@this"
+								rendered="#{consultarPartida.view.mostrarOpcionDescarga}"
+								action="#{consultarPartida.descargarReporte()}"
+								oncomplete="mymessages();" /> 
+											 
+				
+				</p:panelGrid>
 
 			<p:dataTable id="listaConsultaPartida"
 				         value="#{consultarPartida.view.listaConsultaPartida}"
 				         var="consultaPartida" 
 				         emptyMessage="No se encontrarón resultados">
 
-				<p:column headerText="Partida" style="width:20%; ">
+				<p:column headerText="Partida" style="width:18%; ">
 					<h:outputText id="idPartida#{consultaPartida.partida}"
 								value="#{consultaPartida.partida}"
 								style="font-size:12px !important" >
@@ -174,7 +251,7 @@
 						</h:outputText>
 				</p:column>
 				
-				<p:column headerText="Total" style="width:6%;">
+				<p:column headerText="Total" style="width:8%;">
 				<h:outputText value="#{consultaPartida.total}"
 						style="font-size:12px !important" >
 						<f:convertNumber currencySymbol="$" type="currency" />

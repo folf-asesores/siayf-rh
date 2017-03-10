@@ -17,7 +17,7 @@ public class DependenciaService {
     @Inject
     private DependenciaRepository dependenciaRepository;
 
-    protected List<DependenciaDTO> listaDependencia() {
+    public List<DependenciaDTO> listaDependencia() {
         List<DependenciaEntity> dependencias = dependenciaRepository.consultarDependencias();
         return convertirEntidadesADTOs(dependencias);
     }

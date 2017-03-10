@@ -32,7 +32,7 @@ public class SeguroPopularReporteService implements Serializable {
      */
     protected List<SeguroPopularReporteDTO> obtenerInformacion() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_seguro_popular_reporte()");
+        Query query = session.createSQLQuery("CALL usp_generar_seguro_popular_rh_dev()");
         query.setResultTransformer(Transformers.aliasToBean(SeguroPopularReporteDTO.class));
         
         List<SeguroPopularReporteDTO> resultado = (List<SeguroPopularReporteDTO>) query.list();

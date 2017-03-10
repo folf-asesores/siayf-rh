@@ -17,10 +17,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "configuraciones_presupuestales_empleados")
 public class ConfiguracionPresupuestoEntity implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4152763684655562288L;
 
 	@Id
@@ -114,6 +110,45 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 	@Column(name = "id_riesgo")
 	private Integer idRiesgo;
 
+	public String lccDatosLaborales() {
+		String p = " SIN PROYECTO ";
+		if (this.proyecto != null) {
+			p = this.proyecto.getDescripcion();
+		}
+		String d = " SIN DEPENDENCIA ";
+		if (this.dependencia != null) {
+			d = this.dependencia.getDescripcion();
+		}
+
+		String u = " SIN UNIDAD ";
+		if (this.unidadResponsable != null) {
+			u = this.unidadResponsable.getDescripcion();
+		}
+		String f = "SIN FUENTE";
+		if (this.fuenteFinanciamiento != null) {
+			f = this.fuenteFinanciamiento.getDescripcion();
+		}
+
+		String sub = " SIN SUBFUENTE";
+		if (this.subfuenteFinanciamiento != null) {
+			sub = this.subfuenteFinanciamiento.getDescripcion();
+		}
+		String ta = " SIN TABULADOR ";
+		if (this.tabulador != null) {
+			ta = this.tabulador.getPuestoGeneral().getCodigo() + " " + this.tabulador.getPuestoGeneral().getPuesto();
+		}
+		return "Datos Laborales [numeroEmpleado=" + numeroEmpleado + ", tipoContratacion="
+				+ tipoContratacion.getTipoContratacion() + ", proyecto=" + p + ", dependencia=" + d
+				+ ", unidadResponsable=" + u + ", puesto=" + puesto.getCodigo() + "-" + puesto.getPuesto()
+				+ ", fuenteFinanciamiento=" + f + ", subfuenteFinanciamiento=" + sub + ", sueldo=" + sueldo
+				+ ", sueldo01=" + sueldo01 + ", sueldo14=" + sueldo14 + ", tabulador=" + ta + ", fechaInicioLabores="
+				+ fechaInicioLabores + "]";
+	}
+
+	public String lccSueldo() {
+		return "Sueldo [sueldo=" + sueldo + ", sueldo01=" + sueldo01 + ", sueldo14=" + sueldo14 + "]";
+	}
+
 	public Integer getIdJornada() {
 		return idJornada;
 	}
@@ -198,8 +233,7 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 		return fuenteFinanciamiento;
 	}
 
-	public void setFuenteFinanciamiento(
-			FuenteFinanciamientoEntity fuenteFinanciamiento) {
+	public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
 		this.fuenteFinanciamiento = fuenteFinanciamiento;
 	}
 
@@ -207,8 +241,7 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 		return subfuenteFinanciamiento;
 	}
 
-	public void setSubfuenteFinanciamiento(
-			SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+	public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
 		this.subfuenteFinanciamiento = subfuenteFinanciamiento;
 	}
 
@@ -296,8 +329,7 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 		return centroResponsabilidad;
 	}
 
-	public void setCentroResponsabilidad(
-			CentroResponsabilidadEntity centroResponsabilidad) {
+	public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
 		this.centroResponsabilidad = centroResponsabilidad;
 	}
 

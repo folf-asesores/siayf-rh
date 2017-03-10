@@ -12,4 +12,8 @@ public interface Modulos {
 	
 	List<ModuloDTO> listaModulos();
 	
+	ModuloDTO obtenerModuloPorId(Integer idModulo); 
+	
+	
+	
 }

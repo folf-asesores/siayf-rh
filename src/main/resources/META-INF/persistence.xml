@@ -11,4 +11,14 @@
             <property name="dialect" value="org.hibernate.dialect.MySQLDialect" />
         </properties>
     </persistence-unit>
+<!--
+    <persistence-unit name="siayfrhespPU" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>java:jboss/datasources/SIAYFRHDSESP</jta-data-source>
+        <properties>
+            <property name="hibernate.show_sql" value="false" />
+            <property name="dialect" value="org.hibernate.dialect.MySQLDialect" />
+        </properties>
+    </persistence-unit>
+-->
 </persistence>

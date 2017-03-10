@@ -1,11 +1,8 @@
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
-/**
- * @author José Pablo
- */
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -29,6 +26,7 @@ import mx.gob.saludtlax.rh.configuracion.tipoperiodo.TipoPeriodoService;
 import mx.gob.saludtlax.rh.empleados.suplencia.EnumEstatusSuplencia;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.persistencia.PagoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.ProcesoCalculoEntity;
 import mx.gob.saludtlax.rh.persistencia.ProcesoCalculoRepository;
 import mx.gob.saludtlax.rh.persistencia.QuincenasSuplenciasEntity;
@@ -38,30 +36,24 @@ import mx.gob.saludtlax.rh.seguridad.autenticacion.AutenticacionUtil;
 import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
+/**
+ * @author José Pablo
+ */
 @Stateless
 public class ProductosNominaEJB {
-	@Inject
-	private FuenteFinanciamientoService fuenteFinanciamientoService;
-	@Inject
-	private TipoNominaService tipoNominaService;
-	@Inject
-	private EjercicioFiscalService ejercicioFiscalService;
-	@Inject
-	private ProductosNominaService productoNominaService;
-	@Inject
-	private ProcesoCalculoRepository procesoCalculoRepository;
-	@Inject
-	private NominaEmpleadoService nominaEmpleadoEventualService;
-	@Inject
-	private NominaEmpleadoFederalizadoService nominaEmpleadoFederalizadoService;
-	@Inject
-	private TipoPeriodoService tipoPeriodoService;
-	@Inject
-	private QuincenasSuplenciasRepository quincenaSuplenciaRepository;
-	@Inject
-	private AutorizacionesService autorizacionesService;
-	@Inject
-	private EstatusNominaService estatusNominaService;
+	@Inject private FuenteFinanciamientoService fuenteFinanciamientoService;
+	@Inject private TipoNominaService tipoNominaService;
+	@Inject private EjercicioFiscalService ejercicioFiscalService;
+	@Inject private ProductosNominaService productoNominaService;
+	@Inject private ProcesoCalculoRepository procesoCalculoRepository;
+	@Inject private NominaEmpleadoService nominaEmpleadoEventualService;
+	@Inject private NominaEmpleadoFederalizadoService nominaEmpleadoFederalizadoService;
+	@Inject private TipoPeriodoService tipoPeriodoService;
+	@Inject private QuincenasSuplenciasRepository quincenaSuplenciaRepository;
+	@Inject private AutorizacionesService autorizacionesService;
+	@Inject private EstatusNominaService estatusNominaService;
+	@Inject private ActualizarNominaEmpleadoService actualizarNominaEmpleadoService;
+	@Inject private PagoNominaService pagoNominaService;
 
 	private static final Logger LOGGER = Logger.getLogger(ProductosNominaEJB.class);
 
@@ -82,7 +74,7 @@ public class ProductosNominaEJB {
 
 	public List<SubfuenteFinanciamientoDTO> obtenerSubfuenteFinanciamientoNominaList(ProductoNominaDTO productoNomina) {
 		return fuenteFinanciamientoService
-				.listaSubfuenteFinanciamientoNominaPorDepartamento(productoNomina.getIdArea());
+				.listaSubfuenteFinanciamientoNomina();
 	}
 
 	public List<TipoNominaDTO> obtenerTipoNominaList() {
@@ -125,7 +117,8 @@ public class ProductosNominaEJB {
 	@TransactionTimeout(value = 10, unit = TimeUnit.HOURS)
 	public ProductoNominaDTO abrirProductoNomina(ProductoNominaDTO productoNomina) {
 		if (productoNomina.getIdTipoContratacion() == EnumTipoContratacion.SUPLENCIA) {
-//			ProcesoCalculoEntity proceso = procesoCalculoRepository.obtenerPorId(2);
+			// ProcesoCalculoEntity proceso =
+			// procesoCalculoRepository.obtenerPorId(2);
 			List<QuincenasSuplenciasEntity> quincenasSuplencias = quincenaSuplenciaRepository
 					.consultarSuplenciasPorQuincena(productoNomina.getNumeroPeriodo(),
 							productoNomina.getEjercicioFiscal(), EnumEstatusSuplencia.CERRADA);
@@ -195,7 +188,7 @@ public class ProductosNominaEJB {
 
 	@TransactionTimeout(value = 10, unit = TimeUnit.HOURS)
 	public ProductoNominaDTO calcularProductoNomina(ProductoNominaDTO productoNomina) {
-		System.out.println("calcularProductoNomina");
+		System.out.println("calcularProductoNomina" + "calculara faltas?" + productoNomina.getCalcularFaltas());
 		productoNomina.setIdEstatusProductoNomina(3);
 		productoNominaService.actualizarProductoNomina(productoNomina);
 		UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
@@ -204,12 +197,13 @@ public class ProductosNominaEJB {
 			List<NominaEmpleadoDTO> nominaEmpleadoList = nominaEmpleadoEventualService
 					.obtenerNominaEmpleadoList(productoNomina);
 			if (productoNomina.getIdTipoContratacion() == EnumTipoContratacion.SUPLENCIA) {
-//				ProcesoCalculoEntity proceso = procesoCalculoRepository.obtenerPorId(1);
-//				proceso.setEnProceso(true);
+				// ProcesoCalculoEntity proceso =
+				// procesoCalculoRepository.obtenerPorId(1);
+				// proceso.setEnProceso(true);
 				for (NominaEmpleadoDTO nominaEmpleado : nominaEmpleadoList) {
 					nominaEmpleadoEventualService.calcularProductoNominaSuplencias(productoNomina, nominaEmpleado);
-//					procesoCalculoRepository.actualizar(proceso);
-//					proceso.setNumeroProcesado(++contador);
+					// procesoCalculoRepository.actualizar(proceso);
+					// proceso.setNumeroProcesado(++contador);
 				}
 			}
 			if (productoNomina.getIdTipoContratacion() == EnumTipoContratacion.CONTRATO_ESTATAL) {
@@ -228,7 +222,8 @@ public class ProductosNominaEJB {
 						// nominaEmpleado);
 						// break;
 						default:
-							nominaEmpleadoEventualService.calcularProductoNomina(productoNomina, nominaEmpleado, true);
+							System.out.println("productoNomina.getCalcularFaltas():: " + productoNomina.getCalcularFaltas());
+							nominaEmpleadoEventualService.calcularProductoNomina(productoNomina, nominaEmpleado, productoNomina.getCalcularFaltas());
 							break;
 						}
 
@@ -245,7 +240,7 @@ public class ProductosNominaEJB {
 				proceso.setEnProceso(true);
 				for (NominaEmpleadoDTO nominaEmpleado : nominaEmpleadoList) {
 					nominaEmpleadoEventualService.calcularProductoNominaContratoFederal(productoNomina, nominaEmpleado,
-							true);
+							productoNomina.getCalcularFaltas());
 					procesoCalculoRepository.actualizar(proceso);
 					proceso.setNumeroProcesado(++contador);
 				}
@@ -285,13 +280,6 @@ public class ProductosNominaEJB {
 	public void validarProductoNomina(ProductoNominaDTO productoNomina) {
 		productoNominaService.validarProductoNomina(productoNomina);
 		nominaEmpleadoEventualService.cambiarEstatusNominaEmpleado(productoNomina, 3);
-		NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
-		dto.setMensajeNotificacion(" su autorización del producto de nomina: " + productoNomina.getNombreProducto());
-		dto.setIdAccion(EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL);
-		UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
-		dto.setIdEntidadContexto(productoNomina.getIdProductoNomina());
-		dto.setIdUsuarioLogeado(usuario.getIdUsuario());
-		autorizacionesService.iniciarProcesoAprobacion(dto);
 	}
 
 	public List<NominaErroneaDTO> consultarNominasErroneas(Integer idProductoNomina) {
@@ -368,10 +356,15 @@ public class ProductosNominaEJB {
 	}
 
 	public void autorizarProductoNomina(ProductoNominaDTO productoNomina) {
-		productoNomina.setIdEstatusProductoNomina(6);
+		productoNomina.setIdEstatusProductoNomina(7);
 		productoNominaService.actualizarProductoNomina(productoNomina);
-		productoNominaService.aplicarChequesProductoNomina(productoNomina);
 		nominaEmpleadoEventualService.cambiarEstatusNominaEmpleado(productoNomina, 4);
+	}
+
+	public void devolverProductoNomina(ProductoNominaDTO productoNomina) {
+		productoNomina.setIdEstatusProductoNomina(4);
+		productoNominaService.actualizarProductoNomina(productoNomina);
+		nominaEmpleadoEventualService.cambiarEstatusNominaEmpleado(productoNomina, 2);
 	}
 
 	public List<CuentaBancariaDTO> obtenerCuentaBancariaList(ProductoNominaDTO productoNomina) {
@@ -386,7 +379,109 @@ public class ProductosNominaEJB {
 		productoNominaService.eliminarProductoNomina(productoNomina);
 	}
 
-	public void retenerNominaEmpleado(Integer idEstatusNominaEmpleadoRetenido,  Integer idNominaEmpleado) {
-		estatusNominaService.retenerNominaEmpleado(idEstatusNominaEmpleadoRetenido, idNominaEmpleado);
+	public void actualizarEstatusNominaEmpleado(Integer idEstatusNominaEmpleado, Integer idNominaEmpleado, Integer idUsuario) {
+		estatusNominaService.actualizarEstatusNominaEmpleado(idEstatusNominaEmpleado, idNominaEmpleado, idUsuario);
+	}
+
+	public Integer obtenerEstatusPorIdProductoNomina(Integer idProductoNominaEmpleado) {
+		return estatusNominaService.obtenerEstatusPorIdProductoNomina(idProductoNominaEmpleado);
+	}
+
+	public List<ActualizarNominaEmpleadoDTO> obtenerActualizarNomina(ProductoNominaDTO productoNomina) {
+		List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList = actualizarNominaEmpleadoService
+				.obtenerActualizarNomina(productoNomina);
+		return actualizarNominaEmpleadoList;
+	}
+
+    public void actualizarNomina(List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList, ProductoNominaDTO productoNomina) {
+        for (ActualizarNominaEmpleadoDTO actualizarNominaEmpleado : actualizarNominaEmpleadoList) {
+            switch (actualizarNominaEmpleado.getTipoCambio()) {
+            case "1":
+                actualizarNominaEmpleadoService.actualizarNomina(actualizarNominaEmpleado);
+                break;
+            case "2":
+                actualizarNominaEmpleadoService.agregarNominaEmpleado(actualizarNominaEmpleado, productoNomina);
+                break;
+            case "3":
+                productoNominaService.eliminarNominaEmpleado(actualizarNominaEmpleado.getIdNominaempleado());
+                break;
+            }
+        }
+    }
+
+	public List<PagoNominaDTO> obtenerPagosNomina(ProductoNominaDTO productoNomina) {
+		List<PagoNominaEntity> pagoNominaList = pagoNominaService.obtenerPagosNomina(productoNomina);
+		if (pagoNominaList.isEmpty()) {
+			pagoNominaList = pagoNominaService.crearPagosNomina(productoNomina);
+		}
+		List<PagoNominaDTO> pagoNominaDTOList = new ArrayList<>();
+		for (PagoNominaEntity pagoNominaEntity : pagoNominaList) {
+			PagoNominaDTO pagoNomina = pagoNominaService.toPagoNominaDTO(pagoNominaEntity);
+			pagoNominaDTOList.add(pagoNomina);
+		}
+		return pagoNominaDTOList;
+	}
+
+	public PagoNominaDTO obtenerPagoNomina(PagoNominaDTO pagoNominaSelect) {
+		return pagoNominaService.obtenerPagoNomina(pagoNominaSelect);
+	}
+
+	public PagoNominaDTO crearPagoNomina(PagoNominaDTO pagoNominaSelect) {
+		return pagoNominaService.crearPagoNomina(pagoNominaSelect);
+	}
+
+	public PagoNominaDTO actualizarPagoNomina(PagoNominaDTO pagoNominaSelect) {
+		return pagoNominaService.actualizarPagoNomina(pagoNominaSelect);
+	}
+
+	public void eliminarPagoNomina(PagoNominaDTO pagoNominaSelect) {
+		pagoNominaService.eliminarPagoNomina(pagoNominaSelect);
+	}
+
+	public PagoNominaDTO obtenerNuevoPagoNomina(ProductoNominaDTO productoNomina) {
+		PagoNominaDTO pagoNomina = pagoNominaService.obtenerListaRfcSinPago(productoNomina);
+		if (pagoNomina == null ) {
+			pagoNomina = new PagoNominaDTO();
+		}
+		pagoNomina.setIdPagoNomina(productoNomina.getIdProductoNomina());
+		pagoNomina.setIdBanco(7);
+		pagoNomina.setFechaPago(productoNomina.getFinPeriodo());
+		return pagoNomina;
+	}
+
+	public List<NominaEmpleadoDTO> obtenerNominaEmpleadoListPorPago(PagoNominaDTO pagoNomina) {
+		return nominaEmpleadoEventualService.obtenerNominaEmpleadoListPorPago(pagoNomina);
+	}
+
+	public List<NominaEmpleadoDTO> obtenerNominaEmpleadoListSinPago(ProductoNominaDTO productoNomina) {
+		return nominaEmpleadoEventualService.obtenerNominaEmpleadoListSinPago(productoNomina);
+	}
+
+	public Integer obtenerUltimoNumeroCheque(ProductoNominaDTO productoNomina) {
+		return nominaEmpleadoEventualService.obtenerUltimoNumeroCheque();
+	}
+
+	public void generarNumeracionCheques(ProductoNominaDTO productoNomina) {
+		productoNominaService.aplicarChequesProductoNomina(productoNomina);
+	}
+
+	public void pedirAutorizacionProductoNomina(ProductoNominaDTO productoNomina) {
+		productoNomina.setIdEstatusProductoNomina(6);
+		productoNominaService.actualizarProductoNomina(productoNomina);
+		NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
+		dto.setMensajeNotificacion(" su autorización del producto de nomina: " + productoNomina.getNombreProducto());
+		dto.setIdAccion(EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL);
+		UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+		dto.setIdEntidadContexto(productoNomina.getIdProductoNomina());
+		dto.setIdUsuarioLogeado(usuario.getIdUsuario());
+		autorizacionesService.iniciarProcesoAprobacion(dto);
+	}
+
+	public Boolean esUsuarioAutorizaNomina(ProductoNominaDTO productoNomina) {
+		UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+		Integer idOperacion = EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL;
+		Integer idEntidadContexto = productoNomina.getIdProductoNomina();
+		Integer idUsuario = usuario.getIdUsuario();
+		return autorizacionesService.esUsuarioAutoriza(idOperacion, idEntidadContexto, idUsuario);
 	}
 }

@@ -30,6 +30,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
 	private Integer idConcepto;
 	private String conceptosSiif;
 	private Integer idProductoNomina;
+	private Integer idPrograma;
 	
 	// **************** Getters and Setters *********************** //
 			
@@ -161,6 +162,12 @@ public class EstructuraContratosTrailersDTO implements Serializable {
 	}
 	public void setIdProductoNomina(Integer idProductoNomina) {
 		this.idProductoNomina = idProductoNomina;
+	}	
+	public Integer getIdPrograma() {
+		return idPrograma;
+	}
+	public void setIdPrograma(Integer idPrograma) {
+		this.idPrograma = idPrograma;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;

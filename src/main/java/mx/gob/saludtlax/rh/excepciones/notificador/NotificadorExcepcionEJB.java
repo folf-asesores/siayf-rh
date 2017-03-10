@@ -101,7 +101,7 @@ public class NotificadorExcepcionEJB implements NotificadorExcepcion {
 
     private void persistirExcepcion(String nombreUsuario, String tipo, String mensaje, String pilaSeguimiento, String fechaHoraException) {
         pilaSeguimiento = pilaSeguimiento.replace("<br />", "\n");
-        Date fechaHora = FechaUtil.getFecha(fechaHoraException, "dd/MMM/YYYY hh:mm:ss a");
+        Date fechaHora = FechaUtil.getFecha(fechaHoraException, "yyyy-MM-dd H:mm:ss");
         
         if(fechaHora == null) {
             fechaHora = Calendar.getInstance().getTime();

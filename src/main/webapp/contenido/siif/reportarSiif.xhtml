@@ -80,8 +80,7 @@
 
 						<p:commandButton id="seguropopular" value="Seguro Popular"
 							style="float:right;" onstart="PF('statusDialog').show()"
-							action="#{reporteSiif.generarSeguroPopularReporte()}"
-							ajax="false" />
+							action="#{reporteSiif.generarSeguroPopularReporte()}"/>						
 
 						<p:commandButton id="datytra" value="Generar Dat y Tra"
 							style="float:right;" onstart="PF('statusDialog').show()"
@@ -89,13 +88,11 @@
 
 						<p:commandButton id="enviar" value="Generar Layout SIIF"
 							style="float:right;" onstart="PF('statusDialog').show()"
-							action="#{reporteSiif.generarLayout()}">
-						</p:commandButton>
+							action="#{reporteSiif.generarLayout()}"/>
 						
-						<p:commandButton id="final" value="Layout SIIF" rendered="false"
+						<p:commandButton id="final" value="Layout SIIF Final"
 							style="float:right;" onstart="PF('statusDialog').show()"
-							action="#{reporteSiif.generarLayoutFinal()}">
-						</p:commandButton>
+							action="#{reporteSiif.generarLayoutFinal()}"/>
 
 						<p:commandButton id="deudores" value="Deudores"
 							action="#{reporteSiif.deudores()}"

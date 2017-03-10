@@ -86,25 +86,25 @@ public class ProductoNominaExcel implements Serializable {
 	/**
 	 * Totales
 	 */
-	private static BigDecimal TOTAL_HONORARIOS_ASIMILABLES = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_SUPLENCIAS = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_DIAS_ECONOMICOS = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_PERCEPCION_COMPLEMENTARIA = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_BONO = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_AGUINALDO = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_SUBSIDIO = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_PRIMA_VACACIONAL = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_BONIFICACION_FALTA = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_RETROACTIVO = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_OTROS = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_FALTAS_RETARDOS = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_ISR = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_RESPONSABILIDADES = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_PRESTAMO = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_JUICIO_MERCANTIL = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_CUOTA_SINDICAL = BigDecimal.ZERO;
-	private static BigDecimal TOTAL_PENSION_ALIMENTICIA = BigDecimal.ZERO;
-	private static BigDecimal TOTALES = BigDecimal.ZERO;
+	private BigDecimal TOTAL_HONORARIOS_ASIMILABLES = BigDecimal.ZERO;
+	private BigDecimal TOTAL_SUPLENCIAS = BigDecimal.ZERO;
+	private BigDecimal TOTAL_DIAS_ECONOMICOS = BigDecimal.ZERO;
+	private BigDecimal TOTAL_PERCEPCION_COMPLEMENTARIA = BigDecimal.ZERO;
+	private BigDecimal TOTAL_BONO = BigDecimal.ZERO;
+	private BigDecimal TOTAL_AGUINALDO = BigDecimal.ZERO;
+	private BigDecimal TOTAL_SUBSIDIO = BigDecimal.ZERO;
+	private BigDecimal TOTAL_PRIMA_VACACIONAL = BigDecimal.ZERO;
+	private BigDecimal TOTAL_BONIFICACION_FALTA = BigDecimal.ZERO;
+	private BigDecimal TOTAL_RETROACTIVO = BigDecimal.ZERO;
+	private BigDecimal TOTAL_OTROS = BigDecimal.ZERO;
+	private BigDecimal TOTAL_FALTAS_RETARDOS = BigDecimal.ZERO;
+	private BigDecimal TOTAL_ISR = BigDecimal.ZERO;
+	private BigDecimal TOTAL_RESPONSABILIDADES = BigDecimal.ZERO;
+	private BigDecimal TOTAL_PRESTAMO = BigDecimal.ZERO;
+	private BigDecimal TOTAL_JUICIO_MERCANTIL = BigDecimal.ZERO;
+	private BigDecimal TOTAL_CUOTA_SINDICAL = BigDecimal.ZERO;
+	private BigDecimal TOTAL_PENSION_ALIMENTICIA = BigDecimal.ZERO;
+	private BigDecimal TOTALES = BigDecimal.ZERO;
 
 	/**
 	 * Este método carga de la plantilla y prepara el libro y la hoja que se
@@ -133,6 +133,8 @@ public class ProductoNominaExcel implements Serializable {
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
 			libro.write(byteArrayOutputStream);
 			bytes = byteArrayOutputStream.toByteArray();
+			libro.close();
+			is.close();
 		}
 
 		return bytes;
@@ -147,7 +149,6 @@ public class ProductoNominaExcel implements Serializable {
 	 */
 	public byte[] generar(List<ProductosNominaExcelDTO> detalles) {
 		try {
-
 			cargarPlantilla();
 			llenarDetalles(detalles);
 

@@ -172,4 +172,16 @@ public class SuplenciaBean implements Suplencia {
 
 	}
 
+	@Interceptors({ MovimientoSuplenteValidator.class })
+	@Override
+	public void crearMovimientoSuplente(MovimientoSuplenteDTO movimiento) {
+		suplenciaService.crearMovimiento(movimiento);
+
+	}
+
+	@Override
+	public List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro) {
+		return suplenciaService.consultarMovimientosSuplente(filtro);
+	}
+
 }

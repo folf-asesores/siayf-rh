@@ -9,8 +9,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -25,11 +27,13 @@ import org.joda.time.Days;
 public class FechaUtil {
 
     private static final Logger LOGGER = Logger.getLogger(FechaUtil.class.getName());
-    private static final Locale LUGAR = new Locale("es", "MX");
+    public static final Locale LUGAR_MEXICO = new Locale("es", "MX");
     public static final int FECHAS_POR_MES = 0;
     public static final int FECHAS_POR_QUINCENA = 1;
     public static final int FECHAS_POR_SEMANA = 2;
-
+    public static final String PATRON_FECHA_CORTA = "dd/MM/yyyy";
+    public static final String PATRON_FECHA_HORA_CORTA = "dd/MM/yyyy HH:mm:ss";
+    
     private FechaUtil() {
     }
 
@@ -159,7 +163,7 @@ public class FechaUtil {
      * @return la fecha formateada.
      */
     public static String formatoFecha(Date fecha) {
-        return formatearFecha("dd/MM/yyyy", fecha);
+        return formatearFecha(PATRON_FECHA_CORTA, fecha);
     }
 
     /**
@@ -169,7 +173,7 @@ public class FechaUtil {
      * @return la fecha formateada.
      */
     public static String formatoFechaHora(Date fechaHora) {
-        return formatearFecha("dd/MM/yyyy HH:mm:ss", fechaHora);
+        return formatearFecha(PATRON_FECHA_HORA_CORTA, fechaHora);
     }
 
     /**
@@ -196,12 +200,12 @@ public class FechaUtil {
         }
 
         if (patronFecha == null || patronFecha.trim().isEmpty()) {
-            LOGGER.warn(
-                    "No se ha recibido un patrón por tanto se usar el patrón: \"dd/MM/yyyy\" para transformar la fecha.");
-            patronFecha = "dd/MM/yyyy";
+            LOGGER.warnv(
+                    "No se ha recibido un patrón por tanto se usar el patrón: \"{0}\" para transformar la fecha.", PATRON_FECHA_CORTA);
+            patronFecha = PATRON_FECHA_CORTA;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR_MEXICO);
         return dateFormat.format(fecha);
     }
 
@@ -220,7 +224,7 @@ public class FechaUtil {
         }
 
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR_MEXICO);
             return dateFormat.parse(fecha);
         } catch (ParseException ex) {
             LOGGER.warnv("Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}", fecha, patronFecha, ex.getCause());

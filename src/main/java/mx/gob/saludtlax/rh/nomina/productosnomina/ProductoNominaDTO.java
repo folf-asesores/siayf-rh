@@ -54,6 +54,8 @@ public class ProductoNominaDTO implements Serializable {
 	private BigDecimal diasAguinaldo;
 	private BigDecimal diasExentoPrimaVacasional;
 	private BigDecimal diasExentoAguinaldo;
+	
+	private Boolean calcularFaltas;
 
     private Integer idNominaEmpleado;
     
@@ -429,4 +431,15 @@ public class ProductoNominaDTO implements Serializable {
     public String toString() {
         return "ProductoNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", idTipoPeriodo=" + idTipoPeriodo + ", idPeriodoCalendario=" + idPeriodoCalendario + ", idUsuario=" + idUsuario + ", idEjercicioFiscal=" + idEjercicioFiscal + ", idEstatusProductoNomina=" + idEstatusProductoNomina + ", idBanco=" + idBanco + ", idCuentaBancaria=" + idCuentaBancaria + ", idTipoContratacion=" + idTipoContratacion + ", idFuenteFinanciamiento=" + idFuenteFinanciamiento + ", idSubfuenteFinanciamiento=" + idSubfuenteFinanciamiento + ", idTipoNomina=" + idTipoNomina + ", idArea=" + idArea + ", tipoPeriodo=" + tipoPeriodo + ", periodoCalendario=" + periodoCalendario + ", usuario=" + usuario + ", ejercicioFiscal=" + ejercicioFiscal + ", estatusProductoNomina=" + estatusProductoNomina + ", banco=" + banco + ", cuentaBancaria=" + cuentaBancaria + ", tipoContratacion=" + tipoContratacion + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", subfuenteFinanciamiento=" + subfuenteFinanciamiento + ", tipoNomina=" + tipoNomina + ", cambiarFuenteFinanciamiento=" + cambiarFuenteFinanciamiento + ", anyoEjercicioFiscal=" + anyoEjercicioFiscal + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", numeroPeriodo=" + numeroPeriodo + ", fechaPago=" + fechaPago + ", nombreProducto=" + nombreProducto + ", numeroInicioCheques=" + numeroInicioCheques + ", totalPercepciones=" + totalPercepciones + ", totalDeducciones=" + totalDeducciones + ", totalNeto=" + totalNeto + ", totalSubsidio=" + totalSubsidio + ", totalIsr=" + totalIsr + ", tipoRecurso=" + tipoRecurso + ", diasPagarAguinaldo=" + diasPagarAguinaldo + ", inicioRangoFaltas=" + inicioRangoFaltas + ", finRangoFaltas=" + finRangoFaltas + ", idNominaEmpleado=" + idNominaEmpleado + '}';
     }
+
+	public Boolean getCalcularFaltas() {
+		if (calcularFaltas == null) {
+			calcularFaltas = Boolean.FALSE;
+		}
+		return calcularFaltas;
+	}
+
+	public void setCalcularFaltas(Boolean calcularFaltas) {
+		this.calcularFaltas = calcularFaltas;
+	}
 }

@@ -182,13 +182,13 @@ public class ValidacionUtil {
             if(rfc == null) {
                 return false;
             }
-
             rfc = rfc.toUpperCase().trim();
-
+            if (rfc.length() < 12) {
+                return false;
+            }
             if (rfc.trim().matches("([A-Z]{4})([0-9]{6})([A-Z0-9]{3})")) {
                 return true;
             }
-
             return rfc.trim().matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}");                
 	}
 

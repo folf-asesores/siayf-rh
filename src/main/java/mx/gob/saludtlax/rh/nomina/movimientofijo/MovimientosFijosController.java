@@ -247,6 +247,7 @@ public class MovimientosFijosController implements Serializable {
 					}
 
 					TerceroInstitucionalDTO teroInsDto = new TerceroInstitucionalDTO();
+					System.out.println("terceros: " + dto.getCapitulo() +" - "+ dto.getClave_partida());
 					teroInsDto = terceroInstitucional.obtenerporClave(dto.getCapitulo(), dto.getClave_partida());
 					newMovimientoFijoDTO.setAnioFinal(dto.getAnio());
 					newMovimientoFijoDTO.setAnyoOperacion(FechaUtil.ejercicioActual());
@@ -260,7 +261,7 @@ public class MovimientosFijosController implements Serializable {
 					newMovimientoFijoDTO
 							.setIdEmpleado(empleadoSeleccionado != null ? empleadoSeleccionado.getIdEmpleado() : null);
 					newMovimientoFijoDTO.setIdTipoMovimiento(tipoMovNominaSeleccionado);
-
+					newMovimientoFijoDTO.setEstatus(true);
 					if (dto.getTipo_movimiento().contains("A")) {
 						newMovimientoFijoDTO.setTipoMovimiento("alta");
 					}
@@ -323,6 +324,7 @@ public class MovimientosFijosController implements Serializable {
 			newMovimientoFijoDTO.setStatusRegistro("Registro creado correctamente.");
 
 			if (newMovimientoFijoDTO.getIdEmpleado() != null) {
+				newMovimientoFijoDTO.setEstatus(true);
 				movimientoFijoService.crear(newMovimientoFijoDTO);
 				JSFUtils.infoMessage("Exito:","El movimiento se registro correctamente.");
 				movimientosProcesados.add(newMovimientoFijoDTO);
@@ -376,7 +378,7 @@ public class MovimientosFijosController implements Serializable {
 			break;
 		case "importeQuincenal":
 			BigDecimal importeQuincenal = (BigDecimal) value;
-			if (!ValidacionUtil.esMayorCero(importeQuincenal)) {
+			if (!ValidacionUtil.esNumeroPositivo(importeQuincenal)) {
 				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
 						"El importe debe ser mayor a 0.");
 				context.addMessage(component.getClientId(), facesMessage1);

@@ -37,19 +37,23 @@ public class TerceroInstitucionalRepository extends GenericRepository<TerceroIns
 	
 	public List<TerceroInstitucionalDTO> obtenerTerceroInstitucional(String clave,String partida){
 		Session session = em.unwrap(Session.class);
+		System.out.println("¡¡¡ " + clave + " - " +partida);
 		Query query = session.createSQLQuery("SELECT id_tercero_institucional as idTerceroInstitucional, "
 				+ " numero as numero, "
 				+ " nombre_empresa as nombreEmpresa,"
 				+ " concepto_deduccion as conceptoDeduccion,"
 				+ " contra_partida_identificadora as contrapartidaIdentificadora,"
-				+ " giro as giro  from terceros_institucionales where terceros_institucionales.contra_partida_identificadora=:partida and terceros_institucionales.numero=:clave")
+				+ " giro as giro  from terceros_institucionales where contra_partida_identificadora=:partida and numero=:clave")
 				.setParameter("clave", clave)
 				.setParameter("partida", partida);
 		
 		query.setResultTransformer(Transformers.aliasToBean(TerceroInstitucionalDTO.class));
 		@SuppressWarnings("unchecked")
 		List<TerceroInstitucionalDTO> datosDto = (List<TerceroInstitucionalDTO>) query.list();
+		
+		System.out.println("datosss: "+ datosDto.size());
 		return datosDto;
 	}
 
 }
+ 

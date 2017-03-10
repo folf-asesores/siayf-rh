@@ -14,6 +14,8 @@ public class BiometricoFormModel implements Serializable {
 	@SerializedName("IdEquipo")
 	private Integer idEquipo;
 	
+	
+	
 	@SerializedName("IdTipoEquipo")
 	private Integer idTipoEquipo;
 
@@ -37,6 +39,9 @@ public class BiometricoFormModel implements Serializable {
 	
 	@SerializedName("Activo")
 	private Integer activo;
+	
+	@SerializedName("IdClienteBiometrico")
+	private Integer idClienteBiometrico;
 	
 	
 
@@ -111,5 +116,15 @@ public class BiometricoFormModel implements Serializable {
 	public void setPuerto(Integer puerto) {
 		this.puerto = puerto;
 	}
+
+	public Integer getIdClienteBiometrico() {
+		return idClienteBiometrico;
+	}
+
+	public void setIdClienteBiometrico(Integer idClienteBiometrico) {
+		this.idClienteBiometrico = idClienteBiometrico;
+	}
+	
+	
 
 }

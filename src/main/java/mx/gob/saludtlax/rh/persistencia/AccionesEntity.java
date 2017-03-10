@@ -37,7 +37,9 @@ public class AccionesEntity implements Serializable{
 	@JoinColumn(name = "id_area")
 	private AreaEntity area;
 
-
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "id_modulo")
+    private ModuloEntity modulo;
 
 	public Integer getId_accion() {
 		return id_accion;
@@ -70,6 +72,15 @@ public class AccionesEntity implements Serializable{
 	public void setArea(AreaEntity area) {
 		this.area = area;
 	}
+
+	public ModuloEntity getModulo() {
+		return modulo;
+	}
+
+	public void setModulo(ModuloEntity modulo) {
+		this.modulo = modulo;
+	}
+	
 	
 	
 }

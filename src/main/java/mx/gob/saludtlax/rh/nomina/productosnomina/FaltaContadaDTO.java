@@ -6,6 +6,7 @@ public class FaltaContadaDTO {
 	private Integer idFaltaContada;
 	private Integer idNominaEmpleado;
 	private Integer idFalta;
+	private Integer idMovimientoEventual;
 	private Date fechaFalta;
 
 	public Integer getIdFaltaContada() {
@@ -25,6 +26,12 @@ public class FaltaContadaDTO {
 	}
 	public void setIdFalta(Integer idFalta) {
 		this.idFalta = idFalta;
+	}
+	public Integer getIdMovimientoEventual() {
+		return idMovimientoEventual;
+	}
+	public void setIdMovimientoEventual(Integer idMovimientoEventual) {
+		this.idMovimientoEventual = idMovimientoEventual;
 	}
 	public Date getFechaFalta() {
 		return fechaFalta;

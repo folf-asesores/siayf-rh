@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -23,64 +24,78 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "bitacoras_reportes")
-public class BitacoraReporteEntity {
+public class BitacoraReporteEntity implements Serializable {
 
-	@Id
-	@Column(name = "id_referencia")
-	private String idReferencia;
+    private static final long serialVersionUID = 8742569036929609315L;
 
-	@Column(name = "nombre_reporte", nullable = false)
-	private String nombreReporte;
+    @Id
+    @Column(name = "id_referencia")
+    private String idReferencia;
 
-	@Column(name = "fecha_generacion", nullable = false)
-	@Temporal(TemporalType.DATE)
-	private Date fechaGeneracion;
+    @Column(name = "nombre_reporte", nullable = false)
+    private String nombreReporte;
 
-	@ManyToOne(targetEntity = UsuarioEntity.class)
-	@JoinColumn(name = "id_usuario", nullable = false)
-	private UsuarioEntity usuario;
+    @Column(name = "fecha_generacion", nullable = false)
+    @Temporal(TemporalType.DATE)
+    private Date fechaGeneracion;
 
-	@OneToMany(mappedBy = "bitacoraReporte", cascade = CascadeType.ALL)
-	private Set<ReporteParametroEntity> reporteParametros;
+//    @Column(name = "hora_generacion", nullable = false)
+//    @Temporal(TemporalType.TIME)
+//    private Date horaGeneracion;
+    
+    @ManyToOne(targetEntity = UsuarioEntity.class)
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private UsuarioEntity usuario;
 
-	public String getIdReferencia() {
-		return idReferencia;
-	}
+    @OneToMany(mappedBy = "bitacoraReporte", cascade = CascadeType.ALL)
+    private Set<ReporteParametroEntity> reporteParametros;
 
-	public void setIdReferencia(String idReferencia) {
-		this.idReferencia = idReferencia;
-	}
+    public String getIdReferencia() {
+        return idReferencia;
+    }
 
-	public String getNombreReporte() {
-		return nombreReporte;
-	}
+    public void setIdReferencia(String idReferencia) {
+        this.idReferencia = idReferencia;
+    }
 
-	public void setNombreReporte(String nombreReporte) {
-		this.nombreReporte = nombreReporte;
-	}
+    public String getNombreReporte() {
+        return nombreReporte;
+    }
 
-	public Date getFechaGeneracion() {
-		return fechaGeneracion;
-	}
+    public void setNombreReporte(String nombreReporte) {
+        this.nombreReporte = nombreReporte;
+    }
 
-	public void setFechaGeneracion(Date fechaGeneracion) {
-		this.fechaGeneracion = fechaGeneracion;
-	}
+    public Date getFechaGeneracion() {
+        return fechaGeneracion;
+    }
 
-	public UsuarioEntity getUsuario() {
-		return usuario;
-	}
+    public void setFechaGeneracion(Date fechaGeneracion) {
+        this.fechaGeneracion = fechaGeneracion;
+    }
 
-	public void setUsuario(UsuarioEntity usuario) {
-		this.usuario = usuario;
-	}
+//    public Date getHoraGeneracion() {
+//        return horaGeneracion;
+//    }
 
-	public Set<ReporteParametroEntity> getReporteParametros() {
-		return reporteParametros;
-	}
+//    public void setHoraGeneracion(Date horaGeneracion) {
+//        this.horaGeneracion = horaGeneracion;
+//    }
 
-	public void setReporteParametros(Set<ReporteParametroEntity> reporteParametros) {
-		this.reporteParametros = reporteParametros;
-	}
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                public Set<ReporteParametroEntity> getReporteParametros() {
+        return reporteParametros;
+    }
+
+    public void setReporteParametros(Set<ReporteParametroEntity> reporteParametros) {
+        this.reporteParametros = reporteParametros;
+    }
 
 }

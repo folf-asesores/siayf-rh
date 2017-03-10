@@ -115,8 +115,11 @@ public class ConfiguracionAprobacionController implements Serializable {
 				.setIdConfiguracionAprobacion(dto.getIdConfiguracionAprobacion());
 		this.view.getActualizarConfiguracionAprobacion().setIdAccionUsuario(dto.getIdAccionUsuario());
 		this.view.getActualizarConfiguracionAprobacion().setIdUsuario(dto.getIdUsuario());
-		this.view.getActualizarConfiguracionAprobacion().setIdTipoMovimiento(dto.getIdTipoMovimiento());
-
+		this.view.setAplicaMovimientos(configuracionAprobaciones.aplicaMovimientos(dto.getIdAccionUsuario()));
+		if(this.view.getAplicaMovimientos()) {
+			this.view.getActualizarConfiguracionAprobacion().setIdTipoMovimiento(dto.getIdTipoMovimiento());
+			;
+		}
 		if (dto.getEstatus().equals(EnumEstatusConfiguracion.ACTIVO)) {
 			this.view.getActualizarConfiguracionAprobacion().setEstatus(2);
 		} else {

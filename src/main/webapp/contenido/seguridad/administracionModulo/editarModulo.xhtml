@@ -1,0 +1,257 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Administración Modulo: Editar Modulo" />
+	<ui:param name="moduloTitulo"
+		value="Administración Modulo: Editar Modulo" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la edición del modulo seleccionado, los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
+
+				<p:panelGrid id="gridPrincipal" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<p:spacer />
+					<p:panelGrid id="gridFormulario" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid" columns="1"
+						columnClasses="ui-grid-col-12">
+
+						<p:outputLabel for="nombreModulo" value="Nombre: *" />
+						<p:inputText id="nombreModulo"
+							value="#{actualizarModulo.view.actualizarModulo.nombre}"
+							validator="#{actualizarModulo.validatorModulo}">
+							<p:ajax update="msgnombreModulo" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgnombreModulo" for="nombreModulo" />
+
+
+						<p:outputLabel for="url" value="URL: *" />
+						<p:inputText id="url"
+							value="#{actualizarModulo.view.actualizarModulo.url}"
+							validator="#{actualizarModulo.validatorModulo}">
+							<p:ajax update="msgUrl" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgUrl" for="url" />
+
+
+						<p:outputLabel value="Habilitado" />
+						<p:selectBooleanCheckbox
+							value="#{actualizarModulo.view.actualizarModulo.habilitado}" />
+
+						<p:outputLabel for="idArea" value="Área: *" />
+						<p:selectOneMenu id="idArea" filter="true"
+							filterMatchMode="startsWith"
+							value="#{actualizarModulo.view.actualizarModulo.idArea}"
+							validator="#{actualizarModulo.validatorModulo}">
+							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
+							<f:selectItems var="area"
+								value="#{actualizarModulo.view.listaAreas}"
+								itemValue="#{area.idArea}" itemLabel="#{area.nombreArea}" />
+							<p:ajax update="msgidArea" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgidArea" for="idArea" />
+
+
+
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<p:dataTable id="tablaAccion"
+					rendered="#{actualizarModulo.view.mostrarTablaAccciones}"
+					var="accion" rows="10" paginator="true" paginatorPosition="top"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="10,20,30"
+					emptyMessage="No ha registrado ninguna acción"
+					value="#{actualizarModulo.acciones}" editable="true"
+					style="margin-bottom:20px">
+
+					<f:facet name="header">
+
+						<p:panelGrid columns="5" layout="grid"
+							columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-2"
+							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+							<p:spacer />
+							<p:spacer />
+							<h3
+								style="text-align: center; font-size: 25px; color: rgba(255, 255, 255, 1); padding-bottom: 0px; margin-bottom: 0px;">Acciones
+								Registradas</h3>
+							<p:spacer />
+							<p:commandButton id="btnNuevaAccion" title="Nuevo"
+								icon="ui-icon-plus" styleClass="fm-btn-inverso aling_right "
+								action="#{actualizarModulo.mostrarFormularioAccion()}"
+								update="form" process="@this" style="float:right;" />
+						</p:panelGrid>
+
+
+					</f:facet>
+
+					<p:ajax event="rowEdit" listener="#{actualizarModulo.onRowEdit}"
+						update="tablaAccion" />
+					<p:ajax event="rowEditCancel"
+						listener="#{actualizarModulo.onRowCancel}" update="tablaAccion" />
+
+
+					<p:column headerText="Clave acción" filterBy="#{accion.clave}"
+						filterMatchMode="contains">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{accion.clave}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="nombreAccionEdit" value="#{accion.clave}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Descripción">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{accion.descripcion}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText id="descEdit" value="#{accion.descripcion}" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Editar"
+						style="width:50px; text-align: center;">
+
+						<p:rowEditor editTitle="Edita el registro antes de guardar" />
+
+					</p:column>
+					<p:column style="width:50px; text-align: center;"
+						headerText="Eliminar">
+
+						<p:commandButton id="eliminarAccion"
+							styleClass="fm-btn-error fm-btn-elevado" process="tablaAccion"
+							update="tablaAccion" icon="ui-icon-trash"
+							action="#{actualizarModulo.eliminarAccion(accion.id_accion)}">
+							<p:confirm header="Confirmación"
+								message="¿Deseas quitar el registro: #{accion.descripcion} de la lista? "
+								icon="ui-icon-alert" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+				<p:separator id="separator"
+					rendered="#{actualizarModulo.view.mostrarFormularioAccion}" />
+
+				<p:panelGrid id="gridRegistroAccion"
+					rendered="#{actualizarModulo.view.mostrarFormularioAccion}"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid" columns="3"
+					columnClasses="ui-grid-col-2,ui-grid-col-8, ui-grid-col-2">
+
+					<p:spacer />
+
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="1" columnClasses="ui-grid-col-12">
+
+						<f:facet name="header">
+							<h3>Agregar Acción</h3>
+						</f:facet>
+
+						<p:outputLabel for="claveAccion" value="Clave de Acción: *" />
+						<p:outputPanel>
+							<p:inputText id="claveAccion"
+								value="#{actualizarModulo.view.accion.clave}"
+								validator="#{actualizarModulo.validatorAccion}">
+								<p:ajax update="msgclaveAccion" event="blur" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgclaveAccion" for="claveAccion" />
+						</p:outputPanel>
+
+						<p:outputLabel for="descripcion" value="Descripción: *" />
+						<p:outputPanel>
+							<p:inputText id="descripcion"
+								value="#{actualizarModulo.view.accion.descripcion}"
+								validator="#{actualizarModulo.validatorAccion}">
+								<p:ajax update="msgDescripcion" event="blur" />
+								<p:clientValidator />
+							</p:inputText>
+							<p:message id="msgDescripcion" for="descripcion" />
+						</p:outputPanel>
+
+					</p:panelGrid>
+
+					<p:spacer />
+					<p:spacer />
+
+					<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+						columns="2" columnClasses="ui-grid-col-6">
+
+						<p:commandButton
+							actionListener="#{actualizarModulo.registrarAccion()}"
+							value="Agregar Acción" styleClass="fm-btn-exitoso fm-btn-elevado"
+							update="form" iconPos="right" icon="ui-icon-check"
+							process="gridRegistroAccion" />
+
+						<p:commandButton value="Cancelar" iconPos="right"
+							styleClass="fm-btn-error fm-btn-elevado" update="form"
+							process="@this"
+							action="#{actualizarModulo.cerrarFormularioAccion()}"
+							icon="ui-icon-close" />
+
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+
+			</p:panel>
+
+
+			<div class="fm-tarjeta-pie">
+
+				<p:button icon="ui-icon-circle-arrow-w" value="Regresar"
+					styleClass="fm-btn-principal" process="@this" update="form"
+					outcome="administracionModulo.xhtml" />
+
+				<p:commandButton id="guardarModulo" value="Actualizar Modulo"
+					update="form" iconPos="right" style="float:right;"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-check"
+					action="#{actualizarModulo.actualizarModulo()}" />
+
+
+			</div>
+
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

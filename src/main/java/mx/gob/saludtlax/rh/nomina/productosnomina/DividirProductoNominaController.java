@@ -53,11 +53,11 @@ public class DividirProductoNominaController implements Serializable {
     
     @PostConstruct
     public void init() {
-        Map<String, String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        final Integer idProductoNomina = parameters.get("idProductoNomina") != null ? Integer.parseInt(parameters.get("idProductoNomina")) : 0;
-//        HttpSession session =  (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-//        Integer idProductoNomina = session.getAttribute("idProductoNomina") != null ? (Integer) session.getAttribute("idProductoNomina") : 0;
-//        session.removeAttribute("idProductoNomina");
+//        Map<String, String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//        final Integer idProductoNomina = parameters.get("idProductoNomina") != null ? Integer.parseInt(parameters.get("idProductoNomina")) : 0;
+        HttpSession session =  (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        final Integer idProductoNomina = session.getAttribute("idProductoNomina") != null ? (Integer) session.getAttribute("idProductoNomina") : 0;
+        session.removeAttribute("idProductoNomina");
         view.setIdProductoNomina(idProductoNomina);
         LOGGER.debugv("idProductoNomina :: {0}", view.getIdProductoNomina());
         List<DividirNominaDTO> productoNomina = dividirNominaEjb.obtenerProductoNomina(view.getIdProductoNomina());
@@ -97,6 +97,7 @@ public class DividirProductoNominaController implements Serializable {
 
             for (String rfc : listaRfc) {
                 if (mapa.containsKey(rfc)) {
+                    LOGGER.debug(rfc);
                     Integer indice = mapa.get(rfc);
                     DividirNominaDTO dividirNominaDTO = view.getProductoNomina().get(indice);
                     view.getProductoNominaSeleccionado().add(dividirNominaDTO);

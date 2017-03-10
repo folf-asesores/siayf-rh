@@ -17,7 +17,7 @@ public class GenericRepository <T, K extends Serializable> implements Repository
 
     private static final long serialVersionUID = -8198863493714030745L;
 
-    @PersistenceContext(name = "siayfrhPU")
+    @PersistenceContext(unitName = "siayfrhPU")
     protected EntityManager em;
     protected Class<T> classType;
 

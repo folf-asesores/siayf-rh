@@ -7,11 +7,15 @@ package mx.gob.saludtlax.rh.nomina.reportes;
 
 import java.io.File;
 import java.io.IOException;
+import mx.gob.saludtlax.rh.excepciones.CodigoError;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionEJB;
+import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionExcelService;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionReporteService;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionService;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
@@ -28,6 +32,9 @@ import mx.gob.saludtlax.rh.reportes.BitacoraReporte;
 import mx.gob.saludtlax.rh.reportes.BitacoraReporteEJB;
 import mx.gob.saludtlax.rh.reportes.Generador;
 import mx.gob.saludtlax.rh.reportes.Reporte;
+import mx.gob.saludtlax.rh.reportes.excel.AlmacenReportesExcel;
+import mx.gob.saludtlax.rh.reportes.excel.ExcelGenerador;
+import mx.gob.saludtlax.rh.reportes.excel.ExcelReporte;
 import mx.gob.saludtlax.rh.reportes.jasperreports.AlmacenReportesJasperReports;
 import mx.gob.saludtlax.rh.reportes.jasperreports.JasperReporte;
 import mx.gob.saludtlax.rh.reportes.txt.AlmacenReportesTxt;
@@ -64,13 +71,14 @@ public class DispersionTest {
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
-        war.addAsManifestResource("log4j.properties");
+        war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
 
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
         jar.addClass(AdministradorReportes.class);
         jar.addClass(AlmacenReportes.class);
+        jar.addClass(AlmacenReportesExcel.class);
         jar.addClass(AlmacenReportesJasperReports.class);
         jar.addClass(AlmacenReportesTxt.class);
         jar.addClass(ArchivoUtil.class);
@@ -78,15 +86,21 @@ public class DispersionTest {
         jar.addClass(BitacoraReporteEJB.class);
         jar.addClass(BitacoraReporteRepository.class);
         jar.addClass(BitacoraReporteEntity.class);
+        jar.addClass(CodigoError.class);
         jar.addClass(Dispersion.class);
-        jar.addClass(DispersionEJB.class);
         jar.addClass(DispersionDTO.class);
+        jar.addClass(DispersionEJB.class);
+        jar.addClass(DispersionExcelService.class);
         jar.addClass(DispersionReporteService.class);
         jar.addClass(DispersionService.class);
+        jar.addClass(ExcelReporte.class);
+        jar.addClass(ExcelGenerador.class);
         jar.addClass(Generador.class);
         jar.addClass(GenericRepository.class);
         jar.addClass(JasperReporte.class);
         jar.addClass(PerfilUsuarioEntity.class);
+        jar.addClass(ReglaNegocioException.class);
+        jar.addClass(ReglaNegocioCodigoError.class);
         jar.addClass(Reporte.class);
         jar.addClass(ReporteParametroEntity.class);
         jar.addClass(Repository.class);
@@ -129,11 +143,11 @@ public class DispersionTest {
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("Iniciando test obtenerReporte");
-        String referencia = "5e8aea07-117f-490a-822e-d4da3219";
+        String referencia = "b697271f-f14d-4005-96fc-e568e918";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
 
-        ArchivoUtil.guardarEnCarpetaUsuario(result, "dispersion-nomina.txt");
+        ArchivoUtil.guardarEnCarpetaUsuario(result, "dispersion-nomina.xlsx");
         assertNotNull(result);
     }
 
@@ -144,15 +158,15 @@ public class DispersionTest {
         String[] parametros = new String[] {
             "ID_USUARIO", "18",
             "REPORTE_NOMBRE", "dispersion_nomina",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "2"
+            "TIPO_REPORTE",  "xlsx",
+            "ID_PRODUCTO_NOMINA", "9"
         };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         byte[] result = admin.obtenerReporte(referencia);
         LOGGER.infov("Bytes son nulos: {0}", result == null);
-        ArchivoUtil.guardarEnCarpetaUsuario(result, "dispersion-nomina.txt");
+        ArchivoUtil.guardarEnCarpetaUsuario(result, "dispersion-nomina.xlsx");
         assertNotNull(result);
     }
 }

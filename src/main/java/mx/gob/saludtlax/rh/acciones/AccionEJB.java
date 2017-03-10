@@ -12,7 +12,7 @@ public class AccionEJB implements Accion{
 	
 	@Override
 	public void crearAccion(AccionDTO accionDTO) {
-accionService.crearAccion(accionDTO);
+		accionService.crearAccion(accionDTO);
 	}
 
 	@Override
@@ -30,11 +30,27 @@ accionService.crearAccion(accionDTO);
 	@Override
 	public List<AccionDTO> obtenerListaAcciones() {
 	return accionService.obtenerAcciones();
- }
+	}
 
 	@Override
 	public List<AccionDTO> obtenerListaAccionesPorArea(Integer idArea) {
 		return accionService.obtenerAccionesPorArea(idArea);
 	}
+
+	@Override
+	public List<AccionDTO> obtenerListaAccionesPorModulo(Integer idModulo) {
+		// TODO Auto-generated method stub
+		return accionService.obtenerAccionesPorModulo(idModulo);
+	}
+
+	@Override
+	public List<AccionDTO> obtenerAccionesFiltradas(Integer idmodulo, List<Integer> idAccionFiltro) {
+		
+		return accionService.obtenerAccionesFiltradas(idmodulo, idAccionFiltro);
+	}
+
+	
+	
+
 	
 }

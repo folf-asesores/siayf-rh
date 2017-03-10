@@ -41,17 +41,17 @@
 
 			<p:outputPanel id="panelFiltro"
 							rendered="#{productosNomina.view.panelFiltro}">
-				<p:commandButton id="filto" 
-								value="Buscar" 
+				<p:commandButton id="filto"
+								value="Buscar"
 								icon="ui-icon-search"
-								update=":form" 
+								update=":form"
 								onsuccess="PF(`statusDialog`).hide()"
 								onstart="PF(`statusDialog`).show()"
 								action="#{productosNomina.filtrarProductoNomina()}" />
-				<p:commandButton id="nuevo" 
-								value="Nuevo" 
+				<p:commandButton id="nuevo"
+								value="Nuevo"
 								icon="ui-icon-circle-plus"
-								update=":form" 
+								update=":form"
 								style="float:right;"
 								onsuccess="PF(`statusDialog`).hide()"
 								onstart="PF(`statusDialog`).show()"
@@ -117,7 +117,8 @@
 							var="productoNominaItem"
 							selection="#{productosNomina.view.productoNominaSelect}"
 							selectionMode="single"
-							rowKey="#{productoNominaItem.idProductoNomina}">
+							rowKey="#{productoNominaItem.idProductoNomina}"
+                                                        emptyMessage="No se ha encontrado ningún registro">
 					<p:column headerText="Nombre" >
 						<h:outputText value="#{productoNominaItem.nombreProducto}" />
 					</p:column>
@@ -351,11 +352,7 @@
 						<p:clientValidator />
 					</p:selectOneMenu>
 					<p:message id="msgidEstatus" for="idEstatus" />
-
-
 				</p:panelGrid>
-
-
 
 				<p:commandButton id="guardar" 
 								value="Guardar" 

@@ -29,9 +29,15 @@ public class DatoLaboralDTO {
 	private Integer idPrograma;
 	private Integer idDetallePrograma;
 	private Date fechaInicioLabores;
+	private boolean seguroPopular;
 
-	
-	
+	public boolean isSeguroPopular() {
+		return seguroPopular;
+	}
+
+	public void setSeguroPopular(boolean seguroPopular) {
+		this.seguroPopular = seguroPopular;
+	}
 
 	public Integer getNumeroEmpleado() {
 		return numeroEmpleado;

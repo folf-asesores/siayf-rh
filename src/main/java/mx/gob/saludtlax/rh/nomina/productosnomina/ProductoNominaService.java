@@ -28,14 +28,28 @@ public class ProductoNominaService implements Serializable {
 	
 	@PersistenceContext(name = "siayfrhPU")
 	private EntityManager entityManager;
+        
+        private static final String USP_PRODUCTO_NOMINA_SUPLENCIA =
+                "CALL usp_productos_nominas_suplencias(:idProducto)";
 
 	protected List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createSQLQuery("CALL usp_productos_nominas(:idProducto)");
+		query.setParameter("idProducto", idProducto);
+		query.setResultTransformer(Transformers.aliasToBean(ProductosNominaExcelDTO.class));
 
+		@SuppressWarnings("unchecked")
+		List<ProductosNominaExcelDTO> list = query.list();
 
+		return list;
+	}
+	
+	protected List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto,
+			Integer estatus) {
 		Session session = entityManager.unwrap(Session.class);
 
-		Query query = session.createSQLQuery("CALL usp_productos_nominas(:idProducto) ")
-				.setParameter("idProducto", idProducto);
+		Query query = session.createSQLQuery("CALL usp_productos_nominas_estatus(:idProducto, :idEstatus)")
+				.setParameter("idProducto", idProducto).setParameter("idEstatus", estatus);
 
 		query.setResultTransformer(Transformers.aliasToBean(ProductosNominaExcelDTO.class));
 
@@ -44,5 +58,21 @@ public class ProductoNominaService implements Serializable {
 
 		return list;
 	}
+
+    /**
+     * Permite obtener la infomación para generar el reporte del producto de
+     * nómina para suplencias.
+     * @param idProducto el ID del producto de nómina.
+     * @return una lista con la información del producto de nómina.
+     */
+    protected List<ProductosNominaExcelDTO> obtenerListaProductoNominaSuplenciaPorIdProducto(Integer idProducto) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery(USP_PRODUCTO_NOMINA_SUPLENCIA)
+                .setParameter("idProducto", idProducto);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ProductosNominaExcelDTO.class));
+        List<ProductosNominaExcelDTO> list = query.list();
+        return list;
+    }
 
 }

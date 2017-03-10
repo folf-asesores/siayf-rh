@@ -40,4 +40,8 @@ public interface PuestosAutorizadosEmpleados {
 	 */
 	public List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion);
 
+	public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
+	
+	public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto);
+
 }

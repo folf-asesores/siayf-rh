@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
-import mx.gob.saludtlax.rh.modulos.ModuloDTO;
+
 
 public class ConfiguracionUsuarioModuloDTO  implements Serializable{
 

@@ -81,8 +81,9 @@ public class SIIFLayoutService {
         return sp.generarDetallePagoNomina610(idEncabezado, idBitacora);
     }
     
-    protected List<DatosPersonalesDTO> generarDatosPersonalesRH(int idProductoNomina) {
-        return sp.obtenerDatosPersonalesRH(idProductoNomina);
+    //RH
+    protected List<DatosPersonalesDTO> generarDatosPersonalesRH(int idProductoNomina, int idNomina) {
+        return sp.obtenerDatosPersonalesRH(idProductoNomina, idNomina);
     }
 
     protected List<DatosLaboralesDTO> generarDatosLaboralesRH(int idProductoNomina) {
@@ -96,5 +97,9 @@ public class SIIFLayoutService {
 
     protected List<DetallePagoNominaDTO> generarDetallePagoNominaRH(int idProductoNomina) {
         return sp.generarDetallePagoNominaRH(idProductoNomina);
+    }
+    
+    protected List<DatosPersonalesDTO> generarDatosPersonalesRhCont(int idProductoNomina, int idNomina) {
+        return sp.obtenerDatosPersonalesRhCont(idProductoNomina, idNomina);
     }
 }

@@ -14,14 +14,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 
 import mx.gob.saludtlax.rh.configuracion.conceptosnomina.ConceptoNominaFederalesDTO;
-import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
-import mx.gob.saludtlax.rh.empleados.datolaboral.DatoLaboralDTO;
+
 import mx.gob.saludtlax.rh.empleados.datolaboral.DetalleConfiguracionPresupuestoDTO;
 import mx.gob.saludtlax.rh.nomina.movimientosnomina.ConceptoNominaFactory;
 import mx.gob.saludtlax.rh.nomina.movimientosnomina.ConfiguracionTipoMovimientoDTO;
 import mx.gob.saludtlax.rh.nomina.movimientosnomina.TipoMovimientoNominaDTO;
-import mx.gob.saludtlax.rh.nomina.productosnomina.ConfiguracionPresupuestoNominaDTO;
-import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoEntity;
+
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionTipoMovimientoEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionTipoMovimientoNominaReporsitory;
 import mx.gob.saludtlax.rh.persistencia.EmpleadoRepository;

@@ -8,12 +8,17 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.NoResultException;
 
+import mx.gob.saludtlax.rh.autorizaciones.AutorizacionesService;
+import mx.gob.saludtlax.rh.autorizaciones.EnumTiposAccionesAutorizacion;
+import mx.gob.saludtlax.rh.autorizaciones.NuevaAutorizacionDTO;
 import mx.gob.saludtlax.rh.configuracion.tabulador.TabuladorService;
 import mx.gob.saludtlax.rh.empleados.administracion.BitacoraEmpleadoDTO;
 import mx.gob.saludtlax.rh.empleados.administracion.BitacoraModificacionService;
 import mx.gob.saludtlax.rh.empleados.administracion.EnumTipoModificacionEmpleado;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
+import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoEntity;
@@ -64,6 +69,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  */
 public class ConfiguracionPresupuestalService {
 
+	@Inject
+	private AutorizacionesService autorizacionesService;
 	@Inject
 	private BitacoraModificacionService bitacoraModificacionService;
 	@Inject
@@ -235,21 +242,28 @@ public class ConfiguracionPresupuestalService {
 
 	protected void modificarDatoLaboral(DatoLaboralDTO datoLaboral, Integer idPuesto, Integer idUsuario) {
 
-		Integer idConfiguracion = inventarioVacanteRepository.obtenerIdDatoLaboralPorPuesto(idPuesto);
+		InventarioVacanteEntity puesto = inventarioVacanteRepository.obtenerPorId(idPuesto);
+		if (puesto == null) {
+			throw new SistemaException("No existe el puesto con identificador " + idPuesto,
+					SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+		}
 
-		if (!ValidacionUtil.esNumeroPositivo(idConfiguracion)) {
+		if (puesto.getConfiguracion() == null) {
 			throw new ValidacionException("El puesto no tiene dato laboral asignado.",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 
 		ConfiguracionPresupuestoEntity datoLaboralEmpleado = configuracionPresupuestoRepository
-				.obtenerPorId(idConfiguracion);
+				.obtenerPorId(puesto.getConfiguracion().getId());
 		if (datoLaboralEmpleado == null) {
 			throw new ValidacionException("La configuración laboral asignada al puesto es incorrecta.",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
 
-		String lccActual = datoLaboralEmpleado.toString();
+		puesto.setSeguroPopular(datoLaboral.isSeguroPopular());
+
+		String lccActual = datoLaboralEmpleado.lccDatosLaborales();
+		String lccActualSueldo = datoLaboralEmpleado.lccSueldo();
 
 		ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(datoLaboral.getIdProyecto());
 		DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(datoLaboral.getIdDependencia());
@@ -262,32 +276,58 @@ public class ConfiguracionPresupuestalService {
 		TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository
 				.obtenerPorId(datoLaboral.getIdTipoRecurso());
 
-		PuestoGeneralEntity puesto = puestoGeneralRepository.obtenerPorId(datoLaboral.getIdPuesto());
-
-		TabuladorEntity tabulador = tabuladorRepository.obtenerPorId(datoLaboral.getIdTabulador());
+		PuestoGeneralEntity puestoGeneral = puestoGeneralRepository.obtenerPorId(datoLaboral.getIdPuesto());
 
 		datoLaboralEmpleado.setDependencia(dependencia);
 		datoLaboralEmpleado.setFuenteFinanciamiento(fuenteFinanciamiento);
 		datoLaboralEmpleado.setNumeroEmpleado(datoLaboral.getNumeroEmpleado());
 		datoLaboralEmpleado.setProyecto(proyecto);
-		datoLaboralEmpleado.setPuesto(puesto);
+		datoLaboralEmpleado.setPuesto(puestoGeneral);
 		datoLaboralEmpleado.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 
+		TabuladorEntity tabulador = null;
+		if (datoLaboral.getIdTabulador() != null) {
+			tabulador = tabuladorRepository.obtenerPorId(datoLaboral.getIdTabulador());
+		}
+
 		Integer idTipoContratacion = datoLaboralEmpleado.getTipoContratacion().getId();
+		if (tabulador == null && datoLaboralEmpleado.getTipoContratacion().getAreaResponsable() != 2) {
+			// para el caso de los puestos federales siempre es requerido un
+			// tabulador configurado.
+			throw new ReglaNegocioException(
+					"El código seleccionado no tiene configurado un tabulador, configure el código para poder realizar la modificación.",
+					ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO);
+		}
+		String observacionModificacion = "";
+
 		if (idTipoContratacion == EnumTipoContratacion.CONFIANZA || idTipoContratacion == EnumTipoContratacion.BASE) {
 			datoLaboralEmpleado.setSueldo(tabulador.getSueldoBrutoMensual());
+
 		} else if (idTipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
-			if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMinimo()) == -1) {
-				throw new ReglaNegocioException(
-						"El sueldo es menor al mínimo de " + tabulador.getSueldoBaseMensualMinimo(),
-						ReglaNegocioCodigoError.SUELDO_INCORRECTO);
+			// Para el caso del contrato estatal se requirió que se aperturara
+			// la modificación incluso si no tenía configurado un tabulador.
+			if (tabulador != null) {
+				// Por solicitud de las areas si el sueldo estuviera fuera de
+				// rango, los dejaría realizar el movimiento lanzando solo una
+				// advertencia
+				if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMinimo()) == -1) {
+					observacionModificacion = "El sueldo es menor al mínimo de "
+							+ tabulador.getSueldoBaseMensualMinimo();
+
+					// throw new ReglaNegocioException(observacionModificacion,
+					// ReglaNegocioCodigoError.SUELDO_FUERA_RANGO);
+				}
+
+				if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMaximo()) == 1) {
+					observacionModificacion = "El sueldo es mayor al maximo de "
+							+ tabulador.getSueldoBaseMensualMaximo();
+					// throw new ReglaNegocioException(observacionModificacion,
+					// ReglaNegocioCodigoError.SUELDO_FUERA_RANGO);
+
+				}
+
 			}
 
-			if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMaximo()) == 1) {
-				throw new ReglaNegocioException(
-						"El sueldo es mayor al maximo de " + tabulador.getSueldoBaseMensualMaximo(),
-						ReglaNegocioCodigoError.SUELDO_INCORRECTO);
-			}
 			BigDecimal sumatoriaSueldo = datoLaboral.getSueldo01().add(datoLaboral.getSueldo14());
 			if (datoLaboral.getSueldo().compareTo(sumatoriaSueldo) != 0) {
 				throw new ReglaNegocioException("La sumatoria del 01 y 14 debe ser igual al sueldo.",
@@ -307,22 +347,34 @@ public class ConfiguracionPresupuestalService {
 
 		datoLaboralEmpleado.setTipoRecurso(tipoRecursoTempEntity);
 		datoLaboralEmpleado.setUnidadResponsable(unidadResponsable);
-        datoLaboralEmpleado.setTabulador(tabulador);
-        datoLaboralEmpleado.setNumeroEmpleado(datoLaboral.getNumeroEmpleado());
-		
+		datoLaboralEmpleado.setTabulador(tabulador);
+		datoLaboralEmpleado.setNumeroEmpleado(datoLaboral.getNumeroEmpleado());
+
 		configuracionPresupuestoRepository.actualizar(datoLaboralEmpleado);
 
-		String lccNueva = datoLaboralEmpleado.toString();
+		String lccNueva = datoLaboralEmpleado.lccDatosLaborales();
+		String lccNuevoSueldo = datoLaboralEmpleado.lccSueldo();
 
 		if (!lccActual.equals(lccNueva)) {
 			BitacoraEmpleadoDTO bitacora = new BitacoraEmpleadoDTO();
-			bitacora.setComentarios("");
+			bitacora.setComentarios(observacionModificacion);
 			bitacora.setEmpleado(datoLaboralEmpleado.getEmpleado().getIdEmpleado());
 			bitacora.setIdUsuario(idUsuario);
 			bitacora.setLccActual(lccNueva);
 			bitacora.setLccAnterior(lccActual);
 			bitacora.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.ACTUALIZACION_DATOS_LABORALES);
-			bitacoraModificacionService.registrarBitacora(bitacora);
+			Integer idBitacora = bitacoraModificacionService.registrarBitacora(bitacora);
+
+			if (!lccActualSueldo.equals(lccNuevoSueldo)) {
+				String mensajeNotificacion = datoLaboralEmpleado.getEmpleado().getNombreCompleto() + " de "
+						+ lccActualSueldo + " por " + lccNuevoSueldo;
+				NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
+				dto.setIdAccion(EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO);
+				dto.setIdEntidadContexto(idBitacora);
+				dto.setIdUsuarioLogeado(idUsuario);
+				dto.setMensajeNotificacion(mensajeNotificacion);
+				autorizacionesService.iniciarProcesoAprobacion(dto);
+			}
 
 		}
 

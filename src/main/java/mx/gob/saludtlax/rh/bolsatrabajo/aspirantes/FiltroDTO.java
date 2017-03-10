@@ -10,46 +10,58 @@ package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
  */
 public class FiltroDTO {
 
-    private int tipoFiltro;
-    private String criterio;
+	private int tipoFiltro;
+	private String criterio;
+	private Integer id;
 
-    public FiltroDTO() {
-        this(0, "");
-    }
+	public FiltroDTO() {
+		this(0, "");
+	}
 
-    /**
-     * Inicializa los criterios de busqueda.
-     * 
-     * @param tipoFiltro el tipo de filtro el cual sus valores pueden ser
-     * {@link EnumTipoFiltro#NOMBRE_RFC_CURP} o
-     * {@link EnumTipoFiltro#NOMBRE_RFC_CURP_PROFESION}
-     * @param criterio El criterio a buscar.
-     */
-    public FiltroDTO(int tipoFiltro, String criterio) {
-        this.criterio = criterio;
-        this.tipoFiltro = tipoFiltro;
-    }
+	/**
+	 * Inicializa los criterios de busqueda.
+	 * 
+	 * @param tipoFiltro
+	 *            el tipo de filtro el cual sus valores pueden ser
+	 *            {@link EnumTipoFiltro#NOMBRE_RFC_CURP} o
+	 *            {@link EnumTipoFiltro#NOMBRE_RFC_CURP_PROFESION}
+	 * @param criterio
+	 *            El criterio a buscar.
+	 */
 
-    public int getTipoFiltro() {
-        return tipoFiltro;
-    }
+	public FiltroDTO(int tipoFiltro, String criterio) {
+		this.criterio = criterio;
+		this.tipoFiltro = tipoFiltro;
+	}
 
-    /**
-     *
-     * @param tipoFiltro los valores pueden ser
-     * {@link EnumTipoFiltro#NOMBRE_RFC_CURP} o
-     * {@link EnumTipoFiltro#NOMBRE_RFC_CURP_PROFESION}
-     */
-    public void setTipoFiltro(int tipoFiltro) {
-        this.tipoFiltro = tipoFiltro;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getCriterio() {
-        return criterio;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setCriterio(String criterio) {
-        this.criterio = criterio;
-    }
+	public int getTipoFiltro() {
+		return tipoFiltro;
+	}
+
+	/**
+	 *
+	 * @param tipoFiltro
+	 *            los valores pueden ser {@link EnumTipoFiltro#NOMBRE_RFC_CURP}
+	 *            o {@link EnumTipoFiltro#NOMBRE_RFC_CURP_PROFESION}
+	 */
+	public void setTipoFiltro(int tipoFiltro) {
+		this.tipoFiltro = tipoFiltro;
+	}
+
+	public String getCriterio() {
+		return criterio;
+	}
+
+	public void setCriterio(String criterio) {
+		this.criterio = criterio;
+	}
 
 }

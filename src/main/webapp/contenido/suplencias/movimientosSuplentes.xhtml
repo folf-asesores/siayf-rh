@@ -12,7 +12,7 @@
 	<ui:param name="ventanaTitulo" value="Vacaciones e incapacidades" />
 	<ui:param name="moduloTitulo" value="Vacaciones e incapacidades" />
 	<ui:param name="moduloSubtitulo"
-		value="Módulo para vacaciones e incapacidades." />
+		value="Módulo para vacaciones e incapacidades de suplentes." />
 	<ui:define name="moduloContenido">
 		<h:form id="form">
 			<p:messages id="messages_generales" showDetail="true"
@@ -37,8 +37,8 @@
 			</p:panelGrid>
 
 
-			<p:dataTable id="tablaPuesto" editable="true" var="s" scrollRows="10"
-				scrollable="true" value="#{movimientoSuplente.view.suplentes}"
+			<p:dataTable id="suplentes" var="s" scrollRows="10" scrollable="true"
+				value="#{movimientoSuplente.view.suplentes}"
 				emptyMessage="No se encontrarón resultados" paginator="true"
 				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
 				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
@@ -77,6 +77,12 @@
 				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
 					id="panel_movimiento" layout="grid"
 					styleClass="fm-tarjeta ui-fluid ">
+
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+					</f:facet>
+
 					<p:outputLabel value="Rfc:" />
 					<h:outputText
 						value="#{movimientoSuplente.view.suplenteSeleccionado.rfc}"></h:outputText>
@@ -103,14 +109,16 @@
 						value="#{movimientoSuplente.view.suplenteSeleccionado.fechaIngreso}"></h:outputText>
 
 					<p:outputLabel for="movimiento" value="Seleccione un movimiento:*" />
-					<p:selectOneButton id="movimiento"
+
+
+					<p:selectOneRadio id="movimiento"
 						value="#{movimientoSuplente.view.movimiento.movimiento}">
 						<f:selectItem itemLabel="VACACIONES" itemValue="VACACIONES" />
 						<f:selectItem itemLabel="INCAPACIDAD" itemValue="INCAPACIDAD" />
 						<p:ajax listener="#{movimientoSuplente.seleccionarMovimiento()}"
 							update="panel_movimiento">
 						</p:ajax>
-					</p:selectOneButton>
+					</p:selectOneRadio>
 
 
 					<p:outputLabel for="fecha_inicio" value="Fecha inicio:*" />
@@ -133,9 +141,25 @@
 					<p:outputLabel for="observaciones" value="Observaciones:" />
 					<p:inputTextarea id="observaciones"
 						value="#{movimientoSuplente.view.movimiento.observaciones}"></p:inputTextarea>
-
-
 				</p:panelGrid>
+
+				<f:facet name="footer">
+					<p:panelGrid columns="5"
+						columnClasses="ui-grid-col-1,ui-grid-col-4, ui-grid-col-2,ui-grid-col-4,ui-grid-col-1 "
+						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+						<p:spacer></p:spacer>
+						<p:commandButton value="Guardar" icon="ui-icon-circle-check"
+							iconPos="right" styleClass="fm-btn-exitoso"
+							actionListener="#{movimientoSuplente.registrarMovimiento()}"
+							update="form,messages_generales, error"></p:commandButton>
+						<p:spacer></p:spacer>
+						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
+							iconPos="right" styleClass="fm-btn-error"
+							actionListener="#{movimientoSuplente.ocultarMovimiento()}"
+							update="form"></p:commandButton>
+						<p:spacer></p:spacer>
+					</p:panelGrid>
+				</f:facet>
 
 			</p:dialog>
 

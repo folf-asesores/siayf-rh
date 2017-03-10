@@ -126,6 +126,7 @@ public class MovimientoNominaPermanentesController implements Serializable{
 			
 			if(newMovimientoFijoDTO.getIdEmpleado()!=null){
 				newMovimientoFijoDTO.setIdTipoMovimiento(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+				movimientoFijoService.crear(newMovimientoFijoDTO);
 			movimientoFijoService.crear(newMovimientoFijoDTO);
 			JSFUtils.infoMessage("", "El movimiento se registro correctamente.");
 			}
@@ -203,7 +204,7 @@ public class MovimientoNominaPermanentesController implements Serializable{
 			break;
 		case "importeQuincenal":
 			BigDecimal importeQuincenal = (BigDecimal) value;
-			if (!ValidacionUtil.esMayorCero(importeQuincenal)) {
+			if (!ValidacionUtil.esNumeroPositivo(importeQuincenal)) {
 				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
 						"El importe debe ser mayor a 0.");
 				context.addMessage(component.getClientId(), facesMessage1);

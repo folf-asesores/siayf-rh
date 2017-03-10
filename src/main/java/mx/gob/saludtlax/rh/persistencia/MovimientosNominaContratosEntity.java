@@ -5,9 +5,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -23,12 +26,10 @@ public class MovimientosNominaContratosEntity {
 	@Column(name="id_movimiento_fijo")
 	private Integer idMovimiento;
 	
-	@Column(name="id_tercero_institucional")
-	private Integer terceroInstitucional;
-	
-	@Column(name="id_concepto_contratos")
-	private Integer idConceptoContrato;
-	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_concepto_contratos")
+	private ConceptoNominaContratosEntity conceptoNominaContrato;
+
 	@Column(name="descripcion_concepto")
 	private String decripcionConcepto;
 	
@@ -67,7 +68,7 @@ public class MovimientosNominaContratosEntity {
 	
 	@Column(name="periodo_final")
 	private Integer periodoFinal;
-	
+
 	@Column(name="anio_final")
 	private Integer anioFinal;
 	
@@ -90,7 +91,7 @@ public class MovimientosNominaContratosEntity {
 	private Integer idTipoPeriodo;
 
 	@Column(name="dias")
-	private Integer dias ;
+	private Integer dias;
 
 	@Column(name="id_estatus")
 	private Integer idEstatus;
@@ -104,17 +105,11 @@ public class MovimientosNominaContratosEntity {
 	public void setIdMovimiento(Integer idMovimiento) {
 		this.idMovimiento = idMovimiento;
 	}
-	public Integer getTerceroInstitucional() {
-		return terceroInstitucional;
+	public ConceptoNominaContratosEntity getConceptoNominaContrato() {
+		return conceptoNominaContrato;
 	}
-	public void setTerceroInstitucional(Integer terceroInstitucional) {
-		this.terceroInstitucional = terceroInstitucional;
-	}
-	public Integer getIdConceptoContrato() {
-		return idConceptoContrato;
-	}
-	public void setIdConceptoContrato(Integer idConceptoContrato) {
-		this.idConceptoContrato = idConceptoContrato;
+	public void setConceptoNominaContrato(ConceptoNominaContratosEntity conceptoNominaContrato) {
+		this.conceptoNominaContrato = conceptoNominaContrato;
 	}
 	public String getDecripcionConcepto() {
 		return decripcionConcepto;

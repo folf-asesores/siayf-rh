@@ -123,10 +123,12 @@ public class ReporteSiifService {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session
 				.createSQLQuery("UPDATE " + " siif_encabezados AS se " + " SET "
+						+ "se.id_nomina = (:id_nomina) , "
 						+ " se.id_tipo_nomina = (:id_tipo_nomina) ," 
 						+ " se.id_tipo_emision_nomina = (:id_tipo_emision_nomina) ,"
 						+ " se.id_cuenta_bancaria = (:id_cuenta_bancaria)"
 						+ " WHERE " + " se.id_siif_encabezado = (:id_siif_encabezado)")
+				.setParameter("id_nomina", encabezadoDTO.getIdNomina())
 				.setParameter("id_tipo_nomina", encabezadoDTO.getIdTipoNomina())
 				.setParameter("id_tipo_emision_nomina", encabezadoDTO.getIdTipoEmisionNomina())
 				.setParameter("id_cuenta_bancaria", encabezadoDTO.getIdCuentaBancaria())
@@ -625,7 +627,6 @@ public class ReporteSiifService {
 			array[i] = s;
 			i++;
 		}
-
 		return array;
 	}
 	
@@ -634,7 +635,7 @@ public class ReporteSiifService {
 		EstructuraNominaDatEntity entity = new EstructuraNominaDatEntity();
 		entity.setNumEmp(((array[0]).equals(" ")) ? null : String.valueOf(array[0]));
 		entity.setRfc(((array[1]).equals(" ")) ? null : String.valueOf(array[1]));
-		System.out.println(entity.getRfc());
+		//System.out.println(entity.getRfc());
 		//LOGGER.debugv("RFC:::", entity.getRfc());
 		entity.setCurp(((array[2]).equals(" ")) ? null : String.valueOf(array[2]));
 		entity.setNombre(((array[3]).equals(" ")) ? null : String.valueOf(array[3]));

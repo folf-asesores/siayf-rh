@@ -221,7 +221,7 @@ public class SIIFLayoutEJB implements SIIFLayout {
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
         List<SIIFEncabezadoDTO> listaDetalles
-                = encabezadoService.generarEncabezadoRH(idProductoNomina);
+                = encabezadoService.consultarEncabezadoRH(idProductoNomina);
         byte[] encabezadoXLSX = encabezadoExcel.generar(listaDetalles);
 
         try {
@@ -236,11 +236,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
 
                 for (SIIFEncabezadoDTO encabezadoDetalle : listaDetalles) {
                     
-                        String carpeta = "1/"; //encabezadoDetalle.getIdNomina() + "/";
+                		String carpeta = encabezadoDetalle.getIdNomina() + "/";
+                        int idNomina = encabezadoDetalle.getIdNomina();
+                        int idPrograma = encabezadoDetalle.getIdNombramiento();
                         //System.out.println("idEncabezado:::"+idEncabezado);
-                        LOGGER.debug("idProductoNomina:::" + idProductoNomina);
-
-                        List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina);
+                        LOGGER.debug("idProductoNomina:::" + idProductoNomina + "idProductoNomina:::" + idNomina);
+                        List<DatosPersonalesDTO> datosPersonales=null;
+                        if(idPrograma == 23 || idPrograma == 27){
+                        	datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina, idPrograma);
+                        }else{
+                        	datosPersonales = ls.generarDatosPersonalesRhCont(idProductoNomina, idPrograma);
+                        }
                         byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
 
                         List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
@@ -640,12 +646,103 @@ public class SIIFLayoutEJB implements SIIFLayout {
     }
     
     @Override
+    public byte[] getDatTraProdNomRH_Cont(Integer idProductoNomina) {
+        try {
+            // Generacion del archivo DAT
+            List<EstructuraContratosDatDTO> listaDetallesDat
+                    = encabezadoService.consultarDatProdNomRHCont(idProductoNomina, 23);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDat.size());
+            SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
+            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat, "prdc");
+
+            // Generacion del archivo TRA
+            List<EstructuraContratosTrailersDTO> listaDetallesTra
+                    = encabezadoService.consultarTraProdNomRHCont(idProductoNomina,23);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTra.size());
+            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
+            
+         // Generacion del archivo DAT
+            List<EstructuraContratosDatDTO> listaDetallesDatFort
+                    = encabezadoService.consultarDatProdNomRHCont(idProductoNomina, 27);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatFort.size());
+            //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
+            byte[] datFort = encabezadoExcel.generarDatCont(listaDetallesDatFort, "prdc");
+
+            // Generacion del archivo TRA
+            List<EstructuraContratosTrailersDTO> listaDetallesTraFort
+                    = encabezadoService.consultarTraProdNomRHCont(idProductoNomina,27);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraFort.size());
+            byte[] traFort = encabezadoExcel.generarTraCont(listaDetallesTraFort, "prdc");
+            
+         // Generacion del archivo DAT
+            List<EstructuraContratosDatDTO> listaDetallesDatCont
+                    = encabezadoService.consultarDatProdNomRHContrato(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatCont.size());
+            //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
+            byte[] datCont = encabezadoExcel.generarDatCont(listaDetallesDatCont, "prdc");
+
+            // Generacion del archivo TRA
+            List<EstructuraContratosTrailersDTO> listaDetallesTraCont
+                    = encabezadoService.consultarTraProdNomRHContrato(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraCont.size());
+            byte[] traCont = encabezadoExcel.generarTraCont(listaDetallesTraCont, "prdc");
+
+            
+            // Generación del archivo zip
+            File file = File.createTempFile("dat-tra", ".zip");
+
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                try (ZipOutputStream zos = new ZipOutputStream(fos)) {
+
+                    ZipEntry zipDat = new ZipEntry("PRDOAS.dat");
+                    zos.putNextEntry(zipDat);
+                    zos.write(dat);
+                    zos.closeEntry();
+
+                    ZipEntry zipTra = new ZipEntry("PRDOAS.tra");
+                    zos.putNextEntry(zipTra);
+                    zos.write(tra);
+                    zos.closeEntry();
+                    
+                    ZipEntry zipDatFort = new ZipEntry("PRDOFA.dat");
+                    zos.putNextEntry(zipDatFort);
+                    zos.write(datFort);
+                    zos.closeEntry();
+
+                    ZipEntry zipTraFort = new ZipEntry("PRDOFA.tra");
+                    zos.putNextEntry(zipTraFort);
+                    zos.write(traFort);
+                    zos.closeEntry();
+                    
+                    ZipEntry zipDatCont = new ZipEntry("PRDOCON.dat");
+                    zos.putNextEntry(zipDatCont);
+                    zos.write(datCont);
+                    zos.closeEntry();
+
+                    ZipEntry zipTraCont = new ZipEntry("PRDOCON.tra");
+                    zos.putNextEntry(zipTraCont);
+                    zos.write(traCont);
+                    zos.closeEntry();
+                    
+                }
+
+                byte[] bytes = Files.toByteArray(file);
+                file.delete();
+                return bytes;
+            }
+        } catch (IOException ex) {
+            LOGGER.error(ex);
+            return null;
+        }
+    }
+    
+    @Override
     public void crearDatTraProdNom(Integer idProductoNomina) {
        
             // Creacion del DAT
             List<EstructuraContratosDatDTO> listaDetallesDat
                     = encabezadoService.crearDatProdNom(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos en el DAT: {0}", listaDetallesDat.size());
+            LOGGER.debugv("Cantidad de elementos creados en el DAT: {0}", listaDetallesDat.size());
             //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
             encabezadoService.actualizarEstructuraDat(listaDetallesDat);
             // Creacion del TRA
@@ -654,6 +751,7 @@ public class SIIFLayoutEJB implements SIIFLayout {
             LOGGER.debugv("Cantidad de elementos creados en el TRA: {0}", listaDetallesTra.size());
             //byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
             encabezadoService.actualizarEstructuraTra(idProductoNomina);
+            encabezadoService.actualizarNoTrailer(idProductoNomina);
                  
     }
     
@@ -666,8 +764,9 @@ public class SIIFLayoutEJB implements SIIFLayout {
                 for (SIIFEncabezadoDTO encabezadoDetalle : listaDetalles) {
                                            
                         LOGGER.debug("idProductoNomina:::" + idProductoNomina);
+                        int idNomina=encabezadoDetalle.getIdNomina();
 
-                        List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina);
+                        List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina, idNomina);
                         byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
 
                         List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
@@ -688,6 +787,38 @@ public class SIIFLayoutEJB implements SIIFLayout {
     @Override
     public int verificaProductoNomina(Integer idProductoNomina) {
     	return encabezadoService.verificaProductoNomina(idProductoNomina);
+    }
+    
+    @Override
+    public byte[] getLayoutSeguroPopularRH(Integer idProductoNomina){
+    	
+    	SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
+
+        List<EstructuraSeguroPopularDTO> listaDetallesTra
+                = encabezadoService.consultarSeguroPopularRH(idProductoNomina);
+        LOGGER.debug("Seguro Popular Service:::" + listaDetallesTra.size());
+        byte[] fileSegPop = encabezadoExcel.generarSeguroPopular(listaDetallesTra);
+
+        try {
+            File file = File.createTempFile("SeguroPopular", ".zip");
+            FileOutputStream fos = new FileOutputStream(file);
+
+            try (ZipOutputStream zos = new ZipOutputStream(fos)) {
+
+                ZipEntry zipTra = new ZipEntry("pantillaSegPop.xlsx");
+                zos.putNextEntry(zipTra);
+                zos.write(fileSegPop);
+                zos.closeEntry();
+            }
+
+            byte[] bytes = Files.toByteArray(file);
+            file.delete();
+            return bytes;
+        } catch (IOException ex) {
+            LOGGER.error(null, ex);
+            return null;
+        }
+    	
     }
 
 

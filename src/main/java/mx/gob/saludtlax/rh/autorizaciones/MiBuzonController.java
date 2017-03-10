@@ -47,9 +47,9 @@ public class MiBuzonController implements Serializable {
 		UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession
 				.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-		this.view.setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
-		this.view.setMisNotificaciones(
-				autorizaciones.consultarAutorizacionesUsuarioEstatus(this.view.getIdUsuarioLogeado(), false));
+		view.setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
+		view.setMisNotificaciones(
+				autorizaciones.consultarAutorizacionesUsuarioEstatus(view.getIdUsuarioLogeado(), false));
 
 		Object idAccionObj = httpSession.getAttribute("idAccion");
 		Object idBuzonObj = httpSession.getAttribute("idBuzon");
@@ -69,6 +69,7 @@ public class MiBuzonController implements Serializable {
 		view.setMostrarDetalleAperturaVacantePrograma(false);
 		view.setMostrarDetalleLaboralPrograma(false);
 		view.setMostrarDetalleMovimiento(false);
+		view.setMostrarDetalleModificacionSueldo(false);
 
 		try {
 			view.getAutorizacion().setIdBuzon(idBuzon);
@@ -90,13 +91,13 @@ public class MiBuzonController implements Serializable {
 			} else if (idAccion == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
 				view.setMostrarDetalleMovimiento(true);
 
+			} else if (idAccion == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
+				view.setMostrarDetalleSuplencia(true);
+			} else if (idAccion == EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL) {
+				JSFUtils.redireccionarInterna(Modulo.AUTORIZAR_NOMINA.getUrl());
+			} else if (idAccion == EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO) {
+				view.setMostrarDetalleModificacionSueldo(true);
 			}
-            else if (idAccion == EnumTiposAccionesAutorizacion.SUPLENCIA_POR_RECURSO) {
-                view.setMostrarDetalleSuplencia(true);
-            }
-            else if (idAccion == EnumTiposAccionesAutorizacion.AUTORIZAR_PRODUCTO_NOMINA_ESTATAL){
-                JSFUtils.redireccionarInterna( Modulo.AUTORIZAR_NOMINA.getUrl());
-            }
 		} catch (ReglaNegocioException exception) {
 			JSFUtils.errorMessageEspecifico("messages_generales", "", exception.getMessage());
 		} catch (IOException e) {

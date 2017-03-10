@@ -398,7 +398,6 @@ public class ProductosNominaService {
 
 	public void eliminarProductoNomina(ProductoNominaDTO productoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        System.out.println("productoNomina.getIdProductoNomina():: " + productoNomina.getIdProductoNomina());
         Query query = session
                 .createSQLQuery(" SELECT " 
                 		+ " ne.id_nomina_empleado AS idNominaEmpleado "
@@ -412,32 +411,33 @@ public class ProductosNominaService {
         List<NominaEmpleadoDTO> nominaEmpleadoList = (List<NominaEmpleadoDTO>) query.list();
 
 		for (NominaEmpleadoDTO nominaEmpleado : nominaEmpleadoList) {
-			
-	        NominaEmpleadoEntity nominaEmpleadoEntity = 
-	        		nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
-
-	    	// conceptos_nomina_empleado
-			List<ConceptosNominaEmpleadosEntity> conceptosNominaEmpleadosEntities = conceptosNominaEmpleadosRepository
-					.listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado().intValue());
-	    	for (ConceptosNominaEmpleadosEntity conceptosNominaEmpleadosEntity : conceptosNominaEmpleadosEntities) {
-	    		conceptosNominaEmpleadosRepository.eliminar(conceptosNominaEmpleadosEntity);
-	    	}
-
-	    	// nomina_faltas_contadas
-//	    	fataContadaRepository.
-	    	// Movimientos
-
-	    	// Nominas pension
-
-	    	// bitacoras_aperturas
-
-	    	// bitacoras_eventos
-
-	    	// nomina_empleado
-	    	nominaEmpleadoRepository.eliminar(nominaEmpleadoEntity);
+			eliminarNominaEmpleado(nominaEmpleado.getIdNominaEmpleado());
 		}
-
     	// producto_nomina
 		productoNominaRepository.eliminarPorId(productoNomina.getIdProductoNomina());
+	}
+
+	public void eliminarNominaEmpleado(Integer idNominaEmpleado) {
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(idNominaEmpleado);
+
+    	// conceptos_nomina_empleado
+		List<ConceptosNominaEmpleadosEntity> conceptosNominaEmpleadosEntities = conceptosNominaEmpleadosRepository
+				.listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado().intValue());
+    	for (ConceptosNominaEmpleadosEntity conceptosNominaEmpleadosEntity : conceptosNominaEmpleadosEntities) {
+    		conceptosNominaEmpleadosRepository.eliminar(conceptosNominaEmpleadosEntity);
+    	}
+
+    	// nomina_faltas_contadas
+//    	fataContadaRepository.
+    	// Movimientos
+
+    	// Nominas pension
+
+    	// bitacoras_aperturas
+
+    	// bitacoras_eventos
+
+    	// nomina_empleado
+    	nominaEmpleadoRepository.eliminar(nominaEmpleadoEntity);
 	}
 }

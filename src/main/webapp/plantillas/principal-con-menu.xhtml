@@ -104,6 +104,10 @@
 						url="/contenido/empleado/modificacionLaboral.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
+					<p:menuitem value="Estructuras Contratos"
+						url="/contenido/empleado/estructuraContratos.xhtml?faces-redirect=true"
+						ajax="false" icon="fm-icon-circle-empty" />
+
 					<p:menuitem value="Configuración Área Trabajo"
 						url="/contenido/empleado/configuracionAreaTrabajo.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
@@ -187,10 +191,10 @@
 						url="/contenido/suplencias/consultaSuplencias.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Vacaciones e incapacidades" rendered="false"
+					<p:menuitem value="Vacaciones e incapacidades"
 						url="/contenido/suplencias/movimientosSuplentes.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
-					
+
 					<p:menuitem value="Reporte Causal Global"
 						url="/contenido/suplencias/reporteCausalGlobal.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
@@ -352,6 +356,17 @@
 
 					<p:menuitem value="Proyecciones" icon="fm-icon-circle-empty"
 						url="/contenido/presupuesto/proyeccionesPresupuestales.xhtml?faces-redirect=true" />
+						
+					<p:menuitem value="Presupuesto Autorizado" icon="fm-icon-circle-empty"
+						url="/contenido/presupuesto/presupuestoAutorizado.xhtml?faces-redirect=true" />	
+					
+					<p:menuitem value="Calendario Global"
+						url="/contenido/configuracion/calendarioGlobal.xhtml?faces-redirect=true"
+						ajax="false" icon="fm-icon-circle-empty" />
+
+					<p:menuitem value="Presupuesto Calendario"
+						url="/contenido/configuracion/presupuestoCalendario.xhtml?faces-redirect=true"
+						ajax="false" icon="fm-icon-circle-empty" />	
 				</p:submenu>
 
 				<p:submenu label="Seguridad" rendered="false">
@@ -410,6 +425,13 @@
 						action="/contenido/configuracion/banco.xhtml?faces-redirect=true"
 						rendered="false" icon="fm-icon-circle-empty" />
 
+					<p:menuitem value="Configuracion Quinquenios"
+						action="/contenido/configuracion/configuracionQuinquenios.xhtml?faces-redirect=true"
+						rendered="true" icon="fm-icon-circle-empty" />
+					<p:menuitem value="Conceptos Especiales"
+						action="/contenido/configuracion/conceptosEspeciales.xhtml?faces-redirect=true"
+						rendered="true" icon="fm-icon-circle-empty" />
+
 					<p:menuitem value="Configuracion de  Movimientos Nomina"
 						action="/contenido/nomina/configuracionTipoMovimiento/configuracionTipoMovimientoNomina.xhtml?faces-redirect=true"
 						rendered="true" icon="fm-icon-circle-empty" />
@@ -465,6 +487,11 @@
 					<p:menuitem value="Firmas"
 						url="/contenido/configuracion/firma.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
+
+					<p:separator />
+
+					
+
 				</p:submenu>
 
 				<p:submenu label="Seguridad">
@@ -499,6 +526,15 @@
 					<p:menuitem value="Configuracion Modulos-Usuarios"
 						action="/contenido/seguridad/configuracionModuloUsuario.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
+
+					<p:menuitem value="Administración Modulos"
+						action="/contenido/seguridad/administracionModulo/administracionModulo.xhtml?faces-redirect=true"
+						icon="fm-icon-circle-empty" />
+
+					<p:menuitem value="Configuración Modulos-Acciones"
+						action="/contenido/seguridad/configuracionModuloAccion/index.xhtml?faces-redirect=true"
+						icon="fm-icon-circle-empty" />
+
 				</p:submenu>
 			</p:panelMenu>
 		</h:form>

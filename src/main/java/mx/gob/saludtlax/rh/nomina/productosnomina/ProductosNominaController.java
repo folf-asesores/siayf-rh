@@ -1,9 +1,6 @@
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.ByteArrayInputStream;
-/**
- * @author José Pablo
- */
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,13 +20,18 @@ import org.primefaces.model.DualListModel;
 import org.primefaces.model.StreamedContent;
 
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.reportes.AdministradorReportes;
 import mx.gob.saludtlax.rh.seguridad.autenticacion.AutenticacionUtil;
 import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 import mx.gob.saludtlax.rh.siif.layout.SIIFLayout;
+import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
+/**
+ * @author José Pablo
+ */
 @Named(value = "productosNomina")
 @SessionScoped
 public class ProductosNominaController implements Serializable {
@@ -43,7 +45,7 @@ public class ProductosNominaController implements Serializable {
     private ProductosNominaView view;
     private ProductoNominaValidator validator;
     private StreamedContent reporte;
-	
+
     @PostConstruct
     public void init() {
         validator = new ProductoNominaValidator();
@@ -71,10 +73,12 @@ public class ProductosNominaController implements Serializable {
             ejb.abrirProductoNomina(view.getProductoNomina());
             view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
             view.showPanelPrincipalDetalle();
+            view.showPanelPrincipal();
             view.setMostrarNominaErronea(Boolean.FALSE);
-//            if (view.getProductoNomina().getIdTipoContratacion() == EnumTipoContratacion.SUPLENCIA) {
-//                procesoEjb.detenerProceso(2);
-//            }
+            // if (view.getProductoNomina().getIdTipoContratacion() ==
+            // EnumTipoContratacion.SUPLENCIA) {
+            // procesoEjb.detenerProceso(2);
+            // }
             return "/contenido/nomina/productos/productoNominaDetalle.xhtml?faces-redirect=true";
         }
     }
@@ -85,7 +89,8 @@ public class ProductosNominaController implements Serializable {
             return null;
         } else {
             view.showPanelPrincipal();
-            return "/contenido/nomina/productos/abrirProductoNominaRfc.xhtml?faces-redirect=true&idProductoNomina=" + view.getProductoNomina().getIdProductoNomina();
+            return "/contenido/nomina/productos/abrirProductoNominaRfc.xhtml?faces-redirect=true&idProductoNomina="
+                    + view.getProductoNomina().getIdProductoNomina();
         }
     }
 
@@ -120,8 +125,8 @@ public class ProductosNominaController implements Serializable {
             url = "/contenido/nomina/productos/productoNominaDetalle.xhtml?faces-redirect=true";
         }
         if (view.getProductoNomina().getIdEstatusProductoNomina() >= 5) {
-            view.showPanelForm();
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
             httpSession.setAttribute("idProductoNomina", view.getProductoNomina().getIdProductoNomina());
             view.showPanelPrincipal();
@@ -152,8 +157,8 @@ public class ProductosNominaController implements Serializable {
     public String cambiarTipoPeriodoLista() {
         view.setTipoPeriodoLista(ejb.obtenerTipoPeriodoLista(view.getProductoNomina().getEjercicioFiscal()));
         if (view.getTipoPeriodoLista().size() == 1) {
-            Integer idTipoPeriodo = view.getTipoPeriodoLista().get(0).getIdTipoPeriodo();
-            view.getProductoNomina().setIdTipoPeriodo(idTipoPeriodo);
+                Integer idTipoPeriodo = view.getTipoPeriodoLista().get(0).getIdTipoPeriodo();
+                view.getProductoNomina().setIdTipoPeriodo(idTipoPeriodo);
         }
         return null;
     }
@@ -184,22 +189,40 @@ public class ProductosNominaController implements Serializable {
         return null;
     }
 
-    public String calcularNomina() {
-        ejb.actualizarProductoNomina(view.getProductoNomina());
-        view.setProductoNomina(ejb.calcularProductoNomina(view.getProductoNomina()));
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
-        view.setNominasErroneas(ejb.consultarNominasErroneas(view.getProductoNomina().getIdProductoNomina()));
-        view.setMostrarNominaErronea(!view.getNominasErroneas().isEmpty());
-//        procesoEjb.detenerProceso(1);
-        JSFUtils.infoMessage("", "El cálculo ha sido procesado con éxito.");
-        view.showPanelPrincipalDetalle();
+    public String irActualizarNomina() {
+        view.setActualizarNominaEmpleadoList(ejb.obtenerActualizarNomina(view.getProductoNomina()));
+        view.panelActualizarNomina();
         return null;
+    }
+
+    public String actualizarNomina() {
+        ejb.actualizarNomina(view.getActualizarNominaEmpleadoSelectList(), view.getProductoNomina());
+        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
+        view.setActualizarNominaEmpleadoList(ejb.obtenerActualizarNomina(view.getProductoNomina()));
+        JSFUtils.infoMessage("", "La actualización de los datos se ha procesado con éxito.");
+        return null;
+    }
+
+    public String calcularNomina() {
+            ejb.actualizarProductoNomina(view.getProductoNomina());
+            view.setProductoNomina(ejb.calcularProductoNomina(view.getProductoNomina()));
+            view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
+            view.setNominasErroneas(ejb.consultarNominasErroneas(view.getProductoNomina().getIdProductoNomina()));
+            view.setMostrarNominaErronea(!view.getNominasErroneas().isEmpty());
+            // procesoEjb.detenerProceso(1);
+            JSFUtils.infoMessage("", "El cálculo ha sido procesado con éxito.");
+            view.showPanelPrincipalDetalle();
+            return null;
     }
 
     public String validarNomina() {
         ejb.validarProductoNomina(view.getProductoNomina());
-        view.setProductoNomina(ejb.obtenerProductoNomina(view.getProductoNomina().getIdProductoNomina()));
-        return null;
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        httpSession.setAttribute("idProductoNomina", view.getProductoNomina().getIdProductoNomina());
+        view.showPanelPrincipal();
+        return "/contenido/nomina/productos/ejecutarProductoNomina.xhtml?faces-redirect=true";
     }
 
     public void guardarProductoNomina() {
@@ -225,28 +248,28 @@ public class ProductosNominaController implements Serializable {
             String referencia = adm.obtenerReferencia(parametros);
             LOGGER.debugv("Referencia: {0}", referencia);
             byte[] bytesReporte = adm.obtenerReporte(referencia);
-            JSFUtils.descargarArchivo(bytesReporte, "nomina-eventuales", "text/plain");
+            JSFUtils.descargarArchivo(bytesReporte, "nomina-federales", "text/plain");
         } catch (IOException ex) {
             LOGGER.errorv("Error de lectuta/escritura: {0}", ex);
         }
     }
 
-    public void descargarNominaEventuales() {
+    public void descargarPrenominaEventuales() {
         UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
         AdministradorReportes adm = new AdministradorReportes();
-	    String[] parametros = new String[] {
-	        "ID_USUARIO", usuario.getIdUsuario().toString(),
-	        "REPORTE_NOMBRE", "nomina_eventuales",
-	        "TIPO_REPORTE", "txt",
-	        "ID_PRODUCTO_NOMINA", view.getProductoNomina().getIdProductoNomina().toString()
-	    };
-	    String referencia = adm.obtenerReferencia(parametros);
-	    LOGGER.debugv("Referencia: {0}", referencia);
-	    byte[] bytesReporte = adm.obtenerReporte(referencia);
-	    
-	    ByteArrayInputStream bis = new ByteArrayInputStream(bytesReporte);
-	    setReporte(new DefaultStreamedContent(bis, "text/plain", "dispersion-nomina_" + view.getProductoNomina().getNombreProducto() + ".txt"));
-	    
+        String[] parametros = new String[] {
+            "ID_USUARIO", usuario.getIdUsuario().toString(),
+            "REPORTE_NOMBRE", "prenomina_eventuales",
+            "TIPO_REPORTE", "txt",
+            "ID_PRODUCTO_NOMINA", view.getProductoNomina().getIdProductoNomina().toString()
+        };
+        String referencia = adm.obtenerReferencia(parametros);
+        LOGGER.debugv("Referencia: {0}", referencia);
+        byte[] bytesReporte = adm.obtenerReporte(referencia);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytesReporte);
+        setReporte(new DefaultStreamedContent(bis, "text/plain",
+                        "prenomina_" + view.getProductoNomina().getNombreProducto() + ".txt"));
     }
 
     public void descargarNominaSuplencia(Integer idProductoNomina) {
@@ -289,32 +312,155 @@ public class ProductosNominaController implements Serializable {
         setReporte(new DefaultStreamedContent(bis, TipoArchivo.XLSX.getMIMEType(), "dispersion-nomina.xlsx"));
     }
 
-	public void descargarProductoNomina() {
-		try {
-			UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
-			String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
-					"producto_nomina", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA",
-					String.valueOf(view.getProductoNomina().getIdProductoNomina()) };
+    public void descargarProductoNomina() {
+        try {
+            UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+            String[] parametros = {
+                "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+                "REPORTE_NOMBRE", "producto_nomina",
+                "TIPO_REPORTE", "xlsx",
+                "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina())
+            };
 
-			AdministradorReportes admintradorReportes = new AdministradorReportes();
-			String referencia = admintradorReportes.obtenerReferencia(parametros);
-			byte[] bytes = admintradorReportes.obtenerReporte(referencia);
-			if (bytes != null) {
-		        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-				setReporte(new DefaultStreamedContent(bis, TipoArchivo.getMIMEType("xlsx"),
-						"Productos_Nomina_" + view.getProductoNomina().getNombreProducto() + ".xlsx"));
-				JSFUtils.infoMessage("Descargar Productos Nomina: " + view.getProductoNomina().getNombreProducto(),
-						"Se descargo correctamente.");
-			}
-		} catch (ReglaNegocioException e) {
-			e.printStackTrace();
-			JSFUtils.errorMessage("Error: ", e.getMessage());
-		}
-	}
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            if (bytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                setReporte(new DefaultStreamedContent(bis, TipoArchivo.getMIMEType("xlsx"),
+                        "Productos_Nomina_" + view.getProductoNomina()
+                                .getNombreProducto() + ".xlsx"));
+                JSFUtils.infoMessage("Descargar Productos Nomina: "
+                        + CadenaUtil.converterSpace(view.getProductoNomina().getNombreProducto()),
+                        "Se descargo correctamente.");
+            } else {
+                    JSFUtils.errorMessage("Error: ", "");
+            }
+        } catch (ReglaNegocioException e) {
+            LOGGER.error(e.getMessage(), e);
+            JSFUtils.errorMessage("Error: ", e.getMessage());
+        }
+    }
+
+    public void descargarProductoNominaRetenido() {
+        try {
+            UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+            String[] parametros = {
+                "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+                "REPORTE_NOMBRE", "producto_nomina_estatus",
+                "TIPO_REPORTE", "xlsx",
+                "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina()),
+                "ID_ESTATUS", String.valueOf(EnumEstatusProductoNomina.RETENIDO)
+            };
+
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            if (bytes != null) {
+                JSFUtils.descargarArchivo(bytes,
+                        "Productos_Nomina_Retenido_"
+                                + CadenaUtil.converterSpace(view.getProductoNomina().getNombreProducto()),
+                        TipoArchivo.getMIMEType("xlsx"));
+                JSFUtils.infoMessage("Descargar Productos Nomina: "
+                        + view.getProductoNomina().getNombreProducto(),
+                        "Se descargo correctamente.");
+            }
+        } catch (NullPointerException | IllegalArgumentException | IOException | ReglaNegocioException | ValidacionException exception) {
+            LOGGER.error(exception.getMessage(), exception);
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
+    }
+
+    public void descargarProductoNominaCancelado() {
+        try {
+            UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+            String[] parametros = {
+                "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+                "REPORTE_NOMBRE", "producto_nomina_estatus",
+                "TIPO_REPORTE", "xlsx",
+                "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina()),
+                "ID_ESTATUS", String.valueOf(EnumEstatusProductoNomina.CANCELADO)
+            };
+
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            if (bytes != null) {
+                JSFUtils.descargarArchivo(bytes,
+                        "Productos_Nomina_Cancelado_"
+                                + CadenaUtil.converterSpace(view.getProductoNomina().getNombreProducto()),
+                        TipoArchivo.getMIMEType("xlsx"));
+
+                JSFUtils.infoMessage("Descargar Productos Nomina: "
+                        + view.getProductoNomina().getNombreProducto(),
+                        "Se descargo correctamente.");
+            }
+        } catch (NullPointerException | IllegalArgumentException | IOException
+                | ReglaNegocioException | ValidacionException exception) {
+                LOGGER.error(exception.getMessage(), exception);
+                JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
+    }
+        
+    public void descargarProductoNominaSuplencia() {
+        UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+        String[] parametros = {
+            "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+            "REPORTE_NOMBRE", "producto_nomina_suplencia",
+            "TIPO_REPORTE", "xlsx",
+            "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina())
+        };
+        AdministradorReportes admintradorReportes = new AdministradorReportes();
+        String referencia = admintradorReportes.obtenerReferencia(parametros);
+        byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+        if (bytes != null) {
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            setReporte(new DefaultStreamedContent(bis,
+                    TipoArchivo.XLSX.getMIMEType(),
+                    "Productos_nomina_suplencia" 
+                            + view.getProductoNomina()
+                                    .getNombreProducto() + ".xlsx"));
+            JSFUtils.infoMessage("Descargar Productos Nomina: "
+                    + view.getProductoNomina().getNombreProducto(),
+                    "Se descargo correctamente.");
+        } else {
+            JSFUtils.errorMessage("Error al generar el reporte: "
+                    + view.getProductoNomina().getNombreProducto(),
+                    "Ocurrio un error inesperado durante la generación del reporte.");
+        }
+    }
+    
+    public void descargarPagoGeneral() {
+        UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+        String[] parametros = {
+            "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+            "REPORTE_NOMBRE", "pago_general",
+            "TIPO_REPORTE", "xlsx",
+            "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina())
+        };
+        AdministradorReportes admintradorReportes = new AdministradorReportes();
+        String referencia = admintradorReportes.obtenerReferencia(parametros);
+        byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+        
+        if (bytes != null) {
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            setReporte(new DefaultStreamedContent(bis,
+                    TipoArchivo.XLSX.getMIMEType(),
+                    "pago_general"
+                            + view.getProductoNomina().getNombreProducto()
+                            + ".xlsx"));
+            JSFUtils.infoMessage("Descargar Productos Nomina: "
+                    + view.getProductoNomina().getNombreProducto(),
+                    "Se descargo correctamente.");
+        } else {
+            JSFUtils.errorMessage("Error al generar el reporte: "
+                    + view.getProductoNomina().getNombreProducto(),
+                    "Ocurrio un error inesperado durante la generación del reporte.");
+        }
+    }
 
     public void estaEnProcesoCalculo(int proceso) {
         view.setProceso(procesoEjb.obtenerProceso(proceso));
-
     }
 
     public void filtrarProductoNomina() {
@@ -326,18 +472,19 @@ public class ProductosNominaController implements Serializable {
         view.showPanelForm();
         view.setHabilitarEstatus(Boolean.FALSE);
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("idProductoNomina", view.getProductoNomina().getIdProductoNomina());
 
         return "/contenido/nomina/productos/dividirProductoNomina.xhtml?faces-redirect=true";
     }
 
-public String irGestionarConcepto(ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
+    public String irGestionarConcepto(ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
         view.setConceptosNominaSelect(conceptoNominaEmpleado);
         List<FaltaContadaDTO> faltasContadas = (ejb.obtenerFaltasContadas(conceptoNominaEmpleado));
         List<FaltaContadaDTO> faltasNoContadas = (ejb.obtenerFaltasNoContadas(faltasContadas, conceptoNominaEmpleado));
-        view.setFaltasGestionar(new DualListModel<FaltaContadaDTO>(faltasContadas, faltasNoContadas));
+        view.setFaltasGestionar(new DualListModel<>(faltasContadas, faltasNoContadas));
         view.showGestionFaltas();
         return null;
     }
@@ -376,20 +523,28 @@ public String irGestionarConcepto(ConceptosNominaEmpleadosDTO conceptoNominaEmpl
     public ProductoNominaValidator getValidator() {
         return validator;
     }
-	
-	public void generarDatTra() {
-		if(generarLayout.verificaProductoNomina(view.getProductoNomina().getIdProductoNomina())<=0){
-			generarLayout.crearDatTraProdNom(view.getProductoNomina().getIdProductoNomina());			
-		}
-		try {
-			byte[] layout = generarLayout.getDatTraProdNomRH(view.getProductoNomina().getIdProductoNomina());
-			JSFUtils.descargarArchivo(layout, "datytra",TipoArchivo.ZIP.getMIMEType());
-			} catch (IOException ex) {
-				LOGGER.error(ex);
-			}
-		
-	}
-	    
+
+    public void generarDatTra() {
+        if (generarLayout.verificaProductoNomina(view.getProductoNomina().getIdProductoNomina()) <= 0) {
+            generarLayout.crearDatTraProdNom(view.getProductoNomina().getIdProductoNomina());
+        }
+        if(view.getProductoNomina().getIdTipoContratacion()==1){
+        	try {
+	            byte[] layout = generarLayout.getDatTraProdNomRH_Cont(view.getProductoNomina().getIdProductoNomina());
+	            JSFUtils.descargarArchivo(layout, "datytra", TipoArchivo.ZIP.getMIMEType());
+	        } catch (IOException ex) {
+	            LOGGER.error(ex);
+	        }
+        }else{
+	        try {
+	            byte[] layout = generarLayout.getDatTraProdNomRH(view.getProductoNomina().getIdProductoNomina());
+	            JSFUtils.descargarArchivo(layout, "datytra", TipoArchivo.ZIP.getMIMEType());
+	        } catch (IOException ex) {
+	            LOGGER.error(ex);
+	        }
+        }
+    }
+
     public void setReporte(StreamedContent reporte) {
         this.reporte = reporte;
     }
@@ -397,14 +552,38 @@ public String irGestionarConcepto(ConceptosNominaEmpleadosDTO conceptoNominaEmpl
     public StreamedContent getReporte() {
         return reporte;
     }
+
+    public void generarLayout() {
+        try {
+            byte[] layout = generarLayout.getLayoutComoZipRH(view.getProductoNomina().getIdProductoNomina());
+            JSFUtils.descargarArchivo(layout, "layout", TipoArchivo.ZIP.getMIMEType());
+        } catch (IOException ex) {
+            LOGGER.error(ex);
+        }
+    }
+	
+    public void generarSeguroPopular() {
+        try {
+            byte[] layout = generarLayout.getLayoutSeguroPopularRH(view.getProductoNomina().getIdProductoNomina());
+            JSFUtils.descargarArchivo(layout, "seg-popular", TipoArchivo.ZIP.getMIMEType());
+        } catch (IOException ex) {
+            LOGGER.error(ex);
+        }
+    }
     
-    public void generarLayout() {				
+    public void generarSeguroPopularRH() {
 		try {
-			byte[] layout = generarLayout.getLayoutComoZipRH(view.getProductoNomina().getIdProductoNomina());
-			JSFUtils.descargarArchivo(layout, "layout",TipoArchivo.ZIP.getMIMEType());
-			} catch (IOException ex) {
-				LOGGER.error(ex);
-			}
+			String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "seguro_popular", "TIPO_REPORTE",
+					"xlsx", };
+
+			AdministradorReportes admin = new AdministradorReportes();
+			String referencia = admin.obtenerReferencia(parametros);
+			byte[] result = admin.obtenerReporte(referencia);
+			JSFUtils.descargarArchivo(result, "seguro-popular-reporte", TipoArchivo.XLSX);
+		} catch (IOException ex) {
+			LOGGER.error(ex);
+		}
 	}
+
 
 }

@@ -16,22 +16,185 @@
 			<p:messages id="messages_generales" showDetail="true" closable="true" />
 			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
 
-<p:tabMenu activeIndex="#{param.i}">
-   <p:menuitem value="Areas" outcome="/contenido/seguridad/administracionAreas.xhtml" icon="ui-icon-gear">
-        <f:param name="i" value="0" />
-    </p:menuitem>
-    <p:menuitem value="Acciones" outcome="/contenido/seguridad/acciones.xhtml" icon="ui-icon-gear">
-        <f:param name="i" value="1" />
-    </p:menuitem>
-    <p:menuitem value="Modulos" outcome="/contenido/seguridad/modulos.xhtml" icon="ui-icon-gear">
-        <f:param name="i" value="2" />
-    </p:menuitem>
-    <p:menuitem value="Usuarios" outcome="/contenido/seguridad/configuracionUsuario.xhtml" icon="ui-icon-person">
-        <f:param name="i" value="3" />
-    </p:menuitem>
-</p:tabMenu>
-<br/>
-<br/>
+			<p:tabMenu activeIndex="#{param.i}">
+				<p:menuitem value="Areas"
+					outcome="/contenido/seguridad/administracionAreas.xhtml"
+					icon="ui-icon-gear">
+					<f:param name="i" value="0" />
+				</p:menuitem>
+				<p:menuitem value="Acciones"
+					outcome="/contenido/seguridad/acciones.xhtml" icon="ui-icon-gear">
+					<f:param name="i" value="1" />
+				</p:menuitem>
+				<p:menuitem value="Modulos"
+					outcome="/contenido/seguridad/modulos.xhtml" icon="ui-icon-gear">
+					<f:param name="i" value="2" />
+				</p:menuitem>
+				<p:menuitem value="Usuarios"
+					outcome="/contenido/seguridad/configuracionUsuario.xhtml"
+					icon="ui-icon-person">
+					<f:param name="i" value="3" />
+				</p:menuitem>
+			</p:tabMenu>
+			<br />
+			<br />
+
+			<p:panelGrid columns="3"
+				rendered="#{vistaUsuarioController.view.acciones}"
+				columnClasses="ui-grid-col-2, ui-grid-col-2, ui-grid-col-2" layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid">
+
+				<p:commandButton icon="ui-icon-plus" value="Agregar"
+					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" title="Agregar" update="form"
+					process="@this" action="#{vistaUsuarioController.nuevaAccion()}" />
+
+				<p:commandButton icon="ui-icon-circle-arrow-w" value="Regresar"
+					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" title="Regresar" update="form"
+					action="#{vistaUsuarioController.regresar()}" process="@this" />
+					
+				<p:commandButton  value="Guardar"  update="form"  process="@this"
+					action="#{vistaUsuarioController.guardar}"/>
+			</p:panelGrid>
+			
+				
+
+			<p:dataTable id="tablaVistaUsuarios" var="vistaUsuario" rows="10"
+				paginator="true" paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30"
+				value="#{vistaUsuarioController.listaUsuarios}" editable="true"
+				style="margin-bottom:20px"
+				rendered="#{vistaUsuarioController.view.principal}">
+
+				<p:column headerText="Usuario">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{vistaUsuario.userName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:selectOneMenu id="usuario" value="#{vistaUsuario.userName}">
+								<f:selectItems value="#{vistaUsuarioController.listaUsuarios}"
+									var="usr" itemValue="#{usr.idUsuario}"
+									itemLabel="#{usr.userName}" />
+							</p:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Estatus">
+					<h:outputText value="#{vistaUsuario.activo?'SI':'NO'}" />
+				</p:column>
+
+				<p:column headerText="Nombre">
+					<h:outputText
+						value="#{vistaUsuario.nombre} #{vistaUsuario.apellidoPaterno} #{vistaUsuario.apellidoMaterno}" />
+				</p:column>
+
+				<p:column style="width:50px; text-align: center;">
+					<p:commandButton id="verModulo"
+						styleClass="fm-btn-exitoso fm-btn-elevado" process="@this"
+						update="form" icon="ui-icon-search"
+						action="#{vistaUsuarioController.mostrarAccion}">
+						<f:setPropertyActionListener value="#{vistaUsuario}"
+							target="#{vistaUsuarioController.usuarioSeleccionado}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dataTable id="tablaConfiguraciones" var="configuracion" rows="10"
+				paginator="true" paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30"
+				value="#{vistaUsuarioController.listaConfiguracionUsuario}"
+				editable="true" style="margin-bottom:20px"
+				rendered="#{vistaUsuarioController.view.acciones}">
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<p:outputLabel for="tipoUsuario" value="Usuario:   " />
+						<h:outputText id="tipoUsuario" disabled="true"
+							value="#{vistaUsuarioController.usuarioSeleccionado.userName}" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:column style="width:16px">
+					<p:rowToggler />
+				</p:column>
+				<p:column headerText="Nombre Configuracion">
+					<h:outputText
+						value="#{configuracion.configuracionModulo.nombreConfiguracion}" />
+				</p:column>
+
+				<p:rowExpansion>
+					<p:dataTable id="tablaAcciones" var="accion" rows="10"
+						paginator="false" paginatorPosition="top"
+						value="#{configuracion.configuracionModulo.acciones}"
+						style="margin-bottom:20px">
+
+						<p:column headerText="Nombre Accion">
+							<h:outputText value="#{accion.descripcion}" />
+						</p:column>
+					</p:dataTable>
+				</p:rowExpansion>
+
+				<p:column style="text-align: center;" headerText="Opciones">
+
+					<p:commandButton id="eliminarModulo"
+						styleClass="fm-btn-error fm-btn-elevado" process="tablaAcciones"
+						update="tablaAcciones :form:tablaAgregar" icon="ui-icon-trash"
+						action="#{vistaUsuarioController.eliminar(modulo)}">
+						<p:confirm header="Confirmacion"
+							message="¿Deseas quitar el registro: #{modulo.nombre} de la lista? "
+							icon="ui-icon-alert" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dataTable id="tablaAgregar" var="agregarAccion" rows="10"
+				paginator="true" paginatorPosition="top"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="10,20,30"
+				value="#{vistaUsuarioController.listaConfiguracionUsuarioRestantes}"
+				editable="true" rendered="#{vistaUsuarioController.view.tabla}"
+				selection="#{vistaUsuarioController.listaConfiguracionUsuarioSelect}"
+				rowKey="#{agregarAccion.configuracionModulo.nombreConfiguracion}">
+
+				<p:column selectionMode="multiple"
+					style="width:36px;
+					      text-align:center" />
+
+				<p:column headerText="Nombre Configuracion"
+					filterMatchMode="contains">
+					<h:outputText
+						value="#{agregarAccion.configuracionModulo.nombreConfiguracion}" />
+				</p:column>
+
+				<p:column headerText="Nombre Accion" filterMatchMode="contains">
+					<p:dataList value="#{agregarAccion.configuracionModulo.acciones}"
+						var="accion">
+					        #{accion.descripcion}
+					    </p:dataList>
+				</p:column>
+
+				<!--	<p:column style="width:32px; text-align: center">
+					<p:commandButton update=":form"
+						oncomplete="PF('carDialog').show()" icon="ui-icon-search"
+						title="View">
+						<f:setPropertyActionListener value="#{agregarAccion}"
+							target="#{agregarAccion.configuracionModulo.acciones}" />
+					</p:commandButton>
+				</p:column>-->
+
+				<f:facet name="footer">
+					<p:commandButton value="Agregar configuraciones"
+						actionListener="#{vistaUsuarioController.agregarConfiguracionUsuario()}"
+						style="margin-top:5px;"
+						styleClass="fm-btn-advertencia fm-btn-elevado"
+						update="tablaAgregar :form:tablaConfiguraciones" />
+				</f:facet>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>

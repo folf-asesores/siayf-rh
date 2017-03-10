@@ -334,7 +334,10 @@ public class Nomina {
     protected Integer riesgoPuesto;
     @XmlAttribute(name = "SalarioDiarioIntegrado")
     protected BigDecimal salarioDiarioIntegrado;
-
+    @XmlAttribute(name = "CuentaBancaria")
+    protected BigDecimal CuentaBancaria;
+    @XmlAttribute(name = "CuentaBancaria")
+    protected BigInteger cuentaBancaria;
     /**
      * Obtiene el valor de la propiedad percepciones.
      * 
@@ -358,7 +361,21 @@ public class Nomina {
     public void setPercepciones(Nomina.Percepciones value) {
         this.percepciones = value;
     }
+    public BigInteger getCuentaBancaria() {
+        return cuentaBancaria;
+    }
 
+    /**
+     * Define el valor de la propiedad cuentaBancaria.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link BigInteger }
+     *     
+     */
+    public void setCuentaBancaria(BigInteger value) {
+        this.cuentaBancaria = value;
+    }
     /**
      * Obtiene el valor de la propiedad deducciones.
      * 
@@ -1976,6 +1993,8 @@ public class Nomina {
             public void setImporteExento(BigDecimal value) {
                 this.importeExento = value;
             }
+            
+            
 
         }
 

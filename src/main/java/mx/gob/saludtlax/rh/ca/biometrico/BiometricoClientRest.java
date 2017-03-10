@@ -6,6 +6,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,6 +26,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import mx.gob.saludtlax.rh.ca.ClienteRest;
+import mx.gob.saludtlax.rh.ca.cliente.biometrico.ClienteBiometricoFormModel;
+import mx.gob.saludtlax.rh.ca.cliente.biometrico.ClienteBiometricoREST;
 import mx.gob.saludtlax.rh.ca.incidencia.IncidenciaFormModel;
 import mx.gob.saludtlax.rh.ca.incidencia.IncidenciaModelView;
 import mx.gob.saludtlax.rh.ca.jornada.JornadaFormModel;
@@ -50,7 +54,10 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 
 	private final String RESOURCE_BUSCAR_ID = "/Checador/obtener/?id=";
 
-	private final String RESOURCE_DESCARGAR_INFORMACION = "/Checador/asignarRegistroEmpleadoHuella";
+	private final String RESOURCE_DESCARGAR_INFORMACION = "/ca/api/Checador/asignarRegistroEmpleadoHuella";
+
+	@Inject
+	ClienteBiometricoREST clienteBiometricoREST;
 
 	/*
 	 * Consume el servicio web del api de comunicacion con los equipos
@@ -140,9 +147,66 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 		return biometricoClientRestResponse;
 	}
 
+	public BiometricoClientRestResponse guardarBiometrico(BiometricoFormModel biometricoFormModel, String urlServicio)
+			throws RESTClientException {
+		BiometricoClientRestResponse biometricoClientRestResponse = null;
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		HttpPost httpPost = new HttpPost(urlServicio + RESOURCE_GUARDAR);
+		Gson gson = new Gson();
+		StringEntity nuevoBiometricoJSON;
+
+		try {
+			nuevoBiometricoJSON = new StringEntity(gson.toJson(biometricoFormModel));
+			nuevoBiometricoJSON.setContentType("application/json");
+
+			httpPost.setEntity(nuevoBiometricoJSON);
+			CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+
+			String resultNuevoBiometrico;
+			switch (servicioResponse.getStatusLine().getStatusCode()) {
+			case 200:
+				resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+
+				biometricoClientRestResponse = gson.fromJson(resultNuevoBiometrico, BiometricoClientRestResponse.class);
+				break;
+			case 400:
+				resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+				throw new RESTClientException(resultNuevoBiometrico);
+			default:
+				throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " "
+						+ servicioResponse.getStatusLine().getReasonPhrase());
+			}
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new RESTClientException(e.getMessage());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new RESTClientException(e.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+
+			throw new RESTClientException(e.getMessage());
+		}
+
+		return biometricoClientRestResponse;
+	}
+
 	public BiometricoClientRestResponse asignarEmpleadoIdBiometrico(AsignarEmpleadoRegistroBiometricoForm model)
 			throws RESTClientException {
 		BiometricoClientRestResponse biometricoClientRestResponse = null;
+		
+		
+
+		ClienteBiometricoFormModel clienteBiometricoFormModel = clienteBiometricoREST
+				.buscarClienteBiometrico(buscarBiometrico(model.getIdBiometrico()).getIdClienteBiometrico());
+		
+		String urlCliente ="http://" + clienteBiometricoFormModel.getDireccionIP();
+		if(clienteBiometricoFormModel.getPuerto() != 0){
+			urlCliente = urlCliente + ":" + clienteBiometricoFormModel.getPuerto();
+		}
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
@@ -195,6 +259,53 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
 		HttpPut httpPut = new HttpPut(url_serivicio + RESOURCE_ACTUALIZAR);
+		Gson gson = new Gson();
+		StringEntity nuevoBiometricoJSON;
+
+		try {
+			nuevoBiometricoJSON = new StringEntity(gson.toJson(biometricoFormModel));
+			nuevoBiometricoJSON.setContentType("application/json");
+
+			httpPut.setEntity(nuevoBiometricoJSON);
+			CloseableHttpResponse servicioResponse = httpClient.execute(httpPut);
+
+			String resultNuevoBiometrico;
+			switch (servicioResponse.getStatusLine().getStatusCode()) {
+			case 200:
+				resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+
+				biometricoClientRestResponse = gson.fromJson(resultNuevoBiometrico, BiometricoClientRestResponse.class);
+				break;
+			case 400:
+				resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+				throw new RESTClientException(resultNuevoBiometrico);
+			default:
+				throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " "
+						+ servicioResponse.getStatusLine().getReasonPhrase());
+			}
+
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new RESTClientException(e.getMessage());
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+			throw new RESTClientException(e.getMessage());
+		} catch (IOException e) {
+			e.printStackTrace();
+
+			throw new RESTClientException(e.getMessage());
+		}
+
+		return biometricoClientRestResponse;
+	}
+
+	public BiometricoClientRestResponse actualizarBiometrico(BiometricoFormModel biometricoFormModel,
+			String urlServicio) throws RESTClientException {
+		BiometricoClientRestResponse biometricoClientRestResponse = null;
+
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+
+		HttpPut httpPut = new HttpPut(urlServicio + RESOURCE_ACTUALIZAR);
 		Gson gson = new Gson();
 		StringEntity nuevoBiometricoJSON;
 

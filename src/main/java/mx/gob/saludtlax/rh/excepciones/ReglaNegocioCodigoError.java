@@ -64,7 +64,9 @@ public enum ReglaNegocioCodigoError implements CodigoError {
         NUMERO_EMPLEADO(2041),
         /** Cuando de se trata de registrar un correo para la notificacion de errores que ya existe. */
         CORREO_NOTIFICACION_DUPLICADO(2042),
-        ERROR_QUINCENA_ACTIVA(2043);
+        ERROR_QUINCENA_ACTIVA(2043),
+        SUELDO_FUERA_RANGO(2044),
+        TIPO_CONTRATACION_NO_PERMITIDA(2045);
 
 	ReglaNegocioCodigoError(int numero) {
 		this.numero = numero;

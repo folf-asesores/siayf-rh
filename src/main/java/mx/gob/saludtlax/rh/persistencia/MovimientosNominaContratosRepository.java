@@ -22,4 +22,15 @@ public class MovimientosNominaContratosRepository extends GenericRepository<Movi
         return result;
 	}
 
+	public List<MovimientosNominaContratosEntity> obtenerMovimientosNominaContratosPorIdNominaEmpleado(
+			Integer idNominaEmpleado) {
+		TypedQuery<MovimientosNominaContratosEntity> query = em.createQuery(""
+		+ " FROM MovimientosNominaContratosEntity AS m "
+		+ " WHERE "
+		+ " m.idNominaEmpleado = :idNominaEmpleado ", MovimientosNominaContratosEntity.class)
+		.setParameter("idNominaEmpleado", idNominaEmpleado);
+        List<MovimientosNominaContratosEntity> result = query.getResultList();
+        return result;
+	}
+
 }

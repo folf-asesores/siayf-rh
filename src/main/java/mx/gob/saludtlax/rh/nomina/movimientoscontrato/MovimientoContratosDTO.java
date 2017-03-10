@@ -1,7 +1,6 @@
 package mx.gob.saludtlax.rh.nomina.movimientoscontrato;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +15,7 @@ public class MovimientoContratosDTO {
 	private Integer idMovimientoContratos;
 	private Integer idConceptoContratos;// +
     private Integer idEmpleado;
+	private Integer idNominaEmpleado;
 	private Date fechaRegistro;//?
 	private Date fechaModificacion;//?
     private String rfc;
@@ -35,13 +35,13 @@ public class MovimientoContratosDTO {
 	private Integer idTipoMovimiento;
 	private Integer idTipoPeriodo;
 	private Integer quincenaOperacion;
-	private Integer idTercero;
-	private Integer idNominaEmpleado;
 	private String descripcion_concepto;
 	private List<FaltaContadaDTO> faltaContadaList;
+	private List<DetalleMovimientoContratoDTO> listaDetalles;
 
-	private List<DetalleMovimientoContratoDTO> listaDetalles = new ArrayList<>();
-	
+	private String nomina;
+	private String estatus;
+
 	public Integer getIdMovimientoContratos() {
 		return idMovimientoContratos;
 	}
@@ -174,12 +174,6 @@ public class MovimientoContratosDTO {
 	public void setQuincenaOperacion(Integer quincenaOperacion) {
 		this.quincenaOperacion = quincenaOperacion;
 	}
-	public Integer getIdTercero() {
-		return idTercero;
-	}
-	public void setIdTercero(Integer idTercero) {
-		this.idTercero = idTercero;
-	}
 	public Integer getIdNominaEmpleado() {
 		return idNominaEmpleado;
 	}
@@ -204,4 +198,16 @@ public class MovimientoContratosDTO {
     public void setFaltaContadaList(List<FaltaContadaDTO> faltaContadaList) {
         this.faltaContadaList = faltaContadaList;
     }
+	public String getNomina() {
+		return nomina;
+	}
+	public void setNomina(String nomina) {
+		this.nomina = nomina;
+	}
+	public String getEstatus() {
+		return estatus;
+	}
+	public void setEstatus(String estatus) {
+		this.estatus = estatus;
+	}
 }

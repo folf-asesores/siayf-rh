@@ -8,6 +8,10 @@ import javax.persistence.PersistenceContext;
 
 public class AccionesRepository extends GenericRepository<AccionesEntity, Integer>{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1926101187209405659L;
 	@PersistenceContext(name = "siayfrhPU")
 	private EntityManager entityManager;
 	
@@ -24,6 +28,16 @@ public class AccionesRepository extends GenericRepository<AccionesEntity, Intege
 		
 		list= entityManager.createQuery("Select a from AccionesEntity as a where a.area.idArea=:idArea", AccionesEntity.class)
 				.setParameter("idArea", idArea).getResultList();
+		
+		return list;
+	}
+	
+	
+	public List<AccionesEntity> obtenerListaAccionesPorIdModulo(Integer idModulo){
+		List<AccionesEntity> list = new ArrayList<>();
+		
+		list= entityManager.createQuery("Select a from AccionesEntity as a where a.modulo.id_modulo=:idModulo", AccionesEntity.class)
+				.setParameter("idModulo", idModulo).getResultList();
 		
 		return list;
 	}

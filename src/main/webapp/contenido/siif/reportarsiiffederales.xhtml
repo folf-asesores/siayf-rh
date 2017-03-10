@@ -289,10 +289,17 @@
 							columnClasses="ui-grid-col-3, ui-grid-col-6,  ui-grid-col-3"
 							rendered="${reporteSiif.view.panelEncabezado}" layout="grid">
 
-
+							<p:outputLabel for="idNominaEncabezado" value="Id Nomina" />
+							<p:inputText id="idNominaEncabezado"
+								value="#{reporteSiif.view.encabezadoDTO.idNomina}"
+								validator="#{reporteSiif.validatorReporteSiif}"
+								style="width:425px">
+							<p:ajax update="msgIdNominaEncabezado" />
+							<p:clientValidator />
+							</p:inputText>							
+							<p:message id="msgIdNominaEncabezado" for="idNominaEncabezado" />
 
 							<p:outputLabel value="Tipo de Nomina" />
-
 							<p:selectOneMenu id="idTipoNominaEncabezado"
 								value="#{reporteSiif.view.encabezadoDTO.idTipoNomina}"
 								validator="#{reporteSiif.validatorReporteSiif}"

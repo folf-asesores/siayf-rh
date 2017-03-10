@@ -2,8 +2,10 @@ package mx.gob.saludtlax.rh.configuracion.conceptosnominacontratos;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import mx.gob.saludtlax.rh.configuracion.conceptosnomina.TipoConceptoNominaEnum;
+import mx.gob.saludtlax.rh.nomina.reportes.comprobante.ConceptoComprobanteDTO;
 
 public class ConceptoNominaContratosDTO implements Serializable {
 	private static final long serialVersionUID = 1963160974733762593L;
@@ -18,13 +20,14 @@ public class ConceptoNominaContratosDTO implements Serializable {
 	private Boolean base;
 	private Boolean aguinaldo;
 	private Boolean retroactivo;
+	private Boolean aplicaMovimiento;
 	private Boolean tratamiento;
 	private String categoriaSAT;
 	private Integer idCategoriaSAT;
 	private Date alta;
 	private Integer idTipoMovimiento;
 	private String observacion;
-
+	private List<ConceptoNominaContratosDTO> conceptoss;
 	public Integer getIdConceptoNomina() {
 		return idConceptoNomina;
 	}
@@ -127,4 +130,18 @@ public class ConceptoNominaContratosDTO implements Serializable {
 	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
 		this.idTipoMovimiento = idTipoMovimiento;
 	}
+	public Boolean getAplicaMovimiento() {
+		return aplicaMovimiento;
+	}
+	public void setAplicaMovimiento(Boolean aplicaMovimiento) {
+		this.aplicaMovimiento = aplicaMovimiento;
+	}
+	public List<ConceptoNominaContratosDTO> getConceptoss() {
+		return conceptoss;
+	}
+	public void setConceptoss(List<ConceptoNominaContratosDTO> conceptoss) {
+		this.conceptoss = conceptoss;
+	}
+	
+	
 }

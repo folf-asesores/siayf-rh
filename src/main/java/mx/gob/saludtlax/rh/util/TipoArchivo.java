@@ -12,6 +12,8 @@ package mx.gob.saludtlax.rh.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.hibernate.dialect.MySQLMyISAMDialect;
+
 /**
  * Este enumerable contiene los tipos de archivos MIME Type y las extensiones de
  * estos. <strong>Solo están lo más comunes dentro de la aplicación.</strong>
@@ -30,6 +32,7 @@ public enum TipoArchivo {
     TIFF("image/tiff", "tiff"),
     //TRA("text/plain", "tra"),
     TXT("text/plain", "txt"),
+    XLS("application/xls", "xls"),
     XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
     DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"),
     XML("application/xml", "xml"), ZIP("application/zip", "zip");
@@ -196,6 +199,8 @@ public enum TipoArchivo {
 //                return TRA;
             case "txt":
                 return TXT;
+            case "xls":
+                return XLS;
             case "xlsx":
                 return XLSX;
             case "docx":
@@ -216,6 +221,7 @@ public enum TipoArchivo {
      * @return una instancia del <code>TipoArchivo</code>.
      */
     public static TipoArchivo getTipoArchivoPorMIMEType(String MIMEType) {
+    	System.out.println("ssssM"+MIMEType);
         switch (MIMEType) {
             case "text/csv":
                 return CSV;
@@ -231,6 +237,8 @@ public enum TipoArchivo {
                 return TIFF;
             case "text/plain":
                 return TXT;
+            case "application/xls":
+                return XLS;
             case "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet":
                 return XLSX;
             case "application/vnd.openxmlformats-officedocument.wordprocessingml.document":

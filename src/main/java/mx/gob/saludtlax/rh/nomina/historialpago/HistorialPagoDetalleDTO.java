@@ -18,6 +18,9 @@ public class HistorialPagoDetalleDTO implements Serializable{
 	 */
 	private static final long serialVersionUID = -2133672734636138987L;
 	
+	private String nombreProducto;
+	private Date inicioPeriodo;
+	private Date finPeriodo;
 	private String rfc;
 	private String nombreEmpleado;
 	private Date fechaIngreso;
@@ -289,6 +292,48 @@ public class HistorialPagoDetalleDTO implements Serializable{
 
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+
+	/**
+	 * @return the finPeriodo
+	 */
+	public Date getFinPeriodo() {
+		return finPeriodo;
+	}
+
+	/**
+	 * @param finPeriodo the finPeriodo to set
+	 */
+	public void setFinPeriodo(Date finPeriodo) {
+		this.finPeriodo = finPeriodo;
+	}
+
+	/**
+	 * @return the inicioPeriodo
+	 */
+	public Date getInicioPeriodo() {
+		return inicioPeriodo;
+	}
+
+	/**
+	 * @param inicioPeriodo the inicioPeriodo to set
+	 */
+	public void setInicioPeriodo(Date inicioPeriodo) {
+		this.inicioPeriodo = inicioPeriodo;
+	}
+
+	/**
+	 * @return the nombreProducto
+	 */
+	public String getNombreProducto() {
+		return nombreProducto;
+	}
+
+	/**
+	 * @param nombreProducto the nombreProducto to set
+	 */
+	public void setNombreProducto(String nombreProducto) {
+		this.nombreProducto = nombreProducto;
 	}
 	
 	

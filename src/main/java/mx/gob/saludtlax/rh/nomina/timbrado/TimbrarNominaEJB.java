@@ -50,7 +50,7 @@ public class TimbrarNominaEJB implements Serializable {
 			for (ComprobanteEntity comprobanteEstatal : comprobanteEstatalList) {
 
 				//if (ValidarCamposComprobanteEntity.esValido(comprobanteEstatal)) {
-					timbradoService.generarCFDI2(comprobanteEstatal);
+					timbradoService.generarCFDI(comprobanteEstatal);
 					numeroNominasEnviadas++;
 			/*	} else {
 					System.out.println("El registro  con id :" + comprobanteEstatal.getIdComprobante() + " "

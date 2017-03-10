@@ -16,6 +16,7 @@ public class ProyeccionesPresupuestalesView {
     
     private boolean mostrarOpcionDescarga = false;
     
+    
     /***********Getters and Setters************/
     public List<ProyeccionesPresupuestalesDTO> getListaProyecciones() {
         return listaProyecciones;
@@ -76,5 +77,5 @@ public class ProyeccionesPresupuestalesView {
 	 */
 	public void setMostrarOpcionDescarga(boolean mostrarOpcionDescarga) {
 		this.mostrarOpcionDescarga = mostrarOpcionDescarga;
-	}
+	}	
 }

@@ -64,6 +64,7 @@ public class ConceptoNominaContratosService implements Serializable {
 		dto.setIdConceptoNomina(null);
 		dto.setIdEstatusConceptoNomina(1);
 		dto.setObservacion("");
+		dto.setAplicaMovimiento(Boolean.FALSE);
 		dto.setRetroactivo(Boolean.FALSE);
 		dto.setTipo(null);
 		dto.setTratamiento(Boolean.FALSE);
@@ -117,6 +118,7 @@ public class ConceptoNominaContratosService implements Serializable {
 				+ "  base                        AS base,"
 				+ "  aguinaldo                   AS aguinaldo,"
 				+ "  retroactivo                 AS retroactivo,"
+				+ "  aplica_movimientos          AS aplicaMovimiento,"
 				+ "  tratamiento                 AS tratamiento,"
 				+ "  id_categoria_sat            AS idCategoriaSAT,"
 				+ "  alta                        AS alta,"
@@ -164,6 +166,7 @@ public class ConceptoNominaContratosService implements Serializable {
 				+ "  base                        AS base,"
 				+ "  aguinaldo                   AS aguinaldo,"
 				+ "  retroactivo                 AS retroactivo,"
+				+ "  aplica_movimientos          AS aplicaMovimiento,"
 				+ "  tratamiento                 AS tratamiento,"
 				+ "  id_categoria_sat            AS idCategoriaSAT,"
 				+ "  alta                        AS alta,"

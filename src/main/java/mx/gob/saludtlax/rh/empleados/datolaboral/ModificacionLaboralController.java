@@ -78,6 +78,7 @@ public class ModificacionLaboralController implements Serializable {
 		try {
 			view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(empleado.getIdVacante()));
 			view.setDatoLaboral(datoLaboral.obtenerDatosLaboralesPuesto(empleado.getIdVacante()));
+			view.getDatoLaboral().setSeguroPopular(view.getPuesto().getSeguroPopular());
 			view.setMostrarLaboral(true);
 
 			int tipoContratacion = view.getDatoLaboral().getTipoContratacion();
@@ -97,7 +98,8 @@ public class ModificacionLaboralController implements Serializable {
 				view.getDatoLaboral().setIdTabulador(view.getSalario().getIdTabulador());
 
 			} catch (ReglaNegocioException exception) {
-				JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+				JSFUtils.warningMessageEspecifico("error", "", exception.getMessage());
+
 			}
 
 			obtenerUnidadesResponsables();
@@ -126,6 +128,7 @@ public class ModificacionLaboralController implements Serializable {
 			JSFUtils.infoMessage("", "Los datos laborales han sido moficados con éxito.");
 
 		} catch (ReglaNegocioException exception) {
+
 			JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
 		}
 	}
@@ -174,11 +177,10 @@ public class ModificacionLaboralController implements Serializable {
 
 		} catch (ReglaNegocioException exception) {
 			if (exception.getCodigoError() == ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO) {
-				view.getDatoLaboral().setSueldo(BigDecimal.ZERO);
-				view.getDatoLaboral().setSueldo01(BigDecimal.ZERO);
-				view.getDatoLaboral().setSueldo14(BigDecimal.ZERO);
+				JSFUtils.warningMessageEspecifico("advertencia", "", exception.getMessage());
 			}
-			JSFUtils.errorMessage("", exception.getMessage());
+
+			JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
 		}
 
 	}
@@ -205,7 +207,6 @@ public class ModificacionLaboralController implements Serializable {
 	public void editarPrograma() {
 
 		try {
-			System.out.println("programa en guardar " + view.getIdPrograma());
 			puestosAutorizados.modificacionPrograma(view.getIdPuesto(), view.getIdPrograma());
 			view.setMostrarPrograma(false);
 			JSFUtils.infoMessage("", "¡El programa ha sido modificado con éxito!");

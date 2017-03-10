@@ -27,26 +27,15 @@ public class UploadExcelFileAnexo {
 	private Logger log = Logger.getLogger(UploadExcelFileAnexo.class.getName());
 
 	public void validate(UploadedFile dat) {
-		try {
-
-			InputStream is = dat.getInputstream();
-
+		try (InputStream is = dat.getInputstream();
+                        Workbook wb = FilenameUtils.getExtension(dat.getFileName()) // VALIDACION DE LA EXTENSION DEL ARCHIVO DE EXCEL XLX(2007 O MENOR)
+                                .equalsIgnoreCase("xlsx") ?                         // O XLSX(2010 O SUPERIOR) 
+                                new XSSFWorkbook(is) : new HSSFWorkbook(is)) {
+                    
 			estructuraDTOs = new ArrayList<>();
-
-			Workbook wb;
 			DataFormatter formatter = new DataFormatter();
 
-			/*
-			 * VALIDACION DE LA EXTENSION DEL ARCHIVO DE EXCEL XLX(2007 O MENOR)
-			 * O XLSX(2010 O SUPERIOR)
-			 */
-			if (FilenameUtils.getExtension(dat.getFileName()).equalsIgnoreCase("xlsx")) {
-				wb = new XSSFWorkbook(is);
 
-			} else {
-				wb = new HSSFWorkbook(is);
-
-			}
 			log.info("::Inicia carga de datos:: Archivo excel ");
 			Sheet sheet = wb.getSheetAt(0);
 

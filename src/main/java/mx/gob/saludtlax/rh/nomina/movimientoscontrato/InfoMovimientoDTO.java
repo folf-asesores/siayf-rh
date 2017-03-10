@@ -12,11 +12,11 @@ public class InfoMovimientoDTO implements Serializable {
 	private Integer idEmpleado;
 	private BigDecimal montoPeriodo;
 	private Integer numeroPago;
-	private Integer  idConcepto;
-	private Integer  idMovimiento;
+	private Integer idConcepto;
+	private Integer idMovimiento;
 	private Integer idNominaEmpleado;
-	
-	
+	private Integer tipoConcepto;
+
 	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}
@@ -53,7 +53,10 @@ public class InfoMovimientoDTO implements Serializable {
 	public void setNumeroPago(Integer numeroPago) {
 		this.numeroPago = numeroPago;
 	}
-	
-	
-	
+	public Integer getTipoConcepto() {
+		return tipoConcepto;
+	}
+	public void setTipoConcepto(Integer tipoConcepto) {
+		this.tipoConcepto = tipoConcepto;
+	}
 }

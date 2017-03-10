@@ -4,6 +4,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
+import mx.gob.saludtlax.rh.acciones.AccionDTO;
+
 @Stateless
 public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion{
 
@@ -40,6 +42,18 @@ public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion{
 	public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(Integer idAccion) {
 		// TODO Auto-generated method stub
 		return service.obtenerRegistrosPorAccion(idAccion);
+	}
+
+	@Override
+	public ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod) {
+		
+		return service.obtenerConfAccModPorId(IdConfAccMod);
+	}
+
+	@Override
+	public List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion, List<Integer> idAcciones) {
+		
+		return null;
 	}
 	
 }

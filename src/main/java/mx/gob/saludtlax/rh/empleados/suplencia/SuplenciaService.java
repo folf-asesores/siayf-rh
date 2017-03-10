@@ -19,6 +19,7 @@ import mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.EnumNacionalidad;
 import mx.gob.saludtlax.rh.empleados.administracion.EnumEstatusEmpleado;
 import mx.gob.saludtlax.rh.empleados.administracion.EnumTipoEmpleado;
 import mx.gob.saludtlax.rh.empleados.datolaboral.DatoLaboralDTO;
+import mx.gob.saludtlax.rh.empleados.movimientos.EnumEstatusMovimiento;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.SeguridadCodigoError;
@@ -43,6 +44,7 @@ import mx.gob.saludtlax.rh.persistencia.EmpleadoRepository;
 import mx.gob.saludtlax.rh.persistencia.EstadoEntity;
 import mx.gob.saludtlax.rh.persistencia.EstadoRepository;
 import mx.gob.saludtlax.rh.persistencia.InventarioVacanteRepository;
+import mx.gob.saludtlax.rh.persistencia.MovimientoSuplenteEntity;
 import mx.gob.saludtlax.rh.persistencia.MunicipioRepository;
 import mx.gob.saludtlax.rh.persistencia.MunicipiosEntity;
 import mx.gob.saludtlax.rh.persistencia.ProyectoTempEntity;
@@ -62,7 +64,7 @@ import mx.gob.saludtlax.rh.persistencia.TipoSuplenciaRepository;
 import mx.gob.saludtlax.rh.persistencia.UnidadResponsableEntity;
 import mx.gob.saludtlax.rh.persistencia.UnidadResponsableRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
-import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
+import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioService;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import mx.gob.saludtlax.rh.vacantes.seleccion.EnumTipoCandidato;
@@ -101,12 +103,13 @@ public class SuplenciaService {
 	private ProyectoTempRepository proyectoRepository;
 	@Inject
 	private UnidadResponsableRepository unidadResponsableRepository;
-	@Inject
-	private UsuarioRepository usuarioRepository;
+
 	@Inject
 	private AsentamientoRepository poblacionRepository;
 	@Inject
 	private EstadoRepository estadoRepository;
+	@Inject
+	private MovimientoSuplenteRepository movimientoSuplenteRepository;
 	@Inject
 	private MunicipioRepository municipioRepository;
 	@Inject
@@ -117,6 +120,8 @@ public class SuplenciaService {
 	private QuincenaActivaSuplenciaRepository quincenaActivaRepository;
 	@Inject
 	private TipoJornadaSuplenciaRepository tipoJornadaSuplenciaRepository;
+	@Inject
+	private UsuarioService usuarioService;
 
 	protected void crearSuplente(RegistroSuplenteDTO registroSuplente) {
 
@@ -381,7 +386,7 @@ public class SuplenciaService {
 
 		QuincenasSuplenciasEntity quincena = quincenaSuplenciaRepository.obtenerQuincenaSuplente(
 				dto.getNumeroQuincena(), FechaUtil.ejercicioActual(), dto.getIdSuplenteAutorizado());
-		UsuarioEntity usuario = usuarioRepository.obtenerPorId(dto.getIdUsuarioLogeado());
+		UsuarioEntity usuario = usuarioService.validarUsuario(dto.getIdUsuarioLogeado());
 		TipoJornadaSuplenciaEntity jornada = tipoJornadaSuplenciaRepository.obtenerPorId(dto.getIdJornada());
 		DetalleSuplenciaEntity d = new DetalleSuplenciaEntity();
 
@@ -670,7 +675,7 @@ public class SuplenciaService {
 			throw new ValidacionException("No se encontró la suplencia requerida.",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
 		}
-		UsuarioEntity usuario = usuarioRepository.obtenerPorId(edicion.getIdUsuarioLogeado());
+		UsuarioEntity usuario = usuarioService.validarUsuario(edicion.getIdUsuarioLogeado());
 		if (usuario == null) {
 			throw new ValidacionException("No se encontró el usuario requerido.",
 					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
@@ -865,7 +870,7 @@ public class SuplenciaService {
 		if (!ValidacionUtil.esNumeroPositivo(idUsuario)) {
 			throw new ValidacionException("El usuario es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
 		}
-		UsuarioEntity usuario = usuarioRepository.obtenerPorId(idUsuario);
+		UsuarioEntity usuario = usuarioService.validarUsuario(idUsuario);
 		if (usuario == null) {
 			throw new SeguridadException("No se encontró usuario con identificador " + idUsuario,
 					SeguridadCodigoError.USUARIO_INACTIVO);
@@ -1153,5 +1158,57 @@ public class SuplenciaService {
 		}
 
 		return quincenas;
+	}
+
+	protected void crearMovimiento(MovimientoSuplenteDTO movimiento) {
+		UsuarioEntity usuario = usuarioService.validarUsuario(movimiento.getIdUsuario());
+		if (usuario == null) {
+
+		}
+		SuplenteAutorizadoEntity suplente = suplenteAutorizadoRepository.obtenerPorId(movimiento.getIdSuplente());
+		if (suplente == null) {
+			throw new SistemaException("No se encontró suplente con identificador " + movimiento.getIdSuplente(),
+					SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+		}
+
+		int totalDias = FechaUtil.calcularDias(movimiento.getFechaInicio(), movimiento.getFechaFin());
+
+		MovimientoSuplenteEntity movimientoSuplente = new MovimientoSuplenteEntity();
+		movimientoSuplente.setEjercicioFiscalPeriodo(movimiento.getEjercicioFiscalPeriodo());
+		movimientoSuplente.setEstatus(EnumEstatusMovimiento.PENDIENTE);
+		movimientoSuplente.setFechaFin(movimiento.getFechaFin());
+		movimientoSuplente.setFechaInicio(movimiento.getFechaInicio());
+		movimientoSuplente.setFechaRegistro(FechaUtil.fechaActual());
+		movimientoSuplente.setHoraRegistro(FechaUtil.fechaActual());
+		movimientoSuplente.setMovimiento(movimiento.getMovimiento());
+		movimientoSuplente.setObservaciones(movimiento.getObservaciones());
+		movimientoSuplente.setSuplente(suplente);
+		movimientoSuplente.setTotalDias(totalDias);
+		movimientoSuplente.setUsuarioSolicitud(usuario);
+		movimientoSuplenteRepository.crear(movimientoSuplente);
+
+	}
+
+	protected List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro){ 
+		List<MovimientoSuplenteDTO> movimientos = new ArrayList<>();
+		List<MovimientoSuplenteEntity> consulta = movimientoSuplenteRepository
+				.consultarMovimientosPorIdSuplenteMovimiento(filtro.getIdSuplente(), filtro.getCriterio());
+		if (!consulta.isEmpty()) {
+			for (MovimientoSuplenteEntity m : consulta) {
+				MovimientoSuplenteDTO dto = new MovimientoSuplenteDTO();
+				dto.setEjercicioFiscalPeriodo(m.getEjercicioFiscalPeriodo());
+				dto.setFechaFin(m.getFechaFin());
+				dto.setFechaInicio(m.getFechaInicio());
+				dto.setMovimiento(m.getMovimiento());
+				dto.setNombreSuplente(m.getSuplente().getEmpleado().getNombreCompleto());
+				dto.setObservaciones(m.getObservaciones());
+				dto.setUsuario(m.getUsuarioSolicitud().nombreCompleto());
+				dto.setFechaMovimiento(m.getFechaRegistro());
+				dto.setTotalDias(m.getTotalDias());
+				movimientos.add(dto);
+			}
+		}
+
+		return movimientos;
 	}
 }

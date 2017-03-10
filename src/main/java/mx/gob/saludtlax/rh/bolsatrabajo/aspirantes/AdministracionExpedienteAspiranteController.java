@@ -21,6 +21,8 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.expediente.DocumentoAdjuntableDTO;
 import mx.gob.saludtlax.rh.expediente.EntidadContexto;
 import mx.gob.saludtlax.rh.expediente.EnumClasificacionExpediente;
@@ -70,13 +72,18 @@ public class AdministracionExpedienteAspiranteController implements Serializable
 	}
 
 	public void consultarAspirantes(ActionEvent actionEvent) {
-		FiltroDTO filtroDTO = new FiltroDTO();
-		filtroDTO.setCriterio(view.getCriterio());
-		filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
+		try {
+			FiltroDTO filtroDTO = new FiltroDTO();
+			filtroDTO.setCriterio(view.getCriterio());
+			filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
 
-		view.setAspirantes(bolsaTrabajo.consultarPorCriterio(filtroDTO));
-		view.setMostrarPanelCorrecciones(false);
-		view.setMostrarResultadoConsulta(true);
+			view.setAspirantes(bolsaTrabajo.consultarPorCriterio(filtroDTO));
+			view.setMostrarPanelCorrecciones(false);
+			view.setMostrarResultadoConsulta(true);
+		} catch (ReglaNegocioException | ValidacionException exception) {
+			JSFUtils.errorMessage("Error: ", exception.getMessage());
+		}
+
 	}
 
 	public void seleccionarAspirante(Integer idAspirante, String estatus) {
@@ -89,8 +96,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
 			view.setNumeroExpediente(expedienteAspirante.numeroExpedienteAspirante(view.getIdAspiranteSeleccionado()));
 			view.setIdExpediente(expedienteAspirante.obtenerIdExpedienteAspirante(view.getIdAspiranteSeleccionado()));
 
-			view.setListaTiposDocumentosExpediente(SelectItemsUtil.listaCatalogos(catalogo
-					.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
+			view.setListaTiposDocumentosExpediente(
+					SelectItemsUtil.listaCatalogos(catalogo.consultarDocumentosExpedientesClasificacion(
+							EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
 			view.setDocumentosExpedientes(
 					adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(view.getIdAspiranteSeleccionado()));
 
@@ -196,6 +204,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
 		List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoAspirante
 				.consultarInformacionAdjuntosPorIdAspirante(this.view.getIdAspiranteSeleccionado());
 		view.setDocumentosExpedientes(documentosExpedientes);
+		
+//		visualizarAdjuntarDocumentoHistorial(this.view.getHistorialAcademicoSeleccionado());
+		
 		JSFUtils.infoMessageEspecifico("info", "", "El documento se ha eliminado correctamente.");
 	}
 

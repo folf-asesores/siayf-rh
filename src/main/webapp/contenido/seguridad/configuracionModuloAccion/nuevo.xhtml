@@ -1,0 +1,117 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Configuración Modulo-Acción: Nuevo Registro" />
+	<ui:param name="moduloTitulo"
+		value="Configuración Modulo-Acción: Nuevo Registro" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite el registro de la onfiguración, los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" globalOnly="true" />
+
+			<p:panel id="panelContenedor" styleClass="fm-contenedor-100">
+
+				<p:panelGrid id="gridPrincipal" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+					<p:spacer></p:spacer>
+					<p:panelGrid id="altaconfigModuloGrid" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid" columns="1"
+						columnClasses="ui-grid-col-12">
+
+						<p:outputLabel for="nombreConfiguracion"
+							value="Nombre Configuración" />
+						<p:inputText id="nombreConfiguracion"
+							value="#{crearConfigModuloAccion.view.configuracionModuloAccionDTONew.nombreConfiguracion}" />
+
+						<p:outputLabel for="modulo" value="Módulo: *" />
+						<p:selectOneMenu id="modulo" filter="true"
+							filterMatchMode="contains" effect="size"
+							value="#{crearConfigModuloAccion.view.configuracionModuloAccionDTONew.modulo.id_modulo}"
+							validator="#{crearConfigModuloAccion.validatorConfiguracionModuloAccion}">
+							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
+							<f:selectItems
+								value="#{crearConfigModuloAccion.view.listaModulos}"
+								var="modulo" itemValue="#{modulo.id_modulo}"
+								itemLabel="#{modulo.nombre}" />
+							<p:ajax update="pickList modulo msgModulo" event="valueChange"
+								listener="#{crearConfigModuloAccion.accionesPorModuloSeleccionado}" />
+							<p:clientValidator />
+						</p:selectOneMenu>
+						<p:message id="msgModulo" for="modulo" />
+
+					</p:panelGrid>
+					<p:spacer></p:spacer>
+
+				</p:panelGrid>
+
+				<p:pickList id="pickList"
+					value="#{crearConfigModuloAccion.view.pikListAcciones}"
+					var="accion" showSourceControls="true" showTargetControls="true"
+					itemLabel="#{accion.clave} - #{accion.descripcion} - #{accion.nombreArea}"
+					converter="configModuloAccionPickListConverter"
+					itemValue="#{accion}" effect="size" showCheckbox="true"
+					responsive="true" showSourceFilter="true" showTargetFilter="true"
+					filterMatchMode="contains" addLabel="Añadir"
+					addAllLabel="Añadir todos" removeLabel="Quitar"
+					removeAllLabel="Quitar todos"
+					style="text-align:justify; border:0px;" widgetVar="teamsPickList">
+
+					<f:facet name="sourceCaption">Acciones No Seleccionadas</f:facet>
+					<f:facet name="targetCaption">Acciones Seleccionadas</f:facet>
+
+					<p:ajax event="transfer"
+						listener="#{crearConfigModuloAccion.onTransfer}" update="messages" />
+
+					<p:column style="width:10%">
+						<h:outputText value="#{accion.clave}" />
+					</p:column>
+
+					<p:column style="width:90%;">
+						<h:outputText value="#{accion.descripcion}" />
+					</p:column>
+
+					<p:column style="width:90%;">
+						<h:outputText value="#{accion.nombreArea}" />
+					</p:column>
+
+				</p:pickList>
+
+			</p:panel>
+
+			<div class="fm-tarjeta-pie">
+
+				<p:button icon="ui-icon-circle-arrow-w" value="Regresar"
+					styleClass="fm-btn-principal" process="@this" update="form"
+					outcome="index.xhtml" />
+
+				<p:commandButton id="guardarConfiguracion"
+					value="Guardar Configuración" update="form" iconPos="right"
+					style="float:right;" onsuccess="PF('statusDialog').hide()"
+					styleClass="fm-btn-exitoso fm-btn-elevado"
+					onstart="PF('statusDialog').show()" icon="ui-icon-check"
+					actionListener="#{crearConfigModuloAccion.agregarConfiguracionModuloAccion()}" />
+
+			</div>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

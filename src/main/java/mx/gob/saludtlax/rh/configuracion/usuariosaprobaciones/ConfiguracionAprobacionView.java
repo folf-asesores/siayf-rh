@@ -41,7 +41,7 @@ public class ConfiguracionAprobacionView implements Serializable {
 	private boolean panelPrincipal = true;
 	private boolean panelActualizar = false;
 	private boolean dialogEliminar = false;
-
+	private Boolean aplicaMovimientos;
 	/************** Getters and Setters ***************/
 	public Boolean getPanelPrincipal() {
 		return panelPrincipal;
@@ -196,6 +196,14 @@ public class ConfiguracionAprobacionView implements Serializable {
 	 */
 	public void setDialogEliminar(boolean dialogEliminar) {
 		this.dialogEliminar = dialogEliminar;
+	}
+
+	public Boolean getAplicaMovimientos() {
+		return aplicaMovimientos;
+	}
+
+	public void setAplicaMovimientos(Boolean aplicaMovimientos) {
+		this.aplicaMovimientos = aplicaMovimientos;
 	}
 
 }

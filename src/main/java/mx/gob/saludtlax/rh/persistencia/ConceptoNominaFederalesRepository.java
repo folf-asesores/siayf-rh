@@ -33,4 +33,18 @@ public class ConceptoNominaFederalesRepository extends GenericRepository<Concept
 			return null;
 		}
 	}
+	
+	
+	public ConceptoNominaFederalesEntity obtenerConceptoPorClave(String clave){
+		try {
+			return em
+					.createQuery(
+							"SELECT cn FROM ConceptoNominaFederalesEntity AS cn WHERE cn.clave =:clave",
+							ConceptoNominaFederalesEntity.class)
+					.setParameter("clave", clave)
+					.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
+	}
 }

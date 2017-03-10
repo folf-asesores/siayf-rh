@@ -186,6 +186,22 @@ public class ConsultarPartidaDTO implements Serializable {
 	}
 
 	public BigDecimal getTotal() {
+        
+		this.total = BigDecimal.ZERO;
+		
+		this.total = total.add(enero);
+		this.total = total.add(febrero);
+		this.total = total.add(marzo);
+		this.total = total.add(abril);
+		this.total = total.add(mayo);
+		this.total = total.add(junio);
+		this.total = total.add(julio);
+		this.total = total.add(agosto);
+		this.total = total.add(septiembre);
+		this.total = total.add(octubre);
+		this.total = total.add(noviembre);
+		this.total = total.add(diciembre);
+
 		return total;
 	}
 
