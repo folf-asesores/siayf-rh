@@ -260,6 +260,49 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 
 		return resultado;
 	}
+	
+	/**
+	 * Consulta utilizada para visualizar solamente el nombre del empleado en
+	 * los combos.
+	 * 
+	 * @param criterio
+	 *            rfc, curp, nombre
+	 */
+	public List<InfoEmpleadoDTO> empleadosPorCriterioCombo(String criterio) {
+		String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(i.empleadoActivo.idEmpleado, "
+				+ "i.empleadoActivo.nombreCompleto) "
+				+ "FROM InventarioVacanteEntity AS i WHERE (i.empleadoActivo.nombreCompleto LIKE :criterio "
+				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) AND i.disponible =:disponible"
+				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
+		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
+				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO").getResultList();
+
+		return resultado;
+	}
+
+	/**
+	 * Consulta utilizada para visualizar solamente el nombre del empleado en
+	 * los combos, filtrados por adscripción
+	 * 
+	 * @param criterio
+	 *            rfc, curp, nombre
+	 * @param idAdscripcion
+	 *            adscripción del empleado
+	 */
+	public List<InfoEmpleadoDTO> empleadosPorCriterioAdscripcionCombo(String criterio, Integer idAdscripcion) {
+		String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(i.empleadoActivo.idEmpleado, "
+				+ "i.empleadoActivo.nombreCompleto) "
+				+ "FROM InventarioVacanteEntity AS i WHERE (i.empleadoActivo.nombreCompleto LIKE :criterio "
+				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) "
+				+ "AND (i.disponible =:disponible AND i.adscripcion.idAdscripcion =:idAdscripcion)"
+				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
+		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
+				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO")
+				.setParameter("idAdscripcion", idAdscripcion).getResultList();
+
+		return resultado;
+	}
+
 
 	public Integer obtenerIdCandidatoPostulado(Integer idInventarioVacante) {
 		try {

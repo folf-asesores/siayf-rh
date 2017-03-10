@@ -396,6 +396,11 @@ public class BusquedaEmpleadoService {
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION) {
 			empleados = inventarioPuestosRepository.empleadosPorCriterioTipoContratacion(filtroDTO.getCriterio(),
 					filtroDTO.getId());
+		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.CRITERIO_COMBO_TODAS_ADSCRIPCIONES) {
+			empleados = inventarioPuestosRepository.empleadosPorCriterioCombo(filtroDTO.getCriterio());
+		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.CRITERIO_COMBO_ADSCRIPCION_ASIGNADA) {
+			empleados = inventarioPuestosRepository.empleadosPorCriterioAdscripcionCombo(filtroDTO.getCriterio(),
+					filtroDTO.getId());
 		}
 
 		return empleados;

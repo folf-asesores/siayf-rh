@@ -22,6 +22,11 @@
 				<p:panelGrid columns="3" layout="grid"
 					styleClass="fm-contenedor ui-noborder sin_borde"
 					columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-2">
+
+					<f:facet name="header">
+						<h3>#{reporteHorasExtraController.mensaje}</h3>
+					</f:facet>
+
 					<p:autoComplete id="empleado" placeholder="Nombre Empleado"
 						value="#{reporteHorasExtraController.empleadoDTO.idEmpleado}"
 						completeMethod="#{reporteHorasExtraController.buscarEmpleadoAutoComplete}"
@@ -55,7 +60,7 @@
 						filterMatchMode="startsWith" styleClass="fm-bloque input_lng"
 						value="#{reporteHorasExtraController.idAdscripcion}">
 						<f:selectItems
-							value="#{reporteHorasExtraController.adscripciones}" />
+							value="#{reporteHorasExtraController.catalogoAdscripciones}" />
 					</p:selectOneMenu>
 					<p:selectOneMenu id="idDepartamentos"
 						styleClass="fm-bloque input_lng" filter="true"
@@ -73,8 +78,7 @@
 						styleClass="fm-bloque input_lng" filter="true"
 						value="#{reporteHorasExtraController.idTipoContratacion}"
 						filterMatchMode="startsWith">
-						<f:selectItem
-							itemLabel="[-----TODOS LOS CONTRATOS------]"
+						<f:selectItem itemLabel="[-----TODOS LOS CONTRATOS------]"
 							itemValue="-1" />
 						<f:selectItems
 							value="#{reporteHorasExtraController.tipoContratacion}" />

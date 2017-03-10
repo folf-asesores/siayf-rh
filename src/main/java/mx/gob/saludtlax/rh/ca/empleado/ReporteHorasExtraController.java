@@ -12,7 +12,11 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.EnumTipoFiltro;
+import mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.FiltroDTO;
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.catalogos.CatalogoDTO;
 import mx.gob.saludtlax.rh.empleados.administracion.Empleado;
@@ -21,6 +25,9 @@ import mx.gob.saludtlax.rh.persistencia.ServicioEntity;
 import mx.gob.saludtlax.rh.persistencia.ServicioRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoContratacionEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoContratacionRepository;
+import mx.gob.saludtlax.rh.seguridad.ConfiguracionConst;
+import mx.gob.saludtlax.rh.seguridad.usuario.ConfiguracionUsuarioModulo;
+import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 
 @ManagedBean(name = "reporteHorasExtraController")
@@ -40,6 +47,8 @@ public class ReporteHorasExtraController implements Serializable {
 	private TipoContratacionRepository tipoContratacionRepository;
 	@Inject
 	private ServicioRepository serviciosRepository;
+	@Inject
+	private ConfiguracionUsuarioModulo configuracionUsuarioModulo;
 
 	private Integer idEmpleado = -1;
 	public Integer idAdscripcion = -1;
@@ -51,6 +60,10 @@ public class ReporteHorasExtraController implements Serializable {
 	InfoEmpleadoDTO empleadoDTO = new InfoEmpleadoDTO();
 	List<CatalogoDTO> catalogoTipoContratacionDTO;
 	List<CatalogoDTO> catalogoDepartamentosDTO;
+	private List<SelectItem> catalogoAdscripciones;
+	private boolean tieneRestriccionAdscripcion;
+	private Integer idAdscripcionUsuario;
+	private String mensaje;
 
 	@PostConstruct
 	public void init() {
@@ -72,6 +85,32 @@ public class ReporteHorasExtraController implements Serializable {
 			catalogoServicio.setNombre(serviciosEntity.getServicio());
 			catalogoDepartamentosDTO.add(catalogoServicio);
 		}
+
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
+		HttpSession httpSession = request.getSession(false);
+		UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+
+		setIdAdscripcionUsuario(usuario.getIdAdscripcion());
+		setTieneRestriccionAdscripcion(
+				configuracionUsuarioModulo.tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario()));
+
+		if (isTieneRestriccionAdscripcion()) {
+			if (getIdAdscripcionUsuario() == null) {
+				setMensaje(
+						"El usuario no tiene asignada adscripción por lo cual no podrá visualizar a sus empleados. ");
+			} else {
+
+				catalogoAdscripciones = new ArrayList<>();
+				CatalogoDTO adscripcion = catalogo.obtenerAdscripcionPorId(getIdAdscripcionUsuario());
+				SelectItem a = new SelectItem(adscripcion.getId(), adscripcion.getNombre());
+				catalogoAdscripciones.add(a);
+				setMensaje("El usuario solo podrá visualizar empleados que pertenezcan a su adscripción");
+			}
+		} else {
+			setCatalogoAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+			setMensaje("El usuario podrá visualizar a todos los empleados.");
+		}
 	}
 
 	public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
@@ -82,7 +121,15 @@ public class ReporteHorasExtraController implements Serializable {
 			query = ".";
 		}
 		if (query.length() > 4) {
-			listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
+			FiltroDTO filtroDTO = new FiltroDTO();
+			filtroDTO.setCriterio(query);
+			filtroDTO.setId(getIdAdscripcionUsuario());
+			if (isTieneRestriccionAdscripcion()) {
+				filtroDTO.setTipoFiltro(EnumTipoFiltro.CRITERIO_COMBO_ADSCRIPCION_ASIGNADA);
+			} else {
+				filtroDTO.setTipoFiltro(EnumTipoFiltro.CRITERIO_COMBO_TODAS_ADSCRIPCIONES);
+			}
+			listadoEmpleadoDTO = empleadoService.consultarEmpleadosConPuestosActivos(filtroDTO);
 		}
 		return listadoEmpleadoDTO;
 
@@ -139,6 +186,38 @@ public class ReporteHorasExtraController implements Serializable {
 
 	}
 
+	public String getMensaje() {
+		return mensaje;
+	}
+
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
+
+	public boolean isTieneRestriccionAdscripcion() {
+		return tieneRestriccionAdscripcion;
+	}
+
+	public void setTieneRestriccionAdscripcion(boolean tieneRestriccionAdscripcion) {
+		this.tieneRestriccionAdscripcion = tieneRestriccionAdscripcion;
+	}
+
+	public Integer getIdAdscripcionUsuario() {
+		return idAdscripcionUsuario;
+	}
+
+	public void setIdAdscripcionUsuario(Integer idAdscripcionUsuario) {
+		this.idAdscripcionUsuario = idAdscripcionUsuario;
+	}
+
+	public List<SelectItem> getCatalogoAdscripciones() {
+		return catalogoAdscripciones;
+	}
+
+	public void setCatalogoAdscripciones(List<SelectItem> catalogoAdscripciones) {
+		this.catalogoAdscripciones = catalogoAdscripciones;
+	}
+
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}
@@ -177,11 +256,6 @@ public class ReporteHorasExtraController implements Serializable {
 
 	public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
 		this.empleadoDTO = empleadoDTO;
-	}
-
-	public List<SelectItem> getAdscripciones() {
-
-		return SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones());
 	}
 
 	public List<SelectItem> getTipoContratacion() {

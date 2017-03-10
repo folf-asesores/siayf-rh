@@ -34,7 +34,11 @@ public class InfoEmpleadoDTO {
 		super();
 
 	}
-
+	public InfoEmpleadoDTO(Integer idEmpleado, String nombre) {
+		this.idEmpleado = idEmpleado;
+		this.nombre = nombre;
+	}
+	
 	public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp,
 			String rfc, String direccion, Integer numeroEmpleado,
 			String estatus, String tipoContratacion, String folio,
