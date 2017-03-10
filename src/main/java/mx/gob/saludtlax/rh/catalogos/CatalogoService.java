@@ -1295,4 +1295,17 @@ public class CatalogoService {
 		}
 		return lista;
 	}
+	
+	protected CatalogoDTO obtenerAdscripcionPorId(Integer idAdscripcion) {
+		AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(idAdscripcion);
+
+		CatalogoDTO dto = new CatalogoDTO();
+		if (adscripcion != null) {
+			dto.setId(adscripcion.getIdAdscripcion());
+			dto.setNombre(adscripcion.getAdscripcion());
+		}
+		return dto;
+	}
+	
+	
 }
