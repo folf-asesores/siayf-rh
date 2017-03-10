@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+
+	<ui:param name="ventanaTitulo" value="clientes biometricos" />
+	<ui:param name="moduloTitulo" value="Clientes Biometricos" />
+	<ui:param name="moduloSubtitulo"
+		value="Listado de los equipos biometricos registrados." />
+	<ui:define name="moduloContenido">
+	
+		<h:form id="frmFormListadoBiometricos">
+			<h:outputStylesheet library="css" name="siayf_rh.css" />
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panel id="divListadoBiometricos">
+
+				<p:dataTable var="biometrico" id="tblBiometricos"
+					styleClass="tabla-personalizada" widgetVar="tblBiometrico"
+					value="#{clienteBiometricos.listaClientes}"
+					rows="35" paginator="true"
+					emptyMessage="No se encontraron registros">
+					<f:facet name="header">
+						<p:panelGrid columns="3" styleClass="sin_borde"
+							columnClasses="ui-grid-col-3,ui-grid-col-8,ui-grid-col-1"
+							layout="grid">
+							<p:spacer></p:spacer>
+							<p:spacer></p:spacer>
+							<p:button id="btnNuevo" title="Nuevo" icon="ui-icon-document"
+								outcome="nuevoCliente.xhtml" />
+						</p:panelGrid>
+					</f:facet>					
+					<p:column headerText="Direccion IP">
+						<h:outputText value="#{biometrico.direccionIP}" />
+					</p:column>
+					<p:column headerText="Unidad">
+						<h:outputText value="#{biometrico.unidad}" />
+					</p:column>
+					
+					<p:column headerText="Numero Puerto">
+						<h:outputText value="#{biometrico.puerto}" />
+					</p:column>
+					<p:column style="width:42px;text-align: center">
+						<p:button icon="ui-icon-pencil " title="Editar"
+						outcome="editar.xhtml?id=#{biometrico.idClienteBiometricoFormModel}">
+												</p:button>
+					</p:column>
+				</p:dataTable>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

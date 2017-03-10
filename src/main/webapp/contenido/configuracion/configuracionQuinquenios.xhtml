@@ -1,0 +1,67 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuración Quinquenios" />
+	<ui:param name="moduloTitulo" value="Configuración Quinquenios" />
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+
+			<h:panelGroup id="groupPrincipal">
+
+				<p:panel id="panelTipoNombramiento">
+					<p:outputLabel for="nombramiento" value="Tipo nombramiento:" />
+					<p:selectOneMenu id="nombramiento"
+						value="#{configuracionQuinquenioController.idNombramientoSeleccionado}">
+						<f:selectItem itemLabel="Seleccione un valor" itemValue="0" />
+						<f:selectItems
+							value="#{configuracionQuinquenioController.itemsNombramientos}" />
+					</p:selectOneMenu>
+					<p:spacer width="40" />
+					<p:commandButton id="actualizarQuinqueniobtn" value="Actualizar"
+						actionListener="#{configuracionQuinquenioController.actualizarQuinquenios()}"
+						update="tablaQuinquenios" />
+				</p:panel>
+				<br />
+				<p:dataTable id="tablaQuinquenios" rows="10"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+					value="#{configuracionQuinquenioController.listaConfiguracionesQuinquenios}"
+					var="configuracion">
+					<p:column headerText="RFC">
+						<h:outputText value="#{configuracion.rfc}" />
+					</p:column>
+					<p:column headerText="Clave quinquenio">
+						<h:outputText value="#{configuracion.nombreEmpleado}" />
+					</p:column>
+					<p:column headerText="Concepto">
+						<h:outputText value="#{configuracion.clave_concepto}" />
+					</p:column>
+					
+				</p:dataTable>
+
+			</h:panelGroup>
+
+		</h:form>
+	</ui:define>
+</ui:composition>

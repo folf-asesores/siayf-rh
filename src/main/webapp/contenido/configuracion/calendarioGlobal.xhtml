@@ -1,0 +1,176 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo" value="Calendario Global" />
+	<ui:param name="moduloTitulo" value="Calendario Global" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración del calendario global. los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panel styleClass="fm-contenedor-100 ">
+
+				<p:dataTable id="tablaCalendarioGlobal" editable="true" var="c"
+					rendered="#{calendarioGlobal.view.mostrarVistaPrincipal}"
+					value="#{calendarioGlobal.view.listaCalendarioGlobal}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="index">
+
+					<f:facet name="header">
+						<div align="right">
+							<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+								action="#{calendarioGlobal.mostrarVistaCrearCalendarioGlobal()}"
+								iconPos="right" update="form" process="@this"
+								styleClass="fm-font-color-white" />
+						</div>
+					</f:facet>
+
+					<p:column headerText="No." style="text-align: center;">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="Partida 8000">
+						<h:outputText value="#{c.partida8000}" />
+					</p:column>
+
+					<p:column headerText="Partida 1000">
+						<h:outputText value="#{c.partida1000}" />
+					</p:column>
+
+					<p:column headerText="Concepto">
+						<h:outputText value="#{c.concepto}" />
+					</p:column>
+
+					<p:column headerText="Importe Anual">
+						<h:outputText value="#{c.importeAnual}">
+							<f:convertNumber currencySymbol="$" type="currency" />
+						</h:outputText>
+					</p:column>
+
+
+					<p:column width="100" headerText="Opciones"
+						style="text-align: center;">
+
+						<p:commandButton icon="ui-icon-pencil" iconPos="right"
+							title="Actualizar"
+							action="#{calendarioGlobal.mostrarVistaActualizarCalendarioGlobal(c)}"
+							update="form" styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+						<p:commandButton icon="ui-icon-trash" update="form"
+							title="Eliminar Registro"
+							action="#{calendarioGlobal.eliminarCalendarioGlobal(c.idCalendarioGlobal)}"
+							styleClass="fm-btn-peligro fm-btn-elevado">
+
+							<p:confirm header="Confirmación"
+								message="¿Desea eliminar el registro?" icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<p:panelGrid layout="grid" id="crearCalendarioGlobal"
+					rendered="#{calendarioGlobal.view.mostrarVistaCrear}"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<f:facet name="header">
+						<h3>Nuevo Registro Calendario Global</h3>
+					</f:facet>
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="formularioCrear"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="1"
+						columnClasses="ui-grid-col-12">
+
+						<p:outputLabel for="partida8000Crear" value="Partida 8000: *" />
+						<p:inputText id="partida8000Crear"
+							validator="#{calendarioGlobal.validatorRegistro}"
+							value="#{calendarioGlobal.view.creaCalendarioGlobal.partida8000}">
+							<p:ajax update="msgPartida8000Crear" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPartida8000Crear" for="partida8000Crear" />
+
+						<p:outputLabel for="partida1000Crear" value="Partida 1000: *" />
+						<p:inputText id="partida1000Crear"
+							validator="#{calendarioGlobal.validatorRegistro}"
+							value="#{calendarioGlobal.view.creaCalendarioGlobal.partida1000}">
+							<p:ajax update="msgPartida1000Crear" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgPartida1000Crear" for="partida1000Crear" />
+
+						<p:outputLabel for="conceptoCrear" value="Concepto: *" />
+						<p:inputText id="conceptoCrear"
+							validator="#{calendarioGlobal.validatorRegistro}"
+							value="#{calendarioGlobal.view.creaCalendarioGlobal.concepto}">
+							<p:ajax update="msgConceptoCrear" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgConceptoCrear" for="conceptoCrear" />
+
+						<p:outputLabel for="importeAnualCrear" value="Importe Anual: *" />
+						<p:inputText id="importeAnualCrear"
+							validator="#{calendarioGlobal.validatorRegistro}"
+							value="#{calendarioGlobal.view.creaCalendarioGlobal.importeAnual}">
+							<p:ajax update="msgImporteAnualCrear" event="blur" />
+							<p:clientValidator />
+						</p:inputText>
+						<p:message id="msgImporteAnualCrear" for="importeAnualCrear" />
+
+					</p:panelGrid>
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="opcionesCrear"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+						columnClasses="ui-grid-col-6">
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							value="Registrar"
+							actionListener="#{calendarioGlobal.crearCalendarioGlobal()}" />
+
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							actionListener="#{calendarioGlobal.vistaPrincipal()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+			</p:panel>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

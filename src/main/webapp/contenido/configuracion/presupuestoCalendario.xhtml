@@ -1,0 +1,696 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+
+	<ui:param name="ventanaTitulo"
+		value="Configuración: Presupuesto Calendario" />
+	<ui:param name="moduloTitulo"
+		value="Configuración: Presupuesto Calendario" />
+	<ui:param name="moduloSubtitulo"
+		value="Este modulo permite la administración del presupuesto calendario, los campos con * son requeridos." />
+
+	<ui:define name="moduloContenido">
+
+		<h:form id="form" styleClass="fm-contenedor">
+
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="true" closable="true" globalOnly="true" />
+
+			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
+
+				<p:focus context="panelContenedor" />
+
+				<p:panelGrid layout="grid" id="busqueda"
+					rendered="#{presupuestoCalendario.view.mostrarVistaPrincipal}"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="4"
+					columnClasses="ui-grid-col-3">
+
+					<p:outputLabel for="anioBusqueda" value="Ingrese el año: *" />
+					<p:outputPanel>
+						<p:inputText id="anioBusqueda"
+							value="#{presupuestoCalendario.view.anioCriterio}" />
+						<p:message id="msgAnioBusqueda" for="anioBusqueda" />
+					</p:outputPanel>
+
+					<p:commandButton onsuccess="PF('statusDialog').hide()"
+						onstart="PF('statusDialog').show()" icon="ui-icon-search"
+						title="Buscar" styleClass="fm-btn-elevado" update="form"
+						action="#{presupuestoCalendario.obtenerListaPresupuestoCalendarioPorAnio()}" />
+
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<p:dataTable id="tablaPresupuestoCalendario" editable="true" var="c"
+					rendered="#{presupuestoCalendario.view.mostrarVistaPrincipal}"
+					value="#{presupuestoCalendario.view.listaPresupuestoCalendario}"
+					emptyMessage="No se encontrarón resultados" paginator="true"
+					rows="5" paginatorAlwaysVisible="false"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15" rowIndexVar="index">
+
+					<f:facet name="header">
+						<div align="right">
+							<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+								action="#{presupuestoCalendario.mostrarVistaCrearPresupuestoCalendario()}"
+								iconPos="right" update="form" process="@this"
+								styleClass="fm-font-color-white" />
+						</div>
+					</f:facet>
+
+					<p:column headerText="No." style="text-align: center; width:3%;">
+						<h:outputText value="#{index + 1}" />
+					</p:column>
+
+					<p:column headerText="Año" style="width:3%;">
+						<h:outputText value="#{c.anio}" />
+					</p:column>
+
+					<p:column headerText="Proyecto Anual">
+						<h:outputText value="#{c.proyectoAnual}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Enero">
+						<h:outputText value="#{c.enero}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Febrero">
+						<h:outputText value="#{c.febrero}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Marzo">
+						<h:outputText value="#{c.marzo}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Abril">
+						<h:outputText value="#{c.abril}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Mayo">
+						<h:outputText value="#{c.mayo}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Junio">
+						<h:outputText value="#{c.junio}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Julio">
+						<h:outputText value="#{c.julio}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Agosto">
+						<h:outputText value="#{c.agosto}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Septiembre">
+						<h:outputText value="#{c.septimbre}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Octubre">
+						<h:outputText value="#{c.octubre}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Noviembre">
+						<h:outputText value="#{c.noviembre}">
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Diciembre">
+						<h:outputText value="#{c.diciembre}">
+						</h:outputText>
+					</p:column>
+
+
+					<p:column width="100" headerText="Opciones"
+						style="text-align: center;">
+
+						<p:commandButton icon="ui-icon-pencil" iconPos="right"
+							title="Actualizar"
+							action="#{presupuestoCalendario.mostrarVistaActualizarPresupuestoCalendario(c)}"
+							update="form" styleClass="fm-btn-exitoso fm-btn-elevado" />
+
+						<p:commandButton icon="ui-icon-trash" update="form"
+							title="Eliminar Registro"
+							action="#{presupuestoCalendario.eliminarPresupuestoCalensario(c.idPresupuestoCalendario)}"
+							styleClass="fm-btn-peligro fm-btn-elevado">
+
+							<p:confirm header="Confirmación"
+								message="¿Desea eliminar el registro?" icon="ui-icon-alert" />
+						</p:commandButton>
+
+					</p:column>
+
+
+				</p:dataTable>
+
+				<p:panelGrid layout="grid" id="crearPresupuestoCalendario"
+					rendered="#{presupuestoCalendario.view.mostrarVistaCrear}"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<f:facet name="header">
+						<h3>Nuevo Registro Presupuesto Calendario</h3>
+					</f:facet>
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="formularioCrear"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4">
+
+						<p:outputLabel for="urCrear" value="UR:" />
+						<p:inputText id="urCrear" required="true"
+							requiredMessage="UR: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ur}">
+							<p:ajax event="blur" update="msgUrCrear" />
+						</p:inputText>
+						<p:message id="msgUrCrear" for="urCrear" />
+
+						<p:outputLabel for="finCrear" value="FIN:" />
+						<p:inputText id="finCrear" required="true"
+							requiredMessage="FIN: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.fin}">
+							<p:ajax event="blur" update="msgFinCrear" />
+						</p:inputText>
+						<p:message id="msgFinCrear" for="finCrear" />
+
+						<p:outputLabel for="fnCrear" value="FN:" />
+						<p:inputText id="fnCrear" required="true"
+							requiredMessage="FN: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.fn}">
+							<p:ajax event="blur" update="msgFnCrear" />
+						</p:inputText>
+						<p:message id="msgFnCrear" for="fnCrear" />
+
+						<p:outputLabel for="sfCrear" value="SF:" />
+						<p:inputText id="sfCrear" required="true"
+							requiredMessage="SF: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.sf}">
+							<p:ajax event="blur" update="msgSfCrear" />
+						</p:inputText>
+						<p:message id="msgSfCrear" for="sfCrear" />
+
+						<p:outputLabel for="rgCrear" value="RG:" />
+						<p:inputText id="rgCrear" required="true"
+							requiredMessage="RG: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.rg}">
+							<p:ajax event="blur" update="msgRgCrear" />
+						</p:inputText>
+						<p:message id="msgRgCrear" for="rgCrear" />
+
+						<p:outputLabel for="aiCrear" value="AI:" />
+						<p:inputText id="aiCrear" required="true"
+							requiredMessage="AI: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ai}">
+							<p:ajax event="blur" update="msgAiCrear" />
+						</p:inputText>
+						<p:message id="msgAiCrear" for="aiCrear" />
+
+						<p:outputLabel for="mppCrear" value="MPP:" />
+						<p:inputText id="mppCrear" required="true"
+							requiredMessage="MPP: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.mpp}">
+							<p:ajax event="blur" update="msgMppCrear" />
+						</p:inputText>
+						<p:message id="msgMppCrear" for="mppCrear" />
+
+						<p:outputLabel for="ppCrear" value="PP:" />
+						<p:inputText id="ppCrear" required="true"
+							requiredMessage="PP: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.pp}">
+							<p:ajax event="blur" update="msgPpCrear" />
+						</p:inputText>
+						<p:message id="msgPpCrear" for="ppCrear" />
+
+						<p:outputLabel for="ptdaCrear" value="PTDA:" />
+						<p:inputText id="ptdaCrear" required="true"
+							requiredMessage="PTDA: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ptda}">
+							<p:ajax event="blur" update="msgPtdaCrear" />
+						</p:inputText>
+						<p:message id="msgPtdaCrear" for="ptdaCrear" />
+
+						<p:outputLabel for="tgCrear" value="TG:" />
+						<p:inputText id="tgCrear" required="true"
+							requiredMessage="TG: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.tg}">
+							<p:ajax event="blur" update="msgTgCrear" />
+						</p:inputText>
+						<p:message id="msgTgCrear" for="tgCrear" />
+
+						<p:outputLabel for="ffCrear" value="FF:" />
+						<p:inputText id="ffCrear" required="true"
+							requiredMessage="FF: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ff}">
+							<p:ajax event="blur" update="msgFfCrear" />
+						</p:inputText>
+						<p:message id="msgFfCrear" for="ffCrear" />
+
+						<p:outputLabel for="efCrear" value="EF:" />
+						<p:inputText id="efCrear" required="true"
+							requiredMessage="EF: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ef}">
+							<p:ajax event="blur" update="msgEfCrear" />
+						</p:inputText>
+						<p:message id="msgEfCrear" for="efCrear" />
+
+						<p:outputLabel for="ppiiCrear" value="PPII:" />
+						<p:inputText id="ppiiCrear" required="true"
+							requiredMessage="PPII: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.ppii}">
+							<p:ajax event="blur" update="msgPpiiCrear" />
+						</p:inputText>
+						<p:message id="msgPpiiCrear" for="ppiiCrear" />
+
+						<p:outputLabel for="anioCrear" value="Año:" />
+						<p:inputText id="anioCrear" required="true"
+							requiredMessage="Año: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.anio}">
+							<p:ajax event="blur" update="msgAnioCrear" />
+							<f:validateLength minimum="4" maximum="4" />
+						</p:inputText>
+						<p:message id="msgAnioCrear" for="anioCrear" />
+
+						<p:outputLabel for="proyectoAnualCrear" value="Proyecto Anual:" />
+						<p:inputText id="proyectoAnualCrear" placeholder="00.00"
+							required="true"
+							requiredMessage="Proyecto Anual: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.proyectoAnual}">
+							<p:ajax event="blur" update="msgProyectoAnualCrear" />
+						</p:inputText>
+						<p:message id="msgProyectoAnualCrear" for="proyectoAnualCrear" />
+
+						<p:outputLabel for="eneroCrear" value="Enero:" />
+						<p:inputText id="eneroCrear" placeholder="00.00" required="true"
+							requiredMessage="Enero: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.enero}">
+							<p:ajax event="blur" update="msgEneroCrear" />
+						</p:inputText>
+						<p:message id="msgEneroCrear" for="eneroCrear" />
+
+						<p:outputLabel for="febreroCrear" value="Febrero:" />
+						<p:inputText id="febreroCrear" placeholder="00.00" required="true"
+							requiredMessage="Febrero: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.febrero}">
+							<p:ajax event="blur" update="msgFebreroCrear" />
+						</p:inputText>
+						<p:message id="msgFebreroCrear" for="febreroCrear" />
+
+						<p:outputLabel for="marzoCrear" value="Marzo:" />
+						<p:inputText id="marzoCrear" placeholder="00.00" required="true"
+							requiredMessage="Marzo: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.marzo}">
+							<p:ajax event="blur" update="msgMarzoCrear" />
+						</p:inputText>
+						<p:message id="msgMarzoCrear" for="marzoCrear" />
+
+						<p:outputLabel for="abrilCrear" value="Abril:" />
+						<p:inputText id="abrilCrear" placeholder="00.00" required="true"
+							requiredMessage="Abril: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.abril}">
+							<p:ajax event="blur" update="msgAbrilCrear" />
+						</p:inputText>
+						<p:message id="msgAbrilCrear" for="abrilCrear" />
+
+						<p:outputLabel for="mayoCrear" value="Mayo:" />
+						<p:inputText id="mayoCrear" placeholder="00.00" required="true"
+							requiredMessage="Mayo: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.mayo}">
+							<p:ajax event="blur" update="msgMayoCrear" />
+						</p:inputText>
+						<p:message id="msgMayoCrear" for="mayoCrear" />
+
+						<p:outputLabel for="junioCrear" value="Junio:" />
+						<p:inputText id="junioCrear" placeholder="00.00" required="true"
+							requiredMessage="Junio: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.junio}">
+							<p:ajax event="blur" update="msgJunioCrear" />
+						</p:inputText>
+						<p:message id="msgJunioCrear" for="junioCrear" />
+
+						<p:outputLabel for="julioCrear" value="Julio:" />
+						<p:inputText id="julioCrear" placeholder="00.00" required="true"
+							requiredMessage="Julio: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.julio}">
+							<p:ajax event="blur" update="msgJulioCrear" />
+						</p:inputText>
+						<p:message id="msgJulioCrear" for="julioCrear" />
+
+						<p:outputLabel for="agostoCrear" value="Agosto:" />
+						<p:inputText id="agostoCrear" placeholder="00.00" required="true"
+							requiredMessage="Agosto: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.agosto}">
+							<p:ajax event="blur" update="msgAgostoCrear" />
+						</p:inputText>
+						<p:message id="msgAgostoCrear" for="agostoCrear" />
+
+						<p:outputLabel for="septiembreCrear" value="Septiembre:" />
+						<p:inputText id="septiembreCrear" placeholder="00.00"
+							required="true"
+							requiredMessage="Septiembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.septimbre}">
+							<p:ajax event="blur" update="msgSeptiembreCrear" />
+						</p:inputText>
+						<p:message id="msgSeptiembreCrear" for="septiembreCrear" />
+
+						<p:outputLabel for="octubreCrear" value="Octubre:" />
+						<p:inputText id="octubreCrear" placeholder="00.00" required="true"
+							requiredMessage="Octubre: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.octubre}">
+							<p:ajax event="blur" update="msgOctubreCrear" />
+						</p:inputText>
+						<p:message id="msgOctubreCrear" for="octubreCrear" />
+
+						<p:outputLabel for="noviembreCrear" value="Noviembre:" />
+						<p:inputText id="noviembreCrear" placeholder="00.00"
+							required="true"
+							requiredMessage="Noviembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.noviembre}">
+							<p:ajax event="blur" update="msgNoviembreCrear" />
+						</p:inputText>
+						<p:message id="msgNoviembreCrear" for="noviembreCrear" />
+
+						<p:outputLabel for="diciembreCrear" value="Diciembre:" />
+						<p:inputText id="diciembreCrear" placeholder="00.00"
+							required="true"
+							requiredMessage="Diciembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.creaPresupuestoCalendario.diciembre}">
+							<p:ajax event="blur" update="msgDiciembreCrear" />
+						</p:inputText>
+						<p:message id="msgDiciembreCrear" for="diciembreCrear" />
+
+					</p:panelGrid>
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="opcionesCrear"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+						columnClasses="ui-grid-col-6">
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							value="Registrar"
+							actionListener="#{presupuestoCalendario.crearPresupuestoCalendario()}" />
+
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							actionListener="#{presupuestoCalendario.vistaPrincipal()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+				<p:panelGrid layout="grid" id="actualizarPresupuestoCalendario"
+					rendered="#{presupuestoCalendario.view.mostrarVistaActualizar}"
+					styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2">
+
+					<f:facet name="header">
+						<h3>Actualizar Presupuesto Calendario</h3>
+					</f:facet>
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="formularioActualizar"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+						columnClasses="ui-grid-col-6, ui-grid-col-6, ui-grid-col-6">
+
+						<p:outputLabel for="urActualizar" value="UR:" />
+						<p:inputText id="urActualizar" required="true"
+							requiredMessage="UR: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ur}">
+							<p:ajax event="blur" update="msgUrActualizar" />
+						</p:inputText>
+						<p:message id="msgUrActualizar" for="urActualizar" />
+
+						<p:outputLabel for="finActualizar" value="FIN:" />
+						<p:inputText id="finActualizar" required="true"
+							requiredMessage="FIN: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.fin}">
+							<p:ajax event="blur" update="msgFinActualizar" />
+						</p:inputText>
+						<p:message id="msgFinActualizar" for="finActualizar" />
+
+						<p:outputLabel for="fnActualizar" value="FN:" />
+						<p:inputText id="fnActualizar" required="true"
+							requiredMessage="FN: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.fn}">
+							<p:ajax event="blur" update="msgFnActualizar" />
+						</p:inputText>
+						<p:message id="msgFnActualizar" for="fnActualizar" />
+
+						<p:outputLabel for="sfActualizar" value="SF:" />
+						<p:inputText id="sfActualizar" required="true"
+							requiredMessage="SF: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.sf}">
+							<p:ajax event="blur" update="msgSfActualizar" />
+						</p:inputText>
+						<p:message id="msgSfActualizar" for="sfActualizar" />
+
+						<p:outputLabel for="rgActualizar" value="RG:" />
+						<p:inputText id="rgActualizar" required="true"
+							requiredMessage="RG: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.rg}">
+							<p:ajax event="blur" update="msgRgActualizar" />
+						</p:inputText>
+						<p:message id="msgRgActualizar" for="rgActualizar" />
+
+						<p:outputLabel for="aiActualizar" value="AI:" />
+						<p:inputText id="aiActualizar" required="true"
+							requiredMessage="AI: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ai}">
+							<p:ajax event="blur" update="msgAiActualizar" />
+						</p:inputText>
+						<p:message id="msgAiActualizar" for="aiActualizar" />
+
+						<p:outputLabel for="mppActualizar" value="MPP:" />
+						<p:inputText id="mppActualizar" required="true"
+							requiredMessage="MPP: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.mpp}">
+							<p:ajax event="blur" update="msgMppActualizar" />
+						</p:inputText>
+						<p:message id="msgMppActualizar" for="mppActualizar" />
+
+						<p:outputLabel for="ppActualizar" value="PP:" />
+						<p:inputText id="ppActualizar" required="true"
+							requiredMessage="PP: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.pp}">
+							<p:ajax event="blur" update="msgPpActualizar" />
+						</p:inputText>
+						<p:message id="msgPpActualizar" for="ppActualizar" />
+
+						<p:outputLabel for="ptdaActualizar" value="PTDA:" />
+						<p:inputText id="ptdaActualizar" required="true"
+							requiredMessage="PTDA: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ptda}">
+							<p:ajax event="blur" update="msgPtdaActualizar" />
+						</p:inputText>
+						<p:message id="msgPtdaActualizar" for="ptdaActualizar" />
+
+						<p:outputLabel for="tgActualizar" value="TG:" />
+						<p:inputText id="tgActualizar" required="true"
+							requiredMessage="TG: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.tg}">
+							<p:ajax event="blur" update="msgTgActualizar" />
+						</p:inputText>
+						<p:message id="msgTgActualizar" for="tgActualizar" />
+
+						<p:outputLabel for="ffActualizar" value="FF:" />
+						<p:inputText id="ffActualizar" required="true"
+							requiredMessage="FF: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ff}">
+							<p:ajax event="blur" update="msgFfActualizar" />
+						</p:inputText>
+						<p:message id="msgFfActualizar" for="ffActualizar" />
+
+						<p:outputLabel for="efActualizar" value="EF:" />
+						<p:inputText id="efActualizar" required="true"
+							requiredMessage="EF: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ef}">
+							<p:ajax event="blur" update="msgEfActualizar" />
+						</p:inputText>
+						<p:message id="msgEfActualizar" for="efActualizar" />
+
+						<p:outputLabel for="ppiiActualizar" value="PPII:" />
+						<p:inputText id="ppiiActualizar" required="true"
+							requiredMessage="PPII: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.ppii}">
+							<p:ajax event="blur" update="msgPpiiActualizar" />
+						</p:inputText>
+						<p:message id="msgPpiiActualizar" for="ppiiActualizar" />
+
+						<p:outputLabel for="anioActualizar" value="Año:" />
+						<p:inputText id="anioActualizar" required="true"
+							requiredMessage="Año: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.anio}">
+							<p:ajax event="blur" update="msgAnioActualizar" />
+							<f:validateLength minimum="4" maximum="4" />
+						</p:inputText>
+						<p:message id="msgAnioActualizar" for="anioActualizar" />
+
+						<p:outputLabel for="proyectoAnualActualizar"
+							value="Proyecto Anual:" />
+						<p:inputText id="proyectoAnualActualizar" placeholder="00.00"
+							required="true"
+							requiredMessage="Proyecto Anual: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.proyectoAnual}">
+							<p:ajax event="blur" update="msgProyectoAnualActualizar" />
+						</p:inputText>
+						<p:message id="msgProyectoAnualActualizar"
+							for="proyectoAnualActualizar" />
+
+						<p:outputLabel for="eneroActualizar" value="Enero:" />
+						<p:inputText id="eneroActualizar" placeholder="00.00"
+							required="true" requiredMessage="Enero: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.enero}">
+							<p:ajax event="blur" update="msgEneroActualizar" />
+						</p:inputText>
+						<p:message id="msgEneroActualizar" for="eneroActualizar" />
+
+						<p:outputLabel for="febreroActualizar" value="Febrero:" />
+						<p:inputText id="febreroActualizar" placeholder="00.00"
+							required="true" requiredMessage="Febrero: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.febrero}">
+							<p:ajax event="blur" update="msgFebreroActualizar" />
+						</p:inputText>
+						<p:message id="msgFebreroActualizar" for="febreroActualizar" />
+
+						<p:outputLabel for="marzoActualizar" value="Marzo:" />
+						<p:inputText id="marzoActualizar" placeholder="00.00"
+							required="true" requiredMessage="Marzo: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.marzo}">
+							<p:ajax event="blur" update="msgMarzoActualizar" />
+						</p:inputText>
+						<p:message id="msgMarzoActualizar" for="marzoActualizar" />
+
+						<p:outputLabel for="abrilActualizar" value="Abril:" />
+						<p:inputText id="abrilActualizar" placeholder="00.00"
+							required="true" requiredMessage="Abril: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.abril}">
+							<p:ajax event="blur" update="msgAbrilActualizar" />
+						</p:inputText>
+						<p:message id="msgAbrilActualizar" for="abrilActualizar" />
+
+						<p:outputLabel for="mayoActualizar" value="Mayo:" />
+						<p:inputText id="mayoActualizar" placeholder="00.00"
+							required="true" requiredMessage="Mayo: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.mayo}">
+							<p:ajax event="blur" update="msgMayoActualizar" />
+						</p:inputText>
+						<p:message id="msgMayoActualizar" for="mayoActualizar" />
+
+						<p:outputLabel for="junioActualizar" value="Junio:" />
+						<p:inputText id="junioActualizar" placeholder="00.00"
+							required="true" requiredMessage="Junio: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.junio}">
+							<p:ajax event="blur" update="msgJunioActualizar" />
+						</p:inputText>
+						<p:message id="msgJunioActualizar" for="junioActualizar" />
+
+						<p:outputLabel for="julioActualizar" value="Julio:" />
+						<p:inputText id="julioActualizar" placeholder="00.00"
+							required="true" requiredMessage="Julio: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.julio}">
+							<p:ajax event="blur" update="msgJulioActualizar" />
+						</p:inputText>
+						<p:message id="msgJulioActualizar" for="julioActualizar" />
+
+						<p:outputLabel for="agostoActualizar" value="Agosto:" />
+						<p:inputText id="agostoActualizar" placeholder="00.00"
+							required="true" requiredMessage="Agosto: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.agosto}">
+							<p:ajax event="blur" update="msgAgostoActualizar" />
+						</p:inputText>
+						<p:message id="msgAgostoActualizar" for="agostoActualizar" />
+
+						<p:outputLabel for="septiembreActualizar" value="Septiembre:" />
+						<p:inputText id="septiembreActualizar" placeholder="00.00"
+							required="true"
+							requiredMessage="Septiembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.septimbre}">
+							<p:ajax event="blur" update="msgSeptiembreActualizar" />
+						</p:inputText>
+						<p:message id="msgSeptiembreActualizar" for="septiembreActualizar" />
+
+						<p:outputLabel for="octubreActualizar" value="Octubre:" />
+						<p:inputText id="octubreActualizar" placeholder="00.00"
+							required="true" requiredMessage="Octubre: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.octubre}">
+							<p:ajax event="blur" update="msgOctubreActualizar" />
+						</p:inputText>
+						<p:message id="msgOctubreActualizar" for="octubreActualizar" />
+
+						<p:outputLabel for="noviembreActualizar" value="Noviembre:" />
+						<p:inputText id="noviembreActualizar" placeholder="00.00"
+							required="true"
+							requiredMessage="Noviembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.noviembre}">
+							<p:ajax event="blur" update="msgNoviembreActualizar" />
+						</p:inputText>
+						<p:message id="msgNoviembreActualizar" for="noviembreActualizar" />
+
+						<p:outputLabel for="diciembreActualizar" value="Diciembre:" />
+						<p:inputText id="diciembreActualizar" placeholder="00.00"
+							required="true"
+							requiredMessage="Diciembre: El valor es requerido"
+							value="#{presupuestoCalendario.view.actualizarPresupuestoCalendario.diciembre}">
+							<p:ajax event="blur" update="msgDiciembreActualizar" />
+						</p:inputText>
+						<p:message id="msgDiciembreActualizar" for="diciembreActualizar" />
+
+					</p:panelGrid>
+					<p:spacer />
+
+					<p:spacer />
+					<p:panelGrid layout="grid" id="opcionesActualizar"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+						columnClasses="ui-grid-col-6">
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							value="Actualizar"
+							actionListener="#{presupuestoCalendario.actualizarPresupuestoCalendario()}" />
+
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							actionListener="#{presupuestoCalendario.vistaPrincipal()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+					<p:spacer />
+
+				</p:panelGrid>
+
+
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+
+
+			</p:panel>
+
+
+		</h:form>
+
+	</ui:define>
+</ui:composition>

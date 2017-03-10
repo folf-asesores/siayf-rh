@@ -1,0 +1,131 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Configuración Conceptos Especiales" />
+	<ui:param name="moduloTitulo" value="Configuración Conceptos Especiales" />
+
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:define name="moduloContenido">
+		<h:form id="form" enctype="multipart/form-data">
+			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
+			<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
+
+			<p:panel id="formulario">
+
+				<p:panelGrid id="gridFormulario" columns="2"
+					columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<p:outputLabel for="percepcionBase" value="Percepcion base:" />
+					<p:selectOneMenu id="percepcionBase" filter="true"
+						filterMatchMode="contains"
+						value="#{conceptosEspecialesController.persepcionBaseSeleccionada}">
+						<f:selectItem itemValue="0" itemLabel="Seleccione una opción" />
+						<f:selectItems
+							value="#{conceptosEspecialesController.percepcionItems}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="percepcionComp"
+						value="Percepcion Compensación:" />
+					<p:selectOneMenu id="percepcionComp" filter="true"
+						filterMatchMode="contains"
+						value="#{conceptosEspecialesController.percepcionCompensacionSeleccionada}">
+						<f:selectItem itemValue="0" itemLabel="Seleccione una opción" />
+						<f:selectItems
+							value="#{conceptosEspecialesController.percepcionItems}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="deduccionIsr" value="Deduccion ISR:" />
+					<p:selectOneMenu id="deduccionIsr" filter="true"
+						filterMatchMode="contains"
+						value="#{conceptosEspecialesController.deduccionSeleccionada}">
+						<f:selectItem itemValue="0" itemLabel="Seleccione una opción" />
+						<f:selectItems
+							value="#{conceptosEspecialesController.deduccionesItems}" />
+					</p:selectOneMenu>
+
+				</p:panelGrid>
+
+				<p:commandButton id="agregarbtn" value="Agregar"
+					icon="ui-icon-plusthick"
+					actionListener="#{conceptosEspecialesController.agregarConcepto()}"
+					update="tblConceptosEsp" />
+			</p:panel>
+
+			<p:dataTable id="tblConceptosEsp" var="concepto"
+				value="#{conceptosEspecialesController.listaConceptos}" rows="10"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,25,50">
+
+
+				<p:columnGroup type="header">
+					<p:row>
+						<p:column colspan="2" headerText="CONCEPTO BASE" />
+						<p:column colspan="2" headerText="CONCEPTO COMPENSACIÓN" />
+						<p:column colspan="2" headerText="CONCEPTO ISR" />
+					</p:row>
+				</p:columnGroup>
+
+				<p:column headerText="Clave ">
+					<h:outputText value="#{concepto.claveConceptoBase}" />
+				</p:column>
+
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{concepto.descripcionConceptoBase}" />
+				</p:column>
+
+				<p:column headerText="Clave ">
+					<h:outputText value="#{concepto.claveConceptoCompensacion}" />
+				</p:column>
+
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{concepto.descripcionConceptoCompensacion}" />
+				</p:column>
+
+				<p:column headerText="Clave ">
+					<h:outputText value="#{concepto.claveConceptoIsr}" />
+				</p:column>
+
+				<p:column headerText="Descripcion">
+					<h:outputText value="#{concepto.descripcionConceptoIsr}" />
+				</p:column>
+
+				<p:column headerText="Borrar" style="width:40px">
+					<p:commandButton id="eliminarConfiguracion" icon="ui-icon-trash"
+						styleClass="fm-btn-peligro fm-btn-elevado"
+						action="#{conceptosEspecialesController.eliminar()}"
+						update="tblConceptosEsp" ajax="false">
+						<f:setPropertyActionListener value="#{concepto}"
+							for="eliminarConfiguracion"
+							target="#{conceptosEspecialesController.conceptoSeleccionado}" />
+						
+						 <p:confirm header="Confirmación" message="Esta seguro de querer borrar el registro?" icon="ui-icon-alert" />
+    
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+ <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="SI" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
