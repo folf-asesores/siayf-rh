@@ -18,13 +18,10 @@ public class PresupuestoAutorizadoView  implements Serializable{
 
 	private Integer idPresupuestoAutorizadoSeleccionado;
 	
-	private boolean panelPrincipal = true;
-	private boolean panelCrear = false;
+	private boolean panelPrincipal;
+	private boolean panelCrear;
 	private boolean panelActualizar;
-	private boolean dialogEliminar = false;
-	
-	
-	
+
 	public List<PresupuestoAutorizadoDTO> getListaPresupuestoAutorizado() {
 		return listaPresupuestoAutorizado;
 	}
@@ -67,12 +64,4 @@ public class PresupuestoAutorizadoView  implements Serializable{
 	public void setPanelActualizar(boolean panelActualizar) {
 		this.panelActualizar = panelActualizar;
 	}
-	public boolean isDialogEliminar() {
-		return dialogEliminar;
-	}
-	public void setDialogEliminar(boolean dialogEliminar) {
-		this.dialogEliminar = dialogEliminar;
-	}
-	
-	
 }

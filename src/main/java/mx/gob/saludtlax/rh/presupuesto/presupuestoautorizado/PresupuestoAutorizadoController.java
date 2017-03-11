@@ -28,22 +28,22 @@ public class PresupuestoAutorizadoController implements Serializable {
 	
 	@PostConstruct
 	private void init() {
-		this.view = new PresupuestoAutorizadoView();
-
+		view = new PresupuestoAutorizadoView();
 		obtenerListaPresupuestoAutorizado();
+		view.setPanelPrincipal(true);
 	}
 
 	public void obtenerListaPresupuestoAutorizado() {
 		List<PresupuestoAutorizadoDTO> lista = presupuestoAutorizado.obtenerListaPresupuestoAutorizado();
 
-		this.view.setListaPresupuestoAutorizado(lista);
+		view.setListaPresupuestoAutorizado(lista);
 	}
 	
 	public void crearPresupuestoAutorizado() {
 		try {
-			presupuestoAutorizado.crearPresupuestoAutorizado(this.view.getCreaPresupuestoAutorizado());
-			JSFUtils.infoMessage("Registro Correcto","");
+			presupuestoAutorizado.crearPresupuestoAutorizado(view.getCreaPresupuestoAutorizado());
 			mostrarPrincipal();
+			JSFUtils.infoMessage("Registro Correcto","¡Se registro correctamente!");
 		} catch (ReglaNegocioException | ValidacionException e) {
 			JSFUtils.errorMessage("Error: ", e.getMessage());
 		}
@@ -51,7 +51,7 @@ public class PresupuestoAutorizadoController implements Serializable {
 
 	public void actualizarPresupuestoAutorizado() {
 		try {
-			presupuestoAutorizado.actualizarPresupuestoAutorizado(this.view.getActualizarPresupuestoAutorizado());
+			presupuestoAutorizado.actualizarPresupuestoAutorizado(view.getActualizarPresupuestoAutorizado());
 			JSFUtils.infoMessage("Actualización Correcta","");
 			mostrarPrincipal();
 		} catch (ReglaNegocioException | ValidacionException e) {
@@ -61,7 +61,7 @@ public class PresupuestoAutorizadoController implements Serializable {
 
 	public void eliminarPresupuestoAutorizado() {
 		try {
-			presupuestoAutorizado.eliminarPresupuestoAutorizado(this.view.getIdPresupuestoAutorizadoSeleccionado());
+			presupuestoAutorizado.eliminarPresupuestoAutorizado(view.getIdPresupuestoAutorizadoSeleccionado());
 			JSFUtils.infoMessage("Eliminación Correcta","");
 			mostrarPrincipal();
 		} catch (ReglaNegocioException | ValidacionException e) {
@@ -70,37 +70,33 @@ public class PresupuestoAutorizadoController implements Serializable {
 	}
 	
 	public void mostrarNuevoRegistro() {
-		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		this.view.setPanelPrincipal(false);
-		this.view.setPanelCrear(true);
-		this.view.setPanelActualizar(false);
-		this.view.setDialogEliminar(false);
+		view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		view.setPanelPrincipal(false);
+		view.setPanelCrear(true);
+		view.setPanelActualizar(false);
 	}
 
 	public void mostrarActualizacion(PresupuestoAutorizadoDTO dto) {
-		this.view.setActualizarPresupuestoAutorizado(dto);
-		this.view.setPanelPrincipal(false);
-		this.view.setPanelCrear(false);
-		this.view.setPanelActualizar(true);
-		this.view.setDialogEliminar(false);
+		view.setActualizarPresupuestoAutorizado(dto);
+		view.setPanelPrincipal(false);
+		view.setPanelCrear(false);
+		view.setPanelActualizar(true);
 	}
 
 	public void mostrarDialogEliminar(Integer idPresupuestoAutorizado) {
-		this.view.setIdPresupuestoAutorizadoSeleccionado(idPresupuestoAutorizado);
-		this.view.setPanelPrincipal(false);
-		this.view.setPanelCrear(false);
-		this.view.setPanelActualizar(false);
-		this.view.setDialogEliminar(true);
+		view.setIdPresupuestoAutorizadoSeleccionado(idPresupuestoAutorizado);
+		view.setPanelPrincipal(false);
+		view.setPanelCrear(false);
+		view.setPanelActualizar(false);
 	}
 
 	public void mostrarPrincipal() {
-		this.view.setIdPresupuestoAutorizadoSeleccionado(0);
-		this.view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		this.view.setPanelPrincipal(true);
-		this.view.setPanelCrear(false);
-		this.view.setPanelActualizar(false);
-		this.view.setDialogEliminar(false);
+		view.setIdPresupuestoAutorizadoSeleccionado(0);
+		view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		view.setPanelPrincipal(true);
+		view.setPanelCrear(false);
+		view.setPanelActualizar(false);
 		obtenerListaPresupuestoAutorizado();
 	}
 	
@@ -113,10 +109,4 @@ public class PresupuestoAutorizadoController implements Serializable {
 	public PresupuestoAutorizadoView getView() {
 		return view;
 	}
-
-	public void setView(PresupuestoAutorizadoView view) {
-		this.view = view;
-	}
-
-	
 }

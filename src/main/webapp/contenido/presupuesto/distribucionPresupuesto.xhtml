@@ -55,18 +55,7 @@
 						var="tipoNombramiento"
 						itemValue="#{tipoNombramiento.idTipoNombramiento}"
 						itemLabel="#{tipoNombramiento.descripcion}" />
-				</p:selectOneMenu> 
-			
-			<p:outputLabel for="unidadResponsable" value="Unidad Responsable: " />
-				<p:selectOneMenu id="unidadResponsable"
-					value="#{distribucionPresupuesto.view.idUnidadResponsable}">
-					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
-					<f:selectItems
-						value="#{distribucionPresupuesto.view.listaUnidadResponsable}"
-						var="unidadResponsable"
-						itemValue="#{unidadResponsable.idUnidadResponsable}"
-						itemLabel="#{unidadResponsable.descripcion}" />
-				</p:selectOneMenu> 
+				</p:selectOneMenu>
 				
 				<p:outputLabel for="partida" 
 				               value="Partida: "/>

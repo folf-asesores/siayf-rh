@@ -77,8 +77,30 @@ public class PresupuestoCalendarioDTO implements Serializable {
 	 * 
 	 */
 	public PresupuestoCalendarioDTO() {
-		super();
-		// TODO Auto-generated constructor stub
+		enero = BigDecimal.ZERO;
+		
+		febrero = BigDecimal.ZERO;
+		
+		marzo = BigDecimal.ZERO;
+		
+		abril = BigDecimal.ZERO;
+		
+		mayo = BigDecimal.ZERO;
+		
+		junio = BigDecimal.ZERO;
+		
+		julio = BigDecimal.ZERO;
+		
+		agosto = BigDecimal.ZERO;
+		
+		septimbre = BigDecimal.ZERO;
+		
+		octubre = BigDecimal.ZERO;
+		
+		noviembre = BigDecimal.ZERO;
+		
+		diciembre = BigDecimal.ZERO;
+		
 	}
 
 	/**

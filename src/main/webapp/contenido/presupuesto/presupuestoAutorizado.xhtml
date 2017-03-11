@@ -23,353 +23,406 @@
 
 			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
 
-				<p:focus context="panelContenedor" />
+				<p:outputPanel rendered="#{presupuestoAutorizado.view.panelPrincipal}">
+					<p:focus context="panelContenedor" />
+	
+					<p:dataTable id="tablaTabulador" editable="true" var="p"
+						value="#{presupuestoAutorizado.view.listaPresupuestoAutorizado}"
+						emptyMessage="No se encontraron resultados" paginator="true"
+						rows="5"
+						currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15">
+	
+						<f:facet name="header">
+							<div align="right">
+								<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
+									iconPos="right" update="form" process="@this"
+									styleClass="fm-font-color-white"
+									action="#{presupuestoAutorizado.mostrarNuevoRegistro()}" />
+							</div>
+						</f:facet>
+	
+						<p:column headerText="ur" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.idUnidadResponsable}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="fin" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.fin}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="fn" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.fn}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="rg" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.rg}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="sf" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.idSubfuenteFinanciamiento}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="ai" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.ai}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="mpp" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.mpp}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="pp" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.pp}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="ptda" style="text-align: center; width:7%;">
+							<h:outputText value="#{p.partida}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="tg" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.tg}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="ff" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.ff}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="ef" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.ef}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="ppi" style="text-align: center; width:5%;">
+							<h:outputText value="#{p.ppii}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="Concepto" style="width:20%;">
+							<h:outputText value="#{p.concepto}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="	Importe Anual" style="width:15%;">
+							<h:outputText value="#{p.importeAnual}">
+								<f:convertNumber currencySymbol="$" type="currency" />
+							</h:outputText>
+						</p:column>
+	
+						<p:column headerText="Año" style="text-align: center; width:7%;">
+							<h:outputText value="#{p.anio}">
+							</h:outputText>
+						</p:column>
+	
+						<p:column width="100">
+							<p:commandButton icon="ui-icon-pencil" iconPos="right"
+								title="Actualizar" update="form"
+								action="#{presupuestoAutorizado.mostrarActualizacion(p)}"
+								styleClass="fm-btn-exitoso fm-btn-elevado" process="form" />
+	
+							<p:commandButton icon="ui-icon-trash" update="form"
+								title="Eliminar Presupuesto Autorizado"
+								styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
+								action="#{presupuestoAutorizado.mostrarDialogEliminar(s.idpresupuestoAutorizado)}" />
+	
+						</p:column>
+					</p:dataTable>
+					<p:spacer />
+				</p:outputPanel>
 
-				<p:spacer />
-
-				<p:dataTable id="tablaTabulador" editable="true" var="p"
-					value="#{presupuestoAutorizado.view.listaPresupuestoAutorizado}"
-					emptyMessage="No se encontraron resultados" paginator="true"
-					rows="5"
-					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15">
+				<p:outputPanel rendered="#{presupuestoAutorizado.view.panelCrear}">
 
 					<f:facet name="header">
-						<div align="right">
-
-							<p:commandButton icon="ui-icon-plus" value="Nuevo Registro"
-								iconPos="right" update="form" process="@this"
-								styleClass="fm-font-color-white"
-								action="#{presupuestoAutorizado.mostrarNuevoRegistro()}" />
-						</div>
+						<h3>Registrar Presupuesto Autorizado</h3>
 					</f:facet>
 
-					<p:column headerText="ur" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.idUnidadResponsable}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="fin" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.fin}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="fn" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.fn}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="rg" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.rg}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="sf" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.idSubfuenteFinanciamiento}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="ai" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.ai}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="mpp" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.mpp}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="pp" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.pp}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="ptda" style="text-align: center; width:7%;">
-						<h:outputText value="#{p.partida}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="tg" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.tg}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="ff" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.ff}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="ef" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.ef}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="ppi" style="text-align: center; width:5%;">
-						<h:outputText value="#{p.ppii}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="Concepto" style="width:20%;">
-						<h:outputText value="#{p.concepto}">
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="	Importe Anual" style="width:15%;">
-						<h:outputText value="#{p.importeAnual}">
-							<f:convertNumber currencySymbol="$" type="currency" />
-						</h:outputText>
-					</p:column>
-
-					<p:column headerText="Año" style="text-align: center; width:7%;">
-						<h:outputText value="#{p.anio}">
-						</h:outputText>
-					</p:column>
-
-					<p:column width="100">
-						<p:commandButton icon="ui-icon-pencil" iconPos="right"
-							title="Actualizar" update="form"
-							action="#{presupuestoAutorizado.mostrarActualizacion(p)}"
-							styleClass="fm-btn-exitoso fm-btn-elevado" process="form" />
-
-						<p:commandButton icon="ui-icon-trash" update="form"
-							title="Eliminar Presupuesto Autorizado"
-							styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
-							action="#{presupuestoAutorizado.mostrarDialogEliminar(s.idpresupuestoAutorizado)}" />
-
-					</p:column>
-				</p:dataTable>
-				<p:spacer />
-
-				<p:panelGrid columns="3" id="panelCrear"
-					rendered="#{presupuestoAutorizado.view.panelCrear}"
-					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
-					layout="grid"
-					styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
-
-					<p:spacer />
-
-					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
-						layout="grid"
-						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
-
-						<f:facet name="header">
-							<h3>Registrar Presupuesto Autorizado</h3>
-						</f:facet>
-
-						<p:outputLabel for="urCrear" value="Unidad responsable: " />
-						<p:calendar id="urCrear" required="true"
-							requiredMessage="Seleccione la fecha" navigator="true"
-							pattern="dd-MM-yyyy"
-							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.fecha}">
-							<p:ajax event="dateSelect" update=":form:messageFechaCrear" />
-							<p:ajax event="blur" update=":form:messageFechaCrear" />
-						</p:calendar>
-						<p:message id="messageFechaCrear" for="fechaCrear" />
-
-						<p:outputLabel for="presupuestoAutorizadoCrear"
-							value="Presupuesto Autorizado:" />
-						<p:inputText id="presupuestoAutorizadoCrear" placeholder="$00.00"
-							required="true"
-							requiredMessage="Ingrese el Presupuesto Autorizado">
-							<!--	value="#{presupuestoAutorizado.view.creapresupuestoAutorizado.presupuestoAutorizado}">-->
-							<p:ajax event="blur"
-								update=":form:messagepresupuestoAutorizadoCrear" />
-						</p:inputText>
-						<p:message id="messagepresupuestoAutorizadoCrear"
-							for="presupuestoAutorizadoCrear" />
-
-						<p:panelGrid columns="4" columnClasses="ui-grid-col-3"
-							layout="grid"
-							styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
-
-							<p:spacer />
-
-							<p:commandButton icon="ui-icon-circle-check" update="@form"
-								value="Registrar"
-								action="#{presupuestoAutorizado.crearPresupuestoAutorizado()}" />
-
-							<p:commandButton icon="ui-icon-circle-close" update="form"
-								process="@this"
-								action="#{presupuestoAutorizado.regresarModulo()}"
-								styleClass="fm-btn-peligro fm-btn-elevado" value="Cancelar" />
-
-							<p:spacer />
-
-						</p:panelGrid>
-
-					</p:panelGrid>
-
-
-					<p:spacer />
-
-				</p:panelGrid>
-
-				<p:panelGrid columns="3" id="panelActualizar"
-					rendered="#{presupuestoAutorizado.view.panelActualizar}"
-					columnClasses="ui-grid-col-2, ui-grid-col-8, ui-grid-col-2"
-					layout="grid"
-					styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
-
-					<p:spacer />
-					<p:panelGrid columns="3"
+					<p:panelGrid layout="grid" id="formularioCrear"
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
 						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4"
-						layout="grid"
-						styleClass="ui-fluid ui-panelgrid-blank ui-responsive">
+					    rendered="#{presupuestoAutorizado.view.panelCrear}">
 
-						<f:facet name="header">
-							<h3>Actualizar Presupuesto Autorizado</h3>
+						<p:outputLabel for="urCrear" value="UR:" />
+						<p:inputText id="urCrear" required="true"
+							requiredMessage="UR: El valor es requerido"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.idUnidadResponsable}">
+							<p:ajax event="blur" update="msgUrCrear" />
+						</p:inputText>
+						<p:message id="msgUrCrear" for="urCrear" />
 
-						</f:facet>
-						<p:panelGrid layout="grid" id="formularioActualizar"
-							styleClass="ui-panelgrid-blank ui-fluid ui-responsive"
-							columns="3"
-							columnClasses="ui-grid-col-6, ui-grid-col-6, ui-grid-col-6">
+						<p:outputLabel for="finCrear" value="FIN:" />
+						<p:inputText id="finCrear" 
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.fin}">
+							<p:ajax event="blur" update="msgFinCrear" />
+						</p:inputText>
+						<p:message id="msgFinCrear" for="finCrear" />
 
-							<p:outputLabel for="urActualizar" value="UR:" />
-							<p:inputText id="urActualizar" required="true"
-								requiredMessage="UR: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.idUnidadResponsable}">
-								<p:ajax event="blur" update="msgUrActualizar" />
-							</p:inputText>
-							<p:message id="msgUrActualizar" for="urActualizar" />
+						<p:outputLabel for="fnCrear" value="FN:" />
+						<p:inputText id="fnCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.fn}">
+							<p:ajax event="blur" update="msgFnCrear" />
+						</p:inputText>
+						<p:message id="msgFnCrear" for="fnCrear" />
 
-							<p:outputLabel for="finActualizar" value="FIN:" />
-							<p:inputText id="finActualizar" required="true"
-								requiredMessage="FIN: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.fin}">
-								<p:ajax event="blur" update="msgFinActualizar" />
-							</p:inputText>
-							<p:message id="msgFinActualizar" for="finActualizar" />
+						<p:outputLabel for="sfCrear" value="SF:" />
+						<p:inputText id="sfCrear" required="true"
+							requiredMessage="SF: El valor es requerido"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.idSubfuenteFinanciamiento}">
+							<p:ajax event="blur" update="msgSfCrear" />
+						</p:inputText>
+						<p:message id="msgSfCrear" for="sfCrear" />
 
-							<p:outputLabel for="fnActualizar" value="FN:" />
-							<p:inputText id="fnActualizar" required="true"
-								requiredMessage="FN: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.fn}">
-								<p:ajax event="blur" update="msgFnActualizar" />
-							</p:inputText>
-							<p:message id="msgFnActualizar" for="fnActualizar" />
+						<p:outputLabel for="rgCrear" value="RG:" />
+						<p:inputText id="rgCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.rg}">
+							<p:ajax event="blur" update="msgRgCrear" />
+						</p:inputText>
+						<p:message id="msgRgCrear" for="rgCrear" />
 
-							<p:outputLabel for="sfActualizar" value="SF:" />
-							<p:inputText id="sfActualizar" required="true"
-								requiredMessage="SF: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.rg}">
-								<p:ajax event="blur" update="msgSfActualizar" />
-							</p:inputText>
-							<p:message id="msgSfActualizar" for="sfActualizar" />
+						<p:outputLabel for="aiCrear" value="AI:" />
+						<p:inputText id="aiCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.ai}">
+							<p:ajax event="blur" update="msgAiCrear" />
+						</p:inputText>
+						<p:message id="msgAiCrear" for="aiCrear" />
 
-							<p:outputLabel for="rgActualizar" value="RG:" />
-							<p:inputText id="rgActualizar" required="true"
-								requiredMessage="RG: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.idSubfuenteFinanciamiento}">
-								<p:ajax event="blur" update="msgRgActualizar" />
-							</p:inputText>
-							<p:message id="msgRgActualizar" for="rgActualizar" />
+						<p:outputLabel for="mppCrear" value="MPP:" />
+						<p:inputText id="mppCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.mpp}">
+							<p:ajax event="blur" update="msgMppCrear" />
+						</p:inputText>
+						<p:message id="msgMppCrear" for="mppCrear" />
 
-							<p:outputLabel for="aiActualizar" value="AI:" />
-							<p:inputText id="aiActualizar" required="true"
-								requiredMessage="AI: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ai}">
-								<p:ajax event="blur" update="msgAiActualizar" />
-							</p:inputText>
-							<p:message id="msgAiActualizar" for="aiActualizar" />
+						<p:outputLabel for="ppCrear" value="PP:" />
+						<p:inputText id="ppCrear" 
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.pp}">
+							<p:ajax event="blur" update="msgPpCrear" />
+						</p:inputText>
+						<p:message id="msgPpCrear" for="ppCrear" />
 
-							<p:outputLabel for="mppActualizar" value="MPP:" />
-							<p:inputText id="mppActualizar" required="true"
-								requiredMessage="MPP: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.mpp}">
-								<p:ajax event="blur" update="msgMppActualizar" />
-							</p:inputText>
-							<p:message id="msgMppActualizar" for="mppActualizar" />
+						<p:outputLabel for="ptdaCrear" value="PTDA:" />
+						<p:inputText id="ptdaCrear" required="true"
+							requiredMessage="PTDA: El valor es requerido"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.partida}">
+							<p:ajax event="blur" update="msgPtdaCrear" />
+						</p:inputText>
+						<p:message id="msgPtdaCrear" for="ptdaCrear" />
 
-							<p:outputLabel for="ppActualizar" value="PP:" />
-							<p:inputText id="ppActualizar" required="true"
-								requiredMessage="PP: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.pp}">
-								<p:ajax event="blur" update="msgPpActualizar" />
-							</p:inputText>
-							<p:message id="msgPpActualizar" for="ppActualizar" />
+						<p:outputLabel for="tgCrear" value="TG:" />
+						<p:inputText id="tgCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.tg}">
+							<p:ajax event="blur" update="msgTgCrear" />
+						</p:inputText>
+						<p:message id="msgTgCrear" for="tgCrear" />
 
-							<p:outputLabel for="ptdaActualizar" value="PTDA:" />
-							<p:inputText id="ptdaActualizar" required="true"
-								requiredMessage="PTDA: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.partida}">
-								<p:ajax event="blur" update="msgPtdaActualizar" />
-							</p:inputText>
-							<p:message id="msgPtdaActualizar" for="ptdaActualizar" />
+						<p:outputLabel for="ffCrear" value="FF:" />
+						<p:inputText id="ffCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.ff}">
+							<p:ajax event="blur" update="msgFfCrear" />
+						</p:inputText>
+						<p:message id="msgFfCrear" for="ffCrear" />
 
-							<p:outputLabel for="tgActualizar" value="TG:" />
-							<p:inputText id="tgActualizar" required="true"
-								requiredMessage="TG: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.tg}">
-								<p:ajax event="blur" update="msgTgActualizar" />
-							</p:inputText>
-							<p:message id="msgTgActualizar" for="tgActualizar" />
+						<p:outputLabel for="efCrear" value="EF:" />
+						<p:inputText id="efCrear" 
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.ef}">
+							<p:ajax event="blur" update="msgEfCrear" />
+						</p:inputText>
+						<p:message id="msgEfCrear" for="efCrear" />
 
-							<p:outputLabel for="ffActualizar" value="FF:" />
-							<p:inputText id="ffActualizar" required="true"
-								requiredMessage="FF: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ff}">
-								<p:ajax event="blur" update="msgFfActualizar" />
-							</p:inputText>
-							<p:message id="msgFfActualizar" for="ffActualizar" />
+						<p:outputLabel for="ppiiCrear" value="PPII:" />
+						<p:inputText id="ppiiCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.ppii}">
+							<p:ajax event="blur" update="msgPpiiCrear" />
+						</p:inputText>
+						<p:message id="msgPpiiCrear" for="ppiiCrear" />
 
-							<p:outputLabel for="efActualizar" value="EF:" />
-							<p:inputText id="efActualizar" required="true"
-								requiredMessage="EF: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ef}">
-								<p:ajax event="blur" update="msgEfActualizar" />
-							</p:inputText>
-							<p:message id="msgEfActualizar" for="efActualizar" />
+						<p:outputLabel for="importeAnualCrear" value="Importe Anual:" />
+						<p:inputText id="importeAnualCrear" placeholder="00.00"
+							required="true"
+							requiredMessage="Importe Anual: El valor es requerido"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.importeAnual}">
+							<p:ajax event="blur" update="msgImporteAnualCrear" />
+						</p:inputText>
+						<p:message id="msgImporteAnualCrear" for="importeAnualCrear" />
 
-							<p:outputLabel for="ppiiActualizar" value="PPII:" />
-							<p:inputText id="ppiiActualizar" required="true"
-								requiredMessage="PPII: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ppii}">
-								<p:ajax event="blur" update="msgPpiiActualizar" />
-							</p:inputText>
-							<p:message id="msgPpiiActualizar" for="ppiiActualizar" />
-
-							<p:outputLabel for="proyectoAnualActualizar"
-								value="Importe Anual:" />
-							<p:inputText id="proyectoAnualActualizar" placeholder="00.00"
-								required="true"
-								requiredMessage="Importe Anual: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.importeAnual}">
-								<p:ajax event="blur" update="msgProyectoAnualActualizar" />
-							</p:inputText>
-							<p:message id="msgProyectoAnualActualizar"
-								for="proyectoAnualActualizar" />
-
-							<p:outputLabel for="anioActualizar" value="Año:" />
-							<p:inputText id="anioActualizar" required="true"
-								requiredMessage="Año: El valor es requerido"
-								value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.anio}">
-								<p:ajax event="blur" update="msgAnioActualizar" />
-								<f:validateLength minimum="4" maximum="4" />
-							</p:inputText>
-							<p:message id="msgAnioActualizar" for="anioActualizar" />
-
-							<p:spacer />
-
-							<p:commandButton icon="ui-icon-circle-check" update="form"
-								value="Actualizar"
-								action="#{presupuestoAutorizado.actualizarPresupuestoAutorizado()}" />
-
-							<p:commandButton icon="ui-icon-circle-close" update="form"
-								process="@this" value="Cancelar"
-								action="#{presupuestoAutorizado.regresarModulo()}"
-								styleClass="fm-btn-peligro fm-btn-elevado" />
-
-							<p:spacer />
-						</p:panelGrid>
+						<p:outputLabel for="anioNuevo" value="Año:" />
+						<p:inputText id="anioNuevo" required="true"
+							requiredMessage="Año: El valor es requerido"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.anio}">
+							<p:ajax event="blur" update="msgAnioNuevo" />
+							<f:validateLength minimum="4" maximum="4" />
+						</p:inputText>
+						<p:message id="msgAnioNuevo" for="anioNuevo" />
 					</p:panelGrid>
+
 					<p:spacer />
-				</p:panelGrid>
+					<p:panelGrid id="opcionesCrear"
+						layout="grid" 
+						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
+						columnClasses="ui-grid-col-6, ui-grid-col-6"
+						rendered="#{presupuestoAutorizado.view.panelCrear}">
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							value="Registrar"
+							actionListener="#{presupuestoAutorizado.crearPresupuestoAutorizado()}" />
+
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							actionListener="#{presupuestoAutorizado.mostrarPrincipal()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</p:panelGrid>
+				</p:outputPanel>
+
+				<p:outputPanel rendered="#{presupuestoAutorizado.view.panelActualizar}">
+					<f:facet name="header">
+						<h3>Actualizar Presupuesto Autorizado</h3>
+					</f:facet>
+					<p:panelGrid layout="grid" id="formularioActualizar"
+						styleClass="ui-panelgrid-blank" columns="3"
+						columnClasses="ui-grid-col-4, ui-grid-col-4, ui-grid-col-4"
+						rendered="#{presupuestoAutorizado.view.panelActualizar}">
+
+						<p:outputLabel for="urActualizar" value="UR:" />
+						<p:inputText id="urActualizar"  required="true"
+							requiredMessage="UR: El valor es requerido"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.idUnidadResponsable}">
+							<p:ajax event="blur" update="msgUrActualizar" />
+						</p:inputText>
+						<p:message id="msgUrActualizar" for="urActualizar" />
+
+						<p:outputLabel for="finActualizar" value="FIN:" />
+						<p:inputText id="finActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.fin}">
+							<p:ajax event="blur" update="msgFinActualizar" />
+						</p:inputText>
+						<p:message id="msgFinActualizar" for="finActualizar" />
+
+						<p:outputLabel for="fnActualizar" value="FN:" />
+						<p:inputText id="fnActualizar" 
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.fn}">
+							<p:ajax event="blur" update="msgFnActualizar" />
+						</p:inputText>
+						<p:message id="msgFnActualizar" for="fnActualizar" />
+
+						<p:outputLabel for="sfActualizar" value="SF:" />
+						<p:inputText id="sfActualizar" required="true"
+							requiredMessage="SF: El valor es requerido"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.rg}">
+							<p:ajax event="blur" update="msgSfActualizar" />
+						</p:inputText>
+						<p:message id="msgSfActualizar" for="sfActualizar" />
+
+						<p:outputLabel for="rgActualizar" value="RG:" />
+						<p:inputText id="rgActualizar" 
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.idSubfuenteFinanciamiento}">
+							<p:ajax event="blur" update="msgRgActualizar" />
+						</p:inputText>
+						<p:message id="msgRgActualizar" for="rgActualizar" />
+
+						<p:outputLabel for="aiActualizar" value="AI:" />
+						<p:inputText id="aiActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ai}">
+							<p:ajax event="blur" update="msgAiActualizar" />
+						</p:inputText>
+						<p:message id="msgAiActualizar" for="aiActualizar" />
+
+						<p:outputLabel for="mppActualizar" value="MPP:" />
+						<p:inputText id="mppActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.mpp}">
+							<p:ajax event="blur" update="msgMppActualizar" />
+						</p:inputText>
+						<p:message id="msgMppActualizar" for="mppActualizar" />
+
+						<p:outputLabel for="ppActualizar" value="PP:" />
+						<p:inputText id="ppActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.pp}">
+							<p:ajax event="blur" update="msgPpActualizar" />
+						</p:inputText>
+						<p:message id="msgPpActualizar" for="ppActualizar" />
+
+						<p:outputLabel for="ptdaActualizar" value="PTDA:" />
+						<p:inputText id="ptdaActualizar" required="true"
+							requiredMessage="PTDA: El valor es requerido"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.partida}">
+							<p:ajax event="blur" update="msgPtdaActualizar" />
+						</p:inputText>
+						<p:message id="msgPtdaActualizar" for="ptdaActualizar" />
+
+						<p:outputLabel for="tgActualizar" value="TG:" />
+						<p:inputText id="tgActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.tg}">
+							<p:ajax event="blur" update="msgTgActualizar" />
+						</p:inputText>
+						<p:message id="msgTgActualizar" for="tgActualizar" />
+
+						<p:outputLabel for="ffActualizar" value="FF:" />
+						<p:inputText id="ffActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ff}">
+							<p:ajax event="blur" update="msgFfActualizar" />
+						</p:inputText>
+						<p:message id="msgFfActualizar" for="ffActualizar" />
+
+						<p:outputLabel for="efActualizar" value="EF:" />
+						<p:inputText id="efActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ef}">
+							<p:ajax event="blur" update="msgEfActualizar" />
+						</p:inputText>
+						<p:message id="msgEfActualizar" for="efActualizar" />
+
+						<p:outputLabel for="ppiiActualizar" value="PPII:" />
+						<p:inputText id="ppiiActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.ppii}">
+							<p:ajax event="blur" update="msgPpiiActualizar" />
+						</p:inputText>
+						<p:message id="msgPpiiActualizar" for="ppiiActualizar" />
+
+						<p:outputLabel for="proyectoAnualActualizar"
+							value="Importe Anual:" />
+						<p:inputText id="proyectoAnualActualizar" placeholder="00.00"
+							required="true"
+							requiredMessage="Importe Anual: El valor es requerido"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.importeAnual}">
+							<p:ajax event="blur" update="msgProyectoAnualActualizar" />
+						</p:inputText>
+						<p:message id="msgProyectoAnualActualizar"
+							for="proyectoAnualActualizar" />
+
+						<p:outputLabel for="anioActualizar" value="Año:" />
+						<p:inputText id="anioActualizar" required="true"
+							requiredMessage="Año: El valor es requerido"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.anio}">
+							<p:ajax event="blur" update="msgAnioActualizar" />
+							<f:validateLength minimum="4" maximum="4" />
+						</p:inputText>
+						<p:message id="msgAnioActualizar" for="anioActualizar" />
+
+						<p:spacer />
+
+						<p:commandButton icon="ui-icon-circle-check" update="form"
+							value="Actualizar"
+							action="#{presupuestoAutorizado.actualizarPresupuestoAutorizado()}" />
+
+						<p:commandButton icon="ui-icon-circle-close" update="form"
+							process="@this" value="Cancelar"
+							action="#{presupuestoAutorizado.regresarModulo()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+
+						<p:spacer />
+					</p:panelGrid>
+				</p:outputPanel>
 
 				<p:dialog
 					header="¿Quiere Eliminar el Presupuesto Autorizado Seleccionado?"
-					visible="#{presupuestoAutorizado.view.dialogEliminar}" modal="true"
+					modal="true"
 					showEffect="Slide" hideEffect="Drop">
 
 					<div align="right">

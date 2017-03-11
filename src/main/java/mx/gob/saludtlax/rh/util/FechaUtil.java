@@ -430,6 +430,9 @@ public class FechaUtil {
         if (anyoInicio == anyoFin) {
             if (mesInicio == mesFin) {
                 if (diaInicio < diaFin) {
+                    numeroPeriodos = 2;
+                }
+                if (diaInicio == diaFin) {
                     numeroPeriodos = 1;
                 }
             } else {

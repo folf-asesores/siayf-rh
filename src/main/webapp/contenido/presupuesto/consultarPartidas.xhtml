@@ -105,7 +105,6 @@
 				                 styleClass="fm-btn-elevado"
 				               	 onsuccess="PF(`statusDialog`).hide()"
 				 	             onstart="PF(`statusDialog`).show()" 
-				 	             action="#{consultarPartida.consultarPartidasPorDependencia()}" 
 							     process="@this, :form:dependencia"
 								 update=":form"/>			 
 								 
@@ -119,8 +118,8 @@
 				<p:outputLabel  value="Inicio " />
 				<p:outputLabel  value="Fin " />	     				
 				
-				<p:outputLabel for="mesInicio" value="Mes: " />				
-				<p:selectOneMenu id="mesInicio"
+				<p:outputLabel for="quincenaInicio" value="Quincena: " />				
+				<p:selectOneMenu id="quincenaInicio"
 								 filter="true"
 								 filterMatchMode="contains"
 						         value="#{consultarPartida.view.listaQuincena}">
@@ -128,7 +127,7 @@
 				  	<f:selectItems value="#{consultarPartida.view.listaQuincena}" />
 				</p:selectOneMenu>
 				
-				<p:selectOneMenu id="mesFin"
+				<p:selectOneMenu id="quincenaFin"
 					             filter="true"
 								 filterMatchMode="contains"
 								 value="#{consultarPartida.view.listaQuincena}">
