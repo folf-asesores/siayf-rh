@@ -54,6 +54,11 @@ public class ConsultarPartidaEJB {
         // TODO Auto-generated method stub
         return consultarPartidaService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
     }
+    public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(Integer dependencia)
+            throws ReglaNegocioException {
+        // TODO Auto-generated method stub
+        return consultarPartidaService.consultarPartidasPorDependencia(dependencia);
+    }
     
     public static List<SelectItem> listaQuincena() {
 		List<SelectItem> lista = new ArrayList<SelectItem>();

@@ -25,18 +25,22 @@
 				autoUpdate="true" closable="true" globalOnly="true" />
 
 			<p:panelGrid layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
+						 columnClasses=" ui-grid-col-3, ui-grid-col-5, ui-grid-col-4">
 
 				<p:outputLabel for="criterio" value="Año de presupuesto: " />
-				<p:inputText id="criterio"
-					value="#{proyeccionesPresupuestales.view.anioPresupuesto}"
-					placeholder="Ingrese un criterio de búsqueda">
+				<p:inputText id="criterio" 
+						     required="true"
+							 requiredMessage="El año es un valor requerido"
+							 value="#{proyeccionesPresupuestales.view.anioPresupuesto}"
+							 placeholder="Ingrese un criterio de búsqueda">
+					<p:ajax event="blur" update="msgCriterio" />
 				</p:inputText>
+				<p:message id="msgCriterio" for="criterio" />
 
 				<p:outputLabel for="nombramiento" value="Nombramiento: " />
 				<p:selectOneMenu id="nombramiento"
-					value="#{proyeccionesPresupuestales.view.idTipoNombramiento}">
+								 value="#{proyeccionesPresupuestales.view.idTipoNombramiento}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
 						value="#{proyeccionesPresupuestales.view.listaTipoNombramiento}"
@@ -45,16 +49,20 @@
 						itemLabel="#{tipoNombramiento.descripcion}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
-				
-			<p:panelGrid layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5">
 
-				<p:commandButton value="Buscar" icon="ui-icon-search"
-					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
-					onstart="PF(`statusDialog`).show()"
-					action="#{proyeccionesPresupuestales.obtenerProyeccionesPresupuestales()}"
-					ajax="false" update="form" />
+			<p:panelGrid layout="grid"
+						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+						 columns="2"
+						 columnClasses=" ui-grid-col-2, ui-grid-col-5">
+
+				<p:commandButton value="Buscar" 
+							     icon="ui-icon-search"
+								 styleClass="fm-btn-elevado" 
+								 onsuccess="PF(`statusDialog`).hide()"
+								 onstart="PF(`statusDialog`).show()"
+								 action="#{proyeccionesPresupuestales.obtenerProyeccionesPresupuestales()}"
+								 process="@this, :form:nombramiento" 
+								 update=":form" />
 			</p:panelGrid>
 
 			<p:dataTable id="listaProyecciones"
@@ -64,47 +72,47 @@
 
 				<f:facet name="header">
 
-			<p:panelGrid layout="grid"
+					<p:panelGrid layout="grid"
 						rendered="#{proyeccionesPresupuestales.view.mostrarOpcionDescarga}"
 						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
 						columnClasses=" ui-grid-col-8, ui-grid-col-2, ui-grid-col-2">
 						<p:spacer />
-				<p:commandButton value="Descargar Contrato"
+						<p:commandButton value="Descargar Contrato"
 							icon="fm-icon-download" update="@form" iconPos="right"
 							ajax="false"
 							action="#{proyeccionesPresupuestales.descargarContrato()}"
 							oncomplete="mymessages();" />
-				<p:commandButton value="Descargar Proyección"
+						<p:commandButton value="Descargar Proyección"
 							icon="fm-icon-download" update="@form" iconPos="right"
 							ajax="false"
 							action="#{proyeccionesPresupuestales.descargarContratoProyeccion()}"
 							oncomplete="mymessages();" />
-			</p:panelGrid>
+					</p:panelGrid>
 
 				</f:facet>
 
-			<p:column headerText="Partida" style="width:20%; ">
+				<p:column headerText="Partida" style="width:20%; ">
 					<p:commandLink id="partidaProyecciones" update="form"
 						actionListener="#{proyeccionesPresupuestales.seleccionarEdicionProyeccion(proyeccion)}">
 						<h:outputText id="idPartida#{proyeccion.partida}"
 							value="#{proyeccion.partida}" style="font-size:12px !important">
 						</h:outputText>
-			</p:commandLink>
-			</p:column>
+					</p:commandLink>
+				</p:column>
 
-			<p:column headerText="Enero" style="width:8%;">
+				<p:column headerText="Enero" style="width:8%;">
 					<h:outputText value="#{proyeccion.enero}"
 						style="font-size:12px !important">
 						<f:convertNumber currencySymbol="$" type="currency" />
 					</h:outputText>
-			</p:column>
+				</p:column>
 
-			<p:column headerText="Febrero" style="width:8%;">
+				<p:column headerText="Febrero" style="width:8%;">
 					<h:outputText value="#{proyeccion.febrero}"
 						style="font-size:12px !important">
 						<f:convertNumber currencySymbol="$" type="currency" />
 					</h:outputText>
-			</p:column>
+				</p:column>
 
 				<p:column headerText="Marzo" style="width:8%;">
 					<h:outputText value="#{proyeccion.marzo}"

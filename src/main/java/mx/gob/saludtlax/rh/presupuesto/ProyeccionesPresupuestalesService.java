@@ -46,29 +46,29 @@ public class ProyeccionesPresupuestalesService implements Serializable{
         return list;
     }
     
-    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento) {
-		Session session = entityManager.unwrap(Session.class);
-		
-		Query query = session.createSQLQuery(""
-                + " SELECT "
-                + " COUNT(id_nombramiento) "
-                + " FROM acumulado_partida "
-                + " WHERE "
-                + " id_nombramiento = :tipoNombramiento "
-                + " GROUP BY id_nombramiento")
-                  .setParameter("tipoNombramiento", tipoNombramiento);
-          BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
-      if (numeroNombramientos!= null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
-		 query = session.createSQLQuery("CALL usp_obtener_partidas_por_tipo_nombramiento(:tipoNombramiento) ")
-				.setParameter("tipoNombramiento", tipoNombramiento);
-		query.setResultTransformer(Transformers.aliasToBean(ProyeccionesPresupuestalesDTO.class));
-		@SuppressWarnings("unchecked")
-		List<ProyeccionesPresupuestalesDTO> list = query.list();
-		return list;
-      }else{
-          throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
-      }
-	}
+//    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento) {
+//		Session session = entityManager.unwrap(Session.class);
+//		
+//		Query query = session.createSQLQuery(""
+//                + " SELECT "
+//                + " COUNT(id_nombramiento) "
+//                + " FROM acumulado_partida "
+//                + " WHERE "
+//                + " id_nombramiento = :tipoNombramiento "
+//                + " GROUP BY id_nombramiento")
+//                  .setParameter("tipoNombramiento", tipoNombramiento);
+//          BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
+//      if (numeroNombramientos!= null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
+//		 query = session.createSQLQuery("CALL usp_obtener_partidas_por_tipo_nombramiento(:tipoNombramiento) ")
+//				.setParameter("tipoNombramiento", tipoNombramiento);
+//		query.setResultTransformer(Transformers.aliasToBean(ProyeccionesPresupuestalesDTO.class));
+//		@SuppressWarnings("unchecked")
+//		List<ProyeccionesPresupuestalesDTO> list = query.list();
+//		return list;
+//      }else{
+//          throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
+//      }
+//	}
 
     public List<ProyeccionesPresupuestalesDTO> obtenerProyeccionesMensuales(Integer anioPresupuesto,
             Integer idTipoNombramiento) {

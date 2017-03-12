@@ -18,6 +18,8 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ManagedBean(name = "presupuestoAutorizado")
 @ViewScoped
 public class PresupuestoAutorizadoController implements Serializable {
+	
+	
 	private static final long serialVersionUID = 2116402280296565216L;
 	 
 	@Inject
@@ -28,9 +30,17 @@ public class PresupuestoAutorizadoController implements Serializable {
 	
 	@PostConstruct
 	private void init() {
-		view = new PresupuestoAutorizadoView();
-		obtenerListaPresupuestoAutorizado();
-		view.setPanelPrincipal(true);
+		this.view = new PresupuestoAutorizadoView();
+		mostrarPrincipal();
+	}
+	
+	public void vistaPrincipal() {
+		this.view.setListaPresupuestoAutorizado(presupuestoAutorizado.obtenerListaPresupuestoAutorizado());
+		this.view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		this.view.setPanelPrincipal(true);
+		this.view.setPanelCrear(false);
+		this.view.setPanelActualizar(false);
 	}
 
 	public void obtenerListaPresupuestoAutorizado() {
@@ -41,9 +51,13 @@ public class PresupuestoAutorizadoController implements Serializable {
 	
 	public void crearPresupuestoAutorizado() {
 		try {
-			presupuestoAutorizado.crearPresupuestoAutorizado(view.getCreaPresupuestoAutorizado());
+			
+			presupuestoAutorizado.crearPresupuestoAutorizado(this.view.getCreaPresupuestoAutorizado());
+			
 			mostrarPrincipal();
+			
 			JSFUtils.infoMessage("Registro Correcto","¡Se registro correctamente!");
+		
 		} catch (ReglaNegocioException | ValidacionException e) {
 			JSFUtils.errorMessage("Error: ", e.getMessage());
 		}
@@ -51,9 +65,13 @@ public class PresupuestoAutorizadoController implements Serializable {
 
 	public void actualizarPresupuestoAutorizado() {
 		try {
+			
 			presupuestoAutorizado.actualizarPresupuestoAutorizado(view.getActualizarPresupuestoAutorizado());
-			JSFUtils.infoMessage("Actualización Correcta","");
+			
 			mostrarPrincipal();
+			
+			JSFUtils.infoMessage("Actualización Correcta","¡Se actualizo correctamente!");
+			
 		} catch (ReglaNegocioException | ValidacionException e) {
 			JSFUtils.errorMessage("Error: ", e.getMessage());
 		}
@@ -61,42 +79,46 @@ public class PresupuestoAutorizadoController implements Serializable {
 
 	public void eliminarPresupuestoAutorizado() {
 		try {
+			
 			presupuestoAutorizado.eliminarPresupuestoAutorizado(view.getIdPresupuestoAutorizadoSeleccionado());
-			JSFUtils.infoMessage("Eliminación Correcta","");
+			
 			mostrarPrincipal();
+			
+			JSFUtils.infoMessage("Eliminación Correcta","¡Se elimino correctamente!");
+			
 		} catch (ReglaNegocioException | ValidacionException e) {
 			JSFUtils.errorMessage("Error: ", e.getMessage());
 		}
 	}
 	
 	public void mostrarNuevoRegistro() {
-		view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		view.setPanelPrincipal(false);
-		view.setPanelCrear(true);
-		view.setPanelActualizar(false);
+		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		this.view.setPanelPrincipal(false);
+		this.view.setPanelCrear(true);
+		this.view.setPanelActualizar(false);
 	}
 
 	public void mostrarActualizacion(PresupuestoAutorizadoDTO dto) {
-		view.setActualizarPresupuestoAutorizado(dto);
-		view.setPanelPrincipal(false);
-		view.setPanelCrear(false);
-		view.setPanelActualizar(true);
+		this.view.setActualizarPresupuestoAutorizado(dto);
+		this.view.setPanelPrincipal(false);
+		this.view.setPanelCrear(false);
+		this.view.setPanelActualizar(true);
 	}
 
 	public void mostrarDialogEliminar(Integer idPresupuestoAutorizado) {
-		view.setIdPresupuestoAutorizadoSeleccionado(idPresupuestoAutorizado);
-		view.setPanelPrincipal(false);
-		view.setPanelCrear(false);
-		view.setPanelActualizar(false);
+		this.view.setIdPresupuestoAutorizadoSeleccionado(idPresupuestoAutorizado);
+		this.view.setPanelPrincipal(false);
+		this.view.setPanelCrear(false);
+		this.view.setPanelActualizar(false);
 	}
 
 	public void mostrarPrincipal() {
-		view.setIdPresupuestoAutorizadoSeleccionado(0);
-		view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
-		view.setPanelPrincipal(true);
-		view.setPanelCrear(false);
-		view.setPanelActualizar(false);
+		this.view.setIdPresupuestoAutorizadoSeleccionado(0);
+		this.view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
+		this.view.setPanelPrincipal(true);
+		this.view.setPanelCrear(false);
+		this.view.setPanelActualizar(false);
 		obtenerListaPresupuestoAutorizado();
 	}
 	

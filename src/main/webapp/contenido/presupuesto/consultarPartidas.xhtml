@@ -26,8 +26,9 @@
 				autoUpdate="true" closable="true" globalOnly="true" />
 
 			<p:panelGrid layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+						 columns="3"
+						 columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
 
 			<p:outputLabel for="rfc" value="RFC: " />
 				<p:outputPanel>
@@ -54,6 +55,8 @@
 
 				<p:outputLabel for="unidadResponsable" value="Unidad Responsable: " />
 				<p:selectOneMenu id="unidadResponsable"
+								 filter="true"
+								 filterMatchMode="contains"
 					value="#{consultarPartida.view.idUnidadResponsable}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
@@ -73,6 +76,8 @@
 
 				<p:outputLabel for="nombramiento" value="Nombramiento: " />
 				<p:selectOneMenu id="nombramiento"
+								 filter="true"
+								 filterMatchMode="contains"
 					value="#{consultarPartida.view.idTipoNombramiento}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
@@ -92,6 +97,8 @@
 								 
 				<p:outputLabel for="dependencia" value="Dependencia: " />
 				<p:selectOneMenu id="dependencia" 
+								 filter="true"
+								 filterMatchMode="contains"
 			 		value="#{consultarPartida.view.idDependencia}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
@@ -105,6 +112,7 @@
 				                 styleClass="fm-btn-elevado"
 				               	 onsuccess="PF(`statusDialog`).hide()"
 				 	             onstart="PF(`statusDialog`).show()" 
+				 	             action="#{consultarPartida.consultarPartidasPorDependencia()}"
 							     process="@this, :form:dependencia"
 								 update=":form"/>			 
 								 

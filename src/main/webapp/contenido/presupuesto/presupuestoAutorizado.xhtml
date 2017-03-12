@@ -128,16 +128,19 @@
 							<p:commandButton icon="ui-icon-pencil" iconPos="right"
 								title="Actualizar" update="form"
 								action="#{presupuestoAutorizado.mostrarActualizacion(p)}"
-								styleClass="fm-btn-exitoso fm-btn-elevado" process="form" />
+								styleClass="fm-btn-exitoso fm-btn-elevado"/>
 	
 							<p:commandButton icon="ui-icon-trash" update="form"
 								title="Eliminar Presupuesto Autorizado"
-								styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
-								action="#{presupuestoAutorizado.mostrarDialogEliminar(s.idpresupuestoAutorizado)}" />
+								styleClass="fm-btn-peligro fm-btn-elevado"
+								action="#{presupuestoAutorizado.mostrarDialogEliminar(p.idPresupuestoAutorizado)}" >
+								
+							<p:confirm header="Confirmación"
+								message="¿Desea eliminar el registro?" icon="ui-icon-alert" />
+						</p:commandButton>	
 	
 						</p:column>
 					</p:dataTable>
-					<p:spacer />
 				</p:outputPanel>
 
 				<p:outputPanel rendered="#{presupuestoAutorizado.view.panelCrear}">

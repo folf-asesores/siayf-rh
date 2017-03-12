@@ -1,4 +1,5 @@
 package mx.gob.saludtlax.rh.persistencia;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -15,7 +16,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "presupuesto_autorizado")
-public class PresupuestoAutorizadoEntity {
+public class PresupuestoAutorizadoEntity implements Serializable{
+	
 	private static final long serialVersionUID = 7212628000214644356L;
 	
 	@Id
@@ -179,7 +181,7 @@ public class PresupuestoAutorizadoEntity {
 		return ppii;
 	}
 
-	public void setPpi(Integer ppi) {
+	public void setPpii(Integer ppii) {
 		this.ppii = ppii;
 	}
 
@@ -205,6 +207,10 @@ public class PresupuestoAutorizadoEntity {
 
 	public void setAnio(Integer anio) {
 		this.anio = anio;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	

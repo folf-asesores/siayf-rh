@@ -57,6 +57,7 @@ public class ProyeccionesPresupuestalesController {
 			JSFUtils.infoMessage(e.getMessage(), "");
 			view.setMostrarPrincipal(false);
 			this.view.setMostrarOpcionDescarga(false);
+			JSFUtils.infoMessage(e.getMessage(), "");
 		}
 		view.setMostrarProyeccion(false);
 		return null;

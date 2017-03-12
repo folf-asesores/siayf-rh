@@ -1,6 +1,5 @@
 package mx.gob.saludtlax.rh.presupuesto.presupuestoautorizado;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 /**
  * 
@@ -8,18 +7,21 @@ import java.util.List;
  *
  */
 public class PresupuestoAutorizadoView  implements Serializable{
+	
 	private static final long serialVersionUID = 7019453037498661233L;
 
-	private List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado = new ArrayList<>();
+	private List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado;
 
-	private PresupuestoAutorizadoDTO creaPresupuestoAutorizado = new PresupuestoAutorizadoDTO();
+	private PresupuestoAutorizadoDTO creaPresupuestoAutorizado;
 
-	private PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado = new PresupuestoAutorizadoDTO();
+	private PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado;
 
 	private Integer idPresupuestoAutorizadoSeleccionado;
 	
 	private boolean panelPrincipal;
+	
 	private boolean panelCrear;
+	
 	private boolean panelActualizar;
 
 	public List<PresupuestoAutorizadoDTO> getListaPresupuestoAutorizado() {

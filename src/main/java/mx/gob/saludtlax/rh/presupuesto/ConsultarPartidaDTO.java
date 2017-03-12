@@ -14,6 +14,7 @@ public class ConsultarPartidaDTO implements Serializable {
 	private Integer idUnidadResponsable;
 	private Integer idNombramiento;
 	private Integer idPartida;
+	private Integer idDependencia;
 
 	private String unidadResponsable;
 	private String nombramiento;
@@ -183,6 +184,14 @@ public class ConsultarPartidaDTO implements Serializable {
 
 	public void setDiciembre(BigDecimal diciembre) {
 		this.diciembre = diciembre;
+	}
+
+	public Integer getIdDependencia() {
+		return idDependencia;
+	}
+
+	public void setIdDependencia(Integer idDependencia) {
+		this.idDependencia = idDependencia;
 	}
 
 	public BigDecimal getTotal() {

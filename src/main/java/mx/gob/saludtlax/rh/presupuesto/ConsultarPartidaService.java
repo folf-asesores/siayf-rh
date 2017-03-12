@@ -81,4 +81,28 @@ public class ConsultarPartidaService implements Serializable {
           throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
       }
 	}
+	
+	public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(Integer dependencia) {
+		Session session = entityManager.unwrap(Session.class);
+		
+		Query query = session.createSQLQuery(""
+                + " SELECT "
+                + " COUNT(id_dependencia) "
+                + " FROM acumulado_partida "
+                + " WHERE "
+                + " id_dependencia = :dependencia "
+                + " GROUP BY id_dependencia")
+                  .setParameter("dependencia", dependencia);
+          BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
+      if (numeroNombramientos!= null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
+		 query = session.createSQLQuery("CALL usp_obtener_partidas_por_dependencia(:dependencia) ")
+				.setParameter("tipoNombramiento", dependencia);
+		query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
+		@SuppressWarnings("unchecked")
+		List<ConsultarPartidaDTO> list = query.list();
+		return list;
+      }else{
+          throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
+      }
+	}
 }
