@@ -26,10 +26,10 @@
 
 			<p:panelGrid layout="grid"
 				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+				columnClasses=" ui-grid-col-3, ui-grid-col-5">
 
 				<p:outputLabel for="criterio" 
-				               value="Año de presupuesto: " />
+				               value="Año base del presupuesto: " />
 			  	  <p:inputText id="criterio" 
 				               placeholder="Ingrese un criterio de búsqueda"
 					           value="#{distribucionPresupuesto.view.anioPresupuesto}">
@@ -56,16 +56,6 @@
 						itemValue="#{tipoNombramiento.idTipoNombramiento}"
 						itemLabel="#{tipoNombramiento.descripcion}" />
 				</p:selectOneMenu>
-				
-				<p:outputLabel for="partida" 
-				               value="Partida: "/>
-			  	  <p:inputText id="partida"
-							   value="#{distribucionPresupuesto.view.proyeccionPresupuestal.partida}"/>
-				
-				<p:outputLabel for="subfuente" 
-				               value="Subfuente: "/>
-				  <p:inputText id="subfuente"
-							   value="#{distribucionPresupuesto.view.proyeccionPresupuestal.subfuenteFinanciamiento}"/>
 			</p:panelGrid>
 				
 		 	<p:panelGrid layout="grid"
@@ -112,6 +102,13 @@
 							value="#{proyeccion.partida}" style="font-size:12px !important">
 						</h:outputText>
 			</p:commandLink>
+			</p:column>
+			
+			<p:column headerText="Total" style="width:8%;">
+					<h:outputText value="#{distribucion.total}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
 			</p:column>
 
 			<p:column headerText="Enero" style="width:8%;">

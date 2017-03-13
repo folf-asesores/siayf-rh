@@ -15,9 +15,6 @@ public class PresupuestoAutorizadoView  implements Serializable{
 	private PresupuestoAutorizadoDTO creaPresupuestoAutorizado;
 
 	private PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado;
-
-	private Integer idPresupuestoAutorizadoSeleccionado;
-	
 	private boolean panelPrincipal;
 	
 	private boolean panelCrear;
@@ -41,12 +38,6 @@ public class PresupuestoAutorizadoView  implements Serializable{
 	}
 	public void setActualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado) {
 		this.actualizarPresupuestoAutorizado = actualizarPresupuestoAutorizado;
-	}
-	public Integer getIdPresupuestoAutorizadoSeleccionado() {
-		return idPresupuestoAutorizadoSeleccionado;
-	}
-	public void setIdPresupuestoAutorizadoSeleccionado(Integer idPresupuestoAutorizadoSeleccionado) {
-		this.idPresupuestoAutorizadoSeleccionado = idPresupuestoAutorizadoSeleccionado;
 	}
 	public boolean isPanelPrincipal() {
 		return panelPrincipal;

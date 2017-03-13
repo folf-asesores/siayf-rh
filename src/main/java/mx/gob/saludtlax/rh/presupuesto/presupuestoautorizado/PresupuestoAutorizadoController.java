@@ -76,20 +76,6 @@ public class PresupuestoAutorizadoController implements Serializable {
 			JSFUtils.errorMessage("Error: ", e.getMessage());
 		}
 	}
-
-	public void eliminarPresupuestoAutorizado() {
-		try {
-			
-			presupuestoAutorizado.eliminarPresupuestoAutorizado(view.getIdPresupuestoAutorizadoSeleccionado());
-			
-			mostrarPrincipal();
-			
-			JSFUtils.infoMessage("Eliminación Correcta","¡Se elimino correctamente!");
-			
-		} catch (ReglaNegocioException | ValidacionException e) {
-			JSFUtils.errorMessage("Error: ", e.getMessage());
-		}
-	}
 	
 	public void mostrarNuevoRegistro() {
 		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
@@ -105,15 +91,13 @@ public class PresupuestoAutorizadoController implements Serializable {
 		this.view.setPanelActualizar(true);
 	}
 
-	public void mostrarDialogEliminar(Integer idPresupuestoAutorizado) {
-		this.view.setIdPresupuestoAutorizadoSeleccionado(idPresupuestoAutorizado);
-		this.view.setPanelPrincipal(false);
-		this.view.setPanelCrear(false);
-		this.view.setPanelActualizar(false);
+	public void eliminarPresupuestoAutorizado(Integer idPresupuestoAutorizado) {
+		presupuestoAutorizado.eliminarPresupuestoAutorizado(idPresupuestoAutorizado);
+		JSFUtils.infoMessage("Eliminación Correcta","¡Se elimino correctamente!");
+		mostrarPrincipal();
 	}
 
 	public void mostrarPrincipal() {
-		this.view.setIdPresupuestoAutorizadoSeleccionado(0);
 		this.view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
 		this.view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
 		this.view.setPanelPrincipal(true);

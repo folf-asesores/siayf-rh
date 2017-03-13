@@ -82,7 +82,7 @@ public class PresupuestoAutorizadoService implements Serializable  {
 		if (!entities.isEmpty()) {
 			for (PresupuestoAutorizadoEntity presupuestoAutorizadoEntity : entities) {
 				PresupuestoAutorizadoDTO dto = new PresupuestoAutorizadoDTO();
-
+				dto.setIdPresupuestoAutorizado(presupuestoAutorizadoEntity.getIdPresupuestoAutorizado());
 				dto.setIdUnidadResponsable(presupuestoAutorizadoEntity.getIdUnidadResponsable());
 				dto.setFin(presupuestoAutorizadoEntity.getFin());
 				dto.setFn(presupuestoAutorizadoEntity.getFn());
