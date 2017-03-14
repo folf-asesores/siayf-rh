@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-14T09:27:16 -->
+<!-- 2017-03-14T13:13:52 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales" pageWidth="2300" pageHeight="640" orientation="Landscape" columnWidth="2280" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" whenResourceMissingType="Empty" uuid="354d94ec-da49-4f79-8148-481f6f4e7176">
     <property name="net.sf.jasperreports.export.text.page.width" value="230"/>
     <property name="net.sf.jasperreports.export.text.page.height" value="64"/>
@@ -127,6 +127,9 @@
                     </subreportParameter>
                     <subreportParameter name="ID_PROGRAMA">
                         <subreportParameterExpression><![CDATA[$F{idPrograma}]]></subreportParameterExpression>
+                    </subreportParameter>
+                    <subreportParameter name="PENSION">
+                        <subreportParameterExpression><![CDATA[$F{pension}]]></subreportParameterExpression>
                     </subreportParameter>
                     <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
                     <returnValue subreportVariable="TOTAL_PERCEPCIONES_POR_PROGRAMA" toVariable="PERCEPCIONES_POR_PROGRAMA" calculation="Sum"/>
