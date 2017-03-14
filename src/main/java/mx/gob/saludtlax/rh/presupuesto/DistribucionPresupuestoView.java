@@ -13,6 +13,7 @@ public class DistribucionPresupuestoView {
 	private List<DependenciaDTO> listaDependencia;
 	private List<SubfuenteFinanciamientoDTO> listaSubfuente;
 	private List<UnidadResponsableDTO> listaUnidadResponsable;
+	private List<DistribucionPresupuestoDTO> listaDistribucionPresupuesto;
 	private ProyeccionesPresupuestalesDTO proyeccionPresupuestal;
 	private DistribucionPresupuestoDTO distribucionPresupuesto;
 	private Boolean mostrarDistribucion;
@@ -20,12 +21,10 @@ public class DistribucionPresupuestoView {
     private Integer anioPresupuesto;
     private Integer idTipoNombramiento;
     private Integer idDependencia;
-    private Integer idSubfuenteFinanciamiento;
-    private Integer idUnidadResponsable;
     private Integer anio;
     
     
-    private boolean mostrarOpcionDescarga = false;
+    private boolean mostrarOpcionDescarga;
     
     
     /***********Getters and Setters************/
@@ -101,23 +100,17 @@ public class DistribucionPresupuestoView {
 	public void setListaSubfuente(List<SubfuenteFinanciamientoDTO> listaSubfuente) {
 		this.listaSubfuente = listaSubfuente;
 	}
-	public Integer getIdSubfuenteFinanciamiento() {
-		return idSubfuenteFinanciamiento;
-	}
-	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
-		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
-	}
 	public List<UnidadResponsableDTO> getListaUnidadResponsable() {
 		return listaUnidadResponsable;
 	}
 	public void setListaUnidadResponsable(List<UnidadResponsableDTO> listaUnidadResponsable) {
 		this.listaUnidadResponsable = listaUnidadResponsable;
 	}
-	public Integer getIdUnidadResponsable() {
-		return idUnidadResponsable;
+	public List<DistribucionPresupuestoDTO> getListaDistribucionPresupuesto() {
+		return listaDistribucionPresupuesto;
 	}
-	public void setIdUnidadResponsable(Integer idUnidadResponsable) {
-		this.idUnidadResponsable = idUnidadResponsable;
+	public void setListaDistribucionPresupuesto(List<DistribucionPresupuestoDTO> listaDistribucionPresupuesto) {
+		this.listaDistribucionPresupuesto = listaDistribucionPresupuesto;
 	}
 	/**
 	 * @return the mostrarOpcionDescarga

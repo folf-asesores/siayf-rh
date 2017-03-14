@@ -1,40 +1,90 @@
-package mx.gob.saludtlax.rh.presupuesto;
+package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class DistribucionPresupuestoDTO implements Serializable {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Table(name = "distribucion_presupuestal")
+@Entity
+public class DistribucionPresupuestoEntity implements Serializable{
+
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 2346097516770608127L;
+	private static final long serialVersionUID = 8482450829285727060L;
 
+	@Id
+	@Column(name = "id_distribucion_presupuestal")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDistribucionPresupuestal;
-	private Integer idConsultaPartida;
-	private Integer idUnidadResponsable;
-	private Integer idNombramiento;
-	private Integer idPartida;	
-	private Integer idDependencia;
-	private Integer anio;
-	private String nombramiento;
-	private String partida;
-
-
-	private BigDecimal enero;
-	private BigDecimal febrero;
-	private BigDecimal marzo;
-	private BigDecimal abril;
-	private BigDecimal mayo;
-	private BigDecimal junio;
-	private BigDecimal julio;
-	private BigDecimal agosto;
-	private BigDecimal septiembre;
-	private BigDecimal octubre;
-	private BigDecimal noviembre;
-	private BigDecimal diciembre;
-	private BigDecimal total;
 	
+	@Column (name = "id_consulta_partida")
+	private Integer idConsultaPartida;
+	
+	@Column (name = "id_unidad_responsable")
+	private Integer idUnidadResponsable;
+	
+	@Column (name = "id_nombramiento")
+	private Integer idNombramiento;
+	
+	@Column (name = "id_partida")
+	private Integer idPartida;
+	
+	@Column (name = "partida")
+	private String partida;
+	
+	@Column (name = "id_dependencia")
+	private String idDependencia;
+		
+	@Column (name = "enero")
+	private BigDecimal enero;
+	
+	@Column (name = "febrero")
+	private BigDecimal febrero;
+	
+	@Column (name = "marzo")
+	private BigDecimal marzo;
+	
+	@Column (name = "abril")
+	private BigDecimal abril;
+	
+	@Column (name = "mayo")
+	private BigDecimal mayo;
+	
+	@Column (name = "junio")
+	private BigDecimal junio;
+	
+	@Column (name = "julio")
+	private BigDecimal julio;
+	
+	@Column (name = "agosto")
+	private BigDecimal agosto;
+	
+	@Column (name = "septiembre")
+	private BigDecimal septiembre;
+	
+	@Column (name = "octubre")
+	private BigDecimal octubre;
+	
+	@Column (name = "noviembre")
+	private BigDecimal noviembre;
+	
+	@Column (name = "diciembre")
+	private BigDecimal diciembre;
+	
+	@Column (name = "anio")
+	private Integer anio;
+	
+	@Column (name = "total")
+	private BigDecimal total;
+
 	public Integer getIdDistribucionPresupuestal() {
 		return idDistribucionPresupuestal;
 	}
@@ -75,36 +125,20 @@ public class DistribucionPresupuestoDTO implements Serializable {
 		this.idPartida = idPartida;
 	}
 
-	public Integer getIdDependencia() {
-		return idDependencia;
-	}
-
-	public void setIdDependencia(Integer idDependencia) {
-		this.idDependencia = idDependencia;
-	}
-
-	public Integer getAnio() {
-		return anio;
-	}
-
-	public void setAnio(Integer anio) {
-		this.anio = anio;
-	}
-
-	public String getNombramiento() {
-		return nombramiento;
-	}
-
-	public void setNombramiento(String nombramiento) {
-		this.nombramiento = nombramiento;
-	}
-
 	public String getPartida() {
 		return partida;
 	}
 
 	public void setPartida(String partida) {
 		this.partida = partida;
+	}
+
+	public String getIdDependencia() {
+		return idDependencia;
+	}
+
+	public void setIdDependencia(String idDependencia) {
+		this.idDependencia = idDependencia;
 	}
 
 	public BigDecimal getEnero() {
@@ -203,34 +237,20 @@ public class DistribucionPresupuestoDTO implements Serializable {
 		this.diciembre = diciembre;
 	}
 
-	/**
-	 * @return the total
-	 */
+	public Integer getAnio() {
+		return anio;
+	}
+
+	public void setAnio(Integer anio) {
+		this.anio = anio;
+	}
+
 	public BigDecimal getTotal() {
-
-		this.total = BigDecimal.ZERO;
-		
-		this.total = total.add(enero);
-		this.total = total.add(febrero);
-		this.total = total.add(marzo);
-		this.total = total.add(abril);
-		this.total = total.add(mayo);
-		this.total = total.add(junio);
-		this.total = total.add(julio);
-		this.total = total.add(agosto);
-		this.total = total.add(septiembre);
-		this.total = total.add(octubre);
-		this.total = total.add(noviembre);
-		this.total = total.add(diciembre);
-
 		return total;
 	}
 
-	/**
-	 * @param total
-	 *            the total to set
-	 */
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+	
 }
