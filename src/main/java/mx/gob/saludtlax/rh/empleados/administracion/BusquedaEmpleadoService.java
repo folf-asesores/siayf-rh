@@ -394,6 +394,7 @@ public class BusquedaEmpleadoService {
 		if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP) {
 			empleados = inventarioPuestosRepository.empleadosPorCriterio(filtroDTO.getCriterio());
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION) {
+
 			empleados = inventarioPuestosRepository.empleadosPorCriterioTipoContratacion(filtroDTO.getCriterio(),
 					filtroDTO.getId());
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.CRITERIO_COMBO_TODAS_ADSCRIPCIONES) {

@@ -54,7 +54,7 @@ public class EstructurasContratosController implements Serializable {
 	}
 
 	public void consultarEmpleado() {
-		view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
+		view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION);
 		view.getFiltro().setId(EnumTipoContratacion.CONTRATO_ESTATAL);
 		view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
 		if (view.getEmpleados().isEmpty()) {

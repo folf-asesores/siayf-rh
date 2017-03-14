@@ -251,16 +251,16 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 				+ "i.empleadoActivo.nombreCompleto, i.empleadoActivo.curp, i.empleadoActivo.rfc, "
 				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
 				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
-				+ "FROM InventarioVacanteEntity AS i WHERE (i.empleadoActivo.nombreCompleto LIKE :criterio "
-				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) AND i.disponible =:disponible AND i.tipoContratacion.id =:tipoContratacion"
+				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo =true AND i.tipoContratacion.id =:tipoContratacion) "
+				+ " AND (i.empleadoActivo.nombreCompleto LIKE :criterio OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio)"
 				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
 		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
-				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO")
-				.setParameter("tipoContratacion", tipoContratacion).getResultList();
+				.setParameter("criterio", "%" + criterio + "%").setParameter("tipoContratacion", tipoContratacion)
+				.getResultList();
 
 		return resultado;
 	}
-	
+
 	/**
 	 * Consulta utilizada para visualizar solamente el nombre del empleado en
 	 * los combos.
@@ -302,7 +302,6 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 
 		return resultado;
 	}
-
 
 	public Integer obtenerIdCandidatoPostulado(Integer idInventarioVacante) {
 		try {
