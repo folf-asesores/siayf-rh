@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-13T17:16:40 -->
+<!-- 2017-03-14T09:27:16 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales" pageWidth="2300" pageHeight="640" orientation="Landscape" columnWidth="2280" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" whenResourceMissingType="Empty" uuid="354d94ec-da49-4f79-8148-481f6f4e7176">
     <property name="net.sf.jasperreports.export.text.page.width" value="230"/>
     <property name="net.sf.jasperreports.export.text.page.height" value="64"/>
@@ -46,6 +46,7 @@
     <field name="jefe2Cargo" class="java.lang.String"/>
     <field name="jefe3Nombre" class="java.lang.String"/>
     <field name="jefe3Cargo" class="java.lang.String"/>
+    <sortField name="programa"/>
     <sortField name="claveCentroResponsabilidad"/>
     <variable name="CONTADOR_POR_CENTRO" class="java.lang.Integer" resetType="Group" resetGroup="GRUPO_CENTRO_RESPONSABILIDAD" calculation="Count">
         <variableExpression><![CDATA[$F{nombre}]]></variableExpression>
@@ -59,15 +60,11 @@
     <variable name="PERCEPCIONES_POR_CENTRO" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_CENTRO_RESPONSABILIDAD" calculation="Sum">
         <variableExpression><![CDATA[$F{totalPercepciones}]]></variableExpression>
     </variable>
-    <variable name="PERCEPCIONES_POR_PROGRAMA" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="Sum">
-        <variableExpression><![CDATA[$F{totalPercepciones}]]></variableExpression>
-    </variable>
+    <variable name="PERCEPCIONES_POR_PROGRAMA" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="System"/>
     <variable name="DEDUCCIONES_POR_CENTRO" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_CENTRO_RESPONSABILIDAD" calculation="Sum">
         <variableExpression><![CDATA[$F{totalDeducciones}]]></variableExpression>
     </variable>
-    <variable name="DEDUCCIONES_POR_PROGRAMA" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="Sum">
-        <variableExpression><![CDATA[$F{totalDeducciones}]]></variableExpression>
-    </variable>
+    <variable name="DEDUCCIONES_POR_PROGRAMA" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="System"/>
     <variable name="NETO_TOTAL" class="java.math.BigDecimal" calculation="Sum">
         <variableExpression><![CDATA[$F{neto}]]></variableExpression>
     </variable>
@@ -87,9 +84,6 @@
         <variableExpression><![CDATA[$F{totalDeducciones}]]></variableExpression>
     </variable>
     <variable name="NETO_POR_CENTRO" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_CENTRO_RESPONSABILIDAD" calculation="Sum">
-        <variableExpression><![CDATA[$F{neto}]]></variableExpression>
-    </variable>
-    <variable name="NETO_POR_PROGRAMA" class="java.math.BigDecimal" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="Sum">
         <variableExpression><![CDATA[$F{neto}]]></variableExpression>
     </variable>
     <variable name="CONTADOR_EMPLEADO_POR_PROGRAMA" class="java.lang.Integer" resetType="Group" resetGroup="GRUPO_PROGRAMA" calculation="Count">
@@ -135,6 +129,7 @@
                         <subreportParameterExpression><![CDATA[$F{idPrograma}]]></subreportParameterExpression>
                     </subreportParameter>
                     <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    <returnValue subreportVariable="TOTAL_PERCEPCIONES_POR_PROGRAMA" toVariable="PERCEPCIONES_POR_PROGRAMA" calculation="Sum"/>
                     <subreportExpression><![CDATA[$P{SUB_REPORTE_PERCEPCIONES_PROGRAMA}]]></subreportExpression>
                 </subreport>
                 <subreport>
@@ -149,6 +144,7 @@
                         <subreportParameterExpression><![CDATA[$F{idPrograma}]]></subreportParameterExpression>
                     </subreportParameter>
                     <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+                    <returnValue subreportVariable="TOTAL_DEDUCCIONES_POR_PROGRAMA" toVariable="DEDUCCIONES_POR_PROGRAMA"/>
                     <subreportExpression><![CDATA[$P{SUB_REPORTE_DEDUCCIONES_PROGRAMA}]]></subreportExpression>
                 </subreport>
                 <textField>
@@ -159,14 +155,14 @@
                     </reportElement>
                     <textFieldExpression><![CDATA[$V{CONTADOR_POR_PROGRAMA}]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="1510" y="24" width="130" height="12" uuid="6c20527c-945d-4acc-ae4f-6bd2b6da2c8b">
                         <property name="com.jaspersoft.studio.unit.y" value="pixel"/>
                     </reportElement>
                     <textElement textAlignment="Right"/>
                     <textFieldExpression><![CDATA[$V{PERCEPCIONES_POR_PROGRAMA}]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="1510" y="48" width="130" height="12" uuid="621aee3b-4c1f-4129-83ff-1aae287e1ed3">
                         <property name="com.jaspersoft.studio.unit.height" value="pixel"/>
                         <property name="com.jaspersoft.studio.unit.x" value="pixel"/>
@@ -175,14 +171,14 @@
                     <textElement textAlignment="Right"/>
                     <textFieldExpression><![CDATA[$V{PERCEPCIONES_POR_PROGRAMA}]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="2000" y="48" width="130" height="12" uuid="bfadf7fe-c3dc-4e2c-9893-affd3366c96e">
                         <property name="com.jaspersoft.studio.unit.height" value="pixel"/>
                     </reportElement>
                     <textElement textAlignment="Right"/>
                     <textFieldExpression><![CDATA[$V{DEDUCCIONES_POR_PROGRAMA}]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="2000" y="24" width="130" height="12" uuid="20c0890b-ba00-4064-87fc-6c66fcff927b">
                         <property name="com.jaspersoft.studio.unit.height" value="pixel"/>
                         <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
@@ -190,19 +186,19 @@
                     <textElement textAlignment="Right"/>
                     <textFieldExpression><![CDATA[$V{DEDUCCIONES_POR_PROGRAMA}]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="2140" y="48" width="130" height="12" uuid="494c7726-09be-4aa8-9389-8cdd0857fafa">
                         <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
                     </reportElement>
                     <textElement textAlignment="Right"/>
-                    <textFieldExpression><![CDATA[$V{NETO_POR_PROGRAMA}]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$V{PERCEPCIONES_POR_PROGRAMA}.subtract( $V{DEDUCCIONES_POR_PROGRAMA} )]]></textFieldExpression>
                 </textField>
-                <textField pattern="¤#,##0.00;¤-#,##0.00">
+                <textField evaluationTime="Group" evaluationGroup="GRUPO_PROGRAMA" pattern="¤#,##0.00;¤-#,##0.00">
                     <reportElement positionType="FixRelativeToBottom" x="2140" y="24" width="130" height="12" uuid="ca09e852-b453-41fa-97ef-b75438dcd7ef">
                         <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
                     </reportElement>
                     <textElement textAlignment="Right"/>
-                    <textFieldExpression><![CDATA[$V{NETO_POR_PROGRAMA}]]></textFieldExpression>
+                    <textFieldExpression><![CDATA[$V{PERCEPCIONES_POR_PROGRAMA}.subtract( $V{DEDUCCIONES_POR_PROGRAMA} )]]></textFieldExpression>
                 </textField>
             </band>
         </groupFooter>
@@ -492,7 +488,7 @@
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{rfc}]]></textFieldExpression>
             </textField>
-            <subreport >
+            <subreport>
                 <reportElement x="1170" y="12" width="470" height="12" uuid="613723fa-3f21-44db-bb21-982bd3a4f560">
                     <property name="com.jaspersoft.studio.unit.x" value="pixel"/>
                 </reportElement>
@@ -511,7 +507,7 @@
                 <connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
                 <subreportExpression><![CDATA[$P{SUB_REPORTE_PERCEPCIONES}]]></subreportExpression>
             </subreport>
-            <subreport >
+            <subreport>
                 <reportElement x="1660" y="12" width="470" height="12" uuid="e1d72d2a-48b0-48de-a9c0-8d94d78f8020">
                     <property name="com.jaspersoft.studio.unit.width" value="pixel"/>
                     <property name="com.jaspersoft.studio.unit.x" value="pixel"/>
