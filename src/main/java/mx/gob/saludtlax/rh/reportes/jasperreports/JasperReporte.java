@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.reportes.Reporte;
 public class JasperReporte extends Reporte {
 
     private final Map<String, JasperReporte> subreportes;
-    private final Map<String, Class> parametrosTipos;
+    private final Map<String, Class<?>> parametrosTipos;
 
     public JasperReporte(String nombreArchivo, String ruta) {
         super(nombreArchivo, ruta);
@@ -38,7 +38,7 @@ public class JasperReporte extends Reporte {
         parametrosTipos.put(clave, tipo);
     }
 
-    public Class obtenerTipoParametro(String nombreParametro) {
+    public Class<?> obtenerTipoParametro(String nombreParametro) {
         return parametrosTipos.get(nombreParametro);
     }
 
@@ -46,7 +46,7 @@ public class JasperReporte extends Reporte {
         return subreportes;
     }
 
-    public Map<String, Class> getParametrosTipos() {
+    public Map<String, Class<?>> getParametrosTipos() {
         return parametrosTipos;
     }
 }
