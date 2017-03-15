@@ -154,6 +154,10 @@ public class PagoGeneralReporteExcelService implements Serializable {
                 llenarDetalle(hoja, entrada.getValue());
                 contadorHojas++;
             }
+            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("QNA", '_');
+            Sheet hoja = libro.createSheet(nombreHojaSeguro);
+            llenarTitulos(hoja, titulos);
+            llenarDetalle(hoja, datos);
         } else {
             String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("Nueva hoja", '_');
             Sheet hoja = libro.createSheet(nombreHojaSeguro);
