@@ -89,7 +89,9 @@ public class NominaEmpleadoFederalizadoService {
 			ConceptoNominaFederalesEntity conceptoNomina = conceptoNominaFederalesRepository
 					.obtenerPorId(conceptoNominaFederales.getIdConceptoNomina());
 			if (conceptoNomina.getTratamiento()) {
-				//System.out.println("Concepto que se toma para isr:: " + conceptoNominaFederales.getClave() + conceptoNominaFederales.getFormula() +" -- " + gravado);
+				// System.out.println("Concepto que se toma para isr:: " +
+				// conceptoNominaFederales.getClave() +
+				// conceptoNominaFederales.getFormula() +" -- " + gravado);
 				baseGravable = baseGravable.add(gravado);
 			}
 			if (conceptoNomina.getBase()) {
@@ -117,7 +119,7 @@ public class NominaEmpleadoFederalizadoService {
 			@SuppressWarnings("unchecked")
 			List<FaltaContadaDTO> faltasPeriodo = (List<FaltaContadaDTO>) query.list();
 			Integer faltas = contarFaltas(faltasPeriodo, nominaEmpleadoEntity);
-			BigDecimal sueldoDiario = ingresoBase.divide(new BigDecimal(30), 2, RoundingMode.HALF_EVEN);
+			BigDecimal sueldoDiario = ingresoBase.divide(new BigDecimal(30), 2, RoundingMode.DOWN);
 			BigDecimal factorFaltas = sueldoDiario.multiply(new BigDecimal(1.4));
 			BigDecimal excento = BigDecimal.ZERO;
 			BigDecimal gravado = factorFaltas.multiply(new BigDecimal(faltas));
@@ -228,7 +230,7 @@ public class NominaEmpleadoFederalizadoService {
 		// }
 
 		ConfiguracionIsrDTO configuracionIsr = new ConfiguracionIsrDTO();
-		configuracionIsr.setBaseGravable(baseGravable.setScale(2, RoundingMode.HALF_EVEN));
+		configuracionIsr.setBaseGravable(baseGravable .setScale(2, RoundingMode.DOWN));
 		configuracionIsr.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
 		configuracionIsr.setIdEmpleado(nominaEmpleado.getIdEmpleado());
 
@@ -247,9 +249,10 @@ public class NominaEmpleadoFederalizadoService {
 
 		if (!listaConceptosEspeciales.isEmpty()) {
 			System.out.println("tiene conceptos especiales::");
-			System.out.println("ISR ordinario:" + isrOrdinario.getImpuestoRetener().setScale(2, RoundingMode.HALF_EVEN));
-			System.out.println("Base gravable original: " + baseGravable.setScale(2, RoundingMode.HALF_EVEN));
-			BigDecimal montoImportesEspeciales=new BigDecimal(0);
+			System.out
+					.println("ISR ordinario:" + isrOrdinario.getImpuestoRetener().setScale(2, RoundingMode.DOWN));
+			System.out.println("Base gravable original: " + baseGravable.setScale(2, RoundingMode.DOWN));
+			BigDecimal montoImportesEspeciales = new BigDecimal(0);
 			BigDecimal montoPorcetajeParcialConcepto = new BigDecimal(0);
 			BigDecimal montoDiferenciaISR = new BigDecimal(0);
 			// Saca los importes de los conceptos Extras
@@ -259,64 +262,84 @@ public class NominaEmpleadoFederalizadoService {
 						nominaEmpleadoEntity);
 				System.out.println("formula concepto especial: " + cptoEsp.getFormula() + "--" + importeConcepto);
 				montoImportesEspeciales = montoImportesEspeciales.add(importeConcepto);
-				
+
 			}
 			System.out.println("Importe de conceptos extras:" + montoImportesEspeciales);
-			montoImportesEspeciales = montoImportesEspeciales.add(configuracionIsr.getBaseGravable());
-			configuracionIsr.setBaseGravable(montoImportesEspeciales);
+			BigDecimal newBaseGravable = montoImportesEspeciales.add(configuracionIsr.getBaseGravable());
+			configuracionIsr.setBaseGravable(newBaseGravable);
 			System.out.println("Base con monto concepto especial; " + configuracionIsr.getBaseGravable());
 			IsrDTO isrModificado = calculoIsrFederalesService.calcularIsrEmpleado(configuracionIsr);
 			System.out.println("Nuevo isr: " + isrModificado.getImpuestoRetener());
-			System.out.println("Diferencias: "
-					+ isrModificado.getImpuestoRetener().subtract(isrOrdinario.getImpuestoRetener()));
-			montoDiferenciaISR = montoDiferenciaISR.add(isrModificado.getImpuestoRetener().subtract(isrOrdinario.getImpuestoRetener()));
-			
+			System.out.println(
+					"Diferencias: " + isrModificado.getImpuestoRetener().subtract(isrOrdinario.getImpuestoRetener()));
+			montoDiferenciaISR = montoDiferenciaISR
+					.add(isrModificado.getImpuestoRetener().subtract(isrOrdinario.getImpuestoRetener()));
+
 			List<ConceptosNominaEspecialEntity> conceptosEspecialesProcesados = new ArrayList<>();
-			//importe de la suma de los isr de los conceptos.
-			BigDecimal importeTotalConcepto = new BigDecimal(0);
-			for(ConceptosNominaEspecialEntity cEspecial: listaConceptosIsrEspecial){
+			// importe de la suma de los isr de los conceptos.
+			BigDecimal importeTotalISRConcepto = new BigDecimal(0);
+			for (ConceptosNominaEspecialEntity cEspecial : listaConceptosIsrEspecial) {
 				BigDecimal montoIsrConcepto = new BigDecimal(0);
-				BigDecimal importeConcepto = evaluadorService.evaluarFormula(
-						conceptoNominaFederalesService.obtenerConceptoNominaPorId(cEspecial.getIdConceptobase().getIdConceptoNomina()),
+				BigDecimal importeConcepto = evaluadorService.evaluarFormula(conceptoNominaFederalesService
+						.obtenerConceptoNominaPorId(cEspecial.getIdConceptobase().getIdConceptoNomina()),
 						nominaEmpleadoEntity);
-				montoIsrConcepto = importeConcepto.divide(montoImportesEspeciales, 2, RoundingMode.HALF_EVEN);
-				System.out.println("Calculos isr concepto:" + importeConcepto+"/"+montoImportesEspeciales +"="+montoIsrConcepto);
+				montoIsrConcepto = importeConcepto.divide(montoImportesEspeciales, 2, RoundingMode.DOWN);
+				System.out.println("Calculos isr concepto:" + importeConcepto + "/" + montoImportesEspeciales + "="
+						+ montoIsrConcepto);
 				montoIsrConcepto = montoIsrConcepto.multiply(montoDiferenciaISR);
 				System.out.println("Monto ISR concepto : " + montoIsrConcepto);
-				if(cEspecial.getIdConceptoCompensacion()!=null){
-				cEspecial.getIdConceptoCompensacion().setFormula(""+montoIsrConcepto);
+				if (cEspecial.getIdConceptoCompensacion() != null) {
+					cEspecial.getIdConceptoCompensacion().setFormula("" + montoIsrConcepto);
+					importeTotalISRConcepto = importeTotalISRConcepto.add(montoIsrConcepto);
 				}
-				cEspecial.getIdConceptoISR().setFormula(""+montoIsrConcepto);
+				
+				cEspecial.getIdConceptoISR().setFormula("" + montoIsrConcepto);
 				conceptosEspecialesProcesados.add(cEspecial);
-				importeTotalConcepto = importeTotalConcepto.add(montoIsrConcepto);
+
+			}
+
+			// a la ultima baseGravable se le suma el total de la suma de los
+			// isr de los conceptos y se recalcula el isr final.
+			// este importe se le agregara solo si el concepto extra tiene una
+			// compensacion de isr
+			System.out.println("bg new??? : " + configuracionIsr.getBaseGravable() + "++++" + importeTotalISRConcepto);
+			importeTotalISRConcepto = importeTotalISRConcepto.add(configuracionIsr.getBaseGravable());
+			configuracionIsr.setBaseGravable(importeTotalISRConcepto);
+			System.out.println("bg new??? : " + configuracionIsr.getBaseGravable());
+			IsrDTO isrFinal = calculoIsrFederalesService.calcularIsrEmpleado(configuracionIsr);
+			BigDecimal isrFinalMonto = isrFinal.getImpuestoRetener();
+			System.out.println("importeFinalmonto: " + isrFinalMonto);
+			for(ConceptosNominaEspecialEntity cEspecial : conceptosEspecialesProcesados){
+//				if(cEspecial.getIdConceptoCompensacion()==null){
+//					System.out.println("importetotalisr formula: " + cEspecial.getIdConceptoISR().getFormula());
+					isrFinalMonto = isrFinalMonto.subtract( new BigDecimal(cEspecial.getIdConceptoISR().getFormula()));
+//				}
 				
 			}
-			
-			importeTotalConcepto = importeTotalConcepto.add(configuracionIsr.getBaseGravable());
-			configuracionIsr.setBaseGravable(importeTotalConcepto);
-			IsrDTO isrFinal = calculoIsrFederalesService.calcularIsrEmpleado(configuracionIsr);
-			System.out.println("ISR Final: " +isrFinal.getImpuestoRetener());			
+			isrFinal.setImpuestoRetener(isrFinalMonto);
+			System.out.println("ISR Final: " + isrFinal.getImpuestoRetener());
 			System.out.println("Suma de ISR:" + isrFinal.getImpuestoRetener());
-			
+
 			if (isrFinal.getImpuestoRetener().compareTo(BigDecimal.ZERO) == 1) {
 				BigDecimal excento = BigDecimal.ZERO;
 				BigDecimal gravado = impuestoRetener.add(isrFinal.getImpuestoRetener());
 				ConceptoNominaFederalesEntity conceptoNomina = conceptoNominaFederalesRepository.obtenerPorId(156);
 				crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, conceptoNomina, excento, gravado);
 			}
-			
-			for(ConceptosNominaEspecialEntity cEsp: conceptosEspecialesProcesados){
-				if(cEsp.getIdConceptoCompensacion()!=null){
-					crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, cEsp.getIdConceptoCompensacion(), BigDecimal.ZERO, new BigDecimal(cEsp.getIdConceptoCompensacion().getFormula()));
+
+			for (ConceptosNominaEspecialEntity cEsp : conceptosEspecialesProcesados) {
+				if (cEsp.getIdConceptoCompensacion() != null) {
+					crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, cEsp.getIdConceptoCompensacion(),
+							BigDecimal.ZERO, new BigDecimal(cEsp.getIdConceptoCompensacion().getFormula()));
 				}
-				
-				if(cEsp.getIdConceptoISR()!=null){
-					crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, cEsp.getIdConceptoISR(), BigDecimal.ZERO, new BigDecimal(cEsp.getIdConceptoISR().getFormula()));
+
+				if (cEsp.getIdConceptoISR() != null) {
+					crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, cEsp.getIdConceptoISR(),
+							BigDecimal.ZERO, new BigDecimal(cEsp.getIdConceptoISR().getFormula()));
 				}
 			}
-			
-			
-		}else{
+
+		} else {
 			if (isrOrdinario.getImpuestoRetener().compareTo(BigDecimal.ZERO) == 1) {
 				BigDecimal excento = BigDecimal.ZERO;
 				BigDecimal gravado = impuestoRetener.add(isrOrdinario.getImpuestoRetener());
@@ -325,9 +348,6 @@ public class NominaEmpleadoFederalizadoService {
 			}
 		}
 
-		
-		
-		
 		// SUBSIDIO
 		// if (isr.getSubsidiosEntregar().compareTo(BigDecimal.ZERO) < 0) {
 		// BigDecimal excento = BigDecimal.ZERO;
@@ -341,12 +361,16 @@ public class NominaEmpleadoFederalizadoService {
 		// }
 
 		// I.S.R.
-//		if (isrOrdinario.getImpuestoRetener().compareTo(BigDecimal.ZERO) == 1) {
-//			BigDecimal excento = BigDecimal.ZERO;
-//			BigDecimal gravado = impuestoRetener.add(isrOrdinario.getImpuestoRetener());
-//			ConceptoNominaFederalesEntity conceptoNomina = conceptoNominaFederalesRepository.obtenerPorId(156);
-//			crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity, conceptoNomina, excento, gravado);
-//		}
+		// if (isrOrdinario.getImpuestoRetener().compareTo(BigDecimal.ZERO) ==
+		// 1) {
+		// BigDecimal excento = BigDecimal.ZERO;
+		// BigDecimal gravado =
+		// impuestoRetener.add(isrOrdinario.getImpuestoRetener());
+		// ConceptoNominaFederalesEntity conceptoNomina =
+		// conceptoNominaFederalesRepository.obtenerPorId(156);
+		// crearConceptoNominaEmpleadoFederalizados(nominaEmpleadoEntity,
+		// conceptoNomina, excento, gravado);
+		// }
 	}
 
 	private void crearConceptoNominaEmpleadoFederalizados(NominaEmpleadoEntity nominaEmpleado,
