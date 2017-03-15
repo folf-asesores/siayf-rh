@@ -38,24 +38,17 @@ public class PagoGeneralReporteExcelService implements Serializable {
     private static final long serialVersionUID = -5421623153289958107L;
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteExcelService.class.getName());
 
-    private final String nombreHoja2 = "pago_quincena 2";
     /** Instancia que representa el libro de Excel sobre el que se trabajará. */
     private Workbook libro;
-    /** Instancia que representa la hoja de Excel en la que se está trabajando. */
-    private Sheet hoja;
-    private Sheet hoja2;
     /** Es la fila apartir de la cual inicia el detalle. */
     private static final int FILA_INICIO_DETALLE = 1;
-    
+
     private void inicializar() {
         libro = new XSSFWorkbook();
-        String nombreHojaSeguro2 = WorkbookUtil.createSafeSheetName(nombreHoja2, '_');
-        hoja2 = libro.createSheet(nombreHojaSeguro2);
     }
     
-    private void llenarTitulos(List<String> titulos) {
+    private void llenarTitulos(Sheet hoja, List<String> titulos) {
         Row fila = hoja.createRow(0);
-        Row fila2 = hoja2.createRow(0);
 
         CellStyle estiloTitulo = libro.createCellStyle();
         Font font = libro.createFont();
@@ -66,14 +59,10 @@ public class PagoGeneralReporteExcelService implements Serializable {
             Cell celda = fila.createCell(i, Cell.CELL_TYPE_STRING);
             celda.setCellValue(titulos.get(i));
             celda.setCellStyle(estiloTitulo);
-            
-            Cell celda2 = fila2.createCell(i, Cell.CELL_TYPE_STRING);
-            celda2.setCellValue(titulos.get(i));
-            celda2.setCellStyle(estiloTitulo);
         }
     }
     
-    private void llenarDetalle(List<Object []> datos) {
+    private void llenarDetalle(Sheet hoja, List<Object []> datos) {
         int i = FILA_INICIO_DETALLE;
 
         CellStyle estiloMoneda = libro.createCellStyle();
@@ -144,6 +133,7 @@ public class PagoGeneralReporteExcelService implements Serializable {
             Map<Integer, List<Object[]>> indiceHojas = new HashMap<>();
             for (Object[] fila : datos) {
                 Integer idPagoNomina = (Integer) fila[posicion];
+
                 if (!indiceHojas.containsKey(idPagoNomina)) {
                     List<Object[]> obj = new ArrayList<>();
                     obj.add(fila);
@@ -154,18 +144,19 @@ public class PagoGeneralReporteExcelService implements Serializable {
                     indiceHojas.put(idPagoNomina, obj);
                 }
             }
+            titulos.remove(posicion);
             int contadorHojas = 1;
             for (Map.Entry<Integer, List<Object[]>> entrada : indiceHojas.entrySet()) {
                 String nombreHoja = "PAGO " + contadorHojas;
                 String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja, '_');
-                hoja = libro.createSheet(nombreHojaSeguro);
-                llenarTitulos(titulos);
-                llenarDetalle(entrada.getValue());
+                Sheet hoja = libro.createSheet(nombreHojaSeguro);
+                llenarTitulos(hoja, titulos);
+                llenarDetalle(hoja, entrada.getValue());
                 contadorHojas++;
             }
         } else {
             String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("Nueva hoja", '_');
-            hoja = libro.createSheet(nombreHojaSeguro);
+            Sheet hoja = libro.createSheet(nombreHojaSeguro);
         }
         return finalizar();
     }

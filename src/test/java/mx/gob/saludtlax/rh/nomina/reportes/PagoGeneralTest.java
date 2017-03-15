@@ -146,8 +146,7 @@ public class PagoGeneralTest {
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("Iniciando test obtenerReporte");
-//        String referencia = "3f4ae85f-1906-4ef3-815b-cfc74d8f";
-        String referencia = "b2c414a2-6839-4aa8-8e24-2fde6cc5";
+        String referencia = "e8dc2e63-de43-4e65-9c16-0963d2b0";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
         
@@ -163,7 +162,7 @@ public class PagoGeneralTest {
             "ID_USUARIO", "18",
             "REPORTE_NOMBRE", "pago_general",
             "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "23"
+            "ID_PRODUCTO_NOMINA", "28"
         };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);

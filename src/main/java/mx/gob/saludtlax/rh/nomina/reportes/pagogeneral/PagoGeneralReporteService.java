@@ -36,28 +36,28 @@ public class PagoGeneralReporteService {
     static {
         TITULO  = new HashMap<>();
         TITULO.put("programa","PROGRAMA");
-        TITULO.put("noConsecutivoRegistro", "NO CONSECUTIVO REGISTRO");
+        TITULO.put("noConsecutivoRegistro", "NO. CONSECUTIVO REGISTRO");
         TITULO.put("mes","MES");
-        TITULO.put("nombre_entidad","ENTIDAD");
-        TITULO.put("tipo_centro_salud","TIPO CENTRO DE SALUD");
-        TITULO.put("clues","CLAVE CLUES");
-        TITULO.put("nombre_unidad","NOMBRE UNIDAD");
-        TITULO.put("area_adscripcion","AREA ADSCRIPCION");
+        TITULO.put("entidad","ENTIDAD");
+        TITULO.put("tipoCentroSalud","TIPO CENTRO DE SALUD");
+        TITULO.put("claveClues","CLAVE CLUES");
+        TITULO.put("nombreUnidad","NOMBRE DE LA UNIDAD");
+        TITULO.put("areaAdscripcion","ÁREA DE ADSCRIPCIÓN");
         TITULO.put("puesto","PUESTO");
-        TITULO.put("codigo","CLAVE PRESUPUESTO");
+        TITULO.put("clavePuesto","CLAVE PUESTO");
         TITULO.put("servicio","SERVICIO");
         TITULO.put("rama","RAMA");
         TITULO.put("nombre","NOMBRE");
         TITULO.put("rfc","RFC");
         TITULO.put("turno","TURNO");
         TITULO.put("fechaIngreso","FECHA DE INGRESO");
-        TITULO.put("descripcion","CENTRO RESPONSABILIDAD");
-        TITULO.put("funcion","FUNCION");
-        TITULO.put("percepciones","PERCEPCION NETA");
-        TITULO.put("deducciones","DEDUCCION TOTAL");
-        TITULO.put("percepcionTotal","PERCEPCION TOTAL");
-        TITULO.put("neto","TOTAL");
-        TITULO.put("id_pago_nomina","idPagoNomina");
+        TITULO.put("centroResponsabilidad","CENTRO DE RESPONSABILIDAD");
+        TITULO.put("funcion","FUNCIÓN");
+        TITULO.put("percepcionNeta","PERCEPCIÓN NETA");
+        TITULO.put("deduccionTotal","DEDUCCIÓN TOTAL");
+        TITULO.put("percepcionTotal","PERCEPCIÓN TOTAL");
+        TITULO.put("total","TOTAL");
+        TITULO.put("idPagoNomina","idPagoNomina");
     }
 
     /**
@@ -78,14 +78,14 @@ public class PagoGeneralReporteService {
             int posicionIdNominaEmpleado = 0;
 
             for (int i = 1; i <= totalColumnas; i++) {
-                String nombreColumna = metaData.getColumnName(i);
-                if (TITULO.containsKey(nombreColumna)){
-                    String titulo = TITULO.get(nombreColumna);
+                String nombreEtiqueta = metaData.getColumnLabel(i);
+                if (TITULO.containsKey(nombreEtiqueta)){
+                    String titulo = TITULO.get(nombreEtiqueta);
                     titulos.add(titulo);
-                } else if("id_nomina_empleado".equals(nombreColumna)) {
+                } else if("id_nomina_empleado".equals(nombreEtiqueta)) {
                     posicionIdNominaEmpleado = i;
                 } else {
-                    String titulo = obtenerDescripcion(nombreColumna);
+                    String titulo = obtenerDescripcion(nombreEtiqueta);
                     titulos.add(titulo);
                 }
             }
@@ -95,28 +95,29 @@ public class PagoGeneralReporteService {
             while(rs.next()) {
                 Object [] objDatos = new Object[titulos.size()];
 
-                for (int i = 1; i <= totalColumnas; i++) {
-                    if(i == posicionIdNominaEmpleado) {
-                        objDatos[i - 1] = new Object();
-                        i =+ 1;
-                    } else {
-                        objDatos[i - 1] = new Object();
-                    }
-
-                    switch(metaData.getColumnClassName(i)) {
+                int pos = 1;
+                for (int i = 0; i < titulos.size(); i++) {
+                    String columnClassName = metaData.getColumnClassName(pos);
+                    String columnLabel = metaData.getColumnLabel(pos);
+                    switch (columnClassName) {
                         case "java.lang.String":
-                            objDatos[i - 1] = rs.getString(i);
+                            objDatos[i] = rs.getString(columnLabel);
+                            break;
+                        case "java.lang.Integer":
+                            objDatos[i] = rs.getInt(columnLabel);
                             break;
                         case "java.lang.Long":
-                            objDatos[i - 1] = rs.getLong(i);
+                            objDatos[i] = rs.getLong(columnLabel);
                             break;
                         case "java.math.BigDecimal":
-                            objDatos[i - 1] = rs.getBigDecimal(i);
+                            objDatos[i] = rs.getBigDecimal(columnLabel);
                             break;
                         default:
-                            objDatos[i - 1] = null;
+                            objDatos[i] = null;
                             break;
                     }
+                    
+                    pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1 : pos + 2;
                 }
                 datos.add(objDatos);
             }
