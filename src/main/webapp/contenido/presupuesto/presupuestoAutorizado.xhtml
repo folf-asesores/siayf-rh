@@ -17,9 +17,25 @@
 	<ui:define name="moduloContenido">
 
 		<h:form id="form" styleClass="fm-contenedor">
-
-			<p:messages id="messages_generales" showDetail="true"
-				autoUpdate="true" closable="true" globalOnly="true" />
+			<p:messages id="messages_generales"
+						showDetail="true"
+						autoUpdate="false"
+						closable="true"
+						globalOnly="false" />
+			<p:confirmDialog global="true"
+			                 showEffect="fade"
+			                 hideEffect="fade">
+				<p:commandButton value="Si" 
+								type="button"
+								styleClass="ui-confirmdialog-yes"
+								onsuccess="PF(`statusDialog`).hide()"
+								onstart="PF(`statusDialog`).show()" 
+								icon="ui-icon-check" />
+				<p:commandButton value="No" 
+								type="button"
+								styleClass="ui-confirmdialog-no" 
+								icon="ui-icon-close" />
+			</p:confirmDialog>
 
 			<p:panel id="panelContenedor" styleClass="fm-contenedor-100 ">
 
@@ -128,16 +144,20 @@
 							<p:commandButton icon="ui-icon-pencil" iconPos="right"
 								title="Actualizar" update="form"
 								action="#{presupuestoAutorizado.mostrarActualizacion(p)}"
-								styleClass="fm-btn-exitoso fm-btn-elevado" process="form" />
+								styleClass="fm-btn-exitoso fm-btn-elevado"/>
 	
-							<p:commandButton icon="ui-icon-trash" update="form"
-								title="Eliminar Presupuesto Autorizado"
-								styleClass="fm-btn-peligro fm-btn-elevado" process="@this"
-								action="#{presupuestoAutorizado.mostrarDialogEliminar(s.idpresupuestoAutorizado)}" />
+							<p:commandButton icon="ui-icon-trash"
+											update="form"
+											title="Eliminar Presupuesto Autorizado"
+											styleClass="fm-btn-peligro fm-btn-elevado"
+											action="#{presupuestoAutorizado.eliminarPresupuestoAutorizado(p.idPresupuestoAutorizado)}" >
+								<p:confirm header="Confirmación"
+											message="¿Desea eliminar el registro?" 
+											icon="ui-icon-alert" />
+							</p:commandButton>	
 	
 						</p:column>
 					</p:dataTable>
-					<p:spacer />
 				</p:outputPanel>
 
 				<p:outputPanel rendered="#{presupuestoAutorizado.view.panelCrear}">
@@ -255,7 +275,7 @@
 						<p:message id="msgImporteAnualCrear" for="importeAnualCrear" />
 
 						<p:outputLabel for="anioNuevo" value="Año:" />
-						<p:inputText id="anioNuevo" required="true"
+						<p:inputText id="anioNuevo" required="true" 
 							requiredMessage="Año: El valor es requerido"
 							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.anio}">
 							<p:ajax event="blur" update="msgAnioNuevo" />

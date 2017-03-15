@@ -1,6 +1,5 @@
 package mx.gob.saludtlax.rh.presupuesto.presupuestoautorizado;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 /**
  * 
@@ -8,18 +7,18 @@ import java.util.List;
  *
  */
 public class PresupuestoAutorizadoView  implements Serializable{
+	
 	private static final long serialVersionUID = 7019453037498661233L;
 
-	private List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado = new ArrayList<>();
+	private List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado;
 
-	private PresupuestoAutorizadoDTO creaPresupuestoAutorizado = new PresupuestoAutorizadoDTO();
+	private PresupuestoAutorizadoDTO creaPresupuestoAutorizado;
 
-	private PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado = new PresupuestoAutorizadoDTO();
-
-	private Integer idPresupuestoAutorizadoSeleccionado;
-	
+	private PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado;
 	private boolean panelPrincipal;
+	
 	private boolean panelCrear;
+	
 	private boolean panelActualizar;
 
 	public List<PresupuestoAutorizadoDTO> getListaPresupuestoAutorizado() {
@@ -39,12 +38,6 @@ public class PresupuestoAutorizadoView  implements Serializable{
 	}
 	public void setActualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado) {
 		this.actualizarPresupuestoAutorizado = actualizarPresupuestoAutorizado;
-	}
-	public Integer getIdPresupuestoAutorizadoSeleccionado() {
-		return idPresupuestoAutorizadoSeleccionado;
-	}
-	public void setIdPresupuestoAutorizadoSeleccionado(Integer idPresupuestoAutorizadoSeleccionado) {
-		this.idPresupuestoAutorizadoSeleccionado = idPresupuestoAutorizadoSeleccionado;
 	}
 	public boolean isPanelPrincipal() {
 		return panelPrincipal;

@@ -39,6 +39,17 @@ public class EstatusPuestosEntity implements Serializable {
 	@Column(name = "disponible")
 	private boolean disponible;
 
+	@Column(name = "puesto_activo")
+	private boolean puestoActivo;
+
+	public boolean isPuestoActivo() {
+		return puestoActivo;
+	}
+
+	public void setPuestoActivo(boolean puestoActivo) {
+		this.puestoActivo = puestoActivo;
+	}
+
 	public boolean isAutorizado() {
 		return autorizado;
 	}

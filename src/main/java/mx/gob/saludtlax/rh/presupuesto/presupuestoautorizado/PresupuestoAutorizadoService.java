@@ -11,6 +11,7 @@ import mx.gob.saludtlax.rh.persistencia.PresupuestoAutorizadoRepository;
  *
  */
 public class PresupuestoAutorizadoService implements Serializable  {
+	
 	private static final long serialVersionUID = -3726285933360387718L;
 	
 	@Inject
@@ -32,16 +33,17 @@ public class PresupuestoAutorizadoService implements Serializable  {
 		entity.setTg(dto.getTg());
 		entity.setFf(dto.getFf());
 		entity.setEf(dto.getEf());
-		entity.setPpi(dto.getPpii());
+		entity.setPpii(dto.getPpii());
 		entity.setConcepto(dto.getConcepto());
 		entity.setImporteAnual(dto.getImporteAnual());
 		entity.setAnio(dto.getAnio());
+		
 		presupuestoAutorizadoRepository.crear(entity);
 	}
 		
 	public void actualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO dto) {
-
-	PresupuestoAutorizadoEntity entity = presupuestoAutorizadoRepository.obtenerPorId(dto.getIdPresupuestoAutorizado());
+	PresupuestoAutorizadoEntity entity = presupuestoAutorizadoRepository
+			.obtenerPorId(dto.getIdPresupuestoAutorizado());
 		
 		entity.setIdUnidadResponsable(dto.getIdUnidadResponsable());
 		entity.setFin(dto.getFin());
@@ -55,10 +57,11 @@ public class PresupuestoAutorizadoService implements Serializable  {
 		entity.setTg(dto.getTg());
 		entity.setFf(dto.getFf());
 		entity.setEf(dto.getEf());
-		entity.setPpi(dto.getPpii());
+		entity.setPpii(dto.getPpii());
 		entity.setConcepto(dto.getConcepto());
 		entity.setImporteAnual(dto.getImporteAnual());
 		entity.setAnio(dto.getAnio());
+		
 		presupuestoAutorizadoRepository.actualizar(entity);
 	}
 	
@@ -72,12 +75,14 @@ public class PresupuestoAutorizadoService implements Serializable  {
 
 		List<PresupuestoAutorizadoDTO> dtos = new ArrayList<PresupuestoAutorizadoDTO>();
 
-		List<PresupuestoAutorizadoEntity> entities = presupuestoAutorizadoRepository.obtenerListaPresupuestoAutorizado();
+		List<PresupuestoAutorizadoEntity> entities = presupuestoAutorizadoRepository
+				.obtenerListaPresupuestoAutorizado();
 
-		if (!entities.isEmpty() || entities != null) {
+		// || entities != null
+		if (!entities.isEmpty()) {
 			for (PresupuestoAutorizadoEntity presupuestoAutorizadoEntity : entities) {
 				PresupuestoAutorizadoDTO dto = new PresupuestoAutorizadoDTO();
-
+				dto.setIdPresupuestoAutorizado(presupuestoAutorizadoEntity.getIdPresupuestoAutorizado());
 				dto.setIdUnidadResponsable(presupuestoAutorizadoEntity.getIdUnidadResponsable());
 				dto.setFin(presupuestoAutorizadoEntity.getFin());
 				dto.setFn(presupuestoAutorizadoEntity.getFn());

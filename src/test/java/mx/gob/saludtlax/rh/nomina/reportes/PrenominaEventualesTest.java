@@ -98,8 +98,10 @@ public class PrenominaEventualesTest {
         jar.addAsResource("reportes/prenomina_eventuales--percepciones.jrxml");
         jar.addAsResource("reportes/prenomina_eventuales--percepciones-centro-responsabilidad.jrxml");
         jar.addAsResource("reportes/prenomina_eventuales--percepciones-total.jrxml");
+        jar.addAsResource("reportes/prenomina_eventuales--percepciones-programa.jrxml");
         jar.addAsResource("reportes/prenomina_eventuales--deducciones.jrxml");
         jar.addAsResource("reportes/prenomina_eventuales--deducciones-centro-responsabilidad.jrxml");
+        jar.addAsResource("reportes/prenomina_eventuales--deducciones-programa.jrxml");
         jar.addAsResource("reportes/prenomina_eventuales--deducciones-total.jrxml");
         war.addAsLibraries(jar);
 
@@ -133,7 +135,11 @@ public class PrenominaEventualesTest {
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("obtenerReporte");
-        String referencia = "80fbbf0e-76b3-4a22-8ee4-ac167a1f";
+        // ID_NOMINA = 28
+//        String referencia = "80fbbf0e-76b3-4a22-8ee4-ac167a1f";
+        // ID_NOMINA = 30
+        String referencia = "730234d9-a8e7-41fb-95b8-ee2a472a";
+
         AdministradorReportes instance = new AdministradorReportes();
         byte[] result = instance.obtenerReporte(referencia);
 

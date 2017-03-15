@@ -27,11 +27,11 @@ public class ProyeccionesPresupuestalesEJB {
         return proyeccionesPresupuestalesService.proyeccionesPresupuestales(anio);
     }
     
-    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento)
-            throws ReglaNegocioException {
-        // TODO Auto-generated method stub
-        return proyeccionesPresupuestalesService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
-    }
+//    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento)
+//            throws ReglaNegocioException {
+//        // TODO Auto-generated method stub
+//        return proyeccionesPresupuestalesService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
+//    }
 
     public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(Integer anioPresupuesto,
             Integer idTipoNombramiento) {

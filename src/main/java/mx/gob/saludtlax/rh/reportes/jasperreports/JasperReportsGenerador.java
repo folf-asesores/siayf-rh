@@ -46,11 +46,11 @@ public class JasperReportsGenerador implements Generador {
             }
         }
 
-        Map<String, Class> parametrosTipos = reporte.getParametrosTipos();
+        Map<String, Class<?>> parametrosTipos = reporte.getParametrosTipos();
 
-        for (Map.Entry<String, Class> entry : parametrosTipos.entrySet()) {
+        for (Map.Entry<String, Class<?>> entry : parametrosTipos.entrySet()) {
             String parametroClave = entry.getKey();
-            Class patametroTipo = entry.getValue();
+            Class<?> patametroTipo = entry.getValue();
             String parametroValor = parametros.get(parametroClave);
 
             parametrosReporte.put(parametroClave, obtenerValorCasteado(parametroValor, patametroTipo));
@@ -83,7 +83,6 @@ public class JasperReportsGenerador implements Generador {
 
             try {
                 Date date = sdf.parse(valor);
-
                 return (T) date;
             } catch (ParseException ex) {
                 LOGGER.error(ex.getMessage());

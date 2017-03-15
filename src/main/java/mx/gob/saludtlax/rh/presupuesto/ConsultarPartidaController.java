@@ -73,7 +73,19 @@ public class ConsultarPartidaController {
         return null;
     }
     
-  //  public String consultarPartidasPorDependencia
+    public String consultarPartidasPorDependencia(){
+    	try {
+    		view.setListaConsultaPartida(ejb.consultarPartidasPorDependencia(view.getIdDependencia()));
+            view.setMostrarOpcionDescarga(true);
+        } catch (ReglaNegocioException e) {
+        	if(view.getListaConsultaPartida() != null) {
+            view.getListaConsultaPartida().clear();
+        	}
+            JSFUtils.infoMessage(e.getMessage(), "");
+        }
+
+        return null;
+    }
     
     public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException, BusinessException {

@@ -12,7 +12,7 @@ public interface PresupuestoAutorizado {
 
 	public void actualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO dto);
 
-	public void eliminarPresupuestoAutorizado(Integer idSalarioMinimo);
+	public void eliminarPresupuestoAutorizado(Integer idPresupuestoAutorizado);
 
 	public List<PresupuestoAutorizadoDTO> obtenerListaPresupuestoAutorizado();
 }

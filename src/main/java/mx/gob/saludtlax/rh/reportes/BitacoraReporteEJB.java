@@ -16,6 +16,9 @@ import java.util.Set;
 import java.util.UUID;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteRepository;
 import mx.gob.saludtlax.rh.persistencia.ReporteParametroEntity;
@@ -35,6 +38,8 @@ public class BitacoraReporteEJB implements BitacoraReporte {
 
     @Inject private BitacoraReporteRepository bitacoraReporteRepository;
     @Inject private UsuarioRepository empleadoRepository;
+    
+    private static final Logger LOGGER = Logger.getLogger(BitacoraReporteEJB.class);
         
     @Override
     public String obtenerReferencia(Map<String, String> parametros) {
@@ -83,11 +88,11 @@ public class BitacoraReporteEJB implements BitacoraReporte {
     @Override
     public Map<String, String> obtenerParametros(String referencia) {
         Map<String, String> parametros = new HashMap<>();
-        
         BitacoraReporteEntity bitacoraReporteEntity = bitacoraReporteRepository.obtenerPorId(referencia);
         
-        if(bitacoraReporteEntity == null) {
-            return Collections.EMPTY_MAP;
+        if (bitacoraReporteEntity == null) {
+            LOGGER.warn("No se encontro la entidad");
+            return Collections.emptyMap();
         }
         
         parametros.put("ID_USUARIO", String.valueOf(bitacoraReporteEntity.getUsuario().getIdUsuario()));

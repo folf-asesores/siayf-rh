@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-13T17:55:36 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales--deducciones-centro-responsabilidad" pageWidth="470" pageHeight="100" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="470" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d9eda390-3121-41ba-a4c4-4625ce84cd71">
+<!-- 2017-03-14T08:16:06 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales--deducciones-programa" pageWidth="470" pageHeight="100" orientation="Landscape" columnWidth="470" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d9eda390-3121-41ba-a4c4-4625ce84cd71">
     <property name="net.sf.jasperreports.export.text.character.width" value="4.382608696"/>
     <property name="net.sf.jasperreports.export.text.character.height" value="12"/>
     <property name="com.jaspersoft.studio.data.sql.tables" value=""/>
@@ -14,11 +14,14 @@
     <parameter name="ID_PROGRAMA" class="java.lang.Integer"/>
     <parameter name="CLAVE_CENTRO" class="java.lang.String"/>
     <queryString language="SQL">
-        <![CDATA[CALL usp_subreporte_prenomina_eventuales_deducciones_cr($P{ID_PRODUCTO_NOMINA},  $P{ID_PROGRAMA}, $P{CLAVE_CENTRO});]]>
+        <![CDATA[CALL usp_subreporte_prenomina_eventuales_deducciones_prg($P{ID_PRODUCTO_NOMINA}, $P{ID_PROGRAMA});]]>
     </queryString>
     <field name="claveConcepto" class="java.lang.String"/>
     <field name="descripcionConcepto" class="java.lang.String"/>
     <field name="importe" class="java.math.BigDecimal"/>
+    <variable name="TOTAL_DEDUCCIONES_POR_PROGRAMA" class="java.math.BigDecimal" calculation="Sum">
+        <variableExpression><![CDATA[$F{importe}]]></variableExpression>
+    </variable>
     <detail>
         <band height="12">
             <property name="com.jaspersoft.studio.unit.height" value="pixel"/>

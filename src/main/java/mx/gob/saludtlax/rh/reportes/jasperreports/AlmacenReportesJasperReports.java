@@ -95,19 +95,23 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         JasperReporte prenominaEventualesPercepciones = new JasperReporte("prenomina_eventuales--percepciones.jrxml", "reportes/");
         JasperReporte prenominaEventualesPercepcionesTotal = new JasperReporte("prenomina_eventuales--percepciones-total.jrxml", "reportes/");
         JasperReporte prenominaEventualesPercepcionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--percepciones-centro-responsabilidad.jrxml", "reportes/");
-        
+        JasperReporte prenominaEventualesPercepcionesPrograma = new JasperReporte("prenomina_eventuales--percepciones-programa.jrxml", "reportes/");
         JasperReporte prenominaEventualesDeduccciones = new JasperReporte("prenomina_eventuales--deducciones.jrxml", "reportes/");
         JasperReporte prenominaEventualesDeducccionesTotal = new JasperReporte("prenomina_eventuales--deducciones-total.jrxml", "reportes/");
         JasperReporte prenominaEventualesDeducccionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--deducciones-centro-responsabilidad.jrxml", "reportes/");
+        JasperReporte prenominaEventualesDeducccionesPrograma = new JasperReporte("prenomina_eventuales--deducciones-programa.jrxml", "reportes/");                
+
         JasperReporte prenominaEventuales = new JasperReporte("prenomina_eventuales.jrxml", "reportes/");
         
         prenominaEventuales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", prenominaEventualesPercepciones);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", prenominaEventualesPercepcionesTotal);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesPercepcionesCentroResponsabilidad);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_PROGRAMA", prenominaEventualesPercepcionesPrograma);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", prenominaEventualesDeduccciones);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", prenominaEventualesDeducccionesTotal);
         prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesDeducccionesCentroResponsabilidad);
+        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_PROGRAMA", prenominaEventualesDeducccionesPrograma);
         REPORTES.put("prenomina_eventuales", prenominaEventuales);
 
         JasperReporte nominaFederalesPercepciones = new JasperReporte("nomina_federales--percepciones.jrxml", "reportes/");

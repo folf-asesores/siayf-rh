@@ -40,7 +40,7 @@ public class ProyeccionesPresupuestalesController {
 	public String obtenerProyeccionesPresupuestales() {
 		try {
 			view.setListaProyecciones(
-					ejb.proyeccionesPresupuestales(view.getAnioPresupuesto(), view.getIdTipoNombramiento()));
+			ejb.proyeccionesPresupuestales(view.getAnioPresupuesto(), view.getIdTipoNombramiento()));
 			view.setMostrarPrincipal(true);
 
 			Integer idTipoNombramientiValido = 15;
@@ -57,6 +57,7 @@ public class ProyeccionesPresupuestalesController {
 			JSFUtils.infoMessage(e.getMessage(), "");
 			view.setMostrarPrincipal(false);
 			this.view.setMostrarOpcionDescarga(false);
+			JSFUtils.infoMessage(e.getMessage(), "");
 		}
 		view.setMostrarProyeccion(false);
 		return null;

@@ -1,31 +1,51 @@
 package mx.gob.saludtlax.rh.presupuesto.presupuestoautorizado;
+import java.io.Serializable;
 import java.math.BigDecimal;
-import java.sql.Date;
 /**
  * 
  * @author José Pablo
  *
  */
-public class PresupuestoAutorizadoDTO {
+public class PresupuestoAutorizadoDTO implements Serializable{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4810099860462714224L;
 	
 	private Integer idPresupuestoAutorizado;
+	
 	private Integer idUnidadResponsable;
+	
 	private Integer fin;
+	
 	private Integer fn;
+	
 	private Integer idSubfuenteFinanciamiento;
+	
 	private Integer rg;
+	
 	private Integer ai;
+	
 	private String mpp;
+	
 	private Integer pp;
+	
 	private Integer partida;
+	
 	private Integer tg;
+	
 	private Integer ff;
+	
 	private Integer ef;
+	
 	private Integer ppii;
+	
 	private String concepto;
+	
 	private BigDecimal importeAnual;
+	
 	private Integer anio;
-    private Date fecha;
 	
 	public Integer getIdPresupuestoAutorizado() {
 		return idPresupuestoAutorizado;
@@ -128,12 +148,6 @@ public class PresupuestoAutorizadoDTO {
 	}
 	public void setAnio(Integer anio) {
 		this.anio = anio;
-	}
-	public Date getFecha() {
-		return fecha;
-	}
-	public void setFecha(Date fecha) {
-		this.fecha = fecha;
 	}
 
 }

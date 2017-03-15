@@ -6,17 +6,10 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
-import mx.gob.saludtlax.rh.reportes.AdministradorReportes;
-import mx.gob.saludtlax.rh.seguridad.ConfiguracionConst;
-import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
-import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
@@ -33,7 +26,6 @@ public class DistribucionPresupuestoController {
 	public void initConsultarPresupuesto() {
 		view = new DistribucionPresupuestoView();
 		view.setListaTipoNombramiento(ejb.getListaTipoNombramiento());
-		view.setListaUnidadResponsable(ejb.getListaUnidadResponsable());
 		view.setListaDependencia(ejb.getListaDependencia());
 		view.setMostrarPrincipal(Boolean.TRUE);
 		view.setMostrarDistribucion(Boolean.FALSE);
@@ -42,7 +34,7 @@ public class DistribucionPresupuestoController {
 	public String obtenerDistribucionesPresupuestales() {
 		try {
 			view.setListaDistribucion(
-					ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento()));
+			ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia()));
 			view.setMostrarPrincipal(true);
 
 			Integer idTipoNombramientiValido = 15;
@@ -59,100 +51,28 @@ public class DistribucionPresupuestoController {
 			JSFUtils.infoMessage(e.getMessage(), "");
 			view.setMostrarPrincipal(false);
 			this.view.setMostrarOpcionDescarga(false);
+			JSFUtils.infoMessage(e.getMessage(), "");
 		}
 		view.setMostrarDistribucion(false);
 		return null;
 	}
-
-	public void seleccionarEdicionProyeccion(DistribucionPresupuestoDTO distribucionPresupuestoDTO) {
-		view.setMostrarDistribucion(true);
-		view.setMostrarPrincipal(false);
-		view.setDistribucionPresupuesto(distribucionPresupuestoDTO);
-	}
-
-	public void ocultarEdicionProyeccion() {
-		view.setMostrarDistribucion(false);
-		view.setMostrarPrincipal(true);
-	}
-
-	//public void guardarDistribucion() {
-	//	ejb.guardarDistribucion(view.getListaDistribucion());
-	//}
-
-	public void actualizarProyeccion() {
-		view.setListaDistribucion(
-				ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento()));
-	}
-
-	public void descargarContrato() {
+	
+	public void descargarReporte() {
 		try {
 
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest();
-			HttpSession httpSession = request.getSession(false);
-			UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-
-			String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
-					"contrato_estatal_federal", "TIPO_REPORTE", "xlsx", "ANYO_PRESUPUESTO",
-					String.valueOf(this.view.getAnioPresupuesto()), "ID_TIPO_NOMBRAMIENTO",
-					String.valueOf(this.view.getIdTipoNombramiento()) };
-
-			AdministradorReportes admintradorReportes = new AdministradorReportes();
-			String referencia = admintradorReportes.obtenerReferencia(parametros);
-
+			ReporteDistribucionPresupuesto reporte = new ReporteDistribucionPresupuesto();
+			
 			byte[] bytes = null;
 
-			bytes = admintradorReportes.obtenerReporte(referencia);
+			bytes = reporte.generarArchivoExcel(this.view.getListaDistribucionPresupuesto());
 
 			if (bytes != null) {
-				JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Contrato_Estatal_Federal"),
+				JSFUtils.descargarArchivo(bytes,"Distribucion Presupuestal",
 						TipoArchivo.getMIMEType("xlsx"));
 
 			}
 
-			JSFUtils.infoMessage("Descargar Contrato: ", "Se descargo correctamente...");
-
-		} catch (NullPointerException | IllegalArgumentException | IOException exception) {
-
-			exception.printStackTrace();
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			reglaNegocioException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidacionException validacionException) {
-
-			validacionException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		}
-	}
-
-	public void descargarContratoDistribucion() {
-		try {
-
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest();
-			HttpSession httpSession = request.getSession(false);
-			UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-
-			String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
-					"contrato_estatal_federal_proyeccion", "TIPO_REPORTE", "xlsx", "ANYO_PRESUPUESTO",
-					String.valueOf(this.view.getAnioPresupuesto()), "ID_TIPO_NOMBRAMIENTO",
-					String.valueOf(this.view.getIdTipoNombramiento()) };
-
-			AdministradorReportes admintradorReportes = new AdministradorReportes();
-			String referencia = admintradorReportes.obtenerReferencia(parametros);
-
-			byte[] bytes = null;
-
-			bytes = admintradorReportes.obtenerReporte(referencia);
-
-			if (bytes != null) {
-				JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Contrato_Estatal_Federal_Proyeccion"),
-						TipoArchivo.getMIMEType("xlsx"));
-
-			}
-
-			JSFUtils.infoMessage("Descargar Contrato Proyección: ", "Se descargo correctamente...");
+			JSFUtils.infoMessage("Descargar Reporte: ", "Se descargo correctamente...");
 
 		} catch (NullPointerException | IllegalArgumentException | IOException exception) {
 

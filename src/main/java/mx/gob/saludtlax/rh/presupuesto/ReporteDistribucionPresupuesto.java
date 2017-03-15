@@ -1,9 +1,5 @@
 package mx.gob.saludtlax.rh.presupuesto;
-/**
- * 
- * @author José Pablo
- *
- */
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -18,7 +14,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-public class ReporteConsultarPartida {
+public class ReporteDistribucionPresupuesto {
 	
 	//Nombre de las columnas
 	private static final int FILA_ENCABEZADOS = 0;
@@ -55,11 +51,11 @@ public class ReporteConsultarPartida {
 	
 	
 	//Libro de excel
-	private XSSFWorkbook reporteConsultarPartida = new XSSFWorkbook();
+	private XSSFWorkbook reporteDistribucion = new XSSFWorkbook();
 	//Hoja
-	private Sheet sheet = reporteConsultarPartida.createSheet("Reporte");
+	private Sheet sheet = reporteDistribucion.createSheet("Reporte");
 
-	public byte[] generarArchivoExcel(List<ConsultarPartidaDTO> listaReporte) throws IOException {
+	public byte[] generarArchivoExcel(List<DistribucionPresupuestoDTO> listaReporte) throws IOException {
 
 		byte[] archivoExcel = null;
 		
@@ -78,10 +74,10 @@ public class ReporteConsultarPartida {
 		llenarDetalles(listaReporte); //
 		ByteArrayOutputStream reporte = new ByteArrayOutputStream();
 
-		reporteConsultarPartida.write(reporte);
+		reporteDistribucion.write(reporte);
 		archivoExcel = reporte.toByteArray();
                 reporte.close();
-		reporteConsultarPartida.close();
+                reporteDistribucion.close();
 		return archivoExcel;
 	}
 	
@@ -108,11 +104,11 @@ public class ReporteConsultarPartida {
 	
 
 	//Detalle del reporte
-	public void llenarDetalles(List<ConsultarPartidaDTO> listaReporte) {
+	public void llenarDetalles(List<DistribucionPresupuestoDTO> listaReporte) {
 		
 	
 		int inicio_detalle = FILA_INICIO_DETALLE;
-		for (ConsultarPartidaDTO partida : listaReporte) {
+		for (DistribucionPresupuestoDTO partida : listaReporte) {
 
 			Row dataRow = sheet.createRow(inicio_detalle);
 		
@@ -197,10 +193,10 @@ public class ReporteConsultarPartida {
 		totales(inicio_detalle,listaReporte);
 	}
 	
-	public void totales(int ultimaFila,List<ConsultarPartidaDTO> listaReporte) {
+	public void totales(int ultimaFila,List<DistribucionPresupuestoDTO> listaReporte) {
 		
 		
-		for (ConsultarPartidaDTO partida : listaReporte) {
+		for (DistribucionPresupuestoDTO partida : listaReporte) {
 
 			Row dataRow = sheet.createRow(ultimaFila);
 	
@@ -263,10 +259,10 @@ public class ReporteConsultarPartida {
 
 	/****** pinta las celdas del proveedor que fue seleccionado ********/
 	public void estiloCelda(Cell celda) {
-		Font fuenteTitulo = reporteConsultarPartida.createFont();
+		Font fuenteTitulo = reporteDistribucion.createFont();
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
-		CellStyle estilo = reporteConsultarPartida.createCellStyle();
+		CellStyle estilo = reporteDistribucion.createCellStyle();
 		estilo.setBorderLeft(CellStyle.BORDER_THIN);
 		estilo.setBorderTop(CellStyle.BORDER_THIN);
 		estilo.setBorderBottom(CellStyle.BORDER_THIN);
@@ -275,15 +271,15 @@ public class ReporteConsultarPartida {
 		estilo.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
-		DataFormat dataFormat = reporteConsultarPartida.createDataFormat();
+		DataFormat dataFormat = reporteDistribucion.createDataFormat();
 		estilo.setDataFormat(dataFormat.getFormat("$#,#0.00"));
 	}
 
 	public void estiloCeldaFin(Cell celda) {
-		Font fuenteTitulo = reporteConsultarPartida.createFont();
+		Font fuenteTitulo = reporteDistribucion.createFont();
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
-		CellStyle estilo = reporteConsultarPartida.createCellStyle();
+		CellStyle estilo = reporteDistribucion.createCellStyle();
 		estilo.setBorderLeft(CellStyle.BORDER_THIN);
 		estilo.setBorderTop(CellStyle.BORDER_THIN);
 		estilo.setBorderBottom(CellStyle.BORDER_THIN);
@@ -292,15 +288,15 @@ public class ReporteConsultarPartida {
 		estilo.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
-		DataFormat dataFormat = reporteConsultarPartida.createDataFormat();
+		DataFormat dataFormat = reporteDistribucion.createDataFormat();
 		estilo.setDataFormat(dataFormat.getFormat("$#,#0.00"));
 	}
 	
 	public void estiloCeldaImporte(Cell celda) {
-		Font fuenteTitulo = reporteConsultarPartida.createFont();
+		Font fuenteTitulo = reporteDistribucion.createFont();
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
-		CellStyle estilo = reporteConsultarPartida.createCellStyle();
+		CellStyle estilo = reporteDistribucion.createCellStyle();
 		estilo.setBorderLeft(CellStyle.BORDER_THIN);
 		estilo.setBorderTop(CellStyle.BORDER_THIN);
 		estilo.setBorderBottom(CellStyle.BORDER_THIN);
@@ -309,15 +305,15 @@ public class ReporteConsultarPartida {
 		estilo.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
-		DataFormat dataFormat = reporteConsultarPartida.createDataFormat();
+		DataFormat dataFormat = reporteDistribucion.createDataFormat();
 		estilo.setDataFormat(dataFormat.getFormat("$#,#0.00"));
 	}
 
 	public void estiloCeldaEncabezado(Cell celda) {
-		Font fuenteTitulo = reporteConsultarPartida.createFont();
+		Font fuenteTitulo = reporteDistribucion.createFont();
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
-		CellStyle estilo = reporteConsultarPartida.createCellStyle();
+		CellStyle estilo = reporteDistribucion.createCellStyle();
 		estilo.setBorderLeft(CellStyle.BORDER_THIN);
 		estilo.setBorderTop(CellStyle.BORDER_THIN);
 		estilo.setBorderBottom(CellStyle.BORDER_THIN);

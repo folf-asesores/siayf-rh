@@ -26,10 +26,10 @@
 
 			<p:panelGrid layout="grid"
 				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+				columnClasses=" ui-grid-col-3, ui-grid-col-5">
 
 				<p:outputLabel for="criterio" 
-				               value="Año de presupuesto: " />
+				               value="Año base del presupuesto: " />
 			  	  <p:inputText id="criterio" 
 				               placeholder="Ingrese un criterio de búsqueda"
 					           value="#{distribucionPresupuesto.view.anioPresupuesto}">
@@ -56,28 +56,35 @@
 						itemValue="#{tipoNombramiento.idTipoNombramiento}"
 						itemLabel="#{tipoNombramiento.descripcion}" />
 				</p:selectOneMenu>
-				
-				<p:outputLabel for="partida" 
-				               value="Partida: "/>
-			  	  <p:inputText id="partida"
-							   value="#{distribucionPresupuesto.view.proyeccionPresupuestal.partida}"/>
-				
-				<p:outputLabel for="subfuente" 
-				               value="Subfuente: "/>
-				  <p:inputText id="subfuente"
-							   value="#{distribucionPresupuesto.view.proyeccionPresupuestal.subfuenteFinanciamiento}"/>
 			</p:panelGrid>
 				
 		 	<p:panelGrid layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+						 columns="2"
+						 columnClasses=" ui-grid-col-2, ui-grid-col-5">
 
-				<p:commandButton value="Buscar" icon="ui-icon-search"
-					styleClass="fm-btn-elevado" onsuccess="PF(`statusDialog`).hide()"
-					onstart="PF(`statusDialog`).show()"
-					ajax="false" update="form" 
-					action="#{distribucionPresupuesto.obtenerDistribucionesPresupuestales()}" />
-			</p:panelGrid>
+				<p:commandButton value="Buscar" 
+							     icon="ui-icon-search"
+								 styleClass="fm-btn-elevado" 
+								 onsuccess="PF(`statusDialog`).hide()"
+								 onstart="PF(`statusDialog`).show()"
+								 action="#{distribucionPresupuesto.obtenerDistribucionesPresupuestales()}"
+								 process="@this, :form:nombramiento" 
+								 update=":form" />
+				
+				<p:commandButton value="Descargar Reporte"
+								 icon="fm-icon-download"
+								 styleClass="fm-btn-elevado" 
+								 onsuccess="PF(`statusDialog`).hide()"
+								 onstart="PF(`statusDialog`).show()" 
+								 update="@form" 
+								 process="@this"
+								 rendered="#{distribucionPresupuesto.view.mostrarOpcionDescarga}"
+								 action="#{distribucionPresupuesto.descargarReporte()}"
+								 oncomplete="mymessages();" /> 
+											 
+				
+				</p:panelGrid>
 
 			<p:dataTable id="listaDistribucion"
 				value="#{distribucionPresupuesto.view.listaDistribucion}"
@@ -112,6 +119,13 @@
 							value="#{proyeccion.partida}" style="font-size:12px !important">
 						</h:outputText>
 			</p:commandLink>
+			</p:column>
+			
+			<p:column headerText="Total" style="width:8%;">
+					<h:outputText value="#{distribucion.total}"
+						style="font-size:12px !important">
+						<f:convertNumber currencySymbol="$" type="currency" />
+					</h:outputText>
 			</p:column>
 
 			<p:column headerText="Enero" style="width:8%;">
@@ -197,311 +211,7 @@
 						<f:convertNumber currencySymbol="$" type="currency" />
 					</h:outputText>
 				</p:column>
-			</p:dataTable> 
-
-		<p:panelGrid id="dialogPartida" columns="4"
-				columnClasses="ui-grid-col-6, ui-grid-col-6, ui-grid-col-6, ui-grid-col-6"
-				layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-				rendered="#{distribucionPresupuesto.view.mostrarDistribucion}">
-
-				<p:outputLabel value="Mes" style="font-size:20px !important" />
-				<p:outputLabel value="Monto" style="font-size:20px !important" />
-				<p:outputLabel value="Porcentaje " style="font-size:20px !important" />
-				<p:outputLabel value="Aumento" style="font-size:20px !important" />
-
-				<p:outputLabel id="mes" value="Enero"
-					style="font-size:18px !important" />
-
-				<h:outputText id="monto" style="text-transform:uppercase;"
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.enero}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText id="porcentajeIncremento"
-					style="text-transform:uppercase;"
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeEnero}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText id="aumento"
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionEnero}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Febrero" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.febrero}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeFebrero}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionFebrero}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Marzo" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.marzo}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeMarzo}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionMarzo}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Abril" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.abril}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeAbril}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionAbril}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Mayo" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.mayo}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{proyeccionesPresupuestales.view.proyeccionPresupuestal.porcentajeMayo}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionMayo}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Junio" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.junio}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeJunio}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionJunio}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Julio" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.julio}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeJulio}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionJulio}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Agosto" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.agosto}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeAgosto}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionAgosto}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Septiembre" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.septiembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeSeptiembre}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText style="text-transform:uppercase;"
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionSeptiembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Octubre" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.octubre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeOctubre}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionOctubre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Noviembre" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.noviembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeNoviembre}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionNoviembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Diciembre" style="font-size:18px !important" />
-
-				<h:outputText style="text-transform:uppercase;"
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.diciembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:inputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.porcentajeDiciembre}">
-					<p:ajax event="blur" update=":form:dialogPartida"
-						listener="#{proyeccionesPresupuestales.guardarProyeccion()}" />
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</p:inputText>
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.proyeccionDiciembre}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:outputLabel value="Total" style="font-size:18px !important" />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.montoTotal}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-
-				<p:spacer />
-
-				<h:outputText
-					value="#{distribucionPresupuesto.view.distribucionPresupuesto.aumentoTotal}">
-					<f:convertNumber pattern="###,##0.00" type="currency"
-						locale="en-US" maxFractionDigits="2" />
-				</h:outputText>
-			</p:panelGrid>
-
-			<p:panelGrid columns="2"
-				columnClasses="ui-grid-col-20, ui-grid-col-20" layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid"
-				rendered="#{proyeccionesPresupuestales.view.mostrarProyeccion}">
-				<div align="right">
-					<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
-						update="form"
-						action="#{proyeccionesPresupuestales.ocultarEdicionProyeccion()}" />
-				</div>
-			</p:panelGrid>
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
