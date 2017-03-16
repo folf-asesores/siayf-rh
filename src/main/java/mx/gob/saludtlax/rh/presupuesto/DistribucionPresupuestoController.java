@@ -32,6 +32,7 @@ public class DistribucionPresupuestoController {
 	}
 
 	public String obtenerDistribucionesPresupuestales() {
+		System.out.print("buscar");
 		try {
 			view.setListaDistribucion(
 			ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia()));
