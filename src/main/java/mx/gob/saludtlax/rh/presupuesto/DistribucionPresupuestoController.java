@@ -37,15 +37,6 @@ public class DistribucionPresupuestoController {
 			ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia()));
 			view.setMostrarPrincipal(true);
 
-			Integer idTipoNombramientiValido = 15;
-
-			if (!this.view.getListaDistribucion().isEmpty()) {
-				if (this.view.getIdTipoNombramiento() == idTipoNombramientiValido) {
-					this.view.setMostrarOpcionDescarga(true);
-				}
-
-			}
-
 		} catch (ReglaNegocioException e) {
 			view.setListaDistribucion(new ArrayList<DistribucionPresupuestoDTO>());
 			JSFUtils.infoMessage(e.getMessage(), "");

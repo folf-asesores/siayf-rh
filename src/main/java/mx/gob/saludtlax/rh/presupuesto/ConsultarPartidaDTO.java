@@ -83,7 +83,7 @@ public class ConsultarPartidaDTO implements Serializable {
 	}
 
 	public String getPartida() {
-		return partida;
+		return idPartida + " " + partida;
 	}
 
 	public void setPartida(String partida) {

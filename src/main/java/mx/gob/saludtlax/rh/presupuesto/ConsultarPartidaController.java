@@ -22,9 +22,12 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ManagedBean(name = "consultarPartida")
 @SessionScoped
 public class ConsultarPartidaController {
+	
     private ConsultarPartidaView view;
+    
     @Inject
     private ConsultarPartidaEJB ejb;
+    
     @Inject
 	private BolsaTrabajo bolsaTrabajo;
     
@@ -125,7 +128,7 @@ public class ConsultarPartidaController {
 			bytes = reporte.generarArchivoExcel(this.view.getListaConsultaPartida());
 
 			if (bytes != null) {
-				JSFUtils.descargarArchivo(bytes,"Partidas Presupuestales",
+				JSFUtils.descargarArchivo(bytes,"Consultar Partida",
 						TipoArchivo.getMIMEType("xlsx"));
 
 			}

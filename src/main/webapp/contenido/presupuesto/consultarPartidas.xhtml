@@ -166,8 +166,11 @@
 				         value="#{consultarPartida.view.listaConsultaPartida}"
 				         var="consultaPartida" 
 				         emptyMessage="No se encontrarón resultados">
-
-				<p:column headerText="Partida" style="width:18%; ">
+				         
+				<p:column headerText="Partida" 
+				          style="width:15%;"
+				          filterBy="#{consultaPartida.partida}"
+						  filterMatchMode="contains">
 					<h:outputText id="idPartida#{consultaPartida.partida}"
 								value="#{consultaPartida.partida}"
 								style="font-size:12px !important" >

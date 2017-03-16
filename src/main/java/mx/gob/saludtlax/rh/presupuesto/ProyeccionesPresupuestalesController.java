@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -21,13 +22,15 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
 @ManagedBean(name = "proyeccionesPresupuestales")
-@SessionScoped
+@ViewScoped
 public class ProyeccionesPresupuestalesController {
 
 	private ProyeccionesPresupuestalesView view;
 
 	@Inject
 	private ProyeccionesPresupuestalesEJB ejb;
+	
+	private ProyeccionesPresupuestalesDTO dto;
 
 	@PostConstruct
 	public void initConsultarProyecciones() {
@@ -57,7 +60,6 @@ public class ProyeccionesPresupuestalesController {
 			JSFUtils.infoMessage(e.getMessage(), "");
 			view.setMostrarPrincipal(false);
 			this.view.setMostrarOpcionDescarga(false);
-			JSFUtils.infoMessage(e.getMessage(), "");
 		}
 		view.setMostrarProyeccion(false);
 		return null;
@@ -173,5 +175,13 @@ public class ProyeccionesPresupuestalesController {
 
 	public void setView(ProyeccionesPresupuestalesView view) {
 		this.view = view;
+	}
+
+	public ProyeccionesPresupuestalesDTO getDto() {
+		return dto;
+	}
+
+	public void setDto(ProyeccionesPresupuestalesDTO dto) {
+		this.dto = dto;
 	}
 }

@@ -61,7 +61,7 @@
 		 	<p:panelGrid layout="grid"
 						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
 						 columns="2"
-						 columnClasses=" ui-grid-col-2, ui-grid-col-5">
+						 columnClasses=" ui-grid-col-2, ui-grid-col-2">
 
 				<p:commandButton value="Buscar" 
 							     icon="ui-icon-search"
@@ -70,19 +70,7 @@
 								 onstart="PF(`statusDialog`).show()"
 								 action="#{distribucionPresupuesto.obtenerDistribucionesPresupuestales()}"
 								 process="@this, :form:nombramiento" 
-								 update=":form" />
-				
-				<p:commandButton value="Descargar Reporte"
-								 icon="fm-icon-download"
-								 styleClass="fm-btn-elevado" 
-								 onsuccess="PF(`statusDialog`).hide()"
-								 onstart="PF(`statusDialog`).show()" 
-								 update="@form" 
-								 process="@this"
-								 rendered="#{distribucionPresupuesto.view.mostrarOpcionDescarga}"
-								 action="#{distribucionPresupuesto.descargarReporte()}"
-								 oncomplete="mymessages();" /> 
-											 
+								 update=":form" /> 
 				
 				</p:panelGrid>
 
@@ -90,38 +78,32 @@
 				value="#{distribucionPresupuesto.view.listaDistribucion}"
 				var="distribucion" emptyMessage="No se encontrarón resultados"
 				rendered="#{distribucionPresupuesto.view.mostrarPrincipal}">
-
-				<f:facet name="header">
-
+				
 			<p:panelGrid layout="grid"
-						rendered="#{distribucionPresupuesto.view.mostrarOpcionDescarga}"
-						styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="3"
-						columnClasses=" ui-grid-col-8, ui-grid-col-2, ui-grid-col-2">
-						<p:spacer />
-				<p:commandButton value="Descargar Contrato"
-							icon="fm-icon-download" update="@form" iconPos="right"
-							ajax="false"
-							action="#{distribucionPresupuesto.descargarContrato()}"
-							oncomplete="mymessages();" />
-				<p:commandButton value="Descargar Proyección"
-							icon="fm-icon-download" update="@form" iconPos="right"
-							ajax="false"
-							action="#{distribucionPresupuesto.descargarContratoDistribucion()}"
-							oncomplete="mymessages();" />
-			</p:panelGrid>
+								 rendered="#{distribucionPresupuesto.view.mostrarOpcionDescarga}"
+								 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+								 columns="3"
+								 columnClasses=" ui-grid-col-8, ui-grid-col-2, ui-grid-col-2">
+								 	
+				<p:commandButton value="Descargar Reporte"
+								 icon="fm-icon-download"
+								 styleClass="fm-btn-elevado" 
+								 onsuccess="PF(`statusDialog`).hide()"
+								 onstart="PF(`statusDialog`).show()"								 
+								 process="@this"
+								 action="#{distribucionPresupuesto.descargarReporte()}"
+								 oncomplete="mymessages();" 
+								 update=":form" /> 
+								 
+			</p:panelGrid>				 
 
-				</f:facet>
+				<p:column headerText="Partida" style="width:20%; ">
+					<h:outputText id="idPartida#{proyeccion.partida}"
+						value="#{proyeccion.partida}" style="font-size:12px !important">
+					</h:outputText>
+				</p:column>
 
-			<p:column headerText="Partida" style="width:20%; ">
-					<p:commandLink id="partidaDistribucion" update="form"
-						actionListener="#{distribucionPresupuesto.seleccionarEdicionProyeccion(proyeccion)}">
-						<h:outputText id="idPartida#{proyeccion.partida}"
-							value="#{proyeccion.partida}" style="font-size:12px !important">
-						</h:outputText>
-			</p:commandLink>
-			</p:column>
-			
-			<p:column headerText="Total" style="width:8%;">
+				<p:column headerText="Total" style="width:8%;">
 					<h:outputText value="#{distribucion.total}"
 						style="font-size:12px !important">
 						<f:convertNumber currencySymbol="$" type="currency" />
