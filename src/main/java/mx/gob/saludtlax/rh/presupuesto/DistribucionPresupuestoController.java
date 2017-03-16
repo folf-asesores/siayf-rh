@@ -8,8 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.notificacion.VerNotificacionServlet;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
@@ -19,8 +22,8 @@ public class DistribucionPresupuestoController {
 
 	private DistribucionPresupuestoView view;
 
-	@Inject
-	private DistribucionPresupuestoEJB ejb;
+	@Inject private DistribucionPresupuestoEJB ejb;
+    private static final Logger LOGGER = Logger.getLogger(DistribucionPresupuestoController.class.getName());
 
 	@PostConstruct
 	public void initConsultarPresupuesto() {
@@ -33,9 +36,9 @@ public class DistribucionPresupuestoController {
 
 	public String obtenerDistribucionesPresupuestales() {
 		System.out.print("buscar");
+        LOGGER.debugv("buscar\n");
 		try {
-			view.setListaDistribucion(
-			ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia()));
+			view.setListaDistribucion(ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia()));
 			view.setMostrarPrincipal(true);
 
 		} catch (ReglaNegocioException e) {

@@ -81,7 +81,7 @@ public class DistribucionPresupuestoService implements Serializable{
           BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
         if (numeroNombramientos != null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
             query = session
-                    .createSQLQuery("CALL usp_distribucion_presupuestal(:anioPresupuesto, :tipoNombramiento, :dependencia) ")
+                    .createSQLQuery("CALL usp_distribucion_presupuestal(:tipoNombramiento, :anioPresupuesto, :dependencia) ")
                     .setParameter("anioPresupuesto", anioPresupuesto)
                     .setParameter("tipoNombramiento", idTipoNombramiento)
                     .setParameter("dependencia", idDependencia);
