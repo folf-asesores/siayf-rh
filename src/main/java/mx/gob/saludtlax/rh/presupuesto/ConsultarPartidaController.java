@@ -95,7 +95,7 @@ public class ConsultarPartidaController {
     
     	String rfc = (String) value;
     	
-    		if(this.view.getListaConsultaPartida().isEmpty()){
+    		if(view.getListaConsultaPartida() == null || view.getListaConsultaPartida().isEmpty()){
     			if (ValidacionUtil.esCadenaVacia(rfc)) {
         			FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
         					"Por favor ingrese un rfc.");
