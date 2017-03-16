@@ -1,0 +1,171 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	template="/plantillas/principal-con-menu.xhtml">
+	<ui:define name="headExtra">
+		<!-- CSS PERSONALIZADO  -->
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+	</ui:define>
+	<ui:param name="ventanaTitulo" value="Estructura Nómina" />
+	<ui:param name="moduloTitulo" value="Estructura Nómina" />
+	<ui:param name="moduloSubtitulo"
+		value="Módulo para la actualización de los datos." />
+	<ui:define name="moduloContenido">
+		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
+
+			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+				columns="3"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+				<p:outputLabel for="criterio" value="Ingrese rfc, nombre o curp:" />
+
+				<p:inputText id="criterio"
+					value="#{estructuraNomina.view.filtro.criterio}">
+				</p:inputText>
+
+				<p:commandButton oncomplete="mymessages();"
+					onsuccess="PF('statusDialog').hide()"
+					onstart="PF('statusDialog').show()" icon="ui-icon-search"
+					title="Buscar" styleClass="fm-btn-elevado" update="form"
+					actionListener="#{estructuraNomina.consultarEmpleado()}" />
+			</p:panelGrid>
+
+			<p:dataTable id="empleados"
+				value="#{estructuraNomina.view.empleados}" var="e" paginator="true"
+				paginatorPosition="bottom" rows="10">
+				<p:column headerText="Rfc">
+					<h:outputText value="#{e.rfc}" />
+				</p:column>
+				<p:column headerText="Empleado">
+					<h:outputText value="#{e.nombre}" />
+				</p:column>
+				<p:column headerText="Tipo Contratación">
+					<h:outputText value="#{e.tipoContratacion}" />
+				</p:column>
+				<p:column headerText="Seleccione una opción">
+					<p:commandButton update="form, form:messages_generales"
+						actionListener="#{estructuraNomina.seleccionarEmpleado(e.idVacante)}"
+						icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog header="Información Puesto" id="info_puesto"
+				visible="#{estructuraNomina.view.mostrarInformacionPuesto}"
+				modal="true" closable="false" height="500" width="700">
+
+
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
+					layout="grid" styleClass="fm-tarjeta ui-fluid ">
+					<f:facet name="header">
+						<p:messages id="error" showDetail="true" autoUpdate="false"
+							severity="error" closable="true" />
+						<h3>Información Puesto</h3>
+					</f:facet>
+					<p:outputLabel value="Propietario plaza:" />
+					<h:outputText value="#{estructuraNomina.view.puesto.nombre}"></h:outputText>
+
+					<p:outputLabel value="Tipo Plaza:" />
+					<h:outputText
+						value="#{estructuraNomina.view.puesto.tipoContratacion}"></h:outputText>
+
+					<p:outputLabel value="Adscripción:" />
+					<h:outputText value="#{estructuraNomina.view.puesto.adscripcion}"></h:outputText>
+
+					<p:outputLabel value="Subadscripción:" />
+					<h:outputText
+						value="#{estructuraNomina.view.puesto.subadscripcion}"></h:outputText>
+
+					<p:outputLabel value="Servicio:" />
+					<h:outputText value="#{estructuraNomina.view.puesto.servicio}"></h:outputText>
+
+					<p:outputLabel value="Función:" />
+					<h:outputText value="#{estructuraNomina.view.puesto.funcion}"></h:outputText>
+
+				</p:panelGrid>
+
+				<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
+					id="panelLaborales" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid">
+					<f:facet name="header">
+						<h3>Datos estructuras nómina</h3>
+					</f:facet>
+					<p:outputLabel for="subfuncion" value="Subunción:*" />
+					<p:selectOneMenu id="subfuncion"
+						value="#{estructuraNomina.view.estructuraNomina.subfuncion}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.subfunciones}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tabulador" value="Tabulador puesto:*" />
+					<p:selectOneMenu id="tabulador"
+						value="#{estructuraNomina.view.estructuraNomina.tabuladorPuesto}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.tabuladoresPuestos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="pagaduria" value="Pagaduría:*" />
+					<p:selectOneMenu id="pagaduria"
+						value="#{estructuraNomina.view.estructuraNomina.pagaduria}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.pagadurias}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="indicador" value="Indicador mando:*" />
+					<p:selectOneMenu id="indicador"
+						value="#{estructuraNomina.view.estructuraNomina.indicadorMando}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.indicadoresMando}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tipoUnidad" value="Tipo Unidad:*" />
+					<p:selectOneMenu id="tipoUnidad"
+						value="#{estructuraNomina.view.estructuraNomina.tipoUnidad}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.tiposUnidad}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="tipoPago" value="Tipo pago:*" />
+					<p:selectOneMenu id="tipoPago"
+						value="#{estructuraNomina.view.estructuraNomina.tipoPago}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.tiposPagos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="financiamiento" value="Financiamiento:*" />
+					<p:selectOneMenu id="financiamiento"
+						value="#{estructuraNomina.view.estructuraNomina.financiamiento}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.finaciamientos}" />
+					</p:selectOneMenu>
+
+					<p:outputLabel for="jornada" value="Jornada:" />
+					<p:selectOneMenu id="jornada"
+						value="#{estructuraNomina.view.estructuraNomina.jornadaTrabajo}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{estructuraNomina.view.jornadas}" />
+					</p:selectOneMenu>
+				</p:panelGrid>
+
+				<f:facet name="footer">
+					<div align="center">
+						<p:commandButton
+							actionListener="#{estructuraNomina.actualizarEstructuras()}"
+							update="form, error" value="Actualizar" />
+						<p:spacer width="20" />
+						<p:commandButton update="form" value="Cancelar"
+							actionListener="#{estructuraNomina.ocultarEstructura()}"
+							styleClass="fm-btn-peligro fm-btn-elevado" />
+					</div>
+				</f:facet>
+			</p:dialog>
+
+
+		</h:form>
+	</ui:define>
+</ui:composition>

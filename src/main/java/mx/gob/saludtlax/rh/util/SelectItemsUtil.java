@@ -689,22 +689,109 @@ public class SelectItemsUtil {
 		return lista;
 	}
 
+	public static List<SelectItem> listaSubfunciones() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("1", "1");
+		SelectItem dos = new SelectItem("2", "2");
+		SelectItem tres = new SelectItem("3", "3");
+		SelectItem cuatro = new SelectItem("4", "4");
+		SelectItem cinco = new SelectItem("5", "5");
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+		lista.add(cuatro);
+		lista.add(cinco);
+		return lista;
+	}
+
+	public static List<SelectItem> listaTabuladorPuesto() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("40", "40");
+		SelectItem dos = new SelectItem("60", "60");
+		SelectItem tres = new SelectItem("100", "100");
+
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaPagadurias() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("S2929", "S2929");
+		SelectItem dos = new SelectItem("61019", "61019");
+		SelectItem tres = new SelectItem("X0029", "X0029");
+
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaIndicadoresdeMando() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("10", "10");
+		SelectItem dos = new SelectItem("20", "20");
+		SelectItem tres = new SelectItem("30", "30");
+		SelectItem cuatro = new SelectItem("75", "75");
+
+		lista.add(uno);
+		lista.add(dos);
+		lista.add(tres);
+		lista.add(cuatro);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaTiposUnidades() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("1", "1");
+		SelectItem dos = new SelectItem("2", "2");
+
+		lista.add(uno);
+		lista.add(dos);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaTiposPago() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("1", "1");
+		SelectItem dos = new SelectItem("2", "2");
+
+		lista.add(uno);
+		lista.add(dos);
+
+		return lista;
+	}
+
+	public static List<SelectItem> listaFinanciamientosFederal() {
+		List<SelectItem> lista = new ArrayList<>();
+		SelectItem uno = new SelectItem("1", "1");
+		SelectItem dos = new SelectItem("2", "2");
+		lista.add(uno);
+		lista.add(dos);
+		return lista;
+	}
+
 	public static List<SelectItem> listaFinanciamientos() {
 		List<SelectItem> lista = new ArrayList<>();
-		SelectItem uno = new SelectItem("01", "FASSA");
-		SelectItem dos = new SelectItem("02", "SEGURO POPULAR");
-		SelectItem tres = new SelectItem("03", "RECURSOS ESTATALES");
-		SelectItem cuatro = new SelectItem("04", "CUOTA RECUPERACIÓN");
-		SelectItem cinco = new SelectItem("05", "OPORTUNIDADES (SUBSIDIOS)");
-		SelectItem seis = new SelectItem("06", "RECURSO RAMO 12 (610)");
-		SelectItem siete = new SelectItem("07", "RECURSOS RAMO 12 (X00)");
-		SelectItem ocho = new SelectItem("08", "FASSA + SEGURO POPULAR");
-		SelectItem nueve = new SelectItem("09", "FASSA + RECURSOS ESTATALES");
-		SelectItem diez = new SelectItem("10", "FASSA + RECURSOS RAMO 12");
-		SelectItem once = new SelectItem("11", "RECURSO RAMO 12 (AFASPE)");
-		SelectItem doce = new SelectItem("12", "SEGURO POPULAR + RECURSOS ESTATALES");
-		SelectItem trece = new SelectItem("13", "CARAVANAS DE LA SALUD");
-		SelectItem catorce = new SelectItem("14", "FASSA + OPORTUNIDADES + CUOTAS DE RECUPERACIÓN");
+		SelectItem uno = new SelectItem("01", "01-FASSA");
+		SelectItem dos = new SelectItem("02", "02-SEGURO POPULAR");
+		SelectItem tres = new SelectItem("03", "03-RECURSOS ESTATALES");
+		SelectItem cuatro = new SelectItem("04", "04-CUOTA RECUPERACIÓN");
+		SelectItem cinco = new SelectItem("05", "05-OPORTUNIDADES (SUBSIDIOS)");
+		SelectItem seis = new SelectItem("06", "06-RECURSO RAMO 12 (610)");
+		SelectItem siete = new SelectItem("07", "07-RECURSOS RAMO 12 (X00)");
+		SelectItem ocho = new SelectItem("08", "08-FASSA + SEGURO POPULAR");
+		SelectItem nueve = new SelectItem("09", "09-FASSA + RECURSOS ESTATALES");
+		SelectItem diez = new SelectItem("10", "10-FASSA + RECURSOS RAMO 12");
+		SelectItem once = new SelectItem("11", "11-RECURSO RAMO 12 (AFASPE)");
+		SelectItem doce = new SelectItem("12", "12-SEGURO POPULAR + RECURSOS ESTATALES");
+		SelectItem trece = new SelectItem("13", "13-CARAVANAS DE LA SALUD");
+		SelectItem catorce = new SelectItem("14", "14-FASSA + OPORTUNIDADES + CUOTAS DE RECUPERACIÓN");
 		lista.add(uno);
 		lista.add(dos);
 		lista.add(tres);

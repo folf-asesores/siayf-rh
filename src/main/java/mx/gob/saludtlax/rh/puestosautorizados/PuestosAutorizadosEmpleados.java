@@ -41,7 +41,17 @@ public interface PuestosAutorizadosEmpleados {
 	public List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion);
 
 	public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
-	
+
 	public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto);
+
+	/**
+	 * Actualiza la estructura nómina de puestos federales.
+	 */
+	public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO);
+
+	/**
+	 * Obtiene la estructura nómina de un puesto federal.
+	 */
+	public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto);
 
 }
