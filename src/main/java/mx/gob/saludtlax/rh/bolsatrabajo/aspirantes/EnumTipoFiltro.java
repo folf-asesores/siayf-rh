@@ -33,5 +33,7 @@ public class EnumTipoFiltro {
 	public static final int CRITERIO_COMBO_TODAS_ADSCRIPCIONES = 6;
 
 	public static final int CRITERIO_COMBO_ADSCRIPCION_ASIGNADA = 7;
+	
+	public static final int CRITERIO_FEDERALES = 8;
 
 }

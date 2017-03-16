@@ -100,4 +100,16 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 		return consultaPuestoService.obtenerEstructuraContratoPuesto(idPuesto);
 	}
 
+	@Interceptors({ EstructuraFederalValidator.class })
+	@Override
+	public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO) {
+		estructurasService.actualizarEstructuraNomina(estructuraNominaDTO);
+	}
+
+	@Override
+	public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto) {
+
+		return estructurasService.obtenerEstructuraNominaPuesto(idPuesto);
+	}
+
 }

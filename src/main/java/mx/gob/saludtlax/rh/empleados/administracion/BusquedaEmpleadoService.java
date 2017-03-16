@@ -402,6 +402,8 @@ public class BusquedaEmpleadoService {
 		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.CRITERIO_COMBO_ADSCRIPCION_ASIGNADA) {
 			empleados = inventarioPuestosRepository.empleadosPorCriterioAdscripcionCombo(filtroDTO.getCriterio(),
 					filtroDTO.getId());
+		} else if (filtroDTO.getTipoFiltro() == EnumTipoFiltro.CRITERIO_FEDERALES) {
+			empleados = inventarioPuestosRepository.empleadosFederalesPorCriterio(filtroDTO.getCriterio());
 		}
 
 		return empleados;

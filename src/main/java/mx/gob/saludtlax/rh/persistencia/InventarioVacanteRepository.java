@@ -262,6 +262,23 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 	}
 
 	/**
+	 * Consulta los empleados federales activos
+	 */
+	public List<InfoEmpleadoDTO> empleadosFederalesPorCriterio(String criterio) {
+		String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(i.empleadoActivo.idEmpleado, "
+				+ "i.empleadoActivo.nombreCompleto, i.empleadoActivo.curp, i.empleadoActivo.rfc, "
+				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
+				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
+				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo =true AND i.tipoContratacion.areaResponsable =1) "
+				+ " AND (i.empleadoActivo.nombreCompleto LIKE :criterio OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio)"
+				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
+		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
+				.setParameter("criterio", "%" + criterio + "%").getResultList();
+
+		return resultado;
+	}
+
+	/**
 	 * Consulta utilizada para visualizar solamente el nombre del empleado en
 	 * los combos.
 	 * 
