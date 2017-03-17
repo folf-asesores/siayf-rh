@@ -113,8 +113,12 @@ public class PagoGeneralReporteService {
                         case "java.math.BigDecimal":
                             objDatos[i] = rs.getBigDecimal(columnLabel);
                             break;
+                        case "java.util.Date":
+                        case "java.sql.Date":
+                            objDatos[i] = rs.getDate(columnLabel);
+                            break;
                         default:
-                            objDatos[i] = null;
+                            objDatos[i] = rs.getObject(columnLabel);
                             break;
                     }
                     

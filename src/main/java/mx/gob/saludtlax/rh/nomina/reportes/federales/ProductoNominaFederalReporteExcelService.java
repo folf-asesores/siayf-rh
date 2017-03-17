@@ -46,7 +46,7 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         hoja = libro.createSheet(nombreHojaSeguro);
     }
     
-    private void llenarTitulos(List<String> titulos) {
+    private void llenarTitulos(final List<String> titulos) {
         Row fila = hoja.createRow(0);
 
         CellStyle estiloTitulo = libro.createCellStyle();
@@ -61,7 +61,7 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         }
     }
     
-    private void llenarDetalle(List<Object []> datos) {
+    private void llenarDetalle(final List<Object []> datos) {
         int i = FILA_INICIO_DETALLE;
 
         CellStyle estiloMoneda = libro.createCellStyle();
@@ -72,6 +72,8 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO, FechaUtil.PATRON_FECHA_CORTA);
         CellStyle estiloFecha = libro.createCellStyle();
         estiloFecha.setDataFormat(fechaDataFormat.getFormat(patronFecha));
+        
+        Double [] totales = new Double[datos.get(0).length];
 
         for(Object[] row : datos) {
             Row fila = hoja.createRow(i);
@@ -83,7 +85,15 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
                 } else if(column instanceof BigDecimal) {
                     Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
                     BigDecimal decimal = (BigDecimal) column;
-                    celda.setCellValue(decimal.doubleValue());
+                    double valor = decimal.doubleValue();
+                    
+                    if (totales[j] == null) {
+                        totales[j] = 0.0;
+                    }
+                    
+                    totales[j] = totales[j] + valor;
+                    
+                    celda.setCellValue(valor);
                     celda.setCellStyle(estiloMoneda);
                 } else if(column instanceof Long) {
                     Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
@@ -97,6 +107,26 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
                 }
             }
             i++;
+        }
+        
+        llenarTotales(totales);
+        totales = null;
+    }
+
+    private void llenarTotales(final Double[] totales) {
+        CellStyle estiloMoneda = libro.createCellStyle();
+        DataFormat monedaDataFormat = libro.createDataFormat();
+        estiloMoneda.setDataFormat(monedaDataFormat.getFormat("$#,#0.00"));
+        
+        int ultimaFila = hoja.getLastRowNum();
+        Row fila = hoja.createRow(ultimaFila + 1);
+        
+        for(int j = 0; j < totales.length; j++) {
+            if (totales[j] != null) {
+                Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
+                celda.setCellValue(totales[j]);
+                celda.setCellStyle(estiloMoneda);
+            }
         }
     }
 
@@ -128,4 +158,5 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         llenarDetalle(datos);
         return finalizar();
     }
+
 }

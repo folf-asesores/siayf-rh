@@ -40,12 +40,15 @@ public class ProductoNominaFederalReporteService implements Serializable {
         TITULOS.put("rfc", "RFC");
         TITULOS.put("funcionTrabajador", "FUNCIÓN DEL TRABAJADOR");
         TITULOS.put("unidadResponsable", "UNIDAD RESPONSABLE");
+        TITULOS.put("grupoFuncional", "GRUPO FUNCIONAL");
         TITULOS.put("funcion", "FUNCIÓN");
         TITULOS.put("subfuncion", "SUBFUNCIÓN");
+        TITULOS.put("partida", "PARTIDA");
         TITULOS.put("puesto", "PUESTO");
         TITULOS.put("fechaInicialQuincena", "PERIODO INICIAL DE QUINCENA");
         TITULOS.put("fechaFinalQuincena", "PERIODO FINAL DE QUINCENA");
         TITULOS.put("fechaPago", "QUINCENA REAL DE PAGO");
+        TITULOS.put("anyoRealPago", "AÑO REAL DE PAGO");
     }
 
     /**
@@ -97,8 +100,12 @@ public class ProductoNominaFederalReporteService implements Serializable {
                         case "java.math.BigDecimal":
                             objDatos[i] = rs.getBigDecimal(columnLabel);
                             break;
+                        case "java.util.Date":
+                        case "java.sql.Date":
+                            objDatos[i] = rs.getDate(columnLabel);
+                            break;
                         default:
-                            objDatos[i] = null;
+                            objDatos[i] = rs.getObject(columnLabel);
                             break;
                     }
                     
