@@ -312,6 +312,36 @@ public class ProductosNominaController implements Serializable {
         setReporte(new DefaultStreamedContent(bis, TipoArchivo.XLSX.getMIMEType(), "dispersion-nomina.xlsx"));
     }
 
+    public void descargarProductoNominaFederales() {
+        try {
+            UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+            String[] parametros = {
+                "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+                "REPORTE_NOMBRE", "producto_nomina_federales",
+                "TIPO_REPORTE", "xlsx",
+                "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina())
+            };
+
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            if (bytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                String nombreProducto = CadenaUtil.converterSpace(view.getProductoNomina().getNombreProducto());
+                setReporte(new DefaultStreamedContent(bis, TipoArchivo.getMIMEType("xlsx"),
+                        "producto_nomina_federales_" + nombreProducto + ".xlsx"));
+                JSFUtils.infoMessage("Descargar Productos Nomina: "
+                        + nombreProducto,
+                        "Se descargo correctamente.");
+            } else {
+                    JSFUtils.errorMessage("Error: ", "");
+            }
+        } catch (ReglaNegocioException e) {
+            LOGGER.error(e.getMessage(), e);
+            JSFUtils.errorMessage("Error: ", e.getMessage());
+        }
+    }
+    
     public void descargarProductoNomina() {
         try {
             UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();

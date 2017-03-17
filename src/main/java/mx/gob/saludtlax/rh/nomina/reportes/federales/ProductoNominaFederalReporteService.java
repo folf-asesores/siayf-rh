@@ -49,6 +49,9 @@ public class ProductoNominaFederalReporteService implements Serializable {
         TITULOS.put("fechaFinalQuincena", "PERIODO FINAL DE QUINCENA");
         TITULOS.put("fechaPago", "QUINCENA REAL DE PAGO");
         TITULOS.put("anyoRealPago", "AÑO REAL DE PAGO");
+        TITULOS.put("percepciones", "PERCEPCIONES");
+        TITULOS.put("deducciones", "DEDUCCIONES");
+        TITULOS.put("neto", "NETO");
     }
 
     /**
