@@ -11,14 +11,17 @@ public class DistribucionPresupuestoDTO implements Serializable {
 	private static final long serialVersionUID = 2346097516770608127L;
 
 	private Integer idDistribucionPresupuestal;
-	private Integer idConsultaPartida;
 	private Integer idUnidadResponsable;
 	private Integer idNombramiento;
 	private Integer idPartida;	
 	private Integer idDependencia;
 	private Integer anio;
+	private Integer idSubfuenteFinanciamiento;
+	private Integer idQuincena;
+	private String unidadResponsable;
 	private String nombramiento;
 	private String partida;
+	private String fechaFinQuincena;
 
 
 	private BigDecimal enero;
@@ -41,14 +44,6 @@ public class DistribucionPresupuestoDTO implements Serializable {
 
 	public void setIdDistribucionPresupuestal(Integer idDistribucionPresupuestal) {
 		this.idDistribucionPresupuestal = idDistribucionPresupuestal;
-	}
-
-	public Integer getIdConsultaPartida() {
-		return idConsultaPartida;
-	}
-
-	public void setIdConsultaPartida(Integer idConsultaPartida) {
-		this.idConsultaPartida = idConsultaPartida;
 	}
 
 	public Integer getIdUnidadResponsable() {
@@ -100,7 +95,7 @@ public class DistribucionPresupuestoDTO implements Serializable {
 	}
 
 	public String getPartida() {
-		return partida;
+		return idPartida + " " + partida;
 	}
 
 	public void setPartida(String partida) {
@@ -201,6 +196,38 @@ public class DistribucionPresupuestoDTO implements Serializable {
 
 	public void setDiciembre(BigDecimal diciembre) {
 		this.diciembre = diciembre;
+	}
+
+	public String getUnidadResponsable() {
+		return unidadResponsable;
+	}
+
+	public void setUnidadResponsable(String unidadResponsable) {
+		this.unidadResponsable = unidadResponsable;
+	}
+
+	public Integer getIdSubfuenteFinanciamiento() {
+		return idSubfuenteFinanciamiento;
+	}
+
+	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
+	}
+
+	public Integer getIdQuincena() {
+		return idQuincena;
+	}
+
+	public void setIdQuincena(Integer idQuincena) {
+		this.idQuincena = idQuincena;
+	}
+
+	public String getFechaFinQuincena() {
+		return fechaFinQuincena;
+	}
+
+	public void setFechaFinQuincena(String fechaFinQuincena) {
+		this.fechaFinQuincena = fechaFinQuincena;
 	}
 
 	/**

@@ -39,6 +39,8 @@
 
 				<p:outputLabel for="nombramiento" value="Nombramiento: " />
 				<p:selectOneMenu id="nombramiento"
+								 filter="true"
+								 filterMatchMode="contains"
 								 value="#{proyeccionesPresupuestales.view.idTipoNombramiento}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems value="#{proyeccionesPresupuestales.view.listaTipoNombramiento}"
@@ -64,9 +66,16 @@
 			</p:panelGrid>
 
 			<p:dataTable id="listaProyecciones"
-				value="#{proyeccionesPresupuestales.view.listaProyecciones}"
-				var="proyeccion" emptyMessage="No se encontrarón resultados"
-				rendered="#{proyeccionesPresupuestales.view.mostrarPrincipal}">
+						 value="#{proyeccionesPresupuestales.view.listaProyecciones}"
+						 var="proyeccion"
+						 emptyMessage="No se encontrarón resultados" 
+				         paginator="true"
+						 rows="5" 
+						 paginatorAlwaysVisible="true"
+						 currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 rowsPerPageTemplate="5,10,15"
+						 rendered="#{proyeccionesPresupuestales.view.mostrarPrincipal}">
 
 				<f:facet name="header">
 

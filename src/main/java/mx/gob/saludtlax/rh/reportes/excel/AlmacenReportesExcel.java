@@ -62,6 +62,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
 
         ExcelReporte dispercionReporte = new ExcelReporte(null, null); // 1.
         ExcelReporte pagoGeneralReporte = new ExcelReporte(null, null); // 1.
+        ExcelReporte distribucionPresupuestal = new ExcelReporte(null, null); // 1.
 
         REPORTES = new HashMap<>();
         REPORTES.put("acumulados", acumulados);
@@ -79,6 +80,8 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
         REPORTES.put("relacion_personal_suplente", relacionPersonalSuplenteReporte);
         REPORTES.put("dispersion_nomina", dispercionReporte);
         REPORTES.put("pago_general", pagoGeneralReporte);
+        REPORTES.put("reporte_distribucion_presupuestal", distribucionPresupuestal);
+        //reporte_distribucion_presupuestal
         
     }
 

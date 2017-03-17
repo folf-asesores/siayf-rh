@@ -20,6 +20,7 @@ public class DistribucionPresupuestoView {
 	private Boolean mostrarPrincipal;
     private Integer anioPresupuesto;
     private Integer idTipoNombramiento;
+    private Integer idSubfuente;
     private Integer idDependencia;
     private Integer anio;
     
@@ -111,6 +112,12 @@ public class DistribucionPresupuestoView {
 	}
 	public void setListaDistribucionPresupuesto(List<DistribucionPresupuestoDTO> listaDistribucionPresupuesto) {
 		this.listaDistribucionPresupuesto = listaDistribucionPresupuesto;
+	}
+	public Integer getIdSubfuente() {
+		return idSubfuente;
+	}
+	public void setIdSubfuente(Integer idSubfuente) {
+		this.idSubfuente = idSubfuente;
 	}
 	/**
 	 * @return the mostrarOpcionDescarga

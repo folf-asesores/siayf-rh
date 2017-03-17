@@ -5,6 +5,7 @@
  */
 package mx.gob.saludtlax.rh.reportes.excel;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -33,8 +34,11 @@ import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoDTO;
+import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoEJB;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesEJB;
+import mx.gob.saludtlax.rh.presupuesto.ReporteDistribucionPresupuesto;
 import mx.gob.saludtlax.rh.reportes.Generador;
 import mx.gob.saludtlax.rh.reporteslaborales.detallesempleado.DetalleEmpleadoExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.historialpago.HistorialPagoExcel;
@@ -73,6 +77,7 @@ public class ExcelGenerador implements Generador, Serializable {
     private static final String RELACION_PERSONAL_SUPLENTE_BEAN = "java:module/RelacionPersonalSuplenteEJB";
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
     private static final String PAGO_GENERAL_BEAN = "java:module/PagoGeneralReporteEJB";
+    private static final String DISTRIBUCION_PRESUPUESTO_BEAN = "java:module/DistribucionPresupuestoEJB";
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -307,6 +312,36 @@ public class ExcelGenerador implements Generador, Serializable {
                     bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes() : pagoGeneral.generarReporte(idProducto);
                 }
                 break;
+                
+                case "reporte_distribucion_presupuestal": {
+
+                    Integer anioPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
+                    Integer idTipoNombramiento = Integer.parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
+                    Integer idDependencia = Integer.parseInt(parametros.get("DEPENDENCIA"));
+                    Integer idSubfuenteFinanciamiento = Integer.parseInt(parametros.get("ID_SUBFUENTE_FINANCIAMIENTO"));
+
+                    List<DistribucionPresupuestoDTO> listaDistribucionPresupuestoDTOs = getDistribucionPresupuestal()
+                            .distribucionPresupuesto(anioPresupuesto, idTipoNombramiento,
+                            		idDependencia, idSubfuenteFinanciamiento);
+
+                    if (!listaDistribucionPresupuestoDTOs.isEmpty()) {
+
+                    	ReporteDistribucionPresupuesto reporteDistribucionPresupuesto = new ReporteDistribucionPresupuesto();
+                    	
+                    	try{
+
+                        bytes = reporteDistribucionPresupuesto.generarArchivoExcel(listaDistribucionPresupuestoDTOs);
+                    	}catch(IOException ex){
+                    		bytes = ReporteVacio.obtenerBytes();
+                    		LOGGER.warn("Se va a generar un archivo excel vacio por error de entrada/salida");
+                    	}
+
+                    } else {
+                        throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
+                    }
+
+                }
             }
         }
         return bytes;
@@ -446,6 +481,20 @@ public class ExcelGenerador implements Generador, Serializable {
             return (T) initContext.lookup(bean);
         } catch (NamingException ex) {
             LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean, ex.getCause());
+            return null;
+        }
+    }
+    
+    private DistribucionPresupuestoEJB getDistribucionPresupuestal() {
+        try {
+            Context initContext = new InitialContext();
+
+            DistribucionPresupuestoEJB relacionPersonalSuplente = (DistribucionPresupuestoEJB) initContext
+                    .lookup(DISTRIBUCION_PRESUPUESTO_BEAN);
+
+            return relacionPersonalSuplente;
+        } catch (NamingException ex) {
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISTRIBUCION_PRESUPUESTO_BEAN, ex.getCause());
             return null;
         }
     }
