@@ -32,6 +32,7 @@ import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPagoDetalleDTO;
 import mx.gob.saludtlax.rh.nomina.productosnomina.EnumEstatusProductoNomina;
 import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
+import mx.gob.saludtlax.rh.nomina.reportes.federales.ProductoNominaFederalReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
 import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoDTO;
@@ -49,6 +50,7 @@ import mx.gob.saludtlax.rh.reporteslaborales.relacionpersonalsuplente.RelacionPe
 import mx.gob.saludtlax.rh.siif.ConsultaNominaService;
 import mx.gob.saludtlax.rh.siif.seguropopular.SeguroPopularReporte;
 import mx.gob.saludtlax.rh.util.FechaUtil;
+import mx.gob.saludtlax.rh.util.PlantillaMensaje;
 
 import org.jboss.logging.Logger;
 
