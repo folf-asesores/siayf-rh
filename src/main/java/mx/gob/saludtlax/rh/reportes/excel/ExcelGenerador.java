@@ -31,6 +31,7 @@ import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPagoDetalleDTO;
 import mx.gob.saludtlax.rh.nomina.productosnomina.EnumEstatusProductoNomina;
 import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
+import mx.gob.saludtlax.rh.nomina.reportes.federales.ProductoNominaFederalReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
@@ -45,6 +46,7 @@ import mx.gob.saludtlax.rh.reporteslaborales.relacionpersonalsuplente.RelacionPe
 import mx.gob.saludtlax.rh.siif.ConsultaNominaService;
 import mx.gob.saludtlax.rh.siif.seguropopular.SeguroPopularReporte;
 import mx.gob.saludtlax.rh.util.FechaUtil;
+import mx.gob.saludtlax.rh.util.PlantillaMensaje;
 
 import org.jboss.logging.Logger;
 
@@ -73,6 +75,7 @@ public class ExcelGenerador implements Generador, Serializable {
     private static final String RELACION_PERSONAL_SUPLENTE_BEAN = "java:module/RelacionPersonalSuplenteEJB";
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
     private static final String PAGO_GENERAL_BEAN = "java:module/PagoGeneralReporteEJB";
+    private static final String PRODUCTO_NOMINA_FEDERAL_BEAN = "java:module/ProductoNominaFederalReporteEJB";
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -295,16 +298,24 @@ public class ExcelGenerador implements Generador, Serializable {
                 }
                 break;
 
-                case "dispersion_nomina": {
+                case "dispersion_nomina" : {
                     Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    bytes = getDispersion().generarReporte(idProducto, true);
+                    Dispersion dispersion = getBean(Dispersion.class);
+                    bytes = dispersion == null ? ReporteVacio.obtenerBytes() : dispersion.generarReporte(idProducto, true);
                 }
                 break;
 
-                case "pago_general": {
+                case "pago_general" : {
                     Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     PagoGeneralReporte pagoGeneral = getBean(PagoGeneralReporte.class);
                     bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes() : pagoGeneral.generarReporte(idProducto);
+                }
+                break;
+                
+                case "producto_nomina_federales" : {
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    ProductoNominaFederalReporte productoNominaFederalReporte = getBean(ProductoNominaFederalReporte.class);
+                    bytes = productoNominaFederalReporte == null ? ReporteVacio.obtenerBytes() : productoNominaFederalReporte.generarReporte(idProducto);
                 }
                 break;
             }
@@ -419,24 +430,18 @@ public class ExcelGenerador implements Generador, Serializable {
         }
     }
 
-    private Dispersion getDispersion() {
-        try {
-            Context initContext = new InitialContext();
-            Dispersion dispersion = (Dispersion) initContext
-                    .lookup(DISPERSION_BEAN);
-            return dispersion;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISPERSION_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
     private <T> T getBean(Class<T> clase) {
         String bean = "";
         try {
             switch (clase.getName()) {
+                case "mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion":
+                    bean = DISPERSION_BEAN;
+                    break;
                 case "mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte":
                     bean = PAGO_GENERAL_BEAN;
+                    break;
+                case "mx.gob.saludtlax.rh.nomina.reportes.federales.ProductoNominaFederalReporte":
+                    bean = PRODUCTO_NOMINA_FEDERAL_BEAN;
                     break;
                 default:
                     return null;
@@ -445,7 +450,7 @@ public class ExcelGenerador implements Generador, Serializable {
             Context initContext = new InitialContext();
             return (T) initContext.lookup(bean);
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean, ex.getCause());
+            LOGGER.errorv(PlantillaMensaje.REPORTE_ERROR_BEAN_NO_ENCONTRADO, bean, ex.getCause());
             return null;
         }
     }

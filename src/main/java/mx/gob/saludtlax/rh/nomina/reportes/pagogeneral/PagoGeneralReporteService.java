@@ -4,6 +4,9 @@
  * 
  */
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
+
+import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,33 +34,33 @@ public class PagoGeneralReporteService {
             "  SELECT cn.descripcion"
             + "  FROM conceptos_nominas_contratos AS cn" 
             + " WHERE cn.clave = ?";
-    private static final Map<String, String> TITULO;
+    private static final Map<String, String> TITULOS;
 
     static {
-        TITULO  = new HashMap<>();
-        TITULO.put("programa","PROGRAMA");
-        TITULO.put("noConsecutivoRegistro", "NO. CONSECUTIVO REGISTRO");
-        TITULO.put("mes","MES");
-        TITULO.put("entidad","ENTIDAD");
-        TITULO.put("tipoCentroSalud","TIPO CENTRO DE SALUD");
-        TITULO.put("claveClues","CLAVE CLUES");
-        TITULO.put("nombreUnidad","NOMBRE DE LA UNIDAD");
-        TITULO.put("areaAdscripcion","ÁREA DE ADSCRIPCIÓN");
-        TITULO.put("puesto","PUESTO");
-        TITULO.put("clavePuesto","CLAVE PUESTO");
-        TITULO.put("servicio","SERVICIO");
-        TITULO.put("rama","RAMA");
-        TITULO.put("nombre","NOMBRE");
-        TITULO.put("rfc","RFC");
-        TITULO.put("turno","TURNO");
-        TITULO.put("fechaIngreso","FECHA DE INGRESO");
-        TITULO.put("centroResponsabilidad","CENTRO DE RESPONSABILIDAD");
-        TITULO.put("funcion","FUNCIÓN");
-        TITULO.put("percepcionNeta","PERCEPCIÓN NETA");
-        TITULO.put("deduccionTotal","DEDUCCIÓN TOTAL");
-        TITULO.put("percepcionTotal","PERCEPCIÓN TOTAL");
-        TITULO.put("total","TOTAL");
-        TITULO.put("idPagoNomina","idPagoNomina");
+        TITULOS  = new HashMap<>();
+        TITULOS.put("programa","PROGRAMA");
+        TITULOS.put("noConsecutivoRegistro", "NO. CONSECUTIVO REGISTRO");
+        TITULOS.put("mes","MES");
+        TITULOS.put("entidad","ENTIDAD");
+        TITULOS.put("tipoCentroSalud","TIPO CENTRO DE SALUD");
+        TITULOS.put("claveClues","CLAVE CLUES");
+        TITULOS.put("nombreUnidad","NOMBRE DE LA UNIDAD");
+        TITULOS.put("areaAdscripcion","ÁREA DE ADSCRIPCIÓN");
+        TITULOS.put("puesto","PUESTO");
+        TITULOS.put("clavePuesto","CLAVE PUESTO");
+        TITULOS.put("servicio","SERVICIO");
+        TITULOS.put("rama","RAMA");
+        TITULOS.put("nombre","NOMBRE");
+        TITULOS.put("rfc","RFC");
+        TITULOS.put("turno","TURNO");
+        TITULOS.put("fechaIngreso","FECHA DE INGRESO");
+        TITULOS.put("centroResponsabilidad","CENTRO DE RESPONSABILIDAD");
+        TITULOS.put("funcion","FUNCIÓN");
+        TITULOS.put("percepcionNeta","PERCEPCIÓN NETA");
+        TITULOS.put("deduccionTotal","DEDUCCIÓN TOTAL");
+        TITULOS.put("percepcionTotal","PERCEPCIÓN TOTAL");
+        TITULOS.put("total","TOTAL");
+        TITULOS.put("idPagoNomina","idPagoNomina");
     }
 
     /**
@@ -79,8 +82,8 @@ public class PagoGeneralReporteService {
 
             for (int i = 1; i <= totalColumnas; i++) {
                 String nombreEtiqueta = metaData.getColumnLabel(i);
-                if (TITULO.containsKey(nombreEtiqueta)){
-                    String titulo = TITULO.get(nombreEtiqueta);
+                if (TITULOS.containsKey(nombreEtiqueta)){
+                    String titulo = TITULOS.get(nombreEtiqueta);
                     titulos.add(titulo);
                 } else if("id_nomina_empleado".equals(nombreEtiqueta)) {
                     posicionIdNominaEmpleado = i;
@@ -89,8 +92,6 @@ public class PagoGeneralReporteService {
                     titulos.add(titulo);
                 }
             }
-
-        // TODO: No incluir la columna id_nomina_empleado
 
             while(rs.next()) {
                 Object [] objDatos = new Object[titulos.size()];
@@ -137,7 +138,7 @@ public class PagoGeneralReporteService {
             }
             return descripcion;
         } catch (SQLException ex) {
-            LOGGER.error(ex.getMessage(), ex);
+            LOGGER.errorv(SQL_ERROR_MESSAGE, ex.getMessage(), ex.getSQLState(), ex.getErrorCode());
         }
         return null;
     }
