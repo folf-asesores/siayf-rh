@@ -13,6 +13,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  * @author Eduardo Mex
  *
@@ -24,7 +26,7 @@ public class DetalleEmpleadoService implements Serializable {
 	 */
 	private static final long serialVersionUID = 4968811924541393668L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	protected List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion) {

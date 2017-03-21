@@ -18,11 +18,12 @@ import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.SubfuenteFinanciam
 import mx.gob.saludtlax.rh.persistencia.TipoNominaRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoRecursoEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoRecursoRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.TipoNominaEntity;
 
 @Stateless
 public class TipoNominaService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

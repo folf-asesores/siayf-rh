@@ -14,6 +14,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
@@ -22,7 +24,7 @@ public class SeguroPopularReporteService implements Serializable {
 
     private static final long serialVersionUID = 3761193443603057594L;
 
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
     /**

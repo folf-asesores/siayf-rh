@@ -17,11 +17,12 @@ import mx.gob.saludtlax.rh.persistencia.TablaSubsidioEntity;
 import mx.gob.saludtlax.rh.persistencia.TarifaRetencionRepository;
 import mx.gob.saludtlax.rh.persistencia.TarifaRetencionEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoPeriodoRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.TipoPeriodoEntity;
 
 @Stateless
 public class TablaRetencionService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

@@ -48,7 +48,7 @@ public class InformacionAdjuntosEmpleadosOldEntity implements Serializable {
 
     @JoinColumn(name = "id_adjunto_empleado")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
-    private AdjuntosEmpleadosOldEntity adjunto;
+    private  AdjuntosEmpleadosOldEntity adjunto;
 
     @Basic(optional = false)
     @Column(name = "nombre_adjunto")

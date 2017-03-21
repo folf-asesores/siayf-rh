@@ -6,11 +6,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 public class PerfilUsuarioRepository extends GenericRepository<PerfilUsuarioEntity, Integer> implements Serializable {
 
 	private static final long serialVersionUID = 7897606793185133307L;
 
-	@PersistenceContext(unitName = "siayfrhPU")
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	EntityManager entityManager;
 
 	/**

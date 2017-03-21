@@ -12,10 +12,11 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.TiposNombramientosEntity;
 import mx.gob.saludtlax.rh.persistencia.TiposNombramientosRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 @Stateless
 public class TipoNombramientoService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

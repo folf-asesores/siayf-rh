@@ -22,6 +22,7 @@ import mx.gob.saludtlax.rh.persistencia.NominaEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.NominaEmpleadoRepository;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 @Stateless
 public class ActualizarNominaEmpleadoService {
@@ -30,7 +31,7 @@ public class ActualizarNominaEmpleadoService {
 	@Inject private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
 	@Inject private EstatusNominasEmpleadoRepository estatusNominasEmpleadoRepository;
 	@Inject private InventarioVacanteRepository inventarioVacanteRepository;
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
     public void actualizarNomina(ActualizarNominaEmpleadoDTO actualizarNominaEmpleado) {

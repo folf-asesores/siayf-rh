@@ -19,13 +19,14 @@ import mx.gob.saludtlax.rh.persistencia.CategoriaSatRepository;
 import mx.gob.saludtlax.rh.persistencia.ConceptoNominaContratosEntity;
 import mx.gob.saludtlax.rh.persistencia.ConceptoNominaContratosRepository;
 import mx.gob.saludtlax.rh.persistencia.EstatusConceptoNominaRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 @Stateless
 public class ConceptoNominaContratosService implements Serializable {
 	private static final long serialVersionUID = -2132654175834907863L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject private ConceptoNominaContratosRepository conceptoNominaContratosRepository;

@@ -30,13 +30,14 @@ import mx.gob.saludtlax.rh.persistencia.TiposNombramientosEntity;
 import mx.gob.saludtlax.rh.persistencia.TiposNombramientosRepository;
 import mx.gob.saludtlax.rh.quinquenios.ConfiguracionQuinquenioDTO;
 import mx.gob.saludtlax.rh.quinquenios.ConfiguracionQuinquenioService;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 @Stateless
 public class ConceptoNominaFederalesService implements Serializable {
 	private static final long serialVersionUID = -2132654175834907863L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

@@ -13,12 +13,13 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.siif.ConsultaDatosEncabezadoDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
    
 
 public class DatosEncabezadoRepository {
 		
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	private static final String OBTENER_DATOS_ENCABEZADO = "call sp_obtener_datos_encabezado(:idEncabezado)";

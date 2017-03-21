@@ -13,6 +13,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 
 
 /**
@@ -26,7 +28,7 @@ public class RelacionPersonalSuplenteService implements Serializable {
 	 */
 	private static final long serialVersionUID = -7328852634210232010L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	protected List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(Integer numeroQuincena,

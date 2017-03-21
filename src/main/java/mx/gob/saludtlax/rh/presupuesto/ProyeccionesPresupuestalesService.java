@@ -17,6 +17,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.persistencia.ProyeccionesPresupuestalesEntity;
 import mx.gob.saludtlax.rh.persistencia.ProyeccionesPresupuestalesRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class ProyeccionesPresupuestalesService implements Serializable{
     
@@ -25,7 +26,7 @@ public class ProyeccionesPresupuestalesService implements Serializable{
      */
     private static final long serialVersionUID = 5031743578563079046L;
     
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
     @Inject private ProyeccionesPresupuestalesRepository proyeccionesPresupuestalesRepository;
     

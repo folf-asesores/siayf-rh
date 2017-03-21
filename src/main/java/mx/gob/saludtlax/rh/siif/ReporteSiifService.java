@@ -51,6 +51,7 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraException;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.SiifDeudoresDiversosDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.UploadExcelFileAnexo;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
@@ -65,7 +66,7 @@ import org.jboss.logging.Logger;
 @Asynchronous
 @LocalBean
 public class ReporteSiifService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject
 	private SiifBitacoraRepository reporteSiifDAO;

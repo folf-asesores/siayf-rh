@@ -45,6 +45,7 @@ import mx.gob.saludtlax.rh.persistencia.TiposNombramientosRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 import mx.gob.saludtlax.rh.puestosautorizados.EnumTipoContratacion;
 import mx.gob.saludtlax.rh.puestosautorizados.EnumTipoNombramiento;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * 
@@ -72,7 +73,7 @@ public class ProductosNominaService {
 	@Inject private CuentasBancariasRepository cuentasBancariasRepository;
     @Inject private ConceptosNominaEmpleadosRepository conceptosNominaEmpleadosRepository;
 
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	private static final Logger LOGGER = Logger.getLogger(ProductosNominaService.class);

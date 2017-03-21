@@ -11,6 +11,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import mx.gob.saludtlax.rh.nomina.reportes.comprobante.ComprobanteEmpleadoPOJO;
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
@@ -23,7 +25,7 @@ public class ComprobanteEmpleadoRepository implements Serializable {
     
     private static final long serialVersionUID = -1006356522264912212L;
     
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     protected EntityManager em;
     
     @SuppressWarnings("unchecked")

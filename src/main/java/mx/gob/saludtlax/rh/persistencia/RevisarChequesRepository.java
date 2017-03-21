@@ -18,6 +18,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.siif.revisarcheques.RevisarChequesDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
    
 
@@ -25,7 +26,7 @@ public class RevisarChequesRepository {
 	
 	private static final long serialVersionUID = -7822948480531250198L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	 private static final String CONSULTAR_CHEQHES = " select numeroCuenta, rfc, numCheq, nombramientoDescripcion from cheques ";

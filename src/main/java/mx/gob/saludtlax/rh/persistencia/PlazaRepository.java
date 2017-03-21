@@ -13,6 +13,7 @@ import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 
 import mx.gob.saludtlax.rh.configuracion.plazas.EnumEstatusPlaza;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class PlazaRepository implements Serializable {
 
@@ -21,7 +22,7 @@ public class PlazaRepository implements Serializable {
 	 */
 	private static final long serialVersionUID = -5028515099960320052L;
 
-	@PersistenceContext(unitName = "siayfrhPU")
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	EntityManager entityManager;
 
 	/**

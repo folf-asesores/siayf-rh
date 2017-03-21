@@ -15,6 +15,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  * @author eduardo
  *
@@ -22,7 +24,7 @@ import org.hibernate.transform.Transformers;
 @Stateless
 public class MovimientoEmpleadoReporteService {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	protected EntityManager em;
 
 	public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial,

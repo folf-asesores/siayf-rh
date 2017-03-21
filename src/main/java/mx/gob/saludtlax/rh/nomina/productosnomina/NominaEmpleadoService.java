@@ -65,6 +65,7 @@ import mx.gob.saludtlax.rh.persistencia.ProductoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.QuincenasSuplenciasEntity;
 import mx.gob.saludtlax.rh.persistencia.QuincenasSuplenciasRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoCoutaPensionAlimenticiaEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
@@ -76,7 +77,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @Stateless
 public class NominaEmpleadoService {
 	
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject private NominaEmpleadoRepository nominaEmpleadoRepository;
 	@Inject private ConceptoNominaContratosRepository conceptoNominaContratosRepository;

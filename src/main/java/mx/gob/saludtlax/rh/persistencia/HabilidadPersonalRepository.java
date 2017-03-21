@@ -11,6 +11,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 
 import mx.gob.saludtlax.rh.excepciones.BusinessException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * @author Eduardo Mex
@@ -25,7 +26,7 @@ public class HabilidadPersonalRepository
 	 */
 	private static final long serialVersionUID = 2583376921596711108L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 

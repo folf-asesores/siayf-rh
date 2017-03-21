@@ -16,6 +16,7 @@ import mx.gob.saludtlax.rh.configuracion.tiponomina.TipoNominaDTO;
 import mx.gob.saludtlax.rh.siif.PaqueteEntradaContratoDTO;
 import mx.gob.saludtlax.rh.siif.ReportarSiifContratosService;
 import mx.gob.saludtlax.rh.siif.SiifBitacoraDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 
 
@@ -27,7 +28,7 @@ public class ReportarSiifContratosEJB implements Serializable{
 	 */
 	private static final long serialVersionUID = -3204978182588936115L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;	
 	
 	@Inject

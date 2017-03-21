@@ -42,9 +42,10 @@ import mx.gob.saludtlax.rh.persistencia.PensionAlimenticiaNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.PensionAlimenticiaNominaRepository;
 import mx.gob.saludtlax.rh.persistencia.PensionAlimenticiaRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoCoutaPensionAlimenticiaEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class NominaEmpleadoFederalizadoService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject
 	private NominaEmpleadoRepository nominaEmpleadoRepository;

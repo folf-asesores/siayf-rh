@@ -25,7 +25,7 @@ public class CalculoAguinaldoService implements Serializable {
 	 */
 	private static final long serialVersionUID = -429740667173799660L;
 
-	@PersistenceContext(name = Configuracion.UNIDAD_PERSITENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject private SalarioMinimoRepository salarioMinimoRepository;

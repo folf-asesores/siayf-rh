@@ -19,13 +19,14 @@ import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionReposito
 import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class ConfiguracionModuloAccionService implements Serializable {
 
 	private static final long serialVersionUID = -1800073664586345602L;
 	private static final Logger LOGGER = Logger.getLogger(ConfiguracionModuloAccionService.class);
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

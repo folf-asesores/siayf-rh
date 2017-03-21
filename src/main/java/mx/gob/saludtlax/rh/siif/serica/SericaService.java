@@ -24,6 +24,7 @@ import org.jboss.logging.Logger;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.siif.EstructuraNominaDatDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
@@ -40,7 +41,7 @@ public class SericaService implements Serializable {
 	private static final Logger LOGGER = Logger.getLogger(SericaService.class.getName());
 	private File archivoTxt;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	/***

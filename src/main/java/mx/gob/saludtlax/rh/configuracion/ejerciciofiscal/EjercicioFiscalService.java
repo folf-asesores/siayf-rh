@@ -22,11 +22,12 @@ import mx.gob.saludtlax.rh.persistencia.PeriodoCalendariosEntity;
 import mx.gob.saludtlax.rh.persistencia.PeriodoCalendariosRepository;
 import mx.gob.saludtlax.rh.persistencia.TipoPeriodoEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoPeriodoRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 @Stateless
 public class EjercicioFiscalService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

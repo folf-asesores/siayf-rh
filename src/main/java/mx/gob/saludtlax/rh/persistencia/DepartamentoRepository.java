@@ -8,6 +8,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  * @author Leila Schiaffini Ehuan
  *
@@ -15,7 +17,7 @@ import javax.persistence.PersistenceContext;
  */
 public class DepartamentoRepository {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	/**

@@ -14,13 +14,14 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPerfilModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPerfilModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.PerfilRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.PerfilEntity;
 
 
 @Stateless
 public class PerfilService {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

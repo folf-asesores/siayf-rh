@@ -10,6 +10,7 @@ import javax.persistence.PersistenceContext;
 
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity;
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 import org.primefaces.model.UploadedFile;
@@ -17,7 +18,7 @@ import org.primefaces.model.UploadedFile;
 @Stateless
 public class ReportarSiifFederalesEJB {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public void procesarNominaTheosToSIIF(UploadedFile dat, UploadedFile tra) {

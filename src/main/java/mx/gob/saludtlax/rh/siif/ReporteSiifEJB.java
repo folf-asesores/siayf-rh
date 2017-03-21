@@ -15,10 +15,11 @@ import org.primefaces.model.UploadedFile;
 import mx.gob.saludtlax.rh.configuracion.cuentabancaria.CuentaBancariaDTO;
 import mx.gob.saludtlax.rh.configuracion.tiponomina.TipoNominaDTO;
 import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 @Stateless
 public class ReporteSiifEJB {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

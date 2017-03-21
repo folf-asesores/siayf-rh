@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.persistencia.CentroResponsabilidadEntity;
 import mx.gob.saludtlax.rh.persistencia.CentroResponsabilidadRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * 
@@ -20,7 +21,7 @@ import mx.gob.saludtlax.rh.persistencia.CentroResponsabilidadRepository;
  */
 @Stateless
 public class CentroResponsabilidadService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

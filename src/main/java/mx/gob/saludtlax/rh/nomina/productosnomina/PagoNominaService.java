@@ -29,6 +29,7 @@ import mx.gob.saludtlax.rh.persistencia.ProductoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaRepository;
 import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempEntity;
 import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 @Stateless
@@ -42,7 +43,7 @@ public class PagoNominaService {
 	@Inject private CuentasBancariasRepository cuentasBancariasRepository;
 	@Inject private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
     public List<SubFuenteFinanciamientoTempEntity> obtenerSubfuentesPorProductoNomina(ProductoNominaDTO productoNomina) {

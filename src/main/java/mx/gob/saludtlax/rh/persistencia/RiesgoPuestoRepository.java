@@ -11,6 +11,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import mx.gob.saludtlax.rh.configuracion.riesgopuesto.RiesgoPuestoDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * @author Eduardo Mex
@@ -25,7 +26,7 @@ public class RiesgoPuestoRepository extends GenericRepository<RiesgoPuestoEntity
 	 */
 	private static final long serialVersionUID = -7822948480531250198L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public List<RiesgoPuestoEntity> obtenerListaRiesgoPuesto() {

@@ -6,6 +6,7 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 
 import mx.gob.saludtlax.rh.excepciones.BusinessException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 /**
  * 
  * @author kisin-hp1 Eduardo N Castillo Caballero <eduardo.castillo.caballero@hotmail.com>
@@ -15,7 +16,7 @@ import mx.gob.saludtlax.rh.excepciones.BusinessException;
  */
 public class WebServicesSifRepository {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	

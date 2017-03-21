@@ -22,12 +22,13 @@ import mx.gob.saludtlax.rh.persistencia.SIIFDatosLaboralesEntity;
 import mx.gob.saludtlax.rh.persistencia.SiifDatosLaboralesRepository;
 import mx.gob.saludtlax.rh.persistencia.SiifLaboralesSubfuentesRepository;
 import mx.gob.saludtlax.rh.siif.layout.DatosLaboralesDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.SiifLaboralesSubfuentesEntity;
 
 
 @Stateless
 public class SiifDatosLaboralesService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

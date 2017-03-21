@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
@@ -71,7 +73,7 @@ public class PagoGeneralService implements Serializable {
             + " WHERE empleado.rfc = :rfc"
             + "   AND nominaEmpleado.idProductoNomina.idProductoNomina = :idProductoNomina";
 
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
 
     protected Boolean rfcPerteneceAProductoNomina(String rfc, Integer idProductoNomina) {

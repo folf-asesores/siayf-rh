@@ -16,6 +16,7 @@ import mx.gob.saludtlax.rh.persistencia.RevisarChequesEntity;
 import mx.gob.saludtlax.rh.persistencia.RevisarChequesRepository;
 import mx.gob.saludtlax.rh.persistencia.SIIFEncabezadoRepository;
 import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class DatosEncabezadoServices implements Serializable{
 	
@@ -26,7 +27,7 @@ public class DatosEncabezadoServices implements Serializable{
 	/**
 	 * 
 	 */
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject
 	private DatosEncabezadoRepository datosEncabezadoRepository;

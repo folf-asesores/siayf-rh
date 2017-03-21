@@ -9,6 +9,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  * @author Eduardo Mex
  * @email Lic.Eduardo_Mex@hotmail.com
@@ -22,7 +24,7 @@ public class RamaPuestoRepository extends GenericRepository<RamaPuestoEntity, In
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	/**

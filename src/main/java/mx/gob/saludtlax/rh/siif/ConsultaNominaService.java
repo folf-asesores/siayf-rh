@@ -17,12 +17,13 @@ import mx.gob.saludtlax.rh.acumulados.ConceptoNominaAcumuladoDTO;
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity;
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersRepository;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosPlantillaExcelDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity;
 
 
 @Stateless
 public class ConsultaNominaService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

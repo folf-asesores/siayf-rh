@@ -26,6 +26,7 @@ import mx.gob.saludtlax.rh.persistencia.ProductoNominaBitacoraEventoEntity;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaBitacoraRepository;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * Esta clase se encarga de aperturar un producto de nómina apartir de un
@@ -57,7 +58,7 @@ public class AperturaNominaRfcService implements Serializable {
     private static final short RFC_NO_ACTIVAS = 0;
     private static final short RFC_NO_COINCIDE_TIPO_CONTRATACION = 1;
 
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
     @Inject
     private EmpleadoRepository empleadoRepository;

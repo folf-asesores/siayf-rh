@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * @author Eduardo Mex
@@ -26,7 +27,7 @@ public class ProductoNominaService implements Serializable {
 	 */
 	private static final long serialVersionUID = -8718541321540679089L;
 	
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
         
         private static final String USP_PRODUCTO_NOMINA_SUPLENCIA =

@@ -22,11 +22,12 @@ import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDRepository;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoRepository;
 import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoEntity;
 import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 @Stateless
 public class FuenteFinanciamientoService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

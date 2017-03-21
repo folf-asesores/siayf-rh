@@ -12,11 +12,12 @@ import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.persistencia.ClasificacionNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.ClasificacionNominaRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 
 @Stateless
 public class ClasificacionNominaService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

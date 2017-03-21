@@ -8,6 +8,7 @@ import mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersEntity;
 import mx.gob.saludtlax.rh.persistencia.SIIFDeudoresDiversosEntity;
 import mx.gob.saludtlax.rh.persistencia.SIIFDispersionChequesEntity;
 import mx.gob.saludtlax.rh.persistencia.SIIFSeguroPopularEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.EstructuraContratoEntity;
 import mx.gob.saludtlax.rh.persistencia.EstructuraContratoExcelEntity;
 
@@ -15,7 +16,7 @@ public class EstructuraContratosTrailersQuery implements Serializable {
 
 	private static final long serialVersionUID = 1135974749754039111L;
 	
-	@PersistenceContext(unitName = "siayfrhPU")
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public String registroEstructuraExcel(EstructuraContratoExcelEntity estructura) {

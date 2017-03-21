@@ -21,7 +21,7 @@ public class ServiciosWebEJB implements Serializable {
 	 */
 	private static final long serialVersionUID = 8448867127855413320L;
 
-	@PersistenceContext(name = Configuracion.UNIDAD_PERSITENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	protected EntityManager entityManager;
 
 	@Inject

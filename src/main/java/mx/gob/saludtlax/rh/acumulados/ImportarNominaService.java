@@ -37,6 +37,7 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraException;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.UploadExcelFileAnexo;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * @author Eduardo Mex
@@ -58,7 +59,7 @@ public class ImportarNominaService implements Serializable {
 	@Inject
 	private ConceptoNominaRepository conceptoNominaRepository;
 
-	@PersistenceContext(name = "siayfrhPU")
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public void importarNominaTheosToSIIF(UploadedFile dat, UploadedFile tra, String idContexto) {

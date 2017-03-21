@@ -13,6 +13,7 @@ import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class ConsultarPartidaService implements Serializable {
 
@@ -21,7 +22,7 @@ public class ConsultarPartidaService implements Serializable {
 	 */
 	private static final long serialVersionUID = -8587474716742021039L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public List<ConsultarPartidaDTO> consultarPartidasPorRfc(String rfc) {

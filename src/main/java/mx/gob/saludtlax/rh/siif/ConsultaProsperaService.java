@@ -17,12 +17,13 @@ import mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersRepository;
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosDatDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersEntity;
 
 
 @Stateless
 public class ConsultaProsperaService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

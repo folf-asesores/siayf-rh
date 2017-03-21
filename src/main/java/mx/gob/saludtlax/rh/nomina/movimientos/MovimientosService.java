@@ -27,13 +27,14 @@ import mx.gob.saludtlax.rh.persistencia.ConfiguracionTipoMovimientoNominaReporsi
 import mx.gob.saludtlax.rh.persistencia.MovimientoFijoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoFijoRepository;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.BusinessException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 public class MovimientosService implements Serializable {
 
 	private static final long serialVersionUID = -2736791045459854674L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject
 	MovimientoFijoRepository movimientoFijoRepository;

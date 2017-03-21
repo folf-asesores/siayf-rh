@@ -19,6 +19,7 @@ import mx.gob.saludtlax.rh.siif.layout.DatosLaboralesDTO;
 import mx.gob.saludtlax.rh.siif.layout.DatosPersonalesDTO;
 import mx.gob.saludtlax.rh.siif.layout.DetalleNominaDTO;
 import mx.gob.saludtlax.rh.siif.layout.DetallePagoNominaDTO;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  *
@@ -57,7 +58,7 @@ public class SIIFLayoutStoredProcedure {
     
     private static final String OBTENER_DATOS_PERSONALES_RH_CONTRATO = "call usp_obtener_datos_personales_rh_contrato(?,?)";
     
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
     
     public List<DatosPersonalesDTO> obtenerDatosPersonales(int idEncabezado) {

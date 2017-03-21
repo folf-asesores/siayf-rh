@@ -24,6 +24,7 @@ import mx.gob.saludtlax.rh.persistencia.AccionesEntity;
 import mx.gob.saludtlax.rh.persistencia.AccionesRepository;
 import mx.gob.saludtlax.rh.persistencia.AreasRepository;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 
@@ -33,7 +34,7 @@ public class ModulosService implements Serializable {
 	 */
 	private static final long serialVersionUID = 4071097046814566204L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

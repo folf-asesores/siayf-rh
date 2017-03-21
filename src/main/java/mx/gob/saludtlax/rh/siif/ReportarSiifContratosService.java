@@ -33,6 +33,7 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraException;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.UploadExcelFileAnexo;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
@@ -46,7 +47,7 @@ public class ReportarSiifContratosService {
 	
 /***		< < < < < Inserciones > > > > >		***/
 	
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	@Inject
 	private SiifBitacoraRepository reporteSiifDAO;

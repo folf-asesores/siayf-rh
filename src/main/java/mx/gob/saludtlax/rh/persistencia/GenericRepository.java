@@ -12,12 +12,13 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class GenericRepository <T, K extends Serializable> implements Repository<T, K> {
 
     private static final long serialVersionUID = -8198863493714030745L;
 
-    @PersistenceContext(unitName = "siayfrhPU")
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     protected EntityManager em;
     protected Class<T> classType;
 

@@ -12,11 +12,12 @@ import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.persistencia.CuentasBancariasEntity;
 import mx.gob.saludtlax.rh.persistencia.CuentasBancariasRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 
 @Stateless
 public class CuentaBancariaService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

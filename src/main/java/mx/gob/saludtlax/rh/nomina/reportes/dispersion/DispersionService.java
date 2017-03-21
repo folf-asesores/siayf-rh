@@ -14,6 +14,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 /**
  *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
@@ -24,7 +26,7 @@ public class DispersionService implements Serializable {
     private static final String USP_REPORTE_NOMINA_DISPERCION = 
             "CALL usp_reporte_nomina_dispersion(:idProductoNomina)";
     
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
 
     protected List<DispersionDTO> obtenerInformacion(Integer idProductoNomina) {

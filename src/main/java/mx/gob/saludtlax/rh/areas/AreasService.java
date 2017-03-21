@@ -14,10 +14,11 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.persistencia.AreaEntity;
 import mx.gob.saludtlax.rh.persistencia.AreasRepository;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.BusinessException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class AreasService {
 
-	@PersistenceContext(name = "siayfrhPU")
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

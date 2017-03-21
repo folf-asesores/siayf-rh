@@ -6,9 +6,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 public class ConfiguracionPerfilModuloRepository extends GenericRepository<ConfiguracionPerfilModuloEntity, Integer>{
 
-	 @PersistenceContext(name = "siayfrhPU")
+	 	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	    protected EntityManager em;
 	 	
 	 

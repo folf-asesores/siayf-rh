@@ -36,6 +36,7 @@ import mx.gob.saludtlax.rh.siif.EstructuraSeguroPopularDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosDatDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO;
 import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  *
@@ -44,7 +45,7 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
 public class SIIFEncabezadoService {
 	private static final Logger LOGGER = Logger.getLogger(SIIFLayoutEJB.class.getName());
 	
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;    
     @Inject
 	private EstructuraContratoRepository estructuraDatDAO;    

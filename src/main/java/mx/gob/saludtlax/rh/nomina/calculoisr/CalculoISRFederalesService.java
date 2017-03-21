@@ -13,10 +13,11 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.persistencia.ConceptosNominaEspecialRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class CalculoISRFederalesService {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject

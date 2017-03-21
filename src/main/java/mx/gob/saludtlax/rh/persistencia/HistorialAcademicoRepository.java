@@ -13,6 +13,7 @@ import javax.persistence.Query;
 
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  * 
@@ -24,7 +25,7 @@ public class HistorialAcademicoRepository extends GenericRepository<HistorialAca
 
 	private static final long serialVersionUID = -4518251232465263301L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	/**

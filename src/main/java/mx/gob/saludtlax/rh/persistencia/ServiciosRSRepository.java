@@ -23,7 +23,7 @@ public class ServiciosRSRepository implements Serializable {
 	 */
 	private static final long serialVersionUID = 2219259060115434375L;
 
-	@PersistenceContext(name = Configuracion.UNIDAD_PERSITENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	protected EntityManager entityManager;
 
 	/**

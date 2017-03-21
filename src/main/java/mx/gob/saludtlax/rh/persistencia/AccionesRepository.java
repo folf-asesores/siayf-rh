@@ -6,13 +6,15 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 public class AccionesRepository extends GenericRepository<AccionesEntity, Integer>{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1926101187209405659L;
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	public List<AccionesEntity> obtenerListaAcciones(){

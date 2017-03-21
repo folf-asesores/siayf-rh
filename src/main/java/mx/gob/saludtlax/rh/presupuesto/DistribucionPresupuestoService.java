@@ -14,6 +14,7 @@ import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class DistribucionPresupuestoService implements Serializable{
     
@@ -22,52 +23,11 @@ public class DistribucionPresupuestoService implements Serializable{
      */
     private static final long serialVersionUID = 5031743578563079046L;
     
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
-    
-//    public List<DistribucionPresupuestoDTO>distribucionPresupuesto(Integer anio) {
-//        
-//        Session session = entityManager.unwrap(Session.class);
-//
-//        Query query = session.createSQLQuery("CALL usp_obtener_proyecciones_presupuestales(:anio) ").setParameter("anio", anio);
-//        query.setResultTransformer(Transformers.aliasToBean(DistribucionPresupuestoDTO.class));
-//        @SuppressWarnings("unchecked")
-//        List<DistribucionPresupuestoDTO> list = query.list();
-//        
-//       /* List<ProyeccionesPresupuestalesDTO> result = new ArrayList<ProyeccionesPresupuestalesDTO>();
-//        for(int i = 0 ; i < 100; i++) {
-//            result.add(list.get(i));
-//        }*/
-//        
-//        return list;
-//    }
-//    
-//    public List<DistribucionPresupuestoDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento) {
-//		Session session = entityManager.unwrap(Session.class);
-//		
-//		Query query = session.createSQLQuery(""
-//                + " SELECT "
-//                + " COUNT(id_nombramiento) "
-//                + " FROM acumulado_partida "
-//                + " WHERE "
-//                + " id_nombramiento = :tipoNombramiento "
-//                + " GROUP BY id_nombramiento")
-//                  .setParameter("tipoNombramiento", tipoNombramiento);
-//          BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
-//      if (numeroNombramientos!= null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
-//		 query = session.createSQLQuery("CALL usp_obtener_partidas_por_tipo_nombramiento(:tipoNombramiento) ")
-//				.setParameter("tipoNombramiento", tipoNombramiento);
-//		query.setResultTransformer(Transformers.aliasToBean(DistribucionPresupuestoDTO.class));
-//		@SuppressWarnings("unchecked")
-//		List<DistribucionPresupuestoDTO> list = query.list();
-//		return list;
-//      }else{
-//          throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
-//      }
-//	}
 
     public List<DistribucionPresupuestoDTO> obtenerProyeccionesMensuales(Integer anioPresupuesto,
-            Integer idTipoNombramiento, Integer idDependencia) {
+            Integer idTipoNombramiento, Integer idDependencia, Integer idSubfuenteFinanciamiento) {
         Session session = entityManager.unwrap(Session.class);
         
         Query query = session.createSQLQuery(""
@@ -81,10 +41,11 @@ public class DistribucionPresupuestoService implements Serializable{
           BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
         if (numeroNombramientos != null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
             query = session
-                    .createSQLQuery("CALL usp_distribucion_presupuestal(:tipoNombramiento, :anioPresupuesto, :dependencia) ")
+                    .createSQLQuery("CALL usp_distribucion_presupuestal(:tipoNombramiento, :anioPresupuesto, :dependencia, :idSubfuenteFinanciamiento) ")
                     .setParameter("anioPresupuesto", anioPresupuesto)
                     .setParameter("tipoNombramiento", idTipoNombramiento)
-                    .setParameter("dependencia", idDependencia);
+                    .setParameter("dependencia", idDependencia)
+                    .setParameter("idSubfuenteFinanciamiento", idSubfuenteFinanciamiento);
             query.setResultTransformer(Transformers.aliasToBean(DistribucionPresupuestoDTO.class));
             @SuppressWarnings("unchecked")
             List<DistribucionPresupuestoDTO> list = query.list();
@@ -93,8 +54,6 @@ public class DistribucionPresupuestoService implements Serializable{
           throw new ReglaNegocioException("No hay registros en el historico de acumulados",ReglaNegocioCodigoError.SIN_REGISTRO);
       }
     }
-
-    
 
     public DistribucionPresupuestoDTO proyectar(DistribucionPresupuestoDTO distribucionPresupuesto) {
         //Total

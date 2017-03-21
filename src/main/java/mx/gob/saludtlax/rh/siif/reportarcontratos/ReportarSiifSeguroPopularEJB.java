@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import org.primefaces.model.UploadedFile;
 
 import mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 
@@ -24,7 +25,7 @@ public class ReportarSiifSeguroPopularEJB implements Serializable{
 	 */
 	private static final long serialVersionUID = -3204978182588936115L;
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;	
 	
 

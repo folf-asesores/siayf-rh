@@ -15,10 +15,11 @@ import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPerfilModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPerfilModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.PerfilRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class ConfiguracionPerfilModuloService {
 
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject

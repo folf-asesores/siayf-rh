@@ -29,6 +29,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientosNominaContratosEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientosNominaContratosRepository;
 import mx.gob.saludtlax.rh.persistencia.NominaEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.NominaEmpleadoRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
@@ -43,7 +44,7 @@ public class MovimientosContratosService {
 	@Inject private EmpleadoRepository empleadoRepository;
 	@Inject private ConceptoNominaContratosRepository conceptoNominaContratosRepository;
 	@Inject private NominaEmpleadoRepository nominaEmpleadoRepository;
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	public boolean esTipoDeContratos(Integer idEmpleado) {

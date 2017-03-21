@@ -13,6 +13,8 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import mx.gob.saludtlax.rh.persistencia.ProductoNominaEntity;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
+import mx.gob.saludtlax.rh.util.Configuracion;
+
 import org.jboss.logging.Logger;
 
 /**
@@ -69,7 +71,7 @@ public class DividirNominaService implements Serializable {
             + " AND nomina_empleado.id_producto_nomina = :idProductoNominaViejo"
             + " AND empleados.rfc IN :rfc";
 
-    @PersistenceContext(name = "siayfrhPU")
+    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
 
     /**

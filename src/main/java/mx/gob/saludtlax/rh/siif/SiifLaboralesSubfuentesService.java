@@ -14,11 +14,12 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.FuenteFinanciamientoDTO;
 import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.SubfuenteFinanciamientoDTO;
 import mx.gob.saludtlax.rh.persistencia.SiifLaboralesSubfuentesRepository;
+import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.persistencia.SiifLaboralesSubfuentesEntity;
 
 @Stateless
 public class SiifLaboralesSubfuentesService {
-	@PersistenceContext(name = "siayfrhPU")
+		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 	
 	@Inject
