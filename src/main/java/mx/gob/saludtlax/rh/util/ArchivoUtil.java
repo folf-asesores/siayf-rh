@@ -15,6 +15,7 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +46,7 @@ public class ArchivoUtil {
     private static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
     private static final String CARPETA_USUARIO = System.getProperty("user.home");
     private static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
+    private static final Charset MS_DOS_LATIN_CHARSET = Charset.forName("Cp850");
     private static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
     
@@ -208,7 +210,9 @@ public class ArchivoUtil {
         } else {
             String filePath = CARPETA_USUARIO + SEPARADOR_DE_ARCHIVO + fileName;
             Path path = Paths.get(filePath);
-            Files.write(path, file);
+            Files.write(path, file, StandardOpenOption.READ,
+                    StandardOpenOption.WRITE,
+                    StandardOpenOption.TRUNCATE_EXISTING);
         }
     }
     
@@ -445,6 +449,47 @@ public class ArchivoUtil {
 
         byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
         LOGGER.info("La conversión en formato de Windows se ha completado correctamente.");
+        Files.delete(archivoTemporal);
+        Files.delete(archivoTemporalWin);
+        return archivoWindows;
+    }
+
+    /**
+     * Permite convertir un archivo de texto plano con códificación UTF-8 y
+     * caracteres de fin de línea tipo UNIX a formato de MS-DOS.
+     * 
+     * @param archivo un arreglo de bytes que representa un archivo de texto plano.
+     * @return un arreglo de bytes que representa un archivo de texto plano con
+     * códificación de Windows.
+     * @throws IOException en caso de que haya error de lectura o escritura al
+     * crear los archivos temporales.
+     */
+    public static byte[] codificarComoMsDos(final byte[] archivo) throws IOException {
+        if(archivo == null) {
+            throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
+        }
+        
+        LOGGER.info("Iniciando la conversión a formato de MS-DOS.");
+        Path archivoTemporal = Files.createTempFile("origen", ".txt");
+        Files.write(archivoTemporal, archivo);
+        
+        if (!SEPARADOR_DE_ARCHIVO_WINDOWS.equals(SEPARADOR_DE_ARCHIVO)) {
+            System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO_WINDOWS);
+        }
+
+        List<String> lineas = Files.readAllLines(archivoTemporal);        
+        List<String> lineasNuevas = new ArrayList<>();
+        for(String linea : lineas) {
+            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            lineasNuevas.add(nuevaLinea);
+        }
+
+        Path archivoTemporalWin = Files.createTempFile("destino", ".txt");
+        Files.write(archivoTemporalWin, lineasNuevas, MS_DOS_LATIN_CHARSET);
+        System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO);
+
+        byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
+        LOGGER.info("La conversión en formato de MS-DOS se ha completado correctamente.");
         Files.delete(archivoTemporal);
         Files.delete(archivoTemporalWin);
         return archivoWindows;

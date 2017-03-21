@@ -26,7 +26,7 @@ public class DispersionService implements Serializable {
     private static final String USP_REPORTE_NOMINA_DISPERCION = 
             "CALL usp_reporte_nomina_dispersion(:idProductoNomina)";
     
-    	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA_ESPEJO)
     private EntityManager em;
 
     protected List<DispersionDTO> obtenerInformacion(Integer idProductoNomina) {

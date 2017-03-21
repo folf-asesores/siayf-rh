@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
-import mx.gob.saludtlax.rh.persistencia.ComprobanteEmpleadoRepository;
+import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
 
 /**
  *

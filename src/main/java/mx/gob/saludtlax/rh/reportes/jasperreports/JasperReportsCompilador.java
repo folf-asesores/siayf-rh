@@ -6,6 +6,8 @@
 
 package mx.gob.saludtlax.rh.reportes.jasperreports;
 
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +41,6 @@ import org.jboss.logging.Logger;
  */
 public class JasperReportsCompilador {
 
-    private static final String DATASOURCE_NAME = "java:jboss/datasources/SIAYFRHDSESP";
     private static final Logger LOGGER = Logger
             .getLogger(JasperReportsCompilador.class.getName());
 
@@ -99,7 +100,7 @@ public class JasperReportsCompilador {
 
         try {
             Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup(DATASOURCE_NAME);
+            DataSource ds = (DataSource) initContext.lookup(DATASOURCE_ESPEJO);
 
             try (Connection conexion = ds.getConnection()) {
                 if("pdf".equalsIgnoreCase(tipoReporte)) {
@@ -133,7 +134,7 @@ public class JasperReportsCompilador {
             return bytesReporte;
         } catch (NamingException ex) {
             LOGGER.errorv("Error al tratar de resolver el nombre: {0}", 
-                    DATASOURCE_NAME);
+                    DATASOURCE_ESPEJO);
         } catch (SQLException ex) {
             LOGGER.errorv("Error de datos.\n{0}", ex.getMessage());
         } catch (JRException ex) {

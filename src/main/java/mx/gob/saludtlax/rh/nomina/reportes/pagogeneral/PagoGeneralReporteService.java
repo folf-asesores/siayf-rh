@@ -5,6 +5,7 @@
  */
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
 import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
 
 import java.sql.Connection;
@@ -17,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import mx.gob.saludtlax.rh.util.Configuracion;
 import org.jboss.logging.Logger;
 /**
  *
@@ -25,7 +25,7 @@ import org.jboss.logging.Logger;
  */
 public class PagoGeneralReporteService {
 
-    @Resource(mappedName = Configuracion.DATASOURCE_ESPEJO)
+    @Resource(mappedName = DATASOURCE_ESPEJO)
     private DataSource ds; 
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteService.class.getName());
     private static final String USP_PAGO_GENERAL = "CALL usp_reporte_pago_general(?)";

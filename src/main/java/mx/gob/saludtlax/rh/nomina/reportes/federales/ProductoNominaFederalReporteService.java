@@ -5,6 +5,8 @@
  */
 package mx.gob.saludtlax.rh.nomina.reportes.federales;
 
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
+
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,8 +31,7 @@ public class ProductoNominaFederalReporteService implements Serializable {
     private static final String USP_PRODUCTO_NOMINA_FEDERAL =
             "CALL usp_reporte_producto_nomina_federales(?)";
 
-//    @Resource(mappedName = Configuracion.DATASOURCE_ESPEJO)
-    @Resource(mappedName = "java:jboss/datasources/SIAYFRHDS")
+    @Resource(mappedName = DATASOURCE_ESPEJO)
     private DataSource ds; 
     private static final Map<String, String> TITULOS = new HashMap<>();
     
