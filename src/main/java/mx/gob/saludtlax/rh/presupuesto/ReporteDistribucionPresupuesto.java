@@ -2,6 +2,7 @@ package mx.gob.saludtlax.rh.presupuesto;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,26 +14,34 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.jboss.logging.Logger;
 
-public class ReporteDistribucionPresupuesto {
+public class ReporteDistribucionPresupuesto implements Serializable{
 	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8421387223843989645L;
+	
+	private static final Logger LOGGER = Logger.getLogger(ReporteDistribucionPresupuesto.class);
 	//Nombre de las columnas
 	private static final int FILA_ENCABEZADOS = 0;
 	private static final int FILA_INICIO_DETALLE = 1;
 	private static final int COLUMNA_PARTIDA = 0;
-	private static final int COLUMNA_ENERO = 1;
-	private static final int COLUMNA_FEBRERO = 2;
-	private static final int COLUMNA_MARZO = 3;
-	private static final int COLUMNA_ABRIL = 4;
-	private static final int COLUMNA_MAYO = 5;
-	private static final int COLUMNA_JUNIO = 6;
-	private static final int COLUMNA_JULIO = 7;
-	private static final int COLUMNA_AGOSTO = 8;
-	private static final int COLUMNA_SEPTIEMBRE = 9;
-	private static final int COLUMNA_OCTUBRE = 10;
-	private static final int COLUMNA_NOVIEMBRE = 11;
-	private static final int COLUMNA_DICIEMBRE = 12;
-	private static final int COLUMNA_TOTAL = 13;
+	private static final int COLUMNA_TOTAL = 1;
+	private static final int COLUMNA_ENERO = 2;
+	private static final int COLUMNA_FEBRERO = 3;
+	private static final int COLUMNA_MARZO = 4;
+	private static final int COLUMNA_ABRIL = 5;
+	private static final int COLUMNA_MAYO = 6;
+	private static final int COLUMNA_JUNIO = 7;
+	private static final int COLUMNA_JULIO = 8;
+	private static final int COLUMNA_AGOSTO = 9;
+	private static final int COLUMNA_SEPTIEMBRE = 10;
+	private static final int COLUMNA_OCTUBRE = 11;
+	private static final int COLUMNA_NOVIEMBRE = 12;
+	private static final int COLUMNA_DICIEMBRE = 13;
 
 	//Totales de las columnas
 	private BigDecimal TOTAL_ENERO = BigDecimal.ZERO;
@@ -70,7 +79,7 @@ public class ReporteDistribucionPresupuesto {
 			estiloCeldaEncabezado(cell);
 			i++;
 		} 
-		
+		LOGGER.debugv("lista reporte es nulo: {0}", listaReporte == null);
 		llenarDetalles(listaReporte); //
 		ByteArrayOutputStream reporte = new ByteArrayOutputStream();
 
@@ -85,6 +94,7 @@ public class ReporteDistribucionPresupuesto {
 	//Encabezados Estaticos
 	public List<String> llenarEncabezados(List<String> encabezados) {
 		encabezados.add("PARTIDA");
+		encabezados.add("TOTAL");
 		encabezados.add("ENERO");
 		encabezados.add("FEBRERO");
 		encabezados.add("MARZO");
@@ -97,7 +107,6 @@ public class ReporteDistribucionPresupuesto {
 		encabezados.add("OCTUBRE");
 		encabezados.add("NOVIEMBRE");
 		encabezados.add("DICIEMBRE");
-		encabezados.add("TOTAL");
 		return encabezados;
 	}
 
@@ -105,6 +114,8 @@ public class ReporteDistribucionPresupuesto {
 
 	//Detalle del reporte
 	public void llenarDetalles(List<DistribucionPresupuestoDTO> listaReporte) {
+		
+		//LOGGER.debugv("lista reporte es nulo: {0}", listaReporte == null);
 		
 	
 		int inicio_detalle = FILA_INICIO_DETALLE;
@@ -116,6 +127,10 @@ public class ReporteDistribucionPresupuesto {
 			Cell celdaPartida = dataRow.createCell(COLUMNA_PARTIDA);
 			celdaPartida.setCellValue((partida.getPartida() != null) ? partida.getPartida() : "");
 			estiloCelda(celdaPartida);
+			
+			Cell celdaTotal = dataRow.createCell(COLUMNA_TOTAL);
+			celdaTotal.setCellValue((partida.getTotal() != null) ? partida.getTotal().doubleValue() : 0);
+			estiloCeldaImporte(celdaTotal);
 			
 			Cell celdaEnero = dataRow.createCell(COLUMNA_ENERO);
 			celdaEnero.setCellValue((partida.getEnero() != null) ? partida.getEnero().doubleValue() : 0);
@@ -165,9 +180,6 @@ public class ReporteDistribucionPresupuesto {
 			celdaDiciembre.setCellValue((partida.getDiciembre() != null) ? partida.getDiciembre().doubleValue() : 0);
 			estiloCeldaImporte(celdaDiciembre);
 			 
-			Cell celdaTotal = dataRow.createCell(COLUMNA_TOTAL);
-			celdaTotal.setCellValue((partida.getTotal() != null) ? partida.getTotal().doubleValue() : 0);
-			estiloCeldaImporte(celdaTotal);
 			 
 			//Celdas totales
 			 TOTAL_ENERO = TOTAL_ENERO.add(partida.getEnero() == null ? BigDecimal.ZERO : partida.getEnero());

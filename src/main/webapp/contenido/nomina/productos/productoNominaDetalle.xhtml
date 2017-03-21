@@ -141,6 +141,13 @@
 						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3}">
 						<p:fileDownload value="#{productosNomina.reporte}" />
 					</p:menuitem>
+					<p:menuitem value="Producto" icon="fm-icon-download" ajax="false"
+                                                    title="Producto de nómina de empleados federales."
+                                                    actionListener="#{productosNomina.descargarProductoNominaFederales()}"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+                                                rendered="#{productosNomina.view.productoNomina.idArea eq 1}">
+						<p:fileDownload value="#{productosNomina.reporte}" />
+					</p:menuitem>
 					<p:menuitem value="Retenidos" icon="fm-icon-download" ajax="false"
 						update="form"
 						actionListener="#{productosNomina.descargarProductoNominaRetenido()}"

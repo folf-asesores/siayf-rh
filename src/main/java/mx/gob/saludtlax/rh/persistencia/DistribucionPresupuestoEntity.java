@@ -25,8 +25,8 @@ public class DistribucionPresupuestoEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDistribucionPresupuestal;
 	
-	@Column (name = "id_consulta_partida")
-	private Integer idConsultaPartida;
+	@Column (name = "id_subfuente_financiamiento")
+	private Integer idSubfuenteFinanciamiento;
 	
 	@Column (name = "id_unidad_responsable")
 	private Integer idUnidadResponsable;
@@ -42,6 +42,9 @@ public class DistribucionPresupuestoEntity implements Serializable{
 	
 	@Column (name = "id_dependencia")
 	private String idDependencia;
+	
+	@Column (name = "id_quincena")
+	private String idQuincena;
 		
 	@Column (name = "enero")
 	private BigDecimal enero;
@@ -84,6 +87,9 @@ public class DistribucionPresupuestoEntity implements Serializable{
 	
 	@Column (name = "total")
 	private BigDecimal total;
+	
+	@Column (name = "fecha_fin_quincena")
+	private String fechaFinQuincena;
 
 	public Integer getIdDistribucionPresupuestal() {
 		return idDistribucionPresupuestal;
@@ -93,12 +99,12 @@ public class DistribucionPresupuestoEntity implements Serializable{
 		this.idDistribucionPresupuestal = idDistribucionPresupuestal;
 	}
 
-	public Integer getIdConsultaPartida() {
-		return idConsultaPartida;
+	public Integer getIdSubfuenteFinanciamiento() {
+		return idSubfuenteFinanciamiento;
 	}
 
-	public void setIdConsultaPartida(Integer idConsultaPartida) {
-		this.idConsultaPartida = idConsultaPartida;
+	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
 	}
 
 	public Integer getIdUnidadResponsable() {
@@ -139,6 +145,14 @@ public class DistribucionPresupuestoEntity implements Serializable{
 
 	public void setIdDependencia(String idDependencia) {
 		this.idDependencia = idDependencia;
+	}
+
+	public String getIdQuincena() {
+		return idQuincena;
+	}
+
+	public void setIdQuincena(String idQuincena) {
+		this.idQuincena = idQuincena;
 	}
 
 	public BigDecimal getEnero() {
@@ -252,5 +266,14 @@ public class DistribucionPresupuestoEntity implements Serializable{
 	public void setTotal(BigDecimal total) {
 		this.total = total;
 	}
+
+	public String getFechaFinQuincena() {
+		return fechaFinQuincena;
+	}
+
+	public void setFechaFinQuincena(String fechaFinQuincena) {
+		this.fechaFinQuincena = fechaFinQuincena;
+	}
+	
 	
 }

@@ -25,8 +25,9 @@
 				autoUpdate="true" closable="true" globalOnly="true" />
 
 			<p:panelGrid layout="grid"
-				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" columns="2"
-				columnClasses=" ui-grid-col-5, ui-grid-col-7">
+						 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+						 columns="2"
+						 columnClasses=" ui-grid-col-5, ui-grid-col-7">
 
 				<p:outputLabel for="criterio" 
 				               value="Año base del presupuesto: " />
@@ -36,8 +37,10 @@
 				</p:inputText>
 				
 				<p:outputLabel for="dependencia" value="Dependencia: " />
-				<p:selectOneMenu id="dependencia" 
-			 		value="#{distribucionPresupuesto.view.idDependencia}">
+				<p:selectOneMenu id="dependencia"
+								 filter="true"
+								 filterMatchMode="contains" 
+			 					 value="#{distribucionPresupuesto.view.idDependencia}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
 						value="#{distribucionPresupuesto.view.listaDependencia}"
@@ -48,13 +51,28 @@
 				
 				<p:outputLabel for="nombramiento" value="Nombramiento: " />
 				<p:selectOneMenu id="nombramiento"
-				value="#{distribucionPresupuesto.view.idTipoNombramiento}">
+								 filter="true"
+								 filterMatchMode="contains"
+								 value="#{distribucionPresupuesto.view.idTipoNombramiento}">
 					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 					<f:selectItems
 						value="#{distribucionPresupuesto.view.listaTipoNombramiento}"
 						var="tipoNombramiento"
 						itemValue="#{tipoNombramiento.idTipoNombramiento}"
 						itemLabel="#{tipoNombramiento.descripcion}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="subfuente" value="Subfuente: " />
+				<p:selectOneMenu id="subfuente"
+								 filter="true"
+								 filterMatchMode="contains"
+								 value="#{distribucionPresupuesto.view.idSubfuente}">
+					<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
+					<f:selectItems
+						value="#{distribucionPresupuesto.view.listaSubfuente}"
+						var="subfuente"
+						itemValue="#{subfuente.idSubfuenteFinanciamiento}"
+						itemLabel="#{subfuente.descripcion}" />
 				</p:selectOneMenu>
 			</p:panelGrid>
 				
@@ -70,35 +88,31 @@
 								 onstart="PF(`statusDialog`).show()"
 								 action="#{distribucionPresupuesto.obtenerDistribucionesPresupuestales()}"
 								 update=":form" /> 
-				
-				</p:panelGrid>
-
-			<p:dataTable id="listaDistribucion"
-				value="#{distribucionPresupuesto.view.listaDistribucion}"
-				var="distribucion" emptyMessage="No se encontrarón resultados"
-				rendered="#{distribucionPresupuesto.view.mostrarPrincipal}">
-				
-			<p:panelGrid layout="grid"
-							 rendered="#{distribucionPresupuesto.view.mostrarOpcionDescarga}"
-							 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
-							 columns="3"
-							 columnClasses=" ui-grid-col-8, ui-grid-col-2, ui-grid-col-2">
 								 	
 				<p:commandButton value="Descargar Reporte"
 								 icon="fm-icon-download"
-								 styleClass="fm-btn-elevado" 
-								 onsuccess="PF(`statusDialog`).hide()"
-								 onstart="PF(`statusDialog`).show()"								 
-								 process="@this"
-								 action="#{distribucionPresupuesto.descargarReporte()}"
-								 oncomplete="mymessages();" 
-								 update=":form" /> 
-								 
-			</p:panelGrid>				 
+								 update="@form"
+								 iconPos="right"
+								 ajax="false"
+								 action="#{distribucionPresupuesto.descargarContrato()}"
+								 oncomplete="mymessages();"  /> 				
+				</p:panelGrid>
+
+			<p:dataTable id="listaDistribucion"
+						 value="#{distribucionPresupuesto.view.listaDistribucion}"
+						 var="distribucion" 
+						 emptyMessage="No se encontrarón resultados" 
+				         paginator="true"
+						 rows="5" 
+						 paginatorAlwaysVisible="true"
+						 currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						 rowsPerPageTemplate="5,10,15"
+						 rendered="#{distribucionPresupuesto.view.mostrarPrincipal}">			 
 
 				<p:column headerText="Partida" style="width:20%; ">
-					<h:outputText id="idPartida#{proyeccion.partida}"
-						value="#{proyeccion.partida}" style="font-size:12px !important">
+					<h:outputText id="idPartida#{distribucion.partida}"
+						value="#{distribucion.partida}" style="font-size:12px !important">
 					</h:outputText>
 				</p:column>
 
@@ -145,7 +159,7 @@
 				</p:column>
 
 				<p:column headerText="Junio" style="width:8%;">
-					<h:outputText value="#{distribucionn.junio}"
+					<h:outputText value="#{distribucion.junio}"
 						style="font-size:12px !important">
 						<f:convertNumber currencySymbol="$" type="currency" />
 					</h:outputText>
