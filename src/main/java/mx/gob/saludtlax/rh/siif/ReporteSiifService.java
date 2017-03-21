@@ -211,7 +211,7 @@ public class ReporteSiifService {
 		return reporteSiifList;
 	}
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public SiifBitacoraDTO crearSiifBitacora(PaqueteEntradaFederalDTO paqueteEntrada) {
 		SiifBitacoraEntity entity = new SiifBitacoraEntity();
 		System.out.println("Inicia creacion SiifBitacora:::: Fecha actual::: " + FechaUtil.fechaActual());
@@ -414,7 +414,7 @@ public class ReporteSiifService {
 	}
 
 	//@Asynchronous
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+//	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public SiifBitacoraDTO importarNominaTheosToSIIF(UploadedFile dat, UploadedFile tra, SiifBitacoraDTO bitacora) {
 		int i = 0;
 		System.out.println("importarNominaTheosToSIIF::: " + bitacora);
