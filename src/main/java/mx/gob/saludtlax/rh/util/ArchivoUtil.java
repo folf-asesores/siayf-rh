@@ -15,7 +15,6 @@ import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -210,9 +209,10 @@ public class ArchivoUtil {
         } else {
             String filePath = CARPETA_USUARIO + SEPARADOR_DE_ARCHIVO + fileName;
             Path path = Paths.get(filePath);
-            Files.write(path, file, StandardOpenOption.READ,
-                    StandardOpenOption.WRITE,
-                    StandardOpenOption.TRUNCATE_EXISTING);
+            Files.write(path, file);
+//            Files.write(path, file, StandardOpenOption.READ,
+//                    StandardOpenOption.WRITE,
+//                    StandardOpenOption.TRUNCATE_EXISTING);
         }
     }
     
@@ -479,9 +479,70 @@ public class ArchivoUtil {
 
         List<String> lineas = Files.readAllLines(archivoTemporal);        
         List<String> lineasNuevas = new ArrayList<>();
-        for(String linea : lineas) {
-            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
-            lineasNuevas.add(nuevaLinea);
+        int lineasEliminadas = 0;
+        for(int i  = 0; i < lineas.size(); i++) {
+            String lineaAnterior = lineas.get(i);
+            String nuevaLineaAnterior = lineaAnterior.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            int j = i + 1;
+            boolean agregar = true;
+            int lineaHoja = i % 66;
+//            LOGGER.debugv("lineaHoja: {0}",lineaHoja);
+            if(j < lineas.size()) {
+                String lineaSiguiente = lineas.get(j);
+                String nuevaLineaSiguiente = lineaSiguiente.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("05   SUPLENCIAS")) {
+                    agregar = false;
+                }
+                
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("08   D")) {
+                    agregar = false;
+                }
+
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("14   PERCEPCI")) {
+                    agregar = false;
+                }
+                
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("17   BONO")) {
+                    agregar = false;
+                }
+                
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("24   AGUINALDO")) {
+                    agregar = false;
+                }
+                
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("26   SUBSIDIO")) {
+                    agregar = false;
+                }
+
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("27   PRIMA VACACIONAL")) {
+                    agregar = false;
+                }
+                
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("29   BONIFICACI")) {
+                    agregar = false;
+                }
+
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("30   RETROACTIVO")) {
+                    agregar = false;
+                }
+
+                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("32   OTROS")) {
+                    agregar = false;
+                }
+            }
+            
+            if (agregar) {
+                lineasNuevas.add(nuevaLineaAnterior);
+            } else {
+                lineasEliminadas++;
+            }
+//            if((lineaHoja + 1) == 66) {
+//                for (int k = 0; k < lineasEliminadas; k++) {
+//                    lineasNuevas.add("");
+//                }
+//                lineasEliminadas = 0;
+//            }
         }
 
         Path archivoTemporalWin = Files.createTempFile("destino", ".txt");
@@ -490,7 +551,7 @@ public class ArchivoUtil {
 
         byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
         LOGGER.info("La conversión en formato de MS-DOS se ha completado correctamente.");
-        Files.delete(archivoTemporal);
+//        Files.delete(archivoTemporal);
         Files.delete(archivoTemporalWin);
         return archivoWindows;
     }

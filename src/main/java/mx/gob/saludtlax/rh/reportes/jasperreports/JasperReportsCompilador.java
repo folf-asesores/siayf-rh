@@ -122,7 +122,7 @@ public class JasperReportsCompilador {
                         exporter.setExporterOutput(sweo);
                         exporter.exportReport();
 
-                        bytesReporte = ArchivoUtil.codificarComoWindows(baos.toByteArray());
+                        bytesReporte = ArchivoUtil.codificarComoMsDos(baos.toByteArray());
                         LOGGER.info("La generación del reporte se ha completado.");
                     } catch (IOException ex) {
                         LOGGER.error(ex.getCause(), ex);

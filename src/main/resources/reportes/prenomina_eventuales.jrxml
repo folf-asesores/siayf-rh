@@ -1,22 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-03-20T14:36:52 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales" pageWidth="2300" pageHeight="650" orientation="Landscape" columnWidth="2280" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="0" whenResourceMissingType="Empty" uuid="354d94ec-da49-4f79-8148-481f6f4e7176">
+<!-- 2017-03-21T13:01:08 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prenomina_eventuales" pageWidth="2300" pageHeight="650" orientation="Landscape" columnWidth="2280" leftMargin="10" rightMargin="10" topMargin="0" bottomMargin="10" whenResourceMissingType="Empty" uuid="354d94ec-da49-4f79-8148-481f6f4e7176">
 	<property name="net.sf.jasperreports.export.text.page.width" value="230"/>
-	<property name="net.sf.jasperreports.export.text.page.height" value="65"/>
+	<property name="net.sf.jasperreports.export.text.page.height" value="66"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="saludtlax"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="341"/>
 	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="652"/>
-	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
-	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<style name="predefinido" isDefault="true" vTextAlign="Middle" fontName="Monospaced" fontSize="10"/>
 	<scriptlet name="NOMINA_EVENTUALES" class="mx.gob.saludtlax.rh.reportes.jasperreports.NumeroALetraScriptlet">
 		<scriptletDescription><![CDATA[Ayuda en conversion de número a letras]]></scriptletDescription>
