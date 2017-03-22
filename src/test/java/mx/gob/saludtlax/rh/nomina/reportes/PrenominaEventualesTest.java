@@ -152,11 +152,11 @@ public class PrenominaEventualesTest {
     public void testReporte() throws IOException {
         LOGGER.info("Iniciando test : Reporte");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[]{
-            "ID_USUARIO", "18",
+        String[] parametros = new String[] {
+            "ID_USUARIO", "33",
             "REPORTE_NOMBRE", "prenomina_eventuales",
             "TIPO_REPORTE", "txt",
-            "ID_PRODUCTO_NOMINA", "2"
+            "ID_PRODUCTO_NOMINA", "30"
         };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
