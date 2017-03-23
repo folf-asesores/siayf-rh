@@ -18,6 +18,7 @@ import mx.gob.saludtlax.rh.seguridad.ConfiguracionConst;
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.catalogos.CatalogoDTO;
 import mx.gob.saludtlax.rh.excepciones.BusinessException;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.util.Crypto;
 import mx.gob.saludtlax.rh.util.EmailValidator;
 import mx.gob.saludtlax.rh.util.JSFUtils;
@@ -95,7 +96,7 @@ public class UsuarioController implements Serializable {
                 UsuarioDTO newUserDto = new UsuarioDTO();
                 newUserDto = usuarioView.getUsuarioDTO();
             	
-                newUserDto.setPassword(password);
+                newUserDto.setPassword(Crypto.hmac(password));
                 newUserDto.setIdPerfil(seleccionarPerfil);
                 usuarioEJB.crear(newUserDto);
                 JSFUtils.infoMessage("Usuario", "Registrado correctamente");
@@ -111,17 +112,15 @@ public class UsuarioController implements Serializable {
      * Actualiza la información de un usuario
      */
     public void actualizarUsuario() {
-        UsuarioDTO usuario = null;
-        try {
-            usuario = usuarioEJB.obtenerUsuarioPorNombreUsuario(usuarioView.getEditarUsuarioDTO().getUserName());
-            if (usuario == null) {
-                JSFUtils.warningMessage("Usuario", "Se encuentra registrado seleccione otro nombre de usuario");
-            } else {
-                
+         try {
+                if(usuarioView.isCambiarContrasenia()){
+                 String newPass=usuarioView.getUsuarioDTO().getPassword();
+                 usuarioView.getUsuarioDTO().setPassword(Crypto.hmac(newPass));
+                }
                 usuarioEJB.actualizar(usuarioView.getEditarUsuarioDTO());
                 JSFUtils.infoMessage("Usuario", "Registrado correctamente");
-            }
-        } catch (BusinessException ex) {
+            
+        } catch (ReglaNegocioException ex) {
             JSFUtils.errorMessage("Error", "Ocurrio un error durante el registro del nuevo usuario");
         }
     }

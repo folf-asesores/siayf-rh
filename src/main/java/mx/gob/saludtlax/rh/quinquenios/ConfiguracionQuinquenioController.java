@@ -83,12 +83,15 @@ public class ConfiguracionQuinquenioController implements Serializable {
 						
 						configuracionExistente.setFecha_actualizacion(new Date());
 
-						String claveQuinquenio= calcularQuinquenio(empleado.getFechaInicioLabores());
-
+						String claveQuinquenio="";
+						if (empleado.getFechaInicioLabores() != null) {
+							 claveQuinquenio= calcularQuinquenio(empleado.getFechaInicioLabores());
+						}
+						
 						configuracionExistente.setClave_concepto(claveQuinquenio);
 
 						configuracionQuinquenioService.actualizarConfiguracion(configuracionExistente);
-					}
+					}else{
 
 					System.out.println("datos::" + " empleado:" + empleado.getRfc() + " configuracion:"
 							+ empleado.getIdConfiguracionPresupuestal() + " fecha:" + empleado.getFechaInicioLabores());
@@ -108,6 +111,7 @@ public class ConfiguracionQuinquenioController implements Serializable {
 					configuracionNew.setIdConfiguracionP(empleado.getIdConfiguracionPresupuestal());
 
 					configuracionQuinquenioService.crearConfiguracion(configuracionNew);
+					}
 				}
 			}
 

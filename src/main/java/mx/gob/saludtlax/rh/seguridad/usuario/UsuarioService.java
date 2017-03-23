@@ -172,7 +172,7 @@ public class UsuarioService {
 
 		// entity.setPerfil(perfil);
 		entity.setUserName(dto.getUserName());
-		entity.setPassword(Crypto.hmac(dto.getPassword()));
+		entity.setPassword(dto.getPassword());
 		entity.setActivo(true);
 		entity.setNombre(dto.getNombre());
 		entity.setApellidoPaterno(dto.getApellidoPaterno());

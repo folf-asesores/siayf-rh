@@ -20,6 +20,8 @@ public class UsuarioView {
     private boolean habilitarPanelUsuario;
     private boolean habilitarFormulario;
     private boolean habilitarFormularioEdicion;
+    
+    private boolean cambiarContrasenia=false;
 
     public void habilitarEdicion() {
         habilitarTabla = true;
@@ -34,6 +36,7 @@ public class UsuarioView {
         habilitarBotonesEdicion = false;
         habilitarPanelUsuario = false;
         habilitarFormulario = false;
+        habilitarFormularioEdicion = false;
         habilitarPanelInicial = true;
     }
 
@@ -165,5 +168,13 @@ public class UsuarioView {
     public void setHabilitarFormularioEdicion(boolean habilitarFormularioEdicion) {
         this.habilitarFormularioEdicion = habilitarFormularioEdicion;
     }
+
+	public boolean isCambiarContrasenia() {
+		return cambiarContrasenia;
+	}
+
+	public void setCambiarContrasenia(boolean cambiarContrasenia) {
+		this.cambiarContrasenia = cambiarContrasenia;
+	}
 
 }

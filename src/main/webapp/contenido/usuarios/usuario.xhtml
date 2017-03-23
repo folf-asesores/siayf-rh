@@ -10,7 +10,6 @@
 		<!-- CSS PERSONALIZADO  -->
 		<h:outputStylesheet library="css" name="siayf_rh.css" />
 	</ui:define>
-
 	<ui:param name="ventanaTitulo" value="Usuarios" />
 
 	<ui:param name="moduloTitulo" value="Administración de Usuarios" />
@@ -228,7 +227,7 @@
 					<p:spacer />
 					<p:outputLabel for="password" value="Contraseña: " />
 					<p:outputPanel>
-						<p:inputText label="password" id="password" required="true"
+						<p:password label="password" id="password" required="true"
 							requiredMessage="La contraseña de usuario es requerida"
 							value="#{usuario.password}" />
 					</p:outputPanel>
@@ -264,7 +263,7 @@
 							requiredMessage="El correo electrónico es requerido"
 							value="#{usuario.usuarioView.usuarioDTO.correo}" />
 					</p:outputPanel>
-					
+
 					<p:spacer />
 					<p:outputLabel for="telefono" value="Telefono fijo: " />
 					<p:outputPanel>
@@ -272,7 +271,7 @@
 							requiredMessage="El telefono es requerido"
 							value="#{usuario.usuarioView.usuarioDTO.telefono}" />
 					</p:outputPanel>
-					
+
 					<p:spacer />
 					<p:outputLabel for="celular" value="Telefono movil: " />
 					<p:outputPanel>
@@ -288,35 +287,42 @@
 							requiredMessage="El cargo es requerido"
 							value="#{usuario.usuarioView.usuarioDTO.cargo}" />
 					</p:outputPanel>
-					
+
 					<p:spacer />
 					<p:outputLabel for="adscripcion" value="Adscripción: " />
 					<p:outputPanel>
-					<p:selectOneMenu id="adscripcion" value="#{usuario.usuarioView.usuarioDTO.idAdscripcion}">
-					<f:selectItem  itemLabel="Seleccione una adscripción.." itemValue="0"/>
-					<f:selectItems value="#{usuario.listaAdscripciones}" />
-					</p:selectOneMenu>
+						<p:selectOneMenu id="adscripcion"
+							value="#{usuario.usuarioView.usuarioDTO.idAdscripcion}">
+							<f:selectItem itemLabel="Seleccione una adscripción.."
+								itemValue="0" />
+							<f:selectItems value="#{usuario.listaAdscripciones}" />
+						</p:selectOneMenu>
 					</p:outputPanel>
-					
+
 					<p:spacer />
 					<p:outputLabel for="areaAdscripción" value="Area de Adscripción: " />
 					<p:outputPanel>
-					<p:selectOneMenu id="areaAdscripción" value="#{usuario.usuarioView.usuarioDTO.idAreaAdscripcion}">
-					<f:selectItem  itemLabel="Seleccione un area de adscripción.." itemValue="0"/>
-					<f:selectItems value="#{usuario.listaAreasAdscripciones}" />
-					</p:selectOneMenu>
+						<p:selectOneMenu id="areaAdscripción"
+							value="#{usuario.usuarioView.usuarioDTO.idAreaAdscripcion}">
+							<f:selectItem itemLabel="Seleccione un area de adscripción.."
+								itemValue="0" />
+							<f:selectItems value="#{usuario.listaAreasAdscripciones}" />
+						</p:selectOneMenu>
 					</p:outputPanel>
-					
+
 					<p:spacer />
-					<p:outputLabel for="lugarAdscripcion" value="Lugar de Adscripción: " />
+					<p:outputLabel for="lugarAdscripcion"
+						value="Lugar de Adscripción: " />
 					<p:outputPanel>
-					<p:selectOneMenu id="lugarAdscripcion" value="#{usuario.usuarioView.usuarioDTO.idLugarAdscripcion}">
-					<f:selectItem  itemLabel="Seleccione un lugar de adscripción.." itemValue="0"/>
-					<f:selectItems value="#{usuario.listaLugarAdscripciones}" />
-					</p:selectOneMenu>
+						<p:selectOneMenu id="lugarAdscripcion"
+							value="#{usuario.usuarioView.usuarioDTO.idLugarAdscripcion}">
+							<f:selectItem itemLabel="Seleccione un lugar de adscripción.."
+								itemValue="0" />
+							<f:selectItems value="#{usuario.listaLugarAdscripciones}" />
+						</p:selectOneMenu>
 					</p:outputPanel>
-					
-					
+
+
 				</p:panelGrid>
 				<br />
 				<br />
@@ -325,35 +331,48 @@
 						iconPos="right" actionListener="#{usuario.registrarUsuario()}"
 						update=":form" process="@this" ajax="false" />
 					<p:spacer width="50px" />
-					<p:commandButton value="Cancelar" id="regresarRegistro" icon="ui-icon-closethick"
-						iconPos="right" action="#{usuario.usuarioView.cancelar()}"
-						update=":form" process="@this" style="background:#B0C4DE;" />
+					<p:commandButton value="Cancelar" id="regresarRegistro"
+						icon="ui-icon-closethick" iconPos="right"
+						action="#{usuario.usuarioView.cancelar()}" update=":form"
+						process="@this" style="background:#B0C4DE;" />
 				</div>
 			</p:panel>
 
 
-			<p:panelGrid
-				rendered="#{usuario.usuarioView.habilitarFormularioEdicion}">
-				<p:panelGrid style="width:100%;  padding-top:25px;padding-left:15px"
-					id="usuarioEdicion">
+			<p:panel id="panelEdicionUsuario" rendered="#{usuario.usuarioView.habilitarFormularioEdicion}">
+				<p:panelGrid  style="width:80%;  padding-top:25px;padding-left:15px"
+					id="usuarioEdicion" >
 					<!-- Panel para editar la información de un usuario registrado -->
-					<p:spacer width="20" />
+					
 					<p:row>
 						<p:column style="width:25%">
 							<p:outputLabel value="UserName: " />
 						</p:column>
 
 						<p:column style="width:25%">
-							<p:inputText
+							<p:inputText disabled="true"
 								value="#{usuario.usuarioView.editarUsuarioDTO.userName}" />
 						</p:column>
-
+					</p:row>
+	                <p:row> 
+	                 	<p:column style="width:25%">
+							<p:outputLabel value="Cambiar Contraseña: " />
+						</p:column>
+	                 	<p:column> 
+	                 	  <p:selectBooleanCheckbox value="#{usuario.usuarioView.cambiarContrasenia}">
+          				  <p:ajax update="panelEdicionUsuario"  />
+        </p:selectBooleanCheckbox>
+        
+	                 	
+	                 	 </p:column>
+	                </p:row>
+					<p:row rendered="#{usuario.usuarioView.cambiarContrasenia}">
 						<p:column style="width:25%">
 							<p:outputLabel value="Contraseña: " />
 						</p:column>
 
 						<p:column style="width:25%">
-							<p:inputText value="#{usuario.usuarioView.usuarioDTO.password}" />
+							<p:password value="#{usuario.usuarioView.usuarioDTO.password}" />
 						</p:column>
 					</p:row>
 
@@ -366,7 +385,9 @@
 							<p:inputText
 								value="#{usuario.usuarioView.editarUsuarioDTO.nombre}" />
 						</p:column>
+					</p:row>
 
+					<p:row>
 						<p:column style="width:25%">
 							<p:outputLabel value="Apellido Paterno: " />
 						</p:column>
@@ -387,7 +408,9 @@
 							<p:inputText
 								value="#{usuario.usuarioView.editarUsuarioDTO.apellidoMaterno}" />
 						</p:column>
+					</p:row>
 
+					<p:row>
 						<p:column style="width:25%">
 							<p:outputLabel value="Correo Electrónico: " />
 						</p:column>
@@ -406,12 +429,7 @@
 							<p:inputText
 								value="#{usuario.usuarioView.editarUsuarioDTO.cargo}" />
 						</p:column>
-						<p:column>
-							<p:outputLabel value="Perfil: " />
-						</p:column>
-						<p:column>
 
-						</p:column>
 					</p:row>
 				</p:panelGrid>
 				<div align="center">
@@ -434,7 +452,7 @@
 						process="@this" style="float:left;background:#B0C4DE;"
 						ajax="false" />
 				</div>
-			</p:panelGrid>
+			</p:panel>
 
 			<h:outputScript target="body">
 			// Controlamos que si pulsamos escape se cierre el formulario y nos redireccionea la página de inicio

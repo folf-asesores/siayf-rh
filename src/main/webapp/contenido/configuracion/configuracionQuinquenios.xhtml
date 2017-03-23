@@ -48,13 +48,13 @@
                          rowsPerPageTemplate="5,10,15"
 					value="#{configuracionQuinquenioController.listaConfiguracionesQuinquenios}"
 					var="configuracion">
-					<p:column headerText="RFC">
+					<p:column headerText="RFC" filterBy="#{configuracion.rfc}" filterMatchMode="contains">
 						<h:outputText value="#{configuracion.rfc}" />
 					</p:column>
-					<p:column headerText="Clave quinquenio">
+					<p:column headerText="Clave quinquenio" filterBy="#{configuracion.nombreEmpleado}" filterMatchMode="contains">
 						<h:outputText value="#{configuracion.nombreEmpleado}" />
 					</p:column>
-					<p:column headerText="Concepto">
+					<p:column headerText="Concepto" filterBy="#{configuracion.clave_concepto}" filterMatchMode="contains">
 						<h:outputText value="#{configuracion.clave_concepto}" />
 					</p:column>
 					
