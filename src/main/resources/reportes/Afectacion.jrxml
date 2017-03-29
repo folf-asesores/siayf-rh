@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-03-17T18:33:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="movimientosPrevalidados" pageWidth="2400" pageHeight="660" orientation="Landscape" columnWidth="2360" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4a7049e4-7967-492e-942e-f3b509d0745f">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<style name="PREDEFINIDO" isDefault="true" fontName="Monospaced" fontSize="12"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<staticText>
+				<reportElement key="" style="PREDEFINIDO" x="140" y="20" width="120" height="20" uuid="d0baf3d0-9448-432f-a971-8a1112e1d7d4"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[FECHA EMISION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="140" y="34" width="150" height="22" uuid="e0e119df-ee9e-4f63-8079-331cb7003af3"/>
+				<text><![CDATA[HORA EMISION:]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="245" y="19" width="100" height="19" uuid="3da7fd25-26ab-49b1-b0ad-341a05be98b0"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="244" y="34" width="100" height="22" uuid="90653614-3a62-4ad4-ac89-1a8fce8a1378"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1108" y="11" width="146" height="19" uuid="68c581ff-7e5a-41f7-8d35-f8b1ef0eb273"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SALUD DE TLAXCALA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1008" y="29" width="345" height="17" uuid="4d44e408-56eb-4622-b1f0-e327e77142df"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DIRECCION DE ADMINISTRACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1042" y="44" width="276" height="21" uuid="50942994-8dba-4bed-86df-0b575b5ed2f5"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[SUBDIRECCION DE RECURSOS HUMANOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1073" y="60" width="214" height="21" uuid="f5f7c96d-ea9a-4d23-8055-ce6334122136"/>
+				<text><![CDATA[DEPARTAMENTO DE OPERACION Y PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="991" y="87" width="380" height="19" uuid="b27c776f-e51d-4683-85e3-6b093cc111da"/>
+				<textElement textAlignment="Center">
+					<paragraph lineSpacing="Double"/>
+				</textElement>
+				<text><![CDATA[LISTADO DE MOVIMIENTOS RECHAZADOS EN AFECTACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="366" y="99" width="54" height="20" uuid="933a1c00-dccf-4b36-b19c-822138b366d4"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[UNIDAD:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="99" width="100" height="18" uuid="19554d07-f668-4b02-b589-1911c563d8e7"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="550" y="99" width="87" height="18" uuid="74588712-b3b8-45d7-b320-e762837154c7"/>
+				<text><![CDATA[DESCRIPCION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="637" y="99" width="100" height="18" uuid="b7c26b17-3735-4aae-ba2a-51b801cc9968"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1882" y="31" width="100" height="25" uuid="c82c6a6d-cc37-4a75-9a8f-bc215f0ce3ad"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[FN-1390]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1940" y="96" width="30" height="18" uuid="90c15c6e-c845-45a5-a1aa-9b94f9236c6c"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[QNA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1970" y="97" width="50" height="18" uuid="c437ca67-6e9f-42de-9805-1c26c8c57669"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2120" y="31" width="60" height="25" uuid="6ec8ebd7-c7c0-4f94-bc61-1b0c829e4e91"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[HOJA NO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2160" y="97" width="70" height="20" uuid="e3811199-f4ce-4b97-bb7f-12fb9923a301"/>
+				<textFieldExpression><![CDATA["Text Field"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="2116" y="98" width="40" height="20" uuid="cbf830a9-5759-4923-965c-fa0b227d9514"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[LOTE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="2200" y="32" width="100" height="30" uuid="336d712f-345a-47f6-a8b0-95558dc953bd"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="-10" width="2360" height="23" uuid="83507cb7-e8ec-4678-82d1-137cca7b84e3"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="31" width="2360" height="23" uuid="213fe7b7-562f-4b8d-bbe5-4d23255ca78f"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="680" y="15" width="430" height="23" uuid="293eeb26-8e7f-4f0b-8096-7b4c3d663d7c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[- - -  C  L  A  V  E    D  E    P  A  G  O - - -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="90" y="15" width="240" height="23" uuid="f308a127-b540-4957-8078-80263ed30614"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[N / D  O  C  T  O   M  O  V  T  O]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1160" y="15" width="590" height="23" uuid="bd348707-2c85-4e73-9c9e-62d1b80d238d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[F  I  L  I  A  C  I  O  N    N  O  M  B  R  E]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1780" y="15" width="500" height="23" uuid="d4933cf6-d1e5-424c-ade3-8130d8988289"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[- - - -  R  E  C  H  A  Z  O  S  - - - - ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="15" width="310" height="23" uuid="2b2c548c-4225-4043-a46f-5bacaac25ff0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[- - V  I  G E  N  C  I  A - -]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

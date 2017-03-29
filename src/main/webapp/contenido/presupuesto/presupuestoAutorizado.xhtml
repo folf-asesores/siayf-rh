@@ -264,6 +264,13 @@
 							<p:ajax event="blur" update="msgPpiiCrear" />
 						</p:inputText>
 						<p:message id="msgPpiiCrear" for="ppiiCrear" />
+						
+						<p:outputLabel for="conceptoCrear" value="Concepto:" />
+						<p:inputText id="conceptoCrear"
+							value="#{presupuestoAutorizado.view.creaPresupuestoAutorizado.concepto}">
+							<p:ajax event="blur" update="msgConceptoCrear" />
+						</p:inputText>
+						<p:message id="msgConceptoCrear" for="conceptoCrear" />
 
 						<p:outputLabel for="importeAnualCrear" value="Importe Anual:" />
 						<p:inputText id="importeAnualCrear" placeholder="00.00"
@@ -404,6 +411,13 @@
 							<p:ajax event="blur" update="msgPpiiActualizar" />
 						</p:inputText>
 						<p:message id="msgPpiiActualizar" for="ppiiActualizar" />
+						
+						<p:outputLabel for="conceptoActualizar" value="Concepto:" />
+						<p:inputText id="conceptoActualizar"
+							value="#{presupuestoAutorizado.view.actualizarPresupuestoAutorizado.concepto}">
+							<p:ajax event="blur" update="msgConceptoActualizar" />
+						</p:inputText>
+						<p:message id="msgConceptoActualizar" for="conceptoActualizar" />
 
 						<p:outputLabel for="proyectoAnualActualizar"
 							value="Importe Anual:" />

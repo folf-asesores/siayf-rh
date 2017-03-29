@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
+<!-- 2017-03-17T18:16:59 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Presupuestal" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="11dfb84f-f82d-4dc1-b24e-3eba79b03805">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DatasourceJoséPablo"/>
+	<queryString>
+		<![CDATA[SELECT 1 AS uno;]]>
+	</queryString>
+	<field name="uno" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="94" splitType="Stretch">
+			<staticText>
+				<reportElement key="" x="40" y="16" width="90" height="20" uuid="15178846-de26-4cae-8924-9caa89dc489d"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[FECHA EMISION:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="243" y="36" width="276" height="14" uuid="e730e002-adf5-4ead-b7e3-5ecb4e181e95"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[SUBDIRECCION DE RECURSOS HUMANOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="700" y="6" width="60" height="25" uuid="83de5899-58b7-4e1b-8ecc-1dd388b4758e"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[PV-20671]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="308" y="9" width="146" height="19" uuid="2b725ba8-b4f2-4ac7-837d-d4f497352cd2"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[SALUD DE TLAXCALA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="678" y="27" width="50" height="25" uuid="f04bda5b-52a8-4306-aee7-36eed7a347ee"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[HOJA NO.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="40" y="30" width="80" height="22" uuid="f737bc4e-d56a-4d27-84ab-3425d786fd39"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[HORA EMISION:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="730" y="26" width="50" height="30" uuid="29be7c6a-550f-4831-a60c-0a808ce0cff9"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="126" y="16" width="100" height="19" uuid="b0d4791e-0b35-4e4c-91fb-c79a7fc68fda"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH:mm">
+				<reportElement x="120" y="30" width="100" height="22" uuid="3aea1361-9a2f-44e4-95c1-bb003efe85dc"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="233" y="21" width="295" height="17" uuid="be59c57d-4853-4a9c-95ee-46dc5996a3ff"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[DIRECCION DE ADMINISTRACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="258" y="52" width="245" height="21" uuid="6f6d39ca-4dce-4d9c-a20a-990a6a883ea9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[DEPARTAMENTO DE OPERACION Y PAGOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="65" y="75" width="335" height="19" uuid="254829ea-664c-4fc3-a345-61dd3259bd9f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced"/>
+					<paragraph lineSpacing="Single"/>
+				</textElement>
+				<text><![CDATA[RESUMEN DE NOMINA CORRESPONDIENTE A LA QUINCENA ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="408" y="75" width="72" height="19" uuid="d14710b9-8296-4f58-8dfe-aa1f261b26b8"/>
+				<textElement>
+					<font fontName="Monospaced"/>
+				</textElement>
+				<text><![CDATA[06/2017]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="73" width="74" height="21" uuid="f7936a5d-275c-45f6-9eb6-21d3da48bcae"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[COMPLETO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="590" y="73" width="100" height="21" uuid="d1934033-f0f4-4cdd-9833-04473931b2c3"/>
+				<textElement>
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[Organos Desc.]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="8" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="32" splitType="Stretch">
+			<staticText>
+				<reportElement x="22" y="-17" width="758" height="23" uuid="96f8f1a9-d290-47cb-a9dc-fa0b1f3997a9"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[-----------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="21" y="8" width="758" height="23" uuid="0fb6a176-a456-420e-998e-c23fcc7d3b90"/>
+				<textElement>
+					<font fontName="Monospaced" size="16"/>
+				</textElement>
+				<text><![CDATA[-----------------------------------------------------------------------------------------------------------------------------------------------------------]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="22" y="0" width="47" height="18" uuid="7c1a894c-36d3-4af8-80d0-828a8e2ba44d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[UNI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="83" y="0" width="39" height="18" uuid="1ab6fb7d-7214-400a-862d-288a629d7637"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[GF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="134" y="0" width="39" height="18" uuid="c85da26d-eeb7-428e-89a1-2f4145e7c310"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[FN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="181" y="0" width="39" height="18" uuid="4098cd5b-2b45-4b38-a8ab-9d8b515dd50c"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[SF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="224" y="0" width="47" height="18" uuid="23e96c64-7c66-413e-92a1-ae282acac69a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[EF]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="466" y="0" width="47" height="18" uuid="17b0ee4f-1cc2-4003-a5bd-75e2de95179e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[PTDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="35" height="18" uuid="8adf8160-2f4c-4028-a85b-f8114b375d18"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[I]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="344" y="0" width="30" height="18" uuid="cf6324ef-0abe-4372-92c1-7dc9050f2799"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[PP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="0" width="47" height="18" uuid="e6513fb5-6b1e-4283-ad6f-ff4f1c52a786"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[PAI]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="541" y="0" width="108" height="18" uuid="a26e4e4c-a1fb-43ca-a1fd-faa682bc584e"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[PERCEPCIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="0" width="99" height="18" uuid="0b95bfd3-5eeb-46c1-98fa-3dbf89b4fa14"/>
+				<textElement textAlignment="Center">
+					<font fontName="Monospaced" size="12"/>
+				</textElement>
+				<text><![CDATA[DEDUCCIONES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="0" width="100" height="30" uuid="6d68a41a-e80a-466d-a80d-52f8db52ad12"/>
+				<text><![CDATA[uno]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

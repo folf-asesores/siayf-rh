@@ -82,7 +82,6 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
         REPORTES.put("dispersion_nomina", dispercionReporte);
         REPORTES.put("pago_general", pagoGeneralReporte);
         REPORTES.put("reporte_distribucion_presupuestal", distribucionPresupuestal);
-        //reporte_distribucion_presupuestal
         REPORTES.put("producto_nomina_federales", productoNominaFederalReporteReporte);
     }
 
