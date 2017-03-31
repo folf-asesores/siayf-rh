@@ -101,6 +101,7 @@
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoExcelEntity</class>
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoPlantillaExcelEntity</class>
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersEntity</class>
+		<class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity</class>
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraEntity</class>
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatAcumEntity</class>
  	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity</class>

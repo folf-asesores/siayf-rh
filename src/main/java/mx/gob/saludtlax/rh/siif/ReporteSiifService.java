@@ -240,7 +240,7 @@ public class ReporteSiifService {
 		return obtenerSiiifBitacoraById(entity.getIdReporteSiif());
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void actualizarSiifBitacora(SiifBitacoraDTO reporte) {
 
 		System.out.println("actualizarSiifBitacora:: reporte.getIdSiifBitacora():: " + reporte.getIdSiifBitacora());
@@ -312,7 +312,7 @@ public class ReporteSiifService {
 		return estructuraNominaDatEntity;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void actualizarSiifEncabezado(SIIFEncabezadoDTO siifEncabezado) {
 		SIIFEncabezadoEntity encabezadoEntity = null;
 		// System.out.println("siifEncabezado:: " + siifEncabezado);
@@ -361,7 +361,7 @@ public class ReporteSiifService {
 		limpiarSiifEncabezados(idBitacora);
 	}
 	
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void limpiarSiifEncabezados(Integer idSiifBitacora) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session.createSQLQuery("CALL sp_limpiar_siif_encabezados(:idSiifBitacora)")

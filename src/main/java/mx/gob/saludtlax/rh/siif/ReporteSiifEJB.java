@@ -1,10 +1,20 @@
 package mx.gob.saludtlax.rh.siif;
 
 import java.io.UnsupportedEncodingException;
+import java.text.ParseException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
+import javax.transaction.UserTransaction;
+import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -14,13 +24,18 @@ import org.primefaces.model.UploadedFile;
 
 import mx.gob.saludtlax.rh.configuracion.cuentabancaria.CuentaBancariaDTO;
 import mx.gob.saludtlax.rh.configuracion.tiponomina.TipoNominaDTO;
+import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoDTO;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
+@TransactionManagement(TransactionManagementType.BEAN)
 @Stateless
 public class ReporteSiifEJB {
 		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
+		
+	@Resource
+	private UserTransaction ut;
 
 	@Inject
 	private ReporteSiifService reporteSiifService;
@@ -30,24 +45,65 @@ public class ReporteSiifEJB {
 		return reporteSiifList;
 	}
 
-	@TransactionTimeout(value = 10, unit = TimeUnit.HOURS)
-	public SiifBitacoraDTO procesarNominaTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) throws UnsupportedEncodingException {
-		UploadedFile dat = paqueteEntrada.getDat();
-		UploadedFile tra = paqueteEntrada.getTra();
-
-		SiifBitacoraDTO bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
-		bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra, bitacora);
-		bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
-		bitacora = reporteSiifService.clasificarEncabezados(bitacora);
-		bitacora = reporteSiifService.verificarDatos(bitacora);
-		bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
-		return bitacora;
-	}
-	
-	public SiifBitacoraDTO calcularEncabezados(SiifBitacoraDTO bitacora) {
-		bitacora = reporteSiifService.calcularEncabezados(bitacora);
-		return bitacora;
-	}
+	//@TransactionTimeout(value = 10, unit = TimeUnit.HOURS)
+		public SiifBitacoraDTO procesarNominaTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) throws UnsupportedEncodingException, NotSupportedException, SystemException, SecurityException, IllegalStateException, RollbackException, HeuristicMixedException, HeuristicRollbackException {
+			UploadedFile dat = paqueteEntrada.getDat();
+			UploadedFile tra = paqueteEntrada.getTra();
+			SiifBitacoraDTO bitacora=null;
+			try{
+			ut.begin();
+			bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
+			bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra, bitacora);
+			bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
+			bitacora = reporteSiifService.clasificarEncabezados(bitacora);
+			bitacora = reporteSiifService.verificarDatos(bitacora);
+			bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+			ut.commit();
+			}catch (ReglaNegocioException   ex) {
+				ex.printStackTrace();
+			}
+			return bitacora;
+		}
+		
+		public SiifBitacoraDTO calcularEncabezados(SiifBitacoraDTO bitacora) {
+			try {
+				try {
+					ut.begin();
+				} catch (NotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				bitacora = reporteSiifService.calcularEncabezados(bitacora);
+				// return bitacora;
+				try {
+					ut.commit();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicMixedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicRollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ReglaNegocioException ex) {
+				ex.printStackTrace();
+			}
+			return bitacora;
+		}
 
 	public SiifBitacoraDTO procesarNominaContTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) {
 		UploadedFile cont = paqueteEntrada.getCont();
