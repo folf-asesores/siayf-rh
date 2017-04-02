@@ -54,16 +54,106 @@ public class ReporteSiifEJB {
 			ut.begin();
 			bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
 			bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra, bitacora);
-			bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
-			bitacora = reporteSiifService.clasificarEncabezados(bitacora);
-			bitacora = reporteSiifService.verificarDatos(bitacora);
-			bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+//			bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
+//			reporteSiifService.clasificarEncabezados2(bitacora);
+//			bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
+			//bitacora = reporteSiifService.verificarDatos(bitacora);
+			//bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
 			ut.commit();
 			}catch (ReglaNegocioException   ex) {
 				ex.printStackTrace();
 			}
 			return bitacora;
 		}
+		
+		public SiifBitacoraDTO procesarNominaTheosToSIIF_2(SiifBitacoraDTO bitacora) {
+			try {
+				try {
+					ut.begin();
+				} catch (NotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
+				reporteSiifService.clasificarEncabezados2(bitacora);
+				bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
+				//bitacora = reporteSiifService.verificarDatos(bitacora);
+				//bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+				// return bitacora;
+				try {
+					ut.commit();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicMixedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicRollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ReglaNegocioException ex) {
+				ex.printStackTrace();
+			}
+			return bitacora;
+		}
+		
+		public SiifBitacoraDTO procesarNominaTheosToSIIF_3(SiifBitacoraDTO bitacora) {
+			try {
+				try {
+					ut.begin();
+				} catch (NotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//				bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
+//				reporteSiifService.clasificarEncabezados2(bitacora);
+//				bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
+				bitacora = reporteSiifService.verificarDatos(bitacora);
+				bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+				// return bitacora;
+				try {
+					ut.commit();
+				} catch (SecurityException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (RollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicMixedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (HeuristicRollbackException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SystemException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} catch (ReglaNegocioException ex) {
+				ex.printStackTrace();
+			}
+			return bitacora;
+		}
+
 		
 		public SiifBitacoraDTO calcularEncabezados(SiifBitacoraDTO bitacora) {
 			try {

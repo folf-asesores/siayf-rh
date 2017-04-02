@@ -373,6 +373,8 @@ public class ReporteSiifController {
 			try {
 				JSFUtils.infoMessage("En este momento han terminado de subir los archivos y se empieza a procesar", "");
 				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF(view.getPaqueteEntrada()));
+				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_2(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.calcularEncabezados(view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));
 				view.setPanelUpload(Boolean.FALSE);
