@@ -813,7 +813,7 @@ public class ReporteSiifService {
 		return entity;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public SiifBitacoraDTO clasificarEncabezados(SiifBitacoraDTO bitacora) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session.createSQLQuery("CALL sp_clasificar_nomina_estructura(:idSiifBitacora)")
@@ -910,6 +910,110 @@ public class ReporteSiifService {
 
 		return bitacora;
 	}
+	
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+		public void clasificarEncabezados2(SiifBitacoraDTO bitacora) {
+			Session session = entityManager.unwrap(Session.class);
+			Query query = session.createSQLQuery("CALL usp_clasificar_nomina_estructura_siif(:idSiifBitacora)")
+					.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+			query.executeUpdate();
+		}
+		
+		public SiifBitacoraDTO clasificarEncabezados3(SiifBitacoraDTO bitacora) {
+			Session session = entityManager.unwrap(Session.class);
+			Query query = session.createSQLQuery("CALL usp_clasificar_nomina_estructura_siif_2(:idSiifBitacora)")
+					.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+			query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+			@SuppressWarnings("unchecked")
+			List<SIIFEncabezadoDTO> result = (List<SIIFEncabezadoDTO>) query.list();
+			LOGGER.debugv("sp_clasificar_nomina_estructura result::", result);
+			Integer[] idPensiones = { 5, 10, 19, 21, 24, 27, 30, 33, 38, 45 };
+			
+			for (SIIFEncabezadoDTO dto : result) {
+				dto.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
+				dto.setIdTipoNomina(bitacora.getIdTipoNomina());
+				dto.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
+
+				// Si son PENSIONES hay que unirlos
+				if (Arrays.asList(idPensiones).contains(dto.getIdTipoNomina())) {
+					LOGGER.debugv("Nomina Pension::", dto.getIdTipoNomina());
+					LOGGER.debugv("Bitacora::", bitacora.getIdSiifBitacora());
+					// Si son REGULARIZADOS hay que clasificarlos en:
+					// Federales, Seguro Popular Federal y Seguro Popular
+					if (dto.getIdNombramiento().intValue() == 4) {
+						//System.out.println("dto.getIdNombramiento().intValue():: " + dto.getIdNombramiento().intValue());
+						query = session
+								.createSQLQuery("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+
+						query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+						query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+						@SuppressWarnings("unchecked")
+						List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();
+
+//						System.out.println("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento) result2::"+ resultReg);
+						for (SIIFEncabezadoDTO dtoReg : resultReg) {
+							dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
+							dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
+							dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
+							actualizarSiifEncabezado(dtoReg);
+						}
+						encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());
+						
+						// Si son PERSONAL EN FORMACION hay que unirlos
+					} else {
+						actualizarSiifEncabezado(dto);
+						System.out.println("actualizarSiifEncabezado(dto) 1 ::");
+
+					}
+
+				} else {
+					// Si son REGULARIZADOS hay que clasificarlos en:
+					// Federales, Seguro Popular Federal y Seguro Popular
+					if (dto.getIdNombramiento().intValue() == 4) {
+						query = session
+								.createSQLQuery("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+
+						query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+						query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+						@SuppressWarnings("unchecked")
+						List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();
+
+						System.out
+								.println("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento) result2::"
+										+ resultReg);
+						for (SIIFEncabezadoDTO dtoReg : resultReg) {
+							dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
+							dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
+							dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
+							actualizarSiifEncabezado(dtoReg);
+
+						}
+
+						encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());
+
+					} else {
+						// Si son PERSONAL EN FORMACION hay que unirlos
+						actualizarSiifEncabezado(dto);
+						System.out.println("actualizarSiifEncabezado(dto) 2 ::");
+
+					}
+				}
+
+			}
+
+			System.out.println("limpiarSiifEncabezados:: " + bitacora.getIdSiifBitacora());
+			limpiarSiifEncabezados(bitacora.getIdSiifBitacora());
+
+			return bitacora;
+		}
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public SiifBitacoraDTO clasificarEncabezadosContratos(SiifBitacoraDTO bitacora) {
@@ -940,7 +1044,7 @@ public class ReporteSiifService {
 		return bitacora;
 	}
 
-	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	//@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public SiifBitacoraDTO cambiarClaveConceptosTra(SiifBitacoraDTO bitacora) {
 		System.out.println("CALL sp_cambiar_clave_concepto(:idSiifBitacora)");
 		Session session = entityManager.unwrap(Session.class);
