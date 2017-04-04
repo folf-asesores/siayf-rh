@@ -943,7 +943,19 @@ public class ReporteSiifService {
 					if (dto.getIdNombramiento().intValue() == 4) {
 						//System.out.println("dto.getIdNombramiento().intValue():: " + dto.getIdNombramiento().intValue());
 						query = session
-								.createSQLQuery("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+						
+						query = session
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+						
+						query = session
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
 								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
 								.setParameter("idNombramiento", dto.getIdNombramiento());
 						query.executeUpdate();
@@ -975,7 +987,19 @@ public class ReporteSiifService {
 					// Federales, Seguro Popular Federal y Seguro Popular
 					if (dto.getIdNombramiento().intValue() == 4) {
 						query = session
-								.createSQLQuery("CALL sp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+						
+						query = session
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
+								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+								.setParameter("idNombramiento", dto.getIdNombramiento());
+						query.executeUpdate();
+						
+						query = session
+								.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
 								.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
 								.setParameter("idNombramiento", dto.getIdNombramiento());
 						query.executeUpdate();
