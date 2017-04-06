@@ -79,7 +79,7 @@ public class ReporteSiifEJB {
 				}
 				bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
 				reporteSiifService.clasificarEncabezados2(bitacora);
-				bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
+				////bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
 				//bitacora = reporteSiifService.verificarDatos(bitacora);
 				//bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
 				// return bitacora;
@@ -124,8 +124,8 @@ public class ReporteSiifEJB {
 //				bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
 //				reporteSiifService.clasificarEncabezados2(bitacora);
 //				bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
-				bitacora = reporteSiifService.verificarDatos(bitacora);
-				bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+				//bitacora = reporteSiifService.verificarDatos(bitacora);
+				//bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
 				// return bitacora;
 				try {
 					ut.commit();

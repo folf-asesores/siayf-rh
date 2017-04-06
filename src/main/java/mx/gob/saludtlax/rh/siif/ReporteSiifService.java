@@ -429,7 +429,9 @@ public class ReporteSiifService {
 				estructuraNominaTraEntity.setIdSiifBitacora(bitacora.getIdSiifBitacora());
 				estructuraNominaTraEntity
 						.setConceptoSiif(estructuraNominaTraEntity.getConcep() + estructuraNominaTraEntity.getPtaAnt());
+				System.out.println("persiste ::: TRA ::: "+estructuraNominaTraEntity.getRfc());
 				entityManager.persist(estructuraNominaTraEntity);
+				
 			}
 			System.out.println("procesarArchivoTra::: ");
 
