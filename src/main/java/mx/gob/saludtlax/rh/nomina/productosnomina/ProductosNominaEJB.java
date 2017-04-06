@@ -251,7 +251,7 @@ public class ProductosNominaEJB {
 			ProcesoCalculoEntity proceso = procesoCalculoRepository.obtenerPorId(5);
 			proceso.setEnProceso(true);
 			for (NominaEmpleadoDTO nominaEmpleado : nominaEmpleadoList) {
-				nominaEmpleadoFederalizadoService.calcularProductoNominaFederales(productoNomina, nominaEmpleado);
+				nominaEmpleadoFederalizadoService.calcularProductoNominaFederales(productoNomina, nominaEmpleado,productoNomina.getCalcularFaltas());
 				procesoCalculoRepository.actualizar(proceso);
 				proceso.setNumeroProcesado(++contador);
 			}
@@ -343,7 +343,7 @@ public class ProductosNominaEJB {
 			}
 		} else {
 			try {
-				nominaEmpleadoFederalizadoService.calcularProductoNominaFederales(productoNomina, nominaEmpleado);
+				nominaEmpleadoFederalizadoService.calcularProductoNominaFederales(productoNomina, nominaEmpleado,false);
 			} catch (Exception e) {
 				LOGGER.error(e.getMessage());
 			}

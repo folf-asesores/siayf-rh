@@ -29,28 +29,19 @@
 		</h:form>
 
 		<h:form id="form">
-			<p:messages id="messages_generales"
-						showDetail="true"
-						autoUpdate="false"
-						closable="true"
-						globalOnly="false" />
-			<p:confirmDialog global="true"
-			                 showEffect="fade"
-			                 hideEffect="fade">
-				<p:commandButton value="Si" 
-								type="button"
-								styleClass="ui-confirmdialog-yes"
-								onsuccess="PF(`statusDialog`).hide()"
-								onstart="PF(`statusDialog`).show()" 
-								icon="ui-icon-check" />
-				<p:commandButton value="No" 
-								type="button"
-								styleClass="ui-confirmdialog-no" 
-								icon="ui-icon-close" />
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" globalOnly="false" />
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes"
+					onsuccess="PF(`statusDialog`).hide()"
+					onstart="PF(`statusDialog`).show()" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
 			</p:confirmDialog>
 
 			<p:outputPanel id="principalDetalle"
-							rendered="#{productosNomina.view.panelPrincipalDetalle}">
+				rendered="#{productosNomina.view.panelPrincipalDetalle}">
 
 				<p:menuButton value="Opciones">
 					<p:menuitem id="irCalcularNomina" value="Calcular nómina..."
@@ -83,18 +74,16 @@
 						rendered="#{!productosNomina.view.panelActualizarNomina}"
 						action="#{productosNomina.irActualizarNomina()}" />
 
-					<p:menuitem id="validarNomina" 
-								ignoreAutoUpdate="true"
-								value="Validar..." 
-								update="form,messages_generales"
-								process="@this"
-								rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina == 4}"
-								onsuccess="PF(`statusDialog`).hide()"
-								onstart="PF(`statusDialog`).show()"
-								action="#{productosNomina.validarNomina()}">
+					<p:menuitem id="validarNomina" ignoreAutoUpdate="true"
+						value="Validar..." update="form,messages_generales"
+						process="@this"
+						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina == 4}"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()"
+						action="#{productosNomina.validarNomina()}">
 						<p:confirm header="Confirmación"
-									message="¿Desea validar el producto de nómina? Ya no se podran modificar los montos."
-									icon="ui-icon-alert" />
+							message="¿Desea validar el producto de nómina? Ya no se podran modificar los montos."
+							icon="ui-icon-alert" />
 					</p:menuitem>
 					<p:menuitem value="Dividir..."
 						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 and false}"
@@ -105,13 +94,11 @@
 						action="#{productosNomina.irPensiones()}"
 						onsuccess="PF(`statusDialog`).hide()"
 						onstart="PF(`statusDialog`).show()" ajax="false" />
-					<p:menuitem id="eliminarProductoNomina" 
-								value="Eliminar..."
-								update="form" 
-								process="@this"
-								onsuccess="PF(`statusDialog`).hide()"
-								onstart="PF(`statusDialog`).show()"
-								action="#{productosNomina.eliminarProductoNomina()}">
+					<p:menuitem id="eliminarProductoNomina" value="Eliminar..."
+						update="form" process="@this"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()"
+						action="#{productosNomina.eliminarProductoNomina()}">
 						<p:confirm header="Confirmación"
 							message="¿Desea eliminar el producto de nómina? se perdera toda la información relacionada con este producto de nomina."
 							icon="ui-icon-alert" />
@@ -142,10 +129,10 @@
 						<p:fileDownload value="#{productosNomina.reporte}" />
 					</p:menuitem>
 					<p:menuitem value="Producto" icon="fm-icon-download" ajax="false"
-                                                    title="Producto de nómina de empleados federales."
-                                                    actionListener="#{productosNomina.descargarProductoNominaFederales()}"
+						title="Producto de nómina de empleados federales."
+						actionListener="#{productosNomina.descargarProductoNominaFederales()}"
 						onclick="PrimeFaces.monitorDownload(start, stop);"
-                                                rendered="#{productosNomina.view.productoNomina.idArea eq 1}">
+						rendered="#{productosNomina.view.productoNomina.idArea eq 1}">
 						<p:fileDownload value="#{productosNomina.reporte}" />
 					</p:menuitem>
 					<p:menuitem value="Retenidos" icon="fm-icon-download" ajax="false"
@@ -279,22 +266,25 @@
 				</p:panelGrid>
 
 				<p:outputPanel rendered="#{productosNomina.view.panelCalculoNomina}">
-					<p:panelGrid id="calendarios" layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
-						columns="1"
+					<p:panelGrid id="calendarios" layout="grid"
+						styleClass="ui-panelgrid-blank ui-fluid" columns="1"
 						rendered="#{productosNomina.view.productoNomina.idTipoNomina != 16}"
 						columnClasses="ui-grid-col-12">
 
 						<p:outputPanel>
 							<h:outputLabel value="Contabilizar faltas del reloj checador:" />
 							<p:spacer width="30"></p:spacer>
-							<p:selectBooleanCheckbox value="#{productosNomina.view.productoNomina.calcularFaltas}">
-								<p:ajax update="calendarios" listener="#{productosNomina.view.showCalendarFaltas()}" />
+							<p:selectBooleanCheckbox
+								value="#{productosNomina.view.productoNomina.calcularFaltas}">
+								<p:ajax update="calendarios"
+									listener="#{productosNomina.view.showCalendarFaltas()}" />
 							</p:selectBooleanCheckbox>
 						</p:outputPanel>
 
 						<h:outputLabel value="Rago de tiempo para obtener Faltas "
-										rendered="#{productosNomina.view.mostrarCalendarios}" />
-						<p:panelGrid id="fechasFaltas" layout="grid" rendered="#{productosNomina.view.mostrarCalendarios}"
+							rendered="#{productosNomina.view.mostrarCalendarios}" />
+						<p:panelGrid id="fechasFaltas" layout="grid"
+							rendered="#{productosNomina.view.mostrarCalendarios}"
 							styleClass="ui-panelgrid-blank ui-fluid" columns="4"
 							columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4">
 							<h:outputLabel value="Inicio" />
@@ -346,16 +336,15 @@
 					</p:panelGrid>
 
 					<p:commandButton id="calcularNomina"
-									value="Calcular Producto de nómina"
-									update="form,messages_generales, :formPoll" 
-									process=":form"
-									rendered="#{productosNomina.view.panelCalculoNomina}"
-									action="#{productosNomina.calcularNomina()}"
-									onsuccess="PF(`statusDialog`).hide()"
-									onstart="PF(`statusDialog`).show()">
-									<p:confirm header="Confirmacion"
-												message="¿Calcular el producto de nómina?, una vez calculada se puede validar."
-												icon="ui-icon-alert" />
+						value="Calcular Producto de nómina"
+						update="form,messages_generales, :formPoll" process=":form"
+						rendered="#{productosNomina.view.panelCalculoNomina}"
+						action="#{productosNomina.calcularNomina()}"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()">
+						<p:confirm header="Confirmacion"
+							message="¿Calcular el producto de nómina?, una vez calculada se puede validar."
+							icon="ui-icon-alert" />
 					</p:commandButton>
 
 					<p:commandButton id="calcularNominaCancelar" value="Cancelar"
@@ -434,30 +423,24 @@
 				<p:spacer height="10px" />
 
 				<p:dataTable id="tablaProductoNominaDetalle"
-							value="#{productosNomina.view.nominaEmpleadoList}"
-							var="productoNominaDetalleItem"
-							rows="5"
-							paginator="true"
-							rendered="#{productosNomina.view.mostrarTablaNominaEmpleado}"
-							paginatorPosition="bottom"
-							currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
-							paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-							rowsPerPageTemplate="5,10,20,50"
-							style="margin-bottom:20px">
-					<p:column headerText="RFC"
-							width="20%"
-							filterBy="#{productoNominaDetalleItem.rfc}"
-							filterMatchMode="contains">
+					value="#{productosNomina.view.nominaEmpleadoList}"
+					var="productoNominaDetalleItem" rows="5" paginator="true"
+					rendered="#{productosNomina.view.mostrarTablaNominaEmpleado}"
+					paginatorPosition="bottom"
+					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,20,50" style="margin-bottom:20px">
+					<p:column headerText="RFC" width="20%"
+						filterBy="#{productoNominaDetalleItem.rfc}"
+						filterMatchMode="contains">
 						<h:outputText value="#{productoNominaDetalleItem.rfc}" />
 					</p:column>
-					<p:column headerText="Empleado"
-							  width="33%"
-							  filterBy="#{productoNominaDetalleItem.empleado}"
-							  filterMatchMode="contains">
+					<p:column headerText="Empleado" width="33%"
+						filterBy="#{productoNominaDetalleItem.empleado}"
+						filterMatchMode="contains">
 						<h:outputText value="#{productoNominaDetalleItem.empleado}" />
 					</p:column>
-					<p:column headerText="Percepciones" 
-							  width="14%">
+					<p:column headerText="Percepciones" width="14%">
 						<h:outputText value="#{productoNominaDetalleItem.percepciones}">
 							<f:convertNumber pattern="###,##0.00" type="currency"
 								locale="en-US" maxFractionDigits="2" />

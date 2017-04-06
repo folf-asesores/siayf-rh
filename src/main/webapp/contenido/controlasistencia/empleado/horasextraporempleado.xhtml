@@ -49,10 +49,10 @@
 						icon="ui-icon-search"
 						action="#{reporteHorasExtraController.imprimirReporte}"
 						update="@all" />
-					<p:calendar id="fecha" placeholder="Fecha Inicio"
+					<p:calendar id="fecha" placeholder="Fecha Inicio" navigator="true"
 						value="#{reporteHorasExtraController.fechaInicio}"
 						required="required" />
-					<p:calendar id="fechaFin" placeholder="Fecha Fin"
+					<p:calendar id="fechaFin" placeholder="Fecha Fin" navigator="true"
 						value="#{reporteHorasExtraController.fechaFin}"
 						required="required" />
 					<p:spacer></p:spacer>

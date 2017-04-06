@@ -91,7 +91,7 @@ public class ModulosService implements Serializable {
 
 			AccionesEntity accionesEntity = new AccionesEntity();
 
-			accionesEntity.setArea(areasDAO.obtenerPorId(accion.getId_area()));
+			accionesEntity.setArea(areasDAO.obtenerPorId(entity.getArea().getIdArea()));
 			accionesEntity.setClave(accion.getClave());
 			accionesEntity.setDescripcion(accion.getDescripcion());
 			accionesEntity.setModulo(entity);
@@ -145,7 +145,7 @@ public class ModulosService implements Serializable {
 			if (accionesEntity == null) {
 				accionesEntity = new AccionesEntity();
 
-				accionesEntity.setArea(areasDAO.obtenerPorId(accion.getId_area()));
+				accionesEntity.setArea(areasDAO.obtenerPorId(entity.getArea().getIdArea()));
 				accionesEntity.setClave(accion.getClave());
 				accionesEntity.setDescripcion(accion.getDescripcion());
 				accionesEntity.setModulo(entity);

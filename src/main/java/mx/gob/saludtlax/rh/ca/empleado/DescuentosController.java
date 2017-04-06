@@ -138,8 +138,11 @@ public class DescuentosController implements Serializable {
 
 		if (nombreReporte != null && parametros != null) {
 			try {
+				System.out.println("Parametros::" + parametros);
 				referencia = administradorReportes.obtenerReferencia(parametros);
+				System.out.println("Referemcia: "+referencia);
 				byte[] reporte = administradorReportes.obtenerReporte(referencia);
+				System.out.println("Reprt: " + reporte+"--" +nombreReporte+"--"+TipoArchivo.PDF);
 				JSFUtils.descargarArchivo(reporte, nombreReporte, TipoArchivo.PDF);
 			} catch (IOException ex) {
 				LOGGER.error(ex);
