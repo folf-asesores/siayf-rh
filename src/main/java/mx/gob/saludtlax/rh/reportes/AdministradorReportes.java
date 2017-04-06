@@ -78,8 +78,10 @@ public class AdministradorReportes {
      */
     public String obtenerReferencia(String[] parametros) throws NullPointerException, IllegalArgumentException {
         Map<String, String> mapaParametros = separarClaveValor(parametros);
+        
         imprimirParametros(mapaParametros, ETAPA_PERSISTENCIA_DE_DATOS);
 
+        System.out.println("Mapa de Parametros:" + mapaParametros);
         return bitacoraReporte.obtenerReferencia(mapaParametros);
     }
 

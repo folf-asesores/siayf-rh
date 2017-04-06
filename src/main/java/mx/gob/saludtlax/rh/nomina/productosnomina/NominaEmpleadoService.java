@@ -76,25 +76,41 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  */
 @Stateless
 public class NominaEmpleadoService {
-	
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
-	@Inject private NominaEmpleadoRepository nominaEmpleadoRepository;
-	@Inject private ConceptoNominaContratosRepository conceptoNominaContratosRepository;
-	@Inject private CalculoIsrService calculoIsrService;
-	@Inject private ConceptosNominaEmpleadosRepository conceptosNominaEmpleadosRepository;
-	@Inject private ConfiguracionQuincenaRepository configuracionQuincenaRepository;
-	@Inject private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
-	@Inject private MovimientosContratosService movimientosContratosService;
-	@Inject private CalculoAguinaldoService calculoAguinaldoService;
-	@Inject private PrimaVacacionalService primaVacacionalService;
-	@Inject private PensionAlimenticiaRepository pensionAlimenticiaRepository;
-	@Inject private PensionAlimenticiaNominaRepository pensionAlimenticiaNominaRepository;
-	@Inject private MetodoPagoRepository metodoPagoRepository;
-	@Inject private FaltaContadaRepository fataContadaRepository;
-	@Inject private EstatusNominasEmpleadoRepository estatusNominasEmpleadoRepository;
-	@Inject private QuincenasSuplenciasRepository quincenasSuplenciasRepository;
-	@Inject private MovimientosNominaContratosRepository movimientosNominaContratosRepository;
+	@Inject
+	private NominaEmpleadoRepository nominaEmpleadoRepository;
+	@Inject
+	private ConceptoNominaContratosRepository conceptoNominaContratosRepository;
+	@Inject
+	private CalculoIsrService calculoIsrService;
+	@Inject
+	private ConceptosNominaEmpleadosRepository conceptosNominaEmpleadosRepository;
+	@Inject
+	private ConfiguracionQuincenaRepository configuracionQuincenaRepository;
+	@Inject
+	private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
+	@Inject
+	private MovimientosContratosService movimientosContratosService;
+	@Inject
+	private CalculoAguinaldoService calculoAguinaldoService;
+	@Inject
+	private PrimaVacacionalService primaVacacionalService;
+	@Inject
+	private PensionAlimenticiaRepository pensionAlimenticiaRepository;
+	@Inject
+	private PensionAlimenticiaNominaRepository pensionAlimenticiaNominaRepository;
+	@Inject
+	private MetodoPagoRepository metodoPagoRepository;
+	@Inject
+	private FaltaContadaRepository fataContadaRepository;
+	@Inject
+	private EstatusNominasEmpleadoRepository estatusNominasEmpleadoRepository;
+	@Inject
+	private QuincenasSuplenciasRepository quincenasSuplenciasRepository;
+	@Inject
+	private MovimientosNominaContratosRepository movimientosNominaContratosRepository;
 
 	private static final Logger LOGGER = Logger.getLogger(ProductosNominaEJB.class);
 
@@ -109,22 +125,12 @@ public class NominaEmpleadoService {
 
 	public List<NominaEmpleadoDTO> obntenerNominasActivaPorEmpleado(Integer idEmpleado) {
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery(" SELECT "
-				+ " ne.id_nomina_empleado AS idNominaEmpleado, "
-				+ " ne.id_producto_nomina AS idProductoNomina, "
-				+ " ne.id_empleado AS idEmpleado, "
-				+ " ne.consecutivo AS consecutivo, "
-				+ " ne.percepciones AS percepciones, "
-				+ " ne.deducciones AS deducciones, "
-				+ " ne.neto AS neto "
-				+ " FROM nomina_empleado AS ne "
-				+ " WHERE "
-				+ " ne.id_empleado = :idEmpleado "
-				+ " AND "
-				+ " ne.id_estatus_nomina_empleado < 3 "
-				+ " GROUP BY "
-				+ " ne.id_nomina_empleado ")
-				.setParameter("idEmpleado", idEmpleado);
+		Query query = session.createSQLQuery(" SELECT " + " ne.id_nomina_empleado AS idNominaEmpleado, "
+				+ " ne.id_producto_nomina AS idProductoNomina, " + " ne.id_empleado AS idEmpleado, "
+				+ " ne.consecutivo AS consecutivo, " + " ne.percepciones AS percepciones, "
+				+ " ne.deducciones AS deducciones, " + " ne.neto AS neto " + " FROM nomina_empleado AS ne " + " WHERE "
+				+ " ne.id_empleado = :idEmpleado " + " AND " + " ne.id_estatus_nomina_empleado < 3 " + " GROUP BY "
+				+ " ne.id_nomina_empleado ").setParameter("idEmpleado", idEmpleado);
 		query.setResultTransformer(Transformers.aliasToBean(NominaEmpleadoDTO.class));
 		@SuppressWarnings("unchecked")
 		List<NominaEmpleadoDTO> result = (List<NominaEmpleadoDTO>) query.list();
@@ -248,82 +254,51 @@ public class NominaEmpleadoService {
 
 	public NominaEmpleadoDTO obtenerNominaEmpleadoDetalle(NominaEmpleadoDTO nominaEmpleado) {
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery("" 
-				+ "  SELECT " 
-				+ "  ne.id_nomina_empleado AS idNominaEmpleado, "
-				+ "  ne.id_producto_nomina AS idProductoNomina, " 
-				+ "  ne.id_empleado AS idEmpleado, "
+		Query query = session.createSQLQuery("" + "  SELECT " + "  ne.id_nomina_empleado AS idNominaEmpleado, "
+				+ "  ne.id_producto_nomina AS idProductoNomina, " + "  ne.id_empleado AS idEmpleado, "
 				+ "  ne.id_configuracion_presupuestal AS idConfiguracionPresupuestal, "
-				+ "  ne.id_proyecto AS idProyecto, " 
-				+ "  ne.id_dependencia AS idDependencia, "
+				+ "  ne.id_proyecto AS idProyecto, " + "  ne.id_dependencia AS idDependencia, "
 				+ "  ne.id_unidad_responsable AS idUnidadResponsable, "
 				+ "  ne.id_tipo_contratacion AS idTipoContratacion, "
-				+ "  ne.id_tipo_nombramiento AS idTipoNombramiento, " 
-				+ "  ne.id_puesto_general AS idPuestoGeneral, "
+				+ "  ne.id_tipo_nombramiento AS idTipoNombramiento, " + "  ne.id_puesto_general AS idPuestoGeneral, "
 				+ "  ne.id_fuente_financiamiento AS idFuenteFinanciamiento, "
 				+ "  ne.id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-				+ "  ne.id_tipo_recurso AS idTipoRecurso, " 
-				+ "  ne.id_cuenta_bancaria AS idCuentaBancaria, "
-				+ "  ne.id_tabulador AS idTabulador, " 
-				+ "  ne.id_estatus_nomina_empleado AS idEstatusNominaEmpleado, "
-				+ "  e.nombre_completo AS empleado, " 
-				+ "  e.rfc AS rfc, "
-				+ "  ne.fecha_alta_configuracion AS fechaAltaConfiguracion, " 
-				+ "  ne.sueldo AS sueldo, "
-				+ "  CONCAT(pg.codigo, ' ', pg.puesto) AS puestoGeneral, " 
-				+ "  p.descripcion AS proyecto, "
-				+ "  d.descripcion AS dependencia, " 
-				+ "  tn.descripcion AS tipoNombramiento, "
-				+ "  tc.tipo_contratacion tipoContratacion,  " 
-				+ "  ur.descripcion AS unidadResponsable, "
-				+ "  ff.descripcion AS fuenteFinanciamiento,  " 
-				+ "  sff.descripcion AS subfuenteFinanciamiento, "
-				+ "  tr.descripcion AS tipoRecurso,  " 
-				+ "  cr.descripcion AS centroResponsabilidad, "
-				+ "  prg.id_programa AS idPrograma, " 
-				+ "  prg.programa AS programa, "
-				+ "  mp.id_metodo_pago AS idMetodoPago, " 
-				+ "  mp.descripcion AS metodoPago, "
-				+ "  ne.inicio_periodo AS inicioPeriodo,  " 
-				+ "  ne.fin_periodo AS finPeriodo, "
-				+ "  ne.fecha_pago AS fechaPago,  " 
-				+ "  ne.numero_cuenta AS numeroCuenta, "
-				+ "  ne.consecutivo AS consecutivo,  " 
-				+ "  ne.numero_cheque AS numeroCheque, "
-				+ "  ne.percepciones AS percepciones,  " 
-				+ "  ne.deducciones AS deducciones, "
-				+ "  cpe.fecha_inicio_labores AS fechaInicioLabores, " 
-				+ "  ne.neto AS neto "
-				+ "  FROM nomina_empleado AS ne " 
-				+ "  INNER JOIN empleados AS e "
+				+ "  ne.id_tipo_recurso AS idTipoRecurso, " + "  ne.id_cuenta_bancaria AS idCuentaBancaria, "
+				+ "  ne.id_tabulador AS idTabulador, " + "  ne.id_estatus_nomina_empleado AS idEstatusNominaEmpleado, "
+				+ "  e.nombre_completo AS empleado, " + "  e.rfc AS rfc, "
+				+ "  ne.fecha_alta_configuracion AS fechaAltaConfiguracion, " + "  ne.sueldo AS sueldo, "
+				+ "  CONCAT(pg.codigo, ' ', pg.puesto) AS puestoGeneral, " + "  p.descripcion AS proyecto, "
+				+ "  d.descripcion AS dependencia, " + "  tn.descripcion AS tipoNombramiento, "
+				+ "  tc.tipo_contratacion tipoContratacion,  " + "  ur.descripcion AS unidadResponsable, "
+				+ "  ff.descripcion AS fuenteFinanciamiento,  " + "  sff.descripcion AS subfuenteFinanciamiento, "
+				+ "  tr.descripcion AS tipoRecurso,  " + "  cr.descripcion AS centroResponsabilidad, "
+				+ "  prg.id_programa AS idPrograma, " + "  prg.programa AS programa, "
+				+ "  mp.id_metodo_pago AS idMetodoPago, " + "  mp.descripcion AS metodoPago, "
+				+ "  ne.inicio_periodo AS inicioPeriodo,  " + "  ne.fin_periodo AS finPeriodo, "
+				+ "  ne.fecha_pago AS fechaPago,  " + "  ne.numero_cuenta AS numeroCuenta, "
+				+ "  ne.consecutivo AS consecutivo,  " + "  ne.numero_cheque AS numeroCheque, "
+				+ "  ne.percepciones AS percepciones,  " + "  ne.deducciones AS deducciones, "
+				+ "  cpe.fecha_inicio_labores AS fechaInicioLabores, " + "  ne.neto AS neto "
+				+ "  FROM nomina_empleado AS ne " + "  INNER JOIN empleados AS e "
 				+ "  ON ne.id_empleado = e.id_empleado "
 				+ "  LEFT JOIN configuraciones_presupuestales_empleados AS cpe "
 				+ "  ON cpe.id_configuracion_presupuestal = ne.id_configuracion_presupuestal "
-				+ "  LEFT JOIN puestos_generales AS pg " 
-				+ "  ON pg.id_puesto_general = ne.id_puesto_general "
-				+ "  INNER JOIN tipos_nombramientos AS tn " 
-				+ "  ON tn.id_tipo_nombramiento = ne.id_tipo_nombramiento "
-				+ "  INNER JOIN tipos_contratacion AS tc " 
-				+ "  ON tc.id_tipo_contratacion = ne.id_tipo_contratacion "
-				+ "  LEFT JOIN proyectos_temp AS p " 
-				+ "  ON p.id_proyecto = ne.id_proyecto "
-				+ "  LEFT JOIN dependencias_temp AS d " 
-				+ "  ON d.id_dependencia = ne.id_dependencia "
+				+ "  LEFT JOIN puestos_generales AS pg " + "  ON pg.id_puesto_general = ne.id_puesto_general "
+				+ "  INNER JOIN tipos_nombramientos AS tn " + "  ON tn.id_tipo_nombramiento = ne.id_tipo_nombramiento "
+				+ "  INNER JOIN tipos_contratacion AS tc " + "  ON tc.id_tipo_contratacion = ne.id_tipo_contratacion "
+				+ "  LEFT JOIN proyectos_temp AS p " + "  ON p.id_proyecto = ne.id_proyecto "
+				+ "  LEFT JOIN dependencias_temp AS d " + "  ON d.id_dependencia = ne.id_dependencia "
 				+ "  LEFT JOIN unidades_responsables AS ur "
 				+ "   ON ur.id_unidad_responsable = ne.id_unidad_responsable "
 				+ "  LEFT JOIN fuentes_financiamientos AS ff "
 				+ "   ON ff.id_fuente_financiamiento = ne.id_fuente_financiamiento "
 				+ "  LEFT JOIN subfuentes_financiamientos_temp AS sff "
 				+ "   ON sff.id_subfuente_financiamiento = ne.id_subfuente_financiamiento "
-				+ "  LEFT JOIN tipos_recursos_temp AS tr" 
-				+ "  ON tr.id_tipo_recurso = ne.id_tipo_recurso "
+				+ "  LEFT JOIN tipos_recursos_temp AS tr" + "  ON tr.id_tipo_recurso = ne.id_tipo_recurso "
 				+ "  LEFT JOIN centro_responsabilidad AS cr "
-				+ "  ON cr.id_centro_responsabilidad = ne.id_centro_responsabilidad " 
-				+ "  LEFT JOIN programas AS prg "
-				+ "  ON prg.id_programa = ne.id_programa " 
-				+ "  LEFT JOIN metodos_pago AS mp "
-				+ "  ON mp.id_metodo_pago = ne.id_metodo_pago " 
-				+ " WHERE "
+				+ "  ON cr.id_centro_responsabilidad = ne.id_centro_responsabilidad " + "  LEFT JOIN programas AS prg "
+				+ "  ON prg.id_programa = ne.id_programa " + "  LEFT JOIN metodos_pago AS mp "
+				+ "  ON mp.id_metodo_pago = ne.id_metodo_pago " + " WHERE "
 				+ " ne.id_nomina_empleado = :idNominaEmpleado ")
 				.setParameter("idNominaEmpleado", nominaEmpleado.getIdNominaEmpleado());
 		query.setResultTransformer(Transformers.aliasToBean(NominaEmpleadoDTO.class));
@@ -360,16 +335,10 @@ public class NominaEmpleadoService {
 	public List<NominaEmpleadoDTO> obtenerNominaEmpleadoList(ProductoNominaDTO productoNomina) {
 		Session session = entityManager.unwrap(Session.class);
 		System.out.println("productoNomina.getIdProductoNomina():: " + productoNomina.getIdProductoNomina());
-		Query query = session
-				.createSQLQuery(" SELECT " 
-						+ " ne.id_nomina_empleado AS idNominaEmpleado, "
-						+ " ne.id_configuracion_presupuestal AS idConfiguracionPresupuestal, "
-						+ " ne.id_empleado AS idEmpleado " 
-						+ " FROM nomina_empleado AS ne "
-						+ " INNER JOIN empleados AS e " 
-						+ " ON e.id_empleado = ne.id_empleado " 
-						+ " WHERE "
-						+ " ne.id_producto_nomina = :idProductoNomina ")
+		Query query = session.createSQLQuery(" SELECT " + " ne.id_nomina_empleado AS idNominaEmpleado, "
+				+ " ne.id_configuracion_presupuestal AS idConfiguracionPresupuestal, "
+				+ " ne.id_empleado AS idEmpleado " + " FROM nomina_empleado AS ne " + " INNER JOIN empleados AS e "
+				+ " ON e.id_empleado = ne.id_empleado " + " WHERE " + " ne.id_producto_nomina = :idProductoNomina ")
 				.setParameter("idProductoNomina", productoNomina.getIdProductoNomina());
 		query.setResultTransformer(Transformers.aliasToBean(NominaEmpleadoDTO.class));
 
@@ -427,7 +396,8 @@ public class NominaEmpleadoService {
 					.setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
 			BigInteger numeroFaltas = (BigInteger) query.uniqueResult();
 			if (numeroFaltas.compareTo(BigInteger.ZERO) == 1) {
-				query = session.createSQLQuery("CALL usp_fechas_descontar_rango(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
+				query = session
+						.createSQLQuery("CALL usp_fechas_descontar_rango(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
 						.setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
 						.setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
 				query.setResultTransformer(Transformers.aliasToBean(FaltaContadaDTO.class));
@@ -510,14 +480,8 @@ public class NominaEmpleadoService {
 		}
 
 		/*
-		 * DÍAS ECONÓMICOS 
-		 * BONO 
-		 * RETROACTIVO
-		 * BONIFICACIÓN DE FALTAS 
-		 * OTROS 
-		 * RESPONSABILIDADES
-		 * PRÉSTAMO 
-		 * JUICIO MERCANTIL
+		 * DÍAS ECONÓMICOS BONO RETROACTIVO BONIFICACIÓN DE FALTAS OTROS
+		 * RESPONSABILIDADES PRÉSTAMO JUICIO MERCANTIL
 		 */
 		BigDecimal subsidiosEntregar = BigDecimal.ZERO;
 		BigDecimal impuestoRetener = BigDecimal.ZERO;
@@ -619,46 +583,51 @@ public class NominaEmpleadoService {
 	public void calcularProductoNominaContratoFederal(ProductoNominaDTO productoNomina,
 			NominaEmpleadoDTO nominaEmpleado, Boolean aplicarFaltas) {
 		System.out.println("nominaEmpleado.getIdNominaEmpleado():: " + nominaEmpleado.getIdNominaEmpleado());
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		String inicioPeriodo = format.format(productoNomina.getInicioRangoFaltas());
-		String finPeriodo = format.format(productoNomina.getFinRangoFaltas());
-
 		NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository
 				.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
 		limpiarConceptos(nominaEmpleadoEntity);
-		System.out.println("idEmpleado:: " + nominaEmpleado.getIdEmpleado());
-		System.out.println("inicioPeriodo:: " + inicioPeriodo);
-		System.out.println("finPeriodo:: " + finPeriodo);
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session
-				.createSQLQuery("CALL usp_total_descontar_rango_fecha(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
-				.setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
-				.setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
-		BigInteger numeroFaltas = (BigInteger) query.uniqueResult();
 
 		ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity
 				.getIdConfiguracionPresupuestal();
 		BigDecimal sueldo = configuracionPresupuestal.getSueldo();
 
 		BigDecimal sueldoQuincenal = sueldo.divide(new BigDecimal(2), 2, RoundingMode.HALF_UP);
-		// FALTAS Y RETARDOS
-		if (numeroFaltas.compareTo(BigInteger.ZERO) == 1) {
-			query = session.createSQLQuery("CALL usp_fechas_descontar_rango(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
+
+		if (aplicarFaltas) {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			String inicioPeriodo = format.format(productoNomina.getInicioRangoFaltas());
+			String finPeriodo = format.format(productoNomina.getFinRangoFaltas());
+
+			System.out.println("idEmpleado:: " + nominaEmpleado.getIdEmpleado());
+			System.out.println("inicioPeriodo:: " + inicioPeriodo);
+			System.out.println("finPeriodo:: " + finPeriodo);
+			Session session = entityManager.unwrap(Session.class);
+			Query query = session
+					.createSQLQuery("CALL usp_total_descontar_rango_fecha(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
 					.setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
 					.setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
-			query.setResultTransformer(Transformers.aliasToBean(FaltaContadaDTO.class));
-			@SuppressWarnings("unchecked")
-			List<FaltaContadaDTO> faltasPeriodo = (List<FaltaContadaDTO>) query.list();
-			Integer faltas = contarFaltas(faltasPeriodo, nominaEmpleadoEntity, aplicarFaltas);
-			System.out.println(nominaEmpleado.getIdEmpleado());
-			System.out.println("faltas:: " + faltas);
-			BigDecimal sueldoDiario = sueldo.divide(new BigDecimal(30), 2, RoundingMode.HALF_UP);
-			BigDecimal factorFaltas = sueldoDiario.multiply(new BigDecimal(1.4));
-			BigDecimal descuentoFaltas = factorFaltas.multiply(new BigDecimal(faltas));
+			BigInteger numeroFaltas = (BigInteger) query.uniqueResult();
 
-			BigDecimal importeExcento = BigDecimal.ZERO;
-			BigDecimal importeGravado = descuentoFaltas;
-			crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 13, importeExcento, importeGravado);
+			// FALTAS Y RETARDOS
+			if (numeroFaltas.compareTo(BigInteger.ZERO) == 1) {
+				query = session
+						.createSQLQuery("CALL usp_fechas_descontar_rango(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
+						.setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
+						.setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
+				query.setResultTransformer(Transformers.aliasToBean(FaltaContadaDTO.class));
+				@SuppressWarnings("unchecked")
+				List<FaltaContadaDTO> faltasPeriodo = (List<FaltaContadaDTO>) query.list();
+				Integer faltas = contarFaltas(faltasPeriodo, nominaEmpleadoEntity, aplicarFaltas);
+				System.out.println(nominaEmpleado.getIdEmpleado());
+				System.out.println("faltas:: " + faltas);
+				BigDecimal sueldoDiario = sueldo.divide(new BigDecimal(30), 2, RoundingMode.HALF_UP);
+				BigDecimal factorFaltas = sueldoDiario.multiply(new BigDecimal(1.4));
+				BigDecimal descuentoFaltas = factorFaltas.multiply(new BigDecimal(faltas));
+
+				BigDecimal importeExcento = BigDecimal.ZERO;
+				BigDecimal importeGravado = descuentoFaltas;
+				crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 13, importeExcento, importeGravado);
+			}
 		}
 
 		// HONORARIOS ASIMILABLES A SUELDOS
@@ -777,14 +746,15 @@ public class NominaEmpleadoService {
 		List<ConceptosNominaEmpleadosEntity> conceptosNominaEmpleadosEntities = conceptosNominaEmpleadosRepository
 				.listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado().intValue());
 		for (ConceptosNominaEmpleadosEntity empleadosEntity : conceptosNominaEmpleadosEntities) {
-			List<PensionAlimenticiaNominaEntity> listaPensionAlimenticiaNomina =
-					pensionAlimenticiaNominaRepository.listaPensionAlimenticiaNominaPorIdNominaEmpleado(nominaEmpleadoEntity);
+			List<PensionAlimenticiaNominaEntity> listaPensionAlimenticiaNomina = pensionAlimenticiaNominaRepository
+					.listaPensionAlimenticiaNominaPorIdNominaEmpleado(nominaEmpleadoEntity);
 			for (PensionAlimenticiaNominaEntity pensionAlimenticiaNominaEntity : listaPensionAlimenticiaNomina) {
 				pensionAlimenticiaNominaRepository.eliminar(pensionAlimenticiaNominaEntity);
 			}
 			conceptosNominaEmpleadosRepository.eliminar(empleadosEntity);
 		}
-		QuincenasSuplenciasEntity quincenasSuplenciasEntity = quincenasSuplenciasRepository.obtenerPorNominaEmpleado(nominaEmpleadoEntity);
+		QuincenasSuplenciasEntity quincenasSuplenciasEntity = quincenasSuplenciasRepository
+				.obtenerPorNominaEmpleado(nominaEmpleadoEntity);
 		if (quincenasSuplenciasEntity != null) {
 			quincenasSuplenciasEntity.setIdNomina(null);
 			quincenasSuplenciasRepository.actualizar(quincenasSuplenciasEntity);
@@ -815,7 +785,8 @@ public class NominaEmpleadoService {
 
 	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void calcularProductoNominaSuplencias(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado) {
-		NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+		NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository
+				.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
 		ConceptosNominaEmpleadosEntity conceptoNominaEmpleadoEntity = null;
 		ConceptoNominaContratosEntity conceptoNomina = null;
 		Integer idEmpleado = nominaEmpleadoEntity.getIdEmpleado().getIdEmpleado();
@@ -826,7 +797,8 @@ public class NominaEmpleadoService {
 		if (nominaEmpleadoEntity.getIdEmpleado().getTipoEmpleado().getIdTipoEmpleado() == EnumTipoEmpleado.EMPLEADO) {
 			crearConceptosEmpleado(idEmpleado, productoNomina, nominaEmpleadoEntity);
 		} else {
-			if (nominaEmpleadoEntity.getIdEmpleado().getTipoEmpleado().getIdTipoEmpleado() == EnumTipoEmpleado.SUPLENTE) {
+			if (nominaEmpleadoEntity.getIdEmpleado().getTipoEmpleado()
+					.getIdTipoEmpleado() == EnumTipoEmpleado.SUPLENTE) {
 				ConfiguracionIsrDTO configuracionIsrSuplente = new ConfiguracionIsrDTO();
 				BigDecimal sueldoQuincenalSuplente = sueldo05;
 				configuracionIsrSuplente.setBaseGravable(sueldoQuincenalSuplente);
@@ -841,14 +813,15 @@ public class NominaEmpleadoService {
 					conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
 					conceptoNominaEmpleadoEntity.setIdConceptoEventuales(conceptoNomina.getIdConceptoNomina());
 					conceptoNominaEmpleadoEntity.setImporteExcento(new BigDecimal(0));
-					conceptoNominaEmpleadoEntity.setImporteGravado(isr.getSubsidiosEntregar().multiply(new BigDecimal(-1)));
+					conceptoNominaEmpleadoEntity
+							.setImporteGravado(isr.getSubsidiosEntregar().multiply(new BigDecimal(-1)));
 					conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
 					conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
 					conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
 					conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
 					nominaEmpleadoEntity.setCalculado(true);
 				}
-	
+
 				// I.S.R.
 				if (isr.getImpuestoRetener().compareTo(BigDecimal.ZERO) == 1) {
 					conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(14);
@@ -903,7 +876,8 @@ public class NominaEmpleadoService {
 		}
 
 		System.out.println("nominaEmpleadoEntity.getIdNominaEmpleado():: " + nominaEmpleadoEntity);
-		System.out.println("nominaEmpleadoEntity.getIdNominaEmpleado():: " + nominaEmpleadoEntity.getIdNominaEmpleado());
+		System.out
+				.println("nominaEmpleadoEntity.getIdNominaEmpleado():: " + nominaEmpleadoEntity.getIdNominaEmpleado());
 		/*
 		 * DÍAS ECONÓMICOS BONO BONIFICACIÓN DE FALTAS OTROS RESPONSABILIDADES
 		 * PRÉSTAMO JUICIO MERCANTIL
@@ -1140,31 +1114,32 @@ public class NominaEmpleadoService {
 		BigDecimal montoPension = null;
 		montoPension = beneficiarioPensionAlimienticia.getValor();
 
-		 switch (beneficiarioPensionAlimienticia.getIdTipoCoutasPension()) {
-		
-		 // FIJA
-		 case 1:
-		 montoPension = beneficiarioPensionAlimienticia.getValor();
-		 break;
-		
-		 // PORCENTAJE DE TODAS LAS PERCEPCIONES
-		 case 2:
-		
-		 break;
-		
-		 // PORCENTAJE DEL SUELDO
-		 case 3:
-		
-		 break;
+		switch (beneficiarioPensionAlimienticia.getIdTipoCoutasPension()) {
 
-		 // FIJA CON INCREMENTO PORCENTUAL EN RELACION A LAS MODIFICACIONES AL SALARIO MINIMO
-		 case 4:
-		
-		 break;
-		 
-		 default:
-			 montoPension = BigDecimal.ZERO;
-		 }
+		// FIJA
+		case 1:
+			montoPension = beneficiarioPensionAlimienticia.getValor();
+			break;
+
+		// PORCENTAJE DE TODAS LAS PERCEPCIONES
+		case 2:
+
+			break;
+
+		// PORCENTAJE DEL SUELDO
+		case 3:
+
+			break;
+
+		// FIJA CON INCREMENTO PORCENTUAL EN RELACION A LAS MODIFICACIONES AL
+		// SALARIO MINIMO
+		case 4:
+
+			break;
+
+		default:
+			montoPension = BigDecimal.ZERO;
+		}
 		return montoPension;
 	}
 
@@ -1359,8 +1334,8 @@ public class NominaEmpleadoService {
 			entity.setIdEstatusNominaEmpleado(estatusNominaEmpleado);
 			switch (idEstatusNominaEmpleado) {
 			case 3:
-				List<MovimientosNominaContratosEntity> movimientos = movimientosNominaContratosRepository.
-						obtenerMovimientosNominaContratosPorIdNominaEmpleado(entity.getIdNominaEmpleado());
+				List<MovimientosNominaContratosEntity> movimientos = movimientosNominaContratosRepository
+						.obtenerMovimientosNominaContratosPorIdNominaEmpleado(entity.getIdNominaEmpleado());
 				for (MovimientosNominaContratosEntity movimientosNominaContratosEntity : movimientos) {
 					// 2 Proceso
 					movimientosNominaContratosEntity.setIdEstatus(2);
