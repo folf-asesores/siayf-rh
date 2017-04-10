@@ -97,7 +97,7 @@ public class ConsultarPartidaService implements Serializable {
           BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
       if (numeroNombramientos!= null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
 		 query = session.createSQLQuery("CALL usp_obtener_partidas_por_dependencia(:dependencia) ")
-				.setParameter("tipoNombramiento", dependencia);
+				.setParameter("dependencia", dependencia);
 		query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
 		@SuppressWarnings("unchecked")
 		List<ConsultarPartidaDTO> list = query.list();
