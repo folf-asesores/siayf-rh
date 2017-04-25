@@ -9,33 +9,14 @@
 		<h:outputStylesheet library="css" name="siayf_rh.css" />
 	</ui:define>
 
-	<ui:param name="ventanaTitulo" value="Administración Areas" />
-	<ui:param name="moduloTitulo" value="Administración Areas" />
+	<ui:param name="ventanaTitulo" value="Configuración de Usuarios" />
+	<ui:param name="moduloTitulo" value="Configuración de Usuarios" />
 	<ui:define name="moduloContenido">
 		<h:form id="form">
 			<p:messages id="messages_generales" showDetail="true" closable="true" />
 			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
 
-			<p:tabMenu activeIndex="#{param.i}">
-				<p:menuitem value="Areas"
-					outcome="/contenido/seguridad/administracionAreas.xhtml"
-					icon="ui-icon-gear">
-					<f:param name="i" value="0" />
-				</p:menuitem>
-				<p:menuitem value="Acciones"
-					outcome="/contenido/seguridad/acciones.xhtml" icon="ui-icon-gear">
-					<f:param name="i" value="1" />
-				</p:menuitem>
-				<p:menuitem value="Modulos"
-					outcome="/contenido/seguridad/modulos.xhtml" icon="ui-icon-gear">
-					<f:param name="i" value="2" />
-				</p:menuitem>
-				<p:menuitem value="Usuarios"
-					outcome="/contenido/seguridad/configuracionUsuario.xhtml"
-					icon="ui-icon-person">
-					<f:param name="i" value="3" />
-				</p:menuitem>
-			</p:tabMenu>
+		
 			<br />
 			<br />
 
@@ -68,19 +49,10 @@
 				style="margin-bottom:20px"
 				rendered="#{vistaUsuarioController.view.principal}">
 
-				<p:column headerText="Usuario">
-					<p:cellEditor>
-						<f:facet name="output">
+				<p:column headerText="Usuario" filterBy="#{vistaUsuario.userName}" filterMatchMode="contains"> 
+					
 							<h:outputText value="#{vistaUsuario.userName}" />
-						</f:facet>
-						<f:facet name="input">
-							<p:selectOneMenu id="usuario" value="#{vistaUsuario.userName}">
-								<f:selectItems value="#{vistaUsuarioController.listaUsuarios}"
-									var="usr" itemValue="#{usr.idUsuario}"
-									itemLabel="#{usr.userName}" />
-							</p:selectOneMenu>
-						</f:facet>
-					</p:cellEditor>
+						
 				</p:column>
 
 				<p:column headerText="Estatus">
@@ -122,7 +94,7 @@
 				<p:column style="width:16px">
 					<p:rowToggler />
 				</p:column>
-				<p:column headerText="Nombre Configuracion">
+				<p:column headerText="Nombre Configuracion" filterBy="#{configuracion.configuracionModulo.nombreConfiguracion}" filterMatchMode="contains">
 					<h:outputText
 						value="#{configuracion.configuracionModulo.nombreConfiguracion}" />
 				</p:column>

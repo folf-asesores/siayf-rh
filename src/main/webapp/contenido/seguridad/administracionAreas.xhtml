@@ -16,27 +16,6 @@
 			<p:messages id="messages_generales" showDetail="true" closable="true" />
 			<p:growl id="growl" showDetail="true" sticky="false" life="7000" />
 
-			<p:tabMenu activeIndex="#{param.i}">
-				<p:menuitem value="Areas"
-					outcome="/contenido/seguridad/administracionAreas.xhtml"
-					icon="ui-icon-gear">
-					<f:param name="i" value="0" />
-				</p:menuitem>
-				<p:menuitem value="Acciones"
-					outcome="/contenido/seguridad/acciones.xhtml" icon="ui-icon-gear">
-					<f:param name="i" value="1" />
-				</p:menuitem>
-				<p:menuitem value="Modulos"
-					outcome="/contenido/seguridad/modulos.xhtml" icon="ui-icon-gear">
-					<f:param name="i" value="2" />
-				</p:menuitem>
-				<p:menuitem value="Usuarios"
-					outcome="/contenido/seguridad/configuracionUsuario.xhtml"
-					icon="ui-icon-person">
-					<f:param name="i" value="3" />
-				</p:menuitem>
-			</p:tabMenu>
-
 			<br />
 			<br />
 			<p:panel>
