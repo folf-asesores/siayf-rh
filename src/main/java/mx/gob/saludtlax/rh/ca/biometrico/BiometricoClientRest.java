@@ -37,6 +37,7 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 
 public class BiometricoClientRest extends ClienteRest implements Serializable {
 
+
 	public BiometricoClientRest() {
 		super(ServicioWebEnum.RELOJ_CHECADOR);
 	}
@@ -55,6 +56,8 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 	private final String RESOURCE_BUSCAR_ID = "/Checador/obtener/?id=";
 
 	private final String RESOURCE_DESCARGAR_INFORMACION = "/ca/api/Checador/asignarRegistroEmpleadoHuella";
+	
+
 
 	@Inject
 	ClienteBiometricoREST clienteBiometricoREST;
@@ -69,6 +72,7 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
+		
 		HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO);
 
 		try {
@@ -210,7 +214,8 @@ public class BiometricoClientRest extends ClienteRest implements Serializable {
 
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_DESCARGAR_INFORMACION);
+		HttpPost httpPost = new HttpPost(urlCliente + RESOURCE_DESCARGAR_INFORMACION);
+		System.out.println(urlCliente + RESOURCE_DESCARGAR_INFORMACION);
 		Gson gson = new Gson();
 		StringEntity asignarBiometricoJSON;
 

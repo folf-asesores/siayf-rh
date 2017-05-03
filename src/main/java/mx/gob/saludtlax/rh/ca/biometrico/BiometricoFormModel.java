@@ -40,7 +40,7 @@ public class BiometricoFormModel implements Serializable {
 	@SerializedName("Activo")
 	private Integer activo;
 	
-	@SerializedName("IdClienteBiometrico")
+	@SerializedName("idServicioCliente")
 	private Integer idClienteBiometrico;
 	
 	
