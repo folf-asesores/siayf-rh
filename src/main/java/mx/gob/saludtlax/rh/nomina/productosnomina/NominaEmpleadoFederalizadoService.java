@@ -288,7 +288,7 @@ public class NominaEmpleadoFederalizadoService {
 						.obtenerConceptoNominaPorId(cEspecial.getIdConceptobase().getIdConceptoNomina()),
 						nominaEmpleadoEntity);
 				if (cEspecial.getIdConceptoCompensacion() != null) {
-					montoIsrConcepto = importeConcepto.divide(montoImportesEspeciales, 2, RoundingMode.DOWN);
+					montoIsrConcepto = importeConcepto.divide(montoImportesEspeciales, 4, RoundingMode.DOWN);
 					System.out.println("Calculos isr concepto:" + importeConcepto + "/" + montoImportesEspeciales + "="
 							+ montoIsrConcepto);
 					montoIsrConcepto = montoIsrConcepto.multiply(montoDiferenciaISR);
@@ -334,7 +334,7 @@ public class NominaEmpleadoFederalizadoService {
 					BigDecimal importeConcepto = evaluadorService.evaluarFormula(conceptoNominaFederalesService
 							.obtenerConceptoNominaPorId(cEsp.getIdConceptobase().getIdConceptoNomina()),
 							nominaEmpleadoEntity);
-					montoIsrConcepto = importeConcepto.divide(configuracionIsr.getBaseGravable(), 3, RoundingMode.DOWN);
+					montoIsrConcepto = importeConcepto.divide(configuracionIsr.getBaseGravable(), 4, RoundingMode.DOWN);
 
 					montoIsrConcepto = montoIsrConcepto.multiply(isrFinalNeto);
 					System.out.println(
