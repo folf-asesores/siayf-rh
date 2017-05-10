@@ -26,6 +26,7 @@ import mx.gob.saludtlax.rh.persistencia.ConceptoNominaFederalesRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoRepository;
 import mx.gob.saludtlax.rh.persistencia.EstatusConceptoNominaRepository;
+import mx.gob.saludtlax.rh.persistencia.MovimientoFijoEntity;
 import mx.gob.saludtlax.rh.persistencia.TiposNombramientosEntity;
 import mx.gob.saludtlax.rh.persistencia.TiposNombramientosRepository;
 import mx.gob.saludtlax.rh.quinquenios.ConfiguracionQuinquenioDTO;
@@ -37,7 +38,7 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 public class ConceptoNominaFederalesService implements Serializable {
 	private static final long serialVersionUID = -2132654175834907863L;
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject
@@ -122,6 +123,7 @@ public class ConceptoNominaFederalesService implements Serializable {
 		List<TiposNombramientosEntity> tiposNombramientosEntities = tiposNombramientosRepository
 				.nombramientosConSubfuente();
 		List<ConceptoNominaNombramientoDTO> conceptoNominaNombramientoLista = new ArrayList<>();
+
 		for (TiposNombramientosEntity nombramientosEntity : tiposNombramientosEntities) {
 			ConceptoNominaNombramientoDTO conceptoNominaNombramientoDTO = new ConceptoNominaNombramientoDTO();
 			conceptoNominaNombramientoDTO.setAplica(false);
@@ -129,7 +131,9 @@ public class ConceptoNominaFederalesService implements Serializable {
 			conceptoNominaNombramientoDTO.setIdTipoNombramiento(nombramientosEntity.getIdTipoNombramiento());
 			conceptoNominaNombramientoLista.add(conceptoNominaNombramientoDTO);
 		}
+
 		dto.setConceptoNominaNombramientoLista(conceptoNominaNombramientoLista);
+
 		return dto;
 	}
 
@@ -160,7 +164,9 @@ public class ConceptoNominaFederalesService implements Serializable {
 		entity.setAlta(FechaUtil.fechaActualSinHora());
 		entity.setBase(dto.getBase());
 
-		entity.setCategoriaSAT(categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
+		if (dto.getCategoriaSAT() != null) {
+			entity.setCategoriaSAT(categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
+		}
 		entity.setClave(dto.getClave());
 		entity.setDescripcion(dto.getDescripcion());
 		if (dto.getIdEstatusConceptoNomina() != null) {
@@ -312,6 +318,28 @@ public class ConceptoNominaFederalesService implements Serializable {
 			if (resultQuery2 != null) {
 				listaConceptosFinal.addAll(resultQuery2);
 			}
+
+			
+			for (ConceptoNominaFederalesDTO cpto : listaConceptosFinal) {
+				Session session3 = entityManager.unwrap(Session.class);
+				Query query3 = session3.createSQLQuery("CALL usp_concepto_movimiento_federal(:idEmpleado,:idConcepto)")
+						.setParameter("idEmpleado", configuracionPresupuestoEntity.getEmpleado().getIdEmpleado())
+						.setParameter("idConcepto", cpto.getIdConceptoNomina());
+				query3.setResultTransformer(Transformers.aliasToBean(ConceptoMovimientoFederalDTO.class));
+
+				@SuppressWarnings("unchecked")
+				List<ConceptoMovimientoFederalDTO> resultQuery3 = (List<ConceptoMovimientoFederalDTO>) query3.list();
+				System.out.println("Concepto Mov:" + resultQuery3.get(0).getClave());
+				for (int i = 0; i < listaConceptosFinal.size(); i++) {
+					if (listaConceptosFinal.get(i).getClave().contentEquals(resultQuery3.get(0).getClave())) {
+						if (listaConceptosFinal.get(i).getFormula().isEmpty()) {
+							listaConceptosFinal.get(i).setFormula(resultQuery3.get(0).getImporte() + "");
+						}
+					}
+				}
+
+			}
+
 		}
 		return listaConceptosFinal;
 	}

@@ -87,13 +87,14 @@ public class NominaEmpleadoFederalizadoService {
 		BigDecimal ingresoBase = BigDecimal.ZERO;
 		for (ConceptoNominaFederalesDTO conceptoNominaFederales : listaConceptos) {
 			BigDecimal excento = BigDecimal.ZERO;
+			System.out.println("Concepto: "+ conceptoNominaFederales.getClave() + conceptoNominaFederales.getFormula());
 			BigDecimal gravado = evaluadorService.evaluarFormula(conceptoNominaFederales, nominaEmpleadoEntity);
 			ConceptoNominaFederalesEntity conceptoNomina = conceptoNominaFederalesRepository
 					.obtenerPorId(conceptoNominaFederales.getIdConceptoNomina());
 			if (conceptoNomina.getTratamiento()) {
-				// System.out.println("Concepto que se toma para isr:: " +
-				// conceptoNominaFederales.getClave() +
-				// conceptoNominaFederales.getFormula() +" -- " + gravado);
+//				 System.out.println("Concepto que se toma para isr:: " +
+//				 conceptoNominaFederales.getClave() +
+//				 conceptoNominaFederales.getFormula() +" -- " + gravado);
 				baseGravable = baseGravable.add(gravado);
 			}
 			if (conceptoNomina.getBase()) {
