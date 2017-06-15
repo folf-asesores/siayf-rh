@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 public class ConfiguracionAprobacionService {
 	@Inject
-	private UsuarioRepository usuario;
+	private UsuarioRepository usuarioRepository;
 	@Inject
 	private ConfiguracionAprobacionRepository accionesUsuariosRepository;
 	@Inject
@@ -43,7 +43,7 @@ public class ConfiguracionAprobacionService {
 						ReglaNegocioCodigoError.YA_REGISTRADO);
 			} else if (accionesUsuariosRepository.usuarioPorAcciones(acc, i) == null) {
 				ConfiguracionAprobacionEntity entity = new ConfiguracionAprobacionEntity();
-				entity.setUsuario(usuario.obtenerPorId(i));
+				entity.setUsuario(usuarioRepository.obtenerPorId(i));
 				entity.setAccion(operacionSistemaRepository.obtenerPorId(acc));
 				entity.setEstatus(EnumEstatusConfiguracion.ACTIVO);
 
@@ -58,7 +58,7 @@ public class ConfiguracionAprobacionService {
 				.obtenerPorId(dto.getIdConfiguracionAprobacion());
 
 		entity.setAccion(operacionSistemaRepository.obtenerPorId(dto.getIdAccionUsuario()));
-		entity.setUsuario(usuario.obtenerPorId(dto.getIdUsuario()));
+		entity.setUsuario(usuarioRepository.obtenerPorId(dto.getIdUsuario()));
 
 		if (dto.getEstatus() == 1) {
 
@@ -122,8 +122,8 @@ public class ConfiguracionAprobacionService {
 	// > > > > > Otras Listas < < < < <
 
 	public List<UsuarioDTO> obtenerListaUsuarios() {
-		List<UsuarioDTO> UsuarioDTO = new ArrayList<UsuarioDTO>();
-		for (UsuarioEntity usuario : usuario.consultarUsuariosActivos()) {
+		List<UsuarioDTO> UsuarioDTO = new ArrayList<>();
+		for (UsuarioEntity usuario : usuarioRepository.consultarUsuariosActivos()) {
 			UsuarioDTO DTO = new UsuarioDTO();
 			DTO.setIdUsuario(usuario.getIdUsuario());
 			DTO.setUserName(usuario.getUserName());
