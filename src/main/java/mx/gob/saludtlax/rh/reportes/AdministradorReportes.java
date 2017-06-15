@@ -1,7 +1,7 @@
 /*
  * AdministradorReportes.java
  * Creado el 9/Sep/2016 1:37:04 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.reportes;
@@ -58,7 +58,7 @@ public class AdministradorReportes {
     /**
      * Permite obtener una referencia que se empleará para la generación del
      * reporte apartir de un arreglo de parámetros.
-     * 
+     *
      * <p>
      * Ejemplo de parametros para obtener la referencia.
      * <code><pre>
@@ -78,10 +78,8 @@ public class AdministradorReportes {
      */
     public String obtenerReferencia(String[] parametros) throws NullPointerException, IllegalArgumentException {
         Map<String, String> mapaParametros = separarClaveValor(parametros);
-        
         imprimirParametros(mapaParametros, ETAPA_PERSISTENCIA_DE_DATOS);
 
-        System.out.println("Mapa de Parametros:" + mapaParametros);
         return bitacoraReporte.obtenerReferencia(mapaParametros);
     }
 
@@ -149,7 +147,7 @@ public class AdministradorReportes {
     /**
      * Permite obtener el nombre de un reporte que se vaya a generar o se haya
      * generado mediante la referencia.
-     * 
+     *
      * @param referencia
      *            cadena que permite recuperar los parametros almacenados en la
      *            base de datos.
@@ -162,7 +160,7 @@ public class AdministradorReportes {
     /**
      * Permite obtener el tipo de un reporte que se vaya a generar o se haya
      * generado mediante la referencia.
-     * 
+     *
      * <p>Como tipo de un reporte se debe entender por ejemplo:</p>
      * <ul>
      * <li>docx</li>
@@ -174,7 +172,7 @@ public class AdministradorReportes {
      * <p>
      * <strong>Nota:</strong> el tipo no siempre es la extensión del archivo.
      * </p>
-     * 
+     *
      * @param referencia cadena que permite recuperar los parametros almacenados
      *                   en la base de datos.
      * @return el tipo del reporte.
@@ -233,7 +231,7 @@ public class AdministradorReportes {
      * @param etapa representa la etapa en la que está la generación del
      *              reporte.
      */
-    private void imprimirParametros(Map<String, String> parametros, 
+    private void imprimirParametros(Map<String, String> parametros,
             String etapa) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n========================================");
@@ -257,7 +255,7 @@ public class AdministradorReportes {
                 sb.append('\n');
         }
 
-        LOGGER.debug(sb.toString());
+        LOGGER.info(sb.toString());
     }
 
     /**
@@ -272,7 +270,7 @@ public class AdministradorReportes {
             BitacoraReporte bitacoraReportes = (BitacoraReporte) initContext.lookup(BITACORA_REPORTES_BEAN);
             return bitacoraReportes;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}", 
+            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
                     BITACORA_REPORTES_BEAN, ex.getCause());
         }
 

@@ -1,7 +1,7 @@
 /*
  * ProductoNominaTest.java
  * Creado el 13/Feb/2017 8:26:47 PM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.nomina.reportes;
 
@@ -68,13 +68,13 @@ import static org.junit.Assert.assertNotNull;
 public class ProductoNominaTest {
 
     private static final Logger LOGGER = Logger.getLogger(ProductoNominaTest.class.getName());
-    
+
     @Deployment
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
-        
+
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
@@ -146,7 +146,8 @@ public class ProductoNominaTest {
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("Iniciando test obtenerReporte");
-        String referencia = "4c25e610-8d82-4130-979b-b952022f";
+//        String referencia = "4c25e610-8d82-4130-979b-b952022f";
+        String referencia = "7fb464b2-260f-43ec-afd9-eab002d8";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
 

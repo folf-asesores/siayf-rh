@@ -1,4 +1,4 @@
-    /*
+/*
  * JasperReportsCompilador.java
  * Creado el 9/Sep/2016 1:37:04 PM
  *
@@ -6,7 +6,7 @@
 
 package mx.gob.saludtlax.rh.reportes.jasperreports;
 
-import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,7 +35,7 @@ import org.jboss.logging.Logger;
 
 /**
  * Esta clase ayuda en la compilación de los archivos de JasperReport.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  * @author eduardo
  */
@@ -83,15 +83,15 @@ public class JasperReportsCompilador {
             Map<String, Object> parametros) {
         return generarReporte(compilar(inputStream), parametros, "pdf");
     }
-    
+
     /**
-     * Devuelve un arreglo de bytes que representa un archivo en formato PDF, 
+     * Devuelve un arreglo de bytes que representa un archivo en formato PDF,
      * cuando el reporte se ha generado correctamente.
      *
      * @param jasper el archivo .jrxml compilado.
      * @param parametros los parámetros del reporte.
      * @param tipoReporte el tipo de reporte que se generara.
-     * @return un arreglo de bytes con el reporte según el tipo de reporte 
+     * @return un arreglo de bytes con el reporte según el tipo de reporte
      * requerido.
      */
     protected byte[] generarReporte(JasperReport jasper,
@@ -100,7 +100,7 @@ public class JasperReportsCompilador {
 
         try {
             Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup(DATASOURCE_ESPEJO);
+            DataSource ds = (DataSource) initContext.lookup(DATASOURCE);
 
             try (Connection conexion = ds.getConnection()) {
                 if("pdf".equalsIgnoreCase(tipoReporte)) {
@@ -115,7 +115,7 @@ public class JasperReportsCompilador {
                         SimpleExporterInput sei = new SimpleExporterInput(jasperPrint);
                         SimpleTextReportConfiguration strc = new SimpleTextReportConfiguration();
                         SimpleWriterExporterOutput sweo = new SimpleWriterExporterOutput(baos);
-                        
+
                         JRTextExporter exporter = new JRTextExporter();
                         exporter.setExporterInput(sei);
                         exporter.setConfiguration(strc);
@@ -133,8 +133,8 @@ public class JasperReportsCompilador {
 
             return bytesReporte;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al tratar de resolver el nombre: {0}", 
-                    DATASOURCE_ESPEJO);
+            LOGGER.errorv("Error al tratar de resolver el nombre: {0}",
+                    DATASOURCE);
         } catch (SQLException ex) {
             LOGGER.errorv("Error de datos.\n{0}", ex.getMessage());
         } catch (JRException ex) {
