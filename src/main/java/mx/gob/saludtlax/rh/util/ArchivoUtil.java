@@ -570,16 +570,16 @@ public class ArchivoUtil {
         nombreSinExtension = nombreSinExtension.toLowerCase();
         nombreSinExtension = nombreSinExtension.replace('\u00e0', 'a'); // a con acento agudo
         nombreSinExtension = nombreSinExtension.replace('\u00e1', 'a'); // a con acento grave
-        nombreSinExtension = nombreSinExtension.replace('\u00e8', 'e');
-        nombreSinExtension = nombreSinExtension.replace('\u00e9', 'e');
-        nombreSinExtension = nombreSinExtension.replace('\u00ec', 'i');
-        nombreSinExtension = nombreSinExtension.replace('\u00ed', 'i');
-        nombreSinExtension = nombreSinExtension.replace('\u00f2', 'o');
-        nombreSinExtension = nombreSinExtension.replace('\u00f3', 'o');
-        nombreSinExtension = nombreSinExtension.replace('\u00f9', 'u');
-        nombreSinExtension = nombreSinExtension.replace('\u00fa', 'u');
-        nombreSinExtension = nombreSinExtension.replace('\u00fc', 'u');
-        nombreSinExtension = nombreSinExtension.replace('\u00f1', 'n');
+        nombreSinExtension = nombreSinExtension.replace('\u00e8', 'e'); // e con acento agudo
+        nombreSinExtension = nombreSinExtension.replace('\u00e9', 'e'); // e con acento grave
+        nombreSinExtension = nombreSinExtension.replace('\u00ec', 'i'); // i con acento agudo
+        nombreSinExtension = nombreSinExtension.replace('\u00ed', 'i'); // i con acento grave
+        nombreSinExtension = nombreSinExtension.replace('\u00f2', 'o'); // o con acento agudo
+        nombreSinExtension = nombreSinExtension.replace('\u00f3', 'o'); // o con acento grave
+        nombreSinExtension = nombreSinExtension.replace('\u00f9', 'u'); // u con acento agudo
+        nombreSinExtension = nombreSinExtension.replace('\u00fa', 'u'); // u con acento grave
+        nombreSinExtension = nombreSinExtension.replace('\u00fc', 'u'); // u con dieresis
+        nombreSinExtension = nombreSinExtension.replace('\u00f1', 'n'); // n con tilde
         nombreSinExtension = nombreSinExtension.replace('.', '_');
 
         return nombreSinExtension;

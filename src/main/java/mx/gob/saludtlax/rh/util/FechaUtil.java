@@ -20,7 +20,7 @@ import org.joda.time.Days;
 /**
  * Esta clase es una utilería que permite trabajar con la fecha y la hora, tanto
  * formateo como conversión.
- * 
+ *
  * @author Leila Schiaffini Ehuan
  * @since 07/03/2016-15:12:52
  */
@@ -33,7 +33,8 @@ public class FechaUtil {
     public static final int FECHAS_POR_SEMANA = 2;
     public static final String PATRON_FECHA_CORTA = "dd/MM/yyyy";
     public static final String PATRON_FECHA_HORA_CORTA = "dd/MM/yyyy HH:mm:ss";
-    
+    public static final String PATRON_FECHA_BASE_DE_DATOS = "yyyy-MM-dd";
+
     private FechaUtil() {
     }
 
@@ -269,7 +270,7 @@ public class FechaUtil {
 
     /**
      * Calcula la edad de la persona.
-     * 
+     *
      * @param fechaNacimiento la fecha de nacimiento.
      * @return la edad.
      */

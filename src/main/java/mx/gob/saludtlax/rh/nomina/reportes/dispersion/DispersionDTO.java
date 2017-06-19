@@ -1,7 +1,7 @@
 /*
  * DispersionDTO.java
  * Creado el 07/Dec/2016 6:51:15 PM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
@@ -59,7 +59,7 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Constructor que se puede emplear en la generación de la hoja de cálculo
      * (Excel).
-     * 
+     *
      * @param nombreEmpleado el nombre del empleado.
      * @param numeroCuenta el número de cuenta.
      * @param monto el monto del pago.
@@ -207,19 +207,37 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
         if(o == null) {
             return 1;
         }
-        
-        int compare = fuenteFinanciamiento.compareTo(o.fuenteFinanciamiento);
+
+        int compare;
+
+        if(fuenteFinanciamiento == null && o.fuenteFinanciamiento == null) {
+            compare = 0;
+        } else if (fuenteFinanciamiento == null && o.fuenteFinanciamiento != null) {
+            compare = -1;
+        } else if (fuenteFinanciamiento != null && o.fuenteFinanciamiento == null) {
+            compare = 1;
+        } else {
+            compare = fuenteFinanciamiento.compareTo(o.fuenteFinanciamiento);
+        }
 
         if(compare == 0) {
-            return numeroCuenta.compareTo(o.numeroCuenta);
+            if (numeroCuenta == null && o.numeroCuenta == null) {
+                return 0;
+            } else if(numeroCuenta == null && o.numeroCuenta != null) {
+                return -1;
+            } else if (numeroCuenta != null && o.numeroCuenta == null) {
+                return 1;
+            } else {
+                return numeroCuenta.compareTo(o.numeroCuenta);
+            }
         }
 
         return compare;
     }
-    
+
     @Override
     public String toString() {
-        return "DispersionDTO{" 
+        return "DispersionDTO{"
                 + "numeroCuenta=" + numeroCuenta
                 + ", monto=" + monto
                 + ", fechaPago=" + fechaPago

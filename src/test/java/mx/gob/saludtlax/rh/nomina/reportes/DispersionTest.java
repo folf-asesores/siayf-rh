@@ -1,8 +1,9 @@
 /*
  * DispersionTest.java
  * Creado el 07/Dec/2016 9:04:12 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
 
 import java.io.File;
@@ -41,6 +42,7 @@ import mx.gob.saludtlax.rh.reportes.txt.AlmacenReportesTxt;
 import mx.gob.saludtlax.rh.reportes.txt.TxtGenerador;
 import mx.gob.saludtlax.rh.reportes.txt.TxtReporte;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
+import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -66,7 +68,7 @@ import static org.junit.Assert.assertNotNull;
 public class DispersionTest {
 
     private static final Logger LOGGER = Logger.getLogger(DispersionTest.class.getName());
-    
+
     @Deployment
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
@@ -86,6 +88,7 @@ public class DispersionTest {
         jar.addClass(BitacoraReporteEJB.class);
         jar.addClass(BitacoraReporteRepository.class);
         jar.addClass(BitacoraReporteEntity.class);
+        jar.addClass(CadenaUtil.class);
         jar.addClass(CodigoError.class);
         jar.addClass(Dispersion.class);
         jar.addClass(DispersionDTO.class);
@@ -138,12 +141,12 @@ public class DispersionTest {
         LOGGER.infov("Referencia: {0}", referencia);
         assertNotNull(referencia);
     }
-    
+
     @Ignore
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("Iniciando test obtenerReporte");
-        String referencia = "b697271f-f14d-4005-96fc-e568e918";
+        String referencia = "d4cac16b-ea50-45a0-833a-5adc2706";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
 
@@ -156,10 +159,10 @@ public class DispersionTest {
     public void testCompleto() throws IOException {
         LOGGER.info("Iniciando test completo");
         String[] parametros = new String[] {
-            "ID_USUARIO", "18",
+            "ID_USUARIO", "33",
             "REPORTE_NOMBRE", "dispersion_nomina",
             "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "9"
+            "ID_PRODUCTO_NOMINA", "30"
         };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);

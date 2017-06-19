@@ -1,8 +1,9 @@
 /*
  * DispersionExcelService.java
  * Creado el 27/Jan/2017 3:50:05 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
 import java.io.ByteArrayOutputStream;
@@ -39,12 +40,12 @@ public class DispersionExcelService {
     private Sheet hoja;
     /** Es la fila apartir de la cual inicia el detalle. */
     private static final int FILA_INICIO_DETALLE = 1;
-    // Columnas    
+    // Columnas
     private static final int COLUMNA_NUMERO_DE_CUENTA     = 'A' - 'A';
     private static final int COLUMNA_MONTO                = 'B' - 'A';
     private static final int COLUMNA_LEYENDA              = 'C' - 'A';
     private static final int COLUMNA_NOMBRE_DEL_EMPLEADO  = 'D' - 'A';
-    
+
     private void inicializar() {
         libro = new XSSFWorkbook();
         String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja, '_');
@@ -75,7 +76,7 @@ public class DispersionExcelService {
         nombreEmpleado.setCellValue("Nombre del empleado");
         nombreEmpleado.setCellStyle(estiloTitulo);
     }
-    
+
     private void llenarDetalle(List<DispersionDTO> detalles) {
         int i = FILA_INICIO_DETALLE;
         int contador = 0;
@@ -90,7 +91,7 @@ public class DispersionExcelService {
                 totalMonto = 0;
                 contador = 0;
             }
-            
+
             Row fila = hoja.createRow(i);
             Cell celdaNumeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
             celdaNumeroCuenta.setCellValue(dispersionDTO.getNumeroCuenta());
@@ -114,7 +115,7 @@ public class DispersionExcelService {
 
         llenarTotal(i, fuenteFinanciamiento, totalMonto, contador);
     }
-    
+
     private void llenarTotal(int indice, String fuenteFinanciamiento, double totalMonto, int totalEmpleados) {
         CellStyle estiloTotalTitulo = libro.createCellStyle();
         Font fuenteTitulo = libro.createFont();
@@ -131,20 +132,20 @@ public class DispersionExcelService {
         Cell celdadFuenteFinanciemientoTitulo = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
         celdadFuenteFinanciemientoTitulo.setCellValue(String.format("Total fuente de financiamiento (%s)", fuenteFinanciamiento));
         celdadFuenteFinanciemientoTitulo.setCellStyle(estiloTotalTitulo);
-        
+
         Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO, Cell.CELL_TYPE_NUMERIC);
         celdadFuenteFinanciemientoValor.setCellValue(totalMonto);
         celdadFuenteFinanciemientoValor.setCellStyle(estiloTotalValor);
-        
+
         Cell celdadTotalEmpleadosTitulo = fila.createCell(COLUMNA_LEYENDA, Cell.CELL_TYPE_STRING);
         celdadTotalEmpleadosTitulo.setCellValue("Total empleados");
         celdadTotalEmpleadosTitulo.setCellStyle(estiloTotalTitulo);
-        
+
         Cell celdadTotalEmpleadosValor = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, Cell.CELL_TYPE_NUMERIC);
         celdadTotalEmpleadosValor.setCellValue(totalEmpleados);
         celdadTotalEmpleadosValor.setCellStyle(estiloTotalValor);
     }
-    
+
     private byte[] finalizar() throws IOException {
         byte [] archivo;
 
@@ -156,7 +157,7 @@ public class DispersionExcelService {
 
         return archivo;
     }
-    
+
     public byte[] obtenerBytes(List<DispersionDTO> detalles) throws IOException {
         inicializar();
         llenarTitulos();

@@ -1,7 +1,7 @@
 /*
  * PagoGeneralReporteService.java
  * Creado el 15/Feb/2017 5:30:39 AM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
@@ -26,12 +26,12 @@ import org.jboss.logging.Logger;
 public class PagoGeneralReporteService {
 
     @Resource(mappedName = DATASOURCE_ESPEJO)
-    private DataSource ds; 
+    private DataSource ds;
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteService.class.getName());
     private static final String USP_PAGO_GENERAL = "CALL usp_reporte_pago_general(?)";
-    private static final String CONSULTA_DESCRIPCION = 
+    private static final String CONSULTA_DESCRIPCION =
             "  SELECT cn.descripcion"
-            + "  FROM conceptos_nominas_contratos AS cn" 
+            + "  FROM conceptos_nominas_contratos AS cn"
             + " WHERE cn.clave = ?";
     private static final Map<String, String> TITULOS;
 
@@ -65,7 +65,7 @@ public class PagoGeneralReporteService {
     /**
      * Permite obtener los datos del reporte de pago general, así como los
      * titulos de la consulta.
-     * 
+     *
      * @param idProductoNomina el ID del producto de nómina.
      * @param titulos en este arreglo se guardaran los titulos de la consulta.
      * @param datos los datos de la consulta.
@@ -120,7 +120,7 @@ public class PagoGeneralReporteService {
                             objDatos[i] = rs.getObject(columnLabel);
                             break;
                     }
-                    
+
                     pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1 : pos + 2;
                 }
                 datos.add(objDatos);

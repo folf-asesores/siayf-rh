@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1"
-             xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+                                 http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
     <persistence-unit name="siayfrhPU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
@@ -86,74 +88,74 @@
         <class>mx.gob.saludtlax.rh.persistencia.DocumentacionEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.EjercicioFiscalEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.EmpleadoEntity</class>
-  		<class>mx.gob.saludtlax.rh.persistencia.EscolaridadEntity</class>
-  		<class>mx.gob.saludtlax.rh.persistencia.EspecialidadAspiranteEmpleadoEntity</class>
- 		<class>mx.gob.saludtlax.rh.persistencia.EspecialidadEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.EstadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.EstatusConceptoNominaEntity</class>
-  		<class>mx.gob.saludtlax.rh.persistencia.EstatusConfiguracionesEntity</class>
-  		<class>mx.gob.saludtlax.rh.persistencia.EstatusMovimientoNominaEntity</class>
- 		<class>mx.gob.saludtlax.rh.persistencia.EstatusNominasEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.EstatusProductoNominaEntity</class>
- 		<class>mx.gob.saludtlax.rh.persistencia.EstatusPuestosEntity</class>
- 		<class>mx.gob.saludtlax.rh.persistencia.EstrategiaEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoExcelEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoPlantillaExcelEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatAcumEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity</class>
-	    <class>mx.gob.saludtlax.rh.persistencia.EstructuraReporteEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.ExpedienteAspiranteEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.ExpedienteEmpleadoEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.ExperienciaLaboralEntity</class>
- 	    <class>mx.gob.saludtlax.rh.persistencia.FaltaContadaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FataContadaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FirmaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FormatoFiliacionEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FormulasEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoTempEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.FuncionEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.GlobalEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.HabilidadPersonalEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.HistorialAcademicoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.HoraExtraComprobanteEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.HorasExtraEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.HorasExtraEstatalEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.IncapacidadComprobanteEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.IncapacidadEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.IncapacidadEstatalEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntoAspiranteEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntoEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntosEmpleadosOldEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.InterinatoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.InventarioVacanteEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.IpBloqueadaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.JornadasEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.LineaAccionEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.LugarAdscripcionEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MetodoPagoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.ModuloEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MovimientoFijoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MovimientoIsssteEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MovimientosEmpleadoNominaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.MovimientosNominaContratosEntity</class>
- 		<class>mx.gob.saludtlax.rh.persistencia.MovimientoSuplenteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EscolaridadEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EspecialidadAspiranteEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EspecialidadEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusConceptoNominaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusConfiguracionesEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusMovimientoNominaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusNominasEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusProductoNominaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstatusPuestosEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstrategiaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoExcelEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoPlantillaExcelEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraContratoTrailersEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaTrailersEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatAcumEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraNominaDatEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.EstructuraReporteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.ExpedienteAspiranteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.ExpedienteEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.ExperienciaLaboralEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FaltaContadaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FataContadaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FirmaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FormatoFiliacionEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FormulasEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoTempEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.FuncionEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.GlobalEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.HabilidadPersonalEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.HistorialAcademicoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.HoraExtraComprobanteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.HorasExtraEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.HorasExtraEstatalEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.IncapacidadComprobanteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.IncapacidadEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.IncapacidadEstatalEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntoAspiranteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntoEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.InformacionAdjuntosEmpleadosOldEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.InterinatoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.InventarioVacanteEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.IpBloqueadaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.JornadasEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.LineaAccionEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.LugarAdscripcionEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MetodoPagoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.ModuloEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientoFijoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientoIsssteEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientosEmpleadoNominaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientosNominaContratosEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.MovimientoSuplenteEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.MunicipiosEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NivelEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NivelSalarialEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NombramientoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NominaEmpleadoEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NominaEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NominaMandoMedioEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NotificacionDestinatarioEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NotificacionEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.NotificacionParametroEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NivelEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NivelSalarialEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NombramientoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NominaEmpleadoEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NominaEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NominaMandoMedioEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NotificacionDestinatarioEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NotificacionEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.NotificacionParametroEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.OperacionSistemaEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.OtrosPagosComprobantesEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.PadronEventualEntity</class>
@@ -254,7 +256,7 @@
         <class>mx.gob.saludtlax.rh.persistencia.VistaPreviaAdjuntoAspiranteEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.VistaPreviaAdjuntoEmpleadoEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.VoluntarioEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.VoluntarioTemporalEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.VoluntarioTemporalEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.show_sql" value="false" />
@@ -266,9 +268,9 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
         <jta-data-source>java:jboss/datasources/SIAYFRHDSESP</jta-data-source>
         <class>mx.gob.saludtlax.rh.persistencia.espejo.BitacoraReporteEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.espejo.PerfilUsuarioEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.espejo.ReporteParametroEntity</class>
-		<class>mx.gob.saludtlax.rh.persistencia.espejo.UsuarioEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.espejo.PerfilUsuarioEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.espejo.ReporteParametroEntity</class>
+        <class>mx.gob.saludtlax.rh.persistencia.espejo.UsuarioEntity</class>
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.show_sql" value="false" />

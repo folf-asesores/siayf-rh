@@ -1,8 +1,9 @@
 /*
  * DispersionReporteService.java
  * Creado el 07/Dec/2016 8:13:31 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
 import java.io.ByteArrayOutputStream;
@@ -23,7 +24,7 @@ import org.jboss.logging.Logger;
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class DispersionReporteService implements Serializable {
-    
+
     private static final long serialVersionUID = -4661079055687311613L;
     private static final Logger LOGGER = Logger.getLogger(DispersionReporteService.class.getName());
 
@@ -67,7 +68,7 @@ public class DispersionReporteService implements Serializable {
             byte [] buffer = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buffer)) != -1;) {
-                bos.write(buffer, 0, readNum); 
+                bos.write(buffer, 0, readNum);
             }
 
             byte[] bytes = bos.toByteArray();

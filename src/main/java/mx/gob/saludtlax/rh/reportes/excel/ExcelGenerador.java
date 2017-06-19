@@ -1,8 +1,9 @@
 /*
  * ExcelGenerador.java
  * Creado el Sep 23, 2016 7:21:13 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.reportes.excel;
 
 import java.io.IOException;
@@ -32,7 +33,6 @@ import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPagoDetalleDTO;
 import mx.gob.saludtlax.rh.nomina.productosnomina.EnumEstatusProductoNomina;
 import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
-import mx.gob.saludtlax.rh.nomina.reportes.federales.ProductoNominaFederalReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
 import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoDTO;
@@ -54,6 +54,8 @@ import mx.gob.saludtlax.rh.util.PlantillaMensaje;
 
 import org.jboss.logging.Logger;
 
+import static mx.gob.saludtlax.rh.util.FechaUtil.PATRON_FECHA_BASE_DE_DATOS;
+
 /**
  *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
@@ -68,7 +70,6 @@ public class ExcelGenerador implements Generador, Serializable {
 
     private static final Logger LOGGER = Logger.getLogger(ExcelGenerador.class);
 
-    private static final String PATRON_FECHA_BASE_DE_DATOS = "yyyy-MM-dd";
     private static final String CONSULTA_NOMINA_SERVICE_BEAN = "java:module/ConsultaNominaService";
     private static final String CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN = "java:module/MovimientoEmpleadoReporteService";
     private static final String SEGURO_POPULAR_REPORTE_BEAN = "java:module/SeguroPopularReporteEJB";
@@ -146,7 +147,6 @@ public class ExcelGenerador implements Generador, Serializable {
                         throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.",
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
-
                 }
                 break;
 
@@ -314,7 +314,7 @@ public class ExcelGenerador implements Generador, Serializable {
                     bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes() : pagoGeneral.generarReporte(idProducto);
                 }
                 break;
-                
+
                 case "reporte_distribucion_presupuestal": {
 
                     Integer anioPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
@@ -329,7 +329,7 @@ public class ExcelGenerador implements Generador, Serializable {
                     if (!listaDistribucionPresupuestoDTOs.isEmpty()) {
 
                     	ReporteDistribucionPresupuesto reporteDistribucionPresupuesto = new ReporteDistribucionPresupuesto();
-                    	
+
                     	try{
 
                         bytes = reporteDistribucionPresupuesto.generarArchivoExcel(listaDistribucionPresupuestoDTOs);
@@ -486,7 +486,7 @@ public class ExcelGenerador implements Generador, Serializable {
             return null;
         }
     }
-    
+
     private DistribucionPresupuestoEJB getDistribucionPresupuestal() {
         try {
             Context initContext = new InitialContext();

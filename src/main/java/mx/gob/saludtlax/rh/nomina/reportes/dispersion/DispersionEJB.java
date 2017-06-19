@@ -1,7 +1,7 @@
 /*
  * DispersionEJB.java
  * Creado el 07/Dec/2016 6:34:40 PM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
@@ -11,11 +11,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import org.jboss.logging.Logger;
 
 /**
- * 
+ *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 @Stateless
@@ -23,8 +24,8 @@ public class DispersionEJB implements Dispersion {
 
     private static final long serialVersionUID = 1691448290310983411L;
     private static final Logger LOGGER = Logger.getLogger(DispersionEJB.class.getName());
-    
-    
+
+
     @Inject private DispersionService dispersionService;
     @Inject private DispersionReporteService dispersionReporteService;
     @Inject private DispersionExcelService dispersionExcelService;
@@ -42,6 +43,11 @@ public class DispersionEJB implements Dispersion {
 
         List<DispersionDTO> dispersion = dispersionService.obtenerInformacion(idProductoNomina);
 
+        for (DispersionDTO dispersionDTO : dispersion) {
+            String nombreEmpleado = CadenaUtil.remplazarCaracteresLatinos(dispersionDTO.getNombreEmpleado());
+            dispersionDTO.setNombreEmpleado(nombreEmpleado);
+        }
+
         if (excel) {
             try {
                 return dispersionExcelService.obtenerBytes(dispersion);
@@ -53,5 +59,5 @@ public class DispersionEJB implements Dispersion {
             return dispersionReporteService.obtenerReporte(dispersion);
         }
     }
-    
+
 }
