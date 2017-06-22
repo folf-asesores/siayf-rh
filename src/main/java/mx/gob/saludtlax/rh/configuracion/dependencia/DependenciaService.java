@@ -5,98 +5,98 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import mx.gob.saludtlax.rh.persistencia.DependenciaRepository;
-import mx.gob.saludtlax.rh.persistencia.DependenciaEntity;
-
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.persistencia.DependenciaTempEntity;
+import mx.gob.saludtlax.rh.persistencia.DependenciaTempRepository;
 
 public class DependenciaService {
 
-    private static final Logger LOGGER = Logger.getLogger(DependenciaService.class.getName());
-    
-    @Inject
-    private DependenciaRepository dependenciaRepository;
+	private static final Logger LOGGER = Logger.getLogger(DependenciaService.class.getName());
 
-    public List<DependenciaDTO> listaDependencia() {
-        List<DependenciaEntity> dependencias = dependenciaRepository.consultarDependencias();
-        return convertirEntidadesADTOs(dependencias);
-    }
+	@Inject
+	private DependenciaTempRepository dependenciaRepository;
 
-    protected DependenciaDTO nuevoDependencia() {
-        DependenciaDTO dto = new DependenciaDTO();
-        dto.setDescripcion(null);
-        dto.setIdSector(null);
-        dto.setIdBase(null);
-        return dto;
-    }
+	public List<DependenciaDTO> listaDependencia() {
+		List<DependenciaTempEntity> dependencias = dependenciaRepository.consultarDependencias();
+		return convertirEntidadesADTOs(dependencias);
+	}
 
-    protected DependenciaDTO crearDependencia(DependenciaDTO dto) {
-        DependenciaEntity entity = new DependenciaEntity();
-        entity.setIdRamo(4);
-        entity.setIdClasificacionOrganismo(3);
-        entity.setIdEntePublico(9);
-        entity.setIdSector(dto.getIdSector());
-        entity.setIdBase(dto.getIdBase());
-        entity.setDescripcion(dto.getDescripcion());
-        dependenciaRepository.crear(entity);
-        return obtenerDependenciaPorId(entity.getIdDependencia());
-    }
+	protected DependenciaDTO nuevoDependencia() {
+		DependenciaDTO dto = new DependenciaDTO();
+		dto.setDescripcion(null);
+		dto.setIdSector(null);
+		dto.setIdBase(null);
+		return dto;
+	}
 
-    protected DependenciaDTO obtenerDependenciaPorId(Integer idDependencia) {
-        DependenciaEntity entidad = dependenciaRepository.obtenerPorId(idDependencia);
-        DependenciaDTO dto = convertirEntidadADTO(entidad);
-        
-        return dto;
-    }
+	protected DependenciaDTO crearDependencia(DependenciaDTO dto) {
+		DependenciaTempEntity entity = new DependenciaTempEntity();
+		entity.setIdRamo(4);
+		entity.setIdClasificacionOrganismo(3);
+		entity.setIdEntePublico(9);
+		entity.setIdSector(dto.getIdSector());
+		entity.setIdBase36(dto.getIdBase());
+		entity.setDescripcion(dto.getDescripcion());
+		dependenciaRepository.crear(entity);
+		return obtenerDependenciaPorId(entity.getIdDependencia());
+	}
 
-    protected List<String> consultarDescripcionDependenciasPorCriterio(String consulta) {
-        return dependenciaRepository.consultarDescripcionDependenciasPorCriterio(consulta);
-    }
+	protected DependenciaDTO obtenerDependenciaPorId(Integer idDependencia) {
+		DependenciaTempEntity entidad = dependenciaRepository.obtenerPorId(idDependencia);
+		DependenciaDTO dto = convertirEntidadADTO(entidad);
 
-    protected Integer consultarIdDependenciaPorDescripcion(String descripcion) {
-        return dependenciaRepository.consultarIdDependenciaPorDescripcion(descripcion);
-    }
+		return dto;
+	}
 
-    protected DependenciaDTO actualizarDependencia(DependenciaDTO dto) {
-        DependenciaEntity dependenciaEntity = dependenciaRepository.obtenerPorId(dto.getIdDependencia());
-        dependenciaEntity.setIdSector(dto.getIdSector());
-        dependenciaEntity.setIdBase(dto.getIdBase());
-        dependenciaEntity.setDescripcion(dto.getDescripcion());
-        dependenciaRepository.actualizar(dependenciaEntity);
-        return obtenerDependenciaPorId(dependenciaEntity.getIdDependencia());
-    }
+	protected List<String> consultarDescripcionDependenciasPorCriterio(String consulta) {
+		return dependenciaRepository.consultarDescripcionDependenciasPorCriterio(consulta);
+	}
 
-    protected void eliminarDependencia(DependenciaDTO dto) {
-        if(dto != null) {
-            dependenciaRepository.eliminarPorId(dto.getIdDependencia());
-        } else {
-            LOGGER.warn("No se eliminado la dependencia porque es nula.");
-        }
-    }
+	protected Integer consultarIdDependenciaPorDescripcion(String descripcion) {
+		return dependenciaRepository.consultarIdDependenciaPorDescripcion(descripcion);
+	}
 
-    private static DependenciaDTO convertirEntidadADTO(DependenciaEntity entidad) {
-        DependenciaDTO dto = new DependenciaDTO();
-        
-        dto.setIdSector(entidad.getIdSector());
-        dto.setIdRamo(entidad.getIdRamo());
-        dto.setIdEntePublico(entidad.getIdEntePublico());
-        dto.setIdDependencia(entidad.getIdDependencia());
-        dto.setIdClasificacionOrganismo(entidad.getIdClasificacionOrganismo());
-        dto.setIdBase(entidad.getIdBase());
-        dto.setDescripcion(entidad.getDescripcion());
-        
-        return dto;
-    }
+	protected DependenciaDTO actualizarDependencia(DependenciaDTO dto) {
+		DependenciaTempEntity DependenciaTempEntity = dependenciaRepository.obtenerPorId(dto.getIdDependencia());
+		DependenciaTempEntity.setIdSector(dto.getIdSector());
+		DependenciaTempEntity.setIdBase36(dto.getIdBase());
+		DependenciaTempEntity.setDescripcion(dto.getDescripcion());
+		dependenciaRepository.actualizar(DependenciaTempEntity);
+		return obtenerDependenciaPorId(DependenciaTempEntity.getIdDependencia());
+	}
 
-    private static List<DependenciaDTO> convertirEntidadesADTOs(List<DependenciaEntity> entidades) {
-        List<DependenciaDTO> dtos = new ArrayList<>();
-        
-        for (DependenciaEntity entidad : entidades) {
-            DependenciaDTO dto = convertirEntidadADTO(entidad);
-            
-            dtos.add(dto);
-        }
-        
-        return dtos;
-    }
+	protected void eliminarDependencia(DependenciaDTO dto) {
+		if (dto != null) {
+			dependenciaRepository.eliminarPorId(dto.getIdDependencia());
+		} else {
+			LOGGER.warn("No se eliminado la dependencia porque es nula.");
+		}
+	}
+
+	private static DependenciaDTO convertirEntidadADTO(DependenciaTempEntity entidad) {
+		DependenciaDTO dto = new DependenciaDTO();
+
+		dto.setIdSector(entidad.getIdSector());
+		dto.setIdRamo(entidad.getIdRamo());
+		dto.setIdEntePublico(entidad.getIdEntePublico());
+		dto.setIdDependencia(entidad.getIdDependencia());
+		dto.setIdClasificacionOrganismo(entidad.getIdClasificacionOrganismo());
+		dto.setIdBase(entidad.getIdBase36());
+		dto.setDescripcion(entidad.getDescripcion());
+
+		return dto;
+	}
+
+	private static List<DependenciaDTO> convertirEntidadesADTOs(List<DependenciaTempEntity> entidades) {
+		List<DependenciaDTO> dtos = new ArrayList<>();
+
+		for (DependenciaTempEntity entidad : entidades) {
+			DependenciaDTO dto = convertirEntidadADTO(entidad);
+
+			dtos.add(dto);
+		}
+
+		return dtos;
+	}
 }

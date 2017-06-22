@@ -5,20 +5,22 @@ package mx.gob.saludtlax.rh.persistencia;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author 		Eduardo Mex
- * @email		Lic.Eduardo_Mex@hotmail.com
- * @version     1.0
- * @since       25/07/2016 14:19:03
+ * @author Eduardo Mex
+ * @email Lic.Eduardo_Mex@hotmail.com
+ * @version 1.0
+ * @since 25/07/2016 14:19:03
  */
 @Entity
 @Table(name = "subfuentes_financiamientos_temp")
 public class SubFuenteFinanciamientoTempEntity {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id_subfuente_financiamiento")
 	private Integer idSubfuenteFinanciamiento;
 
@@ -34,11 +36,22 @@ public class SubFuenteFinanciamientoTempEntity {
 	@Column(name = "descripcion")
 	private String descripcion;
 
+	@Column(name = "id_subfuente_financiamiento_salud")
+	private Integer idSubfuenteFinanciamientoSalud;
+
 	@Override
 	public String toString() {
 		return "SubFuenteFinanciamientoEntity [id subfuente financiamiento=" + idSubfuenteFinanciamiento
 				+ ", id fuente financiamiento=" + idFuenteFinanciamiento + ", id fuente financiamiento opd="
 				+ idFuenteFinanciamientoOpd + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
+	}
+
+	public Integer getIdSubfuenteFinanciamientoSalud() {
+		return idSubfuenteFinanciamientoSalud;
+	}
+
+	public void setIdSubfuenteFinanciamientoSalud(Integer idSubfuenteFinanciamientoSalud) {
+		this.idSubfuenteFinanciamientoSalud = idSubfuenteFinanciamientoSalud;
 	}
 
 	/**
@@ -49,7 +62,8 @@ public class SubFuenteFinanciamientoTempEntity {
 	}
 
 	/**
-	 * @param idSubfuenteFinanciamiento the idSubfuenteFinanciamiento to set
+	 * @param idSubfuenteFinanciamiento
+	 *            the idSubfuenteFinanciamiento to set
 	 */
 	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
 		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
@@ -63,7 +77,8 @@ public class SubFuenteFinanciamientoTempEntity {
 	}
 
 	/**
-	 * @param idFuenteFinanciamiento the idFuenteFinanciamiento to set
+	 * @param idFuenteFinanciamiento
+	 *            the idFuenteFinanciamiento to set
 	 */
 	public void setIdFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
 		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
@@ -77,7 +92,8 @@ public class SubFuenteFinanciamientoTempEntity {
 	}
 
 	/**
-	 * @param idFuenteFinanciamientoOpd the idFuenteFinanciamientoOpd to set
+	 * @param idFuenteFinanciamientoOpd
+	 *            the idFuenteFinanciamientoOpd to set
 	 */
 	public void setIdFuenteFinanciamientoOpd(Integer idFuenteFinanciamientoOpd) {
 		this.idFuenteFinanciamientoOpd = idFuenteFinanciamientoOpd;
@@ -91,7 +107,8 @@ public class SubFuenteFinanciamientoTempEntity {
 	}
 
 	/**
-	 * @param idBase36 the idBase36 to set
+	 * @param idBase36
+	 *            the idBase36 to set
 	 */
 	public void setIdBase36(String idBase36) {
 		this.idBase36 = idBase36;
@@ -105,11 +122,11 @@ public class SubFuenteFinanciamientoTempEntity {
 	}
 
 	/**
-	 * @param descripcion the descripcion to set
+	 * @param descripcion
+	 *            the descripcion to set
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	
-	
+
 }

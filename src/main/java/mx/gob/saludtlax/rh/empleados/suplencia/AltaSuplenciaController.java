@@ -333,6 +333,7 @@ public class AltaSuplenciaController implements Serializable {
 				view.getAltaSuplencia().setNumeroQuincena(view.getNumeroQuincenaActual());
 				view.getAltaSuplencia().setEjercicioFiscal(view.getEjercicioActivo());
 				view.getAltaSuplencia().setIdSuplenteAutorizado(view.getIdSuplente());
+				view.getAltaSuplencia().setIdUsuarioLogeado(view.getIdUsuario());
 				Integer idQuincena = suplencia.crearDetalleSuplencia(view.getAltaSuplencia());
 
 				view.setIdQuincena(idQuincena);

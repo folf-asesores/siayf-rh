@@ -20,14 +20,14 @@ import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoEntity;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDEntity;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoOPDRepository;
 import mx.gob.saludtlax.rh.persistencia.FuenteFinanciamientoRepository;
-import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoEntity;
-import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoRepository;
+import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempEntity;
+import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempRepository;
 import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 @Stateless
 public class FuenteFinanciamientoService {
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
 
 	@Inject
@@ -35,7 +35,7 @@ public class FuenteFinanciamientoService {
 	@Inject
 	private FuenteFinanciamientoOPDRepository fuenteFinanciamientoOPDDAO;
 	@Inject
-	private SubfuenteFinanciamientoRepository subfuenteFinanciamientoDAO;
+	private SubFuenteFinanciamientoTempRepository subfuenteFinanciamientoDAO;
 	@Inject
 	private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
 
@@ -252,14 +252,9 @@ public class FuenteFinanciamientoService {
 	}
 
 	public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
-		SubfuenteFinanciamientoEntity entity = new SubfuenteFinanciamientoEntity();
+		SubFuenteFinanciamientoTempEntity entity = new SubFuenteFinanciamientoTempEntity();
 		entity.setIdBase36(dto.getIdBase36());
-		FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
-				.obtenerPorId(dto.getIdFuenteFinanciamiento());
-		entity.setIdFuenteFinanciamiento(fuenteFinanciamientoEntity);
-		FuenteFinanciamientoOPDEntity fuenteFinanciamientoOPDEntity = fuenteFinanciamientoOPDDAO
-				.obtenerPorId(dto.getIdFuenteFinanciamientoOPD());
-		entity.setIdFuenteFinanciamientoOPD(fuenteFinanciamientoOPDEntity);
+		entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.crear(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
@@ -280,22 +275,17 @@ public class FuenteFinanciamientoService {
 	}
 
 	public SubfuenteFinanciamientoDTO actualizarSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
-		SubfuenteFinanciamientoEntity entity = subfuenteFinanciamientoDAO
+		SubFuenteFinanciamientoTempEntity entity = subfuenteFinanciamientoDAO
 				.obtenerPorId(dto.getIdSubfuenteFinanciamiento());
 		entity.setIdBase36(dto.getIdBase36());
-		FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
-				.obtenerPorId(dto.getIdFuenteFinanciamiento());
-		entity.setIdFuenteFinanciamiento(fuenteFinanciamientoEntity);
-		FuenteFinanciamientoOPDEntity fuenteFinanciamientoOPDEntity = fuenteFinanciamientoOPDDAO
-				.obtenerPorId(dto.getIdFuenteFinanciamientoOPD());
-		entity.setIdFuenteFinanciamientoOPD(fuenteFinanciamientoOPDEntity);
+		entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.actualizar(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
 	}
 
 	public void eliminarSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
-		SubfuenteFinanciamientoEntity entity = entityManager.find(SubfuenteFinanciamientoEntity.class,
+		SubFuenteFinanciamientoTempEntity entity = entityManager.find(SubFuenteFinanciamientoTempEntity.class,
 				dto.getIdSubfuenteFinanciamiento());
 		entityManager.remove(entity);
 	}

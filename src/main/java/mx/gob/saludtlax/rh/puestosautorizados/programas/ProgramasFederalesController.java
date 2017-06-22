@@ -47,48 +47,36 @@ public class ProgramasFederalesController implements Serializable {
 	@PostConstruct
 	public void inicio() {
 
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
 		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession
-				.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+		UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 		view.setIdUsuarioLogeado(usuario.getIdUsuario());
 
 		view.setProgramas(programa.consultarProgramas());
-		view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo
-				.listaPuestos()));
-		view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo
-				.listaDependencias()));
-		view.setListaFuentesFinanciamiento(SelectItemsUtil
-				.listaCatalogos(catalogo.listaFuentesFinanciamientos()));
-		view.setListaTiposRecursos(SelectItemsUtil.listaCatalogos(catalogo
-				.listaTiposRecursos()));
-		view.setListaCuentaFinanciamiento(SelectItemsUtil
-				.listaCatalogos(catalogo.consultarCuentasBancariasActuales()));
-		view.setListaProyectos(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarProyectos()));
+		view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+		view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
+		view.setListaFuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.listaFuentesFinanciamientos()));
+		view.setListaTiposRecursos(SelectItemsUtil.listaCatalogos(catalogo.listaTiposRecursos()));
+		view.setListaCuentaFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.consultarCuentasBancariasActuales()));
+		view.setListaProyectos(SelectItemsUtil.listaCatalogos(catalogo.consultarProyectos()));
 
 	}
 
 	public void obtenerUnidadesResponsablesPrograma() {
 		view.getListaUnidadesResponsables().clear();
 		if (view.getNuevoPrograma().getIdDependencia() != 0) {
-			view.setListaUnidadesResponsables(SelectItemsUtil
-					.listaCatalogos(catalogo
-							.listaUnidadesResponsablesPorDependencia(view
-									.getNuevoPrograma().getIdDependencia())));
+			view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
+					catalogo.listaUnidadesResponsablesPorDependencia(view.getNuevoPrograma().getIdDependencia())));
 		}
 
 	}
 
 	public void obtenerUnidadesResponsablesEdicionPrograma() {
 		view.getListaUnidadesResponsables().clear();
-		if (view.getEdicionPrograma().getIdDependencia() != null
-				&& view.getEdicionPrograma().getIdDependencia() != 0) {
-			view.setListaUnidadesResponsables(SelectItemsUtil
-					.listaCatalogos(catalogo
-							.listaUnidadesResponsablesPorDependencia(view
-									.getEdicionPrograma().getIdDependencia())));
+		if (view.getEdicionPrograma().getIdDependencia() != null && view.getEdicionPrograma().getIdDependencia() != 0) {
+			view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
+					catalogo.listaUnidadesResponsablesPorDependencia(view.getEdicionPrograma().getIdDependencia())));
 		}
 
 	}
@@ -98,11 +86,9 @@ public class ProgramasFederalesController implements Serializable {
 		view.getListaSubfuentesFinanciamiento().clear();
 		if (view.getNuevoPrograma().getIdFuenteFinanciamiento() != null
 				&& view.getNuevoPrograma().getIdFuenteFinanciamiento() != 0) {
-			this.view
-					.setListaSubfuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo
-							.listaSubfuentesFinanciamientosPorFinanciamiento(view
-									.getNuevoPrograma()
-									.getIdFuenteFinanciamiento())));
+			this.view.setListaSubfuentesFinanciamiento(
+					SelectItemsUtil.listaCatalogos(catalogo.listaSubfuentesFinanciamientosPorFinanciamiento(
+							view.getNuevoPrograma().getIdFuenteFinanciamiento())));
 		}
 
 	}
@@ -112,20 +98,20 @@ public class ProgramasFederalesController implements Serializable {
 		view.getListaSubfuentesFinanciamiento().clear();
 		if (view.getEdicionPrograma().getIdFuenteFinanciamiento() != null
 				&& view.getEdicionPrograma().getIdFuenteFinanciamiento() != 0) {
-			view.setListaSubfuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo
-					.listaSubfuentesFinanciamientosPorFinanciamiento(view
-							.getEdicionPrograma().getIdFuenteFinanciamiento())));
+			view.setListaSubfuentesFinanciamiento(
+					SelectItemsUtil.listaCatalogos(catalogo.listaSubfuentesFinanciamientosPorFinanciamiento(
+							view.getEdicionPrograma().getIdFuenteFinanciamiento())));
 		}
 
 	}
 
 	public void registrarPrograma() {
 		try {
-			programa.crearPrograma(view.getNuevoPrograma(),
-					view.getIdUsuarioLogeado());
+			programa.crearPrograma(view.getNuevoPrograma(), view.getIdUsuarioLogeado());
 			view.setNuevoPrograma(new ProgramaDTO());
 			view.setProgramas(programa.consultarProgramas());
 			view.setMostrarRegistroPrograma(false);
+			JSFUtils.infoMessage("", "El programa se ha registrado con éxito.");
 		} catch (ReglaNegocioException exception) {
 			JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
 		}
@@ -134,16 +120,13 @@ public class ProgramasFederalesController implements Serializable {
 	public void registrarDetallePrograma() {
 		try {
 			view.getDetallePrograma().setIdUsuario(view.getIdUsuarioLogeado());
-			view.getDetallePrograma().setIdTipoDetalle(
-					EnumTipoDetallePrograma.PARTIDA);
+			view.getDetallePrograma().setIdTipoDetalle(EnumTipoDetallePrograma.PARTIDA);
 			programa.crearDetallePrograma(view.getDetallePrograma());
-			view.setDetalles(programa.consultarDetallesProgramas(view
-					.getDetallePrograma().getIdPrograma()));
+			view.setDetalles(programa.consultarDetallesProgramas(view.getDetallePrograma().getIdPrograma()));
 			view.setDetallePrograma(new DetalleProgramaDTO());
 
 		} catch (ReglaNegocioException exception) {
-			JSFUtils.errorMessageEspecifico("errorDetalle", "",
-					exception.getMessage());
+			JSFUtils.errorMessageEspecifico("errorDetalle", "", exception.getMessage());
 		}
 	}
 
@@ -160,8 +143,7 @@ public class ProgramasFederalesController implements Serializable {
 		view.getDetalles().clear();
 		view.setDetalles(programa.consultarDetallesProgramas(idPrograma));
 		view.getDetallePrograma().setIdPrograma(idPrograma);
-		view.getDetallePrograma().setIdTipoDetalle(
-				EnumTipoDetallePrograma.PARTIDA);
+		view.getDetallePrograma().setIdTipoDetalle(EnumTipoDetallePrograma.PARTIDA);
 		view.setMostrarDetallePartida(true);
 	}
 
@@ -171,8 +153,7 @@ public class ProgramasFederalesController implements Serializable {
 
 	public void seleccionarTipoDetalle() {
 		view.setMostrarDetallePartida(false);
-		if (view.getDetallePrograma().getIdTipoDetalle()
-				.equals(EnumTipoDetallePrograma.PARTIDA)) {
+		if (view.getDetallePrograma().getIdTipoDetalle().equals(EnumTipoDetallePrograma.PARTIDA)) {
 			view.setMostrarDetallePartida(true);
 		}
 	}
@@ -180,15 +161,11 @@ public class ProgramasFederalesController implements Serializable {
 	public void calcularTotal() {
 
 		view.getDetallePrograma().setTotalGlobal(BigDecimal.ZERO);
-		if (ValidacionUtil.esNumeroPositivo(view.getDetallePrograma()
-				.getNumeroPersonas())
-				&& ValidacionUtil.esNumeroPositivo(view.getDetallePrograma()
-						.getCostoUnitario())) {
+		if (ValidacionUtil.esNumeroPositivo(view.getDetallePrograma().getNumeroPersonas())
+				&& ValidacionUtil.esNumeroPositivo(view.getDetallePrograma().getCostoUnitario())) {
 
-			BigDecimal numero = new BigDecimal(view.getDetallePrograma()
-					.getNumeroPersonas());
-			BigDecimal total = numero.multiply(view.getDetallePrograma()
-					.getCostoUnitario());
+			BigDecimal numero = new BigDecimal(view.getDetallePrograma().getNumeroPersonas());
+			BigDecimal total = numero.multiply(view.getDetallePrograma().getCostoUnitario());
 			view.getDetallePrograma().setTotalGlobal(total);
 
 		}
@@ -196,8 +173,7 @@ public class ProgramasFederalesController implements Serializable {
 
 	public void seleccionarEdicionPrograma(Integer idPrograma) {
 		view.setMostrarEdicion(true);
-		view.setEdicionPrograma(programa
-				.obtenerDetalleProgramaPorId(idPrograma));
+		view.setEdicionPrograma(programa.obtenerDetalleProgramaPorId(idPrograma));
 		obtenerUnidadesResponsablesEdicionPrograma();
 		obtenerSubfuentesFinanciamientoEdicionPrograma();
 	}
@@ -208,8 +184,7 @@ public class ProgramasFederalesController implements Serializable {
 			view.setMostrarEdicion(false);
 			JSFUtils.infoMessage("", "El programa ha sido editada con éxito.");
 		} catch (ValidacionException exception) {
-			JSFUtils.errorMessageEspecifico("errorEdicion", "",
-					exception.getMessage());
+			JSFUtils.errorMessageEspecifico("errorEdicion", "", exception.getMessage());
 		}
 	}
 

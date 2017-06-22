@@ -29,6 +29,7 @@ import mx.gob.saludtlax.rh.persistencia.TipoRecursoTempEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoRecursoTempRepository;
 import mx.gob.saludtlax.rh.persistencia.UnidadResponsableEntity;
 import mx.gob.saludtlax.rh.persistencia.UnidadResponsableRepository;
+import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
@@ -58,7 +59,6 @@ public class ProgramaService {
 	@Inject
 	private DetalleProgramaRepository detalleProgramaRepository;
 
-	
 	protected void crearPrograma(ProgramaDTO programaDTO, Integer idUsuario) {
 
 		validarPrograma(programaDTO);
@@ -83,6 +83,7 @@ public class ProgramaService {
 		entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 		entity.setTipoRecurso(tipoRecursoTempEntity);
 		entity.setUnidadResponsable(unidadResponsable);
+		entity.setFechaAlta(FechaUtil.fechaActual());
 		programaRepository.crear(entity);
 
 	}
@@ -329,6 +330,7 @@ public class ProgramaService {
 		entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 		entity.setTipoRecurso(tipoRecursoTempEntity);
 		entity.setUnidadResponsable(unidadResponsable);
+		entity.setFechaUltimaActualizacion(FechaUtil.fechaActual());
 		programaRepository.actualizar(entity);
 
 	}

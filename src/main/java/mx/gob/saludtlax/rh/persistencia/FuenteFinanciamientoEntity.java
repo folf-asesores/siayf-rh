@@ -25,29 +25,58 @@ public class FuenteFinanciamientoEntity implements Serializable {
 
 	@Column(name = "id_base_36")
 	private String idBase36;
+
 	@Column(name = "descripcion")
 	private String descripcion;
-	
-//	<Getters & Setters>
-	
+
+	@Column(name = "id_sistema_salud")
+	private int idSistemaSalud;
+
+	@Column(name = "id_origen_recurso")
+	private int idOrigenRecurso;
+
+	// <Getters & Setters>
+
 	public Integer getIdFuenteFinanciamiento() {
 		return idFuenteFinanciamiento;
 	}
+
+	public int getIdSistemaSalud() {
+		return idSistemaSalud;
+	}
+
+	public void setIdSistemaSalud(int idSistemaSalud) {
+		this.idSistemaSalud = idSistemaSalud;
+	}
+
+	public int getIdOrigenRecurso() {
+		return idOrigenRecurso;
+	}
+
+	public void setIdOrigenRecurso(int idOrigenRecurso) {
+		this.idOrigenRecurso = idOrigenRecurso;
+	}
+
 	public void setIdFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
 		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
 	}
+
 	public String getIdBase36() {
 		return idBase36;
 	}
+
 	public void setIdBase36(String idBase36) {
 		this.idBase36 = idBase36;
 	}
+
 	public String getDescripcion() {
 		return descripcion;
 	}
+
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}

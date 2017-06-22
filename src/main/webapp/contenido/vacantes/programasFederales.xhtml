@@ -6,10 +6,12 @@
 	xmlns:p="http://primefaces.org/ui"
 	template="/plantillas/principal-con-menu.xhtml">
 
-	<ui:param name="ventanaTitulo" value="Programas Federales" />
-	<ui:param name="moduloTitulo" value="Programas Federales" />
+	<ui:param name="ventanaTitulo" value="Programas" />
+	<ui:param name="moduloTitulo" value="Programas" />
 	<ui:define name="moduloContenido">
 		<h:form id="form">
+			<p:messages id="messages_generales" showDetail="true"
+				autoUpdate="false" closable="true" />
 			<p:dataTable id="programas"
 				value="#{programasFederales.view.programas}" var="e"
 				paginator="true" paginatorPosition="bottom" rows="5"
@@ -18,24 +20,27 @@
 				rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
 				<f:facet name="header">
 					<div align="right">
-						<p:commandLink title="Nuevo registro"
-							action="#{programasFederales.visualizarRegistroPrograma()}"
-							update="form" process="@this">
-							<span class="ui-icon-plus fm-font-color-white" />
-						</p:commandLink>
+
+						<p:commandButton icon="ui-icon-plus" iconPos="right"
+							value="Nuevo Programa" update="form"
+							actionListener="#{programasFederales.visualizarRegistroPrograma()}"
+							process="@this" />
+
 					</div>
 				</f:facet>
 				<p:column headerText="Programa">
 					<h:outputText value="#{e.programa}" />
 				</p:column>
 				<p:column headerText="Opciones">
-					<p:commandButton icon="ui-icon-plus"
+					<p:commandButton icon="ui-icon-plus" iconPos="right"
+						value="Detalles Programa"
 						actionListener="#{programasFederales.visualizarDetallePrograma(e.idPrograma)}"
-						update="form" styleClass="fm-btn-exitoso fm-btn-elevado"></p:commandButton>
+						update="form"></p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil" iconPos="right"
+						value="Edición Programa"
 						actionListener="#{programasFederales.seleccionarEdicionPrograma(e.idPrograma)}"
-						update="form" styleClass="fm-btn-exitoso fm-btn-elevado" />
+						update="form" />
 				</p:column>
 			</p:dataTable>
 
@@ -122,8 +127,9 @@
 					</p:selectOneMenu>
 
 					<div align="right">
-						<p:commandButton icon="ui-icon-circle-check" update="form"
-							action="#{programasFederales.registrarPrograma()}"
+						<p:commandButton icon="ui-icon-circle-check"
+							update="form,messages_generales, error"
+							actionListener="#{programasFederales.registrarPrograma()}"
 							oncomplete="mymessages();" />
 						<p:spacer width="20" />
 						<p:commandButton icon="ui-icon-circle-close" update="form"
@@ -218,7 +224,7 @@
 
 					<div align="right">
 						<p:commandButton icon="ui-icon-circle-check" update="form"
-							action="#{programasFederales.editarPrograma()}"
+							actionListener="#{programasFederales.editarPrograma()}"
 							oncomplete="mymessages();" />
 						<p:spacer width="20" />
 						<p:commandButton icon="ui-icon-circle-close" update="form"
@@ -230,51 +236,25 @@
 			</p:dialog>
 
 
-			<p:dialog header="Nuevo Detalle" id="nuevo_detalle"
+			<p:dialog header="Detalle Programa" id="nuevo_detalle"
 				visible="#{programasFederales.view.mostrarRegistroDetalle}"
 				modal="true" closable="false" height="500">
 
-				<p:dataTable id="detalles"
-					value="#{programasFederales.view.detalles}" var="d"
-					paginator="true" paginatorPosition="bottom" rows="5"
-					currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
-					<p:column headerText="Estatus">
-						<h:outputText value="#{d.estatus}" />
-					</p:column>
-					<p:column headerText="Clave">
-						<h:outputText value="#{d.clave}" />
-					</p:column>
-					<p:column headerText="Descripcion">
-						<h:outputText value="#{d.descripcion}" />
-					</p:column>
-					<p:column headerText="Numero Personas">
-						<h:outputText value="#{d.numeroPersonas}" />
-					</p:column>
-					<p:column headerText="Meses Contratación">
-						<h:outputText value="#{d.mesesContratacion}" />
-					</p:column>
-					<p:column headerText="Precio Unitario">
-						<h:outputText value="#{d.precioUnitario}" />
-					</p:column>
-					<p:column headerText="Total">
-						<h:outputText value="#{d.totalGlobal}" />
-					</p:column>
-				</p:dataTable>
-
-
-
-				<p:panelGrid columns="3"
-					columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
+				<p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
-					<p:spacer></p:spacer>
+
+
+
+
+
 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
 						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+
 
 						<f:facet name="header">
 							<p:messages id="errorDetalle" showDetail="true"
 								autoUpdate="false" severity="error" closable="true" />
+							<h3>Registro Nuevo Detalle</h3>
 						</f:facet>
 
 
@@ -331,8 +311,39 @@
 						</div>
 
 					</p:panelGrid>
-					<p:spacer></p:spacer>
+
+					<p:dataTable id="detalles"
+						value="#{programasFederales.view.detalles}" var="d"
+						paginator="true" paginatorPosition="bottom" rows="5"
+						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+						<p:column headerText="Estatus">
+							<h:outputText value="#{d.estatus}" />
+						</p:column>
+						<p:column headerText="Clave">
+							<h:outputText value="#{d.clave}" />
+						</p:column>
+						<p:column headerText="Descripcion">
+							<h:outputText value="#{d.descripcion}" />
+						</p:column>
+						<p:column headerText="Numero Personas">
+							<h:outputText value="#{d.numeroPersonas}" />
+						</p:column>
+						<p:column headerText="Meses Contratación">
+							<h:outputText value="#{d.mesesContratacion}" />
+						</p:column>
+						<p:column headerText="Precio Unitario">
+							<h:outputText value="#{d.precioUnitario}" />
+						</p:column>
+						<p:column headerText="Total">
+							<h:outputText value="#{d.totalGlobal}" />
+						</p:column>
+					</p:dataTable>
+
+
 				</p:panelGrid>
+
 			</p:dialog>
 		</h:form>
 	</ui:define>

@@ -87,7 +87,7 @@ public class CatalogoService {
 	@Inject
 	private FuenteFinanciamientoRepository fuenteFinanciamientoRepository;
 	@Inject
-	private SubfuenteFinanciamientoRepository subfuentefinanciamientoRepository;
+	private SubFuenteFinanciamientoTempRepository subfuentefinanciamientoRepository;
 	@Inject
 	private TipoRecursoTempRepository tipoRecursoTempRepository;
 	@Inject
@@ -696,7 +696,7 @@ public class CatalogoService {
 			for (FuenteFinanciamientoEntity entity : fuentes_financiamientos) {
 				CatalogoDTO dto = new CatalogoDTO();
 				dto.setId(entity.getIdFuenteFinanciamiento());
-				dto.setNombre(entity.getDescripcion());
+				dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
 				lista.add(dto);
 			}
 		}
@@ -716,7 +716,7 @@ public class CatalogoService {
 			for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
 				CatalogoDTO dto = new CatalogoDTO();
 				dto.setId(entity.getIdSubfuenteFinanciamiento());
-				dto.setNombre(entity.getDescripcion());
+				dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
 				lista.add(dto);
 			}
 		}
@@ -736,7 +736,7 @@ public class CatalogoService {
 			for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
 				CatalogoDTO dto = new CatalogoDTO();
 				dto.setId(entity.getIdSubfuenteFinanciamiento());
-				dto.setNombre(entity.getDescripcion());
+				dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
 				lista.add(dto);
 			}
 		}
@@ -756,7 +756,7 @@ public class CatalogoService {
 			for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
 				CatalogoDTO dto = new CatalogoDTO();
 				dto.setId(entity.getIdSubfuenteFinanciamiento());
-				dto.setNombre(entity.getDescripcion());
+				dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
 				lista.add(dto);
 			}
 		}
@@ -1295,7 +1295,7 @@ public class CatalogoService {
 		}
 		return lista;
 	}
-	
+
 	protected CatalogoDTO obtenerAdscripcionPorId(Integer idAdscripcion) {
 		AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(idAdscripcion);
 
@@ -1306,6 +1306,5 @@ public class CatalogoService {
 		}
 		return dto;
 	}
-	
-	
+
 }

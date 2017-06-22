@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 import mx.gob.saludtlax.rh.acciones.AccionDTO;
-import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccion;
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
 import mx.gob.saludtlax.rh.modulos.ModuloDTO;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionRepository;
@@ -16,7 +15,6 @@ import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionRepository;
-import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 
 @Stateless

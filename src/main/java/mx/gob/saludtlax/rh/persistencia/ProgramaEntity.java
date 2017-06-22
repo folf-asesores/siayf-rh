@@ -4,6 +4,7 @@
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -65,6 +66,28 @@ public class ProgramaEntity implements Serializable {
 	@JoinColumn(name = "id_cuenta")
 	private CuentasBancariasEntity cuenta;
 
+	@Column(name = "fecha_alta")
+	private Date fechaAlta;
+
+	@Column(name = "fecha_ultima_actualizacion")
+	private Date fechaUltimaActualizacion;
+
+	public Date getFechaAlta() {
+		return fechaAlta;
+	}
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
+	}
+
+	public Date getFechaUltimaActualizacion() {
+		return fechaUltimaActualizacion;
+	}
+
+	public void setFechaUltimaActualizacion(Date fechaUltimaActualizacion) {
+		this.fechaUltimaActualizacion = fechaUltimaActualizacion;
+	}
+
 	public Integer getIdTipoConfiguracion() {
 		return idTipoConfiguracion;
 	}
@@ -101,8 +124,7 @@ public class ProgramaEntity implements Serializable {
 		return fuenteFinanciamiento;
 	}
 
-	public void setFuenteFinanciamiento(
-			FuenteFinanciamientoEntity fuenteFinanciamiento) {
+	public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
 		this.fuenteFinanciamiento = fuenteFinanciamiento;
 	}
 
@@ -110,8 +132,7 @@ public class ProgramaEntity implements Serializable {
 		return subfuenteFinanciamiento;
 	}
 
-	public void setSubfuenteFinanciamiento(
-			SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+	public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
 		this.subfuenteFinanciamiento = subfuenteFinanciamiento;
 	}
 

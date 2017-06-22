@@ -12,7 +12,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 import mx.gob.saludtlax.rh.empleados.suplencia.InfoSuplenciaDTO;
 import mx.gob.saludtlax.rh.empleados.suplencia.SuplenciasQuincenaDTO;
@@ -59,7 +75,6 @@ import mx.gob.saludtlax.rh.persistencia.Repository;
 import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempEntity;
 import mx.gob.saludtlax.rh.persistencia.SubFuenteFinanciamientoTempRepository;
 import mx.gob.saludtlax.rh.persistencia.SubclasificacionTabuladorEntity;
-import mx.gob.saludtlax.rh.persistencia.SubfuenteFinanciamientoEntity;
 import mx.gob.saludtlax.rh.persistencia.SuplenteAutorizadoEntity;
 import mx.gob.saludtlax.rh.persistencia.TabuladorEntity;
 import mx.gob.saludtlax.rh.persistencia.TipoContratacionEntity;
@@ -83,19 +98,6 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import mx.gob.saludtlax.rh.vacantes.consulta.DatoGeneralCandidatoDTO;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  *
@@ -173,7 +175,7 @@ public class AperturaNominaRfcTest {
         jar.addClass(RamaEntity.class);
         jar.addClass(SistemaException.class);
         jar.addClass(SubclasificacionTabuladorEntity.class);
-        jar.addClass(SubfuenteFinanciamientoEntity.class);
+     //   jar.addClass(SubfuenteFinanciamientoEntity.class);
         jar.addClass(SubFuenteFinanciamientoTempEntity.class);
         jar.addClass(SubFuenteFinanciamientoTempRepository.class);
         jar.addClass(SuplenciasQuincenaDTO.class);

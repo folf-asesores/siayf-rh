@@ -79,7 +79,7 @@ public class DividirNominaTest {
         jar.addClass(PuestoGeneralEntity.class);
         jar.addClass(RamaEntity.class);
         jar.addClass(SubclasificacionTabuladorEntity.class);
-        jar.addClass(SubfuenteFinanciamientoEntity.class);
+    //    jar.addClass(SubfuenteFinanciamientoEntity.class);
         jar.addClass(SubFuenteFinanciamientoTempEntity.class);
         jar.addClass(TabuladorEntity.class);
         jar.addClass(TipoContratacionEntity.class);
