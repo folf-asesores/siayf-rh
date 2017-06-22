@@ -18,7 +18,7 @@
 
 			<p:messages id="messages_generales" showDetail="true"
 				autoUpdate="false" closable="true" />
-
+ <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true"/> 
 
 			<p:panelGrid layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
 				columns="3"
@@ -39,8 +39,8 @@
 
 			</p:panelGrid>
 
-			<p:dataTable id="tablaPuesto" editable="true" var="s" scrollRows="10"
-				scrollable="true" value="#{altaSuplencia.view.suplentesAutorizados}"
+			<p:dataTable id="tablaPuesto" editable="true" var="s" 
+				 value="#{altaSuplencia.view.suplentesAutorizados}"
 				emptyMessage="No se encontrarón resultados" paginator="true"
 				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
 				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
@@ -139,8 +139,8 @@
 
 
 
-			<p:dataTable id="detalles" editable="true" var="d" scrollRows="10"
-				scrollable="true" value="#{altaSuplencia.view.detallesSuplencias}"
+			<p:dataTable id="detalles" editable="true" var="d" 
+				value="#{altaSuplencia.view.detallesSuplencias}"
 				emptyMessage="No se encontrarón resultados" paginator="true"
 				rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
 				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
@@ -263,7 +263,7 @@
 
 			<p:dialog header="Suplencia por rangos" id="nueva_suplencia"
 				visible="#{altaSuplencia.view.mostrarAltaSuplenciaRango}"
-				modal="true" closable="false" height="500" minWidth="400">
+				modal="true" closable="false" height="400" width="600">
 
 				<p:panelGrid layout="grid" columns="2" id="altaSuplencia"
 					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
@@ -367,7 +367,7 @@
 							update="form, error"></p:commandButton>
 						<p:spacer></p:spacer>
 						<p:commandButton value="Cancelar" icon="ui-icon-circle-close"
-							iconPos="right" styleClass="fm-btn-error" process="@this"
+							iconPos="right" styleClass="fm-btn-error" update="form"
 							actionListener="#{altaSuplencia.ocultarAltaSuplenciaRango()}"></p:commandButton>
 						<p:spacer></p:spacer>
 					</p:panelGrid>
@@ -376,7 +376,7 @@
 
 			<p:dialog header="Edición suplencia" id="edicion_suplencia"
 				appendTo="form" visible="#{altaSuplencia.view.mostrarEdicion}"
-				modal="true" closable="false" height="500" minWidth="400">
+				modal="true" closable="false" height="400" width="600">
 				<p:panelGrid columns="2" columnClasses="ui-grid-col-3,ui-grid-col-9"
 					layout="grid" styleClass="fm-tarjeta ui-fluid ">
 					<f:facet name="header">
@@ -466,7 +466,7 @@
 
 			<p:dialog header="Suplencia por días" id="dialog_suplencia_dias"
 				visible="#{altaSuplencia.view.mostrarAltaSuplenciaDias}"
-				modal="true" closable="false" height="500" minWidth="400">
+				modal="true" closable="false" height="400" width="600">
 
 				<p:panelGrid layout="grid" columns="2" id="panel_suplencias_dias"
 					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
@@ -544,7 +544,7 @@
 
 					<p:spacer></p:spacer>
 					<p:dataTable id="detallesAltasSuplencias" editable="true" var="d"
-						scrollRows="10" scrollable="true"
+						
 						value="#{altaSuplencia.view.altasSuplencias}"
 						emptyMessage="No se encontrarón resultados" paginator="true"
 						rows="5" paginatorAlwaysVisible="false" paginatorPosition="bottom"
@@ -599,7 +599,7 @@
 				header="Documentación Quincena #{altaSuplencia.view.numeroQuincenaActual}"
 				id="dialog_documentacion"
 				visible="#{altaSuplencia.view.mostrarDocumentacion}" modal="true"
-				closable="false" height="500" minWidth="400">
+				closable="false" height="400" width="600">
 
 				<p:dataTable emptyMessage="No se encontrarón resultados..."
 					value="#{altaSuplencia.view.documentosAdjuntos}" var="d">
