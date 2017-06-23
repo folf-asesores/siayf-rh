@@ -24,6 +24,8 @@ public class AdscripcionEntity implements Serializable {
 	/**
 	 * 
 	 */
+	
+	
 	private static final long serialVersionUID = 5399979720967258644L;
         
 	@Id
