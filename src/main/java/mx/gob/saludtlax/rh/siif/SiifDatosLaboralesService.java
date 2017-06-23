@@ -488,7 +488,7 @@ public class SiifDatosLaboralesService {
 		Query query = session.createSQLQuery(
 				"SELECT id_dependencia AS idDependencia, "
 				+ "descripcion AS descripcion "
-				+ "FROM dependencias");
+				+ "FROM dependencias_temp");
 		query.setResultTransformer(Transformers.aliasToBean(DependenciaDTO.class));
 		@SuppressWarnings("unchecked")
 		List<DependenciaDTO> result = (List<DependenciaDTO>) query.list();
