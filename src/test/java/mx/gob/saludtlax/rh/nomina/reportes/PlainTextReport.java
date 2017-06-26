@@ -70,8 +70,8 @@ public class PlainTextReport {
             out.print(getDetalle(3, "COHS910628CD4", "CONTRERAS HERNANDEZ SANDRA NELY", cal.getTime(), Calendar.getInstance().getTime(), percepciones3, deducciones3));
             out.print(getDetalle(4, "CUMM8702236M7", "CUECUECHA MENDIETA MARTHA PAOLA", cal.getTime(), Calendar.getInstance().getTime(), null, deducciones1));
             out.print(getDetalle(5, "CUMY910419HI3", "CUECUECHA MENDOZA YANET", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones2));
-            out.print(getDetalle(6, "CUSE890829LS7", "CUAMATZI SANCHEZ EDUARDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones3, deducciones1));
-            out.print(getDetalle(7, "CUSJ870703AG6", "CUAPIO SANCHEZ JAVIER", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, null));
+            out.print(getDetalle(6, "CUSE890829LS7", "CUAMATZI SANCHEZ EDUARDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, deducciones3));
+            out.print(getDetalle(7, "CUSJ870703AG6", "CUAPIO SANCHEZ JAVIER", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones3));
             out.print(getDetalle(8, "CUTJ8809095A0", "CUAHUTECATL TETLACUILO JEMMY", cal.getTime(), Calendar.getInstance().getTime(), null, null));
             out.print(getDetalle(9, "DESR741226269", "DELGADO SANTIAGO RUT", cal.getTime(), Calendar.getInstance().getTime(), null, null));
             out.print(getDetalle(10, "DOHE860510UT7", "DOMINGUEZ HERNANDEZ ELMAR ARMANDO", cal.getTime(), Calendar.getInstance().getTime(), null, null));
@@ -124,6 +124,9 @@ public class PlainTextReport {
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 } else if (deduccion != null) {
+                    if (percepciones.size() < deducciones.size()) {
+                        sb.append("\n                                                                                                                                                                ");
+                    }
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 }
