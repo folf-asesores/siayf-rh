@@ -5,8 +5,8 @@
  */
 package mx.gob.saludtlax.rh.nomina.reportes;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,8 +42,12 @@ public class PlainTextReport {
 
     @Test
     public void generarReporte() {
-        try(PrintWriter out = new PrintWriter("/home/neo_cs/report.txt" )) {
-            out.print(getEncabezado(1, "ATENCIÓN A LA SALUD", "2A.", Calendar.getInstance().getTime(), "SUBDIRECCIÓN DE PRIMER NIVEL", 1300));
+        String carpetaUsuario = System.getProperty("user.home");
+        String separador = System.getProperty("file.separator");
+        String nombreArchivo = "report.txt";
+
+        try(FileWriter out = new FileWriter(carpetaUsuario + separador + nombreArchivo)) {
+            out.write(getEncabezado(1, "ATENCIÓN A LA SALUD", "2A.", Calendar.getInstance().getTime(), "SUBDIRECCIÓN DE PRIMER NIVEL", 1300));
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.MONTH, 5);
             List<Percepcion> percepciones1 = new ArrayList<>();
@@ -65,17 +69,17 @@ public class PlainTextReport {
             deducciones3.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
             deducciones3.add(new Deduccion(62, "PENSION ALIMENTICIA", new BigDecimal("3516")));
 
-            out.print(getDetalle(1, "CAME750818R3A", "CAPORAL MENDIETA MA ELENA", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones1));
-            out.print(getDetalle(2, "COGO770228MU5", "CORDERO GONZALEZ OSVALDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, deducciones2));
-            out.print(getDetalle(3, "COHS910628CD4", "CONTRERAS HERNANDEZ SANDRA NELY", cal.getTime(), Calendar.getInstance().getTime(), percepciones3, deducciones3));
-            out.print(getDetalle(4, "CUMM8702236M7", "CUECUECHA MENDIETA MARTHA PAOLA", cal.getTime(), Calendar.getInstance().getTime(), null, deducciones1));
-            out.print(getDetalle(5, "CUMY910419HI3", "CUECUECHA MENDOZA YANET", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones2));
-            out.print(getDetalle(6, "CUSE890829LS7", "CUAMATZI SANCHEZ EDUARDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, deducciones3));
-            out.print(getDetalle(7, "CUSJ870703AG6", "CUAPIO SANCHEZ JAVIER", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones3));
-            out.print(getDetalle(8, "CUTJ8809095A0", "CUAHUTECATL TETLACUILO JEMMY", cal.getTime(), Calendar.getInstance().getTime(), null, null));
-            out.print(getDetalle(9, "DESR741226269", "DELGADO SANTIAGO RUT", cal.getTime(), Calendar.getInstance().getTime(), null, null));
-            out.print(getDetalle(10, "DOHE860510UT7", "DOMINGUEZ HERNANDEZ ELMAR ARMANDO", cal.getTime(), Calendar.getInstance().getTime(), null, null));
-        } catch (FileNotFoundException ex) {
+            out.write(getDetalle(1, "CAME750818R3A", "CAPORAL MENDIETA MA ELENA", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones1));
+            out.write(getDetalle(2, "COGO770228MU5", "CORDERO GONZALEZ OSVALDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, deducciones2));
+            out.write(getDetalle(3, "COHS910628CD4", "CONTRERAS HERNANDEZ SANDRA NELY", cal.getTime(), Calendar.getInstance().getTime(), percepciones3, deducciones3));
+            out.write(getDetalle(4, "CUMM8702236M7", "CUECUECHA MENDIETA MARTHA PAOLA", cal.getTime(), Calendar.getInstance().getTime(), null, deducciones1));
+            out.write(getDetalle(5, "CUMY910419HI3", "CUECUECHA MENDOZA YANET", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones2));
+            out.write(getDetalle(6, "CUSE890829LS7", "CUAMATZI SANCHEZ EDUARDO", cal.getTime(), Calendar.getInstance().getTime(), percepciones2, deducciones3));
+            out.write(getDetalle(7, "CUSJ870703AG6", "CUAPIO SANCHEZ JAVIER", cal.getTime(), Calendar.getInstance().getTime(), percepciones1, deducciones3));
+            out.write(getDetalle(8, "CUTJ8809095A0", "CUAHUTECATL TETLACUILO JEMMY", cal.getTime(), Calendar.getInstance().getTime(), null, null));
+            out.write(getDetalle(9, "DESR741226269", "DELGADO SANTIAGO RUT", cal.getTime(), Calendar.getInstance().getTime(), null, null));
+            out.write(getDetalle(10, "DOHE860510UT7", "DOMINGUEZ HERNANDEZ ELMAR ARMANDO", cal.getTime(), Calendar.getInstance().getTime(), null, null));
+        } catch (IOException ex) {
             // No importa el error
         }
     }
