@@ -100,6 +100,8 @@ public class DescargarInformacionEmpleadoController implements Serializable {
 	public void descagarInformacionEmpleadoBiometrico() {
 
 		try {
+			
+			//System.out.println("Descarga info: " + asignarEmpleadoRegistroBiometricoForm.getIdBiometrico()+"-- "+ asignarEmpleadoRegistroBiometricoForm.getIdEmpleado()+"--"+asignarEmpleadoRegistroBiometricoForm.getIdRegistroBiometrico());
 			BiometricoClientRestResponse response = biometricoClientRest
 					.asignarEmpleadoIdBiometrico(asignarEmpleadoRegistroBiometricoForm);
 
