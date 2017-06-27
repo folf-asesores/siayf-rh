@@ -3,6 +3,7 @@
  * Creado el 27/Mar/2017 10:45:10 AM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
 
 import java.io.FileWriter;
@@ -105,7 +106,6 @@ public class PlainTextReport {
         StringBuilder sb = new StringBuilder();
         sb.append((new Formatter(LOCALIZACION_MEXICO)).format(PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre, inicioPeriodoPago, finPeriodoPago).toString().toUpperCase());
         if (percepciones != null && deducciones != null) {
-            int count = 0;
             BigDecimal totalPercepciones = BigDecimal.ZERO;
             BigDecimal totalDeducciones = BigDecimal.ZERO;
             int limiteContador = percepciones.size() > deducciones.size() ?
@@ -114,7 +114,7 @@ public class PlainTextReport {
             for (int i = 0; i < limiteContador; i++) {
                 Percepcion percepcion = i < percepciones.size() ? percepciones.get(i) : null;
 
-                if(percepcion != null && count == 0) {
+                if(percepcion != null && i == 0) {
                     sb.append((new Formatter()).format(PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto()));
                     totalPercepciones = totalPercepciones.add(percepcion.getMonto());
                 } else if (percepcion != null) {
@@ -124,17 +124,16 @@ public class PlainTextReport {
 
                 Deduccion deduccion = i < deducciones.size() ? deducciones.get(i) : null;
 
-                if (deduccion != null && count == 0) {
+                if (deduccion != null && i == 0) {
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 } else if (deduccion != null) {
-                    if (percepciones.size() < deducciones.size()) {
+                    if (percepciones.size() < deducciones.size() && i >= percepciones.size()) {
                         sb.append("\n                                                                                                                                                                ");
                     }
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 }
-                count++;
             }
             sb.append((new Formatter()).format(PATRON_DETALLE_TOTALES, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones)));
             sb.append('\n');
