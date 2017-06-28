@@ -1,0 +1,135 @@
+/*
+ * PrenominaReporteTextoPlanoTest.java
+ * Creado el 27/Mar/2017 10:45:10 AM
+ *
+ */
+
+package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
+
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
+import org.junit.Test;
+
+/**
+ *
+ * @author Freddy Barrera (freddy.barrera@gmail.com)
+ */
+public class PrenominaReporteTextoPlanoTest {
+
+    @Test
+    public void generarReporte() throws IOException {
+        // Percepciones y deducciones
+        List<Percepcion> percepciones1 = new ArrayList<>();
+        percepciones1.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
+        List<Percepcion> percepciones2 = new ArrayList<>();
+        percepciones2.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones2.add(new Percepcion(26, "SUBSIDIO", new BigDecimal("55.5")));
+        List<Percepcion> percepciones3 = new ArrayList<>();
+        percepciones3.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones3.add(new Percepcion(26, "SUBSIDIO", new BigDecimal("55.5")));
+        percepciones3.add(new Percepcion(32, "OTROS", new BigDecimal("3300.00")));
+        List<Deduccion> deducciones1 = new ArrayList<>();
+        deducciones1.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
+        List<Deduccion> deducciones2 = new ArrayList<>();
+        deducciones2.add(new Deduccion(51, "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones2.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
+        List<Deduccion> deducciones3 = new ArrayList<>();
+        deducciones3.add(new Deduccion(51, "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones3.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
+        deducciones3.add(new Deduccion(62, "PENSION ALIMENTICIA", new BigDecimal("3516")));
+
+        // Nomina empleados
+        NominaEmpleado nominaCaporal = new NominaEmpleado();
+        nominaCaporal.setRfc("CAME750818R3A");
+        nominaCaporal.setNombre("CAPORAL MENDIETA MA ELENA");
+        nominaCaporal.setPercepciones(percepciones1);
+        nominaCaporal.setDeducciones(deducciones1);
+
+        NominaEmpleado nominaCordero = new NominaEmpleado();
+        nominaCordero.setRfc("COGO770228MU5");
+        nominaCordero.setNombre("CORDERO GONZALEZ OSVALDO");
+        nominaCordero.setPercepciones(percepciones2);
+        nominaCordero.setDeducciones(deducciones2);
+
+        NominaEmpleado nominaContreras = new NominaEmpleado();
+        nominaContreras.setRfc("COHS910628CD4");
+        nominaContreras.setNombre("CONTRERAS HERNANDEZ SANDRA NELY");
+        nominaContreras.setPercepciones(percepciones3);
+        nominaContreras.setDeducciones(deducciones3);
+
+        NominaEmpleado nominaCuecuecha = new NominaEmpleado();
+        nominaCuecuecha.setRfc("CUMM8702236M7");
+        nominaCuecuecha.setNombre("CUECUECHA MENDIETA MARTHA PAOLA");
+
+        NominaEmpleado nominaCuecuecha2 = new NominaEmpleado();
+        nominaCuecuecha2.setRfc("CUMY910419HI3");
+        nominaCuecuecha2.setNombre("CUECUECHA MENDOZA YANET");
+
+        NominaEmpleado nominaCuamatzi = new NominaEmpleado();
+        nominaCuamatzi.setRfc("CUSE890829LS7");
+        nominaCuamatzi.setNombre("CUAMATZI SANCHEZ EDUARDO");
+
+        NominaEmpleado nominaCuapio = new NominaEmpleado();
+        nominaCuapio.setRfc("CUSJ870703AG6");
+        nominaCuapio.setNombre("CUAPIO SANCHEZ JAVIER");
+
+        NominaEmpleado nominaCuahutecatl = new NominaEmpleado();
+        nominaCuahutecatl.setRfc("CUTJ8809095A0");
+        nominaCuahutecatl.setNombre("CUAHUTECATL TETLACUILO JEMMY");
+
+        NominaEmpleado nominaDelgado = new NominaEmpleado();
+        nominaDelgado.setRfc("DESR741226269");
+        nominaDelgado.setNombre("DELGADO SANTIAGO RUT");
+
+        NominaEmpleado nominaDominguez = new NominaEmpleado();
+        nominaDominguez.setRfc("DOHE860510UT7");
+        nominaDominguez.setNombre("DOMINGUEZ HERNANDEZ ELMAR ARMANDO");
+
+        List<NominaEmpleado> nominasEmpleados = new ArrayList<>();
+        nominasEmpleados.add(nominaCaporal);
+        nominasEmpleados.add(nominaCordero);
+        nominasEmpleados.add(nominaContreras);
+        nominasEmpleados.add(nominaCuecuecha);
+        nominasEmpleados.add(nominaCuecuecha2);
+        nominasEmpleados.add(nominaCuamatzi);
+        nominasEmpleados.add(nominaCuapio);
+        nominasEmpleados.add(nominaCuahutecatl);
+        nominasEmpleados.add(nominaDelgado);
+        nominasEmpleados.add(nominaDominguez);
+
+        // Unidades responsables
+        UnidadResponsable unidadResponsable = new UnidadResponsable();
+        unidadResponsable.setNumeroUnidadResponsable(1300);
+        unidadResponsable.setUnidadResponsable("SUBDIRECCIÓN DE PRIMER NIVEL");
+        unidadResponsable.setNominasEmpleados(nominasEmpleados);
+
+        List<UnidadResponsable> unidadesResponsables = new ArrayList<>();
+        unidadesResponsables.add(unidadResponsable);
+
+        // Programas
+        Programa programa = new Programa();
+        programa.setIdPrograma(1);
+        programa.setPrograma("ATENCIÓN A LA SALUD");
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.MONTH, 5);
+        programa.setInicioPeriodo(cal.getTime());
+        programa.setFinPeriodo(Calendar.getInstance().getTime());
+        programa.setUnidadesResponsables(unidadesResponsables);
+
+        List<Programa> programas = new ArrayList<>();
+        programas.add(programa);
+
+        // Producto de nómina
+        ProductoNominaBuilder productoNominaBuilder = new ProductoNominaBuilder(30, Calendar.getInstance().getTime(), programas);
+        ProductoNomina productoNomina = productoNominaBuilder.createProductoNomina();
+
+        PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
+        byte[] reporte = reporteTextoPlano.generar(productoNomina);
+        ArchivoUtil.guardarEnCarpetaUsuario(reporte, "prenomina.txt");
+    }
+
+}

@@ -44,9 +44,9 @@ public class ArchivoUtil {
     private static final String SEPARADOR_DE_ARCHIVO_UNIX = "\n";
     private static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
     private static final String CARPETA_USUARIO = System.getProperty("user.home");
-    private static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
-    private static final Charset MS_DOS_LATIN_CHARSET = Charset.forName("Cp850");
-    private static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+    public static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
+    public static final Charset MS_DOS_LATIN_CHARSET = Charset.forName("Cp850");
+    public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
 
     /**
