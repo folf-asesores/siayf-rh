@@ -25,7 +25,7 @@ public class PerfilUsuarioEntity implements Serializable {
 
 	@Column(name = "descripcion")
 	private String descripcion;
-	
+
 	/********* Getters and Setters *********/
 
 	public Integer getIdPerfil() {
@@ -52,7 +52,4 @@ public class PerfilUsuarioEntity implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 }

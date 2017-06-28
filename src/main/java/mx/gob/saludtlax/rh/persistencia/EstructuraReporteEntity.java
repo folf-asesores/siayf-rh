@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,97 +22,99 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "estructuras_reportes")
-public class EstructuraReporteEntity {
+public class EstructuraReporteEntity implements Serializable {
 
-	@Id
-	@Column(name = "id_estructura_reporte")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEstructuraReporte;
+    private static final long serialVersionUID = -8829278004818724632L;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_clasificacion_reporte")
-	private ClasificacionReporteEntity clasificacionReporte;
+    @Id
+    @Column(name = "id_estructura_reporte")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEstructuraReporte;
 
-	@Column(name = "texto_uno")
-	private String textoUno;
-	
-	@Column(name  = "fecha_posicion_uno")
-	private Date fechaPosicionUno;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_clasificacion_reporte")
+    private ClasificacionReporteEntity clasificacionReporte;
 
-	@Column(name = "texto_dos")
-	private String textoDos;
+    @Column(name = "texto_uno")
+    private String textoUno;
 
-	@Column(name = "sustituye")
-	private String sustituye;
+    @Column(name = "fecha_posicion_uno")
+    private Date fechaPosicionUno;
 
-	@Column(name = "nombre_secretario")
-	private String nombreSecretario;
+    @Column(name = "texto_dos")
+    private String textoDos;
 
-	@Column(name = "horario_trabajo")
-	private String horarioTrabajo;
+    @Column(name = "sustituye")
+    private String sustituye;
 
-	public Integer getIdEstructuraReporte() {
-		return idEstructuraReporte;
-	}
+    @Column(name = "nombre_secretario")
+    private String nombreSecretario;
 
-	public void setIdEstructuraReporte(Integer idEstructuraReporte) {
-		this.idEstructuraReporte = idEstructuraReporte;
-	}
+    @Column(name = "horario_trabajo")
+    private String horarioTrabajo;
 
-	public String getTextoUno() {
-		return textoUno;
-	}
+    public Integer getIdEstructuraReporte() {
+        return idEstructuraReporte;
+    }
 
-	public void setTextoUno(String textoUno) {
-		this.textoUno = textoUno;
-	}
+    public void setIdEstructuraReporte(Integer idEstructuraReporte) {
+        this.idEstructuraReporte = idEstructuraReporte;
+    }
 
-	public String getTextoDos() {
-		return textoDos;
-	}
+    public String getTextoUno() {
+        return textoUno;
+    }
 
-	public void setTextoDos(String textoDos) {
-		this.textoDos = textoDos;
-	}
+    public void setTextoUno(String textoUno) {
+        this.textoUno = textoUno;
+    }
 
-	public String getSustituye() {
-		return sustituye;
-	}
+    public String getTextoDos() {
+        return textoDos;
+    }
 
-	public void setSustituye(String sustituye) {
-		this.sustituye = sustituye;
-	}
+    public void setTextoDos(String textoDos) {
+        this.textoDos = textoDos;
+    }
 
-	public String getNombreSecretario() {
-		return nombreSecretario;
-	}
+    public String getSustituye() {
+        return sustituye;
+    }
 
-	public void setNombreSecretario(String nombreSecretario) {
-		this.nombreSecretario = nombreSecretario;
-	}
+    public void setSustituye(String sustituye) {
+        this.sustituye = sustituye;
+    }
 
-	public String getHorarioTrabajo() {
-		return horarioTrabajo;
-	}
+    public String getNombreSecretario() {
+        return nombreSecretario;
+    }
 
-	public void setHorarioTrabajo(String horarioTrabajo) {
-		this.horarioTrabajo = horarioTrabajo;
-	}
+    public void setNombreSecretario(String nombreSecretario) {
+        this.nombreSecretario = nombreSecretario;
+    }
 
-	public ClasificacionReporteEntity getClasificacionReporte() {
-		return clasificacionReporte;
-	}
+    public String getHorarioTrabajo() {
+        return horarioTrabajo;
+    }
 
-	public void setClasificacionReporte(ClasificacionReporteEntity clasificacionReporte) {
-		this.clasificacionReporte = clasificacionReporte;
-	}
+    public void setHorarioTrabajo(String horarioTrabajo) {
+        this.horarioTrabajo = horarioTrabajo;
+    }
 
-	public Date getFechaPosicionUno() {
-		return fechaPosicionUno;
-	}
+    public ClasificacionReporteEntity getClasificacionReporte() {
+        return clasificacionReporte;
+    }
 
-	public void setFechaPosicionUno(Date fechaPosicionUno) {
-		this.fechaPosicionUno = fechaPosicionUno;
-	}
+    public void setClasificacionReporte(ClasificacionReporteEntity clasificacionReporte) {
+        this.clasificacionReporte = clasificacionReporte;
+    }
+
+    public Date getFechaPosicionUno() {
+        return fechaPosicionUno;
+    }
+
+    public void setFechaPosicionUno(Date fechaPosicionUno) {
+        this.fechaPosicionUno = fechaPosicionUno;
+    }
 
 }

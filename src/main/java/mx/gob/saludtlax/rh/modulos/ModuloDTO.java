@@ -9,26 +9,25 @@ import mx.gob.saludtlax.rh.acciones.AccionDTO;
 public class ModuloDTO implements Serializable {
 
 	/**
-		 * 
+		 *
 		 */
 	private static final long serialVersionUID = -5233436540607958367L;
-	private Integer id_modulo;
+	private Integer idModulo;
 	private String nombre;
 	private String url;
 	private Boolean habilitado;
 	private Integer idArea;
 	private String nombreArea;
+	private List<AccionDTO> acciones = new ArrayList<>();
 
-	private List<AccionDTO> acciones = new ArrayList<AccionDTO>();
+	// *********** Getters and Setters ***********
 
-	/*********** Getters and Setters ***********/
-
-	public Integer getId_modulo() {
-		return id_modulo;
+	public Integer getIdModulo() {
+		return idModulo;
 	}
 
-	public void setId_modulo(Integer id_modulo) {
-		this.id_modulo = id_modulo;
+	public void setIdModulo(Integer idModulo) {
+		this.idModulo = idModulo;
 	}
 
 	public String getNombre() {

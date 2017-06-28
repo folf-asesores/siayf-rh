@@ -13,46 +13,43 @@ import javax.persistence.Table;
 @Table(name = "perfiles")
 public class PerfilUsuarioEntity implements Serializable {
 
-	private static final long serialVersionUID = 5040340950349093676L;
+    private static final long serialVersionUID = 5040340950349093676L;
 
-	@Id
-	@Column(name = "id_perfil")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idPerfil;
+    @Id
+    @Column(name = "id_perfil")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idPerfil;
 
-	@Column(name = "nombre")
-	private String nombre;
+    @Column(name = "nombre")
+    private String nombre;
 
-	@Column(name = "descripcion")
-	private String descripcion;
-	
-	/********* Getters and Setters *********/
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	public Integer getIdPerfil() {
-		return idPerfil;
-	}
+    /**
+     * ******* Getters and Setters ********
+     */
+    public Integer getIdPerfil() {
+        return idPerfil;
+    }
 
-	public void setIdPerfil(Integer idPerfil) {
-		this.idPerfil = idPerfil;
-	}
+    public void setIdPerfil(Integer idPerfil) {
+        this.idPerfil = idPerfil;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 }

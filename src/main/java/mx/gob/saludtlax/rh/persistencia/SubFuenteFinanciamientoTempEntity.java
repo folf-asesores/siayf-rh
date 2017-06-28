@@ -3,6 +3,7 @@
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,115 +19,112 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "subfuentes_financiamientos_temp")
-public class SubFuenteFinanciamientoTempEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_subfuente_financiamiento")
-	private Integer idSubfuenteFinanciamiento;
+public class SubFuenteFinanciamientoTempEntity implements Serializable {
 
-	@Column(name = "id_fuente_financiamiento")
-	private Integer idFuenteFinanciamiento;
+    private static final long serialVersionUID = 6938825378940666299L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_subfuente_financiamiento")
+    private Integer idSubfuenteFinanciamiento;
 
-	@Column(name = "id_fuente_financiamiento_opd")
-	private Integer idFuenteFinanciamientoOpd;
+    @Column(name = "id_fuente_financiamiento")
+    private Integer idFuenteFinanciamiento;
 
-	@Column(name = "id_base_36")
-	private String idBase36;
+    @Column(name = "id_fuente_financiamiento_opd")
+    private Integer idFuenteFinanciamientoOpd;
 
-	@Column(name = "descripcion")
-	private String descripcion;
+    @Column(name = "id_base_36")
+    private String idBase36;
 
-	@Column(name = "id_subfuente_financiamiento_salud")
-	private Integer idSubfuenteFinanciamientoSalud;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	@Override
-	public String toString() {
-		return "SubFuenteFinanciamientoEntity [id subfuente financiamiento=" + idSubfuenteFinanciamiento
-				+ ", id fuente financiamiento=" + idFuenteFinanciamiento + ", id fuente financiamiento opd="
-				+ idFuenteFinanciamientoOpd + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
-	}
+    @Column(name = "id_subfuente_financiamiento_salud")
+    private Integer idSubfuenteFinanciamientoSalud;
 
-	public Integer getIdSubfuenteFinanciamientoSalud() {
-		return idSubfuenteFinanciamientoSalud;
-	}
+    @Override
+    public String toString() {
+        return "SubFuenteFinanciamientoEntity [id subfuente financiamiento=" + idSubfuenteFinanciamiento
+                + ", id fuente financiamiento=" + idFuenteFinanciamiento + ", id fuente financiamiento opd="
+                + idFuenteFinanciamientoOpd + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
+    }
 
-	public void setIdSubfuenteFinanciamientoSalud(Integer idSubfuenteFinanciamientoSalud) {
-		this.idSubfuenteFinanciamientoSalud = idSubfuenteFinanciamientoSalud;
-	}
+    public Integer getIdSubfuenteFinanciamientoSalud() {
+        return idSubfuenteFinanciamientoSalud;
+    }
 
-	/**
-	 * @return the idSubfuenteFinanciamiento
-	 */
-	public Integer getIdSubfuenteFinanciamiento() {
-		return idSubfuenteFinanciamiento;
-	}
+    public void setIdSubfuenteFinanciamientoSalud(Integer idSubfuenteFinanciamientoSalud) {
+        this.idSubfuenteFinanciamientoSalud = idSubfuenteFinanciamientoSalud;
+    }
 
-	/**
-	 * @param idSubfuenteFinanciamiento
-	 *            the idSubfuenteFinanciamiento to set
-	 */
-	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
-		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
-	}
+    /**
+     * @return the idSubfuenteFinanciamiento
+     */
+    public Integer getIdSubfuenteFinanciamiento() {
+        return idSubfuenteFinanciamiento;
+    }
 
-	/**
-	 * @return the idFuenteFinanciamiento
-	 */
-	public Integer getIdFuenteFinanciamiento() {
-		return idFuenteFinanciamiento;
-	}
+    /**
+     * @param idSubfuenteFinanciamiento the idSubfuenteFinanciamiento to set
+     */
+    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+        this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
+    }
 
-	/**
-	 * @param idFuenteFinanciamiento
-	 *            the idFuenteFinanciamiento to set
-	 */
-	public void setIdFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
-		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
-	}
+    /**
+     * @return the idFuenteFinanciamiento
+     */
+    public Integer getIdFuenteFinanciamiento() {
+        return idFuenteFinanciamiento;
+    }
 
-	/**
-	 * @return the idFuenteFinanciamientoOpd
-	 */
-	public Integer getIdFuenteFinanciamientoOpd() {
-		return idFuenteFinanciamientoOpd;
-	}
+    /**
+     * @param idFuenteFinanciamiento the idFuenteFinanciamiento to set
+     */
+    public void setIdFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
+        this.idFuenteFinanciamiento = idFuenteFinanciamiento;
+    }
 
-	/**
-	 * @param idFuenteFinanciamientoOpd
-	 *            the idFuenteFinanciamientoOpd to set
-	 */
-	public void setIdFuenteFinanciamientoOpd(Integer idFuenteFinanciamientoOpd) {
-		this.idFuenteFinanciamientoOpd = idFuenteFinanciamientoOpd;
-	}
+    /**
+     * @return the idFuenteFinanciamientoOpd
+     */
+    public Integer getIdFuenteFinanciamientoOpd() {
+        return idFuenteFinanciamientoOpd;
+    }
 
-	/**
-	 * @return the idBase36
-	 */
-	public String getIdBase36() {
-		return idBase36;
-	}
+    /**
+     * @param idFuenteFinanciamientoOpd the idFuenteFinanciamientoOpd to set
+     */
+    public void setIdFuenteFinanciamientoOpd(Integer idFuenteFinanciamientoOpd) {
+        this.idFuenteFinanciamientoOpd = idFuenteFinanciamientoOpd;
+    }
 
-	/**
-	 * @param idBase36
-	 *            the idBase36 to set
-	 */
-	public void setIdBase36(String idBase36) {
-		this.idBase36 = idBase36;
-	}
+    /**
+     * @return the idBase36
+     */
+    public String getIdBase36() {
+        return idBase36;
+    }
 
-	/**
-	 * @return the descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
+    /**
+     * @param idBase36 the idBase36 to set
+     */
+    public void setIdBase36(String idBase36) {
+        this.idBase36 = idBase36;
+    }
 
-	/**
-	 * @param descripcion
-	 *            the descripcion to set
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 }

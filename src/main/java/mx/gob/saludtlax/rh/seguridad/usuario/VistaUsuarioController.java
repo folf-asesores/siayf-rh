@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
 import mx.gob.saludtlax.rh.acciones.Accion;
@@ -20,202 +19,202 @@ import mx.gob.saludtlax.rh.modulos.Modulos;
 @SessionScoped
 public class VistaUsuarioController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7274638001768881330L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7274638001768881330L;
 
-	@Inject
-	Usuario usuarioEjb;
+    @Inject
+    Usuario usuarioEjb;
 
-	@Inject
-	Modulos moduloEjb;
+    @Inject
+    Modulos moduloEjb;
 
-	@Inject
-	Accion accionEJB;
-	
-	@Inject
-	VistaUsuario vistaUsuarioEjb;
+    @Inject
+    Accion accionEJB;
 
-	@Inject
-	ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    VistaUsuario vistaUsuarioEjb;
 
-	@Inject
-	ConfiguracionUsuarioModulo configuracionUsuarioModulo;
+    @Inject
+    ConfiguracionModuloAccion configuracionModuloAccion;
 
-	@Inject
-	VistaUsuario vistaUsuario;
+    @Inject
+    ConfiguracionUsuarioModulo configuracionUsuarioModulo;
 
-	private VistaUsuarioView view;
-	private List<VistaUsuarioDTO> listaConfiguracion = new ArrayList<>();
-	private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario;
-	private List<ConfiguracionModuloAccionDTO> listaModulos = new ArrayList<>();
-	private List<UsuarioDTO> listaUsuarios = new ArrayList<>();
-	private UsuarioDTO usuarioSeleccionado;
-	private List<AccionDTO> listaAcciones = new ArrayList<>();
-	private VistaUsuarioDTO vistaModuloDTO;
-	private VistaUsuarioDTO vistaUsuarioNew;
-	private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioRestantes;
-	private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioSelect;
+    @Inject
+    VistaUsuario vistaUsuario;
 
-	@PostConstruct
-	public void inicio() {
-		view = new VistaUsuarioView();
+    private VistaUsuarioView view;
+    private List<VistaUsuarioDTO> listaConfiguracion = new ArrayList<>();
+    private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario;
+    private List<ConfiguracionModuloAccionDTO> listaModulos = new ArrayList<>();
+    private List<UsuarioDTO> listaUsuarios = new ArrayList<>();
+    private UsuarioDTO usuarioSeleccionado;
+    private List<AccionDTO> listaAcciones = new ArrayList<>();
+    private VistaUsuarioDTO vistaModuloDTO;
+    private VistaUsuarioDTO vistaUsuarioNew;
+    private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioRestantes;
+    private List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioSelect;
 
-		List<UsuarioDTO> list = usuarioEjb.consultarTodosUsuarios();
-		listaUsuarios.clear();
-		listaUsuarios.addAll(list);
+    @PostConstruct
+    public void inicio() {
+        view = new VistaUsuarioView();
 
-		view.setPrincipal(true);
-		view.setNueva(true);
-	}
+        List<UsuarioDTO> list = usuarioEjb.consultarTodosUsuarios();
+        listaUsuarios.clear();
+        listaUsuarios.addAll(list);
 
-	public String mostrarAccion() {
-		view.setAcciones(true);
-		view.setPrincipal(false);
-		view.setTabla(false);
-		listaConfiguracion.clear();
-		listaConfiguracionUsuario = configuracionUsuarioModulo
-				.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
-		listaConfiguracionUsuarioRestantes = configuracionUsuarioModulo
-				.obtenerListaRestantePorUsuario(usuarioSeleccionado.getIdUsuario());
-		return null;
-	}
+        view.setPrincipal(true);
+        view.setNueva(true);
+    }
 
-	public void agregarConfiguracionModuloAccion() {
-		vistaUsuario.crear(vistaUsuarioNew);
-		inicio();
-		vistaUsuarioNew = new VistaUsuarioDTO();
-	}
+    public String mostrarAccion() {
+        view.setAcciones(true);
+        view.setPrincipal(false);
+        view.setTabla(false);
+        listaConfiguracion.clear();
+        listaConfiguracionUsuario = configuracionUsuarioModulo
+                .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
+        listaConfiguracionUsuarioRestantes = configuracionUsuarioModulo
+                .obtenerListaRestantePorUsuario(usuarioSeleccionado.getIdUsuario());
+        return null;
+    }
 
-	public void agregarConfiguracionUsuario() {
+    public void agregarConfiguracionModuloAccion() {
+        vistaUsuario.crear(vistaUsuarioNew);
+        inicio();
+        vistaUsuarioNew = new VistaUsuarioDTO();
+    }
 
-		for (ConfiguracionUsuarioModuloDTO dto : listaConfiguracionUsuarioSelect) {
-			listaConfiguracionUsuario.add(dto);
-		}
-		listaConfiguracionUsuarioRestantes.removeAll(listaConfiguracionUsuarioSelect);
-	}
+    public void agregarConfiguracionUsuario() {
 
-	public void guardar() {
-		System.out.print("inicio");
-		
-		/*
+        for (ConfiguracionUsuarioModuloDTO dto : listaConfiguracionUsuarioSelect) {
+            listaConfiguracionUsuario.add(dto);
+        }
+        listaConfiguracionUsuarioRestantes.removeAll(listaConfiguracionUsuarioSelect);
+    }
+
+    public void guardar() {
+        System.out.print("inicio");
+
+        /*
 		List<ConfiguracionUsuarioModuloDTO>	listaConfiguracionUsuarioExistente = configuracionUsuarioModulo
 				.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
-		
+
 		for (ConfiguracionUsuarioModuloDTO configuracion : listaConfiguracionUsuarioExistente){
 			configuracionUsuarioModulo.eliminar(configuracion.getId_configuracion_usuario_modulo());
 		}
 		for (ConfiguracionUsuarioModuloDTO configuracion : listaConfiguracionUsuario){
 			configuracionUsuarioModulo.crear(configuracion);
 		}*/
-	}
-	
-	public void eliminar(ConfiguracionUsuarioModuloDTO eliminarConfiguracion){
-		configuracionUsuarioModulo.eliminar(eliminarConfiguracion.getId_configuracion_usuario_modulo());
-		listaConfiguracionUsuario = configuracionUsuarioModulo
-				.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
-	}
+    }
 
-	public void regresar() {
-		view.setAcciones(false);
-		view.setPrincipal(true);
-		view.setTabla(false);
-	}
+    public void eliminar(ConfiguracionUsuarioModuloDTO eliminarConfiguracion) {
+        configuracionUsuarioModulo.eliminar(eliminarConfiguracion.getIdConfiguracionUsuarioModulo());
+        listaConfiguracionUsuario = configuracionUsuarioModulo
+                .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
+    }
 
-	public void nuevaAccion() {
-		view.setPrincipal(false);
-		view.setNueva(true);
-		view.setTabla(true);
-	}
+    public void regresar() {
+        view.setAcciones(false);
+        view.setPrincipal(true);
+        view.setTabla(false);
+    }
 
-	public List<UsuarioDTO> getListaUsuarios() {
-		return listaUsuarios;
-	}
+    public void nuevaAccion() {
+        view.setPrincipal(false);
+        view.setNueva(true);
+        view.setTabla(true);
+    }
 
-	public void setListaUsuarios(List<UsuarioDTO> listaUsuarios) {
-		this.listaUsuarios = listaUsuarios;
-	}
+    public List<UsuarioDTO> getListaUsuarios() {
+        return listaUsuarios;
+    }
 
-	public VistaUsuarioView getView() {
-		return view;
-	}
+    public void setListaUsuarios(List<UsuarioDTO> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
 
-	public void setView(VistaUsuarioView view) {
-		this.view = view;
-	}
+    public VistaUsuarioView getView() {
+        return view;
+    }
 
-	public List<AccionDTO> getListaAcciones() {
-		return listaAcciones;
-	}
+    public void setView(VistaUsuarioView view) {
+        this.view = view;
+    }
 
-	public void setListaAcciones(List<AccionDTO> listaAcciones) {
-		this.listaAcciones = listaAcciones;
-	}
+    public List<AccionDTO> getListaAcciones() {
+        return listaAcciones;
+    }
 
-	public VistaUsuarioDTO getVistaModuloDTO() {
-		return vistaModuloDTO;
-	}
+    public void setListaAcciones(List<AccionDTO> listaAcciones) {
+        this.listaAcciones = listaAcciones;
+    }
 
-	public void setVistaModuloDTO(VistaUsuarioDTO vistaModuloDTO) {
-		this.vistaModuloDTO = vistaModuloDTO;
-	}
+    public VistaUsuarioDTO getVistaModuloDTO() {
+        return vistaModuloDTO;
+    }
 
-	public List<VistaUsuarioDTO> getListaConfiguracion() {
-		return listaConfiguracion;
-	}
+    public void setVistaModuloDTO(VistaUsuarioDTO vistaModuloDTO) {
+        this.vistaModuloDTO = vistaModuloDTO;
+    }
 
-	public void setListaConfiguracion(List<VistaUsuarioDTO> listaConfiguracion) {
-		this.listaConfiguracion = listaConfiguracion;
-	}
+    public List<VistaUsuarioDTO> getListaConfiguracion() {
+        return listaConfiguracion;
+    }
 
-	public List<ConfiguracionModuloAccionDTO> getListaModulos() {
-		return listaModulos;
-	}
+    public void setListaConfiguracion(List<VistaUsuarioDTO> listaConfiguracion) {
+        this.listaConfiguracion = listaConfiguracion;
+    }
 
-	public void setListaModulos(List<ConfiguracionModuloAccionDTO> listaModulos) {
-		this.listaModulos = listaModulos;
-	}
+    public List<ConfiguracionModuloAccionDTO> getListaModulos() {
+        return listaModulos;
+    }
 
-	public VistaUsuarioDTO getVistaUsuarioNew() {
-		return vistaUsuarioNew;
-	}
+    public void setListaModulos(List<ConfiguracionModuloAccionDTO> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
 
-	public void setVistaUsuarioNew(VistaUsuarioDTO vistaUsuarioNew) {
-		this.vistaUsuarioNew = vistaUsuarioNew;
-	}
+    public VistaUsuarioDTO getVistaUsuarioNew() {
+        return vistaUsuarioNew;
+    }
 
-	public UsuarioDTO getUsuarioSeleccionado() {
-		return usuarioSeleccionado;
-	}
+    public void setVistaUsuarioNew(VistaUsuarioDTO vistaUsuarioNew) {
+        this.vistaUsuarioNew = vistaUsuarioNew;
+    }
 
-	public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
-		this.usuarioSeleccionado = usuarioSeleccionado;
-	}
+    public UsuarioDTO getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
 
-	public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuario() {
-		return listaConfiguracionUsuario;
-	}
+    public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
 
-	public void setListaConfiguracionUsuario(List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario) {
-		this.listaConfiguracionUsuario = listaConfiguracionUsuario;
-	}
+    public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuario() {
+        return listaConfiguracionUsuario;
+    }
 
-	public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuarioRestantes() {
-		return listaConfiguracionUsuarioRestantes;
-	}
+    public void setListaConfiguracionUsuario(List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario) {
+        this.listaConfiguracionUsuario = listaConfiguracionUsuario;
+    }
 
-	public void setListaConfiguracionUsuarioRestantes(
-			List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioRestantes) {
-		this.listaConfiguracionUsuarioRestantes = listaConfiguracionUsuarioRestantes;
-	}
+    public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuarioRestantes() {
+        return listaConfiguracionUsuarioRestantes;
+    }
 
-	public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuarioSelect() {
-		return listaConfiguracionUsuarioSelect;
-	}
+    public void setListaConfiguracionUsuarioRestantes(
+            List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioRestantes) {
+        this.listaConfiguracionUsuarioRestantes = listaConfiguracionUsuarioRestantes;
+    }
 
-	public void setListaConfiguracionUsuarioSelect(
-			List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioSelect) {
-		this.listaConfiguracionUsuarioSelect = listaConfiguracionUsuarioSelect;
-	}
+    public List<ConfiguracionUsuarioModuloDTO> getListaConfiguracionUsuarioSelect() {
+        return listaConfiguracionUsuarioSelect;
+    }
+
+    public void setListaConfiguracionUsuarioSelect(
+            List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuarioSelect) {
+        this.listaConfiguracionUsuarioSelect = listaConfiguracionUsuarioSelect;
+    }
 }

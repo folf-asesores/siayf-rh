@@ -1,11 +1,10 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -40,172 +39,170 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class EditaConfigModuloAccionController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5606590257873527391L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5606590257873527391L;
 
-	// private static final Logger LOGGER =
-	// Logger.getLogger(CrearConfigModuloAccionController.class);
+    // private static final Logger LOGGER =
+    // Logger.getLogger(CrearConfigModuloAccionController.class);
+    @Inject
+    private ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    private Accion accionEJB;
+    @Inject
+    private Modulos moduloEJB;
 
-	@Inject
-	private ConfiguracionModuloAccion configuracionModuloAccion;
-	@Inject
-	private Accion accionEJB;
-	@Inject
-	private Modulos moduloEJB;
+    private EditarConfigModuloAccionView view;
 
-	private EditarConfigModuloAccionView view;
+    /**
+     * Valida si hay un id de la configuración
+     */
+    @PostConstruct
+    public void init() {
 
-	/**
-	 * Valida si hay un id de la configuración
-	 */
-	@PostConstruct
-	public void init() {
+        this.view = new EditarConfigModuloAccionView();
 
-		this.view = new EditarConfigModuloAccionView();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String idConfigModuloAccion = params.get("i");
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-		String idConfigModuloAccion = params.get("i");
+        if (!ValidacionUtil.esCadenaVacia(idConfigModuloAccion)) {
 
-		if (!ValidacionUtil.esCadenaVacia(idConfigModuloAccion)) {
+            this.view.setIdConfigModuloAccion(new Integer(idConfigModuloAccion));
+            vistaPrincipal();
+        }
 
-			this.view.setIdConfigModuloAccion(new Integer(idConfigModuloAccion));
-			vistaPrincipal();
-		}
+    }
 
-	}
+    /**
+     * Construye la Vista principal
+     */
+    public void vistaPrincipal() {
 
-	/**
-	 * Construye la Vista principal
-	 */
-	public void vistaPrincipal() {
+        try {
+            this.view.setPanelPrincipal(true);
 
-		try {
-			this.view.setPanelPrincipal(true);
+            List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
+            this.view.setListaModulos(listaModulos);
 
-			List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
-			this.view.setListaModulos(listaModulos);
+            ConfiguracionModuloAccionDTO dto = configuracionModuloAccion
+                    .obtenerConfAccModPorId(this.view.getIdConfigModuloAccion());
 
-			ConfiguracionModuloAccionDTO dto = configuracionModuloAccion
-					.obtenerConfAccModPorId(this.view.getIdConfigModuloAccion());
+            this.view.setConfigModuloAccionEditar(dto);
 
-			this.view.setConfigModuloAccionEditar(dto);
+            ModuloDTO modulo = new ModuloDTO();
 
+            for (ModuloDTO mod : this.view.getListaModulos()) {
+                if (mod.getIdModulo()
+                        .compareTo(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+                    modulo = mod;
+                }
+            }
 
-			ModuloDTO modulo = new ModuloDTO();
+            // Setea el id del modulo para luego compararlo
+            this.view.setIdModuloConparator(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo());
 
-			for (ModuloDTO mod : this.view.getListaModulos()) {
-				if (mod.getId_modulo()
-						.compareTo(this.view.getConfigModuloAccionEditar().getModulo().getId_modulo()) == 0)
-					modulo = mod;
-			}
+            //Identificadores para realizar la busqueda de acciones filtradas
+            Integer idModulo = modulo.getIdModulo();
+            List<Integer> idAccionFiltro = new ArrayList<>();
 
-			// Setea el id del modulo para luego compararlo
-			this.view.setIdModuloConparator(this.view.getConfigModuloAccionEditar().getModulo().getId_modulo());
-			
-			//Identificadores para realizar la busqueda de acciones filtradas
-			Integer idModulo = modulo.getId_modulo();
-			List<Integer> idAccionFiltro = new ArrayList<>();
-			
-			for (AccionDTO ac : this.view.getConfigModuloAccionEditar().getAcciones()) {
-				idAccionFiltro.add(ac.getId_accion());
-			}
-			
-			List<AccionDTO> accionSource = accionEJB.obtenerAccionesFiltradas(idModulo, idAccionFiltro);
+            for (AccionDTO ac : this.view.getConfigModuloAccionEditar().getAcciones()) {
+                idAccionFiltro.add(ac.getIdAccion());
+            }
 
-			List<AccionDTO> accionTarget = this.view.getConfigModuloAccionEditar().getAcciones();
+            List<AccionDTO> accionSource = accionEJB.obtenerAccionesFiltradas(idModulo, idAccionFiltro);
 
-			// Construye el piklist
-			this.view.setPikListAcciones(new DualListModel<AccionDTO>(accionSource, accionTarget));
+            List<AccionDTO> accionTarget = this.view.getConfigModuloAccionEditar().getAcciones();
 
-		} catch (ReglaNegocioException | ValidacionException exception) {
-			this.view.setPanelPrincipal(false);
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		}
+            // Construye el piklist
+            this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
-	}
+        } catch (ReglaNegocioException | ValidacionException exception) {
+            this.view.setPanelPrincipal(false);
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
 
-	/***
-	 * Selecciona el modulo y construye el piklist
-	 */
-	public void accionesPorModuloSeleccionado() {
-		// si la configuracion es la misma refresca la vista al principal
-		if (this.view.getConfigModuloAccionEditar().getModulo().getId_modulo()
-				.equals(this.view.getIdModuloConparator())) {
-			vistaPrincipal();
-		} else {
+    }
 
-			ModuloDTO modulo = new ModuloDTO();
+    /**
+     * *
+     * Selecciona el modulo y construye el piklist
+     */
+    public void accionesPorModuloSeleccionado() {
+        // si la configuracion es la misma refresca la vista al principal
+        if (this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()
+                .equals(this.view.getIdModuloConparator())) {
+            vistaPrincipal();
+        } else {
 
-			for (ModuloDTO mod : this.view.getListaModulos()) {
-				if (mod.getId_modulo()
-						.compareTo(this.view.getConfigModuloAccionEditar().getModulo().getId_modulo()) == 0)
-					modulo = mod;
-			}
+            ModuloDTO modulo = new ModuloDTO();
 
+            for (ModuloDTO mod : this.view.getListaModulos()) {
+                if (mod.getIdModulo()
+                        .compareTo(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+                    modulo = mod;
+                }
+            }
 
-			List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo(modulo.getId_modulo());
-			List<AccionDTO> accionTarget = new ArrayList<AccionDTO>();
+            List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo(modulo.getIdModulo());
+            List<AccionDTO> accionTarget = new ArrayList<>();
 
-			this.view.setPikListAcciones(new DualListModel<AccionDTO>(accionSource, accionTarget));
+            this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
-		}
+        }
 
-	}
+    }
 
-	/**
-	 * Actualiza la configuración
-	 */
-	public void actualizarConfiguracionModuloAccion() {
+    /**
+     * Actualiza la configuración
+     */
+    public void actualizarConfiguracionModuloAccion() {
 
-		List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
 
-		this.view.getConfigModuloAccionEditar().setAcciones(acciones);
+        this.view.getConfigModuloAccionEditar().setAcciones(acciones);
 
-		configuracionModuloAccion.editar(this.view.getConfigModuloAccionEditar());
+        configuracionModuloAccion.editar(this.view.getConfigModuloAccionEditar());
 
-		JSFUtils.infoMessage("Configuración: ", "¡Se actualizo correctamente!");
+        JSFUtils.infoMessage("Configuración: ", "¡Se actualizo correctamente!");
 
-		vistaPrincipal();
+        vistaPrincipal();
 
-	}
+    }
 
-	public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		case "modulo":
-			Integer modulo = (Integer) value;
+            case "modulo":
+                Integer modulo = (Integer) value;
 
-			if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (!ValidacionUtil.esNumeroPositivo(modulo)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		}
-	}
+        }
+    }
 
-	/************** Getters and Setters *****************/
+    // ************ Getters and Setters ****************
+    /**
+     * @return the view
+     */
+    public EditarConfigModuloAccionView getView() {
+        return view;
+    }
 
-	/**
-	 * @return the view
-	 */
-	public EditarConfigModuloAccionView getView() {
-		return view;
-	}
-
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(EditarConfigModuloAccionView view) {
-		this.view = view;
-	}
+    /**
+     * @param view the view to set
+     */
+    public void setView(EditarConfigModuloAccionView view) {
+        this.view = view;
+    }
 
 }

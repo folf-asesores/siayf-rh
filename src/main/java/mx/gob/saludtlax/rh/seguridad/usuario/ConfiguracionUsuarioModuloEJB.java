@@ -20,170 +20,162 @@ import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 @Stateless
 public class ConfiguracionUsuarioModuloEJB implements ConfiguracionUsuarioModulo {
 
-	@Inject
-	private ConfiguracionUsuarioModuloRepository dao;
-	
-		
-	@Inject
-	private UsuarioRepository usuarioDao;
-	
-	@Inject
-	private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
-	
-	@Inject
-	private DetalleConfiguracionModuloAccionRepository detalleconfiguracionModuloAccionRepository;
+    @Inject
+    private ConfiguracionUsuarioModuloRepository configuracionUsuarioModuloRepository;
 
-	
-	@Override
-	public void crear(ConfiguracionUsuarioModuloDTO dto) {
-		ConfiguracionUsuarioModuloEntity entity = new ConfiguracionUsuarioModuloEntity();
-		entity.setFechaCreacion(new Date());
-		entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(dto.getConfiguracionModulo().getId_configuracion_modulo_accion()));
-		entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
-		
-		dao.crear(entity);
-	}
+    @Inject
+    private UsuarioRepository usuarioRepository;
 
-	@Override
-	public void editar(ConfiguracionUsuarioModuloDTO dto) {
-		ConfiguracionUsuarioModuloEntity entity = dao.obtenerPorId(dto.getId_configuracion_usuario_modulo());
-		entity.setFechaCreacion(new Date());
-		entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(dto.getConfiguracionModulo().getId_configuracion_modulo_accion()));
-		entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
-		
-		dao.actualizar(entity);
-	}
+    @Inject
+    private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
 
-	@Override
-	public void eliminar(Integer id){
-		dao.eliminarPorId(id);		
-	}
+    @Inject
+    private DetalleConfiguracionModuloAccionRepository detalleconfiguracionModuloAccionRepository;
 
-	@Override
-	public List<ConfiguracionUsuarioModuloDTO> obtenerLista() {
-		List<ConfiguracionUsuarioModuloEntity> listEntity = dao.obtenerRegistros();
-		List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
-		for(ConfiguracionUsuarioModuloEntity ent:listEntity){
-			ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
-			
-			dto.setId_configuracion_usuario_modulo(ent.getId_configuracion_usuario_modulo());
-			UsuarioDTO usrDto = new UsuarioDTO();
-			usrDto.setIdUsuario(ent.getUsuario().getIdUsuario());
-			usrDto.setUserName(ent.getUsuario().getUserName());
-			dto.setUsuario(usrDto);
-			
-			
-			ConfiguracionModuloAccionDTO cfn = new ConfiguracionModuloAccionDTO();
-			cfn.setId_configuracion_modulo_accion(ent.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-			ModuloDTO mdl = new ModuloDTO();
-			mdl.setId_modulo(ent.getConfiguracionModuloAccion().getId_Modulo().getId_modulo());
-			mdl.setNombre(ent.getConfiguracionModuloAccion().getId_Modulo().getNombre());
-			cfn.setModulo(mdl);
-			cfn.setNombreConfiguracion(ent.getConfiguracionModuloAccion().getDescripcion());
-List<AccionDTO> listaAcciones = new ArrayList<>();
-			
-			List<DetalleConfiguracionModuloAccionEntity> detalles = new ArrayList<>();
-			detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
-					ent.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-			for(DetalleConfiguracionModuloAccionEntity detalle : detalles){
-				listaAcciones.add(new AccionDTO(detalle.getId_accion().getId_accion(), detalle.getId_accion().getClave(), detalle.getId_accion().getDescripcion(), detalle.getId_accion().getArea().getIdArea(), detalle.getId_accion().getModulo().getId_modulo(), detalle.getId_accion().getArea().getNombreArea()));
-			}
-			cfn.setAcciones(listaAcciones);
-			dto.setConfiguracionModulo(cfn);
+    @Override
+    public void crear(ConfiguracionUsuarioModuloDTO dto) {
+        ConfiguracionUsuarioModuloEntity entity = new ConfiguracionUsuarioModuloEntity();
+        entity.setFechaCreacion(new Date());
+        entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
+        entity.setUsuario(usuarioRepository.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
-			listDto.add(dto);
-		
-		}
-		return listDto;
-	}
+        configuracionUsuarioModuloRepository.crear(entity);
+    }
 
-	@Override
-	public List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(Integer idUsuario) {
-		List<ConfiguracionUsuarioModuloEntity> listEntity = dao.obtenerRegistrosPorUsuario(idUsuario);
-		List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
-		for(ConfiguracionUsuarioModuloEntity ent:listEntity){
-			ConfiguracionUsuarioModuloDTO dto = toDto(ent);
-			listDto.add(dto);
-		}
-		return listDto;
-	}
-	
-	
-	public Boolean tienePermiso(String permiso, Integer idUsuario){
-		List<String> permisosUsuario = new ArrayList<>();
-		permisosUsuario = obtenerAccionesdeUsuario(idUsuario);
-		return permisosUsuario.contains(permiso);
-	}
-	
-	// obtiene la lista de claves de acciones que tiene asignadas un usuario
-		public List<String> obtenerAccionesdeUsuario(Integer idUsuario) {
-			List<ConfiguracionUsuarioModuloDTO> confDtos = new ArrayList<>();
-			confDtos = obtenerListaPorUsuario(idUsuario);
+    @Override
+    public void editar(ConfiguracionUsuarioModuloDTO dto) {
+        ConfiguracionUsuarioModuloEntity entity = configuracionUsuarioModuloRepository.obtenerPorId(dto.getIdConfiguracionUsuarioModulo());
+        entity.setFechaCreacion(new Date());
+        entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
+        entity.setUsuario(usuarioRepository.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
-				List<String> accionesDeUsuario = new ArrayList<>();
-			for (ConfiguracionUsuarioModuloDTO dto : confDtos) {
+        configuracionUsuarioModuloRepository.actualizar(entity);
+    }
 
-				List<DetalleConfiguracionModuloAccionEntity> detalles = new ArrayList<>();
-				detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
-						dto.getConfiguracionModulo().getId_configuracion_modulo_accion());
-				for(DetalleConfiguracionModuloAccionEntity detalle : detalles){
-					accionesDeUsuario.add(detalle.getId_accion().getClave());
-				}
-			}
-			return accionesDeUsuario;
-		}
+    @Override
+    public void eliminar(Integer id) {
+        configuracionUsuarioModuloRepository.eliminarPorId(id);
+    }
 
-	@Override
-	public List<ConfiguracionUsuarioModuloDTO> obtenerListaRestantePorUsuario(Integer idUsuario) {
-		List<ConfiguracionUsuarioModuloEntity> listEntity = dao.obtenerRegistrosPorUsuario(idUsuario);
-		List<ConfiguracionUsuarioModuloEntity> listCompletaEntity = dao.consultarTodos();
-		List<ConfiguracionUsuarioModuloEntity> listRestanteEntity =new ArrayList<>();
-		
-		for (ConfiguracionUsuarioModuloEntity ent : listCompletaEntity) {
-			if(!listEntity.contains(ent)) {
-				listRestanteEntity.add(ent);
-			}
-		}
-		List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
-		for (ConfiguracionUsuarioModuloEntity ent : listRestanteEntity) {
-			ConfiguracionUsuarioModuloDTO dto = toDto(ent);
-			listDto.add(dto);
-		}
-		return listDto;
-	}
+    @Override
+    public List<ConfiguracionUsuarioModuloDTO> obtenerLista() {
+        List<ConfiguracionUsuarioModuloEntity> listEntity = configuracionUsuarioModuloRepository.obtenerRegistros();
+        List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
+        for (ConfiguracionUsuarioModuloEntity ent : listEntity) {
+            ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
 
-	private ConfiguracionUsuarioModuloDTO toDto(ConfiguracionUsuarioModuloEntity ent) {
+            dto.setIdConfiguracionUsuarioModulo(ent.getIdConfiguracionUsuarioModulo());
+            UsuarioDTO usrDto = new UsuarioDTO();
+            usrDto.setIdUsuario(ent.getUsuario().getIdUsuario());
+            usrDto.setUserName(ent.getUsuario().getUserName());
+            dto.setUsuario(usrDto);
 
-		ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
+            ConfiguracionModuloAccionDTO cfn = new ConfiguracionModuloAccionDTO();
+            cfn.setIdConfiguracionModuloAccion(ent.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            ModuloDTO mdl = new ModuloDTO();
+            mdl.setIdModulo(ent.getConfiguracionModuloAccion().getModulo().getIdModulo());
+            mdl.setNombre(ent.getConfiguracionModuloAccion().getModulo().getNombre());
+            cfn.setModulo(mdl);
+            cfn.setNombreConfiguracion(ent.getConfiguracionModuloAccion().getDescripcion());
+            List<AccionDTO> listaAcciones = new ArrayList<>();
 
-		dto.setId_configuracion_usuario_modulo(ent.getId_configuracion_usuario_modulo());
-		UsuarioDTO usrDto = new UsuarioDTO();
-		usrDto.setIdUsuario(ent.getUsuario().getIdUsuario());
-		usrDto.setUserName(ent.getUsuario().getUserName());
-		dto.setUsuario(usrDto);
+            List<DetalleConfiguracionModuloAccionEntity> detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
+                    ent.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
+                listaAcciones.add(new AccionDTO(detalle.getAccion().getIdAccion(), detalle.getAccion().getClave(), detalle.getAccion().getDescripcion(), detalle.getAccion().getArea().getIdArea(), detalle.getAccion().getModulo().getIdModulo(), detalle.getAccion().getArea().getNombreArea()));
+            }
+            cfn.setAcciones(listaAcciones);
+            dto.setConfiguracionModulo(cfn);
 
-		ConfiguracionModuloAccionDTO cfn = new ConfiguracionModuloAccionDTO();
-		cfn.setId_configuracion_modulo_accion(ent.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-		ModuloDTO mdl = new ModuloDTO();
-		mdl.setId_modulo(ent.getConfiguracionModuloAccion().getId_Modulo().getId_modulo());
-		mdl.setNombre(ent.getConfiguracionModuloAccion().getId_Modulo().getNombre());
-		cfn.setModulo(mdl);
-		cfn.setNombreConfiguracion(ent.getConfiguracionModuloAccion().getDescripcion());
-		List<AccionDTO> listaAcciones = new ArrayList<>();
+            listDto.add(dto);
 
-		List<DetalleConfiguracionModuloAccionEntity> detalles = new ArrayList<>();
-		detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
-				ent.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-		if (!detalles.isEmpty()) {
-			for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
-				listaAcciones.add(new AccionDTO(detalle.getId_accion().getId_accion(),
-						detalle.getId_accion().getClave(), detalle.getId_accion().getDescripcion(),
-						detalle.getId_accion().getArea().getIdArea(), detalle.getId_accion().getModulo().getId_modulo(),
-						detalle.getId_accion().getArea().getNombreArea()));
-			}
-		}
-		cfn.setAcciones(listaAcciones);
-		dto.setConfiguracionModulo(cfn);
-		return dto;
-	}
+        }
+        return listDto;
+    }
+
+    @Override
+    public List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(Integer idUsuario) {
+        List<ConfiguracionUsuarioModuloEntity> listEntity = configuracionUsuarioModuloRepository.obtenerRegistrosPorUsuario(idUsuario);
+        List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
+        for (ConfiguracionUsuarioModuloEntity ent : listEntity) {
+            ConfiguracionUsuarioModuloDTO dto = toDto(ent);
+            listDto.add(dto);
+        }
+        return listDto;
+    }
+
+    @Override
+    public Boolean tienePermiso(String permiso, Integer idUsuario) {
+        List<String> permisosUsuario = obtenerAccionesdeUsuario(idUsuario);
+        return permisosUsuario.contains(permiso);
+    }
+
+    // obtiene la lista de claves de acciones que tiene asignadas un usuario
+    public List<String> obtenerAccionesdeUsuario(Integer idUsuario) {
+        List<ConfiguracionUsuarioModuloDTO> confDtos = obtenerListaPorUsuario(idUsuario);
+
+        List<String> accionesDeUsuario = new ArrayList<>();
+        for (ConfiguracionUsuarioModuloDTO dto : confDtos) {
+
+            List<DetalleConfiguracionModuloAccionEntity> detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
+                    dto.getConfiguracionModulo().getIdConfiguracionModuloAccion());
+            for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
+                accionesDeUsuario.add(detalle.getAccion().getClave());
+            }
+        }
+        return accionesDeUsuario;
+    }
+
+    @Override
+    public List<ConfiguracionUsuarioModuloDTO> obtenerListaRestantePorUsuario(Integer idUsuario) {
+        List<ConfiguracionUsuarioModuloEntity> listEntity = configuracionUsuarioModuloRepository.obtenerRegistrosPorUsuario(idUsuario);
+        List<ConfiguracionUsuarioModuloEntity> listCompletaEntity = configuracionUsuarioModuloRepository.consultarTodos();
+        List<ConfiguracionUsuarioModuloEntity> listRestanteEntity = new ArrayList<>();
+
+        for (ConfiguracionUsuarioModuloEntity ent : listCompletaEntity) {
+            if (!listEntity.contains(ent)) {
+                listRestanteEntity.add(ent);
+            }
+        }
+        List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
+        for (ConfiguracionUsuarioModuloEntity ent : listRestanteEntity) {
+            ConfiguracionUsuarioModuloDTO dto = toDto(ent);
+            listDto.add(dto);
+        }
+        return listDto;
+    }
+
+    private ConfiguracionUsuarioModuloDTO toDto(ConfiguracionUsuarioModuloEntity ent) {
+
+        ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
+
+        dto.setIdConfiguracionUsuarioModulo(ent.getIdConfiguracionUsuarioModulo());
+        UsuarioDTO usrDto = new UsuarioDTO();
+        usrDto.setIdUsuario(ent.getUsuario().getIdUsuario());
+        usrDto.setUserName(ent.getUsuario().getUserName());
+        dto.setUsuario(usrDto);
+
+        ConfiguracionModuloAccionDTO cfn = new ConfiguracionModuloAccionDTO();
+        cfn.setIdConfiguracionModuloAccion(ent.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+        ModuloDTO mdl = new ModuloDTO();
+        mdl.setIdModulo(ent.getConfiguracionModuloAccion().getModulo().getIdModulo());
+        mdl.setNombre(ent.getConfiguracionModuloAccion().getModulo().getNombre());
+        cfn.setModulo(mdl);
+        cfn.setNombreConfiguracion(ent.getConfiguracionModuloAccion().getDescripcion());
+        List<AccionDTO> listaAcciones = new ArrayList<>();
+
+        List<DetalleConfiguracionModuloAccionEntity> detalles = detalleconfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
+                ent.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+        if (!detalles.isEmpty()) {
+            for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
+                listaAcciones.add(new AccionDTO(detalle.getAccion().getIdAccion(),
+                        detalle.getAccion().getClave(), detalle.getAccion().getDescripcion(),
+                        detalle.getAccion().getArea().getIdArea(), detalle.getAccion().getModulo().getIdModulo(),
+                        detalle.getAccion().getArea().getNombreArea()));
+            }
+        }
+        cfn.setAcciones(listaAcciones);
+        dto.setConfiguracionModulo(cfn);
+        return dto;
+    }
 }

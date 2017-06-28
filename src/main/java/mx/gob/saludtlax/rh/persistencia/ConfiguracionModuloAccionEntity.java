@@ -12,53 +12,48 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="configuracion_modulo_accion")	
-public class ConfiguracionModuloAccionEntity implements Serializable{
+@Table(name = "configuracion_modulo_accion")
+public class ConfiguracionModuloAccionEntity implements Serializable {
 
-	/**
-	 * @author Edgar RZM
-	 */
-	private static final long serialVersionUID = -8103539765440484242L;
+    /**
+     * @author Edgar RZM
+     */
+    private static final long serialVersionUID = -8103539765440484242L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_configuracion_modulo_accion")
-	private Integer id_configuracion_modulo_accion;
-	
-	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="id_modulo")
-	private ModuloEntity id_Modulo;
-	
-	@Column(name="nombre_configuracion")
-	private String descripcion;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_configuracion_modulo_accion")
+    private Integer idConfiguracionModuloAccion;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_modulo")
+    private ModuloEntity modulo;
 
-	public Integer getId_configuracion_modulo_accion() {
-		return id_configuracion_modulo_accion;
-	}
+    @Column(name = "nombre_configuracion")
+    private String descripcion;
 
-	public void setId_configuracion_modulo_accion(Integer id_configuracion_modulo_accion) {
-		this.id_configuracion_modulo_accion = id_configuracion_modulo_accion;
-	}
+    public Integer getIdConfiguracionModuloAccion() {
+        return idConfiguracionModuloAccion;
+    }
 
-	public ModuloEntity getId_Modulo() {
-		return id_Modulo;
-	}
+    public void setIdConfiguracionModuloAccion(Integer idConfiguracionModuloAccion) {
+        this.idConfiguracionModuloAccion = idConfiguracionModuloAccion;
+    }
 
-	public void setId_Modulo(ModuloEntity id_Modulo) {
-		this.id_Modulo = id_Modulo;
-	}
+    public ModuloEntity getModulo() {
+        return modulo;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setModulo(ModuloEntity modulo) {
+        this.modulo = modulo;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	
-	
 }

@@ -76,7 +76,7 @@ public class ConceptosNominaController implements Serializable {
 				if (view.getResult() != null) {
 
 					BigDecimal newImport = new BigDecimal(view.getResult().trim());
-					newConfigConcepto.setImporte_concepto(newImport);
+					newConfigConcepto.setImporteConcepto(newImport);
 				}
 
 				TabuladorDTO tabulador = new TabuladorDTO();
@@ -87,35 +87,35 @@ public class ConceptosNominaController implements Serializable {
 					tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(),
 							FechaUtil.ejercicioActual());
 					if (view.getConceptoNominaSelect().getClave().contentEquals("0700")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+						newConfigConcepto.setIdTabulador(tabulador.getIdTabulador());
 						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
 						newConfigConcepto
-								.setImporte_concepto(tabulador.getSueldoBrutoMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
+								.setImporteConcepto(tabulador.getSueldoBrutoMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
 					}
 
 					if (view.getConceptoNominaSelect().getClave().contentEquals("4200")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+						newConfigConcepto.setIdTabulador(tabulador.getIdTabulador());
 						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
 						newConfigConcepto
-								.setImporte_concepto(tabulador.getAsignacionBrutaMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
+								.setImporteConcepto(tabulador.getAsignacionBrutaMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
 					}
 
 					if (view.getConceptoNominaSelect().getClave().contentEquals("55AG")) {
-						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+						newConfigConcepto.setIdTabulador(tabulador.getIdTabulador());
 						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
 						newConfigConcepto
-								.setImporte_concepto(tabulador.getAgaBrutaMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
+								.setImporteConcepto(tabulador.getAgaBrutaMensual().divide(new BigDecimal(30),2, RoundingMode.HALF_EVEN).setScale(2, RoundingMode.HALF_EVEN));
 					}
 				} catch (NullPointerException ex) {
                       JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto "+puesto.getCodigo());
 				}
 
-				newConfigConcepto.setId_concepto_nomina(view.getConceptoNominaSelect().getIdConceptoNomina());
-				newConfigConcepto.setId_puesto_general(puesto.getIdPuestoGeneral());
+				newConfigConcepto.setIdConceptoNomina(view.getConceptoNominaSelect().getIdConceptoNomina());
+				newConfigConcepto.setIdPuestoGeneral(puesto.getIdPuestoGeneral());
 
 				listNewConfigDto.add(newConfigConcepto);
 			}
-            
+
 			for (ConfiguracionConceptoPuestoDTO dtoDel : configuracionConceptoEjb
 					.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina())) {
 				configuracionConceptoEjb.borrar(dtoDel);

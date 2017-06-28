@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
@@ -17,51 +17,47 @@ import javax.persistence.Table;
 /**
  * @author Leila Schiaffini Ehuan
  * @since 13/06/2016 17:58:52
- * 
+ *
  */
 @Entity
 @Table(name = "configuraciones_expedientes")
 public class ConfiguracionExpedienteEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4710396927793202153L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_configuracion_expediente")
-	private Integer idConfiguracionExpediente;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4710396927793202153L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_configuracion_expediente")
+    private Integer idConfiguracionExpediente;
 
-	@ManyToOne
-	@JoinColumn(name = "id_documento_adjuntable")
-	private DocumentoAdjuntableEntity documentoAdjuntable;
+    @ManyToOne
+    @JoinColumn(name = "id_documento_adjuntable")
+    private DocumentoAdjuntableEntity documentoAdjuntable;
 
-	@Column(name = "clasificacion_expediente")
-	private String clasificacionExpediente;
+    @Column(name = "clasificacion_expediente")
+    private String clasificacionExpediente;
 
-	public Integer getIdConfiguracionExpediente() {
-		return idConfiguracionExpediente;
-	}
+    public Integer getIdConfiguracionExpediente() {
+        return idConfiguracionExpediente;
+    }
 
-	public void setIdConfiguracionExpediente(Integer idConfiguracionExpediente) {
-		this.idConfiguracionExpediente = idConfiguracionExpediente;
-	}
+    public void setIdConfiguracionExpediente(Integer idConfiguracionExpediente) {
+        this.idConfiguracionExpediente = idConfiguracionExpediente;
+    }
 
-	public DocumentoAdjuntableEntity getDocumentoAdjuntable() {
-		return documentoAdjuntable;
-	}
+    public DocumentoAdjuntableEntity getDocumentoAdjuntable() {
+        return documentoAdjuntable;
+    }
 
-	public void setDocumentoAdjuntable(
-			DocumentoAdjuntableEntity documentoAdjuntable) {
-		this.documentoAdjuntable = documentoAdjuntable;
-	}
+    public void setDocumentoAdjuntable(
+            DocumentoAdjuntableEntity documentoAdjuntable) {
+        this.documentoAdjuntable = documentoAdjuntable;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	public String getClasificacionExpediente() {
-		return clasificacionExpediente;
-	}
+    public String getClasificacionExpediente() {
+        return clasificacionExpediente;
+    }
 
 }

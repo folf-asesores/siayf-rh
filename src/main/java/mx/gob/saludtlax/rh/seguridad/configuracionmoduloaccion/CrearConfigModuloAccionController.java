@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
@@ -36,131 +36,131 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class CrearConfigModuloAccionController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6478581873009415107L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6478581873009415107L;
 
-	private static final Logger LOGGER = Logger.getLogger(CrearConfigModuloAccionController.class);
+    private static final Logger LOGGER = Logger.getLogger(CrearConfigModuloAccionController.class);
 
-	@Inject
-	private Modulos moduloEJB;
-	@Inject
-	private Accion accionEJB;
-	@Inject
-	private ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    private Modulos moduloEJB;
+    @Inject
+    private Accion accionEJB;
+    @Inject
+    private ConfiguracionModuloAccion configuracionModuloAccion;
 
-	private CrearConfigModuloAccionView view;
+    private CrearConfigModuloAccionView view;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-		this.view = new CrearConfigModuloAccionView();
+        this.view = new CrearConfigModuloAccionView();
 
-		List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
-		this.view.setListaModulos(listaModulos);
+        List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
+        this.view.setListaModulos(listaModulos);
 
-	}
+    }
 
-	public void accionesPorModuloSeleccionado() {
+    public void accionesPorModuloSeleccionado() {
 
-		this.view.setListaAcciones(new ArrayList<AccionDTO>());
+        this.view.setListaAcciones(new ArrayList<AccionDTO>());
 
-		ModuloDTO modulo = new ModuloDTO();
+        ModuloDTO modulo = new ModuloDTO();
 
-		for (ModuloDTO mod : this.view.getListaModulos()) {
-			if (mod.getId_modulo()
-					.compareTo(this.view.getConfiguracionModuloAccionDTONew().getModulo().getId_modulo()) == 0)
-				modulo = mod;
-		}
-		this.view.setListaAcciones(accionEJB.obtenerListaAccionesPorModulo((modulo.getId_modulo())));
+        for (ModuloDTO mod : this.view.getListaModulos()) {
+            if (mod.getIdModulo()
+                    .compareTo(this.view.getConfiguracionModuloAccionDTONew().getModulo().getIdModulo()) == 0) {
+                modulo = mod;
+            }
+        }
+        this.view.setListaAcciones(accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo())));
 
-		List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo((modulo.getId_modulo()));
-		List<AccionDTO> accionTarget = new ArrayList<AccionDTO>();
+        List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo()));
+        List<AccionDTO> accionTarget = new ArrayList<>();
 
-		this.view.setPikListAcciones(new DualListModel<AccionDTO>(accionSource, accionTarget));
+        this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
-	}
+    }
 
-	public void agregarConfiguracionModuloAccion() {
+    public void agregarConfiguracionModuloAccion() {
 
-		List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
 
-		this.view.getConfiguracionModuloAccionDTONew().setAcciones(acciones);
+        this.view.getConfiguracionModuloAccionDTONew().setAcciones(acciones);
 
-		configuracionModuloAccion.crear(this.view.getConfiguracionModuloAccionDTONew());
+        configuracionModuloAccion.crear(this.view.getConfiguracionModuloAccionDTONew());
 
-		JSFUtils.infoMessage("Configuración: ", "¡Se registro correctamente!");
-		init();
+        JSFUtils.infoMessage("Configuración: ", "¡Se registro correctamente!");
+        init();
 
-	}
+    }
 
-	public void onTransfer(TransferEvent event) {
-		StringBuilder builder = new StringBuilder();
-		for (Object item : event.getItems()) {
-			builder.append(((AccionDTO) item).getDescripcion()).append("<br />");
-		}
+    public void onTransfer(TransferEvent event) {
+        StringBuilder builder = new StringBuilder();
+        for (Object item : event.getItems()) {
+            builder.append(((AccionDTO) item).getDescripcion()).append("<br />");
+        }
 
-		LOGGER.debug("Acciones agregadas: " + builder.toString());
+        LOGGER.debug("Acciones agregadas: " + builder.toString());
 
-		// FacesMessage msg = new FacesMessage();
-		// msg.setSeverity(FacesMessage.SEVERITY_INFO);
-		// msg.setSummary("Provando transferencia");
-		// msg.setDetail(builder.toString());
-		//
-		// FacesContext.getCurrentInstance().addMessage(null, msg);
+        // FacesMessage msg = new FacesMessage();
+        // msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        // msg.setSummary("Provando transferencia");
+        // msg.setDetail(builder.toString());
+        //
+        // FacesContext.getCurrentInstance().addMessage(null, msg);
+        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
 
-		List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        for (AccionDTO accion : acciones) {
+            LOGGER.debug(accion.toString());
+        }
 
-		for (AccionDTO accion : acciones) {
-			LOGGER.debug(accion.toString());
-		}
+    }
 
-	}
+    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
+            throws ValidatorException {
 
-	public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+            case "modulo":
+                Integer modulo = (Integer) value;
 
-		case "modulo":
-			Integer modulo = (Integer) value;
+                if (!ValidacionUtil.esNumeroPositivo(modulo)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-			if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+            case "accion":
+                Integer accion = (Integer) value;
 
-		case "accion":
-			Integer accion = (Integer) value;
+                if (!ValidacionUtil.esNumeroPositivo(accion)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una acción.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+        }
+    }
 
-			if (!ValidacionUtil.esNumeroPositivo(accion)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Seleccione una acción.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		}
-	}
+    // ************** Getters and Setters ********
 
-	/**************** Getters and Setters *********/
-	/**
-	 * @return the view
-	 */
-	public CrearConfigModuloAccionView getView() {
-		return view;
-	}
+    /**
+     * @return the view
+     */
+    public CrearConfigModuloAccionView getView() {
+        return view;
+    }
 
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(CrearConfigModuloAccionView view) {
-		this.view = view;
-	}
+    /**
+     * @param view the view to set
+     */
+    public void setView(CrearConfigModuloAccionView view) {
+        this.view = view;
+    }
 
 }

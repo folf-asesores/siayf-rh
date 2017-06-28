@@ -3,6 +3,7 @@
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,112 +19,111 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "dependencias_temp")
-public class DependenciaTempEntity {
+public class DependenciaTempEntity implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_dependencia")
-	private Integer idDependencia;
+    private static final long serialVersionUID = 3901902915856729473L;
 
-	@Column(name = "id_ramo")
-	private int idRamo;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_dependencia")
+    private Integer idDependencia;
 
-	@Column(name = "id_sector")
-	private int idSector;
+    @Column(name = "id_ramo")
+    private int idRamo;
 
-	@Column(name = "id_ente_publico")
-	private int idEntePublico;
+    @Column(name = "id_sector")
+    private int idSector;
 
-	@Column(name = "id_clasificacion_organismo")
-	private int idClasificacionOrganismo;
+    @Column(name = "id_ente_publico")
+    private int idEntePublico;
 
-	@Column(name = "id_base_36")
-	private String idBase36;
+    @Column(name = "id_clasificacion_organismo")
+    private int idClasificacionOrganismo;
 
-	@Column(name = "Descripcion")
-	private String descripcion;
+    @Column(name = "id_base_36")
+    private String idBase36;
 
-	@Override
-	public String toString() {
-		return "DependenciaEntity [Id Dependencia =" + idDependencia + ", id base 36=" + idBase36 + ", descripcion="
-				+ descripcion + "]";
-	}
+    @Column(name = "Descripcion")
+    private String descripcion;
 
-	public int getIdEntePublico() {
-		return idEntePublico;
-	}
+    @Override
+    public String toString() {
+        return "DependenciaEntity [Id Dependencia =" + idDependencia + ", id base 36=" + idBase36 + ", descripcion="
+                + descripcion + "]";
+    }
 
-	public void setIdEntePublico(int idEntePublico) {
-		this.idEntePublico = idEntePublico;
-	}
+    public int getIdEntePublico() {
+        return idEntePublico;
+    }
 
-	public int getIdRamo() {
-		return idRamo;
-	}
+    public void setIdEntePublico(int idEntePublico) {
+        this.idEntePublico = idEntePublico;
+    }
 
-	public void setIdRamo(int idRamo) {
-		this.idRamo = idRamo;
-	}
+    public int getIdRamo() {
+        return idRamo;
+    }
 
-	public int getIdSector() {
-		return idSector;
-	}
+    public void setIdRamo(int idRamo) {
+        this.idRamo = idRamo;
+    }
 
-	public void setIdSector(int idSector) {
-		this.idSector = idSector;
-	}
+    public int getIdSector() {
+        return idSector;
+    }
 
-	public int getIdClasificacionOrganismo() {
-		return idClasificacionOrganismo;
-	}
+    public void setIdSector(int idSector) {
+        this.idSector = idSector;
+    }
 
-	public void setIdClasificacionOrganismo(int idClasificacionOrganismo) {
-		this.idClasificacionOrganismo = idClasificacionOrganismo;
-	}
+    public int getIdClasificacionOrganismo() {
+        return idClasificacionOrganismo;
+    }
 
-	/**
-	 * @return the idDependencia
-	 */
-	public Integer getIdDependencia() {
-		return idDependencia;
-	}
+    public void setIdClasificacionOrganismo(int idClasificacionOrganismo) {
+        this.idClasificacionOrganismo = idClasificacionOrganismo;
+    }
 
-	/**
-	 * @param idDependencia
-	 *            the idDependencia to set
-	 */
-	public void setIdDependencia(Integer idDependencia) {
-		this.idDependencia = idDependencia;
-	}
+    /**
+     * @return the idDependencia
+     */
+    public Integer getIdDependencia() {
+        return idDependencia;
+    }
 
-	/**
-	 * @return the idBase36
-	 */
-	public String getIdBase36() {
-		return idBase36;
-	}
+    /**
+     * @param idDependencia the idDependencia to set
+     */
+    public void setIdDependencia(Integer idDependencia) {
+        this.idDependencia = idDependencia;
+    }
 
-	/**
-	 * @param idBase36
-	 *            the idBase36 to set
-	 */
-	public void setIdBase36(String idBase36) {
-		this.idBase36 = idBase36;
-	}
+    /**
+     * @return the idBase36
+     */
+    public String getIdBase36() {
+        return idBase36;
+    }
 
-	/**
-	 * @return the descripcion
-	 */
-	public String getDescripcion() {
-		return descripcion;
-	}
+    /**
+     * @param idBase36 the idBase36 to set
+     */
+    public void setIdBase36(String idBase36) {
+        this.idBase36 = idBase36;
+    }
 
-	/**
-	 * @param descripcion
-	 *            the descripcion to set
-	 */
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 }

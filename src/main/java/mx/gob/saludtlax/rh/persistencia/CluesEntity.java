@@ -358,8 +358,4 @@ public class CluesEntity implements Serializable {
         this.estatusSalud = estatusSalud;
     }
 
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
 }

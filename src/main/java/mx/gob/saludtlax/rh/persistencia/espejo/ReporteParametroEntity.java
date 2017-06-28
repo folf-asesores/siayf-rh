@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia.espejo;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,53 +19,55 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "reportes_parametros")
-public class ReporteParametroEntity {
-	
-	 @Id
-	    @Column(name = "id_reporte_parametro")
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    private Integer idReporteParametro;
-	    
-	    @Column(name = "clave")
-	    private String clave;
-	    
-	    @Column(name = "valor")
-	    private String valor;
-	    
-	    @ManyToOne(optional = false)
-	    @JoinColumn(name = "id_referencia")
-	    private BitacoraReporteEntity bitacoraReporte;
+public class ReporteParametroEntity implements Serializable {
 
-	    public Integer getIdReporteParametro() {
-	        return idReporteParametro;
-	    }
+    private static final long serialVersionUID = 5426414657473565670L;
 
-	    public void setIdReporteParametro(Integer idReporteParametro) {
-	        this.idReporteParametro = idReporteParametro;
-	    }
+    @Id
+    @Column(name = "id_reporte_parametro")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idReporteParametro;
 
-	    public String getClave() {
-	        return clave;
-	    }
+    @Column(name = "clave")
+    private String clave;
 
-	    public void setClave(String clave) {
-	        this.clave = clave;
-	    }
+    @Column(name = "valor")
+    private String valor;
 
-	    public String getValor() {
-	        return valor;
-	    }
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_referencia")
+    private BitacoraReporteEntity bitacoraReporte;
 
-	    public void setValor(String valor) {
-	        this.valor = valor;
-	    }
+    public Integer getIdReporteParametro() {
+        return idReporteParametro;
+    }
 
-	    public BitacoraReporteEntity getBitacoraReporte() {
-	        return bitacoraReporte;
-	    }
+    public void setIdReporteParametro(Integer idReporteParametro) {
+        this.idReporteParametro = idReporteParametro;
+    }
 
-	    public void setBitacoraReporte(BitacoraReporteEntity bitacoraReporte) {
-	        this.bitacoraReporte = bitacoraReporte;
-	    }
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getValor() {
+        return valor;
+    }
+
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    public BitacoraReporteEntity getBitacoraReporte() {
+        return bitacoraReporte;
+    }
+
+    public void setBitacoraReporte(BitacoraReporteEntity bitacoraReporte) {
+        this.bitacoraReporte = bitacoraReporte;
+    }
 
 }

@@ -1,13 +1,11 @@
 package mx.gob.saludtlax.rh.seguridad.usuario;
 
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
-import mx.gob.saludtlax.rh.modulos.ModuloDTO;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloEntity;
-import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 
 import java.util.ArrayList;
@@ -34,7 +32,7 @@ public class ConfiguracionUsuarioModuloService {
 		ConfiguracionUsuarioModuloEntity entity = new ConfiguracionUsuarioModuloEntity();
 		entity.setFechaCreacion(new Date());
 		entity.setConfiguracionModuloAccion(
-				configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getId_configuracion_modulo_accion()));
+				configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
 		entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
 		dao.crear(entity);
@@ -42,11 +40,11 @@ public class ConfiguracionUsuarioModuloService {
 	}
 
 	public void editarConfiguracion(ConfiguracionUsuarioModuloDTO dto) {
-		ConfiguracionUsuarioModuloEntity entity = dao.obtenerPorId(dto.getId_configuracion_usuario_modulo());
+		ConfiguracionUsuarioModuloEntity entity = dao.obtenerPorId(dto.getIdConfiguracionUsuarioModulo());
 
 		entity.setFechaCreacion(new Date());
 		entity.setConfiguracionModuloAccion(
-				configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getId_configuracion_modulo_accion()));
+				configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
 		entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
 		dao.actualizar(entity);
@@ -69,7 +67,7 @@ public class ConfiguracionUsuarioModuloService {
 		for (ConfiguracionUsuarioModuloEntity cE : listEntity) {
 			ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
 
-			dto.setId_configuracion_usuario_modulo((cE.getId_configuracion_usuario_modulo()));
+			dto.setIdConfiguracionUsuarioModulo((cE.getIdConfiguracionUsuarioModulo()));
 
 			dto.setFechaCreacion(new Date());
 
@@ -89,8 +87,8 @@ public class ConfiguracionUsuarioModuloService {
 			dto.setUsuario(usuarioDto);
 
 			 ConfiguracionModuloAccionDTO confModuloAccion = new ConfiguracionModuloAccionDTO();
-	            confModuloAccion.setId_configuracion_modulo_accion(cE.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-	            
+	            confModuloAccion.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+
 	            dto.setConfiguracionModulo(confModuloAccion);
 
 			listDto.add(dto);
@@ -110,7 +108,7 @@ public class ConfiguracionUsuarioModuloService {
 		for (ConfiguracionUsuarioModuloEntity cE : listEntity) {
 			ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
 
-			dto.setId_configuracion_usuario_modulo((cE.getId_configuracion_usuario_modulo()));
+			dto.setIdConfiguracionUsuarioModulo((cE.getIdConfiguracionUsuarioModulo()));
 
 			dto.setFechaCreacion(new Date());
 
@@ -130,8 +128,8 @@ public class ConfiguracionUsuarioModuloService {
 			dto.setUsuario(usuarioDto);
 
             ConfiguracionModuloAccionDTO confModuloAccion = new ConfiguracionModuloAccionDTO();
-            confModuloAccion.setId_configuracion_modulo_accion(cE.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
-            
+            confModuloAccion.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+
             dto.setConfiguracionModulo(confModuloAccion);
 			listDto.add(dto);
 		}
@@ -141,17 +139,15 @@ public class ConfiguracionUsuarioModuloService {
 
 	// obtiene la lista de claves de acciones que tiene asignadas un usuario
 	public List<String> obtenerAccionesdeUsuario(Integer idUsuario) {
-		List<ConfiguracionUsuarioModuloDTO> confDtos = new ArrayList<>();
-		confDtos = obtenerListaPorUsuario(idUsuario);
+		List<ConfiguracionUsuarioModuloDTO> confDtos = obtenerListaPorUsuario(idUsuario);
 
 			List<String> accionesDeUsuario = new ArrayList<>();
 		for (ConfiguracionUsuarioModuloDTO dto : confDtos) {
 
-			List<DetalleConfiguracionModuloAccionEntity> detalles = new ArrayList<>();
-			detalles = configuracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
-					dto.getConfiguracionModulo().getId_configuracion_modulo_accion());
+			List<DetalleConfiguracionModuloAccionEntity> detalles = configuracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
+					dto.getConfiguracionModulo().getIdConfiguracionModuloAccion());
 			for(DetalleConfiguracionModuloAccionEntity detalle : detalles){
-				accionesDeUsuario.add(detalle.getId_accion().getClave());
+				accionesDeUsuario.add(detalle.getAccion().getClave());
 			}
 		}
 		return accionesDeUsuario;

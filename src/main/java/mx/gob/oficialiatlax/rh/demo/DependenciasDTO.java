@@ -2,36 +2,32 @@ package mx.gob.oficialiatlax.rh.demo;
 
 public class DependenciasDTO {
 
-	private Integer id_dependencia;
+    private Integer idDependencia;
+    private Integer idTipoDependencia;
+    private String descripcion;
 
-	private Integer id_tipo_dependencia;
+    public Integer getIdDependencia() {
+        return idDependencia;
+    }
 
-	private String descripcion;
+    public void setIdDependencia(Integer idDependencia) {
+        this.idDependencia = idDependencia;
+    }
 
-	
+    public Integer getIdTipoDependencia() {
+        return idTipoDependencia;
+    }
 
-	public Integer getId_dependencia() {
-		return id_dependencia;
-	}
+    public void setIdTipoDependencia(Integer idTipoDependencia) {
+        this.idTipoDependencia = idTipoDependencia;
+    }
 
-	public void setId_dependencia(Integer id_dependencia) {
-		this.id_dependencia = id_dependencia;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public Integer getId_tipo_dependencia() {
-		return id_tipo_dependencia;
-	}
-
-	public void setId_tipo_dependencia(Integer id_tipo_dependencia) {
-		this.id_tipo_dependencia = id_tipo_dependencia;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 }

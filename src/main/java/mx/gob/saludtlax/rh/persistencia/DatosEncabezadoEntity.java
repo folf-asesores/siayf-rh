@@ -1,10 +1,9 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,7 +18,7 @@ import javax.persistence.Table;
 public class DatosEncabezadoEntity implements Serializable {
 
 	private static final long serialVersionUID = -3491218769714297031L;
-	
+
 //	private String rfc;
 //	private String nombre;
 //	private Integer idNomina;
@@ -39,55 +38,55 @@ public class DatosEncabezadoEntity implements Serializable {
 	@Column(name = "id_dato_personal")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idDatoPersonal;
-	
+
 	@Column(name = "id_empleado_datos_personales")
 	private Integer idEmpleadoDatosPersonales;
-	
+
 	@Column(name = "rfc")
 	private String rfc;
-	
-	
+
+
 	@Column(name = "apellido_paterno")
 	private String apellidoPaterno;
-	
+
 	@Column(name = "apellido_materno")
 	private String apellidoMaterno;
-	
-	
+
+
 	@Column(name = "nombre")
 	private String nombre;
-	
+
 	@Column(name = "fecha_nacimiento")
 	private Date fechaNacimiento;
-	
+
 	@Column(name = "sexo")
 	private String sexo;
-	
-	@Column(name = "id_localidad")	
+
+	@Column(name = "id_localidad")
 	private Integer idLocalidad;
-	
+
 	@Column(name = "id_colonia")
 	private Integer idColonia;
-	
+
 	@Column(name = "calle")
 	private String calle;
-	
-	@Column(name = "numero_exterior")	
+
+	@Column(name = "numero_exterior")
 	private String numeroExterior;
-	
-	@Column(name = "numeroInterior")	
+
+	@Column(name = "numeroInterior")
 	private String numeroInterior;
-	
-	@Column(name = "codigo_postal")	
-	
+
+	@Column(name = "codigo_postal")
+
 	private String codigoPostal;
-	@Column(name = "telefono")	
+	@Column(name = "telefono")
 	private String telefono;
-	
-	@Column(name = "id_estado_empleado")	
+
+	@Column(name = "id_estado_empleado")
 	private String idEstadoEmpleado;
 
-	
+
 //		<<<<<Getters & Setters>>>>>
 
 
@@ -249,11 +248,5 @@ public class DatosEncabezadoEntity implements Serializable {
 	public void setIdEstadoEmpleado(String idEstadoEmpleado) {
 		this.idEstadoEmpleado = idEstadoEmpleado;
 	}
-	
-	
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
-		
 }

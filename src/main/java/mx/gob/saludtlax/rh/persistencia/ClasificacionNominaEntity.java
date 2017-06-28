@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
@@ -22,15 +22,15 @@ public class ClasificacionNominaEntity implements Serializable {
 	@Column(name = "id_clasificacion_nomina")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idClasificacionNomina;
-	
+
 
 	@Column(name = "clasificacion_nomina")
 	private String clasificacionNomina;
 	@Column(name = "descripcion")
 	private String descripcion;
-	
+
 //	<<<<<Getters & Setters>>>>>
-	
+
 	public String getClasificacionNomina() {
 		return clasificacionNomina;
 	}
@@ -49,8 +49,5 @@ public class ClasificacionNominaEntity implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
+
 }

@@ -13,74 +13,71 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="acciones")
-public class AccionesEntity implements Serializable{
+@Table(name = "acciones")
+public class AccionesEntity implements Serializable {
 
-	
-	/**
-	 * @author Edgar RZM
-	 */
-	private static final long serialVersionUID = -8251187276207600193L;
+    /**
+     * @author Edgar RZM
+     */
+    private static final long serialVersionUID = -8251187276207600193L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_accion")
-	private Integer id_accion;
-	
-	@Column(name="clave")
-	private String clave;
-	
-	@Column(name="descripcion")
-	private String descripcion;
-	
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name = "id_area")
-	private AreaEntity area;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_accion")
+    private Integer idAccion;
 
-	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name = "id_modulo")
+    @Column(name = "clave")
+    private String clave;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_area")
+    private AreaEntity area;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_modulo")
     private ModuloEntity modulo;
 
-	public Integer getId_accion() {
-		return id_accion;
-	}
+    public Integer getIdAccion() {
+        return idAccion;
+    }
 
-	public void setId_accion(Integer id_accion) {
-		this.id_accion = id_accion;
-	}
+    public void setId_accion(Integer idAccion) {
+        this.idAccion = idAccion;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public String getClave() {
+        return clave;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public AreaEntity getArea() {
-		return area;
-	}
+    public AreaEntity getArea() {
+        return area;
+    }
 
-	public void setArea(AreaEntity area) {
-		this.area = area;
-	}
+    public void setArea(AreaEntity area) {
+        this.area = area;
+    }
 
-	public ModuloEntity getModulo() {
-		return modulo;
-	}
+    public ModuloEntity getModulo() {
+        return modulo;
+    }
 
-	public void setModulo(ModuloEntity modulo) {
-		this.modulo = modulo;
-	}
-	
-	
-	
+    public void setModulo(ModuloEntity modulo) {
+        this.modulo = modulo;
+    }
+
 }

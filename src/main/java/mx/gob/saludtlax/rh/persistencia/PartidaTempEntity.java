@@ -3,36 +3,39 @@
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author 		Eduardo Mex
- * @email		Lic.Eduardo_Mex@hotmail.com
- * @version     1.0
- * @since       25/07/2016 14:14:59
+ * @author Eduardo Mex
+ * @email	Lic.Eduardo_Mex@hotmail.com
+ * @version 1.0
+ * @since 25/07/2016 14:14:59
  */
 @Entity
 @Table(name = "partidas_temp")
-public class PartidaTempEntity {
-	
-	@Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_partida")
-	private String idPartida;
+public class PartidaTempEntity implements Serializable {
 
-	@Column(name = "id_capitulo")
-	private Integer idCapitulo;
+    private static final long serialVersionUID = -5701220922165388884L;
 
-	@Column(name = "descripcion")
-	private String descripcion;
+    @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_partida")
+    private String idPartida;
 
-	@Override
-	public String toString() {
-		return "PartidaEntity [id partida=" + idPartida + ", id capitulo=" + idCapitulo + ", descripcion=" + descripcion
-				+ "]";
-	}
+    @Column(name = "id_capitulo")
+    private Integer idCapitulo;
+
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    @Override
+    public String toString() {
+        return "PartidaEntity [id partida=" + idPartida + ", id capitulo=" + idCapitulo + ", descripcion=" + descripcion
+                + "]";
+    }
 
 }

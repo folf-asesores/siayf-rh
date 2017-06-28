@@ -57,19 +57,19 @@ public class UsuarioEntity implements Serializable {
 	@Column(name = "fecha_alta")
 	@Temporal(TemporalType.DATE)
 	private Date fechaAlta;
-	
+
 	@Column(name="telefono")
 	private String telefono;
-	
+
 	@Column(name="celular")
 	private String celular;
-	
+
 	@Column(name="id_area_adscripcion")
 	private Integer id_area_adscripcion;
-	
+
 	@Column(name="id_lugar_adscripcion")
 	private Integer id_lugar_adscripcion;
-	
+
 	@Column(name="id_adscripcion")
 	private Integer id_adscripcion;
 
@@ -167,10 +167,6 @@ public class UsuarioEntity implements Serializable {
 		this.fechaAlta = fechaAlta;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
 	public Integer getId_area_adscripcion() {
 		return id_area_adscripcion;
 	}
@@ -210,6 +206,6 @@ public class UsuarioEntity implements Serializable {
 	public void setCelular(String celular) {
 		this.celular = celular;
 	}
-	
-	
+
+
 }

@@ -1,9 +1,11 @@
 package mx.gob.saludtlax.rh.persistencia;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
- * 
+ *
  * @author José Pablo
  *
  */
@@ -13,197 +15,199 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
-@Table(name="movimientos_empleado_nominas")
-public class MovimientosEmpleadoNominaEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_movimiento_fijo")
-	private Integer idMovimientoFijo;
-	
-	@Column(name="id_tercero_institucional")
-	private Integer terceroInstitucional;
-	
-	@Column(name="id_empleado")
-	private Integer idEmpleado ;
-	
-	@Column(name="rfc")
-	private String rfc;
-	
-	@Column (name="quincena_operacion")
-	private Integer quincenaOperacion;
-	
-	@Column(name="anyo_operacion")
-	private Integer anyoOperacion;
-	
-	@Column(name="importe_descontado")
-	private BigDecimal importeDescuento;
-	
-	@Column(name="quincena_inicial")
-	private Integer quincenaInicial;
-	
-	@Column(name="anio_inicial")
-	private Integer anioInicial;
-	
-	@Column(name="quincena_final")
-	private Integer quincenaFinal;
-	
-	@Column(name="anio_final")
-	private Integer anioFinal;
-	
-	@Column(name="fecha_registro")
-	private Date fechaRegistro;
-	
-	@Column(name="fecha_modificacion")
-	private Date fechaModificacion;
-	
-	@Column(name="folio_documento")
-	private String folioDocumento;
-	
-	@Column(name="fecha_documento")
-	private Date fechaDocumento;
-	
-	@Column(name="id_tipo_movimiento")
-	private Integer idTipoMovimiento;
-	
-	@Column(name="dias")
-	private Integer dias ;
+@Table(name = "movimientos_empleado_nominas")
+public class MovimientosEmpleadoNominaEntity implements Serializable {
 
-	public Integer getIdMovimientoFijo() {
-		return idMovimientoFijo;
-	}
+    private static final long serialVersionUID = -8659182702465640962L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_movimiento_fijo")
+    private Integer idMovimientoFijo;
 
-	public void setIdMovimientoFijo(Integer idMovimientoFijo) {
-		this.idMovimientoFijo = idMovimientoFijo;
-	}
+    @Column(name = "id_tercero_institucional")
+    private Integer terceroInstitucional;
 
-	public Integer getTerceroInstitucional() {
-		return terceroInstitucional;
-	}
+    @Column(name = "id_empleado")
+    private Integer idEmpleado;
 
-	public void setTerceroInstitucional(Integer terceroInstitucional) {
-		this.terceroInstitucional = terceroInstitucional;
-	}
+    @Column(name = "rfc")
+    private String rfc;
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    @Column(name = "quincena_operacion")
+    private Integer quincenaOperacion;
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    @Column(name = "anyo_operacion")
+    private Integer anyoOperacion;
 
-	public String getRfc() {
-		return rfc;
-	}
+    @Column(name = "importe_descontado")
+    private BigDecimal importeDescuento;
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    @Column(name = "quincena_inicial")
+    private Integer quincenaInicial;
 
-	public Integer getQuincenaOperacion() {
-		return quincenaOperacion;
-	}
+    @Column(name = "anio_inicial")
+    private Integer anioInicial;
 
-	public void setQuincenaOperacion(Integer quincenaOperacion) {
-		this.quincenaOperacion = quincenaOperacion;
-	}
+    @Column(name = "quincena_final")
+    private Integer quincenaFinal;
 
-	public Integer getAnyoOperacion() {
-		return anyoOperacion;
-	}
+    @Column(name = "anio_final")
+    private Integer anioFinal;
 
-	public void setAnyoOperacion(Integer anyoOperacion) {
-		this.anyoOperacion = anyoOperacion;
-	}
+    @Column(name = "fecha_registro")
+    private Date fechaRegistro;
 
-	public BigDecimal getImporteDescuento() {
-		return importeDescuento;
-	}
+    @Column(name = "fecha_modificacion")
+    private Date fechaModificacion;
 
-	public void setImporteDescuento(BigDecimal importeDescuento) {
-		this.importeDescuento = importeDescuento;
-	}
+    @Column(name = "folio_documento")
+    private String folioDocumento;
 
-	public Integer getQuincenaInicial() {
-		return quincenaInicial;
-	}
+    @Column(name = "fecha_documento")
+    private Date fechaDocumento;
 
-	public void setQuincenaInicial(Integer quincenaInicial) {
-		this.quincenaInicial = quincenaInicial;
-	}
+    @Column(name = "id_tipo_movimiento")
+    private Integer idTipoMovimiento;
 
-	public Integer getAnioInicial() {
-		return anioInicial;
-	}
+    @Column(name = "dias")
+    private Integer dias;
 
-	public void setAnioInicial(Integer anioInicial) {
-		this.anioInicial = anioInicial;
-	}
+    public Integer getIdMovimientoFijo() {
+        return idMovimientoFijo;
+    }
 
-	public Integer getQuincenaFinal() {
-		return quincenaFinal;
-	}
+    public void setIdMovimientoFijo(Integer idMovimientoFijo) {
+        this.idMovimientoFijo = idMovimientoFijo;
+    }
 
-	public void setQuincenaFinal(Integer quincenaFinal) {
-		this.quincenaFinal = quincenaFinal;
-	}
+    public Integer getTerceroInstitucional() {
+        return terceroInstitucional;
+    }
 
-	public Integer getAnioFinal() {
-		return anioFinal;
-	}
+    public void setTerceroInstitucional(Integer terceroInstitucional) {
+        this.terceroInstitucional = terceroInstitucional;
+    }
 
-	public void setAnioFinal(Integer anioFinal) {
-		this.anioFinal = anioFinal;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public Date getFechaRegistro() {
-		return fechaRegistro;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
+    public Integer getQuincenaOperacion() {
+        return quincenaOperacion;
+    }
 
-	public String getFolioDocumento() {
-		return folioDocumento;
-	}
+    public void setQuincenaOperacion(Integer quincenaOperacion) {
+        this.quincenaOperacion = quincenaOperacion;
+    }
 
-	public void setFolioDocumento(String folioDocumento) {
-		this.folioDocumento = folioDocumento;
-	}
+    public Integer getAnyoOperacion() {
+        return anyoOperacion;
+    }
 
-	public Date getFechaDocumento() {
-		return fechaDocumento;
-	}
+    public void setAnyoOperacion(Integer anyoOperacion) {
+        this.anyoOperacion = anyoOperacion;
+    }
 
-	public void setFechaDocumento(Date fechaDocumento) {
-		this.fechaDocumento = fechaDocumento;
-	}
+    public BigDecimal getImporteDescuento() {
+        return importeDescuento;
+    }
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public void setImporteDescuento(BigDecimal importeDescuento) {
+        this.importeDescuento = importeDescuento;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public Integer getQuincenaInicial() {
+        return quincenaInicial;
+    }
 
-	public Integer getDias() {
-		return dias;
-	}
+    public void setQuincenaInicial(Integer quincenaInicial) {
+        this.quincenaInicial = quincenaInicial;
+    }
 
-	public void setDias(Integer dias) {
-		this.dias = dias;
-	}
-	
-	
+    public Integer getAnioInicial() {
+        return anioInicial;
+    }
+
+    public void setAnioInicial(Integer anioInicial) {
+        this.anioInicial = anioInicial;
+    }
+
+    public Integer getQuincenaFinal() {
+        return quincenaFinal;
+    }
+
+    public void setQuincenaFinal(Integer quincenaFinal) {
+        this.quincenaFinal = quincenaFinal;
+    }
+
+    public Integer getAnioFinal() {
+        return anioFinal;
+    }
+
+    public void setAnioFinal(Integer anioFinal) {
+        this.anioFinal = anioFinal;
+    }
+
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
+
+    public String getFolioDocumento() {
+        return folioDocumento;
+    }
+
+    public void setFolioDocumento(String folioDocumento) {
+        this.folioDocumento = folioDocumento;
+    }
+
+    public Date getFechaDocumento() {
+        return fechaDocumento;
+    }
+
+    public void setFechaDocumento(Date fechaDocumento) {
+        this.fechaDocumento = fechaDocumento;
+    }
+
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
+
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
+
+    public Integer getDias() {
+        return dias;
+    }
+
+    public void setDias(Integer dias) {
+        this.dias = dias;
+    }
+
 }

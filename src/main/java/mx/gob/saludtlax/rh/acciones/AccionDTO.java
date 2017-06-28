@@ -4,93 +4,87 @@ import java.io.Serializable;
 
 public class AccionDTO implements Serializable {
 
-	/**
-		 * 
-		 */
-	private static final long serialVersionUID = 1268725915946611463L;
+    private static final long serialVersionUID = 1268725915946611463L;
 
-	private Integer id_accion;
+    private Integer idAccion;
+    private String clave;
+    private String descripcion;
+    private Integer idArea;
+    private Integer idModulo;
+    private String nombreArea;
 
-	private String clave;
+    public AccionDTO() {
+    }
 
-	private String descripcion;
+    public AccionDTO(Integer idAccion, String clave, String descripcion, Integer idArea, Integer idModulo,
+            String nombreArea) {
+        super();
+        this.idAccion = idAccion;
+        this.clave = clave;
+        this.descripcion = descripcion;
+        this.idArea = idArea;
+        this.idModulo = idModulo;
+        this.nombreArea = nombreArea;
+    }
 
-	private Integer id_area;
+    public Integer getIdAccion() {
+        return idAccion;
+    }
 
-	private Integer id_modulo;
+    public void setIdAccion(Integer idAccion) {
+        this.idAccion = idAccion;
+    }
 
-	private String nombreArea;
-	
-	
-	public AccionDTO (){
-		
-	}
+    public String getClave() {
+        return clave;
+    }
 
-	public AccionDTO(Integer id_accion, String clave, String descripcion, Integer id_area, Integer id_modulo,
-			String nombreArea) {
-		super();
-		this.id_accion = id_accion;
-		this.clave = clave;
-		this.descripcion = descripcion;
-		this.id_area = id_area;
-		this.id_modulo = id_modulo;
-		this.nombreArea = nombreArea;
-	}
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
-	@Override
-	public String toString() {
-		return "AccionDTO [id_accion=" + id_accion + ", clave=" + clave + ", descripcion=" + descripcion + ", id_area="
-				+ id_area + ", id_modulo=" + id_modulo + ", nombreArea=" + nombreArea + "]";
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	/***************** Getters and Setters *************/
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public Integer getId_accion() {
-		return id_accion;
-	}
+    public Integer getIdArea() {
+        return idArea;
+    }
 
-	public void setId_accion(Integer id_accion) {
-		this.id_accion = id_accion;
-	}
+    public void setIdArea(Integer idArea) {
+        this.idArea = idArea;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public Integer getIdModulo() {
+        return idModulo;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public void setIdModulo(Integer idModulo) {
+        this.idModulo = idModulo;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getNombreArea() {
+        return nombreArea;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setNombreArea(String nombreArea) {
+        this.nombreArea = nombreArea;
+    }
 
-	public Integer getId_area() {
-		return id_area;
-	}
-
-	public void setId_area(Integer id_area) {
-		this.id_area = id_area;
-	}
-
-	public Integer getId_modulo() {
-		return id_modulo;
-	}
-
-	public void setId_modulo(Integer id_modulo) {
-		this.id_modulo = id_modulo;
-	}
-
-	public String getNombreArea() {
-		return nombreArea;
-	}
-
-	public void setNombreArea(String nombreArea) {
-		this.nombreArea = nombreArea;
-	}
+    @Override
+    public String toString() {
+        return "AccionDTO{"
+                + "idAccion=" + idAccion
+                + ", clave=" + clave
+                + ", descripcion=" + descripcion
+                + ", idArea=" + idArea
+                + ", idModulo=" + idModulo
+                + ", nombreArea=" + nombreArea
+                + '}';
+    }
 
 }

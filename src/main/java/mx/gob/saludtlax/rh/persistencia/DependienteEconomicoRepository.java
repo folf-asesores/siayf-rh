@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
@@ -11,7 +11,6 @@ import mx.gob.saludtlax.rh.excepciones.BusinessException;
 
 /**
  * @author Leila Schiaffini Ehuan
- *
  * @since 01/04/2016-12:14:52
  */
 public class DependienteEconomicoRepository extends
@@ -94,7 +93,7 @@ public class DependienteEconomicoRepository extends
 	/**
 	 * Obtiene el total de dependientes registrados con el parentesco enviado,
 	 * ejemplo cuantos hijos tiene registrados
-	 * 
+	 *
          * @param idEmpleado el ID del empleado.
 	 * @param idParentesco el ID que la reaclión entre el empleado y el dependiente económico.
 	 * */
