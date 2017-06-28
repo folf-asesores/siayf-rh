@@ -19,6 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.concurrent.Future;
 
 import javax.ejb.Asynchronous;
@@ -37,7 +38,10 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.ssl.Base64;
+import org.joda.time.DateTime;
 import org.springframework.scheduling.annotation.AsyncResult;
+
+import com.ibm.icu.text.SimpleDateFormat;
 
 import mx.gob.saludtlax.rh.retenciones.DatosCertificado;
 import mx.gob.saludtlax.rh.retenciones.SelloDigital;
@@ -343,12 +347,12 @@ public class TimbradoService implements Serializable {
 		domicilioSalud.setNoExterior("25");
 		domicilioSalud.setPais("MEXICO");
 
-		regimen.setRegimen("PERSONA MORAL CON FINES NO LUCRATIVO");
+		regimen.setRegimen("603");
 
 		datosSalud.setRfc("STL961105HT8");
 		datosSalud.setNombre("SALUD DE TLAXCALA");
 		datosSalud.getRegimenFiscal().add(regimen);
-		datosSalud.setDomicilioFiscal(domicilioSalud);
+		//datosSalud.setDomicilioFiscal(domicilioSalud);
 
 		// Informacion RECEPTOR
 		if (datosCFDINomina.getCalle() != null && !datosCFDINomina.getCalle().isEmpty())
@@ -367,33 +371,40 @@ public class TimbradoService implements Serializable {
 			domicilioEmpleado.setNoInterior(datosCFDINomina.getNoInterior());
 		domicilioEmpleado.setPais("MEXICO");
 
-		empleado.setDomicilio(domicilioEmpleado);
+		//empleado.setDomicilio(domicilioEmpleado);
 		empleado.setNombre(datosCFDINomina.getNombre());
 		empleado.setRfc(datosCFDINomina.getRfc());
 
 		Nomina12 complementoNomina = toNomina12(datosCFDINomina);
 
-		GregorianCalendar fechaPago = new GregorianCalendar();
-		fechaPago.setTime(new Date());
+		DateTime fechaCom = new DateTime();
+		
+		GregorianCalendar fechaPago = new GregorianCalendar(fechaCom.getYear(),fechaCom.getMonthOfYear(),fechaCom.getDayOfMonth(),fechaCom.getHourOfDay(),fechaCom.getMinuteOfHour());
+		fechaPago.setTimeZone(TimeZone.getTimeZone("UTC"));
+		
+		
+		//fechaPago.setTime(new Date());
+		
 
 		cfdiNomina.setEmisor(datosSalud);
 		cfdiNomina.setReceptor(empleado);
 		cfdiNomina.setTipoDeComprobante("egreso");
-		cfdiNomina.setMetodoDePago(datosCFDINomina.getMetodoPago());
-		if (datosCFDINomina.getNumeroCuentaPago() != null) {
+	//	cfdiNomina.setMetodoDePago(datosCFDINomina.getMetodoPago());
+		cfdiNomina.setMetodoDePago("NA");
+		/*if (datosCFDINomina.getNumeroCuentaPago() != null) {
 			if (datosCFDINomina.getNumeroCuentaPago().length() == 4) {
 				cfdiNomina.setNumCtaPago(datosCFDINomina.getNumeroCuentaPago());
 			}
-		}
+		}*/
 
-		cfdiNomina.setMotivoDescuento("Deducciones Nomina");
-		cfdiNomina.setFormaDePago("PAGO EN UNA SOLA EXHIBICION");
+		//cfdiNomina.setMotivoDescuento("Deducciones Nomina");
+		cfdiNomina.setFormaDePago("En una sola exhibición");
 		cfdiNomina.setSerie(datosCFDINomina.getSerie());
 		cfdiNomina.setFolio(datosCFDINomina.getFolio());
 		cfdiNomina.setVersion("3.2");
-		cfdiNomina.setLugarExpedicion("MEXICO");
+		cfdiNomina.setLugarExpedicion("90800");
 		try {
-			cfdiNomina.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaPago));
+			cfdiNomina.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())));
 		} catch (DatatypeConfigurationException e) {
 
 			e.printStackTrace();
@@ -403,43 +414,44 @@ public class TimbradoService implements Serializable {
 		BigDecimal subTotalNomina = subTotal(complementoNomina);
 		BigDecimal descuentoNomina = BigDecimal.ZERO;
 		BigDecimal totalISRNomina = BigDecimal.ZERO;
-		if (complementoNomina.getDeducciones() != null) {
-			descuentoNomina = complementoNomina.getDeducciones().getTotalOtrasDeducciones();
+		if (complementoNomina.getDeducciones() != null ) {
+			descuentoNomina = complementoNomina.getTotalDeducciones();
 			totalISRNomina = complementoNomina.getDeducciones().getTotalImpuestosRetenidos();
 		}
 
-		BigDecimal total = subTotalNomina.subtract(descuentoNomina).subtract(totalISRNomina);
+		BigDecimal total = subTotalNomina.subtract(descuentoNomina);
 		cfdiNomina.setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
 		cfdiNomina.setDescuento(descuentoNomina.setScale(2, RoundingMode.HALF_UP));
 		cfdiNomina.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
 		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos.Concepto concepto = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos.Concepto();
 		concepto.setCantidad(new BigDecimal("1"));
-		concepto.setDescripcion("Pago Nomina");
-		concepto.setUnidad("Servicio");
+		concepto.setDescripcion("Pago de nómina");
+		concepto.setUnidad("ACT");
 		concepto.setValorUnitario(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
 		concepto.setImporte(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
-		concepto.setNoIdentificacion("a");
+		//concepto.setNoIdentificacion("a");
 		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos conceptos = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos();
 		conceptos.getConcepto().add(concepto);
 
 		cfdiNomina.setConceptos(conceptos);
 
 		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos impuesto = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos();
-		impuesto.setTotalImpuestosRetenidos(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+		//impuesto.setTotalImpuestosRetenidos(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
 
-		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones.Retencion retencionISR = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones.Retencion();
-		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones retenciones = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones();
-		retencionISR.setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
-		retencionISR.setImpuesto("ISR");
-		retenciones.getRetencion().add(retencionISR);
+		//mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones.Retencion retencionISR = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones.Retencion();
+		//mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones retenciones = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Impuestos.Retenciones();
+		//retencionISR.setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+		//retencionISR.setImpuesto("ISR");
+		//retenciones.getRetencion().add(retencionISR);
 
-		impuesto.setRetenciones(retenciones);
+		//impuesto.setRetenciones(retenciones);
 
 		cfdiNomina.setImpuestos(impuesto);
 		mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Complemento complemento = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Complemento();
 		complemento.getAny().add(complementoNomina);
 		cfdiNomina.setComplemento(complemento);
+		cfdiNomina.setMoneda("MXN");
 
 		String cadenaOriginal;
 		try {
@@ -459,6 +471,8 @@ public class TimbradoService implements Serializable {
 		String xmlBase64;
 		try {
 			xmlSellado = generarXMLStream12(cfdiNomina);
+			
+			System.out.println(xmlSellado);
 
 			xmlBase64 = new String(Base64.encodeBase64(xmlSellado.toByteArray()));
 
@@ -1070,13 +1084,14 @@ public class TimbradoService implements Serializable {
 	private BigDecimal subTotal(Nomina12 complementoNomina) {
 
 		BigDecimal subTotal = new BigDecimal("0");
-		if (complementoNomina.getPercepciones().getTotalExento() != null) {
+		/*if (complementoNomina.getPercepciones().getTotalExento() != null) {
 			subTotal = subTotal.add(complementoNomina.getPercepciones().getTotalExento());
 		}
 
 		if (complementoNomina.getPercepciones().getTotalGravado() != null) {
 			subTotal = subTotal.add(complementoNomina.getPercepciones().getTotalGravado());
-		}
+		}*/
+		subTotal = complementoNomina.getTotalPercepciones();
 		
 		if(complementoNomina.getOtrosPagos() != null){
 			subTotal = subTotal.add(complementoNomina.getTotalOtrosPagos());
@@ -1220,17 +1235,19 @@ public class TimbradoService implements Serializable {
 				deducciones.getDeduccion().add(deduccion);
 				if (deduccionCFDI.getTipoPercepcion().equals("002")) {
 					totalImpuestosRetenidos = totalImpuestosRetenidos.add(deduccionCFDI.getImporteGravado());
+					deducciones.setTotalImpuestosRetenidos(totalImpuestosRetenidos);
 				} else {
 					totalOtrasDeducciones = totalOtrasDeducciones.add(deduccionCFDI.getImporteGravado());
+					deducciones.setTotalOtrasDeducciones(totalOtrasDeducciones);			
 				}
 				totalDeduciones = totalDeduciones.add(deduccionCFDI.getImporteExcento().add(deduccionCFDI.getImporteGravado()));
 
 			}
-			deducciones.setTotalImpuestosRetenidos(totalImpuestosRetenidos);
-			deducciones.setTotalOtrasDeducciones(totalOtrasDeducciones);
 			
-
+			
+			
 			complementoNomina12.setDeducciones(deducciones);
+			complementoNomina12.setTotalDeducciones(totalDeduciones);
 		}
 
 		try {
@@ -1298,7 +1315,7 @@ public class TimbradoService implements Serializable {
 		complementoNomina12.setPercepciones(percepciones);
 //		complementoNomina12.setTotalOtrosPagos(to);
 		complementoNomina12.setTipoNomina(CTipoNomina.valueOf(datosCFDINomina.getTipoNomina()));
-		complementoNomina12.setTotalDeducciones(totalDeduciones);
+		
 		complementoNomina12.setTotalPercepciones(totalExcento.add(totalGravado));
 		complementoNomina12.setVersion("1.2");
 

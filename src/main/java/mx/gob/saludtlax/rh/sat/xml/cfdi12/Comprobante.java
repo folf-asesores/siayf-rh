@@ -317,7 +317,7 @@ public class Comprobante {
      *     
      */
     public XMLGregorianCalendar getFecha() {
-        return fecha;
+        return fecha.normalize();
     }
 
     /**

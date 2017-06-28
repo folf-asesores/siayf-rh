@@ -802,13 +802,13 @@ public class ComprobanteNominaService implements Serializable {
 			//comprobanteEntity.setAntiguedad(datosComprobante.getComplementoNomina12().getAntiguedad());
 			//comprobanteEntity.setBanco(datosComprobante.getComplementoNomina().getBanco());
 			comprobanteEntity.setCadenaOriginal(datosComprobante.getCadenaOriginal());
-			comprobanteEntity.setCalle(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getCalle());
-			if (datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria() != null)
-				comprobanteEntity.setcLABE(datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria().toString());
-			comprobanteEntity.setCodigoPostal(
-					datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getCodigoPostal());
-			comprobanteEntity
-					.setColonia(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getColonia());
+			//comprobanteEntity.setCalle(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getCalle());
+			//if (datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria() != null)
+		//		comprobanteEntity.setcLABE(datosComprobante.getComplementoNomina12().getReceptor().getCuentaBancaria().toString());
+			//comprobanteEntity.setCodigoPostal(
+				//	datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getCodigoPostal());
+			//comprobanteEntity
+				//	.setColonia(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getColonia());
 			comprobanteEntity.setComprobanteXML(datosComprobante.getComprobanteXML().getBytes());
 			comprobanteEntity.setcURP(datosComprobante.getComplementoNomina12().getReceptor().getCurp());
 			/*if (datosComprobante.getComplementoNomina12().getDeducciones() != null) {
@@ -820,7 +820,7 @@ public class ComprobanteNominaService implements Serializable {
 
 			comprobanteEntity.setDepartamento(datosComprobante.getComplementoNomina12().getReceptor().getDepartamento());
 			comprobanteEntity.setDescuento(datosComprobante.getComprobanteCFDI12().getDescuento());
-			comprobanteEntity.setEstado(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getEstado());
+			//comprobanteEntity.setEstado(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getEstado());
 
 			comprobanteEntity
 					.setFecha(datosComprobante.getComprobanteCFDI12().getFecha().toGregorianCalendar().getTime());
@@ -842,19 +842,19 @@ public class ComprobanteNominaService implements Serializable {
 			comprobanteEntity.setFolioFiscalOriginal(datosComprobante.getComprobanteCFDI12().getFolioFiscalOrig());
 			comprobanteEntity.setFormaPago(datosComprobante.getComprobanteCFDI12().getFormaDePago());
 			comprobanteEntity.setIdXML(datosComprobante.getId().toString());
-			comprobanteEntity
-					.setLocalidad(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getLocalidad());
+			//comprobanteEntity
+				//	.setLocalidad(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getLocalidad());
 			comprobanteEntity.setLugarExpedicion(datosComprobante.getComprobanteCFDI12().getLugarExpedicion());
 			comprobanteEntity.setMetodoPago(datosComprobante.getComprobanteCFDI12().getMetodoDePago());
 			comprobanteEntity.setMoneda(datosComprobante.getComprobanteCFDI12().getMoneda());
 			comprobanteEntity.setMotivoDescuento(datosComprobante.getComprobanteCFDI12().getMotivoDescuento());
-			comprobanteEntity
-					.setMunicipio(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getMunicipio());
+			//comprobanteEntity
+				//	.setMunicipio(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getMunicipio());
 			comprobanteEntity.setNoCertificado(datosComprobante.getComprobanteCFDI12().getNoCertificado());
-			comprobanteEntity
-					.setNoExterior(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getNoExterior());
-			comprobanteEntity
-					.setNoInterior(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getNoInterior());
+			//comprobanteEntity
+				//	.setNoExterior(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getNoExterior());
+			//comprobanteEntity
+				//	.setNoInterior(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getNoInterior());
 			comprobanteEntity.setNombre(datosComprobante.getComprobanteCFDI12().getReceptor().getNombre());
 			comprobanteEntity.setNumeroCertificadoSAT(datosComprobante.getComplementoTimbre().getNoCertificadoSAT());
 			comprobanteEntity.setNumeroCuentaPago(datosComprobante.getComprobanteCFDI12().getNumCtaPago());
@@ -862,15 +862,15 @@ public class ComprobanteNominaService implements Serializable {
 			comprobanteEntity.setNumeroEmpleado(datosComprobante.getComplementoNomina12().getReceptor().getNumEmpleado());
 			comprobanteEntity.setNumeroSeguridadSocial(datosComprobante.getComplementoNomina12().getReceptor().getNumSeguridadSocial());
 			comprobanteEntity.setNumXML(datosComprobante.getNum().toString());
-			comprobanteEntity.setPais(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getPais());
+			//comprobanteEntity.setPais(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getPais());
 			/*comprobanteEntity.setPercepcionTotalExcento(
 					datosComprobante.getComplementoNomina().getPercepciones().getTotalExento());
 			comprobanteEntity.setPercepcionTotalGravado(
 					datosComprobante.getComplementoNomina().getPercepciones().getTotalGravado());*/
 			comprobanteEntity.setPeriocidadPago(datosComprobante.getComplementoNomina12().getReceptor().getPeriodicidadPago());
 			comprobanteEntity.setPuesto(datosComprobante.getComplementoNomina12().getReceptor().getPuesto());
-			comprobanteEntity
-					.setReferencia(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getReferencia());
+			//comprobanteEntity
+				//	.setReferencia(datosComprobante.getComprobanteCFDI12().getReceptor().getDomicilio().getReferencia());
 			comprobanteEntity.setRegistroPatronal(datosComprobante.getComplementoNomina12().getEmisor().getRegistroPatronal());
 			comprobanteEntity.setrFC(datosComprobante.getComprobanteCFDI12().getReceptor().getRfc());
 			//comprobanteEntity.setRiesgoPuesto(new  Integer(datosComprobante.getComplementoNomina12().getReceptor().getRiesgoPuesto()));
