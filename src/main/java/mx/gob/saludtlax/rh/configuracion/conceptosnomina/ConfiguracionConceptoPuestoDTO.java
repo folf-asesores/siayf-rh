@@ -5,124 +5,128 @@ import java.math.BigDecimal;
 
 public class ConfiguracionConceptoPuestoDTO implements Serializable {
 
-	/**
-		 * 
-		 */
-	private static final long serialVersionUID = 5172641171733087326L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5172641171733087326L;
 
-	private Integer id_configuracion_concepto;
+    private Integer idConfiguracionConcepto;
 
-	private Integer id_concepto_nomina;
-	private String claveConcepto;
-	private String decripcionConcepto;
+    private Integer idConceptoNomina;
+    private String claveConcepto;
+    private String decripcionConcepto;
 
-	private Integer id_tabulador;
-	private Integer ejercicioFiscalTabulador;
+    private Integer idTabulador;
+    private Integer ejercicioFiscalTabulador;
 
-	private BigDecimal importe_concepto=new BigDecimal(0);
+    private BigDecimal importeConcepto;
 
-	private Integer id_puesto_general;
-	private String codigoPuesto;
-	private String descripcionPuesto;
-	
-	private String formula;
-	
-	private Integer tipoPuesto;
+    private Integer idPuestoGeneral;
+    private String codigoPuesto;
+    private String descripcionPuesto;
 
-	public Integer getId_configuracion_concepto() {
-		return id_configuracion_concepto;
-	}
+    private String formula;
 
-	public void setId_configuracion_concepto(Integer id_configuracion_concepto) {
-		this.id_configuracion_concepto = id_configuracion_concepto;
-	}
+    private Integer tipoPuesto;
 
-	public Integer getId_concepto_nomina() {
-		return id_concepto_nomina;
-	}
+    public ConfiguracionConceptoPuestoDTO() {
+        importeConcepto = BigDecimal.ZERO;
+    }
 
-	public void setId_concepto_nomina(Integer id_concepto_nomina) {
-		this.id_concepto_nomina = id_concepto_nomina;
-	}
+    public Integer getIdConfiguracionConcepto() {
+        return idConfiguracionConcepto;
+    }
 
-	public String getClaveConcepto() {
-		return claveConcepto;
-	}
+    public void setIdConfiguracionConcepto(Integer idConfiguracionConcepto) {
+        this.idConfiguracionConcepto = idConfiguracionConcepto;
+    }
 
-	public void setClaveConcepto(String claveConcepto) {
-		this.claveConcepto = claveConcepto;
-	}
+    public Integer getIdConceptoNomina() {
+        return idConceptoNomina;
+    }
 
-	public String getDecripcionConcepto() {
-		return decripcionConcepto;
-	}
+    public void setIdConceptoNomina(Integer idConceptoNomina) {
+        this.idConceptoNomina = idConceptoNomina;
+    }
 
-	public void setDecripcionConcepto(String decripcionConcepto) {
-		this.decripcionConcepto = decripcionConcepto;
-	}
+    public String getClaveConcepto() {
+        return claveConcepto;
+    }
 
-	public Integer getId_tabulador() {
-		return id_tabulador;
-	}
+    public void setClaveConcepto(String claveConcepto) {
+        this.claveConcepto = claveConcepto;
+    }
 
-	public void setId_tabulador(Integer id_tabulador) {
-		this.id_tabulador = id_tabulador;
-	}
+    public String getDecripcionConcepto() {
+        return decripcionConcepto;
+    }
 
-	public Integer getEjercicioFiscalTabulador() {
-		return ejercicioFiscalTabulador;
-	}
+    public void setDecripcionConcepto(String decripcionConcepto) {
+        this.decripcionConcepto = decripcionConcepto;
+    }
 
-	public void setEjercicioFiscalTabulador(Integer ejercicioFiscalTabulador) {
-		this.ejercicioFiscalTabulador = ejercicioFiscalTabulador;
-	}
+    public Integer getIdTabulador() {
+        return idTabulador;
+    }
 
-	public BigDecimal getImporte_concepto() {
-		return importe_concepto;
-	}
+    public void setIdTabulador(Integer idTabulador) {
+        this.idTabulador = idTabulador;
+    }
 
-	public void setImporte_concepto(BigDecimal importe_concepto) {
-		this.importe_concepto = importe_concepto;
-	}
+    public Integer getEjercicioFiscalTabulador() {
+        return ejercicioFiscalTabulador;
+    }
 
-	public Integer getId_puesto_general() {
-		return id_puesto_general;
-	}
+    public void setEjercicioFiscalTabulador(Integer ejercicioFiscalTabulador) {
+        this.ejercicioFiscalTabulador = ejercicioFiscalTabulador;
+    }
 
-	public void setId_puesto_general(Integer id_puesto_general) {
-		this.id_puesto_general = id_puesto_general;
-	}
+    public BigDecimal getImporteConcepto() {
+        return importeConcepto;
+    }
 
-	public String getCodigoPuesto() {
-		return codigoPuesto;
-	}
+    public void setImporteConcepto(BigDecimal importeConcepto) {
+        this.importeConcepto = importeConcepto;
+    }
 
-	public void setCodigoPuesto(String codigoPuesto) {
-		this.codigoPuesto = codigoPuesto;
-	}
+    public Integer getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
 
-	public String getDescripcionPuesto() {
-		return descripcionPuesto;
-	}
+    public void setIdPuestoGeneral(Integer idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
 
-	public void setDescripcionPuesto(String descripcionPuesto) {
-		this.descripcionPuesto = descripcionPuesto;
-	}
+    public String getCodigoPuesto() {
+        return codigoPuesto;
+    }
 
-	public Integer getTipoPuesto() {
-		return tipoPuesto;
-	}
+    public void setCodigoPuesto(String codigoPuesto) {
+        this.codigoPuesto = codigoPuesto;
+    }
 
-	public void setTipoPuesto(Integer tipoPuesto) {
-		this.tipoPuesto = tipoPuesto;
-	}
+    public String getDescripcionPuesto() {
+        return descripcionPuesto;
+    }
 
-	public String getFormula() {
-		return formula;
-	}
+    public void setDescripcionPuesto(String descripcionPuesto) {
+        this.descripcionPuesto = descripcionPuesto;
+    }
 
-	public void setFormula(String formula) {
-		this.formula = formula;
-	}
+    public String getFormula() {
+        return formula;
+    }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public Integer getTipoPuesto() {
+        return tipoPuesto;
+    }
+
+    public void setTipoPuesto(Integer tipoPuesto) {
+        this.tipoPuesto = tipoPuesto;
+    }
 
 }

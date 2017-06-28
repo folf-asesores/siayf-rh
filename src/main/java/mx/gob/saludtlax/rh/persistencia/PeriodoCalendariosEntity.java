@@ -37,7 +37,7 @@ public class PeriodoCalendariosEntity implements Serializable {
 		private Integer idEjercicioFiscal;
 
 //		<Getters & Setters>
-		
+
 		public Integer getIdPeriodoCalendario() {
 			return idPeriodoCalendario;
 		}
@@ -74,7 +74,5 @@ public class PeriodoCalendariosEntity implements Serializable {
 		public void setIdEjercicioFiscal(Integer idEjercicioFiscal) {
 			this.idEjercicioFiscal = idEjercicioFiscal;
 		}
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
+
 }

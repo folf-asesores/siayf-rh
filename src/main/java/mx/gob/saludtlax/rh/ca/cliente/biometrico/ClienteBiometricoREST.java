@@ -137,6 +137,7 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
 			}
 
 		} catch (IOException e) {
+			//System.out.println("error:: "+ e.getMessage());
 			throw new RESTClientException(e.getMessage());
 		}
 

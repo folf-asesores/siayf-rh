@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 import org.jboss.logging.Logger;
 
@@ -19,268 +17,257 @@ import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionReposito
 import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
-import mx.gob.saludtlax.rh.util.Configuracion;
 
 public class ConfiguracionModuloAccionService implements Serializable {
 
-	private static final long serialVersionUID = -1800073664586345602L;
-	private static final Logger LOGGER = Logger.getLogger(ConfiguracionModuloAccionService.class);
+    private static final long serialVersionUID = -1800073664586345602L;
+    private static final Logger LOGGER = Logger.getLogger(ConfiguracionModuloAccionService.class);
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
+    @Inject
+    private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
 
-	@Inject
-	private ConfiguracionModuloAccionRepository dao;
+    @Inject
+    private DetalleConfiguracionModuloAccionRepository detalleConfiguracionModuloAccionRepository;
 
-	@Inject
-	private DetalleConfiguracionModuloAccionRepository detalleConfiguracionDao;
+    @Inject
+    private ModuloRepository moduloRepository;
 
-	@Inject
-	private ModuloRepository moduloDAO;
+    @Inject
+    private AccionesRepository accionesRepository;
 
-	@Inject
-	private AccionesRepository accionesRepository;
+    public void crear(ConfiguracionModuloAccionDTO dto) {
+        ConfiguracionModuloAccionEntity entity = new ConfiguracionModuloAccionEntity();
 
-	public void crear(ConfiguracionModuloAccionDTO dto) {
-		ConfiguracionModuloAccionEntity entity = new ConfiguracionModuloAccionEntity();
+        entity.setDescripcion(dto.getNombreConfiguracion());
+        entity.setModulo(moduloRepository.obtenerPorId(dto.getModulo().getIdModulo()));
 
-		entity.setDescripcion(dto.getNombreConfiguracion());
-		entity.setId_Modulo(moduloDAO.obtenerPorId(dto.getModulo().getId_modulo()));
+        ConfiguracionModuloAccionEntity conf = configuracionModuloAccionRepository.crear(entity);
 
-		ConfiguracionModuloAccionEntity conf = dao.crear(entity);
+        guardarDetalleConfiguracion(conf.getIdConfiguracionModuloAccion(), dto.getAcciones());
+    }
 
-		guardarDetalleConfiguracion(conf.getId_configuracion_modulo_accion(), dto.getAcciones());
-	}
+    private void guardarDetalleConfiguracion(Integer idConfiguracion, List<AccionDTO> acciones) {
 
-	private void guardarDetalleConfiguracion(Integer idConfiguracion, List<AccionDTO> acciones) {
+        // primero buscara si ya hay detalles de la configuracion de ser asi
+        // los borrara y guardara la nueva lista de acciones.
+        List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
 
-		// primero buscara si ya hay detalles de la configuracion de ser asi
-		// los borrara y guardara la nueva lista de acciones.
-		List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
+        detallesExistentes = detalleConfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(idConfiguracion);
+        if (detallesExistentes != null) {
+            for (DetalleConfiguracionModuloAccionEntity detalleDelet : detallesExistentes) {
+                detalleConfiguracionModuloAccionRepository.eliminarPorId(detalleDelet.getIdDetalleConfiguracionModuloAccion());
+            }
+        }
+        if (!acciones.isEmpty()) { // Valida si hay acciones por registrar
+            for (AccionDTO dto : acciones) {
+                LOGGER.debug("Acción registrando: " + dto.toString());
+                DetalleConfiguracionModuloAccionEntity detalle = new DetalleConfiguracionModuloAccionEntity();
+                detalle.setId_accion(accionesRepository.obtenerPorId(dto.getIdAccion()));
+                detalle.setIdConfiguracionModuloAccion(idConfiguracion);
+                // guarda los detalles de las acciones
+                detalleConfiguracionModuloAccionRepository.crear(detalle);
+            }
+        }
 
-		detallesExistentes = detalleConfiguracionDao.obtenerDetallesPorIdConfiguracion(idConfiguracion);
-		if (detallesExistentes != null) {
-			for (DetalleConfiguracionModuloAccionEntity detalleDelet : detallesExistentes) {
-				detalleConfiguracionDao.eliminarPorId(detalleDelet.getId_detalle_configuracion_modulo_accion());
-			}
-		}
-		if (!acciones.isEmpty()) { // Valida si hay acciones por registrar
-			for (AccionDTO dto : acciones) {
-				LOGGER.debug("Acción registrando: " + dto.toString());
-				DetalleConfiguracionModuloAccionEntity detalle = new DetalleConfiguracionModuloAccionEntity();
-				detalle.setId_accion(accionesRepository.obtenerPorId(dto.getId_accion()));
-				detalle.setIdConfiguracionModuloAccion(idConfiguracion);
-				// guarda los detalles de las acciones
-				detalleConfiguracionDao.crear(detalle);
-			}
-		}
+    }
 
-	}
+    public void editar(ConfiguracionModuloAccionDTO dto) {
+        ConfiguracionModuloAccionEntity entity = configuracionModuloAccionRepository.obtenerPorId(dto.getIdConfiguracionModuloAccion());
+        entity.setDescripcion(dto.getNombreConfiguracion());
+        entity.setModulo(moduloRepository.obtenerPorId(dto.getModulo().getIdModulo()));
 
-	public void editar(ConfiguracionModuloAccionDTO dto) {
-		ConfiguracionModuloAccionEntity entity = dao.obtenerPorId(dto.getId_configuracion_modulo_accion());
-		entity.setDescripcion(dto.getNombreConfiguracion());
-		entity.setId_Modulo(moduloDAO.obtenerPorId(dto.getModulo().getId_modulo()));
+        ConfiguracionModuloAccionEntity conf = configuracionModuloAccionRepository.actualizar(entity);
 
-		ConfiguracionModuloAccionEntity conf = dao.actualizar(entity);
+        guardarDetalleConfiguracion(conf.getIdConfiguracionModuloAccion(), dto.getAcciones());
+    }
 
-		guardarDetalleConfiguracion(conf.getId_configuracion_modulo_accion(), dto.getAcciones());
-	}
+    public void eliminar(Integer id) {
+        ConfiguracionModuloAccionEntity entity = configuracionModuloAccionRepository.obtenerPorId(id);
 
-	public void eliminar(Integer id) {
-		ConfiguracionModuloAccionEntity entity = dao.obtenerPorId(id);
+        // primero buscara si ya hay detalles de la configuracion de ser asi los
+        // borrara y guardara la nueva lista de acciones.
+        List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
 
-		// primero buscara si ya hay detalles de la configuracion de ser asi los
-		// borrara y guardara la nueva lista de acciones.
-		List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
+        detallesExistentes = detalleConfiguracionModuloAccionRepository
+                .obtenerDetallesPorIdConfiguracion(entity.getIdConfiguracionModuloAccion());
+        if (detallesExistentes != null) {
+            for (DetalleConfiguracionModuloAccionEntity detalleDelet : detallesExistentes) {
+                detalleConfiguracionModuloAccionRepository.eliminarPorId(detalleDelet.getIdDetalleConfiguracionModuloAccion());
+            }
+        }
 
-		detallesExistentes = detalleConfiguracionDao
-				.obtenerDetallesPorIdConfiguracion(entity.getId_configuracion_modulo_accion());
-		if (detallesExistentes != null) {
-			for (DetalleConfiguracionModuloAccionEntity detalleDelet : detallesExistentes) {
-				detalleConfiguracionDao.eliminarPorId(detalleDelet.getId_detalle_configuracion_modulo_accion());
-			}
-		}
+        configuracionModuloAccionRepository.eliminar(entity);
+    }
 
-		dao.eliminar(entity);
-	}
+    public ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod) {
 
-	public ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod) {
+        ConfiguracionModuloAccionEntity entity = configuracionModuloAccionRepository.obtenerPorId(IdConfAccMod);
 
-		ConfiguracionModuloAccionEntity entity = dao.obtenerPorId(IdConfAccMod);
+        ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
 
-		ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
+        dto.setIdConfiguracionModuloAccion(entity.getIdConfiguracionModuloAccion());
+        dto.setNombreConfiguracion(entity.getDescripcion());
 
-		dto.setId_configuracion_modulo_accion(entity.getId_configuracion_modulo_accion());
-		dto.setNombreConfiguracion(entity.getDescripcion());
+        ModuloDTO moduloDto = new ModuloDTO();
+        moduloDto.setHabilitado(entity.getModulo().getHabilitado());
+        moduloDto.setIdModulo(entity.getModulo().getIdModulo());
+        moduloDto.setIdArea(entity.getModulo().getArea().getIdArea());
+        moduloDto.setNombre(entity.getModulo().getNombre());
+        moduloDto.setNombreArea(entity.getModulo().getArea().getNombreArea());
+        moduloDto.setUrl(entity.getModulo().getUrl());
 
-		ModuloDTO moduloDto = new ModuloDTO();
-		moduloDto.setHabilitado(entity.getId_Modulo().getHabilitado());
-		moduloDto.setId_modulo(entity.getId_Modulo().getId_modulo());
-		moduloDto.setIdArea(entity.getId_Modulo().getArea().getIdArea());
-		moduloDto.setNombre(entity.getId_Modulo().getNombre());
-		moduloDto.setNombreArea(entity.getId_Modulo().getArea().getNombreArea());
-		moduloDto.setUrl(entity.getId_Modulo().getUrl());
+        dto.setModulo(moduloDto);
 
-		dto.setModulo(moduloDto);
+        List<AccionDTO> listAcciones = new ArrayList<AccionDTO>();
 
-		List<AccionDTO> listAcciones = new ArrayList<AccionDTO>();
+        // primero buscara si ya hay detalles de la configuracion de ser asi
+        List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
 
-		// primero buscara si ya hay detalles de la configuracion de ser asi
-		List<DetalleConfiguracionModuloAccionEntity> detallesExistentes = new ArrayList<>();
+        detallesExistentes = detalleConfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(IdConfAccMod);
+        if (!detallesExistentes.isEmpty()) {
+            for (DetalleConfiguracionModuloAccionEntity detalleConfiguracionModuloAccionEntity : detallesExistentes) {
 
-		detallesExistentes = detalleConfiguracionDao.obtenerDetallesPorIdConfiguracion(IdConfAccMod);
-		if (!detallesExistentes.isEmpty()) {
-			for (DetalleConfiguracionModuloAccionEntity detalleConfiguracionModuloAccionEntity : detallesExistentes) {
+                AccionDTO accion = new AccionDTO();
 
-				AccionDTO accion = new AccionDTO();
+                accion.setIdAccion(detalleConfiguracionModuloAccionEntity.getAccion().getIdAccion());
+                accion.setIdArea(detalleConfiguracionModuloAccionEntity.getAccion().getArea().getIdArea());
+                accion.setClave(detalleConfiguracionModuloAccionEntity.getAccion().getClave());
+                accion.setDescripcion(detalleConfiguracionModuloAccionEntity.getAccion().getDescripcion());
+                accion.setNombreArea(detalleConfiguracionModuloAccionEntity.getAccion().getArea().getNombreArea());
 
-				accion.setId_accion(detalleConfiguracionModuloAccionEntity.getId_accion().getId_accion());
-				accion.setId_area(detalleConfiguracionModuloAccionEntity.getId_accion().getArea().getIdArea());
-				accion.setClave(detalleConfiguracionModuloAccionEntity.getId_accion().getClave());
-				accion.setDescripcion(detalleConfiguracionModuloAccionEntity.getId_accion().getDescripcion());
-				accion.setNombreArea(detalleConfiguracionModuloAccionEntity.getId_accion().getArea().getNombreArea());
+                Integer idModulo = entity.getModulo().getIdModulo();
 
-				Integer idModulo = entity.getId_Modulo().getId_modulo();
+                ModuloEntity moduloEntity = moduloRepository.obtenerPorId(idModulo);
 
-				ModuloEntity moduloEntity = moduloDAO.obtenerPorId(idModulo);
+                if (moduloEntity == null) {
+                    throw new ValidacionException(
+                            "Obtener Configuración Modulo Acción: no se encontrarón resultados con el identificador del modulo "
+                            + detalleConfiguracionModuloAccionEntity.getAccion().getModulo().getIdModulo()
+                                    .toString(),
+                            ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+                } else {
+                    accion.setIdModulo(moduloEntity.getIdModulo());
+                }
 
-				if (moduloEntity == null) {
-					throw new ValidacionException(
-							"Obtener Configuración Modulo Acción: no se encontrarón resultados con el identificador del modulo "
-									+ detalleConfiguracionModuloAccionEntity.getId_accion().getModulo().getId_modulo()
-											.toString(),
-							ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
-				} else {
-					accion.setId_modulo(moduloEntity.getId_modulo());
-				}
+                listAcciones.add(accion);
 
-				listAcciones.add(accion);
+            }
+        }
 
-			}
-		}
+        dto.setAcciones(listAcciones);
 
-		dto.setAcciones(listAcciones);
+        return dto;
+    }
 
-		return dto;
-	}
+    public List<ConfiguracionModuloAccionDTO> obtenerRegistros() {
+        List<ConfiguracionModuloAccionEntity> listEntity = configuracionModuloAccionRepository.consultarTodos();
 
-	public List<ConfiguracionModuloAccionDTO> obtenerRegistros() {
-		List<ConfiguracionModuloAccionEntity> listEntity = new ArrayList<>();
+        List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
 
-		listEntity = dao.obtenerRegistros();
+        for (ConfiguracionModuloAccionEntity cE : listEntity) {
+            ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
 
-		List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
+            dto.setIdConfiguracionModuloAccion(cE.getIdConfiguracionModuloAccion());
+            dto.setNombreConfiguracion(cE.getDescripcion());
 
-		for (ConfiguracionModuloAccionEntity cE : listEntity) {
-			ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
+            ModuloDTO moduloDto = new ModuloDTO();
+            moduloDto.setHabilitado(cE.getModulo().getHabilitado());
+            moduloDto.setIdModulo(cE.getModulo().getIdModulo());
+            moduloDto.setIdArea(cE.getModulo().getArea().getIdArea());
+            moduloDto.setNombre(cE.getModulo().getNombre());
+            moduloDto.setNombreArea(cE.getModulo().getArea().getNombreArea());
+            moduloDto.setUrl(cE.getModulo().getUrl());
 
-			dto.setId_configuracion_modulo_accion(cE.getId_configuracion_modulo_accion());
-			dto.setNombreConfiguracion(cE.getDescripcion());
+            dto.setModulo(moduloDto);
 
-			ModuloDTO moduloDto = new ModuloDTO();
-			moduloDto.setHabilitado(cE.getId_Modulo().getHabilitado());
-			moduloDto.setId_modulo(cE.getId_Modulo().getId_modulo());
-			moduloDto.setIdArea(cE.getId_Modulo().getArea().getIdArea());
-			moduloDto.setNombre(cE.getId_Modulo().getNombre());
-			moduloDto.setNombreArea(cE.getId_Modulo().getArea().getNombreArea());
-			moduloDto.setUrl(cE.getId_Modulo().getUrl());
+            List<AccionDTO> acciones = obtenerAccionesPorConfiguracion(cE.getIdConfiguracionModuloAccion());
+            dto.setAcciones(acciones);
+            listDto.add(dto);
+        }
 
-			dto.setModulo(moduloDto);
+        return listDto;
 
-			List<AccionDTO> acciones = obtenerAccionesPorConfiguracion(cE.getId_configuracion_modulo_accion());
-			dto.setAcciones(acciones);
-			listDto.add(dto);
-		}
+    }
 
-		return listDto;
+    private List<AccionDTO> obtenerAccionesPorConfiguracion(Integer idConfiguracion) {
+        List<AccionDTO> listAcciones = new ArrayList<>();
 
-	}
+        List<DetalleConfiguracionModuloAccionEntity> detalles = detalleConfiguracionModuloAccionRepository
+                .obtenerDetallesPorIdConfiguracion(idConfiguracion);
 
-	private List<AccionDTO> obtenerAccionesPorConfiguracion(Integer idConfiguracion) {
-		List<AccionDTO> listAcciones = new ArrayList<>();
+        for (DetalleConfiguracionModuloAccionEntity ent : detalles) {
+            AccionDTO accionDto = new AccionDTO();
+            accionDto.setIdAccion(ent.getAccion().getIdAccion());
+            accionDto.setClave(ent.getAccion().getClave());
+            accionDto.setDescripcion(ent.getAccion().getDescripcion());
+            accionDto.setIdArea(ent.getAccion().getArea().getIdArea());
+            accionDto.setNombreArea(ent.getAccion().getArea().getNombreArea());
 
-		List<DetalleConfiguracionModuloAccionEntity> detalles = detalleConfiguracionDao
-				.obtenerDetallesPorIdConfiguracion(idConfiguracion);
+            listAcciones.add(accionDto);
+        }
 
-		for (DetalleConfiguracionModuloAccionEntity ent : detalles) {
-			AccionDTO accionDto = new AccionDTO();
-			accionDto.setId_accion(ent.getId_accion().getId_accion());
-			accionDto.setClave(ent.getId_accion().getClave());
-			accionDto.setDescripcion(ent.getId_accion().getDescripcion());
-			accionDto.setId_area(ent.getId_accion().getArea().getIdArea());
-			accionDto.setNombreArea(ent.getId_accion().getArea().getNombreArea());
+        return listAcciones;
+    }
 
-			listAcciones.add(accionDto);
-		}
+    public List<ConfiguracionModuloAccionDTO> obtenerRegistrosPorModulo(Integer idModulo) {
+        List<ConfiguracionModuloAccionEntity> listEntity = new ArrayList<>();
 
-		return listAcciones;
-	}
+        listEntity = configuracionModuloAccionRepository.obtenerRegistrosPorModulo(idModulo);
 
-	public List<ConfiguracionModuloAccionDTO> obtenerRegistrosPorModulo(Integer idModulo) {
-		List<ConfiguracionModuloAccionEntity> listEntity = new ArrayList<>();
+        List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
+        for (ConfiguracionModuloAccionEntity cE : listEntity) {
+            ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
 
-		listEntity = dao.obtenerRegistrosPorModulo(idModulo);
+            dto.setIdConfiguracionModuloAccion(cE.getIdConfiguracionModuloAccion());
 
-		List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
-		for (ConfiguracionModuloAccionEntity cE : listEntity) {
-			ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
+            ModuloDTO moduloDto = new ModuloDTO();
+            moduloDto.setHabilitado(cE.getModulo().getHabilitado());
+            moduloDto.setIdModulo(cE.getModulo().getIdModulo());
+            moduloDto.setIdArea(cE.getModulo().getArea().getIdArea());
+            moduloDto.setNombre(cE.getModulo().getNombre());
+            moduloDto.setNombreArea(cE.getModulo().getArea().getNombreArea());
+            moduloDto.setUrl(cE.getModulo().getUrl());
 
-			dto.setId_configuracion_modulo_accion(cE.getId_configuracion_modulo_accion());
+            dto.setModulo(moduloDto);
 
-			ModuloDTO moduloDto = new ModuloDTO();
-			moduloDto.setHabilitado(cE.getId_Modulo().getHabilitado());
-			moduloDto.setId_modulo(cE.getId_Modulo().getId_modulo());
-			moduloDto.setIdArea(cE.getId_Modulo().getArea().getIdArea());
-			moduloDto.setNombre(cE.getId_Modulo().getNombre());
-			moduloDto.setNombreArea(cE.getId_Modulo().getArea().getNombreArea());
-			moduloDto.setUrl(cE.getId_Modulo().getUrl());
+            listDto.add(dto);
+        }
 
-			dto.setModulo(moduloDto);
+        return listDto;
 
-			listDto.add(dto);
-		}
+    }
 
-		return listDto;
+    public List<ConfiguracionModuloAccionDTO> obtenerRegistrosPorAccion(Integer idModulo) {
+        List<ConfiguracionModuloAccionEntity> listEntity = new ArrayList<>();
 
-	}
+        listEntity = configuracionModuloAccionRepository.obtenerRegistrosPorModulo(idModulo);
 
-	public List<ConfiguracionModuloAccionDTO> obtenerRegistrosPorAccion(Integer idModulo) {
-		List<ConfiguracionModuloAccionEntity> listEntity = new ArrayList<>();
+        List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
+        for (ConfiguracionModuloAccionEntity cE : listEntity) {
+            ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
 
-		listEntity = dao.obtenerRegistrosPorModulo(idModulo);
+            dto.setIdConfiguracionModuloAccion(cE.getIdConfiguracionModuloAccion());
 
-		List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
-		for (ConfiguracionModuloAccionEntity cE : listEntity) {
-			ConfiguracionModuloAccionDTO dto = new ConfiguracionModuloAccionDTO();
+            ModuloDTO moduloDto = new ModuloDTO();
+            moduloDto.setHabilitado(cE.getModulo().getHabilitado());
+            moduloDto.setIdModulo(cE.getModulo().getIdModulo());
+            moduloDto.setIdArea(cE.getModulo().getArea().getIdArea());
+            moduloDto.setNombre(cE.getModulo().getNombre());
+            moduloDto.setNombreArea(cE.getModulo().getArea().getNombreArea());
+            moduloDto.setUrl(cE.getModulo().getUrl());
 
-			dto.setId_configuracion_modulo_accion(cE.getId_configuracion_modulo_accion());
+            dto.setModulo(moduloDto);
 
-			ModuloDTO moduloDto = new ModuloDTO();
-			moduloDto.setHabilitado(cE.getId_Modulo().getHabilitado());
-			moduloDto.setId_modulo(cE.getId_Modulo().getId_modulo());
-			moduloDto.setIdArea(cE.getId_Modulo().getArea().getIdArea());
-			moduloDto.setNombre(cE.getId_Modulo().getNombre());
-			moduloDto.setNombreArea(cE.getId_Modulo().getArea().getNombreArea());
-			moduloDto.setUrl(cE.getId_Modulo().getUrl());
+            listDto.add(dto);
+        }
 
-			dto.setModulo(moduloDto);
+        return listDto;
 
-			listDto.add(dto);
-		}
+    }
 
-		return listDto;
+    public AccionDTO obtenerAccionesNoRegistradasEnConfg(Integer idModulo, Integer idAccionFiltro) {
 
-	}
-	
-	public AccionDTO obtenerAccionesNoRegistradasEnConfg(Integer idModulo, Integer idAccionFiltro) {
-		
-		
-		
-		
-		
-		
-		return null;
-	}
+        return null;
+    }
 
 }

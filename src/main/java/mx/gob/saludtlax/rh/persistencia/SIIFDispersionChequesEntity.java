@@ -1,6 +1,5 @@
 package mx.gob.saludtlax.rh.persistencia;
 
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -19,106 +18,97 @@ import javax.persistence.Table;
 @Table(name = "siif_dispersion")
 public class SIIFDispersionChequesEntity implements Serializable {
 
-	
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_siif_dispersion")
-	private Integer idDispersionCheques;	
-	
-	@Column(name = "num")
-	private String num;
-	
-	@Column(name = "cheque")
-	private String numCheque;
-	
-	@Column(name = "nombre")
-	private String nombre;
-	
-	@Column(name = "importe")
-	private BigDecimal importe;
-	
-	@Column(name = "tipo_nomina")
-	private String tipoNomina;
-	
-	@Column(name = "qna")
-	private Integer quincena;
-	
-	@Column(name = "rfc")
-	private String rfc;
+    private static final long serialVersionUID = 1L;
 
-	//  <<<Getters & Setters>>>
-	
-	public Integer getIdDispersionCheques() {
-		return idDispersionCheques;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_siif_dispersion")
+    private Integer idDispersionCheques;
 
-	public void setIdDispersionCheques(Integer idDispersionCheques) {
-		this.idDispersionCheques = idDispersionCheques;
-	}
+    @Column(name = "num")
+    private String num;
 
-	public String getNum() {
-		return num;
-	}
+    @Column(name = "cheque")
+    private String numCheque;
 
-	public void setNum(String num) {
-		this.num = num;
-	}
+    @Column(name = "nombre")
+    private String nombre;
 
-	public String getNumCheque() {
-		return numCheque;
-	}
+    @Column(name = "importe")
+    private BigDecimal importe;
 
-	public void setNumCheque(String numCheque) {
-		this.numCheque = numCheque;
-	}
+    @Column(name = "tipo_nomina")
+    private String tipoNomina;
 
-	public String getNombre() {
-		return nombre;
-	}
+    @Column(name = "qna")
+    private Integer quincena;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    @Column(name = "rfc")
+    private String rfc;
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    //  <<<Getters & Setters>>>
+    public Integer getIdDispersionCheques() {
+        return idDispersionCheques;
+    }
 
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
+    public void setIdDispersionCheques(Integer idDispersionCheques) {
+        this.idDispersionCheques = idDispersionCheques;
+    }
 
-	public String getTipoNomina() {
-		return tipoNomina;
-	}
+    public String getNum() {
+        return num;
+    }
 
-	public void setTipoNomina(String tipoNomina) {
-		this.tipoNomina = tipoNomina;
-	}
+    public void setNum(String num) {
+        this.num = num;
+    }
 
-	public Integer getQuincena() {
-		return quincena;
-	}
+    public String getNumCheque() {
+        return numCheque;
+    }
 
-	public void setQuincena(Integer quincena) {
-		this.quincena = quincena;
-	}
+    public void setNumCheque(String numCheque) {
+        this.numCheque = numCheque;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-   
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	
-	
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public String getTipoNomina() {
+        return tipoNomina;
+    }
+
+    public void setTipoNomina(String tipoNomina) {
+        this.tipoNomina = tipoNomina;
+    }
+
+    public Integer getQuincena() {
+        return quincena;
+    }
+
+    public void setQuincena(Integer quincena) {
+        this.quincena = quincena;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
 }

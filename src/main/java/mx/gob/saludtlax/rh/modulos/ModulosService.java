@@ -16,8 +16,6 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.acciones.AccionDTO;
 import mx.gob.saludtlax.rh.acciones.AccionService;
 import mx.gob.saludtlax.rh.areas.AreaDTO;
-import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
-import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.AccionesEntity;
@@ -29,222 +27,218 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 
 public class ModulosService implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4071097046814566204L;
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4071097046814566204L;
 
-	@Inject
-	private ModuloRepository moduloDAO;
-	@Inject
-	private AreasRepository areasDAO;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
 
-	@Inject
-	private AccionService accionesService;
+    @Inject
+    private ModuloRepository moduloRepository;
 
-	@Inject
-	private AccionesRepository accionesRepository;
+    @Inject
+    private AreasRepository areasRepository;
 
-	@Inject
-	private ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    private AccionService accionesService;
 
-	public void crear(ModuloDTO dto) {
+    @Inject
+    private AccionesRepository accionesRepository;
 
-		String contexto = "Registrar Modulo: ";
+    @Inject
+    private ConfiguracionModuloAccion configuracionModuloAccion;
 
-		if (dto == null) {
-			throw new ValidacionException(contexto + "Ingrese los valores requeridos",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+    public void crear(ModuloDTO dto) {
 
-		if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-			throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        String contexto = "Registrar Modulo: ";
 
-		if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-			throw new ValidacionException(contexto + "Por favor Ingrese la url.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (dto == null) {
+            throw new ValidacionException(contexto + "Ingrese los valores requeridos",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-			throw new ValidacionException(contexto + "Por favor seleccione el area",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
+            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (dto.getAcciones().isEmpty()) {
-			throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
+            throw new ValidacionException(contexto + "Por favor Ingrese la url.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		ModuloEntity entity = new ModuloEntity();
-		entity.setArea(areasDAO.obtenerPorId(dto.getIdArea()));
-		entity.setHabilitado(dto.getHabilitado());
-		entity.setNombre(dto.getNombre());
-		entity.setUrl(dto.getUrl());
-		moduloDAO.crear(entity);
+        if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
+            throw new ValidacionException(contexto + "Por favor seleccione el area",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		for (AccionDTO accion : dto.getAcciones()) {
+        if (dto.getAcciones().isEmpty()) {
+            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-			AccionesEntity accionesEntity = new AccionesEntity();
+        ModuloEntity entity = new ModuloEntity();
+        entity.setArea(areasRepository.obtenerPorId(dto.getIdArea()));
+        entity.setHabilitado(dto.getHabilitado());
+        entity.setNombre(dto.getNombre());
+        entity.setUrl(dto.getUrl());
+        moduloRepository.crear(entity);
 
-			accionesEntity.setArea(areasDAO.obtenerPorId(entity.getArea().getIdArea()));
-			accionesEntity.setClave(accion.getClave());
-			accionesEntity.setDescripcion(accion.getDescripcion());
-			accionesEntity.setModulo(entity);
+        for (AccionDTO accion : dto.getAcciones()) {
 
-			accionesRepository.crear(accionesEntity);
-		}
+            AccionesEntity accionesEntity = new AccionesEntity();
 
-	}
+            accionesEntity.setArea(areasRepository.obtenerPorId(entity.getArea().getIdArea()));
+            accionesEntity.setClave(accion.getClave());
+            accionesEntity.setDescripcion(accion.getDescripcion());
+            accionesEntity.setModulo(entity);
 
-	public void editar(ModuloDTO dto) {
+            accionesRepository.crear(accionesEntity);
+        }
 
-		String contexto = "Actualizar Modulo: ";
+    }
 
-		if (dto == null) {
-			throw new ValidacionException(contexto + "Ingrese los valores requeridos",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+    public void editar(ModuloDTO dto) {
 
-		if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-			throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        String contexto = "Actualizar Modulo: ";
 
-		if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-			throw new ValidacionException(contexto + "Por favor Ingrese la url.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (dto == null) {
+            throw new ValidacionException(contexto + "Ingrese los valores requeridos",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-			throw new ValidacionException(contexto + "Por favor seleccione el area",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
+            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (dto.getAcciones().isEmpty()) {
-			throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
+            throw new ValidacionException(contexto + "Por favor Ingrese la url.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		ModuloEntity entity = moduloDAO.obtenerPorId(dto.getId_modulo());
+        if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
+            throw new ValidacionException(contexto + "Por favor seleccione el area",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		entity.setArea(areasDAO.obtenerPorId(dto.getIdArea()));
-		entity.setHabilitado(dto.getHabilitado());
-		entity.setNombre(dto.getNombre());
-		entity.setUrl(dto.getUrl());
-		moduloDAO.actualizar(entity);
+        if (dto.getAcciones().isEmpty()) {
+            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		for (AccionDTO accion : dto.getAcciones()) {
+        ModuloEntity entity = moduloRepository.obtenerPorId(dto.getIdModulo());
 
-			AccionesEntity accionesEntity = accionesRepository.obtenerPorId(accion.getId_accion());
-			// registra las acciones nuevas.
-			if (accionesEntity == null) {
-				accionesEntity = new AccionesEntity();
+        entity.setArea(areasRepository.obtenerPorId(dto.getIdArea()));
+        entity.setHabilitado(dto.getHabilitado());
+        entity.setNombre(dto.getNombre());
+        entity.setUrl(dto.getUrl());
+        moduloRepository.actualizar(entity);
 
-				accionesEntity.setArea(areasDAO.obtenerPorId(entity.getArea().getIdArea()));
-				accionesEntity.setClave(accion.getClave());
-				accionesEntity.setDescripcion(accion.getDescripcion());
-				accionesEntity.setModulo(entity);
+        for (AccionDTO accion : dto.getAcciones()) {
 
-				accionesRepository.crear(accionesEntity);
-			}
+            AccionesEntity accionesEntity = accionesRepository.obtenerPorId(accion.getIdAccion());
+            // registra las acciones nuevas.
+            if (accionesEntity == null) {
+                accionesEntity = new AccionesEntity();
 
-		}
+                accionesEntity.setArea(areasRepository.obtenerPorId(entity.getArea().getIdArea()));
+                accionesEntity.setClave(accion.getClave());
+                accionesEntity.setDescripcion(accion.getDescripcion());
+                accionesEntity.setModulo(entity);
 
-	}
+                accionesRepository.crear(accionesEntity);
+            }
 
-	public Boolean eliminar(Integer id) {
+        }
 
-		Boolean res = true;
-		List<ConfiguracionModuloAccionDTO> listConf = new ArrayList<>();
-		listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorModulo(id);
-		if (listConf == null || listConf.isEmpty()) {
-			moduloDAO.eliminarPorId(id);
-			res = true;
-		} else {
-			res = false;
-		}
-		return res;
+    }
 
-	}
+    public Boolean eliminar(Integer id) {
+        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorModulo(id);
+        if (listConf == null || listConf.isEmpty()) {
+            moduloRepository.eliminarPorId(id);
+            return true;
+        } else {
+            return false;
+        }
 
-	public List<ModuloDTO> listaModulos() {
-		List<ModuloEntity> listEntity = new ArrayList<>();
-		listEntity = moduloDAO.obtenerListaModulos();
-		List<ModuloDTO> listDTO = new ArrayList<>();
+    }
 
-		for (ModuloEntity entity : listEntity) {
-			ModuloDTO dto = new ModuloDTO();
+    public List<ModuloDTO> listaModulos() {
+        List<ModuloEntity> listEntity = moduloRepository.consultarTodos();
+        List<ModuloDTO> listDTO = new ArrayList<>();
 
-			dto.setHabilitado(entity.getHabilitado());
-			dto.setId_modulo(entity.getId_modulo());
-			dto.setIdArea(entity.getArea().getIdArea());
-			dto.setNombre(entity.getNombre());
-			dto.setNombreArea(entity.getArea().getNombreArea());
-			dto.setUrl(entity.getUrl());
+        for (ModuloEntity entity : listEntity) {
+            ModuloDTO dto = new ModuloDTO();
 
-			listDTO.add(dto);
-		}
-		return listDTO;
-	}
+            dto.setHabilitado(entity.getHabilitado());
+            dto.setIdModulo(entity.getIdModulo());
+            dto.setIdArea(entity.getArea().getIdArea());
+            dto.setNombre(entity.getNombre());
+            dto.setNombreArea(entity.getArea().getNombreArea());
+            dto.setUrl(entity.getUrl());
 
-	public List<ModuloDTO> listaModulosPorArea(Integer idArea) {
-		try {
-			List<ModuloEntity> listEntity = new ArrayList<>();
-			listEntity = moduloDAO.obtenerModulosPorIdArea(idArea);
-			List<ModuloDTO> listDTO = new ArrayList<>();
+            listDTO.add(dto);
+        }
+        return listDTO;
+    }
 
-			for (ModuloEntity entity : listEntity) {
-				ModuloDTO dto = new ModuloDTO();
+    public List<ModuloDTO> listaModulosPorArea(Integer idArea) {
+        try {
+            List<ModuloEntity> listEntity = moduloRepository.obtenerModulosPorIdArea(idArea);
+            List<ModuloDTO> listDTO = new ArrayList<>();
 
-				dto.setHabilitado(entity.getHabilitado());
-				dto.setId_modulo(entity.getId_modulo());
-				dto.setIdArea(entity.getArea().getIdArea());
-				dto.setNombre(entity.getNombre());
-				dto.setNombreArea(entity.getArea().getNombreArea());
-				dto.setUrl(entity.getUrl());
+            for (ModuloEntity entity : listEntity) {
+                ModuloDTO dto = new ModuloDTO();
 
-				listDTO.add(dto);
-			}
-			return listDTO;
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+                dto.setHabilitado(entity.getHabilitado());
+                dto.setIdModulo(entity.getIdModulo());
+                dto.setIdArea(entity.getArea().getIdArea());
+                dto.setNombre(entity.getNombre());
+                dto.setNombreArea(entity.getArea().getNombreArea());
+                dto.setUrl(entity.getUrl());
 
-	public List<AreaDTO> listaArea() {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery("SELECT " + "id_area AS id, " + "nombre_area AS nombre " + "FROM areas");
-		query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
-		@SuppressWarnings("unchecked")
-		List<AreaDTO> result = (List<AreaDTO>) query.list();
-		return result;
-	}
+                listDTO.add(dto);
+            }
+            return listDTO;
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-	protected ModuloDTO obtenerModuloPorId(Integer idModulo) {
+    public List<AreaDTO> listaArea() {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("SELECT " + "id_area AS id, " + "nombre_area AS nombre " + "FROM areas");
+        query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
+        @SuppressWarnings("unchecked")
+        List<AreaDTO> result = (List<AreaDTO>) query.list();
+        return result;
+    }
 
-		ModuloEntity entity = moduloDAO.obtenerPorId(idModulo);
+    protected ModuloDTO obtenerModuloPorId(Integer idModulo) {
 
-		ModuloDTO dto = new ModuloDTO();
+        ModuloEntity entity = moduloRepository.obtenerPorId(idModulo);
 
-		dto.setHabilitado(entity.getHabilitado());
-		dto.setId_modulo(entity.getId_modulo());
-		dto.setIdArea(entity.getArea().getIdArea());
-		dto.setNombre(entity.getNombre());
-		dto.setNombreArea(entity.getArea().getNombreArea());
-		dto.setUrl(entity.getUrl());
+        ModuloDTO dto = new ModuloDTO();
 
-		List<AccionDTO> listaAccion = accionesService.obtenerAccionesPorModulo(idModulo);
+        dto.setHabilitado(entity.getHabilitado());
+        dto.setIdModulo(entity.getIdModulo());
+        dto.setIdArea(entity.getArea().getIdArea());
+        dto.setNombre(entity.getNombre());
+        dto.setNombreArea(entity.getArea().getNombreArea());
+        dto.setUrl(entity.getUrl());
 
-		if (!listaAccion.isEmpty()) {
-			dto.setAcciones(listaAccion);
-		}
+        List<AccionDTO> listaAccion = accionesService.obtenerAccionesPorModulo(idModulo);
 
-		return dto;
-	}
+        if (!listaAccion.isEmpty()) {
+            dto.setAcciones(listaAccion);
+        }
+
+        return dto;
+    }
 
 }

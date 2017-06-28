@@ -13,30 +13,31 @@ import javax.persistence.Table;
 @Table(name = "tipos_periodos")
 
 public class TipoPeriodoEntity implements Serializable {
-	private static final long serialVersionUID = 3111008823681449423L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_tipo_periodo")
-	private Integer idTipoPeriodo;
-	@Column(name = "tipo_periodo")
-	private String tipoPeriodo;
-	
+
+    private static final long serialVersionUID = 3111008823681449423L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_periodo")
+    private Integer idTipoPeriodo;
+    @Column(name = "tipo_periodo")
+    private String tipoPeriodo;
+
 //	<Getters & Setters>
-	
-	public Integer getIdTipoPeriodo() {
-		return idTipoPeriodo;
-	}
-	public void setIdTipoPeriodo(Integer idTipoPeriodo) {
-		this.idTipoPeriodo = idTipoPeriodo;
-	}
-	public String getTipoPeriodo() {
-		return tipoPeriodo;
-	}
-	public void setTipoPeriodo(String tipoPeriodo) {
-		this.tipoPeriodo = tipoPeriodo;
-	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+    public Integer getIdTipoPeriodo() {
+        return idTipoPeriodo;
+    }
+
+    public void setIdTipoPeriodo(Integer idTipoPeriodo) {
+        this.idTipoPeriodo = idTipoPeriodo;
+    }
+
+    public String getTipoPeriodo() {
+        return tipoPeriodo;
+    }
+
+    public void setTipoPeriodo(String tipoPeriodo) {
+        this.tipoPeriodo = tipoPeriodo;
+    }
+
 }

@@ -25,185 +25,176 @@ import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 public class AccionService {
-	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
 
-	@Inject
-	private AccionesRepository accionesDAO;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
 
-	@Inject
-	private ModuloRepository moduloRepository;
+    @Inject
+    private AccionesRepository accionesRepository;
 
-	@Inject
-	private AreasRepository areasDAO;
+    @Inject
+    private ModuloRepository moduloRepository;
 
-	@Inject
-	private ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    private AreasRepository areasRepository;
 
-	public void crearAccion(AccionDTO accionDTO) {
-		String contexto = "Registrar Acción: ";
+    @Inject
+    private ConfiguracionModuloAccion configuracionModuloAccion;
 
-		AccionesEntity accionesEntity = new AccionesEntity();
+    public void crearAccion(AccionDTO accionDTO) {
+        String contexto = "Registrar Acción: ";
 
-		accionesEntity.setClave(accionDTO.getClave());
-		accionesEntity.setDescripcion(accionDTO.getDescripcion());
+        AccionesEntity accionesEntity = new AccionesEntity();
 
-		if (!ValidacionUtil.esNumeroPositivoInt(accionDTO.getId_area())) {
-			throw new ValidacionException(contexto + "Selecione el area.", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        accionesEntity.setClave(accionDTO.getClave());
+        accionesEntity.setDescripcion(accionDTO.getDescripcion());
 
-		if (ValidacionUtil.esNumeroPositivoInt(accionDTO.getId_modulo())) {
+        if (!ValidacionUtil.esNumeroPositivoInt(accionDTO.getIdArea())) {
+            throw new ValidacionException(contexto + "Selecione el area.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-			accionesEntity.setModulo(moduloRepository.obtenerPorId(accionDTO.getId_modulo()));
+        if (ValidacionUtil.esNumeroPositivoInt(accionDTO.getIdModulo())) {
 
-		}
+            accionesEntity.setModulo(moduloRepository.obtenerPorId(accionDTO.getIdModulo()));
 
-		accionesEntity.setArea(areasDAO.obtenerPorId(accionDTO.getId_area()));
+        }
 
-		accionesDAO.crear(accionesEntity);
-	}
+        accionesEntity.setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
 
-	public void editarAccion(AccionDTO accionDTO) {
-		AccionesEntity accionesEntity = accionesDAO.obtenerPorId(accionDTO.getId_accion());
+        accionesRepository.crear(accionesEntity);
+    }
 
-		accionesEntity.setArea(areasDAO.obtenerPorId(accionDTO.getId_area()));
-		accionesEntity.setClave(accionDTO.getClave());
-		accionesEntity.setDescripcion(accionDTO.getDescripcion());
+    public void editarAccion(AccionDTO accionDTO) {
+        AccionesEntity accionesEntity = accionesRepository.obtenerPorId(accionDTO.getIdAccion());
 
-		accionesDAO.actualizar(accionesEntity);
-	}
+        accionesEntity.setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
+        accionesEntity.setClave(accionDTO.getClave());
+        accionesEntity.setDescripcion(accionDTO.getDescripcion());
 
-	protected List<AccionDTO> obtenerAcciones() {
-		List<AccionDTO> listDto = new ArrayList<>();
+        accionesRepository.actualizar(accionesEntity);
+    }
 
-		List<AccionesEntity> listEntity = new ArrayList<>();
-		listEntity = accionesDAO.obtenerListaAcciones();
+    protected List<AccionDTO> obtenerAcciones() {
+        List<AccionDTO> listDto = new ArrayList<>();
 
-		for (AccionesEntity a : listEntity) {
-			AccionDTO aDto = new AccionDTO();
-			aDto.setClave(a.getClave());
-			aDto.setDescripcion(a.getDescripcion());
-			aDto.setId_accion(a.getId_accion());
-			aDto.setId_area(a.getArea().getIdArea());
-			aDto.setNombreArea(a.getArea().getNombreArea());
+        List<AccionesEntity> listEntity = accionesRepository.consultarTodos();
 
-			listDto.add(aDto);
-		}
+        for (AccionesEntity a : listEntity) {
+            AccionDTO aDto = new AccionDTO();
+            aDto.setClave(a.getClave());
+            aDto.setDescripcion(a.getDescripcion());
+            aDto.setIdAccion(a.getIdAccion());
+            aDto.setIdArea(a.getArea().getIdArea());
+            aDto.setNombreArea(a.getArea().getNombreArea());
 
-		return listDto;
+            listDto.add(aDto);
+        }
 
-	}
+        return listDto;
 
-	public List<AccionDTO> obtenerAccionesPorArea(Integer idArea) {
-		List<AccionDTO> listDto = new ArrayList<>();
-		try {
-			List<AccionesEntity> listEntity = new ArrayList<>();
-			listEntity = accionesDAO.obtenerListaAccionesPorIdArea(idArea);
+    }
 
-			for (AccionesEntity a : listEntity) {
-				AccionDTO aDto = new AccionDTO();
-				aDto.setClave(a.getClave());
-				aDto.setDescripcion(a.getDescripcion());
-				aDto.setId_accion(a.getId_accion());
-				aDto.setId_area(a.getArea().getIdArea());
-				aDto.setNombreArea(a.getArea().getNombreArea());
+    public List<AccionDTO> obtenerAccionesPorArea(Integer idArea) {
+        List<AccionDTO> listDto = new ArrayList<>();
+        try {
+            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdArea(idArea);
 
-				listDto.add(aDto);
-			}
+            for (AccionesEntity a : listEntity) {
+                AccionDTO aDto = new AccionDTO();
+                aDto.setClave(a.getClave());
+                aDto.setDescripcion(a.getDescripcion());
+                aDto.setIdAccion(a.getIdAccion());
+                aDto.setIdArea(a.getArea().getIdArea());
+                aDto.setNombreArea(a.getArea().getNombreArea());
 
-			return listDto;
-		} catch (NoResultException e) {
-			return null;
-		}
+                listDto.add(aDto);
+            }
 
-	}
+            return listDto;
+        } catch (NoResultException e) {
+            return null;
+        }
 
-	public List<AccionDTO> obtenerAccionesPorModulo(Integer idModulo) {
-		List<AccionDTO> listDto = new ArrayList<>();
-		try {
-			List<AccionesEntity> listEntity = new ArrayList<>();
-			listEntity = accionesDAO.obtenerListaAccionesPorIdModulo(idModulo);
+    }
 
-			for (AccionesEntity a : listEntity) {
-				AccionDTO aDto = new AccionDTO();
-				aDto.setClave(a.getClave());
-				aDto.setDescripcion(a.getDescripcion());
-				aDto.setId_accion(a.getId_accion());
-				aDto.setId_area(a.getArea().getIdArea());
-				aDto.setNombreArea(a.getArea().getNombreArea());
+    public List<AccionDTO> obtenerAccionesPorModulo(Integer idModulo) {
+        List<AccionDTO> listDto = new ArrayList<>();
+        try {
+            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdModulo(idModulo);
 
-				if (a.getModulo() != null) {
-					aDto.setId_modulo(a.getModulo().getId_modulo());
-				}
+            for (AccionesEntity a : listEntity) {
+                AccionDTO aDto = new AccionDTO();
+                aDto.setClave(a.getClave());
+                aDto.setDescripcion(a.getDescripcion());
+                aDto.setIdAccion(a.getIdAccion());
+                aDto.setIdArea(a.getArea().getIdArea());
+                aDto.setNombreArea(a.getArea().getNombreArea());
 
-				listDto.add(aDto);
-			}
+                if (a.getModulo() != null) {
+                    aDto.setIdModulo(a.getModulo().getIdModulo());
+                }
 
-			return listDto;
-		} catch (NoResultException e) {
-			return null;
-		}
+                listDto.add(aDto);
+            }
 
-	}
+            return listDto;
+        } catch (NoResultException e) {
+            return null;
+        }
 
-	public boolean eliminarAccion(Integer idAccion) {
-		Boolean res = true;
-		List<ConfiguracionModuloAccionDTO> listConf = new ArrayList<>();
-		listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorAccion(idAccion);
-		if (listConf == null || listConf.isEmpty()) {
-			accionesDAO.eliminarPorId(idAccion);
-			res = true;
-		} else {
-			res = false;
-		}
-		return res;
+    }
 
-	}
+    public boolean eliminarAccion(Integer idAccion) {
+        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorAccion(idAccion);
+        if (listConf == null || listConf.isEmpty()) {
+            accionesRepository.eliminarPorId(idAccion);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	public List<AreaDTO> listaArea() {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session
-				.createSQLQuery("SELECT " + "id_area AS idArea, " + "nombre_area AS nombreArea " + "FROM areas");
-		query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
-		@SuppressWarnings("unchecked")
-		List<AreaDTO> result = (List<AreaDTO>) query.list();
-		return result;
-	}
+    public List<AreaDTO> listaArea() {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session
+                .createSQLQuery("SELECT " + "id_area AS idArea, " + "nombre_area AS nombreArea " + "FROM areas");
+        query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
+        @SuppressWarnings("unchecked")
+        List<AreaDTO> result = (List<AreaDTO>) query.list();
+        return result;
+    }
 
-	public List<AccionDTO> obtenerAccionesFiltradas(Integer idModulo, List<Integer> idAccionFiltro) {
+    public List<AccionDTO> obtenerAccionesFiltradas(Integer idModulo, List<Integer> idAccionFiltro) {
 
-		List<AccionDTO> listDto = new ArrayList<>();
-		try {
+        List<AccionDTO> listDto = new ArrayList<>();
+        try {
+            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdModulo(idModulo);
 
-			List<AccionesEntity> listEntity = new ArrayList<>();
-			listEntity = accionesDAO.obtenerListaAccionesPorIdModulo(idModulo);
+            for (Integer idAcc : idAccionFiltro) {
+                for (int i = 0; i < listEntity.size(); i++) {
+                    if (idAcc.compareTo(listEntity.get(i).getIdAccion()) == 0) {
+                        listEntity.remove(i);
+                    }
 
-			for (Integer idAcc : idAccionFiltro) {
-				for (int i = 0; i < listEntity.size(); i++) {
-					if (idAcc.compareTo(listEntity.get(i).getId_accion()) == 0) {
-						listEntity.remove(i);
-					}
+                }
+            }
 
-				}
-			}
+            for (AccionesEntity a : listEntity) {
 
-			for (AccionesEntity a : listEntity) {
+                AccionDTO aDto = new AccionDTO();
+                aDto.setClave(a.getClave());
+                aDto.setDescripcion(a.getDescripcion());
+                aDto.setIdAccion(a.getIdAccion());
+                aDto.setIdArea(a.getArea().getIdArea());
+                aDto.setNombreArea(a.getArea().getNombreArea());
 
-				AccionDTO aDto = new AccionDTO();
-				aDto.setClave(a.getClave());
-				aDto.setDescripcion(a.getDescripcion());
-				aDto.setId_accion(a.getId_accion());
-				aDto.setId_area(a.getArea().getIdArea());
-				aDto.setNombreArea(a.getArea().getNombreArea());
+                listDto.add(aDto);
+            }
 
-				listDto.add(aDto);
+            return listDto;
+        } catch (NoResultException e) {
+            return null;
+        }
 
-			}
-
-			return listDto;
-		} catch (NoResultException e) {
-			return null;
-		}
-
-	}
+    }
 }

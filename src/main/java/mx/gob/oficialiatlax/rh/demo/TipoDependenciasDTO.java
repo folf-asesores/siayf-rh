@@ -4,7 +4,7 @@ public class TipoDependenciasDTO {
 	
 	private Integer id;
 	
-	private String tipo_dependencia;
+	private String tipoDependencia;
 
 	public Integer getId() {
 		return id;
@@ -14,12 +14,12 @@ public class TipoDependenciasDTO {
 		this.id = id;
 	}
 
-	public String getTipo_dependencia() {
-		return tipo_dependencia;
+	public String getTipoDependencia() {
+		return tipoDependencia;
 	}
 
-	public void setTipo_dependencia(String tipo_dependencia) {
-		this.tipo_dependencia = tipo_dependencia;
+	public void setTipoDependencia(String tipoDependencia) {
+		this.tipoDependencia = tipoDependencia;
 	}
 
 

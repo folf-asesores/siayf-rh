@@ -1,5 +1,6 @@
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,77 +9,77 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tipos_movimientos_nomina")
-public class TiposMovimientosNominaEntity {
+@Table(name = "tipos_movimientos_nomina")
+public class TiposMovimientosNominaEntity implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id_tipo_movimiento_nomina")
-	private Integer idMovimientoNomina;
-	
-	
-	@Column(name="clave")
-	private String clave;
-	
-	@Column(name="descripcion")
-	private String descripcion;
-	
-	@Column(name="forma_registro")
-	private Integer formaRegistro;
+    private static final long serialVersionUID = 2865663698426245507L;
 
-	@Column(name="es_movimiento")
-	private Boolean esMovimiento;
-	
-	@Column(name="id_padre")
-	private Integer idPadre;
-	
-	public Integer getIdMovimientoNomina() {
-		return idMovimientoNomina;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_movimiento_nomina")
+    private Integer idMovimientoNomina;
 
-	public void setIdMovimientoNomina(Integer idMovimientoNomina) {
-		this.idMovimientoNomina = idMovimientoNomina;
-	}
+    @Column(name = "clave")
+    private String clave;
 
-	public String getClave() {
-		return clave;
-	}
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    @Column(name = "forma_registro")
+    private Integer formaRegistro;
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    @Column(name = "es_movimiento")
+    private Boolean esMovimiento;
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    @Column(name = "id_padre")
+    private Integer idPadre;
 
-	public Integer getFormaRegistro() {
-		return formaRegistro;
-	}
+    public Integer getIdMovimientoNomina() {
+        return idMovimientoNomina;
+    }
 
-	public void setFormaRegistro(Integer formaRegistro) {
-		this.formaRegistro = formaRegistro;
-	}
+    public void setIdMovimientoNomina(Integer idMovimientoNomina) {
+        this.idMovimientoNomina = idMovimientoNomina;
+    }
 
-	public Boolean getEsMovimiento() {
-		return esMovimiento;
-	}
+    public String getClave() {
+        return clave;
+    }
 
-	public void setEsMovimiento(Boolean esMovimiento) {
-		this.esMovimiento = esMovimiento;
-	}
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
-	public Integer getIdPadre() {
-		return idPadre;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setIdPadre(Integer idPadre) {
-		this.idPadre = idPadre;
-	}
-	
-	
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Integer getFormaRegistro() {
+        return formaRegistro;
+    }
+
+    public void setFormaRegistro(Integer formaRegistro) {
+        this.formaRegistro = formaRegistro;
+    }
+
+    public Boolean getEsMovimiento() {
+        return esMovimiento;
+    }
+
+    public void setEsMovimiento(Boolean esMovimiento) {
+        this.esMovimiento = esMovimiento;
+    }
+
+    public Integer getIdPadre() {
+        return idPadre;
+    }
+
+    public void setIdPadre(Integer idPadre) {
+        this.idPadre = idPadre;
+    }
+
 }

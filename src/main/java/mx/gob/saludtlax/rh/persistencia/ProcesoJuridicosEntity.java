@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
@@ -16,35 +16,31 @@ import javax.persistence.Table;
 @Table(name = "procesos_juridicos")
 public class ProcesoJuridicosEntity implements Serializable {
 
-	private static final long serialVersionUID = -3491218769714297031L;
+    private static final long serialVersionUID = -3491218769714297031L;
 
-	@Id
-	@Column(name = "id_proceso_juridico")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idProcesoJuridico;
-	
-	@Column(name = "proceso")
-	private String proceso;
+    @Id
+    @Column(name = "id_proceso_juridico")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idProcesoJuridico;
+
+    @Column(name = "proceso")
+    private String proceso;
 //		<<<<<Getters & Setters>>>>>
 
-	public Integer getIdProcesoJuridico() {
-		return idProcesoJuridico;
-	}
+    public Integer getIdProcesoJuridico() {
+        return idProcesoJuridico;
+    }
 
-	public void setIdProcesoJuridico(Integer idProcesoJuridico) {
-		this.idProcesoJuridico = idProcesoJuridico;
-	}
+    public void setIdProcesoJuridico(Integer idProcesoJuridico) {
+        this.idProcesoJuridico = idProcesoJuridico;
+    }
 
-	public String getProceso() {
-		return proceso;
-	}
+    public String getProceso() {
+        return proceso;
+    }
 
-	public void setProceso(String proceso) {
-		this.proceso = proceso;
-	}
+    public void setProceso(String proceso) {
+        this.proceso = proceso;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-	
 }

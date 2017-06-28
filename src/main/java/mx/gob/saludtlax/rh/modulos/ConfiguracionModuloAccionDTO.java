@@ -1,61 +1,50 @@
 package mx.gob.saludtlax.rh.modulos;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import mx.gob.saludtlax.rh.acciones.AccionDTO;
-public class ConfiguracionModuloAccionDTO implements Serializable{
-	
-/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6726015902023365547L;
 
-	private Integer id_configuracion_modulo_accion;
-	
-	private ModuloDTO modulo = new ModuloDTO();
-	
-	private String nombreConfiguracion;
+public class ConfiguracionModuloAccionDTO implements Serializable {
 
-	private List<AccionDTO> acciones = new ArrayList<>();
+    private static final long serialVersionUID = -6726015902023365547L;
 
-	public Integer getId_configuracion_modulo_accion() {
-		return id_configuracion_modulo_accion;
-	}
+    private Integer idConfiguracionModuloAccion;
+    private ModuloDTO modulo = new ModuloDTO();
+    private String nombreConfiguracion;
+    private List<AccionDTO> acciones = new ArrayList<>();
 
-	public void setId_configuracion_modulo_accion(Integer id_configuracion_modulo_accion) {
-		this.id_configuracion_modulo_accion = id_configuracion_modulo_accion;
-	} 
+    public Integer getIdConfiguracionModuloAccion() {
+        return idConfiguracionModuloAccion;
+    }
 
-	public ModuloDTO getModulo() {
-		return modulo;
-	}
+    public void setIdConfiguracionModuloAccion(Integer idConfiguracionModuloAccion) {
+        this.idConfiguracionModuloAccion = idConfiguracionModuloAccion;
+    }
 
-	public void setModulo(ModuloDTO modulo) {
-		this.modulo = modulo;
-	}
+    public ModuloDTO getModulo() {
+        return modulo;
+    }
 
-	
-	public String getNombreConfiguracion() {
-		return nombreConfiguracion;
-	}
+    public void setModulo(ModuloDTO modulo) {
+        this.modulo = modulo;
+    }
 
-	public void setNombreConfiguracion(String nombreConfiguracion) {
-		this.nombreConfiguracion = nombreConfiguracion;
-	}
+    public String getNombreConfiguracion() {
+        return nombreConfiguracion;
+    }
 
-	public List<AccionDTO> getAcciones() {
-		return acciones;
-	}
+    public void setNombreConfiguracion(String nombreConfiguracion) {
+        this.nombreConfiguracion = nombreConfiguracion;
+    }
 
-	public void setAcciones(List<AccionDTO> acciones) {
-		this.acciones = acciones;
-	}
+    public List<AccionDTO> getAcciones() {
+        return acciones;
+    }
 
-	
-	
-
+    public void setAcciones(List<AccionDTO> acciones) {
+        this.acciones = acciones;
+    }
 
 }

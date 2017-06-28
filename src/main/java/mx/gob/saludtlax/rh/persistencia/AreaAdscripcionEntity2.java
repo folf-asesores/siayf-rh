@@ -13,26 +13,26 @@ import javax.persistence.Table;
 @Table(name = "areas_adscripcion")
 public class AreaAdscripcionEntity2 implements Serializable{
 private static final long serialVersionUID = 8530750267523022132L;
- 
+
 	@Id
 	@Column(name="id_area_adscripcion")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idAreaAdscripcion;
-	
+
 	@Column(name="clave")
 	private String clave;
-	
+
 	@Column(name="area_adscripcion")
 	private String areaAdscripcion;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_clues")
 	private CluesEntity clues;
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_centro_pago")
 	private CentroPagoEntity centros_pago;
-	
+
 	public Integer getIdAreaAdscripcion() {
 		return idAreaAdscripcion;
 	}
@@ -72,9 +72,5 @@ private static final long serialVersionUID = 8530750267523022132L;
 	public void setCentros_pago(CentroPagoEntity centros_pago) {
 		this.centros_pago = centros_pago;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 }
-

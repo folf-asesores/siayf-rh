@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
@@ -16,46 +16,41 @@ import javax.persistence.Table;
 public class SIIFSeguroPopularEntity implements Serializable {
 
     private static final long serialVersionUID = -3491218769714297031L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_seguro_popular_federal")
     private Integer idSeguroPopularFederal;
-    
+
     @Column(name = "rfc")
     private String rfc;
-    
+
     @Column(name = "quincena")
     private Integer quincena;
-    
+
 //    <<<Getters & Setters>>>
+    public Integer getIdSeguroPopularFederal() {
+        return idSeguroPopularFederal;
+    }
 
-	public Integer getIdSeguroPopularFederal() {
-		return idSeguroPopularFederal;
-	}
+    public void setIdSeguroPopularFederal(Integer idSeguroPopularFederal) {
+        this.idSeguroPopularFederal = idSeguroPopularFederal;
+    }
 
-	public void setIdSeguroPopularFederal(Integer idSeguroPopularFederal) {
-		this.idSeguroPopularFederal = idSeguroPopularFederal;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public Integer getQuincena() {
+        return quincena;
+    }
 
-	public Integer getQuincena() {
-		return quincena;
-	}
+    public void setQuincena(Integer quincena) {
+        this.quincena = quincena;
+    }
 
-	public void setQuincena(Integer quincena) {
-		this.quincena = quincena;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-    
 }

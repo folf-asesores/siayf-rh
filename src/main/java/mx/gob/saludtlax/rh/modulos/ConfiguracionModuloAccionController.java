@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class ConfiguracionModuloAccionController implements Serializable{
 
-	
+
 	private static final long serialVersionUID = 2989747764675851876L;
 
 	@Inject
@@ -29,43 +29,42 @@ public class ConfiguracionModuloAccionController implements Serializable{
 	Accion accionEJB;
 	@Inject
 	Modulos moduloEJB;
-	
+
 	private List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccion = new ArrayList<>();
 	private List<ModuloDTO> listaModulos = new ArrayList<>();
 	private List<AccionDTO> listaAcciones = new ArrayList<>();
 	private List<AccionDTO> listaAccionesSeleccionadas = new ArrayList<>();
 	private ConfiguracionModuloAccionDTO configuracionModuloAccionSelect = new ConfiguracionModuloAccionDTO();
 	private ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
-	
+
 	private Boolean activarPanelAlta = false;
 	private Boolean activarPanelEdicion = false;
 	private Boolean activarTablaPrincipal = true;
-	
-	
+
+
 	@PostConstruct
 	public void inicio(){
-		List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = new ArrayList<>();
-		configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
+		List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
 		listaConfiguracionModuloAccion.clear();
 		listaConfiguracionModuloAccion.addAll(configuracionModuloAccionTemp);
-		
-		List<ModuloDTO> lista= moduloEJB.listaModulos(); 
+
+		List<ModuloDTO> lista= moduloEJB.listaModulos();
 		listaModulos.addAll(lista);
 	}
-	
-	
+
+
 	public void accionesPorModuloSeleccionado(){
-		
+
 		listaAcciones = new ArrayList<>();
 		ModuloDTO modulo = new ModuloDTO();
 		for(ModuloDTO mod:listaModulos){
-		   if(mod.getId_modulo().compareTo(configuracionModuloAccionDTONew.getModulo().getId_modulo())==0)
+		   if(mod.getIdModulo().compareTo(configuracionModuloAccionDTONew.getModulo().getIdModulo()) == 0)
 			 modulo = mod;
 		}
 		listaAcciones = accionEJB.obtenerListaAccionesPorArea(modulo.getIdArea());
 		System.out.println("acciones::" + listaAcciones);
 	}
-	
+
 	public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 
@@ -74,9 +73,9 @@ public class ConfiguracionModuloAccionController implements Serializable{
 
 		case "modulo":
 			Integer modulo = (Integer) value;
-			
+
 			System.out.println("value:: "+ modulo);
-			
+
 			if (!ValidacionUtil.esNumeroPositivo(modulo)) {
 				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
 						"Seleccione un modulo.");
@@ -84,8 +83,8 @@ public class ConfiguracionModuloAccionController implements Serializable{
 				throw new ValidatorException(facesMessage1);
 			}
 			break;
-		
-		
+
+
 			case "accion":
 				Integer accion = (Integer) value;
 				System.out.println("value2:: "+ accion);
@@ -98,25 +97,25 @@ public class ConfiguracionModuloAccionController implements Serializable{
 				break;
 		}
 	}
-	
+
 	public void mostrarPanelAlta(){
 		activarPanelAlta = true;
 		activarPanelEdicion = false;
 		activarTablaPrincipal = false;
 	}
-	
+
 	public void mostrarPanelEdicion(){
 		activarPanelAlta = false;
 		activarPanelEdicion = true;
 		activarTablaPrincipal = false;
 	}
-	
+
 	public void mostrarPanelTablaPrincipal(){
 		activarPanelAlta = false;
 		activarPanelEdicion = false;
 		activarTablaPrincipal = true;
 	}
-	
+
 	public void agregarConfiguracionModuloAccion(){
 		configuracionModuloAccionDTONew.setAcciones(listaAccionesSeleccionadas);
 		configuracionModuloAccion.crear(configuracionModuloAccionDTONew);
@@ -125,24 +124,24 @@ public class ConfiguracionModuloAccionController implements Serializable{
 		configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
 		listaAccionesSeleccionadas = new ArrayList<>();
 	}
-	
-	
+
+
 	public void onRowEdit(RowEditEvent event) {
 
 		try {
 
 			ConfiguracionModuloAccionDTO configuracionModulo = ((ConfiguracionModuloAccionDTO) event.getObject());
 			configuracionModuloAccion.editar(configuracionModulo);
-			
+
 			FacesMessage msg = new FacesMessage("",
 					"Actualizado Correctamente.");
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			
+
 		} catch (BusinessException ex) {
 			JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
 		}
 
-		
+
 	}
 
 	public void onRowCancel(RowEditEvent event) {
@@ -151,12 +150,12 @@ public class ConfiguracionModuloAccionController implements Serializable{
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	
+
 	public void eliminarConfiguracion(){
-		configuracionModuloAccion.eliminar(configuracionModuloAccionSelect.getId_configuracion_modulo_accion());
+		configuracionModuloAccion.eliminar(configuracionModuloAccionSelect.getIdConfiguracionModuloAccion());
 		inicio();
 	}
-	
+
 	public List<ConfiguracionModuloAccionDTO> getListaConfiguracionModuloAccion() {
 		return listaConfiguracionModuloAccion;
 	}
@@ -232,5 +231,5 @@ public class ConfiguracionModuloAccionController implements Serializable{
 	}
 
 
-	
+
 }

@@ -32,15 +32,15 @@ public class ModulosController implements Serializable {
 	Modulos modulos;
 	@Inject
 	Areas areaEJB;
-	
+
 	private List<ModuloDTO> listaModulos = new ArrayList<>();
 	private List<AreaDTO> listaAreas = new ArrayList<>();
 	private ModuloDTO moduloSeleccionado;
 	private ModuloDTO moduloNew = new ModuloDTO();
-	
+
 	private Boolean habilitarPanelEdicion = false;
 	private Boolean habilitarTablaPrincipal = true;
-	
+
 	@PostConstruct
 	public void inicio(){
 		List<ModuloDTO> moduloTemp = new ArrayList<>();
@@ -51,7 +51,7 @@ public class ModulosController implements Serializable {
 		listaAreas.clear();
 		listaAreas.addAll(list);
 	}
-	
+
 	public void validatorModulo(FacesContext context, UIComponent component, Object value)
 			throws ValidatorException {
 
@@ -89,41 +89,41 @@ public class ModulosController implements Serializable {
 			break;
 		}
 	}
-	
+
 	public void habilitarPanelEdicion(ModuloDTO moduloSelect){
 		habilitarPanelEdicion = true;
 		habilitarTablaPrincipal = false;
 		moduloSeleccionado = new ModuloDTO();
 		moduloSeleccionado = moduloSelect;
 	}
-	
+
 	public void regresarPrincipal(){
 		habilitarPanelEdicion = false;
 		habilitarTablaPrincipal = true;
 	}
-	
+
 	public void agregarModulo(){
 		modulos.crearModulo(moduloNew);
 		inicio();
 		moduloNew = new ModuloDTO();
 	}
-	
+
 	public void onRowEdit(RowEditEvent event) {
 
 		try {
 
 			ModuloDTO modulo = ((ModuloDTO) event.getObject());
 			modulos.editarModulo(modulo);
-			
+
 			FacesMessage msg = new FacesMessage("Actualizado:",
 					((ModuloDTO) event.getObject()).getNombre());
 			FacesContext.getCurrentInstance().addMessage(null, msg);
-			
+
 		} catch (BusinessException ex) {
 			JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
 		}
 
-		
+
 	}
 
 	public void onRowCancel(RowEditEvent event) {
@@ -131,9 +131,9 @@ public class ModulosController implements Serializable {
 				((ModuloDTO) event.getObject()).getNombre());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
-	
+
 	public void eliminarModulo(){
-	 Boolean res =modulos.eliminarModulo(moduloSeleccionado.getId_modulo());
+	 Boolean res =modulos.eliminarModulo(moduloSeleccionado.getIdModulo());
 	 if(!res){
 		 JSFUtils.warningMessage("","EL registro de Modulo no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
 	 }
@@ -188,5 +188,5 @@ public class ModulosController implements Serializable {
 		this.habilitarTablaPrincipal = habilitarTablaPrincipal;
 	}
 
-	
+
 }

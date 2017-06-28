@@ -24,51 +24,49 @@ public class ConfiguracionPerfilModuloService {
 
 	@Inject
 	private PerfilRepository perfilDAO;
-	
+
 	@Inject
-	private ConfiguracionPerfilModuloRepository configuracionPerfilModuloDAO;
-	
+	private ConfiguracionPerfilModuloRepository configuracionPerfilModuloRepository;
+
 	@Inject
-	private ConfiguracionModuloAccionRepository configuracionModuloAccionDAO;
-	
-	
+	private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
+
+
 	public void crearConfiguracion(ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO){
 		ConfiguracionPerfilModuloEntity entity = new ConfiguracionPerfilModuloEntity();
-		entity.setConfiguracionModuloAccion(configuracionModuloAccionDAO.obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getId_configuracion_modulo_accion()));
+		entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getIdConfiguracionModuloAccion()));
 		entity.setFechaCreacion(new Date());
 		entity.setPerfil(perfilDAO.obtenerPorId(configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
-		
-		configuracionPerfilModuloDAO.crear(entity);
+
+		configuracionPerfilModuloRepository.crear(entity);
 	}
-	
+
 	public void editarConfiguracion(ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO){
-		ConfiguracionPerfilModuloEntity entity = configuracionPerfilModuloDAO.obtenerPorId(configuracionPerfilModuloDTO.getId_perfil_modulo());
-		entity.setConfiguracionModuloAccion(configuracionModuloAccionDAO.obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getId_configuracion_modulo_accion()));
+		ConfiguracionPerfilModuloEntity entity = configuracionPerfilModuloRepository.obtenerPorId(configuracionPerfilModuloDTO.getId_perfil_modulo());
+		entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository.obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getIdConfiguracionModuloAccion()));
 		entity.setFechaCreacion(new Date());
 		entity.setPerfil(perfilDAO.obtenerPorId(configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
-		
-		configuracionPerfilModuloDAO.crear(entity);
+
+		configuracionPerfilModuloRepository.crear(entity);
 	}
-	
+
 	public void eliminarConfiguracion(Integer id){
-		configuracionPerfilModuloDAO.eliminarPorIdPerfil(id);
+		configuracionPerfilModuloRepository.eliminarPorIdPerfil(id);
 	}
-	
-	
+
+
 	public List<ConfiguracionPerfilModuloDTO> obtenerRegistros(){
 		List<ConfiguracionPerfilModuloDTO> listDto = new ArrayList<>();
-		List<ConfiguracionPerfilModuloEntity> listEntity = new ArrayList<>();
-		
-		listEntity = configuracionPerfilModuloDAO.obtenerLista();
-		
+		List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository.consultarTodos();
+
 		for(ConfiguracionPerfilModuloEntity cE: listEntity){
 			ConfiguracionPerfilModuloDTO dto = new ConfiguracionPerfilModuloDTO();
-			
+
 			dto.setId_perfil_modulo(cE.getId_perfil_modulo());
 			dto.setFechaCreacion(new Date());
-			
+
 			ConfiguracionModuloAccionDTO configuracionModuloAccionDTO = new ConfiguracionModuloAccionDTO();
-			configuracionModuloAccionDTO.setId_configuracion_modulo_accion(cE.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
+			configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
 			AccionDTO accion = new AccionDTO();
 //			accion.setClave(cE.getConfiguracionModuloAccion().getId_accion().getClave());
 //			accion.setDescripcion(cE.getConfiguracionModuloAccion().getId_accion().getDescripcion());
@@ -76,41 +74,39 @@ public class ConfiguracionPerfilModuloService {
 //			accion.setIdArea(cE.getConfiguracionModuloAccion().getId_accion().getArea().getIdArea());
 //			accion.setNombreArea(cE.getConfiguracionModuloAccion().getId_accion().getArea().getNombreArea());
 //			configuracionModuloAccionDTO.setAccion(accion);
-			
+
 			ModuloDTO modulo = new ModuloDTO();
-			modulo.setHabilitado(cE.getConfiguracionModuloAccion().getId_Modulo().getHabilitado());
-			modulo.setId_modulo(cE.getConfiguracionModuloAccion().getId_Modulo().getId_modulo());
-			modulo.setIdArea(cE.getConfiguracionModuloAccion().getId_Modulo().getArea().getIdArea());
-			modulo.setNombre(cE.getConfiguracionModuloAccion().getId_Modulo().getNombre());
-			modulo.setNombreArea(cE.getConfiguracionModuloAccion().getId_Modulo().getArea().getNombreArea());
-			modulo.setUrl(cE.getConfiguracionModuloAccion().getId_Modulo().getUrl());
-			
+			modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo().getHabilitado());
+			modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo().getIdModulo());
+			modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getIdArea());
+			modulo.setNombre(cE.getConfiguracionModuloAccion().getModulo().getNombre());
+			modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getNombreArea());
+			modulo.setUrl(cE.getConfiguracionModuloAccion().getModulo().getUrl());
+
 			configuracionModuloAccionDTO.setModulo(modulo);
-			
-			
+
+
 			dto.setConfiguracionModuloAccionDTO(configuracionModuloAccionDTO);
-			
+
 			listDto.add(dto);
 		}
-		
+
 		return listDto;
-		
+
 	}
-	
+
 	public List<ConfiguracionPerfilModuloDTO> obtenerRegistrosPorIdPerfil(Integer idPerfil){
 		List<ConfiguracionPerfilModuloDTO> listDto = new ArrayList<>();
-		List<ConfiguracionPerfilModuloEntity> listEntity = new ArrayList<>();
-		
-		listEntity = configuracionPerfilModuloDAO.obtenerListaPorIdPerfil(idPerfil);
-		
+		List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository.obtenerListaPorIdPerfil(idPerfil);
+
 		for(ConfiguracionPerfilModuloEntity cE: listEntity){
 			ConfiguracionPerfilModuloDTO dto = new ConfiguracionPerfilModuloDTO();
-			
+
 			dto.setId_perfil_modulo(cE.getId_perfil_modulo());
 			dto.setFechaCreacion(new Date());
-			
+
 			ConfiguracionModuloAccionDTO configuracionModuloAccionDTO = new ConfiguracionModuloAccionDTO();
-			configuracionModuloAccionDTO.setId_configuracion_modulo_accion(cE.getConfiguracionModuloAccion().getId_configuracion_modulo_accion());
+			configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
 			AccionDTO accion = new AccionDTO();
 //			accion.setClave(cE.getConfiguracionModuloAccion().getId_accion().getClave());
 //			accion.setDescripcion(cE.getConfiguracionModuloAccion().getId_accion().getDescripcion());
@@ -118,25 +114,25 @@ public class ConfiguracionPerfilModuloService {
 //			accion.setIdArea(cE.getConfiguracionModuloAccion().getId_accion().getArea().getIdArea());
 //			accion.setNombreArea(cE.getConfiguracionModuloAccion().getId_accion().getArea().getNombreArea());
 //			configuracionModuloAccionDTO.setAccion(accion);
-			
+
 			ModuloDTO modulo = new ModuloDTO();
-			modulo.setHabilitado(cE.getConfiguracionModuloAccion().getId_Modulo().getHabilitado());
-			modulo.setId_modulo(cE.getConfiguracionModuloAccion().getId_Modulo().getId_modulo());
-			modulo.setIdArea(cE.getConfiguracionModuloAccion().getId_Modulo().getArea().getIdArea());
-			modulo.setNombre(cE.getConfiguracionModuloAccion().getId_Modulo().getNombre());
-			modulo.setNombreArea(cE.getConfiguracionModuloAccion().getId_Modulo().getArea().getNombreArea());
-			modulo.setUrl(cE.getConfiguracionModuloAccion().getId_Modulo().getUrl());
-			
+			modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo().getHabilitado());
+			modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo().getIdModulo());
+			modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getIdArea());
+			modulo.setNombre(cE.getConfiguracionModuloAccion().getModulo().getNombre());
+			modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getNombreArea());
+			modulo.setUrl(cE.getConfiguracionModuloAccion().getModulo().getUrl());
+
 			configuracionModuloAccionDTO.setModulo(modulo);
-			
-			
+
+
 			dto.setConfiguracionModuloAccionDTO(configuracionModuloAccionDTO);
-			
+
 			listDto.add(dto);
 		}
-		
+
 		return listDto;
-		
+
 	}
-	
+
 }

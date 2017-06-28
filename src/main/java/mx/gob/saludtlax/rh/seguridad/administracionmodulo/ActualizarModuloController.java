@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.seguridad.administracionmodulo;
 
@@ -40,7 +40,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ActualizarModuloController implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -6933203945400316147L;
 
@@ -53,7 +53,7 @@ public class ActualizarModuloController implements Serializable {
 
 	private ActualizarModuloView view;
 
-	private List<AccionDTO> acciones = new ArrayList<AccionDTO>();
+	private List<AccionDTO> acciones = new ArrayList<>();
 
 	@PostConstruct
 	public void init() {
@@ -97,8 +97,8 @@ public class ActualizarModuloController implements Serializable {
 		try {
 			AccionDTO accionDTO = this.view.getAccion();
 
-			accionDTO.setId_modulo(this.view.getIdModulo());
-			accionDTO.setId_area(this.view.getActualizarModulo().getIdArea());
+			accionDTO.setIdModulo(this.view.getIdModulo());
+			accionDTO.setIdArea(this.view.getActualizarModulo().getIdArea());
 
 			accionEJB.crearAccion(accionDTO);
 

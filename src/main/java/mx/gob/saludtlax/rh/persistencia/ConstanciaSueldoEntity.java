@@ -1,5 +1,6 @@
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -12,1264 +13,1267 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ConstanciaSueldos")
-public class ConstanciaSueldoEntity {
+public class ConstanciaSueldoEntity implements Serializable {
 
-	@Id
-	@Column(name = "IdConstanciaSueldo")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer IdConstanciaSueldo;
+    private static final long serialVersionUID = -4109299710365011192L;
 
-	@Column(name = "MesInicial")
-	private Integer MesInicial;
+    @Id
+    @Column(name = "IdConstanciaSueldo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer IdConstanciaSueldo;
 
-	@Column(name = "MesFinal")
-	private Integer MesFinal;
+    @Column(name = "MesInicial")
+    private Integer MesInicial;
 
-	@Column(name = "RFC")
-	private String RFC;
+    @Column(name = "MesFinal")
+    private Integer MesFinal;
 
-	@Column(name = "CURP")
-	private String CURP;
+    @Column(name = "RFC")
+    private String RFC;
 
-	@Column(name = "ApellidoPaterno ")
-	private String ApellidoPaterno;
+    @Column(name = "CURP")
+    private String CURP;
 
-	@Column(name = "ApellidoMaterno ")
-	private String ApellidoMaterno;
+    @Column(name = "ApellidoPaterno ")
+    private String ApellidoPaterno;
 
-	@Column(name = "Nombre ")
-	private String Nombre;
+    @Column(name = "ApellidoMaterno ")
+    private String ApellidoMaterno;
 
-	@Column(name = "AreaGeoSalarioMinimo")
-	private Integer AreaGeoSalarioMinimo;
+    @Column(name = "Nombre ")
+    private String Nombre;
 
-	@Column(name = "RealizoCalculoAnual")
-	private Integer RealizoCalculoAnual;
+    @Column(name = "AreaGeoSalarioMinimo")
+    private Integer AreaGeoSalarioMinimo;
 
-	@Column(name = "TarifaEjercicioDeclara")
-	private Integer TarifaEjercicioDeclara;
+    @Column(name = "RealizoCalculoAnual")
+    private Integer RealizoCalculoAnual;
 
-	@Column(name = "TarifaUtilizadaActualizada ")
-	private BigDecimal TarifaUtilizadaActualizada;
+    @Column(name = "TarifaEjercicioDeclara")
+    private Integer TarifaEjercicioDeclara;
 
-	@Column(name = "SubsidioAplicado")
-	private BigDecimal SubsidioAplicado;
+    @Column(name = "TarifaUtilizadaActualizada ")
+    private BigDecimal TarifaUtilizadaActualizada;
 
-	@Column(name = "TrabajadorSindicalizado")
-	private Integer TrabajadorSindicalizado;
+    @Column(name = "SubsidioAplicado")
+    private BigDecimal SubsidioAplicado;
 
-	@Column(name = "ClaveSalarioAsimilado ")
-	private String ClaveSalarioAsimilado;
+    @Column(name = "TrabajadorSindicalizado")
+    private Integer TrabajadorSindicalizado;
 
-	@Column(name = "ClaveEntidadFederativa")
-	private Integer ClaveEntidadFederativa;
+    @Column(name = "ClaveSalarioAsimilado ")
+    private String ClaveSalarioAsimilado;
 
-	@Column(name = "RFCPatronPrimero")
-	private String RFCPatronPrimero;
+    @Column(name = "ClaveEntidadFederativa")
+    private Integer ClaveEntidadFederativa;
 
-	@Column(name = "RFCPatronSegundo")
-	private String RFCPatronSegundo;
+    @Column(name = "RFCPatronPrimero")
+    private String RFCPatronPrimero;
 
-	@Column(name = "RFCPatronTercero")
-	private String RFCPatronTercero;
+    @Column(name = "RFCPatronSegundo")
+    private String RFCPatronSegundo;
 
-	@Column(name = "RFCPatronCuarto")
-	private String RFCPatronCuarto;
+    @Column(name = "RFCPatronTercero")
+    private String RFCPatronTercero;
 
-	@Column(name = "RFCPatronQuinto")
-	private String RFCPatronQuinto;
+    @Column(name = "RFCPatronCuarto")
+    private String RFCPatronCuarto;
 
-	@Column(name = "RFCPatronSexto")
-	private String RFCPatronSexto;
+    @Column(name = "RFCPatronQuinto")
+    private String RFCPatronQuinto;
 
-	@Column(name = "RFCPatronSeptimo")
-	private String RFCPatronSeptimo;
+    @Column(name = "RFCPatronSexto")
+    private String RFCPatronSexto;
 
-	@Column(name = " RFCPatronOctavo")
-	private String RFCPatronOctavo;
+    @Column(name = "RFCPatronSeptimo")
+    private String RFCPatronSeptimo;
 
-	@Column(name = "RFCPatronNoveno")
-	private String RFCPatronNoveno;
+    @Column(name = " RFCPatronOctavo")
+    private String RFCPatronOctavo;
 
-	@Column(name = "RFCPatronDecimo ")
-	private String RFCPatronDecimo;
+    @Column(name = "RFCPatronNoveno")
+    private String RFCPatronNoveno;
 
-	@Column(name = "AportacionesVoluntarias")
-	private BigDecimal AportacionesVoluntarias;
+    @Column(name = "RFCPatronDecimo ")
+    private String RFCPatronDecimo;
 
-	@Column(name = "AplicoAportacionesVoluntarias")
-	private Integer AplicoAportacionesVoluntarias;
+    @Column(name = "AportacionesVoluntarias")
+    private BigDecimal AportacionesVoluntarias;
 
-	@Column(name = "AportacionesVoluntariasDeducibles")
-	private Integer AportacionesVoluntariasDeducibles;
+    @Column(name = "AplicoAportacionesVoluntarias")
+    private Integer AplicoAportacionesVoluntarias;
 
-	@Column(name = " PagosSeparacion")
-	private Integer PagosSeparacion;
+    @Column(name = "AportacionesVoluntariasDeducibles")
+    private Integer AportacionesVoluntariasDeducibles;
 
-	@Column(name = "SalariosAsimilados")
-	private Integer SalariosAsimilados;
+    @Column(name = " PagosSeparacion")
+    private Integer PagosSeparacion;
 
-	@Column(name = "PagosEfectuadosTrabajadores")
-	private Integer PagosEfectuadosTrabajadores;
+    @Column(name = "SalariosAsimilados")
+    private Integer SalariosAsimilados;
 
-	@Column(name = "SueldoGravado")
-	private BigDecimal SueldoGravado;
+    @Column(name = "PagosEfectuadosTrabajadores")
+    private Integer PagosEfectuadosTrabajadores;
 
-	@Column(name = "SueldoExento")
-	private BigDecimal SueldoExento;
+    @Column(name = "SueldoGravado")
+    private BigDecimal SueldoGravado;
 
-	@Column(name = "GratificacionAnualGravado")
-	private BigDecimal GratificacionAnualGravado;
+    @Column(name = "SueldoExento")
+    private BigDecimal SueldoExento;
 
-	@Column(name = "GratificacionAnualExento")
-	private BigDecimal GratificacionAnualExento;
+    @Column(name = "GratificacionAnualGravado")
+    private BigDecimal GratificacionAnualGravado;
 
-	@Column(name = "ViaticosGravado")
-	private BigDecimal ViaticosGravado;
+    @Column(name = "GratificacionAnualExento")
+    private BigDecimal GratificacionAnualExento;
 
-	@Column(name = "ViaticosExento")
-	private BigDecimal ViaticosExento;
+    @Column(name = "ViaticosGravado")
+    private BigDecimal ViaticosGravado;
 
-	@Column(name = "TiempoExtraordinarioGravado")
-	private BigDecimal TiempoExtraordinarioGravado;
+    @Column(name = "ViaticosExento")
+    private BigDecimal ViaticosExento;
 
-	@Column(name = "TiempoExtraordinarioExento")
-	private BigDecimal TiempoExtraordinarioExento;
+    @Column(name = "TiempoExtraordinarioGravado")
+    private BigDecimal TiempoExtraordinarioGravado;
 
-	@Column(name = " PrimaVacacionalGravado")
-	private BigDecimal PrimaVacacionalGravado;
+    @Column(name = "TiempoExtraordinarioExento")
+    private BigDecimal TiempoExtraordinarioExento;
 
-	@Column(name = "PrimaVacacionalExento")
-	private BigDecimal PrimaVacacionalExento;
+    @Column(name = " PrimaVacacionalGravado")
+    private BigDecimal PrimaVacacionalGravado;
 
-	@Column(name = "PrimaDominicalGravado")
-	private BigDecimal PrimaDominicalGravado;
+    @Column(name = "PrimaVacacionalExento")
+    private BigDecimal PrimaVacacionalExento;
 
-	@Column(name = "PrimaDominicalExento")
-	private BigDecimal PrimaDominicalExento;
+    @Column(name = "PrimaDominicalGravado")
+    private BigDecimal PrimaDominicalGravado;
 
-	@Column(name = "ParticipacionTrabajadoresUtilidades ")
-	private Integer ParticipacionTrabajadoresUtilidades;
+    @Column(name = "PrimaDominicalExento")
+    private BigDecimal PrimaDominicalExento;
 
-	@Column(name = "SegundaParticipacionTrabajadoresUtilidades")
-	private Integer SegundaParticipacionTrabajadoresUtilidades;
+    @Column(name = "ParticipacionTrabajadoresUtilidades ")
+    private Integer ParticipacionTrabajadoresUtilidades;
 
-	@Column(name = "ReembolsoGastos")
-	private BigDecimal ReembolsoGastos;
+    @Column(name = "SegundaParticipacionTrabajadoresUtilidades")
+    private Integer SegundaParticipacionTrabajadoresUtilidades;
 
-	@Column(name = "ReembolsoGastosMedicos")
-	private String ReembolsoGastosMedicos;
+    @Column(name = "ReembolsoGastos")
+    private BigDecimal ReembolsoGastos;
 
-	@Column(name = "FondoAhorroGravado")
-	private String FondoAhorroGravado;
+    @Column(name = "ReembolsoGastosMedicos")
+    private String ReembolsoGastosMedicos;
 
-	@Column(name = "FondoAhorroExento")
-	private BigDecimal FondoAhorroExento;
+    @Column(name = "FondoAhorroGravado")
+    private String FondoAhorroGravado;
 
-	@Column(name = "CajaAhorroGravado")
-	private BigDecimal CajaAhorroGravado;
+    @Column(name = "FondoAhorroExento")
+    private BigDecimal FondoAhorroExento;
 
-	@Column(name = "CajaAhorroExento")
-	private BigDecimal CajaAhorroExento;
+    @Column(name = "CajaAhorroGravado")
+    private BigDecimal CajaAhorroGravado;
 
-	@Column(name = "ValesDespensaGravado")
-	private BigDecimal ValesDespensaGravado;
+    @Column(name = "CajaAhorroExento")
+    private BigDecimal CajaAhorroExento;
 
-	@Column(name = "ValesDespensaExento")
-	private BigDecimal ValesDespensaExento;
+    @Column(name = "ValesDespensaGravado")
+    private BigDecimal ValesDespensaGravado;
 
-	@Column(name = "AyudaGastosFuneralGravado")
-	private BigDecimal AyudaGastosFuneralGravado;
+    @Column(name = "ValesDespensaExento")
+    private BigDecimal ValesDespensaExento;
 
-	@Column(name = "AyudaGastosFuneralExento")
-	private BigDecimal AyudaGastosFuneralExento;
+    @Column(name = "AyudaGastosFuneralGravado")
+    private BigDecimal AyudaGastosFuneralGravado;
 
-	@Column(name = "ContribucionTrabajadorGravado")
-	private BigDecimal ContribucionTrabajadorGravado;
+    @Column(name = "AyudaGastosFuneralExento")
+    private BigDecimal AyudaGastosFuneralExento;
 
-	@Column(name = "ContribucionTrabajadorExento")
-	private BigDecimal ContribucionTrabajadorExento;
+    @Column(name = "ContribucionTrabajadorGravado")
+    private BigDecimal ContribucionTrabajadorGravado;
 
-	@Column(name = "PremiosPuntualidadGravado")
-	private BigDecimal PremiosPuntualidadGravado;
+    @Column(name = "ContribucionTrabajadorExento")
+    private BigDecimal ContribucionTrabajadorExento;
 
-	@Column(name = "PremiosPuntualidadExento")
-	private BigDecimal PremiosPuntualidadExento;
+    @Column(name = "PremiosPuntualidadGravado")
+    private BigDecimal PremiosPuntualidadGravado;
 
-	@Column(name = "PrimaSeguroVidaGravado")
-	private BigDecimal PrimaSeguroVidaGravado;
+    @Column(name = "PremiosPuntualidadExento")
+    private BigDecimal PremiosPuntualidadExento;
 
-	@Column(name = "PrimaSeguroVidaExento")
-	private BigDecimal PrimaSeguroVidaExento;
+    @Column(name = "PrimaSeguroVidaGravado")
+    private BigDecimal PrimaSeguroVidaGravado;
 
-	@Column(name = "SeguroGastosMedicosMayoresGravado")
-	private BigDecimal SeguroGastosMedicosMayoresGravado;
+    @Column(name = "PrimaSeguroVidaExento")
+    private BigDecimal PrimaSeguroVidaExento;
 
-	@Column(name = "SeguroGastosMedicosMayoresExento")
-	private BigDecimal SeguroGastosMedicosMayoresExento;
+    @Column(name = "SeguroGastosMedicosMayoresGravado")
+    private BigDecimal SeguroGastosMedicosMayoresGravado;
 
-	@Column(name = "ValesRestauranteGravado")
-	private BigDecimal ValesRestauranteGravado;
+    @Column(name = "SeguroGastosMedicosMayoresExento")
+    private BigDecimal SeguroGastosMedicosMayoresExento;
 
-	@Column(name = "ValesRestauranteExento")
-	private BigDecimal ValesRestauranteExento;
+    @Column(name = "ValesRestauranteGravado")
+    private BigDecimal ValesRestauranteGravado;
 
-	@Column(name = "ValesGasolinaGravado")
-	private BigDecimal ValesGasolinaGravado;
+    @Column(name = "ValesRestauranteExento")
+    private BigDecimal ValesRestauranteExento;
 
-	@Column(name = "ValesGasolinaExento")
-	private BigDecimal ValesGasolinaExento;
+    @Column(name = "ValesGasolinaGravado")
+    private BigDecimal ValesGasolinaGravado;
 
-	@Column(name = "ValesRopaGravado")
-	private BigDecimal ValesRopaGravado;
+    @Column(name = "ValesGasolinaExento")
+    private BigDecimal ValesGasolinaExento;
 
-	@Column(name = "ValesRopaExento")
-	private BigDecimal ValesRopaExento;
+    @Column(name = "ValesRopaGravado")
+    private BigDecimal ValesRopaGravado;
 
-	@Column(name = "AyudaRentaGravado")
-	private BigDecimal AyudaRentaGravado;
+    @Column(name = "ValesRopaExento")
+    private BigDecimal ValesRopaExento;
 
-	@Column(name = "AyudaRentaExento")
-	private BigDecimal AyudaRentaExento;
+    @Column(name = "AyudaRentaGravado")
+    private BigDecimal AyudaRentaGravado;
 
-	@Column(name = "AyudaArticulosEscolaresGravado")
-	private BigDecimal AyudaArticulosEscolaresGravado;
+    @Column(name = "AyudaRentaExento")
+    private BigDecimal AyudaRentaExento;
 
-	@Column(name = "AyudaArticulosEscolaresExento")
-	private BigDecimal AyudaArticulosEscolaresExento;
+    @Column(name = "AyudaArticulosEscolaresGravado")
+    private BigDecimal AyudaArticulosEscolaresGravado;
 
-	@Column(name = "AyudaAnteojosGravado")
-	private BigDecimal AyudaAnteojosGravado;
+    @Column(name = "AyudaArticulosEscolaresExento")
+    private BigDecimal AyudaArticulosEscolaresExento;
 
-	@Column(name = "AyudaAnteojosExento")
-	private BigDecimal AyudaAnteojosExento;
+    @Column(name = "AyudaAnteojosGravado")
+    private BigDecimal AyudaAnteojosGravado;
 
-	@Column(name = "AyudaTransporteGravado")
-	private BigDecimal AyudaTransporteGravado;
+    @Column(name = "AyudaAnteojosExento")
+    private BigDecimal AyudaAnteojosExento;
 
-	@Column(name = "AyudaTransporteExento")
-	private BigDecimal AyudaTransporteExento;
+    @Column(name = "AyudaTransporteGravado")
+    private BigDecimal AyudaTransporteGravado;
 
-	@Column(name = "CuotasSindicalesGravado")
-	private BigDecimal CuotasSindicalesGravado;
+    @Column(name = "AyudaTransporteExento")
+    private BigDecimal AyudaTransporteExento;
 
-	@Column(name = "CuotasSindicalesExento")
-	private BigDecimal CuotasSindicalesExento;
+    @Column(name = "CuotasSindicalesGravado")
+    private BigDecimal CuotasSindicalesGravado;
 
-	@Column(name = "SubsidioIncapacidadGravado")
-	private BigDecimal SubsidioIncapacidadGravado;
+    @Column(name = "CuotasSindicalesExento")
+    private BigDecimal CuotasSindicalesExento;
 
-	@Column(name = "SubsidioIncapacidadExento")
-	private BigDecimal SubsidioIncapacidadExento;
+    @Column(name = "SubsidioIncapacidadGravado")
+    private BigDecimal SubsidioIncapacidadGravado;
 
-	@Column(name = "BecasGravado")
-	private BigDecimal BecasGravado;
+    @Column(name = "SubsidioIncapacidadExento")
+    private BigDecimal SubsidioIncapacidadExento;
 
-	@Column(name = "BecasExento")
-	private BigDecimal BecasExento;
+    @Column(name = "BecasGravado")
+    private BigDecimal BecasGravado;
 
-	@Column(name = "PagosEfectuadosGravado")
-	private BigDecimal PagosEfectuadosGravado;
+    @Column(name = "BecasExento")
+    private BigDecimal BecasExento;
 
-	@Column(name = "PagosEfectuadosExento")
-	private BigDecimal PagosEfectuadosExento;
+    @Column(name = "PagosEfectuadosGravado")
+    private BigDecimal PagosEfectuadosGravado;
 
-	@Column(name = "OtrosIngresosGravado")
-	private BigDecimal OtrosIngresosGravado;
+    @Column(name = "PagosEfectuadosExento")
+    private BigDecimal PagosEfectuadosExento;
 
-	@Column(name = "OtrosIngresosExento")
-	private BigDecimal OtrosIngresosExento;
+    @Column(name = "OtrosIngresosGravado")
+    private BigDecimal OtrosIngresosGravado;
 
-	@Column(name = "SumaIngresoPorSueldoGravado")
-	private BigDecimal SumaIngresoPorSueldoGravado;
+    @Column(name = "OtrosIngresosExento")
+    private BigDecimal OtrosIngresosExento;
 
-	@Column(name = "SumaIngresoPorSueldoExento")
-	private BigDecimal SumaIngresoPorSueldoExento;
+    @Column(name = "SumaIngresoPorSueldoGravado")
+    private BigDecimal SumaIngresoPorSueldoGravado;
 
-	@Column(name = "ImpuestoRetenidoEjercicioDeclara")
-	private BigDecimal ImpuestoRetenidoEjercicioDeclara;
+    @Column(name = "SumaIngresoPorSueldoExento")
+    private BigDecimal SumaIngresoPorSueldoExento;
 
-	@Column(name = "ImpuestoRetenidoPorOtros")
-	private BigDecimal ImpuestoRetenidoPorOtros;
+    @Column(name = "ImpuestoRetenidoEjercicioDeclara")
+    private BigDecimal ImpuestoRetenidoEjercicioDeclara;
 
-	@Column(name = "SiguienteSaldoAFavor")
-	private BigDecimal SiguienteSaldoAFavor;
+    @Column(name = "ImpuestoRetenidoPorOtros")
+    private BigDecimal ImpuestoRetenidoPorOtros;
 
-	@Column(name = "AnteriorSaldoAfavor")
-	private BigDecimal AnteriorSaldoAfavor;
+    @Column(name = "SiguienteSaldoAFavor")
+    private BigDecimal SiguienteSaldoAFavor;
 
-	@Column(name = "SumaConceptoCredito")
-	private BigDecimal SumaConceptoCredito;
+    @Column(name = "AnteriorSaldoAfavor")
+    private BigDecimal AnteriorSaldoAfavor;
 
-	@Column(name = "CreditoEntregado")
-	private BigDecimal CreditoEntregado;
+    @Column(name = "SumaConceptoCredito")
+    private BigDecimal SumaConceptoCredito;
 
-	@Column(name = "TotalConceptoPrevisionSocial")
-	private BigDecimal TotalConceptoPrevisionSocial;
+    @Column(name = "CreditoEntregado")
+    private BigDecimal CreditoEntregado;
 
-	@Column(name = "SumaExentosPorPrevisionSocial")
-	private BigDecimal SumaExentosPorPrevisionSocial;
+    @Column(name = "TotalConceptoPrevisionSocial")
+    private BigDecimal TotalConceptoPrevisionSocial;
 
-	@Column(name = "SumaIngresoPorSueldo")
-	private BigDecimal SumaIngresoPorSueldo;
+    @Column(name = "SumaExentosPorPrevisionSocial")
+    private BigDecimal SumaExentosPorPrevisionSocial;
 
-	@Column(name = "ImpuestoLocalIngresosPorSueldo")
-	private BigDecimal ImpuestoLocalIngresosPorSueldo;
+    @Column(name = "SumaIngresoPorSueldo")
+    private BigDecimal SumaIngresoPorSueldo;
 
-	@Column(name = "SubsidioParaEmpleo")
-	private BigDecimal SubsidioParaEmpleo;
+    @Column(name = "ImpuestoLocalIngresosPorSueldo")
+    private BigDecimal ImpuestoLocalIngresosPorSueldo;
 
-	@Column(name = "TotalAportacionesVoluntariasDeducibles")
-	private BigDecimal TotalAportacionesVoluntariasDeducibles;
+    @Column(name = "SubsidioParaEmpleo")
+    private BigDecimal SubsidioParaEmpleo;
 
-	@Column(name = "ImpuestoConformeTarifa")
-	private BigDecimal ImpuestoConformeTarifa;
+    @Column(name = "TotalAportacionesVoluntariasDeducibles")
+    private BigDecimal TotalAportacionesVoluntariasDeducibles;
 
-	@Column(name = "SubsidioAcreditable")
-	private BigDecimal SubsidioAcreditable;
+    @Column(name = "ImpuestoConformeTarifa")
+    private BigDecimal ImpuestoConformeTarifa;
 
-	@Column(name = "SubsidioNoAcreditable")
-	private BigDecimal SubsidioNoAcreditable;
+    @Column(name = "SubsidioAcreditable")
+    private BigDecimal SubsidioAcreditable;
 
-	@Column(name = "ImpuestoIngresosAcumulables")
-	private BigDecimal ImpuestoIngresosAcumulables;
+    @Column(name = "SubsidioNoAcreditable")
+    private BigDecimal SubsidioNoAcreditable;
 
-	@Column(name = "ImpuestoIngresosNoAcumulables")
-	private BigDecimal ImpuestoIngresosNoAcumulables;
+    @Column(name = "ImpuestoIngresosAcumulables")
+    private BigDecimal ImpuestoIngresosAcumulables;
 
-	@Column(name = "ImpuestoLocalPrestacionServicioSubordinado")
-	private BigDecimal ImpuestoLocalPrestacionServicioSubordinado;
+    @Column(name = "ImpuestoIngresosNoAcumulables")
+    private BigDecimal ImpuestoIngresosNoAcumulables;
 
-	@Column(name = "MontoSubsidioParaEmpleo")
-	private BigDecimal MontoSubsidioParaEmpleo;
-	
-	@Column(name = "EjercicioFiscal")
-	private Integer EjercicioFiscal;
-	
-	@Column(name = "FechaDeclaracion")
-	private Date FechaDeclaracion;
+    @Column(name = "ImpuestoLocalPrestacionServicioSubordinado")
+    private BigDecimal ImpuestoLocalPrestacionServicioSubordinado;
 
-	@Column(name = "XML")
-	private String xml;
+    @Column(name = "MontoSubsidioParaEmpleo")
+    private BigDecimal MontoSubsidioParaEmpleo;
 
-	@Column(name = "CadenaOriginal")
-	private String cadenaOriginal;
+    @Column(name = "EjercicioFiscal")
+    private Integer EjercicioFiscal;
 
-	@Column(name = "Sello")
-	private String sello;
+    @Column(name = "FechaDeclaracion")
+    private Date FechaDeclaracion;
 
-	/********** Getters and Setters ******************/
+    @Column(name = "XML")
+    private String xml;
 
-	public Integer getIdConstanciaSueldo() {
-		return IdConstanciaSueldo;
-	}
+    @Column(name = "CadenaOriginal")
+    private String cadenaOriginal;
 
-	public void setIdConstanciaSueldo(Integer idConstanciaSueldo) {
-		IdConstanciaSueldo = idConstanciaSueldo;
-	}
+    @Column(name = "Sello")
+    private String sello;
 
-	public Integer getMesInicial() {
-		return MesInicial;
-	}
+    /**
+     * ******** Getters and Setters *****************
+     */
+    public Integer getIdConstanciaSueldo() {
+        return IdConstanciaSueldo;
+    }
 
-	public void setMesInicial(Integer mesInicial) {
-		MesInicial = mesInicial;
-	}
+    public void setIdConstanciaSueldo(Integer idConstanciaSueldo) {
+        IdConstanciaSueldo = idConstanciaSueldo;
+    }
 
-	public Integer getMesFinal() {
-		return MesFinal;
-	}
+    public Integer getMesInicial() {
+        return MesInicial;
+    }
 
-	public void setMesFinal(Integer mesFinal) {
-		MesFinal = mesFinal;
-	}
+    public void setMesInicial(Integer mesInicial) {
+        MesInicial = mesInicial;
+    }
 
-	public String getRFC() {
-		return RFC;
-	}
+    public Integer getMesFinal() {
+        return MesFinal;
+    }
 
-	public void setRFC(String rFC) {
-		RFC = rFC;
-	}
+    public void setMesFinal(Integer mesFinal) {
+        MesFinal = mesFinal;
+    }
 
-	public String getCURP() {
-		return CURP;
-	}
+    public String getRFC() {
+        return RFC;
+    }
 
-	public void setCURP(String cURP) {
-		CURP = cURP;
-	}
+    public void setRFC(String rFC) {
+        RFC = rFC;
+    }
 
-	public String getApellidoPaterno() {
-		return ApellidoPaterno;
-	}
+    public String getCURP() {
+        return CURP;
+    }
 
-	public void setApellidoPaterno(String apellidoPaterno) {
-		ApellidoPaterno = apellidoPaterno;
-	}
+    public void setCURP(String cURP) {
+        CURP = cURP;
+    }
 
-	public String getApellidoMaterno() {
-		return ApellidoMaterno;
-	}
+    public String getApellidoPaterno() {
+        return ApellidoPaterno;
+    }
 
-	public void setApellidoMaterno(String apellidoMaterno) {
-		ApellidoMaterno = apellidoMaterno;
-	}
+    public void setApellidoPaterno(String apellidoPaterno) {
+        ApellidoPaterno = apellidoPaterno;
+    }
 
-	public String getNombre() {
-		return Nombre;
-	}
+    public String getApellidoMaterno() {
+        return ApellidoMaterno;
+    }
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
-	}
+    public void setApellidoMaterno(String apellidoMaterno) {
+        ApellidoMaterno = apellidoMaterno;
+    }
 
-	public Integer getAreaGeoSalarioMinimo() {
-		return AreaGeoSalarioMinimo;
-	}
+    public String getNombre() {
+        return Nombre;
+    }
 
-	public void setAreaGeoSalarioMinimo(Integer areaGeoSalarioMinimo) {
-		AreaGeoSalarioMinimo = areaGeoSalarioMinimo;
-	}
+    public void setNombre(String nombre) {
+        Nombre = nombre;
+    }
 
-	public Integer getRealizoCalculoAnual() {
-		return RealizoCalculoAnual;
-	}
+    public Integer getAreaGeoSalarioMinimo() {
+        return AreaGeoSalarioMinimo;
+    }
 
-	public void setRealizoCalculoAnual(Integer realizoCalculoAnual) {
-		RealizoCalculoAnual = realizoCalculoAnual;
-	}
+    public void setAreaGeoSalarioMinimo(Integer areaGeoSalarioMinimo) {
+        AreaGeoSalarioMinimo = areaGeoSalarioMinimo;
+    }
 
-	public Integer getTarifaEjercicioDeclara() {
-		return TarifaEjercicioDeclara;
-	}
+    public Integer getRealizoCalculoAnual() {
+        return RealizoCalculoAnual;
+    }
 
-	public void setTarifaEjercicioDeclara(Integer tarifaEjercicioDeclara) {
-		TarifaEjercicioDeclara = tarifaEjercicioDeclara;
-	}
+    public void setRealizoCalculoAnual(Integer realizoCalculoAnual) {
+        RealizoCalculoAnual = realizoCalculoAnual;
+    }
 
-	public BigDecimal getTarifaUtilizadaActualizada() {
-		return TarifaUtilizadaActualizada;
-	}
+    public Integer getTarifaEjercicioDeclara() {
+        return TarifaEjercicioDeclara;
+    }
 
-	public void setTarifaUtilizadaActualizada(BigDecimal tarifaUtilizadaActualizada) {
-		TarifaUtilizadaActualizada = tarifaUtilizadaActualizada;
-	}
+    public void setTarifaEjercicioDeclara(Integer tarifaEjercicioDeclara) {
+        TarifaEjercicioDeclara = tarifaEjercicioDeclara;
+    }
 
-	public BigDecimal getSubsidioAplicado() {
-		return SubsidioAplicado;
-	}
+    public BigDecimal getTarifaUtilizadaActualizada() {
+        return TarifaUtilizadaActualizada;
+    }
 
-	public void setSubsidioAplicado(BigDecimal subsidioAplicado) {
-		SubsidioAplicado = subsidioAplicado;
-	}
+    public void setTarifaUtilizadaActualizada(BigDecimal tarifaUtilizadaActualizada) {
+        TarifaUtilizadaActualizada = tarifaUtilizadaActualizada;
+    }
 
-	public Integer getTrabajadorSindicalizado() {
-		return TrabajadorSindicalizado;
-	}
+    public BigDecimal getSubsidioAplicado() {
+        return SubsidioAplicado;
+    }
 
-	public void setTrabajadorSindicalizado(Integer trabajadorSindicalizado) {
-		TrabajadorSindicalizado = trabajadorSindicalizado;
-	}
+    public void setSubsidioAplicado(BigDecimal subsidioAplicado) {
+        SubsidioAplicado = subsidioAplicado;
+    }
 
-	public String getClaveSalarioAsimilado() {
-		return ClaveSalarioAsimilado;
-	}
+    public Integer getTrabajadorSindicalizado() {
+        return TrabajadorSindicalizado;
+    }
 
-	public void setClaveSalarioAsimilado(String claveSalarioAsimilado) {
-		ClaveSalarioAsimilado = claveSalarioAsimilado;
-	}
+    public void setTrabajadorSindicalizado(Integer trabajadorSindicalizado) {
+        TrabajadorSindicalizado = trabajadorSindicalizado;
+    }
 
-	public Integer getClaveEntidadFederativa() {
-		return ClaveEntidadFederativa;
-	}
+    public String getClaveSalarioAsimilado() {
+        return ClaveSalarioAsimilado;
+    }
 
-	public void setClaveEntidadFederativa(Integer claveEntidadFederativa) {
-		ClaveEntidadFederativa = claveEntidadFederativa;
-	}
+    public void setClaveSalarioAsimilado(String claveSalarioAsimilado) {
+        ClaveSalarioAsimilado = claveSalarioAsimilado;
+    }
 
-	public String getRFCPatronPrimero() {
-		return RFCPatronPrimero;
-	}
+    public Integer getClaveEntidadFederativa() {
+        return ClaveEntidadFederativa;
+    }
 
-	public void setRFCPatronPrimero(String rFCPatronPrimero) {
-		RFCPatronPrimero = rFCPatronPrimero;
-	}
+    public void setClaveEntidadFederativa(Integer claveEntidadFederativa) {
+        ClaveEntidadFederativa = claveEntidadFederativa;
+    }
 
-	public String getRFCPatronSegundo() {
-		return RFCPatronSegundo;
-	}
+    public String getRFCPatronPrimero() {
+        return RFCPatronPrimero;
+    }
 
-	public void setRFCPatronSegundo(String rFCPatronSegundo) {
-		RFCPatronSegundo = rFCPatronSegundo;
-	}
+    public void setRFCPatronPrimero(String rFCPatronPrimero) {
+        RFCPatronPrimero = rFCPatronPrimero;
+    }
 
-	public String getRFCPatronTercero() {
-		return RFCPatronTercero;
-	}
+    public String getRFCPatronSegundo() {
+        return RFCPatronSegundo;
+    }
 
-	public void setRFCPatronTercero(String rFCPatronTercero) {
-		RFCPatronTercero = rFCPatronTercero;
-	}
+    public void setRFCPatronSegundo(String rFCPatronSegundo) {
+        RFCPatronSegundo = rFCPatronSegundo;
+    }
 
-	public String getRFCPatronCuarto() {
-		return RFCPatronCuarto;
-	}
+    public String getRFCPatronTercero() {
+        return RFCPatronTercero;
+    }
 
-	public void setRFCPatronCuarto(String rFCPatronCuarto) {
-		RFCPatronCuarto = rFCPatronCuarto;
-	}
+    public void setRFCPatronTercero(String rFCPatronTercero) {
+        RFCPatronTercero = rFCPatronTercero;
+    }
 
-	public String getRFCPatronQuinto() {
-		return RFCPatronQuinto;
-	}
+    public String getRFCPatronCuarto() {
+        return RFCPatronCuarto;
+    }
 
-	public void setRFCPatronQuinto(String rFCPatronQuinto) {
-		RFCPatronQuinto = rFCPatronQuinto;
-	}
+    public void setRFCPatronCuarto(String rFCPatronCuarto) {
+        RFCPatronCuarto = rFCPatronCuarto;
+    }
 
-	public String getRFCPatronSexto() {
-		return RFCPatronSexto;
-	}
+    public String getRFCPatronQuinto() {
+        return RFCPatronQuinto;
+    }
 
-	public void setRFCPatronSexto(String rFCPatronSexto) {
-		RFCPatronSexto = rFCPatronSexto;
-	}
+    public void setRFCPatronQuinto(String rFCPatronQuinto) {
+        RFCPatronQuinto = rFCPatronQuinto;
+    }
 
-	public String getRFCPatronSeptimo() {
-		return RFCPatronSeptimo;
-	}
+    public String getRFCPatronSexto() {
+        return RFCPatronSexto;
+    }
 
-	public void setRFCPatronSeptimo(String rFCPatronSeptimo) {
-		RFCPatronSeptimo = rFCPatronSeptimo;
-	}
+    public void setRFCPatronSexto(String rFCPatronSexto) {
+        RFCPatronSexto = rFCPatronSexto;
+    }
 
-	public String getRFCPatronOctavo() {
-		return RFCPatronOctavo;
-	}
+    public String getRFCPatronSeptimo() {
+        return RFCPatronSeptimo;
+    }
 
-	public void setRFCPatronOctavo(String rFCPatronOctavo) {
-		RFCPatronOctavo = rFCPatronOctavo;
-	}
+    public void setRFCPatronSeptimo(String rFCPatronSeptimo) {
+        RFCPatronSeptimo = rFCPatronSeptimo;
+    }
 
-	public String getRFCPatronNoveno() {
-		return RFCPatronNoveno;
-	}
+    public String getRFCPatronOctavo() {
+        return RFCPatronOctavo;
+    }
 
-	public void setRFCPatronNoveno(String rFCPatronNoveno) {
-		RFCPatronNoveno = rFCPatronNoveno;
-	}
+    public void setRFCPatronOctavo(String rFCPatronOctavo) {
+        RFCPatronOctavo = rFCPatronOctavo;
+    }
 
-	public String getRFCPatronDecimo() {
-		return RFCPatronDecimo;
-	}
+    public String getRFCPatronNoveno() {
+        return RFCPatronNoveno;
+    }
 
-	public void setRFCPatronDecimo(String rFCPatronDecimo) {
-		RFCPatronDecimo = rFCPatronDecimo;
-	}
+    public void setRFCPatronNoveno(String rFCPatronNoveno) {
+        RFCPatronNoveno = rFCPatronNoveno;
+    }
 
-	public BigDecimal getAportacionesVoluntarias() {
-		return AportacionesVoluntarias;
-	}
+    public String getRFCPatronDecimo() {
+        return RFCPatronDecimo;
+    }
 
-	public void setAportacionesVoluntarias(BigDecimal aportacionesVoluntarias) {
-		AportacionesVoluntarias = aportacionesVoluntarias;
-	}
+    public void setRFCPatronDecimo(String rFCPatronDecimo) {
+        RFCPatronDecimo = rFCPatronDecimo;
+    }
 
-	public Integer getAplicoAportacionesVoluntarias() {
-		return AplicoAportacionesVoluntarias;
-	}
+    public BigDecimal getAportacionesVoluntarias() {
+        return AportacionesVoluntarias;
+    }
 
-	public void setAplicoAportacionesVoluntarias(Integer aplicoAportacionesVoluntarias) {
-		AplicoAportacionesVoluntarias = aplicoAportacionesVoluntarias;
-	}
+    public void setAportacionesVoluntarias(BigDecimal aportacionesVoluntarias) {
+        AportacionesVoluntarias = aportacionesVoluntarias;
+    }
 
-	public Integer getAportacionesVoluntariasDeducibles() {
-		return AportacionesVoluntariasDeducibles;
-	}
+    public Integer getAplicoAportacionesVoluntarias() {
+        return AplicoAportacionesVoluntarias;
+    }
 
-	public void setAportacionesVoluntariasDeducibles(Integer aportacionesVoluntariasDeducibles) {
-		AportacionesVoluntariasDeducibles = aportacionesVoluntariasDeducibles;
-	}
+    public void setAplicoAportacionesVoluntarias(Integer aplicoAportacionesVoluntarias) {
+        AplicoAportacionesVoluntarias = aplicoAportacionesVoluntarias;
+    }
 
-	public Integer getPagosSeparacion() {
-		return PagosSeparacion;
-	}
+    public Integer getAportacionesVoluntariasDeducibles() {
+        return AportacionesVoluntariasDeducibles;
+    }
 
-	public void setPagosSeparacion(Integer pagosSeparacion) {
-		PagosSeparacion = pagosSeparacion;
-	}
+    public void setAportacionesVoluntariasDeducibles(Integer aportacionesVoluntariasDeducibles) {
+        AportacionesVoluntariasDeducibles = aportacionesVoluntariasDeducibles;
+    }
 
-	public Integer getSalariosAsimilados() {
-		return SalariosAsimilados;
-	}
+    public Integer getPagosSeparacion() {
+        return PagosSeparacion;
+    }
 
-	public void setSalariosAsimilados(Integer salariosAsimilados) {
-		SalariosAsimilados = salariosAsimilados;
-	}
+    public void setPagosSeparacion(Integer pagosSeparacion) {
+        PagosSeparacion = pagosSeparacion;
+    }
 
-	public Integer getPagosEfectuadosTrabajadores() {
-		return PagosEfectuadosTrabajadores;
-	}
+    public Integer getSalariosAsimilados() {
+        return SalariosAsimilados;
+    }
 
-	public void setPagosEfectuadosTrabajadores(Integer pagosEfectuadosTrabajadores) {
-		PagosEfectuadosTrabajadores = pagosEfectuadosTrabajadores;
-	}
+    public void setSalariosAsimilados(Integer salariosAsimilados) {
+        SalariosAsimilados = salariosAsimilados;
+    }
 
-	public BigDecimal getSueldoGravado() {
-		return SueldoGravado;
-	}
+    public Integer getPagosEfectuadosTrabajadores() {
+        return PagosEfectuadosTrabajadores;
+    }
 
-	public void setSueldoGravado(BigDecimal sueldoGravado) {
-		SueldoGravado = sueldoGravado;
-	}
+    public void setPagosEfectuadosTrabajadores(Integer pagosEfectuadosTrabajadores) {
+        PagosEfectuadosTrabajadores = pagosEfectuadosTrabajadores;
+    }
 
-	public BigDecimal getSueldoExento() {
-		return SueldoExento;
-	}
+    public BigDecimal getSueldoGravado() {
+        return SueldoGravado;
+    }
 
-	public void setSueldoExento(BigDecimal sueldoExento) {
-		SueldoExento = sueldoExento;
-	}
+    public void setSueldoGravado(BigDecimal sueldoGravado) {
+        SueldoGravado = sueldoGravado;
+    }
 
-	public BigDecimal getGratificacionAnualGravado() {
-		return GratificacionAnualGravado;
-	}
+    public BigDecimal getSueldoExento() {
+        return SueldoExento;
+    }
 
-	public void setGratificacionAnualGravado(BigDecimal gratificacionAnualGravado) {
-		GratificacionAnualGravado = gratificacionAnualGravado;
-	}
+    public void setSueldoExento(BigDecimal sueldoExento) {
+        SueldoExento = sueldoExento;
+    }
 
-	public BigDecimal getGratificacionAnualExento() {
-		return GratificacionAnualExento;
-	}
+    public BigDecimal getGratificacionAnualGravado() {
+        return GratificacionAnualGravado;
+    }
 
-	public void setGratificacionAnualExento(BigDecimal gratificacionAnualExento) {
-		GratificacionAnualExento = gratificacionAnualExento;
-	}
+    public void setGratificacionAnualGravado(BigDecimal gratificacionAnualGravado) {
+        GratificacionAnualGravado = gratificacionAnualGravado;
+    }
 
-	public BigDecimal getViaticosGravado() {
-		return ViaticosGravado;
-	}
+    public BigDecimal getGratificacionAnualExento() {
+        return GratificacionAnualExento;
+    }
 
-	public void setViaticosGravado(BigDecimal viaticosGravado) {
-		ViaticosGravado = viaticosGravado;
-	}
+    public void setGratificacionAnualExento(BigDecimal gratificacionAnualExento) {
+        GratificacionAnualExento = gratificacionAnualExento;
+    }
 
-	public BigDecimal getViaticosExento() {
-		return ViaticosExento;
-	}
+    public BigDecimal getViaticosGravado() {
+        return ViaticosGravado;
+    }
 
-	public void setViaticosExento(BigDecimal viaticosExento) {
-		ViaticosExento = viaticosExento;
-	}
+    public void setViaticosGravado(BigDecimal viaticosGravado) {
+        ViaticosGravado = viaticosGravado;
+    }
 
-	public BigDecimal getTiempoExtraordinarioGravado() {
-		return TiempoExtraordinarioGravado;
-	}
+    public BigDecimal getViaticosExento() {
+        return ViaticosExento;
+    }
 
-	public void setTiempoExtraordinarioGravado(BigDecimal tiempoExtraordinarioGravado) {
-		TiempoExtraordinarioGravado = tiempoExtraordinarioGravado;
-	}
+    public void setViaticosExento(BigDecimal viaticosExento) {
+        ViaticosExento = viaticosExento;
+    }
 
-	public BigDecimal getTiempoExtraordinarioExento() {
-		return TiempoExtraordinarioExento;
-	}
+    public BigDecimal getTiempoExtraordinarioGravado() {
+        return TiempoExtraordinarioGravado;
+    }
 
-	public void setTiempoExtraordinarioExento(BigDecimal tiempoExtraordinarioExento) {
-		TiempoExtraordinarioExento = tiempoExtraordinarioExento;
-	}
+    public void setTiempoExtraordinarioGravado(BigDecimal tiempoExtraordinarioGravado) {
+        TiempoExtraordinarioGravado = tiempoExtraordinarioGravado;
+    }
 
-	public BigDecimal getPrimaVacacionalGravado() {
-		return PrimaVacacionalGravado;
-	}
+    public BigDecimal getTiempoExtraordinarioExento() {
+        return TiempoExtraordinarioExento;
+    }
 
-	public void setPrimaVacacionalGravado(BigDecimal primaVacacionalGravado) {
-		PrimaVacacionalGravado = primaVacacionalGravado;
-	}
+    public void setTiempoExtraordinarioExento(BigDecimal tiempoExtraordinarioExento) {
+        TiempoExtraordinarioExento = tiempoExtraordinarioExento;
+    }
 
-	public BigDecimal getPrimaVacacionalExento() {
-		return PrimaVacacionalExento;
-	}
+    public BigDecimal getPrimaVacacionalGravado() {
+        return PrimaVacacionalGravado;
+    }
 
-	public void setPrimaVacacionalExento(BigDecimal primaVacacionalExento) {
-		PrimaVacacionalExento = primaVacacionalExento;
-	}
+    public void setPrimaVacacionalGravado(BigDecimal primaVacacionalGravado) {
+        PrimaVacacionalGravado = primaVacacionalGravado;
+    }
 
-	public BigDecimal getPrimaDominicalGravado() {
-		return PrimaDominicalGravado;
-	}
+    public BigDecimal getPrimaVacacionalExento() {
+        return PrimaVacacionalExento;
+    }
 
-	public void setPrimaDominicalGravado(BigDecimal primaDominicalGravado) {
-		PrimaDominicalGravado = primaDominicalGravado;
-	}
+    public void setPrimaVacacionalExento(BigDecimal primaVacacionalExento) {
+        PrimaVacacionalExento = primaVacacionalExento;
+    }
 
-	public BigDecimal getPrimaDominicalExento() {
-		return PrimaDominicalExento;
-	}
+    public BigDecimal getPrimaDominicalGravado() {
+        return PrimaDominicalGravado;
+    }
 
-	public void setPrimaDominicalExento(BigDecimal primaDominicalExento) {
-		PrimaDominicalExento = primaDominicalExento;
-	}
+    public void setPrimaDominicalGravado(BigDecimal primaDominicalGravado) {
+        PrimaDominicalGravado = primaDominicalGravado;
+    }
 
-	public Integer getParticipacionTrabajadoresUtilidades() {
-		return ParticipacionTrabajadoresUtilidades;
-	}
+    public BigDecimal getPrimaDominicalExento() {
+        return PrimaDominicalExento;
+    }
 
-	public void setParticipacionTrabajadoresUtilidades(Integer participacionTrabajadoresUtilidades) {
-		ParticipacionTrabajadoresUtilidades = participacionTrabajadoresUtilidades;
-	}
+    public void setPrimaDominicalExento(BigDecimal primaDominicalExento) {
+        PrimaDominicalExento = primaDominicalExento;
+    }
 
-	public Integer getSegundaParticipacionTrabajadoresUtilidades() {
-		return SegundaParticipacionTrabajadoresUtilidades;
-	}
+    public Integer getParticipacionTrabajadoresUtilidades() {
+        return ParticipacionTrabajadoresUtilidades;
+    }
 
-	public void setSegundaParticipacionTrabajadoresUtilidades(Integer segundaParticipacionTrabajadoresUtilidades) {
-		SegundaParticipacionTrabajadoresUtilidades = segundaParticipacionTrabajadoresUtilidades;
-	}
+    public void setParticipacionTrabajadoresUtilidades(Integer participacionTrabajadoresUtilidades) {
+        ParticipacionTrabajadoresUtilidades = participacionTrabajadoresUtilidades;
+    }
 
-	public BigDecimal getReembolsoGastos() {
-		return ReembolsoGastos;
-	}
+    public Integer getSegundaParticipacionTrabajadoresUtilidades() {
+        return SegundaParticipacionTrabajadoresUtilidades;
+    }
 
-	public void setReembolsoGastos(BigDecimal reembolsoGastos) {
-		ReembolsoGastos = reembolsoGastos;
-	}
+    public void setSegundaParticipacionTrabajadoresUtilidades(Integer segundaParticipacionTrabajadoresUtilidades) {
+        SegundaParticipacionTrabajadoresUtilidades = segundaParticipacionTrabajadoresUtilidades;
+    }
 
-	public String getReembolsoGastosMedicos() {
-		return ReembolsoGastosMedicos;
-	}
+    public BigDecimal getReembolsoGastos() {
+        return ReembolsoGastos;
+    }
 
-	public void setReembolsoGastosMedicos(String reembolsoGastosMedicos) {
-		ReembolsoGastosMedicos = reembolsoGastosMedicos;
-	}
+    public void setReembolsoGastos(BigDecimal reembolsoGastos) {
+        ReembolsoGastos = reembolsoGastos;
+    }
 
-	public String getFondoAhorroGravado() {
-		return FondoAhorroGravado;
-	}
-	
-	public void setFondoAhorroGravado(String fondoAhorroGravado) {
-		FondoAhorroGravado = fondoAhorroGravado;
-	}
+    public String getReembolsoGastosMedicos() {
+        return ReembolsoGastosMedicos;
+    }
 
-	public BigDecimal getFondoAhorroExento() {
-		return FondoAhorroExento;
-	}
+    public void setReembolsoGastosMedicos(String reembolsoGastosMedicos) {
+        ReembolsoGastosMedicos = reembolsoGastosMedicos;
+    }
 
-	public void setFondoAhorroExento(BigDecimal fondoAhorroExento) {
-		FondoAhorroExento = fondoAhorroExento;
-	}
+    public String getFondoAhorroGravado() {
+        return FondoAhorroGravado;
+    }
 
-	public BigDecimal getCajaAhorroGravado() {
-		return CajaAhorroGravado;
-	}
+    public void setFondoAhorroGravado(String fondoAhorroGravado) {
+        FondoAhorroGravado = fondoAhorroGravado;
+    }
 
-	public void setCajaAhorroGravado(BigDecimal cajaAhorroGravado) {
-		CajaAhorroGravado = cajaAhorroGravado;
-	}
+    public BigDecimal getFondoAhorroExento() {
+        return FondoAhorroExento;
+    }
 
-	public BigDecimal getCajaAhorroExento() {
-		return CajaAhorroExento;
-	}
+    public void setFondoAhorroExento(BigDecimal fondoAhorroExento) {
+        FondoAhorroExento = fondoAhorroExento;
+    }
 
-	public void setCajaAhorroExento(BigDecimal cajaAhorroExento) {
-		CajaAhorroExento = cajaAhorroExento;
-	}
+    public BigDecimal getCajaAhorroGravado() {
+        return CajaAhorroGravado;
+    }
 
-	public BigDecimal getValesDespensaGravado() {
-		return ValesDespensaGravado;
-	}
+    public void setCajaAhorroGravado(BigDecimal cajaAhorroGravado) {
+        CajaAhorroGravado = cajaAhorroGravado;
+    }
 
-	public void setValesDespensaGravado(BigDecimal valesDespensaGravado) {
-		ValesDespensaGravado = valesDespensaGravado;
-	}
+    public BigDecimal getCajaAhorroExento() {
+        return CajaAhorroExento;
+    }
 
-	public BigDecimal getValesDespensaExento() {
-		return ValesDespensaExento;
-	}
+    public void setCajaAhorroExento(BigDecimal cajaAhorroExento) {
+        CajaAhorroExento = cajaAhorroExento;
+    }
 
-	public void setValesDespensaExento(BigDecimal valesDespensaExento) {
-		ValesDespensaExento = valesDespensaExento;
-	}
+    public BigDecimal getValesDespensaGravado() {
+        return ValesDespensaGravado;
+    }
 
-	public BigDecimal getAyudaGastosFuneralGravado() {
-		return AyudaGastosFuneralGravado;
-	}
+    public void setValesDespensaGravado(BigDecimal valesDespensaGravado) {
+        ValesDespensaGravado = valesDespensaGravado;
+    }
 
-	public void setAyudaGastosFuneralGravado(BigDecimal ayudaGastosFuneralGravado) {
-		AyudaGastosFuneralGravado = ayudaGastosFuneralGravado;
-	}
+    public BigDecimal getValesDespensaExento() {
+        return ValesDespensaExento;
+    }
 
-	public BigDecimal getAyudaGastosFuneralExento() {
-		return AyudaGastosFuneralExento;
-	}
+    public void setValesDespensaExento(BigDecimal valesDespensaExento) {
+        ValesDespensaExento = valesDespensaExento;
+    }
 
-	public void setAyudaGastosFuneralExento(BigDecimal ayudaGastosFuneralExento) {
-		AyudaGastosFuneralExento = ayudaGastosFuneralExento;
-	}
+    public BigDecimal getAyudaGastosFuneralGravado() {
+        return AyudaGastosFuneralGravado;
+    }
 
-	public BigDecimal getContribucionTrabajadorGravado() {
-		return ContribucionTrabajadorGravado;
-	}
+    public void setAyudaGastosFuneralGravado(BigDecimal ayudaGastosFuneralGravado) {
+        AyudaGastosFuneralGravado = ayudaGastosFuneralGravado;
+    }
 
-	public void setContribucionTrabajadorGravado(BigDecimal contribucionTrabajadorGravado) {
-		ContribucionTrabajadorGravado = contribucionTrabajadorGravado;
-	}
+    public BigDecimal getAyudaGastosFuneralExento() {
+        return AyudaGastosFuneralExento;
+    }
 
-	public BigDecimal getContribucionTrabajadorExento() {
-		return ContribucionTrabajadorExento;
-	}
+    public void setAyudaGastosFuneralExento(BigDecimal ayudaGastosFuneralExento) {
+        AyudaGastosFuneralExento = ayudaGastosFuneralExento;
+    }
 
-	public void setContribucionTrabajadorExento(BigDecimal contribucionTrabajadorExento) {
-		ContribucionTrabajadorExento = contribucionTrabajadorExento;
-	}
+    public BigDecimal getContribucionTrabajadorGravado() {
+        return ContribucionTrabajadorGravado;
+    }
 
-	public BigDecimal getPremiosPuntualidadGravado() {
-		return PremiosPuntualidadGravado;
-	}
+    public void setContribucionTrabajadorGravado(BigDecimal contribucionTrabajadorGravado) {
+        ContribucionTrabajadorGravado = contribucionTrabajadorGravado;
+    }
 
-	public void setPremiosPuntualidadGravado(BigDecimal premiosPuntualidadGravado) {
-		PremiosPuntualidadGravado = premiosPuntualidadGravado;
-	}
+    public BigDecimal getContribucionTrabajadorExento() {
+        return ContribucionTrabajadorExento;
+    }
 
-	public BigDecimal getPremiosPuntualidadExento() {
-		return PremiosPuntualidadExento;
-	}
+    public void setContribucionTrabajadorExento(BigDecimal contribucionTrabajadorExento) {
+        ContribucionTrabajadorExento = contribucionTrabajadorExento;
+    }
 
-	public void setPremiosPuntualidadExento(BigDecimal premiosPuntualidadExento) {
-		PremiosPuntualidadExento = premiosPuntualidadExento;
-	}
+    public BigDecimal getPremiosPuntualidadGravado() {
+        return PremiosPuntualidadGravado;
+    }
 
-	public BigDecimal getPrimaSeguroVidaGravado() {
-		return PrimaSeguroVidaGravado;
-	}
+    public void setPremiosPuntualidadGravado(BigDecimal premiosPuntualidadGravado) {
+        PremiosPuntualidadGravado = premiosPuntualidadGravado;
+    }
 
-	public void setPrimaSeguroVidaGravado(BigDecimal primaSeguroVidaGravado) {
-		PrimaSeguroVidaGravado = primaSeguroVidaGravado;
-	}
+    public BigDecimal getPremiosPuntualidadExento() {
+        return PremiosPuntualidadExento;
+    }
 
-	public BigDecimal getPrimaSeguroVidaExento() {
-		return PrimaSeguroVidaExento;
-	}
+    public void setPremiosPuntualidadExento(BigDecimal premiosPuntualidadExento) {
+        PremiosPuntualidadExento = premiosPuntualidadExento;
+    }
 
-	public void setPrimaSeguroVidaExento(BigDecimal primaSeguroVidaExento) {
-		PrimaSeguroVidaExento = primaSeguroVidaExento;
-	}
+    public BigDecimal getPrimaSeguroVidaGravado() {
+        return PrimaSeguroVidaGravado;
+    }
 
-	public BigDecimal getSeguroGastosMedicosMayoresGravado() {
-		return SeguroGastosMedicosMayoresGravado;
-	}
+    public void setPrimaSeguroVidaGravado(BigDecimal primaSeguroVidaGravado) {
+        PrimaSeguroVidaGravado = primaSeguroVidaGravado;
+    }
 
-	public void setSeguroGastosMedicosMayoresGravado(BigDecimal seguroGastosMedicosMayoresGravado) {
-		SeguroGastosMedicosMayoresGravado = seguroGastosMedicosMayoresGravado;
-	}
+    public BigDecimal getPrimaSeguroVidaExento() {
+        return PrimaSeguroVidaExento;
+    }
 
-	public BigDecimal getSeguroGastosMedicosMayoresExento() {
-		return SeguroGastosMedicosMayoresExento;
-	}
+    public void setPrimaSeguroVidaExento(BigDecimal primaSeguroVidaExento) {
+        PrimaSeguroVidaExento = primaSeguroVidaExento;
+    }
 
-	public void setSeguroGastosMedicosMayoresExento(BigDecimal seguroGastosMedicosMayoresExento) {
-		SeguroGastosMedicosMayoresExento = seguroGastosMedicosMayoresExento;
-	}
+    public BigDecimal getSeguroGastosMedicosMayoresGravado() {
+        return SeguroGastosMedicosMayoresGravado;
+    }
 
-	public BigDecimal getValesRestauranteGravado() {
-		return ValesRestauranteGravado;
-	}
+    public void setSeguroGastosMedicosMayoresGravado(BigDecimal seguroGastosMedicosMayoresGravado) {
+        SeguroGastosMedicosMayoresGravado = seguroGastosMedicosMayoresGravado;
+    }
 
-	public void setValesRestauranteGravado(BigDecimal valesRestauranteGravado) {
-		ValesRestauranteGravado = valesRestauranteGravado;
-	}
+    public BigDecimal getSeguroGastosMedicosMayoresExento() {
+        return SeguroGastosMedicosMayoresExento;
+    }
 
-	public BigDecimal getValesRestauranteExento() {
-		return ValesRestauranteExento;
-	}
+    public void setSeguroGastosMedicosMayoresExento(BigDecimal seguroGastosMedicosMayoresExento) {
+        SeguroGastosMedicosMayoresExento = seguroGastosMedicosMayoresExento;
+    }
 
-	public void setValesRestauranteExento(BigDecimal valesRestauranteExento) {
-		ValesRestauranteExento = valesRestauranteExento;
-	}
+    public BigDecimal getValesRestauranteGravado() {
+        return ValesRestauranteGravado;
+    }
 
-	public BigDecimal getValesGasolinaGravado() {
-		return ValesGasolinaGravado;
-	}
+    public void setValesRestauranteGravado(BigDecimal valesRestauranteGravado) {
+        ValesRestauranteGravado = valesRestauranteGravado;
+    }
 
-	public void setValesGasolinaGravado(BigDecimal valesGasolinaGravado) {
-		ValesGasolinaGravado = valesGasolinaGravado;
-	}
+    public BigDecimal getValesRestauranteExento() {
+        return ValesRestauranteExento;
+    }
 
-	public BigDecimal getValesGasolinaExento() {
-		return ValesGasolinaExento;
-	}
+    public void setValesRestauranteExento(BigDecimal valesRestauranteExento) {
+        ValesRestauranteExento = valesRestauranteExento;
+    }
 
-	public void setValesGasolinaExento(BigDecimal valesGasolinaExento) {
-		ValesGasolinaExento = valesGasolinaExento;
-	}
+    public BigDecimal getValesGasolinaGravado() {
+        return ValesGasolinaGravado;
+    }
 
-	public BigDecimal getValesRopaGravado() {
-		return ValesRopaGravado;
-	}
+    public void setValesGasolinaGravado(BigDecimal valesGasolinaGravado) {
+        ValesGasolinaGravado = valesGasolinaGravado;
+    }
 
-	public void setValesRopaGravado(BigDecimal valesRopaGravado) {
-		ValesRopaGravado = valesRopaGravado;
-	}
+    public BigDecimal getValesGasolinaExento() {
+        return ValesGasolinaExento;
+    }
 
-	public BigDecimal getValesRopaExento() {
-		return ValesRopaExento;
-	}
+    public void setValesGasolinaExento(BigDecimal valesGasolinaExento) {
+        ValesGasolinaExento = valesGasolinaExento;
+    }
 
-	public void setValesRopaExento(BigDecimal valesRopaExento) {
-		ValesRopaExento = valesRopaExento;
-	}
+    public BigDecimal getValesRopaGravado() {
+        return ValesRopaGravado;
+    }
 
-	public BigDecimal getAyudaRentaGravado() {
-		return AyudaRentaGravado;
-	}
+    public void setValesRopaGravado(BigDecimal valesRopaGravado) {
+        ValesRopaGravado = valesRopaGravado;
+    }
 
-	public void setAyudaRentaGravado(BigDecimal ayudaRentaGravado) {
-		AyudaRentaGravado = ayudaRentaGravado;
-	}
+    public BigDecimal getValesRopaExento() {
+        return ValesRopaExento;
+    }
 
-	public BigDecimal getAyudaRentaExento() {
-		return AyudaRentaExento;
-	}
+    public void setValesRopaExento(BigDecimal valesRopaExento) {
+        ValesRopaExento = valesRopaExento;
+    }
 
-	public void setAyudaRentaExento(BigDecimal ayudaRentaExento) {
-		AyudaRentaExento = ayudaRentaExento;
-	}
+    public BigDecimal getAyudaRentaGravado() {
+        return AyudaRentaGravado;
+    }
 
-	public BigDecimal getAyudaArticulosEscolaresGravado() {
-		return AyudaArticulosEscolaresGravado;
-	}
+    public void setAyudaRentaGravado(BigDecimal ayudaRentaGravado) {
+        AyudaRentaGravado = ayudaRentaGravado;
+    }
 
-	public void setAyudaArticulosEscolaresGravado(BigDecimal ayudaArticulosEscolaresGravado) {
-		AyudaArticulosEscolaresGravado = ayudaArticulosEscolaresGravado;
-	}
+    public BigDecimal getAyudaRentaExento() {
+        return AyudaRentaExento;
+    }
 
-	public BigDecimal getAyudaArticulosEscolaresExento() {
-		return AyudaArticulosEscolaresExento;
-	}
+    public void setAyudaRentaExento(BigDecimal ayudaRentaExento) {
+        AyudaRentaExento = ayudaRentaExento;
+    }
 
-	public void setAyudaArticulosEscolaresExento(BigDecimal ayudaArticulosEscolaresExento) {
-		AyudaArticulosEscolaresExento = ayudaArticulosEscolaresExento;
-	}
+    public BigDecimal getAyudaArticulosEscolaresGravado() {
+        return AyudaArticulosEscolaresGravado;
+    }
 
-	public BigDecimal getAyudaAnteojosGravado() {
-		return AyudaAnteojosGravado;
-	}
+    public void setAyudaArticulosEscolaresGravado(BigDecimal ayudaArticulosEscolaresGravado) {
+        AyudaArticulosEscolaresGravado = ayudaArticulosEscolaresGravado;
+    }
 
-	public void setAyudaAnteojosGravado(BigDecimal ayudaAnteojosGravado) {
-		AyudaAnteojosGravado = ayudaAnteojosGravado;
-	}
+    public BigDecimal getAyudaArticulosEscolaresExento() {
+        return AyudaArticulosEscolaresExento;
+    }
 
-	public BigDecimal getAyudaAnteojosExento() {
-		return AyudaAnteojosExento;
-	}
+    public void setAyudaArticulosEscolaresExento(BigDecimal ayudaArticulosEscolaresExento) {
+        AyudaArticulosEscolaresExento = ayudaArticulosEscolaresExento;
+    }
 
-	public void setAyudaAnteojosExento(BigDecimal ayudaAnteojosExento) {
-		AyudaAnteojosExento = ayudaAnteojosExento;
-	}
+    public BigDecimal getAyudaAnteojosGravado() {
+        return AyudaAnteojosGravado;
+    }
 
-	public BigDecimal getAyudaTransporteGravado() {
-		return AyudaTransporteGravado;
-	}
+    public void setAyudaAnteojosGravado(BigDecimal ayudaAnteojosGravado) {
+        AyudaAnteojosGravado = ayudaAnteojosGravado;
+    }
 
-	public void setAyudaTransporteGravado(BigDecimal ayudaTransporteGravado) {
-		AyudaTransporteGravado = ayudaTransporteGravado;
-	}
+    public BigDecimal getAyudaAnteojosExento() {
+        return AyudaAnteojosExento;
+    }
 
-	public BigDecimal getAyudaTransporteExento() {
-		return AyudaTransporteExento;
-	}
+    public void setAyudaAnteojosExento(BigDecimal ayudaAnteojosExento) {
+        AyudaAnteojosExento = ayudaAnteojosExento;
+    }
 
-	public void setAyudaTransporteExento(BigDecimal ayudaTransporteExento) {
-		AyudaTransporteExento = ayudaTransporteExento;
-	}
+    public BigDecimal getAyudaTransporteGravado() {
+        return AyudaTransporteGravado;
+    }
 
-	public BigDecimal getCuotasSindicalesGravado() {
-		return CuotasSindicalesGravado;
-	}
+    public void setAyudaTransporteGravado(BigDecimal ayudaTransporteGravado) {
+        AyudaTransporteGravado = ayudaTransporteGravado;
+    }
 
-	public void setCuotasSindicalesGravado(BigDecimal cuotasSindicalesGravado) {
-		CuotasSindicalesGravado = cuotasSindicalesGravado;
-	}
+    public BigDecimal getAyudaTransporteExento() {
+        return AyudaTransporteExento;
+    }
 
-	public BigDecimal getCuotasSindicalesExento() {
-		return CuotasSindicalesExento;
-	}
+    public void setAyudaTransporteExento(BigDecimal ayudaTransporteExento) {
+        AyudaTransporteExento = ayudaTransporteExento;
+    }
 
-	public void setCuotasSindicalesExento(BigDecimal cuotasSindicalesExento) {
-		CuotasSindicalesExento = cuotasSindicalesExento;
-	}
+    public BigDecimal getCuotasSindicalesGravado() {
+        return CuotasSindicalesGravado;
+    }
 
-	public BigDecimal getSubsidioIncapacidadGravado() {
-		return SubsidioIncapacidadGravado;
-	}
+    public void setCuotasSindicalesGravado(BigDecimal cuotasSindicalesGravado) {
+        CuotasSindicalesGravado = cuotasSindicalesGravado;
+    }
 
-	public void setSubsidioIncapacidadGravado(BigDecimal subsidioIncapacidadGravado) {
-		SubsidioIncapacidadGravado = subsidioIncapacidadGravado;
-	}
+    public BigDecimal getCuotasSindicalesExento() {
+        return CuotasSindicalesExento;
+    }
 
-	public BigDecimal getSubsidioIncapacidadExento() {
-		return SubsidioIncapacidadExento;
-	}
+    public void setCuotasSindicalesExento(BigDecimal cuotasSindicalesExento) {
+        CuotasSindicalesExento = cuotasSindicalesExento;
+    }
 
-	public void setSubsidioIncapacidadExento(BigDecimal subsidioIncapacidadExento) {
-		SubsidioIncapacidadExento = subsidioIncapacidadExento;
-	}
+    public BigDecimal getSubsidioIncapacidadGravado() {
+        return SubsidioIncapacidadGravado;
+    }
 
-	public BigDecimal getBecasGravado() {
-		return BecasGravado;
-	}
+    public void setSubsidioIncapacidadGravado(BigDecimal subsidioIncapacidadGravado) {
+        SubsidioIncapacidadGravado = subsidioIncapacidadGravado;
+    }
 
-	public void setBecasGravado(BigDecimal becasGravado) {
-		BecasGravado = becasGravado;
-	}
+    public BigDecimal getSubsidioIncapacidadExento() {
+        return SubsidioIncapacidadExento;
+    }
 
-	public BigDecimal getBecasExento() {
-		return BecasExento;
-	}
+    public void setSubsidioIncapacidadExento(BigDecimal subsidioIncapacidadExento) {
+        SubsidioIncapacidadExento = subsidioIncapacidadExento;
+    }
 
-	public void setBecasExento(BigDecimal becasExento) {
-		BecasExento = becasExento;
-	}
+    public BigDecimal getBecasGravado() {
+        return BecasGravado;
+    }
 
-	public BigDecimal getPagosEfectuadosGravado() {
-		return PagosEfectuadosGravado;
-	}
+    public void setBecasGravado(BigDecimal becasGravado) {
+        BecasGravado = becasGravado;
+    }
 
-	public void setPagosEfectuadosGravado(BigDecimal pagosEfectuadosGravado) {
-		PagosEfectuadosGravado = pagosEfectuadosGravado;
-	}
+    public BigDecimal getBecasExento() {
+        return BecasExento;
+    }
 
-	public BigDecimal getPagosEfectuadosExento() {
-		return PagosEfectuadosExento;
-	}
+    public void setBecasExento(BigDecimal becasExento) {
+        BecasExento = becasExento;
+    }
 
-	public void setPagosEfectuadosExento(BigDecimal pagosEfectuadosExento) {
-		PagosEfectuadosExento = pagosEfectuadosExento;
-	}
+    public BigDecimal getPagosEfectuadosGravado() {
+        return PagosEfectuadosGravado;
+    }
 
-	public BigDecimal getOtrosIngresosGravado() {
-		return OtrosIngresosGravado;
-	}
+    public void setPagosEfectuadosGravado(BigDecimal pagosEfectuadosGravado) {
+        PagosEfectuadosGravado = pagosEfectuadosGravado;
+    }
 
-	public void setOtrosIngresosGravado(BigDecimal otrosIngresosGravado) {
-		OtrosIngresosGravado = otrosIngresosGravado;
-	}
+    public BigDecimal getPagosEfectuadosExento() {
+        return PagosEfectuadosExento;
+    }
 
-	public BigDecimal getOtrosIngresosExento() {
-		return OtrosIngresosExento;
-	}
+    public void setPagosEfectuadosExento(BigDecimal pagosEfectuadosExento) {
+        PagosEfectuadosExento = pagosEfectuadosExento;
+    }
 
-	public void setOtrosIngresosExento(BigDecimal otrosIngresosExento) {
-		OtrosIngresosExento = otrosIngresosExento;
-	}
+    public BigDecimal getOtrosIngresosGravado() {
+        return OtrosIngresosGravado;
+    }
 
-	public BigDecimal getSumaIngresoPorSueldoGravado() {
-		return SumaIngresoPorSueldoGravado;
-	}
+    public void setOtrosIngresosGravado(BigDecimal otrosIngresosGravado) {
+        OtrosIngresosGravado = otrosIngresosGravado;
+    }
 
-	public void setSumaIngresoPorSueldoGravado(BigDecimal sumaIngresoPorSueldoGravado) {
-		SumaIngresoPorSueldoGravado = sumaIngresoPorSueldoGravado;
-	}
+    public BigDecimal getOtrosIngresosExento() {
+        return OtrosIngresosExento;
+    }
 
-	public BigDecimal getSumaIngresoPorSueldoExento() {
-		return SumaIngresoPorSueldoExento;
-	}
+    public void setOtrosIngresosExento(BigDecimal otrosIngresosExento) {
+        OtrosIngresosExento = otrosIngresosExento;
+    }
 
-	public void setSumaIngresoPorSueldoExento(BigDecimal sumaIngresoPorSueldoExento) {
-		SumaIngresoPorSueldoExento = sumaIngresoPorSueldoExento;
-	}
+    public BigDecimal getSumaIngresoPorSueldoGravado() {
+        return SumaIngresoPorSueldoGravado;
+    }
 
-	public BigDecimal getImpuestoRetenidoEjercicioDeclara() {
-		return ImpuestoRetenidoEjercicioDeclara;
-	}
+    public void setSumaIngresoPorSueldoGravado(BigDecimal sumaIngresoPorSueldoGravado) {
+        SumaIngresoPorSueldoGravado = sumaIngresoPorSueldoGravado;
+    }
 
-	public void setImpuestoRetenidoEjercicioDeclara(BigDecimal impuestoRetenidoEjercicioDeclara) {
-		ImpuestoRetenidoEjercicioDeclara = impuestoRetenidoEjercicioDeclara;
-	}
+    public BigDecimal getSumaIngresoPorSueldoExento() {
+        return SumaIngresoPorSueldoExento;
+    }
 
-	public BigDecimal getImpuestoRetenidoPorOtros() {
-		return ImpuestoRetenidoPorOtros;
-	}
+    public void setSumaIngresoPorSueldoExento(BigDecimal sumaIngresoPorSueldoExento) {
+        SumaIngresoPorSueldoExento = sumaIngresoPorSueldoExento;
+    }
 
-	public void setImpuestoRetenidoPorOtros(BigDecimal impuestoRetenidoPorOtros) {
-		ImpuestoRetenidoPorOtros = impuestoRetenidoPorOtros;
-	}
+    public BigDecimal getImpuestoRetenidoEjercicioDeclara() {
+        return ImpuestoRetenidoEjercicioDeclara;
+    }
 
-	public BigDecimal getSiguienteSaldoAFavor() {
-		return SiguienteSaldoAFavor;
-	}
+    public void setImpuestoRetenidoEjercicioDeclara(BigDecimal impuestoRetenidoEjercicioDeclara) {
+        ImpuestoRetenidoEjercicioDeclara = impuestoRetenidoEjercicioDeclara;
+    }
 
-	public void setSiguienteSaldoAFavor(BigDecimal siguienteSaldoAFavor) {
-		SiguienteSaldoAFavor = siguienteSaldoAFavor;
-	}
+    public BigDecimal getImpuestoRetenidoPorOtros() {
+        return ImpuestoRetenidoPorOtros;
+    }
 
-	public BigDecimal getAnteriorSaldoAfavor() {
-		return AnteriorSaldoAfavor;
-	}
+    public void setImpuestoRetenidoPorOtros(BigDecimal impuestoRetenidoPorOtros) {
+        ImpuestoRetenidoPorOtros = impuestoRetenidoPorOtros;
+    }
 
-	public void setAnteriorSaldoAfavor(BigDecimal anteriorSaldoAfavor) {
-		AnteriorSaldoAfavor = anteriorSaldoAfavor;
-	}
+    public BigDecimal getSiguienteSaldoAFavor() {
+        return SiguienteSaldoAFavor;
+    }
 
-	public BigDecimal getSumaConceptoCredito() {
-		return SumaConceptoCredito;
-	}
+    public void setSiguienteSaldoAFavor(BigDecimal siguienteSaldoAFavor) {
+        SiguienteSaldoAFavor = siguienteSaldoAFavor;
+    }
 
-	public void setSumaConceptoCredito(BigDecimal sumaConceptoCredito) {
-		SumaConceptoCredito = sumaConceptoCredito;
-	}
+    public BigDecimal getAnteriorSaldoAfavor() {
+        return AnteriorSaldoAfavor;
+    }
 
-	public BigDecimal getCreditoEntregado() {
-		return CreditoEntregado;
-	}
+    public void setAnteriorSaldoAfavor(BigDecimal anteriorSaldoAfavor) {
+        AnteriorSaldoAfavor = anteriorSaldoAfavor;
+    }
 
-	public void setCreditoEntregado(BigDecimal creditoEntregado) {
-		CreditoEntregado = creditoEntregado;
-	}
+    public BigDecimal getSumaConceptoCredito() {
+        return SumaConceptoCredito;
+    }
 
-	public BigDecimal getTotalConceptoPrevisionSocial() {
-		return TotalConceptoPrevisionSocial;
-	}
+    public void setSumaConceptoCredito(BigDecimal sumaConceptoCredito) {
+        SumaConceptoCredito = sumaConceptoCredito;
+    }
 
-	public void setTotalConceptoPrevisionSocial(BigDecimal totalConceptoPrevisionSocial) {
-		TotalConceptoPrevisionSocial = totalConceptoPrevisionSocial;
-	}
+    public BigDecimal getCreditoEntregado() {
+        return CreditoEntregado;
+    }
 
-	public BigDecimal getSumaExentosPorPrevisionSocial() {
-		return SumaExentosPorPrevisionSocial;
-	}
+    public void setCreditoEntregado(BigDecimal creditoEntregado) {
+        CreditoEntregado = creditoEntregado;
+    }
 
-	public void setSumaExentosPorPrevisionSocial(BigDecimal sumaExentosPorPrevisionSocial) {
-		SumaExentosPorPrevisionSocial = sumaExentosPorPrevisionSocial;
-	}
+    public BigDecimal getTotalConceptoPrevisionSocial() {
+        return TotalConceptoPrevisionSocial;
+    }
 
-	public BigDecimal getSumaIngresoPorSueldo() {
-		return SumaIngresoPorSueldo;
-	}
+    public void setTotalConceptoPrevisionSocial(BigDecimal totalConceptoPrevisionSocial) {
+        TotalConceptoPrevisionSocial = totalConceptoPrevisionSocial;
+    }
 
-	public void setSumaIngresoPorSueldo(BigDecimal sumaIngresoPorSueldo) {
-		SumaIngresoPorSueldo = sumaIngresoPorSueldo;
-	}
+    public BigDecimal getSumaExentosPorPrevisionSocial() {
+        return SumaExentosPorPrevisionSocial;
+    }
 
-	public BigDecimal getImpuestoLocalIngresosPorSueldo() {
-		return ImpuestoLocalIngresosPorSueldo;
-	}
+    public void setSumaExentosPorPrevisionSocial(BigDecimal sumaExentosPorPrevisionSocial) {
+        SumaExentosPorPrevisionSocial = sumaExentosPorPrevisionSocial;
+    }
 
-	public void setImpuestoLocalIngresosPorSueldo(BigDecimal impuestoLocalIngresosPorSueldo) {
-		ImpuestoLocalIngresosPorSueldo = impuestoLocalIngresosPorSueldo;
-	}
+    public BigDecimal getSumaIngresoPorSueldo() {
+        return SumaIngresoPorSueldo;
+    }
 
-	public BigDecimal getSubsidioParaEmpleo() {
-		return SubsidioParaEmpleo;
-	}
+    public void setSumaIngresoPorSueldo(BigDecimal sumaIngresoPorSueldo) {
+        SumaIngresoPorSueldo = sumaIngresoPorSueldo;
+    }
 
-	public void setSubsidioParaEmpleo(BigDecimal subsidioParaEmpleo) {
-		SubsidioParaEmpleo = subsidioParaEmpleo;
-	}
+    public BigDecimal getImpuestoLocalIngresosPorSueldo() {
+        return ImpuestoLocalIngresosPorSueldo;
+    }
 
-	public BigDecimal getTotalAportacionesVoluntariasDeducibles() {
-		return TotalAportacionesVoluntariasDeducibles;
-	}
+    public void setImpuestoLocalIngresosPorSueldo(BigDecimal impuestoLocalIngresosPorSueldo) {
+        ImpuestoLocalIngresosPorSueldo = impuestoLocalIngresosPorSueldo;
+    }
 
-	public void setTotalAportacionesVoluntariasDeducibles(BigDecimal totalAportacionesVoluntariasDeducibles) {
-		TotalAportacionesVoluntariasDeducibles = totalAportacionesVoluntariasDeducibles;
-	}
+    public BigDecimal getSubsidioParaEmpleo() {
+        return SubsidioParaEmpleo;
+    }
 
-	public BigDecimal getImpuestoConformeTarifa() {
-		return ImpuestoConformeTarifa;
-	}
+    public void setSubsidioParaEmpleo(BigDecimal subsidioParaEmpleo) {
+        SubsidioParaEmpleo = subsidioParaEmpleo;
+    }
 
-	public void setImpuestoConformeTarifa(BigDecimal impuestoConformeTarifa) {
-		ImpuestoConformeTarifa = impuestoConformeTarifa;
-	}
+    public BigDecimal getTotalAportacionesVoluntariasDeducibles() {
+        return TotalAportacionesVoluntariasDeducibles;
+    }
 
-	public BigDecimal getSubsidioAcreditable() {
-		return SubsidioAcreditable;
-	}
+    public void setTotalAportacionesVoluntariasDeducibles(BigDecimal totalAportacionesVoluntariasDeducibles) {
+        TotalAportacionesVoluntariasDeducibles = totalAportacionesVoluntariasDeducibles;
+    }
 
-	public void setSubsidioAcreditable(BigDecimal subsidioAcreditable) {
-		SubsidioAcreditable = subsidioAcreditable;
-	}
+    public BigDecimal getImpuestoConformeTarifa() {
+        return ImpuestoConformeTarifa;
+    }
 
-	public BigDecimal getSubsidioNoAcreditable() {
-		return SubsidioNoAcreditable;
-	}
+    public void setImpuestoConformeTarifa(BigDecimal impuestoConformeTarifa) {
+        ImpuestoConformeTarifa = impuestoConformeTarifa;
+    }
 
-	public void setSubsidioNoAcreditable(BigDecimal subsidioNoAcreditable) {
-		SubsidioNoAcreditable = subsidioNoAcreditable;
-	}
+    public BigDecimal getSubsidioAcreditable() {
+        return SubsidioAcreditable;
+    }
 
-	public BigDecimal getImpuestoIngresosAcumulables() {
-		return ImpuestoIngresosAcumulables;
-	}
+    public void setSubsidioAcreditable(BigDecimal subsidioAcreditable) {
+        SubsidioAcreditable = subsidioAcreditable;
+    }
 
-	public void setImpuestoIngresosAcumulables(BigDecimal impuestoIngresosAcumulables) {
-		ImpuestoIngresosAcumulables = impuestoIngresosAcumulables;
-	}
+    public BigDecimal getSubsidioNoAcreditable() {
+        return SubsidioNoAcreditable;
+    }
 
-	public BigDecimal getImpuestoIngresosNoAcumulables() {
-		return ImpuestoIngresosNoAcumulables;
-	}
+    public void setSubsidioNoAcreditable(BigDecimal subsidioNoAcreditable) {
+        SubsidioNoAcreditable = subsidioNoAcreditable;
+    }
 
-	public void setImpuestoIngresosNoAcumulables(BigDecimal impuestoIngresosNoAcumulables) {
-		ImpuestoIngresosNoAcumulables = impuestoIngresosNoAcumulables;
-	}
+    public BigDecimal getImpuestoIngresosAcumulables() {
+        return ImpuestoIngresosAcumulables;
+    }
 
-	public BigDecimal getImpuestoLocalPrestacionServicioSubordinado() {
-		return ImpuestoLocalPrestacionServicioSubordinado;
-	}
+    public void setImpuestoIngresosAcumulables(BigDecimal impuestoIngresosAcumulables) {
+        ImpuestoIngresosAcumulables = impuestoIngresosAcumulables;
+    }
 
-	public void setImpuestoLocalPrestacionServicioSubordinado(BigDecimal impuestoLocalPrestacionServicioSubordinado) {
-		ImpuestoLocalPrestacionServicioSubordinado = impuestoLocalPrestacionServicioSubordinado;
-	}
+    public BigDecimal getImpuestoIngresosNoAcumulables() {
+        return ImpuestoIngresosNoAcumulables;
+    }
 
-	public BigDecimal getMontoSubsidioParaEmpleo() {
-		return MontoSubsidioParaEmpleo;
-	}
+    public void setImpuestoIngresosNoAcumulables(BigDecimal impuestoIngresosNoAcumulables) {
+        ImpuestoIngresosNoAcumulables = impuestoIngresosNoAcumulables;
+    }
 
-	public void setMontoSubsidioParaEmpleo(BigDecimal montoSubsidioParaEmpleo) {
-		MontoSubsidioParaEmpleo = montoSubsidioParaEmpleo;
-	}
-	
-	public Integer getEjercicioFiscal() {
-		return EjercicioFiscal;
-	}
-	
-	public Date getFechaDeclaracion() {
-		return FechaDeclaracion;
-	}
-	
-	public void setEjercicioFiscal(Integer ejercicioFiscal) {
-		EjercicioFiscal = ejercicioFiscal;
-	}
-	
-	public void setFechaDeclaracion(Date fechaDeclaracion) {
-		FechaDeclaracion = fechaDeclaracion;
-	}
+    public BigDecimal getImpuestoLocalPrestacionServicioSubordinado() {
+        return ImpuestoLocalPrestacionServicioSubordinado;
+    }
 
-	public String getXml() {
-		return xml;
-	}
+    public void setImpuestoLocalPrestacionServicioSubordinado(BigDecimal impuestoLocalPrestacionServicioSubordinado) {
+        ImpuestoLocalPrestacionServicioSubordinado = impuestoLocalPrestacionServicioSubordinado;
+    }
 
-	public void setXml(String xml) {
-		this.xml = xml;
-	}
+    public BigDecimal getMontoSubsidioParaEmpleo() {
+        return MontoSubsidioParaEmpleo;
+    }
 
-	public String getCadenaOriginal() {
-		return cadenaOriginal;
-	}
+    public void setMontoSubsidioParaEmpleo(BigDecimal montoSubsidioParaEmpleo) {
+        MontoSubsidioParaEmpleo = montoSubsidioParaEmpleo;
+    }
 
-	public void setCadenaOriginal(String cadenaOriginal) {
-		this.cadenaOriginal = cadenaOriginal;
-	}
+    public Integer getEjercicioFiscal() {
+        return EjercicioFiscal;
+    }
 
-	public String getSello() {
-		return sello;
-	}
+    public Date getFechaDeclaracion() {
+        return FechaDeclaracion;
+    }
 
-	public void setSello(String sello) {
-		this.sello = sello;
-	}
+    public void setEjercicioFiscal(Integer ejercicioFiscal) {
+        EjercicioFiscal = ejercicioFiscal;
+    }
+
+    public void setFechaDeclaracion(Date fechaDeclaracion) {
+        FechaDeclaracion = fechaDeclaracion;
+    }
+
+    public String getXml() {
+        return xml;
+    }
+
+    public void setXml(String xml) {
+        this.xml = xml;
+    }
+
+    public String getCadenaOriginal() {
+        return cadenaOriginal;
+    }
+
+    public void setCadenaOriginal(String cadenaOriginal) {
+        this.cadenaOriginal = cadenaOriginal;
+    }
+
+    public String getSello() {
+        return sello;
+    }
+
+    public void setSello(String sello) {
+        this.sello = sello;
+    }
 
 }

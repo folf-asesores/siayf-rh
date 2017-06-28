@@ -1,8 +1,9 @@
 /**
- * 
+ *
  */
 package mx.gob.saludtlax.rh.persistencia;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,30 +17,32 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "clasificaciones_reportes")
-public class ClasificacionReporteEntity {
+public class ClasificacionReporteEntity implements Serializable {
 
-	@Id
-	@Column(name = "id_clasificacion_reporte")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idClasificacionReporte;
+    private static final long serialVersionUID = 6972092391298037619L;
 
-	@Column(name = "clasificacion_reporte")
-	private String clasificacionReporte;
+    @Id
+    @Column(name = "id_clasificacion_reporte")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idClasificacionReporte;
 
-	public Integer getIdClasificacionReporte() {
-		return idClasificacionReporte;
-	}
+    @Column(name = "clasificacion_reporte")
+    private String clasificacionReporte;
 
-	public void setIdClasificacionReporte(Integer idClasificacionReporte) {
-		this.idClasificacionReporte = idClasificacionReporte;
-	}
+    public Integer getIdClasificacionReporte() {
+        return idClasificacionReporte;
+    }
 
-	public String getClasificacionReporte() {
-		return clasificacionReporte;
-	}
+    public void setIdClasificacionReporte(Integer idClasificacionReporte) {
+        this.idClasificacionReporte = idClasificacionReporte;
+    }
 
-	public void setClasificacionReporte(String clasificacionReporte) {
-		this.clasificacionReporte = clasificacionReporte;
-	}
+    public String getClasificacionReporte() {
+        return clasificacionReporte;
+    }
+
+    public void setClasificacionReporte(String clasificacionReporte) {
+        this.clasificacionReporte = clasificacionReporte;
+    }
 
 }
