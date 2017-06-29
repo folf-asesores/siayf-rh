@@ -64,30 +64,41 @@ public class PrenominaReporteTextoPlanoTest {
         NominaEmpleado nominaCuecuecha = new NominaEmpleado();
         nominaCuecuecha.setRfc("CUMM8702236M7");
         nominaCuecuecha.setNombre("CUECUECHA MENDIETA MARTHA PAOLA");
+        nominaCuecuecha.setPercepciones(percepciones2);
+        nominaCuecuecha.setDeducciones(deducciones2);
 
         NominaEmpleado nominaCuecuecha2 = new NominaEmpleado();
         nominaCuecuecha2.setRfc("CUMY910419HI3");
         nominaCuecuecha2.setNombre("CUECUECHA MENDOZA YANET");
+        nominaCuecuecha2.setPercepciones(percepciones1);
+        nominaCuecuecha2.setDeducciones(deducciones1);
 
         NominaEmpleado nominaCuamatzi = new NominaEmpleado();
         nominaCuamatzi.setRfc("CUSE890829LS7");
         nominaCuamatzi.setNombre("CUAMATZI SANCHEZ EDUARDO");
+        nominaCuamatzi.setPercepciones(percepciones3);
+        nominaCuamatzi.setDeducciones(deducciones3);
 
         NominaEmpleado nominaCuapio = new NominaEmpleado();
         nominaCuapio.setRfc("CUSJ870703AG6");
         nominaCuapio.setNombre("CUAPIO SANCHEZ JAVIER");
+        nominaCuapio.setPercepciones(percepciones2);
 
         NominaEmpleado nominaCuahutecatl = new NominaEmpleado();
         nominaCuahutecatl.setRfc("CUTJ8809095A0");
         nominaCuahutecatl.setNombre("CUAHUTECATL TETLACUILO JEMMY");
+        nominaCuahutecatl.setPercepciones(percepciones3);
+        nominaCuahutecatl.setDeducciones(deducciones3);
 
         NominaEmpleado nominaDelgado = new NominaEmpleado();
         nominaDelgado.setRfc("DESR741226269");
         nominaDelgado.setNombre("DELGADO SANTIAGO RUT");
-
+        nominaDelgado.setDeducciones(deducciones1);
+ 
         NominaEmpleado nominaDominguez = new NominaEmpleado();
         nominaDominguez.setRfc("DOHE860510UT7");
         nominaDominguez.setNombre("DOMINGUEZ HERNANDEZ ELMAR ARMANDO");
+        nominaDominguez.setPercepciones(percepciones3);
 
         List<NominaEmpleado> nominasEmpleados = new ArrayList<>();
         nominasEmpleados.add(nominaCaporal);
