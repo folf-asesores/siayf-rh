@@ -51,7 +51,6 @@ public class PrenominaReporteTextoPlano {
 
         try {
             Path pathReporteTemporal = Files.createTempFile("prenomina", ".txt");
-
             Integer lineasTotales = 1;
             Integer lineasHojaActual;
             Integer numeroHoja = 1;
@@ -145,6 +144,7 @@ public class PrenominaReporteTextoPlano {
     private String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<Percepcion> percepciones, List<Deduccion> deducciones) {
         StringBuilder sb = new StringBuilder();
         sb.append((new Formatter(LOCALIZACION_MEXICO)).format(PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre, inicioPeriodoPago, finPeriodoPago).toString().toUpperCase());
+
         if (percepciones != null && !percepciones.isEmpty() && deducciones != null && !deducciones.isEmpty()) {
             BigDecimal totalPercepciones = BigDecimal.ZERO;
             BigDecimal totalDeducciones = BigDecimal.ZERO;
@@ -175,6 +175,7 @@ public class PrenominaReporteTextoPlano {
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 }
             }
+
             sb.append((new Formatter()).format(PATRON_DETALLE_TOTALES, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones)));
             sb.append('\n');
         } else if (percepciones != null && !percepciones.isEmpty() && deducciones == null) {
@@ -227,8 +228,9 @@ public class PrenominaReporteTextoPlano {
             numeroLineasDetalle = 0;
         }
 
-        while (matcher.find())
+        while (matcher.find()) {
             numeroLineasDetalle++;
+        }
 
         return detalle;
     }
