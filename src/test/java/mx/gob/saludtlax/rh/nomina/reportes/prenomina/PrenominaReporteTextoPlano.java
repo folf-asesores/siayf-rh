@@ -3,6 +3,7 @@
  * Creado el 28/Jun/2017 11:44:57 AM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.io.BufferedWriter;
@@ -12,8 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.Formatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
@@ -39,9 +42,9 @@ public class PrenominaReporteTextoPlano {
     private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$tb-%4$tY AL %5$td-%5$tb-%5$tY";
     private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$ 7d   %2$-26s   %3$ ,11.2f";
     private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$ 7d   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$ 117d   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$ 18d   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,160.2f%2$ ,50.2f%3$ ,15.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$ 117d   %2$-26s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$ 18d   %2$-26s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f";
 
     private int numeroLineasEncabezado = 0;
     private int numeroLineasDetalle = 0;
@@ -61,16 +64,46 @@ public class PrenominaReporteTextoPlano {
                 for(Programa programa : productoNomina) {
                     for (UnidadResponsable unidadResponsable : programa) {
                         lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
+
                         if (lineasHojaActual == 1) {
                             out.write(getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable()));
                             lineasTotales += numeroLineasEncabezado;
                         }
 
                         int ordinal = 1;
+                        Map<Integer, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
+                        Map<Integer, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
 
                         for (NominaEmpleado nominaEmpleado : unidadResponsable) {
                             lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
                             String detalle = getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), nominaEmpleado.getPercepciones(), nominaEmpleado.getDeducciones());
+
+                            if (nominaEmpleado.getPercepciones() != null) for (Percepcion percepcion : nominaEmpleado.getPercepciones()) {
+                                Integer clave = percepcion.getClave();
+                                BigDecimal monto = percepcion.getMonto();
+
+                                if (percepcionesUnidadResponsable.containsKey(clave)) {
+                                    BigDecimal total = percepcionesUnidadResponsable.get(clave);
+                                    total = total.add(monto);
+                                    percepcionesUnidadResponsable.put(clave, total);
+                                } else {
+                                    percepcionesUnidadResponsable.put(clave, monto);
+                                }
+                            }
+
+                            if (nominaEmpleado.getDeducciones() != null) for (Deduccion deduccion : nominaEmpleado.getDeducciones()) {
+                                Integer clave = deduccion.getClave();
+                                BigDecimal monto = deduccion.getMonto();
+
+                                if (deduccionesUnidadResponsable.containsKey(clave)) {
+                                    BigDecimal total = deduccionesUnidadResponsable.get(clave);
+                                    total = total.add(monto);
+                                    deduccionesUnidadResponsable.put(clave, total);
+                                } else {
+                                    deduccionesUnidadResponsable.put(clave, monto);
+                                }
+                            }
+
                             lineasRequeridasFinHoja = lineasHojaActual + numeroLineasDetalle;
 
                             if (lineasRequeridasFinHoja >= LINEAS_POR_HOJA) {
@@ -90,8 +123,13 @@ public class PrenominaReporteTextoPlano {
                             numeroHoja = lineasTotales / LINEAS_POR_HOJA;
                             ordinal++;
                         }
+
+                        // Agrega los totales por unidad responsable
+                        out.write(getTotales(percepcionesUnidadResponsable, deduccionesUnidadResponsable));
                     }
                 }
+
+                out.write('\n');
             }
 
             bytes = Files.readAllBytes(pathReporteTemporal);
@@ -135,8 +173,9 @@ public class PrenominaReporteTextoPlano {
             numeroLineasEncabezado = 0;
         }
 
-        while (matcher.find())
+        while (matcher.find()) {
             numeroLineasEncabezado++;
+        }
 
         return encabezado;
     }
@@ -202,11 +241,11 @@ public class PrenominaReporteTextoPlano {
                 Deduccion deduccion = deducciones.get(i);
 
                 if (deduccion != null && i == 0) {
-                    sb.append(agregarEspacios(61));
+                    sb.append(agregarEspacios(64));
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
                 } else if (deduccion != null) {
-                    sb.append(agregarEspacios(160));
+                    sb.append(agregarEspacios(163));
                     sb.append("\n");
                     sb.append((new Formatter()).format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto()));
                     totalDeducciones = totalDeducciones.add(deduccion.getMonto());
@@ -265,5 +304,109 @@ public class PrenominaReporteTextoPlano {
             sb.append('\n');
         }
         return sb.toString();
+    }
+
+    private String getTotales(Map<Integer, BigDecimal> percepciones, Map<Integer, BigDecimal> deducciones) {
+        String patronPercepciones = "%1$ 117d   %2$-25s   %3$ ,15.2f";
+        String patronDeduccciones = "%1$ 4d   %2$-25s   %3$ ,15.2f\n";
+
+        // Percepciones
+        BigDecimal honorariosAsimilares = BigDecimal.ZERO;
+        BigDecimal honorarios = BigDecimal.ZERO;
+        BigDecimal diasEconomicos = BigDecimal.ZERO;
+        BigDecimal suplencias = BigDecimal.ZERO;
+        BigDecimal percepcionComplementaria = BigDecimal.ZERO;
+        BigDecimal valesFinAnyo = BigDecimal.ZERO;
+        BigDecimal aguinaldo = BigDecimal.ZERO;
+
+        for (Map.Entry<Integer, BigDecimal> percepcion : percepciones.entrySet()) {
+            Integer clave = percepcion.getKey();
+            BigDecimal monto = percepcion.getValue();
+
+            switch(clave) {
+                case 1 :
+                    honorariosAsimilares = monto;
+                    break;
+                case 2 :
+                    honorarios = monto;
+                    break;
+                case 5 :
+                    suplencias = monto;
+                    break;
+                case 8 :
+                    diasEconomicos = monto;
+                    break;
+                case 14 :
+                    percepcionComplementaria = monto;
+                    break;
+                case 17 :
+                    valesFinAnyo = monto;
+                    break;
+                case 24 :
+                    aguinaldo = monto;
+                    break;
+            }
+        }
+
+        // Deducciones
+        BigDecimal faltasRetardos = BigDecimal.ZERO;
+        BigDecimal isr = BigDecimal.ZERO;
+        BigDecimal responsabilidades = BigDecimal.ZERO;
+        BigDecimal prestamos = BigDecimal.ZERO;
+        BigDecimal embargoSalario = BigDecimal.ZERO;
+        BigDecimal pensionAlimenticia = BigDecimal.ZERO;
+
+        for (Map.Entry<Integer, BigDecimal> deduccion : deducciones.entrySet()) {
+            Integer clave = deduccion.getKey();
+            BigDecimal monto = deduccion.getValue();
+
+            switch(clave) {
+                case 51 :
+                    faltasRetardos = monto;
+                    break;
+                case 52 :
+                    isr = monto;
+                    break;
+                case 53 :
+                    responsabilidades = monto;
+                    break;
+                case 55 :
+                    prestamos = monto;
+                    break;
+                case 56 :
+                    embargoSalario = monto;
+                    break;
+                case 62 :
+                    pensionAlimenticia = monto;
+                    break;
+            }
+        }
+
+        try (Formatter totalesFormatter = new Formatter()) {
+            totalesFormatter.format("\n");
+            totalesFormatter.format(patronPercepciones, 1, "HONORARIOS ASIMILARES A S", honorariosAsimilares);
+            totalesFormatter.format(patronDeduccciones, 51, "FALTAS Y RETARDOS", faltasRetardos);
+
+            totalesFormatter.format(patronPercepciones, 2, "HONORARIOS", honorarios);
+            totalesFormatter.format(patronDeduccciones, 52, "I.S.R.", isr);
+
+            totalesFormatter.format(patronPercepciones, 5, "SUPLENCIAS", suplencias);
+            totalesFormatter.format(patronDeduccciones, 53, "RESPONSABILIDADES", responsabilidades);
+
+            totalesFormatter.format(patronPercepciones, 8, "DÍAS ECONÓMICOS", diasEconomicos);
+            totalesFormatter.format(patronDeduccciones, 55, "PRESTAMOS", prestamos);
+
+            totalesFormatter.format(patronPercepciones, 14, "PERCEPCIÓN COMPLEMENTARIA", percepcionComplementaria);
+            totalesFormatter.format(patronDeduccciones, 56, "EMBARGO DE SALARIO", embargoSalario);
+
+            totalesFormatter.format(patronPercepciones, 17, "VALES FIN DE AÑO", valesFinAnyo);
+            totalesFormatter.format(patronDeduccciones, 62, "PENSIÓN ALIMENTICIA", pensionAlimenticia);
+
+            totalesFormatter.format(patronPercepciones, 24, "AGUINALDO", aguinaldo);
+            totalesFormatter.format("\n");
+
+            return totalesFormatter.toString();
+        }
+
     }
 }
