@@ -27,8 +27,9 @@ public class ReporteSiifView implements Serializable {
     private List<EstructuraNominaTrailersDTO> trailersLista;
     private SiifBitacoraDTO siifBitacoraProcesada;
     private SiifBitacoraDTO siifDeudores;
-    private List<SIIFEncabezadoDTO> encabezadoList;
+    private List<SIIFEncabezadoDTO> encabezadoList;    
     private SIIFEncabezadoDTO encabezadoDTO;
+    private List<SIIFEncabezadoDTO> encabezadoListSiif;
 
     private Boolean disabledImportar;
     private Boolean panelPrincipal;
@@ -284,5 +285,19 @@ public class ReporteSiifView implements Serializable {
     public void setPanelNomina(Boolean panelNomina) {
         this.panelNomina = panelNomina;
     }
+
+	public List<SIIFEncabezadoDTO> getEncabezadoListSiif() {
+		return encabezadoListSiif;
+	}
+
+	public void setEncabezadoListSiif(List<SIIFEncabezadoDTO> encabezadoListSiif) {
+		this.encabezadoListSiif = encabezadoListSiif;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+    
+    
 
 }

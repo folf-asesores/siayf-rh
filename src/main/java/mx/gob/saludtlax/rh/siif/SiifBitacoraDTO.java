@@ -26,6 +26,8 @@ public class SiifBitacoraDTO {
 	private BigDecimal totalNeto;
 	private String periodoAfectacion;
 	private Integer anioAfectacion;
+	
+	private Integer tipoArchivo;
 
 	private List<SIIFEncabezadoDTO> siifEncabezadoList;
 
@@ -143,4 +145,11 @@ public class SiifBitacoraDTO {
 	public void setAnioAfectacion(Integer anioAfectacion) {
 		this.anioAfectacion = anioAfectacion;
 	}
+	public Integer getTipoArchivo() {
+		return tipoArchivo;
+	}
+	public void setTipoArchivo(Integer tipoArchivo) {
+		this.tipoArchivo = tipoArchivo;
+	}
+	
 }

@@ -54,6 +54,8 @@ public class SiifBitacoraEntity implements Serializable {
     private String periodoAfectacion;
     @Column(name = "anio_reporte")
     private Integer anioAfectacion;
+    @Column(name = "tipo_archivo")
+    private Integer tipoArchivo;
 
     public Integer getIdReporteSiif() {
         return idReporteSiif;
@@ -181,5 +183,13 @@ public class SiifBitacoraEntity implements Serializable {
 
     public void setAnioAfectacion(Integer anioAfectacion) {
         this.anioAfectacion = anioAfectacion;
+    }
+
+    public Integer getTipoArchivo() {
+        return tipoArchivo;
+    }
+
+    public void setTipoArchivo(Integer tipoArchivo) {
+        this.tipoArchivo = tipoArchivo;
     }
 }

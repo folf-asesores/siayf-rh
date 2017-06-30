@@ -113,7 +113,17 @@
 						value="#{reporteSiif.view.paqueteEntrada.fechaEnvio}"
 						pattern="dd/MM/yyyy">
 					</p:calendar>
-
+					<p:spacer />
+					<p:outputLabel value="Tipo de Archivo" />
+					<p:selectOneMenu id="tipo"
+							value="#{reporteSiif.view.paqueteEntrada.tipoArchivo}"
+							style="width:195px">
+							<f:selectItem itemLabel="Elije uno..." itemValue="" />
+							<f:selectItem itemLabel="Federal" itemValue="1" />
+							<f:selectItem itemLabel="Regularizado" itemValue="2" />
+							<f:selectItem itemLabel="Homologado" itemValue="3" />
+					</p:selectOneMenu>
+					
 				</p:panelGrid>
 
 
@@ -192,7 +202,7 @@
 						</p:column>
 					</p:row>
 
-<!-- 						scrollable="true" scrollHeight="280"  -->
+<!-- 						scrollable="true" scrollHeight="380"  -->
 					<p:dataTable id="siifEncabezadoList"
 						value="#{reporteSiif.view.siifBitacoraProcesada.siifEncabezadoList}"
 						var="siifEncabezadoItem"

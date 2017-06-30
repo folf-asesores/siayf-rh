@@ -117,6 +117,7 @@
 								<p:column headerText="Afectación" />
 								<p:column headerText="Quincena" />
 								<p:column headerText="Estatus" />
+								<p:column headerText="Tipo" />
 							</p:row>
 						</p:columnGroup>
 						<p:column>
@@ -134,6 +135,9 @@
 						</p:column>
 						<p:column>
 							<h:outputText value="#{reporteSiifItem.status}" />
+						</p:column>
+						<p:column>
+							<h:outputText value="#{reporteSiifItem.tipoArchivo}" />
 						</p:column>
 					</p:dataTable>
 				</p:panelGrid>

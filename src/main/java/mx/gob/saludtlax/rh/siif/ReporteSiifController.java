@@ -373,8 +373,16 @@ public class ReporteSiifController {
 			try {
 				JSFUtils.infoMessage("En este momento han terminado de subir los archivos y se empieza a procesar", "");
 				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF(view.getPaqueteEntrada()));
-				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_2(view.getSiifBitacoraProcesada()));
-				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.clasificaClaveConceptos(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.clasificaNominaTarjetas(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.clasificaNominaCheques(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.clasificaNominaTarjetas610(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.clasificaNominaNombramientoSubfuente(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.crearEncabezadosSiif(view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.asignarEncabezadosDats(view.getSiifBitacoraProcesada()));
+				view.setEncabezadoListSiif(ejb.obtenerEncabezadosSiif(view.getSiifBitacoraProcesada()));
+				
+				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getEncabezadoListSiif(),view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.calcularEncabezados(view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));
 				view.setPanelUpload(Boolean.FALSE);

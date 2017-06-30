@@ -13,6 +13,7 @@ public class PaqueteEntradaFederalDTO {
 	private Integer anioAfectacion;
 	private Date fechaEnvio;
 	private UploadedFile cont;
+	private Integer tipoArchivo;
 
 	public UploadedFile getDat() {
 		return dat;
@@ -61,6 +62,12 @@ public class PaqueteEntradaFederalDTO {
 	}
 	public void setFechaEnvio(Date fechaEnvio) {
 		this.fechaEnvio = fechaEnvio;
+	}
+	public Integer getTipoArchivo() {
+		return tipoArchivo;
+	}
+	public void setTipoArchivo(Integer tipoArchivo) {
+		this.tipoArchivo = tipoArchivo;
 	}
 	
 	
