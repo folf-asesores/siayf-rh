@@ -443,7 +443,7 @@ public class ProductosNominaEJB {
 		if (pagoNomina == null ) {
 			pagoNomina = new PagoNominaDTO();
 		}
-		pagoNomina.setIdPagoNomina(productoNomina.getIdProductoNomina());
+		pagoNomina.setIdProductoNomina(productoNomina.getIdProductoNomina());
 		pagoNomina.setIdBanco(7);
 		pagoNomina.setFechaPago(productoNomina.getFinPeriodo());
 		return pagoNomina;

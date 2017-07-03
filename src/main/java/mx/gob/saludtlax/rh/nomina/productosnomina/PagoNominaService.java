@@ -10,9 +10,12 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
+import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.persistencia.BancoSatEntity;
 import mx.gob.saludtlax.rh.persistencia.BancoSatRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionPresupuestoEntity;
@@ -43,8 +46,9 @@ public class PagoNominaService {
 	@Inject private CuentasBancariasRepository cuentasBancariasRepository;
 	@Inject private ConfiguracionPresupuestoRepository configuracionPresupuestoRepository;
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+	@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;
+	private static final Logger LOGGER = Logger.getLogger(PagoNominaService.class);
 
     public List<SubFuenteFinanciamientoTempEntity> obtenerSubfuentesPorProductoNomina(ProductoNominaDTO productoNomina) {
 		Session session = entityManager.unwrap(Session.class);
@@ -72,10 +76,20 @@ public class PagoNominaService {
 		List<PagoNominaEntity> pagosNominaList = new ArrayList<>();
 		PagoNominaEntity pagoNominaEntity = null;
 		BancoSatEntity banco = bancoSatRepository.obtenerPorId(7);
+		LOGGER.info("fuenteFinanciamientoRepository:: " + fuenteFinanciamientoRepository);
 		for (SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento : subfuenteFinanciamientoList) {
 			pagoNominaEntity = new PagoNominaEntity();
-			FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
-					.obtenerPorId(subfuenteFinanciamiento.getIdFuenteFinanciamiento());
+			LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: " + subfuenteFinanciamiento);
+			LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: " + subfuenteFinanciamiento.getIdFuenteFinanciamiento());
+			FuenteFinanciamientoEntity fuenteFinanciamientoEntity = null;
+			try {
+				fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
+						.obtenerPorId(subfuenteFinanciamiento.getIdFuenteFinanciamiento());
+			} catch (Exception e) {
+				LOGGER.error("LOGGER:: " + e.getMessage());
+			}
+			LOGGER.info("fuenteFinanciamientoEntity:: " + fuenteFinanciamientoEntity);
+
 			pagoNominaEntity.setFuenteFinanciamiento(fuenteFinanciamientoEntity);
 			pagoNominaEntity.setProductoNomina(productoNominaEntity);
 			pagoNominaEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
@@ -112,30 +126,47 @@ public class PagoNominaService {
 						.obtenerPorId(pagoNomina.getIdFuenteFinanciamiento());
 				pagoNominaEntity.setFuenteFinanciamiento(fuenteFinanciamientoEntity);
 			}
-				ProductoNominaEntity productoNominaEntity = productoNominaRepository
-						.obtenerPorId(pagoNomina.getIdProductoNomina());
-				pagoNominaEntity.setProductoNomina(productoNominaEntity);
-	
+			ProductoNominaEntity productoNominaEntity = productoNominaRepository
+					.obtenerPorId(pagoNomina.getIdProductoNomina());
+			pagoNominaEntity.setProductoNomina(productoNominaEntity);
+
 			if (pagoNomina.getIdSubfuenteFinanciamiento() != null) {
 				SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuenteFinanciamientoRepository
 						.obtenerPorId(pagoNomina.getIdSubfuenteFinanciamiento());
 				pagoNominaEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 			}
+
+			if (pagoNomina.getIdBanco() != null) {
+				BancoSatEntity bancoSatEntity = bancoSatRepository
+						.obtenerPorId(pagoNomina.getIdSubfuenteFinanciamiento());
+				pagoNominaEntity.setBanco(bancoSatEntity);
+			}
+
+			if (pagoNomina.getIdCuentaBancaria() != null) {
+				CuentasBancariasEntity cuentasBancariasEntity = cuentasBancariasRepository
+						.obtenerPorId(pagoNomina.getIdCuentaBancaria());
+				pagoNominaEntity.setCuentaBancaria(cuentasBancariasEntity);
+			}
+
 			pagoNominaEntity.setFechaPago(pagoNomina.getFechaPago());
 			pagoNominaRepository.crear(pagoNominaEntity);
-	
+
 			List<String> listaRfc = rfcValidos(pagoNomina.getListaRfc().split("\\r?\\n"));
-	
-			List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(listaRfc,productoNominaEntity);
-			for (NominaEmpleadoEntity nominaEmpleado :nominaEmpleadoList) {
+
+			List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(listaRfc, productoNominaEntity);
+			for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
 				nominaEmpleado.setPagoNomina(pagoNominaEntity);
 				nominaEmpleadoRepository.actualizar(nominaEmpleado);
 			}
 			if (pagoNomina.getAplicarPadron()) {
 				aplicarPadron(pagoNominaEntity);
 			}
+			return toPagoNominaDTO(pagoNominaEntity);
+		} else {
+            throw new SistemaException("Ocurrio al crear Pago",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
 		}
-		return toPagoNominaDTO(pagoNominaEntity);
+
 	}
 
 	private void aplicarPadron(PagoNominaEntity pagoNomina) {
@@ -143,7 +174,6 @@ public class PagoNominaService {
 		SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = pagoNomina.getSubfuenteFinanciamiento();
 		for (NominaEmpleadoEntity nominaEmpleado :nominaEmpleadoList) {
 			ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = nominaEmpleado.getIdConfiguracionPresupuestal();
-			System.out.println("configuracionPresupuestoEntity:: " + configuracionPresupuestoEntity.getId());
 			configuracionPresupuestoEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 			configuracionPresupuestoRepository.actualizar(configuracionPresupuestoEntity);
 		}
