@@ -94,7 +94,7 @@ public class PrenominaReporteTextoPlanoTest {
         nominaDelgado.setRfc("DESR741226269");
         nominaDelgado.setNombre("DELGADO SANTIAGO RUT");
         nominaDelgado.setDeducciones(deducciones1);
- 
+
         NominaEmpleado nominaDominguez = new NominaEmpleado();
         nominaDominguez.setRfc("DOHE860510UT7");
         nominaDominguez.setNombre("DOMINGUEZ HERNANDEZ ELMAR ARMANDO");
@@ -136,6 +136,15 @@ public class PrenominaReporteTextoPlanoTest {
 
         // Producto de nómina
         ProductoNominaBuilder productoNominaBuilder = new ProductoNominaBuilder(30, Calendar.getInstance().getTime(), programas);
+        productoNominaBuilder.setNombreElaboro("LIC. VICTOR JOSE LEAL CRUZ");
+        productoNominaBuilder.setCargoElaboro("JEFE DE DEPTO. DE RECURSOS HUMANOS");
+
+        productoNominaBuilder.setNombreReviso("C.P. LUZ MARIA PORTILLA GARCIA");
+        productoNominaBuilder.setCargoReviso("DIRECTOR  DE ADMINISTRACION");
+
+        productoNominaBuilder.setNombreAutorizo("DR. ALEJANDRO GUARNEROS CHUMACERO");
+        productoNominaBuilder.setCargoAutorizo("DIRECTOR GENERAL DE SALUD DE TLAXCALA");
+
         ProductoNomina productoNomina = productoNominaBuilder.createProductoNomina();
 
         PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
