@@ -5,14 +5,20 @@ package mx.gob.saludtlax.rh.puestosautorizados.programas;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.docx4j.docProps.variantTypes.Array;
+import org.primefaces.event.RowEditEvent;
 
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
@@ -43,6 +49,8 @@ public class ProgramasFederalesController implements Serializable {
 	private Programa programa;
 
 	private ProgramaFederealView view = new ProgramaFederealView();
+	
+	private List<ProgramaDTO> programasFilter=new ArrayList<>();
 
 	@PostConstruct
 	public void inicio() {
@@ -123,13 +131,23 @@ public class ProgramasFederalesController implements Serializable {
 			view.getDetallePrograma().setIdTipoDetalle(EnumTipoDetallePrograma.PARTIDA);
 			programa.crearDetallePrograma(view.getDetallePrograma());
 			view.setDetalles(programa.consultarDetallesProgramas(view.getDetallePrograma().getIdPrograma()));
+			Integer programa = view.getDetallePrograma().getIdPrograma();
+			
 			view.setDetallePrograma(new DetalleProgramaDTO());
-
+			view.getDetallePrograma().setIdPrograma(programa);
+			view.getDetallePrograma().setIdTipoDetalle(EnumTipoDetallePrograma.PARTIDA);
+			
 		} catch (ReglaNegocioException exception) {
 			JSFUtils.errorMessageEspecifico("errorDetalle", "", exception.getMessage());
 		}
 	}
 
+	
+	 public void onRowEdit(RowEditEvent event) {
+	        FacesMessage msg = new FacesMessage("Car Edited", ((DetalleProgramaDTO) event.getObject()).getIdDetalle()+"");
+	        FacesContext.getCurrentInstance().addMessage(null, msg);
+	    }
+	
 	public void visualizarRegistroPrograma() {
 		view.setMostrarRegistroPrograma(true);
 	}
@@ -198,6 +216,14 @@ public class ProgramasFederalesController implements Serializable {
 
 	public void setView(ProgramaFederealView view) {
 		this.view = view;
+	}
+
+	public List<ProgramaDTO> getProgramasFilter() {
+		return programasFilter;
+	}
+
+	public void setProgramasFilter(List<ProgramaDTO> programasFilter) {
+		this.programasFilter = programasFilter;
 	}
 
 }

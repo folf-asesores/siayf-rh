@@ -12,7 +12,7 @@
 		<h:form id="form">
 			<p:messages id="messages_generales" showDetail="true"
 				autoUpdate="false" closable="true" />
-			<p:dataTable id="programas"
+			<p:dataTable id="programas" widgetVar="tableProgramas"
 				value="#{programasFederales.view.programas}" var="e"
 				paginator="true" paginatorPosition="bottom" rows="5"
 				currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
@@ -244,9 +244,6 @@
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 
 
-
-
-
 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
 						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 
@@ -300,12 +297,12 @@
 
 						<div align="right">
 							<p:commandButton icon="ui-icon-circle-check"
-								update="nuevo_detalle"
+								update="nuevo_detalle" alt="Guardar"
 								action="#{programasFederales.registrarDetallePrograma()}"
 								oncomplete="mymessages();" />
 							<p:spacer width="20" />
 							<p:commandButton icon="ui-icon-circle-close" update="form"
-								oncomplete="mymessages();" process="@this"
+								oncomplete="mymessages();" process="@this" alt="Cancelar"
 								action="#{programasFederales.ocultarDetallePrograma()}"
 								styleClass="fm-btn-peligro fm-btn-elevado" />
 						</div>
@@ -314,12 +311,16 @@
 
 					<p:dataTable id="detalles"
 						value="#{programasFederales.view.detalles}" var="d"
-						paginator="true" paginatorPosition="bottom" rows="5"
+						paginator="true" paginatorPosition="bottom"
+						rows="5"
 						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
+
+
+
 						<p:column headerText="Estatus">
-							<h:outputText value="#{d.estatus}" />
+					<h:outputText value="#{d.estatus}" /> 
 						</p:column>
 						<p:column headerText="Clave">
 							<h:outputText value="#{d.clave}" />

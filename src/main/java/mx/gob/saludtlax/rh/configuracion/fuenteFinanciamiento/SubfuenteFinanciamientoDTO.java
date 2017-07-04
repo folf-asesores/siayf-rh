@@ -2,10 +2,13 @@ package mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento;
 
 public class SubfuenteFinanciamientoDTO {
 	private Integer idSubfuenteFinanciamiento;
-	private Integer idFuenteFinanciamiento;
-	private Integer idFuenteFinanciamientoOPD;
+	private FuenteFinanciamientoDTO idFuenteFinanciamiento;
+	private FuenteFinanciamientoOPDDTO idFuenteFinanciamientoOPD;
 	private String idBase36;
 	private String descripcion;
+	private Boolean nombramiento;
+	private Boolean estatales;
+	private Boolean federales;
 	
 //	<Getters & Setters>
 	
@@ -15,18 +18,8 @@ public class SubfuenteFinanciamientoDTO {
 	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
 		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
 	}
-	public Integer getIdFuenteFinanciamiento() {
-		return idFuenteFinanciamiento;
-	}
-	public void setIdFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
-		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
-	}
-	public Integer getIdFuenteFinanciamientoOPD() {
-		return idFuenteFinanciamientoOPD;
-	}
-	public void setIdFuenteFinanciamientoOPD(Integer idFuenteFinanciamientoOPD) {
-		this.idFuenteFinanciamientoOPD = idFuenteFinanciamientoOPD;
-	}
+	
+
 	public String getIdBase36() {
 		return idBase36;
 	}
@@ -39,4 +32,36 @@ public class SubfuenteFinanciamientoDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public FuenteFinanciamientoDTO getIdFuenteFinanciamiento() {
+		return idFuenteFinanciamiento;
+	}
+	public void setIdFuenteFinanciamiento(FuenteFinanciamientoDTO idFuenteFinanciamiento) {
+		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
+	}
+	public FuenteFinanciamientoOPDDTO getIdFuenteFinanciamientoOPD() {
+		return idFuenteFinanciamientoOPD;
+	}
+	public void setIdFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO idFuenteFinanciamientoOPD) {
+		this.idFuenteFinanciamientoOPD = idFuenteFinanciamientoOPD;
+	}
+	public Boolean getNombramiento() {
+		return nombramiento;
+	}
+	public void setNombramiento(Boolean nombramiento) {
+		this.nombramiento = nombramiento;
+	}
+	public Boolean getEstatales() {
+		return estatales;
+	}
+	public void setEstatales(Boolean estatales) {
+		this.estatales = estatales;
+	}
+	public Boolean getFederales() {
+		return federales;
+	}
+	public void setFederales(Boolean federales) {
+		this.federales = federales;
+	}
+	
+	
 }

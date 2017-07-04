@@ -52,8 +52,7 @@
 							 var="subfuenteFinanciamientoItem"
 							 rowKey="#{subfuenteFinanciamientoItem.idSubfuenteFinanciamiento}"
 							 selection="#{subfuenteFinanciamiento.view.subfuenteFinanciamientoSelect}"
-							 scrollable="true"
-							 scrollHeight="300"
+							
 							 selectionMode="single"
 							 paginator="true" 
 							 rows="8"
@@ -81,10 +80,10 @@
 						<h:outputText value="#{subfuenteFinanciamientoItem.descripcion}" />
 					</p:column>
 					<p:column>
-						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamiento}" />
+						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamiento.descripcion}" />
 					</p:column>
 					<p:column>
-						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamientoOPD}" />
+						<h:outputText value="#{subfuenteFinanciamientoItem.idFuenteFinanciamientoOPD.descripcion}" />
 					</p:column>
 				</p:dataTable>
 			</p:outputPanel>
@@ -119,7 +118,7 @@
         		
         			<p:outputLabel for="FF" value="Fuente de Financiamiento"/>
         			<p:selectOneMenu id="FF"
-        							 value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.idFuenteFinanciamiento}" 
+        							 value="#{subfuenteFinanciamiento.fuenteNew}" 
         							 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
             			<f:selectItem itemLabel="Elije una..." itemValue="" />
             			<f:selectItems value="#{subfuenteFinanciamiento.view.listFuenteFinanciamiento}" 
@@ -134,7 +133,7 @@
         			
         			<p:outputLabel for="FFOPD" value="Financiamiento OPD"/>        			
         			<p:selectOneMenu id="FFOPD"
-        							 value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.idFuenteFinanciamientoOPD}" 
+        							 value="#{subfuenteFinanciamiento.funteOpdNew}" 
         							 validator="#{subfuenteFinanciamiento.validatorSubfuente}">
             			<f:selectItem itemLabel="Elije una..." itemValue="" />
             			<f:selectItems value="#{subfuenteFinanciamiento.view.listFuenteFinanciamientoOPD}" 
@@ -147,6 +146,27 @@
         			<p:message id="msgFFOPD" for="FFOPD"/>
         			<p:spacer/>	
         			
+        			<h:outputText value="Aplica: " />
+        			<p:spacer/>
+        			<p:spacer/>
+        			<p:spacer/>
+        			
+        			<p:outputLabel for="nombramiento" value="Nombramiento federales: " />
+        <p:selectBooleanCheckbox id="nombramiento" value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.nombramiento}" />
+        <p:message id="msgnombramiento" for="nombramiento"/>
+        			<p:spacer/>
+ 
+        			<p:outputLabel for="estatales" value="Contratos estatales: " />
+       <p:selectBooleanCheckbox id="estatales" value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.estatales}" />
+       <p:message id="msgestatales" for="estatales"/>
+        			<p:spacer/>
+ 
+        			<p:outputLabel for="federales" value="Contratos federales: " />
+       <p:selectBooleanCheckbox id="federales" value="#{subfuenteFinanciamiento.view.subfuenteFinanciamiento.federales}" />
+       <p:message id="msgfederales" for="federales"/>
+        			<p:spacer/>
+ 
+        			
 					</p:panelGrid>	
 				<p:panelGrid id="btn1" columns="3" layout="grid">
 					<p:commandButton value="Guardar"
@@ -155,11 +175,12 @@
 									style="float:left;"
 									ajax="false"/>
 					<p/>
-					<p:commandButton value="Cancelar"
-									action="#{subfuenteFinanciamiento.irPrincipal()}"
-									update=":form"
+					<p:commandButton value="Cancelar" 
+									actionListener="#{subfuenteFinanciamiento.irPrincipal()}"
+									update="form"
+									process="@this"
 									style="float:right;"
-									ajax="false"/>
+									/>
 				</p:panelGrid>
 				
 			</p:outputPanel>

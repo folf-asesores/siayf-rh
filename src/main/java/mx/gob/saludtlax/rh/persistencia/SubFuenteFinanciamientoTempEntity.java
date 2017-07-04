@@ -42,6 +42,15 @@ public class SubFuenteFinanciamientoTempEntity implements Serializable {
     @Column(name = "id_subfuente_financiamiento_salud")
     private Integer idSubfuenteFinanciamientoSalud;
 
+    @Column(name="nombramiento")
+    private Boolean nombramiento;
+    
+    @Column(name="estatales")
+    private Boolean estatales;
+    
+    @Column(name="federales")
+    private Boolean federales;
+    
     @Override
     public String toString() {
         return "SubFuenteFinanciamientoEntity [id subfuente financiamiento=" + idSubfuenteFinanciamiento
@@ -126,5 +135,37 @@ public class SubFuenteFinanciamientoTempEntity implements Serializable {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
+
+	
+
+	public Boolean getNombramiento() {
+		return nombramiento;
+	}
+
+	public void setNombramiento(Boolean nombramiento) {
+		this.nombramiento = nombramiento;
+	}
+
+
+
+	public Boolean getFederales() {
+		return federales;
+	}
+
+	public void setFederales(Boolean federales) {
+		this.federales = federales;
+	}
+
+	public Boolean getEstatales() {
+		return estatales;
+	}
+
+	public void setEstatales(Boolean estatales) {
+		this.estatales = estatales;
+	}
+
+	
+    
+    
 
 }
