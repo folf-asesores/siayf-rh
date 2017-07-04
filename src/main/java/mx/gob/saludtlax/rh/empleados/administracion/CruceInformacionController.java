@@ -123,4 +123,8 @@ public class CruceInformacionController implements Serializable {
 		cruceInformacion.puestosPlantillaAutorizada();
 		JSFUtils.infoMessage("", "Plantilla autorizada finalizada");
 	}
+	public void actualizarConfiguracionPresupuestal(){
+		cruceInformacion.actualizarConfiguracionPresupuestal();
+		JSFUtils.infoMessage("", "Plantilla autorizada finalizada");
+	}
 }

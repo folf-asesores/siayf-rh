@@ -206,7 +206,7 @@ public class SolicitudAperturaController implements Serializable {
 	}
 
 	public void guardarVacante() {
-		System.out.println("entro a guardar");
+
 		try {
 			view.getSolicitud().getDatosLaborales().setIdTabulador(view.getSalario().getIdTabulador());
 			view.getSolicitud().setIdUsuario(view.getIdUsuarioLogeado());

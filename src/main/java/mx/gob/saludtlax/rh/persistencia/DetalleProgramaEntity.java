@@ -57,6 +57,17 @@ public class DetalleProgramaEntity implements Serializable {
 	@Column(name = "id_tipo_detalle_programa")
 	private String tipoDetallePrograma;
 
+	@Column(name = "es_honorario")
+	private Boolean esHonorario;
+
+	public Boolean getEsHonorario() {
+		return esHonorario;
+	}
+
+	public void setEsHonorario(Boolean esHonorario) {
+		this.esHonorario = esHonorario;
+	}
+
 	public String getTipoDetallePrograma() {
 		return tipoDetallePrograma;
 	}

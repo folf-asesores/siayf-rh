@@ -21,6 +21,15 @@ public class DetalleProgramaDTO {
 	private Integer mesesContratacion;
 	private Integer idUsuario;
 	private String idTipoDetalle;
+	private Boolean esHonorario;
+
+	public Boolean getEsHonorario() {
+		return esHonorario;
+	}
+
+	public void setEsHonorario(Boolean esHonorario) {
+		this.esHonorario = esHonorario;
+	}
 
 	public String getIdTipoDetalle() {
 		return idTipoDetalle;

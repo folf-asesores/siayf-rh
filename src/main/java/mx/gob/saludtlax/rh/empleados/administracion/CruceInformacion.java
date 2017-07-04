@@ -35,6 +35,7 @@ public interface CruceInformacion {
 	
 	public void cruzarContratoEstatal();
 	
+	public void actualizarConfiguracionPresupuestal();
 	public void altasBajas();
 	
 	public void puestosPlantillaAutorizada();

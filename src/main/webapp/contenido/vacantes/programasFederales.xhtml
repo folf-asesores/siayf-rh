@@ -294,6 +294,10 @@
 							rendered="#{programasFederales.view.mostrarDetallePartida}">
 						</p:inputText>
 
+						<p:selectBooleanButton onLabel="HONORARIOS"
+							offLabel="CONTRATO FEDERAL"
+							value="#{programasFederales.view.detallePrograma.esHonorario}"></p:selectBooleanButton>
+
 
 						<div align="right">
 							<p:commandButton icon="ui-icon-circle-check"
@@ -311,8 +315,7 @@
 
 					<p:dataTable id="detalles"
 						value="#{programasFederales.view.detalles}" var="d"
-						paginator="true" paginatorPosition="bottom"
-						rows="5"
+						paginator="true" paginatorPosition="bottom" rows="5"
 						currentPageReportTemplate="(Registros: {startRecord} de {totalRecords}, Pag: {currentPage}/{totalPages})"
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						rowsPerPageTemplate="5,10,15" paginatorAlwaysVisible="false">
@@ -320,7 +323,7 @@
 
 
 						<p:column headerText="Estatus">
-					<h:outputText value="#{d.estatus}" /> 
+							<h:outputText value="#{d.estatus}" />
 						</p:column>
 						<p:column headerText="Clave">
 							<h:outputText value="#{d.clave}" />

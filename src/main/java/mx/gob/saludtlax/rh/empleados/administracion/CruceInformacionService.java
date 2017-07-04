@@ -1762,4 +1762,34 @@ public class CruceInformacionService {
 		}
 
 	}
+
+	public void actualizarConfiguracionesPresupuestalesPorTipoContratacion() {
+		List<InventarioVacanteEntity> puestos = inventarioVacanteRepository
+				.consultarPuestosPorTipoContratacion(EnumTipoContratacion.CONTRATO_ESTATAL);
+		System.out.println("numero de puestos " + puestos.size());
+		int contador = 0;
+
+		for (InventarioVacanteEntity i : puestos) {
+
+			if (i.getEstatus().getIdEstatus() == EnumEstatusPuesto.EMPLEADO_ACTIVO) {
+				System.out.println("empleado activo estatal " + contador);
+				DatosLaboralesCruceEntity datoLaboral = datosLaboralesRepository
+						.obtenerDatoLaboral(i.getEmpleadoActivo().getRfc(), "V");
+				if (datoLaboral != null) {
+					ConfiguracionPresupuestoEntity c = i.getConfiguracion();
+					c.setDependencia(datoLaboral.getDependencia());
+					c.setFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento());
+					c.setIdPlaza(datoLaboral.getIdPlaza());
+					c.setNumeroEmpleado(datoLaboral.getIdEmpleadoDatosLaborales());
+					c.setProyecto(datoLaboral.getProyecto());
+					c.setSubfuenteFinanciamiento(datoLaboral.getSubfuenteFinanciamiento());
+					c.setTipoRecurso(datoLaboral.getTipoRecurso());
+					c.setUnidadResponsable(datoLaboral.getUnidadResponsable());
+					configuracionPresupuestalRepository.actualizar(c);
+					contador ++;
+				}
+			}
+		}
+
+	}
 }

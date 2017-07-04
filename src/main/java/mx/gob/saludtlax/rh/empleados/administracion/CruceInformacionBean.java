@@ -134,4 +134,10 @@ public class CruceInformacionBean implements CruceInformacion {
 
 	}
 
+	@Override
+	public void actualizarConfiguracionPresupuestal() {
+		cruceInformacionService.actualizarConfiguracionesPresupuestalesPorTipoContratacion();
+		
+	}
+
 }

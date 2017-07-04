@@ -31,7 +31,7 @@ public class UnidadResponsableService {
 	
     protected UnidadResponsableDTO crearUnidadResponsable(UnidadResponsableDTO dto) {
         UnidadResponsableEntity entity = new UnidadResponsableEntity();
-        entity.setIdDependencia(dto.getIdDependencia());
+      //  entity.setIdDependencia(dto.getIdDependencia());
         entity.setIdUnidadXDependencia(dto.getIdUnidadXDependencia());
         entity.setIdBase36(dto.getIdBase36());
         entity.setDescripcion(dto.getDescripcion());

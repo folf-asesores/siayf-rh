@@ -150,7 +150,7 @@ public class FuenteFinanciamientoService {
 	public FuenteFinanciamientoOPDDTO obtenerFuenteFinanciamientoOPDPorSubFuente(SubfuenteFinanciamientoDTO subfuente) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = null;
-		if (subfuente.getIdFuenteFinanciamientoOPD() > 0) {
+		if (subfuente.getIdFuenteFinanciamientoOPD().getIdFuenteFinanciamientoOPD() > 0) {
 			query = session
 					.createSQLQuery("SELECT id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, "
 							+ "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion "
@@ -254,7 +254,7 @@ public class FuenteFinanciamientoService {
 	public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
 		SubFuenteFinanciamientoTempEntity entity = new SubFuenteFinanciamientoTempEntity();
 		entity.setIdBase36(dto.getIdBase36());
-		entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+	//	entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.crear(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
@@ -278,7 +278,7 @@ public class FuenteFinanciamientoService {
 		SubFuenteFinanciamientoTempEntity entity = subfuenteFinanciamientoDAO
 				.obtenerPorId(dto.getIdSubfuenteFinanciamiento());
 		entity.setIdBase36(dto.getIdBase36());
-		entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+	//	entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.actualizar(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());

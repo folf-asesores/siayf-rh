@@ -305,6 +305,7 @@ public class SelectItemsUtil {
 		SelectItem item3 = new SelectItem(3, "BASE");
 		SelectItem item4 = new SelectItem(4, "CONFIANZA");
 		SelectItem item5 = new SelectItem(5, "HOMOLOGADOS");
+		SelectItem item12 = new SelectItem(12, "HONORARIOS");
 		// SelectItem item6 = new SelectItem(6, "PASANTES");
 		SelectItem item7 = new SelectItem(7, "FORMALIZADOS");
 		SelectItem item8 = new SelectItem(8, "REGULARIZADOS");
@@ -318,7 +319,7 @@ public class SelectItemsUtil {
 		lista.add(item3);
 		lista.add(item4);
 		lista.add(item5);
-		// lista.add(item6);
+		lista.add(item12);
 		lista.add(item7);
 		lista.add(item8);
 		// lista.add(item9);

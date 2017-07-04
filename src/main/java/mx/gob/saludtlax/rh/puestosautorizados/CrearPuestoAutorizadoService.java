@@ -140,6 +140,8 @@ public class CrearPuestoAutorizadoService {
 					.nombramientoPorId(EnumTipoNombramiento.EVENTUALES);
 			TipoContratacionEntity tipoContratacion = tipoContratacionRepository
 					.obtenerPorId(EnumTipoContratacion.CONTRATO_FEDERAL);
+			TipoContratacionEntity honorarios = tipoContratacionRepository
+					.obtenerPorId(EnumTipoContratacion.HONORARIOS);
 
 			for (int i = 1; i <= numeroPuestos; i++) {
 
@@ -157,7 +159,12 @@ public class CrearPuestoAutorizadoService {
 				datosLaborales.setSubfuenteFinanciamiento(programa.getSubfuenteFinanciamiento());
 				datosLaborales.setSueldo(detallePrograma.getCostoUnitario());
 				// datosLaborales.setTabulador(tabulador);
-				datosLaborales.setTipoContratacion(tipoContratacion);
+				if (detallePrograma.getEsHonorario()) {
+					datosLaborales.setTipoContratacion(honorarios);
+				} else {
+					datosLaborales.setTipoContratacion(tipoContratacion);
+				}
+
 				datosLaborales.setTipoRecurso(programa.getTipoRecurso());
 				datosLaborales.setUnidadResponsable(programa.getUnidadResponsable());
 				datosLaboralesRepository.crear(datosLaborales);
