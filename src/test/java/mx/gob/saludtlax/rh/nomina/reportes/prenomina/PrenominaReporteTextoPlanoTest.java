@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import org.junit.Test;
 
@@ -100,17 +102,17 @@ public class PrenominaReporteTextoPlanoTest {
         nominaDominguez.setNombre("DOMINGUEZ HERNANDEZ ELMAR ARMANDO");
         nominaDominguez.setPercepciones(percepciones3);
 
-        List<NominaEmpleado> nominasEmpleados = new ArrayList<>();
-        nominasEmpleados.add(nominaCaporal);
-        nominasEmpleados.add(nominaCordero);
-        nominasEmpleados.add(nominaContreras);
-        nominasEmpleados.add(nominaCuecuecha);
-        nominasEmpleados.add(nominaCuecuecha2);
-        nominasEmpleados.add(nominaCuamatzi);
-        nominasEmpleados.add(nominaCuapio);
-        nominasEmpleados.add(nominaCuahutecatl);
-        nominasEmpleados.add(nominaDelgado);
-        nominasEmpleados.add(nominaDominguez);
+        Map<String, NominaEmpleado> nominasEmpleados = new HashMap<>();
+        nominasEmpleados.put("CAME750818R3A", nominaCaporal);
+        nominasEmpleados.put("COGO770228MU5", nominaCordero);
+        nominasEmpleados.put("COHS910628CD4", nominaContreras);
+        nominasEmpleados.put("CUMM8702236M7", nominaCuecuecha);
+        nominasEmpleados.put("CUMY910419HI3", nominaCuecuecha2);
+        nominasEmpleados.put("CUSE890829LS7", nominaCuamatzi);
+        nominasEmpleados.put("CUSJ870703AG6", nominaCuapio);
+        nominasEmpleados.put("CUTJ8809095A0", nominaCuahutecatl);
+        nominasEmpleados.put("DESR741226269", nominaDelgado);
+        nominasEmpleados.put("DOHE860510UT7", nominaDominguez);
 
         // Unidades responsables
         UnidadResponsable unidadResponsable = new UnidadResponsable();
@@ -118,8 +120,8 @@ public class PrenominaReporteTextoPlanoTest {
         unidadResponsable.setUnidadResponsable("SUBDIRECCIÓN DE PRIMER NIVEL");
         unidadResponsable.setNominasEmpleados(nominasEmpleados);
 
-        List<UnidadResponsable> unidadesResponsables = new ArrayList<>();
-        unidadesResponsables.add(unidadResponsable);
+        Map<Integer, UnidadResponsable> unidadesResponsables = new HashMap<>();
+        unidadesResponsables.put(1300, unidadResponsable);
 
         // Programas
         Programa programa = new Programa();
@@ -131,8 +133,8 @@ public class PrenominaReporteTextoPlanoTest {
         programa.setFinPeriodo(Calendar.getInstance().getTime());
         programa.setUnidadesResponsables(unidadesResponsables);
 
-        List<Programa> programas = new ArrayList<>();
-        programas.add(programa);
+        Map<Integer, Programa> programas = new HashMap<>();
+        programas.put(1, programa);
 
         // Producto de nómina
         ProductoNominaBuilder productoNominaBuilder = new ProductoNominaBuilder(30, Calendar.getInstance().getTime(), programas);

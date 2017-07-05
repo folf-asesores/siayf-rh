@@ -7,13 +7,13 @@
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Map;
 
 public class ProductoNominaBuilder {
 
     private Integer idProductoNomina = null;
     private Date fechaPago = null;
-    private List<Programa> programas = null;
+    private Map<Integer,Programa> programas = null;
     private String nombreElaboro = null;
     private String cargoElaboro = null;
     private String nombreReviso = null;
@@ -21,7 +21,7 @@ public class ProductoNominaBuilder {
     private String nombreAutorizo = null;
     private String cargoAutorizo = null;
 
-    public ProductoNominaBuilder(Integer idProductoNomina, Date fechaPago, List<Programa> programas) {
+    public ProductoNominaBuilder(Integer idProductoNomina, Date fechaPago, Map<Integer, Programa> programas) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
@@ -37,7 +37,7 @@ public class ProductoNominaBuilder {
         return this;
     }
 
-    public ProductoNominaBuilder setProgramas(List<Programa> programas) {
+    public ProductoNominaBuilder setProgramas(Map<Integer, Programa> programas) {
         this.programas = programas;
         return this;
     }

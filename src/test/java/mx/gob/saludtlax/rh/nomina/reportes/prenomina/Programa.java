@@ -8,7 +8,7 @@ package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -20,7 +20,7 @@ public class Programa implements Iterable<UnidadResponsable> {
     private String programa;
     private Date inicioPeriodo;
     private Date finPeriodo;
-    private List<UnidadResponsable> unidadesResponsables;
+    private Map<Integer, UnidadResponsable> unidadesResponsables;
 
     public Integer getIdPrograma() {
         return idPrograma;
@@ -54,19 +54,17 @@ public class Programa implements Iterable<UnidadResponsable> {
         this.finPeriodo = finPeriodo;
     }
 
-    public List<UnidadResponsable> getUnidadesResponsables() {
+    public Map<Integer, UnidadResponsable> getUnidadesResponsables() {
         return unidadesResponsables;
     }
 
-    public void setUnidadesResponsables(List<UnidadResponsable> unidadesResponsables) {
+    public void setUnidadesResponsables(Map<Integer, UnidadResponsable> unidadesResponsables) {
         this.unidadesResponsables = unidadesResponsables;
     }
 
-    
-
     @Override
     public Iterator<UnidadResponsable> iterator() {
-        return unidadesResponsables.iterator();
+        return unidadesResponsables.values().iterator();
     }
 
 }

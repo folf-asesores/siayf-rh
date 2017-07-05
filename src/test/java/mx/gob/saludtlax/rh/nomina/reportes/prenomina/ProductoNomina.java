@@ -8,7 +8,7 @@ package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -19,7 +19,7 @@ public final class ProductoNomina implements Iterable<Programa> {
     private final Integer idProductoNomina;
     private String quincena;
     private final Date fechaPago;
-    private final List<Programa> programas;
+    private final Map<Integer, Programa> programas;
     private final String nombreElaboro;
     private final String cargoElaboro;
     private final String nombreReviso;
@@ -27,7 +27,7 @@ public final class ProductoNomina implements Iterable<Programa> {
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public ProductoNomina(Integer idProductoNomina, Date fechaPago, List<Programa> programas, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public ProductoNomina(Integer idProductoNomina, Date fechaPago, Map<Integer, Programa> programas, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
@@ -56,7 +56,7 @@ public final class ProductoNomina implements Iterable<Programa> {
         return fechaPago;
     }
 
-    public List<Programa> getProgramas() {
+    public Map<Integer, Programa> getProgramas() {
         return programas;
     }
 
@@ -86,6 +86,6 @@ public final class ProductoNomina implements Iterable<Programa> {
 
     @Override
     public Iterator<Programa> iterator() {
-        return programas.iterator();
+        return programas.values().iterator();
     }
 }
