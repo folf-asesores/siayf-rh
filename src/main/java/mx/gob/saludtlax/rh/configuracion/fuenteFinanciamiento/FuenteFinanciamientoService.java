@@ -150,21 +150,21 @@ public class FuenteFinanciamientoService {
 	public FuenteFinanciamientoOPDDTO obtenerFuenteFinanciamientoOPDPorSubFuente(SubfuenteFinanciamientoDTO subfuente) {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = null;
-		if (subfuente.getIdFuenteFinanciamientoOPD().getIdFuenteFinanciamientoOPD() > 0) {
+		if (subfuente.getFuenteFinanciamientoOPD().getIdFuenteFinanciamientoOPD() > 0) {
 			query = session
 					.createSQLQuery("SELECT id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, "
 							+ "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion "
 							+ "FROM fuentes_financiamientos_opd " + " WHERE "
 							+ "id_fuente_financiamiento_opd = :idFuenteFinanciamientoOPD")
-					.setParameter("idFuenteFinanciamientoOPD", subfuente.getIdFuenteFinanciamientoOPD());
+					.setParameter("idFuenteFinanciamientoOPD", subfuente.getFuenteFinanciamientoOPD());
 		} else {
-			if (subfuente.getIdFuenteFinanciamiento() != null) {
+			if (subfuente.getFuenteFinanciamiento() != null) {
 				query = session
 						.createSQLQuery("SELECT id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, "
 								+ "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion "
 								+ "FROM fuentes_financiamientos_opd " + " WHERE "
 								+ "id_fuente_financiamiento = :idFuenteFinanciamiento")
-						.setParameter("idFuenteFinanciamiento", subfuente.getIdFuenteFinanciamiento());
+						.setParameter("idFuenteFinanciamiento", subfuente.getFuenteFinanciamiento());
 			}
 		}
 		query.setResultTransformer(Transformers.aliasToBean(FuenteFinanciamientoOPDDTO.class));
@@ -211,11 +211,10 @@ public class FuenteFinanciamientoService {
 		Session session = entityManager.unwrap(Session.class);
 		Query query = session.createSQLQuery(" SELECT                                                   "
 				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                           "
-				+ " id_fuente_financiamiento AS idFuenteFinanciamiento,                                 "
-				+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD,                          "
-				+ " id_base_36 AS idBase36,                                                             "
 				+ " descripcion AS descripcion                                                          "
-				+ " FROM subfuentes_financiamientos_temp                                                ");
+				+ " FROM subfuentes_financiamientos_temp                                                "
+//				+ " WHERE                                                                               "
+				+ "  ");
 		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
 		@SuppressWarnings("unchecked")
 		List<SubfuenteFinanciamientoDTO> result = (List<SubfuenteFinanciamientoDTO>) query.list();
@@ -228,8 +227,6 @@ public class FuenteFinanciamientoService {
 		Query query = session
 				.createSQLQuery(" SELECT                                                                "
 						+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                   "
-						+ " id_fuente_financiamiento AS idFuenteFinanciamiento,                         "
-						+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD,                  "
 						+ " id_base_36 AS idBase36,                                                     "
 						+ " descripcion AS descripcion                                                  "
 						+ " FROM subfuentes_financiamientos_temp                                        "
@@ -245,8 +242,8 @@ public class FuenteFinanciamientoService {
 	public SubfuenteFinanciamientoDTO nuevoSubfuenteFinanciamiento() {
 		SubfuenteFinanciamientoDTO dto = new SubfuenteFinanciamientoDTO();
 		dto.setDescripcion(null);
-		dto.setIdFuenteFinanciamiento(null);
-		dto.setIdFuenteFinanciamientoOPD(null);
+		dto.setFuenteFinanciamiento(null);
+		dto.setFuenteFinanciamientoOPD(null);
 		dto.setIdBase36(null);
 		return dto;
 	}

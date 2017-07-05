@@ -65,7 +65,9 @@ public class PagoNominaService {
 		List<Integer> result = (List<Integer>) query.list();
 		List<SubFuenteFinanciamientoTempEntity> subfuenteFinanciamientoList = new ArrayList<>();
 		for (Integer idSubfuenteFinanciamiento : result) {
-			subfuenteFinanciamientoList.add(subfuenteFinanciamientoRepository.obtenerPorId(idSubfuenteFinanciamiento));
+			if(idSubfuenteFinanciamiento != null ) {
+				subfuenteFinanciamientoList.add(subfuenteFinanciamientoRepository.obtenerPorId(idSubfuenteFinanciamiento));
+			}
 		}
 		return subfuenteFinanciamientoList;
 	}
@@ -138,7 +140,7 @@ public class PagoNominaService {
 
 			if (pagoNomina.getIdBanco() != null) {
 				BancoSatEntity bancoSatEntity = bancoSatRepository
-						.obtenerPorId(pagoNomina.getIdSubfuenteFinanciamiento());
+						.obtenerPorId(pagoNomina.getIdBanco());
 				pagoNominaEntity.setBanco(bancoSatEntity);
 			}
 

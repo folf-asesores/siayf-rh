@@ -85,24 +85,19 @@ public class SubfuenteFinanciamientoController {
 		if (view.getOperacionNuevoSubfuente()) {
 			FuenteFinanciamientoDTO f = new FuenteFinanciamientoDTO();
 			f.setIdFuenteFinanciamiento(fuenteNew);
-			view.getSubfuenteFinanciamiento().setIdFuenteFinanciamiento(f);
-
+			view.getSubfuenteFinanciamiento().setFuenteFinanciamiento(f);
 			FuenteFinanciamientoOPDDTO fOpd = new FuenteFinanciamientoOPDDTO();
 			fOpd.setIdFuenteFinanciamientoOPD(funteOpdNew);
-			
 			SubfuenteFinanciamientoDTO sf = view.getSubfuenteFinanciamiento();
-			
-			sf.setIdFuenteFinanciamientoOPD(fOpd);
-			
+			sf.setFuenteFinanciamientoOPD(fOpd);
 			ejb.crearSubfuenteFinanciamiento(sf);
 		} else {
 			FuenteFinanciamientoDTO fuente = new FuenteFinanciamientoDTO();
 			fuente.setIdFuenteFinanciamiento(fuenteNew);
-			view.getSubfuenteFinanciamiento().setIdFuenteFinanciamiento(fuente);
-
+			view.getSubfuenteFinanciamiento().setFuenteFinanciamiento(fuente);
 			FuenteFinanciamientoOPDDTO fuenteOpd = new FuenteFinanciamientoOPDDTO();
 			fuenteOpd.setIdFuenteFinanciamientoOPD(funteOpdNew);
-			view.getSubfuenteFinanciamiento().setIdFuenteFinanciamientoOPD(fuenteOpd);
+			view.getSubfuenteFinanciamiento().setFuenteFinanciamientoOPD(fuenteOpd);
 			ejb.actualizarSubfuenteFinanciamiento(view.getSubfuenteFinanciamiento());
 		}
 		view.panelGestion();

@@ -803,11 +803,7 @@
 					var="actualizarNomina"
 					rowKey="#{actualizarNomina.idConfiguracionPresupuestalValue}"
 					emptyMessage="Los datos de los empleados estan actualizados"
-					paginator="true" rows="10" paginatorAlwaysVisible="false"
-					paginatorPosition="bottom"
-					currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
-					paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-					rowsPerPageTemplate="5,10,50,100">
+					scrollHeight="300px">
 					<f:facet name="header">
 			            Cambios
 			        </f:facet>

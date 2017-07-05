@@ -3,6 +3,7 @@ package mx.gob.saludtlax.rh.nomina.productosnomina;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -394,10 +395,12 @@ public class ProductosNominaEJB {
 	}
 
     public void actualizarNomina(List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList, ProductoNominaDTO productoNomina) {
+    	List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoListTem = new ArrayList<>();
         for (ActualizarNominaEmpleadoDTO actualizarNominaEmpleado : actualizarNominaEmpleadoList) {
+        	LOGGER.info("TipoCambio:: " + actualizarNominaEmpleado.getTipoCambio());
             switch (actualizarNominaEmpleado.getTipoCambio()) {
             case "1":
-                actualizarNominaEmpleadoService.actualizarNomina(actualizarNominaEmpleado);
+            	actualizarNominaEmpleadoListTem.add(actualizarNominaEmpleado);
                 break;
             case "2":
                 actualizarNominaEmpleadoService.agregarNominaEmpleado(actualizarNominaEmpleado, productoNomina);
@@ -406,6 +409,9 @@ public class ProductosNominaEJB {
                 productoNominaService.eliminarNominaEmpleado(actualizarNominaEmpleado.getIdNominaempleado());
                 break;
             }
+        }
+        if (!actualizarNominaEmpleadoListTem.isEmpty()) {
+            actualizarNominaEmpleadoService.actualizarNomina(actualizarNominaEmpleadoListTem);
         }
     }
 

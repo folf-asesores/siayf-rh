@@ -2,8 +2,8 @@ package mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento;
 
 public class SubfuenteFinanciamientoDTO {
 	private Integer idSubfuenteFinanciamiento;
-	private FuenteFinanciamientoDTO idFuenteFinanciamiento;
-	private FuenteFinanciamientoOPDDTO idFuenteFinanciamientoOPD;
+	private FuenteFinanciamientoDTO fuenteFinanciamiento;
+	private FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD;
 	private String idBase36;
 	private String descripcion;
 	private Boolean nombramiento;
@@ -32,17 +32,17 @@ public class SubfuenteFinanciamientoDTO {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public FuenteFinanciamientoDTO getIdFuenteFinanciamiento() {
-		return idFuenteFinanciamiento;
+	public FuenteFinanciamientoDTO getFuenteFinanciamiento() {
+		return fuenteFinanciamiento;
 	}
-	public void setIdFuenteFinanciamiento(FuenteFinanciamientoDTO idFuenteFinanciamiento) {
-		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
+	public void setFuenteFinanciamiento(FuenteFinanciamientoDTO fuenteFinanciamiento) {
+		this.fuenteFinanciamiento = fuenteFinanciamiento;
 	}
-	public FuenteFinanciamientoOPDDTO getIdFuenteFinanciamientoOPD() {
-		return idFuenteFinanciamientoOPD;
+	public FuenteFinanciamientoOPDDTO getFuenteFinanciamientoOPD() {
+		return fuenteFinanciamientoOPD;
 	}
-	public void setIdFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO idFuenteFinanciamientoOPD) {
-		this.idFuenteFinanciamientoOPD = idFuenteFinanciamientoOPD;
+	public void setFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
+		this.fuenteFinanciamientoOPD = fuenteFinanciamientoOPD;
 	}
 	public Boolean getNombramiento() {
 		return nombramiento;

@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -45,12 +46,6 @@ public class DispersionExcelService {
     private static final int COLUMNA_MONTO                = 'B' - 'A';
     private static final int COLUMNA_LEYENDA              = 'C' - 'A';
     private static final int COLUMNA_NOMBRE_DEL_EMPLEADO  = 'D' - 'A';
-
-    private void inicializar() {
-        libro = new XSSFWorkbook();
-        String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja, '_');
-        hoja = libro.createSheet(nombreHojaSeguro);
-    }
 
     private void llenarTitulos() {
         Row fila = hoja.createRow(0);
@@ -130,7 +125,7 @@ public class DispersionExcelService {
 
         Row fila = hoja.createRow(indice);
         Cell celdadFuenteFinanciemientoTitulo = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
-        celdadFuenteFinanciemientoTitulo.setCellValue(String.format("Total fuente de financiamiento (%s)", fuenteFinanciamiento));
+        celdadFuenteFinanciemientoTitulo.setCellValue(String.format("Total %s", fuenteFinanciamiento));
         celdadFuenteFinanciemientoTitulo.setCellStyle(estiloTotalTitulo);
 
         Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO, Cell.CELL_TYPE_NUMERIC);
@@ -158,10 +153,17 @@ public class DispersionExcelService {
         return archivo;
     }
 
-    public byte[] obtenerBytes(List<DispersionDTO> detalles) throws IOException {
-        inicializar();
-        llenarTitulos();
-        llenarDetalle(detalles);
+    public byte[] obtenerBytes(List<List<DispersionDTO>> dispersionList) throws IOException {
+        libro = new XSSFWorkbook();
+        Integer number = 1;
+    	for (List<DispersionDTO> dispersion: dispersionList) {
+            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja + number++, '_');
+            LOGGER.info(nombreHojaSeguro);
+            hoja = libro.createSheet(nombreHojaSeguro);
+
+            llenarTitulos();
+            llenarDetalle(dispersion);
+    	}
         return finalizar();
     }
 
