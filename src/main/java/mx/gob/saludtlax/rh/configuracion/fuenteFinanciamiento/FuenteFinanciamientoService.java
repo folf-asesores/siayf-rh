@@ -1,5 +1,6 @@
 package mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -208,16 +209,38 @@ public class FuenteFinanciamientoService {
 	// caaaaaaaaaambios
 
 	public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoNomina() {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery(" SELECT                                                   "
-				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                           "
-				+ " descripcion AS descripcion                                                          "
-				+ " FROM subfuentes_financiamientos_temp                                                "
-				// + " WHERE "
-				+ "  ");
-		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
-		@SuppressWarnings("unchecked")
-		List<SubfuenteFinanciamientoDTO> result = (List<SubfuenteFinanciamientoDTO>) query.list();
+		List<SubFuenteFinanciamientoTempEntity> subFEntity = new ArrayList<>();
+		subFEntity = entityManager.createQuery("Select sf From SubFuenteFinanciamientoTempEntity as sf", SubFuenteFinanciamientoTempEntity.class).getResultList();
+		
+		List<SubfuenteFinanciamientoDTO> result = new ArrayList<>();
+	
+		for(SubFuenteFinanciamientoTempEntity sf : subFEntity){
+		SubfuenteFinanciamientoDTO dto = new SubfuenteFinanciamientoDTO();
+		dto.setDescripcion(sf.getDescripcion());
+		dto.setIdBase36(sf.getIdBase36());
+		dto.setIdSubfuenteFinanciamiento(sf.getIdSubfuenteFinanciamiento());
+		dto.setNombramiento(sf.getNombramiento());
+		dto.setEstatales(sf.getEstatales());
+		dto.setFederales(sf.getFederales());
+		
+		FuenteFinanciamientoEntity fEntity = entityManager.find(FuenteFinanciamientoEntity.class, sf.getIdFuenteFinanciamiento());
+		FuenteFinanciamientoDTO fuente = new FuenteFinanciamientoDTO();
+		fuente.setDescripcion(fEntity.getDescripcion());
+		fuente.setIdBase36(fEntity.getIdBase36());
+		fuente.setIdFuenteFinanciamiento(fEntity.getIdFuenteFinanciamiento());
+		
+		dto.setFuenteFinanciamiento(fuente);
+		
+		FuenteFinanciamientoOPDEntity fopd = entityManager.find(FuenteFinanciamientoOPDEntity.class, sf.getIdFuenteFinanciamientoOpd());
+		FuenteFinanciamientoOPDDTO fuenteOpd = new FuenteFinanciamientoOPDDTO();
+		fuenteOpd.setDescripcion(fopd.getDescripcion());
+		fuenteOpd.setIdFuenteFinanciamiento(fopd.getIdFuenteFinanciamiento().getIdFuenteFinanciamiento());
+		fuenteOpd.setIdFuenteFinanciamientoOPD(fopd.getIdFuenteFinanciamientoOPD());
+		
+		dto.setFuenteFinanciamientoOPD(fuenteOpd);
+		result.add(dto);
+		
+		}
 		return result;
 	}
 
@@ -255,38 +278,66 @@ public class FuenteFinanciamientoService {
 		dto.setFuenteFinanciamiento(null);
 		dto.setFuenteFinanciamientoOPD(null);
 		dto.setIdBase36(null);
+		dto.setNombramiento(null);
+		dto.setEstatales(null);
+		dto.setFederales(null);
 		return dto;
 	}
+
 
 	public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
 		SubFuenteFinanciamientoTempEntity entity = new SubFuenteFinanciamientoTempEntity();
 		entity.setIdBase36(dto.getIdBase36());
-		// entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+		entity.setIdFuenteFinanciamiento(dto.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
+		entity.setIdFuenteFinanciamientoOpd(dto.getFuenteFinanciamientoOPD().getIdFuenteFinanciamientoOPD());
+		entity.setNombramiento(dto.getNombramiento());
+		entity.setEstatales(dto.getEstatales());
+		entity.setFederales(dto.getFederales());
 		subfuenteFinanciamientoDAO.crear(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
 	}
 
 	public SubfuenteFinanciamientoDTO obtenerSubfuenteFinanciamientoPorId(Integer idSubfuenteFinanciamiento) {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session
-				.createSQLQuery("   SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-						+ " id_fuente_financiamiento AS idFuenteFinanciamiento, "
-						+ " id_fuente_financiamiento_opd AS idFuenteFinanciamientoOPD, " + " id_base_36 AS idBase36, "
-						+ " descripcion AS descripcion " + " FROM subfuentes_financiamientos_temp "
-						+ " WHERE id_subfuente_financiamiento = :idSubfuenteFinanciamiento")
-				.setParameter("idSubfuenteFinanciamiento", idSubfuenteFinanciamiento);
-		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
-		SubfuenteFinanciamientoDTO result = (SubfuenteFinanciamientoDTO) query.list().get(0);
-		return result;
+		SubFuenteFinanciamientoTempEntity sf =new SubFuenteFinanciamientoTempEntity();
+		sf = entityManager.createQuery("Select sf From SubFuenteFinanciamientoTempEntity as sf where sf.idSubfuenteFinanciamiento=:idSubfuente", SubFuenteFinanciamientoTempEntity.class).setParameter("idSubfuente", idSubfuenteFinanciamiento).getSingleResult();
+		
+		
+		
+		SubfuenteFinanciamientoDTO dto = new SubfuenteFinanciamientoDTO();
+		dto.setDescripcion(sf.getDescripcion());
+		dto.setIdBase36(sf.getIdBase36());
+		dto.setIdSubfuenteFinanciamiento(sf.getIdSubfuenteFinanciamiento());
+		
+		
+		FuenteFinanciamientoEntity fEntity = entityManager.find(FuenteFinanciamientoEntity.class, sf.getIdFuenteFinanciamiento());
+		FuenteFinanciamientoDTO fuente = new FuenteFinanciamientoDTO();
+		fuente.setDescripcion(fEntity.getDescripcion());
+		fuente.setIdBase36(fEntity.getIdBase36());
+		fuente.setIdFuenteFinanciamiento(fEntity.getIdFuenteFinanciamiento());
+		
+		dto.setFuenteFinanciamiento(fuente);
+		
+		
+		FuenteFinanciamientoOPDEntity fopd = entityManager.find(FuenteFinanciamientoOPDEntity.class, sf.getIdFuenteFinanciamientoOpd());
+		FuenteFinanciamientoOPDDTO fuenteOpd = new FuenteFinanciamientoOPDDTO();
+		fuenteOpd.setDescripcion(fopd.getDescripcion());
+		fuenteOpd.setIdFuenteFinanciamiento(fopd.getIdFuenteFinanciamiento().getIdFuenteFinanciamiento());
+		fuenteOpd.setIdFuenteFinanciamientoOPD(fopd.getIdFuenteFinanciamientoOPD());
+		
+		dto.setFuenteFinanciamientoOPD(fuenteOpd);
+		
+		
+		return dto;
 	}
 
 	public SubfuenteFinanciamientoDTO actualizarSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
 		SubFuenteFinanciamientoTempEntity entity = subfuenteFinanciamientoDAO
 				.obtenerPorId(dto.getIdSubfuenteFinanciamiento());
 		entity.setIdBase36(dto.getIdBase36());
-		// entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+		entity.setIdFuenteFinanciamiento(dto.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
+		entity.setIdFuenteFinanciamientoOpd(dto.getFuenteFinanciamientoOPD().getIdFuenteFinanciamientoOPD());
 		subfuenteFinanciamientoDAO.actualizar(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
 	}
