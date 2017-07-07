@@ -213,7 +213,7 @@ public class FuenteFinanciamientoService {
 				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                           "
 				+ " descripcion AS descripcion                                                          "
 				+ " FROM subfuentes_financiamientos_temp                                                "
-//				+ " WHERE                                                                               "
+				// + " WHERE "
 				+ "  ");
 		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
 		@SuppressWarnings("unchecked")
@@ -223,16 +223,26 @@ public class FuenteFinanciamientoService {
 
 	public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoNominaPorDepartamento(
 			Integer tipoDepartamento) {
+		String condicionDepartamento = null;
+		switch (tipoDepartamento) {
+		case 1:
+			condicionDepartamento = " nombramiento = true                                              ";
+			break;
+		case 2:
+			condicionDepartamento = " estatales = true                                                 ";
+			break;
+		case 3:
+			condicionDepartamento = " federales = true                                                 ";
+			break;
+		}
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session
-				.createSQLQuery(" SELECT                                                                "
-						+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                   "
-						+ " id_base_36 AS idBase36,                                                     "
-						+ " descripcion AS descripcion                                                  "
-						+ " FROM subfuentes_financiamientos_temp                                        "
-						+ " WHERE                                                                       "
-						+ " id_departamento = :tipoDepartamento                                         ")
-				.setParameter("tipoDepartamento", tipoDepartamento);
+		Query query = session.createSQLQuery(" SELECT                                                                "
+				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                   "
+				+ " id_base_36 AS idBase36,                                                     "
+				+ " descripcion AS descripcion                                                  "
+				+ " FROM subfuentes_financiamientos_temp                                        "
+				+ " WHERE                                                                       "
+				+ condicionDepartamento);
 		query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
 		@SuppressWarnings("unchecked")
 		List<SubfuenteFinanciamientoDTO> result = (List<SubfuenteFinanciamientoDTO>) query.list();
@@ -251,7 +261,7 @@ public class FuenteFinanciamientoService {
 	public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
 		SubFuenteFinanciamientoTempEntity entity = new SubFuenteFinanciamientoTempEntity();
 		entity.setIdBase36(dto.getIdBase36());
-	//	entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+		// entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.crear(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
@@ -275,7 +285,7 @@ public class FuenteFinanciamientoService {
 		SubFuenteFinanciamientoTempEntity entity = subfuenteFinanciamientoDAO
 				.obtenerPorId(dto.getIdSubfuenteFinanciamiento());
 		entity.setIdBase36(dto.getIdBase36());
-	//	entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
+		// entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
 		entity.setDescripcion(dto.getDescripcion());
 		subfuenteFinanciamientoDAO.actualizar(entity);
 		return obtenerSubfuenteFinanciamientoPorId(entity.getIdSubfuenteFinanciamiento());
