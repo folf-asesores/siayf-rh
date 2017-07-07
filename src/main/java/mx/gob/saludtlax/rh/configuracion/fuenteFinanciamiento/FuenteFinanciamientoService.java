@@ -226,17 +226,17 @@ public class FuenteFinanciamientoService {
 		String condicionDepartamento = null;
 		switch (tipoDepartamento) {
 		case 1:
-			condicionDepartamento = " nombramiento = true                                              ";
+			condicionDepartamento = " nombramiento = true                                       ";
 			break;
 		case 2:
-			condicionDepartamento = " estatales = true                                                 ";
+			condicionDepartamento = " estatales = true                                          ";
 			break;
 		case 3:
-			condicionDepartamento = " federales = true                                                 ";
+			condicionDepartamento = " federales = true                                          ";
 			break;
 		}
 		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery(" SELECT                                                                "
+		Query query = session.createSQLQuery(" SELECT                                           "
 				+ " id_subfuente_financiamiento AS idSubfuenteFinanciamiento,                   "
 				+ " id_base_36 AS idBase36,                                                     "
 				+ " descripcion AS descripcion                                                  "
