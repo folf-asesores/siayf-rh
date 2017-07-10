@@ -32,8 +32,8 @@ public final class PrenominaReporteTextoPlanoTools {
     private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$tb-%4$tY AL %5$td-%5$tb-%5$tY";
     private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
     private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117s   %26$2s   %3$ ,14.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18s   %26$2s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117s   %2$-26s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18s   %2$-26s   %3$ ,14.2f";
     private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f";
     private static final String PATRON_TOTALES_PERCEPCIONES = "%1$ 117d   %2$-25s   %3$ ,15.2f";
     private static final String PATRON_TOTALES_DEDUCCIONES = "%1$ 4d   %2$-25s   %3$ ,15.2f\n";
