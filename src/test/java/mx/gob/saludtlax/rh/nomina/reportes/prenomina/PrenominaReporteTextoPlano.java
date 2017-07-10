@@ -11,7 +11,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import org.jboss.logging.Logger;
@@ -38,15 +40,15 @@ public class PrenominaReporteTextoPlano {
 
             try(BufferedWriter out = Files.newBufferedWriter(pathReporteTemporal, ArchivoUtil.UTF8_CHARSET)) {
 
-                Map<Integer, BigDecimal> percepcionesProductoNomina = new HashMap<>();
-                Map<Integer, BigDecimal> deduccionesProductoNomina = new HashMap<>();
+                Map<String, BigDecimal> percepcionesProductoNomina = new HashMap<>();
+                Map<String, BigDecimal> deduccionesProductoNomina = new HashMap<>();
                 int empleadosProductoNomina = 1;
                 BigDecimal granTotal = BigDecimal.ZERO;
 
                 for(Programa programa : productoNomina) {
                     int empleadosPrograma = 1;
-                    Map<Integer, BigDecimal> percepcionesPrograma = new HashMap<>();
-                    Map<Integer, BigDecimal> deduccionesPrograma = new HashMap<>();
+                    Map<String, BigDecimal> percepcionesPrograma = new HashMap<>();
+                    Map<String, BigDecimal> deduccionesPrograma = new HashMap<>();
 
                     for (UnidadResponsable unidadResponsable : programa) {
                         lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
@@ -57,15 +59,31 @@ public class PrenominaReporteTextoPlano {
                         }
 
                         int ordinal = 1;
-                        Map<Integer, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
-                        Map<Integer, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
+                        Map<String, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
+                        Map<String, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
 
                         for (NominaEmpleado nominaEmpleado : unidadResponsable) {
                             lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
-                            String detalle = tools.getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), nominaEmpleado.getPercepciones(), nominaEmpleado.getDeducciones());
+                            List<Deduccion> ded;
+                            List<Percepcion> per;
 
-                            if (nominaEmpleado.getPercepciones() != null) for (Percepcion percepcion : nominaEmpleado.getPercepciones()) {
-                                Integer clave = percepcion.getClave();
+                            if (nominaEmpleado.getDeducciones() != null) {
+                                ded = new ArrayList<>();
+                                ded.addAll(nominaEmpleado.getDeducciones().values());
+                            } else {
+                                ded = null;
+                            }
+
+                            if (nominaEmpleado.getPercepciones() != null) {
+                                per = new ArrayList<>();
+                                per.addAll(nominaEmpleado.getPercepciones().values());
+                            } else {
+                                per = null;
+                            }
+                            String detalle = tools.getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), per, ded);
+
+                            if (nominaEmpleado.getPercepciones() != null) for (Percepcion percepcion : nominaEmpleado.getPercepciones().values()) {
+                                String clave = percepcion.getClave();
                                 BigDecimal monto = percepcion.getMonto();
 
                                 if (percepcionesUnidadResponsable.containsKey(clave)) {
@@ -77,8 +95,8 @@ public class PrenominaReporteTextoPlano {
                                 }
                             }
 
-                            if (nominaEmpleado.getDeducciones() != null) for (Deduccion deduccion : nominaEmpleado.getDeducciones()) {
-                                Integer clave = deduccion.getClave();
+                            if (nominaEmpleado.getDeducciones() != null) for (Deduccion deduccion : nominaEmpleado.getDeducciones().values()) {
+                                String clave = deduccion.getClave();
                                 BigDecimal monto = deduccion.getMonto();
 
                                 if (deduccionesUnidadResponsable.containsKey(clave)) {

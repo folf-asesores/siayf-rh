@@ -13,24 +13,24 @@ import java.math.BigDecimal;
  */
 public class Deduccion {
 
-    private int clave;
+    private String clave;
     private String nombre;
     private BigDecimal monto;
 
     public Deduccion() {
     }
 
-    public Deduccion(int clave, String nombre, BigDecimal monto) {
+    public Deduccion(String clave, String nombre, BigDecimal monto) {
         this.clave = clave;
         this.nombre = nombre;
         this.monto = monto;
     }
 
-    public int getClave() {
+    public String getClave() {
         return clave;
     }
 
-    public void setClave(int clave) {
+    public void setClave(String clave) {
         this.clave = clave;
     }
 

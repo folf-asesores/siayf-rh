@@ -88,4 +88,10 @@ public final class ProductoNomina implements Iterable<Programa> {
     public Iterator<Programa> iterator() {
         return programas.values().iterator();
     }
+
+    @Override
+    public String toString() {
+        return "ProductoNomina{" + "idProductoNomina=" + idProductoNomina + ", quincena=" + getQuincena() + ", fechaPago=" + fechaPago + ", programas=" + programas + ", nombreElaboro=" + nombreElaboro + ", cargoElaboro=" + cargoElaboro + ", nombreReviso=" + nombreReviso + ", cargoReviso=" + cargoReviso + ", nombreAutorizo=" + nombreAutorizo + ", cargoAutorizo=" + cargoAutorizo + '}';
+    }
+
 }

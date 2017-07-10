@@ -14,7 +14,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import mx.gob.saludtlax.rh.util.NumeroALetra;
-import mx.gob.saludtlax.rh.util.NumeroUtil;
 
 /**
  *
@@ -29,12 +28,12 @@ public final class PrenominaReporteTextoPlanoTools {
     private static final String ENCABEZADO_TITULOS_DE_LAS_COLUMNAS = "                                                                                                                                                                                                                            NETO\n No.     R.F.C.               N   O   M   B   R   E                           PERIODO DE PAGO                      CL   DESCRIPCIÓN                   PERCEPCIÓN     CL   DESCRIPCIÓN                   DEDUCCIÓN         A PAGAR\n";
     private static final String PATRON_ENCABEZADO_DEL_PROGRAMA = "NÓMINA DE %1$s CORRESPONDIENTE A LA %2$s QUINCENA DE %3$tB DE %3$tY\n";
     private static final String PATRON_ENCABEZADO_NUMERO_DE_PAGINA = "PÁGINA: %1$ ,7d\n";
-    private static final String PATRON_UNIDAD_RESPONSABLE = "\n     %1s ( %2d )\n";
+    private static final String PATRON_UNIDAD_RESPONSABLE = "\n     %1s ( %2s )\n";
     private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$tb-%4$tY AL %5$td-%5$tb-%5$tY";
-    private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$ 7d   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$ 7d   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$ 117d   %2$-26s   %3$ ,14.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$ 18d   %2$-26s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
+    private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117s   %26$2s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18s   %26$2s   %3$ ,14.2f";
     private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f";
     private static final String PATRON_TOTALES_PERCEPCIONES = "%1$ 117d   %2$-25s   %3$ ,15.2f";
     private static final String PATRON_TOTALES_DEDUCCIONES = "%1$ 4d   %2$-25s   %3$ ,15.2f\n";
@@ -50,7 +49,7 @@ public final class PrenominaReporteTextoPlanoTools {
     private int numeroLineasDetalle = 0;
     private int numeroLineasUnidadResponsable = 0;
 
-    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable, int numeroUnidadResponsable) {
+    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable, String numeroUnidadResponsable) {
         String encabezado;
 
         try (Formatter formatter = new Formatter()) {
@@ -192,7 +191,7 @@ public final class PrenominaReporteTextoPlanoTools {
         return detalle;
     }
 
-    protected String getTotales(short tipoNomina, Map<Integer, BigDecimal> percepciones, Map<Integer, BigDecimal> deducciones, int totalEmpleados) {
+    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados) {
         // Percepciones
         BigDecimal honorariosAsimilares = BigDecimal.ZERO;
         BigDecimal honorarios = BigDecimal.ZERO;
@@ -208,45 +207,45 @@ public final class PrenominaReporteTextoPlanoTools {
         BigDecimal otros = BigDecimal.ZERO;
         BigDecimal totalPercepciones = BigDecimal.ZERO;
 
-        for (Map.Entry<Integer, BigDecimal> percepcion : percepciones.entrySet()) {
-            Integer clave = percepcion.getKey();
+        for (Map.Entry<String, BigDecimal> percepcion : percepciones.entrySet()) {
+            String clave = percepcion.getKey();
             BigDecimal monto = percepcion.getValue();
 
             switch(clave) {
-                case 1 :
+                case "01" :
                     honorariosAsimilares = monto;
                     break;
-                case 2 :
+                case "02" :
                     honorarios = monto;
                     break;
-                case 5 :
+                case "05" :
                     suplencias = monto;
                     break;
-                case 8 :
+                case "08" :
                     diasEconomicos = monto;
                     break;
-                case 14 :
+                case "14" :
                     percepcionComplementaria = monto;
                     break;
-                case 17 :
+                case "17" :
                     valesFinAnyo = monto;
                     break;
-                case 24 :
+                case "24" :
                     aguinaldo = monto;
                     break;
-                case 26 :
+                case "26" :
                     subsiodio = monto;
                     break;
-                case 27 :
+                case "27" :
                     primaVacacional = monto;
                     break;
-                case 29 :
+                case "29" :
                     bonoFaltas = monto;
                     break;
-                case 30 :
+                case "30" :
                     retroactivo = monto;
                     break;
-                case 32 :
+                case "32" :
                     otros = monto;
                     break;
             }
@@ -264,27 +263,27 @@ public final class PrenominaReporteTextoPlanoTools {
         BigDecimal pensionAlimenticia = BigDecimal.ZERO;
         BigDecimal totalDeducciones = BigDecimal.ZERO;
 
-        for (Map.Entry<Integer, BigDecimal> deduccion : deducciones.entrySet()) {
-            Integer clave = deduccion.getKey();
+        for (Map.Entry<String, BigDecimal> deduccion : deducciones.entrySet()) {
+            String clave = deduccion.getKey();
             BigDecimal monto = deduccion.getValue();
 
             switch(clave) {
-                case 51 :
+                case "51" :
                     faltasRetardos = monto;
                     break;
-                case 52 :
+                case "52" :
                     isr = monto;
                     break;
-                case 53 :
+                case "53" :
                     responsabilidades = monto;
                     break;
-                case 55 :
+                case "55" :
                     prestamos = monto;
                     break;
-                case 56 :
+                case "56" :
                     embargoSalario = monto;
                     break;
-                case 62 :
+                case "62" :
                     pensionAlimenticia = monto;
                     break;
             }

@@ -6,43 +6,107 @@
 
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
+import mx.gob.saludtlax.rh.util.Configuracion;
+import mx.gob.saludtlax.rh.util.NumeroALetra;
+import mx.gob.saludtlax.rh.util.ValidacionUtil;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  *
  * @author Freddy Barrera (freddy.barrera@gmail.com)
  */
+@RunWith(Arquillian.class)
 public class PrenominaReporteTextoPlanoTest {
 
+    @Inject
+    private PrenominaReporteEJB prenominaReporteEJB;
+
+    @Deployment
+    public static WebArchive crearWar() {
+        WebArchive war = ShrinkWrap.create(WebArchive.class);
+        war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
+        war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
+
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
+        jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
+        jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
+        jar.addClass(PrenominaDTO.class);
+        jar.addClass(PrenominaReporteTextoPlano.class);
+        jar.addClass(PrenominaReporteTextoPlanoTools.class);
+        jar.addClass(PrenominaReporteEJB.class);
+        jar.addClass(Deduccion.class);
+        jar.addClass(Percepcion.class);
+        jar.addClass(NominaEmpleado.class);
+        jar.addClass(ProductoNomina.class);
+        jar.addClass(ProductoNominaBuilder.class);
+        jar.addClass(Programa.class);
+        jar.addClass(UnidadResponsable.class);
+        jar.addClass(Configuracion.class);
+        jar.addClass(ArchivoUtil.class);
+        jar.addClass(NumeroALetra.class);
+        jar.addClass(ValidacionUtil.class);
+        war.addAsLibraries(jar);
+
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
+                .importRuntimeDependencies()
+                .resolve()
+                .withTransitivity().asFile();
+        war.addAsLibraries(files);
+
+        return war;
+    }
+
+    @Test
+    public void generarReporteEjb() throws IOException {
+        ProductoNomina productoNomina = prenominaReporteEJB.obtenerProductoNomina(30);
+
+        PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
+        byte[] reporte = reporteTextoPlano.generar(productoNomina);
+        ArchivoUtil.guardarEnCarpetaUsuario(reporte, "prenomina.txt");
+        Assert.assertNotNull(productoNomina);
+    }
+
+    @Ignore
     @Test
     public void generarReporte() throws IOException {
         // Percepciones y deducciones
-        List<Percepcion> percepciones1 = new ArrayList<>();
-        percepciones1.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
-        List<Percepcion> percepciones2 = new ArrayList<>();
-        percepciones2.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
-        percepciones2.add(new Percepcion(26, "SUBSIDIO", new BigDecimal("55.5")));
-        List<Percepcion> percepciones3 = new ArrayList<>();
-        percepciones3.add(new Percepcion(5, "SUPLENCIAS", new BigDecimal("2180")));
-        percepciones3.add(new Percepcion(26, "SUBSIDIO", new BigDecimal("55.5")));
-        percepciones3.add(new Percepcion(32, "OTROS", new BigDecimal("3300.00")));
-        List<Deduccion> deducciones1 = new ArrayList<>();
-        deducciones1.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
-        List<Deduccion> deducciones2 = new ArrayList<>();
-        deducciones2.add(new Deduccion(51, "FALTAS Y RETARDOS", new BigDecimal("34.415")));
-        deducciones2.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
-        List<Deduccion> deducciones3 = new ArrayList<>();
-        deducciones3.add(new Deduccion(51, "FALTAS Y RETARDOS", new BigDecimal("34.415")));
-        deducciones3.add(new Deduccion(52, "I.S.R.", new BigDecimal("342.5")));
-        deducciones3.add(new Deduccion(62, "PENSION ALIMENTICIA", new BigDecimal("3516")));
+        Map<String, Percepcion> percepciones1 = new HashMap<>();
+        percepciones1.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
+        Map<String, Percepcion> percepciones2 = new HashMap<>();
+        percepciones2.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones2.put("26", new Percepcion("26", "SUBSIDIO", new BigDecimal("55.5")));
+        Map<String, Percepcion> percepciones3 = new HashMap<>();
+        percepciones3.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones3.put("26", new Percepcion("26", "SUBSIDIO", new BigDecimal("55.5")));
+        percepciones3.put("32", new Percepcion("32", "OTROS", new BigDecimal("3300.00")));
+        Map<String, Deduccion> deducciones1 = new HashMap<>();
+        deducciones1.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
+        Map<String, Deduccion> deducciones2 = new HashMap<>();
+        deducciones2.put("51", new Deduccion("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones2.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
+        Map<String, Deduccion> deducciones3 = new HashMap<>();
+        deducciones3.put("51", new Deduccion("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones3.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
+        deducciones3.put("62", new Deduccion("62", "PENSION ALIMENTICIA", new BigDecimal("3516")));
 
         // Nomina empleados
         NominaEmpleado nominaCaporal = new NominaEmpleado();
@@ -116,12 +180,12 @@ public class PrenominaReporteTextoPlanoTest {
 
         // Unidades responsables
         UnidadResponsable unidadResponsable = new UnidadResponsable();
-        unidadResponsable.setNumeroUnidadResponsable(1300);
+        unidadResponsable.setNumeroUnidadResponsable("1300");
         unidadResponsable.setUnidadResponsable("SUBDIRECCIÓN DE PRIMER NIVEL");
         unidadResponsable.setNominasEmpleados(nominasEmpleados);
 
-        Map<Integer, UnidadResponsable> unidadesResponsables = new HashMap<>();
-        unidadesResponsables.put(1300, unidadResponsable);
+        Map<String, UnidadResponsable> unidadesResponsables = new HashMap<>();
+        unidadesResponsables.put("1300", unidadResponsable);
 
         // Programas
         Programa programa = new Programa();

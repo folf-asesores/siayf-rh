@@ -6,7 +6,6 @@
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,7 +16,7 @@ public class UnidadResponsable implements Iterable<NominaEmpleado> {
 
     private Map<String, NominaEmpleado> nominasEmpleados;
     private String unidadResponsable;
-    private Integer numeroUnidadResponsable;
+    private String numeroUnidadResponsable;
 
     public Map<String, NominaEmpleado> getNominasEmpleados() {
         return nominasEmpleados;
@@ -35,11 +34,11 @@ public class UnidadResponsable implements Iterable<NominaEmpleado> {
         this.unidadResponsable = unidadResponsable;
     }
 
-    public Integer getNumeroUnidadResponsable() {
+    public String getNumeroUnidadResponsable() {
         return numeroUnidadResponsable;
     }
 
-    public void setNumeroUnidadResponsable(Integer numeroUnidadResponsable) {
+    public void setNumeroUnidadResponsable(String numeroUnidadResponsable) {
         this.numeroUnidadResponsable = numeroUnidadResponsable;
     }
 

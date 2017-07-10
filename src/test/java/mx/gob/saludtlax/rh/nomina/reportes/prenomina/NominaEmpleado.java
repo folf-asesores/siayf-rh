@@ -5,7 +5,7 @@
  */
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
-import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -15,22 +15,22 @@ public class NominaEmpleado {
 
     private String rfc;
     private String nombre;
-    private List<Percepcion> percepciones;
-    private List<Deduccion> deducciones;
+    private Map<String, Percepcion> percepciones;
+    private Map<String, Deduccion> deducciones;
 
-    public List<Percepcion> getPercepciones() {
+    public Map<String, Percepcion> getPercepciones() {
         return percepciones;
     }
 
-    public void setPercepciones(List<Percepcion> percepciones) {
+    public void setPercepciones(Map<String, Percepcion> percepciones) {
         this.percepciones = percepciones;
     }
 
-    public List<Deduccion> getDeducciones() {
+    public Map<String, Deduccion> getDeducciones() {
         return deducciones;
     }
 
-    public void setDeducciones(List<Deduccion> deducciones) {
+    public void setDeducciones(Map<String, Deduccion> deducciones) {
         this.deducciones = deducciones;
     }
 

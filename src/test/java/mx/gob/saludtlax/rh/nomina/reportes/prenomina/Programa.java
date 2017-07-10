@@ -20,7 +20,7 @@ public class Programa implements Iterable<UnidadResponsable> {
     private String programa;
     private Date inicioPeriodo;
     private Date finPeriodo;
-    private Map<Integer, UnidadResponsable> unidadesResponsables;
+    private Map<String, UnidadResponsable> unidadesResponsables;
 
     public Integer getIdPrograma() {
         return idPrograma;
@@ -54,11 +54,11 @@ public class Programa implements Iterable<UnidadResponsable> {
         this.finPeriodo = finPeriodo;
     }
 
-    public Map<Integer, UnidadResponsable> getUnidadesResponsables() {
+    public Map<String, UnidadResponsable> getUnidadesResponsables() {
         return unidadesResponsables;
     }
 
-    public void setUnidadesResponsables(Map<Integer, UnidadResponsable> unidadesResponsables) {
+    public void setUnidadesResponsables(Map<String, UnidadResponsable> unidadesResponsables) {
         this.unidadesResponsables = unidadesResponsables;
     }
 
@@ -67,4 +67,8 @@ public class Programa implements Iterable<UnidadResponsable> {
         return unidadesResponsables.values().iterator();
     }
 
+    @Override
+    public String toString() {
+        return "Programa{" + "idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", unidadesResponsables=" + unidadesResponsables + '}';
+    }
 }

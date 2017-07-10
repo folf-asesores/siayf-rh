@@ -348,6 +348,7 @@
                 <version>2.19.1</version>
                 <configuration>
                     <skip>${surefire.skip}</skip>
+                    <trimStackTrace>false</trimStackTrace>
                 </configuration>
             </plugin>
         </plugins>
