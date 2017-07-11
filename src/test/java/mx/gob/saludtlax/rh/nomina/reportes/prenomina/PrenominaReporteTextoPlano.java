@@ -33,127 +33,136 @@ public class PrenominaReporteTextoPlano {
 
         try {
             Path pathReporteTemporal = Files.createTempFile("prenomina", ".txt");
-            Integer lineasTotales = 1;
+            Integer lineasTotales = 0;
             Integer lineasHojaActual;
-            Integer numeroHoja = 1;
-            Integer lineasRequeridasFinHoja;
+            Integer numeroHoja = 0;
 
             try(BufferedWriter out = Files.newBufferedWriter(pathReporteTemporal, ArchivoUtil.UTF8_CHARSET)) {
-
-                Map<String, BigDecimal> percepcionesProductoNomina = new HashMap<>();
-                Map<String, BigDecimal> deduccionesProductoNomina = new HashMap<>();
-                int empleadosProductoNomina = 1;
+                Map<String, BigDecimal> percepcionesGeneral = new HashMap<>();
+                Map<String, BigDecimal> deduccionesGeneral = new HashMap<>();
+                int totalEmpleadosGeneral = 0;
                 BigDecimal granTotal = BigDecimal.ZERO;
 
                 for(Programa programa : productoNomina) {
-                    int empleadosPrograma = 1;
                     Map<String, BigDecimal> percepcionesPrograma = new HashMap<>();
                     Map<String, BigDecimal> deduccionesPrograma = new HashMap<>();
 
+                    int ordinal = 1;
                     for (UnidadResponsable unidadResponsable : programa) {
-                        lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
 
-                        if (lineasHojaActual == 1) {
-                            out.write(tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable()));
-                            lineasTotales += tools.getNumeroLineasEncabezado();
-                        }
-
-                        int ordinal = 1;
+                        // Crea el encabezado por unidad responsable
+                        numeroHoja += 1;
+                        String encabezadoUnidadResponsable = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
+                        out.write(encabezadoUnidadResponsable);
+                        lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezadoUnidadResponsable);
+                        LOGGER.debugv("lineas totales (encabezado unidad responsable): {0}", lineasTotales);
                         Map<String, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
                         Map<String, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
 
                         for (NominaEmpleado nominaEmpleado : unidadResponsable) {
-                            lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
-                            List<Deduccion> ded;
-                            List<Percepcion> per;
+                            List<Deduccion> deducciones;
+                            List<Percepcion> percepciones;
 
                             if (nominaEmpleado.getDeducciones() != null) {
-                                ded = new ArrayList<>();
-                                ded.addAll(nominaEmpleado.getDeducciones().values());
+                                deducciones = new ArrayList<>();
+                                deducciones.addAll(nominaEmpleado.getDeducciones().values());
                             } else {
-                                ded = null;
+                                deducciones = null;
                             }
 
                             if (nominaEmpleado.getPercepciones() != null) {
-                                per = new ArrayList<>();
-                                per.addAll(nominaEmpleado.getPercepciones().values());
+                                percepciones = new ArrayList<>();
+                                percepciones.addAll(nominaEmpleado.getPercepciones().values());
                             } else {
-                                per = null;
-                            }
-                            String detalle = tools.getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), per, ded);
-
-                            if (nominaEmpleado.getPercepciones() != null) for (Percepcion percepcion : nominaEmpleado.getPercepciones().values()) {
-                                String clave = percepcion.getClave();
-                                BigDecimal monto = percepcion.getMonto();
-
-                                if (percepcionesUnidadResponsable.containsKey(clave)) {
-                                    BigDecimal total = percepcionesUnidadResponsable.get(clave);
-                                    total = total.add(monto);
-                                    percepcionesUnidadResponsable.put(clave, total);
-                                } else {
-                                    percepcionesUnidadResponsable.put(clave, monto);
-                                }
+                                percepciones = null;
                             }
 
-                            if (nominaEmpleado.getDeducciones() != null) for (Deduccion deduccion : nominaEmpleado.getDeducciones().values()) {
-                                String clave = deduccion.getClave();
-                                BigDecimal monto = deduccion.getMonto();
+                            lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
 
-                                if (deduccionesUnidadResponsable.containsKey(clave)) {
-                                    BigDecimal total = deduccionesUnidadResponsable.get(clave);
-                                    total = total.add(monto);
-                                    deduccionesUnidadResponsable.put(clave, total);
-                                } else {
-                                    deduccionesUnidadResponsable.put(clave, monto);
-                                }
-                            }
+                            String detalle = tools.getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), percepciones, deducciones);
+                            int lineasRequeridas = PrenominaReporteTextoPlanoTools.contadorDeLineas(detalle);
 
-                            lineasRequeridasFinHoja = lineasHojaActual + tools.getNumeroLineasDetalle();
-
-                            if (lineasRequeridasFinHoja >= LINEAS_POR_HOJA) {
+                            if ((lineasRequeridas + lineasHojaActual) >= LINEAS_POR_HOJA) {
+                                numeroHoja += 1;
                                 int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
                                 out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
                                 lineasTotales += lineasRestantes;
-                                numeroHoja++;
+                                LOGGER.debugv("lineas totales (encabezado en detalle): {0}", lineasTotales);
 
-                                // Escribe de nuevo el encabezado
-                                out.write(tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable()));
-                                lineasTotales += tools.getNumeroLineasEncabezado();
+                                String encabezado = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
+                                int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezado);
+                                out.write(encabezado);
+                                lineasTotales += lineasEncabezado;
+                                LOGGER.debugv("lineas totales (encabezado en detalle): {0}", lineasTotales);
                             }
 
                             out.write(detalle);
-                            lineasTotales += tools.getNumeroLineasDetalle();
-
-                            numeroHoja = lineasTotales / LINEAS_POR_HOJA;
+                            lineasTotales += lineasRequeridas;
+                            LOGGER.debugv("lineas totales (detalle): {0}", lineasTotales);
                             ordinal++;
-                            empleadosPrograma++;
                         }
 
-                        // Agrega los totales por unidad responsable
-                        numeroHoja = lineasTotales / LINEAS_POR_HOJA;
-                        lineasTotales += tools.getNumeroLineasUnidadResponsable();
-                        String totales = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_UNIDAD, percepcionesUnidadResponsable, deduccionesUnidadResponsable, ordinal - 1);
-                        lineasRequeridasFinHoja = lineasHojaActual + tools.getNumeroLineasUnidadResponsable();
+                        // Crea los totales por unidad responsable
+                        lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
+                        String totalesUnidadResponsable = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_UNIDAD, percepcionesUnidadResponsable, deduccionesUnidadResponsable, ordinal - 1);
+                        int lineasRequeridas = lineasHojaActual + PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesUnidadResponsable);
 
-                        if (lineasRequeridasFinHoja <= LINEAS_POR_HOJA) {
+                        if ((lineasRequeridas + lineasHojaActual) >= LINEAS_POR_HOJA) {
+                            numeroHoja += 1;
+                            int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
+                            out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
+                            lineasTotales += lineasRestantes;
+                            LOGGER.debugv("lineas totales (encabezado en total unidad responsable): {0}", lineasTotales);
 
+                            String encabezado = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
+                            int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezado);
+                            out.write(encabezado);
+                            lineasTotales += lineasEncabezado;
+                            LOGGER.debugv("lineas totales (encabezado en total unidad responsable): {0}", lineasTotales);
                         }
-                        out.write(totales);
+
+                        out.write(totalesUnidadResponsable);
+                        lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesUnidadResponsable);
+                        LOGGER.debugv("Lineas totales (total unidad responsable): {0}", lineasTotales);
+                        lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
+//                        LOGGER.debugv("Linea actual: {0}", lineasHojaActual);
+                        int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
+//                        LOGGER.debugv("Lineas restantes: {0}", lineasRestantes);
+                        out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
+                        lineasTotales += lineasRestantes;
                     }
 
-                    // Agrega los totales por programa
-                    String totales = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_PROGRAMA, percepcionesPrograma, deduccionesPrograma, empleadosPrograma - 1);
-                    out.write(totales);
+                    // Nueva página con un resumen del programa
+                    numeroHoja += 1;
+                    String encabezadoPrograma = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago());
+                    int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezadoPrograma);
+                    out.write(encabezadoPrograma);
+                    lineasTotales += lineasEncabezado;
+
+                    String totalesPrograma = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_PROGRAMA, percepcionesPrograma, deduccionesPrograma, ordinal - 1);
+                    out.write(totalesPrograma);
+                    lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesPrograma);
+
+                    lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
+                    int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
+                    out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
+                    lineasTotales += lineasRestantes;
                 }
 
-                // Agrega los totales por programa
-                String totales = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_GENERAL, percepcionesProductoNomina, deduccionesProductoNomina, empleadosProductoNomina - 1);
-                out.write(totales);
-                out.write('\n');
+                // Nueva página con un resumen del programa
+                numeroHoja += 1;
+                String encabezadoPrograma = tools.getEncabezado(numeroHoja, "-", productoNomina.getQuincena(), productoNomina.getFechaPago());
+                int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezadoPrograma);
+                out.write(encabezadoPrograma);
+                lineasTotales += lineasEncabezado;
+
+
+                String totalesPrograma = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_GENERAL, percepcionesGeneral, deduccionesGeneral, totalEmpleadosGeneral);
+                out.write(totalesPrograma);
+                lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesPrograma);
 
                 String firmas = tools.getFirmas(granTotal, productoNomina.getNombreElaboro(), productoNomina.getCargoElaboro(), productoNomina.getNombreReviso(), productoNomina.getCargoReviso(), productoNomina.getNombreAutorizo(), productoNomina.getCargoAutorizo());
                 out.write(firmas);
-                out.write('\n');
             }
 
             bytes = Files.readAllBytes(pathReporteTemporal);

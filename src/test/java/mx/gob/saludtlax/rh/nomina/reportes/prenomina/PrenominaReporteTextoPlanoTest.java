@@ -75,6 +75,7 @@ public class PrenominaReporteTextoPlanoTest {
         return war;
     }
 
+//    @Ignore
     @Test
     public void generarReporteEjb() throws IOException {
         ProductoNomina productoNomina = prenominaReporteEJB.obtenerProductoNomina(30);

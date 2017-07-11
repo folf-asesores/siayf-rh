@@ -45,9 +45,9 @@ public final class PrenominaReporteTextoPlanoTools {
     protected static final short TOTAL_NOMINA_POR_PROGRAMA = 2;
     protected static final short TOTAL_NOMINA_GENERAL = 3;
 
-    private int numeroLineasEncabezado = 0;
-    private int numeroLineasDetalle = 0;
-    private int numeroLineasUnidadResponsable = 0;
+    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago) {
+        return getEncabezado(numeroPagina, programa, quincena, fechaPago, null, null);
+    }
 
     protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable, String numeroUnidadResponsable) {
         String encabezado;
@@ -69,23 +69,16 @@ public final class PrenominaReporteTextoPlanoTools {
             formatter.format(getLineaDivision());
             formatter.format(ENCABEZADO_TITULOS_DE_LAS_COLUMNAS);
             formatter.format(getLineaDivision());
-            formatter.format("\n");
-            formatter.format(PATRON_UNIDAD_RESPONSABLE, unidadResponsable, numeroUnidadResponsable);
+
+            if (unidadResponsable != null && numeroUnidadResponsable != null) {
+                formatter.format("\n");
+                formatter.format(PATRON_UNIDAD_RESPONSABLE, unidadResponsable, numeroUnidadResponsable);
+            }
+
             formatter.format("\n");
             formatter.format("\n");
 
             encabezado = formatter.toString().toUpperCase();
-        }
-
-        Pattern pattern = Pattern.compile("\n");
-        Matcher  matcher = pattern.matcher(encabezado);
-
-        if (numeroLineasEncabezado != 0) {
-            numeroLineasEncabezado = 0;
-        }
-
-        while (matcher.find()) {
-            numeroLineasEncabezado++;
         }
 
         return encabezado;
@@ -175,17 +168,6 @@ public final class PrenominaReporteTextoPlanoTools {
 
             formatter.format("\n");
             detalle = formatter.toString().toUpperCase();
-        }
-
-        Pattern pattern = Pattern.compile("\n");
-        Matcher matcher = pattern.matcher(detalle);
-
-        if (numeroLineasDetalle != 0) {
-            numeroLineasDetalle = 0;
-        }
-
-        while (matcher.find()) {
-            numeroLineasDetalle++;
         }
 
         return detalle;
@@ -355,17 +337,6 @@ public final class PrenominaReporteTextoPlanoTools {
             totales = totalesFormatter.toString();
         }
 
-        Pattern pattern = Pattern.compile("\n");
-        Matcher matcher = pattern.matcher(totales);
-
-        if (numeroLineasUnidadResponsable != 0) {
-            numeroLineasUnidadResponsable = 0;
-        }
-
-        while (matcher.find()) {
-            numeroLineasUnidadResponsable++;
-        }
-
         return totales;
     }
 
@@ -406,31 +377,21 @@ public final class PrenominaReporteTextoPlanoTools {
             firmas = firmasFormatter.toString();
         }
 
-        Pattern pattern = Pattern.compile("\n");
-        Matcher matcher = pattern.matcher(firmas);
-
-        if (numeroLineasUnidadResponsable != 0) {
-            numeroLineasUnidadResponsable = 0;
-        }
-
-        while (matcher.find()) {
-            numeroLineasUnidadResponsable++;
-        }
-
         return firmas;
     }
 
-    protected int getNumeroLineasEncabezado() {
-        return numeroLineasEncabezado;
+    protected static int contadorDeLineas(String texto) {
+        Pattern pattern = Pattern.compile("\n");
+        Matcher matcher = pattern.matcher(texto);
+        int numeroLineas = 0;
+
+        while (matcher.find()) {
+            numeroLineas++;
+        }
+
+        return numeroLineas;
     }
 
-    protected int getNumeroLineasDetalle() {
-        return numeroLineasDetalle;
-    }
-
-    protected int getNumeroLineasUnidadResponsable() {
-        return numeroLineasUnidadResponsable;
-    }
 
     protected static String agregarEspacios(int numeroEspacios) {
         StringBuilder sb = new StringBuilder();
