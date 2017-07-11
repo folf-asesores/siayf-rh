@@ -41,14 +41,14 @@ public class PrenominaReporteTextoPlano {
                 Map<String, BigDecimal> percepcionesGeneral = new HashMap<>();
                 Map<String, BigDecimal> deduccionesGeneral = new HashMap<>();
                 int totalEmpleadosGeneral = 0;
-                BigDecimal granTotal = BigDecimal.ZERO;
 
                 for(Programa programa : productoNomina) {
                     Map<String, BigDecimal> percepcionesPrograma = new HashMap<>();
                     Map<String, BigDecimal> deduccionesPrograma = new HashMap<>();
 
-                    int ordinal = 1;
+                    int totalEmpleadosPrograma = 0;
                     for (UnidadResponsable unidadResponsable : programa) {
+                        int totalEmpleadosUnidadResponsable = 1;
 
                         // Crea el encabezado por unidad responsable
                         numeroHoja += 1;
@@ -63,23 +63,81 @@ public class PrenominaReporteTextoPlano {
                             List<Deduccion> deducciones;
                             List<Percepcion> percepciones;
 
-                            if (nominaEmpleado.getDeducciones() != null) {
-                                deducciones = new ArrayList<>();
-                                deducciones.addAll(nominaEmpleado.getDeducciones().values());
-                            } else {
-                                deducciones = null;
-                            }
-
                             if (nominaEmpleado.getPercepciones() != null) {
                                 percepciones = new ArrayList<>();
                                 percepciones.addAll(nominaEmpleado.getPercepciones().values());
+
+                                for (Percepcion percepcion : percepciones) {
+                                    String clave = percepcion.getClave();
+                                    BigDecimal monto = percepcion.getMonto();
+
+                                    if (percepcionesUnidadResponsable.containsKey(clave)) {
+                                        BigDecimal total = percepcionesUnidadResponsable.get(clave);
+                                        total = total.add(monto);
+                                        percepcionesUnidadResponsable.put(clave, total);
+                                    } else {
+                                        percepcionesUnidadResponsable.put(clave, monto);
+                                    }
+
+                                    if (percepcionesPrograma.containsKey(clave)) {
+                                        BigDecimal total = percepcionesPrograma.get(clave);
+                                        total = total.add(monto);
+                                        percepcionesPrograma.put(clave, total);
+                                    } else {
+                                        percepcionesPrograma.put(clave, monto);
+                                    }
+
+                                    if (percepcionesGeneral.containsKey(clave)) {
+                                        BigDecimal total = percepcionesGeneral.get(clave);
+                                        total = total.add(monto);
+                                        percepcionesGeneral.put(clave, total);
+                                    } else {
+                                        percepcionesGeneral.put(clave, monto);
+                                    }
+                                }
                             } else {
                                 percepciones = null;
                             }
 
+                            if (nominaEmpleado.getDeducciones() != null) {
+                                deducciones = new ArrayList<>();
+                                deducciones.addAll(nominaEmpleado.getDeducciones().values());
+
+                                for (Deduccion deduccion : deducciones) {
+                                    String clave = deduccion.getClave();
+                                    BigDecimal monto = deduccion.getMonto();
+
+                                    if (deduccionesUnidadResponsable.containsKey(clave)) {
+                                        BigDecimal total = deduccionesUnidadResponsable.get(clave);
+                                        total = total.add(monto);
+                                        deduccionesUnidadResponsable.put(clave, total);
+                                    } else {
+                                        deduccionesUnidadResponsable.put(clave, monto);
+                                    }
+
+                                    if (deduccionesPrograma.containsKey(clave)) {
+                                        BigDecimal total = deduccionesPrograma.get(clave);
+                                        total = total.add(monto);
+                                        deduccionesPrograma.put(clave, total);
+                                    } else {
+                                        deduccionesPrograma.put(clave, monto);
+                                    }
+
+                                    if (deduccionesGeneral.containsKey(clave)) {
+                                        BigDecimal total = deduccionesGeneral.get(clave);
+                                        total = total.add(monto);
+                                        deduccionesGeneral.put(clave, total);
+                                    } else {
+                                        deduccionesGeneral.put(clave, monto);
+                                    }
+                                }
+                            } else {
+                                deducciones = null;
+                            }
+
                             lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
 
-                            String detalle = tools.getDetalle(ordinal, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), percepciones, deducciones);
+                            String detalle = tools.getDetalle(totalEmpleadosUnidadResponsable, nominaEmpleado.getRfc(), nominaEmpleado.getNombre(), programa.getInicioPeriodo(), programa.getFinPeriodo(), percepciones, deducciones);
                             int lineasRequeridas = PrenominaReporteTextoPlanoTools.contadorDeLineas(detalle);
 
                             if ((lineasRequeridas + lineasHojaActual) >= LINEAS_POR_HOJA) {
@@ -99,12 +157,14 @@ public class PrenominaReporteTextoPlano {
                             out.write(detalle);
                             lineasTotales += lineasRequeridas;
                             LOGGER.debugv("lineas totales (detalle): {0}", lineasTotales);
-                            ordinal++;
+                            totalEmpleadosUnidadResponsable++;
+                            totalEmpleadosPrograma++;
+                            totalEmpleadosGeneral++;
                         }
 
                         // Crea los totales por unidad responsable
                         lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
-                        String totalesUnidadResponsable = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_UNIDAD, percepcionesUnidadResponsable, deduccionesUnidadResponsable, ordinal - 1);
+                        String totalesUnidadResponsable = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_UNIDAD, percepcionesUnidadResponsable, deduccionesUnidadResponsable, totalEmpleadosPrograma);
                         int lineasRequeridas = lineasHojaActual + PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesUnidadResponsable);
 
                         if ((lineasRequeridas + lineasHojaActual) >= LINEAS_POR_HOJA) {
@@ -139,7 +199,7 @@ public class PrenominaReporteTextoPlano {
                     out.write(encabezadoPrograma);
                     lineasTotales += lineasEncabezado;
 
-                    String totalesPrograma = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_PROGRAMA, percepcionesPrograma, deduccionesPrograma, ordinal - 1);
+                    String totalesPrograma = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_POR_PROGRAMA, percepcionesPrograma, deduccionesPrograma, totalEmpleadosPrograma - 1);
                     out.write(totalesPrograma);
                     lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesPrograma);
 
@@ -160,7 +220,7 @@ public class PrenominaReporteTextoPlano {
                 String totalesPrograma = tools.getTotales(PrenominaReporteTextoPlanoTools.TOTAL_NOMINA_GENERAL, percepcionesGeneral, deduccionesGeneral, totalEmpleadosGeneral);
                 out.write(totalesPrograma);
                 lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesPrograma);
-
+                BigDecimal granTotal = getTotal(percepcionesGeneral, deduccionesGeneral);
                 String firmas = tools.getFirmas(granTotal, productoNomina.getNombreElaboro(), productoNomina.getCargoElaboro(), productoNomina.getNombreReviso(), productoNomina.getCargoReviso(), productoNomina.getNombreAutorizo(), productoNomina.getCargoAutorizo());
                 out.write(firmas);
             }
@@ -172,5 +232,24 @@ public class PrenominaReporteTextoPlano {
         }
 
         return bytes;
+    }
+
+    private BigDecimal getTotal(Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones) {
+        BigDecimal totalDeducciones = BigDecimal.ZERO;
+        BigDecimal totalPercepciones = BigDecimal.ZERO;
+
+        for (Map.Entry<String, BigDecimal> percepcion : percepciones.entrySet()) {
+            BigDecimal monto = percepcion.getValue();
+
+            totalPercepciones = totalPercepciones.add(monto);
+        }
+
+        for (Map.Entry<String, BigDecimal> deduccion : deducciones.entrySet()) {
+            BigDecimal monto = deduccion.getValue();
+
+            totalDeducciones = totalDeducciones.add(monto);
+        }
+
+        return totalPercepciones.subtract(totalDeducciones);
     }
 }

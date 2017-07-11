@@ -26,20 +26,20 @@ public final class PrenominaReporteTextoPlanoTools {
     private static final String ENCABEZADO_SUBDIRECCION = "SUBDIRECCIÓN DE RECURSOS HUMANOS";
     private static final String ENCABEZADO_SISTEMA = "SISTEMA DE ADMINISTRACIÓN DE PERSONAL";
     private static final String ENCABEZADO_TITULOS_DE_LAS_COLUMNAS = "                                                                                                                                                                                                                            NETO\n No.     R.F.C.               N   O   M   B   R   E                           PERIODO DE PAGO                      CL   DESCRIPCIÓN                   PERCEPCIÓN     CL   DESCRIPCIÓN                   DEDUCCIÓN         A PAGAR\n";
-    private static final String PATRON_ENCABEZADO_DEL_PROGRAMA = "NÓMINA DE %1$s CORRESPONDIENTE A LA %2$s QUINCENA DE %3$tB DE %3$tY\n";
+    private static final String PATRON_ENCABEZADO_DEL_PROGRAMA = "NÓMINA DE %1$S CORRESPONDIENTE A LA %2$S QUINCENA DE %3$TB DE %3$TY\n";
     private static final String PATRON_ENCABEZADO_NUMERO_DE_PAGINA = "PÁGINA: %1$ ,7d\n";
     private static final String PATRON_UNIDAD_RESPONSABLE = "\n     %1s ( %2s )\n";
-    private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$tb-%4$tY AL %5$td-%5$tb-%5$tY";
-    private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$7s   %2$-26s   %3$ ,11.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117s   %2$-26s   %3$ ,14.2f";
-    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18s   %2$-26s   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$Tb-%4$tY AL %5$td-%5$Tb-%5$tY";
+    private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$7S   %2$-26.26S   %3$ ,11.2f";
+    private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$7S   %2$-26.26S   %3$ ,11.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117S   %2$-26.26S   %3$ ,14.2f";
+    private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18S   %2$-26.26S   %3$ ,14.2f";
     private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f";
-    private static final String PATRON_TOTALES_PERCEPCIONES = "%1$ 117d   %2$-25s   %3$ ,15.2f";
-    private static final String PATRON_TOTALES_DEDUCCIONES = "%1$ 4d   %2$-25s   %3$ ,15.2f\n";
+    private static final String PATRON_TOTALES_PERCEPCIONES = "%1$ 117d   %2$-25S   %3$ ,15.2f";
+    private static final String PATRON_TOTALES_DEDUCCIONES = "%1$ 4d   %2$-25S   %3$ ,15.2f\n";
     private static final String PATRON_GRAN_TOTAL = "%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f\n";
-    private static final String PATRON_RESUMEN_DE_TOTALES = "     %1$-37s%2$ ,121.2f%3$ ,50.2f%4$ ,15.2f\n";
-    private static final String PATRON_RESUMEN_EMPLEADOS_PROCESADOS = "\n     %1$-29s%2$ 73d\n";
+    private static final String PATRON_RESUMEN_DE_TOTALES = "     %1$-37S%2$ ,121.2f%3$ ,50.2f%4$ ,15.2f\n";
+    private static final String PATRON_RESUMEN_EMPLEADOS_PROCESADOS = "\n     %1$-29S%2$ 73d\n";
 
     protected static final short TOTAL_NOMINA_POR_UNIDAD = 1;
     protected static final short TOTAL_NOMINA_POR_PROGRAMA = 2;
@@ -78,7 +78,7 @@ public final class PrenominaReporteTextoPlanoTools {
             formatter.format("\n");
             formatter.format("\n");
 
-            encabezado = formatter.toString().toUpperCase();
+            encabezado = formatter.toString();
         }
 
         return encabezado;
@@ -167,7 +167,7 @@ public final class PrenominaReporteTextoPlanoTools {
             }
 
             formatter.format("\n");
-            detalle = formatter.toString().toUpperCase();
+            detalle = formatter.toString();
         }
 
         return detalle;
@@ -348,7 +348,7 @@ public final class PrenominaReporteTextoPlanoTools {
             firmasFormatter.format("\n");
             firmasFormatter.format(agregarEspacios(6));
             firmasFormatter.format("EL IMPORTE TOTAL DE LA NOMINA ES DE (%1$s)\n", numeroConLetras);
-            firmasFormatter.format(agregarEspacios(36));
+            firmasFormatter.format(agregarEspacios(37));
             firmasFormatter.format("E  L  A  B  O  R  O");
             firmasFormatter.format(agregarEspacios(38));
             firmasFormatter.format("R  E  V  I  S  O");
