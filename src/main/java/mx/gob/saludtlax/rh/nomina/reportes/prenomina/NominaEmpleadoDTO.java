@@ -1,5 +1,5 @@
 /*
- * NominaEmpleado.java
+ * NominaEmpleadoDTO.java
  * Creado el 27/Jun/2017 3:28:25 PM
  *
  */
@@ -11,26 +11,26 @@ import java.util.Map;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class NominaEmpleado {
+public class NominaEmpleadoDTO {
 
     private String rfc;
     private String nombre;
-    private Map<String, Percepcion> percepciones;
-    private Map<String, Deduccion> deducciones;
+    private Map<String, PercepcionDTO> percepciones;
+    private Map<String, DeduccionDTO> deducciones;
 
-    public Map<String, Percepcion> getPercepciones() {
+    public Map<String, PercepcionDTO> getPercepciones() {
         return percepciones;
     }
 
-    public void setPercepciones(Map<String, Percepcion> percepciones) {
+    public void setPercepciones(Map<String, PercepcionDTO> percepciones) {
         this.percepciones = percepciones;
     }
 
-    public Map<String, Deduccion> getDeducciones() {
+    public Map<String, DeduccionDTO> getDeducciones() {
         return deducciones;
     }
 
-    public void setDeducciones(Map<String, Deduccion> deducciones) {
+    public void setDeducciones(Map<String, DeduccionDTO> deducciones) {
         this.deducciones = deducciones;
     }
 

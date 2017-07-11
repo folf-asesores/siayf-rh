@@ -1,5 +1,5 @@
 /*
- * ProductoNominaBuilder.java
+ * ProductoNominaDTOBuilder.java
  * Creado el 28/Jun/2017 11:36:55 AM
  *
  */
@@ -9,11 +9,11 @@ package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 import java.util.Date;
 import java.util.Map;
 
-public class ProductoNominaBuilder {
+public class ProductoNominaDTOBuilder {
 
     private Integer idProductoNomina = null;
     private Date fechaPago = null;
-    private Map<Integer,Programa> programas = null;
+    private Map<Integer,ProgramaDTO> programas = null;
     private String nombreElaboro = null;
     private String cargoElaboro = null;
     private String nombreReviso = null;
@@ -21,59 +21,59 @@ public class ProductoNominaBuilder {
     private String nombreAutorizo = null;
     private String cargoAutorizo = null;
 
-    public ProductoNominaBuilder(Integer idProductoNomina, Date fechaPago, Map<Integer, Programa> programas) {
+    public ProductoNominaDTOBuilder(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
     }
 
-    public ProductoNominaBuilder setIdProductoNomina(Integer idProductoNomina) {
+    public ProductoNominaDTOBuilder setIdProductoNomina(Integer idProductoNomina) {
         this.idProductoNomina = idProductoNomina;
         return this;
     }
 
-    public ProductoNominaBuilder setFechaPago(Date fechaPago) {
+    public ProductoNominaDTOBuilder setFechaPago(Date fechaPago) {
         this.fechaPago = fechaPago;
         return this;
     }
 
-    public ProductoNominaBuilder setProgramas(Map<Integer, Programa> programas) {
+    public ProductoNominaDTOBuilder setProgramas(Map<Integer, ProgramaDTO> programas) {
         this.programas = programas;
         return this;
     }
 
-    public ProductoNominaBuilder setNombreElaboro(String nombreElaboro) {
+    public ProductoNominaDTOBuilder setNombreElaboro(String nombreElaboro) {
         this.nombreElaboro = nombreElaboro;
         return this;
     }
 
-    public ProductoNominaBuilder setCargoElaboro(String cargoElaboro) {
+    public ProductoNominaDTOBuilder setCargoElaboro(String cargoElaboro) {
         this.cargoElaboro = cargoElaboro;
         return this;
     }
 
-    public ProductoNominaBuilder setNombreReviso(String nombreReviso) {
+    public ProductoNominaDTOBuilder setNombreReviso(String nombreReviso) {
         this.nombreReviso = nombreReviso;
         return this;
     }
 
-    public ProductoNominaBuilder setCargoReviso(String cargoReviso) {
+    public ProductoNominaDTOBuilder setCargoReviso(String cargoReviso) {
         this.cargoReviso = cargoReviso;
         return this;
     }
 
-    public ProductoNominaBuilder setNombreAutorizo(String nombreAutorizo) {
+    public ProductoNominaDTOBuilder setNombreAutorizo(String nombreAutorizo) {
         this.nombreAutorizo = nombreAutorizo;
         return this;
     }
 
-    public ProductoNominaBuilder setCargoAutorizo(String cargoAutorizo) {
+    public ProductoNominaDTOBuilder setCargoAutorizo(String cargoAutorizo) {
         this.cargoAutorizo = cargoAutorizo;
         return this;
     }
 
-    public ProductoNomina createProductoNomina() {
-        return new ProductoNomina(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);
+    public ProductoNominaDTO createProductoNominaDTO() {
+        return new ProductoNominaDTO(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);
     }
 
 }

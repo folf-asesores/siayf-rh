@@ -53,13 +53,15 @@ public class PrenominaReporteTextoPlanoTest {
         jar.addClass(PrenominaReporteTextoPlano.class);
         jar.addClass(PrenominaReporteTextoPlanoTools.class);
         jar.addClass(PrenominaReporteEJB.class);
-        jar.addClass(Deduccion.class);
-        jar.addClass(Percepcion.class);
-        jar.addClass(NominaEmpleado.class);
-        jar.addClass(ProductoNomina.class);
-        jar.addClass(ProductoNominaBuilder.class);
-        jar.addClass(Programa.class);
-        jar.addClass(UnidadResponsable.class);
+        jar.addClass(DeduccionDTO.class);
+        jar.addClass(PercepcionDTO.class);
+        jar.addClass(NominaEmpleadoDTO.class);
+        jar.addClass(ProductoNominaDTO.class);
+        jar.addClass(ProductoNominaDTOBuilder.class);
+        jar.addClass(ProgramaDTO.class);
+        jar.addClass(ProgramaDTOBuilder.class);
+        jar.addClass(UnidadResponsableDTO.class);
+        jar.addClass(UnidadResponsableDTOBuilder.class);
         jar.addClass(Configuracion.class);
         jar.addClass(ArchivoUtil.class);
         jar.addClass(NumeroALetra.class);
@@ -78,7 +80,7 @@ public class PrenominaReporteTextoPlanoTest {
 //    @Ignore
     @Test
     public void generarReporteEjb() throws IOException {
-        ProductoNomina productoNomina = prenominaReporteEJB.obtenerProductoNomina(30);
+        ProductoNominaDTO productoNomina = prenominaReporteEJB.obtenerProductoNomina(30);
 
         PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
         byte[] reporte = reporteTextoPlano.generar(productoNomina);
@@ -90,84 +92,84 @@ public class PrenominaReporteTextoPlanoTest {
     @Test
     public void generarReporte() throws IOException {
         // Percepciones y deducciones
-        Map<String, Percepcion> percepciones1 = new HashMap<>();
-        percepciones1.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
-        Map<String, Percepcion> percepciones2 = new HashMap<>();
-        percepciones2.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
-        percepciones2.put("26", new Percepcion("26", "SUBSIDIO", new BigDecimal("55.5")));
-        Map<String, Percepcion> percepciones3 = new HashMap<>();
-        percepciones3.put("05", new Percepcion("05", "SUPLENCIAS", new BigDecimal("2180")));
-        percepciones3.put("26", new Percepcion("26", "SUBSIDIO", new BigDecimal("55.5")));
-        percepciones3.put("32", new Percepcion("32", "OTROS", new BigDecimal("3300.00")));
-        Map<String, Deduccion> deducciones1 = new HashMap<>();
-        deducciones1.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
-        Map<String, Deduccion> deducciones2 = new HashMap<>();
-        deducciones2.put("51", new Deduccion("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
-        deducciones2.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
-        Map<String, Deduccion> deducciones3 = new HashMap<>();
-        deducciones3.put("51", new Deduccion("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
-        deducciones3.put("52", new Deduccion("52", "I.S.R.", new BigDecimal("342.5")));
-        deducciones3.put("62", new Deduccion("62", "PENSION ALIMENTICIA", new BigDecimal("3516")));
+        Map<String, PercepcionDTO> percepciones1 = new HashMap<>();
+        percepciones1.put("05", new PercepcionDTO("05", "SUPLENCIAS", new BigDecimal("2180")));
+        Map<String, PercepcionDTO> percepciones2 = new HashMap<>();
+        percepciones2.put("05", new PercepcionDTO("05", "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones2.put("26", new PercepcionDTO("26", "SUBSIDIO", new BigDecimal("55.5")));
+        Map<String, PercepcionDTO> percepciones3 = new HashMap<>();
+        percepciones3.put("05", new PercepcionDTO("05", "SUPLENCIAS", new BigDecimal("2180")));
+        percepciones3.put("26", new PercepcionDTO("26", "SUBSIDIO", new BigDecimal("55.5")));
+        percepciones3.put("32", new PercepcionDTO("32", "OTROS", new BigDecimal("3300.00")));
+        Map<String, DeduccionDTO> deducciones1 = new HashMap<>();
+        deducciones1.put("52", new DeduccionDTO("52", "I.S.R.", new BigDecimal("342.5")));
+        Map<String, DeduccionDTO> deducciones2 = new HashMap<>();
+        deducciones2.put("51", new DeduccionDTO("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones2.put("52", new DeduccionDTO("52", "I.S.R.", new BigDecimal("342.5")));
+        Map<String, DeduccionDTO> deducciones3 = new HashMap<>();
+        deducciones3.put("51", new DeduccionDTO("51", "FALTAS Y RETARDOS", new BigDecimal("34.415")));
+        deducciones3.put("52", new DeduccionDTO("52", "I.S.R.", new BigDecimal("342.5")));
+        deducciones3.put("62", new DeduccionDTO("62", "PENSION ALIMENTICIA", new BigDecimal("3516")));
 
         // Nomina empleados
-        NominaEmpleado nominaCaporal = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCaporal = new NominaEmpleadoDTO();
         nominaCaporal.setRfc("CAME750818R3A");
         nominaCaporal.setNombre("CAPORAL MENDIETA MA ELENA");
         nominaCaporal.setPercepciones(percepciones1);
         nominaCaporal.setDeducciones(deducciones1);
 
-        NominaEmpleado nominaCordero = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCordero = new NominaEmpleadoDTO();
         nominaCordero.setRfc("COGO770228MU5");
         nominaCordero.setNombre("CORDERO GONZALEZ OSVALDO");
         nominaCordero.setPercepciones(percepciones2);
         nominaCordero.setDeducciones(deducciones2);
 
-        NominaEmpleado nominaContreras = new NominaEmpleado();
+        NominaEmpleadoDTO nominaContreras = new NominaEmpleadoDTO();
         nominaContreras.setRfc("COHS910628CD4");
         nominaContreras.setNombre("CONTRERAS HERNANDEZ SANDRA NELY");
         nominaContreras.setPercepciones(percepciones3);
         nominaContreras.setDeducciones(deducciones3);
 
-        NominaEmpleado nominaCuecuecha = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCuecuecha = new NominaEmpleadoDTO();
         nominaCuecuecha.setRfc("CUMM8702236M7");
         nominaCuecuecha.setNombre("CUECUECHA MENDIETA MARTHA PAOLA");
         nominaCuecuecha.setPercepciones(percepciones2);
         nominaCuecuecha.setDeducciones(deducciones2);
 
-        NominaEmpleado nominaCuecuecha2 = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCuecuecha2 = new NominaEmpleadoDTO();
         nominaCuecuecha2.setRfc("CUMY910419HI3");
         nominaCuecuecha2.setNombre("CUECUECHA MENDOZA YANET");
         nominaCuecuecha2.setPercepciones(percepciones1);
         nominaCuecuecha2.setDeducciones(deducciones1);
 
-        NominaEmpleado nominaCuamatzi = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCuamatzi = new NominaEmpleadoDTO();
         nominaCuamatzi.setRfc("CUSE890829LS7");
         nominaCuamatzi.setNombre("CUAMATZI SANCHEZ EDUARDO");
         nominaCuamatzi.setPercepciones(percepciones3);
         nominaCuamatzi.setDeducciones(deducciones3);
 
-        NominaEmpleado nominaCuapio = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCuapio = new NominaEmpleadoDTO();
         nominaCuapio.setRfc("CUSJ870703AG6");
         nominaCuapio.setNombre("CUAPIO SANCHEZ JAVIER");
         nominaCuapio.setPercepciones(percepciones2);
 
-        NominaEmpleado nominaCuahutecatl = new NominaEmpleado();
+        NominaEmpleadoDTO nominaCuahutecatl = new NominaEmpleadoDTO();
         nominaCuahutecatl.setRfc("CUTJ8809095A0");
         nominaCuahutecatl.setNombre("CUAHUTECATL TETLACUILO JEMMY");
         nominaCuahutecatl.setPercepciones(percepciones3);
         nominaCuahutecatl.setDeducciones(deducciones3);
 
-        NominaEmpleado nominaDelgado = new NominaEmpleado();
+        NominaEmpleadoDTO nominaDelgado = new NominaEmpleadoDTO();
         nominaDelgado.setRfc("DESR741226269");
         nominaDelgado.setNombre("DELGADO SANTIAGO RUT");
         nominaDelgado.setDeducciones(deducciones1);
 
-        NominaEmpleado nominaDominguez = new NominaEmpleado();
+        NominaEmpleadoDTO nominaDominguez = new NominaEmpleadoDTO();
         nominaDominguez.setRfc("DOHE860510UT7");
         nominaDominguez.setNombre("DOMINGUEZ HERNANDEZ ELMAR ARMANDO");
         nominaDominguez.setPercepciones(percepciones3);
 
-        Map<String, NominaEmpleado> nominasEmpleados = new HashMap<>();
+        Map<String, NominaEmpleadoDTO> nominasEmpleados = new HashMap<>();
         nominasEmpleados.put("CAME750818R3A", nominaCaporal);
         nominasEmpleados.put("COGO770228MU5", nominaCordero);
         nominasEmpleados.put("COHS910628CD4", nominaContreras);
@@ -180,29 +182,25 @@ public class PrenominaReporteTextoPlanoTest {
         nominasEmpleados.put("DOHE860510UT7", nominaDominguez);
 
         // Unidades responsables
-        UnidadResponsable unidadResponsable = new UnidadResponsable();
-        unidadResponsable.setNumeroUnidadResponsable("1300");
-        unidadResponsable.setUnidadResponsable("SUBDIRECCIÓN DE PRIMER NIVEL");
-        unidadResponsable.setNominasEmpleados(nominasEmpleados);
+        UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder("1300", "SUBDIRECCIÓN DE PRIMER NIVEL");
+        unidadResponsableBuilder.setNominasEmpleados(nominasEmpleados);
+        UnidadResponsableDTO unidadResponsable = unidadResponsableBuilder.createUnidadResponsableDTO();
 
-        Map<String, UnidadResponsable> unidadesResponsables = new HashMap<>();
+        Map<String, UnidadResponsableDTO> unidadesResponsables = new HashMap<>();
         unidadesResponsables.put("1300", unidadResponsable);
 
         // Programas
-        Programa programa = new Programa();
-        programa.setIdPrograma(1);
-        programa.setPrograma("ATENCIÓN A LA SALUD");
         Calendar cal = Calendar.getInstance();
         cal.set(Calendar.MONTH, 5);
-        programa.setInicioPeriodo(cal.getTime());
-        programa.setFinPeriodo(Calendar.getInstance().getTime());
-        programa.setUnidadesResponsables(unidadesResponsables);
+        ProgramaDTOBuilder programaBuilder = new ProgramaDTOBuilder(1, "ATENCIÓN A LA SALUD", cal.getTime(), Calendar.getInstance().getTime());
+        programaBuilder.setUnidadesResponsables(unidadesResponsables);
+        ProgramaDTO programa = programaBuilder.createProgramaDTO();
 
-        Map<Integer, Programa> programas = new HashMap<>();
+        Map<Integer, ProgramaDTO> programas = new HashMap<>();
         programas.put(1, programa);
 
         // Producto de nómina
-        ProductoNominaBuilder productoNominaBuilder = new ProductoNominaBuilder(30, Calendar.getInstance().getTime(), programas);
+        ProductoNominaDTOBuilder productoNominaBuilder = new ProductoNominaDTOBuilder(30, Calendar.getInstance().getTime(), programas);
         productoNominaBuilder.setNombreElaboro("LIC. VICTOR JOSE LEAL CRUZ");
         productoNominaBuilder.setCargoElaboro("JEFE DE DEPTO. DE RECURSOS HUMANOS");
 
@@ -212,7 +210,7 @@ public class PrenominaReporteTextoPlanoTest {
         productoNominaBuilder.setNombreAutorizo("DR. ALEJANDRO GUARNEROS CHUMACERO");
         productoNominaBuilder.setCargoAutorizo("DIRECTOR GENERAL DE SALUD DE TLAXCALA");
 
-        ProductoNomina productoNomina = productoNominaBuilder.createProductoNomina();
+        ProductoNominaDTO productoNomina = productoNominaBuilder.createProductoNominaDTO();
 
         PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
         byte[] reporte = reporteTextoPlano.generar(productoNomina);

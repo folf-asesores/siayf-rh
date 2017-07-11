@@ -1,7 +1,7 @@
 /*
  * DispersionExcelServiceTest.java
  * Creado el 29/Jan/2017 4:15:57 AM
- * 
+ *
  */
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
@@ -22,7 +22,7 @@ import org.junit.Ignore;
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class DispersionExcelServiceTest {
-    
+
     public DispersionExcelServiceTest() {
     }
 
@@ -40,7 +40,7 @@ public class DispersionExcelServiceTest {
         int fin = rnd.nextInt(80000);
         for(int i = 0; i < fin; i++) {
             DispersionDTO dispersionDTO = new DispersionDTO(
-                    "PEdRO PEREZ", 
+                    "PEdRO PEREZ",
                     String.format("%05d", i + 1),
                     new BigDecimal(rnd.nextDouble(), MathContext.DECIMAL32),
                     rnd.nextBoolean() ? "FF 1" : "FF 2",
@@ -49,9 +49,9 @@ public class DispersionExcelServiceTest {
             detalles.add(dispersionDTO);
         }
         System.out.println("Tamaño:" + detalles.size());
-        byte[] archivo = instance.obtenerBytes(detalles);
-        ArchivoUtil.guardarEnCarpetaUsuario(archivo, "dispersion_test.xlsx");
-        assertNotNull(archivo);
+//        byte[] archivo = instance.obtenerBytes(detalles);
+//        ArchivoUtil.guardarEnCarpetaUsuario(archivo, "dispersion_test.xlsx");
+//        assertNotNull(archivo);
     }
-    
+
 }

@@ -34,9 +34,9 @@ public class PrenominaReporteEJB {
     private static final String USP_REPORTE_PRENOMINA
             = "CALL usp_reporte_prenomina(:idProductoNomina)";
 
-    public ProductoNomina obtenerProductoNomina(Integer idProductoNomina) {
+    public ProductoNominaDTO obtenerProductoNomina(Integer idProductoNomina) {
         List<PrenominaDTO> prenominas = consultarDatos(idProductoNomina);
-        ProductoNomina productoNomina = convertirDatos(idProductoNomina, prenominas);
+        ProductoNominaDTO productoNomina = convertirDatos(idProductoNomina, prenominas);
         LOGGER.debug(productoNomina);
         return productoNomina;
     }
@@ -172,119 +172,116 @@ public class PrenominaReporteEJB {
         return prenominas;
     }
 
-    private ProductoNomina convertirDatos(Integer idProductoNomina, List<PrenominaDTO> prenominas) {
+    private ProductoNominaDTO convertirDatos(Integer idProductoNomina, List<PrenominaDTO> prenominas) {
         if (prenominas != null && !prenominas.isEmpty()) {
             PrenominaDTO prenominaUno = prenominas.get(0);
             Date fechaPago = prenominaUno.getFechaPago();
-            Map<Integer, Programa> programas = new HashMap<>();
+            Map<Integer, ProgramaDTO> programas = new HashMap<>();
 
             for (PrenominaDTO prenomina : prenominas) {
                 Integer idPrograma = prenomina.getIdPrograma();
                 if (!programas.containsKey(idPrograma)) {
-                    Programa programa = new Programa();
 
-                    programa.setIdPrograma(idPrograma);
-                    programa.setPrograma(prenomina.getPrograma());
-                    programa.setInicioPeriodo(prenomina.getInicioPeriodo());
-                    programa.setFinPeriodo(prenomina.getFinPeriodo());
 
-                    UnidadResponsable unidadResponsable = new UnidadResponsable();
-                    unidadResponsable.setNumeroUnidadResponsable(prenomina.getClaveCentroResponsabilidad());
-                    unidadResponsable.setUnidadResponsable(prenomina.getDescripcionCentroResponsabilidad());
-
-                    Map<String, UnidadResponsable> unidadesResponsables = new HashMap<>();
-                    unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
-
-                    NominaEmpleado nominaEmpleado = new NominaEmpleado();
+                    NominaEmpleadoDTO nominaEmpleado = new NominaEmpleadoDTO();
                     nominaEmpleado.setNombre(prenomina.getNombre());
                     nominaEmpleado.setRfc(prenomina.getRfc());
 
                     if ("PERCEPCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                        Map<String, Percepcion> percepciones = new HashMap<>();
-                        Percepcion percepcion = new Percepcion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                        Map<String, PercepcionDTO> percepciones = new HashMap<>();
+                        PercepcionDTO percepcion = new PercepcionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                         percepciones.put(prenomina.getClaveConcepto(), percepcion);
                         nominaEmpleado.setPercepciones(percepciones);
                     }
 
                     if ("DEDUCCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                        Deduccion deduccion = new Deduccion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
-                        Map<String, Deduccion> deducciones = new HashMap<>();
+                        DeduccionDTO deduccion = new DeduccionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                        Map<String, DeduccionDTO> deducciones = new HashMap<>();
                         deducciones.put(prenomina.getClaveConcepto(), deduccion);
                         nominaEmpleado.setDeducciones(deducciones);
                     }
 
-                    Map<String, NominaEmpleado> nominasEmpleados = new HashMap<>();
+                    Map<String, NominaEmpleadoDTO> nominasEmpleados = new HashMap<>();
                     nominasEmpleados.put(nominaEmpleado.getRfc(), nominaEmpleado);
-                    unidadResponsable.setNominasEmpleados(nominasEmpleados);
-                    programa.setUnidadesResponsables(unidadesResponsables);
+
+                    UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad());
+                    unidadResponsableBuilder.setNominasEmpleados(nominasEmpleados);
+                    UnidadResponsableDTO unidadResponsable = unidadResponsableBuilder.createUnidadResponsableDTO();
+
+                    Map<String, UnidadResponsableDTO> unidadesResponsables = new HashMap<>();
+                    unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
+
+                    ProgramaDTOBuilder programaBuilder = new ProgramaDTOBuilder(idPrograma, prenomina.getPrograma(), prenomina.getInicioPeriodo(), prenomina.getFinPeriodo());
+                    programaBuilder.setUnidadesResponsables(unidadesResponsables);
+                    ProgramaDTO programa = programaBuilder.createProgramaDTO();
                     programas.put(idPrograma, programa);
                 } else {
-                    Programa programa = programas.get(idPrograma);
-                    Map<String, UnidadResponsable> unidadesResponsables = programa.getUnidadesResponsables();
+                    ProgramaDTO programa = programas.get(idPrograma);
+                    Map<String, UnidadResponsableDTO> unidadesResponsables = programa.getUnidadesResponsables();
 
                     if (!unidadesResponsables.containsKey(prenomina.getClaveCentroResponsabilidad())) {
-                        UnidadResponsable unidadResponsable = new UnidadResponsable();
-                        unidadResponsable.setNumeroUnidadResponsable(prenomina.getClaveCentroResponsabilidad());
-                        unidadResponsable.setUnidadResponsable(prenomina.getDescripcionCentroResponsabilidad());
 
-                        unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
 
-                        NominaEmpleado nominaEmpleado = new NominaEmpleado();
+                        NominaEmpleadoDTO nominaEmpleado = new NominaEmpleadoDTO();
                         nominaEmpleado.setNombre(prenomina.getNombre());
                         nominaEmpleado.setRfc(prenomina.getRfc());
 
                         if ("PERCEPCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                            Map<String, Percepcion> percepciones = new HashMap<>();
-                            Percepcion percepcion = new Percepcion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                            Map<String, PercepcionDTO> percepciones = new HashMap<>();
+                            PercepcionDTO percepcion = new PercepcionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                             percepciones.put(prenomina.getClaveConcepto(), percepcion);
                             nominaEmpleado.setPercepciones(percepciones);
                         }
 
                         if ("DEDUCCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                            Deduccion deduccion = new Deduccion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
-                            Map<String, Deduccion> deducciones = new HashMap<>();
+                            DeduccionDTO deduccion = new DeduccionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                            Map<String, DeduccionDTO> deducciones = new HashMap<>();
                             deducciones.put(prenomina.getClaveConcepto(), deduccion);
                             nominaEmpleado.setDeducciones(deducciones);
                         }
 
-                        Map<String, NominaEmpleado> nominasEmpleados = new HashMap<>();
+                        Map<String, NominaEmpleadoDTO> nominasEmpleados = new HashMap<>();
                         nominasEmpleados.put(nominaEmpleado.getRfc(), nominaEmpleado);
-                        unidadResponsable.setNominasEmpleados(nominasEmpleados);
+
+                        UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad());
+                        unidadResponsableBuilder.setNominasEmpleados(nominasEmpleados);
+                        UnidadResponsableDTO unidadResponsable = unidadResponsableBuilder.createUnidadResponsableDTO();
+                        unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
                     } else {
-                        UnidadResponsable unidadResponsable = unidadesResponsables.get(prenomina.getClaveCentroResponsabilidad());
-                        Map<String, NominaEmpleado> nominasEmpleados = unidadResponsable.getNominasEmpleados();
+                        UnidadResponsableDTO unidadResponsable = unidadesResponsables.get(prenomina.getClaveCentroResponsabilidad());
+                        Map<String, NominaEmpleadoDTO> nominasEmpleados = unidadResponsable.getNominasEmpleados();
 
                         if (!nominasEmpleados.containsKey(prenomina.getRfc())) {
-                            NominaEmpleado nominaEmpleado = new NominaEmpleado();
+                            NominaEmpleadoDTO nominaEmpleado = new NominaEmpleadoDTO();
                             nominaEmpleado.setNombre(prenomina.getNombre());
                             nominaEmpleado.setRfc(prenomina.getRfc());
 
                             if ("PERCEPCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                                Map<String, Percepcion> percepciones = new HashMap<>();
-                                Percepcion percepcion = new Percepcion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                Map<String, PercepcionDTO> percepciones = new HashMap<>();
+                                PercepcionDTO percepcion = new PercepcionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                                 percepciones.put(prenomina.getClaveConcepto(), percepcion);
                                 nominaEmpleado.setPercepciones(percepciones);
                             }
 
                             if ("DEDUCCIONES".equalsIgnoreCase(prenomina.getTipo())) {
-                                Deduccion deduccion = new Deduccion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
-                                Map<String, Deduccion> deducciones = new HashMap<>();
+                                DeduccionDTO deduccion = new DeduccionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                Map<String, DeduccionDTO> deducciones = new HashMap<>();
                                 deducciones.put(prenomina.getClaveConcepto(), deduccion);
                                 nominaEmpleado.setDeducciones(deducciones);
                             }
 
                             nominasEmpleados.put(nominaEmpleado.getRfc(), nominaEmpleado);
                         } else {
-                            NominaEmpleado nominaEmpleado = nominasEmpleados.get(prenomina.getRfc());
+                            NominaEmpleadoDTO nominaEmpleado = nominasEmpleados.get(prenomina.getRfc());
 
                             if ("PERCEPCIONES".equalsIgnoreCase(prenomina.getTipo())) {
                                 if (nominaEmpleado.getPercepciones() != null) {
-                                    Map<String, Percepcion> percepciones = nominaEmpleado.getPercepciones();
-                                    Percepcion percepcion = new Percepcion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                    Map<String, PercepcionDTO> percepciones = nominaEmpleado.getPercepciones();
+                                    PercepcionDTO percepcion = new PercepcionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                                     percepciones.put(prenomina.getClaveConcepto(), percepcion);
                                 } else {
-                                    Map<String, Percepcion> percepciones = new HashMap<>();
-                                    Percepcion percepcion = new Percepcion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                    Map<String, PercepcionDTO> percepciones = new HashMap<>();
+                                    PercepcionDTO percepcion = new PercepcionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                                     percepciones.put(prenomina.getClaveConcepto(), percepcion);
                                     nominaEmpleado.setPercepciones(percepciones);
                                 }
@@ -293,12 +290,12 @@ public class PrenominaReporteEJB {
 
                             if ("DEDUCCIONES".equalsIgnoreCase(prenomina.getTipo())) {
                                 if(nominaEmpleado.getDeducciones() != null) {
-                                    Map<String, Deduccion> deducciones = nominaEmpleado.getDeducciones();
-                                    Deduccion deduccion = new Deduccion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                    Map<String, DeduccionDTO> deducciones = nominaEmpleado.getDeducciones();
+                                    DeduccionDTO deduccion = new DeduccionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
                                     deducciones.put(prenomina.getClaveConcepto(), deduccion);
                                 } else {
-                                    Deduccion deduccion = new Deduccion(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
-                                    Map<String, Deduccion> deducciones = new HashMap<>();
+                                    DeduccionDTO deduccion = new DeduccionDTO(prenomina.getClaveConcepto(), prenomina.getDescripcionConcepto(), prenomina.getImporte());
+                                    Map<String, DeduccionDTO> deducciones = new HashMap<>();
                                     deducciones.put(prenomina.getClaveConcepto(), deduccion);
                                     nominaEmpleado.setDeducciones(deducciones);
                                 }
@@ -308,8 +305,8 @@ public class PrenominaReporteEJB {
                 }
             }
 
-            ProductoNomina productoNomina;
-            ProductoNominaBuilder pnb = new ProductoNominaBuilder(idProductoNomina, fechaPago, programas);
+            ProductoNominaDTO productoNomina;
+            ProductoNominaDTOBuilder pnb = new ProductoNominaDTOBuilder(idProductoNomina, fechaPago, programas);
 
             //Firmas
             pnb.setNombreElaboro(prenominaUno.getElaboroNombre());
@@ -319,7 +316,7 @@ public class PrenominaReporteEJB {
             pnb.setNombreAutorizo(prenominaUno.getAutorizoNombre());
             pnb.setCargoAutorizo(prenominaUno.getAutorizoCargo());
 
-            productoNomina = pnb.createProductoNomina();
+            productoNomina = pnb.createProductoNominaDTO();
 
             return productoNomina;
         } else {

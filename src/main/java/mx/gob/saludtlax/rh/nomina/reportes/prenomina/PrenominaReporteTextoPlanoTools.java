@@ -84,7 +84,7 @@ public final class PrenominaReporteTextoPlanoTools {
         return encabezado;
     }
 
-    protected String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<Percepcion> percepciones, List<Deduccion> deducciones) {
+    protected String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<PercepcionDTO> percepciones, List<DeduccionDTO> deducciones) {
         String detalle;
 
         try (Formatter formatter = new Formatter()) {
@@ -97,7 +97,7 @@ public final class PrenominaReporteTextoPlanoTools {
                         ? percepciones.size() : deducciones.size();
 
                 for (int i = 0; i < limiteContador; i++) {
-                    Percepcion percepcion = i < percepciones.size() ? percepciones.get(i) : null;
+                    PercepcionDTO percepcion = i < percepciones.size() ? percepciones.get(i) : null;
 
                     if (percepcion != null && i == 0) {
                         formatter.format(PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
@@ -107,7 +107,7 @@ public final class PrenominaReporteTextoPlanoTools {
                         totalPercepciones = totalPercepciones.add(percepcion.getMonto());
                     }
 
-                    Deduccion deduccion = i < deducciones.size() ? deducciones.get(i) : null;
+                    DeduccionDTO deduccion = i < deducciones.size() ? deducciones.get(i) : null;
 
                     if (deduccion != null && i == 0) {
                         formatter.format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto());
@@ -129,7 +129,7 @@ public final class PrenominaReporteTextoPlanoTools {
                 BigDecimal totalPercepciones = BigDecimal.ZERO;
 
                 for (int i = 0; i < percepciones.size(); i++) {
-                    Percepcion percepcion = percepciones.get(i);
+                    PercepcionDTO percepcion = percepciones.get(i);
 
                     if (percepcion != null && i == 0) {
                         formatter.format(PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
@@ -146,7 +146,7 @@ public final class PrenominaReporteTextoPlanoTools {
                 BigDecimal totalDeducciones = BigDecimal.ZERO;
 
                 for (int i = 0; i < deducciones.size(); i++) {
-                    Deduccion deduccion = deducciones.get(i);
+                    DeduccionDTO deduccion = deducciones.get(i);
 
                     if (deduccion != null && i == 0) {
                         formatter.format(agregarEspacios(64));

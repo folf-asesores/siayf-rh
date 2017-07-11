@@ -28,7 +28,7 @@ public class PrenominaReporteTextoPlano {
     private static final Integer LINEAS_POR_HOJA = 66;
     private final PrenominaReporteTextoPlanoTools tools = new PrenominaReporteTextoPlanoTools();
 
-    public byte[] generar(ProductoNomina productoNomina) {
+    public byte[] generar(ProductoNominaDTO productoNomina) {
         byte[] bytes = null;
 
         try {
@@ -42,12 +42,12 @@ public class PrenominaReporteTextoPlano {
                 Map<String, BigDecimal> deduccionesGeneral = new HashMap<>();
                 int totalEmpleadosGeneral = 1;
 
-                for(Programa programa : productoNomina) {
+                for(ProgramaDTO programa : productoNomina) {
                     Map<String, BigDecimal> percepcionesPrograma = new HashMap<>();
                     Map<String, BigDecimal> deduccionesPrograma = new HashMap<>();
 
                     int totalEmpleadosPrograma = 1;
-                    for (UnidadResponsable unidadResponsable : programa) {
+                    for (UnidadResponsableDTO unidadResponsable : programa) {
                         int totalEmpleadosUnidadResponsable = 1;
 
                         // Crea el encabezado por unidad responsable
@@ -59,15 +59,15 @@ public class PrenominaReporteTextoPlano {
                         Map<String, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
                         Map<String, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
 
-                        for (NominaEmpleado nominaEmpleado : unidadResponsable) {
-                            List<Deduccion> deducciones;
-                            List<Percepcion> percepciones;
+                        for (NominaEmpleadoDTO nominaEmpleado : unidadResponsable) {
+                            List<DeduccionDTO> deducciones;
+                            List<PercepcionDTO> percepciones;
 
                             if (nominaEmpleado.getPercepciones() != null) {
                                 percepciones = new ArrayList<>();
                                 percepciones.addAll(nominaEmpleado.getPercepciones().values());
 
-                                for (Percepcion percepcion : percepciones) {
+                                for (PercepcionDTO percepcion : percepciones) {
                                     String clave = percepcion.getClave();
                                     BigDecimal monto = percepcion.getMonto();
 
@@ -103,7 +103,7 @@ public class PrenominaReporteTextoPlano {
                                 deducciones = new ArrayList<>();
                                 deducciones.addAll(nominaEmpleado.getDeducciones().values());
 
-                                for (Deduccion deduccion : deducciones) {
+                                for (DeduccionDTO deduccion : deducciones) {
                                     String clave = deduccion.getClave();
                                     BigDecimal monto = deduccion.getMonto();
 
