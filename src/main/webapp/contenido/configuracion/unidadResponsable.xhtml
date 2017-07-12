@@ -51,8 +51,11 @@
 							 var="unidadResponsableItem"
 							 rowKey="#{unidadResponsableItem.idUnidadResponsable}"
 							 selection="#{unidadResponsable.view.unidadResponsableSelect}"
-							 scrollable="true"
-							 scrollHeight="300"
+							 paginator="true"
+							 rows="5"
+							currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50" 
 							 selectionMode="single"
 							 emptyMessage="Registros no encontrados.">
 					<p:ajax event="rowSelect"
@@ -73,7 +76,7 @@
 						<h:outputText value="#{unidadResponsableItem.descripcion}" />
 					</p:column>
 					<p:column>
-						<h:outputText value="#{unidadResponsableItem.idDependencia}" />
+						<h:outputText value="#{unidadResponsableItem.dependencia.descripcion}" />
 					</p:column>
 					<p:column>
 						<h:outputText value="#{unidadResponsableItem.idUnidadXDependencia}" />
@@ -101,13 +104,16 @@
             		<p:message id="msgUnidad" for="UnidadResponsable"/>
 					<p:spacer/>
 					
-					<p:outputLabel value="Dependencia"/>			 
-					<p:inputText id="Dependencia" value="#{unidadResponsable.view.unidadResponsable.idDependencia}"
-								 validator="#{unidadResponsable.validatorUnidad}">
-						<p:ajax update="msgDependencia"/>
-						<p:clientValidator/>
-					</p:inputText>
-					<p:message id="msgDependencia" for="Dependencia"/>
+					<p:outputLabel value="Dependencia"/>	
+					<p:selectOneMenu id="dependencia" value="#{unidadResponsable.dependenciaSeleccionada}">
+					<f:selectItem itemValue="" itemLabel="Seleccione un valor"/>
+					<f:selectItems value="#{unidadResponsable.itemsDependencia}" />					
+					<p:ajax update="msgDependencia"/>
+					<p:clientValidator/>
+					</p:selectOneMenu>		 
+					
+					
+					<p:message id="msgDependencia" for="dependencia"/>
 					<p:spacer/>
 					
 					<p:outputLabel value="Unidad por Dependencia"/>			 
@@ -141,7 +147,7 @@
 									action="#{unidadResponsable.irPrincipal()}"
 									update=":form"
 									style="float:right;"
-									ajax="false"/>
+									process="@this"/>
 				</p:panelGrid>					
 				</div>		 				 	 			 
 			</p:outputPanel>			

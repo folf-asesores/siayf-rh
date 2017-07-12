@@ -50,8 +50,11 @@
 							 var="cuentaBancariaItem"
 							 rowKey="#{cuentaBancariaItem.idCuentaBancaria}"
 							 selection="#{cuentaBancaria.view.cuentaBancariaSelect}"
-							 scrollable="true"
-							 scrollHeight="400"
+							 paginator="true"
+							 rows="5"
+							currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+						paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+						rowsPerPageTemplate="5,10,20,50" 
 							 selectionMode="single"
 							 emptyMessage="Registros no encontrados.">
 					<p:ajax event="rowSelect"
@@ -153,7 +156,7 @@
 
 				</p:panelGrid>	
 				
-				<p:confirmDialog message="Esta seguro que desea borrar este TIPO DE NOMINA?" 
+				<p:confirmDialog message="Esta seguro que desea borrar esta cuenta bancaria?" 
                  				 showEffect="fade"
                  				 hideEffect="explode" 
                  				 widgetVar="eliminarConfirm">

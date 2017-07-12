@@ -1,8 +1,10 @@
 package mx.gob.saludtlax.rh.configuracion.unidadresponsable;
 
+import mx.gob.saludtlax.rh.configuracion.dependencia.DependenciaDTO;
+
 public class UnidadResponsableDTO {
 	private Integer idUnidadResponsable;
-	private Integer idDependencia;
+	private DependenciaDTO dependencia;
 	private Integer idUnidadXDependencia;
 	private String idBase36;
 	private String descripcion;
@@ -15,11 +17,14 @@ public class UnidadResponsableDTO {
 	public void setIdUnidadResponsable(Integer idUnidadResponsable) {
 		this.idUnidadResponsable = idUnidadResponsable;
 	}
-	public Integer getIdDependencia() {
-		return idDependencia;
+	
+	
+	
+	public DependenciaDTO getDependencia() {
+		return dependencia;
 	}
-	public void setIdDependencia(Integer idDependencia) {
-		this.idDependencia = idDependencia;
+	public void setDependencia(DependenciaDTO dependencia) {
+		this.dependencia = dependencia;
 	}
 	public Integer getIdUnidadXDependencia() {
 		return idUnidadXDependencia;
