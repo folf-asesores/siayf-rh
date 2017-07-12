@@ -338,7 +338,7 @@ public class ReporteSiifEJB {
 						+ "SELECT	cast(n.p_pago_F as date), n.tipo_emision_nomina, "
 						+ "SUM(n.per), SUM(n.ded ), SUM(n.neto ), ?, n.id_nombramiento "
 						+ "FROM estructuras_nominas AS n WHERE  n.id_siif_bitacoras = ? "
-						+ "AND n.id_nombramiento != 4 "
+						//+ "AND n.id_nombramiento != 4 "
 						+ "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ");
 				
 					stmt.setInt(1, bitacora.getIdSiifBitacora());
