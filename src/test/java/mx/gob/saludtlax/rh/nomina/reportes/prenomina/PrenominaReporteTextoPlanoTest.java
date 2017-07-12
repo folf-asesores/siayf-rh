@@ -38,7 +38,7 @@ import org.junit.runner.RunWith;
 public class PrenominaReporteTextoPlanoTest {
 
     @Inject
-    private PrenominaReporteEJB prenominaReporteEJB;
+    private PrenominaReporteService prenominaReporteEJB;
 
     @Deployment
     public static WebArchive crearWar() {
@@ -52,7 +52,7 @@ public class PrenominaReporteTextoPlanoTest {
         jar.addClass(PrenominaDTO.class);
         jar.addClass(PrenominaReporteTextoPlano.class);
         jar.addClass(PrenominaReporteTextoPlanoTools.class);
-        jar.addClass(PrenominaReporteEJB.class);
+        jar.addClass(PrenominaReporteService.class);
         jar.addClass(DeduccionDTO.class);
         jar.addClass(PercepcionDTO.class);
         jar.addClass(NominaEmpleadoDTO.class);

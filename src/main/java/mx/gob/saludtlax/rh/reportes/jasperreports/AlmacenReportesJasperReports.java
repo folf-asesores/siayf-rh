@@ -29,12 +29,12 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         comprobanteFiscal.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", comprobanteFiscalDeducciones);
         comprobanteFiscal.agregarParametro("ID_COMPROBANTE", Integer.class);
         REPORTES.put("comprobante-fiscal", comprobanteFiscal);
-        
+
         JasperReporte formatoFiliacion = new JasperReporte("FORMATO_FILIACION.jrxml", "reportes/");
         formatoFiliacion.agregarParametro("ID_EMPLEADO", Integer.class);
 //        formatoFiliacion.agregarParametro("ID_FORMATO", Integer.class);
         REPORTES.put("formato-filiacion", formatoFiliacion);
-        
+
         // Reportes de control de asistencia.
         JasperReporte _8001Descuentos = new JasperReporte("8001-descuentos.jrxml", "reportes/");
         _8001Descuentos.agregarParametro("ID_ADSCRIPCION", Integer.class);
@@ -44,7 +44,7 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         _8001Descuentos.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
         _8001Descuentos.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
         REPORTES.put("8001-descuentos", _8001Descuentos);
-        
+
         JasperReporte _9201PrimaDominical = new JasperReporte("9201-prima_dominical.jrxml", "reportes/");
         _9201PrimaDominical.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9201PrimaDominical.agregarParametro("TIPO_CONTRATACION", Integer.class);
@@ -53,7 +53,7 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         _9201PrimaDominical.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
         _9201PrimaDominical.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
         REPORTES.put("9201-prima_dominical", _9201PrimaDominical);
-        
+
         JasperReporte _9204Trimestral = new JasperReporte("9204-trimestral.jrxml", "reportes/");
         _9204Trimestral.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9204Trimestral.agregarParametro("TIPO_CONTRATACION", Integer.class);
@@ -62,7 +62,7 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         _9204Trimestral.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
         _9204Trimestral.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
         REPORTES.put("9204-trimestral", _9204Trimestral);
-        
+
         JasperReporte _9205Anual = new JasperReporte("9205-anual.jrxml", "reportes/");
         _9205Anual.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9205Anual.agregarParametro("TIPO_CONTRATACION", Integer.class);
@@ -71,7 +71,7 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         _9205Anual.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
         _9205Anual.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
         REPORTES.put("9205-anual", _9205Anual);
-        
+
         JasperReporte _9207AsistenciaPerfecta = new JasperReporte("9207-asistencia_perfecta.jrxml", "reportes/");
         _9207AsistenciaPerfecta.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9207AsistenciaPerfecta.agregarParametro("TIPO_CONTRATACION", Integer.class);
@@ -80,7 +80,7 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         _9207AsistenciaPerfecta.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
         _9207AsistenciaPerfecta.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
         REPORTES.put("9207-asistencia_perfecta", _9207AsistenciaPerfecta);
-        
+
         JasperReporte reporteUnicoIncidencias = new JasperReporte("reporte_unico_incidencias.jrxml", "reportes/");
         reporteUnicoIncidencias.agregarParametro("ID_ADSCRIPCION", Integer.class);
         reporteUnicoIncidencias.agregarParametro("TIPO_CONTRATACION", Integer.class);
@@ -92,37 +92,37 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         listadoFirmas.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
         REPORTES.put("listado-firmas", listadoFirmas);
 
-        JasperReporte prenominaEventualesPercepciones = new JasperReporte("prenomina_eventuales--percepciones.jrxml", "reportes/");
-        JasperReporte prenominaEventualesPercepcionesTotal = new JasperReporte("prenomina_eventuales--percepciones-total.jrxml", "reportes/");
-        JasperReporte prenominaEventualesPercepcionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--percepciones-centro-responsabilidad.jrxml", "reportes/");
-        JasperReporte prenominaEventualesPercepcionesPrograma = new JasperReporte("prenomina_eventuales--percepciones-programa.jrxml", "reportes/");
-        JasperReporte prenominaEventualesDeduccciones = new JasperReporte("prenomina_eventuales--deducciones.jrxml", "reportes/");
-        JasperReporte prenominaEventualesDeducccionesTotal = new JasperReporte("prenomina_eventuales--deducciones-total.jrxml", "reportes/");
-        JasperReporte prenominaEventualesDeducccionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--deducciones-centro-responsabilidad.jrxml", "reportes/");
-        JasperReporte prenominaEventualesDeducccionesPrograma = new JasperReporte("prenomina_eventuales--deducciones-programa.jrxml", "reportes/");                
+//        JasperReporte prenominaEventualesPercepciones = new JasperReporte("prenomina_eventuales--percepciones.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesPercepcionesTotal = new JasperReporte("prenomina_eventuales--percepciones-total.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesPercepcionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--percepciones-centro-responsabilidad.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesPercepcionesPrograma = new JasperReporte("prenomina_eventuales--percepciones-programa.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesDeduccciones = new JasperReporte("prenomina_eventuales--deducciones.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesDeducccionesTotal = new JasperReporte("prenomina_eventuales--deducciones-total.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesDeducccionesCentroResponsabilidad = new JasperReporte("prenomina_eventuales--deducciones-centro-responsabilidad.jrxml", "reportes/");
+//        JasperReporte prenominaEventualesDeducccionesPrograma = new JasperReporte("prenomina_eventuales--deducciones-programa.jrxml", "reportes/");
 
-        JasperReporte prenominaEventuales = new JasperReporte("prenomina_eventuales.jrxml", "reportes/");
-        
-        prenominaEventuales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", prenominaEventualesPercepciones);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", prenominaEventualesPercepcionesTotal);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesPercepcionesCentroResponsabilidad);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_PROGRAMA", prenominaEventualesPercepcionesPrograma);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", prenominaEventualesDeduccciones);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", prenominaEventualesDeducccionesTotal);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesDeducccionesCentroResponsabilidad);
-        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_PROGRAMA", prenominaEventualesDeducccionesPrograma);
-        REPORTES.put("prenomina_eventuales", prenominaEventuales);
+//        JasperReporte prenominaEventuales = new JasperReporte("prenomina_eventuales.jrxml", "reportes/");
+
+//        prenominaEventuales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", prenominaEventualesPercepciones);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", prenominaEventualesPercepcionesTotal);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesPercepcionesCentroResponsabilidad);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_PROGRAMA", prenominaEventualesPercepcionesPrograma);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", prenominaEventualesDeduccciones);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", prenominaEventualesDeducccionesTotal);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", prenominaEventualesDeducccionesCentroResponsabilidad);
+//        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_PROGRAMA", prenominaEventualesDeducccionesPrograma);
+//        REPORTES.put("prenomina_eventuales", prenominaEventuales);
 
         JasperReporte nominaFederalesPercepciones = new JasperReporte("nomina_federales--percepciones.jrxml", "reportes/");
         JasperReporte nominaFederalesPercepcionesTotal = new JasperReporte("nomina_federales--percepciones-total.jrxml", "reportes/");
         JasperReporte nominaFederalesPercepcionesCentroResponsabilidad = new JasperReporte("nomina_federales--percepciones-centro-responsabilidad.jrxml", "reportes/");
-        
+
         JasperReporte nominaFederalesDeducccionesTotal = new JasperReporte("nomina_federales--deducciones-total.jrxml", "reportes/");
         JasperReporte nominaFederalesDeducccionesCentroResponsabilidad = new JasperReporte("nomina_federales--deducciones-centro-responsabilidad.jrxml", "reportes/");
         JasperReporte nominaFederalesDeduccciones = new JasperReporte("nomina_federales--deducciones.jrxml", "reportes/");
         JasperReporte nominaFederales = new JasperReporte("nomina_federales.jrxml", "reportes/");
-        
+
         nominaFederales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
         nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", nominaFederalesPercepciones);
         nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", nominaFederalesPercepcionesCentroResponsabilidad);
