@@ -1201,8 +1201,9 @@ public class ReporteSiifService {
 			System.out.print("::: " + dto.getSubPrograma());
 			System.out.println("::: ");
 		}
-
+		int precesaRegularizado =0;
 		for (SIIFEncabezadoDTO dto : result) {
+			
 			dto.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
 			dto.setIdTipoNomina(bitacora.getIdTipoNomina());
 			dto.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
@@ -1211,7 +1212,8 @@ public class ReporteSiifService {
 			if (Arrays.asList(idPensiones).contains(dto.getIdTipoNomina())) {
 				// Si son REGULARIZADOS hay que clasificarlos en:
 				// Federales, Seguro Popular Federal y Seguro Popular
-				if (dto.getIdNombramiento() != null && dto.getIdNombramiento().intValue() == 4) {
+				if (dto.getIdNombramiento() != null && dto.getIdNombramiento().intValue() == 4 && precesaRegularizado==0) {
+					precesaRegularizado=1;
 					// if (bitacora.getTipoArchivo() == 2) {
 					query = session
 							.createSQLQuery("DELETE FROM siif_encabezados " + "WHERE id_siif_bitacora =:idSiifBitacora "
@@ -1468,15 +1470,17 @@ public class ReporteSiifService {
 						if (id_siif_encabezadoSP != null) {
 							query = session
 									.createSQLQuery("UPDATE estructuras_nominas AS n "
-											+ "LEFT OUTER JOIN siif_seguro_popular_federal AS s "
-											+ "ON(s.rfc = n.rfc AND s.quincena = n.qna_real) "
 											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoSP, "
 											+ "n.id_subfuente_financiamiento = 245 "
 											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
-											+ "AND	n.id_nombramiento =:idNombramiento " + "AND	s.rfc IS NOT NULL")
+											+ "AND	n.id_nombramiento =:idNombramiento " 
+											+ "AND (n.id_siif_encabezados !=:@id_siif_encabezadoF "
+											+ "AND n.id_siif_encabezados !=:@id_siif_encabezadoSPF)")																								
 									.setParameter("@id_siif_encabezadoSP", id_siif_encabezadoSP)
 									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-									.setParameter("idNombramiento", dto.getIdNombramiento());
+									.setParameter("idNombramiento", dto.getIdNombramiento())
+									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
+									.setParameter("@id_siif_encabezadoSPF", id_siif_encabezadoSPF);
 							query.executeUpdate();
 							System.out.println("Actualiza encabezados SP::::: ");
 							query = session
@@ -1535,7 +1539,8 @@ public class ReporteSiifService {
 			} else {
 				// Si son REGULARIZADOS hay que clasificarlos en:
 				// Federales, Seguro Popular Federal y Seguro Popular
-				if (dto.getIdNombramiento() != null && dto.getIdNombramiento().intValue() == 4) {
+				if (dto.getIdNombramiento() != null && dto.getIdNombramiento().intValue() == 4 && precesaRegularizado==0) {
+					precesaRegularizado=1;
 					// if (bitacora.getTipoArchivo() == 2) {
 					query = session
 							.createSQLQuery("DELETE FROM siif_encabezados " + "WHERE id_siif_bitacora =:idSiifBitacora "
@@ -1789,15 +1794,17 @@ public class ReporteSiifService {
 						if (id_siif_encabezadoSP != null) {
 							query = session
 									.createSQLQuery("UPDATE estructuras_nominas AS n "
-											+ "LEFT OUTER JOIN siif_seguro_popular_federal AS s "
-											+ "ON(s.rfc = n.rfc AND s.quincena = n.qna_real) "
 											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoSP, "
 											+ "n.id_subfuente_financiamiento = 245 "
 											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
-											+ "AND	n.id_nombramiento =:idNombramiento " + "AND	s.rfc IS NOT NULL")
+											+ "AND	n.id_nombramiento =:idNombramiento " 
+											+ "AND (n.id_siif_encabezados !=:@id_siif_encabezadoF "
+											+ "AND n.id_siif_encabezados !=:@id_siif_encabezadoSPF)")																								
 									.setParameter("@id_siif_encabezadoSP", id_siif_encabezadoSP)
 									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-									.setParameter("idNombramiento", dto.getIdNombramiento());
+									.setParameter("idNombramiento", dto.getIdNombramiento())
+									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
+									.setParameter("@id_siif_encabezadoSPF", id_siif_encabezadoSPF);
 							query.executeUpdate();
 							System.out.println("Actualiza encabezados SP::::: ");
 							query = session
