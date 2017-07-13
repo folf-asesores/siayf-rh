@@ -15,11 +15,11 @@ import java.util.Objects;
  */
 public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
 
-    private final String unidadResponsable;
     private final String numeroUnidadResponsable;
+    private final String unidadResponsable;
     private final Map<String, NominaEmpleadoDTO> nominasEmpleados;
 
-    public UnidadResponsableDTO(String unidadResponsable, String numeroUnidadResponsable, Map<String, NominaEmpleadoDTO> nominasEmpleados) {
+    public UnidadResponsableDTO(String numeroUnidadResponsable, String unidadResponsable, Map<String, NominaEmpleadoDTO> nominasEmpleados) {
         this.unidadResponsable = unidadResponsable;
         this.numeroUnidadResponsable = numeroUnidadResponsable;
         this.nominasEmpleados = nominasEmpleados;

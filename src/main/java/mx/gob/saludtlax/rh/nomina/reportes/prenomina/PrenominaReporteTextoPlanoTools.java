@@ -29,7 +29,7 @@ public final class PrenominaReporteTextoPlanoTools {
     private static final String PATRON_ENCABEZADO_DEL_PROGRAMA = "NÓMINA DE %1$S CORRESPONDIENTE A LA %2$S QUINCENA DE %3$TB DE %3$TY\n";
     private static final String PATRON_ENCABEZADO_NUMERO_DE_PAGINA = "PÁGINA: %1$ ,7d\n";
     private static final String PATRON_UNIDAD_RESPONSABLE = "\n     %1s ( %2s )\n";
-    private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48s  %4$td-%4$Tb-%4$tY AL %5$td-%5$Tb-%5$tY";
+    private static final String PATRON_DETALLE_PRIMERA_PARTE = " %1$ ,4d  %2$.13s   %3$-48.48s  %4$td-%4$Tb-%4$tY AL %5$td-%5$Tb-%5$tY";
     private static final String PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA = "%1$7S   %2$-26.26S   %3$ ,11.2f";
     private static final String PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA = "%1$7S   %2$-26.26S   %3$ ,11.2f";
     private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117S   %2$-26.26S   %3$ ,14.2f";

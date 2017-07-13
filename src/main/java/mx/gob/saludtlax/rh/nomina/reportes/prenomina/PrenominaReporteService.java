@@ -12,7 +12,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -173,8 +172,6 @@ public class PrenominaReporteService {
 
     private ProductoNominaDTO convertirDatos(Integer idProductoNomina, List<PrenominaDTO> prenominas) {
         if (prenominas != null && !prenominas.isEmpty()) {
-            PrenominaDTO prenominaUno = prenominas.get(0);
-            Date fechaPago = prenominaUno.getFechaPago();
             Map<Integer, ProgramaDTO> programas = new HashMap<>();
 
             for (PrenominaDTO prenomina : prenominas) {
@@ -304,6 +301,8 @@ public class PrenominaReporteService {
                 }
             }
 
+            PrenominaDTO prenominaUno = prenominas.get(0);
+            Date fechaPago = prenominaUno.getFechaPago();
             ProductoNominaDTO productoNomina;
             ProductoNominaDTOBuilder pnb = new ProductoNominaDTOBuilder(idProductoNomina, fechaPago, programas);
 

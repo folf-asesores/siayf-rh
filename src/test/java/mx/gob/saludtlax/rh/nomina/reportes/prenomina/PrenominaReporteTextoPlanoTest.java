@@ -80,7 +80,7 @@ public class PrenominaReporteTextoPlanoTest {
 //    @Ignore
     @Test
     public void generarReporteEjb() throws IOException {
-        ProductoNominaDTO productoNomina = prenominaReporteEJB.obtenerProductoNomina(30);
+        ProductoNominaDTO productoNomina = prenominaReporteEJB.obtenerProductoNomina(32);
 
         PrenominaReporteTextoPlano reporteTextoPlano = new PrenominaReporteTextoPlano();
         byte[] reporte = reporteTextoPlano.generar(productoNomina);

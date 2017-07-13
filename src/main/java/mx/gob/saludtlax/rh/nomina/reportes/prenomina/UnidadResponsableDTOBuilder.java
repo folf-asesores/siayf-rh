@@ -16,9 +16,9 @@ public class UnidadResponsableDTOBuilder {
     private String numeroUnidadResponsable = null;
     private Map<String, NominaEmpleadoDTO> nominasEmpleados = null;
 
-    public UnidadResponsableDTOBuilder(String unidadResponsable, String numeroUnidadResponsable) {
-        this.unidadResponsable = unidadResponsable;
+    public UnidadResponsableDTOBuilder(String numeroUnidadResponsable, String unidadResponsable) {
         this.numeroUnidadResponsable = numeroUnidadResponsable;
+        this.unidadResponsable = unidadResponsable;
     }
 
     public void setUnidadResponsable(String unidadResponsable) {
@@ -34,6 +34,6 @@ public class UnidadResponsableDTOBuilder {
     }
 
     public UnidadResponsableDTO createUnidadResponsableDTO() {
-        return new UnidadResponsableDTO(unidadResponsable, numeroUnidadResponsable, nominasEmpleados);
+        return new UnidadResponsableDTO(numeroUnidadResponsable, unidadResponsable, nominasEmpleados);
     }
 }

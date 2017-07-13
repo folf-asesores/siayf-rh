@@ -47,7 +47,7 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
     public String getQuincena() {
         if (quincena == null && fechaPago != null) {
             String dia = new SimpleDateFormat("dd").format(fechaPago);
-            quincena = Integer.valueOf(dia) < 15 ? "1A" : "2A";
+            quincena = Integer.valueOf(dia) < 16 ? "1A" : "2A";
         }
 
         return quincena;
