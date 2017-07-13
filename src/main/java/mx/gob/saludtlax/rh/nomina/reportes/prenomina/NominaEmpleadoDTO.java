@@ -6,6 +6,7 @@
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -48,6 +49,45 @@ public class NominaEmpleadoDTO {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 29 * hash + Objects.hashCode(this.rfc);
+        hash = 29 * hash + Objects.hashCode(this.nombre);
+        hash = 29 * hash + Objects.hashCode(this.percepciones);
+        hash = 29 * hash + Objects.hashCode(this.deducciones);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final NominaEmpleadoDTO other = (NominaEmpleadoDTO) obj;
+        if (!Objects.equals(this.rfc, other.rfc)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.percepciones, other.percepciones)) {
+            return false;
+        }
+        return Objects.equals(this.deducciones, other.deducciones);
+    }
+
+    @Override
+    public String toString() {
+        return "NominaEmpleadoDTO{" + "rfc=" + rfc + ", nombre=" + nombre + ", percepciones=" + percepciones + ", deducciones=" + deducciones + '}';
     }
 
 }

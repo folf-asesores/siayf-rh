@@ -40,10 +40,10 @@ public class ArchivoUtil {
     private static final float PDF_ESCALA = 0.5f;
     private static final int IMAGEN_ANCHO = 256;
     private static final int IMAGEN_ALTO = 256;
-    private static final String SEPARADOR_DE_ARCHIVO = System.getProperty("file.separator");
-    private static final String SEPARADOR_DE_ARCHIVO_UNIX = "\n";
-    private static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
     private static final String CARPETA_USUARIO = System.getProperty("user.home");
+    public static final String SEPARADOR_DE_ARCHIVO = System.getProperty("file.separator");
+    public static final String SEPARADOR_DE_ARCHIVO_UNIX = "\n";
+    public static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
     public static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
     public static final Charset MS_DOS_LATIN_CHARSET = Charset.forName("Cp850");
     public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");

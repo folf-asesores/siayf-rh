@@ -35,8 +35,8 @@ public final class PrenominaReporteTextoPlanoTools {
     private static final String PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA = "\n%1$117S   %2$-26.26S   %3$ ,14.2f";
     private static final String PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA = "%1$18S   %2$-26.26S   %3$ ,14.2f";
     private static final String PATRON_DETALLE_TOTALES = "\n%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f";
-    private static final String PATRON_TOTALES_PERCEPCIONES = "%1$ 117d   %2$-25S   %3$ ,15.2f";
-    private static final String PATRON_TOTALES_DEDUCCIONES = "%1$ 4d   %2$-25S   %3$ ,15.2f\n";
+    private static final String PATRON_TOTALES_PERCEPCIONES = "%1$117S   %2$-25S   %3$ ,15.2f";
+    private static final String PATRON_TOTALES_DEDUCCIONES = "%1$4S   %2$-25S   %3$ ,15.2f\n";
     private static final String PATRON_GRAN_TOTAL = "%1$ ,163.2f%2$ ,50.2f%3$ ,15.2f\n";
     private static final String PATRON_RESUMEN_DE_TOTALES = "     %1$-37S%2$ ,121.2f%3$ ,50.2f%4$ ,15.2f\n";
     private static final String PATRON_RESUMEN_EMPLEADOS_PROCESADOS = "\n     %1$-29S%2$ 73d\n";
@@ -277,35 +277,35 @@ public final class PrenominaReporteTextoPlanoTools {
 
         try (Formatter totalesFormatter = new Formatter()) {
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 1, "HONORARIOS ASIMILARES A S", honorariosAsimilares);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 51, "FALTAS Y RETARDOS", faltasRetardos);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "01", "HONORARIOS ASIMILARES A S", honorariosAsimilares);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "51", "FALTAS Y RETARDOS", faltasRetardos);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 2, "HONORARIOS", honorarios);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 52, "I.S.R.", isr);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "02", "HONORARIOS", honorarios);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "52", "I.S.R.", isr);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 5, "SUPLENCIAS", suplencias);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 53, "RESPONSABILIDADES", responsabilidades);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "05", "SUPLENCIAS", suplencias);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "53", "RESPONSABILIDADES", responsabilidades);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 8, "DÍAS ECONÓMICOS", diasEconomicos);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 55, "PRESTAMOS", prestamos);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "08", "DÍAS ECONÓMICOS", diasEconomicos);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "55", "PRESTAMOS", prestamos);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 14, "PERCEPCIÓN COMPLEMENTARIA", percepcionComplementaria);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 56, "EMBARGO DE SALARIO", embargoSalario);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "14", "PERCEPCIÓN COMPLEMENTARIA", percepcionComplementaria);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "56", "EMBARGO DE SALARIO", embargoSalario);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 17, "VALES FIN DE AÑO", valesFinAnyo);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, 62, "PENSIÓN ALIMENTICIA", pensionAlimenticia);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "17", "VALES FIN DE AÑO", valesFinAnyo);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "62", "PENSIÓN ALIMENTICIA", pensionAlimenticia);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 24, "AGUINALDO", aguinaldo);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "24", "AGUINALDO", aguinaldo);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 26, "SUBSIDIO", subsiodio);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "26", "SUBSIDIO", subsiodio);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 27, "P. VACACIONAL", primaVacacional);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "27", "P. VACACIONAL", primaVacacional);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 29, "B. DE FALTAS", bonoFaltas);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "29", "B. DE FALTAS", bonoFaltas);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 30, "RETROACTIVO", retroactivo);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "30", "RETROACTIVO", retroactivo);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, 32, "OTROS", otros);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "32", "OTROS", otros);
             totalesFormatter.format("\n");
             totalesFormatter.format(PATRON_GRAN_TOTAL, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones));
             totalesFormatter.format("\n");

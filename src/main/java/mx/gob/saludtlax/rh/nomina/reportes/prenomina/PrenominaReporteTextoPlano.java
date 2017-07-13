@@ -15,8 +15,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import mx.gob.saludtlax.rh.util.ArchivoUtil;
+
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
 /**
  *
@@ -37,7 +39,11 @@ public class PrenominaReporteTextoPlano {
             Integer lineasHojaActual;
             Integer numeroHoja = 0;
 
-            try(BufferedWriter out = Files.newBufferedWriter(pathReporteTemporal, ArchivoUtil.UTF8_CHARSET)) {
+            if (!ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS.equals(ArchivoUtil.SEPARADOR_DE_ARCHIVO)) {
+                System.setProperty("line.separator", ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS);
+            }
+
+            try(BufferedWriter out = Files.newBufferedWriter(pathReporteTemporal, ArchivoUtil.MS_DOS_LATIN_CHARSET)) {
                 Map<String, BigDecimal> percepcionesGeneral = new HashMap<>();
                 Map<String, BigDecimal> deduccionesGeneral = new HashMap<>();
                 int totalEmpleadosGeneral = 1;
@@ -55,7 +61,6 @@ public class PrenominaReporteTextoPlano {
                         String encabezadoUnidadResponsable = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
                         out.write(encabezadoUnidadResponsable);
                         lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezadoUnidadResponsable);
-                        LOGGER.debugv("lineas totales (encabezado unidad responsable): {0}", lineasTotales);
                         Map<String, BigDecimal> percepcionesUnidadResponsable = new HashMap<>();
                         Map<String, BigDecimal> deduccionesUnidadResponsable = new HashMap<>();
 
@@ -145,18 +150,15 @@ public class PrenominaReporteTextoPlano {
                                 int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
                                 out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
                                 lineasTotales += lineasRestantes;
-                                LOGGER.debugv("lineas totales (encabezado en detalle): {0}", lineasTotales);
 
                                 String encabezado = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
                                 int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezado);
                                 out.write(encabezado);
                                 lineasTotales += lineasEncabezado;
-                                LOGGER.debugv("lineas totales (encabezado en detalle): {0}", lineasTotales);
                             }
 
                             out.write(detalle);
                             lineasTotales += lineasRequeridas;
-                            LOGGER.debugv("lineas totales (detalle): {0}", lineasTotales);
                             totalEmpleadosUnidadResponsable++;
                             totalEmpleadosPrograma++;
                             totalEmpleadosGeneral++;
@@ -172,22 +174,17 @@ public class PrenominaReporteTextoPlano {
                             int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
                             out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
                             lineasTotales += lineasRestantes;
-                            LOGGER.debugv("lineas totales (encabezado en total unidad responsable): {0}", lineasTotales);
 
                             String encabezado = tools.getEncabezado(numeroHoja, programa.getPrograma(), productoNomina.getQuincena(), productoNomina.getFechaPago(), unidadResponsable.getUnidadResponsable(), unidadResponsable.getNumeroUnidadResponsable());
                             int lineasEncabezado = PrenominaReporteTextoPlanoTools.contadorDeLineas(encabezado);
                             out.write(encabezado);
                             lineasTotales += lineasEncabezado;
-                            LOGGER.debugv("lineas totales (encabezado en total unidad responsable): {0}", lineasTotales);
                         }
 
                         out.write(totalesUnidadResponsable);
                         lineasTotales += PrenominaReporteTextoPlanoTools.contadorDeLineas(totalesUnidadResponsable);
-                        LOGGER.debugv("Lineas totales (total unidad responsable): {0}", lineasTotales);
                         lineasHojaActual = lineasTotales % LINEAS_POR_HOJA;
-//                        LOGGER.debugv("Linea actual: {0}", lineasHojaActual);
                         int lineasRestantes = LINEAS_POR_HOJA - lineasHojaActual;
-//                        LOGGER.debugv("Lineas restantes: {0}", lineasRestantes);
                         out.write(PrenominaReporteTextoPlanoTools.agregarLineasEnBlanco(lineasRestantes));
                         lineasTotales += lineasRestantes;
                     }
@@ -229,6 +226,8 @@ public class PrenominaReporteTextoPlano {
         } catch (IOException ex) {
             LOGGER.error(ex);
         }
+
+        System.setProperty("line.separator", ArchivoUtil.SEPARADOR_DE_ARCHIVO);
 
         return bytes;
     }

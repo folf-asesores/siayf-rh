@@ -38,6 +38,11 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
     }
 
     @Override
+    public Iterator<NominaEmpleadoDTO> iterator() {
+        return nominasEmpleados.values().iterator();
+    }
+
+    @Override
     public int hashCode() {
         int hash = 3;
         hash = 47 * hash + Objects.hashCode(this.unidadResponsable);
@@ -68,7 +73,7 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
     }
 
     @Override
-    public Iterator<NominaEmpleadoDTO> iterator() {
-        return nominasEmpleados.values().iterator();
+    public String toString() {
+        return "UnidadResponsableDTO{" + "numeroUnidadResponsable=" + numeroUnidadResponsable + ", unidadResponsable=" + unidadResponsable + ", nominasEmpleados=" + nominasEmpleados + '}';
     }
 }
