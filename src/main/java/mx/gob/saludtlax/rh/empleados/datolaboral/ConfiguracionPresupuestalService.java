@@ -481,6 +481,8 @@ public class ConfiguracionPresupuestalService {
 		} else {
 			detalle.setCuentaFinanciamiento("SIN CUENTA");
 		}
+		
+		System.out.println("id configuracion :" + configuracion.getId());
 		detalle.setDependencia(configuracion.getDependencia().getDescripcion());
 		detalle.setEstatus(configuracion.getEstatus().getEstatus());
 		detalle.setFuenteFinanciamiento(configuracion.getFuenteFinanciamiento().getDescripcion());

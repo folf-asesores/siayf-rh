@@ -202,6 +202,7 @@ public class AltaEmpleadoService {
 		configuracionPresupuestal.setEstatus(estatus);
 		configuracionPresupuestal.setFechaInicioLabores(dto.getFechaInicioLabores());
 		configuracionPresupuestal.setIdJornada(dto.getIdTipoJornada());
+		configuracionPresupuestal.setTipoPago(dto.getTipoPago());
 		configuracionPresupuestalRepository.actualizar(configuracionPresupuestal);
 
 	}

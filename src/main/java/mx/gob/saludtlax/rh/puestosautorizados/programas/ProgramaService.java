@@ -188,7 +188,7 @@ public class ProgramaService {
 			d.setDescripcion(detalleProgramaDTO.getDescripcion());
 			d.setTotalGlobal(detalleProgramaDTO.getTotalGlobal());
 			d.setIdPrograma(detalleProgramaDTO.getIdPrograma());
-			d.setEsHonorario(detalleProgramaDTO.getEsHonorario());
+			d.setEsHonorario(false);
 			d.setEstatus(EnumEstatusDetallePrograma.ESPERA_AUTORIZACION);
 			detalleProgramaRepository.crear(d);
 

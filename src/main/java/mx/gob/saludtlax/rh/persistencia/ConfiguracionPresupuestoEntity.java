@@ -109,6 +109,9 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 
 	@Column(name = "id_riesgo")
 	private Integer idRiesgo;
+	
+	@Column(name="tipo_pago")//1:honorarios 2:salario
+	private Integer tipoPago;
 
 	public String lccDatosLaborales() {
 		String p = " SIN PROYECTO ";
@@ -348,4 +351,14 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
 	public void setAplicaPrimerPago(Boolean aplicaPrimerPago) {
 		this.aplicaPrimerPago = aplicaPrimerPago;
 	}
+
+	public Integer getTipoPago() {
+		return tipoPago;
+	}
+
+	public void setTipoPago(Integer tipoPago) {
+		this.tipoPago = tipoPago;
+	}
+	
+	
 }

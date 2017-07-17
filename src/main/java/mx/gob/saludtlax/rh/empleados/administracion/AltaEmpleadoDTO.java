@@ -28,6 +28,7 @@ public class AltaEmpleadoDTO {
 	private Integer idTipoJornada;
 	private NombramientoDTO nombramiento = new NombramientoDTO();
 	private ContratoEmpleadoDTO contrato = new ContratoEmpleadoDTO();
+	private Integer tipoPago; // 1:honorarios 2:Salario
 
 	public Integer getIdTipoJornada() {
 		return idTipoJornada;
@@ -141,4 +142,15 @@ public class AltaEmpleadoDTO {
 		this.idVacante = idVacante;
 	}
 
+
+
+	public Integer getTipoPago() {
+		return tipoPago;
+	}
+
+	public void setTipoPago(Integer tipoPago) {
+		this.tipoPago = tipoPago;
+	}
+
+	
 }

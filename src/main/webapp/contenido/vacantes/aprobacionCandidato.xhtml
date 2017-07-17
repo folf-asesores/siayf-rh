@@ -202,17 +202,17 @@
 
 					<f:facet name="footer">
 						<div align="center">
-							<p:commandButton icon="ui-icon-circle-check"
-								update="form, errorAprobacion" oncomplete="mymessages();"
+							<p:commandButton icon="ui-icon-circle-check" label="aprobar"
+								update="form errorAprobacion"  
 								actionListener="#{aprobacionCandidato.aprobarCandidato()}" />
 							<p:spacer width="20" />
-							<p:commandButton icon="ui-icon-circle-close" update="form"
+							<p:commandButton icon="ui-icon-circle-close" update="form" label="cancelar"
 								oncomplete="mymessages();" process="@this"
 								actionListener="#{aprobacionCandidato.ocultarDetalleSeleccionado()}"
 								styleClass="fm-btn-peligro fm-btn-elevado" />
 							<p:spacer width="20" />
-							<p:commandButton icon="fm-icon-eye" update="detalle_candidato"
-								oncomplete="popupwindow('#{aprobacionCandidato.view.consulta}', 'newwindow');" />
+<!-- 							<p:commandButton icon="fm-icon-eye" update="detalle_candidato" -->
+<!-- 								oncomplete="popupwindow('#{aprobacionCandidato.view.consulta}', 'newwindow');" /> -->
 
 
 						</div>
