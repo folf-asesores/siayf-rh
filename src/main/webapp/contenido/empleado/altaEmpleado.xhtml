@@ -270,14 +270,15 @@
 
 					<p:inputText id="cuenta"
 						value="#{altaEmpleado.view.altaEmpleado.numeroCuenta}"></p:inputText>
-						
-						
+
+
 					<p:outputLabel for="tipoPago" value="Tipo de Pago:" />
-        <p:selectOneRadio id="tipoPago" value="#{altaEmpleado.view.altaEmpleado.tipoPago}" >
-           
-            <f:selectItem itemLabel="Honorarios" itemValue="1" />
-            <f:selectItem itemLabel="Salario" itemValue="2"  />
-        </p:selectOneRadio>	
+					<p:selectOneRadio id="tipoPago"
+						value="#{altaEmpleado.view.altaEmpleado.tipoPago}">
+
+						<f:selectItem itemLabel="Honorarios" itemValue="1" />
+						<f:selectItem itemLabel="Salario" itemValue="2" />
+					</p:selectOneRadio>
 
 					<p:spacer></p:spacer>
 					<p:commandButton value="Registrar Empleado"

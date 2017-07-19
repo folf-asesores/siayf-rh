@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2017-07-11T17:30:24 -->
+<!-- 2017-07-19T13:33:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="9204-trimestral" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="960c7fed-9410-4893-80ff-317ba1fd6a78">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="folfRHDEV-2"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fRHDEV-prod"/>
 	<style name="detalle__titulo" mode="Opaque" forecolor="#000000" backcolor="#36B3B3" hTextAlign="Center" vTextAlign="Middle" fontSize="10" isBold="true">
 		<box>
 			<topPen lineWidth="0.5" lineStyle="Solid" lineColor="#000000"/>
@@ -310,7 +310,7 @@ BIOL. FRANCISCO MENDEZ GARCIA]]></text>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<text><![CDATA[JEFE DEL DEPARTAMENTO DE RECURSOS HUMANOS
-LIC. VICTOR JOSE LEAL CRUZ.]]></text>
+BIOL. FRANCISCO MENDEZ .]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="pie__firma" x="612" y="0" width="140" height="40" uuid="b56c323c-166b-405f-b956-1f21b06ced89">

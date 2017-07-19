@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2016-12-14T22:21:19 -->
+<!-- 2017-07-19T13:33:33 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="9205-anual" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="fe0bab6b-09f0-41f5-8bcb-0f629776c002">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Saludtalx"/>
 	<style name="detalle__titulo" mode="Opaque" forecolor="#000000" backcolor="#36B3B3" hTextAlign="Center" vTextAlign="Middle" fontSize="10" isBold="true">
@@ -332,7 +332,7 @@ C.P. ELADIO BARRERA SÁNCHEZ.]]></text>
 					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
 				</reportElement>
 				<text><![CDATA[JEFE DEL DEPARTAMENTO DE RECURSOS HUMANOS
-C.P. J. GUADALUPE BADILLO FLORES.]]></text>
+BIOL. FRANCISCO MENDEZ  FLORES.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="pie__firma" x="612" y="0" width="140" height="40" uuid="b56c323c-166b-405f-b956-1f21b06ced89">
