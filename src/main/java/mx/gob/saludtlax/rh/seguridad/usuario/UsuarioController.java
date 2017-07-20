@@ -113,19 +113,23 @@ public class UsuarioController implements Serializable {
      */
     public void actualizarUsuario() {
          try {
+        	
                 if(usuarioView.isCambiarContrasenia()){
                  String newPass=usuarioView.getUsuarioDTO().getPassword();
-                 usuarioView.getUsuarioDTO().setPassword(Crypto.hmac(newPass));
+                 
+                
+                 usuarioView.getEditarUsuarioDTO().setPassword(Crypto.hmac(newPass));
+                
                 }
                 usuarioEJB.actualizar(usuarioView.getEditarUsuarioDTO());
-                JSFUtils.infoMessage("Usuario", "Registrado correctamente");
+                JSFUtils.infoMessage("Usuario", "Actualizado correctamente");
             
         } catch (ReglaNegocioException ex) {
             JSFUtils.errorMessage("Error", "Ocurrio un error durante el registro del nuevo usuario");
         }
     }
     public String irCambioContrasenya(){
-    	System.out.println("hola");
+    	
     	return "/contenido/seguridad/cambiarPassword.xhtml";
     }
     //Metodo para actualizar la contraseña del ususario
@@ -133,7 +137,8 @@ public class UsuarioController implements Serializable {
         try {
         		if(password.equals(passwordChange)){
         			UsuarioDTO usuario = usuarioEnSession;
-            		usuario.setPassword(password);
+            		//usuario.setPassword(password);
+            		 usuario.setPassword(Crypto.hmac(password));
                     usuarioEJB.actualizar(usuario);
                     JSFUtils.infoMessage("", "Contraseña cambiada correctamente");
         		}else {

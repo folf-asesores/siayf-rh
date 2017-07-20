@@ -17,7 +17,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "unidades_responsables_temp")
+@Table(name = "unidades_responsables")
 public class UnidadResponsableEntity implements Serializable {
 
     private static final long serialVersionUID = -3491218769714297031L;
