@@ -382,7 +382,7 @@ public class ReporteSiifController {
 				view.setSiifBitacoraProcesada(ejb.asignarEncabezadosDats(view.getSiifBitacoraProcesada()));
 				view.setEncabezadoListSiif(ejb.obtenerEncabezadosSiif(view.getSiifBitacoraProcesada()));
 				
-				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getEncabezadoListSiif(),view.getSiifBitacoraProcesada()));
+				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getEncabezadoListSiif(),view.getSiifBitacoraProcesada(),view.getPaqueteEntrada()));
 				view.setSiifBitacoraProcesada(ejb.calcularEncabezados(view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));
 				view.setPanelUpload(Boolean.FALSE);

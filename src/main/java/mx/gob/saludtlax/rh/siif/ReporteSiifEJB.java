@@ -97,13 +97,13 @@ public class ReporteSiifEJB {
 			return bitacora;
 		}
 		
-		public SiifBitacoraDTO procesarNominaTheosToSIIF_3(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora) {
+		public SiifBitacoraDTO procesarNominaTheosToSIIF_3(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora, PaqueteEntradaFederalDTO entrada) {
 			try {
 				ut.begin();				
 				//bitacora = reporteSiifService.clasificarEncabezados4(bitacora);
-				bitacora = reporteSiifService.clasificarRegularizadosSiif2(result, bitacora);
+				bitacora = reporteSiifService.clasificarRegularizadosSiif2(result, bitacora, entrada);
 				bitacora = reporteSiifService.verificarDatos(bitacora);
-				bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+				bitacora = reporteSiifService.asignarEncabezadosTrailersSiif(bitacora);
 				ut.commit();			
 			} catch (Exception ex) {
 				ex.printStackTrace();
@@ -465,106 +465,7 @@ public class ReporteSiifEJB {
 				return result;
 			}
 	
-	/*
-	public SiifBitacoraDTO clasificarRegularizadosSiif(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora) {
-		System.out.println("Inicia :: Clasifica Nomina Estructura :: lista encabezados:: "+ result.size());
-		Integer[] idPensiones = { 5, 10, 19, 21, 24, 27, 30, 33, 38, 45 };
-		
-		for (SIIFEncabezadoDTO dto : result) {
-			dto.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-			dto.setIdTipoNomina(bitacora.getIdTipoNomina());
-			dto.setIdSIIFBitacora(bitacora.getIdSiifBitacora());			
-			// Si son PENSIONES hay que unirlos
-			if (Arrays.asList(idPensiones).contains(dto.getIdTipoNomina())) {				
-				// Si son REGULARIZADOS hay que clasificarlos en:
-				// Federales, Seguro Popular Federal y Seguro Popular
-				if (dto.getIdNombramiento().intValue() == 4) {
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica REG FED");
-					//actualizarSiifBitacora(bitacora);					
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica SEG POP FED");
-					//actualizarSiifBitacora(bitacora);					
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica SEG POP");
-					//actualizarSiifBitacora(bitacora);
-					query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();
-					for (SIIFEncabezadoDTO dtoReg : resultReg) {
-						dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-						dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
-						dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
-						//actualizarSiifEncabezado(dtoReg);
-					}
-					//encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());					
-					// Si son PERSONAL EN FORMACION hay que unirlos
-				} else {
-					//actualizarSiifEncabezado(dto);
-				}
-
-			} else {
-				// Si son REGULARIZADOS hay que clasificarlos en:
-				// Federales, Seguro Popular Federal y Seguro Popular
-				if (dto.getIdNombramiento().intValue() == 4) {
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica REG FED");
-					//actualizarSiifBitacora(bitacora);					
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica SEG POP FED");
-					//actualizarSiifBitacora(bitacora);					
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					//bitacora.setStatus("Clasifica SEG POP");
-					//actualizarSiifBitacora(bitacora);
-					query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();					
-					for (SIIFEncabezadoDTO dtoReg : resultReg) {
-						dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-						dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
-						dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
-						//actualizarSiifEncabezado(dtoReg);
-					}
-					//encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());
-				} else {
-					// Si son PERSONAL EN FORMACION hay que unirlos
-					//actualizarSiifEncabezado(dto);
-				}
-			}
-		}
-		//limpiarSiifEncabezados(bitacora.getIdSiifBitacora());
-		return bitacora;
-	}
-	*/
-		
+			
 
 	public SiifBitacoraDTO procesarNominaContTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) {
 		UploadedFile cont = paqueteEntrada.getCont();
