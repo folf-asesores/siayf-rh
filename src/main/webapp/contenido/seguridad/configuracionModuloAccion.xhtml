@@ -31,12 +31,12 @@
 					<p:outputLabel for="modulo" value="Módulo:" />
 					<p:outputPanel>
 						<p:selectOneMenu id="modulo"
-							value="#{configuracionModuloAccionController.configuracionModuloAccionDTONew.modulo.id_modulo}"
+							value="#{configuracionModuloAccionController.configuracionModuloAccionDTONew.modulo.idModulo}"
 							validator="#{configuracionModuloAccionController.validatorConfiguracionModuloAccion}">
 							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
 							<f:selectItems
 								value="#{configuracionModuloAccionController.listaModulos}"
-								var="modulo" itemValue="#{modulo.id_modulo}"
+								var="modulo" itemValue="#{modulo.idModulo}"
 								itemLabel="#{modulo.nombre}" />
 							<p:ajax update="msgModulo tablaAcciones" listener="#{configuracionModuloAccionController.accionesPorModuloSeleccionado}"/>
 							<p:clientValidator />
@@ -57,7 +57,7 @@
 				<p:dataTable id="tablaAcciones" var="accion"
 					value="#{configuracionModuloAccionController.listaAcciones}"
 					selection="#{configuracionModuloAccionController.listaAccionesSeleccionadas}"
-					rowKey="#{accion.id_accion}" style="margin-bottom:0">
+					rowKey="#{accion.idAccion}" style="margin-bottom:0">
 					<f:facet name="header">
           				 Acciones del Modulo
        				</f:facet>

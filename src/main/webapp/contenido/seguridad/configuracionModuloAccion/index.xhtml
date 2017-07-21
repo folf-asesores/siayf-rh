@@ -80,12 +80,12 @@
 
 						<p:button id="btnModulo" title="Editar" icon="ui-icon-pencil"
 							immediate="true" update="@all"
-							outcome="editar.xhtml?i=#{configuracionModuloAccion.id_configuracion_modulo_accion}" />
+							outcome="editar.xhtml?i=#{configuracionModuloAccion.idConfiguracionModuloAccion}" />
 
 						<p:commandButton id="eliminarModulo"
 							styleClass="fm-btn-error fm-btn-elevado" process="form"
 							update="form" icon="ui-icon-trash"
-							action="#{configModuloAccion.eliminarConfiguracion(configuracionModuloAccion.id_configuracion_modulo_accion)}">
+							action="#{configModuloAccion.eliminarConfiguracion(configuracionModuloAccion.idConfiguracionModuloAccion)}">
 							<p:confirm header="Confirmacion"
 								message="¿Deseas quitar el registro: #{configuracionModuloAccion.nombreConfiguracion} de la lista? "
 								icon="ui-icon-alert" />

@@ -43,12 +43,12 @@
 						<p:outputLabel for="modulo" value="Módulo: *" />
 						<p:selectOneMenu id="modulo" filter="true"
 							filterMatchMode="contains" effect="size"
-							value="#{crearConfigModuloAccion.view.configuracionModuloAccionDTONew.modulo.id_modulo}"
+							value="#{crearConfigModuloAccion.view.configuracionModuloAccionDTONew.modulo.idModulo}"
 							validator="#{crearConfigModuloAccion.validatorConfiguracionModuloAccion}">
 							<f:selectItem itemLabel="Selecciona uno..." itemValue="0" />
 							<f:selectItems
 								value="#{crearConfigModuloAccion.view.listaModulos}"
-								var="modulo" itemValue="#{modulo.id_modulo}"
+								var="modulo" itemValue="#{modulo.idModulo}"
 								itemLabel="#{modulo.nombre}" />
 							<p:ajax update="pickList modulo msgModulo" event="valueChange"
 								listener="#{crearConfigModuloAccion.accionesPorModuloSeleccionado}" />
