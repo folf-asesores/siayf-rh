@@ -173,7 +173,7 @@ public final class PrenominaReporteTextoPlanoTools {
         return detalle;
     }
 
-    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados) {
+    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados, boolean pension) {
         // Percepciones
         BigDecimal honorariosAsimilares = BigDecimal.ZERO;
         BigDecimal honorarios = BigDecimal.ZERO;
@@ -277,7 +277,7 @@ public final class PrenominaReporteTextoPlanoTools {
 
         try (Formatter totalesFormatter = new Formatter()) {
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "01", "HONORARIOS ASIMILARES A S", honorariosAsimilares);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "01", !pension ? "HONORARIOS ASIMILARES A S" : "PENSIÓN ALIMENTICIA", honorariosAsimilares);
             totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "51", "FALTAS Y RETARDOS", faltasRetardos);
 
             totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "02", "HONORARIOS", honorarios);
