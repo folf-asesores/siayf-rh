@@ -181,7 +181,6 @@ public class ProductosNominaService {
 		return result.isEmpty() ? null : result.get(0);
 	}
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
 	public void actualizarProductoNomina(ProductoNominaDTO dto) {
 		try {
 			ProductoNominaEntity entity = productoNominaRepository.obtenerPorId(dto.getIdProductoNomina());
@@ -303,7 +302,6 @@ public class ProductosNominaService {
 		return result;
 	}
 
-    @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void aplicarConsecutivosProductoNomina(ProductoNominaDTO productoNomina) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_actualizar_consecutivo_nomina_empleado(:idProductoNomina) ")
