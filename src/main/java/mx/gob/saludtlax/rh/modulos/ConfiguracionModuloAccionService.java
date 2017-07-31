@@ -12,11 +12,15 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.AccionesRepository;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionRepository;
+import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloEntity;
+import mx.gob.saludtlax.rh.persistencia.ConfiguracionUsuarioModuloRepository;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.DetalleConfiguracionModuloAccionRepository;
 import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionModuloAccionEntity;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
+import mx.gob.saludtlax.rh.seguridad.usuario.ConfiguracionUsuarioModuloDTO;
+import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 
 public class ConfiguracionModuloAccionService implements Serializable {
 
@@ -26,8 +30,12 @@ public class ConfiguracionModuloAccionService implements Serializable {
     @Inject
     private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
 
+	 @Inject
+	    private ConfiguracionUsuarioModuloRepository configuracionUsuarioModuloRepository;
+    
     @Inject
     private DetalleConfiguracionModuloAccionRepository detalleConfiguracionModuloAccionRepository;
+
 
     @Inject
     private ModuloRepository moduloRepository;
@@ -270,4 +278,63 @@ public class ConfiguracionModuloAccionService implements Serializable {
         return null;
     }
 
+    
+    public List<ConfiguracionModuloAccionDTO> configuracionPorUsuario(Integer idUsuario){
+    	 List<ConfiguracionUsuarioModuloEntity> listEntity = configuracionUsuarioModuloRepository.obtenerRegistrosPorUsuario(idUsuario);
+	        List<ConfiguracionModuloAccionEntity> listCompletaEntity = configuracionModuloAccionRepository.consultarTodos();
+	        List<ConfiguracionModuloAccionEntity> listRestanteEntity = new ArrayList<>();
+
+	        System.out.println("listEntity: " + listEntity.size() );
+	        
+	        System.out.println("listCompleta: " + listCompletaEntity.size() );
+	        
+	        List<ConfiguracionModuloAccionEntity> configuracionesUsuario = new ArrayList<>();
+	        for(ConfiguracionUsuarioModuloEntity configuracion:listEntity){
+	        configuracionesUsuario.add(configuracion.getConfiguracionModuloAccion());
+	         }
+	        
+	        
+	          for (ConfiguracionModuloAccionEntity ent : listCompletaEntity) {
+	            if (!configuracionesUsuario.contains(ent)) {	
+	            	listRestanteEntity.add(ent);
+	            }
+	            }
+	        
+	        List<ConfiguracionModuloAccionDTO> listDto = new ArrayList<>();
+	        System.out.println("listCompleta: " + listRestanteEntity.size() );
+	        for (ConfiguracionModuloAccionEntity ent : listRestanteEntity) {
+	            ConfiguracionModuloAccionDTO dto = toDto(ent);
+	            listDto.add(dto);
+	        }
+	        return listDto;
+    	
+    	
+    }
+    
+    private ConfiguracionModuloAccionDTO toDto(ConfiguracionModuloAccionEntity ent) {
+
+        ConfiguracionModuloAccionDTO cfn = new ConfiguracionModuloAccionDTO();
+        cfn.setIdConfiguracionModuloAccion(ent.getIdConfiguracionModuloAccion());
+        ModuloDTO mdl = new ModuloDTO();
+        mdl.setIdModulo(ent.getModulo().getIdModulo());
+        mdl.setNombre(ent.getModulo().getNombre());
+        cfn.setModulo(mdl);
+        cfn.setNombreConfiguracion(ent.getDescripcion());
+        List<AccionDTO> listaAcciones = new ArrayList<>();
+
+        List<DetalleConfiguracionModuloAccionEntity> detalles = detalleConfiguracionModuloAccionRepository.obtenerDetallesPorIdConfiguracion(
+                ent.getIdConfiguracionModuloAccion());
+        if (!detalles.isEmpty()) {
+            for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
+                listaAcciones.add(new AccionDTO(detalle.getAccion().getIdAccion(),
+                        detalle.getAccion().getClave(), detalle.getAccion().getDescripcion(),
+                        detalle.getAccion().getArea().getIdArea(), detalle.getAccion().getModulo().getIdModulo(),
+                        detalle.getAccion().getArea().getNombreArea()));
+            }
+        }
+        cfn.setAcciones(listaAcciones);
+        
+        return cfn;
+    }
+    
 }

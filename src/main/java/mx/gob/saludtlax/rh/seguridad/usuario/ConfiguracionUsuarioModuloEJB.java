@@ -132,12 +132,17 @@ public class ConfiguracionUsuarioModuloEJB implements ConfiguracionUsuarioModulo
         List<ConfiguracionUsuarioModuloEntity> listCompletaEntity = configuracionUsuarioModuloRepository.consultarTodos();
         List<ConfiguracionUsuarioModuloEntity> listRestanteEntity = new ArrayList<>();
 
+        System.out.println("listEntity: " + listEntity.size() );
+        
+        System.out.println("listCompleta: " + listCompletaEntity.size() );
+        
         for (ConfiguracionUsuarioModuloEntity ent : listCompletaEntity) {
             if (!listEntity.contains(ent)) {
                 listRestanteEntity.add(ent);
             }
         }
         List<ConfiguracionUsuarioModuloDTO> listDto = new ArrayList<>();
+        System.out.println("listCompleta: " + listRestanteEntity.size() );
         for (ConfiguracionUsuarioModuloEntity ent : listRestanteEntity) {
             ConfiguracionUsuarioModuloDTO dto = toDto(ent);
             listDto.add(dto);

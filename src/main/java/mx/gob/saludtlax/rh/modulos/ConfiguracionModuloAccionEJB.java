@@ -1,4 +1,5 @@
 package mx.gob.saludtlax.rh.modulos;
+
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -6,11 +7,14 @@ import javax.inject.Inject;
 
 import mx.gob.saludtlax.rh.acciones.AccionDTO;
 
+
 @Stateless
 public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion{
 
 	@Inject
 	private ConfiguracionModuloAccionService service;
+	
+
 	
 	@Override
 	public void crear(ConfiguracionModuloAccionDTO dto) {
@@ -54,6 +58,11 @@ public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion{
 	public List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion, List<Integer> idAcciones) {
 		
 		return null;
+	}
+
+	@Override
+	public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(Integer idUsuario) {
+		return service.configuracionPorUsuario(idUsuario);
 	}
 	
 }

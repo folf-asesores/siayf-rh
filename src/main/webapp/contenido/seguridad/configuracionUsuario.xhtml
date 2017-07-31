@@ -36,7 +36,7 @@
 					action="#{vistaUsuarioController.regresar()}" process="@this" />
 					
 				<p:commandButton  value="Guardar"  update="form"  process="@this"
-					action="#{vistaUsuarioController.guardar}"/>
+					action="#{vistaUsuarioController.guardar()}"/>
 			</p:panelGrid>
 			
 				
@@ -113,13 +113,17 @@
 
 				<p:column style="text-align: center;" headerText="Opciones">
 
+
+
+						
 					<p:commandButton id="eliminarModulo"
-						styleClass="fm-btn-error fm-btn-elevado" process="tablaAcciones"
-						update="tablaAcciones :form:tablaAgregar" icon="ui-icon-trash"
-						action="#{vistaUsuarioController.eliminar(modulo)}">
-						<p:confirm header="Confirmacion"
-							message="¿Deseas quitar el registro: #{modulo.nombre} de la lista? "
-							icon="ui-icon-alert" />
+						styleClass="fm-btn-error fm-btn-elevado" process="@this"
+						update="tablaConfiguraciones :form:tablaAgregar" icon="ui-icon-trash"
+						action="#{vistaUsuarioController.eliminar(configuracion)}"
+						>
+							<p:confirm header="Confirmacion"
+								message="¿Deseas quitar el registro de la lista? "
+								icon="ui-icon-alert" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
@@ -128,10 +132,10 @@
 				paginator="true" paginatorPosition="top"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="10,20,30"
-				value="#{vistaUsuarioController.listaConfiguracionUsuarioRestantes}"
+				value="#{vistaUsuarioController.listaConfiguracionModuloAccionRestantes}"
 				editable="true" rendered="#{vistaUsuarioController.view.tabla}"
 				selection="#{vistaUsuarioController.listaConfiguracionUsuarioSelect}"
-				rowKey="#{agregarAccion.configuracionModulo.nombreConfiguracion}">
+				rowKey="#{agregarAccion.nombreConfiguracion}">
 
 				<p:column selectionMode="multiple"
 					style="width:36px;
@@ -140,11 +144,11 @@
 				<p:column headerText="Nombre Configuracion"
 					filterMatchMode="contains">
 					<h:outputText
-						value="#{agregarAccion.configuracionModulo.nombreConfiguracion}" />
+						value="#{agregarAccion.nombreConfiguracion}" />
 				</p:column>
 
 				<p:column headerText="Nombre Accion" filterMatchMode="contains">
-					<p:dataList value="#{agregarAccion.configuracionModulo.acciones}"
+					<p:dataList value="#{agregarAccion.acciones}"
 						var="accion">
 					        #{accion.descripcion}
 					    </p:dataList>
@@ -167,6 +171,14 @@
 						update="tablaAgregar :form:tablaConfiguraciones" />
 				</f:facet>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+					<p:commandButton value="Si" type="button"  update="form"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="No" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			
 		</h:form>
 	</ui:define>
 </ui:composition>

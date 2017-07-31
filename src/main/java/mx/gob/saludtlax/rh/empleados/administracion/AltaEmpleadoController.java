@@ -148,6 +148,7 @@ public class AltaEmpleadoController implements Serializable {
 			empleado.crearEmpleado(view.getAltaEmpleado());
 			AltaEmpleadoView view = new AltaEmpleadoView();
 			setView(view);
+			inicio();
 			view.setMostrarTablaResultado(true);
 			JSFUtils.infoMessage("",
 					"¡El empleado ha sido registrado con éxito!");

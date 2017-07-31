@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+	<ui:param name="ventanaTitulo" value="Control de Asistencia" />
+
+	<ui:param name="moduloTitulo" value="Actualizar asitencias" />
+	<ui:param name="moduloSubtitulo"
+		value="Reportes de control de asitencia." />
+
+	<ui:define name="moduloContenido">
+		<h:outputStylesheet library="css" name="siayf_rh.css" />
+		<h:form id="form" styleClass="fm-tarjeta ui-fluid">
+			<p:messages id="messagesPrincipal" showDetail="true"
+				autoUpdate="true" closable="true" escape="false" />
+			<p:panelGrid id="pnlDescuentos" layout="grid" columns="4"
+				columnClasses="ui-grid-col-2, ui-grid-col-4, ui-grid-col-2, ui-grid-col-4"
+				styleClass="ui-panelgrid-blank">
+				<p:outputLabel value="Fecha Inicio" for="fechainicio" />
+				<p:calendar id="fechainicio"
+					mindate="#{actualizarAsistenciasController.fechaIni}"
+					value="#{actualizarAsistenciasController.fechaInicial}" />
+
+				<p:outputLabel value="Fecha Fin" for="fechafinal" />
+				<p:calendar id="fechafinal"
+					value="#{actualizarAsistenciasController.fechaFin}" />
+
+
+				<p:outputLabel value="Adscripción" for="somIdAdscripcion" />
+				<p:selectOneMenu id="somIdAdscripcion"
+					value="#{actualizarAsistenciasController.adscripcion}" filter="true"
+					filterMatchMode="contains">
+					<f:selectItems
+						value="#{actualizarAsistenciasController.catalogoAdscripciones}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Tipo contratación" for="txtTipoContratacion" />
+				<p:selectOneMenu id="txtTipoContratacion"
+					value="#{actualizarAsistenciasController.tipoContratacion}">
+					<f:selectItems value="#{actualizarAsistenciasController.tipoContrataciones}" />
+				</p:selectOneMenu>
+
+				<p:commandButton id="btnasistencias" value="Actualizar Asistencias"
+					update="messagesPrincipal"
+					actionListener="#{actualizarAsistenciasController.actualizarAsistencias()}" />
+
+
+				<p:spacer />
+				<p:spacer />
+				<p:spacer />
+			</p:panelGrid>
+
+			<p:ajaxStatus>
+				<f:facet name="default">
+
+				</f:facet>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="sincronizar.gif"
+							width="32" />
+					</center>
+				</f:facet>
+				<f:facet name="complete">
+				</f:facet>
+			</p:ajaxStatus>
+		</h:form>
+	</ui:define>
+</ui:composition>

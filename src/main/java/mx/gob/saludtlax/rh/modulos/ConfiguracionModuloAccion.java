@@ -18,6 +18,8 @@ public interface ConfiguracionModuloAccion {
 	
 	List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(Integer idAccion);
 	
+	List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(Integer idUsuario);
+	
 	ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod);
 	
 	List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion, List<Integer> idAcciones);
