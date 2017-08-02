@@ -63,25 +63,27 @@ public class ProductoNominaExcel implements Serializable {
 	private static final int CONCEPTO_CENTRO_RESPONSABILIDAD = 4;
 	private static final int FUNCION = 5;
 	private static final int PROGRAMA = 6;
-	private static final int HONORARIOS_ASIMILABLES = 7;
-	private static final int SUPLENCIAS = 8;
-	private static final int DIAS_ECONOMICOS = 9;
-	private static final int PERCEPCION_COMPLEMENTARIA = 10;
-	private static final int BONO = 11;
-	private static final int AGUINALDO = 12;
-	private static final int SUBSIDIO = 13;
-	private static final int PRIMA_VACACIONAL = 14;
-	private static final int BONIFICACION_FALTA = 15;
-	private static final int RETROACTIVO = 16;
-	private static final int OTROS = 17;
-	private static final int FALTAS_RETARDOS = 18;
-	private static final int ISR = 19;
-	private static final int RESPONSABILIDADES = 20;
-	private static final int PRESTAMO = 21;
-	private static final int JUICIO_MERCANTIL = 22;
-	private static final int CUOTA_SINDICAL = 23;
-	private static final int PENSION_ALIMENTICIA = 24;
-	private static final int COLUMNA_TOTAL = 25;
+	private static final int FUENTE = 7;
+	private static final int SUBFUENTE = 8;
+	private static final int HONORARIOS_ASIMILABLES = 9;
+	private static final int SUPLENCIAS =10;
+	private static final int DIAS_ECONOMICOS =11;
+	private static final int PERCEPCION_COMPLEMENTARIA = 12;
+	private static final int BONO = 13;
+	private static final int AGUINALDO = 14;
+	private static final int SUBSIDIO = 15;
+	private static final int PRIMA_VACACIONAL = 16;
+	private static final int BONIFICACION_FALTA = 17;
+	private static final int RETROACTIVO = 18;
+	private static final int OTROS = 19;
+	private static final int FALTAS_RETARDOS = 20;
+	private static final int ISR = 21;
+	private static final int RESPONSABILIDADES = 22;
+	private static final int PRESTAMO = 23;
+	private static final int JUICIO_MERCANTIL = 24;
+	private static final int CUOTA_SINDICAL = 25;
+	private static final int PENSION_ALIMENTICIA = 26;
+	private static final int COLUMNA_TOTAL = 27;
 
 	/**
 	 * Totales
@@ -151,13 +153,11 @@ public class ProductoNominaExcel implements Serializable {
 		try {
 			cargarPlantilla();
 			llenarDetalles(detalles);
-
 			return obtenerBytes();
 		} catch (IOException e) {
 			throw new SistemaException("Ocurrio un error al leer la platilla",
 					SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
 		}
-
 	}
 
 	private void llenarDetalles(List<ProductosNominaExcelDTO> estructura) {
@@ -191,6 +191,12 @@ public class ProductoNominaExcel implements Serializable {
 
 			Cell celdaPrograma = filaDetalle.createCell(PROGRAMA);
 			celdaPrograma.setCellValue(detalle.getPrograma());
+
+			Cell celdaFuente = filaDetalle.createCell(FUENTE);
+			celdaFuente.setCellValue(detalle.getFuente());
+
+			Cell celdaSubfuente = filaDetalle.createCell(SUBFUENTE);
+			celdaSubfuente.setCellValue(detalle.getSubfuente());
 			
 			Cell celdaHonorariosAsimilables = filaDetalle.createCell(HONORARIOS_ASIMILABLES, Cell.CELL_TYPE_NUMERIC);
 			celdaHonorariosAsimilables.setCellValue((double) (detalle.getHonorariosAsimilables() == null ? 0

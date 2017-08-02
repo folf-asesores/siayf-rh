@@ -27,6 +27,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     private String conceptoCentroResponsabilidad;
     private String funcion;
     private String programa;
+    private String fuente;
+    private String subfuente;
     private BigDecimal honorariosAsimilables;
     private BigDecimal suplencias;
     private BigDecimal diasEconomicos;
@@ -132,7 +134,23 @@ public class ProductosNominaExcelDTO implements Serializable {
         this.programa = programa;
     }
 
-    public BigDecimal getHonorariosAsimilables() {
+    public String getFuente() {
+		return fuente;
+	}
+
+	public void setFuente(String fuente) {
+		this.fuente = fuente;
+	}
+
+	public String getSubfuente() {
+		return subfuente;
+	}
+
+	public void setSubfuente(String subfuente) {
+		this.subfuente = subfuente;
+	}
+
+	public BigDecimal getHonorariosAsimilables() {
         return honorariosAsimilables;
     }
 
