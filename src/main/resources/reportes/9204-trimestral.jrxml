@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.1.0.final using JasperReports Library version 6.1.0  -->
-<!-- 2017-07-19T13:33:30 -->
+<!-- 2017-08-02T10:57:30 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="9204-trimestral" pageWidth="792" pageHeight="612" orientation="Landscape" whenNoDataType="NoDataSection" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="960c7fed-9410-4893-80ff-317ba1fd6a78">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="fRHDEV-prod"/>
 	<style name="detalle__titulo" mode="Opaque" forecolor="#000000" backcolor="#36B3B3" hTextAlign="Center" vTextAlign="Middle" fontSize="10" isBold="true">
@@ -52,7 +52,7 @@
 	<parameter name="QUINCENA_APLICACION_MOVIMIENTO" class="java.lang.Integer"/>
 	<parameter name="ANYO_APLICACION_MOVIMIENTO" class="java.lang.Integer"/>
 	<queryString>
-		<![CDATA[CALL usp_9204_trimestral($P{ID_ADSCRIPCION},  $P{TIPO_CONTRATACION}, $P{FECHA_INICIO},  $P{FECHA_FIN},  $P{QUINCENA_APLICACION_MOVIMIENTO},  $P{ANYO_APLICACION_MOVIMIENTO})]]>
+		<![CDATA[CALL usp_9204_trimestral_dios($P{ID_ADSCRIPCION},  $P{TIPO_CONTRATACION}, $P{FECHA_INICIO},  $P{FECHA_FIN},  $P{QUINCENA_APLICACION_MOVIMIENTO},  $P{ANYO_APLICACION_MOVIMIENTO})]]>
 	</queryString>
 	<field name="tipo_contratacion" class="java.lang.String"/>
 	<field name="clave_unidad" class="java.lang.String"/>
