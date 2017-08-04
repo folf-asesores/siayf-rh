@@ -27,6 +27,12 @@ public class SIIFSeguroPopularEntity implements Serializable {
 
     @Column(name = "quincena")
     private Integer quincena;
+    
+    @Column(name = "periodo")
+    private String periodo;
+    
+    @Column(name = "id_tipo_nomina")
+    private Integer idTipoNomina;
 
 //    <<<Getters & Setters>>>
     public Integer getIdSeguroPopularFederal() {
@@ -53,4 +59,21 @@ public class SIIFSeguroPopularEntity implements Serializable {
         this.quincena = quincena;
     }
 
+	public String getPeriodo() {
+		return periodo;
+	}
+
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+
+	public Integer getIdTipoNomina() {
+		return idTipoNomina;
+	}
+
+	public void setIdTipoNomina(Integer idTipoNomina) {
+		this.idTipoNomina = idTipoNomina;
+	}
+    
+    
 }

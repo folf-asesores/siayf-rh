@@ -154,6 +154,8 @@ public class ReportarSiifSeguroPopularControlller {
 
 				DTO.setRfc(genericoDTO.getDato(0, String.class));
 				DTO.setQuincena(genericoDTO.getDato(1, Integer.class));
+				DTO.setPeriodo(genericoDTO.getDato(2, String.class));
+				DTO.setIdTipoNomina(genericoDTO.getDato(3, Integer.class));
 
 				listaEstructura.add(DTO);
 

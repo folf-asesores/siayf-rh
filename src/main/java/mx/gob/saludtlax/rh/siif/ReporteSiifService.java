@@ -670,7 +670,7 @@ public class ReporteSiifService {
 		EstructuraNominaDatEntity entity = new EstructuraNominaDatEntity();
 		entity.setNumEmp(((array[0]).equals(" ")) ? null : String.valueOf(array[0]));
 		entity.setRfc(((array[1]).equals(" ")) ? null : String.valueOf(array[1]));
-		// System.out.println(entity.getRfc());
+		//System.out.println("Dats RFC:::" + entity.getRfc());
 		// LOGGER.debugv("RFC:::", entity.getRfc());
 		entity.setCurp(((array[2]).equals(" ")) ? null : String.valueOf(array[2]));
 		entity.setNombre(((array[3]).equals(" ")) ? null : String.valueOf(array[3]));
@@ -829,7 +829,7 @@ public class ReporteSiifService {
 		EstructuraNominaTrailersEntity entity = new EstructuraNominaTrailersEntity();
 
 		entity.setRfc(((array[0]).equals(" ")) ? null : String.valueOf(array[0]));
-		// LOGGER.debugv("RFC:::", entity.getRfc());
+		//System.out.println("Trailers RFC:::"+ entity.getRfc());
 		entity.setNumEmp(((array[1]).equals(" ")) ? null : String.valueOf(array[1]));
 		entity.setNumCheq(((array[2]).equals(" ")) ? null : String.valueOf(array[2]));
 		entity.setSubCheque(((array[2]).equals(" ")) ? 0 : Integer.valueOf(array[2].substring(0, 2)));
@@ -1278,10 +1278,15 @@ public class ReporteSiifService {
 							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
 							+ "n.id_nombramiento, " + "'Seguro Popular Federal' " + "FROM estructuras_nominas AS n "
 							+ "LEFT OUTER JOIN siif_seguro_popular_federal AS s "
-							+ "ON(	s.rfc = n.rfc AND	s.quincena = n.qna_real) "
-							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND	n.id_nombramiento =:idNombramiento "
-							+ "AND	s.rfc IS NOT NULL ").setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
+							+ "ON(	s.rfc = n.rfc AND s.rfc IS NOT NULL) "
+							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora AND n.id_nombramiento =:idNombramiento "
+							+ "AND s.quincena =:quincena AND s.periodo =:anio AND s.id_tipo_nomina =:tipoNomina "
+							+ "GROUP BY n.tipo_emision_nomina ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+							.setParameter("idNombramiento", dto.getIdNombramiento())							
+							.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()))
+							.setParameter("anio", "A"+entrada.getAnioAfectacion().toString())
+							.setParameter("tipoNomina", entrada.getIdTipoNomina());
 					query.executeUpdate();
 					System.out.println("Crea encabezados SPF::::: ");
 					/*****************************************************/
@@ -1332,8 +1337,11 @@ public class ReporteSiifService {
 							/***********************************************/
 							query = session
 									.createSQLQuery("SELECT spf.rfc FROM siif_seguro_popular_federal AS spf "
-											+ "WHERE spf.quincena =:quincena ")
-									.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()));
+										+ "WHERE spf.quincena =:quincena AND spf.id_tipo_nomina =:tipoNomina "
+										+ "AND spf.periodo =:periodo ")
+									.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()))
+									.setParameter("tipoNomina", entrada.getIdTipoNomina())
+									.setParameter("periodo", "A"+entrada.getAnioAfectacion().toString());
 							@SuppressWarnings("unchecked")
 							List<String> resultRfcSPF = (List<String>) query.list();
 							System.out.println(":::Atualizar nominas con SPF:::");
@@ -1581,10 +1589,15 @@ public class ReporteSiifService {
 							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
 							+ "n.id_nombramiento, " + "'Seguro Popular Federal' " + "FROM estructuras_nominas AS n "
 							+ "LEFT OUTER JOIN siif_seguro_popular_federal AS s "
-							+ "ON(	s.rfc = n.rfc AND	s.quincena = n.qna_real) "
-							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND	n.id_nombramiento =:idNombramiento "
-							+ "AND	s.rfc IS NOT NULL ").setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
+							+ "ON(	s.rfc = n.rfc AND s.rfc IS NOT NULL) "
+							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora AND n.id_nombramiento =:idNombramiento "
+							+ "AND s.quincena =:quincena AND s.periodo =:anio AND s.id_tipo_nomina =:tipoNomina "
+							+ "GROUP BY n.tipo_emision_nomina ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+							.setParameter("idNombramiento", dto.getIdNombramiento())							
+							.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()))
+							.setParameter("anio", "A"+entrada.getAnioAfectacion().toString())
+							.setParameter("tipoNomina", entrada.getIdTipoNomina());
 					query.executeUpdate();
 					System.out.println("Crea encabezados SPF::::: ");
 					/*****************************************************/
@@ -1633,10 +1646,17 @@ public class ReporteSiifService {
 							System.out.println("Selecciona el encabezado SEG_POP_FED::::: " + id_siif_encabezadoF);
 							System.out.println("Selecciona tipo de emision SEG_POP_FED::::: " + tipoEmision);
 							/***********************************************/
+//							query = session
+//									.createSQLQuery("SELECT spf.rfc FROM siif_seguro_popular_federal AS spf "
+//											+ "WHERE spf.quincena =:quincena ")
+//									.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()));
 							query = session
 									.createSQLQuery("SELECT spf.rfc FROM siif_seguro_popular_federal AS spf "
-											+ "WHERE spf.quincena =:quincena ")
-									.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()));
+										+ "WHERE spf.quincena =:quincena AND spf.id_tipo_nomina =:tipoNomina "
+										+ "AND spf.periodo =:periodo ")
+									.setParameter("quincena", Integer.parseInt(entrada.getPeriodoAfectacion()))
+									.setParameter("tipoNomina", entrada.getIdTipoNomina())
+									.setParameter("periodo", "A"+entrada.getAnioAfectacion().toString());
 							@SuppressWarnings("unchecked")
 							List<String> resultRfcSPF = (List<String>) query.list();
 							System.out.println(":::Atualizar nominas con SPF:::");

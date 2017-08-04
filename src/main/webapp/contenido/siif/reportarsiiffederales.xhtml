@@ -15,7 +15,6 @@
 		<h:form id="form" enctype="multipart/form-data">
 			<p:growl id="growl" showDetail="true" />
 			<p:outputPanel>
-				<!-- 				<p:outputPanel> -->
 				<p:row>
 					<p:column>
 						<p:commandButton value="Procesar" ajax="false" update=":form"
@@ -159,26 +158,10 @@
 						<p:outputLabel value="Nominas importadas" />
 						<h:outputText
 							value="${reporteSiif.view.siifBitacoraProcesada.totalNomina}" />
-						<p:outputLabel value="Total de percepciones" />
-						<h:outputText
-							value="${reporteSiif.view.siifBitacoraProcesada.totalPercepciones}">
-							<f:convertNumber currencySymbol="$" type="currency"
-								locale="es_MX" />
-						</h:outputText>
-						<p:outputLabel value="Total de deducciones" />
-						<h:outputText
-							value="${reporteSiif.view.siifBitacoraProcesada.totalDeducciones}">
-							<f:convertNumber currencySymbol="$" type="currency"
-								locale="es_MX" />
-						</h:outputText>
-						<p:outputLabel value="Total neto" />
-						<h:outputText
-							value="${reporteSiif.view.siifBitacoraProcesada.totalNeto}">
-							<f:convertNumber currencySymbol="$" type="currency"
-								locale="es_MX" />
-						</h:outputText>
-					</p:panelGrid>
+				
 
+					</p:panelGrid>
+					
 					<p:row>
 						<p:column>
 							<p:commandButton value="Consultar datos" ajax="false"
@@ -202,7 +185,6 @@
 						</p:column>
 					</p:row>
 
-<!-- 						scrollable="true" scrollHeight="380"  -->
 					<p:dataTable id="siifEncabezadoList"
 						value="#{reporteSiif.view.siifBitacoraProcesada.siifEncabezadoList}"
 						var="siifEncabezadoItem"
@@ -212,21 +194,19 @@
 						selectionMode="single"
 						emptyMessage="Registros no encontrados."
 						widgetVar="cellEncabezado">
-
-
 						<p:columnGroup type="header">
 							<p:row>
-								<p:column headerText="Id nomina" />
-								<p:column headerText="Nombramiento" />
-								<p:column headerText="Poder" />
-								<p:column headerText="Tipo nomina" />
-								<p:column headerText="Fecha fin quincena" />
-								<p:column headerText="Tipo de emision" />
-								<p:column headerText="Cuenta bancaria" />
-								<p:column headerText="Percepciones" />
-								<p:column headerText="Deducciones" />
-								<p:column headerText="Neto" />
-								<p:column headerText="Inconsistencias" />
+								<p:column headerText="Id nomina" style="width:5%;" />
+								<p:column headerText="Nombramiento" style="width:9%;" />
+								<p:column headerText="Poder" style="width:5%;" />
+								<p:column headerText="Tipo nomina" style="width:6%;" />
+								<p:column headerText="Fecha fin quincena" style="width:9%;" />
+								<p:column headerText="Tipo de emision" style="width:7%;" />
+								<p:column headerText="Cuenta bancaria" style="width:7%;" />
+								<p:column headerText="Percepciones" style="width:14%;" />
+								<p:column headerText="Deducciones" style="width:14%;" />
+								<p:column headerText="Neto" style="width:14%;" />
+								<p:column headerText="Inconsistencias" style="width:10%;" />
 							</p:row>
 						</p:columnGroup>
 

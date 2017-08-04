@@ -221,6 +221,8 @@ public class EstructuraContratoTrailersService {
 				
 				entity.setRfc(seguro.getRfc());
 				entity.setQuincena(seguro.getQuincena());
+				entity.setPeriodo(seguro.getPeriodo());
+				entity.setIdTipoNomina(seguro.getIdTipoNomina());
 				
 				estructuraTrailersQuery.registroSeguroPopular(entity);
 			}

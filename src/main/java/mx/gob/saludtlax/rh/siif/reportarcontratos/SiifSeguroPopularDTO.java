@@ -10,6 +10,8 @@ public class SiifSeguroPopularDTO implements Serializable {
 	private String idSeguroPopularFederal;	
 	private String rfc;
 	private Integer quincena;
+	private String periodo;
+	private Integer idTipoNomina;
 	
 	/**************** Getters and Setters ***********************/
 	
@@ -30,6 +32,18 @@ public class SiifSeguroPopularDTO implements Serializable {
 	}
 	public void setQuincena(Integer quincena) {
 		this.quincena = quincena;
+	}	
+	public String getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+	public Integer getIdTipoNomina() {
+		return idTipoNomina;
+	}
+	public void setIdTipoNomina(Integer idTipoNomina) {
+		this.idTipoNomina = idTipoNomina;
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
