@@ -59,6 +59,11 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
 
         ExcelReporte relacionPersonalSuplenteReporte = new ExcelReporte(
                 "Relacion_Personal_Suplente.xlsx", "plantillas/suplencia/");
+        
+        ExcelReporte productoNominaFederalProgramasReporte = new ExcelReporte(
+                "Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
+        ExcelReporte productoNominaProgramasReporte = new ExcelReporte(
+                "Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
 
         ExcelReporte dispercionReporte = new ExcelReporte(null, null); // 1.
         ExcelReporte pagoGeneralReporte = new ExcelReporte(null, null); // 1.
@@ -83,6 +88,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
         REPORTES.put("pago_general", pagoGeneralReporte);
         REPORTES.put("reporte_distribucion_presupuestal", distribucionPresupuestal);
         REPORTES.put("producto_nomina_federales", productoNominaFederalReporteReporte);
+        REPORTES.put("producto_nomina_programas", productoNominaProgramasReporte);
     }
 
     @Override

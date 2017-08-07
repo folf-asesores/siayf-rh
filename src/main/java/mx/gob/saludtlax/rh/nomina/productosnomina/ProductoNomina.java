@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 
 /**
  * @author Eduardo Mex
@@ -17,6 +18,8 @@ public interface ProductoNomina extends Serializable {
     List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto, Integer estatus);
 
     List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto);
+    
+    List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto);
 
     /**
      * Permite obtener el reporte del producto de nomina para las suplencias.

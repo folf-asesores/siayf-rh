@@ -11,6 +11,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 import mx.gob.saludtlax.rh.reporteslaborales.productonomina.ProductoNominaExcel;
 
 /**
@@ -31,6 +32,11 @@ public class ProductoNominaEJB implements ProductoNomina {
     @Override
     public List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto) {
         return productoNominaService.obtenerListaProductoNominaPorIdProducto(idProducto);
+    }
+    
+    @Override
+    public List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto) {
+        return productoNominaService.obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
     }
 
     @Override

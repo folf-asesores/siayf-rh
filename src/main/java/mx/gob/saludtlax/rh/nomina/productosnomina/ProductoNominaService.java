@@ -14,6 +14,7 @@ import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
@@ -41,6 +42,18 @@ public class ProductoNominaService implements Serializable {
 
 		@SuppressWarnings("unchecked")
 		List<ProductosNominaExcelDTO> list = query.list();
+
+		return list;
+	}
+	
+	protected List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createSQLQuery("CALL usp_productos_nominas_programas(:idProducto)");
+		query.setParameter("idProducto", idProducto);
+		query.setResultTransformer(Transformers.aliasToBean(ProductosNominaProgramasExcelDTO.class));
+
+		@SuppressWarnings("unchecked")
+		List<ProductosNominaProgramasExcelDTO> list = query.list();
 
 		return list;
 	}

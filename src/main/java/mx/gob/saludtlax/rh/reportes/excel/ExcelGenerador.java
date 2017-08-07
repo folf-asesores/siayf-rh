@@ -35,6 +35,7 @@ import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
+import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoDTO;
 import mx.gob.saludtlax.rh.presupuesto.DistribucionPresupuestoEJB;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
@@ -44,6 +45,7 @@ import mx.gob.saludtlax.rh.reportes.Generador;
 import mx.gob.saludtlax.rh.reporteslaborales.detallesempleado.DetalleEmpleadoExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.historialpago.HistorialPagoExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.productonomina.ProductoNominaExcel;
+import mx.gob.saludtlax.rh.reporteslaborales.productonomina.ProductoNominaProgramasExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoProyeccionExcel;
 import mx.gob.saludtlax.rh.reporteslaborales.relacionpersonalsuplente.RelacionPersonalSuplenteExcel;
@@ -81,6 +83,7 @@ public class ExcelGenerador implements Generador, Serializable {
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
     private static final String PAGO_GENERAL_BEAN = "java:module/PagoGeneralReporteEJB";
     private static final String DISTRIBUCION_PRESUPUESTO_BEAN = "java:module/DistribucionPresupuestoEJB";
+    private static final String PRODUCTO_NOMINA_PROGRAMAS_BEAN = "java:module/ProductoNominaEJB";
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -212,6 +215,24 @@ public class ExcelGenerador implements Generador, Serializable {
                     if (!listaProductoNomina.isEmpty()) {
                         ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
                         bytes = productoNominaExcel.generar(listaProductoNomina);
+                    } else {
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados en el producto nomina: ",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
+                    }
+                }
+                break;
+                
+                case "producto_nomina_programas": {
+
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+
+                    List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = getProductoNomina()
+                            .obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
+
+                    if (!listaProductoNominaProgramas.isEmpty()) {
+                        ProductoNominaProgramasExcel productoNominaProgramasExcel = new ProductoNominaProgramasExcel();
+                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas);
                     } else {
                         throw new ReglaNegocioException(
                                 "No se encontrarón resultados en el producto nomina: ",
@@ -417,6 +438,19 @@ public class ExcelGenerador implements Generador, Serializable {
     }
 
     private ProductoNomina getProductoNomina() {
+        try {
+            Context initContext = new InitialContext();
+
+            ProductoNomina productoNomina = (ProductoNomina) initContext.lookup(PRODUCTO_NOMINA_BEAN);
+
+            return productoNomina;
+        } catch (NamingException ex) {
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", PRODUCTO_NOMINA_BEAN, ex.getCause());
+            return null;
+        }
+    }
+    
+    private ProductoNomina getProductoNominaProgramas() {
         try {
             Context initContext = new InitialContext();
 

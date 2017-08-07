@@ -371,6 +371,36 @@ public class ProductosNominaController implements Serializable {
             JSFUtils.errorMessage("Error: ", e.getMessage());
         }
     }
+    
+    public void descargarProductoNominaProgramas() {
+        try {
+            UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
+            String[] parametros = {
+                "ID_USUARIO", String.valueOf(usuario.getIdUsuario()),
+                "REPORTE_NOMBRE", "producto_nomina_programas",
+                "TIPO_REPORTE", "xlsx",
+                "ID_PRODUCTO_NOMINA", String.valueOf(view.getProductoNomina().getIdProductoNomina())
+            };
+
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            if (bytes != null) {
+                ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+                setReporte(new DefaultStreamedContent(bis, TipoArchivo.getMIMEType("xlsx"),
+                        "Productos_Nomina_" + view.getProductoNomina()
+                                .getNombreProducto() + ".xlsx"));
+                JSFUtils.infoMessage("Descargar Productos Nomina: "
+                        + CadenaUtil.converterSpace(view.getProductoNomina().getNombreProducto()),
+                        "Se descargo correctamente.");
+            } else {
+                    JSFUtils.errorMessage("Error: ", "");
+            }
+        } catch (ReglaNegocioException e) {
+            LOGGER.error(e.getMessage(), e);
+            JSFUtils.errorMessage("Error: ", e.getMessage());
+        }
+    }
 
     public void descargarProductoNominaRetenido() {
         try {

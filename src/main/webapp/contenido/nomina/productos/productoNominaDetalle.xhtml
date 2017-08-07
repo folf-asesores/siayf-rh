@@ -128,6 +128,12 @@
 						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3}">
 						<p:fileDownload value="#{productosNomina.reporte}" />
 					</p:menuitem>
+					<p:menuitem value="Programas" icon="fm-icon-download" ajax="false"
+						actionListener="#{productosNomina.descargarProductoNominaProgramas()}"
+						onclick="PrimeFaces.monitorDownload(start, stop);"
+						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3}">
+						<p:fileDownload value="#{productosNomina.reporte}" />
+					</p:menuitem>
 					<p:menuitem value="Producto" icon="fm-icon-download" ajax="false"
 						title="Producto de nómina de empleados federales."
 						actionListener="#{productosNomina.descargarProductoNominaFederales()}"
