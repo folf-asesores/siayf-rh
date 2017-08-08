@@ -56,6 +56,7 @@ public class EjecutarProductoNominaController implements Serializable {
 		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		HttpSession httpSession = request.getSession(false);
 		Object idBuzonObj = httpSession.getAttribute("idBuzon");
+		
 		if (idBuzonObj != null) {
 			Integer idBuzon = Integer.valueOf(idBuzonObj.toString());
 			Integer idEntidadContexto = autorizaciones.obtenerIdEntidadContexto(idBuzon);

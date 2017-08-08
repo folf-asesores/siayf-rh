@@ -331,6 +331,7 @@
 							update=":form"
 							style="float:right;"
 							disabled="#{ejecutarProductoNomina.view.editar}"
+							rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina lt 7}"
 							ajax="false"/>
 			<p:dataTable id="listPagoNomina"
 						value="#{ejecutarProductoNomina.view.pagoNominaList}"
@@ -386,6 +387,7 @@
  					onsuccess="PF(`statusDialog`).hide()"
         			action="#{ejecutarProductoNomina.eliminarPagoNomina()}"
 					disabled="#{ejecutarProductoNomina.view.editar}"
+					rendered="#{ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina lt 7}"
 					style="float:right;">
 		<p:confirm header="Confirmación"
 					message="¿Desea eliminar el pago de nómina?"
@@ -893,7 +895,7 @@
 					update="form" 
 					onsuccess="PF(`statusDialog`).hide()"
 					onstart="PF(`statusDialog`).show()" 
-  					rendered="#{ejecutarProductoNomina.view.panelPagosForm}"
+  					rendered="#{ejecutarProductoNomina.view.panelPagosForm and ejecutarProductoNomina.view.productoNomina.idEstatusProductoNomina lt 7}"
 					disabled="#{ejecutarProductoNomina.view.editar}"
       				action="#{ejecutarProductoNomina.guardarPagoNomina()}">
 	</p:commandButton>
