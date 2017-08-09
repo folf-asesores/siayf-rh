@@ -668,7 +668,7 @@ public class NominaEmpleadoService {
 			System.out.println("configuracionPresupuestal.getAplicaPrimerPago():: "
 					+ configuracionPresupuestal.getAplicaPrimerPago());
 		}
-		if (configuracionPresupuestal.getAplicaPrimerPago()) {
+		if (configuracionPresupuestal.getAplicaPrimerPago() != null && configuracionPresupuestal.getAplicaPrimerPago()) {
 			Date fechaInicioLabores = configuracionPresupuestal.getFechaInicioLabores();
 			Integer numeroPeriodos = FechaUtil.calcularNumeroPeriodos(fechaInicioLabores,
 					nominaEmpleadoEntity.getInicioPeriodo(), productoNomina.getIdTipoPeriodo());
