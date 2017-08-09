@@ -472,7 +472,7 @@ public class ProductosNominaEJB {
 	}
 
 	public void pedirAutorizacionProductoNomina(ProductoNominaDTO productoNomina) {
-		productoNomina.setIdEstatusProductoNomina(6);
+		productoNomina.setIdEstatusProductoNomina(EstatusProductoNomina.PREAUTORIZADO);
 		productoNominaService.actualizarProductoNomina(productoNomina);
 		NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
 		dto.setMensajeNotificacion(" su autorización del producto de nomina: " + productoNomina.getNombreProducto());

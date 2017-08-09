@@ -1,9 +1,5 @@
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
-/**
- * @author José Pablo
- * @modify Eduardo Mex
- */
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.Serializable;
@@ -76,12 +72,14 @@ public class EjecutarProductoNominaController implements Serializable {
 			view.setBancoList(ejb.obtenerBancoList());
 			view.setPagoNominaList(ejb.obtenerPagosNomina(view.getProductoNomina()));
 			view.setEditar(view.getProductoNomina().getIdEstatusProductoNomina() > 5);
-			view.setUsuarioAutoriza(ejb.esUsuarioAutorizaNomina(view.getProductoNomina()));
 			irPrincipal();
 		}
 	}
 
 	public String irPrincipal() {
+		if (view.getProductoNomina().getIdEstatusProductoNomina().equals(EstatusProductoNomina.PREAUTORIZADO)) {
+			view.setUsuarioAutoriza(ejb.esUsuarioAutorizaNomina(view.getProductoNomina()));
+		}
 		view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
 		view.setPagoNominaList(ejb.obtenerPagosNomina(view.getProductoNomina()));
 		view.showPanelPrincipal();
