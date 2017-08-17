@@ -238,7 +238,7 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
 				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
 				+ "FROM InventarioVacanteEntity AS i WHERE (i.empleadoActivo.nombreCompleto LIKE :criterio "
-				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) AND i.disponible =:disponible"
+				+ "OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio) AND i.disponible =:disponible and i.estatus.puestoActivo=true"
 				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
 		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
 				.setParameter("criterio", "%" + criterio + "%").setParameter("disponible", "NO").getResultList();
@@ -251,7 +251,7 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 				+ "i.empleadoActivo.nombreCompleto, i.empleadoActivo.curp, i.empleadoActivo.rfc, "
 				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
 				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
-				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo =true AND i.tipoContratacion.id =:tipoContratacion) "
+				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo=true AND i.tipoContratacion.id =:tipoContratacion) "
 				+ " AND (i.empleadoActivo.nombreCompleto LIKE :criterio OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio)"
 				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
 		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)
@@ -269,7 +269,7 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 				+ "i.empleadoActivo.nombreCompleto, i.empleadoActivo.curp, i.empleadoActivo.rfc, "
 				+ "i.empleadoActivo.direccionCompleta, i.empleadoActivo.numeroEmpleado,"
 				+ " i.empleadoActivo.idEstatus, i.tipoContratacion.tipoContratacion, " + "i.folioVacante, i.idVacante) "
-				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo =true AND i.tipoContratacion.areaResponsable =1) "
+				+ "FROM InventarioVacanteEntity AS i WHERE  (i.estatus.puestoActivo=true AND i.tipoContratacion.areaResponsable =1) "
 				+ " AND (i.empleadoActivo.nombreCompleto LIKE :criterio OR i.empleadoActivo.rfc LIKE :criterio OR i.empleadoActivo.curp LIKE :criterio)"
 				+ " ORDER BY i.tipoContratacion.id, i.empleadoActivo.nombreCompleto ASC";
 		List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class)

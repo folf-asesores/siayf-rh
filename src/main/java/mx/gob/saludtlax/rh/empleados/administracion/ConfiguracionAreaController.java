@@ -48,29 +48,21 @@ public class ConfiguracionAreaController implements Serializable {
 	@PostConstruct
 	public void inicio() {
 		view = new UbicacionEmpleadoView();
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
+				.getRequest();
 		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession
-				.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+		UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-		view.setListaAdscripciones(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarAdscripciones()));
-		view.setListaSubadscripcion(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarSubadscripciones()));
-		view.setListaServicio(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarServicios()));
-		view.setListaFuncion(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarFunciones()));
-		view.setListaClues(SelectItemsUtil.listaCatalogos(catalogo
-				.consultarClues()));
-		view.setListaCentrosResponsabilidad(SelectItemsUtil
-				.listaCatalogos(catalogo.consultarCentrosResponsabilidades()));
+		view.setListaAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+		view.setListaSubadscripcion(SelectItemsUtil.listaCatalogos(catalogo.consultarSubadscripciones()));
+		view.setListaServicio(SelectItemsUtil.listaCatalogos(catalogo.consultarServicios()));
+		view.setListaFuncion(SelectItemsUtil.listaCatalogos(catalogo.consultarFunciones()));
+		view.setListaClues(SelectItemsUtil.listaCatalogos(catalogo.consultarClues()));
+		view.setListaCentrosResponsabilidad(
+				SelectItemsUtil.listaCatalogos(catalogo.consultarCentrosResponsabilidades()));
 
-		view.setListaUbicaciones(SelectItemsUtil
-				.listaFiltrosConsultaUbicaciones());
-		view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo
-				.listaDependencias()));
+		view.setListaUbicaciones(SelectItemsUtil.listaFiltrosConsultaUbicaciones());
+		view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
 		view.setMostrarBusqueda(true);
 		view.setCriterio(" ");
 		view.getUbicacion().setIdUsuario(usuario.getIdUsuario());
@@ -89,16 +81,14 @@ public class ConfiguracionAreaController implements Serializable {
 
 				FiltroVacanteDTO filtroVacanteDTO = new FiltroVacanteDTO();
 				filtroVacanteDTO.setTipoBusqueda(view.getIdFiltro());
-				view.setPuestosEmpleados(puestosEmpleados
-						.consultaVacantesPorCriterio(filtroVacanteDTO));
+				view.setPuestosEmpleados(puestosEmpleados.consultaVacantesPorCriterio(filtroVacanteDTO));
 				if (view.getPuestosEmpleados().isEmpty()) {
 					JSFUtils.warningMessage("", "Sin resultados.");
 				}
 			}
 
 		} catch (ReglaNegocioException exception) {
-			throw new ReglaNegocioException(exception.getMessage(),
-					exception.getCodigoError());
+			throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
 		}
 	}
 
@@ -108,15 +98,13 @@ public class ConfiguracionAreaController implements Serializable {
 			FiltroVacanteDTO filtroVacanteDTO = new FiltroVacanteDTO();
 			filtroVacanteDTO.setTipoBusqueda(view.getIdFiltro());
 			filtroVacanteDTO.setIdentificador(view.getIdContexto());
-			view.setPuestosEmpleados(puestosEmpleados
-					.consultaVacantesPorCriterio(filtroVacanteDTO));
+			view.setPuestosEmpleados(puestosEmpleados.consultaVacantesPorCriterio(filtroVacanteDTO));
 			if (view.getPuestosEmpleados().isEmpty()) {
 				JSFUtils.warningMessage("", "Sin resultados.");
 			}
 
 		} catch (ReglaNegocioException exception) {
-			throw new ReglaNegocioException(exception.getMessage(),
-					exception.getCodigoError());
+			throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
 		}
 	}
 
@@ -124,9 +112,7 @@ public class ConfiguracionAreaController implements Serializable {
 		this.view.getListaUnidadesResponsables().clear();
 		if (view.getIdDependencia() != 0) {
 			view.setListaUnidadesResponsables(SelectItemsUtil
-					.listaCatalogos(catalogo
-							.listaUnidadesResponsablesPorDependencia(view
-									.getIdDependencia())));
+					.listaCatalogos(catalogo.listaUnidadesResponsablesPorDependencia(view.getIdDependencia())));
 		}
 
 	}
@@ -138,8 +124,7 @@ public class ConfiguracionAreaController implements Serializable {
 				FiltroVacanteDTO filtroVacanteDTO = new FiltroVacanteDTO();
 				filtroVacanteDTO.setTipoBusqueda(view.getIdFiltro());
 				filtroVacanteDTO.setCriterio(view.getCriterio());
-				view.setPuestosEmpleados(puestosEmpleados
-						.consultaVacantesPorCriterio(filtroVacanteDTO));
+				view.setPuestosEmpleados(puestosEmpleados.consultaVacantesPorCriterio(filtroVacanteDTO));
 				if (view.getPuestosEmpleados().isEmpty()) {
 					JSFUtils.warningMessage("", "Sin resultados.");
 				}
@@ -154,18 +139,14 @@ public class ConfiguracionAreaController implements Serializable {
 			view.getUbicacion().setIdInventarioVacante(idInventario);
 			view.setMostrarBusqueda(false);
 			view.setMostrarDetalle(true);
-			view.setPuesto(puestosEmpleados
-					.obtenerInformacionPuesto(idInventario));
+			view.setPuesto(puestosEmpleados.obtenerInformacionPuesto(idInventario));
 
-			view.getUbicacion().setIdAdscripcion(
-					view.getPuesto().getIdAdscripcion());
-			view.getUbicacion().setIdSubadscripcion(
-					view.getPuesto().getIdSubadscripcion());
+			view.getUbicacion().setIdAdscripcion(view.getPuesto().getIdAdscripcion());
+			view.getUbicacion().setIdSubadscripcion(view.getPuesto().getIdSubadscripcion());
 			view.getUbicacion().setIdServicio(view.getPuesto().getIdServicio());
 			view.getUbicacion().setIdFuncion(view.getPuesto().getIdFuncion());
 			view.getUbicacion().setIdClue(view.getPuesto().getIdClue());
-			view.getUbicacion().setIdCentroResponsabilidad(
-					view.getPuesto().getIdCentroResponsabilidad());
+			view.getUbicacion().setIdCentroResponsabilidad(view.getPuesto().getIdCentroResponsabilidad());
 
 		} catch (ReglaNegocioException exception) {
 			JSFUtils.errorMessage("", exception.getMessage());
@@ -177,8 +158,7 @@ public class ConfiguracionAreaController implements Serializable {
 		try {
 			puestosEmpleados.ubicarEmpleado(view.getUbicacion());
 			inicio();
-			JSFUtils.infoMessage("",
-					"¡La ubicación ha sido registrada con éxito!");
+			JSFUtils.infoMessage("", "¡La ubicación ha sido registrada con éxito!");
 
 		} catch (ReglaNegocioException exception) {
 			JSFUtils.errorMessage("", exception.getMessage());

@@ -195,18 +195,9 @@ public class TabuladorService implements Serializable {
 				if (tabuladorEntity.getEjercicioFiscal().compareTo(
 						new Integer(0)) > 0) {
 
-					EjercicioFiscalEntity ejercicioFiscalEntity = ejercicioFiscalRepository
-							.obtenerEjercioPorEjercicionFiscal(tabuladorEntity
-									.getEjercicioFiscal());
-
-					if (ejercicioFiscalEntity != null) {
-
-						dto.setIdEjercicioFiscal(ejercicioFiscalEntity
-								.getIdEjercicioFiscal());
-						dto.setEjercicioFiscal(ejercicioFiscalEntity
+							dto.setEjercicioFiscal(tabuladorEntity
 								.getEjercicioFiscal());
-					}
-
+					
 				}
 
 				if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
@@ -286,17 +277,8 @@ public class TabuladorService implements Serializable {
 				if (tabuladorEntity.getEjercicioFiscal().compareTo(
 						new Integer(0)) > 0) {
 
-					EjercicioFiscalEntity ejercicioFiscalEntity = ejercicioFiscalRepository
-							.obtenerEjercioPorEjercicionFiscal(tabuladorEntity
-									.getEjercicioFiscal());
-
-					if (ejercicioFiscalEntity != null) {
-
-						dto.setIdEjercicioFiscal(ejercicioFiscalEntity
-								.getIdEjercicioFiscal());
-						dto.setEjercicioFiscal(ejercicioFiscalEntity
+						dto.setEjercicioFiscal(tabuladorEntity
 								.getEjercicioFiscal());
-					}
 
 				}
 
@@ -487,17 +469,10 @@ public class TabuladorService implements Serializable {
 
 			if (tabuladorEntity.getEjercicioFiscal().compareTo(new Integer(0)) > 0) {
 
-				EjercicioFiscalEntity ejercicioFiscalEntity = ejercicioFiscalRepository
-						.obtenerEjercioPorEjercicionFiscal(tabuladorEntity
-								.getEjercicioFiscal());
-
-				if (ejercicioFiscalEntity != null) {
-
-					dto.setIdEjercicioFiscal(ejercicioFiscalEntity
-							.getIdEjercicioFiscal());
-					dto.setEjercicioFiscal(ejercicioFiscalEntity
+				
+					dto.setEjercicioFiscal(tabuladorEntity
 							.getEjercicioFiscal());
-				}
+				
 
 			}
 

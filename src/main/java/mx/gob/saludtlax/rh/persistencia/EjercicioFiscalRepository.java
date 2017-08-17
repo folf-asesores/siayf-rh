@@ -12,11 +12,12 @@ public class EjercicioFiscalRepository extends GenericRepository<EjercicioFiscal
 		return em.createQuery("SELECT e FROM EjercicioFiscalEntity AS e", EjercicioFiscalEntity.class).getResultList();
 	}
 
-	public EjercicioFiscalEntity obtenerEjercioPorEjercicionFiscal(Integer ejercicioFiscal) {
+	public EjercicioFiscalEntity obtenerEjercioPorEjercicionFiscal(Integer ejercicioFiscal, Integer tipoPeriodo) {
 		try {
 			return em
-					.createQuery("SELECT e FROM EjercicioFiscalEntity AS e WHERE e.ejercicioFiscal =:ejercicioFiscal",
+					.createQuery("SELECT e FROM EjercicioFiscalEntity AS e WHERE e.ejercicioFiscal =:ejercicioFiscal and e.tipoPeriodo.idTipoPeriodo=:tipoPeriodo",
 							EjercicioFiscalEntity.class)
+					.setParameter("tipoPeriodo", tipoPeriodo)
 					.setParameter("ejercicioFiscal", ejercicioFiscal).getSingleResult();
 		} catch (NoResultException noResultException) {
 			return null;

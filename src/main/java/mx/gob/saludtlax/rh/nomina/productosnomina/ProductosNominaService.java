@@ -85,7 +85,7 @@ public class ProductosNominaService {
 			ProductoNominaEntity entity = new ProductoNominaEntity();
 			entity.setNombreProducto(datos.getNombreProducto());
 			entity.setTipoContratacion(tipoContratacionRepository.obtenerPorId(datos.getIdTipoContratacion()));
-			entity.setEjercicioFiscal(ejercicioFiscalRepository.obtenerEjercioPorEjercicionFiscal(datos.getEjercicioFiscal()));
+			entity.setEjercicioFiscal(ejercicioFiscalRepository.obtenerEjercioPorEjercicionFiscal(datos.getEjercicioFiscal(), datos.getIdTipoPeriodo()));
 			entity.setAnyoEjercicioFiscal(datos.getEjercicioFiscal());
 			entity.setTipoPeriodo(tipoPeriodoRepository.obtenerPorId(datos.getIdTipoPeriodo()));
 			entity.setPeriodoCalendario(periodoCalendariosRepository.obtenerPorId(datos.getIdPeriodoCalendario()));
@@ -204,7 +204,7 @@ public class ProductosNominaService {
 			}
 
 			entity.setEjercicioFiscal(
-					ejercicioFiscalRepository.obtenerEjercioPorEjercicionFiscal(dto.getEjercicioFiscal()));
+					ejercicioFiscalRepository.obtenerEjercioPorEjercicionFiscal(dto.getEjercicioFiscal(), dto.getIdTipoPeriodo()));
 			entity.setAnyoEjercicioFiscal(dto.getEjercicioFiscal());
 			entity.setTipoPeriodo(tipoPeriodoRepository.obtenerPorId(dto.getIdTipoPeriodo()));
 			entity.setPeriodoCalendario(periodoCalendariosRepository.obtenerPorId(dto.getIdPeriodoCalendario()));
