@@ -82,6 +82,17 @@ public class ValidacionUtil {
 		return esValido;
 	}
 
+	/**
+	 * Valida si un bigdecimal es Nulo o igual a cero. pablinsky
+	 */
+	public static boolean esNulo(Date date) {
+		boolean esValido = false;
+		if (date == null) {
+			esValido = true;
+		}
+		return esValido;
+	}
+
     /**
      * <p>Valida si la cadena está vacia.</p>
      * <p>En caso de que la cadena sea null se devolvera <code>false</code></p>

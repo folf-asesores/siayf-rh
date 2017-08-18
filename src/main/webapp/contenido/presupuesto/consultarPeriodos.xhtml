@@ -1,0 +1,137 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/plantillas/principal-con-menu.xhtml">
+
+<ui:define name="headExtra">
+	<h:outputStylesheet library="css" name="siayf_rh.css" />
+</ui:define>
+
+<ui:param name="ventanaTitulo" 		value="Consultar Nomina por Periodos" />
+<ui:param name="moduloTitulo" 		value="Consultar Nomina por Periodos" />
+<ui:param name="moduloSubtitulo"	value="Este módulo permite consultar Peridos" />
+
+<ui:define name="moduloContenido">
+<h:form id="form" styleClass="fm-contenedor">
+	<p:messages id="messages_generales" showDetail="true" autoUpdate="true" closable="true" globalOnly="true" />
+	<p:panelGrid layout="grid"
+				 styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+				 columns="3"
+				 columnClasses=" ui-grid-col-2, ui-grid-col-5, ui-grid-col-5">
+
+		<p:outputLabel for="perido" value="Perido: " />
+		<p:outputPanel>
+	        <p:selectOneMenu id="perido" value="#{consultarPeriodo.view.periodo}" effect="fold">
+	            <f:selectItem itemLabel="" itemValue="" />
+	            <f:selectItems value="#{consultarPeriodo.view.periodoList}" />
+	       </p:selectOneMenu>
+		</p:outputPanel>
+		<p:commandButton icon="ui-icon-search" 
+					    styleClass="fm-btn-elevado"
+						onsuccess="PF(`statusDialog`).hide()"
+						onstart="PF(`statusDialog`).show()"
+						action="#{consultarPeriodo.consultarPeriodo()}" 
+						process="@this,:form:perido"
+						update=":form" 
+						id="gestionar" />
+	</p:panelGrid>
+
+	<p:panelGrid layout="grid"
+				styleClass="ui-panelgrid-blank ui-fluid ui-responsive" 
+				columns="7"
+				columnClasses=" ui-grid-col-2, ui-grid-col-5">
+		
+		<p:commandButton value="Descargar Reporte"
+						icon="fm-icon-download" 
+						update="@form" 
+						ajax="false"
+						iconPos="right"
+						process="@this"
+						rendered="#{consultarPeriodo.view.butonDownload}"
+						action="#{consultarPeriodo.descargarReporte()}"
+						oncomplete="mymessages();" /> 
+	</p:panelGrid>
+
+	<p:dataTable id="listaConsultaPartida"
+		         value="#{consultarPeriodo.view.consultaPeriodoList}"
+		         var="consultaPeriodo" 
+		         emptyMessage="No se encontrarón resultados" 
+		         paginator="true"
+				 rows="10" 
+				 paginatorAlwaysVisible="true"
+				 currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
+				 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				 rowsPerPageTemplate="10,20,50">
+		         
+		<p:column headerText="Nombramiento" 
+		          style="width:8%;">
+			<h:outputText  value="#{consultaPeriodo.nombramiento}"
+						style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Nomina" 
+		          style="width:5%;">
+			<h:outputText value="#{consultaPeriodo.idNomina}"
+						style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Fecha" style="width:6%;">
+			<h:outputText value="#{consultaPeriodo.fecha}"
+				style="font-size:12px !important" >
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Tipo de nomina" style="width:6%;">
+			<h:outputText value="#{consultaPeriodo.tipoNomina}"
+				style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Percepciones" style="width:6%;">
+			<h:outputText value="#{consultaPeriodo.percepciones}"
+				style="font-size:12px !important" >
+				<f:convertNumber currencySymbol="$" type="currency" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Deducciones" style="width:6%;">
+			<h:outputText value="#{consultaPeriodo.deducciones}"
+				style="font-size:12px !important" >
+				<f:convertNumber currencySymbol="$" type="currency" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Neto" style="width:6%;">
+			<h:outputText value="#{consultaPeriodo.neto}"
+				style="font-size:12px !important" >
+				<f:convertNumber currencySymbol="$" type="currency" />
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Subfuente" style="width:10%;">
+			<h:outputText value="#{consultaPeriodo.subfuente}"
+				style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Emision" style="width:4%;">
+			<h:outputText value="#{consultaPeriodo.tipoEmision}"
+				style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+
+		<p:column headerText="Banco" style="width:4%;">
+			<h:outputText value="#{consultaPeriodo.claveBanco}"
+				style="font-size:12px !important" >
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+</h:form>
+</ui:define>
+</ui:composition>

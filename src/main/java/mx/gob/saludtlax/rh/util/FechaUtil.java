@@ -463,4 +463,14 @@ public class FechaUtil {
 
         return fechaI.compareTo(fechaF) == 1;
     }
+
+	public static Date stringToDate(String fecha) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(PATRON_FECHA_CORTA, LUGAR_MEXICO);
+            return dateFormat.parse(fecha);
+        } catch (ParseException ex) {
+            LOGGER.warnv("Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}", fecha, PATRON_FECHA_CORTA, ex.getCause());
+            return null;
+        }
+	}
 }

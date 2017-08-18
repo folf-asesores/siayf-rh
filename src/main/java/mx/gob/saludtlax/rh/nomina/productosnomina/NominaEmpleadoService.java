@@ -590,8 +590,12 @@ public class NominaEmpleadoService {
 		ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity
 				.getIdConfiguracionPresupuestal();
 		BigDecimal sueldo = configuracionPresupuestal.getSueldo();
+		BigDecimal sueldoPeriodo = sueldo.multiply(BigDecimal.ONE);
+		if (productoNomina.getIdPeriodoCalendario() == TipoPeriodo.QUINCENAL ) {
+			sueldoPeriodo = sueldo.divide(new BigDecimal(2), 2, RoundingMode.HALF_UP);
+			
+		}
 
-		BigDecimal sueldoQuincenal = sueldo.divide(new BigDecimal(2), 2, RoundingMode.HALF_UP);
 
 		if (aplicarFaltas) {
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -633,7 +637,7 @@ public class NominaEmpleadoService {
 		// HONORARIOS ASIMILABLES A SUELDOS
 		if (sueldo.compareTo(BigDecimal.ZERO) == 1) {
 			BigDecimal importeExcento = BigDecimal.ZERO;
-			BigDecimal importeGravado = sueldoQuincenal;
+			BigDecimal importeGravado = sueldoPeriodo;
 			crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 2, importeExcento, importeGravado);
 		}
 
@@ -642,10 +646,10 @@ public class NominaEmpleadoService {
 				nominaEmpleado.getIdEmpleado());
 		for (BeneficiarioPensionAlimienticiaDTO beneficiarioPensionAlimienticia : beneficiarioPensionAlimienticiaList) {
 			BigDecimal importeExcento = BigDecimal.ZERO;
-			BigDecimal importeGravado = clacularPension(beneficiarioPensionAlimienticia, sueldoQuincenal);
+			BigDecimal importeGravado = clacularPension(beneficiarioPensionAlimienticia, sueldoPeriodo);
 			crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 19, importeExcento, importeGravado);
 			crearNominaEmpleadoPensionAlimienticia(beneficiarioPensionAlimienticia, nominaEmpleadoEntity,
-					sueldoQuincenal);
+					sueldoPeriodo);
 		}
 
 		/*
@@ -677,11 +681,11 @@ public class NominaEmpleadoService {
 			numeroPeriodos--;
 			if (numeroPeriodos > 0) {
 				BigDecimal importeExcento = BigDecimal.ZERO;
-				BigDecimal importeGravado = sueldoQuincenal.multiply(new BigDecimal(numeroPeriodos));
+				BigDecimal importeGravado = sueldoPeriodo.multiply(new BigDecimal(numeroPeriodos));
 				crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 11, importeExcento, importeGravado);
 
 				ConfiguracionIsrDTO configuracionIsrRetroactivo = new ConfiguracionIsrDTO();
-				configuracionIsrRetroactivo.setBaseGravable(sueldoQuincenal);
+				configuracionIsrRetroactivo.setBaseGravable(sueldoPeriodo);
 				configuracionIsrRetroactivo.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
 				IsrDTO isrRetroactivo = calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
 
@@ -706,7 +710,7 @@ public class NominaEmpleadoService {
 
 		ConfiguracionIsrDTO configuracionIsr = new ConfiguracionIsrDTO();
 
-		configuracionIsr.setBaseGravable(sueldoQuincenal);
+		configuracionIsr.setBaseGravable(sueldoPeriodo);
 		configuracionIsr.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
 		configuracionIsr.setIdEmpleado(nominaEmpleado.getIdEmpleado());
 
