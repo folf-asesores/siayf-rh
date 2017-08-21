@@ -387,8 +387,10 @@ public class SuplenciaService {
 
 		DateTime fechaQuincena = new DateTime(dto.getEjercicioFiscal(), configuracionQuincena.getMes(),
 				configuracionQuincena.getLimiteSuperior(), 0, 0, 0, 0);
-		DateTime fechaSuplencia = new DateTime(dto.getFechaInicio());
-		if (fechaSuplencia.isAfter(fechaQuincena)) {
+		System.out.println("Fecha quincena" + FechaUtil.fechaSinTiempo(fechaQuincena.toDate()).toString());
+		System.out.println("fecha suplencia" + FechaUtil.fechaSinTiempo(dto.getFechaInicio()).toString());
+		if (FechaUtil.fechaSinTiempo(dto.getFechaInicio())
+				.compareTo(FechaUtil.fechaSinTiempo(fechaQuincena.toDate())) == 1) {
 			throw new ValidacionException("Fecha de suplencia incorrecta, no puede ser mayor a la quincena ingresada",
 					ValidacionCodigoError.VALOR_NO_PERMITIDO);
 		}
