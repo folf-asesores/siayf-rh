@@ -52,6 +52,15 @@ public class ConfiguracionQuincenaRepository extends GenericRepository<Configura
 
 	}
 
+	public ConfiguracionQuincenaEntity obtenerConfiguracionPorNumero(int numeroQuincena) {
+		try {
+			return em.createQuery("SELECT c FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna",
+					ConfiguracionQuincenaEntity.class).setParameter("qna", numeroQuincena).getSingleResult();
+		} catch (NoResultException exception) {
+			return null;
+		}
+	}
+
 	public boolean esValidaQuincena(Integer numQuincena) {
 		try {
 			em.createQuery(

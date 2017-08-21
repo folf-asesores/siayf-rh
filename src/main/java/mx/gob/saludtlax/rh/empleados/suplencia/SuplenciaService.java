@@ -32,6 +32,7 @@ import mx.gob.saludtlax.rh.persistencia.AsentamientoEntity;
 import mx.gob.saludtlax.rh.persistencia.AsentamientoRepository;
 import mx.gob.saludtlax.rh.persistencia.CentroResponsabilidadEntity;
 import mx.gob.saludtlax.rh.persistencia.CentroResponsabilidadRepository;
+import mx.gob.saludtlax.rh.persistencia.ConfiguracionQuincenaEntity;
 import mx.gob.saludtlax.rh.persistencia.ConfiguracionQuincenaRepository;
 import mx.gob.saludtlax.rh.persistencia.DependenciaTempEntity;
 import mx.gob.saludtlax.rh.persistencia.DependenciaTempRepository;
@@ -381,6 +382,17 @@ public class SuplenciaService {
 	}
 
 	protected Integer registrarSuplencia(AltaSuplenciaDTO dto) {
+		ConfiguracionQuincenaEntity configuracionQuincena = configuracionQuincenaRepository
+				.obtenerConfiguracionPorNumero(dto.getNumeroQuincena());
+
+		DateTime fechaLimite = new DateTime(configuracionQuincena.getLimiteSuperior(), configuracionQuincena.getMes(),
+				dto.getEjercicioFiscal(), 0, 0, 0, 0);
+		DateTime fechaInicio = new DateTime(dto.getFechaInicio());
+		if (fechaInicio.isAfter(fechaLimite)) {
+			throw new ValidacionException("Fecha de suplencia incorrecta, no puede ser mayor a la quincena ingresada",
+					ValidacionCodigoError.VALOR_NO_PERMITIDO);
+		}
+
 		SuplenteAutorizadoEntity suplente = suplenteAutorizadoRepository.obtenerPorId(dto.getIdSuplenteAutorizado());
 		TipoSuplenciaEntity tipoSuplencia = tipoSuplenciaRepository.obtenerPorId(dto.getIdCausaSuplencia());
 
@@ -1189,7 +1201,7 @@ public class SuplenciaService {
 
 	}
 
-	protected List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro){ 
+	protected List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro) {
 		List<MovimientoSuplenteDTO> movimientos = new ArrayList<>();
 		List<MovimientoSuplenteEntity> consulta = movimientoSuplenteRepository
 				.consultarMovimientosPorIdSuplenteMovimiento(filtro.getIdSuplente(), filtro.getCriterio());
