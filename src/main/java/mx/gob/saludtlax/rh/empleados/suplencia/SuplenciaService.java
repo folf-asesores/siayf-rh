@@ -385,10 +385,10 @@ public class SuplenciaService {
 		ConfiguracionQuincenaEntity configuracionQuincena = configuracionQuincenaRepository
 				.obtenerConfiguracionPorNumero(dto.getNumeroQuincena());
 
-		DateTime fechaLimite = new DateTime(dto.getEjercicioFiscal(), configuracionQuincena.getMes(),
+		DateTime fechaQuincena = new DateTime(dto.getEjercicioFiscal(), configuracionQuincena.getMes(),
 				configuracionQuincena.getLimiteSuperior(), 0, 0, 0, 0);
-		DateTime fechaInicio = new DateTime(dto.getFechaInicio());
-		if (fechaInicio.isAfter(fechaLimite)) {
+		DateTime fechaSuplencia = new DateTime(dto.getFechaInicio());
+		if (fechaSuplencia.isAfter(fechaQuincena)) {
 			throw new ValidacionException("Fecha de suplencia incorrecta, no puede ser mayor a la quincena ingresada",
 					ValidacionCodigoError.VALOR_NO_PERMITIDO);
 		}
