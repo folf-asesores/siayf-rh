@@ -371,18 +371,25 @@ public class ReporteSiifController {
 			LOGGER.info(view.getPaqueteEntrada().getTra().getFileName());
 
 			try {
-				JSFUtils.infoMessage("En este momento han terminado de subir los archivos y se empieza a procesar", "");
+				
 				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF(view.getPaqueteEntrada()));
+				JSFUtils.infoMessage("Se cargan los archivos DAT y TRA", "");
 				view.setSiifBitacoraProcesada(ejb.clasificaClaveConceptos(view.getSiifBitacoraProcesada()));
+				JSFUtils.infoMessage("Se realizó la clasificación de conceptos", "");
 				view.setSiifBitacoraProcesada(ejb.clasificaNominaTarjetas(view.getSiifBitacoraProcesada()));
+				JSFUtils.infoMessage("Se realizó la clasificación de Tarjetas", "");
 				view.setSiifBitacoraProcesada(ejb.clasificaNominaCheques(view.getSiifBitacoraProcesada()));
+				JSFUtils.infoMessage("Se realizó la clasificación de Daps", "");
 				view.setSiifBitacoraProcesada(ejb.clasificaNominaTarjetas610(view.getSiifBitacoraProcesada()));
+				JSFUtils.infoMessage("Se realizó la clasificación de Tarjetas de 610", "");
 				view.setSiifBitacoraProcesada(ejb.clasificaNominaNombramientoSubfuente(view.getSiifBitacoraProcesada()));
-				view.setSiifBitacoraProcesada(ejb.crearEncabezadosSiif(view.getSiifBitacoraProcesada()));
+				JSFUtils.infoMessage("Se realizó la clasificación de nombramientos y subfuentes", "");
+				view.setSiifBitacoraProcesada(ejb.crearEncabezadosSiif(view.getSiifBitacoraProcesada()));				
 				view.setSiifBitacoraProcesada(ejb.asignarEncabezadosDats(view.getSiifBitacoraProcesada()));
 				view.setEncabezadoListSiif(ejb.obtenerEncabezadosSiif(view.getSiifBitacoraProcesada()));
-				
+				JSFUtils.infoMessage("Se crean encabezados", "");
 				view.setSiifBitacoraProcesada(ejb.procesarNominaTheosToSIIF_3(view.getEncabezadoListSiif(),view.getSiifBitacoraProcesada(),view.getPaqueteEntrada()));
+				JSFUtils.infoMessage("Se clasifican los productos", "");
 				view.setSiifBitacoraProcesada(ejb.calcularEncabezados(view.getSiifBitacoraProcesada()));
 				view.setSiifBitacoraProcesada(ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));
 				view.setPanelUpload(Boolean.FALSE);
@@ -391,6 +398,7 @@ public class ReporteSiifController {
 				JSFUtils.infoMessage("En este momento se han terminado de procesar los archivos", "");
 			} catch (Exception e) {
 				e.printStackTrace();
+				JSFUtils.infoMessage("Error: los archivos no fueron cargados, formato incorrecto.", "");
 			}
 		}
 		return null;

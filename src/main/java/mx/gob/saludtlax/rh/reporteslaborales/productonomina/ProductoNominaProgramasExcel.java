@@ -59,16 +59,17 @@ public class ProductoNominaProgramasExcel implements Serializable {
 	/**
 	 * columna de cada detalles
 	 */
-	private static final int RFC = 0;
-	private static final int NOMBRE_EMPLEADO = 1;
-	private static final int FECHA_INGRESO = 2;
-	private static final int CENTRO_RESPONSABILIDAD = 3;
-	private static final int PROGRAMA = 4;
-	private static final int FUNCION = 5;	
-	private static final int SUELDO = 6;
-	private static final int ISR = 7;
-	private static final int PENSION_ALIMENTICIA = 8;
-	private static final int COLUMNA_TOTAL = 9;
+	private static final int NUM = 0;
+	private static final int RFC = 1;
+	private static final int NOMBRE_EMPLEADO = 2;
+	private static final int FECHA_INGRESO = 3;
+	private static final int CENTRO_RESPONSABILIDAD = 4;
+	private static final int PROGRAMA = 5;
+	private static final int FUNCION = 6;	
+	private static final int SUELDO = 7;
+	private static final int ISR = 8;
+	private static final int PENSION_ALIMENTICIA = 9;
+	private static final int COLUMNA_TOTAL = 10;
 
 	/**
 	 * Totales
@@ -133,18 +134,21 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
 	private void llenarDetalles(List<ProductosNominaProgramasExcelDTO> estructura) {
 		int i = FILA_INICIO_PROGRAMAS_DETALLE;
-		int filaTotales = FILA_INICIO_DETALLE;
+		int filaTotales = FILA_INICIO_PROGRAMAS_DETALLE;
+		int contador=0;
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		//System.out.println("tamaño lista: "+ estructura.size());
-
+		contador =1;
 		for (ProductosNominaProgramasExcelDTO detalle : estructura) {
 			//System.out.println("Hoja EXCEL: " + hoja.getSheetName());
 			Row filaDetalle = hoja.createRow(i);
-
+			
+			Cell celdaNum = filaDetalle.createCell(NUM);
+			celdaNum.setCellValue(contador);
+			contador+=1;
 			Cell celdaRfc = filaDetalle.createCell(RFC);
 			celdaRfc.setCellValue(detalle.getRfc());
-
 			Cell celdaNombreEmpleado = filaDetalle.createCell(NOMBRE_EMPLEADO);
 			celdaNombreEmpleado.setCellValue(detalle.getNombreEmpleado());
 
@@ -190,17 +194,17 @@ public class ProductoNominaProgramasExcel implements Serializable {
 			hoja.shiftRows(i, i + 1, 1);
 		}
 
-		if (filaTotales > FILA_INICIO_DETALLE) {
+		if (filaTotales > FILA_INICIO_PROGRAMAS_DETALLE) {
 
-			String general = "general";
+			String total = "TOTAL";
 
 			Row filaDetalle = hoja.createRow(filaTotales);
 
-			Cell celdaGeneral = filaDetalle.createCell(RFC);
-			celdaGeneral.setCellValue(general);
+			Cell celdaGeneral = filaDetalle.createCell(FUNCION);
+			celdaGeneral.setCellValue(total);
 
-			Cell celdaFaltasRetardos = filaDetalle.createCell(SUELDO);
-			celdaFaltasRetardos.setCellValue(TOTAL_SUELDO.doubleValue());
+			Cell celdaTotalSueldo = filaDetalle.createCell(SUELDO);
+			celdaTotalSueldo.setCellValue(TOTAL_SUELDO.doubleValue());
 
 			Cell celdaTotalIsr = filaDetalle.createCell(ISR);
 			celdaTotalIsr.setCellValue(TOTAL_ISR.doubleValue());;

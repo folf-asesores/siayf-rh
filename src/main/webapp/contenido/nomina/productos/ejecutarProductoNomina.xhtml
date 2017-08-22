@@ -158,24 +158,24 @@
 			<p:fileDownload value="#{productosNomina.reporte}" />
 		</p:menuitem>
         <p:separator />
-        <p:menuitem id="datytra" 
-			        icon="fm-icon-download"
-					value="DAT y TRA" 
-					update=":form" 
-					process="@this"
-					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
-					action="#{productosNomina.generarDatTra()}"
+        <p:menuitem value="DAT y TRA" 
+					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"					
+					actionListener="#{productosNomina.generarDatTra()}"
+					onsuccess="PF(`statusDialog`).hide()" 
+					iconPos="right"
+					onstart="PF(`statusDialog`).show()" 
+					ajax="false"
 					onclick="PrimeFaces.monitorDownload(start, stop);" 
-					ajax="false" />
-        <p:menuitem id="layout" 
-			        icon="fm-icon-download" 
+					process="@this" 
+					immediate="true"
+					icon="fm-icon-download" />
+					
+        <p:menuitem icon="fm-icon-download" 
 			        value="Layout"
-					update="form" 
-					process="@this"
 					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
-					action="#{productosNomina.generarLayout()}"
+					actionListener="#{productosNomina.generarLayout()}"
 					onclick="PrimeFaces.monitorDownload(start, stop);" 
-					ajax="false" />
+					process="@this" ajax="false" />
     </p:menuButton>
 	<p:panelGrid id="productoNomina"
 				layout="grid"

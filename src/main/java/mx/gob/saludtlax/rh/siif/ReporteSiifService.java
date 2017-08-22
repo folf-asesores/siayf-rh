@@ -968,158 +968,7 @@ public class ReporteSiifService {
 		actualizarSiifBitacora(bitacora);
 	}
 
-	public SiifBitacoraDTO clasificarEncabezados4(SiifBitacoraDTO bitacora) {
-		System.out.println("Inicia :: Clasifica Nomina Estructura");
-		Session session = entityManager.unwrap(Session.class);
-		// Query query = session.createSQLQuery("CALL
-		// usp_clasificar_nomina_estructura_siif_3(:idSiifBitacora)")
-		// .setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-		Query query = session.createSQLQuery("SELECT " + " e.id_siif_encabezado AS idSIIFEncabezado, "
-				+ " e.id_nomina AS idNomina, " + " e.id_poder AS idPoder, " + " e.id_tipo_nomina AS idTipoNomina, "
-				+ " e.fecha_fin_quincena AS fechaFinQuincena, " + " e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
-				+ " e.id_cuenta_bancaria AS idCuentaBancaria, " + " e.percepciones AS percepciones, "
-				+ " e.deducciones AS deducciones, " + " e.neto AS neto, " + " e.id_estado_nomina AS idEstadoNomina, "
-				+ " e.id_siif_bitacora AS idSIIFBitacora, " + " e.id_nombramiento AS idNombramiento, "
-				+ " e.sub_programa AS subPrograma " + "FROM siif_encabezados AS e "
-				+ "WHERE e.id_siif_bitacora =:idSiifBitacora")
-				.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-		query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-		@SuppressWarnings("unchecked")
-		List<SIIFEncabezadoDTO> result = (List<SIIFEncabezadoDTO>) query.list();
-		System.out.println("usp_clasificar_nomina_estructura, lista encabezados::" + result.size());
-		Integer[] idPensiones = { 5, 10, 19, 21, 24, 27, 30, 33, 38, 45 };
-
-		for (SIIFEncabezadoDTO dto : result) {
-			dto.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-			dto.setIdTipoNomina(bitacora.getIdTipoNomina());
-			dto.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
-			System.out.println("Nomina ::" + dto.getIdTipoNomina());
-			System.out.println("Bitacora::" + bitacora.getIdSiifBitacora());
-
-			// Si son PENSIONES hay que unirlos
-			if (Arrays.asList(idPensiones).contains(dto.getIdTipoNomina())) {
-
-				// Si son REGULARIZADOS hay que clasificarlos en:
-				// Federales, Seguro Popular Federal y Seguro Popular
-				System.out.println("Nombramiento::" + dto.getIdNombramiento().intValue());
-				if (dto.getIdNombramiento().intValue() == 4) {
-					// System.out.println("dto.getIdNombramiento().intValue()::
-					// " + dto.getIdNombramiento().intValue());
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica REG FED");
-					actualizarSiifBitacora(bitacora);
-
-					query = session
-							.createSQLQuery(
-									"CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica SEG POP FED");
-					actualizarSiifBitacora(bitacora);
-
-					query = session
-							.createSQLQuery(
-									"CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica SEG POP");
-					actualizarSiifBitacora(bitacora);
-
-					query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();
-
-					// System.out.println("CALL
-					// sp_clasificar_reg_seguro_popular(:idSiifBitacora,
-					// :idNombramiento) result2::"+ resultReg);
-					for (SIIFEncabezadoDTO dtoReg : resultReg) {
-						dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-						dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
-						dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
-						actualizarSiifEncabezado(dtoReg);
-					}
-					encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());
-
-					// Si son PERSONAL EN FORMACION hay que unirlos
-				} else {
-					actualizarSiifEncabezado(dto);
-					System.out.println("actualizarSiifEncabezado(dto) ::: Pesion");
-
-				}
-
-			} else {
-				// Si son REGULARIZADOS hay que clasificarlos en:
-				// Federales, Seguro Popular Federal y Seguro Popular
-				if (dto.getIdNombramiento().intValue() == 4) {
-					System.out.println("Nombramiento:::: " + dto.getIdNombramiento().intValue());
-					query = session
-							.createSQLQuery("CALL usp_clasificar_reg_seguro_popular(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica REG FED");
-					actualizarSiifBitacora(bitacora);
-
-					query = session
-							.createSQLQuery(
-									"CALL usp_clasificar_reg_seguro_popular_2(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica SEG POP FED");
-					actualizarSiifBitacora(bitacora);
-
-					query = session
-							.createSQLQuery(
-									"CALL usp_clasificar_reg_seguro_popular_3(:idSiifBitacora, :idNombramiento)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					bitacora.setStatus("Clasifica SEG POP");
-					actualizarSiifBitacora(bitacora);
-
-					query = session.createSQLQuery("CALL usp_obtener_encabezados_seguro_popular(:idSiifBitacora)")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultReg = (List<SIIFEncabezadoDTO>) query.list();
-
-					System.out.println("CALL sp_obntener_reg_seguro_popular :::" + resultReg.size());
-
-					for (SIIFEncabezadoDTO dtoReg : resultReg) {
-						dtoReg.setIdCuentaBancaria(bitacora.getIdCuentaBancaria());
-						dtoReg.setIdTipoNomina(bitacora.getIdTipoNomina());
-						dtoReg.setIdSIIFBitacora(bitacora.getIdSiifBitacora());
-						actualizarSiifEncabezado(dtoReg);
-
-					}
-
-					encabezadoRepository.eliminarPorId(dto.getIdSIIFEncabezado());
-
-				} else {
-					// Si son PERSONAL EN FORMACION hay que unirlos
-					actualizarSiifEncabezado(dto);
-					System.out.println("actualizarSiifEncabezado(dto) 2 ::");
-
-				}
-			}
-
-		}
-
-		System.out.println("limpiarSiifEncabezados:: " + bitacora.getIdSiifBitacora());
-		limpiarSiifEncabezados(bitacora.getIdSiifBitacora());
-
-		return bitacora;
-	}
-
+	
 	public SiifBitacoraDTO clasificaClaveConceptos(SiifBitacoraDTO bitacora) throws SQLException {
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -1151,7 +1000,7 @@ public class ReporteSiifService {
 		return bitacora;
 	}
 
-	public SiifBitacoraDTO clasificarRegularizadosSiif2(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora,
+	public SiifBitacoraDTO clasificarRegularizadosSiif(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora,
 			PaqueteEntradaFederalDTO entrada) {
 		System.out.println("Inicia :: Clasifica Nomina Estructura :: lista encabezados:: " + result.size());
 		Integer[] idPensiones = { 5, 10, 19, 21, 24, 27, 30, 33, 38, 45 };
@@ -1192,84 +1041,6 @@ public class ReporteSiifService {
 					query.executeUpdate();
 					System.out.println("Eliminan Regularizados de siif_encabezados::::: ");
 					/*****************************************************/
-					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
-							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
-							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
-							+ "SELECT	cast(n.p_pago_F as date) AS fechaFinQuincena, "
-							+ "n.tipo_emision_nomina AS idTipoEmisionNomina, " + "SUM(n.per)	AS percepciones, "
-							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
-							+ "n.id_nombramiento, " + "'Federales' " + "FROM estructuras_nominas AS n "
-							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND n.id_nombramiento =:idNombramiento "
-							+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
-							+ "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					System.out.println("Crea encabezados R_FED::::: ");
-					/*****************************************************/
-					query = session.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
-							+ "e.id_nomina AS idNomina, " + "e.id_poder	AS idPoder, "
-							+ "e.id_tipo_nomina AS idTipoNomina, " + "e.fecha_fin_quincena AS fechaFinQuincena, "
-							+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
-							+ "e.id_cuenta_bancaria AS idCuentaBancaria, " + "e.percepciones	AS percepciones, "
-							+ "e.deducciones AS deducciones, " + "e.neto	AS neto,"
-							+ "e.id_estado_nomina	AS idEstadoNomina, " + "e.id_siif_bitacora	AS idSIIFBitacora, "
-							+ "e.id_nombramiento AS idNombramiento, " + "e.sub_programa AS subPrograma "
-							+ "FROM siif_encabezados AS e " + "WHERE  e.id_siif_bitacora =:idSiifBitacora ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultRegR = (List<SIIFEncabezadoDTO>) query.list();
-					System.out.println(":::Encabezado Creado:::");
-					for (SIIFEncabezadoDTO dtoR : resultRegR) {
-						System.out.print("\n::: " + dtoR.getIdSIIFEncabezado() + "::: " + dtoR.getIdNomina());
-						System.out.print("::: " + dtoR.getIdTipoNomina() + "::: " + dtoR.getIdTipoEmisionNomina());
-						System.out.print("::: " + dtoR.getIdCuentaBancaria() + "::: " + dtoR.getIdSIIFBitacora());
-						System.out.print("::: " + dtoR.getIdNombramiento() + "::: " + dtoR.getSubPrograma() + ":::\n");
-					}
-					/****************************************************/
-					query = session
-							.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
-									+ "e.id_nomina AS idNomina,  e.id_poder AS idPoder, "
-									+ "e.id_tipo_nomina AS idTipoNomina,  e.fecha_fin_quincena AS fechaFinQuincena, "
-									+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
-									+ "e.id_cuenta_bancaria AS idCuentaBancaria,  e.percepciones AS percepciones, "
-									+ "e.deducciones AS deducciones,  e.neto AS neto, "
-									+ "e.id_estado_nomina AS idEstadoNomina,  e.id_siif_bitacora AS idSIIFBitacora, "
-									+ "e.id_nombramiento AS idNombramiento,  e.sub_programa AS subPrograma "
-									+ "FROM siif_encabezados AS e " + "WHERE e.id_siif_bitacora =:idSiifBitacora "
-									+ "AND e.sub_programa = 'Federales' ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultEncabezado = (List<SIIFEncabezadoDTO>) query.list();
-					if (resultEncabezado != null) {
-						for (SIIFEncabezadoDTO idFederal : resultEncabezado) {
-							id_siif_encabezadoF = idFederal.getIdSIIFEncabezado();
-							tipoEmision = idFederal.getIdTipoEmisionNomina();
-							System.out.println("Selecciona el encabezado R_FED::::: " + id_siif_encabezadoF);
-							System.out.println("Selecciona tipo de emision R_FED::::: " + tipoEmision);
-							query = session
-									.createSQLQuery("UPDATE estructuras_nominas AS n "
-											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoF "
-											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
-											+ "AND n.id_nombramiento =:idNombramiento "
-											+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
-											+ "AND n.tipo_emision_nomina =:tipoEmision ")
-									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
-									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-									.setParameter("idNombramiento", dto.getIdNombramiento())
-									.setParameter("tipoEmision", tipoEmision);
-							query.executeUpdate();
-							System.out.println("Actualiza Dats encabezados R_FED::::: ");
-							bitacora.setStatus("Clasifica REG FED");
-							actualizarSiifBitacora(bitacora);
-							System.out.println("Clasifica REG FED");
-						}
-					} else {
-						System.out.println("NO Clasifica REG FED");
-					}
-
 					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
 							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
 							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
@@ -1370,6 +1141,85 @@ public class ReporteSiifService {
 					} else {
 						System.out.println("NO Clasifica REG POP FED");
 					}
+///>>>
+					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
+							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
+							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
+							+ "SELECT	cast(n.p_pago_F as date) AS fechaFinQuincena, "
+							+ "n.tipo_emision_nomina AS idTipoEmisionNomina, " + "SUM(n.per)	AS percepciones, "
+							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
+							+ "n.id_nombramiento, " + "'Federales' " + "FROM estructuras_nominas AS n "
+							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND n.id_nombramiento =:idNombramiento "
+							+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
+							+ "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+							.setParameter("idNombramiento", dto.getIdNombramiento());
+					query.executeUpdate();
+					System.out.println("Crea encabezados R_FED::::: ");
+					/*****************************************************/
+					query = session.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
+							+ "e.id_nomina AS idNomina, " + "e.id_poder	AS idPoder, "
+							+ "e.id_tipo_nomina AS idTipoNomina, " + "e.fecha_fin_quincena AS fechaFinQuincena, "
+							+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
+							+ "e.id_cuenta_bancaria AS idCuentaBancaria, " + "e.percepciones	AS percepciones, "
+							+ "e.deducciones AS deducciones, " + "e.neto	AS neto,"
+							+ "e.id_estado_nomina	AS idEstadoNomina, " + "e.id_siif_bitacora	AS idSIIFBitacora, "
+							+ "e.id_nombramiento AS idNombramiento, " + "e.sub_programa AS subPrograma "
+							+ "FROM siif_encabezados AS e " + "WHERE  e.id_siif_bitacora =:idSiifBitacora ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+					@SuppressWarnings("unchecked")
+					List<SIIFEncabezadoDTO> resultRegR = (List<SIIFEncabezadoDTO>) query.list();
+					System.out.println(":::Encabezado Creado:::");
+					for (SIIFEncabezadoDTO dtoR : resultRegR) {
+						System.out.print("\n::: " + dtoR.getIdSIIFEncabezado() + "::: " + dtoR.getIdNomina());
+						System.out.print("::: " + dtoR.getIdTipoNomina() + "::: " + dtoR.getIdTipoEmisionNomina());
+						System.out.print("::: " + dtoR.getIdCuentaBancaria() + "::: " + dtoR.getIdSIIFBitacora());
+						System.out.print("::: " + dtoR.getIdNombramiento() + "::: " + dtoR.getSubPrograma() + ":::\n");
+					}
+					/****************************************************/
+					query = session
+							.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
+									+ "e.id_nomina AS idNomina,  e.id_poder AS idPoder, "
+									+ "e.id_tipo_nomina AS idTipoNomina,  e.fecha_fin_quincena AS fechaFinQuincena, "
+									+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
+									+ "e.id_cuenta_bancaria AS idCuentaBancaria,  e.percepciones AS percepciones, "
+									+ "e.deducciones AS deducciones,  e.neto AS neto, "
+									+ "e.id_estado_nomina AS idEstadoNomina,  e.id_siif_bitacora AS idSIIFBitacora, "
+									+ "e.id_nombramiento AS idNombramiento,  e.sub_programa AS subPrograma "
+									+ "FROM siif_encabezados AS e " + "WHERE e.id_siif_bitacora =:idSiifBitacora "
+									+ "AND e.sub_programa = 'Federales' ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+					@SuppressWarnings("unchecked")
+					List<SIIFEncabezadoDTO> resultEncabezado = (List<SIIFEncabezadoDTO>) query.list();
+					if (resultEncabezado != null) {
+						for (SIIFEncabezadoDTO idFederal : resultEncabezado) {
+							id_siif_encabezadoF = idFederal.getIdSIIFEncabezado();
+							tipoEmision = idFederal.getIdTipoEmisionNomina();
+							System.out.println("Selecciona el encabezado R_FED::::: " + id_siif_encabezadoF);
+							System.out.println("Selecciona tipo de emision R_FED::::: " + tipoEmision);
+							query = session
+									.createSQLQuery("UPDATE estructuras_nominas AS n "
+											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoF "
+											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
+											+ "AND n.id_nombramiento =:idNombramiento "
+											+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
+											+ "AND n.tipo_emision_nomina =:tipoEmision ")
+									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
+									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+									.setParameter("idNombramiento", dto.getIdNombramiento())
+									.setParameter("tipoEmision", tipoEmision);
+							query.executeUpdate();
+							System.out.println("Actualiza Dats encabezados R_FED::::: ");
+							bitacora.setStatus("Clasifica REG FED");
+							actualizarSiifBitacora(bitacora);
+							System.out.println("Clasifica REG FED");
+						}
+					} else {
+						System.out.println("NO Clasifica REG FED");
+					}
+///>>>					
 					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
 							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
 							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
@@ -1501,86 +1351,7 @@ public class ReporteSiifService {
 							.setParameter("idNombramiento", dto.getIdNombramiento());
 					query.executeUpdate();
 					System.out.println("Elimina  encabezados en siif_encabezados, sin pension::::: ");
-					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
-							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
-							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
-							+ "SELECT	cast(n.p_pago_F as date) AS fechaFinQuincena, "
-							+ "n.tipo_emision_nomina AS idTipoEmisionNomina, " + "SUM(n.per)	AS percepciones, "
-							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
-							+ "n.id_nombramiento, " + "'Federales' " + "FROM estructuras_nominas AS n "
-							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND n.id_nombramiento =:idNombramiento "
-							+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
-							+ "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-							.setParameter("idNombramiento", dto.getIdNombramiento());
-					query.executeUpdate();
-					System.out.println("Crea encabezados R_FED::::: ");
-					/*****************************************************/
-					query = session.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
-							+ "e.id_nomina AS idNomina, " + "e.id_poder	AS idPoder, "
-							+ "e.id_tipo_nomina AS idTipoNomina, " + "e.fecha_fin_quincena AS fechaFinQuincena, "
-							+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
-							+ "e.id_cuenta_bancaria AS idCuentaBancaria, " + "e.percepciones	AS percepciones, "
-							+ "e.deducciones AS deducciones, " + "e.neto	AS neto,"
-							+ "e.id_estado_nomina	AS idEstadoNomina, " + "e.id_siif_bitacora	AS idSIIFBitacora, "
-							+ "e.id_nombramiento AS idNombramiento, " + "e.sub_programa AS subPrograma "
-							+ "FROM siif_encabezados AS e " + "WHERE  e.id_siif_bitacora =:idSiifBitacora ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultRegR = (List<SIIFEncabezadoDTO>) query.list();
-
-					System.out.println(":::Encabezado Creado:::");
-					for (SIIFEncabezadoDTO dtoR : resultRegR) {
-						System.out.print("\n::: " + dtoR.getIdSIIFEncabezado() + "::: " + dtoR.getIdNomina());
-						System.out.print("::: " + dtoR.getIdTipoNomina() + "::: " + dtoR.getIdTipoEmisionNomina());
-						System.out.print("::: " + dtoR.getIdCuentaBancaria() + "::: " + dtoR.getIdSIIFBitacora());
-						System.out.print("::: " + dtoR.getIdNombramiento() + "::: " + dtoR.getSubPrograma() + ":::\n");
-					}
-					/****************************************************/
-					query = session
-							.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
-									+ "e.id_nomina AS idNomina,  e.id_poder AS idPoder, "
-									+ "e.id_tipo_nomina AS idTipoNomina,  e.fecha_fin_quincena AS fechaFinQuincena, "
-									+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
-									+ "e.id_cuenta_bancaria AS idCuentaBancaria,  e.percepciones AS percepciones, "
-									+ "e.deducciones AS deducciones,  e.neto AS neto, "
-									+ "e.id_estado_nomina AS idEstadoNomina,  e.id_siif_bitacora AS idSIIFBitacora, "
-									+ "e.id_nombramiento AS idNombramiento,  e.sub_programa AS subPrograma "
-									+ "FROM siif_encabezados AS e " + "WHERE e.id_siif_bitacora =:idSiifBitacora "
-									+ "AND e.sub_programa = 'Federales' ")
-							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
-					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
-					@SuppressWarnings("unchecked")
-					List<SIIFEncabezadoDTO> resultEncabezado = (List<SIIFEncabezadoDTO>) query.list();
-					if (resultEncabezado != null) {
-						for (SIIFEncabezadoDTO idFederal : resultEncabezado) {
-							id_siif_encabezadoF = idFederal.getIdSIIFEncabezado();
-							tipoEmision = idFederal.getIdTipoEmisionNomina();
-							System.out.println("Selecciona el encabezado R_FED::::: " + id_siif_encabezadoF);
-							System.out.println("Selecciona tipo emisiono R_FED::::: " + tipoEmision);
-							query = session
-									.createSQLQuery("UPDATE estructuras_nominas AS n "
-											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoF "
-											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
-											+ "AND n.id_nombramiento =:idNombramiento "
-											+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
-											+ "AND n.tipo_emision_nomina =:tipoEmision ")
-									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
-									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
-									.setParameter("idNombramiento", dto.getIdNombramiento())
-									.setParameter("tipoEmision", tipoEmision);
-							query.executeUpdate();
-							System.out.println("Actualiza Dats encabezados R_FED::::: ");
-
-							bitacora.setStatus("Clasifica REG FED");
-							actualizarSiifBitacora(bitacora);
-							System.out.println("Clasifica REG FED");
-						}
-					} else {
-						System.out.println("NO Clasifica REG FED");
-					}
-
+					/********************************************************************************/
 					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
 							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
 							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
@@ -1685,7 +1456,87 @@ public class ReporteSiifService {
 					} else {
 						System.out.println("NO Clasifica REG POP FED");
 					}
+///>>>
+					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
+							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
+							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
+							+ "SELECT	cast(n.p_pago_F as date) AS fechaFinQuincena, "
+							+ "n.tipo_emision_nomina AS idTipoEmisionNomina, " + "SUM(n.per)	AS percepciones, "
+							+ "SUM(n.ded) AS deducciones, " + "SUM(n.neto) AS neto, " + ":idSiifBitacora, "
+							+ "n.id_nombramiento, " + "'Federales' " + "FROM estructuras_nominas AS n "
+							+ "WHERE n.id_siif_bitacoras =:idSiifBitacora " + "AND n.id_nombramiento =:idNombramiento "
+							+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
+							+ "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+							.setParameter("idNombramiento", dto.getIdNombramiento());
+					query.executeUpdate();
+					System.out.println("Crea encabezados R_FED::::: ");
+					/*****************************************************/
+					query = session.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
+							+ "e.id_nomina AS idNomina, " + "e.id_poder	AS idPoder, "
+							+ "e.id_tipo_nomina AS idTipoNomina, " + "e.fecha_fin_quincena AS fechaFinQuincena, "
+							+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
+							+ "e.id_cuenta_bancaria AS idCuentaBancaria, " + "e.percepciones	AS percepciones, "
+							+ "e.deducciones AS deducciones, " + "e.neto	AS neto,"
+							+ "e.id_estado_nomina	AS idEstadoNomina, " + "e.id_siif_bitacora	AS idSIIFBitacora, "
+							+ "e.id_nombramiento AS idNombramiento, " + "e.sub_programa AS subPrograma "
+							+ "FROM siif_encabezados AS e " + "WHERE  e.id_siif_bitacora =:idSiifBitacora ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+					@SuppressWarnings("unchecked")
+					List<SIIFEncabezadoDTO> resultRegR = (List<SIIFEncabezadoDTO>) query.list();
 
+					System.out.println(":::Encabezado Creado:::");
+					for (SIIFEncabezadoDTO dtoR : resultRegR) {
+						System.out.print("\n::: " + dtoR.getIdSIIFEncabezado() + "::: " + dtoR.getIdNomina());
+						System.out.print("::: " + dtoR.getIdTipoNomina() + "::: " + dtoR.getIdTipoEmisionNomina());
+						System.out.print("::: " + dtoR.getIdCuentaBancaria() + "::: " + dtoR.getIdSIIFBitacora());
+						System.out.print("::: " + dtoR.getIdNombramiento() + "::: " + dtoR.getSubPrograma() + ":::\n");
+					}
+					/****************************************************/
+					query = session
+							.createSQLQuery("SELECT e.id_siif_encabezado AS idSIIFEncabezado, "
+									+ "e.id_nomina AS idNomina,  e.id_poder AS idPoder, "
+									+ "e.id_tipo_nomina AS idTipoNomina,  e.fecha_fin_quincena AS fechaFinQuincena, "
+									+ "e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
+									+ "e.id_cuenta_bancaria AS idCuentaBancaria,  e.percepciones AS percepciones, "
+									+ "e.deducciones AS deducciones,  e.neto AS neto, "
+									+ "e.id_estado_nomina AS idEstadoNomina,  e.id_siif_bitacora AS idSIIFBitacora, "
+									+ "e.id_nombramiento AS idNombramiento,  e.sub_programa AS subPrograma "
+									+ "FROM siif_encabezados AS e " + "WHERE e.id_siif_bitacora =:idSiifBitacora "
+									+ "AND e.sub_programa = 'Federales' ")
+							.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+					query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+					@SuppressWarnings("unchecked")
+					List<SIIFEncabezadoDTO> resultEncabezado = (List<SIIFEncabezadoDTO>) query.list();
+					if (resultEncabezado != null) {
+						for (SIIFEncabezadoDTO idFederal : resultEncabezado) {
+							id_siif_encabezadoF = idFederal.getIdSIIFEncabezado();
+							tipoEmision = idFederal.getIdTipoEmisionNomina();
+							System.out.println("Selecciona el encabezado R_FED::::: " + id_siif_encabezadoF);
+							System.out.println("Selecciona tipo emisiono R_FED::::: " + tipoEmision);
+							query = session
+									.createSQLQuery("UPDATE estructuras_nominas AS n "
+											+ "SET n.id_siif_encabezados =:@id_siif_encabezadoF "
+											+ "WHERE n.id_siif_bitacoras =:idSiifBitacora "
+											+ "AND n.id_nombramiento =:idNombramiento "
+											+ "AND n.puesto IN ('M02002','M02048','M02059','M03002','M03005','M03011','M03024','M03025') "
+											+ "AND n.tipo_emision_nomina =:tipoEmision ")
+									.setParameter("@id_siif_encabezadoF", id_siif_encabezadoF)
+									.setParameter("idSiifBitacora", bitacora.getIdSiifBitacora())
+									.setParameter("idNombramiento", dto.getIdNombramiento())
+									.setParameter("tipoEmision", tipoEmision);
+							query.executeUpdate();
+							System.out.println("Actualiza Dats encabezados R_FED::::: ");
+
+							bitacora.setStatus("Clasifica REG FED");
+							actualizarSiifBitacora(bitacora);
+							System.out.println("Clasifica REG FED");
+						}
+					} else {
+						System.out.println("NO Clasifica REG FED");
+					}
+///>>>
 					query = session.createSQLQuery("INSERT INTO siif_encabezados( " + "fecha_fin_quincena, "
 							+ "id_tipo_emision_nomina, " + "percepciones, " + "deducciones, " + "neto, "
 							+ "id_siif_bitacora, " + "id_nombramiento, " + "sub_programa ) "
@@ -2348,54 +2199,5 @@ public class ReporteSiifService {
 
 	}
 
-	public void updateConceptosUserTrans(SiifBitacoraDTO bitacora)
-			throws SQLException, RollbackException, RemoteException {
-		Connection con = null;
-		final Boolean rollback = null;
-		UserTransaction transaction = null;
-		// Context initcontext = null;
-		try {
-
-			InitialContext initcontext = new InitialContext();
-			final DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
-			// (DataSource)
-			// javax.rmi.PortableRemoteObject.narrow(jndiContext.lookup("java:jboss/datasources/SIAYFRHDS"),
-			// DataSource.class);
-			con = ds.getConnection();
-
-			try {
-				final UserTransaction ut = ejbContext.getUserTransaction();// context.getUserTransaction();
-				/* [1] Begin the transaction */
-				ut.begin();
-
-				/* [2] Update the table */
-				final PreparedStatement stmt = con.prepareStatement(" UPDATE estructuras_nominas_trailers AS nt "
-						+ "INNER JOIN	siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
-						+ "SET nt.id_concepto = cn.id_siif_concepto_nomina " + "WHERE nt.t_concep = cn.tipo "
-						+ "AND nt.id_siif_bitacoras =?");
-				try {
-					stmt.setInt(1, bitacora.getIdSiifBitacora());
-					stmt.executeUpdate();
-				} finally {
-					stmt.close();
-				}
-
-				/* [3] Commit or Rollback the transaction */
-				if (rollback.booleanValue())
-					ut.setRollbackOnly();
-
-				/* [4] Commit or Rollback the transaction */
-				ut.commit();
-			} finally {
-				con.close();
-			}
-		} catch (final RollbackException re) {
-			throw re;
-		} catch (final Exception e) {
-			e.printStackTrace();
-			throw new RemoteException("[Bean] " + e.getClass().getName() + " : " + e.getMessage());
-		}
-
-	}
-
+	
 }

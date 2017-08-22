@@ -72,11 +72,7 @@ public class ReporteSiifEJB {
 			ut.begin();
 			bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
 			bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra, bitacora);
-//			bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
-//			reporteSiifService.clasificarEncabezados2(bitacora);
-//			bitacora = reporteSiifService.clasificarEncabezados3(bitacora);
-			//bitacora = reporteSiifService.verificarDatos(bitacora);
-			//bitacora = reporteSiifService.asignarEncabezadosTrailers(bitacora);
+
 			ut.commit();
 			}catch (Exception   ex) {
 				ex.printStackTrace();
@@ -100,8 +96,7 @@ public class ReporteSiifEJB {
 		public SiifBitacoraDTO procesarNominaTheosToSIIF_3(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora, PaqueteEntradaFederalDTO entrada) {
 			try {
 				ut.begin();				
-				//bitacora = reporteSiifService.clasificarEncabezados4(bitacora);
-				bitacora = reporteSiifService.clasificarRegularizadosSiif2(result, bitacora, entrada);
+				bitacora = reporteSiifService.clasificarRegularizadosSiif(result, bitacora, entrada);
 				bitacora = reporteSiifService.verificarDatos(bitacora);
 				bitacora = reporteSiifService.asignarEncabezadosTrailersSiif(bitacora);
 				ut.commit();			
@@ -135,6 +130,7 @@ public class ReporteSiifEJB {
 					+ "INNER JOIN	siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
 					+ "SET nt.id_concepto = cn.id_siif_concepto_nomina " + "WHERE nt.t_concep = cn.tipo "
 					+ "AND nt.id_siif_bitacoras =?");
+			
 			stmt.setInt(1, bitacora.getIdSiifBitacora());
 			stmt.executeUpdate();
 			con.commit();
@@ -167,6 +163,7 @@ public class ReporteSiifEJB {
 					+ "INNER JOIN    siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
 					+ "SET nt.id_concepto = cn.id_siif_concepto_nomina " + "WHERE nt.t_concep = cn.tipo "
 					+ "AND nt.id_siif_bitacoras =?");
+			
 			stmt.setInt(1, bitacora.getIdSiifBitacora());
 			stmt.executeUpdate();
 			con.commit();
@@ -201,7 +198,8 @@ public class ReporteSiifEJB {
 					"SET n.tipo_emision_nomina ='T' " +
 					"WHERE  n.id_siif_bitacoras =? " +
 					"AND    t.id_siif_bitacoras =? " +
-					"AND t.sub_cheque = 29");			
+					"AND t.sub_cheque = 29");	
+			
 				stmt.setInt(1, bitacora.getIdSiifBitacora());
 				stmt.setInt(2, bitacora.getIdSiifBitacora());
 				stmt.executeUpdate();
@@ -236,7 +234,8 @@ public class ReporteSiifEJB {
 					"SET n.tipo_emision_nomina ='C' " +
 					"WHERE  n.id_siif_bitacoras =? " +
 					"AND    t.id_siif_bitacoras =? " +
-					"AND t.sub_cheque != 29 ");			
+					"AND t.sub_cheque != 29 ");	
+			
 				stmt.setInt(1, bitacora.getIdSiifBitacora());
 				stmt.setInt(2, bitacora.getIdSiifBitacora());
 				stmt.executeUpdate();
@@ -272,6 +271,7 @@ public class ReporteSiifEJB {
 					"AND t.id_siif_bitacoras =? " +
 					"AND t.sub_cheque != 29 " +
 					"AND n.ur='610' ");
+			
 				stmt.setInt(1, bitacora.getIdSiifBitacora());
 				stmt.setInt(2, bitacora.getIdSiifBitacora());
 				stmt.executeUpdate();
@@ -445,8 +445,7 @@ public class ReporteSiifEJB {
 
 				        result.add(aux);
 				        i++;
-				} 
-					
+				} 					
 					con.commit();
 				} catch (Exception ex) {
 					if (con != null) {
@@ -501,7 +500,6 @@ public class ReporteSiifEJB {
 	
 	public void bitacora(Integer idSiifBitacora, Integer TipoNomina, String periodo) {
 		reporteSiifService.eliminaBitacoraPorId(idSiifBitacora);
-		//reporteSiifService.eliminaEncabezadoPorId(idSiifBitacora);
 	
 	}
 
@@ -512,10 +510,6 @@ public class ReporteSiifEJB {
 	public List<EstructuraNominaTrailersDTO> listaDispersion(Integer idSiifBitacora) {
 		return reporteSiifService.listaDispersion(idSiifBitacora);
 	}
-
-//	public List<SubfuenteFinanciamiento> obtenerSubfuenteFinanciamientoList() {
-//		return reporteSiifService.obtenerSubfuenteFinanciamientoList();
-//	}
 	
 	public List<SIIFEncabezadoDTO> generarEncabezadoSiif(Integer anio, String periodo) {		
 		return reporteSiifService.generarEncabezadoSiif(anio, periodo);
@@ -532,8 +526,6 @@ public class ReporteSiifEJB {
 	
 	public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO,String periodo){
 		reporteSiifService.estatusEncabezado(encabezadoDTO,periodo);
-		//SiifBitacoraDTO dtoBitacora=reporteSiifService.obtenerSiiifBitacoraById(encabezadoDTO.getIdSIIFBitacora());
-		//Integer qna=Integer.parseInt(dtoBitacora.getPeriodoAfectacion());
 		Integer qna=Integer.parseInt(periodo);
 		return reporteSiifService.actualizarCheques(encabezadoDTO,20);	
 		

@@ -164,12 +164,14 @@
 						actionListener="#{productosNomina.descargarNominaSuplencia(productosNomina.view.productoNomina.idProductoNomina)}"
 						onclick="PrimeFaces.monitorDownload(start, stop);" ajax="false" />
 					<p:separator />
-					<p:menuitem value="DAT y TRA" icon="fm-icon-download" ajax="false"
-						actionListener="#{productosNomina.generarDatTra()}"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }" />
-					<p:menuitem value="Layout" icon="fm-icon-download" ajax="false"
-						actionListener="#{productosNomina.generarLayout()}"
-						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }" />
+					<p:menuitem value="DAT y TRA" icon="fm-icon-download"
+						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
+						actionListener="#{productosNomina.generarDatTra()}"						 
+						onclick="PrimeFaces.monitorDownload(start, stop);" ajax="false"/>
+					<p:menuitem value="Layout" icon="fm-icon-download"
+						rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }" 
+						actionListener="#{productosNomina.generarLayout()}"						
+						onclick="PrimeFaces.monitorDownload(start, stop);" ajax="false"/>
 					<p:menuitem value="Seg-Popular" icon="fm-icon-download"
 						ajax="false"
 						actionListener="#{productosNomina.generarSeguroPopularRH()}"

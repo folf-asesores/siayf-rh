@@ -511,13 +511,13 @@ public class SIIFEncabezadoService {
 				for (EstructuraContratosDatDTO dat : listaEstructura) {
 					Query queryA = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
 							"SET d.num_emp = (:num_emp), " +
-							"d.nombre = (:nombre), " +
+							//"d.nombre = (:nombre), " +
 							"d.num_ctrol = (:num) " +
 							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos) "
 							+ "AND d.id_programa = 23")
 							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
 							.setParameter("num_emp", formatoNumEmp(a))
-							.setParameter("nombre",formatoNombre(dat.getNombre()))
+							//.setParameter("nombre",formatoNombre(dat.getNombre()))
 							.setParameter("num", a+1);
 							queryA.executeUpdate();
 					if(dat.getIdPrograma()!= null && dat.getIdPrograma()==23){
@@ -528,13 +528,13 @@ public class SIIFEncabezadoService {
 				for (EstructuraContratosDatDTO dat : listaEstructura) {
 					Query queryF = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
 							"SET d.num_emp = (:num_emp), " +
-							"d.nombre = (:nombre), " +
+							//"d.nombre = (:nombre), " +
 							"d.num_ctrol = (:num) " +
 							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
 							+ "AND d.id_programa = 27")
 							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
 							.setParameter("num_emp", formatoNumEmp(f))
-							.setParameter("nombre",formatoNombre(dat.getNombre()))
+							//.setParameter("nombre",formatoNombre(dat.getNombre()))
 							.setParameter("num", f+1);
 							queryF.executeUpdate();
 					if(dat.getIdPrograma()!= null && dat.getIdPrograma()==27){
@@ -545,13 +545,13 @@ public class SIIFEncabezadoService {
 				for (EstructuraContratosDatDTO dat : listaEstructura) {
 					Query queryC = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
 							"SET d.num_emp = (:num_emp), " +
-							"d.nombre = (:nombre), " +
+							//"d.nombre = (:nombre), " +
 							"d.num_ctrol = (:num) " +
 							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
 							+ "AND ( d.id_programa != 23 AND d.id_programa != 27)")
 							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
 							.setParameter("num_emp", formatoNumEmp(c))
-							.setParameter("nombre",formatoNombre(dat.getNombre()))
+							//.setParameter("nombre",formatoNombre(dat.getNombre()))
 							.setParameter("num", c+1);
 							queryC.executeUpdate();
 					if(dat.getIdPrograma()!= null && dat.getIdPrograma()!=23 && dat.getIdPrograma()!=27){
