@@ -64,31 +64,22 @@ public class TabuladorService implements Serializable {
 
 		tabuladorEntity.setPuestoGeneral(puestoGeneralEntity);
 		tabuladorEntity.setTipoTabulador(tipoTabuladorEntity);
-		tabuladorEntity.setEjercicioFiscal(ejercicioFiscalEntity
-				.getEjercicioFiscal());
-		tabuladorEntity.setSueldoBrutoMensual(tabuladorDTO
-				.getSueldoBrutoMensual());
-		tabuladorEntity.setAsignacionBrutaMensual(tabuladorDTO
-				.getAsignacionBrutaMensual());
+		tabuladorEntity.setEjercicioFiscal(ejercicioFiscalEntity.getEjercicioFiscal());
+		tabuladorEntity.setSueldoBrutoMensual(tabuladorDTO.getSueldoBrutoMensual());
+		tabuladorEntity.setAsignacionBrutaMensual(tabuladorDTO.getAsignacionBrutaMensual());
 		tabuladorEntity.setAgaBrutaMensual(tabuladorDTO.getAgaBrutaMensual());
-		tabuladorEntity.setTotalBrutoMensual(tabuladorDTO
-				.getTotalBrutoMensual());
-		tabuladorEntity.setSueldoBaseMensualMinimo(tabuladorDTO
-				.getSueldoBaseMensualMinimo());
-		tabuladorEntity.setSueldoBaseMensualMedio(tabuladorDTO
-				.getSueldoBaseMensualMedio());
-		tabuladorEntity.setSueldoBaseMensualMaximo(tabuladorDTO
-				.getSueldoBaseMensualMaximo());
+		tabuladorEntity.setTotalBrutoMensual(tabuladorDTO.getTotalBrutoMensual());
+		tabuladorEntity.setSueldoBaseMensualMinimo(tabuladorDTO.getSueldoBaseMensualMinimo());
+		tabuladorEntity.setSueldoBaseMensualMedio(tabuladorDTO.getSueldoBaseMensualMedio());
+		tabuladorEntity.setSueldoBaseMensualMaximo(tabuladorDTO.getSueldoBaseMensualMaximo());
 		tabuladorEntity.setSueldoDiario(tabuladorDTO.getSueldoDiario());
 
-		if (ValidacionUtil.esNumeroPositivoInt(tabuladorDTO
-				.getIdSubClasificacion())) {
+		if (ValidacionUtil.esNumeroPositivoInt(tabuladorDTO.getIdSubClasificacion())) {
 			SubclasificacionTabuladorEntity subclasificacionTabuladorEntity = subClasificacionTabuladorRepository
 					.obtenerPorId(tabuladorDTO.getIdSubClasificacion());
 
 			if (subclasificacionTabuladorEntity != null) {
-				tabuladorEntity
-						.setSubclasificacion(subclasificacionTabuladorEntity);
+				tabuladorEntity.setSubclasificacion(subclasificacionTabuladorEntity);
 			}
 
 		}
@@ -99,8 +90,7 @@ public class TabuladorService implements Serializable {
 
 	protected void actualizarTabulador(TabuladorDTO tabuladorDTO) {
 
-		TabuladorEntity tabuladorEntity = tabuladorRepository
-				.obtenerPorId(tabuladorDTO.getIdTabulador());
+		TabuladorEntity tabuladorEntity = tabuladorRepository.obtenerPorId(tabuladorDTO.getIdTabulador());
 
 		PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository
 				.obtenerPorId(tabuladorDTO.getIdPuestoGeneral());
@@ -113,32 +103,23 @@ public class TabuladorService implements Serializable {
 
 		tabuladorEntity.setPuestoGeneral(puestoGeneralEntity);
 		tabuladorEntity.setTipoTabulador(tipoTabuladorEntity);
-		tabuladorEntity.setEjercicioFiscal(ejercicioFiscalEntity
-				.getEjercicioFiscal());
-		tabuladorEntity.setSueldoBrutoMensual(tabuladorDTO
-				.getSueldoBrutoMensual());
-		tabuladorEntity.setAsignacionBrutaMensual(tabuladorDTO
-				.getAsignacionBrutaMensual());
+		tabuladorEntity.setEjercicioFiscal(ejercicioFiscalEntity.getEjercicioFiscal());
+		tabuladorEntity.setSueldoBrutoMensual(tabuladorDTO.getSueldoBrutoMensual());
+		tabuladorEntity.setAsignacionBrutaMensual(tabuladorDTO.getAsignacionBrutaMensual());
 		tabuladorEntity.setAgaBrutaMensual(tabuladorDTO.getAgaBrutaMensual());
-		tabuladorEntity.setTotalBrutoMensual(tabuladorDTO
-				.getTotalBrutoMensual());
+		tabuladorEntity.setTotalBrutoMensual(tabuladorDTO.getTotalBrutoMensual());
 
-		tabuladorEntity.setSueldoBaseMensualMinimo(tabuladorDTO
-				.getSueldoBaseMensualMinimo());
-		tabuladorEntity.setSueldoBaseMensualMedio(tabuladorDTO
-				.getSueldoBaseMensualMedio());
-		tabuladorEntity.setSueldoBaseMensualMaximo(tabuladorDTO
-				.getSueldoBaseMensualMaximo());
+		tabuladorEntity.setSueldoBaseMensualMinimo(tabuladorDTO.getSueldoBaseMensualMinimo());
+		tabuladorEntity.setSueldoBaseMensualMedio(tabuladorDTO.getSueldoBaseMensualMedio());
+		tabuladorEntity.setSueldoBaseMensualMaximo(tabuladorDTO.getSueldoBaseMensualMaximo());
 		tabuladorEntity.setSueldoDiario(tabuladorDTO.getSueldoDiario());
 
-		if (ValidacionUtil.esNumeroPositivoInt(tabuladorDTO
-				.getIdSubClasificacion())) {
+		if (ValidacionUtil.esNumeroPositivoInt(tabuladorDTO.getIdSubClasificacion())) {
 			SubclasificacionTabuladorEntity subclasificacionTabuladorEntity = subClasificacionTabuladorRepository
 					.obtenerPorId(tabuladorDTO.getIdSubClasificacion());
 
 			if (subclasificacionTabuladorEntity != null) {
-				tabuladorEntity
-						.setSubclasificacion(subclasificacionTabuladorEntity);
+				tabuladorEntity.setSubclasificacion(subclasificacionTabuladorEntity);
 			}
 
 		} else {
@@ -158,8 +139,7 @@ public class TabuladorService implements Serializable {
 	protected List<TabuladorDTO> listaTabulador(Integer idTipoTabulador) {
 		List<TabuladorDTO> listaTabuladorDTOs = new ArrayList<TabuladorDTO>();
 
-		List<TabuladorEntity> listaTabuladores = tabuladorRepository
-				.consultarTabuladoresPorTipo(idTipoTabulador);
+		List<TabuladorEntity> listaTabuladores = tabuladorRepository.consultarTabuladoresPorTipo(idTipoTabulador);
 
 		if (!listaTabuladores.isEmpty()) {
 			for (TabuladorEntity tabuladorEntity : listaTabuladores) {
@@ -168,62 +148,41 @@ public class TabuladorService implements Serializable {
 				dto.setIdTabulador(tabuladorEntity.getIdTabulador());
 
 				if (tabuladorEntity.getPuestoGeneral() != null) {
-					dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral()
-							.getIdPuestoGeneral());
-					dto.setCodigoPuestoGeneral(tabuladorEntity
-							.getPuestoGeneral().getCodigo());
-					dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral()
-							.getIdTipoPuesto().getDescripcion());
+					dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral().getIdPuestoGeneral());
+					dto.setCodigoPuestoGeneral(tabuladorEntity.getPuestoGeneral().getCodigo());
+					dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral().getIdTipoPuesto().getDescripcion());
 
 					if (tabuladorEntity.getPuestoGeneral().getIdRama() != null) {
-						dto.setNombreRamaPuesto(tabuladorEntity
-								.getPuestoGeneral().getIdRama()
-								.getNombreRamaPuesto());
+						dto.setNombreRamaPuesto(tabuladorEntity.getPuestoGeneral().getIdRama().getNombreRamaPuesto());
 					}
 
-					dto.setNombrePuestoGeneral(tabuladorEntity
-							.getPuestoGeneral().getPuesto());
+					dto.setNombrePuestoGeneral(tabuladorEntity.getPuestoGeneral().getPuesto());
 				}
 
 				if (tabuladorEntity.getTipoTabulador() != null) {
-					dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador()
-							.getIdTipoTabulador());
-					dto.setDescripcionTipoTabulador(tabuladorEntity
-							.getTipoTabulador().getDescripcion());
+					dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador().getIdTipoTabulador());
+					dto.setDescripcionTipoTabulador(tabuladorEntity.getTipoTabulador().getDescripcion());
 				}
 
-				if (tabuladorEntity.getEjercicioFiscal().compareTo(
-						new Integer(0)) > 0) {
+				if (tabuladorEntity.getEjercicioFiscal().compareTo(new Integer(0)) > 0) {
 
-							dto.setEjercicioFiscal(tabuladorEntity
-								.getEjercicioFiscal());
-					
+					dto.setEjercicioFiscal(tabuladorEntity.getEjercicioFiscal());
+
 				}
 
 				if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
-					dto.setSueldoBrutoMensual(tabuladorEntity
-							.getSueldoBrutoMensual());
-					dto.setAsignacionBrutaMensual(tabuladorEntity
-							.getAsignacionBrutaMensual());
+					dto.setSueldoBrutoMensual(tabuladorEntity.getSueldoBrutoMensual());
+					dto.setAsignacionBrutaMensual(tabuladorEntity.getAsignacionBrutaMensual());
 					dto.setAgaBrutaMensual(tabuladorEntity.getAgaBrutaMensual());
-					dto.setTotalBrutoMensual(tabuladorEntity
-							.getTotalBrutoMensual());
-				} else if (tabuladorEntity.getTipoTabulador()
-						.getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
-					dto.setSueldoBaseMensualMinimo(tabuladorEntity
-							.getSueldoBaseMensualMinimo());
-					dto.setSueldoBaseMensualMedio(tabuladorEntity
-							.getSueldoBaseMensualMedio());
-					dto.setSueldoBaseMensualMaximo(tabuladorEntity
-							.getSueldoBaseMensualMaximo());
-					dto.setSubClasificacion(tabuladorEntity
-							.getSubclasificacion() == null ? ""
-							: tabuladorEntity.getSubclasificacion()
-									.getSubclasificacion());
-					dto.setIdSubClasificacion(tabuladorEntity
-							.getSubclasificacion() == null ? 0
-							: tabuladorEntity.getSubclasificacion()
-									.getIdSubclasificacion());
+					dto.setTotalBrutoMensual(tabuladorEntity.getTotalBrutoMensual());
+				} else if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
+					dto.setSueldoBaseMensualMinimo(tabuladorEntity.getSueldoBaseMensualMinimo());
+					dto.setSueldoBaseMensualMedio(tabuladorEntity.getSueldoBaseMensualMedio());
+					dto.setSueldoBaseMensualMaximo(tabuladorEntity.getSueldoBaseMensualMaximo());
+					dto.setSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? ""
+							: tabuladorEntity.getSubclasificacion().getSubclasificacion());
+					dto.setIdSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? 0
+							: tabuladorEntity.getSubclasificacion().getIdSubclasificacion());
 
 				} else if (tabuladorEntity.getTipoTabulador()
 						.getIdTipoTabulador() == EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE) {
@@ -240,8 +199,7 @@ public class TabuladorService implements Serializable {
 	protected List<TabuladorDTO> obtenerListaTabulador() {
 		List<TabuladorDTO> listaTabuladorDTOs = new ArrayList<TabuladorDTO>();
 
-		List<TabuladorEntity> listaTabuladores = tabuladorRepository
-				.consultarTabuladores();
+		List<TabuladorEntity> listaTabuladores = tabuladorRepository.consultarTabuladores();
 
 		if (!listaTabuladores.isEmpty()) {
 			for (TabuladorEntity tabuladorEntity : listaTabuladores) {
@@ -250,62 +208,41 @@ public class TabuladorService implements Serializable {
 				dto.setIdTabulador(tabuladorEntity.getIdTabulador());
 
 				if (tabuladorEntity.getPuestoGeneral() != null) {
-					dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral()
-							.getIdPuestoGeneral());
-					dto.setCodigoPuestoGeneral(tabuladorEntity
-							.getPuestoGeneral().getCodigo());
-					dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral()
-							.getIdTipoPuesto().getDescripcion());
+					dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral().getIdPuestoGeneral());
+					dto.setCodigoPuestoGeneral(tabuladorEntity.getPuestoGeneral().getCodigo());
+					dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral().getIdTipoPuesto().getDescripcion());
 
 					if (tabuladorEntity.getPuestoGeneral().getIdRama() != null) {
-						dto.setNombreRamaPuesto(tabuladorEntity
-								.getPuestoGeneral().getIdRama()
-								.getNombreRamaPuesto());
+						dto.setNombreRamaPuesto(tabuladorEntity.getPuestoGeneral().getIdRama().getNombreRamaPuesto());
 					}
 
-					dto.setNombrePuestoGeneral(tabuladorEntity
-							.getPuestoGeneral().getPuesto());
+					dto.setNombrePuestoGeneral(tabuladorEntity.getPuestoGeneral().getPuesto());
 				}
 
 				if (tabuladorEntity.getTipoTabulador() != null) {
-					dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador()
-							.getIdTipoTabulador());
-					dto.setDescripcionTipoTabulador(tabuladorEntity
-							.getTipoTabulador().getDescripcion());
+					dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador().getIdTipoTabulador());
+					dto.setDescripcionTipoTabulador(tabuladorEntity.getTipoTabulador().getDescripcion());
 				}
 
-				if (tabuladorEntity.getEjercicioFiscal().compareTo(
-						new Integer(0)) > 0) {
+				if (tabuladorEntity.getEjercicioFiscal().compareTo(new Integer(0)) > 0) {
 
-						dto.setEjercicioFiscal(tabuladorEntity
-								.getEjercicioFiscal());
+					dto.setEjercicioFiscal(tabuladorEntity.getEjercicioFiscal());
 
 				}
 
 				if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
-					dto.setSueldoBrutoMensual(tabuladorEntity
-							.getSueldoBrutoMensual());
-					dto.setAsignacionBrutaMensual(tabuladorEntity
-							.getAsignacionBrutaMensual());
+					dto.setSueldoBrutoMensual(tabuladorEntity.getSueldoBrutoMensual());
+					dto.setAsignacionBrutaMensual(tabuladorEntity.getAsignacionBrutaMensual());
 					dto.setAgaBrutaMensual(tabuladorEntity.getAgaBrutaMensual());
-					dto.setTotalBrutoMensual(tabuladorEntity
-							.getTotalBrutoMensual());
-				} else if (tabuladorEntity.getTipoTabulador()
-						.getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
-					dto.setSueldoBaseMensualMinimo(tabuladorEntity
-							.getSueldoBaseMensualMinimo());
-					dto.setSueldoBaseMensualMedio(tabuladorEntity
-							.getSueldoBaseMensualMedio());
-					dto.setSueldoBaseMensualMaximo(tabuladorEntity
-							.getSueldoBaseMensualMaximo());
-					dto.setSubClasificacion(tabuladorEntity
-							.getSubclasificacion() == null ? ""
-							: tabuladorEntity.getSubclasificacion()
-									.getSubclasificacion());
-					dto.setIdSubClasificacion(tabuladorEntity
-							.getSubclasificacion() == null ? 0
-							: tabuladorEntity.getSubclasificacion()
-									.getIdSubclasificacion());
+					dto.setTotalBrutoMensual(tabuladorEntity.getTotalBrutoMensual());
+				} else if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
+					dto.setSueldoBaseMensualMinimo(tabuladorEntity.getSueldoBaseMensualMinimo());
+					dto.setSueldoBaseMensualMedio(tabuladorEntity.getSueldoBaseMensualMedio());
+					dto.setSueldoBaseMensualMaximo(tabuladorEntity.getSueldoBaseMensualMaximo());
+					dto.setSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? ""
+							: tabuladorEntity.getSubclasificacion().getSubclasificacion());
+					dto.setIdSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? 0
+							: tabuladorEntity.getSubclasificacion().getIdSubclasificacion());
 
 				}
 
@@ -319,20 +256,16 @@ public class TabuladorService implements Serializable {
 	protected InfoTabuladorPuestoDTO obtenerInfoPuesto(Integer idPuestoGeneral) {
 		InfoTabuladorPuestoDTO infoTabuladorPuestoDTO = new InfoTabuladorPuestoDTO();
 
-		PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository
-				.obtenerPorId(idPuestoGeneral);
+		PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository.obtenerPorId(idPuestoGeneral);
 
 		if (puestoGeneralEntity != null) {
 
 			if (puestoGeneralEntity.getIdRama() != null) {
-				infoTabuladorPuestoDTO.setNombreRamaPuesto(puestoGeneralEntity
-						.getIdRama().getNombreRamaPuesto());
+				infoTabuladorPuestoDTO.setNombreRamaPuesto(puestoGeneralEntity.getIdRama().getNombreRamaPuesto());
 			}
 
-			infoTabuladorPuestoDTO.setCodigoPuestoGeneral(puestoGeneralEntity
-					.getCodigo());
-			infoTabuladorPuestoDTO.setNivelTipoPuesto(puestoGeneralEntity
-					.getIdTipoPuesto().getDescripcion());
+			infoTabuladorPuestoDTO.setCodigoPuestoGeneral(puestoGeneralEntity.getCodigo());
+			infoTabuladorPuestoDTO.setNivelTipoPuesto(puestoGeneralEntity.getIdTipoPuesto().getDescripcion());
 
 		}
 
@@ -348,8 +281,7 @@ public class TabuladorService implements Serializable {
 			if (tabulador.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
 
 				sueldo.setAgaBrutaMensual(tabulador.getAgaBrutaMensual());
-				sueldo.setAsignacionBrutaMensual(tabulador
-						.getAsignacionBrutaMensual());
+				sueldo.setAsignacionBrutaMensual(tabulador.getAsignacionBrutaMensual());
 				sueldo.setSueldoBrutoMensual(tabulador.getSueldoBrutoMensual());
 				sueldo.setTotalBrutoMensual(tabulador.getTotalBrutoMensual());
 			}
@@ -364,38 +296,29 @@ public class TabuladorService implements Serializable {
 
 	}
 
-	protected InfoSueldoDTO obtenerSueldoPorPuestoTabulador(Integer idPuesto,
-			Integer tipoContratacion) {
+	protected InfoSueldoDTO obtenerSueldoPorPuestoTabulador(Integer idPuesto, Integer tipoContratacion) {
 
 		InfoSueldoDTO sueldo = new InfoSueldoDTO();
 		Integer tipoTabulador = generarTipoTabulador(tipoContratacion);
 
 		if (tipoTabulador != null) {
-			TabuladorEntity tabulador = tabuladorRepository
-					.obtenerSueldoActualPorPuestoTipoTabulador(idPuesto,
-							tipoTabulador);
+			TabuladorEntity tabulador = tabuladorRepository.obtenerSueldoActualPorPuestoTipoTabulador(idPuesto,
+					tipoTabulador);
 
 			if (tabulador != null) {
 				sueldo.setIdTabulador(tabulador.getIdTabulador());
 				if (tabulador.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
 
 					sueldo.setAgaBrutaMensual(tabulador.getAgaBrutaMensual());
-					sueldo.setAsignacionBrutaMensual(tabulador
-							.getAsignacionBrutaMensual());
-					sueldo.setSueldoBrutoMensual(tabulador
-							.getSueldoBrutoMensual());
-					sueldo.setTotalBrutoMensual(tabulador
-							.getTotalBrutoMensual());
+					sueldo.setAsignacionBrutaMensual(tabulador.getAsignacionBrutaMensual());
+					sueldo.setSueldoBrutoMensual(tabulador.getSueldoBrutoMensual());
+					sueldo.setTotalBrutoMensual(tabulador.getTotalBrutoMensual());
 				} else if (tabulador.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
 					if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
-						sueldo.setSueldoBaseMensualMinimo(tabulador
-								.getSueldoBaseMensualMinimo());
-						sueldo.setSueldoBaseMensualMedio(tabulador
-								.getSueldoBaseMensualMedio());
-						sueldo.setSueldoBaseMensualMaximo(tabulador
-								.getSueldoBaseMensualMaximo());
-						sueldo.setSubClasificacion(tabulador
-								.getSubclasificacion().getSubclasificacion());
+						sueldo.setSueldoBaseMensualMinimo(tabulador.getSueldoBaseMensualMinimo());
+						sueldo.setSueldoBaseMensualMedio(tabulador.getSueldoBaseMensualMedio());
+						sueldo.setSueldoBaseMensualMaximo(tabulador.getSueldoBaseMensualMaximo());
+						sueldo.setSubClasificacion(tabulador.getSubclasificacion().getSubclasificacion());
 					}
 
 				}
@@ -407,8 +330,7 @@ public class TabuladorService implements Serializable {
 			}
 
 		} else {
-			throw new ReglaNegocioException(
-					"No se ha registrado un tabulador para el tipo de contratación.",
+			throw new ReglaNegocioException("No se ha registrado un tabulador para el tipo de contratación.",
 					ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO);
 		}
 
@@ -418,8 +340,7 @@ public class TabuladorService implements Serializable {
 
 	private Integer generarTipoTabulador(Integer idTipoContratacion) {
 		Integer tipoTabulador = null;
-		if (idTipoContratacion == EnumTipoContratacion.BASE
-				|| idTipoContratacion == EnumTipoContratacion.CONFIANZA
+		if (idTipoContratacion == EnumTipoContratacion.BASE || idTipoContratacion == EnumTipoContratacion.CONFIANZA
 				|| idTipoContratacion == EnumTipoContratacion.INTERINATO
 				|| idTipoContratacion == EnumTipoContratacion.HOMOLOGADOS
 				|| idTipoContratacion == EnumTipoContratacion.FORMALIZADOS
@@ -436,66 +357,47 @@ public class TabuladorService implements Serializable {
 		return tabuladorRepository.obtenerSueldoDiarioIdTabulador(idTabulador);
 	}
 
-	public TabuladorDTO obtenerTabuladorPorPuesto(Integer idPuesto,
-			Integer anioFiscal) {
+	public TabuladorDTO obtenerTabuladorPorPuesto(Integer idPuesto, Integer anioFiscal) {
 		TabuladorDTO dto = new TabuladorDTO();
-		TabuladorEntity tabuladorEntity = tabuladorRepository
-				.obtenerTabuladorActualPorPuesto(idPuesto, 2);
+		TabuladorEntity tabuladorEntity = tabuladorRepository.obtenerTabuladorActualPorPuesto(idPuesto, 2);
 		if (tabuladorEntity != null) {
 			dto.setIdTabulador(tabuladorEntity.getIdTabulador());
 
 			if (tabuladorEntity.getPuestoGeneral() != null) {
-				dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral()
-						.getIdPuestoGeneral());
-				dto.setCodigoPuestoGeneral(tabuladorEntity.getPuestoGeneral()
-						.getCodigo());
-				dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral()
-						.getIdTipoPuesto().getDescripcion());
+				dto.setIdPuestoGeneral(tabuladorEntity.getPuestoGeneral().getIdPuestoGeneral());
+				dto.setCodigoPuestoGeneral(tabuladorEntity.getPuestoGeneral().getCodigo());
+				dto.setNivelTipoPuesto(tabuladorEntity.getPuestoGeneral().getIdTipoPuesto().getDescripcion());
 
 				if (tabuladorEntity.getPuestoGeneral().getIdRama() != null) {
-					dto.setNombreRamaPuesto(tabuladorEntity.getPuestoGeneral()
-							.getIdRama().getNombreRamaPuesto());
+					dto.setNombreRamaPuesto(tabuladorEntity.getPuestoGeneral().getIdRama().getNombreRamaPuesto());
 				}
-				dto.setNombrePuestoGeneral(tabuladorEntity.getPuestoGeneral()
-						.getPuesto());
+				dto.setNombrePuestoGeneral(tabuladorEntity.getPuestoGeneral().getPuesto());
 			}
 
 			if (tabuladorEntity.getTipoTabulador() != null) {
-				dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador()
-						.getIdTipoTabulador());
-				dto.setDescripcionTipoTabulador(tabuladorEntity
-						.getTipoTabulador().getDescripcion());
+				dto.setIdTipoTabulador(tabuladorEntity.getTipoTabulador().getIdTipoTabulador());
+				dto.setDescripcionTipoTabulador(tabuladorEntity.getTipoTabulador().getDescripcion());
 			}
 
 			if (tabuladorEntity.getEjercicioFiscal().compareTo(new Integer(0)) > 0) {
 
-				
-					dto.setEjercicioFiscal(tabuladorEntity
-							.getEjercicioFiscal());
-				
+				dto.setEjercicioFiscal(tabuladorEntity.getEjercicioFiscal());
 
 			}
 
 			if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
-				dto.setSueldoBrutoMensual(tabuladorEntity
-						.getSueldoBrutoMensual());
-				dto.setAsignacionBrutaMensual(tabuladorEntity
-						.getAsignacionBrutaMensual());
+				dto.setSueldoBrutoMensual(tabuladorEntity.getSueldoBrutoMensual());
+				dto.setAsignacionBrutaMensual(tabuladorEntity.getAsignacionBrutaMensual());
 				dto.setAgaBrutaMensual(tabuladorEntity.getAgaBrutaMensual());
 				dto.setTotalBrutoMensual(tabuladorEntity.getTotalBrutoMensual());
 			} else if (tabuladorEntity.getTipoTabulador().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
-				dto.setSueldoBaseMensualMinimo(tabuladorEntity
-						.getSueldoBaseMensualMinimo());
-				dto.setSueldoBaseMensualMedio(tabuladorEntity
-						.getSueldoBaseMensualMedio());
-				dto.setSueldoBaseMensualMaximo(tabuladorEntity
-						.getSueldoBaseMensualMaximo());
+				dto.setSueldoBaseMensualMinimo(tabuladorEntity.getSueldoBaseMensualMinimo());
+				dto.setSueldoBaseMensualMedio(tabuladorEntity.getSueldoBaseMensualMedio());
+				dto.setSueldoBaseMensualMaximo(tabuladorEntity.getSueldoBaseMensualMaximo());
 				dto.setSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? ""
-						: tabuladorEntity.getSubclasificacion()
-								.getSubclasificacion());
+						: tabuladorEntity.getSubclasificacion().getSubclasificacion());
 				dto.setIdSubClasificacion(tabuladorEntity.getSubclasificacion() == null ? 0
-						: tabuladorEntity.getSubclasificacion()
-								.getIdSubclasificacion());
+						: tabuladorEntity.getSubclasificacion().getIdSubclasificacion());
 
 			}
 		}

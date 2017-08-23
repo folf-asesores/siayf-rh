@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
+import org.jboss.logging.Logger;
+
 /**
  * @author Eduardo Mex
  * @email lic.eduardo_mex@hotmail.com
@@ -16,11 +18,8 @@ import javax.persistence.NoResultException;
  * @since 28/07/2016 13:09:03
  */
 public class TabuladorRepository extends GenericRepository<TabuladorEntity, Integer> implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3240856679538431329L;
+	private static final Logger LOGGER = Logger.getLogger(TabuladorRepository.class.getName());
 
 	public List<TabuladorEntity> consultarTabuladoresPorTipo(Integer idTipoTabulador) {
 		return em.createQuery(
@@ -50,15 +49,15 @@ public class TabuladorRepository extends GenericRepository<TabuladorEntity, Inte
 	}
 
 	public TabuladorEntity obtenerSueldoActualPorPuestoTipoTabulador(Integer idPuestoGeneral, Integer tipoTabulador) {
-		// TODO modificar el 3 por el ejercicio
+		LOGGER.info("idPuestoGeneral:: " + idPuestoGeneral);
+		LOGGER.info("tipoTabulador:: " + tipoTabulador);
 		try {
-			return em
-					.createQuery(
-							"SELECT t FROM TabuladorEntity AS t WHERE t.puestoGeneral.idPuestoGeneral =:idPuesto "
-									+ "AND t.tipoTabulador.idTipoTabulador =:tipoTabulador AND t.ejercicioFiscal =:ejercicioActual",
-							TabuladorEntity.class)
+			return em.createQuery(" SELECT t FROM TabuladorEntity AS t "
+							+ " WHERE t.puestoGeneral.idPuestoGeneral =:idPuesto "
+							+ " AND t.tipoTabulador.idTipoTabulador =:tipoTabulador "
+							+ " ORDER BY t.ejercicioFiscal desc ", TabuladorEntity.class)
 					.setParameter("idPuesto", idPuestoGeneral).setParameter("tipoTabulador", tipoTabulador)
-					.setParameter("ejercicioActual", 2016).getSingleResult();
+					.setMaxResults(1).getSingleResult();
 		} catch (NoResultException exception) {
 			return null;
 		}
