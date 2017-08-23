@@ -219,7 +219,7 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 	public List<InventarioVacanteEntity> consultarPuestosDisponibles() {
 
 		return em.createQuery(
-				"SELECT i FROM InventarioVacanteEntity AS i WHERE i.disponible = 'SI' AND i.idCandidatoPostulado IS NULL",
+				"SELECT i FROM InventarioVacanteEntity AS i WHERE i.disponible = 'SI' AND i.idCandidatoPostulado IS NULL ORDER BY i.tipoContratacion.id, i.adscripcion.idAdscripcion",
 				InventarioVacanteEntity.class).getResultList();
 
 	}

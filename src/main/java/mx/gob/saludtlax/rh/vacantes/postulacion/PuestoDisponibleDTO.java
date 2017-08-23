@@ -20,6 +20,17 @@ public class PuestoDisponibleDTO {
 	private BigDecimal sueldo;
 	private String empleadoAnterior;
 	private String tipoVacante;
+	private String adscripcion;
+	
+	
+
+	public String getAdscripcion() {
+		return adscripcion;
+	}
+
+	public void setAdscripcion(String adscripcion) {
+		this.adscripcion = adscripcion;
+	}
 
 	public String getTipoVacante() {
 		return tipoVacante;

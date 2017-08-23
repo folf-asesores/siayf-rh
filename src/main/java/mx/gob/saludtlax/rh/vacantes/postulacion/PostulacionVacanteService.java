@@ -445,6 +445,9 @@ public class PostulacionVacanteService implements Serializable {
 					dto.setTipoVacante("POR LIBERACION");
 				}
 
+				if(i.getAdscripcion() != null){
+					dto.setAdscripcion(i.getAdscripcion().getAdscripcion());
+				}
 				puestosDisponibles.add(dto);
 			}
 		}
