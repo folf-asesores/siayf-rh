@@ -16,68 +16,72 @@
 
 	<ui:define name="moduloContenido">
 		<h:form id="form">
-
-
-
 			<p:panelGrid columns="1" columnClasses="ui-grid-col-12" layout="grid"
 				styleClass="ui-panelgrid-blank ui-fluid"
 				rendered="#{inventario.view.mostrarInventario}">
 				<f:facet name="header">
 					<h3>Inventario Puestos</h3>
 				</f:facet>
-
-
-
-				<p:dataTable id="vacantes" value="#{inventario.view.inventarios}"
-					var="i" paginator="false" paginatorPosition="bottom">
+				<p:dataTable id="vacantes"
+							value="#{inventario.view.inventarios}"
+							var="i" 
+							paginator="false" 
+							paginatorPosition="bottom">
 					<p:column headerText="Contratacion">
-						<h:outputText value="#{i.tipoContratacion}" />
+						<h:outputText value="#{i.tipoContratacion}"  
+									style="float:left;" />
 					</p:column>
 					<p:column headerText="Autorizadas">
-						<h:outputText value="#{i.total}" />
+						<h:outputText value="#{i.total}" 
+									style="float:left;" />
 					</p:column>
 
 					<p:column headerText="Activas">
-						<h:outputText value="#{i.totalActivos}" />
+						<p:commandLink update="form"
+										style="float:left;"
+										action="#{inventario.mostrarActivas(i.idTipoContratacion)}"
+										title="Ver">
+							<h:outputText value="#{i.totalActivos}" />
+						</p:commandLink>
+						<p:commandButton icon="fm-icon-download"
+										update="@form"
+										iconPos="right"
+										ajax="false"
+										title="Detalles Empleados"
+										style="float:right;"
+										action="#{inventario.descargarContratoProyeccion(i.idTipoContratacion)}"
+										oncomplete="mymessages();" />
 					</p:column>
 
 					<p:column headerText="En Permiso">
-						<h:outputText value="#{i.totalPermiso}" />
+						<h:outputText value="#{i.totalPermiso}"  
+									style="float:left;" />
 					</p:column>
 
 					<p:column headerText="Interinatos">
-						<h:outputText value="#{i.totalInterinatos}" />
+						<h:outputText value="#{i.totalInterinatos}"  
+									style="float:left;" />
 					</p:column>
 
 					<p:column headerText="Disponibles">
+						<p:commandLink update="form"
+										style="float:left;"
+										actionListener="#{inventario.mostrarDisponibles(i.idTipoContratacion)}"
+										title="Ver">
 						<h:outputText value="#{i.totalDisponibles}" />
+						</p:commandLink>
 					</p:column>
 
-					<p:column headerText="Resumen Códigos" style="text-align: center;">
+					<p:column headerText="Resumen Códigos" 
+							  style="text-align: center;">
 						<p:commandButton update="form"
 							actionListener="#{inventario.mostrarResumenCodigos(i.idTipoContratacion)}"
 							icon="fm-icon-eye" title="Ver">
 						</p:commandButton>
 					</p:column>
 
-					<p:column headerText="Detalles Empleados"
-						style="text-align: center;">
-						<p:commandButton update="form"
-							actionListener="#{inventario.mostrarEmpleadosPorContratacion(i.idTipoContratacion)}"
-							icon="fm-icon-eye" title="Ver">
-						</p:commandButton>
-					</p:column>
-
-					<p:column headerText="Descarga" style="text-align: center;">
-						<p:commandButton icon="fm-icon-download" update="@form"
-							iconPos="right" ajax="false" title="Detalles Empleados"
-							action="#{inventario.descargarContratoProyeccion(i.idTipoContratacion)}"
-							oncomplete="mymessages();" />
-					</p:column>
-
 				</p:dataTable>
 			</p:panelGrid>
-
 
 			<p:dataTable id="resumenCodigos"
 				value="#{inventario.view.resumenPuestos}" var="d"
@@ -107,11 +111,10 @@
 				</p:column>
 			</p:dataTable>
 
-
 			<p:dataTable id="detallesEmpleados"
-				value="#{inventario.view.detallesEmpleados}" var="d"
-				rendered="#{inventario.view.mostrarDetalleEmpleados}">
-
+						value="#{inventario.view.detallesEmpleados}" 
+						var="d"
+						rendered="#{inventario.view.mostrarDetalleEmpleados}">
 				<f:facet name="header">
 					<p:panelGrid columns="3"
 						columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"
@@ -129,18 +132,15 @@
 				<p:column headerText="Estatus">
 					<h:outputText value="#{d.estatus}" />
 				</p:column>
-
 				<p:column headerText="RFC" filterBy="#{d.rfc}">
 					<h:outputText value="#{d.rfc}" />
 				</p:column>
 				<p:column headerText="Empleado" filterBy="#{d.empleado}">
 					<h:outputText value="#{d.empleado}" />
 				</p:column>
-
 				<p:column headerText="Subclasificación">
-					<h:outputText value="#{d.subClasificacion}" />
+					<h:outputText value="#{d.nombramiento}" />
 				</p:column>
-
 				<p:column headerText="Código Puesto"
 					filterBy="#{d.codigoAutorizado}">
 					<h:outputText value="#{d.codigoAutorizado}" />
@@ -148,16 +148,10 @@
 				<p:column headerText="Puesto">
 					<h:outputText value="#{d.descripcionCodigoAutorizado}" />
 				</p:column>
-
 				<p:column headerText="Número puesto">
 					<h:outputText value="#{d.numeroPlaza}" />
 				</p:column>
-
 			</p:dataTable>
-
-
-
-
 		</h:form>
 	</ui:define>
 </ui:composition>

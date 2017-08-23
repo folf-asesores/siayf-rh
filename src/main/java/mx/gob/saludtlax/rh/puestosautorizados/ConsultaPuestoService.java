@@ -291,31 +291,9 @@ public class ConsultaPuestoService {
 		return inventarioVacanteRepository.consultarResumenCodigosPorContratacion(tipoContratacion);
 	}
 
-	protected List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion) {
-		List<DetallePuestoDTO> detalles = new ArrayList<>();
-		List<InventarioVacanteEntity> puestos = inventarioVacanteRepository
-				.consultarEmpleadosInventarioPorContratacion(tipoContratacion);
-		if (!puestos.isEmpty()) {
-			for (InventarioVacanteEntity p : puestos) {
-
-				DetallePuestoDTO dto = new DetallePuestoDTO();
-				if (p.getPuestoAutorizado() != null) {
-					dto.setCodigoAutorizado(p.getPuestoAutorizado().getCodigo());
-					dto.setDescripcionCodigoAutorizado(p.getPuestoAutorizado().getPuesto());
-				}
-				dto.setRfc(p.getEmpleadoActivo().getRfc());
-				dto.setEmpleado(p.getEmpleadoActivo().getNombreCompleto());
-				dto.setIdPuesto(p.getIdVacante());
-				dto.setNumeroPlaza(p.getNumeroPuestoAutorizado());
-				dto.setEstatus(p.getEstatus().getEstatus());
-				if (p.getNombramiento() != null) {
-					dto.setSubClasificacion(p.getNombramiento().getDescripcion());
-				}
-				dto.setTipoContratacion(p.getTipoContratacion().getTipoContratacion());
-				detalles.add(dto);
-
-			}
-		}
+	protected List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, int idEstatus) {
+		List<DetallePuestoDTO> detalles = inventarioVacanteRepository
+				.inventarioPorContratacionYEstatus(tipoContratacion, idEstatus);
 		return detalles;
 	}
 

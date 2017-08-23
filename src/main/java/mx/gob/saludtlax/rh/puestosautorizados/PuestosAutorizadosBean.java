@@ -86,8 +86,8 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 	}
 
 	@Override
-	public List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion) {
-		return consultaPuestoService.consultarEmpleadosInventarioPorContratacion(tipoContratacion);
+	public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus) {
+		return consultaPuestoService.porContratacionYEstatus(tipoContratacion, idEstatus);
 	}
 
 	@Override

@@ -25,11 +25,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "inventario_vacantes")
 public class InventarioVacanteEntity implements Serializable {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5580848279494109729L;
+
 	@Id
 	@Column(name = "id_inventario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

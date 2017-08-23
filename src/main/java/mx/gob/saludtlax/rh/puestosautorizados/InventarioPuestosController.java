@@ -59,8 +59,16 @@ public class InventarioPuestosController implements Serializable {
 
 	}
 
-	public void mostrarEmpleadosPorContratacion(Integer tipoContratacionSeleccionado) {
-		view.setDetallesEmpleados(vacante.consultarEmpleadosInventarioPorContratacion(tipoContratacionSeleccionado));
+	public void mostrarActivas(Integer tipoContratacionSeleccionado) {
+		view.setDetallesEmpleados(vacante.porContratacionYEstatus(tipoContratacionSeleccionado, EnumEstatusPuesto.EMPLEADO_ACTIVO));
+		if (!view.getDetallesEmpleados().isEmpty()) {
+			view.setMostrarDetalleEmpleados(true);
+			view.setMostrarInventario(false);
+		}
+	}
+
+	public void mostrarDisponibles(Integer tipoContratacionSeleccionado) {
+		view.setDetallesEmpleados(vacante.porContratacionYEstatus(tipoContratacionSeleccionado, EnumEstatusPuesto.LIBERADA));
 		if (!view.getDetallesEmpleados().isEmpty()) {
 			view.setMostrarDetalleEmpleados(true);
 			view.setMostrarInventario(false);

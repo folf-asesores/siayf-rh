@@ -38,7 +38,7 @@ public interface PuestosAutorizadosEmpleados {
 	/**
 	 * Consulta el listado de empleados asignados a los puestos autorizados.
 	 */
-	public List<DetallePuestoDTO> consultarEmpleadosInventarioPorContratacion(Integer tipoContratacion);
+	public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus);
 
 	public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
 
