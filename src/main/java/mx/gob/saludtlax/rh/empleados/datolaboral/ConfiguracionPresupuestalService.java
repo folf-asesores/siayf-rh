@@ -427,20 +427,43 @@ public class ConfiguracionPresupuestalService {
 
 		DatoLaboralDTO dto = new DatoLaboralDTO();
 
+		if(datoLaboral.getDependencia()!=null){
 		dto.setIdDependencia(datoLaboral.getDependencia().getIdDependencia());
+		}
+		
+		if(datoLaboral.getFuenteFinanciamiento()!=null){
 		dto.setIdFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
+		}
+		
+		if(datoLaboral.getNombramiento()!=null){
 		dto.setIdNombramiento(datoLaboral.getNombramiento().getIdTipoNombramiento());
+		}
+		
+		if(datoLaboral.getProyecto()!=null){
 		dto.setIdProyecto(datoLaboral.getProyecto().getIdProyecto());
+		}
+		
+		if(datoLaboral.getProyecto()!=null){
 		dto.setIdPuesto(datoLaboral.getPuesto().getIdPuestoGeneral());
+		}
+		
+		if(datoLaboral.getSubfuenteFinanciamiento()!=null){
 		dto.setIdSubfuenteFinanciamiento(datoLaboral.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
+		}
 		if (datoLaboral.getTabulador() != null) {
 			dto.setIdTabulador(datoLaboral.getTabulador().getIdTabulador());
 		}
 
+		if(datoLaboral.getTipoRecurso()!=null){
 		dto.setIdTipoRecurso(datoLaboral.getTipoRecurso().getIdTipoRecurso());
+		}
+		if(datoLaboral.getUnidadResponsable()!=null){
 		dto.setIdUnidadResponsable(datoLaboral.getUnidadResponsable().getIdUnidadResponsable());
+		}
 		dto.setSueldo(datoLaboral.getSueldo());
+		if(datoLaboral.getTipoContratacion()!=null){
 		dto.setTipoContratacion(datoLaboral.getTipoContratacion().getId());
+		}
 		dto.setFechaInicioLabores(datoLaboral.getFechaInicioLabores());
 		dto.setNumeroEmpleado(datoLaboral.getNumeroEmpleado());
 		dto.setSueldo01(datoLaboral.getSueldo01());
@@ -483,18 +506,29 @@ public class ConfiguracionPresupuestalService {
 		}
 		
 		System.out.println("id configuracion :" + configuracion.getId());
+		if(configuracion.getDependencia()!=null){
 		detalle.setDependencia(configuracion.getDependencia().getDescripcion());
+		}
 		detalle.setEstatus(configuracion.getEstatus().getEstatus());
+		if(configuracion.getFuenteFinanciamiento()!=null){
 		detalle.setFuenteFinanciamiento(configuracion.getFuenteFinanciamiento().getDescripcion());
+		}
 		detalle.setNombramiento(configuracion.getNombramiento().getDescripcion());
 		if (configuracion.getEmpleado() != null) {
 			detalle.setNombreEmpleado(configuracion.getEmpleado().getNombre());
 		}
 
 		detalle.setNumeroEmpleado(configuracion.getNumeroEmpleado());
+		
+		if(configuracion.getProyecto()!=null){
 		detalle.setProyecto(configuracion.getProyecto().getDescripcion());
+		}
+		if(configuracion.getPuesto()!=null){
 		detalle.setPuesto(configuracion.getPuesto().getPuesto());
+		}
+		if(configuracion.getSubfuenteFinanciamiento()!=null){
 		detalle.setSubfuenteFinanciamiento(configuracion.getSubfuenteFinanciamiento().getDescripcion());
+		}
 		detalle.setSueldoAutorizado(configuracion.getSueldo());
 		if (configuracion.getTabulador() != null) {
 			detalle.setSueldoTabulador(configuracion.getTabulador().getSueldoBrutoMensual());
@@ -506,12 +540,17 @@ public class ConfiguracionPresupuestalService {
 			detalle.setTipoRecurso("SIN TIPO RECURSO ASIGNADO");
 		}
 
+		if(configuracion.getUnidadResponsable()!=null){
 		detalle.setUnidadResponsable(configuracion.getUnidadResponsable().getDescripcion());
+		}
 		detalle.setIdDetalle(configuracion.getId());
+		if(configuracion.getTipoContratacion()!=null){
 		detalle.setTipoContratacion(configuracion.getTipoContratacion().getTipoContratacion());
 		detalle.setIdTipoContratacion(configuracion.getTipoContratacion().getId());
+		}
+		if(configuracion.getNombramiento()!=null){
 		detalle.setIdTipoNombramiento(configuracion.getNombramiento().getIdTipoNombramiento());
-
+		}
 		return detalle;
 
 	}

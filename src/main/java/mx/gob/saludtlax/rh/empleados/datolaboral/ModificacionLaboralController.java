@@ -135,7 +135,7 @@ public class ModificacionLaboralController implements Serializable {
 
 	public void obtenerUnidadesResponsables() {
 		view.getListaUnidadesResponsables().clear();
-		if (view.getDatoLaboral().getIdDependencia() != 0) {
+		if (view.getDatoLaboral().getIdDependencia() != null) {
 			view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
 					catalogo.listaUnidadesResponsablesPorDependencia(view.getDatoLaboral().getIdDependencia())));
 		}
@@ -144,7 +144,7 @@ public class ModificacionLaboralController implements Serializable {
 
 	public void obtenerSubfuentesFinanciamiento() {
 		view.getListaSubfuentesFinanciamiento().clear();
-		if (view.getDatoLaboral().getIdFuenteFinanciamiento() != 0) {
+		if (view.getDatoLaboral().getIdFuenteFinanciamiento() != null) {
 			view.setListaSubfuentesFinanciamiento(
 					SelectItemsUtil.listaCatalogos(catalogo.listaSubfuentesFinanciamientosPorFinanciamiento(
 							view.getDatoLaboral().getIdFuenteFinanciamiento())));
