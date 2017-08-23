@@ -54,4 +54,6 @@ public interface PuestosAutorizadosEmpleados {
 	 */
 	public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto);
 
+	public DetallePuestoDTO obtenerPuesto(Integer idPuesto);
+
 }

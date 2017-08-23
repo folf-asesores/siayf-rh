@@ -89,11 +89,11 @@ public class ConsultaPuestoService {
 		PuestoEmpleadoDTO puestoEmpleado = new PuestoEmpleadoDTO();
 
 		puestoEmpleado.setCodigoPuesto(puesto.getConfiguracion().getPuesto().getCodigo());
-		
-		if(puesto.getConfiguracion().getDependencia()!=null){
-		puestoEmpleado.setDependencia(puesto.getConfiguracion().getDependencia().getDescripcion());
+
+		if (puesto.getConfiguracion().getDependencia() != null) {
+			puestoEmpleado.setDependencia(puesto.getConfiguracion().getDependencia().getDescripcion());
 		}
-		
+
 		if (puesto.getServicio() != null) {
 			puestoEmpleado.setIdServicio(puesto.getServicio().getIdServicio());
 		}
@@ -130,16 +130,16 @@ public class ConsultaPuestoService {
 
 		puestoEmpleado.setNumeroEmpleado(puesto.getConfiguracion().getNumeroEmpleado());
 		puestoEmpleado.setNumeroVacante(puesto.getFolioVacante());
-		
-		if(puesto.getConfiguracion().getProyecto()!=null){
-		puestoEmpleado.setProyecto(puesto.getConfiguracion().getProyecto().getDescripcion());
+
+		if (puesto.getConfiguracion().getProyecto() != null) {
+			puestoEmpleado.setProyecto(puesto.getConfiguracion().getProyecto().getDescripcion());
 		}
 		puestoEmpleado.setPuesto(puesto.getConfiguracion().getPuesto().getPuesto());
 		puestoEmpleado.setTipoContratacion(puesto.getTipoContratacion().getTipoContratacion());
 		puestoEmpleado.setTipoNombramiento(puesto.getConfiguracion().getNombramiento().getDescripcion());
-		
-		if(puesto.getConfiguracion().getUnidadResponsable()!=null){
-		puestoEmpleado.setUnidadResponsable(puesto.getConfiguracion().getUnidadResponsable().getDescripcion());
+
+		if (puesto.getConfiguracion().getUnidadResponsable() != null) {
+			puestoEmpleado.setUnidadResponsable(puesto.getConfiguracion().getUnidadResponsable().getDescripcion());
 		}
 		puestoEmpleado.setSueldoAutorizado(puesto.getConfiguracion().getSueldo());
 		puestoEmpleado.setIdPuesto(puesto.getIdVacante());
@@ -315,6 +315,11 @@ public class ConsultaPuestoService {
 		estructura.setSubfuncion(puesto.getSubfuncion());
 
 		return estructura;
+	}
+
+	public DetallePuestoDTO obtenerPuesto(Integer idPuesto) {
+		DetallePuestoDTO detalle = inventarioVacanteRepository.obtenerPuesto(idPuesto);
+		return detalle;
 	}
 
 }

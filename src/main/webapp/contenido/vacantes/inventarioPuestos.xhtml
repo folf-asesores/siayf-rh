@@ -151,7 +151,153 @@
 				<p:column headerText="Número puesto">
 					<h:outputText value="#{d.numeroPlaza}" />
 				</p:column>
+
+				<p:column headerText="Detalles" 
+						  style="text-align: center;">
+					<p:commandButton update="form"
+									actionListener="#{inventario.mostrarDetallePuesto(d.idPuesto)}"
+									icon="fm-icon-eye" title="Ver">
+					</p:commandButton>
+				</p:column>
 			</p:dataTable>
+
+			<p:panel rendered="#{inventario.view.mostrarDetallePuesto}">
+				<p:commandButton value="Regresar"
+								icon="ui-icon-circle-arrow-w"
+								actionListener="#{inventario.regresarEmpleados()}" 
+								update="form"
+								onsuccess="PF('statusDialog').hide()"
+								onstart="PF('statusDialog').show()" 
+								oncomplete="mymessages();" />
+
+				<p:panelGrid layout="grid" columns="2"
+					styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+					columnClasses="ui-grid-col-5, ui-grid-col-7">
+
+					<p:outputLabel value="Puesto" />
+					<p:inputText value="#{inventario.view.detallePuesto.descripcionCodigoAutorizado}"
+								 disabled="true" />
+
+					<p:outputLabel value="Codigo del puesto" />
+					<p:inputText value="#{inventario.view.detallePuesto.codigoAutorizado}"
+								 disabled="true" />
+
+					<p:outputLabel value="Plaza:" />
+					<p:inputText value="#{inventario.view.detallePuesto.numeroPlaza}"
+								 disabled="true" />
+
+					<p:outputLabel value="Empleado actual:" />
+					<p:panelGrid layout="grid" columns="1"
+								styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+								columnClasses="ui-grid-col-12">
+						<p:inputText value="#{inventario.view.detallePuesto.rfc}"
+									 disabled="true" />
+						<p:inputText value="#{inventario.view.detallePuesto.empleado}"
+									 disabled="true" />
+					</p:panelGrid>
+
+					<p:outputLabel value="Tipo Contratacion" />
+					<p:inputText value="#{inventario.view.detallePuesto.tipoContratacion}" 
+							     disabled="true" />
+
+					<p:outputLabel value="Nombramiento" />
+					<p:inputText value="#{inventario.view.detallePuesto.nombramiento}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Estatus" />
+					<p:inputText value="#{inventario.view.detallePuesto.estatus}" 
+								 disabled="true" />
+
+
+					<p:outputLabel value="Disponible" />
+					<p:inputText value="#{inventario.view.detallePuesto.disponible}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Programa" />
+					<p:inputText value="#{inventario.view.detallePuesto.programa}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Candidato Postulado" />
+					<p:inputText value="#{inventario.view.detallePuesto.candidatoPostulado}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Adscripción" />
+					<p:inputText value="#{inventario.view.detallePuesto.adscripcion}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Area Adscripcion" />
+					<p:inputText value="#{inventario.view.detallePuesto.areaAdscripcion}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Provisional" />
+					<p:inputText value="#{inventario.view.detallePuesto.provisional}"
+								 disabled="true" />
+
+					<p:outputLabel value="Periodo" />
+					<p:panelGrid layout="grid" columns="1"
+								styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+								columnClasses="ui-grid-col-12">
+						<p:inputText value="#{inventario.view.detallePuesto.fechaInicio}"
+									 disabled="true" />
+						<p:inputText value="#{inventario.view.detallePuesto.fechaFin}"
+									 disabled="true" />
+					</p:panelGrid>
+
+					<p:outputLabel value="Actividad" />
+					<p:inputText value="#{inventario.view.detallePuesto.actividad}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Función" />
+					<p:inputText value="#{inventario.view.detallePuesto.funcion}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Permiso" />
+					<p:panelGrid layout="grid" columns="1"
+								styleClass="ui-panelgrid-blank ui-responsive ui-fluid"
+								columnClasses="ui-grid-col-12">
+						<p:inputText value="#{inventario.view.detallePuesto.fechaInicioPermiso}"
+									 disabled="true" />
+						<p:inputText value="#{inventario.view.detallePuesto.fechaFinPermiso}"
+									 disabled="true" />
+					</p:panelGrid>
+
+					<p:outputLabel value="Interino" />
+					<p:inputText value="#{inventario.view.detallePuesto.interino}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Empleado Anterior" />
+					<p:inputText value="#{inventario.view.detallePuesto.empleadoAnterior}" 
+								 disabled="true" />
+
+					<p:outputLabel value="CLUE" />
+					<p:inputText value="#{inventario.view.detallePuesto.clue}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Voluntario" />
+					<p:inputText value="#{inventario.view.detallePuesto.voluntario}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Seguro Popular" />
+					<p:inputText value="#{inventario.view.detallePuesto.seguroPopular}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Tipo Jornada" />
+					<p:inputText value="#{inventario.view.detallePuesto.tipoJornada}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Subfunción" />
+					<p:inputText value="#{inventario.view.detallePuesto.subfuncion}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Financiamiento" />
+					<p:inputText value="#{inventario.view.detallePuesto.financiamiento}" 
+								 disabled="true" />
+
+					<p:outputLabel value="Jornada" />
+					<p:inputText value="#{inventario.view.detallePuesto.jornada}" 
+								 disabled="true" />
+				</p:panelGrid>
+			</p:panel>
 		</h:form>
 	</ui:define>
 </ui:composition>

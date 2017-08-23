@@ -635,4 +635,79 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
         List<DetallePuestoDTO> inventario = (List<DetallePuestoDTO>) query.list();
 		return inventario;
 	}
+
+	public DetallePuestoDTO obtenerPuesto(Integer idInventario) {
+        Session session = em.unwrap(Session.class);
+        LOGGER.info("idInventario:: " + idInventario);
+        Query query = session
+                .createSQLQuery(" SELECT                                                                                  "
+								+ " i.id_inventario          AS idPuesto,                                         "
+								+ " pg.codigo                AS codigoAutorizado,                                 "
+								+ " pg.puesto                AS descripcionCodigoAutorizado,                      "
+								+ " i.id_plaza               AS numeroPlaza,                                      "
+								+ " e.rfc                    AS rfc,                                              "
+								+ " e.nombre_completo        AS empleado,                                         "
+								+ " tc.tipo_contratacion     AS tipoContratacion,                                 "
+								+ " tn.descripcion           AS nombramiento,                                     "
+								+ " ep.estatus               AS estatus,                                          "
+								+ " i.disponible             AS disponible,                                       "
+								+ " p.programa               AS programa,                                         "
+								+ " ecp.nombre_completo      AS candidatoPostulado,                               "
+								+ " ads.adscripcion          AS adscripcion,                                      "
+								+ " sads.subadscripcion      AS areaAdscripcion,                                  "
+								+ " i.provisional            AS provisional,                                      "
+								+ " i.fecha_inicio           AS fechaInicio,                                      "
+								+ " i.fecha_fin              AS fechaFin,                                         "
+								+ " s.servicio               AS actividad,                                        "
+								+ " f.funcion                AS funcion,                                          "
+								+ " i.fecha_inicio_permiso   AS fechaInicioPermiso,                               "
+								+ " i.fecha_fin_permiso      AS fechaFinPermiso,                                  "
+								+ " i.interino               AS interino,                                         "
+								+ " ea.nombre_completo       AS empleadoAnterior,                                 "
+								+ " c.clues                  AS clue,                                             "
+								+ " v.nombre_completo        AS voluntario,                                       "
+								+ " i.seguro_popular         AS seguroPopular,                                    "
+								+ " tj.tipo_jornada          AS tipoJornada,                                      "
+								+ " i.subfuncion             AS subfuncion,                                       "
+								+ " i.financiamiento         AS financiamiento,                                   "
+								+ " i.jornada                AS jornada                                           "
+								+ " FROM inventario_vacantes AS i                                                 "
+								+ " LEFT JOIN puestos_generales AS pg                                             "
+								+ " ON pg.id_puesto_general = i.id_puesto_autorizado                              "
+								+ " LEFT JOIN empleados AS e                                                      "
+								+ " ON e.id_empleado = i.id_empleado                                              "
+								+ " LEFT JOIN tipos_contratacion AS tc                                            "
+								+ " ON tc.id_tipo_contratacion = i.id_tipo_contratacion                           "
+								+ " LEFT JOIN tipos_nombramientos AS tn                                           "
+								+ " ON tn.id_tipo_nombramiento = i.id_nombramiento                                "
+								+ " LEFT JOIN estatus_puestos AS ep                                               "
+								+ " ON ep.id_estatus = i.id_estatus                                               "
+								+ " LEFT JOIN programas AS p                                                      "
+								+ " ON p.id_programa = i.id_programa                                              "
+								+ " LEFT JOIN empleados AS ecp                                                    "
+								+ " ON ecp.id_empleado = i.id_candidato_postulado                                 "
+								+ " LEFT JOIN adscripciones AS ads                                                "
+								+ " ON ads.id_adscripcion = i.id_adscripcion                                      "
+								+ " LEFT JOIN subadscripciones AS sads                                            "
+								+ " ON sads.id_subadscripcion = i.id_area_adscripcion                             "
+								+ " LEFT JOIN servicios AS s                                                      "
+								+ " ON s.id_servicio = i.id_actividad                                             "
+								+ " LEFT JOIN funciones AS f                                                      "
+								+ " ON f.id_funcion = i.id_funcion                                                "
+								+ " LEFT JOIN empleados AS ea                                                     "
+								+ " ON ea.id_empleado = i.id_empleado_anterior                                    "
+								+ " LEFT JOIN clues AS c                                                          "
+								+ " ON c.id_clues = i.id_clue                                                     "
+								+ " LEFT JOIN voluntarios AS v                                                    "
+								+ " ON v.id_voluntario = i.id_voluntario                                          "
+								+ " LEFT JOIN tipos_jornadas AS tj                                                "
+								+ " ON tj.id_tipo_jornada = i.id_tipo_jornada                                     "
+								+ " WHERE                                                                         "
+								+ " i.id_inventario = :idInventario                                               ")
+				.setParameter("idInventario", idInventario);
+        query.setResultTransformer(Transformers.aliasToBean(DetallePuestoDTO.class));
+        @SuppressWarnings("unchecked")
+        List<DetallePuestoDTO> inventario = (List<DetallePuestoDTO>) query.list();
+		return inventario.get(0);
+	}
 }

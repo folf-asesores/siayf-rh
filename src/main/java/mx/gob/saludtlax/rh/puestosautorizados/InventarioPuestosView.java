@@ -20,10 +20,12 @@ public class InventarioPuestosView {
 	private List<ResumenPuestoDTO> resumenPuestos = new ArrayList<>();
 	private List<DetallePuestoDTO> detallesEmpleados = new ArrayList<>();
 	private DetalleConfiguracionPresupuestoDTO detalleConfiguracion = new DetalleConfiguracionPresupuestoDTO();
+	private DetallePuestoDTO detallePuesto;
 
 	private boolean mostrarResumenCodigos;
 	private boolean mostrarDetalleEmpleados;
 	private boolean mostrarInventario;
+	private boolean mostrarDetallePuesto;
 	
 
 	private Integer idTipoContratacion;
@@ -91,20 +93,22 @@ public class InventarioPuestosView {
 	public void setInventarios(List<InventarioVacanteDTO> inventarios) {
 		this.inventarios = inventarios;
 	}
-
-	/**
-	 * @return the idTipoContratacion
-	 */
 	public Integer getIdTipoContratacion() {
 		return idTipoContratacion;
 	}
-
-	/**
-	 * @param idTipoContratacion
-	 *            the idTipoContratacion to set
-	 */
 	public void setIdTipoContratacion(Integer idTipoContratacion) {
 		this.idTipoContratacion = idTipoContratacion;
 	}
-
+	public DetallePuestoDTO getDetallePuesto() {
+		return detallePuesto;
+	}
+	public void setDetallePuesto(DetallePuestoDTO detallePuesto) {
+		this.detallePuesto = detallePuesto;
+	}
+	public boolean isMostrarDetallePuesto() {
+		return mostrarDetallePuesto;
+	}
+	public void setMostrarDetallePuesto(boolean mostrarDetallePuesto) {
+		this.mostrarDetallePuesto = mostrarDetallePuesto;
+	}
 }

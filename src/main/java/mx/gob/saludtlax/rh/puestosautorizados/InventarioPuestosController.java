@@ -14,6 +14,8 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.reportes.AdministradorReportes;
@@ -32,14 +34,11 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 @ManagedBean(name = "inventario")
 public class InventarioPuestosController implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 5105057423640347663L;
-
 	private InventarioPuestosView view = new InventarioPuestosView();
 	@Inject
 	private PuestosAutorizadosEmpleados vacante;
+	private static final Logger LOGGER = Logger.getLogger(InventarioPuestosController.class.getName());
 
 	@PostConstruct
 	public void inicio() {
@@ -48,15 +47,22 @@ public class InventarioPuestosController implements Serializable {
 	}
 
 	public void mostrarResumenCodigos(Integer idTipoContratacionSeleccionado) {
-
 		view.setResumenPuestos(vacante.consultarDetallesCodigosPorContratacion(idTipoContratacionSeleccionado));
 		if (!view.getResumenPuestos().isEmpty()) {
-
 			view.setMostrarResumenCodigos(true);
 			view.setMostrarInventario(false);
-
 		}
+	}
 
+	public void mostrarDetallePuesto(Integer idPuesto) {
+		LOGGER.info("idPuesto:: " + idPuesto);
+		view.setDetallePuesto(vacante.obtenerPuesto(idPuesto));
+		if (view.getDetallePuesto() != null) {
+			view.setMostrarResumenCodigos(false);
+			view.setMostrarInventario(false);
+			view.setMostrarDetalleEmpleados(false);
+			view.setMostrarDetallePuesto(true);
+		}
 	}
 
 	public void mostrarActivas(Integer tipoContratacionSeleccionado) {
@@ -79,6 +85,13 @@ public class InventarioPuestosController implements Serializable {
 		view.setMostrarDetalleEmpleados(false);
 		view.setMostrarInventario(true);
 		view.setMostrarResumenCodigos(false);
+	}
+
+	public void regresarEmpleados() {
+		view.setMostrarResumenCodigos(false);
+		view.setMostrarInventario(false);
+		view.setMostrarDetalleEmpleados(true);
+		view.setMostrarDetallePuesto(false);
 	}
 
 	public void descargarContratoProyeccion(Integer idTipoContratacion) {

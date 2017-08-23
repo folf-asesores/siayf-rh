@@ -108,8 +108,12 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 
 	@Override
 	public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto) {
-
 		return estructurasService.obtenerEstructuraNominaPuesto(idPuesto);
+	}
+
+	@Override
+	public DetallePuestoDTO obtenerPuesto(Integer idPuesto) {
+		return consultaPuestoService.obtenerPuesto(idPuesto);
 	}
 
 }
