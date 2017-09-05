@@ -229,10 +229,12 @@ public class ExcelGenerador implements Generador, Serializable {
 
                     List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = getProductoNomina()
                             .obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
+                    List<String> listaProgramas = getProductoNomina()
+                            .obtenerListaProgramasPorIdProducto(idProducto);
 
                     if (!listaProductoNominaProgramas.isEmpty()) {
                         ProductoNominaProgramasExcel productoNominaProgramasExcel = new ProductoNominaProgramasExcel();
-                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas);
+                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas, listaProgramas);
                     } else {
                         throw new ReglaNegocioException(
                                 "No se encontrarón resultados en el producto nomina: ",

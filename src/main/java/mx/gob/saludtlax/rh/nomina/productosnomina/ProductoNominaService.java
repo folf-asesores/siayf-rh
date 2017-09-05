@@ -58,6 +58,17 @@ public class ProductoNominaService implements Serializable {
 		return list;
 	}
 	
+	protected List<String> obtenerListaProgramasPorIdProducto(Integer idProducto) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createSQLQuery("CALL usp_productos_nominas_num_programas(:idProducto)");
+		query.setParameter("idProducto", idProducto);
+		
+		@SuppressWarnings("unchecked")
+		List<String> list = query.list();
+
+		return list;
+	}
+	
 	protected List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto,
 			Integer estatus) {
 		Session session = entityManager.unwrap(Session.class);

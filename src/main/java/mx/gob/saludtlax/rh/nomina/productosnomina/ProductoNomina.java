@@ -20,6 +20,8 @@ public interface ProductoNomina extends Serializable {
     List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto);
     
     List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto);
+    
+    List<String> obtenerListaProgramasPorIdProducto(Integer idProducto);
 
     /**
      * Permite obtener el reporte del producto de nomina para las suplencias.
