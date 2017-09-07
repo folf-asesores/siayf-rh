@@ -1,8 +1,9 @@
 /*
  * ComprobanteEmpleadoDTO.java
- * Creado el 18/Nov/2016 3:12:03 PM
+ * Creado el 18/nov/2016 3:12:03 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;

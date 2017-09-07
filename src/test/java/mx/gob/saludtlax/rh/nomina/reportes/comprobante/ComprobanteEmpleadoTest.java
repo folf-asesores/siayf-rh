@@ -3,6 +3,7 @@
  * Creado el 13/Jan/2017 8:08:31 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.File;
@@ -91,7 +92,7 @@ public class ComprobanteEmpleadoTest {
         jar.addClass(ComprobanteEmpleadoPOJO.class);
         jar.addClass(ComprobanteEmpleadoService.class);
         jar.addClass(ComprobanteEmpleadoRepository.class);
-        jar.addClass(ComprobanteEmpleadoRep.class);
+        jar.addClass(ComprobanteEmpleadoMotor.class);
         jar.addClass(ConceptoComprobanteDTO.class);
         jar.addClass(Dispersion.class);
         jar.addClass(DispersionDTO.class);

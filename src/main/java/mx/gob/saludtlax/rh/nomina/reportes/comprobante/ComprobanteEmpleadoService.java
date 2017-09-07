@@ -1,8 +1,9 @@
 /*
  * ComprobanteEmpleadoService.java
- * Creado el 22/Nov/2016 4:25:46 AM
+ * Creado el 22/nov/2016 4:25:46 AM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -11,7 +12,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
 
 /**
@@ -27,7 +30,7 @@ public class ComprobanteEmpleadoService implements Serializable {
     protected byte[] generarReporte(Integer idProductoNomina) {
         List<ComprobanteEmpleadoPOJO> datosBrutos = comprobateEmpleadoRepository.obtenerDatos(idProductoNomina);
         List<ComprobanteEmpleadoDTO> datosTratados = convertir(datosBrutos);
-        ComprobanteEmpleadoRep per = new ComprobanteEmpleadoRep();
+        ComprobanteEmpleadoMotor per = new ComprobanteEmpleadoMotor();
 
         return per.obtenerArchivo(datosTratados);
     }

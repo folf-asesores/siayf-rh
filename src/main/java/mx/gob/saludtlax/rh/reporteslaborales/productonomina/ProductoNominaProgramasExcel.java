@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoExcel;
-import mx.gob.saludtlax.rh.test.Persona;
+//import mx.gob.saludtlax.rh.test.Persona;
 
 /**
  * @author Eduardo Mex
