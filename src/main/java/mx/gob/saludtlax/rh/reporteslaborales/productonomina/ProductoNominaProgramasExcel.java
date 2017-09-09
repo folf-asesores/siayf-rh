@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoExcel;
-import mx.gob.saludtlax.rh.test.Persona;
+//import mx.gob.saludtlax.rh.test.Persona;
 
 /**
  * @author Eduardo Mex
@@ -76,7 +76,9 @@ public class ProductoNominaProgramasExcel implements Serializable {
 	private static final int SUELDO = 7;
 	private static final int ISR = 8;
 	private static final int PENSION_ALIMENTICIA = 9;
-	private static final int COLUMNA_TOTAL = 10;
+	private static final int PRIMA = 10;
+	private static final int AGUINALDO = 11;
+	private static final int COLUMNA_TOTAL = 12;
 
 	/**
 	 * Totales
@@ -163,7 +165,13 @@ public class ProductoNominaProgramasExcel implements Serializable {
 			System.out.println("Nombre de hoja: " + nombreHoja);
 			
 			//if (cont > 0)
-				hoja = libro.getSheet(nombreHoja);
+			hoja = libro.getSheet(nombreHoja);
+			
+			Row filaEncabezadoPrograma = hoja.getRow(4);
+			Cell cellEncabezado = filaEncabezadoPrograma.getCell(0);
+			String contenido = cellEncabezado.getStringCellValue();
+			System.out.println("contenido: " + contenido);
+			cellEncabezado.setCellValue("NOMINA DEL PROGRAMA: " + programaFed);
 			
 			contador = 1;
 			i = FILA_INICIO_PROGRAMAS_DETALLE;
@@ -216,7 +224,13 @@ public class ProductoNominaProgramasExcel implements Serializable {
 							: detalle.getPensionAlimenticia().doubleValue()));
 					TOTAL_PENSION_ALIMENTICIA = TOTAL_PENSION_ALIMENTICIA.add(detalle.getPensionAlimenticia() == null
 							? BigDecimal.ZERO : detalle.getPensionAlimenticia());
-
+					
+					Cell celdaPrimaVac = filaDetalle.createCell(PRIMA);
+					celdaPrimaVac.setCellValue("");
+					
+					Cell celdaAguinaldo = filaDetalle.createCell(AGUINALDO);
+					celdaAguinaldo.setCellValue("");
+					
 					Cell celdaTotal = filaDetalle.createCell(COLUMNA_TOTAL);
 					celdaTotal
 							.setCellValue((double) (detalle.getTotal() == null ? 0 : detalle.getTotal().doubleValue()));
