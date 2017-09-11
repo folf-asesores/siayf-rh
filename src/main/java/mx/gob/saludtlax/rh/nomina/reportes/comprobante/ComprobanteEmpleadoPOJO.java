@@ -1,17 +1,23 @@
 /*
  * ComprobanteEmpleadoPOJO.java
- * Creado el 22/Nov/2016 6:11:00 AM
+ * Creado el 22/nov/2016 6:11:00 AM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
 
 /**
- *
+ * Esta clase representa la información tal cual se obtiene desde la 
+ * base de datos.
+ * 
+ * @see ComprobanteEmpleadoRepository#obtenerDatos(java.lang.Integer)
+ * @see ComprobanteEmpleadoService#convertir(java.util.List)
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class ComprobanteEmpleadoPOJO implements Serializable {

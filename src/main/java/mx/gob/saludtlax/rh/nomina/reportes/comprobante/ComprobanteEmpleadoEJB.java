@@ -1,12 +1,14 @@
 /*
  * ComprobanteEmpleadoEJB.java
- * Creado el 22/Nov/2016 4:20:15 AM
+ * Creado el 22/nov/2016 4:20:15 AM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;

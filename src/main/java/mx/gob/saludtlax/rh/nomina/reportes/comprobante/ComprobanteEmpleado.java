@@ -1,11 +1,13 @@
 /*
  * ComprobanteEmpleado.java
- * Creado el 22/Nov/2016 4:20:15 AM
+ * Creado el 22/nov/2016 4:20:15 AM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
+
 import javax.ejb.Local;
 
 /**

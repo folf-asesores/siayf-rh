@@ -1,8 +1,9 @@
 /*
  * ConceptoComprobanteDTO.java
- * Creado el 18/Nov/2016 3:42:37 PM
+ * Creado el 18/nov/2016 3:42:37 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -112,18 +113,10 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     }
 
     @Override
-    public String toString() {
-        return "ConceptoComprobanteDTO{" 
-                + "clave=" + clave 
-                + ", importe=" + importe 
-                + '}';
-    }
-
-    @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + clave;
-        hash = 97 * hash + Objects.hashCode(importe);
+        int hash = 7;
+        hash = 89 * hash + this.clave;
+        hash = 89 * hash + Objects.hashCode(this.importe);
         return hash;
     }
 
@@ -139,10 +132,18 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
             return false;
         }
         final ConceptoComprobanteDTO other = (ConceptoComprobanteDTO) obj;
-        if (clave != other.clave) {
+        if (this.clave != other.clave) {
             return false;
         }
-        return Objects.equals(importe, other.importe);
+        return Objects.equals(this.importe, other.importe);
+    }
+
+    @Override
+    public String toString() {
+        return "ConceptoComprobanteDTO{" 
+                + "clave=" + clave 
+                + ", importe=" + importe 
+                + '}';
     }
 
 }
