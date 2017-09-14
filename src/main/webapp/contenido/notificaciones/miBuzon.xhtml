@@ -26,6 +26,15 @@
 					columnClasses="ui-grid-col-2,ui-grid-col-8,ui-grid-col-2"
 					layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
 
+					<p:outputLabel for="operacion" value="Operación:" />
+					<p:selectOneMenu id="operacion" value="#{miBuzon.view.idOperacion}">
+						<f:selectItem itemLabel="Seleccione una opcion" itemValue="" />
+						<f:selectItems value="#{miBuzon.view.listaOperaciones}" />
+						<p:ajax listener="#{miBuzon.filtarOperacion()}"
+							update="messages_generales, notificaciones" process="operacion"></p:ajax>
+					</p:selectOneMenu>
+					<p:spacer></p:spacer>
+
 					<p:spacer></p:spacer>
 					<p:panelGrid columns="1" columnClasses="ui-grid-col-12"
 						layout="grid" styleClass="ui-panelgrid-blank ui-fluid">

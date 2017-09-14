@@ -25,12 +25,10 @@ public class AutorizacionesBean implements Autorizaciones {
 	}
 
 	@Override
-	public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(
-			Integer idUsuario, boolean autorizado) {
-		return autorizacionService.consultarAutorizacionesUsuarioEstatus(
-				idUsuario, autorizado);
+	public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado) {
+		return autorizacionService.consultarAutorizacionesUsuarioEstatus(idUsuario, autorizado);
 	}
-        
+
 	@Override
 	public void autorizarProceso(AutorizacionDTO autorizacionDTO) {
 
@@ -46,6 +44,12 @@ public class AutorizacionesBean implements Autorizaciones {
 	@Override
 	public Integer obtenerIdEntidadContexto(Integer idBuzon) {
 		return autorizacionService.obtenerIdEntidadContexto(idBuzon);
+	}
+
+	@Override
+	public List<BuzonAutorizacionDTO> consultarAutorizacionesPorOperacionEstatus(Integer idUsuario, boolean autorizado,
+			Integer idOperacion) {
+		return autorizacionService.consultarAutorizacionesUsuarioOperacionEstatus(idUsuario, autorizado, idOperacion);
 	}
 
 }

@@ -14,11 +14,14 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.notificacion.Modulo;
 import mx.gob.saludtlax.rh.seguridad.ConfiguracionConst;
 import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
 import mx.gob.saludtlax.rh.util.JSFUtils;
+import mx.gob.saludtlax.rh.util.SelectItemsUtil;
+import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  * @author Leila Schiaffini Ehuan
@@ -36,7 +39,8 @@ public class MiBuzonController implements Serializable {
 
 	@Inject
 	private Autorizaciones autorizaciones;
-
+	@Inject
+	private Catalogo catalogo;
 	private MiBuzonView view = new MiBuzonView();
 
 	@PostConstruct
@@ -50,7 +54,7 @@ public class MiBuzonController implements Serializable {
 		view.setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
 		view.setMisNotificaciones(
 				autorizaciones.consultarAutorizacionesUsuarioEstatus(view.getIdUsuarioLogeado(), false));
-
+		view.setListaOperaciones(SelectItemsUtil.listaCatalogos(catalogo.consultarOperacionesSistema()));
 		Object idAccionObj = httpSession.getAttribute("idAccion");
 		Object idBuzonObj = httpSession.getAttribute("idBuzon");
 
@@ -61,6 +65,14 @@ public class MiBuzonController implements Serializable {
 			mostrarDetalleNotificacion(idBuzon, idAccion);
 		}
 
+	}
+
+	public void filtarOperacion() {
+		if (ValidacionUtil.esNumeroPositivo(view.getIdOperacion())) {
+			view.getMisNotificaciones().clear();
+			view.setMisNotificaciones(autorizaciones.consultarAutorizacionesPorOperacionEstatus(
+					view.getIdUsuarioLogeado(), false, view.getIdOperacion()));
+		}
 	}
 
 	public void mostrarDetalleNotificacion(Integer idBuzon, Integer idAccion) {

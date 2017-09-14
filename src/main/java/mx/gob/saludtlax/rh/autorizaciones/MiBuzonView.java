@@ -6,6 +6,8 @@ package mx.gob.saludtlax.rh.autorizaciones;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
+
 /**
  * @author Leila Schiaffini Ehuan
  * @since 11/08/2016 11:57:46
@@ -14,6 +16,7 @@ import java.util.List;
 public class MiBuzonView {
 
 	private List<BuzonAutorizacionDTO> misNotificaciones = new ArrayList<BuzonAutorizacionDTO>();
+	private List<SelectItem> listaOperaciones = new ArrayList<>();
 	private DetalleAutorizacionDTO detalleAutorizacion = new DetalleAutorizacionDTO();
 	private AutorizacionDTO autorizacion = new AutorizacionDTO();
 
@@ -26,6 +29,23 @@ public class MiBuzonView {
 	private boolean mostrarDetalleModificacionSueldo;
 	private Integer idAccion;
 	private Integer idUsuarioLogeado;
+	private Integer idOperacion;
+
+	public Integer getIdOperacion() {
+		return idOperacion;
+	}
+
+	public void setIdOperacion(Integer idOperacion) {
+		this.idOperacion = idOperacion;
+	}
+
+	public List<SelectItem> getListaOperaciones() {
+		return listaOperaciones;
+	}
+
+	public void setListaOperaciones(List<SelectItem> listaOperaciones) {
+		this.listaOperaciones = listaOperaciones;
+	}
 
 	public boolean isMostrarDetalleModificacionSueldo() {
 		return mostrarDetalleModificacionSueldo;

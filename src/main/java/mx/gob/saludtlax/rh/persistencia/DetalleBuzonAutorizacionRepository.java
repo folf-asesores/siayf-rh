@@ -32,9 +32,23 @@ public class DetalleBuzonAutorizacionRepository extends GenericRepository<Detall
 	public List<BuzonAutorizacionesEntity> autorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado) {
 		List<BuzonAutorizacionesEntity> proceso = em
 				.createQuery(
-						"SELECT b.buzon FROM DetalleBuzonAutorizacionEntity AS b WHERE b.usuarioEntity.idUsuario =:idUsuario AND b.autorizado =:autorizado",
+						"SELECT b.buzon FROM DetalleBuzonAutorizacionEntity AS b WHERE b.usuarioEntity.idUsuario =:idUsuario "
+								+ "AND b.autorizado =:autorizado ORDER BY b.buzon.accion.operacion ASC",
 						BuzonAutorizacionesEntity.class)
 				.setParameter("idUsuario", idUsuario).setParameter("autorizado", autorizado).getResultList();
+		return proceso;
+
+	}
+
+	public List<BuzonAutorizacionesEntity> autorizacionesUsuarioOperacionEstatus(Integer idUsuario, boolean autorizado,
+			Integer idOperacion) {
+		List<BuzonAutorizacionesEntity> proceso = em
+				.createQuery(
+						"SELECT b.buzon FROM DetalleBuzonAutorizacionEntity AS b WHERE b.usuarioEntity.idUsuario =:idUsuario "
+								+ "AND b.autorizado =:autorizado AND b.buzon.accion.idOperacion =:idOperacion",
+						BuzonAutorizacionesEntity.class)
+				.setParameter("idUsuario", idUsuario).setParameter("autorizado", autorizado)
+				.setParameter("idOperacion", idOperacion).getResultList();
 		return proceso;
 
 	}

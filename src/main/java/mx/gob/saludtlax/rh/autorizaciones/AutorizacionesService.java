@@ -294,6 +294,54 @@ public class AutorizacionesService {
 		return lista;
 	}
 
+	/**
+	 * Consulta las autorizaciones por operacion, estatus y usuario
+	 * 
+	 * @param idUsuario
+	 * @param autorizado
+	 * @param idOperacion
+	 */
+	protected List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioOperacionEstatus(Integer idUsuario,
+			boolean autorizado, Integer idOperacion) {
+		List<BuzonAutorizacionesEntity> autorizaciones = detalleBuzonAutorizacionRepository
+				.autorizacionesUsuarioOperacionEstatus(idUsuario, autorizado, idOperacion);
+		List<BuzonAutorizacionDTO> lista = new ArrayList<BuzonAutorizacionDTO>();
+		if (!autorizaciones.isEmpty()) {
+			for (BuzonAutorizacionesEntity entity : autorizaciones) {
+				BuzonAutorizacionDTO dto = new BuzonAutorizacionDTO();
+				dto.setAccion(entity.getAccion().getOperacion());
+				dto.setIdBuzonAutorizacion(entity.getIdBuzon());
+				dto.setIdAccion(entity.getAccion().getIdOperacion());
+				if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE) {
+					ConfiguracionPresupuestoEntity conf = configuracionPresupuestoRepository
+							.obtenerPorId(entity.getIdEntidadContexto());
+					String descripcion = conf.getTipoContratacion().getTipoContratacion() + "-"
+							+ conf.getPuesto().getPuesto() + "-" + conf.getSueldo();
+					dto.setDescripcion(descripcion);
+				} else if (entity.getAccion()
+						.getIdOperacion() == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE) {
+					String descripcionDetalle = detalleProgramaRepository
+							.obtenerDescripcionDetalle(entity.getIdEntidadContexto());
+					dto.setDescripcion(descripcionDetalle);
+				} else if (entity.getAccion().getIdOperacion() == EnumTiposAccionesAutorizacion.MOVIMIENTOS_PERSONAL) {
+					MovimientoEmpleadoEntity movimiento = movimientoEmpleadoRepository
+							.obtenerPorId(entity.getIdEntidadContexto());
+					String descripcionDetalle = movimiento.getMovimiento().getMovimiento().toUpperCase()
+							+ " al empleado " + movimiento.getEmpleado().getNombreCompleto();
+					dto.setDescripcion(descripcionDetalle);
+				}
+				if (entity.isFinalizado()) {
+					dto.setFinalizado("AUTORIZADA");
+				} else {
+					dto.setFinalizado("PROCESO AUTORIZACION");
+				}
+				lista.add(dto);
+
+			}
+		}
+		return lista;
+	}
+
 	public void aprobarOperacion(AutorizacionDTO autorizacionDTO) {
 
 		BuzonAutorizacionesEntity solicitudAprobacion = buzonAutorizacionesRepository
@@ -702,7 +750,7 @@ public class AutorizacionesService {
 		return buzon.getIdEntidadContexto();
 	}
 
-	public Boolean esUsuarioAutoriza(Integer idOperacion,Integer idEntidadContexto, Integer idUsuario) {
+	public Boolean esUsuarioAutoriza(Integer idOperacion, Integer idEntidadContexto, Integer idUsuario) {
 		OperacionSistemaEntity operacion = operacionSistemaRepository.obtenerPorId(idOperacion);
 		return buzonAutorizacionesRepository.esUsuarioAutorizaNomina(operacion, idEntidadContexto, idUsuario);
 	}
