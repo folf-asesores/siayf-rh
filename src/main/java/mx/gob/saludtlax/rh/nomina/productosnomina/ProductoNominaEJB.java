@@ -44,7 +44,13 @@ public class ProductoNominaEJB implements ProductoNomina {
     public List<String> obtenerListaProgramasPorIdProducto(Integer idProducto) {
         return productoNominaService.obtenerListaProgramasPorIdProducto(idProducto);
     }
-
+    
+    @Override
+    public ProductoNominaDTO obtenerProductoNominaPorIdProducto(Integer idProducto) {
+        return productoNominaService.obtenerProductoNominaPorIdProducto(idProducto);
+    }
+    
+    
     @Override
     public byte[] obtenerReporteProductoNominaSuplencia(Integer idProductoNomina) throws ReglaNegocioException {
         List<ProductosNominaExcelDTO> productoNomina = productoNominaService.obtenerListaProductoNominaSuplenciaPorIdProducto(idProductoNomina);

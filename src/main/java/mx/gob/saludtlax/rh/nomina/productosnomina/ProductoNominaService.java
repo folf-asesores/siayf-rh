@@ -6,6 +6,8 @@ package mx.gob.saludtlax.rh.nomina.productosnomina;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.ejb.TransactionAttribute;
+import javax.ejb.TransactionAttributeType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +17,7 @@ import org.hibernate.transform.Transformers;
 
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
+import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoDTO;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
@@ -69,6 +72,18 @@ public class ProductoNominaService implements Serializable {
 		return list;
 	}
 	
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	protected ProductoNominaDTO obtenerProductoNominaPorIdProducto(Integer idProducto) {
+		Session session = entityManager.unwrap(Session.class);
+		Query query = session.createSQLQuery("SELECT fin_periodo AS finPeriodo, "
+				+ "ejercicio_fiscal AS ejercicioFiscal FROM productos_nomina "
+				+ "WHERE id_producto_nomina = (:idProducto)")
+		.setParameter("idProducto", idProducto);
+		query.setResultTransformer(Transformers.aliasToBean(ProductoNominaDTO.class));
+		ProductoNominaDTO result = (ProductoNominaDTO) query.list().get(0);
+		return result;
+	}
+			
 	protected List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto,
 			Integer estatus) {
 		Session session = entityManager.unwrap(Session.class);

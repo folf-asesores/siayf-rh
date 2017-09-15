@@ -32,6 +32,7 @@ import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPago;
 import mx.gob.saludtlax.rh.nomina.historialpago.HistorialPagoDetalleDTO;
 import mx.gob.saludtlax.rh.nomina.productosnomina.EnumEstatusProductoNomina;
 import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNomina;
+import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNominaDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDTO;
@@ -225,16 +226,16 @@ public class ExcelGenerador implements Generador, Serializable {
                 
                 case "producto_nomina_programas": {
 
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-
+                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA")); 
                     List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = getProductoNomina()
                             .obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
                     List<String> listaProgramas = getProductoNomina()
                             .obtenerListaProgramasPorIdProducto(idProducto);
+                    ProductoNominaDTO producto = getProductoNomina().obtenerProductoNominaPorIdProducto(idProducto);
 
                     if (!listaProductoNominaProgramas.isEmpty()) {
                         ProductoNominaProgramasExcel productoNominaProgramasExcel = new ProductoNominaProgramasExcel();
-                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas, listaProgramas);
+                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas, listaProgramas, producto);
                     } else {
                         throw new ReglaNegocioException(
                                 "No se encontrarón resultados en el producto nomina: ",

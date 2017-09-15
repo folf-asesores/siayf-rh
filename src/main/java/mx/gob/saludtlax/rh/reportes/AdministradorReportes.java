@@ -12,6 +12,8 @@ import java.util.Map;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNominaDTO;
 import mx.gob.saludtlax.rh.reportes.excel.AlmacenReportesExcel;
 import mx.gob.saludtlax.rh.reportes.excel.ExcelGenerador;
 import mx.gob.saludtlax.rh.reportes.jasperreports.AlmacenReportesJasperReports;
@@ -82,7 +84,7 @@ public class AdministradorReportes {
 
         return bitacoraReporte.obtenerReferencia(mapaParametros);
     }
-
+        
     /**
      * Genera un reporte del cual previamente se han almacenado los parámetros
      * en la base de datos.

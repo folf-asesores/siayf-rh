@@ -8,11 +8,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-
+import java.util.Locale;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -21,10 +21,8 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
+import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNominaDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
-import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
-import mx.gob.saludtlax.rh.siif.layout.SIIFEncabezadoExcel;
-//import mx.gob.saludtlax.rh.test.Persona;
 
 /**
  * @author Eduardo Mex
@@ -129,10 +127,10 @@ public class ProductoNominaProgramasExcel implements Serializable {
 	 *            una lista de comisionado o licencia.
 	 * @return un arreglo de bytes que representa el archivo de excel.
 	 */
-	public byte[] generar(List<ProductosNominaProgramasExcelDTO> detalles, List<String> programas) {
+	public byte[] generar(List<ProductosNominaProgramasExcelDTO> detalles, List<String> programas, ProductoNominaDTO producto) {
 		try {
 			cargarPlantilla();
-			llenarDetalles(detalles, programas);
+			llenarDetalles(detalles, programas, producto);
 			return obtenerBytes();
 		} catch (IOException e) {
 			throw new SistemaException("Ocurrio un error al leer la platilla",
@@ -140,7 +138,7 @@ public class ProductoNominaProgramasExcel implements Serializable {
 		}
 	}
 
-	private void llenarDetalles(List<ProductosNominaProgramasExcelDTO> estructura, List<String> lista) {
+	private void llenarDetalles(List<ProductosNominaProgramasExcelDTO> estructura, List<String> lista, ProductoNominaDTO producto) {
 		int i = FILA_INICIO_PROGRAMAS_DETALLE;
 		int filaTotales = FILA_INICIO_PROGRAMAS_DETALLE;
 		int contador = 0;
@@ -149,7 +147,6 @@ public class ProductoNominaProgramasExcel implements Serializable {
 		String hojaOriginal = NOMBRE_HOJA;
 
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		// System.out.println("tamaño lista: "+ estructura.size());
 		cont=0;
 		for (String programaFedNombre : lista) {
 			if (cont < lista.size() && lista.size() != 1)
@@ -157,21 +154,36 @@ public class ProductoNominaProgramasExcel implements Serializable {
 			cont++;
 		}
 		
-		System.out.println("Tamaño lista: " + lista.size());
 		cont=0;
 		for (String programaFed : lista) {
-			System.out.println("Programa: " + programaFed);
-			String nombreHoja = libro.getSheetName(cont+1);
-			System.out.println("Nombre de hoja: " + nombreHoja);
 			
-			//if (cont > 0)
+			String nombreHoja = libro.getSheetName(cont+1);			
 			hoja = libro.getSheet(nombreHoja);
 			
 			Row filaEncabezadoPrograma = hoja.getRow(4);
 			Cell cellEncabezado = filaEncabezadoPrograma.getCell(0);
-			String contenido = cellEncabezado.getStringCellValue();
-			System.out.println("contenido: " + contenido);
+			String contenido = cellEncabezado.getStringCellValue();			
 			cellEncabezado.setCellValue("NOMINA DEL PROGRAMA: " + programaFed);
+			
+			Row filaEncabezadoProgramaFecha = hoja.getRow(5);
+			Cell cellEncabezadoFecha = filaEncabezadoProgramaFecha.getCell(0);
+			
+			SimpleDateFormat month_date = new SimpleDateFormat("MMMM", new Locale("ES"));
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+			String actualDate = producto.getFinPeriodo().toString();
+
+			Date date=null;
+			try {
+				date = sdf.parse(actualDate);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			String month_name = month_date.format(date);
+			String fechaReporte = month_name;
+			cellEncabezadoFecha.setCellValue("CORRESPONDIENTE AL MES DE "+ fechaReporte.toUpperCase() +" DEL " + producto.getEjercicioFiscal());
 			
 			contador = 1;
 			i = FILA_INICIO_PROGRAMAS_DETALLE;
@@ -185,10 +197,9 @@ public class ProductoNominaProgramasExcel implements Serializable {
 			for (ProductosNominaProgramasExcelDTO detalle : estructura) {				
 
 				if (detalle.getPrograma().compareTo(programaFed) == 0) {
-					System.out.println("Detalle: " + detalle.getPrograma());
+					
 					Row filaDetalle = hoja.createRow(i);
 					
-
 					Cell celdaNum = filaDetalle.createCell(NUM);
 					celdaNum.setCellValue(contador);
 					contador += 1;
@@ -321,8 +332,7 @@ public class ProductoNominaProgramasExcel implements Serializable {
 		if (newName == null) {
 			throw new IllegalArgumentException("newName must not be null"); //$NON-NLS-1$
 		}
-		System.out.println("Hoja original:" + oldName + "- Hoja nueva:" + newName);
-		// Workbook workbook = info.workbook;
+		
 		int oldIndex = libro.getSheetIndex(oldName);
 		if (oldIndex < 0) {
 			throw new IllegalArgumentException();
