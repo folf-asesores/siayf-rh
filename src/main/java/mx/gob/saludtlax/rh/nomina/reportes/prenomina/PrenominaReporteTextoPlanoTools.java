@@ -3,16 +3,18 @@
  * Creado el 03/Jul/2017 2:02:27 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Formatter;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.NumeroALetra;
 
 /**
@@ -21,7 +23,6 @@ import mx.gob.saludtlax.rh.util.NumeroALetra;
  */
 public final class PrenominaReporteTextoPlanoTools {
 
-    private static final Locale LOCALIZACION_MEXICO = new Locale("es", "MX");
     private static final String ENCABEZADO_DIRECCION = "SALUD DE TLAXCALA";
     private static final String ENCABEZADO_SUBDIRECCION = "SUBDIRECCIÓN DE RECURSOS HUMANOS";
     private static final String ENCABEZADO_SISTEMA = "SISTEMA DE ADMINISTRACIÓN DE PERSONAL";
@@ -65,7 +66,7 @@ public final class PrenominaReporteTextoPlanoTools {
             formatter.format(ENCABEZADO_SISTEMA);
             formatter.format("\n");
             formatter.format(agregarEspacios(76));
-            formatter.format(LOCALIZACION_MEXICO, PATRON_ENCABEZADO_DEL_PROGRAMA, programa, quincena, fechaPago);
+            formatter.format(FechaUtil.LUGAR_MEXICO, PATRON_ENCABEZADO_DEL_PROGRAMA, programa, quincena, fechaPago);
             formatter.format(getLineaDivision());
             formatter.format(ENCABEZADO_TITULOS_DE_LAS_COLUMNAS);
             formatter.format(getLineaDivision());
@@ -88,7 +89,7 @@ public final class PrenominaReporteTextoPlanoTools {
         String detalle;
 
         try (Formatter formatter = new Formatter()) {
-            formatter.format(LOCALIZACION_MEXICO, PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre, inicioPeriodoPago, finPeriodoPago);
+            formatter.format(FechaUtil.LUGAR_MEXICO, PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre, inicioPeriodoPago, finPeriodoPago);
 
             if (percepciones != null && !percepciones.isEmpty() && deducciones != null && !deducciones.isEmpty()) {
                 BigDecimal totalPercepciones = BigDecimal.ZERO;

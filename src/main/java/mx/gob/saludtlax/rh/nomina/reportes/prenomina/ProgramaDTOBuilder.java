@@ -13,37 +13,43 @@ import java.util.Map;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ProgramaDTOBuilder {
-    private Integer idPrograma =  null;
-    private String programa = null;
-    private Date inicioPeriodo = null;
-    private Date finPeriodo = null;
-    private Map<String, UnidadResponsableDTO> unidadesResponsables = null;
+    private Integer idPrograma;
+    private String programa;
+    private Date inicioPeriodo;
+    private Date finPeriodo;
+    private Map<String, UnidadResponsableDTO> unidadesResponsables;
 
     public ProgramaDTOBuilder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
         this.idPrograma =  idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
         this.finPeriodo = finPeriodo;
+        unidadesResponsables = null;
     }
 
-    public void setIdPrograma(Integer idPrograma) {
+    public ProgramaDTOBuilder setIdPrograma(Integer idPrograma) {
         this.idPrograma = idPrograma;
+        return this;
     }
 
-    public void setPrograma(String programa) {
+    public ProgramaDTOBuilder setPrograma(String programa) {
         this.programa = programa;
+        return this;
     }
 
-    public void setInicioPeriodo(Date inicioPeriodo) {
+    public ProgramaDTOBuilder setInicioPeriodo(Date inicioPeriodo) {
         this.inicioPeriodo = inicioPeriodo;
+        return this;
     }
 
-    public void setFinPeriodo(Date finPeriodo) {
+    public ProgramaDTOBuilder setFinPeriodo(Date finPeriodo) {
         this.finPeriodo = finPeriodo;
+        return this;
     }
 
-    public void setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
+    public ProgramaDTOBuilder setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
         this.unidadesResponsables = unidadesResponsables;
+        return this;
     }
 
     public ProgramaDTO createProgramaDTO() {

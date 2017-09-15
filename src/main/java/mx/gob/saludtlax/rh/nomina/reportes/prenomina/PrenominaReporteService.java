@@ -15,8 +15,10 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import mx.gob.saludtlax.rh.util.Configuracion;
+
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  *
@@ -178,7 +180,6 @@ public class PrenominaReporteService {
                 Integer idPrograma = prenomina.getIdPrograma();
                 if (!programas.containsKey(idPrograma)) {
 
-
                     NominaEmpleadoDTO nominaEmpleado = new NominaEmpleadoDTO();
                     nominaEmpleado.setNombre(prenomina.getNombre());
                     nominaEmpleado.setRfc(prenomina.getRfc());
@@ -200,15 +201,15 @@ public class PrenominaReporteService {
                     Map<String, NominaEmpleadoDTO> nominasEmpleados = new HashMap<>();
                     nominasEmpleados.put(nominaEmpleado.getRfc(), nominaEmpleado);
 
-                    UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad());
-                    unidadResponsableBuilder.setNominasEmpleados(nominasEmpleados);
+                    UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad())
+                            .setNominasEmpleados(nominasEmpleados);
                     UnidadResponsableDTO unidadResponsable = unidadResponsableBuilder.createUnidadResponsableDTO();
 
                     Map<String, UnidadResponsableDTO> unidadesResponsables = new HashMap<>();
                     unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
 
-                    ProgramaDTOBuilder programaBuilder = new ProgramaDTOBuilder(idPrograma, prenomina.getPrograma(), prenomina.getInicioPeriodo(), prenomina.getFinPeriodo());
-                    programaBuilder.setUnidadesResponsables(unidadesResponsables);
+                    ProgramaDTOBuilder programaBuilder = new ProgramaDTOBuilder(idPrograma, prenomina.getPrograma(), prenomina.getInicioPeriodo(), prenomina.getFinPeriodo())
+                            .setUnidadesResponsables(unidadesResponsables);
                     ProgramaDTO programa = programaBuilder.createProgramaDTO();
                     programas.put(idPrograma, programa);
                 } else {
@@ -239,8 +240,8 @@ public class PrenominaReporteService {
                         Map<String, NominaEmpleadoDTO> nominasEmpleados = new HashMap<>();
                         nominasEmpleados.put(nominaEmpleado.getRfc(), nominaEmpleado);
 
-                        UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad());
-                        unidadResponsableBuilder.setNominasEmpleados(nominasEmpleados);
+                        UnidadResponsableDTOBuilder unidadResponsableBuilder = new UnidadResponsableDTOBuilder(prenomina.getClaveCentroResponsabilidad(), prenomina.getDescripcionCentroResponsabilidad())
+                                .setNominasEmpleados(nominasEmpleados);
                         UnidadResponsableDTO unidadResponsable = unidadResponsableBuilder.createUnidadResponsableDTO();
                         unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
                     } else {
@@ -304,15 +305,14 @@ public class PrenominaReporteService {
             PrenominaDTO prenominaUno = prenominas.get(0);
             Date fechaPago = prenominaUno.getFechaPago();
             ProductoNominaDTO productoNomina;
-            ProductoNominaDTOBuilder pnb = new ProductoNominaDTOBuilder(idProductoNomina, fechaPago, programas);
-
-            //Firmas
-            pnb.setNombreElaboro(prenominaUno.getElaboroNombre());
-            pnb.setCargoElaboro(prenominaUno.getElaboroCargo());
-            pnb.setNombreReviso(prenominaUno.getRevisoNombre());
-            pnb.setCargoReviso(prenominaUno.getRevisoCargo());
-            pnb.setNombreAutorizo(prenominaUno.getAutorizoNombre());
-            pnb.setCargoAutorizo(prenominaUno.getAutorizoCargo());
+            ProductoNominaDTOBuilder pnb = new ProductoNominaDTOBuilder(idProductoNomina, fechaPago, programas)
+                    //Firmas
+                    .setNombreElaboro(prenominaUno.getElaboroNombre())
+                    .setCargoElaboro(prenominaUno.getElaboroCargo())
+                    .setNombreReviso(prenominaUno.getRevisoNombre())
+                    .setCargoReviso(prenominaUno.getRevisoCargo())
+                    .setNombreAutorizo(prenominaUno.getAutorizoNombre())
+                    .setCargoAutorizo(prenominaUno.getAutorizoCargo());
 
             productoNomina = pnb.createProductoNominaDTO();
 

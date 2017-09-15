@@ -1,0 +1,117 @@
+/*
+ * UnidadResponsableDTO.java
+ * Creado el 27/Jun/2017 3:16:41 PM
+ *
+ */
+package mx.gob.saludtlax.rh.nomina.reportes.firma;
+
+import java.io.Serializable;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Objects;
+
+/**
+ *
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
+ */
+public final class UnidadResponsableDTO implements Serializable, Iterable<FirmaEmpleadoDTO> {
+
+    private static final long serialVersionUID = -8412099433503592992L;
+
+    private final String numeroUnidadResponsable;
+    private final String unidadResponsable;
+    private final Map<String, FirmaEmpleadoDTO> firmasEmpleados;
+
+    public UnidadResponsableDTO(String numeroUnidadResponsable, String unidadResponsable, Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
+        this.numeroUnidadResponsable = numeroUnidadResponsable;
+        this.unidadResponsable = unidadResponsable;
+        this.firmasEmpleados = firmasEmpleados;
+    }
+
+    public String getNumeroUnidadResponsable() {
+        return numeroUnidadResponsable;
+    }
+
+    public String getUnidadResponsable() {
+        return unidadResponsable;
+    }
+
+    public Map<String, FirmaEmpleadoDTO> getFirmasEmpleados() {
+        return firmasEmpleados;
+    }
+
+    @Override
+    public Iterator<FirmaEmpleadoDTO> iterator() {
+        return firmasEmpleados.values().iterator();
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + Objects.hashCode(this.numeroUnidadResponsable);
+        hash = 31 * hash + Objects.hashCode(this.unidadResponsable);
+        hash = 31 * hash + Objects.hashCode(this.firmasEmpleados);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final UnidadResponsableDTO other = (UnidadResponsableDTO) obj;
+        if (!Objects.equals(this.numeroUnidadResponsable, other.numeroUnidadResponsable)) {
+            return false;
+        }
+        if (!Objects.equals(this.unidadResponsable, other.unidadResponsable)) {
+            return false;
+        }
+        return Objects.equals(this.firmasEmpleados, other.firmasEmpleados);
+    }
+
+    @Override
+    public String toString() {
+        return "UnidadResponsableDTO{" 
+                + "numeroUnidadResponsable : " + numeroUnidadResponsable 
+                + ", unidadResponsable : " + unidadResponsable 
+                + ", firmasEmpleados : [" + firmasEmpleados 
+                + "]}";
+    }
+    
+    public static final class Builder {
+        private String unidadResponsable;
+        private String numeroUnidadResponsable;
+        private Map<String, FirmaEmpleadoDTO> firmasEmpleados;
+
+        public Builder(String numeroUnidadResponsable, String unidadResponsable) {
+            this.unidadResponsable = unidadResponsable;
+            this.numeroUnidadResponsable = numeroUnidadResponsable;
+            firmasEmpleados = null;
+        }
+
+        public Builder setUnidadResponsable(String unidadResponsable) {
+            this.unidadResponsable = unidadResponsable;
+            return this;
+        }
+
+        public Builder setNumeroUnidadResponsable(String numeroUnidadResponsable) {
+            this.numeroUnidadResponsable = numeroUnidadResponsable;
+            return this;
+        }
+
+        public Builder setFirmasEmpleados(Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
+            this.firmasEmpleados = firmasEmpleados;
+            return this;
+        }
+
+        public UnidadResponsableDTO construirUnidadResponsableDTO() {
+            return new UnidadResponsableDTO(numeroUnidadResponsable, unidadResponsable, firmasEmpleados);
+        }
+    }    
+}

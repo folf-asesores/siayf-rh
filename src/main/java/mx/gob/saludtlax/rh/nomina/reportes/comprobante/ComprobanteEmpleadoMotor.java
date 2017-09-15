@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Iterator;
 import java.util.List;
@@ -43,33 +42,22 @@ public class ComprobanteEmpleadoMotor implements Serializable {
     private static final String PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD = "%1$td%1$Tb%1$tY  %2$-4.4s";
     private static final String PATRON_FINAL_DE_LINEA = "NO  DOBLE NI MUTILE EL CHEQUE                  %1$06d";
     private static final String PATRON_PERIODOS_Y_PAGOS = "%1$td%1$Tb%1$tY-%2$td%2$Tb%2$tY %3$10.10s %4$10.10s %5$10.10s";
-    
-    private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
 
     public byte [] obtenerArchivo(List<ComprobanteEmpleadoDTO> detalles) {
         try {
-            Path ruta = Files.createTempFile("comprobante", ".txt");
-
             if (!ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS.equals(ArchivoUtil.SEPARADOR_DE_ARCHIVO)) {
                 System.setProperty("line.separator", ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS);
             }
 
+            Path ruta = Files.createTempFile("comprobante", ".txt");
+            
             try (BufferedWriter out = Files.newBufferedWriter(ruta, ArchivoUtil.WINDOWS_LATIN_CHARSET)) {
                 StringBuilder sb = llenarDetalles(detalles);
                 out.append(sb);
                 out.flush();
             }
 
-            List<String> lineas = Files.readAllLines(ruta, ArchivoUtil.WINDOWS_LATIN_CHARSET);
-            List<String> lineasNuevas = new ArrayList<>();
-        
-            for(String linea : lineas) {
-                String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
-                lineasNuevas.add(nuevaLinea);
-            }
-
-            Files.write(ruta, lineasNuevas, WINDOWS_LATIN_CHARSET);
-            
+            ArchivoUtil.eliminarEspaciosAlFinalLinea(ruta, WINDOWS_LATIN_CHARSET);
             byte[] reporte = Files.readAllBytes(ruta);
             Files.deleteIfExists(ruta);
 
@@ -93,7 +81,7 @@ public class ComprobanteEmpleadoMotor implements Serializable {
             ComprobanteEmpleadoDTO comprobanteSiguiente 
                     = iterator.hasNext() ? iterator.next() : null;
             
-            try (Formatter formatter = new Formatter(sb, FechaUtil.LUGAR_MEXICO)){
+            try (Formatter formatter = new Formatter(sb, FechaUtil.LUGAR_MEXICO)) {
                 agregarLineas(1, formatter);
                 contadorLineas = contadorLineas + 1;
                 agregarEspacio(4, formatter);

@@ -62,12 +62,37 @@ public class NumeroUtil {
 	 * </p>
 	 * 
 	 * @param numero
-	 *            un número, incluso numero no decimales.
+	 *            un número, incluso número no decimales.
 	 * @return una cadena que con la representación del número en formato
 	 *         decimal.
 	 */
 	public static String formatoMoneda(Number numero) {
-		String patron = "$ #0.00";
+            return formatoMoneda(numero, false);
+        }
+
+	/**
+	 * <p>
+	 * Este método permite convertir en formato moneda, reduciendo la matiza
+         * a dos digitos en caso de ser un número decimal; en caso de ser un 
+         * número entero le añade dos digitos en la matiza.
+	 * </p>
+	 * 
+	 * <p>
+	 * Por ejemplo:<br>
+	 * <ul>
+	 * <li>1882 <strong>devuelve</strong> $ 1882.00</li>
+	 * <li>18.534534582 <strong>devuelve</strong>$ 18.53</li>
+	 * </ul>
+	 * </p>
+	 * 
+	 * @param numero
+	 *            un número, incluso número no decimales.
+         * @param separador true para incluir el separador de miles.
+	 * @return una cadena que con la representación del número en formato
+	 *         decimal.
+	 */
+	public static String formatoMoneda(Number numero, boolean separador) {
+		String patron = separador ? "¤ #,##0.00" : "¤ #0.00";
 		if ( numero == null) {
 			numero = BigDecimal.ZERO;
 		}

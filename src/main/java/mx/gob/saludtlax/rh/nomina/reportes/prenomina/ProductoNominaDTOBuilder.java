@@ -3,7 +3,6 @@
  * Creado el 28/Jun/2017 11:36:55 AM
  *
  */
-
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Date;
@@ -11,20 +10,26 @@ import java.util.Map;
 
 public class ProductoNominaDTOBuilder {
 
-    private Integer idProductoNomina = null;
-    private Date fechaPago = null;
-    private Map<Integer,ProgramaDTO> programas = null;
-    private String nombreElaboro = null;
-    private String cargoElaboro = null;
-    private String nombreReviso = null;
-    private String cargoReviso = null;
-    private String nombreAutorizo = null;
-    private String cargoAutorizo = null;
+    private Integer idProductoNomina;
+    private Date fechaPago;
+    private Map<Integer, ProgramaDTO> programas;
+    private String nombreElaboro;
+    private String cargoElaboro;
+    private String nombreReviso;
+    private String cargoReviso;
+    private String nombreAutorizo;
+    private String cargoAutorizo;
 
     public ProductoNominaDTOBuilder(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
+        nombreElaboro = null;
+        cargoElaboro = null;
+        nombreReviso = null;
+        cargoReviso = null;
+        nombreAutorizo = null;
+        cargoAutorizo = null;
     }
 
     public ProductoNominaDTOBuilder setIdProductoNomina(Integer idProductoNomina) {

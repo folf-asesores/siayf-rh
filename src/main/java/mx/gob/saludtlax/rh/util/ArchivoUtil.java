@@ -50,8 +50,8 @@ public class ArchivoUtil {
     private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
 
     /**
-     * Permite obtener el nombre del archivo sin extensión además de
-     * que determina la extesión del archivo según el contenido del mismo. Su
+     * Permite obtener el nombre del archivo sin extensión además de que
+     * determina la extesión del archivo según el contenido del mismo. Su
      * función la realiza escribiendo en la carpeta temporal el archivo.
      *
      * @param nombreArchivo el nombre del archivo (incluso sin extensión).
@@ -94,16 +94,16 @@ public class ArchivoUtil {
      * @param extensionDeseada
      * @return
      */
-    public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, String contentTypeDeseado, String extensionDeseada){
+    public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, String contentTypeDeseado, String extensionDeseada) {
         String contentTypeReal = obtenerMIMEType(contenido);
 
         LOGGER.debugv("Nombre del archivo: {0} Content Type del archivo: {1} Content Type deseado: {2} Extensi\u00f3n deseada: {3} Content Type real: {4}", new Object[]{nombreArchivo, contentType, contentTypeDeseado, extensionDeseada, contentTypeReal});
 
-        if(!contentTypeDeseado.equals(contentTypeReal)){
+        if (!contentTypeDeseado.equals(contentTypeReal)) {
             return false;
         }
 
-        if(!(contentType != null && !contentType.equals(contentTypeDeseado))){
+        if (!(contentType != null && !contentType.equals(contentTypeDeseado))) {
             return false;
         }
 
@@ -122,11 +122,11 @@ public class ArchivoUtil {
     public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, TipoArchivo tipoDeseado) {
         String contentTypeReal = obtenerMIMEType(contenido);
 
-        if(!tipoDeseado.getMIMEType().equals(contentTypeReal)){
+        if (!tipoDeseado.getMIMEType().equals(contentTypeReal)) {
             return false;
         }
 
-        if (contentType != null && !contentType.equals(tipoDeseado.getMIMEType())){
+        if (contentType != null && !contentType.equals(tipoDeseado.getMIMEType())) {
             return false;
         }
 
@@ -136,14 +136,14 @@ public class ArchivoUtil {
     /**
      * Este método permite conocer el MIME Type de un archivo.
      *
-     * @param contenido un arreglo de bytes con el contenido del archivo a
-     * nivel de bytes.
+     * @param contenido un arreglo de bytes con el contenido del archivo a nivel
+     * de bytes.
      * @return el MIME Type.
      * @throws NullPointerException si el contenido es nulo.
      */
     private static String obtenerMIMEType(byte[] contenido) {
         try {
-            if(contenido == null){
+            if (contenido == null) {
                 throw new NullPointerException("No se puede obtener el MIMEType de un null");
             }
 
@@ -167,7 +167,8 @@ public class ArchivoUtil {
      * @param ruta la ruta en la que se leera el archivo.
      * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
      * @return los bytes que representan el archivo.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar el archivo.
+     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
+     * el archivo.
      */
     public static byte[] leerArchivo(String ruta, String nombreArchivo) throws IOException {
         return leerArchivo(ruta, nombreArchivo, false);
@@ -178,12 +179,14 @@ public class ArchivoUtil {
      *
      * @param ruta la ruta en la que se leera el archivo.
      * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
-     * @param usarCarpetaUsuario si la ruta se tomara desde la carpeta del usuario.
+     * @param usarCarpetaUsuario si la ruta se tomara desde la carpeta del
+     * usuario.
      * @return los bytes que representan el archivo.
-     * @throws IOException si ocurre de lectura o escritura al guardar el archivo.
+     * @throws IOException si ocurre de lectura o escritura al guardar el
+     * archivo.
      */
     public static byte[] leerArchivo(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
-        if(ruta == null) {
+        if (ruta == null) {
             ruta = "";
         }
 
@@ -202,9 +205,9 @@ public class ArchivoUtil {
      * @throws IOException si ocurre alguna excepción de escritura o lectura.
      */
     public static void guardarEnCarpetaUsuario(byte[] file, String fileName) throws IOException {
-        if(file == null) {
+        if (file == null) {
             LOGGER.error("No se puede guardar un archivo nulo");
-        } else if(ValidacionUtil.esCadenaVacia(fileName)) {
+        } else if (ValidacionUtil.esCadenaVacia(fileName)) {
             LOGGER.error("El nombre del archivo a guardar esta vacio.");
         } else {
             String filePath = CARPETA_USUARIO + SEPARADOR_DE_ARCHIVO + fileName;
@@ -222,8 +225,10 @@ public class ArchivoUtil {
      * @param ruta la ruta en la que se guardará el archivo.
      * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
      * @param archivo los bytes que representan el archivo.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del usuario.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar el archivo.
+     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
+     * usuario.
+     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
+     * el archivo.
      */
     public static void guardarArchivo(String ruta, String nombreArchivo, byte[] archivo, boolean usarCarpetaUsuario) throws IOException {
         guardarArchivo(ruta, nombreArchivo, archivo, true, usarCarpetaUsuario);
@@ -236,11 +241,13 @@ public class ArchivoUtil {
      * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
      * @param archivo los bytes que representan el archivo.
      * @param sobreescribir permite sobre escribir el archivo si existe.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del usuario.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar el archivo.
+     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
+     * usuario.
+     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
+     * el archivo.
      */
     public static void guardarArchivo(String ruta, String nombreArchivo,
-            byte [] archivo, boolean sobreescribir, boolean usarCarpetaUsuario)
+            byte[] archivo, boolean sobreescribir, boolean usarCarpetaUsuario)
             throws IOException {
 
         Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
@@ -250,10 +257,10 @@ public class ArchivoUtil {
             Files.createDirectories(rutaReal);
         }
 
-        if(sobreescribir) {
+        if (sobreescribir) {
             Files.deleteIfExists(rutaArchivo);
             Files.createFile(rutaArchivo);
-        } else if(Files.notExists(rutaArchivo)){
+        } else if (Files.notExists(rutaArchivo)) {
             Files.createFile(rutaArchivo);
         }
 
@@ -270,7 +277,7 @@ public class ArchivoUtil {
     public static void moverArchivo(String origen, String destino,
             boolean usarCarpetaUsuario) {
         try {
-            Path rutaOrigen = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, origen) :  Paths.get(origen);
+            Path rutaOrigen = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, origen) : Paths.get(origen);
             Path rutaDestino = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, destino) : Paths.get(destino);
 
             Files.move(rutaOrigen, rutaDestino);
@@ -281,6 +288,7 @@ public class ArchivoUtil {
 
     /**
      * Permite eliminar un archivo del disco.
+     *
      * @param ruta la ruta en la que se encuentra el archivo que será eliminado.
      * @param nombreArchivo el nombre del archivo que será eliminado.
      * @throws IOException si ocurre un error de lectura o escritura al eliminar
@@ -296,8 +304,10 @@ public class ArchivoUtil {
      * sólo en nombre del archivo.
      *
      * @param ruta la ruta en la que se encuentra el archivo que será eliminado.
-     * @param nombreArchivo el nombre del archivo que será eliminado, sin extensión.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del usuario.
+     * @param nombreArchivo el nombre del archivo que será eliminado, sin
+     * extensión.
+     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
+     * usuario.
      * @throws IOException
      */
     public static void eliminarArchivoSoloConNombre(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
@@ -309,7 +319,7 @@ public class ArchivoUtil {
             for (Path path : directoryStream) {
                 String archivoSinExtension = obtenerNombreSinExtension(path.toString().replace(rutaReal.toString() + SEPARADOR_DE_ARCHIVO, ""));
 
-                if(nombreArchivo.equals(archivoSinExtension)){
+                if (nombreArchivo.equals(archivoSinExtension)) {
                     archivosPorEliminar.add(path);
                 }
             }
@@ -327,11 +337,11 @@ public class ArchivoUtil {
      *
      * @param extension la extensión del archivo.
      * @param archivo un arreglo de bytes que representa el archivo del cual se
-     *                obtendrá la vista previa.
+     * obtendrá la vista previa.
      * @return un areglo de bytes con la vista previa en un archivo en formato
-     *         png.
+     * png.
      */
-    public static byte [] crearVistaPrevia(TipoArchivo extension, byte[] archivo) {
+    public static byte[] crearVistaPrevia(TipoArchivo extension, byte[] archivo) {
         switch (extension) {
             case PDF:
                 try {
@@ -358,12 +368,12 @@ public class ArchivoUtil {
             case JPEG:
             case PNG:
                 try {
-/*
+                    /*
  * Para trabajar las vistas previas me apoye de esta página
  * http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
  * aún están pendientes los cambios para evitar el posible error cuando el
  * esquema de colores de la imagen es CMKY en vez de RGB
- */
+                     */
                     InputStream is = new ByteArrayInputStream(archivo);
                     BufferedImage img = ImageIO.read(is);
                     BufferedImage vistaPrevia = Scalr
@@ -385,8 +395,8 @@ public class ArchivoUtil {
                 break;
             case TIFF:
                 try {
-                    InputStream is =
-                            ArchivoUtil.class.getClassLoader().getResourceAsStream("imagenes/tif-icon.png");
+                    InputStream is
+                            = ArchivoUtil.class.getClassLoader().getResourceAsStream("imagenes/tif-icon.png");
 
                     byte[] vistaPreviaBytes;
 
@@ -415,16 +425,17 @@ public class ArchivoUtil {
 
     /**
      * Permite convertir un archivo de texto plano con códificación UTF-8 y
-     * caracteres de fin de línea tipo UNIX a formato de windows.
+     * caracteres de fin de línea tipo UNIX a formato de Windows.
      *
-     * @param archivo un arreglo de bytes que representa un archivo de texto plano.
+     * @param archivo un arreglo de bytes que representa un archivo de texto
+     * plano.
      * @return un arreglo de bytes que representa un archivo de texto plano con
      * códificación de Windows.
      * @throws IOException en caso de que haya error de lectura o escritura al
      * crear los archivos temporales.
      */
     public static byte[] codificarComoWindows(final byte[] archivo) throws IOException {
-        if(archivo == null) {
+        if (archivo == null) {
             throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
         }
 
@@ -438,7 +449,7 @@ public class ArchivoUtil {
 
         List<String> lineas = Files.readAllLines(archivoTemporal, UTF8_CHARSET);
         List<String> lineasNuevas = new ArrayList<>();
-        for(String linea : lineas) {
+        for (String linea : lineas) {
             String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
             lineasNuevas.add(nuevaLinea);
         }
@@ -458,14 +469,15 @@ public class ArchivoUtil {
      * Permite convertir un archivo de texto plano con códificación UTF-8 y
      * caracteres de fin de línea tipo UNIX a formato de MS-DOS.
      *
-     * @param archivo un arreglo de bytes que representa un archivo de texto plano.
+     * @param archivo un arreglo de bytes que representa un archivo de texto
+     * plano.
      * @return un arreglo de bytes que representa un archivo de texto plano con
      * códificación de Windows.
      * @throws IOException en caso de que haya error de lectura o escritura al
      * crear los archivos temporales.
      */
     public static byte[] codificarComoMsDos(final byte[] archivo) throws IOException {
-        if(archivo == null) {
+        if (archivo == null) {
             throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
         }
 
@@ -480,54 +492,54 @@ public class ArchivoUtil {
         List<String> lineas = Files.readAllLines(archivoTemporal, UTF8_CHARSET);
         List<String> lineasNuevas = new ArrayList<>();
         int lineasEliminadas = 0;
-        for(int i  = 0; i < lineas.size(); i++) {
+        for (int i = 0; i < lineas.size(); i++) {
             String lineaAnterior = lineas.get(i);
             String nuevaLineaAnterior = lineaAnterior.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
             int j = i + 1;
             boolean agregar = true;
             int lineaHoja = i % 66;
 //            LOGGER.debugv("lineaHoja: {0}",lineaHoja);
-            if(j < lineas.size()) {
+            if (j < lineas.size()) {
                 String lineaSiguiente = lineas.get(j);
                 String nuevaLineaSiguiente = lineaSiguiente.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("05   SUPLENCIAS")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("05   SUPLENCIAS")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("08   D")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("08   D")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("14   PERCEPCI")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("14   PERCEPCI")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("17   BONO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("17   BONO")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("24   AGUINALDO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("24   AGUINALDO")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("26   SUBSIDIO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("26   SUBSIDIO")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("27   PRIMA VACACIONAL")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("27   PRIMA VACACIONAL")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("29   BONIFICACI")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("29   BONIFICACI")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("30   RETROACTIVO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("30   RETROACTIVO")) {
                     agregar = false;
                 }
 
-                if(ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("32   OTROS")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("32   OTROS")) {
                     agregar = false;
                 }
             }
@@ -583,6 +595,24 @@ public class ArchivoUtil {
         nombreSinExtension = nombreSinExtension.replace('.', '_');
 
         return nombreSinExtension;
+    }
+
+    /**
+     * Elimina los espacios al final del archivo.
+     * @param ruta la ruta del archivo del cual se eliminaran los espacio en blanco.
+     * @param charset el juego de caracteres con los que se abrirá el archivo.
+     * @throws IOException en caso de ocurrir un error de lectura o escritura.
+     */
+    public static void eliminarEspaciosAlFinalLinea(Path ruta, Charset charset) throws IOException {
+        List<String> lineas = Files.readAllLines(ruta, charset);
+        List<String> lineasNuevas = new ArrayList<>();
+
+        for (String linea : lineas) {
+            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            lineasNuevas.add(nuevaLinea);
+        }
+
+        Files.write(ruta, lineasNuevas, charset);
     }
 
     /**

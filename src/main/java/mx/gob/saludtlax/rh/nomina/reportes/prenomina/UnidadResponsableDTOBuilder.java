@@ -12,25 +12,29 @@ import java.util.Map;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class UnidadResponsableDTOBuilder {
-    private String unidadResponsable = null;
-    private String numeroUnidadResponsable = null;
-    private Map<String, NominaEmpleadoDTO> nominasEmpleados = null;
+    private String unidadResponsable;
+    private String numeroUnidadResponsable;
+    private Map<String, NominaEmpleadoDTO> nominasEmpleados;
 
     public UnidadResponsableDTOBuilder(String numeroUnidadResponsable, String unidadResponsable) {
-        this.numeroUnidadResponsable = numeroUnidadResponsable;
         this.unidadResponsable = unidadResponsable;
-    }
-
-    public void setUnidadResponsable(String unidadResponsable) {
-        this.unidadResponsable = unidadResponsable;
-    }
-
-    public void setNumeroUnidadResponsable(String numeroUnidadResponsable) {
         this.numeroUnidadResponsable = numeroUnidadResponsable;
+        nominasEmpleados = null;
     }
 
-    public void setNominasEmpleados(Map<String, NominaEmpleadoDTO> nominasEmpleados) {
+    public UnidadResponsableDTOBuilder setUnidadResponsable(String unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+        return this;
+    }
+
+    public UnidadResponsableDTOBuilder setNumeroUnidadResponsable(String numeroUnidadResponsable) {
+        this.numeroUnidadResponsable = numeroUnidadResponsable;
+        return this;
+    }
+
+    public UnidadResponsableDTOBuilder setNominasEmpleados(Map<String, NominaEmpleadoDTO> nominasEmpleados) {
         this.nominasEmpleados = nominasEmpleados;
+        return this;
     }
 
     public UnidadResponsableDTO createUnidadResponsableDTO() {
