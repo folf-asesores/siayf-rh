@@ -7,7 +7,7 @@
 
     <persistence-unit name="siayfrhPU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:jboss/datasources/SIAYFRHDS</jta-data-source>
+        <jta-data-source>java:jboss/datasources/QaDS</jta-data-source>
         <class>mx.gob.saludtlax.rh.persistencia.AccionesEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.AdjuntoAspiranteEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.AdjuntoEmpleadoEntity</class>
@@ -266,7 +266,7 @@
 
     <persistence-unit name="siayfrhespPU" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:jboss/datasources/SIAYFRHDSESP</jta-data-source>
+        <jta-data-source>java:jboss/datasources/QaDS</jta-data-source>
         <class>mx.gob.saludtlax.rh.persistencia.espejo.BitacoraReporteEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.espejo.PerfilUsuarioEntity</class>
         <class>mx.gob.saludtlax.rh.persistencia.espejo.ReporteParametroEntity</class>
