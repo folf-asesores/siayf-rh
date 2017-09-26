@@ -3,7 +3,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	template="/primefaces-folf-modena/plantillas/secundaria.xhtml">
+	template="/primefaces-siayf-modena/plantillas/secundaria.xhtml">
 
 	<ui:param name="numeroNotificaciones" value="0" />
 
@@ -52,23 +52,26 @@
 
 				</p:submenu>
 
-				<p:submenu label="Bolsa de Trabajo">
-					<p:menuitem value="Registro Aspirante"
+				<p:submenu label="Bolsa de trabajo">
+					<p:menuitem value="Registro de aspirante"
 						url="/contenido/bolsaTrabajo/registroAspirante.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
-					<p:menuitem value="Actualización Aspirante"
+
+					<p:menuitem value="Actualización de aspirante"
 						url="/contenido/bolsaTrabajo/actualizarAspirante.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
-					<p:menuitem value="Consulta Aspirante"
+
+                                        <p:menuitem value="Consulta de aspirante"
 						url="/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
-					<p:menuitem value="Administración de expediente"
+
+                                        <p:menuitem value="Administración de expediente"
 						url="/contenido/bolsaTrabajo/administracionExpediente.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
-				<p:submenu label="Puestos Secretaría">
-					<p:menuitem value="Solicitud Creación Puesto"
+				<p:submenu label="Puestos de la secretaría">
+					<p:menuitem value="Solicitud de creación de puesto"
 						url="/contenido/vacantes/solicitudApertura.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -76,21 +79,21 @@
 						url="/contenido/vacantes/programasFederales.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Postulación Vacante"
+					<p:menuitem value="Postulación de vacante"
 						url="/contenido/vacantes/postulacionVacante.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Aprobación Candidato"
+					<p:menuitem value="Aprobación de candidato"
 						url="/contenido/vacantes/aprobacionCandidato.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Inventario Puestos Autorizados"
+					<p:menuitem value="Inventario de puestos autorizados"
 						url="/contenido/vacantes/inventarioPuestos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
 				<p:submenu label="Notificaciones">
-					<p:menuitem value="Mi Buzón"
+					<p:menuitem value="Mi buzón"
 						url="/contenido/notificaciones/miBuzon.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
@@ -100,55 +103,56 @@
 					<p:menuitem value=" Empleado"
 						url="/contenido/empleado/altaEmpleado.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
-					<p:menuitem value="Modificación Datos Laborales Empleado"
+
+					<p:menuitem value="Modificación de datos laborales del empleado"
 						url="/contenido/empleado/modificacionLaboral.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Estructuras Contratos"
+					<p:menuitem value="Estructuras de contratos"
 						url="/contenido/empleado/estructuraContratos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Estructura Nómina"
+					<p:menuitem value="Estructura de nómina"
 						url="/contenido/empleado/estructuraNomina.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Configuración Área Trabajo"
+					<p:menuitem value="Configuración del área de trabajo"
 						url="/contenido/empleado/configuracionAreaTrabajo.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Administración Dependientes económicos"
+					<p:menuitem value="Administración de dependientes económicos"
 						url="/contenido/empleado/dependienteEconomico.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Actualizar Empleado"
+					<p:menuitem value="Actualizar empleado"
 						url="/contenido/empleado/actualizarEmpleado.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Corrección Información"
+					<p:menuitem value="Corrección de información"
 						url="/contenido/empleado/correccionInformacion.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Administración expediente"
+					<p:menuitem value="Administración de expediente"
 						url="/contenido/empleado/administracionExpediente.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Empleado"
+					<p:menuitem value="Consulta de empleado"
 						url="/contenido/empleado/consultaEmpleado.xhtml?faces-redirect=true"
 						ajax="true" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Movimientos al Personal"
+					<p:menuitem value="Movimientos al personal"
 						url="/contenido/empleado/movimientosPersonal.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Movimientos"
+					<p:menuitem value="Consulta de movimientos"
 						url="/contenido/empleado/consultaMovimientos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Impresión Contrato" rendered="false"
+					<p:menuitem value="Impresión de contrato" rendered="false"
 						url="/contenido/empleado/impresionContrato.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Impresión Nombramiento" rendered="false"
+					<p:menuitem value="Impresión de nombramiento" rendered="false"
 						url="/contenido/empleado/impresionNombramiento.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -156,42 +160,42 @@
 						url="/contenido/empleado/formatoFiliacion.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Solicitud Interinatos"
+					<p:menuitem value="Solicitud de interinatos"
 						url="/contenido/empleado/interinatos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Seguro de Vida Institucional"
+					<p:menuitem value="Seguro de vida institucional"
 						url="/contenido/reportesLaborales/reporteSeguroVida.xhtml"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Administración Movimientos ISSSTE"
+					<p:menuitem value="Administración de movimientos del ISSSTE"
 						url="/contenido/reportesLaborales/administracionMovimientoIssste.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
 				</p:submenu>
 
 				<p:submenu label="Suplencias">
-					<p:menuitem value=" Activación Quincena"
+					<p:menuitem value=" Activación  de quincena"
 						url="/contenido/suplencias/activacionQuincena.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value=" Habilitación Suplentes"
+					<p:menuitem value=" Habilitación de suplentes"
 						url="/contenido/suplencias/habilitacionSuplente.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Alta Suplencias"
+					<p:menuitem value="Alta de suplencias"
 						url="/contenido/suplencias/altaSuplencia.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Revisión Suplencias"
+					<p:menuitem value="Revisión de suplencias"
 						url="/contenido/suplencias/revisionSuplencia.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Cierre Suplencias"
+					<p:menuitem value="Cierre de suplencias"
 						url="/contenido/suplencias/cierreSuplencia.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Suplencias"
+					<p:menuitem value="Consulta de suplencias"
 						url="/contenido/suplencias/consultaSuplencias.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -199,32 +203,32 @@
 						url="/contenido/suplencias/movimientosSuplentes.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Reporte Causal Global"
+					<p:menuitem value="Reporte causal global"
 						url="/contenido/suplencias/reporteCausalGlobal.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
 				<p:submenu label="Voluntarios">
-					<p:menuitem value="Alta Voluntario"
+					<p:menuitem value="Alta de voluntarios"
 						url="/contenido/voluntarios/altaVoluntarios.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Voluntario"
+					<p:menuitem value="Consulta de voluntarios"
 						url="/contenido/voluntarios/consultaVoluntarios.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
-				<p:submenu label="Control Asistencia">
+				<p:submenu label="Control de asistencia">
 				
-				<p:menuitem value="Actualizar Asistencias"
+				<p:menuitem value="Actualizar asistencias"
 						url="/contenido/controlasistencia/empleado/actualizarAsistencias.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				
-					<p:menuitem value="Catálogo Incidencias"
+					<p:menuitem value="Catálogo de incidencias"
 						url="/contenido/controlasistencia/catalogo/incidencia/index.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Catálogo Jornadas"
+					<p:menuitem value="Catálogo de jornadas"
 						url="/contenido/controlasistencia/catalogo/jornada/index.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -232,11 +236,11 @@
 						url="/contenido/controlasistencia/empleado/horario/agregarHorario.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Incidencia Empleado"
+					<p:menuitem value="Incidencia del empleado"
 						url="/contenido/controlasistencia/empleado/incidencia/agregar.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Horas Pase Salida"
+					<p:menuitem value="Horas del pase de salida"
 						url="/contenido/controlasistencia/empleado/incidencia/horaspasesalida.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -244,7 +248,7 @@
 						url="/contenido/controlasistencia/empleado/horasextraporempleado.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Reporte Ausentismo"
+					<p:menuitem value="Reporte de ausentismo"
 						url="/contenido/controlasistencia/empleado/reporte_ausentismo.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -252,21 +256,21 @@
 						url="/contenido/controlasistencia/empleado/reportes.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Descargar Información Empleado"
+					<p:menuitem value="Descargar información del empleado"
 						url="/contenido/controlasistencia/biometrico/descargarInformacionEmpleado.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Catalogo Biométricos"
+					<p:menuitem value="Catálogos biométricos"
 						url="/contenido/controlasistencia/catalogo/biometrico/index.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Catalogo Clientes UM"
+					<p:menuitem value="Catálogo Clientes UM"
 						url="/contenido/controlasistencia/catalogo/cliente/clientesBiometricos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
 				<p:submenu label="Nómina">
-					<p:menuitem value="Producto Nómina"
+					<p:menuitem value="Producto de nómina"
 						action="/contenido/nomina/productos/productoNomina.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -274,23 +278,23 @@
 						action="/contenido/nomina/pensionaalimenticia/index.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Movimientos Contratos"
+					<p:menuitem value="Movimientos de contratos"
 						url="/contenido/nomina/movimientosContratos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Movimientos Federales"
+					<p:menuitem value="Movimientos federales"
 						url="/contenido/nomina/movimientos/index.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Programar Movimientos"
+					<p:menuitem value="Programar movimientos"
 						url="/contenido/nomina/movimientos/programarMovimientosNomina.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consultar Conceptos Empleado"
+					<p:menuitem value="Consultar conceptos del empleado"
 						url="/contenido/nomina/movimientos/consultaConceptosEmpleadoBase.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Movimientos Fijos" rendered="false"
+					<p:menuitem value="Movimientos fijos" rendered="false"
 						url="/contenido/nomina/movimientosFijos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -298,7 +302,7 @@
 						url="/contenido/nomina/importarxml.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Importar Constancia"
+					<p:menuitem value="Importar constancia"
 						url="/contenido/nomina/importarConstancia.xhtml?faces-redirect=true"
 						ajax="false" rendered="false" icon="fm-icon-circle-empty" />
 
@@ -306,26 +310,26 @@
 						url="/contenido/acumulados/acumulados.xhtml?faces-redirect=true"
 						ajax="false" rendered="true" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Importar Nomina"
+					<p:menuitem value="Importar nómina"
 						url="/contenido/acumulados/importarNomina.xhtml?faces-redirect=true"
 						ajax="false" rendered="true" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Timbrar Productos Nomina"
+					<p:menuitem value="Timbrar productos de nómina"
 						url="/contenido/nomina/TimbradoProductoNomina.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
 
-					<p:menuitem value="Historial de Pagos"
+					<p:menuitem value="Historial de pagos"
 						url="/contenido/nomina/historialPago.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 				</p:submenu>
 
-				<p:submenu label="Reportes Laborales">
-					<p:menuitem value="Administrador Reporte Movimiento Empleado"
+				<p:submenu label="Reportes laborales">
+					<p:menuitem value="Administrador de reporte de movimiento del empleado"
 						rendered="false" icon="fm-icon-circle-empty"
 						url="/contenido/reportesLaborales/reporteMovimientoEmpleado.xhtml?faces-redirect=true" />
 
-					<p:menuitem value="Reporte Suplencia" rendered="true"
+					<p:menuitem value="Reporte de suplencia" rendered="true"
 						icon="fm-icon-circle-empty"
 						url="/contenido/reportesLaborales/reporteSuplencias.xhtml?faces-redirect=true" />
 				</p:submenu>
@@ -334,11 +338,11 @@
 					<p:menuitem value="Reportar SIIF" icon="fm-icon-circle-empty"
 						url="/contenido/siifrh/reportarSiif.xhtml?faces-redirect=true" />
 
-					<p:menuitem value="Consulta Nómina"
+					<p:menuitem value="Consultar nómina"
 						url="/contenido/siifrh/consultaNomina.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Personal"
+					<p:menuitem value="Consulta de personal"
 						url="/contenido/siifrh/consultaDatosPersonales.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 				</p:submenu>
@@ -347,32 +351,33 @@
 					<p:menuitem value="Reportar SIIF" icon="fm-icon-circle-empty"
 						url="/contenido/siif/reportarSiif.xhtml?faces-redirect=true" />
 
-					<p:menuitem value="Consulta Nómina"
+					<p:menuitem value="Consultar nómina"
 						url="/contenido/siif/consultaNomina.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Consulta Personal"
+					<p:menuitem value="Consulta de personal"
 						url="/contenido/siif/consultaDatosPersonales.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Importar Plantillas Siif"
+					<p:menuitem value="Importar plantillas SIIF"
 						url="/contenido/siif/reportarsiifseguropopular.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Reportes Dat y Tra" icon="fm-icon-circle-empty"
+					<p:menuitem value="Reportes dat y tra" icon="fm-icon-circle-empty"
 						url="/contenido/siif/reporteDatTra.xhtml?faces-redirect=true" />
 				</p:submenu>
 
 				<p:submenu label="Presupuesto">
-					<p:menuitem value="Consultar Partidas" icon="fm-icon-circle-empty"
+					<p:menuitem value="Consultar partidas" icon="fm-icon-circle-empty"
 						url="/contenido/presupuesto/consultarPartidas.xhtml?faces-redirect=true" />
-					<p:menuitem value="Consultar por Periodo" icon="fm-icon-circle-empty"
+
+					<p:menuitem value="Consultar por periodo" icon="fm-icon-circle-empty"
 						url="/contenido/presupuesto/consultarPeriodos.xhtml?faces-redirect=true" />
 
 					<p:menuitem value="Proyecciones" icon="fm-icon-circle-empty"
 						url="/contenido/presupuesto/proyeccionesPresupuestales.xhtml?faces-redirect=true" />
 
-					<p:menuitem value="Presupuesto Autorizado"
+					<p:menuitem value="Presupuesto autorizado"
 						icon="fm-icon-circle-empty"
 						url="/contenido/presupuesto/presupuestoAutorizado.xhtml?faces-redirect=true" />
 
@@ -380,29 +385,23 @@
 					<!-- 						url="/contenido/configuracion/calendarioGlobal.xhtml?faces-redirect=true" -->
 					<!-- 						ajax="false" icon="fm-icon-circle-empty" /> -->
 
-					<p:menuitem value="Presupuesto Calendario"
+					<p:menuitem value="Calendario presupuestal"
 						url="/contenido/presupuesto/presupuestoCalendario.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Distribucion Presupuestal"
+					<p:menuitem value="Distribución presupuestal"
 						url="/contenido/presupuesto/distribucionPresupuesto.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
 				</p:submenu>
 
-				<p:submenu label="Seguridad" rendered="false">
-					<p:menuitem value="Usuario"
-						url="/contenido/usuarios/usuario.xhtml?faces-redirect=true"
-						ajax="false" icon="fm-icon-user" />
-				</p:submenu>
-
 				<p:submenu label="Configuración">
 
-					<p:menuitem value="Puesto General"
+					<p:menuitem value="Puesto general"
 						url="/contenido/configuracion/puestoGeneral.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Tabuladores Salarios"
+					<p:menuitem value="Tabuladores de salarios"
 						action="/contenido/configuracion/tabulador.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -410,11 +409,11 @@
 						url="/contenido/configuracion/nombramiento.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Fuentes de Financiamiento"
+					<p:menuitem value="Fuentes de financiamiento"
 						action="/contenido/configuracion/fuenteFinanciamiento.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Subfuentes de Financiamiento"
+					<p:menuitem value="Subfuentes de financiamiento"
 						action="/contenido/configuracion/subfuenteFinanciamiento.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -422,15 +421,15 @@
 						action="/contenido/configuracion/dependencia.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Unidad Responsable"
+					<p:menuitem value="Unidad responsable"
 						action="/contenido/configuracion/unidadResponsable.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Centro de Responsabilidad"
+					<p:menuitem value="Centro de responsabilidad"
 						action="/contenido/configuracion/centroResponsabilidad.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Configuración Aprobaciones"
+					<p:menuitem value="Configuración de aprobaciones"
 						action="/contenido/configuracion/configuracionAprobaciones.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -438,7 +437,7 @@
 						action="/contenido/areas/area.xhtml?faces-redirect=false"
 						rendered="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Áreas Adscripción"
+					<p:menuitem value="Áreas de adscripción"
 						action="/contenido/areas/areasAdscripcion.xhtml?faces-redirect=true"
 						rendered="false" icon="fm-icon-circle-empty" />
 
@@ -446,24 +445,25 @@
 						action="/contenido/configuracion/banco.xhtml?faces-redirect=true"
 						rendered="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Configuracion Quinquenios"
+					<p:menuitem value="Configuración de quinquenios"
 						action="/contenido/configuracion/configuracionQuinquenios.xhtml?faces-redirect=true"
 						rendered="true" icon="fm-icon-circle-empty" />
-					<p:menuitem value="Conceptos Especiales"
+
+					<p:menuitem value="Conceptos especiales"
 						action="/contenido/configuracion/conceptosEspeciales.xhtml?faces-redirect=true"
 						rendered="true" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Configuracion de  Movimientos Nomina"
+					<p:menuitem value="Configuración de movimientos nómina"
 						action="/contenido/nomina/configuracionTipoMovimiento/configuracionTipoMovimientoNomina.xhtml?faces-redirect=true"
 						rendered="true" icon="fm-icon-circle-empty" />
 
 					<p:separator />
 
-					<p:menuitem value="Percepciones y Deducciones"
+					<p:menuitem value="Percepciones y deducciones"
 						url="/contenido/configuracion/conceptosnomina.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Ejercicios Fiscales"
+					<p:menuitem value="Ejercicios fiscales"
 						action="/contenido/configuracion/ejercicioFiscal.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -471,37 +471,37 @@
 						action="/contenido/configuracion/tablaSubsidioRetencion.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Fuentes de Financiamiento OPD"
+					<p:menuitem value="Fuentes de financiamiento OPD"
 						action="/contenido/configuracion/fuenteFinanciamientoOPD.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Terceros Institucionales"
+					<p:menuitem value="Terceros institucionales"
 						action="/contenido/configuracion/terceroInstitucional.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Tipos de Nómina"
+					<p:menuitem value="Tipos de nómina"
 						action="/contenido/configuracion/tipoNomina.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Clasificación de Nómina"
+					<p:menuitem value="Clasificación de nómina"
 						action="/contenido/configuracion/clasificacionNomina.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Riesgo Puesto"
+					<p:menuitem value="Riesgo del puesto"
 						url="/contenido/configuracion/riesgoPuesto.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Cuentas Bancarias"
+					<p:menuitem value="Cuentas bancarias"
 						action="/contenido/configuracion/cuentaBancaria.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Salario Minimo"
+					<p:menuitem value="Salario mínimo"
 						action="/contenido/configuracion/salariosMinimos.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
 					<p:separator />
 
-					<p:menuitem value="Conceptos de nomina de Empleados de contratos"
+					<p:menuitem value="Conceptos de nómina para empleados de contratos"
 						url="/contenido/configuracion/conceptosnominacontratos.xhtml?faces-redirect=true"
 						ajax="false" icon="fm-icon-circle-empty" />
 
@@ -515,8 +515,14 @@
 
 				</p:submenu>
 
-				<p:submenu label="Seguridad">
-					<p:menuitem value="Areas"
+				<p:submenu label="Seguridad" rendered="false">
+					<p:menuitem value="Usuario"
+						url="/contenido/usuarios/usuario.xhtml?faces-redirect=true"
+						ajax="false" icon="fm-icon-user" />
+				</p:submenu>
+
+                                <p:submenu label="Seguridad">
+					<p:menuitem value="Áreas"
 						action="/contenido/seguridad/administracionAreas.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty">
 						<f:param name="i" value="0" />
@@ -528,16 +534,16 @@
 						<f:param name="i" value="3" />
 					</p:menuitem>
 
-					<p:menuitem value="Administración Modulos"
+					<p:menuitem value="Administración de modulos"
 						action="/contenido/seguridad/administracionModulo/administracionModulo.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
-					<p:menuitem value="Configuración Modulos-Acciones"
+					<p:menuitem value="Configuración modulos-acciones"
 						action="/contenido/seguridad/configuracionModuloAccion/index.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
 
-					<p:menuitem value="Configuración Usuarios"
+					<p:menuitem value="Configuración de usuarios"
 						action="/contenido/seguridad/configuracionUsuario.xhtml?faces-redirect=true"
 						icon="fm-icon-circle-empty" />
 
@@ -604,74 +610,56 @@
 
 				<f:facet name="footer">
 					<p:button
-						onclick="document.location.href = document.location.href;"
+                                            onclick="document.location.reload()"
 						value="Volver a cargar" />
 				</f:facet>
 			</p:dialog>
 
 			<p:dialog id="perfilInfo" header="Perfil de Usuario"
 				widgetVar="infoPerfil" height="300px" width="50%" modal="true"
-				closable="true">
-				<p:panelGrid id="infoPerfilGrid" layout="grid"
-					styleClass="ui-panelgrid-blank ui-fluid" columns="5"
+                                closable="true" responsive="true">
+                            <p:panelGrid id="infoPerfilGrid" columns="2" layout="grid"
+					styleClass="ui-panelgrid-blank ui-fluid"
 					columnClasses="ui-grid-col-3, ui-grid-col-2">
 
-					<p:outputLabel value="UserName:" />
+					<p:outputLabel value="Nombre de usuario:" />
 					<h:outputText value="#{usuario.usuarioEnSession.userName}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
+					
 					<p:outputLabel value="Nombre:" />
 					<h:outputText value="#{usuario.usuarioEnSession.nombre}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
-					<p:outputLabel value="Apellido Paterno:" />
+					
+					<p:outputLabel value="Apellido paterno:" />
 					<h:outputText value="#{usuario.usuarioEnSession.apellidoPaterno}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
-					<p:outputLabel value="Apellido Materno:" />
+					
+					<p:outputLabel value="Apellido materno:" />
 					<h:outputText value="#{usuario.usuarioEnSession.apellidoMaterno}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
-					<p:outputLabel value="Correo Electrónico:" />
+					
+					<p:outputLabel value="Correo electrónico:" />
 					<h:outputText value="#{usuario.usuarioEnSession.correo}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
+					
 					<p:outputLabel value="Cargo:" />
 					<h:outputText value="#{usuario.usuarioEnSession.cargo}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
-					<p:outputLabel value="Fecha Alta:" />
+					
+					<p:outputLabel value="Fecha de alta:" />
 					<h:outputText value="#{usuario.usuarioEnSession.fechaAlta}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
+					
 					<p:outputLabel value="Área de adscripción:" />
 					<h:outputText
 						value="#{usuario.usuarioEnSession.areaAdscripcionDescripcion}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
+					
 					<p:outputLabel value="Lugar de adscripción:" />
 					<h:outputText
 						value="#{usuario.usuarioEnSession.lugarAdscripcionDescripcion}" />
-					<p:spacer />
-					<p:spacer />
-					<p:spacer />
-					<p:outputLabel value="Id de adscripción:" />
+					
+					<p:outputLabel value="ID de adscripción:" />
 					<h:outputText
 						value="#{usuario.usuarioEnSession.adscripcionDescripcion}" />
-					<p:spacer />
-					<p:spacer />
 
-					<p:commandButton id="cambiarPassword" value="Cambiar contraseña"
-						update="menuPrincipal" action="#{usuario.irCambioContrasenya()}"
-						ajax="false" />
+                                        <f:facet name="footer">
+                                            <p:commandButton id="cambiarPassword" value="Cambiar contraseña"
+                                                    update="menuPrincipal" action="#{usuario.irCambioContrasenya()}"
+                                                    ajax="false" />
+                                        </f:facet>
 
 				</p:panelGrid>
 			</p:dialog>

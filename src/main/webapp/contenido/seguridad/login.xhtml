@@ -14,9 +14,9 @@ Creado el
                  xmlns:p="http://primefaces.org/ui"
                  template="/plantillas/miniform-impl.xhtml">
 
-    <ui:param name="ventanaTitulo" value="Login" />
+    <ui:param name="ventanaTitulo" value="Inicio de sesión" />
 
-    <ui:param name="moduloEncabezadoTitulo" value="Login / Sign Up" />
+    <ui:param name="moduloEncabezadoTitulo" value="Inicio de sesión" />
 
     <ui:define name="moduloEncabezadoIcono">
         <span class="fm-icon-login"></span>
@@ -48,9 +48,9 @@ Creado el
                          placeholder="Contraseña" type="password" required="true"
                          requiredMessage="Se requiere una contraseña" />
             <br />
-            <p:outputLabel value="Recordar Usuario   " />
             <p:selectBooleanCheckbox id="mantenerSesion" />
-            <p:commandButton value="Entrar" update="login"
+            <p:outputLabel value="Recordar usuario" />
+            <p:commandButton value="Iniciar sesión" update="login"
                              ajax="false"
                              icon="ui-icon-unlocked" iconPos="right" />
         </h:form>

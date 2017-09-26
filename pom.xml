@@ -34,9 +34,9 @@
 
         <!-- Tema para PrimeFaces -->
         <dependency>
-            <groupId>mx.com.folfasesores</groupId>
-            <artifactId>folf-modena-saludtlax</artifactId>
-            <version>0.0.7</version>
+            <groupId>mx.gob.saludtlax.siayf</groupId>
+            <artifactId>modena</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
         </dependency>
 
         <!-- Hibernate -->
