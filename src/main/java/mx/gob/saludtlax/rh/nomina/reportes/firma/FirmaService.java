@@ -8,7 +8,9 @@ package mx.gob.saludtlax.rh.nomina.reportes.firma;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.persistencia.espejo.FirmaReporteQuery;
 
 /**
@@ -21,17 +23,17 @@ public class FirmaService {
     private FirmaReporteQuery firmaQuery;
 
     public FirmaDTO obtenerFirmaEmpleado(Integer idProductoNomina) {
-        List<FirmaPOJO> datos = firmaQuery.obtenerDatos(idProductoNomina);
+        List<FirmaPojo> datos = firmaQuery.obtenerDatos(idProductoNomina);
         FirmaDTO firma = convertir(datos);
         
         return firma;
     }
     
-    private FirmaDTO convertir(List<FirmaPOJO> datosBrutos) {
+    private FirmaDTO convertir(List<FirmaPojo> datosBrutos) {
         if (datosBrutos != null && !datosBrutos.isEmpty()) {
             Map<Integer, ProgramaDTO> programas = new TreeMap<>();
 
-            for (FirmaPOJO firmaPojo : datosBrutos) {
+            for (FirmaPojo firmaPojo : datosBrutos) {
                 Integer idPrograma = firmaPojo.getIdPrograma();
 
                 if (!programas.containsKey(idPrograma)) {
@@ -88,7 +90,7 @@ public class FirmaService {
                 }
             }
 
-            FirmaPOJO firmaPojo = datosBrutos.get(0);
+            FirmaPojo firmaPojo = datosBrutos.get(0);
             FirmaDTO firma = new FirmaDTO.Builder(firmaPojo.getIdProductoNomina(), firmaPojo.getFechaPago(), programas)
                     // Elaboro
                     .setNombreElaboro(firmaPojo.getJefe1Nombre())
@@ -98,7 +100,7 @@ public class FirmaService {
                     .setCargoReviso(firmaPojo.getJefe2Cargo())
                     // Autorizo
                     .setNombreAutorizo(firmaPojo.getJefe3Nombre())
-                    .setCargoReviso(firmaPojo.getJefe3Cargo())
+                    .setCargoAutorizo(firmaPojo.getJefe3Cargo())
                     .construirFirmaDTO();
 
             return firma;

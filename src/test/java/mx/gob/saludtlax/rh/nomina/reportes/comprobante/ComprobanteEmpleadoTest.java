@@ -90,7 +90,7 @@ public class ComprobanteEmpleadoTest {
         jar.addClass(CodigoError.class);
         jar.addClass(ComprobanteEmpleado.class);
         jar.addClass(ComprobanteEmpleadoDTO.class);
-        jar.addClass(ComprobanteEmpleadoEJB.class);
+        jar.addClass(ComprobanteEmpleadoBean.class);
         jar.addClass(ComprobanteEmpleadoPOJO.class);
         jar.addClass(ComprobanteEmpleadoService.class);
         jar.addClass(ComprobanteEmpleadoRepository.class);

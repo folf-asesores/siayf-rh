@@ -23,6 +23,8 @@ public class AlmacenReportesTxt implements AlmacenReportes<TxtReporte> {
         REPORTES.put("comprobante_nomina", comprobanteNomina);
         TxtReporte prenominaEventuales = new TxtReporte();
         REPORTES.put("prenomina_eventuales", prenominaEventuales);
+        TxtReporte listadoFirmas = new TxtReporte();
+        REPORTES.put("listado-firmas", listadoFirmas);
     }
 
     @Override

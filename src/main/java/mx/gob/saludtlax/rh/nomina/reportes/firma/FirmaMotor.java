@@ -140,10 +140,7 @@ public class FirmaMotor {
                 }
 
                 contadorProgramas++;
-                LOGGER.infov("Contador: {0}", contadorProgramas);
             }
-
-            LOGGER.infov("Contador final: {0}", contadorProgramas);
         }
 
         return sb;

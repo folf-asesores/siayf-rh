@@ -88,9 +88,10 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         reporteUnicoIncidencias.agregarParametro("FECHA_FIN", String.class);
         REPORTES.put("reporte_unico_incidencias", reporteUnicoIncidencias);
 
-        JasperReporte listadoFirmas = new JasperReporte("listado-firmas.jrxml", "reportes/");
-        listadoFirmas.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
-        REPORTES.put("listado-firmas", listadoFirmas);
+//        Este reporte fue movido para realizarlo sin apoyo de JasperReports
+//        JasperReporte listadoFirmas = new JasperReporte("listado-firmas.jrxml", "reportes/");
+//        listadoFirmas.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
+//        REPORTES.put("listado-firmas", listadoFirmas);
 
 //        JasperReporte prenominaEventualesPercepciones = new JasperReporte("prenomina_eventuales--percepciones.jrxml", "reportes/");
 //        JasperReporte prenominaEventualesPercepcionesTotal = new JasperReporte("prenomina_eventuales--percepciones-total.jrxml", "reportes/");

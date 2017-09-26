@@ -1,5 +1,5 @@
 /*
- * ComprobanteEmpleadoEJB.java
+ * ComprobanteEmpleadoBean.java
  * Creado el 22/nov/2016 4:20:15 AM
  * 
  */
@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 @Stateless
-public class ComprobanteEmpleadoEJB implements ComprobanteEmpleado {
+public class ComprobanteEmpleadoBean implements ComprobanteEmpleado {
 
     private static final long serialVersionUID = -7029108286383735953L;
 
