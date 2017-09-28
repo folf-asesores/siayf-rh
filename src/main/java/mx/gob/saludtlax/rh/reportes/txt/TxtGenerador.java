@@ -28,7 +28,7 @@ public class TxtGenerador implements Generador {
 
     private static final Logger LOGGER = Logger.getLogger(TxtGenerador.class.getName());
 
-    private static final String COMPROBANTE_BEAN = "java:module/ComprobanteEmpleadoEJB";
+    private static final String COMPROBANTE_BEAN = "java:module/ComprobanteEmpleadoBean";
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
     private static final String PRENOMINA_BEAN = "java:module/PrenominaReporteEJB";
     private static final String FIRMA_BEAN = "java:module/FirmaBean";
