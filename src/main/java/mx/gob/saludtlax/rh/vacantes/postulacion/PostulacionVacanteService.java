@@ -398,6 +398,7 @@ public class PostulacionVacanteService implements Serializable {
 			}
 
 		}
+		
 
 		boolean haSidoAprobado = true;
 

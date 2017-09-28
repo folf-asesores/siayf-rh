@@ -54,4 +54,6 @@ public class PostulacionVacanteRepository extends GenericRepository<PostulacionV
 					SistemaCodigoError.ERROR_MULTIPLES_RESULTADOS);
 		}
 	}
+
+	
 }
