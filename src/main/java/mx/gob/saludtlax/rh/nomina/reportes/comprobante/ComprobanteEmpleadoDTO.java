@@ -3,7 +3,6 @@
  * Creado el 18/nov/2016 3:12:03 PM
  * 
  */
-
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -16,7 +15,7 @@ import java.util.Objects;
 
 /**
  * Este DTO representa la informacion del comprobante de pago.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO>, Serializable {
@@ -27,6 +26,7 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     private String filiacion;
     private Date fechaPago;
     private String claveCentroResponsabilidad;
+    private String numeroCheque;
     private Date inicioPeriodo;
     private Date finPeriodo;
     private BigDecimal percepciones;
@@ -35,7 +35,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     private List<ConceptoComprobanteDTO> conceptos;
 
     /**
-     * <p>Crea una nueva instancia de la esta clase e inicializa la clase con 
+     * <p>
+     * Crea una nueva instancia de la esta clase e inicializa la clase con
      * valores por defecto.<\p>
      */
     public ComprobanteEmpleadoDTO() {
@@ -43,19 +44,21 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         filiacion = "";
         fechaPago = Calendar.getInstance().getTime();
         claveCentroResponsabilidad = "";
+        numeroCheque = "0";
         inicioPeriodo = Calendar.getInstance().getTime();
         finPeriodo = Calendar.getInstance().getTime();
-        percepciones  = BigDecimal.ZERO;
+        percepciones = BigDecimal.ZERO;
         deducciones = BigDecimal.ZERO;
         neto = BigDecimal.ZERO;
         conceptos = new ArrayList<>();
     }
 
-    public ComprobanteEmpleadoDTO(String nombre, String filiacion, Date fechaPago, String claveCentroResponsabilidad, Date inicioPeriodo, Date finPeriodo, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, List<ConceptoComprobanteDTO> conceptos) {
+    public ComprobanteEmpleadoDTO(String nombre, String filiacion, Date fechaPago, String claveCentroResponsabilidad, String numeroCheque, Date inicioPeriodo, Date finPeriodo, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, List<ConceptoComprobanteDTO> conceptos) {
         this.nombre = nombre;
         this.filiacion = filiacion;
         this.fechaPago = fechaPago;
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
+        this.numeroCheque = numeroCheque;
         this.inicioPeriodo = inicioPeriodo;
         this.finPeriodo = finPeriodo;
         this.percepciones = percepciones;
@@ -63,7 +66,7 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         this.neto = neto;
         this.conceptos = conceptos;
     }
-    
+
     /**
      * Get the value of nombre
      *
@@ -134,6 +137,24 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
      */
     public void setClaveCentroResponsabilidad(String claveCentroResponsabilidad) {
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
+    }
+
+    /**
+     * Get the value of numeroCheque
+     *
+     * @return the value of numeroCheque
+     */
+    public String getNumeroCheque() {
+        return numeroCheque;
+    }
+
+    /**
+     * Set the value of numeroCheque
+     *
+     * @param numeroCheque new value of numeroCheque
+     */
+    public void setNumeroCheque(String numeroCheque) {
+        this.numeroCheque = numeroCheque;
     }
 
     /**
@@ -246,34 +267,34 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
 
     @Override
     public int compareTo(ComprobanteEmpleadoDTO o) {
-    	if(claveCentroResponsabilidad == null && o.claveCentroResponsabilidad == null) {
-    		return 0;
-    	}
-    	if(claveCentroResponsabilidad == null) {
-    		return -1;
-    	}
-    	if(o.claveCentroResponsabilidad == null) {
-    		return 1;
-    	}
-        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad) 
-                ? filiacion.compareTo(o.filiacion) 
+        if (claveCentroResponsabilidad == null && o.claveCentroResponsabilidad == null) {
+            return 0;
+        }
+        if (claveCentroResponsabilidad == null) {
+            return -1;
+        }
+        if (o.claveCentroResponsabilidad == null) {
+            return 1;
+        }
+        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad)
+                ? filiacion.compareTo(o.filiacion)
                 : claveCentroResponsabilidad
                         .compareTo(o.claveCentroResponsabilidad);
     }
 
     @Override
     public String toString() {
-        return "ComprobanteEmpleadoDTO{" 
-                + "nombre=" + nombre 
-                + ", filiacion=" + filiacion
-                + ", fechaPago=" + fechaPago 
-                + ", claveCentroResponsabilidad=" + claveCentroResponsabilidad
-                + ", inicioPeriodo=" + inicioPeriodo
-                + ", finPeriodo=" + finPeriodo
-                + ", percepciones=" + percepciones
-                + ", deducciones=" + deducciones
-                + ", neto=" + neto
-                + ", conceptos=" + conceptos
+        return "ComprobanteEmpleadoDTO{"
+                + "nombre : " + nombre
+                + ", filiacion : " + filiacion
+                + ", fechaPago : " + fechaPago
+                + ", claveCentroResponsabilidad : " + claveCentroResponsabilidad
+                + ", inicioPeriodo : " + inicioPeriodo
+                + ", finPeriodo : " + finPeriodo
+                + ", percepciones : " + percepciones
+                + ", deducciones : " + deducciones
+                + ", neto : " + neto
+                + ", conceptos : " + conceptos
                 + '}';
     }
 

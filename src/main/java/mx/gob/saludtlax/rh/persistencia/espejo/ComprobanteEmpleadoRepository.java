@@ -13,7 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-import mx.gob.saludtlax.rh.nomina.reportes.comprobante.ComprobanteEmpleadoPOJO;
+import mx.gob.saludtlax.rh.nomina.reportes.comprobante.ComprobanteEmpleadoPojo;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 import org.hibernate.Query;
@@ -32,13 +32,13 @@ public class ComprobanteEmpleadoRepository implements Serializable {
     protected EntityManager em;
     
     @SuppressWarnings("unchecked")
-    public List<ComprobanteEmpleadoPOJO> obtenerDatos(Integer idProductoNomina) {
+    public List<ComprobanteEmpleadoPojo> obtenerDatos(Integer idProductoNomina) {
         try {
             Session session = em.unwrap(Session.class);
             Query query = session.createSQLQuery("CALL usp_nomina_comprobante_empleado(:idProductoNomina)");
             query.setParameter("idProductoNomina", idProductoNomina);
-            query.setResultTransformer(Transformers.aliasToBean(ComprobanteEmpleadoPOJO.class));
-            List<ComprobanteEmpleadoPOJO> resultado = (List<ComprobanteEmpleadoPOJO>) query.list();
+            query.setResultTransformer(Transformers.aliasToBean(ComprobanteEmpleadoPojo.class));
+            List<ComprobanteEmpleadoPojo> resultado = (List<ComprobanteEmpleadoPojo>) query.list();
 
             return resultado;
         } catch (NoResultException ex) {

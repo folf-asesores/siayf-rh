@@ -28,18 +28,18 @@ public class ComprobanteEmpleadoService implements Serializable {
     @Inject private ComprobanteEmpleadoRepository comprobateEmpleadoRepository;
 
     protected byte[] generarReporte(Integer idProductoNomina) {
-        List<ComprobanteEmpleadoPOJO> datosBrutos = comprobateEmpleadoRepository.obtenerDatos(idProductoNomina);
+        List<ComprobanteEmpleadoPojo> datosBrutos = comprobateEmpleadoRepository.obtenerDatos(idProductoNomina);
         List<ComprobanteEmpleadoDTO> datosTratados = convertir(datosBrutos);
         ComprobanteEmpleadoMotor per = new ComprobanteEmpleadoMotor();
 
         return per.obtenerArchivo(datosTratados);
     }
 
-    private List<ComprobanteEmpleadoDTO> convertir(List<ComprobanteEmpleadoPOJO> datosBrutos) {
+    private List<ComprobanteEmpleadoDTO> convertir(List<ComprobanteEmpleadoPojo> datosBrutos) {
         Map<String, List<Integer>> iteradores = new HashMap<>();
 
         for (int i = 0; i < datosBrutos.size(); i++) {
-            ComprobanteEmpleadoPOJO datoBruto = datosBrutos.get(i);
+            ComprobanteEmpleadoPojo datoBruto = datosBrutos.get(i);
 
             if(!iteradores.containsKey(datoBruto.getFiliacion())) {
                 List<Integer> indices = new ArrayList<>();
@@ -60,13 +60,14 @@ public class ComprobanteEmpleadoService implements Serializable {
 
             for (int i = 0; i < indices.size(); i++) {
                 Integer indice = indices.get(i);
-                ComprobanteEmpleadoPOJO datoBruto = datosBrutos.get(indice);
+                ComprobanteEmpleadoPojo datoBruto = datosBrutos.get(indice);
 
                 if (i == 0) {
                     datoTratado.setNombre(datoBruto.getNombre());
                     datoTratado.setFiliacion(datoBruto.getFiliacion());
                     datoTratado.setFechaPago(datoBruto.getFechaPago());
                     datoTratado.setClaveCentroResponsabilidad(datoBruto.getClaveCentroResposabilidad());
+                    datoTratado.setNumeroCheque(datoBruto.getNumeroCheque());
                     datoTratado.setInicioPeriodo(datoBruto.getInicioPeriodo());
                     datoTratado.setFinPeriodo(datoBruto.getFinPeriodo());
                     datoTratado.setPercepciones(datoBruto.getPercepciones());

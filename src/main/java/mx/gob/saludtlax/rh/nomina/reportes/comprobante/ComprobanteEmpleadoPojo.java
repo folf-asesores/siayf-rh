@@ -1,5 +1,5 @@
 /*
- * ComprobanteEmpleadoPOJO.java
+ * ComprobanteEmpleadoPojo.java
  * Creado el 22/nov/2016 6:11:00 AM
  * 
  */
@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
+
 import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
 
 /**
@@ -20,7 +21,7 @@ import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
  * @see ComprobanteEmpleadoService#convertir(java.util.List)
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
-public class ComprobanteEmpleadoPOJO implements Serializable {
+public class ComprobanteEmpleadoPojo implements Serializable {
 
     private static final long serialVersionUID = -3974694988544745680L;
 
@@ -30,6 +31,7 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
     private String claveCentroResposabilidad;
     private Date inicioPeriodo;
     private Date finPeriodo;
+    private String numeroCheque;
     private BigDecimal percepciones;
     private BigDecimal deducciones;
     private BigDecimal neto;
@@ -145,6 +147,24 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
     }
 
     /**
+     * Get the value of numeroCheque
+     *
+     * @return the value of numeroCheque
+     */
+    public String getNumeroCheque() {
+        return numeroCheque;
+    }
+
+    /**
+     * Set the value of numeroCheque
+     *
+     * @param numeroCheque new value of numeroCheque
+     */
+    public void setNumeroCheque(String numeroCheque) {
+        this.numeroCheque = numeroCheque;
+    }
+    
+    /**
      * Get the value of percepciones
      *
      * @return the value of percepciones
@@ -237,17 +257,18 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
     @Override
     public String toString() {
         return "ComprobanteEmpleadoPOJO{"
-                + "nombre=" + nombre
-                + ", filiacion=" + filiacion
-                + ", fechaPago=" + fechaPago
-                + ", claveCentroResposabilidad=" + claveCentroResposabilidad
-                + ", inicioPeriodo=" + inicioPeriodo
-                + ", finPeriodo=" + finPeriodo
-                + ", percepciones=" + percepciones
-                + ", deducciones=" + deducciones
-                + ", neto=" + neto
-                + ", clave=" + clave
-                + ", importe=" + importe
+                + "nombre : " + nombre
+                + ", filiacion : " + filiacion
+                + ", fechaPago : " + fechaPago
+                + ", claveCentroResposabilidad : " + claveCentroResposabilidad
+                + ", numeroCheque : " + numeroCheque
+                + ", inicioPeriodo : " + inicioPeriodo
+                + ", finPeriodo : " + finPeriodo
+                + ", percepciones : " + percepciones
+                + ", deducciones : " + deducciones
+                + ", neto : " + neto
+                + ", clave : " + clave
+                + ", importe : " + importe
                 + '}';
     }
 
@@ -258,6 +279,7 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
         hash = 67 * hash + Objects.hashCode(filiacion);
         hash = 67 * hash + Objects.hashCode(fechaPago);
         hash = 67 * hash + Objects.hashCode(claveCentroResposabilidad);
+        hash = 67 * hash + Objects.hashCode(numeroCheque);
         hash = 67 * hash + Objects.hashCode(inicioPeriodo);
         hash = 67 * hash + Objects.hashCode(finPeriodo);
         hash = 67 * hash + Objects.hashCode(percepciones);
@@ -279,7 +301,7 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final ComprobanteEmpleadoPOJO other = (ComprobanteEmpleadoPOJO) obj;
+        final ComprobanteEmpleadoPojo other = (ComprobanteEmpleadoPojo) obj;
         if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
@@ -293,6 +315,9 @@ public class ComprobanteEmpleadoPOJO implements Serializable {
             return false;
         }
         if (!Objects.equals(fechaPago, other.fechaPago)) {
+            return false;
+        }
+        if (!Objects.equals(numeroCheque, other.numeroCheque)) {
             return false;
         }
         if (!Objects.equals(inicioPeriodo, other.inicioPeriodo)) {

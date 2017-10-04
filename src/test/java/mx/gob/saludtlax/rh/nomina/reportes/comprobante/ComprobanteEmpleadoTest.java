@@ -17,6 +17,7 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.Dispersion;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionEJB;
+import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionExcelService;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionReporteService;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionService;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
@@ -71,9 +72,9 @@ public class ComprobanteEmpleadoTest {
 
     @Deployment
     public static WebArchive crearWar() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class);
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "comprobantes-test.war");
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
-        war.addAsManifestResource("log4j.properties");
+        war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
 
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
@@ -91,7 +92,7 @@ public class ComprobanteEmpleadoTest {
         jar.addClass(ComprobanteEmpleado.class);
         jar.addClass(ComprobanteEmpleadoDTO.class);
         jar.addClass(ComprobanteEmpleadoBean.class);
-        jar.addClass(ComprobanteEmpleadoPOJO.class);
+        jar.addClass(ComprobanteEmpleadoPojo.class);
         jar.addClass(ComprobanteEmpleadoService.class);
         jar.addClass(ComprobanteEmpleadoRepository.class);
         jar.addClass(ComprobanteEmpleadoMotor.class);
@@ -99,6 +100,7 @@ public class ComprobanteEmpleadoTest {
         jar.addClass(Dispersion.class);
         jar.addClass(DispersionDTO.class);
         jar.addClass(DispersionEJB.class);
+        jar.addClass(DispersionExcelService.class);
         jar.addClass(DispersionReporteService.class);
         jar.addClass(DispersionService.class);
         jar.addClass(FechaUtil.class);
@@ -138,7 +140,7 @@ public class ComprobanteEmpleadoTest {
             "ID_USUARIO", "18",
             "REPORTE_NOMBRE", "comprobante_nomina",
             "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "1"
+            "ID_PRODUCTO_NOMINA", "30"
         };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);

@@ -40,7 +40,7 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
     private static final String PATRON_NOMBRE_Y_RFC = "%1$-37.37s %2$-13.13s";
     private static final String PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD = "%1$td%1$Tb%1$tY  %2$-4.4s";
-    private static final String PATRON_FINAL_DE_LINEA = "NO  DOBLE NI MUTILE EL CHEQUE                  %1$06d";
+    private static final String PATRON_FINAL_DE_LINEA = "NO  DOBLE NI MUTILE EL CHEQUE                  %1$-6.6s";
     private static final String PATRON_PERIODOS_Y_PAGOS = "%1$td%1$Tb%1$tY-%2$td%2$Tb%2$tY %3$10.10s %4$10.10s %5$10.10s";
 
     public byte [] obtenerArchivo(List<ComprobanteEmpleadoDTO> detalles) {
@@ -72,7 +72,6 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
     private StringBuilder llenarDetalles(List<ComprobanteEmpleadoDTO> comprobantes) throws IOException {
         int contadorLineas = 0;
-        int numeroCheque = 0;
         Iterator<ComprobanteEmpleadoDTO> iterator = comprobantes.iterator();
         StringBuilder sb = new StringBuilder();
 
@@ -124,11 +123,11 @@ public class ComprobanteEmpleadoMotor implements Serializable {
                 contadorLineas = contadorLineas + diferencia - 4;
                 
                 agregarEspacio(2, formatter);
-                formatter.format(PATRON_FINAL_DE_LINEA, numeroCheque++);
+                formatter.format(PATRON_FINAL_DE_LINEA, comprobante.getNumeroCheque());
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(2, formatter);
-                    formatter.format(PATRON_FINAL_DE_LINEA, numeroCheque++);
+                    formatter.format(PATRON_FINAL_DE_LINEA, comprobanteSiguiente.getNumeroCheque());
                 }
 
                 agregarLineas(4, formatter);

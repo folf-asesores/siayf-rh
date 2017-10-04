@@ -3,7 +3,6 @@
  * Creado el 18/nov/2016 3:42:37 PM
  * 
  */
-
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -12,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Este DTO representa el el concepto de pago del comprobante de pago.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
  */
 public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO>, Serializable {
@@ -31,7 +30,7 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     public static final short BONIFICACION_DE_FALTAS = 29;
     public static final short RETROACTIVO = 30;
     public static final short OTROS = 32;
-    
+
     // Códigos de deducciones
     public static final short FALTAS_Y_RETARDOS = 51;
     public static final short ISR = 52;
@@ -40,23 +39,23 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     public static final short PRESTAMO_COOFIA = 56;
     public static final short CUOTA_SINDICAL = 58;
     public static final short PENSION_ALIMENTICIA = 62;
-    
+
     private short clave;
     private BigDecimal importe;
 
     /**
-     * Crea una nueva instancia de esta clase e inicializa las propiedades con 
+     * Crea una nueva instancia de esta clase e inicializa las propiedades con
      * valores con defecto.
-     * 
+     *
      */
     public ConceptoComprobanteDTO() {
-        
+
     }
 
     /**
-     * Crea una nueva instancia de esta clase e inicializa las propiedades con 
+     * Crea una nueva instancia de esta clase e inicializa las propiedades con
      * los valores que recibe como parametros.
-     * 
+     *
      * @param clave la clave del concepto.
      * @param importe el importe aplicado al concepto.
      */
@@ -103,9 +102,9 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
 
     @Override
     public int compareTo(ConceptoComprobanteDTO o) {
-        if(clave == o.clave) {
+        if (clave == o.clave) {
             return 0;
-        } else if(o.clave > OTROS) {
+        } else if (o.clave > OTROS) {
             return 1;
         } else {
             return -1;
@@ -140,9 +139,9 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
 
     @Override
     public String toString() {
-        return "ConceptoComprobanteDTO{" 
-                + "clave=" + clave 
-                + ", importe=" + importe 
+        return "ConceptoComprobanteDTO{"
+                + "clave : " + clave
+                + ", importe : " + importe
                 + '}';
     }
 
