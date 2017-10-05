@@ -17,14 +17,14 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
+public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableDTO> {
 
     private static final long serialVersionUID = 7690585164049594702L;
 
     private final Integer idProductoNomina;
     private String quincena;
     private final Date fechaPago;
-    private final Map<Integer, ProgramaDTO> programas;
+    private final Map<String, UnidadResponsableDTO> unidadesResponsables;
     private final String nombreElaboro;
     private final String cargoElaboro;
     private final String nombreReviso;
@@ -32,10 +32,10 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public FirmaDTO(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public FirmaDTO(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
-        this.programas = programas;
+        this.unidadesResponsables = unidadesResponsables;
         this.nombreElaboro = nombreElaboro;
         this.cargoElaboro = cargoElaboro;
         this.nombreReviso = nombreReviso;
@@ -61,8 +61,8 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
         return fechaPago;
     }
 
-    public Map<Integer, ProgramaDTO> getProgramas() {
-        return programas;
+    public Map<String, UnidadResponsableDTO> getUnidadesResponsables() {
+        return unidadesResponsables;
     }
 
     public String getNombreElaboro() {
@@ -90,8 +90,8 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
     }
 
     @Override
-    public Iterator<ProgramaDTO> iterator() {
-        return programas.values().iterator();
+    public Iterator<UnidadResponsableDTO> iterator() {
+        return unidadesResponsables.values().iterator();
     }
 
     @Override
@@ -100,7 +100,7 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
         hash = 59 * hash + Objects.hashCode(this.idProductoNomina);
         hash = 59 * hash + Objects.hashCode(this.quincena);
         hash = 59 * hash + Objects.hashCode(this.fechaPago);
-        hash = 59 * hash + Objects.hashCode(this.programas);
+        hash = 59 * hash + Objects.hashCode(this.unidadesResponsables);
         hash = 59 * hash + Objects.hashCode(this.nombreElaboro);
         hash = 59 * hash + Objects.hashCode(this.cargoElaboro);
         hash = 59 * hash + Objects.hashCode(this.nombreReviso);
@@ -149,7 +149,7 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
         if (!Objects.equals(this.fechaPago, other.fechaPago)) {
             return false;
         }
-        return Objects.equals(this.programas, other.programas);
+        return Objects.equals(this.unidadesResponsables, other.unidadesResponsables);
     }
 
     @Override
@@ -158,7 +158,7 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
                 + "idProductoNomina : " + idProductoNomina
                 + ", quincena : " + quincena
                 + ", fechaPago : " + fechaPago
-                + ", programas : [" + programas
+                + ", programas : [" + unidadesResponsables
                 + "], nombreElaboro : " + nombreElaboro
                 + ", cargoElaboro : " + cargoElaboro
                 + ", nombreReviso : " + nombreReviso
@@ -172,7 +172,7 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
 
         private Integer idProductoNomina;
         private Date fechaPago;
-        private Map<Integer, ProgramaDTO> programas;
+        private Map<String, UnidadResponsableDTO> unidadesResponsables;
         private String nombreElaboro;
         private String cargoElaboro;
         private String nombreReviso;
@@ -180,10 +180,10 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
         private String nombreAutorizo;
         private String cargoAutorizo;
 
-        public Builder(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas) {
+        public Builder(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables) {
             this.idProductoNomina = idProductoNomina;
             this.fechaPago = fechaPago;
-            this.programas = programas;
+            this.unidadesResponsables = unidadesResponsables;
             nombreElaboro = null;
             cargoElaboro = null;
             nombreReviso = null;
@@ -202,8 +202,8 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
             return this;
         }
 
-        public Builder setProgramas(Map<Integer, ProgramaDTO> programas) {
-            this.programas = programas;
+        public Builder setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
+            this.unidadesResponsables = unidadesResponsables;
             return this;
         }
 
@@ -238,7 +238,7 @@ public final class FirmaDTO implements Serializable, Iterable<ProgramaDTO> {
         }
 
         public FirmaDTO construirFirmaDTO() {
-            return new FirmaDTO(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);                
+            return new FirmaDTO(idProductoNomina, fechaPago, unidadesResponsables, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);                
         }
     }
 

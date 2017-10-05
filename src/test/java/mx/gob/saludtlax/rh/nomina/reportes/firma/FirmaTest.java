@@ -1,8 +1,9 @@
 /*
  * FirmaTest.java
- * Creado el 11/Sep/2017 1:58:21 PM
+ * Creado el 11/sep/2017 1:58:21 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.io.File;
@@ -148,7 +149,7 @@ public class FirmaTest {
             "ID_USUARIO", "18",
             "REPORTE_NOMBRE", "listado-firmas",
             "TIPO_REPORTE", "txt",
-            "ID_PRODUCTO_NOMINA", "32"
+            "ID_PRODUCTO_NOMINA", "30"
         };
 
         AdministradorReportes administradorReportes = new AdministradorReportes();

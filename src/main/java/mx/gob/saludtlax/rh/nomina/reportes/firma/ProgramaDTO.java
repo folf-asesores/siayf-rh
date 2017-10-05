@@ -16,7 +16,7 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsableDTO> {
+public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>, Iterable<FirmaEmpleadoDTO> {
 
     private static final long serialVersionUID = 3213100192452199926L;
 
@@ -24,14 +24,14 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
     private final String programa;
     private final Date inicioPeriodo;
     private final Date finPeriodo;
-    private final Map<String, UnidadResponsableDTO> unidadesResponsables;
+    private final Map<String, FirmaEmpleadoDTO> firmasEmpleados;
 
-    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo, Map<String, UnidadResponsableDTO> unidadesResponsables) {
+    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo, Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
         this.idPrograma = idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
         this.finPeriodo = finPeriodo;
-        this.unidadesResponsables = unidadesResponsables;
+        this.firmasEmpleados = firmasEmpleados;
     }
 
     public Integer getIdPrograma() {
@@ -50,13 +50,28 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
         return finPeriodo;
     }
 
-    public Map<String, UnidadResponsableDTO> getUnidadesResponsables() {
-        return unidadesResponsables;
+    public Map<String, FirmaEmpleadoDTO> getFirmasEmpleados() {
+        return firmasEmpleados;
     }
 
     @Override
-    public Iterator<UnidadResponsableDTO> iterator() {
-        return unidadesResponsables.values().iterator();
+    public int compareTo(ProgramaDTO o) {
+        if (idPrograma == null && o.idPrograma == null) {
+            return 0;
+        }
+        if (idPrograma == null) {
+            return -1;
+        }
+        if (o.idPrograma == null) {
+            return 1;
+        }
+
+        return idPrograma.compareTo(o.idPrograma);
+    }
+
+    @Override
+    public Iterator<FirmaEmpleadoDTO> iterator() {
+        return firmasEmpleados.values().iterator();
     }
 
     @Override
@@ -66,7 +81,7 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
         hash = 13 * hash + Objects.hashCode(this.programa);
         hash = 13 * hash + Objects.hashCode(this.inicioPeriodo);
         hash = 13 * hash + Objects.hashCode(this.finPeriodo);
-        hash = 13 * hash + Objects.hashCode(this.unidadesResponsables);
+        hash = 13 * hash + Objects.hashCode(this.firmasEmpleados);
         return hash;
     }
 
@@ -94,7 +109,7 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
         if (!Objects.equals(this.finPeriodo, other.finPeriodo)) {
             return false;
         }
-        return Objects.equals(this.unidadesResponsables, other.unidadesResponsables);
+        return Objects.equals(this.firmasEmpleados, other.firmasEmpleados);
     }
 
     @Override
@@ -104,7 +119,7 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
                 + ", programa : " + programa
                 + ", inicioPeriodo : " + inicioPeriodo
                 + ", finPeriodo : " + finPeriodo
-                + ", unidadesResponsables : [" + unidadesResponsables
+                + ", firmasEmpleados : [" + firmasEmpleados
                 + "]}";
     }
 
@@ -114,14 +129,14 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
         private String programa;
         private Date inicioPeriodo;
         private Date finPeriodo;
-        private Map<String, UnidadResponsableDTO> unidadesResponsables;
+        private Map<String, FirmaEmpleadoDTO> firmasEmpleados;
 
         public Builder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
             this.idPrograma =  idPrograma;
             this.programa = programa;
             this.inicioPeriodo = inicioPeriodo;
             this.finPeriodo = finPeriodo;
-            unidadesResponsables = null;
+            firmasEmpleados = null;
         }
 
         public Builder setIdPrograma(Integer idPrograma) {
@@ -144,13 +159,13 @@ public final class ProgramaDTO implements Serializable, Iterable<UnidadResponsab
             return this;
         }
 
-        public Builder setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
-            this.unidadesResponsables = unidadesResponsables;
+        public Builder setFirmasEmpleados(Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
+            this.firmasEmpleados = firmasEmpleados;
             return this;
         }
 
         public ProgramaDTO construirProgramaDTO() {
-            return new ProgramaDTO(idPrograma, programa, inicioPeriodo, finPeriodo, unidadesResponsables);
+            return new ProgramaDTO(idPrograma, programa, inicioPeriodo, finPeriodo, firmasEmpleados);
         }
     }
 

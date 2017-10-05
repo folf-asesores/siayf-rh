@@ -68,7 +68,7 @@ public class FirmaMotorTest {
         calendar.set(Calendar.DAY_OF_MONTH, 4);
         calendar.set(Calendar.MONTH, Calendar.FEBRUARY);
         Date fechaPago =  calendar.getTime();
-        return new FirmaDTO.Builder(1, fechaPago, getProgramas())
+        return new FirmaDTO.Builder(1, fechaPago, getUnidadesResponsables())
                 // Elaboro
                 .setNombreElaboro("LIC. VICTOR JOSE LEAL CRUZ")
                 .setCargoElaboro("JEFE DE DEPTO. DE RECURSOS HUMANOS")
@@ -96,7 +96,7 @@ public class FirmaMotorTest {
         
         for(int i = 0; i < PROGRAMAS.length; i++) {
             ProgramaDTO programa = new ProgramaDTO.Builder(i + 1, PROGRAMAS[i], calendarInicio.getTime(), calendarFin.getTime())
-                    .setUnidadesResponsables(getUnidadesResponsables())
+                    .setFirmasEmpleados(getFirmasEmpleados())
                     .construirProgramaDTO();
             programas.put(programa.getIdPrograma(), programa);
         }
@@ -111,7 +111,7 @@ public class FirmaMotorTest {
         
         for (int i = 0; i < iTop; i++) {
             UnidadResponsableDTO unidadResponsable = new UnidadResponsableDTO.Builder(UNIDADES_RESPONSABLES[i][0], UNIDADES_RESPONSABLES[i][1])
-                    .setFirmasEmpleados(getFirmasEmpleados())
+                    .setProgramas(getProgramas())
                     .construirUnidadResponsableDTO();
             unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
         }

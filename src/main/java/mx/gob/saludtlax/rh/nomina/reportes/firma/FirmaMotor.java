@@ -79,6 +79,10 @@ public class FirmaMotor {
     }
 
     private StringBuilder llenarReporte(FirmaDTO firma) {
+        if(firma == null) {
+            LOGGER.warn("Firma es null");
+        }
+        
         StringBuilder sb = new StringBuilder();
         int contadorLineas = 0;
         int pagina = 1;
@@ -86,21 +90,21 @@ public class FirmaMotor {
         try (Formatter formatter = new Formatter(sb, LUGAR_MEXICO)) {
             int contadorEmpleadosGeneral = 0;
             int contadorProgramas = 1;
-            int totalProgramas = firma.getProgramas().size();
+            int totalUnidadesResponsables = firma.getUnidadesResponsables().size();
             BigDecimal totalGeneral = BigDecimal.ZERO;
             
-            for(ProgramaDTO programa : firma) {
+            for(UnidadResponsableDTO unidadResponsable : firma) {
                 int contadorEmpleadosPrograma = 0;
                 int contadorUnidadesResponsables = 0;
-                int totalUnidadesResponsables = programa.getUnidadesResponsables().size();
+                int totalProgramas = unidadResponsable.getProgramas().size();
                 BigDecimal totalPrograma = BigDecimal.ZERO;
 
-                for(UnidadResponsableDTO unidadResponsable : programa) {
+                for(ProgramaDTO programa : unidadResponsable) {
                     int contadorEmpleadosUnidadResponsable = 0;
                     BigDecimal totalUnidadResponsable = BigDecimal.ZERO;
                     contadorLineas = contadorLineas + llenarEncabezado(formatter, pagina, programa.getPrograma(), firma.getQuincena(), firma.getFechaPago(), unidadResponsable.getUnidadResponsable(), Calendar.getInstance().getTime());
 
-                    for (FirmaEmpleadoDTO firmaEmpleado : unidadResponsable) {
+                    for (FirmaEmpleadoDTO firmaEmpleado : programa) {
                         int lineasRestantes = LINEAS_POR_HOJA - (contadorLineas % LINEAS_POR_HOJA);
                         
                         if (lineasRestantes > 5) {
@@ -124,10 +128,10 @@ public class FirmaMotor {
                     contadorUnidadesResponsables++;
                     contadorLineas = contadorLineas + llenarFinUnidadResponsable(formatter, contadorEmpleadosUnidadResponsable, totalUnidadResponsable);
                     
-                    if(contadorUnidadesResponsables == totalUnidadesResponsables) {
+                    if(contadorUnidadesResponsables == totalProgramas) {
                         contadorLineas = contadorLineas + llenarFinPrograma(formatter, contadorEmpleadosPrograma, totalPrograma);
 
-                        if(contadorProgramas == totalProgramas) {
+                        if(contadorProgramas == totalUnidadesResponsables) {
                             contadorLineas = contadorLineas + llenarFinGeneral(formatter, contadorEmpleadosGeneral, totalGeneral);
                             contadorLineas = contadorLineas + llenarFirmas(formatter, firma.getNombreElaboro(), firma.getCargoElaboro(), firma.getNombreElaboro(), firma.getCargoElaboro(), firma.getNombreAutorizo(), firma.getCargoAutorizo());
                         }

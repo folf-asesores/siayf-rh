@@ -3,6 +3,7 @@
  * Creado el 11/sep/2017 12:51:19 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.util.List;
@@ -31,12 +32,12 @@ public class FirmaService {
     
     private FirmaDTO convertir(List<FirmaPojo> datosBrutos) {
         if (datosBrutos != null && !datosBrutos.isEmpty()) {
-            Map<Integer, ProgramaDTO> programas = new TreeMap<>();
+            Map<String, UnidadResponsableDTO> unidadesResponsables = new TreeMap<>();
 
             for (FirmaPojo firmaPojo : datosBrutos) {
-                Integer idPrograma = firmaPojo.getIdPrograma();
-
-                if (!programas.containsKey(idPrograma)) {
+                String numeroUnidadResponsable = firmaPojo.getClave();
+                
+                if (!unidadesResponsables.containsKey(numeroUnidadResponsable)) {
                     FirmaEmpleadoDTO firmaEmpleado = new FirmaEmpleadoDTO.Builder()
                             .setFiliacion(firmaPojo.getFiliacion())
                             .setNombre(firmaPojo.getNombre())
@@ -45,23 +46,25 @@ public class FirmaService {
                             .construirFirmaEmpleadoDTO();
                     Map<String, FirmaEmpleadoDTO> firmasEmpleados = new TreeMap<>();
                     firmasEmpleados.put(firmaEmpleado.getFiliacion(), firmaEmpleado);
-
-                    Map<String, UnidadResponsableDTO> unidadesResponsables = new TreeMap<>();
-                    UnidadResponsableDTO unidadResponsable = new UnidadResponsableDTO.Builder(firmaPojo.getClave(), firmaPojo.getDescripcion())
-                            .setFirmasEmpleados(firmasEmpleados)
-                            .construirUnidadResponsableDTO();
-                    unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
-
+                    
+                    Map<Integer, ProgramaDTO> programas = new TreeMap<>();
+                    Integer idPrograma = firmaPojo.getIdPrograma();
                     ProgramaDTO programa = new ProgramaDTO.Builder(idPrograma, firmaPojo.getPrograma(), firmaPojo.getInicioPeriodo(), firmaPojo.getFinPeriodo())
-                            .setUnidadesResponsables(unidadesResponsables)
+                            .setFirmasEmpleados(firmasEmpleados)
                             .construirProgramaDTO();
-
                     programas.put(idPrograma, programa);
+                
+                    UnidadResponsableDTO unidadResponsable = new UnidadResponsableDTO.Builder(firmaPojo.getClave(), firmaPojo.getDescripcion())
+                            .setProgramas(programas)
+                            .construirUnidadResponsableDTO();
+                    
+                    unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
                 } else {
-                    ProgramaDTO programa = programas.get(idPrograma);
-                    Map<String, UnidadResponsableDTO> unidadesResponsables = programa.getUnidadesResponsables();
+                    UnidadResponsableDTO unidadResponsable = unidadesResponsables.get(numeroUnidadResponsable);
+                    Map<Integer, ProgramaDTO> programas = unidadResponsable.getProgramas();
+                    Integer idPrograma = firmaPojo.getIdPrograma();
 
-                    if (!unidadesResponsables.containsKey(firmaPojo.getClave())) {
+                    if (!programas.containsKey(idPrograma)) {
                         FirmaEmpleadoDTO firmaEmpleado = new FirmaEmpleadoDTO.Builder()
                                 .setFiliacion(firmaPojo.getFiliacion())
                                 .setNombre(firmaPojo.getNombre())
@@ -70,15 +73,14 @@ public class FirmaService {
                                 .construirFirmaEmpleadoDTO();
                         Map<String, FirmaEmpleadoDTO> firmasEmpleados = new TreeMap<>();
                         firmasEmpleados.put(firmaEmpleado.getFiliacion(), firmaEmpleado);
-
-                        UnidadResponsableDTO unidadResponsable = new UnidadResponsableDTO.Builder(firmaPojo.getClave(), firmaPojo.getDescripcion())
-                                .setFirmasEmpleados(firmasEmpleados)
-                                .construirUnidadResponsableDTO();
-                        unidadesResponsables.put(unidadResponsable.getNumeroUnidadResponsable(), unidadResponsable);
-                    } else {
-                        UnidadResponsableDTO unidadResponsable = unidadesResponsables.get(firmaPojo.getClave());
-                        Map<String, FirmaEmpleadoDTO> firmasEmpleados = unidadResponsable.getFirmasEmpleados();
                         
+                        ProgramaDTO programa = new ProgramaDTO.Builder(idPrograma, firmaPojo.getPrograma(), firmaPojo.getInicioPeriodo(), firmaPojo.getFinPeriodo())
+                                .setFirmasEmpleados(firmasEmpleados)
+                                .construirProgramaDTO();
+                        programas.put(idPrograma, programa);
+                    } else {
+                        ProgramaDTO programa = programas.get(idPrograma);
+                        Map<String, FirmaEmpleadoDTO> firmasEmpleados = programa.getFirmasEmpleados();
                         FirmaEmpleadoDTO firmaEmpleado = new FirmaEmpleadoDTO.Builder()
                                 .setFiliacion(firmaPojo.getFiliacion())
                                 .setNombre(firmaPojo.getNombre())
@@ -91,7 +93,7 @@ public class FirmaService {
             }
 
             FirmaPojo firmaPojo = datosBrutos.get(0);
-            FirmaDTO firma = new FirmaDTO.Builder(firmaPojo.getIdProductoNomina(), firmaPojo.getFechaPago(), programas)
+            FirmaDTO firma = new FirmaDTO.Builder(firmaPojo.getIdProductoNomina(), firmaPojo.getFechaPago(), unidadesResponsables)
                     // Elaboro
                     .setNombreElaboro(firmaPojo.getJefe1Nombre())
                     .setCargoElaboro(firmaPojo.getJefe1Cargo())

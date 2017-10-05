@@ -35,8 +35,8 @@ public class FirmaReporteQuery implements Serializable {
     
     private static final String OBTENER_DATOS_FIRMAS = "CALL usp_listado_firma(?)";
 
-    private static final String COLUMNA_ID_PRODUCTO = "id_producto_nomina_in";
-    private static final String COLUMNA_ID_PROGRAMA = "idprograma";
+    private static final String COLUMNA_ID_PRODUCTO = "idProductoNomina";
+    private static final String COLUMNA_ID_PROGRAMA = "idPrograma";
     private static final String COLUMNA_PROGRAMA = "programa";
     private static final String COLUMNA_CLAVE = "clave"; 
     private static final String COLUMNA_DESCRIPCION = "descripcion";
