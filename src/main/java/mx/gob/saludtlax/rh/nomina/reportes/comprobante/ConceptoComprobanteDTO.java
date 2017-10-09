@@ -3,6 +3,7 @@
  * Creado el 18/nov/2016 3:42:37 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -104,7 +105,7 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     public int compareTo(ConceptoComprobanteDTO o) {
         if (clave == o.clave) {
             return 0;
-        } else if (o.clave > OTROS) {
+        } else if (o.clave < OTROS) {
             return 1;
         } else {
             return -1;

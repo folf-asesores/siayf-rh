@@ -1,6 +1,6 @@
 /*
  * ComprobanteEmpleadoTest.java
- * Creado el 13/Jan/2017 8:08:31 PM
+ * Creado el 13/ene/2017 8:08:31 PM
  * 
  */
 
