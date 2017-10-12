@@ -30,7 +30,7 @@ public class DispersionExcelServiceTest {
      * Test of llenarDetalle method, of class DispersionExcelService.
      * @throws java.io.IOException
      */
-    @Ignore
+//    @Ignore
     @Test
     public void testLlenarDetalle() throws IOException {
         System.out.println("llenarDetalle");
@@ -48,10 +48,13 @@ public class DispersionExcelServiceTest {
             );
             detalles.add(dispersionDTO);
         }
-        System.out.println("Tamaño:" + detalles.size());
-//        byte[] archivo = instance.obtenerBytes(detalles);
-//        ArchivoUtil.guardarEnCarpetaUsuario(archivo, "dispersion_test.xlsx");
-//        assertNotNull(archivo);
+        
+        List<List<DispersionDTO>> dispersionList = new ArrayList<>();
+        dispersionList.add(detalles);
+
+        byte[] archivo = instance.obtenerBytes(dispersionList);
+        ArchivoUtil.guardarEnCarpetaUsuario(archivo, "dispersion_test.xlsx");
+        assertNotNull(archivo);
     }
 
 }

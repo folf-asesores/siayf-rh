@@ -132,7 +132,7 @@ public class ComprobanteEmpleadoTest {
         return war;
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void generarReporte() throws IOException {
         LOGGER.info("Iniciando test obtener comprobante de nomina");

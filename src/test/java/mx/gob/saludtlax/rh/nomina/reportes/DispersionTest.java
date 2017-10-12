@@ -8,6 +8,7 @@ package mx.gob.saludtlax.rh.nomina.reportes;
 
 import java.io.File;
 import java.io.IOException;
+
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
@@ -45,6 +46,7 @@ import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.logging.Logger;
@@ -71,7 +73,7 @@ public class DispersionTest {
 
     @Deployment
     public static WebArchive crearWar() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class);
+        WebArchive war = ShrinkWrap.create(WebArchive.class, "dispersion-test.war");
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
 
@@ -86,8 +88,8 @@ public class DispersionTest {
         jar.addClass(ArchivoUtil.class);
         jar.addClass(BitacoraReporte.class);
         jar.addClass(BitacoraReporteEJB.class);
-        jar.addClass(BitacoraReporteRepository.class);
         jar.addClass(BitacoraReporteEntity.class);
+        jar.addClass(BitacoraReporteRepository.class);
         jar.addClass(CadenaUtil.class);
         jar.addClass(CodigoError.class);
         jar.addClass(Dispersion.class);
@@ -154,7 +156,7 @@ public class DispersionTest {
         assertNotNull(result);
     }
 
-    @Ignore
+//    @Ignore
     @Test
     public void testCompleto() throws IOException {
         LOGGER.info("Iniciando test completo");

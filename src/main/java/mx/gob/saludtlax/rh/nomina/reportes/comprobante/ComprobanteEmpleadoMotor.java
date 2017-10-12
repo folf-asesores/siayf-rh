@@ -139,6 +139,20 @@ public class ComprobanteEmpleadoMotor implements Serializable {
     }
     
     private int llenarConceptos(Formatter formatter, List<ConceptoComprobanteDTO> conceptosA, List<ConceptoComprobanteDTO> conceptosB) {
+        if (conceptosA != null) {
+            LOGGER.info("Conceptos A");
+            for(ConceptoComprobanteDTO ccdto : conceptosA) {
+                LOGGER.info(ccdto);
+            }
+        }
+
+        if (conceptosB != null) {
+            LOGGER.info("Conceptos B");
+            for(ConceptoComprobanteDTO ccdto : conceptosB) {
+                LOGGER.info(ccdto);
+            }
+        }
+        
         int cantidadConceptosA;
         int cantidadFilasA;
         int cantidadConceptosB;
