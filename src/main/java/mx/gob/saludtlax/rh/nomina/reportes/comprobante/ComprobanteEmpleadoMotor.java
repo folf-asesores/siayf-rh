@@ -110,7 +110,7 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(18, formatter);
-                    formatter.format(PATRON_PERIODOS_Y_PAGOS, comprobanteSiguiente.getInicioPeriodo(), comprobanteSiguiente.getFinPeriodo(), NumeroUtil.formatoMoneda(comprobante.getPercepciones()), NumeroUtil.formatoMoneda(comprobante.getDeducciones()), NumeroUtil.formatoMoneda(comprobanteSiguiente.getNeto()));
+                    formatter.format(PATRON_PERIODOS_Y_PAGOS, comprobanteSiguiente.getInicioPeriodo(), comprobanteSiguiente.getFinPeriodo(), NumeroUtil.formatoMoneda(comprobanteSiguiente.getPercepciones()), NumeroUtil.formatoMoneda(comprobanteSiguiente.getDeducciones()), NumeroUtil.formatoMoneda(comprobanteSiguiente.getNeto()));
                 }
 
                 agregarLineas(3, formatter);
