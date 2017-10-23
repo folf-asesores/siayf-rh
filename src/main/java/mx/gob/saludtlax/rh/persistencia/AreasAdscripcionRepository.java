@@ -6,24 +6,28 @@ import javax.persistence.TypedQuery;
 
 import org.jboss.logging.Logger;
 
-public class AreasAdscripcionRepository extends GenericRepository<AreaAdscripcionEntity2, Integer> {
+public class AreasAdscripcionRepository extends GenericRepository<AreaAdscripcionEntity, Integer> {
 
-    private static final Logger LOGGER = Logger.getLogger(AreasAdscripcionRepository.class.getName());
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final Logger LOGGER = Logger.getLogger(AreasAdscripcionRepository.class.getName());
 
-	public List<AreaAdscripcionEntity2> listaAreas() {
-		List<AreaAdscripcionEntity2> areas_adscripcion = em
-				.createQuery("select c from AreaAdscripcionEntity as c", AreaAdscripcionEntity2.class).getResultList();
+	public List<AreaAdscripcionEntity> listaAreas() {
+		List<AreaAdscripcionEntity> areas_adscripcion = em
+				.createQuery("select c from AreaAdscripcionEntity as c", AreaAdscripcionEntity.class).getResultList();
 		return areas_adscripcion;
 	}
 
-	public List<AreaAdscripcionEntity2> consultar_areas() {
-		List<AreaAdscripcionEntity2> areas_adscripcion = em
-				.createQuery("select c from AreaAdscripcionEntity as c", AreaAdscripcionEntity2.class).getResultList();
+	public List<AreaAdscripcionEntity> consultar_areas() {
+		List<AreaAdscripcionEntity> areas_adscripcion = em
+				.createQuery("select c from AreaAdscripcionEntity as c", AreaAdscripcionEntity.class).getResultList();
 		return areas_adscripcion;
 	}
-	public List<AreaAdscripcionEntity2> consultarAreaPorClave() {
-		List<AreaAdscripcionEntity2> areas_adscripcion = em
-				.createQuery("select clave from AreaAdscripcionEntity  ", AreaAdscripcionEntity2.class).getResultList();
+	public List<AreaAdscripcionEntity> consultarAreaPorClave() {
+		List<AreaAdscripcionEntity> areas_adscripcion = em
+				.createQuery("select clave from AreaAdscripcionEntity  ", AreaAdscripcionEntity.class).getResultList();
 		return areas_adscripcion;
 	}
 	

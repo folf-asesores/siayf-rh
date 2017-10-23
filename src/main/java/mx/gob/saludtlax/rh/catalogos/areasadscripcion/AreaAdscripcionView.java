@@ -1,12 +1,12 @@
 package mx.gob.saludtlax.rh.catalogos.areasadscripcion;
 import java.util.List;
 
-import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity2;
+import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity;
 
 public class AreaAdscripcionView {
  private String buscarClave;
  private List<AreaAdscripcionDTO> listArea;
- private List<AreaAdscripcionEntity2> listaAreasE;
+ private List<AreaAdscripcionEntity> listaAreasE;
  private Boolean panelPrincipal;
  private Boolean panelNuevo;
  
@@ -55,11 +55,11 @@ public class AreaAdscripcionView {
 		this.panelNuevo = panelNuevo;
 	}
 
-	public List<AreaAdscripcionEntity2> getListaAreasE() {
+	public List<AreaAdscripcionEntity> getListaAreasE() {
 		return listaAreasE;
 	}
 
-	public void setListaAreasE(List<AreaAdscripcionEntity2> listaAreasE) {
+	public void setListaAreasE(List<AreaAdscripcionEntity> listaAreasE) {
 		this.listaAreasE = listaAreasE;
 	}
 	

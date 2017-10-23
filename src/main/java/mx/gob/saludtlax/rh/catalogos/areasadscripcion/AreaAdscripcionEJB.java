@@ -4,7 +4,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 
-import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity2;
+import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity;
 
 @Stateless
 public class AreaAdscripcionEJB implements AreaAdscripcion {
@@ -33,7 +33,7 @@ public class AreaAdscripcionEJB implements AreaAdscripcion {
 				idFiltro);
 	}
 
-	public List<AreaAdscripcionEntity2> verAreas() {
+	public List<AreaAdscripcionEntity> verAreas() {
 		return areaAdscripcionService.verAreas();
 	}
 

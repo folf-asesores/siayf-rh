@@ -7,7 +7,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidationException;
-import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity2;
+import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity;
 import mx.gob.saludtlax.rh.persistencia.AreasAdscripcionRepository;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 import org.jboss.logging.Logger;
@@ -43,7 +43,7 @@ public class AreaAdscripcionService {
                     ValidacionCodigoError.NUMERO_NEGATIVO);
         }
         
-        AreaAdscripcionEntity2 entidad = areasAdscripcionRepository
+        AreaAdscripcionEntity entidad = areasAdscripcionRepository
                 .obtenerPorId(idAreaAdscripcion);
         
         if(entidad != null) {
@@ -58,7 +58,7 @@ public class AreaAdscripcionService {
         return null;
     }
 
-    private static AreaAdscripcionDTO convertirEntidadADTO(AreaAdscripcionEntity2 entidad) {
+    private static AreaAdscripcionDTO convertirEntidadADTO(AreaAdscripcionEntity entidad) {
         AreaAdscripcionDTO dto = new AreaAdscripcionDTO();
         String centrosPago = entidad.getCentros_pago() == null ? "" : entidad.getCentros_pago().getCentro_pago();
         String clues = entidad.getClues() == null ? "" : entidad.getClues().getClues();
@@ -72,7 +72,7 @@ public class AreaAdscripcionService {
         return dto;
     }
 
-    public List<AreaAdscripcionEntity2> verAreas() {
+    public List<AreaAdscripcionEntity> verAreas() {
 	return areasAdscripcionRepository.listaAreas();
     }
 

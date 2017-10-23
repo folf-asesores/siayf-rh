@@ -173,7 +173,7 @@ public class InventarioVacanteRepository extends GenericRepository<InventarioVac
 	public List<InfoPuestoDTO> consultaVacantesSinAreaAdscripcion() {
 		List<InfoPuestoDTO> inventario = em.createQuery(
 				"SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoPuestoDTO(i.idVacante, i.tipoContratacion.tipoContratacion, i.configuracion.nombramiento.descripcion, i.folioVacante, i.configuracion.puesto.codigo, i.configuracion.puesto.puesto, i.configuracion.empleado.nombreCompleto, i.configuracion.id, i.configuracion.unidadResponsable.descripcion)"
-						+ " FROM InventarioVacanteEntity AS i WHERE i.areaAdscripcion IS NULL AND i.disponible =:disponible",
+						+ " FROM InventarioVacanteEntity AS i WHERE i.subadscripcion IS NULL AND i.disponible =:disponible",
 				InfoPuestoDTO.class).setParameter("disponible", "NO").getResultList();
 		return inventario;
 

@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 @Entity
 @Table(name = "areas_adscripcion")
-public class AreaAdscripcionEntity2 implements Serializable{
+public class AreaAdscripcionEntity implements Serializable{
 private static final long serialVersionUID = 8530750267523022132L;
 
 	@Id

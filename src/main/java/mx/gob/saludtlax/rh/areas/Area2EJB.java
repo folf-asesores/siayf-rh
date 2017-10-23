@@ -12,7 +12,7 @@ import javax.persistence.PersistenceException;
 import javax.transaction.UserTransaction;
 
 import mx.gob.saludtlax.rh.excepciones.BusinessException;
-import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity2;
+import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity;
 import mx.gob.saludtlax.rh.persistencia.AreasAdscripcionRepository;
 
 

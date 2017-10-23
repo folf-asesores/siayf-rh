@@ -66,6 +66,10 @@ public class InventarioVacanteEntity implements Serializable {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_adscripcion")
 	private AdscripcionEntity adscripcion;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_lugar_adscripcion")
+	private LugarAdscripcionEntity lugarAdscripcion;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_area_adscripcion")
@@ -435,5 +439,16 @@ public class InventarioVacanteEntity implements Serializable {
 	public Integer getIdVacante() {
 		return idVacante;
 	}
+
+	public LugarAdscripcionEntity getLugarAdscripcion() {
+		return lugarAdscripcion;
+	}
+
+	public void setLugarAdscripcion(LugarAdscripcionEntity lugarAdscripcion) {
+		this.lugarAdscripcion = lugarAdscripcion;
+	}
+	
+	
+	
 
 }

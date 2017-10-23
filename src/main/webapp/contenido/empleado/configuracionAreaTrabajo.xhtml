@@ -61,11 +61,12 @@
 				<p:spacer rendered="#{configuracionArea.view.mostrarCriterio}"></p:spacer>
 				<p:inputText id="criterio"
 					value="#{configuracionArea.view.criterio}"
-					rendered="#{configuracionArea.view.mostrarCriterio}">
-					<p:ajax event="keyup"
-						update="vacantesDisponibles, messages_generales"
-						listener="#{configuracionArea.buscarEmpleadoCriterio()}" />
-				</p:inputText>
+					rendered="#{configuracionArea.view.mostrarCriterio}"/>
+									
+				<p:spacer rendered="#{configuracionArea.view.mostrarCriterio}"></p:spacer>
+				<p:commandButton value="Buscar" rendered="#{configuracionArea.view.mostrarCriterio}" 
+				actionListener="#{configuracionArea.buscarEmpleadoCriterio()}" 
+				update="vacantesDisponibles, messages_generales"/>
 			</p:panelGrid>
 
 
