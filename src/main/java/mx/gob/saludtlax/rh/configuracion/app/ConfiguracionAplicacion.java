@@ -16,7 +16,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
  * de las <a href="https://docs.oracle.com/javase/tutorial/essential/environment/properties.html">propiedades</a> 
  * de java.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Local
 public interface ConfiguracionAplicacion extends Serializable {

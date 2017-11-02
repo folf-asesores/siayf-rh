@@ -32,7 +32,7 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  * Esta clase se encarga de aperturar un producto de nómina apartir de un
  * archivo con una lista de RFC.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class AperturaNominaRfcService implements Serializable {
 

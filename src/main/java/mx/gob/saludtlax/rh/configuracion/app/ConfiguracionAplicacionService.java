@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.persistencia.ConfiguracionAplicacionRepository;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ConfiguracionAplicacionService {
     

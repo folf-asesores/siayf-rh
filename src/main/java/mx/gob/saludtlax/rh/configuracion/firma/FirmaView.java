@@ -14,7 +14,7 @@ import javax.faces.model.SelectItem;
  * Esta clase ayuda a la clase {@link FirmaController} manteniendo el estado de 
  * los componentes de la vista.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class FirmaView {
 

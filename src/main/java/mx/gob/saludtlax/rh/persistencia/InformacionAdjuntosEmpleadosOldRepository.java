@@ -11,7 +11,7 @@ import mx.gob.saludtlax.rh.expediente.exportacion.CantidadExpedienteDTO;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class InformacionAdjuntosEmpleadosOldRepository extends GenericRepository<InformacionAdjuntosEmpleadosOldEntity, Integer> {
     

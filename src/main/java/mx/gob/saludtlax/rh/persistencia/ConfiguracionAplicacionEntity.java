@@ -18,7 +18,7 @@ import javax.persistence.Table;
  * Esta entidad define las configuraciones de la aplicación, por medio de 
  * clave/valor.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Entity
 @Table(name = "configuraciones_aplicacion")

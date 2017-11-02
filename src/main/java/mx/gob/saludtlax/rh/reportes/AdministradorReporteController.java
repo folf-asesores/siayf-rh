@@ -21,7 +21,7 @@ import org.primefaces.model.StreamedContent;
 /**
  * Este managed bean ayuda en la visualización de los reportes.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 @Named(value = "administradorReporte")

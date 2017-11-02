@@ -12,7 +12,7 @@ import java.util.Date;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class SeguroPopularRhReporteDTO implements Serializable {
 

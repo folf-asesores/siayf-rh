@@ -22,7 +22,7 @@ import org.jboss.logging.Logger;
  * Esta clase se encarga de la generación del archivo TRA.
  * 
  * @author Zaid Perez
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class SIIFTraService {
 

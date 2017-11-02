@@ -17,7 +17,7 @@ import org.jboss.logging.Logger;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class RegimenContratacionTrabajadorService {
     private static final Logger LOGGER = Logger.getLogger(RegimenContratacionTrabajadorService.class.getName());

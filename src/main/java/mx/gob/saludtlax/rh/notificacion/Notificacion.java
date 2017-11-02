@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
  * Esta interfaz define los elemetos esenciales para el manejo de las 
  * notificaciones.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Local
 public interface Notificacion {

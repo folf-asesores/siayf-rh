@@ -24,7 +24,7 @@ import org.jboss.logging.Logger;
  * Esta clase se encarga de trabajar el archivo de Excel (plantilla) para
  * generar el reporte de seguro popular.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class SeguroPopularReporteExcel implements Serializable {
 

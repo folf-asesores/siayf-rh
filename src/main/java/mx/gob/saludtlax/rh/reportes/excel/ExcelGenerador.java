@@ -61,7 +61,7 @@ import static mx.gob.saludtlax.rh.util.FechaUtil.PATRON_FECHA_BASE_DE_DATOS;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 public class ExcelGenerador implements Generador, Serializable {

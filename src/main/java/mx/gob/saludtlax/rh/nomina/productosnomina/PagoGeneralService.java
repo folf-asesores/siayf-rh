@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class PagoGeneralService implements Serializable {
     

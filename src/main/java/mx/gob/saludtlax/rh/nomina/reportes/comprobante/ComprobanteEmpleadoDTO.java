@@ -16,7 +16,7 @@ import java.util.Objects;
 /**
  * Este DTO representa la informacion del comprobante de pago.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO>, Serializable {
 

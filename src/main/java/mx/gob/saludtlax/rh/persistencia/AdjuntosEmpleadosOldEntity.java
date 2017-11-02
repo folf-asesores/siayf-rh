@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Entity
 @Table(name = "adjuntos_empleados_old")

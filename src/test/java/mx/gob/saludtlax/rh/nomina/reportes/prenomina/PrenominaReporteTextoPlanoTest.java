@@ -32,7 +32,7 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@gmail.com)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @RunWith(Arquillian.class)
 public class PrenominaReporteTextoPlanoTest {

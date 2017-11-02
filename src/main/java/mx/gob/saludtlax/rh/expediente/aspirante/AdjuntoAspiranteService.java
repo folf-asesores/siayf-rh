@@ -35,7 +35,7 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 import org.jboss.logging.Logger;
 
 /**
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 public class AdjuntoAspiranteService implements Serializable {

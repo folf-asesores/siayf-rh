@@ -6,7 +6,7 @@
 package mx.gob.saludtlax.rh.expediente;
 
 /**
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 public enum EntidadContexto {

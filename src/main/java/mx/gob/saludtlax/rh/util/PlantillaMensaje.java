@@ -17,7 +17,7 @@ import org.jboss.logging.Logger;
  * @see Logger#warnv(java.lang.String, java.lang.Object...)
  * @see Logger#errorv(java.lang.String, java.lang.Object...)
  * @see Logger#debugv(java.lang.String, java.lang.Object...)
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class PlantillaMensaje {
     

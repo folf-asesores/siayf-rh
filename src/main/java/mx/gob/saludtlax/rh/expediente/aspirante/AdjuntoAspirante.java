@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.expediente.Adjunto;
 /**
  * Esta interfaz describe la administración de los adjuntos del aspirante.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public interface AdjuntoAspirante extends Adjunto {
 

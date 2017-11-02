@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class AdjuntoAspiranteRepository extends GenericRepository<AdjuntoAspiranteEntity, Integer> implements Serializable{
 

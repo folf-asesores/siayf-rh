@@ -13,7 +13,7 @@ import net.sf.jasperreports.engine.JRScriptletException;
 /**
  * @deprecated Remplazada por {@link NumeroALetraScriptlet}
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
  //TODO: Cambiar del reporte 8001-descuentos.jrxml y luego eliminar la clase.
 public class DescuentosScriptlet extends JRDefaultScriptlet {

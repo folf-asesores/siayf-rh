@@ -8,7 +8,7 @@ package mx.gob.saludtlax.rh.excepciones;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public enum SeguridadCodigoError implements CodigoError {
     /** Cuando se intenta iniciar sesión y el nombre de usuario no existe. */

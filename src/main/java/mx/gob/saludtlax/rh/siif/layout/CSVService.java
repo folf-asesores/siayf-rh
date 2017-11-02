@@ -35,7 +35,7 @@ import org.jboss.logging.Logger;
  * Se apoya en la generalización y en la refleción pata inferir el nombre de los
  * métodos y las propiedades de la clase a convertir.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class CSVService {
     

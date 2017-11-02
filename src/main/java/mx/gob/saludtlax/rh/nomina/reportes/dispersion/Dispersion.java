@@ -12,7 +12,7 @@ import javax.ejb.Local;
  * Esta interfaz describe lo necesario para la generación del reporte de 
  * disperción de nómina.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Local
 public interface Dispersion extends Serializable {

@@ -30,7 +30,7 @@ import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
  * Este EJB ayuda a registrar en la bitácora la información de generación de los
  * reportes.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 @Stateless

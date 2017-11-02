@@ -29,7 +29,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @ManagedBean
 @ViewScoped

@@ -13,7 +13,7 @@ import java.util.Objects;
 /**
  * Este DTO representa el el concepto de pago del comprobante de pago.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO>, Serializable {
 

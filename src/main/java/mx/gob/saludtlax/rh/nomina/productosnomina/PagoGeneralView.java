@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class PagoGeneralView implements Serializable {
     private static final long serialVersionUID = 3147479301493255250L;

@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * realiza la mayoría de las validaciónes antes de delegar el proceso completo 
  * a clases ayudantes (helpers).
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Stateless
 public class NotificacionEJB implements Notificacion {

@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * generación de los reportes.
  * 
  * @see AdministradorReportes
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 @Local

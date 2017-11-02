@@ -14,7 +14,7 @@ import org.jboss.logging.Logger;
  * 
  * <p>Su función principal es ayudar a cargar la plantilla del reporte.</p>
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 public class Reporte {

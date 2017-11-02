@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
  * 
  * @see ComprobanteEmpleadoRepository#obtenerDatos(java.lang.Integer)
  * @see ComprobanteEmpleadoService#convertir(java.util.List)
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ComprobanteEmpleadoPojo implements Serializable {
 

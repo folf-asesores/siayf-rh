@@ -11,7 +11,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.expediente.Adjunto;
 
 /**
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 public interface AdjuntoEmpleado extends Adjunto {

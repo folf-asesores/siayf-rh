@@ -17,7 +17,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * Este EJB implementa las operaciones de negocio de las nominas nominas de 
  * mandos medios.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Stateless
 public class NominaMandoMedioEJB implements NominaMandoMedio {

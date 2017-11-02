@@ -18,7 +18,7 @@ import org.jboss.logging.Logger;
  * Este ManagedBean controla la vista
  * /contenido/nomina/productos/pagoQuincena.xhtml.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "pagoGeneralController")
 @ViewScoped

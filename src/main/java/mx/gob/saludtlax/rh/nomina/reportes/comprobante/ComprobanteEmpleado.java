@@ -14,7 +14,7 @@ import javax.ejb.Local;
  * Esta interfaz define lo necesario para la generación del reporte de
  * comprobates de pago (cheques).
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Local
 public interface ComprobanteEmpleado extends Serializable {

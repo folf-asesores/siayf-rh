@@ -177,7 +177,7 @@ public class JSFUtils {
          * por supuesto el context path de la aplicación.
          * 
          * @return la ruta completa de la aplicación.
-         * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+         * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
          */
         public static String getPath() {
                 FacesContext fc = FacesContext.getCurrentInstance();

@@ -16,7 +16,7 @@ import javax.ejb.ApplicationException;
  * de validación en el back-end.
  * 
  * @author Leila Schiaffini Ehuan
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * 
  * @since 18/03/2016-13:32:40
  * @deprecated Remplazada por {@link ValidacionException}

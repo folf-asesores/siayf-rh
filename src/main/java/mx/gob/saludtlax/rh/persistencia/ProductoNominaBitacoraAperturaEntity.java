@@ -25,7 +25,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Entity
 @Table(name = "productos_nomina_bitacoras_aperturas")

@@ -26,7 +26,7 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Entity
 @Table(name = "informacion_adjuntos_empleados_old")

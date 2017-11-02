@@ -39,7 +39,7 @@ import org.primefaces.model.UploadedFile;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "administracionExpedienteAspirante")
 @ViewScoped

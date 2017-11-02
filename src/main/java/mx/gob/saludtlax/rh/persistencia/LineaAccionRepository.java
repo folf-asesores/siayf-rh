@@ -14,7 +14,7 @@ import org.jboss.logging.Logger;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class LineaAccionRepository extends GenericRepository<LineaAccionEntity, Integer> {
 

@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
  * Este ManagedBean controla el comportamiento de la vista 
  * /contenido/configuracion/firma.xhtml.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "firmaController")
 @ViewScoped
