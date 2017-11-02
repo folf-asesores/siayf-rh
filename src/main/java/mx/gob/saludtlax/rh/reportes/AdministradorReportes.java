@@ -38,7 +38,7 @@ import org.jboss.logging.Logger;
  * anterior.</li>
  * </ol>
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
 public class AdministradorReportes {

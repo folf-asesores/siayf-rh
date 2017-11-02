@@ -21,7 +21,7 @@ import mx.gob.saludtlax.rh.persistencia.PuestoGeneralRepository;
  * Esta clase sirve de ayudante del EJB {@link NominaMandoMedioEJB} para 
  * realizar las operaciones de negocios de las nominas de mandos medios.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NominaMandoMedioService {
     

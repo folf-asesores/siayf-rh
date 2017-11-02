@@ -21,7 +21,7 @@ import org.jboss.logging.Logger;
  * Esta clase ayuda es un ayudate para la implementación del EJB 
  * {@link DividirNominaEJB}.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class DividirNominaService implements Serializable {
 

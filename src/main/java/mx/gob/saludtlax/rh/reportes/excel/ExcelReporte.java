@@ -9,7 +9,7 @@ import mx.gob.saludtlax.rh.reportes.Reporte;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ExcelReporte extends Reporte {
     

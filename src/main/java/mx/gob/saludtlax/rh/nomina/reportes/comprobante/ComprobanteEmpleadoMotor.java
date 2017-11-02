@@ -28,7 +28,7 @@ import static mx.gob.saludtlax.rh.util.ArchivoUtil.WINDOWS_LATIN_CHARSET;
  * archivo en formato de texto plano (txt) para imprimir los comprobantes
  * de los empleados.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ComprobanteEmpleadoMotor implements Serializable {
 

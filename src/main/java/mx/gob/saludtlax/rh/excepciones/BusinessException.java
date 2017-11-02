@@ -12,7 +12,7 @@ import javax.ejb.ApplicationException;
  * negocio.
  * 
  * @author luisAlfonso
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @deprecated Remplazada por {@link ReglaNegocioException}
  */
 @ApplicationException(rollback = true)

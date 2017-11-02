@@ -22,7 +22,7 @@ import org.jboss.logging.Logger;
  * <p>Esta clase se ha pensado como una alternariva para cuando ocurra un error
  * poder enviar algo al usuario.</p>
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ReporteVacio implements Serializable {
 

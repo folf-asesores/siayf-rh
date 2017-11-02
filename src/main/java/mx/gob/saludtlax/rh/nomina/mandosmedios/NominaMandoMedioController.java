@@ -23,7 +23,7 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
  * Este managed bean controla el comportamiento de la vista:
  * /contenido/nomina/nominaMandoMedio.xhtml
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "nominaMandoMedioController")
 @ViewScoped

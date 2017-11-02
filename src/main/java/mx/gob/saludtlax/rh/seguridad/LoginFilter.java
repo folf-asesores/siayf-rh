@@ -26,7 +26,7 @@ import org.jboss.logging.Logger;
 /**
  *
  * @author Luis A. Pérez
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class LoginFilter implements Filter {
 

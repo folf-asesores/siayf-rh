@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.expediente.EntidadContexto;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
 /**
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 @Entity

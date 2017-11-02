@@ -11,7 +11,7 @@ import mx.gob.saludtlax.rh.reportes.AlmacenReportes;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class AlmacenReportesTxt implements AlmacenReportes<TxtReporte> {
     private static final Map<String, TxtReporte> REPORTES = new HashMap<>();

@@ -13,7 +13,7 @@ import javax.ejb.Local;
  * Esta interfaz define las operaciones de negocios que se realizarán con las 
  * nominas de mandos medios.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Local
 public interface NominaMandoMedio extends Serializable {

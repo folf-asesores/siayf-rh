@@ -29,7 +29,7 @@ import org.primefaces.event.FileUploadEvent;
  * Este ManagedBean administra la vista 
  * contenido/nomina/productos/abrirProductoNominaRfc.xhtml.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "aperturaNominaRfcController")
 @ViewScoped

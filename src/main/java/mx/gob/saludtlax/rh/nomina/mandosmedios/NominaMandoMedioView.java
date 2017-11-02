@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
  * Esta clase ayuda al managed bean {@link NominaMandoMedioController}, contiene
  * las instancias de los componetes que conforman la vista.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NominaMandoMedioView {
     

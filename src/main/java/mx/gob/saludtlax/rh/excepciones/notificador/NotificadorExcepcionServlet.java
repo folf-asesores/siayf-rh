@@ -27,7 +27,7 @@ import org.jboss.logging.Logger;
  * Este servlet envia la información de una excepción al back-end para ser
  * enviada al o los administradores del sistema.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @WebServlet(name = "notificador", urlPatterns = {"/notificador-de-excepciones",
     "/notificador-de-error"},

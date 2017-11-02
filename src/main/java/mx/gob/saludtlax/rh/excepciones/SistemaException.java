@@ -17,7 +17,7 @@ import javax.ejb.ApplicationException;
  * sistema como por ejemplo la falta de recurso la lectura o escritura de 
  * streams entre otras cosas.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @ApplicationException(rollback = true)
 public class SistemaException extends RuntimeException {

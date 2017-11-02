@@ -42,7 +42,7 @@ import org.jboss.logging.Logger;
  * Esta es una clase ayudante de {@link NotificacionEJB} que se encarga de 
  * realizar la lógica de las notificaciones.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NotificacionService {
 

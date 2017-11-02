@@ -9,7 +9,7 @@ package mx.gob.saludtlax.rh.notificacion;
  * Este enumerable contiene la ruta de los modulos a los que se redireccionara 
  * al enviar una notigficación.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public enum Modulo {
     MI_BUZON("/contenido/notificaciones/miBuzon.xhtml"),

@@ -10,7 +10,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.expediente.EntidadContexto;
 
 /**
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 public class InformacionAdjuntoEmpleadoRepository extends GenericRepository<InformacionAdjuntoEmpleadoEntity, Integer> {

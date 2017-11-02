@@ -13,7 +13,7 @@ import mx.gob.saludtlax.rh.persistencia.SIIFLayoutStoredProcedure;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class SIIFLayoutService {
     @Inject private SIIFLayoutStoredProcedure sp;

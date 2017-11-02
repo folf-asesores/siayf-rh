@@ -16,7 +16,7 @@ import mx.gob.saludtlax.rh.persistencia.CorreoNotificacionRepository;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NotificadorErroresService implements Serializable {
 

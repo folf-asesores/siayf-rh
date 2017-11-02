@@ -11,7 +11,7 @@ import org.jboss.logging.Logger;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named("expedientesProcessor")
 public class ExpedientesProcessor implements ItemProcessor {

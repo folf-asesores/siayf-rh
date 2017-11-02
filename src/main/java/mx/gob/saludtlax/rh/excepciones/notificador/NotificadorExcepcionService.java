@@ -17,7 +17,7 @@ import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NotificadorExcepcionService implements Serializable {
 

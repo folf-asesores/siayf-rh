@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ComprobanteEmpleadoService implements Serializable {
 

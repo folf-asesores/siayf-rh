@@ -27,7 +27,7 @@ import org.primefaces.context.RequestContext;
 /**
  * Esta clase se encarga de controlar las notificaciones de la plantilla.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @ManagedBean
 @SessionScoped

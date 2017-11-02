@@ -52,7 +52,7 @@ import org.junit.runner.RunWith;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @RunWith(Arquillian.class)
 public class ProductoNominaFederalesTest {

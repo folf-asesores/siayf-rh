@@ -17,7 +17,7 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
  * {@link AdjuntoEmpleado#obtenerAdjuntoPorIdAdjunto(int) } y en caso de un 
  * aspirante {@link AdjuntoAspirante#obtenerAdjuntoPorIdAdjunto(int)}.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class InformacionAdjuntoDTO implements Serializable {
 

@@ -47,7 +47,7 @@ public class ValidacionUtil {
 	 *            un número a identificar.
 	 * @return verdad sí y sólo sí el numero es menor que uno.
 	 * 
-	 * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+	 * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
 	 */
 	public static boolean esMenorQueUno(Number numero) {
 		if (numero == null) {
@@ -222,7 +222,7 @@ public class ValidacionUtil {
 	 * @param url
 	 *            la URL que será validada.
 	 * @return true si y solo sí la URL es valida.
-	 * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+	 * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
 	 */
 	public static boolean esUrlValida(String url) {
 		if (esCadenaVacia(url)) {

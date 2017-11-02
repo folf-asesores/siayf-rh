@@ -36,7 +36,7 @@ import org.jboss.logging.Logger;
 /**
  * Esta clase ayuda en la compilación de los archivos de JasperReport.
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author eduardo
  */
 public class JasperReportsCompilador {

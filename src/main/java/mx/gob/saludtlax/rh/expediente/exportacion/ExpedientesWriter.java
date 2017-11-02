@@ -16,7 +16,7 @@ import org.jboss.logging.Logger;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named("expedientesWriter")
 public class ExpedientesWriter extends AbstractItemWriter {

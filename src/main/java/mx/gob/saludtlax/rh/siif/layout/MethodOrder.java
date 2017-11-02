@@ -11,7 +11,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * Esta ayuda a obtener los metodos de los DTOs con un orden especifico.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface MethodOrder {

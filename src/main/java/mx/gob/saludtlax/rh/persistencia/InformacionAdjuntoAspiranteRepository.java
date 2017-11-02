@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.expediente.EntidadContexto;
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class InformacionAdjuntoAspiranteRepository extends GenericRepository<InformacionAdjuntoAspiranteEntity, Integer> {
     

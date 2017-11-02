@@ -11,7 +11,7 @@ import java.util.List;
  * Esta clase contiene las consultas necesarias para el catálogo del SAT Régimen
  * de Contratación del trabajador.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class RegimenContratacionTrabajadorRepository extends GenericRepository<RegimenContratacionTrabajadorEntity, Integer>{
 

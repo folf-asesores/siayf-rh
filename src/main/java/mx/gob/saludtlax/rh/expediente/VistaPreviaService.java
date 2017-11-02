@@ -27,7 +27,7 @@ import static javax.faces.event.PhaseId.RENDER_RESPONSE;
 
 /**
  * @see http://stackoverflow.com/questions/8207325/display-dynamic-image-from-database-with-pgraphicimage-and-streamedcontent
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @ManagedBean
 @ApplicationScoped

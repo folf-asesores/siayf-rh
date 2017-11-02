@@ -12,7 +12,7 @@ import javax.persistence.TypedQuery;
 /**
  * Esta clase tiene todas las consultas relacionadas con las notificaciones.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NotificacionRepository extends GenericRepository<NotificacionEntity, Integer>{
 

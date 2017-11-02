@@ -37,7 +37,7 @@ import org.jboss.logging.Logger;
  * Este ManagedBean controla la vista
  * /contenido/controlasistencia/empleado/reportes.xhtml.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "descuentosController")
 @ViewScoped

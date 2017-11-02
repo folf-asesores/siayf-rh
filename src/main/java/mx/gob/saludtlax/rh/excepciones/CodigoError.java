@@ -8,7 +8,7 @@ package mx.gob.saludtlax.rh.excepciones;
 /**
  * Esta intefaz describe los métodos necesarioa para el código de error.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public interface CodigoError {
 

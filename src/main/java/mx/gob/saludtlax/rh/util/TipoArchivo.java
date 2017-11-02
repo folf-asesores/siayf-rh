@@ -18,7 +18,7 @@ import org.hibernate.dialect.MySQLMyISAMDialect;
  * Este enumerable contiene los tipos de archivos MIME Type y las extensiones de
  * estos. <strong>Solo están lo más comunes dentro de la aplicación.</strong>
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public enum TipoArchivo {
 

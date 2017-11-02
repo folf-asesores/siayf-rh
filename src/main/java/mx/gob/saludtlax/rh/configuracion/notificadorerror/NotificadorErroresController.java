@@ -15,7 +15,7 @@ import javax.inject.Named;
  * Este ManagedBean controla la vista
  * /contenido/configuracion/notificacion-de-errores.xhtml.
  * 
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "notificadorErroresController")
 @ViewScoped

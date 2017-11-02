@@ -27,7 +27,7 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO
 
 /**
  *
- * @author Freddy Barrera (freddy.barrera@folfasesores.com.mx)
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Zaid Perez
  */
 @Stateless
