@@ -3,6 +3,7 @@
  * Creado el 16/Mar/2017 11:24:10 AM
  * 
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.federales;
 
 import java.io.ByteArrayOutputStream;
@@ -14,6 +15,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
@@ -51,11 +53,11 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
 
         CellStyle estiloTitulo = libro.createCellStyle();
         Font font = libro.createFont();
-        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        font.setBold(true);
         estiloTitulo.setFont(font);
 
         for (int i = 0; i < titulos.size(); i++) {
-            Cell celda = fila.createCell(i, Cell.CELL_TYPE_STRING);
+            Cell celda = fila.createCell(i,  CellType.STRING);
             celda.setCellValue(titulos.get(i));
             celda.setCellStyle(estiloTitulo);
         }
@@ -80,10 +82,10 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
             for(int j = 0; j < row.length; j++) {
                 Object column = row[j];
                 if(column instanceof String) {
-                    Cell celda = fila.createCell(j, Cell.CELL_TYPE_STRING);
+                    Cell celda = fila.createCell(j,  CellType.STRING);
                     celda.setCellValue((String) column);
                 } else if(column instanceof BigDecimal) {
-                    Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
+                    Cell celda = fila.createCell(j,  CellType.NUMERIC);
                     BigDecimal decimal = (BigDecimal) column;
                     double valor = decimal.doubleValue();
                     
@@ -96,7 +98,7 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
                     celda.setCellValue(valor);
                     celda.setCellStyle(estiloMoneda);
                 } else if(column instanceof Long) {
-                    Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
+                    Cell celda = fila.createCell(j,  CellType.NUMERIC);
                     Long numero = (Long) column;
                     celda.setCellValue(numero.intValue());
                 } else if (column instanceof Date) {
@@ -123,7 +125,7 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         
         for(int j = 0; j < totales.length; j++) {
             if (totales[j] != null) {
-                Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
+                Cell celda = fila.createCell(j,  CellType.NUMERIC);
                 celda.setCellValue(totales[j]);
                 celda.setCellStyle(estiloMoneda);
             }

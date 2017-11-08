@@ -1,15 +1,18 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia.espejo;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,9 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.GenericGenerator;
 
 /**
- * @author eduardo
+ * @author Eduardo Chuc Mex (Lic.Eduardo_Mex@hotmail.com)
  *
  */
 @Entity
@@ -30,7 +34,9 @@ public class BitacoraReporteEntity implements Serializable {
 
     @Id
     @Column(name = "id_referencia")
-    private String idReferencia;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    private UUID idReferencia;
 
     @Column(name = "nombre_reporte", nullable = false)
     private String nombreReporte;
@@ -39,10 +45,10 @@ public class BitacoraReporteEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaGeneracion;
 
-//    @Column(name = "hora_generacion", nullable = false)
-//    @Temporal(TemporalType.TIME)
-//    private Date horaGeneracion;
-    
+    @Column(name = "hora_generacion", nullable = false)
+    @Temporal(TemporalType.TIME)
+    private Date horaGeneracion;
+
     @ManyToOne(targetEntity = UsuarioEntity.class)
     @JoinColumn(name = "id_usuario", nullable = false)
     private UsuarioEntity usuario;
@@ -50,11 +56,11 @@ public class BitacoraReporteEntity implements Serializable {
     @OneToMany(mappedBy = "bitacoraReporte", cascade = CascadeType.ALL)
     private Set<ReporteParametroEntity> reporteParametros;
 
-    public String getIdReferencia() {
+    public UUID getIdReferencia() {
         return idReferencia;
     }
 
-    public void setIdReferencia(String idReferencia) {
+    public void setIdReferencia(UUID idReferencia) {
         this.idReferencia = idReferencia;
     }
 
@@ -74,13 +80,13 @@ public class BitacoraReporteEntity implements Serializable {
         this.fechaGeneracion = fechaGeneracion;
     }
 
-//    public Date getHoraGeneracion() {
-//        return horaGeneracion;
-//    }
+    public Date getHoraGeneracion() {
+        return horaGeneracion;
+    }
 
-//    public void setHoraGeneracion(Date horaGeneracion) {
-//        this.horaGeneracion = horaGeneracion;
-//    }
+    public void setHoraGeneracion(Date horaGeneracion) {
+        this.horaGeneracion = horaGeneracion;
+    }
 
     public UsuarioEntity getUsuario() {
         return usuario;
@@ -90,7 +96,7 @@ public class BitacoraReporteEntity implements Serializable {
         this.usuario = usuario;
     }
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                public Set<ReporteParametroEntity> getReporteParametros() {
+    public Set<ReporteParametroEntity> getReporteParametros() {
         return reporteParametros;
     }
 

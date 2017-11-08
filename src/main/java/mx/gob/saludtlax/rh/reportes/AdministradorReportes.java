@@ -13,7 +13,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNominaDTO;
 import mx.gob.saludtlax.rh.reportes.excel.AlmacenReportesExcel;
 import mx.gob.saludtlax.rh.reportes.excel.ExcelGenerador;
 import mx.gob.saludtlax.rh.reportes.jasperreports.AlmacenReportesJasperReports;
@@ -93,15 +92,15 @@ public class AdministradorReportes {
      *                   en la base de datos.
      * @return los bytes que representa el archivo.
      * @throws NullPointerException si la es nula o vacia.
-     * @throws IllegalArgumentException si la cadena no tiene los 32 cáracteres.
+     * @throws IllegalArgumentException si la cadena no tiene los 36 cáracteres.
      */
     public byte[] obtenerReporte(String referencia) throws NullPointerException, IllegalArgumentException {
         if (referencia == null || referencia.trim().isEmpty()) {
             throw new NullPointerException("La referencia está vacia.");
         }
 
-        if ((referencia.length() < 32) || (referencia.length() > 32)) {
-            throw new IllegalArgumentException("La referencia es debe ser de 32 cárcteres.");
+        if ((referencia.length() < 36) || (referencia.length() > 36)) {
+            throw new IllegalArgumentException("La referencia debe ser de 36 cárcteres.");
         }
 
         Map<String, String> parametros = bitacoraReporte.obtenerParametros(referencia);
