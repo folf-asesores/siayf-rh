@@ -14,7 +14,7 @@
     <!-- The Basics -->
     <groupId>mx.gob.folf.siayf-rh</groupId>
     <artifactId>siayf-rh</artifactId>
-    <version>0.0.12-SNAPSHOT</version>
+    <version>0.0.13-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencies>
         <!-- Java EE 7 -->
