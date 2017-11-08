@@ -1,6 +1,6 @@
 /*
  * BitacoraReporteEJB.java
- * Creado el 9/Sep/2016 1:37:04 PM
+ * Creado el 9/sep/2016 1:37:04 PM
  * 
  */
 
@@ -50,9 +50,12 @@ public class BitacoraReporteEJB implements BitacoraReporte {
         BitacoraReporteEntity entidad = new BitacoraReporteEntity();
         UsuarioEntity  usuario = empleadoRepository.obtenerPorId(Integer.parseInt(parametros.get("ID_USUARIO")));
         String nombreReporte = parametros.get("REPORTE_NOMBRE");
+        Date fecha = Calendar.getInstance().getTime();
 
         entidad.setUsuario(usuario);
         entidad.setNombreReporte(nombreReporte);
+        entidad.setFechaGeneracion(fecha);
+        entidad.setHoraGeneracion(fecha);
 
         parametros.remove("ID_USUARIO");
         parametros.remove("REPORTE_NOMBRE");
@@ -73,22 +76,17 @@ public class BitacoraReporteEJB implements BitacoraReporte {
             reporteParametros.add(reporteParametro);
         }
 
-        String uuid = UUID.randomUUID().toString().substring(0, 32);
-        entidad.setIdReferencia(uuid);
-        Date fecha = Calendar.getInstance().getTime();
-        entidad.setFechaGeneracion(fecha);
-        //entidad.setHoraGeneracion(fecha);
-
         entidad.setReporteParametros(reporteParametros);
 
-        String id = bitacoraReporteRepository.crear(entidad).getIdReferencia();
-        return id;
+        UUID uuid = bitacoraReporteRepository.crear(entidad).getIdReferencia();
+        return uuid.toString();
     }
 
     @Override
     public Map<String, String> obtenerParametros(String referencia) {
         Map<String, String> parametros = new HashMap<>();
-        BitacoraReporteEntity bitacoraReporteEntity = bitacoraReporteRepository.obtenerPorId(referencia);
+        UUID uuid = UUID.fromString(referencia);
+        BitacoraReporteEntity bitacoraReporteEntity = bitacoraReporteRepository.obtenerPorId(uuid);
         
         if (bitacoraReporteEntity == null) {
             LOGGER.warn("No se encontro la entidad");

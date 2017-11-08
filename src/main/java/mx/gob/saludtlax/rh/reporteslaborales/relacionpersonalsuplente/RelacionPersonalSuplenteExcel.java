@@ -28,6 +28,10 @@ import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 
 /**
  * @author Eduardo Mex
@@ -249,7 +253,7 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 
 	}
 
-	/*********** colocar firmas *********/
+	// colocar firmas
 	// public void colocarFirmas() {
 	// int ultimaFila = hoja.getLastRowNum();
 	//
@@ -295,19 +299,19 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 	//
 	// }
 
-	/****** pinta las celdas del proveedor que fue seleccionado ********/
+	// pinta las celdas del proveedor que fue seleccionado
 	public void estiloCeldaSeleccionado(Cell celda) {
 		Font fuenteTitulo = libro.createFont();
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setBorderLeft(CellStyle.BORDER_THIN);
-		estilo.setBorderTop(CellStyle.BORDER_THIN);
-		estilo.setBorderBottom(CellStyle.BORDER_THIN);
-		estilo.setBorderRight(CellStyle.BORDER_THIN);
-		estilo.setAlignment(CellStyle.ALIGN_LEFT);
+		estilo.setBorderLeft( BorderStyle.THIN);
+		estilo.setBorderTop( BorderStyle.THIN);
+		estilo.setBorderBottom( BorderStyle.THIN);
+		estilo.setBorderRight( BorderStyle.THIN);
+		estilo.setAlignment(HorizontalAlignment.LEFT);
 		estilo.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-		estilo.setFillPattern(CellStyle.SOLID_FOREGROUND);
+		estilo.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		estilo.setFont(fuenteTitulo);
 		DataFormat dataFormat = libro.createDataFormat();
 		estilo.setDataFormat(dataFormat.getFormat("$#,#0.00"));
@@ -319,8 +323,8 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 13);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setBorderBottom(CellStyle.BORDER_THIN);
-		estilo.setAlignment(CellStyle.ALIGN_RIGHT);
+		estilo.setBorderBottom( BorderStyle.THIN);
+		estilo.setAlignment(HorizontalAlignment.RIGHT);
 		estilo.setFont(fuenteTitulo);
 		DataFormat dataFormat = libro.createDataFormat();
 		estilo.setDataFormat(dataFormat.getFormat("$#,#0.00"));
@@ -332,9 +336,9 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setBorderBottom(CellStyle.BORDER_THIN);
-		estilo.setAlignment(CellStyle.ALIGN_CENTER);
-		estilo.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+		estilo.setBorderBottom( BorderStyle.THIN);
+		estilo.setAlignment(HorizontalAlignment.CENTER);
+		estilo.setVerticalAlignment(VerticalAlignment.CENTER);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
 	}
@@ -344,9 +348,9 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setBorderBottom(CellStyle.BORDER_THIN);
-		estilo.setAlignment(CellStyle.ALIGN_LEFT);
-		estilo.setVerticalAlignment(CellStyle.ALIGN_LEFT);
+		estilo.setBorderBottom( BorderStyle.THIN);
+		estilo.setAlignment(HorizontalAlignment.LEFT);
+		estilo.setVerticalAlignment(VerticalAlignment.TOP);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
 	}
@@ -356,8 +360,8 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setAlignment(CellStyle.ALIGN_CENTER);
-		estilo.setVerticalAlignment(CellStyle.ALIGN_CENTER);
+		estilo.setAlignment(HorizontalAlignment.CENTER);
+		estilo.setVerticalAlignment(VerticalAlignment.CENTER);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
 	}
@@ -367,13 +371,11 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 		fuenteTitulo.setBold(true);
 		fuenteTitulo.setFontHeightInPoints((short) 10);
 		CellStyle estilo = libro.createCellStyle();
-		estilo.setAlignment(CellStyle.ALIGN_RIGHT);
-		estilo.setVerticalAlignment(CellStyle.ALIGN_RIGHT);
+		estilo.setAlignment(HorizontalAlignment.RIGHT);
+		estilo.setVerticalAlignment(VerticalAlignment.TOP);
 		estilo.setFont(fuenteTitulo);
 		celda.setCellStyle(estilo);
 	}
-
-	/**************** Getters and Setters ***************/
 
 	/**
 	 * @return the totalImporte

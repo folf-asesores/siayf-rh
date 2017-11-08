@@ -17,9 +17,12 @@ import java.util.Locale;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -52,22 +55,22 @@ public class DispersionExcelService {
 
         CellStyle estiloTitulo = libro.createCellStyle();
         Font font = libro.createFont();
-        font.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        font.setBold(true);
         estiloTitulo.setFont(font);
 
-        Cell numeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
+        Cell numeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA,  CellType.STRING);
         numeroCuenta.setCellValue("Número de cuenta");
         numeroCuenta.setCellStyle(estiloTitulo);
 
-        Cell monto = fila.createCell(COLUMNA_MONTO, Cell.CELL_TYPE_STRING);
+        Cell monto = fila.createCell(COLUMNA_MONTO,  CellType.STRING);
         monto.setCellValue("Monto");
         monto.setCellStyle(estiloTitulo);
 
-        Cell leyenda = fila.createCell(COLUMNA_LEYENDA, Cell.CELL_TYPE_STRING);
+        Cell leyenda = fila.createCell(COLUMNA_LEYENDA,  CellType.STRING);
         leyenda.setCellValue("Leyenda");
         leyenda.setCellStyle(estiloTitulo);
 
-        Cell nombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, Cell.CELL_TYPE_STRING);
+        Cell nombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO,  CellType.STRING);
         nombreEmpleado.setCellValue("Nombre del empleado");
         nombreEmpleado.setCellStyle(estiloTitulo);
     }
@@ -88,19 +91,19 @@ public class DispersionExcelService {
             }
 
             Row fila = hoja.createRow(i);
-            Cell celdaNumeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
+            Cell celdaNumeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA,  CellType.STRING);
             celdaNumeroCuenta.setCellValue(dispersionDTO.getNumeroCuenta());
 
-            Cell celdaMonto = fila.createCell(COLUMNA_MONTO, Cell.CELL_TYPE_NUMERIC);
+            Cell celdaMonto = fila.createCell(COLUMNA_MONTO,  CellType.NUMERIC);
             double monto = dispersionDTO.getMonto().doubleValue();
             totalMonto += monto;
             celdaMonto.setCellValue(monto);
 
-            Cell celdadLeyenda = fila.createCell(COLUMNA_LEYENDA, Cell.CELL_TYPE_STRING);
+            Cell celdadLeyenda = fila.createCell(COLUMNA_LEYENDA,  CellType.STRING);
             String leyenda = obtenerLeyenda(dispersionDTO.getFechaPago());
             celdadLeyenda.setCellValue(leyenda);
 
-            Cell celdadNombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, Cell.CELL_TYPE_STRING);
+            Cell celdadNombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO,  CellType.STRING);
             celdadNombreEmpleado.setCellValue(dispersionDTO.getNombreEmpleado().toUpperCase());
 
             i++;
@@ -114,29 +117,29 @@ public class DispersionExcelService {
     private void llenarTotal(int indice, String fuenteFinanciamiento, double totalMonto, int totalEmpleados) {
         CellStyle estiloTotalTitulo = libro.createCellStyle();
         Font fuenteTitulo = libro.createFont();
-        fuenteTitulo.setBoldweight(Font.BOLDWEIGHT_BOLD);
+        fuenteTitulo.setBold(true);
         estiloTotalTitulo.setFont(fuenteTitulo);
-        estiloTotalTitulo.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        estiloTotalTitulo.setAlignment(CellStyle.ALIGN_RIGHT);
+        estiloTotalTitulo.setVerticalAlignment(VerticalAlignment.CENTER);
+        estiloTotalTitulo.setAlignment(HorizontalAlignment.RIGHT);
 
         CellStyle estiloTotalValor = libro.createCellStyle();
-        estiloTotalValor.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
-        estiloTotalValor.setAlignment(CellStyle.ALIGN_RIGHT);
+        estiloTotalValor.setVerticalAlignment(VerticalAlignment.CENTER);
+        estiloTotalValor.setAlignment(HorizontalAlignment.RIGHT);
 
         Row fila = hoja.createRow(indice);
-        Cell celdadFuenteFinanciemientoTitulo = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, Cell.CELL_TYPE_STRING);
+        Cell celdadFuenteFinanciemientoTitulo = fila.createCell(COLUMNA_NUMERO_DE_CUENTA,  CellType.STRING);
         celdadFuenteFinanciemientoTitulo.setCellValue(String.format("Total %s", fuenteFinanciamiento));
         celdadFuenteFinanciemientoTitulo.setCellStyle(estiloTotalTitulo);
 
-        Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO, Cell.CELL_TYPE_NUMERIC);
+        Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO,  CellType.NUMERIC);
         celdadFuenteFinanciemientoValor.setCellValue(totalMonto);
         celdadFuenteFinanciemientoValor.setCellStyle(estiloTotalValor);
 
-        Cell celdadTotalEmpleadosTitulo = fila.createCell(COLUMNA_LEYENDA, Cell.CELL_TYPE_STRING);
+        Cell celdadTotalEmpleadosTitulo = fila.createCell(COLUMNA_LEYENDA,  CellType.STRING);
         celdadTotalEmpleadosTitulo.setCellValue("Total empleados");
         celdadTotalEmpleadosTitulo.setCellStyle(estiloTotalTitulo);
 
-        Cell celdadTotalEmpleadosValor = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, Cell.CELL_TYPE_NUMERIC);
+        Cell celdadTotalEmpleadosValor = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO,  CellType.NUMERIC);
         celdadTotalEmpleadosValor.setCellValue(totalEmpleados);
         celdadTotalEmpleadosValor.setCellStyle(estiloTotalValor);
     }

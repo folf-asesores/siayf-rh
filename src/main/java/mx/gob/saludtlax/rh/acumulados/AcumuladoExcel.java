@@ -1,8 +1,9 @@
 /*
  * AcumuladoExcel.java
- * Creado el Sep 23, 2016 8:47:25 PM
+ * Creado el 23/sep/2016 8:47:25 PM
  * 
  */
+
 package mx.gob.saludtlax.rh.acumulados;
 
 import java.io.ByteArrayOutputStream;
@@ -16,12 +17,15 @@ import java.util.List;
 import java.util.Map;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
@@ -194,10 +198,10 @@ public class AcumuladoExcel {
         
         CellStyle tituloCellStyle = libro.createCellStyle();
         tituloCellStyle.setFont(fuenteTitulo);
-        tituloCellStyle.setBorderBottom(CellStyle.BORDER_MEDIUM);
+        tituloCellStyle.setBorderBottom(BorderStyle.MEDIUM);
         tituloCellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
-        tituloCellStyle.setAlignment(CellStyle.ALIGN_CENTER);
-        tituloCellStyle.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        tituloCellStyle.setAlignment(HorizontalAlignment.CENTER);
+        tituloCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
         Row filaTitulo = hoja.createRow(cursor);
 
