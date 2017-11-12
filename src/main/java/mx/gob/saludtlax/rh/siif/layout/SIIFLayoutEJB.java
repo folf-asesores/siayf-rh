@@ -686,6 +686,19 @@ public class SIIFLayoutEJB implements SIIFLayout {
                     = encabezadoService.consultarTraProdNomRHContrato(idProductoNomina);
             LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraCont.size());
             byte[] traCont = encabezadoExcel.generarTraCont(listaDetallesTraCont, "prdc");
+            
+            // Generacion del archivo DAT
+            List<EstructuraContratosDatDTO> listaDetallesDatContSP
+                    = encabezadoService.consultarDatProdNomRHContSegPop(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatCont.size());
+            //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
+            byte[] datContSP = encabezadoExcel.generarDatCont(listaDetallesDatContSP, "prdc");
+
+            // Generacion del archivo TRA
+            List<EstructuraContratosTrailersDTO> listaDetallesTraContSP
+                    = encabezadoService.consultarTraProdNomRHContSegPop(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraCont.size());
+            byte[] traContSP = encabezadoExcel.generarTraCont(listaDetallesTraContSP, "prdc");
 
             
             // Generación del archivo zip
@@ -723,6 +736,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
                     zos.putNextEntry(zipTraCont);
                     zos.write(traCont);
                     zos.closeEntry();
+                	
+	                ZipEntry zipDatContSP = new ZipEntry("PRDOSP.dat");
+	                zos.putNextEntry(zipDatContSP);
+	                zos.write(datContSP);
+	                zos.closeEntry();
+	
+	                ZipEntry zipTraContSP = new ZipEntry("PRDOSP.tra");
+	                zos.putNextEntry(zipTraContSP);
+	                zos.write(traContSP);
+	                zos.closeEntry();
+                	
                     
                 }
 

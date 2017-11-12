@@ -168,14 +168,22 @@
 					onclick="PrimeFaces.monitorDownload(start, stop);" 
 					process="@this" 
 					immediate="true"
-					icon="fm-icon-download" />
-					
-        <p:menuitem icon="fm-icon-download" 
-			        value="Layout"
+					icon="fm-icon-download" >
+			<p:fileDownload value="#{productosNomina.reporte}" />
+		</p:menuitem>					
+        <p:menuitem value="Layout"
 					rendered="#{productosNomina.view.productoNomina.idEstatusProductoNomina > 3 }"
 					actionListener="#{productosNomina.generarLayout()}"
+					onsuccess="PF(`statusDialog`).hide()" 
+					iconPos="right"
+					onstart="PF(`statusDialog`).show()"
+					ajax="false"
 					onclick="PrimeFaces.monitorDownload(start, stop);" 
-					process="@this" ajax="false" />
+					process="@this" 					
+					immediate="true"
+					icon="fm-icon-download"  >
+			<p:fileDownload value="#{productosNomina.reporte}" />
+		</p:menuitem>
     </p:menuButton>
 	<p:panelGrid id="productoNomina"
 				layout="grid"

@@ -329,7 +329,28 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
     
-    protected List<EstructuraContratosDatDTO> crearDatProdNom(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContSegPop(Integer id_producto_nomina) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_cont_seg_pop(:id_producto_nomina)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        List<EstructuraContratosDatDTO> siifEncabezadoList = (List<EstructuraContratosDatDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContSegPop(Integer id_producto_nomina) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_cont_seg_pop(:id_producto_nomina)");
+        query.setParameter("id_producto_nomina", id_producto_nomina);
+        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        List<EstructuraContratosTrailersDTO> siifEncabezadoList = (List<EstructuraContratosTrailersDTO>) query.list();
+
+        return siifEncabezadoList;
+    }
+    
+    @SuppressWarnings("unchecked")
+	protected List<EstructuraContratosDatDTO> crearDatProdNom(Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_crear_dat_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
@@ -339,7 +360,8 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> crearTraProdNom(Integer id_producto_nomina) {
+    @SuppressWarnings("unchecked")
+	protected List<EstructuraContratosTrailersDTO> crearTraProdNom(Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_crear_tra_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
@@ -548,14 +570,32 @@ public class SIIFEncabezadoService {
 							//"d.nombre = (:nombre), " +
 							"d.num_ctrol = (:num) " +
 							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
-							+ "AND ( d.id_programa != 23 AND d.id_programa != 27)")
+							+ "AND ( d.id_programa != 23 AND d.id_programa != 27 and d.id_subfuente_financiamiento != 207)")
 							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
 							.setParameter("num_emp", formatoNumEmp(c))
 							//.setParameter("nombre",formatoNombre(dat.getNombre()))
 							.setParameter("num", c+1);
 							queryC.executeUpdate();
-					if(dat.getIdPrograma()!= null && dat.getIdPrograma()!=23 && dat.getIdPrograma()!=27){
-							c=c+1;
+					if(dat.getIdPrograma()!= null && dat.getIdPrograma()!=23 && dat.getIdPrograma()!=27 ){
+							if(dat.getIdSubfuenteFinanciamiento() != null && dat.getIdSubfuenteFinanciamiento() != 207)
+								c=c+1;
+					}
+				}
+				int s=1;
+				for (EstructuraContratosDatDTO dat : listaEstructura) {
+					Query querySP = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" +
+							"SET d.num_emp = (:num_emp), " +
+							//"d.nombre = (:nombre), " +
+							"d.num_ctrol = (:num) " +
+							"WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+							+ "AND d.id_subfuente_financiamiento = 207 ")
+							.setParameter("id_estructuras_contratos",dat.getIdEstructurasContratos())
+							.setParameter("num_emp", formatoNumEmp(s))
+							//.setParameter("nombre",formatoNombre(dat.getNombre()))
+							.setParameter("num", s+1);
+							querySP.executeUpdate();
+					if(dat.getIdSubfuenteFinanciamiento()!= null && dat.getIdSubfuenteFinanciamiento() == 207){
+							s=s+1;
 					}
 				}
 			}

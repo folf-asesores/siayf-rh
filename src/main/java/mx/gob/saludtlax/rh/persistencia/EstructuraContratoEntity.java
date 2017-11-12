@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -184,13 +185,13 @@ public class EstructuraContratoEntity implements Serializable {
     @Column(name = "id_siif_bitacoras")
     private Integer idSiifBitacoras;
     @Column(name = "id_subfuente_financiamiento")
-    private Integer idSubfuentaFinanciamiento;
+    private Integer idSubfuenteFinanciamiento;
 
     /**
      * **************Getters and Setters**********
      */
     public String getNumEmp() {
-        return numEmp;
+        return this.numEmp;
     }
 
     public void setNumEmp(String numEmp) {
@@ -198,7 +199,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getRfc() {
-        return rfc;
+        return this.rfc;
     }
 
     public void setRfc(String rfc) {
@@ -206,7 +207,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCurp() {
-        return curp;
+        return this.curp;
     }
 
     public void setCurp(String curp) {
@@ -214,7 +215,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
 
     public void setNombre(String nombre) {
@@ -222,7 +223,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getSar() {
-        return sar;
+        return this.sar;
     }
 
     public void setSar(String sar) {
@@ -230,7 +231,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getBancoA() {
-        return bancoA;
+        return this.bancoA;
     }
 
     public void setBancoA(String bancoA) {
@@ -238,7 +239,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getBancoN() {
-        return bancoN;
+        return this.bancoN;
     }
 
     public void setBancoN(String bancoN) {
@@ -246,7 +247,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNumCta() {
-        return numCta;
+        return this.numCta;
     }
 
     public void setNumCta(String numCta) {
@@ -254,7 +255,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getClabe() {
-        return clabe;
+        return this.clabe;
     }
 
     public void setClabe(String clabe) {
@@ -262,7 +263,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFuncion() {
-        return funcion;
+        return this.funcion;
     }
 
     public void setFuncion(String funcion) {
@@ -270,7 +271,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCp() {
-        return cp;
+        return this.cp;
     }
 
     public void setCp(String cp) {
@@ -278,7 +279,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCalle() {
-        return calle;
+        return this.calle;
     }
 
     public void setCalle(String calle) {
@@ -286,7 +287,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPuesto() {
-        return puesto;
+        return this.puesto;
     }
 
     public void setPuesto(String puesto) {
@@ -294,7 +295,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getDesPuesto() {
-        return desPuesto;
+        return this.desPuesto;
     }
 
     public void setDesPuesto(String desPuesto) {
@@ -302,7 +303,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getUr() {
-        return ur;
+        return this.ur;
     }
 
     public void setUr(String ur) {
@@ -310,7 +311,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getGf() {
-        return gf;
+        return this.gf;
     }
 
     public void setGf(String gf) {
@@ -318,7 +319,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFn() {
-        return fn;
+        return this.fn;
     }
 
     public void setFn(String fn) {
@@ -326,7 +327,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getSf() {
-        return sf;
+        return this.sf;
     }
 
     public void setSf(String sf) {
@@ -334,7 +335,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPg() {
-        return pg;
+        return this.pg;
     }
 
     public void setPg(String pg) {
@@ -342,7 +343,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getAi() {
-        return ai;
+        return this.ai;
     }
 
     public void setAi(String ai) {
@@ -350,7 +351,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPp() {
-        return pp;
+        return this.pp;
     }
 
     public void setPp(String pp) {
@@ -358,7 +359,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPartida() {
-        return partida;
+        return this.partida;
     }
 
     public void setPartida(String partida) {
@@ -366,7 +367,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPuestoTab() {
-        return puestoTab;
+        return this.puestoTab;
     }
 
     public void setPuestoTab(String puestoTab) {
@@ -374,7 +375,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNumPto() {
-        return numPto;
+        return this.numPto;
     }
 
     public void setNumPto(String numPto) {
@@ -382,7 +383,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getEdo() {
-        return edo;
+        return this.edo;
     }
 
     public void setEdo(String edo) {
@@ -390,7 +391,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getMpio() {
-        return mpio;
+        return this.mpio;
     }
 
     public void setMpio(String mpio) {
@@ -398,7 +399,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCr() {
-        return cr;
+        return this.cr;
     }
 
     public void setCr(String cr) {
@@ -406,7 +407,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCi() {
-        return ci;
+        return this.ci;
     }
 
     public void setCi(String ci) {
@@ -414,7 +415,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPagaD() {
-        return pagaD;
+        return this.pagaD;
     }
 
     public void setPagaD(String pagaD) {
@@ -422,7 +423,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFinanciamiento() {
-        return financiamiento;
+        return this.financiamiento;
     }
 
     public void setFinanciamiento(String financiamiento) {
@@ -430,7 +431,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getTabPto() {
-        return tabPto;
+        return this.tabPto;
     }
 
     public void setTabPto(String tabPto) {
@@ -438,7 +439,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNivel() {
-        return nivel;
+        return this.nivel;
     }
 
     public void setNivel(String nivel) {
@@ -446,7 +447,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getRango() {
-        return rango;
+        return this.rango;
     }
 
     public void setRango(String rango) {
@@ -454,7 +455,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getIndMando() {
-        return indMando;
+        return this.indMando;
     }
 
     public void setIndMando(String indMando) {
@@ -462,7 +463,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getHoras() {
-        return horas;
+        return this.horas;
     }
 
     public void setHoras(String horas) {
@@ -470,7 +471,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getPorcent() {
-        return porcent;
+        return this.porcent;
     }
 
     public void setPorcent(String porcent) {
@@ -478,7 +479,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getTipoTrab() {
-        return tipoTrab;
+        return this.tipoTrab;
     }
 
     public void setTipoTrab(String tipoTrab) {
@@ -486,7 +487,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNivelPto() {
-        return nivelPto;
+        return this.nivelPto;
     }
 
     public void setNivelPto(String nivelPto) {
@@ -494,7 +495,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getIndEmp() {
-        return indEmp;
+        return this.indEmp;
     }
 
     public void setIndEmp(String indEmp) {
@@ -502,7 +503,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFecInicial() {
-        return fecInicial;
+        return this.fecInicial;
     }
 
     public void setFecInicial(String fecInicial) {
@@ -510,7 +511,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFecFinal() {
-        return fecFinal;
+        return this.fecFinal;
     }
 
     public void setFecFinal(String fecFinal) {
@@ -518,7 +519,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getFecIngreso() {
-        return fecIngreso;
+        return this.fecIngreso;
     }
 
     public void setFecIngreso(String fecIngreso) {
@@ -526,7 +527,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getTipoMov() {
-        return tipoMov;
+        return this.tipoMov;
     }
 
     public void setTipoMov(String tipoMov) {
@@ -534,7 +535,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getfPago() {
-        return fPago;
+        return this.fPago;
     }
 
     public void setfPago(String fPago) {
@@ -542,7 +543,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getpPagoI() {
-        return pPagoI;
+        return this.pPagoI;
     }
 
     public void setpPagoI(String pPagoI) {
@@ -550,7 +551,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getpPagoF() {
-        return pPagoF;
+        return this.pPagoF;
     }
 
     public void setpPagoF(String pPagoF) {
@@ -558,7 +559,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getpQnaI() {
-        return pQnaI;
+        return this.pQnaI;
     }
 
     public void setpQnaI(String pQnaI) {
@@ -566,7 +567,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getpQnaF() {
-        return pQnaF;
+        return this.pQnaF;
     }
 
     public void setpQnaF(String pQnaF) {
@@ -574,7 +575,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getQnaReal() {
-        return qnaReal;
+        return this.qnaReal;
     }
 
     public void setQnaReal(String qnaReal) {
@@ -582,7 +583,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getAnioReal() {
-        return anioReal;
+        return this.anioReal;
     }
 
     public void setAnioReal(String anioReal) {
@@ -590,7 +591,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getTipoPago() {
-        return tipoPago;
+        return this.tipoPago;
     }
 
     public void setTipoPago(Integer tipoPago) {
@@ -598,7 +599,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getInstruA() {
-        return instruA;
+        return this.instruA;
     }
 
     public void setInstruA(String instruA) {
@@ -606,7 +607,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getInstruN() {
-        return instruN;
+        return this.instruN;
     }
 
     public void setInstruN(String instruN) {
@@ -614,7 +615,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public BigDecimal getPer() {
-        return per;
+        return this.per;
     }
 
     public void setPer(BigDecimal per) {
@@ -622,7 +623,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public BigDecimal getDed() {
-        return ded;
+        return this.ded;
     }
 
     public void setDed(BigDecimal ded) {
@@ -630,7 +631,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public BigDecimal getNeto() {
-        return neto;
+        return this.neto;
     }
 
     public void setNeto(BigDecimal neto) {
@@ -638,7 +639,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getNoTrail() {
-        return noTrail;
+        return this.noTrail;
     }
 
     public void setNoTrail(Integer noTrail) {
@@ -646,7 +647,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getDiasLab() {
-        return diasLab;
+        return this.diasLab;
     }
 
     public void setDiasLab(Integer diasLab) {
@@ -654,7 +655,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNomProd() {
-        return nomProd;
+        return this.nomProd;
     }
 
     public void setNomProd(String nomProd) {
@@ -662,7 +663,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getNumCtrol() {
-        return numCtrol;
+        return this.numCtrol;
     }
 
     public void setNumCtrol(Integer numCtrol) {
@@ -670,7 +671,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNumCheq() {
-        return numCheq;
+        return this.numCheq;
     }
 
     public void setNumCheq(String numCheq) {
@@ -678,7 +679,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getDigVer() {
-        return digVer;
+        return this.digVer;
     }
 
     public void setDigVer(String digVer) {
@@ -686,7 +687,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getJornada() {
-        return jornada;
+        return this.jornada;
     }
 
     public void setJornada(String jornada) {
@@ -694,7 +695,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getDiasP() {
-        return diasP;
+        return this.diasP;
     }
 
     public void setDiasP(String diasP) {
@@ -702,7 +703,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCicloF() {
-        return cicloF;
+        return this.cicloF;
     }
 
     public void setCicloF(String cicloF) {
@@ -710,7 +711,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getNumAport() {
-        return numAport;
+        return this.numAport;
     }
 
     public void setNumAport(String numAport) {
@@ -718,7 +719,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public BigDecimal getAcumF() {
-        return acumF;
+        return this.acumF;
     }
 
     public void setAcumF(BigDecimal acumF) {
@@ -726,7 +727,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getFaltas() {
-        return faltas;
+        return this.faltas;
     }
 
     public void setFaltas(Integer faltas) {
@@ -734,7 +735,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getClues() {
-        return clues;
+        return this.clues;
     }
 
     public void setClues(String clues) {
@@ -742,7 +743,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getPorPen01() {
-        return porPen01;
+        return this.porPen01;
     }
 
     public void setPorPen01(Integer porPen01) {
@@ -750,7 +751,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getPorPen02() {
-        return porPen02;
+        return this.porPen02;
     }
 
     public void setPorPen02(Integer porPen02) {
@@ -758,7 +759,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getPorPen03() {
-        return porPen03;
+        return this.porPen03;
     }
 
     public void setPorPen03(Integer porPen03) {
@@ -766,7 +767,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getPorPen04() {
-        return porPen04;
+        return this.porPen04;
     }
 
     public void setPorPen04(Integer porPen04) {
@@ -774,7 +775,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getPorPen05() {
-        return porPen05;
+        return this.porPen05;
     }
 
     public void setPorPen05(Integer porPen05) {
@@ -782,7 +783,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getIssste() {
-        return issste;
+        return this.issste;
     }
 
     public void setIssste(Integer issste) {
@@ -790,7 +791,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getTipoUni() {
-        return tipoUni;
+        return this.tipoUni;
     }
 
     public void setTipoUni(Integer tipoUni) {
@@ -798,7 +799,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getCrespDes() {
-        return crespDes;
+        return this.crespDes;
     }
 
     public void setCrespDes(String crespDes) {
@@ -806,7 +807,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getIdEstructurasContratos() {
-        return idEstructurasContratos;
+        return this.idEstructurasContratos;
     }
 
     public void setIdEstructurasContratos(Integer idEstructurasContratos) {
@@ -814,7 +815,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getIdNombramiento() {
-        return idNombramiento;
+        return this.idNombramiento;
     }
 
     public void setIdNombramiento(Integer idNombramiento) {
@@ -822,7 +823,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getIdSiifEncabezados() {
-        return idSiifEncabezados;
+        return this.idSiifEncabezados;
     }
 
     public void setIdSiifEncabezados(Integer idSiifEncabezados) {
@@ -830,7 +831,7 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public String getTipoEmisionNomina() {
-        return tipoEmisionNomina;
+        return this.tipoEmisionNomina;
     }
 
     public void setTipoEmisionNomina(String tipoEmisionNomina) {
@@ -838,19 +839,19 @@ public class EstructuraContratoEntity implements Serializable {
     }
 
     public Integer getIdSiifBitacoras() {
-        return idSiifBitacoras;
+        return this.idSiifBitacoras;
     }
 
     public void setIdSiifBitacoras(Integer idSiifBitacoras) {
         this.idSiifBitacoras = idSiifBitacoras;
     }
 
-    public Integer getIdSubfuentaFinanciamiento() {
-        return idSubfuentaFinanciamiento;
+    public Integer getIdSubfuenteFinanciamiento() {
+        return this.idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuentaFinanciamiento(Integer idSubfuentaFinanciamiento) {
-        this.idSubfuentaFinanciamiento = idSubfuentaFinanciamiento;
+    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+        this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
 }
