@@ -56,8 +56,8 @@
 								disabled="#{consultaDatosEncabezado.view.disabledIrGestionarDatosEncabezado}"
 								update=":form" style="float:left;" ajax="false">
 								<f:setPropertyActionListener
-									target="#{consultaNomina.view.rfcCriterio}"
-									value="#{consultaDatosEncabezado.view.datoEncabezadoSelect.rfc}" />
+									target="#{consultaNomina.view.estructuraNominaSeleccionada}"
+									value="#{consultaDatosEncabezado.view.datoEncabezadoSelect}" />
 							</p:commandButton>
 						</p:column>
 					</p:panelGrid>

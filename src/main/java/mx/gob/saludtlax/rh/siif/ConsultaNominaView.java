@@ -1,181 +1,191 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
 
 public class ConsultaNominaView {
-	private String rfcCriterio;
-	
-	private List<EstructuraNominaDatDTO> listEstructuraNomina;
-	private EstructuraNominaDatDTO estructuraNomina;	
-	private EstructuraNominaDatDTO estructuraNominaSelect;
-	
-	private List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers;
-	private EstructuraNominaTrailersDTO estructuraNominaTrailers;	
-	private EstructuraNominaTrailersDTO estructuraNominaTrailersSelect;
+    private String rfcCriterio;
 
-	private Boolean panelPrincipal;
-	private Boolean panelDatos;
-	private Boolean panelTrailers;
-	private Boolean tabDat;
-	private Boolean tabTra;
-	private Boolean busqueda;
-	private Boolean operacionNuevo;
-	
-	private Boolean disabledIrGestionarDatos;
-	private Boolean disabledIrGestionarTrailers;
+    private List<EstructuraNominaDatDTO> listEstructuraNomina;
+    private EstructuraNominaDatDTO estructuraNomina;
+    private EstructuraNominaDatDTO estructuraNominaSelect;
+    private ConsultaDatosEncabezadoDTO estructuraNominaSeleccionada;
 
-	public void panelPrincipal() {
-		estructuraNominaTrailersSelect = null;
-		estructuraNominaSelect = null;
-		panelPrincipal = Boolean.TRUE;
-		disabledIrGestionarDatos = Boolean.TRUE;
-		disabledIrGestionarTrailers = Boolean.TRUE;
-		panelDatos = Boolean.FALSE;
-		panelTrailers = Boolean.FALSE;
-		tabDat = Boolean.FALSE;
-		tabTra = Boolean.FALSE;
-		busqueda = Boolean.TRUE;
-	}
-	
-	public void panelDatos() {
-		panelPrincipal = Boolean.FALSE;
-		panelDatos = Boolean.TRUE;
-		busqueda = Boolean.FALSE;
-	}
-	
-	public void panelTrailers() {
-		panelPrincipal = Boolean.FALSE;
-		panelTrailers = Boolean.TRUE;
-		busqueda = Boolean.FALSE;
-	}
-//	<<<<<Getters & Setters>>>>>
+    private List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers;
+    private EstructuraNominaTrailersDTO estructuraNominaTrailers;
+    private EstructuraNominaTrailersDTO estructuraNominaTrailersSelect;
 
-	public List<EstructuraNominaDatDTO> getListEstructuraNomina() {
-		return listEstructuraNomina;
-	}
+    private Boolean panelPrincipal;
+    private Boolean panelDatos;
+    private Boolean panelTrailers;
+    private Boolean tabDat;
+    private Boolean tabTra;
+    private Boolean busqueda;
+    private Boolean operacionNuevo;
 
-	public String getRfcCriterio() {
-		return rfcCriterio;
-	}
+    private Boolean disabledIrGestionarDatos;
+    private Boolean disabledIrGestionarTrailers;
 
-	public void setRfcCriterio(String rfcCriterio) {
-		this.rfcCriterio = rfcCriterio;
-	}
+    public void panelPrincipal() {
+        this.estructuraNominaTrailersSelect = null;
+        this.estructuraNominaSelect = null;
+        this.panelPrincipal = Boolean.TRUE;
+        this.disabledIrGestionarDatos = Boolean.TRUE;
+        this.disabledIrGestionarTrailers = Boolean.TRUE;
+        this.panelDatos = Boolean.FALSE;
+        this.panelTrailers = Boolean.FALSE;
+        this.tabDat = Boolean.FALSE;
+        this.tabTra = Boolean.FALSE;
+        this.busqueda = Boolean.TRUE;
+    }
 
-	public void setListEstructuraNomina(List<EstructuraNominaDatDTO> listEstructuraNomina) {
-		this.listEstructuraNomina = listEstructuraNomina;
-	}
+    public void panelDatos() {
+        this.panelPrincipal = Boolean.FALSE;
+        this.panelDatos = Boolean.TRUE;
+        this.busqueda = Boolean.FALSE;
+    }
 
-	public EstructuraNominaDatDTO getEstructuraNomina() {
-		return estructuraNomina;
-	}
+    public void panelTrailers() {
+        this.panelPrincipal = Boolean.FALSE;
+        this.panelTrailers = Boolean.TRUE;
+        this.busqueda = Boolean.FALSE;
+    }
+    //  <<<<<Getters & Setters>>>>>
 
-	public void setEstructuraNomina(EstructuraNominaDatDTO estructuraNomina) {
-		this.estructuraNomina = estructuraNomina;
-	}
+    public List<EstructuraNominaDatDTO> getListEstructuraNomina() {
+        return this.listEstructuraNomina;
+    }
 
-	public EstructuraNominaDatDTO getEstructuraNominaSelect() {
-		return estructuraNominaSelect;
-	}
+    public String getRfcCriterio() {
+        return this.rfcCriterio;
+    }
 
-	public void setEstructuraNominaSelect(EstructuraNominaDatDTO estructuraNominaSelect) {
-		this.estructuraNominaSelect = estructuraNominaSelect;
-	}
+    public void setRfcCriterio(String rfcCriterio) {
+        this.rfcCriterio = rfcCriterio;
+    }
 
-	public Boolean getPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public void setListEstructuraNomina(List<EstructuraNominaDatDTO> listEstructuraNomina) {
+        this.listEstructuraNomina = listEstructuraNomina;
+    }
 
-	public void setPanelPrincipal(Boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public EstructuraNominaDatDTO getEstructuraNomina() {
+        return this.estructuraNomina;
+    }
 
-	public List<EstructuraNominaTrailersDTO> getListEstructuraNominaTrailers() {
-		return listEstructuraNominaTrailers;
-	}
+    public void setEstructuraNomina(EstructuraNominaDatDTO estructuraNomina) {
+        this.estructuraNomina = estructuraNomina;
+    }
 
-	public void setListEstructuraNominaTrailers(List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers) {
-		this.listEstructuraNominaTrailers = listEstructuraNominaTrailers;
-	}
+    public EstructuraNominaDatDTO getEstructuraNominaSelect() {
+        return this.estructuraNominaSelect;
+    }
 
-	public EstructuraNominaTrailersDTO getEstructuraNominaTrailers() {
-		return estructuraNominaTrailers;
-	}
+    public void setEstructuraNominaSelect(EstructuraNominaDatDTO estructuraNominaSelect) {
+        this.estructuraNominaSelect = estructuraNominaSelect;
+    }
 
-	public void setEstructuraNominaTrailers(EstructuraNominaTrailersDTO estructuraNominaTrailers) {
-		this.estructuraNominaTrailers = estructuraNominaTrailers;
-	}
+    public Boolean getPanelPrincipal() {
+        return this.panelPrincipal;
+    }
 
-	public EstructuraNominaTrailersDTO getEstructuraNominaTrailersSelect() {
-		return estructuraNominaTrailersSelect;
-	}
+    public void setPanelPrincipal(Boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
 
-	public void setEstructuraNominaTrailersSelect(EstructuraNominaTrailersDTO estructuraNominaTrailersSelect) {
-		this.estructuraNominaTrailersSelect = estructuraNominaTrailersSelect;
-	}
+    public List<EstructuraNominaTrailersDTO> getListEstructuraNominaTrailers() {
+        return this.listEstructuraNominaTrailers;
+    }
 
-	public Boolean getPanelDatos() {
-		return panelDatos;
-	}
+    public void setListEstructuraNominaTrailers(List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers) {
+        this.listEstructuraNominaTrailers = listEstructuraNominaTrailers;
+    }
 
-	public void setPanelDatos(Boolean panelDatos) {
-		this.panelDatos = panelDatos;
-	}
+    public EstructuraNominaTrailersDTO getEstructuraNominaTrailers() {
+        return this.estructuraNominaTrailers;
+    }
 
-	public Boolean getPanelTrailers() {
-		return panelTrailers;
-	}
+    public void setEstructuraNominaTrailers(EstructuraNominaTrailersDTO estructuraNominaTrailers) {
+        this.estructuraNominaTrailers = estructuraNominaTrailers;
+    }
 
-	public void setPanelTrailers(Boolean panelTrailers) {
-		this.panelTrailers = panelTrailers;
-	}
+    public EstructuraNominaTrailersDTO getEstructuraNominaTrailersSelect() {
+        return this.estructuraNominaTrailersSelect;
+    }
 
-	public Boolean getTabDat() {
-		return tabDat;
-	}
+    public void setEstructuraNominaTrailersSelect(EstructuraNominaTrailersDTO estructuraNominaTrailersSelect) {
+        this.estructuraNominaTrailersSelect = estructuraNominaTrailersSelect;
+    }
 
-	public void setTabDat(Boolean tabDat) {
-		this.tabDat = tabDat;
-	}
+    public Boolean getPanelDatos() {
+        return this.panelDatos;
+    }
 
-	public Boolean getTabTra() {
-		return tabTra;
-	}
+    public void setPanelDatos(Boolean panelDatos) {
+        this.panelDatos = panelDatos;
+    }
 
-	public void setTabTra(Boolean tabTra) {
-		this.tabTra = tabTra;
-	}
+    public Boolean getPanelTrailers() {
+        return this.panelTrailers;
+    }
 
-	public Boolean getBusqueda() {
-		return busqueda;
-	}
+    public void setPanelTrailers(Boolean panelTrailers) {
+        this.panelTrailers = panelTrailers;
+    }
 
-	public void setBusqueda(Boolean busqueda) {
-		this.busqueda = busqueda;
-	}
+    public Boolean getTabDat() {
+        return this.tabDat;
+    }
 
-	public Boolean getDisabledIrGestionarDatos() {
-		return disabledIrGestionarDatos;
-	}
+    public void setTabDat(Boolean tabDat) {
+        this.tabDat = tabDat;
+    }
 
-	public void setDisabledIrGestionarDatos(Boolean disabledIrGestionarDatos) {
-		this.disabledIrGestionarDatos = disabledIrGestionarDatos;
-	}
+    public Boolean getTabTra() {
+        return this.tabTra;
+    }
 
-	public Boolean getDisabledIrGestionarTrailers() {
-		return disabledIrGestionarTrailers;
-	}
+    public void setTabTra(Boolean tabTra) {
+        this.tabTra = tabTra;
+    }
 
-	public void setDisabledIrGestionarTrailers(Boolean disabledIrGestionarTrailers) {
-		this.disabledIrGestionarTrailers = disabledIrGestionarTrailers;
-	}
+    public Boolean getBusqueda() {
+        return this.busqueda;
+    }
 
-	public Boolean getOperacionNuevo() {
-		return operacionNuevo;
-	}
+    public void setBusqueda(Boolean busqueda) {
+        this.busqueda = busqueda;
+    }
 
-	public void setOperacionNuevo(Boolean operacionNuevo) {
-		this.operacionNuevo = operacionNuevo;
-	}
-	
+    public Boolean getDisabledIrGestionarDatos() {
+        return this.disabledIrGestionarDatos;
+    }
+
+    public void setDisabledIrGestionarDatos(Boolean disabledIrGestionarDatos) {
+        this.disabledIrGestionarDatos = disabledIrGestionarDatos;
+    }
+
+    public Boolean getDisabledIrGestionarTrailers() {
+        return this.disabledIrGestionarTrailers;
+    }
+
+    public void setDisabledIrGestionarTrailers(Boolean disabledIrGestionarTrailers) {
+        this.disabledIrGestionarTrailers = disabledIrGestionarTrailers;
+    }
+
+    public Boolean getOperacionNuevo() {
+        return this.operacionNuevo;
+    }
+
+    public void setOperacionNuevo(Boolean operacionNuevo) {
+        this.operacionNuevo = operacionNuevo;
+    }
+
+    public ConsultaDatosEncabezadoDTO getEstructuraNominaSeleccionada() {
+        return this.estructuraNominaSeleccionada;
+    }
+
+    public void setEstructuraNominaSeleccionada(ConsultaDatosEncabezadoDTO estructuraNominaSeleccionada) {
+        this.estructuraNominaSeleccionada = estructuraNominaSeleccionada;
+    }
+
 }

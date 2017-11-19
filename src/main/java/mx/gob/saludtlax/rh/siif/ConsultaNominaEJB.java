@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
@@ -9,98 +10,99 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosPlantillaEx
 
 @Stateless
 public class ConsultaNominaEJB {
-	@Inject
-	private ConsultaNominaService consultaNominaService;
-	
-//	Listas para Estructura Nomina Datos
-	
-	public List<EstructuraNominaDatDTO> obtenerConsultaNominaLista() {
-		List<EstructuraNominaDatDTO> consultaNominaLista = consultaNominaService.listaEstructuraNomina();
-		return consultaNominaLista;
-	}
+    @Inject
+    private ConsultaNominaService consultaNominaService;
 
-	public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(String rfc) {
-		return consultaNominaService.listaConsultaNominaPorCriterios(rfc);
-	}
-	
-	public List<EstructuraContratosPlantillaExcelDTO> obtenerConsultaNominaContratoListaPorCriterios(String rfc) {
-		return consultaNominaService.listaConsultaNominaContratoPorCriterios(rfc);
-	}
+    //	Listas para Estructura Nomina Datos
 
+    public List<EstructuraNominaDatDTO> obtenerConsultaNominaLista() {
+        List<EstructuraNominaDatDTO> consultaNominaLista = this.consultaNominaService.listaEstructuraNomina();
+        return consultaNominaLista;
+    }
 
-	public EstructuraNominaDatDTO obtenerConsultaNominaListaPorId(EstructuraNominaDatDTO DTO) {
-		EstructuraNominaDatDTO dto = consultaNominaService.obtenerEstructuraNominaDatPorId(DTO.getIdEstructurasNominas());
-		return dto;
-	}
-	
-//	Listas para Estructura Nomina Datos
-	
-	public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersLista() {
-		List<EstructuraNominaTrailersDTO> consultaNominaTrailersLista = consultaNominaService.listaEstructuraNominaTrailers();
-		return consultaNominaTrailersLista;
-	}
+    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(String rfc) {
+        return this.consultaNominaService.listaConsultaNominaPorCriterios(rfc);
+    }
 
-	public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersListaPorCriterios(String rfc) {
-		return consultaNominaService.listaConsultaNominaTrailersPorCriterios(rfc);
-	}
+    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(ConsultaDatosEncabezadoDTO nominaSeleccionado) {
+        return this.consultaNominaService.listaConsultaNominaPorIds(nominaSeleccionado);
+    }
 
-	public EstructuraNominaTrailersDTO obtenerConsultaNominaTrailersListaPorId(EstructuraNominaTrailersDTO DTO) {
-		EstructuraNominaTrailersDTO dto = consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
-		return dto;
-	}
-	
-	
-//	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Datos
-	
-	public EstructuraNominaDatDTO nuevoDatos() {
-		return consultaNominaService.nuevosDatos();
-	}
+    public List<EstructuraContratosPlantillaExcelDTO> obtenerConsultaNominaContratoListaPorCriterios(String rfc) {
+        return this.consultaNominaService.listaConsultaNominaContratoPorCriterios(rfc);
+    }
 
-	public void eliminarDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
-		// TODO Auto-generated method stub
-		
-	}
+    public EstructuraNominaDatDTO obtenerConsultaNominaListaPorId(EstructuraNominaDatDTO DTO) {
+        EstructuraNominaDatDTO dto = this.consultaNominaService.obtenerEstructuraNominaDatPorId(DTO.getIdEstructurasNominas());
+        return dto;
+    }
 
-	public EstructuraNominaDatDTO obtenerDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
-		EstructuraNominaDatDTO dto = consultaNominaService.obtenerEstructuraNominaDatPorId(estructuraNominaSelect.getIdEstructurasNominas());
-		return dto;
-	}
+    //	Listas para Estructura Nomina Datos
 
-	public void crearDatos(EstructuraNominaDatDTO estructuraNomina) {
-		consultaNominaService.crearDatos(estructuraNomina);		
-	}
+    public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersLista() {
+        List<EstructuraNominaTrailersDTO> consultaNominaTrailersLista = this.consultaNominaService.listaEstructuraNominaTrailers();
+        return consultaNominaTrailersLista;
+    }
 
-	public void actualizarDatos(EstructuraNominaDatDTO estructuraNomina) {
-		consultaNominaService.actualizarDatos(estructuraNomina);
-	}
-	
-	
-	
-//	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Trailers
-	
-	public EstructuraNominaTrailersDTO nuevoTrailers() {
-		return consultaNominaService.nuevosTrailers();
-	}
+    public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersListaPorCriterios(String rfc) {
+        return this.consultaNominaService.listaConsultaNominaTrailersPorCriterios(rfc);
+    }
 
-	public void eliminarTrailers(EstructuraNominaTrailersDTO estructuraNominaSelect) {
-		// TODO Auto-generated method stub
-		
-	}
+    public EstructuraNominaTrailersDTO obtenerConsultaNominaTrailersListaPorId(EstructuraNominaTrailersDTO DTO) {
+        EstructuraNominaTrailersDTO dto = this.consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
+        return dto;
+    }
 
-	public EstructuraNominaTrailersDTO obtenerTrailers(EstructuraNominaTrailersDTO DTO) {
-		EstructuraNominaTrailersDTO dto = consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
-		return dto;
-	}
+    //	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Datos
 
-	public void crearTrailers(EstructuraNominaTrailersDTO dto) {
-		consultaNominaService.crearTrailers(dto);		
-	}
+    public EstructuraNominaDatDTO nuevoDatos() {
+        return this.consultaNominaService.nuevosDatos();
+    }
 
-	public void actualizarTrailers(EstructuraNominaTrailersDTO estructuraNomina) {
-		consultaNominaService.actualizarTrailers(estructuraNomina);
-	}
-//>>>>>>>>>Modifica el RFc en TRA<<<<<<<<<
-	public void modificarTrailers(String rfc, Integer id) {
-		consultaNominaService.modificarTrailers(rfc,id);
-	}
+    public void eliminarDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public EstructuraNominaDatDTO obtenerDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
+        EstructuraNominaDatDTO dto = this.consultaNominaService.obtenerEstructuraNominaDatPorId(estructuraNominaSelect.getIdEstructurasNominas());
+        return dto;
+    }
+
+    public void crearDatos(EstructuraNominaDatDTO estructuraNomina) {
+        this.consultaNominaService.crearDatos(estructuraNomina);
+    }
+
+    public void actualizarDatos(EstructuraNominaDatDTO estructuraNomina) {
+        this.consultaNominaService.actualizarDatos(estructuraNomina);
+    }
+
+    //	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Trailers
+
+    public EstructuraNominaTrailersDTO nuevoTrailers() {
+        return this.consultaNominaService.nuevosTrailers();
+    }
+
+    public void eliminarTrailers(EstructuraNominaTrailersDTO estructuraNominaSelect) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public EstructuraNominaTrailersDTO obtenerTrailers(EstructuraNominaTrailersDTO DTO) {
+        EstructuraNominaTrailersDTO dto = this.consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
+        return dto;
+    }
+
+    public void crearTrailers(EstructuraNominaTrailersDTO dto) {
+        this.consultaNominaService.crearTrailers(dto);
+    }
+
+    public void actualizarTrailers(EstructuraNominaTrailersDTO estructuraNomina) {
+        this.consultaNominaService.actualizarTrailers(estructuraNomina);
+    }
+
+    //>>>>>>>>>Modifica el RFc en TRA<<<<<<<<<
+    public void modificarTrailers(String rfc, Integer id) {
+        this.consultaNominaService.modificarTrailers(rfc, id);
+    }
 }
