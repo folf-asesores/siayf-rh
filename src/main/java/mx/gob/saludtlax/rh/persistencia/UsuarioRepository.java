@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -23,24 +24,16 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
     private static final long serialVersionUID = 2519772084802925292L;
     private static final Logger LOGGER = Logger.getLogger(UsuarioRepository.class.getName());
 
-    private static final String EXISTE_USUARIO = 
-            "select"
-                + "   case count(usuario.userName)"
-                + "      when 0 then false"
-                + "      else true"
-                + "   end"
-                + " from UsuarioEntity as usuario"
-                + " where usuario.userName = :nombreUsuario";
-    
-    private static final String OBTENER_USUARIO_POR_HASH_TOKEN =
-            "select token.usuario"
-                + " from TokenEntity as token"
-                + " where token.token = :hashToken";
+    private static final String EXISTE_USUARIO = "select" + "   case count(usuario.userName)" + "      when 0 then false" + "      else true" + "   end"
+            + " from UsuarioEntity as usuario" + " where usuario.userName = :nombreUsuario";
+
+    private static final String OBTENER_USUARIO_POR_HASH_TOKEN = "select token.usuario" + " from TokenEntity as token" + " where token.token = :hashToken";
 
     /**
      * Permite guardar un usuario en el almacen de datos.
-     * 
-     * @param usuario el usuario a guardar.
+     *
+     * @param usuario
+     *            el usuario a guardar.
      * @return el usuario guardado.
      */
     @Override
@@ -51,8 +44,9 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
 
     /**
      * Consulta la existencia de un usuario por medio de su username
-     * 
-     * @param nombreUsuario el nombre del usuario a validar.
+     *
+     * @param nombreUsuario
+     *            el nombre del usuario a validar.
      * @return verdad sí y sólo si el usuario existe en el almacen de datos.
      */
     public boolean existeUsuario(String nombreUsuario) {
@@ -64,52 +58,52 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
 
     /**
      * Devuelve un usuario por medio de su user name
-     * @param nombreUsuario el nombre de usuario a buscar.
+     *
+     * @param nombreUsuario
+     *            el nombre de usuario a buscar.
      * @return un usuario si existe en el almacen de datos.
      */
     public UsuarioEntity obtenerUsuarioPorNombreUsuario(String nombreUsuario) {
-        List<UsuarioEntity> resultado = em
-                .createQuery("SELECT a FROM UsuarioEntity AS a WHERE a.userName = :userName", UsuarioEntity.class)
+        List<UsuarioEntity> resultado = em.createQuery("SELECT a FROM UsuarioEntity AS a WHERE a.userName = :userName", UsuarioEntity.class)
                 .setParameter("userName", nombreUsuario).getResultList();
         UsuarioEntity usuario = null;
-        
+
         if (!resultado.isEmpty()) {
             usuario = resultado.get(0);
         }
-        
+
         return usuario;
     }
 
     public UsuarioEntity obtenerUsuarioPorHashToken(String hashToken) {
         TypedQuery<UsuarioEntity> query = em.createQuery(OBTENER_USUARIO_POR_HASH_TOKEN, classType);
         query.setParameter("hashToken", hashToken);
-        
+
         try {
             return query.getSingleResult();
         } catch (NoResultException ex) {
             LOGGER.warnv("Hash token {0} no se ha encontrado", hashToken);
             return null;
-        } catch(NonUniqueResultException ex){
+        } catch (NonUniqueResultException ex) {
             LOGGER.warnv("Hash token {0} duplicado", hashToken);
             return null;
         }
-    }    
-    
+    }
+
     /**
      * Obtiene los usuarios que se encuentra en el almacen de datos.
-     * 
+     *
      * @return una lista con los usuarios del almacen de datos.
      */
     public List<UsuarioEntity> consultarTodosUsuarios() {
-        List<UsuarioEntity> lista = em
-                .createQuery("from UsuarioEntity as usuario", UsuarioEntity.class)
-                .getResultList();
+        List<UsuarioEntity> lista = em.createQuery("from UsuarioEntity as usuario", UsuarioEntity.class).getResultList();
 
         return lista;
     }
 
     /**
      * Consulta todos los usuarios activos en el sistema.
+     *
      * @return una lista con los usuarios que están activos.
      */
     public List<UsuarioEntity> consultarUsuariosActivos() {
@@ -118,25 +112,25 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
 
     /**
      * Consulta todos los usuarios inactivos en el sistema
+     *
      * @return una lista con los usuarios que no están activos.
      */
     public List<UsuarioEntity> consultarUsuariosInactivos() {
         return consultarUsuarios(false);
     }
-    
-    private List<UsuarioEntity> consultarUsuarios(boolean activo){
-        List<UsuarioEntity> lista = em
-                .createQuery("SELECT a FROM UsuarioEntity AS a WHERE a.activo = :activo", UsuarioEntity.class)
-                .setParameter("activo", activo)
-                .getResultList();
+
+    private List<UsuarioEntity> consultarUsuarios(boolean activo) {
+        List<UsuarioEntity> lista = em.createQuery("SELECT a FROM UsuarioEntity AS a WHERE a.activo = :activo", UsuarioEntity.class)
+                .setParameter("activo", activo).getResultList();
         return lista;
     }
 
     /**
      * Consulta un usuario en base a un criterio de busqueda, siendo este su
      * username o su correo electrónico.
-     * 
-     * @param criterioBusqueda un criterio de busqueda.
+     *
+     * @param criterioBusqueda
+     *            un criterio de busqueda.
      * @return el usuario que coincide con el criterio de busqueda.
      */
     public UsuarioEntity buscarUsuario(String criterioBusqueda) {
@@ -146,10 +140,8 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
         final Predicate disjunction = cb.disjunction();
 
         if (!StringUtils.isBlank(criterioBusqueda)) {
-            disjunction.getExpressions()
-                    .add(cb.like(root.get("userName").as(String.class), "%" + criterioBusqueda + "%"));
-            disjunction.getExpressions()
-                    .add(cb.like(root.get("correo").as(String.class), "%" + criterioBusqueda + "%"));
+            disjunction.getExpressions().add(cb.like(root.get("userName").as(String.class), "%" + criterioBusqueda + "%"));
+            disjunction.getExpressions().add(cb.like(root.get("correo").as(String.class), "%" + criterioBusqueda + "%"));
         }
         q.select(root).where(disjunction);
         UsuarioEntity usuario = null;
@@ -159,41 +151,34 @@ public class UsuarioRepository extends GenericRepository<UsuarioEntity, Integer>
         }
         return usuario;
     }
-    
-    public List<String> recursosPorUsuario(Integer idUsuario){
-    	Session session = em.unwrap(Session.class);
-		Query query = session.createSQLQuery(
-				"CALL usp_usuario_modulos(:idUsuario)")
-				.setParameter("idUsuario",idUsuario);
-		//query.setResultTransformer(Transformers.aliasToBean(String.class));
-		@SuppressWarnings("unchecked")		
-		List<String> result = (List<String>) query.list();
-		return result;
-    }
-    
-    //Regresa la lista de acciones a todos los modulos que tenga asignado el usuario.
-    public List<String> accionesPorUsuario(Integer idUsuario){
-    	Session session = em.unwrap(Session.class);
-		Query query = session.createSQLQuery(
-				"CALL usp_acciones_de_usuario(:idUsuario)")
-				.setParameter("idUsuario",idUsuario);
-		//query.setResultTransformer(Transformers.aliasToBean(String.class));
-		@SuppressWarnings("unchecked")		
-		List<String> result = (List<String>) query.list();
-		return result;
+
+    public List<String> recursosPorUsuario(Integer idUsuario) {
+        Session session = em.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_usuario_modulos(:idUsuario)").setParameter("idUsuario", idUsuario);
+        //query.setResultTransformer(Transformers.aliasToBean(String.class));
+        @SuppressWarnings("unchecked")
+        List<String> result = query.list();
+        return result;
     }
 
-    
-    public Boolean tieneClaveAccion(Integer idUsuario,String claveAccion){
-    	List<String> acciones = new ArrayList<>();
-    	acciones = accionesPorUsuario(idUsuario);
-    	Boolean res = false;
-    	
-    	if(acciones.contains(claveAccion))
-    	{
-    		res = true;
-    	}  	
-    	return res;
+    //Regresa la lista de acciones a todos los modulos que tenga asignado el usuario.
+    public List<String> accionesPorUsuario(Integer idUsuario) {
+        Session session = em.unwrap(Session.class);
+        Query query = session.createSQLQuery("CALL usp_acciones_de_usuario(:idUsuario)").setParameter("idUsuario", idUsuario);
+        //query.setResultTransformer(Transformers.aliasToBean(String.class));
+        @SuppressWarnings("unchecked")
+        List<String> result = query.list();
+        return result;
+    }
+
+    public Boolean tieneClaveAccion(Integer idUsuario, String claveAccion) {
+        List<String> acciones = new ArrayList<>();
+        acciones = accionesPorUsuario(idUsuario);
+        Boolean res = false;
+
+        if (acciones.contains(claveAccion)) {
+            res = true;
+        }
+        return res;
     }
 }
- 

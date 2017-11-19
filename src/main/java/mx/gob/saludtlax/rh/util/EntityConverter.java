@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.util;
 
 import java.util.Map;
@@ -13,7 +14,7 @@ import javax.faces.convert.FacesConverter;
 @FacesConverter(value = "entityConverter")
 public class EntityConverter implements Converter {
 
-    private static Map<Object, String> entities = new WeakHashMap<Object, String>();
+    private static Map<Object, String> entities = new WeakHashMap<>();
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object entity) {

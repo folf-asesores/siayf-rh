@@ -1,8 +1,9 @@
 /*
  *  CorreoNotificacionDTO.java
  *  Creado el Jun 16, 2016 4:41:03 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.notificadorerror;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class CorreoNotificacionDTO implements Serializable {
         this.alias = alias;
         this.correoElectronico = correoElectronico;
     }
-    
+
     public Integer getIdCorreoNotificacion() {
         return idCorreoNotificacion;
     }

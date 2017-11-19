@@ -1,5 +1,5 @@
-/**
- * 
+/*
+ *
  */
 
 package mx.gob.saludtlax.rh.reporteslaborales.productonomina;
@@ -33,7 +33,7 @@ import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgram
 public class ProductoNominaProgramasExcel implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -603631720915196921L;
 
@@ -96,8 +96,8 @@ public class ProductoNominaProgramasExcel implements Serializable {
      *             lanzara esta excepción.
      */
     private void cargarPlantilla() throws IOException {
-        this.libro = new XSSFWorkbook(this.is);
-        this.hoja = this.libro.getSheet(NOMBRE_HOJA);
+        libro = new XSSFWorkbook(is);
+        hoja = libro.getSheet(NOMBRE_HOJA);
     }
 
     /**
@@ -112,10 +112,10 @@ public class ProductoNominaProgramasExcel implements Serializable {
         byte[] bytes;
 
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            this.libro.write(byteArrayOutputStream);
+            libro.write(byteArrayOutputStream);
             bytes = byteArrayOutputStream.toByteArray();
-            this.libro.close();
-            this.is.close();
+            libro.close();
+            is.close();
         }
 
         return bytes;
@@ -158,15 +158,15 @@ public class ProductoNominaProgramasExcel implements Serializable {
         cont = 0;
         for (String programaFed : lista) {
 
-            String nombreHoja = this.libro.getSheetName(cont + 1);
-            this.hoja = this.libro.getSheet(nombreHoja);
+            String nombreHoja = libro.getSheetName(cont + 1);
+            hoja = libro.getSheet(nombreHoja);
 
-            Row filaEncabezadoPrograma = this.hoja.getRow(4);
+            Row filaEncabezadoPrograma = hoja.getRow(4);
             Cell cellEncabezado = filaEncabezadoPrograma.getCell(0);
             String contenido = cellEncabezado.getStringCellValue();
             cellEncabezado.setCellValue("NOMINA DEL PROGRAMA: " + programaFed);
 
-            Row filaEncabezadoProgramaFecha = this.hoja.getRow(5);
+            Row filaEncabezadoProgramaFecha = hoja.getRow(5);
             Cell cellEncabezadoFecha = filaEncabezadoProgramaFecha.getCell(0);
 
             SimpleDateFormat month_date = new SimpleDateFormat("MMMM", new Locale("ES"));
@@ -189,16 +189,16 @@ public class ProductoNominaProgramasExcel implements Serializable {
             i = FILA_INICIO_PROGRAMAS_DETALLE;
             filaTotales = FILA_INICIO_PROGRAMAS_DETALLE;
 
-            this.TOTAL_SUELDO = BigDecimal.ZERO;
-            this.TOTAL_ISR = BigDecimal.ZERO;
-            this.TOTAL_PENSION_ALIMENTICIA = BigDecimal.ZERO;
-            this.TOTALES = BigDecimal.ZERO;
+            TOTAL_SUELDO = BigDecimal.ZERO;
+            TOTAL_ISR = BigDecimal.ZERO;
+            TOTAL_PENSION_ALIMENTICIA = BigDecimal.ZERO;
+            TOTALES = BigDecimal.ZERO;
 
             for (ProductosNominaProgramasExcelDTO detalle : estructura) {
 
                 if (detalle.getPrograma().compareTo(programaFed) == 0) {
 
-                    Row filaDetalle = this.hoja.createRow(i);
+                    Row filaDetalle = hoja.createRow(i);
 
                     Cell celdaNum = filaDetalle.createCell(NUM);
                     celdaNum.setCellValue(contador);
@@ -222,15 +222,15 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
                     Cell sueldo = filaDetalle.createCell(SUELDO, Cell.CELL_TYPE_NUMERIC);
                     sueldo.setCellValue(detalle.getSueldo() == null ? 0 : detalle.getSueldo().doubleValue());
-                    this.TOTAL_SUELDO = this.TOTAL_SUELDO.add(detalle.getSueldo() == null ? BigDecimal.ZERO : detalle.getSueldo());
+                    TOTAL_SUELDO = TOTAL_SUELDO.add(detalle.getSueldo() == null ? BigDecimal.ZERO : detalle.getSueldo());
 
                     Cell celdaIsr = filaDetalle.createCell(ISR);
                     celdaIsr.setCellValue(detalle.getIsr() == null ? 0 : detalle.getIsr().doubleValue());
-                    this.TOTAL_ISR = this.TOTAL_ISR.add(detalle.getIsr() == null ? BigDecimal.ZERO : detalle.getIsr());
+                    TOTAL_ISR = TOTAL_ISR.add(detalle.getIsr() == null ? BigDecimal.ZERO : detalle.getIsr());
 
                     Cell celdaPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
                     celdaPensionAlimenticia.setCellValue(detalle.getPensionAlimenticia() == null ? 0 : detalle.getPensionAlimenticia().doubleValue());
-                    this.TOTAL_PENSION_ALIMENTICIA = this.TOTAL_PENSION_ALIMENTICIA
+                    TOTAL_PENSION_ALIMENTICIA = TOTAL_PENSION_ALIMENTICIA
                             .add(detalle.getPensionAlimenticia() == null ? BigDecimal.ZERO : detalle.getPensionAlimenticia());
 
                     Cell celdaPrimaVac = filaDetalle.createCell(PRIMA);
@@ -241,11 +241,11 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
                     Cell celdaTotal = filaDetalle.createCell(COLUMNA_TOTAL);
                     celdaTotal.setCellValue(detalle.getTotal() == null ? 0 : detalle.getTotal().doubleValue());
-                    this.TOTALES = this.TOTALES.add(detalle.getTotal() == null ? BigDecimal.ZERO : detalle.getTotal());
+                    TOTALES = TOTALES.add(detalle.getTotal() == null ? BigDecimal.ZERO : detalle.getTotal());
 
                     filaTotales++;
                     i++;
-                    this.hoja.shiftRows(i, i + 1, 1);
+                    hoja.shiftRows(i, i + 1, 1);
                 }
 
             }
@@ -254,41 +254,41 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
                 String total = "TOTAL";
 
-                Row filaDetalle = this.hoja.createRow(filaTotales);
+                Row filaDetalle = hoja.createRow(filaTotales);
 
                 Cell celdaGeneral = filaDetalle.createCell(FUNCION);
                 celdaGeneral.setCellValue(total);
 
                 Cell celdaTotalSueldo = filaDetalle.createCell(SUELDO);
-                celdaTotalSueldo.setCellValue(this.TOTAL_SUELDO.doubleValue());
+                celdaTotalSueldo.setCellValue(TOTAL_SUELDO.doubleValue());
 
                 Cell celdaTotalIsr = filaDetalle.createCell(ISR);
-                celdaTotalIsr.setCellValue(this.TOTAL_ISR.doubleValue());
+                celdaTotalIsr.setCellValue(TOTAL_ISR.doubleValue());
                 ;
 
                 Cell celdaTotalPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
-                celdaTotalPensionAlimenticia.setCellValue(this.TOTAL_PENSION_ALIMENTICIA.doubleValue());
+                celdaTotalPensionAlimenticia.setCellValue(TOTAL_PENSION_ALIMENTICIA.doubleValue());
 
                 Cell celdaTotalTotales = filaDetalle.createCell(COLUMNA_TOTAL);
-                celdaTotalTotales.setCellValue(this.TOTALES.doubleValue());
+                celdaTotalTotales.setCellValue(TOTALES.doubleValue());
 
             }
 
             if (filaTotales > FILA_INICIO_PROGRAMAS_DETALLE) {
 
-                Row filaFirmas1 = this.hoja.createRow(filaTotales + 5);
+                Row filaFirmas1 = hoja.createRow(filaTotales + 5);
                 Cell celdaEtiqueta1 = filaFirmas1.createCell(RFC);
                 celdaEtiqueta1.setCellValue("ELABORO");
 
-                Row filaFirmas2 = this.hoja.createRow(filaTotales + 7);
+                Row filaFirmas2 = hoja.createRow(filaTotales + 7);
                 Cell celdaNombre1 = filaFirmas2.createCell(RFC);
                 celdaNombre1.setCellValue("C.P. VERONICA MIMIENTZI SALAMANCA");
 
-                Row filaFirmas3 = this.hoja.createRow(filaTotales + 8);
+                Row filaFirmas3 = hoja.createRow(filaTotales + 8);
                 Cell celdaPuesto1 = filaFirmas3.createCell(RFC);
                 celdaPuesto1.setCellValue("JEFE DEL OFICINA DE PERSONAL EVENTUAL");
 
-                Row filaFirmas4 = this.hoja.createRow(filaTotales + 9);
+                Row filaFirmas4 = hoja.createRow(filaTotales + 9);
                 Cell celdaPuesto11 = filaFirmas4.createCell(RFC);
                 celdaPuesto11.setCellValue("DEL O.P.D. SALUD DE TLAXCALA");
 
@@ -317,7 +317,7 @@ public class ProductoNominaProgramasExcel implements Serializable {
             cont = +1;
         }
 
-        this.libro.removeSheetAt(0);
+        libro.removeSheetAt(0);
 
     }
 
@@ -329,12 +329,12 @@ public class ProductoNominaProgramasExcel implements Serializable {
             throw new IllegalArgumentException("newName must not be null"); //$NON-NLS-1$
         }
 
-        int oldIndex = this.libro.getSheetIndex(oldName);
+        int oldIndex = libro.getSheetIndex(oldName);
         if (oldIndex < 0) {
             throw new IllegalArgumentException();
         }
-        Sheet newSheet = this.libro.cloneSheet(oldIndex);
-        int newIndex = this.libro.getSheetIndex(newSheet);
-        this.libro.setSheetName(newIndex, newName);
+        Sheet newSheet = libro.cloneSheet(oldIndex);
+        int newIndex = libro.getSheetIndex(newSheet);
+        libro.setSheetName(newIndex, newName);
     }
 }

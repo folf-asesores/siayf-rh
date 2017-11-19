@@ -1,9 +1,9 @@
+
 package mx.gob.saludtlax.rh.ca.empleado;
 
 import java.io.Serializable;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 
-import mx.gob.saludtlax.rh.ca.ClienteRest;
 import mx.gob.saludtlax.rh.ca.incidencia.IncidenciaClienteRest;
 import mx.gob.saludtlax.rh.ca.incidencia.IncidenciaModelView;
 import mx.gob.saludtlax.rh.configuracion.serviciosweb.ServicioWebException;
@@ -31,137 +30,134 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 @ViewScoped
 public class AgregarIncidencaEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6928922807105556010L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6928922807105556010L;
 
-	@Inject
-	Empleado empleadoService;
+    @Inject
+    Empleado empleadoService;
 
-	@Inject
-	IncidenciaClienteRest incidenciaClienteRest;
+    @Inject
+    IncidenciaClienteRest incidenciaClienteRest;
 
-	@Inject
-	EmpleadoClientRest empleadoClienteRest;
+    @Inject
+    EmpleadoClientRest empleadoClienteRest;
 
-	@Inject
-	ServiciosWebEJB serviocWebEJB;
+    @Inject
+    ServiciosWebEJB serviocWebEJB;
 
-	IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel;
+    IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel;
 
-	InfoEmpleadoDTO empleadoDTO;
-	
-	String mensajeErrorValidacion;
+    InfoEmpleadoDTO empleadoDTO;
 
-	public void init() {
+    String mensajeErrorValidacion;
 
-		try {
-			ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
-			if (!servicioRSEntity.isProduccion()) {
-				HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				String url = req.getContextPath().toString();
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-						"El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
-								+ "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+    public void init() {
 
-			}
+        try {
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            if (!servicioRSEntity.isProduccion()) {
+                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String url = req.getContextPath().toString();
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                                + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		} catch (ServicioWebException e1) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
-		incidenciaEmpleadoFormModel = new IncidenciaEmpleadoFormModel();
+            }
 
-	}
+        } catch (ServicioWebException e1) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
+        incidenciaEmpleadoFormModel = new IncidenciaEmpleadoFormModel();
 
-	public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
+    }
 
-		List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
+    public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
 
-		if (query == "") {
-			query = ".";
-		}
+        List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
 
-		if (query.length() > 4) {
-			listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
-		}
+        if (query == "") {
+            query = ".";
+        }
 
-		return listadoEmpleadoDTO;
+        if (query.length() > 4) {
+            listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
+        }
 
-	}
+        return listadoEmpleadoDTO;
 
-	public List<IncidenciaModelView> incidenciasAutoacompletar(String query) {
+    }
 
-		List<IncidenciaModelView> listadoIncidencias = null;
+    public List<IncidenciaModelView> incidenciasAutoacompletar(String query) {
 
-		try {
-			listadoIncidencias = incidenciaClienteRest.buscarIncidenciaPorDescripcion(query);
-		} catch (RESTClientException e) {
-			JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
-			e.printStackTrace();
-		}
-		return listadoIncidencias;
-	}
+        List<IncidenciaModelView> listadoIncidencias = null;
 
-	public String guardar() {
+        try {
+            listadoIncidencias = incidenciaClienteRest.buscarIncidenciaPorDescripcion(query);
+        } catch (RESTClientException e) {
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            e.printStackTrace();
+        }
+        return listadoIncidencias;
+    }
 
-		try {			
-			empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
-			return "index.xhtml?faces-redirect=true&exito=1 ";
-		} catch (RESTClientException e) {
-			JSFUtils.errorMessage(e.getMessage(), e.getMessage());
-		} catch (ValidacionIncidenciaException e) {
-			mensajeErrorValidacion = e.getMessage();
-			RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");
-			
+    public String guardar() {
 
-		}
-		return "";
+        try {
+            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
+            return "index.xhtml?faces-redirect=true&exito=1 ";
+        } catch (RESTClientException e) {
+            JSFUtils.errorMessage(e.getMessage(), e.getMessage());
+        } catch (ValidacionIncidenciaException e) {
+            mensajeErrorValidacion = e.getMessage();
+            RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");
 
-	}
+        }
+        return "";
 
-	public String guardarSinValidacion(){
-		RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').hide()");
-		incidenciaEmpleadoFormModel.setIgnorarValidacionReglaIncidencia(true);
-		try {			
-			empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
-			return "index.xhtml?faces-redirect=true&exito=1 ";
-		} catch (RESTClientException e) {
-			JSFUtils.errorMessage(e.getMessage(), e.getMessage());
-		} catch (ValidacionIncidenciaException e) {
-			mensajeErrorValidacion = e.getMessage();
-			RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");			
+    }
 
-		}
-		return "";
-	}
-	public IncidenciaEmpleadoFormModel getIncidenciaEmpleadoFormModel() {
-		return incidenciaEmpleadoFormModel;
-	}
+    public String guardarSinValidacion() {
+        RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').hide()");
+        incidenciaEmpleadoFormModel.setIgnorarValidacionReglaIncidencia(true);
+        try {
+            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
+            return "index.xhtml?faces-redirect=true&exito=1 ";
+        } catch (RESTClientException e) {
+            JSFUtils.errorMessage(e.getMessage(), e.getMessage());
+        } catch (ValidacionIncidenciaException e) {
+            mensajeErrorValidacion = e.getMessage();
+            RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");
 
-	public void setIncidenciaEmpleadoFormModel(IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel) {
-		this.incidenciaEmpleadoFormModel = incidenciaEmpleadoFormModel;
-	}
+        }
+        return "";
+    }
 
-	public InfoEmpleadoDTO getEmpleadoDTO() {
-		return empleadoDTO;
-	}
+    public IncidenciaEmpleadoFormModel getIncidenciaEmpleadoFormModel() {
+        return incidenciaEmpleadoFormModel;
+    }
 
-	public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
-		this.empleadoDTO = empleadoDTO;
-	}
+    public void setIncidenciaEmpleadoFormModel(IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel) {
+        this.incidenciaEmpleadoFormModel = incidenciaEmpleadoFormModel;
+    }
 
-	public String getMensajeErrorValidacion() {
-		return mensajeErrorValidacion;
-	}
+    public InfoEmpleadoDTO getEmpleadoDTO() {
+        return empleadoDTO;
+    }
 
-	public void setMensajeErrorValidacion(String mensajeErrorValidacion) {
-		this.mensajeErrorValidacion = mensajeErrorValidacion;
-	}
-	
-	
+    public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
+        this.empleadoDTO = empleadoDTO;
+    }
+
+    public String getMensajeErrorValidacion() {
+        return mensajeErrorValidacion;
+    }
+
+    public void setMensajeErrorValidacion(String mensajeErrorValidacion) {
+        this.mensajeErrorValidacion = mensajeErrorValidacion;
+    }
 
 }

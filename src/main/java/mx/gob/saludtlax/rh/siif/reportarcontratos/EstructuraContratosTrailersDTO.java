@@ -33,10 +33,10 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     private Integer idProductoNomina;
     private Integer idPrograma;
 
-    // **************** Getters and Setters *********************** //
+    
 
     public String getIdEstructura() {
-        return this.idEstructura;
+        return idEstructura;
     }
 
     public void setIdEstructura(String idEstructura) {
@@ -44,7 +44,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdEstructurasContratosTrailers() {
-        return this.idEstructurasContratosTrailers;
+        return idEstructurasContratosTrailers;
     }
 
     public void setIdEstructurasContratosTrailers(Integer idEstructurasContratosTrailers) {
@@ -52,7 +52,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getRfc() {
-        return this.rfc;
+        return rfc;
     }
 
     public void setRfc(String rfc) {
@@ -60,7 +60,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getNumEmp() {
-        return this.numEmp;
+        return numEmp;
     }
 
     public void setNumEmp(String numEmp) {
@@ -68,7 +68,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getNumCheq() {
-        return this.numCheq;
+        return numCheq;
     }
 
     public void setNumCheq(String numCheq) {
@@ -76,7 +76,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer gettConcep() {
-        return this.tConcep;
+        return tConcep;
     }
 
     public void settConcep(Integer tConcep) {
@@ -84,7 +84,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getConcep() {
-        return this.concep;
+        return concep;
     }
 
     public void setConcep(String concep) {
@@ -92,7 +92,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public BigDecimal getImporte() {
-        return this.importe;
+        return importe;
     }
 
     public void setImporte(BigDecimal importe) {
@@ -100,7 +100,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getAnio() {
-        return this.anio;
+        return anio;
     }
 
     public void setAnio(String anio) {
@@ -108,7 +108,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getQna() {
-        return this.qna;
+        return qna;
     }
 
     public void setQna(String qna) {
@@ -116,7 +116,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getPtaAnt() {
-        return this.ptaAnt;
+        return ptaAnt;
     }
 
     public void setPtaAnt(String ptaAnt) {
@@ -124,7 +124,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getTotPagos() {
-        return this.totPagos;
+        return totPagos;
     }
 
     public void setTotPagos(String totPagos) {
@@ -132,7 +132,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getPagoEfec() {
-        return this.pagoEfec;
+        return pagoEfec;
     }
 
     public void setPagoEfec(String pagoEfec) {
@@ -140,7 +140,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getNomProd() {
-        return this.nomProd;
+        return nomProd;
     }
 
     public void setNomProd(String nomProd) {
@@ -148,7 +148,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getNumControl() {
-        return this.numControl;
+        return numControl;
     }
 
     public void setNumControl(Integer numControl) {
@@ -156,7 +156,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdEstructurasContratos() {
-        return this.idEstructurasContratos;
+        return idEstructurasContratos;
     }
 
     public void setIdEstructurasContratos(Integer idEstructurasContratos) {
@@ -164,7 +164,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdSiifBitacoras() {
-        return this.idSiifBitacoras;
+        return idSiifBitacoras;
     }
 
     public void setIdSiifBitacoras(Integer idSiifBitacoras) {
@@ -172,7 +172,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdSiifEncabezados() {
-        return this.idSiifEncabezados;
+        return idSiifEncabezados;
     }
 
     public void setIdSiifEncabezados(Integer idSiifEncabezados) {
@@ -180,7 +180,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdConcepto() {
-        return this.idConcepto;
+        return idConcepto;
     }
 
     public void setIdConcepto(Integer idConcepto) {
@@ -188,7 +188,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public String getConceptosSiif() {
-        return this.conceptosSiif;
+        return conceptosSiif;
     }
 
     public void setConceptosSiif(String conceptosSiif) {
@@ -196,7 +196,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdSubfuenteFinanciamiento() {
-        return this.idSubfuenteFinanciamiento;
+        return idSubfuenteFinanciamiento;
     }
 
     public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
@@ -204,7 +204,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdProductoNomina() {
-        return this.idProductoNomina;
+        return idProductoNomina;
     }
 
     public void setIdProductoNomina(Integer idProductoNomina) {
@@ -212,7 +212,7 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     }
 
     public Integer getIdPrograma() {
-        return this.idPrograma;
+        return idPrograma;
     }
 
     public void setIdPrograma(Integer idPrograma) {
@@ -225,12 +225,11 @@ public class EstructuraContratosTrailersDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EstructuraContratosTrailersDTO [idEstructura=" + this.idEstructura + ", idEstructurasContratosTrailers=" + this.idEstructurasContratosTrailers
-                + ", rfc=" + this.rfc + ", numEmp=" + this.numEmp + ", numCheq=" + this.numCheq + ", tConcep=" + this.tConcep + ", concep=" + this.concep
-                + ", importe=" + this.importe + ", anio=" + this.anio + ", qna=" + this.qna + ", ptaAnt=" + this.ptaAnt + ", totPagos=" + this.totPagos
-                + ", pagoEfec=" + this.pagoEfec + ", nomProd=" + this.nomProd + ", numControl=" + this.numControl + ", idEstructurasContratos="
-                + this.idEstructurasContratos + ", idSiifBitacoras=" + this.idSiifBitacoras + ", idSiifEncabezados=" + this.idSiifEncabezados + ", idConcepto="
-                + this.idConcepto + ", conceptosSiif=" + this.conceptosSiif + "]";
+        return "EstructuraContratosTrailersDTO [idEstructura=" + idEstructura + ", idEstructurasContratosTrailers=" + idEstructurasContratosTrailers + ", rfc="
+                + rfc + ", numEmp=" + numEmp + ", numCheq=" + numCheq + ", tConcep=" + tConcep + ", concep=" + concep + ", importe=" + importe + ", anio="
+                + anio + ", qna=" + qna + ", ptaAnt=" + ptaAnt + ", totPagos=" + totPagos + ", pagoEfec=" + pagoEfec + ", nomProd=" + nomProd + ", numControl="
+                + numControl + ", idEstructurasContratos=" + idEstructurasContratos + ", idSiifBitacoras=" + idSiifBitacoras + ", idSiifEncabezados="
+                + idSiifEncabezados + ", idConcepto=" + idConcepto + ", conceptosSiif=" + conceptosSiif + "]";
     }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.modulos;
 
 import java.io.Serializable;

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.nombramientos.segurovidainstitucional;
 
 import java.sql.Time;
@@ -21,49 +22,48 @@ import mx.gob.saludtlax.rh.persistencia.SeguroVidaRepository;
  */
 public class SeguroVidaInstitucionalService {
 
-	@Inject
-	private SeguroVidaRepository seguroVidaRepository;
-	@Inject
-	private BeneficiarioRepository beneficiarioRepository;
+    @Inject
+    private SeguroVidaRepository seguroVidaRepository;
+    @Inject
+    private BeneficiarioRepository beneficiarioRepository;
 
-	protected Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
-		
-		if (seguroVidaRepository.existeNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente())) {
-			throw new ReglaNegocioException("El numero de expediente ya existe", ReglaNegocioCodigoError.YA_REGISTRADO);
-		}
-		
+    protected Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
 
-		SeguroVidaEntity seguroVidaEntity = new SeguroVidaEntity();
+        if (seguroVidaRepository.existeNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente())) {
+            throw new ReglaNegocioException("El numero de expediente ya existe", ReglaNegocioCodigoError.YA_REGISTRADO);
+        }
 
-		seguroVidaEntity.setEstatus(true);
-		seguroVidaEntity.setFechaAlta(new Date());
-		seguroVidaEntity.setHoraAlta(new Time(new Date().getTime()));
-		seguroVidaEntity.setIdEmpleado(seguroVidaInstitucionalDTO.getIdEmpleado());
-		seguroVidaEntity.setNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente());
+        SeguroVidaEntity seguroVidaEntity = new SeguroVidaEntity();
 
-		seguroVidaRepository.crear(seguroVidaEntity);
+        seguroVidaEntity.setEstatus(true);
+        seguroVidaEntity.setFechaAlta(new Date());
+        seguroVidaEntity.setHoraAlta(new Time(new Date().getTime()));
+        seguroVidaEntity.setIdEmpleado(seguroVidaInstitucionalDTO.getIdEmpleado());
+        seguroVidaEntity.setNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente());
 
-		for (BeneficiariosDTO beneficiariosDTO : seguroVidaInstitucionalDTO.getBeneficiariosDTOs()) {
-			BeneficiarioEntity beneficiarioEntity = new BeneficiarioEntity();
+        seguroVidaRepository.crear(seguroVidaEntity);
 
-			beneficiarioEntity.setIdDependienteEconomico(beneficiariosDTO.getIdDependienteEconomico());
-			beneficiarioEntity.setIdSeguroVida(seguroVidaEntity.getIdSeguroVida());
-			beneficiarioEntity.setPorcetaje(beneficiariosDTO.getPorcetaje());
+        for (BeneficiariosDTO beneficiariosDTO : seguroVidaInstitucionalDTO.getBeneficiariosDTOs()) {
+            BeneficiarioEntity beneficiarioEntity = new BeneficiarioEntity();
 
-			beneficiarioRepository.crear(beneficiarioEntity);
-		}
+            beneficiarioEntity.setIdDependienteEconomico(beneficiariosDTO.getIdDependienteEconomico());
+            beneficiarioEntity.setIdSeguroVida(seguroVidaEntity.getIdSeguroVida());
+            beneficiarioEntity.setPorcetaje(beneficiariosDTO.getPorcetaje());
 
-		return seguroVidaEntity.getIdSeguroVida();
-	}
+            beneficiarioRepository.crear(beneficiarioEntity);
+        }
 
-	protected boolean existeNumeroExpediente(String numeroExpediente) {
-		
-		return seguroVidaRepository.existeNumeroExpediente(numeroExpediente);
-	}
-	
-	protected Integer existeEmpleado(Integer idEmpleado) {
-	
-		return seguroVidaRepository.existeEmpleado(idEmpleado);
-	}
-	
+        return seguroVidaEntity.getIdSeguroVida();
+    }
+
+    protected boolean existeNumeroExpediente(String numeroExpediente) {
+
+        return seguroVidaRepository.existeNumeroExpediente(numeroExpediente);
+    }
+
+    protected Integer existeEmpleado(Integer idEmpleado) {
+
+        return seguroVidaRepository.existeEmpleado(idEmpleado);
+    }
+
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.empleado.issste;
 
 import java.io.IOException;
@@ -19,7 +20,6 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
-import mx.gob.saludtlax.rh.empleado.issste.AdministracionMovimientsIsssteView;
 import mx.gob.saludtlax.rh.empleados.administracion.Empleado;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
@@ -34,345 +34,332 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class AdministracionMovimientoIsssteController implements Serializable {
 
-	/**
-	 * 
-	 */
-	
-	@Inject
-	private Catalogo catalogo;
-	@Inject
-	private Empleado empleado;
-	@Inject
-	private Issste issste;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -329222968449414674L;
+    /**
+     *
+     */
 
-	private AdministracionMovimientsIsssteView view;
+    @Inject
+    private Catalogo catalogo;
+    @Inject
+    private Empleado empleado;
+    @Inject
+    private Issste issste;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new AdministracionMovimientsIsssteView();
+    private AdministracionMovimientsIsssteView view;
 
-		this.view.setListaCausaBaja(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaCausaBajaIssste()));
-		this.view.setListaNombramiento(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaTipoNombramiento()));
-		this.view.setListaNivelSalario(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaNivelSalarial()));
-	}
+    @PostConstruct
+    public void inicio() {
+        view = new AdministracionMovimientsIsssteView();
 
-	public void consultarEmpleados() {
-		try {
-			
-			this.view.setListaEmpleados(empleado.empleadosPorCriterioConNombramiento(this.view.getCriterio()));
+        view.setListaCausaBaja(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaCausaBajaIssste()));
+        view.setListaNombramiento(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaTipoNombramiento()));
+        view.setListaNivelSalario(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaNivelSalarial()));
+    }
 
-			if (this.view.getListaEmpleados().isEmpty()) {
-				JSFUtils.infoMessageEspecifico("info", "",
-						"No se encontrarón registros en el criterio" + this.view.getCriterio());
-			}
-			this.view.setVentanaNuevoReporte(false);
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidatorException validatorException) {
-			JSFUtils.errorMessage("Error: ", validatorException.getMessage());
-		}
-	}
+    public void consultarEmpleados() {
+        try {
 
-	public void consultarMovimiento() {
-		try {
-			this.view.setListaMovimiento(issste.obtenerListaMovimientoPorCriterio(this.view.getCriterio()));
+            view.setListaEmpleados(empleado.empleadosPorCriterioConNombramiento(view.getCriterio()));
 
-			if (this.view.getListaMovimiento().isEmpty()) {
-				JSFUtils.infoMessageEspecifico("info", "",
-						"No se encontrarón registros en el criterio" + this.view.getCriterio());
-			}
-			
-			this.view.setVentanaNuevoReporte(false);
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidatorException validatorException) {
-			JSFUtils.errorMessage("Error: ", validatorException.getMessage());
-		}
-	}
+            if (view.getListaEmpleados().isEmpty()) {
+                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+            }
+            view.setVentanaNuevoReporte(false);
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        } catch (ValidatorException validatorException) {
+            JSFUtils.errorMessage("Error: ", validatorException.getMessage());
+        }
+    }
 
-	public void seleccionarEmpleado(InfoEmpleadoDTO empleadoSeleccionar) {
+    public void consultarMovimiento() {
+        try {
+            view.setListaMovimiento(issste.obtenerListaMovimientoPorCriterio(view.getCriterio()));
 
-		if (issste.existeEmpleado(empleadoSeleccionar.getIdEmpleado())) {
-			this.view.setVentanaNuevoReporte(false);
-			JSFUtils.errorMessage("Seleccionar Empleado: ", "El empleado ya se encuentra registrado");
-		} else {
-			this.view.setIdEmpleado(empleadoSeleccionar.getIdEmpleado());
-			this.view.setEmpleadoSeleccionado(empleadoSeleccionar);
-			this.view.setFormularioAltaTrabajador(true);
-			this.view.getAltaTrabajadorDTO().setSueldoIssste(empleadoSeleccionar.getSueldoActualEmpleado());
-			this.view.setVentanaNuevoReporte(false);
-		}
-	}
+            if (view.getListaMovimiento().isEmpty()) {
+                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+            }
 
-	public void verFormatoAltas() throws IOException {
-		try {
-			this.view.setAdministracionMovimientos(false);
-			this.view.setAltaTrabajador(false);
-			this.view.setBajaIssste(true);
-			this.view.setSueldoTrabajador(true);
+            view.setVentanaNuevoReporte(false);
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        } catch (ValidatorException validatorException) {
+            JSFUtils.errorMessage("Error: ", validatorException.getMessage());
+        }
+    }
 
-		} catch (NullPointerException | IllegalArgumentException exception) {
-			System.err.println(exception.getMessage());
-			exception.printStackTrace();
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		} catch (ValidacionException validacionException) {
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		}
-	}
+    public void seleccionarEmpleado(InfoEmpleadoDTO empleadoSeleccionar) {
 
-	public void altaTrabajador() {
-		try {
+        if (issste.existeEmpleado(empleadoSeleccionar.getIdEmpleado())) {
+            view.setVentanaNuevoReporte(false);
+            JSFUtils.errorMessage("Seleccionar Empleado: ", "El empleado ya se encuentra registrado");
+        } else {
+            view.setIdEmpleado(empleadoSeleccionar.getIdEmpleado());
+            view.setEmpleadoSeleccionado(empleadoSeleccionar);
+            view.setFormularioAltaTrabajador(true);
+            view.getAltaTrabajadorDTO().setSueldoIssste(empleadoSeleccionar.getSueldoActualEmpleado());
+            view.setVentanaNuevoReporte(false);
+        }
+    }
 
-			MovimientoIsssteEmpleadoDTO dto = this.view.getAltaTrabajadorDTO();
+    public void verFormatoAltas() throws IOException {
+        try {
+            view.setAdministracionMovimientos(false);
+            view.setAltaTrabajador(false);
+            view.setBajaIssste(true);
+            view.setSueldoTrabajador(true);
 
-			dto.setIdEmpleado(this.view.getIdEmpleado());
-			dto.setIdUsuario(this.obtenerIdUsuarioSession());
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
+            exception.printStackTrace();
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        } catch (ValidacionException validacionException) {
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        }
+    }
 
-			Integer idMovimiento = issste.altaIsssteMovimiento(dto);
+    public void altaTrabajador() {
+        try {
 
-			if (ValidacionUtil.esNumeroPositivoInt(idMovimiento)) {
+            MovimientoIsssteEmpleadoDTO dto = view.getAltaTrabajadorDTO();
 
-				this.view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + idMovimiento
-						+ "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR
-						+ "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.ALTA_TRABAJADOR);
+            dto.setIdEmpleado(view.getIdEmpleado());
+            dto.setIdUsuario(obtenerIdUsuarioSession());
 
-				this.view.setVentanaNuevoReporte(true);
+            Integer idMovimiento = issste.altaIsssteMovimiento(dto);
 
-				JSFUtils.infoMessage("Alta Trabajador: ", "¡Se registro correctamente!");
-				mostrarPrincipal();
-				
-			}
+            if (ValidacionUtil.esNumeroPositivoInt(idMovimiento)) {
 
-		} catch (ValidacionException validacionException) {
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		}
-	}
+                view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + idMovimiento + "&idAccionMovimientoIssste="
+                        + EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.ALTA_TRABAJADOR);
 
-	public void modificarSueldo() {
-		try {
+                view.setVentanaNuevoReporte(true);
 
-			issste.modificacionIsssteMovimiento(this.view.getModificacionTrabajadorDTO());
+                JSFUtils.infoMessage("Alta Trabajador: ", "¡Se registro correctamente!");
+                mostrarPrincipal();
 
-			this.view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
-					+ this.view.getModificacionTrabajadorDTO().getIdMovimientoIsssteEmpleado()
-					+ "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste="
-					+ EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO);
+            }
 
-			this.view.setVentanaNuevoReporte(true);
+        } catch (ValidacionException validacionException) {
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        }
+    }
 
-			JSFUtils.infoMessage("Modificación Sueldo Trabajador: ", "¡Se modifico correctamente!");
-			mostrarPrincipal();
+    public void modificarSueldo() {
+        try {
 
-		} catch (ValidacionException validacionException) {
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		}
-	}
+            issste.modificacionIsssteMovimiento(view.getModificacionTrabajadorDTO());
 
-	public void bajaTrabajador() {
-		try {
-			issste.bajaIsssteMovimiento(this.view.getBajaTrabajadorDTO());
+            view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
+                    + view.getModificacionTrabajadorDTO().getIdMovimientoIsssteEmpleado() + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR
+                    + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO);
 
-			this.view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
-					+ this.view.getBajaTrabajadorDTO().getIdMovimientoIsssteEmpleado() + "&idAccionMovimientoIssste="
-					+ EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste="
-					+ EnumTipoMovimientoIssste.BAJA_ISSSTE);
-			this.view.setVentanaNuevoReporte(true);
+            view.setVentanaNuevoReporte(true);
 
-			JSFUtils.infoMessage("Baja Trabajador: ", "¡Se dio de baja correctamente!");
-			mostrarPrincipal();
-		} catch (ValidacionException validacionException) {
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		}
-	}
+            JSFUtils.infoMessage("Modificación Sueldo Trabajador: ", "¡Se modifico correctamente!");
+            mostrarPrincipal();
 
-	public void descargarMovimientoIssste(InfoMovimientoIsssteDTO infoMovimientoIsssteDTO) {
+        } catch (ValidacionException validacionException) {
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        }
+    }
 
-		this.view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
-				+ infoMovimientoIsssteDTO.getIdMovimientoIsssteEmpleado() + "&idAccionMovimientoIssste="
-				+ EnumAccionMovimientoIssste.DESCARGAR + "&idTipoMovimientoIssste="
-				+ infoMovimientoIsssteDTO.getIdTipoMovimientoIssste());
-		this.view.setVentanaNuevoReporte(true);
+    public void bajaTrabajador() {
+        try {
+            issste.bajaIsssteMovimiento(view.getBajaTrabajadorDTO());
 
-	}
+            view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + view.getBajaTrabajadorDTO().getIdMovimientoIsssteEmpleado()
+                    + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.BAJA_ISSSTE);
+            view.setVentanaNuevoReporte(true);
 
-	public void mostrarPanelAlta() {
-		this.view.setCriterio("");
-		this.view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
-		this.view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
-		this.view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
-		this.view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
-		this.view.setAdministracionMovimientos(false);
-		this.view.setAltaTrabajador(true);
-		this.view.setFormularioAltaTrabajador(false);
-		this.view.setBajaIssste(false);
-		this.view.setSueldoTrabajador(false);
-		this.view.setVentanaNuevoReporte(false);
-	}
+            JSFUtils.infoMessage("Baja Trabajador: ", "¡Se dio de baja correctamente!");
+            mostrarPrincipal();
+        } catch (ValidacionException validacionException) {
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        }
+    }
 
-	public void mostrarPrincipal() {
-		this.view.setCriterio("");
-		this.view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
-		this.view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
-		this.view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
-		this.view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
-		this.view.setListaMovimiento(new ArrayList<InfoMovimientoIsssteDTO>());
-		this.view.setAdministracionMovimientos(true);
-		this.view.setAltaTrabajador(false);
-		this.view.setFormularioAltaTrabajador(false);
-		this.view.setBajaIssste(false);
-		this.view.setSueldoTrabajador(false);
-		this.view.setOpcionDisponibles(true);
-//		this.view.setVentanaNuevoReporte(false);
-	}
+    public void descargarMovimientoIssste(InfoMovimientoIsssteDTO infoMovimientoIsssteDTO) {
 
-	public void mostrarPanelModificacion() {
+        view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + infoMovimientoIsssteDTO.getIdMovimientoIsssteEmpleado()
+                + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.DESCARGAR + "&idTipoMovimientoIssste="
+                + infoMovimientoIsssteDTO.getIdTipoMovimientoIssste());
+        view.setVentanaNuevoReporte(true);
 
-		this.view.getModificacionTrabajadorDTO()
-				.setIdMovimientoIsssteEmpleado(this.view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
-		this.view.getModificacionTrabajadorDTO()
-				.setSueldoIssste(this.view.getMovimientoSeleccinado().getSueldoIssste());
-		this.view.getModificacionTrabajadorDTO().setSueldoSar(this.view.getMovimientoSeleccinado().getSueldoSar());
-		this.view.getModificacionTrabajadorDTO()
-				.setTotalRemuneracion(this.view.getMovimientoSeleccinado().getTotalRemuneracion());
+    }
 
-		this.view.setCriterio("");
-		this.view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
-		this.view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
-		this.view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
-		this.view.setAdministracionMovimientos(false);
-		this.view.setAltaTrabajador(false);
-		this.view.setFormularioAltaTrabajador(false);
-		this.view.setBajaIssste(false);
-		this.view.setSueldoTrabajador(true);
-		this.view.setVentanaNuevoReporte(false);
+    public void mostrarPanelAlta() {
+        view.setCriterio("");
+        view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
+        view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
+        view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
+        view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
+        view.setAdministracionMovimientos(false);
+        view.setAltaTrabajador(true);
+        view.setFormularioAltaTrabajador(false);
+        view.setBajaIssste(false);
+        view.setSueldoTrabajador(false);
+        view.setVentanaNuevoReporte(false);
+    }
 
-	}
+    public void mostrarPrincipal() {
+        view.setCriterio("");
+        view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
+        view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
+        view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
+        view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
+        view.setListaMovimiento(new ArrayList<InfoMovimientoIsssteDTO>());
+        view.setAdministracionMovimientos(true);
+        view.setAltaTrabajador(false);
+        view.setFormularioAltaTrabajador(false);
+        view.setBajaIssste(false);
+        view.setSueldoTrabajador(false);
+        view.setOpcionDisponibles(true);
+        //		this.view.setVentanaNuevoReporte(false);
+    }
 
-	public void mostrarPanelBaja() {
+    public void mostrarPanelModificacion() {
 
-		this.view.getBajaTrabajadorDTO()
-				.setIdMovimientoIsssteEmpleado(this.view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
-		this.view.getBajaTrabajadorDTO().setSueldoIssste(this.view.getMovimientoSeleccinado().getSueldoIssste());
-		this.view.getBajaTrabajadorDTO().setSueldoSar(this.view.getMovimientoSeleccinado().getSueldoSar());
-		this.view.getBajaTrabajadorDTO()
-				.setTotalRemuneracion(this.view.getMovimientoSeleccinado().getTotalRemuneracion());
-		this.view.getBajaTrabajadorDTO().setIdCausaBaja(this.view.getMovimientoSeleccinado().getIdCausaBaja());
+        view.getModificacionTrabajadorDTO().setIdMovimientoIsssteEmpleado(view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
+        view.getModificacionTrabajadorDTO().setSueldoIssste(view.getMovimientoSeleccinado().getSueldoIssste());
+        view.getModificacionTrabajadorDTO().setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
+        view.getModificacionTrabajadorDTO().setTotalRemuneracion(view.getMovimientoSeleccinado().getTotalRemuneracion());
 
-		this.view.setCriterio("");
-		this.view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
-		this.view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
-		this.view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
-		this.view.setAdministracionMovimientos(false);
-		this.view.setAltaTrabajador(false);
-		this.view.setFormularioAltaTrabajador(false);
-		this.view.setBajaIssste(true);
-		this.view.setSueldoTrabajador(false);
-		this.view.setVentanaNuevoReporte(false);
-	}
+        view.setCriterio("");
+        view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
+        view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
+        view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
+        view.setAdministracionMovimientos(false);
+        view.setAltaTrabajador(false);
+        view.setFormularioAltaTrabajador(false);
+        view.setBajaIssste(false);
+        view.setSueldoTrabajador(true);
+        view.setVentanaNuevoReporte(false);
 
-	public void cerrarFormularioAltaTrabajador() {
-		this.view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
-		this.view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
-		this.view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
-		this.view.setAdministracionMovimientos(false);
-		this.view.setAltaTrabajador(true);
-		this.view.setFormularioAltaTrabajador(false);
-		this.view.setBajaIssste(false);
-		this.view.setSueldoTrabajador(false);
-		this.view.setVentanaNuevoReporte(false);
-	}
+    }
 
-	public void onRowSelect(SelectEvent event) {
-		this.view.setOpcionDisponibles(false);
-		this.view.setVentanaNuevoReporte(false);
-	}
+    public void mostrarPanelBaja() {
 
-	public void onRowUnselect(UnselectEvent event) {
-		this.view.setOpcionDisponibles(true);
-		this.view.setVentanaNuevoReporte(false);
-	}
+        view.getBajaTrabajadorDTO().setIdMovimientoIsssteEmpleado(view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
+        view.getBajaTrabajadorDTO().setSueldoIssste(view.getMovimientoSeleccinado().getSueldoIssste());
+        view.getBajaTrabajadorDTO().setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
+        view.getBajaTrabajadorDTO().setTotalRemuneracion(view.getMovimientoSeleccinado().getTotalRemuneracion());
+        view.getBajaTrabajadorDTO().setIdCausaBaja(view.getMovimientoSeleccinado().getIdCausaBaja());
 
-	
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
-		String nombreComponete = component.getId();
+        view.setCriterio("");
+        view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
+        view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
+        view.setListaEmpleados(new ArrayList<InfoEmpleadoDTO>());
+        view.setAdministracionMovimientos(false);
+        view.setAltaTrabajador(false);
+        view.setFormularioAltaTrabajador(false);
+        view.setBajaIssste(true);
+        view.setSueldoTrabajador(false);
+        view.setVentanaNuevoReporte(false);
+    }
 
-		switch (nombreComponete) {
-		case "criterio":
-			String criterio = (String) value;
+    public void cerrarFormularioAltaTrabajador() {
+        view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
+        view.setAltaTrabajadorDTO(new MovimientoIsssteEmpleadoDTO());
+        view.setMovimientoSeleccinado(new InfoMovimientoIsssteDTO());
+        view.setAdministracionMovimientos(false);
+        view.setAltaTrabajador(true);
+        view.setFormularioAltaTrabajador(false);
+        view.setBajaIssste(false);
+        view.setSueldoTrabajador(false);
+        view.setVentanaNuevoReporte(false);
+    }
 
-			if (ValidacionUtil.esCadenaVacia(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			} else {
-				if (criterio.trim().length() < 5) {
-					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-							"Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-					context.addMessage(component.getClientId(), facesMessage);
-					throw new ValidatorException(facesMessage);
-				}
-			}
+    public void onRowSelect(SelectEvent event) {
+        view.setOpcionDisponibles(false);
+        view.setVentanaNuevoReporte(false);
+    }
 
-			break;
+    public void onRowUnselect(UnselectEvent event) {
+        view.setOpcionDisponibles(true);
+        view.setVentanaNuevoReporte(false);
+    }
 
-		case "criterios":
-			String criterios = (String) value;
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+        String nombreComponete = component.getId();
 
-			if (ValidacionUtil.esCadenaVacia(criterios)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			} else {
-				if (criterios.trim().length() < 5) {
-					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-							"Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-					context.addMessage(component.getClientId(), facesMessage);
-					throw new ValidatorException(facesMessage);
-				}
-			}
+        switch (nombreComponete) {
+            case "criterio":
+                String criterio = (String) value;
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+                if (ValidacionUtil.esCadenaVacia(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                } else {
+                    if (criterio.trim().length() < 5) {
+                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
+                        context.addMessage(component.getClientId(), facesMessage);
+                        throw new ValidatorException(facesMessage);
+                    }
+                }
 
-	public Integer obtenerIdUsuarioSession() {
+                break;
 
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            case "criterios":
+                String criterios = (String) value;
 
-		return usuario.getIdUsuario();
-	}
+                if (ValidacionUtil.esCadenaVacia(criterios)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                } else {
+                    if (criterios.trim().length() < 5) {
+                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
+                        context.addMessage(component.getClientId(), facesMessage);
+                        throw new ValidatorException(facesMessage);
+                    }
+                }
 
-	public void regresar() {
-		try {
-			JSFUtils.redireccionar(
-					"/siayf-rh/contenido/reportesLaborales/administracionMovimientoIssste.xhtml?faces-redirect=true");
-		} catch (IOException e) {
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-			e.printStackTrace();
-		}
-	}
+    public Integer obtenerIdUsuarioSession() {
 
-	public AdministracionMovimientsIsssteView getView() {
-		return view;
-	}
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-	public void setView(AdministracionMovimientsIsssteView view) {
-		this.view = view;
-	}
+        return usuario.getIdUsuario();
+    }
+
+    public void regresar() {
+        try {
+            JSFUtils.redireccionar("/siayf-rh/contenido/reportesLaborales/administracionMovimientoIssste.xhtml?faces-redirect=true");
+        } catch (IOException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    public AdministracionMovimientsIsssteView getView() {
+        return view;
+    }
+
+    public void setView(AdministracionMovimientsIsssteView view) {
+        this.view = view;
+    }
 }

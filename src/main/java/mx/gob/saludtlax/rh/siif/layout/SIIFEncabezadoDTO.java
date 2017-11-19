@@ -1,8 +1,9 @@
 /*
  * SIIFEncabezadoDTO.java
  * Creado el 4/07/2016 05:21:07 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.siif.layout;
 
 import java.math.BigDecimal;
@@ -34,22 +35,24 @@ public class SIIFEncabezadoDTO {
     private BigInteger inconsistenciaPersonal;
     private BigInteger inconsistenciaLaboral;
 
-    public SIIFEncabezadoDTO() {}
+    public SIIFEncabezadoDTO() {
+    }
 
-//    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, Integer idCuentaBancaria, String idTipoEmisionNomina, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina) {
-//        this.idNomina = idNomina;
-//        this.idPoder = idPoder;
-//        this.idTipoNomina = idTipoNomina;
-//        this.fechaFinQuincena = fechaFinQuincena;
-//        this.idCuentaBancaria = idCuentaBancaria;
-//        this.idTipoEmisionNomina = idTipoEmisionNomina;
-//        this.percepciones = percepciones;
-//        this.deducciones = deducciones;
-//        this.neto = neto;
-//        this.idEstadoNomina = idEstadoNomina;
-//    }
-    
-    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, Integer claveCuentaBancaria, String idTipoEmisionNomina, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina) {
+    //    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, Integer idCuentaBancaria, String idTipoEmisionNomina, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina) {
+    //        this.idNomina = idNomina;
+    //        this.idPoder = idPoder;
+    //        this.idTipoNomina = idTipoNomina;
+    //        this.fechaFinQuincena = fechaFinQuincena;
+    //        this.idCuentaBancaria = idCuentaBancaria;
+    //        this.idTipoEmisionNomina = idTipoEmisionNomina;
+    //        this.percepciones = percepciones;
+    //        this.deducciones = deducciones;
+    //        this.neto = neto;
+    //        this.idEstadoNomina = idEstadoNomina;
+    //    }
+
+    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, Integer claveCuentaBancaria,
+            String idTipoEmisionNomina, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina) {
         this.idNomina = idNomina;
         this.idPoder = idPoder;
         this.idTipoNomina = idTipoNomina;
@@ -62,7 +65,9 @@ public class SIIFEncabezadoDTO {
         this.idEstadoNomina = idEstadoNomina;
     }
 
-    public SIIFEncabezadoDTO(Integer idSIIFEncabezado, Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, String idTipoEmisionNomina, Integer idCuentaBancaria,  Integer claveCuentaBancaria, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina, Integer idSIIFBitacora) {
+    public SIIFEncabezadoDTO(Integer idSIIFEncabezado, Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena,
+            String idTipoEmisionNomina, Integer idCuentaBancaria, Integer claveCuentaBancaria, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto,
+            Character idEstadoNomina, Integer idSIIFBitacora) {
         this.idSIIFEncabezado = idSIIFEncabezado;
         this.idNomina = idNomina;
         this.idPoder = idPoder;
@@ -70,164 +75,163 @@ public class SIIFEncabezadoDTO {
         this.fechaFinQuincena = fechaFinQuincena;
         this.idTipoEmisionNomina = idTipoEmisionNomina;
         this.idCuentaBancaria = idCuentaBancaria;
-        this.claveCuentaBancaria = claveCuentaBancaria;        
+        this.claveCuentaBancaria = claveCuentaBancaria;
         this.percepciones = percepciones;
         this.deducciones = deducciones;
         this.neto = neto;
         this.idEstadoNomina = idEstadoNomina;
         this.idSIIFBitacora = idSIIFBitacora;
     }
-    
-    
+
     public Integer getIdSIIFEncabezado() {
-            return idSIIFEncabezado;
+        return idSIIFEncabezado;
     }
-    
+
     public void setIdSIIFEncabezado(Integer idSIIFEncabezado) {
-            this.idSIIFEncabezado = idSIIFEncabezado;
+        this.idSIIFEncabezado = idSIIFEncabezado;
     }
-    
+
     public Integer getIdNomina() {
-            return idNomina;
+        return idNomina;
     }
-    
+
     public void setIdNomina(Integer idNomina) {
-            this.idNomina = idNomina;
+        this.idNomina = idNomina;
     }
-    
+
     public Character getIdPoder() {
-            return idPoder;
+        return idPoder;
     }
-    
+
     public void setIdPoder(Character idPoder) {
-            this.idPoder = idPoder;
+        this.idPoder = idPoder;
     }
-    
+
     public Integer getIdTipoNomina() {
-            return idTipoNomina;
+        return idTipoNomina;
     }
-    
+
     public void setIdTipoNomina(Integer idTipoNomina) {
-            this.idTipoNomina = idTipoNomina;
+        this.idTipoNomina = idTipoNomina;
     }
-    
+
     public Date getFechaFinQuincena() {
-            return fechaFinQuincena;
+        return fechaFinQuincena;
     }
-    
+
     public void setFechaFinQuincena(Date fechaFinQuincena) {
-            this.fechaFinQuincena = fechaFinQuincena;
+        this.fechaFinQuincena = fechaFinQuincena;
     }
-        
-    
+
     public String getFechaFinQuincenaStr() {
-		return fechaFinQuincenaStr;
-	}
-
-	public void setFechaFinQuincenaStr(String fechaFinQuincenaStr) {
-		this.fechaFinQuincenaStr = fechaFinQuincenaStr;
-	}
-
-	public Integer getIdCuentaBancaria() {
-            return idCuentaBancaria;
+        return fechaFinQuincenaStr;
     }
-    
+
+    public void setFechaFinQuincenaStr(String fechaFinQuincenaStr) {
+        this.fechaFinQuincenaStr = fechaFinQuincenaStr;
+    }
+
+    public Integer getIdCuentaBancaria() {
+        return idCuentaBancaria;
+    }
+
     public void setIdCuentaBancaria(Integer idCuentaBancaria) {
-            this.idCuentaBancaria = idCuentaBancaria;
+        this.idCuentaBancaria = idCuentaBancaria;
     }
-    
+
     public String getIdTipoEmisionNomina() {
-            return idTipoEmisionNomina;
+        return idTipoEmisionNomina;
     }
-    
+
     public void setIdTipoEmisionNomina(String idTipoEmisionNomina) {
-            this.idTipoEmisionNomina = idTipoEmisionNomina;
+        this.idTipoEmisionNomina = idTipoEmisionNomina;
     }
-    
+
     public BigDecimal getPercepciones() {
-            return percepciones;
+        return percepciones;
     }
-    
+
     public void setPercepciones(BigDecimal percepciones) {
-            this.percepciones = percepciones;
+        this.percepciones = percepciones;
     }
-    
+
     public BigDecimal getDeducciones() {
-            return deducciones;
+        return deducciones;
     }
-    
+
     public void setDeducciones(BigDecimal deducciones) {
-            this.deducciones = deducciones;
+        this.deducciones = deducciones;
     }
-    
+
     public BigDecimal getNeto() {
-            return neto;
+        return neto;
     }
-    
+
     public void setNeto(BigDecimal neto) {
-            this.neto = neto;
+        this.neto = neto;
     }
-    
+
     public Character getIdEstadoNomina() {
-            return idEstadoNomina;
+        return idEstadoNomina;
     }
-    
+
     public void setIdEstadoNomina(Character idEstadoNomina) {
-            this.idEstadoNomina = idEstadoNomina;
+        this.idEstadoNomina = idEstadoNomina;
     }
-    
+
     public Integer getIdNombramiento() {
-		return idNombramiento;
-	}
-
-	public void setIdNombramiento(Integer idNombramiento) {
-		this.idNombramiento = idNombramiento;
-	}
-
-	public Integer getIdSIIFBitacora() {
-            return idSIIFBitacora;
+        return idNombramiento;
     }
-    
+
+    public void setIdNombramiento(Integer idNombramiento) {
+        this.idNombramiento = idNombramiento;
+    }
+
+    public Integer getIdSIIFBitacora() {
+        return idSIIFBitacora;
+    }
+
     public void setIdSIIFBitacora(Integer idSIIFBitacora) {
-            this.idSIIFBitacora = idSIIFBitacora;
+        this.idSIIFBitacora = idSIIFBitacora;
     }
-	public Integer getClaveCuentaBancaria() {
-		return claveCuentaBancaria;
-	}
 
-	public void setClaveCuentaBancaria(Integer claveCuentaBancaria) {
-		this.claveCuentaBancaria = claveCuentaBancaria;
-	}
+    public Integer getClaveCuentaBancaria() {
+        return claveCuentaBancaria;
+    }
 
-	public String getNombramiento() {
-		return nombramiento;
-	}
+    public void setClaveCuentaBancaria(Integer claveCuentaBancaria) {
+        this.claveCuentaBancaria = claveCuentaBancaria;
+    }
 
-	public void setNombramiento(String nombramiento) {
-		this.nombramiento = nombramiento;
-	}
+    public String getNombramiento() {
+        return nombramiento;
+    }
 
-	public String getSubPrograma() {
-		return subPrograma;
-	}
+    public void setNombramiento(String nombramiento) {
+        this.nombramiento = nombramiento;
+    }
 
-	public void setSubPrograma(String subPrograma) {
-		this.subPrograma = subPrograma;
-	}
+    public String getSubPrograma() {
+        return subPrograma;
+    }
 
-	public BigInteger getInconsistenciaPersonal() {
-		return inconsistenciaPersonal;
-	}
+    public void setSubPrograma(String subPrograma) {
+        this.subPrograma = subPrograma;
+    }
 
-	public void setInconsistenciaPersonal(BigInteger inconsistenciaPersonal) {
-		this.inconsistenciaPersonal = inconsistenciaPersonal;
-	}
+    public BigInteger getInconsistenciaPersonal() {
+        return inconsistenciaPersonal;
+    }
 
-	public BigInteger getInconsistenciaLaboral() {
-		return inconsistenciaLaboral;
-	}
+    public void setInconsistenciaPersonal(BigInteger inconsistenciaPersonal) {
+        this.inconsistenciaPersonal = inconsistenciaPersonal;
+    }
 
-	public void setInconsistenciaLaboral(BigInteger inconsistenciaLaboral) {
-		this.inconsistenciaLaboral = inconsistenciaLaboral;
-	}
+    public BigInteger getInconsistenciaLaboral() {
+        return inconsistenciaLaboral;
+    }
+
+    public void setInconsistenciaLaboral(BigInteger inconsistenciaLaboral) {
+        this.inconsistenciaLaboral = inconsistenciaLaboral;
+    }
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.biometrico;
 
 import java.io.Serializable;
@@ -25,124 +26,119 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 @ViewScoped
 public class DescargarInformacionEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1624466449869171143L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1624466449869171143L;
 
-	@Inject
-	ServiciosWebEJB serviocWebEJB;
+    @Inject
+    ServiciosWebEJB serviocWebEJB;
 
-	@Inject
-	Empleado empleadoService;
+    @Inject
+    Empleado empleadoService;
 
-	@Inject
-	EmpleadoClientRest empleadoClienteRest;
+    @Inject
+    EmpleadoClientRest empleadoClienteRest;
 
-	@Inject
-	BiometricoClientRest biometricoClientRest;
+    @Inject
+    BiometricoClientRest biometricoClientRest;
 
-	private List<BiometricoFormModel> listadoEquiposBiometricos;
+    private List<BiometricoFormModel> listadoEquiposBiometricos;
 
-	private InfoEmpleadoDTO empleadoDTO;
+    private InfoEmpleadoDTO empleadoDTO;
 
-	private AsignarEmpleadoRegistroBiometricoForm asignarEmpleadoRegistroBiometricoForm;
+    private AsignarEmpleadoRegistroBiometricoForm asignarEmpleadoRegistroBiometricoForm;
 
-	public void init() {
+    public void init() {
 
-		try {
-			ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
-			if (!servicioRSEntity.isProduccion()) {
-				HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				String url = req.getContextPath().toString();
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-						"El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
-								+ "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        try {
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            if (!servicioRSEntity.isProduccion()) {
+                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String url = req.getContextPath().toString();
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                                + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-			}
+            }
 
-		} catch (ServicioWebException e1) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
-		if (!FacesContext.getCurrentInstance().isPostback()) {
-			try {
-				asignarEmpleadoRegistroBiometricoForm = new AsignarEmpleadoRegistroBiometricoForm();
-				listadoEquiposBiometricos = biometricoClientRest.listadoEquiposBiometricos();
+        } catch (ServicioWebException e1) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
+        if (!FacesContext.getCurrentInstance().isPostback()) {
+            try {
+                asignarEmpleadoRegistroBiometricoForm = new AsignarEmpleadoRegistroBiometricoForm();
+                listadoEquiposBiometricos = biometricoClientRest.listadoEquiposBiometricos();
 
-			} catch (RESTClientException e) {
+            } catch (RESTClientException e) {
 
-				e.printStackTrace();
-				JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
-			}
-		}
+                e.printStackTrace();
+                JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            }
+        }
 
-	}
+    }
 
-	public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
+    public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
 
-		List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
+        List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
 
-		if (query == "") {
-			query = ".";
-		}
+        if (query == "") {
+            query = ".";
+        }
 
-		if (query.length() > 4) {
-			listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
-		}
+        if (query.length() > 4) {
+            listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
+        }
 
-		return listadoEmpleadoDTO;
+        return listadoEmpleadoDTO;
 
-	}
+    }
 
-	public void descagarInformacionEmpleadoBiometrico() {
+    public void descagarInformacionEmpleadoBiometrico() {
 
-		try {
-			
-			//System.out.println("Descarga info: " + asignarEmpleadoRegistroBiometricoForm.getIdBiometrico()+"-- "+ asignarEmpleadoRegistroBiometricoForm.getIdEmpleado()+"--"+asignarEmpleadoRegistroBiometricoForm.getIdRegistroBiometrico());
-			BiometricoClientRestResponse response = biometricoClientRest
-					.asignarEmpleadoIdBiometrico(asignarEmpleadoRegistroBiometricoForm);
+        try {
 
-			if (response.isExitoso()) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Descargar Informacion",
-						response.getMensaje());
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-			} else {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Descargar Informacion",
-						response.getMensaje());
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-			}
-		} catch (RESTClientException e) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
-	}
+            //System.out.println("Descarga info: " + asignarEmpleadoRegistroBiometricoForm.getIdBiometrico()+"-- "+ asignarEmpleadoRegistroBiometricoForm.getIdEmpleado()+"--"+asignarEmpleadoRegistroBiometricoForm.getIdRegistroBiometrico());
+            BiometricoClientRestResponse response = biometricoClientRest.asignarEmpleadoIdBiometrico(asignarEmpleadoRegistroBiometricoForm);
 
-	public List<BiometricoFormModel> getListadoEquiposBiometricos() {
-		return listadoEquiposBiometricos;
-	}
+            if (response.isExitoso()) {
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Descargar Informacion", response.getMensaje());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+            } else {
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Descargar Informacion", response.getMensaje());
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+            }
+        } catch (RESTClientException e) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
+    }
 
-	public void setListadoEquiposBiometricos(List<BiometricoFormModel> listadoEquiposBiometricos) {
-		this.listadoEquiposBiometricos = listadoEquiposBiometricos;
-	}
+    public List<BiometricoFormModel> getListadoEquiposBiometricos() {
+        return listadoEquiposBiometricos;
+    }
 
-	public InfoEmpleadoDTO getEmpleadoDTO() {
-		return empleadoDTO;
-	}
+    public void setListadoEquiposBiometricos(List<BiometricoFormModel> listadoEquiposBiometricos) {
+        this.listadoEquiposBiometricos = listadoEquiposBiometricos;
+    }
 
-	public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
-		this.empleadoDTO = empleadoDTO;
-	}
+    public InfoEmpleadoDTO getEmpleadoDTO() {
+        return empleadoDTO;
+    }
 
-	public AsignarEmpleadoRegistroBiometricoForm getAsignarEmpleadoRegistroBiometricoForm() {
-		return asignarEmpleadoRegistroBiometricoForm;
-	}
+    public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
+        this.empleadoDTO = empleadoDTO;
+    }
 
-	public void setAsignarEmpleadoRegistroBiometricoForm(
-			AsignarEmpleadoRegistroBiometricoForm asignarEmpleadoRegistroBiometricoForm) {
-		this.asignarEmpleadoRegistroBiometricoForm = asignarEmpleadoRegistroBiometricoForm;
-	}
+    public AsignarEmpleadoRegistroBiometricoForm getAsignarEmpleadoRegistroBiometricoForm() {
+        return asignarEmpleadoRegistroBiometricoForm;
+    }
+
+    public void setAsignarEmpleadoRegistroBiometricoForm(AsignarEmpleadoRegistroBiometricoForm asignarEmpleadoRegistroBiometricoForm) {
+        this.asignarEmpleadoRegistroBiometricoForm = asignarEmpleadoRegistroBiometricoForm;
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -18,7 +19,10 @@ import javax.persistence.Table;
 @Table(name = "siif_dispersion")
 public class SIIFDispersionChequesEntity implements Serializable {
 
-    
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6063806960929493301L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,7 +50,6 @@ public class SIIFDispersionChequesEntity implements Serializable {
     @Column(name = "rfc")
     private String rfc;
 
-    //  <<<Getters & Setters>>>
     public Integer getIdDispersionCheques() {
         return idDispersionCheques;
     }

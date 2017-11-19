@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.autorizaciones;
 
 import java.util.List;
@@ -12,17 +13,16 @@ import java.util.List;
  */
 public interface Autorizaciones {
 
-	public void iniciarProcesoAutorizacion(NuevaAutorizacionDTO dto);
+    public void iniciarProcesoAutorizacion(NuevaAutorizacionDTO dto);
 
-	public void autorizarProceso(AutorizacionDTO autorizacionDTO);
+    public void autorizarProceso(AutorizacionDTO autorizacionDTO);
 
-	public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado);
+    public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado);
 
-	public List<BuzonAutorizacionDTO> consultarAutorizacionesPorOperacionEstatus(Integer idUsuario, boolean autorizado,
-			Integer idOperacion);
+    public List<BuzonAutorizacionDTO> consultarAutorizacionesPorOperacionEstatus(Integer idUsuario, boolean autorizado, Integer idOperacion);
 
-	public DetalleAutorizacionDTO obtenerDetalleAutorizacion(Integer idBuzon);
+    public DetalleAutorizacionDTO obtenerDetalleAutorizacion(Integer idBuzon);
 
-	public Integer obtenerIdEntidadContexto(Integer idBuzon);
+    public Integer obtenerIdEntidadContexto(Integer idBuzon);
 
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 /**
@@ -10,10 +11,10 @@ package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
  */
 public class EnumTipoDocumento {
 
-	public static final String SEGURO_SOCIAL = "SEGURO SOCIAL";
-	public static final String CARTILLA_MILITAR = "CARTILLA MILITAR";
-	public static final String PASAPORTE = "PASAPORTE";
-	public static final String LICENCIA = "LICENCIA";
-	public static final String AFORE = "AFORE";
+    public static final String SEGURO_SOCIAL = "SEGURO SOCIAL";
+    public static final String CARTILLA_MILITAR = "CARTILLA MILITAR";
+    public static final String PASAPORTE = "PASAPORTE";
+    public static final String LICENCIA = "LICENCIA";
+    public static final String AFORE = "AFORE";
 
 }

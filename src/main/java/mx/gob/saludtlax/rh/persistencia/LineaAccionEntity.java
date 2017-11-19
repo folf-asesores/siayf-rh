@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * LineaAccionEntity.java
  * Creado el Jul 27, 2016 1:35:08 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,15 +25,15 @@ import javax.persistence.Table;
 public class LineaAccionEntity implements Serializable {
 
     private static final long serialVersionUID = -8550648382122533094L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_linea_accion")
     private Integer idLineaAccion;
-    
+
     @Column(name = "codigo_linea")
     private int codigoLinea;
-    
+
     @Column(name = "linea_accion")
     private String lineaAccion;
 

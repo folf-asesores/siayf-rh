@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.voluntarios;
 
 import java.io.Serializable;
@@ -16,52 +17,52 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 24/11/2016 19:25:47
+ * @since 24/11/2016 19:25:47
  */
 @ManagedBean(name = "consultaVoluntario")
 @ViewScoped
 public class ConsultaVoluntarioController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4254567418057231969L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4254567418057231969L;
 
-	@Inject
-	private Voluntarios voluntarios;
+    @Inject
+    private Voluntarios voluntarios;
 
-	private ConsultaVoluntarioView view;
+    private ConsultaVoluntarioView view;
 
-	@PostConstruct
-	public void inicio() {
-		view = new ConsultaVoluntarioView();
-		view.setListaTiposConsulta(SelectItemsUtil.listaTiposBusquedaVoluntarios());
-	}
+    @PostConstruct
+    public void inicio() {
+        view = new ConsultaVoluntarioView();
+        view.setListaTiposConsulta(SelectItemsUtil.listaTiposBusquedaVoluntarios());
+    }
 
-	public void seleccionarTipoBusqueda() {
-		view.setMostrarCriterio(false);
-		view.getVoluntarios().clear();
-		if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.NOMBRE) {
-			view.getConsulta().setCriterio("");
-			view.setMostrarCriterio(true);
-		} else if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.ACTIVOS) {
-			view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
-			if (view.getVoluntarios().isEmpty()) {
-				JSFUtils.warningMessage("", "No se encontraron voluntarios activos");
-			}
-		}
-	}
+    public void seleccionarTipoBusqueda() {
+        view.setMostrarCriterio(false);
+        view.getVoluntarios().clear();
+        if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.NOMBRE) {
+            view.getConsulta().setCriterio("");
+            view.setMostrarCriterio(true);
+        } else if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.ACTIVOS) {
+            view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
+            if (view.getVoluntarios().isEmpty()) {
+                JSFUtils.warningMessage("", "No se encontraron voluntarios activos");
+            }
+        }
+    }
 
-	public void consultarVoluntarios() {
-		view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
-	}
+    public void consultarVoluntarios() {
+        view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
+    }
 
-	public ConsultaVoluntarioView getView() {
-		return view;
-	}
+    public ConsultaVoluntarioView getView() {
+        return view;
+    }
 
-	public void setView(ConsultaVoluntarioView view) {
-		this.view = view;
-	}
+    public void setView(ConsultaVoluntarioView view) {
+        this.view = view;
+    }
 
 }

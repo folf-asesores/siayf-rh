@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.reporteslaborales.formatoaltaissste;
 
 import java.io.IOException;
@@ -29,104 +30,100 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class FormatoAltaIsssteController {
 
-	@Inject
-	private Empleado empleado;
+    @Inject
+    private Empleado empleado;
 
-	private FormatoAltaIsssteView view;
+    private FormatoAltaIsssteView view;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new FormatoAltaIsssteView();
-	}
+    @PostConstruct
+    public void inicio() {
+        view = new FormatoAltaIsssteView();
+    }
 
-	public void consultarEmpleados() {
-		try {
-			this.view.setListaEmpleados(empleado.consultaPorCriterio(this.view.getCriterio()));
+    public void consultarEmpleados() {
+        try {
+            view.setListaEmpleados(empleado.consultaPorCriterio(view.getCriterio()));
 
-			if (this.view.getListaEmpleados().isEmpty()) {
-				JSFUtils.infoMessageEspecifico("info", "",
-						"No se encontrarón registros en el criterio" + this.view.getCriterio());
-			}
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidatorException validatorException) {
-			JSFUtils.errorMessage("Error: ", validatorException.getMessage());
-		}
-	}
+            if (view.getListaEmpleados().isEmpty()) {
+                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+            }
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        } catch (ValidatorException validatorException) {
+            JSFUtils.errorMessage("Error: ", validatorException.getMessage());
+        }
+    }
 
-	public void seleccionEmpleado(InfoEmpleadoDTO empleadoSeleccionar) {
-		this.view.setIdEmpleado(empleadoSeleccionar.getIdEmpleado());
-		this.view.setEmpleadoSeleccionado(empleadoSeleccionar);
-		this.view.setPrincipalDatos(false);
-		this.view.setDatosPersona(true);
-		this.view.setVentanaNuevoReporte(false);
-		this.view.setReporteExitoso(false);
-	}
+    public void seleccionEmpleado(InfoEmpleadoDTO empleadoSeleccionar) {
+        view.setIdEmpleado(empleadoSeleccionar.getIdEmpleado());
+        view.setEmpleadoSeleccionado(empleadoSeleccionar);
+        view.setPrincipalDatos(false);
+        view.setDatosPersona(true);
+        view.setVentanaNuevoReporte(false);
+        view.setReporteExitoso(false);
+    }
 
-	public void verFormatoAltas() throws IOException {
-		try {
+    public void verFormatoAltas() throws IOException {
+        try {
 
-			this.view.setUrlReporte("FormatoAltaIsssteServlet?" + "idEmpleado=" + this.view.getIdEmpleado());
-			this.view.setPrincipalDatos(false);
-			this.view.setDatosPersona(false);
-			this.view.setVentanaNuevoReporte(true);
-			this.view.setReporteExitoso(true);
+            view.setUrlReporte("FormatoAltaIsssteServlet?" + "idEmpleado=" + view.getIdEmpleado());
+            view.setPrincipalDatos(false);
+            view.setDatosPersona(false);
+            view.setVentanaNuevoReporte(true);
+            view.setReporteExitoso(true);
 
-		} catch (NullPointerException | IllegalArgumentException exception) {
-			System.err.println(exception.getMessage());
-			exception.printStackTrace();
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		} catch (ValidacionException validacionException) {
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		}
-	}
+        } catch (NullPointerException | IllegalArgumentException exception) {
+            System.err.println(exception.getMessage());
+            exception.printStackTrace();
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        } catch (ValidacionException validacionException) {
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        }
+    }
 
-	
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
-		String nombreComponete = component.getId();
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+        String nombreComponete = component.getId();
 
-		switch (nombreComponete) {
-		case "criterio":
-			String criterio = (String) value;
+        switch (nombreComponete) {
+            case "criterio":
+                String criterio = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			} else {
-				if (criterio.trim().length() < 5) {
-					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-							"Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-					context.addMessage(component.getClientId(), facesMessage);
-					throw new ValidatorException(facesMessage);
-				}
-			}
+                if (ValidacionUtil.esCadenaVacia(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                } else {
+                    if (criterio.trim().length() < 5) {
+                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
+                        context.addMessage(component.getClientId(), facesMessage);
+                        throw new ValidatorException(facesMessage);
+                    }
+                }
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-	public void regresar() {
-		try {
-			JSFUtils.redireccionar(
-					"/siayf-rh/contenido/reportesLaborales/reporteFormatoAltaIssste.xhtml?faces-redirect=true");
-		} catch (IOException e) {
+    public void regresar() {
+        try {
+            JSFUtils.redireccionar("/siayf-rh/contenido/reportesLaborales/reporteFormatoAltaIssste.xhtml?faces-redirect=true");
+        } catch (IOException e) {
 
-			e.printStackTrace();
-		}
-	}
+            e.printStackTrace();
+        }
+    }
 
-	public FormatoAltaIsssteView getView() {
-		return view;
-	}
+    public FormatoAltaIsssteView getView() {
+        return view;
+    }
 
-	public void setView(FormatoAltaIsssteView view) {
-		this.view = view;
-	}
+    public void setView(FormatoAltaIsssteView view) {
+        this.view = view;
+    }
 }

@@ -1,9 +1,10 @@
 /*
- * 
+ *
  * SeguridadCodigoError.java
  * Creado el Oct 10, 2016 5:31:54 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.excepciones;
 
 /**
@@ -22,7 +23,7 @@ public enum SeguridadCodigoError implements CodigoError {
     /** Cuando se intenda iniciar sesión sin ingresar la contraseña del usuario. */
     CONTRASENYA_REQUERIDA(4004);
 
-    SeguridadCodigoError (int numero){
+    SeguridadCodigoError(int numero) {
         this.numero = numero;
     }
 

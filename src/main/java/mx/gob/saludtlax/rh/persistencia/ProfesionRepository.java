@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -16,33 +17,31 @@ import javax.persistence.NonUniqueResultException;
  */
 public class ProfesionRepository extends GenericRepository<ProfesionEntity, Integer> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3837863046702903172L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3837863046702903172L;
 
-	public List<ProfesionEntity> obtenerListaProfesion() {
-		return em.createQuery("SELECT p FROM ProfesionEntity AS p", ProfesionEntity.class).getResultList();
-	}
+    public List<ProfesionEntity> obtenerListaProfesion() {
+        return em.createQuery("SELECT p FROM ProfesionEntity AS p", ProfesionEntity.class).getResultList();
+    }
 
-	public boolean existeIdProfesion(Integer idProfesion) {
-		boolean resultado = false;
+    public boolean existeIdProfesion(Integer idProfesion) {
+        boolean resultado = false;
 
-		try {
+        try {
 
-			Integer existeId = em
-					.createQuery("SELECT p.idProfesion FROM ProfesionEntity AS p WHERE p.idProfesion =:idProfesion",
-							Integer.class)
-					.setParameter("idProfesion", idProfesion).getSingleResult();
+            Integer existeId = em.createQuery("SELECT p.idProfesion FROM ProfesionEntity AS p WHERE p.idProfesion =:idProfesion", Integer.class)
+                    .setParameter("idProfesion", idProfesion).getSingleResult();
 
-			resultado = true;
+            resultado = true;
 
-		} catch (NoResultException ex) {
-			resultado = false;
-		} catch (NonUniqueResultException e) {
-			resultado = true;
-		}
-		return resultado;
-	}
+        } catch (NoResultException ex) {
+            resultado = false;
+        } catch (NonUniqueResultException e) {
+            resultado = true;
+        }
+        return resultado;
+    }
 
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.administracionmodulo;
 
 import java.io.Serializable;
@@ -17,94 +18,94 @@ import mx.gob.saludtlax.rh.modulos.ModuloDTO;
  */
 public class CrearModuloView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1697882452647954474L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1697882452647954474L;
 
-	private List<AreaDTO> listaAreas = new ArrayList<AreaDTO>();
+    private List<AreaDTO> listaAreas = new ArrayList<>();
 
-	private ModuloDTO crearModulo = new ModuloDTO();
+    private ModuloDTO crearModulo = new ModuloDTO();
 
-	private AccionDTO accion = new AccionDTO();
-	
-	private boolean mostrarTablaAccciones = true;
-	
-	private boolean mostrarFormularioAccion = false;
+    private AccionDTO accion = new AccionDTO();
 
-	
+    private boolean mostrarTablaAccciones = true;
 
-	/**
-	 * @return the crearModulo
-	 */
-	public ModuloDTO getCrearModulo() {
-		return crearModulo;
-	}
+    private boolean mostrarFormularioAccion = false;
 
-	/**
-	 * @param crearModulo
-	 *            the crearModulo to set
-	 */
-	public void setCrearModulo(ModuloDTO crearModulo) {
-		this.crearModulo = crearModulo;
-	}
+    /**
+     * @return the crearModulo
+     */
+    public ModuloDTO getCrearModulo() {
+        return crearModulo;
+    }
 
-	/**
-	 * @return the listaAreas
-	 */
-	public List<AreaDTO> getListaAreas() {
-		return listaAreas;
-	}
+    /**
+     * @param crearModulo
+     *            the crearModulo to set
+     */
+    public void setCrearModulo(ModuloDTO crearModulo) {
+        this.crearModulo = crearModulo;
+    }
 
-	/**
-	 * @param listaAreas
-	 *            the listaAreas to set
-	 */
-	public void setListaAreas(List<AreaDTO> listaAreas) {
-		this.listaAreas = listaAreas;
-	}
+    /**
+     * @return the listaAreas
+     */
+    public List<AreaDTO> getListaAreas() {
+        return listaAreas;
+    }
 
-	/**
-	 * @return the accion
-	 */
-	public AccionDTO getAccion() {
-		return accion;
-	}
+    /**
+     * @param listaAreas
+     *            the listaAreas to set
+     */
+    public void setListaAreas(List<AreaDTO> listaAreas) {
+        this.listaAreas = listaAreas;
+    }
 
-	/**
-	 * @param accion
-	 *            the accion to set
-	 */
-	public void setAccion(AccionDTO accion) {
-		this.accion = accion;
-	}
+    /**
+     * @return the accion
+     */
+    public AccionDTO getAccion() {
+        return accion;
+    }
 
-	/**
-	 * @return the mostrarTablaAccciones
-	 */
-	public boolean isMostrarTablaAccciones() {
-		return mostrarTablaAccciones;
-	}
+    /**
+     * @param accion
+     *            the accion to set
+     */
+    public void setAccion(AccionDTO accion) {
+        this.accion = accion;
+    }
 
-	/**
-	 * @param mostrarTablaAccciones the mostrarTablaAccciones to set
-	 */
-	public void setMostrarTablaAccciones(boolean mostrarTablaAccciones) {
-		this.mostrarTablaAccciones = mostrarTablaAccciones;
-	}
+    /**
+     * @return the mostrarTablaAccciones
+     */
+    public boolean isMostrarTablaAccciones() {
+        return mostrarTablaAccciones;
+    }
 
-	/**
-	 * @return the mostrarFormularioAccion
-	 */
-	public boolean isMostrarFormularioAccion() {
-		return mostrarFormularioAccion;
-	}
+    /**
+     * @param mostrarTablaAccciones
+     *            the mostrarTablaAccciones to set
+     */
+    public void setMostrarTablaAccciones(boolean mostrarTablaAccciones) {
+        this.mostrarTablaAccciones = mostrarTablaAccciones;
+    }
 
-	/**
-	 * @param mostrarFormularioAccion the mostrarFormularioAccion to set
-	 */
-	public void setMostrarFormularioAccion(boolean mostrarFormularioAccion) {
-		this.mostrarFormularioAccion = mostrarFormularioAccion;
-	}
+    /**
+     * @return the mostrarFormularioAccion
+     */
+    public boolean isMostrarFormularioAccion() {
+        return mostrarFormularioAccion;
+    }
+
+    /**
+     * @param mostrarFormularioAccion
+     *            the mostrarFormularioAccion to set
+     */
+    public void setMostrarFormularioAccion(boolean mostrarFormularioAccion) {
+        this.mostrarFormularioAccion = mostrarFormularioAccion;
+    }
 
 }

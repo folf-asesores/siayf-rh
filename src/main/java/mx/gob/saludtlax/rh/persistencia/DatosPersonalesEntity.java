@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -72,7 +73,6 @@ public class DatosPersonalesEntity implements Serializable {
     @Column(name = "nuevo_empleado")
     private boolean nuevoEmpleado;
 
-    // <<<<<Getters & Setters>>>>>
     public Integer getIdDatoPersonal() {
         return idDatoPersonal;
     }
@@ -182,7 +182,7 @@ public class DatosPersonalesEntity implements Serializable {
     }
 
     public void setNumeroInterior(String numerointerior) {
-        this.numeroInterior = numerointerior;
+        numeroInterior = numerointerior;
     }
 
     public String getCodigoPostal() {

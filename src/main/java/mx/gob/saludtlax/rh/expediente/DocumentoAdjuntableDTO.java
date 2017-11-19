@@ -1,8 +1,9 @@
 /*
  * DocumentoAdjuntableDTO.java
  * Creado el May 12, 2016 1:03:42 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.expediente;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.io.Serializable;
  */
 public class DocumentoAdjuntableDTO implements Serializable {
 
-    /**  */
+    
     private static final long serialVersionUID = 1298793496986963950L;
 
     private Integer idDocumentoAdjuntable;
@@ -30,7 +31,7 @@ public class DocumentoAdjuntableDTO implements Serializable {
     public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable) {
         this(idDocumentoAdjuntable, "");
     }
-    
+
     public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable, String nombre) {
         this(idDocumentoAdjuntable, nombre, false, false, false, false);
     }
@@ -52,7 +53,8 @@ public class DocumentoAdjuntableDTO implements Serializable {
     }
 
     /**
-     * @param idDocumentoAdjuntable the idDocumentoAdjuntable to set
+     * @param idDocumentoAdjuntable
+     *            the idDocumentoAdjuntable to set
      */
     public void setIdDocumentoAdjuntable(Integer idDocumentoAdjuntable) {
         this.idDocumentoAdjuntable = idDocumentoAdjuntable;
@@ -66,7 +68,8 @@ public class DocumentoAdjuntableDTO implements Serializable {
     }
 
     /**
-     * @param descripcion the descripcion to set
+     * @param descripcion
+     *            the descripcion to set
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

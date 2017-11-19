@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.incidencia;
 
 import java.io.IOException;
@@ -28,214 +29,213 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 @ViewScoped
 public class IncidenciaIndexController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7316476586962771878L;
-	@Inject
-	IncidenciaClienteRest incidenciaClienteRest;
-	@Inject
-	ServiciosWebEJB serviocWebEJB;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7316476586962771878L;
+    @Inject
+    IncidenciaClienteRest incidenciaClienteRest;
+    @Inject
+    ServiciosWebEJB serviocWebEJB;
 
-	private List<IncidenciaModelView> listadoIncidencias;
+    private List<IncidenciaModelView> listadoIncidencias;
 
-	private List<IncidenciaModelView> listadoIncidenciasFiltrado;
+    private List<IncidenciaModelView> listadoIncidenciasFiltrado;
 
-	private IncidenciaModelView incidenciaSelecionada;
+    private IncidenciaModelView incidenciaSelecionada;
 
-	private IncidenciaFormModel incidenciaFormModel = new IncidenciaFormModel();
+    private IncidenciaFormModel incidenciaFormModel = new IncidenciaFormModel();
 
-	private UploadedFile imagen;
+    private UploadedFile imagen;
 
-	public void init() {
+    public void init() {
 
-		try {
-			ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
-			if (!servicioRSEntity.isProduccion()) {
-				HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				String url = req.getContextPath().toString();
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-						"El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
-								+ "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        try {
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            if (!servicioRSEntity.isProduccion()) {
+                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String url = req.getContextPath().toString();
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                                + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-			}
+            }
 
-		} catch (ServicioWebException e1) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
+        } catch (ServicioWebException e1) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
 
-		try {
-			listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
-		} catch (RESTClientException e) {
+        try {
+            listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
+        } catch (RESTClientException e) {
 
-			e.printStackTrace();
-			JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
-		}
+            e.printStackTrace();
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+        }
 
-	}
+    }
 
-	public void nuevaIncidencia(ActionEvent actionEvent) {
+    public void nuevaIncidencia(ActionEvent actionEvent) {
 
-		incidenciaFormModel = new IncidenciaFormModel();
-		incidenciaFormModel.setEsImagen(1);
-		imagen = null;
-		RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').show()");
+        incidenciaFormModel = new IncidenciaFormModel();
+        incidenciaFormModel.setEsImagen(1);
+        imagen = null;
+        RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').show()");
 
-	}
+    }
 
-	public void seleccionarTipoMarca() {
+    public void seleccionarTipoMarca() {
 
-	}
+    }
 
-	public void guardarNuevaIncidencia() throws IOException {
+    public void guardarNuevaIncidencia() throws IOException {
 
-		try {
+        try {
 
-			if (incidenciaFormModel.getDescripcion().length() == 0) {
-				JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
-				return;
-			}
+            if (incidenciaFormModel.getDescripcion().length() == 0) {
+                JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
+                return;
+            }
 
-			if (incidenciaFormModel.getEsImagen() == 1) {
-				if (imagen == null) {
+            if (incidenciaFormModel.getEsImagen() == 1) {
+                if (imagen == null) {
 
-					JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV002.getMensaje());
-					return;
+                    JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV002.getMensaje());
+                    return;
 
-				} else {
+                } else {
 
-					if (!imagen.getFileName().matches("(.*).png")) {
+                    if (!imagen.getFileName().matches("(.*).png")) {
 
-					}
+                    }
 
-					if (imagen.getSize() > 254000) {
-						JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV005.getMensaje());
-						return;
-					}
-				}
+                    if (imagen.getSize() > 254000) {
+                        JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV005.getMensaje());
+                        return;
+                    }
+                }
 
-				incidenciaFormModel.setImagenMarca(imagen.getInputstream());
-			} else {
-				if (incidenciaFormModel.getMarcaReporte().length() == 0) {
-					JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
-					return;
-				}
-			}
+                incidenciaFormModel.setImagenMarca(imagen.getInputstream());
+            } else {
+                if (incidenciaFormModel.getMarcaReporte().length() == 0) {
+                    JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
+                    return;
+                }
+            }
 
-			incidenciaClienteRest.guardarIncidencia(incidenciaFormModel);
-			listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
-			incidenciaFormModel = new IncidenciaFormModel();
-			imagen = null;
-			RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').hide()");
-			JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
-		} catch (RESTClientException e) {
-			e.printStackTrace();
-			JSFUtils.errorMessage("Guardar Incidencia", e.getMessage());
-		}
-	}
+            incidenciaClienteRest.guardarIncidencia(incidenciaFormModel);
+            listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
+            incidenciaFormModel = new IncidenciaFormModel();
+            imagen = null;
+            RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').hide()");
+            JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
+        } catch (RESTClientException e) {
+            e.printStackTrace();
+            JSFUtils.errorMessage("Guardar Incidencia", e.getMessage());
+        }
+    }
 
-	public void editarIncidencia() throws IOException {
+    public void editarIncidencia() throws IOException {
 
-		incidenciaFormModel = new IncidenciaFormModel();
+        incidenciaFormModel = new IncidenciaFormModel();
 
-		incidenciaFormModel.setDescripcion(incidenciaSelecionada.getDescripcion());
-		incidenciaFormModel.setEsImagen(incidenciaSelecionada.getEsImagen());
-		incidenciaFormModel.setIdIncidencia(incidenciaSelecionada.getIdIncidencia());
-		incidenciaFormModel.setMarcaReporte(incidenciaSelecionada.getMarcaReporte());
-		incidenciaFormModel.setTipoRegistro(incidenciaSelecionada.getIdTipoRegistro());
-		try {
+        incidenciaFormModel.setDescripcion(incidenciaSelecionada.getDescripcion());
+        incidenciaFormModel.setEsImagen(incidenciaSelecionada.getEsImagen());
+        incidenciaFormModel.setIdIncidencia(incidenciaSelecionada.getIdIncidencia());
+        incidenciaFormModel.setMarcaReporte(incidenciaSelecionada.getMarcaReporte());
+        incidenciaFormModel.setTipoRegistro(incidenciaSelecionada.getIdTipoRegistro());
+        try {
 
-			if (incidenciaFormModel.getDescripcion().length() == 0) {
-				JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
-				return;
-			}
+            if (incidenciaFormModel.getDescripcion().length() == 0) {
+                JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
+                return;
+            }
 
-			if (incidenciaFormModel.getEsImagen() == 1) {
-				if (imagen != null) {
+            if (incidenciaFormModel.getEsImagen() == 1) {
+                if (imagen != null) {
 
-					incidenciaFormModel.setImagenMarca(imagen.getInputstream());
+                    incidenciaFormModel.setImagenMarca(imagen.getInputstream());
 
-				}
+                }
 
-			} else {
-				if (incidenciaFormModel.getMarcaReporte().length() == 0) {
-					JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
-					return;
-				}
-			}
+            } else {
+                if (incidenciaFormModel.getMarcaReporte().length() == 0) {
+                    JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
+                    return;
+                }
+            }
 
-			incidenciaClienteRest.actualizarIncidencia(incidenciaFormModel);
-			listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
-			incidenciaFormModel = new IncidenciaFormModel();
-			imagen = null;
-			RequestContext.getCurrentInstance().execute("PF('dlgEditarIncidencia').hide()");
-			JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
-		} catch (
+            incidenciaClienteRest.actualizarIncidencia(incidenciaFormModel);
+            listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
+            incidenciaFormModel = new IncidenciaFormModel();
+            imagen = null;
+            RequestContext.getCurrentInstance().execute("PF('dlgEditarIncidencia').hide()");
+            JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
+        } catch (
 
-		RESTClientException e) {
-			e.printStackTrace();
-			JSFUtils.errorMessage("Guardar Incidencia", e.getMessage());
-		}
-	}
+        RESTClientException e) {
+            e.printStackTrace();
+            JSFUtils.errorMessage("Guardar Incidencia", e.getMessage());
+        }
+    }
 
-	public List<IncidenciaModelView> getListadoIncidencias() {
-		return listadoIncidencias;
-	}
+    public List<IncidenciaModelView> getListadoIncidencias() {
+        return listadoIncidencias;
+    }
 
-	public void setListadoIncidencias(List<IncidenciaModelView> listadoIncidencias) {
-		this.listadoIncidencias = listadoIncidencias;
-	}
+    public void setListadoIncidencias(List<IncidenciaModelView> listadoIncidencias) {
+        this.listadoIncidencias = listadoIncidencias;
+    }
 
-	public String rutaImagen() {
-		return incidenciaClienteRest.rutaImangen();
-	}
+    public String rutaImagen() {
+        return incidenciaClienteRest.rutaImangen();
+    }
 
-	public IncidenciaFormModel getIncidenciaFormModel() {
-		return incidenciaFormModel;
-	}
+    public IncidenciaFormModel getIncidenciaFormModel() {
+        return incidenciaFormModel;
+    }
 
-	public void setIncidenciaFormModel(IncidenciaFormModel incidenciaFormModel) {
-		this.incidenciaFormModel = incidenciaFormModel;
-	}
+    public void setIncidenciaFormModel(IncidenciaFormModel incidenciaFormModel) {
+        this.incidenciaFormModel = incidenciaFormModel;
+    }
 
-	public UploadedFile getImagen() {
-		return imagen;
-	}
+    public UploadedFile getImagen() {
+        return imagen;
+    }
 
-	public void setImagen(UploadedFile imagen) {
-		this.imagen = imagen;
-	}
+    public void setImagen(UploadedFile imagen) {
+        this.imagen = imagen;
+    }
 
-	public void handleFileUpload(FileUploadEvent event) {
+    public void handleFileUpload(FileUploadEvent event) {
 
-		try {
-			incidenciaFormModel.setImagenMarca(event.getFile().getInputstream());
-			incidenciaFormModel.setMarcaReporte(event.getFile().getFileName());
-			imagen = event.getFile();
-		} catch (IOException e) {
+        try {
+            incidenciaFormModel.setImagenMarca(event.getFile().getInputstream());
+            incidenciaFormModel.setMarcaReporte(event.getFile().getFileName());
+            imagen = event.getFile();
+        } catch (IOException e) {
 
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
 
-	}
+    }
 
-	public List<IncidenciaModelView> getListadoIncidenciasFiltrado() {
-		return listadoIncidenciasFiltrado;
-	}
+    public List<IncidenciaModelView> getListadoIncidenciasFiltrado() {
+        return listadoIncidenciasFiltrado;
+    }
 
-	public void setListadoIncidenciasFiltrado(List<IncidenciaModelView> listadoIncidenciasFiltrado) {
-		this.listadoIncidenciasFiltrado = listadoIncidenciasFiltrado;
-	}
+    public void setListadoIncidenciasFiltrado(List<IncidenciaModelView> listadoIncidenciasFiltrado) {
+        this.listadoIncidenciasFiltrado = listadoIncidenciasFiltrado;
+    }
 
-	public IncidenciaModelView getIncidenciaSelecionada() {
-		return incidenciaSelecionada;
-	}
+    public IncidenciaModelView getIncidenciaSelecionada() {
+        return incidenciaSelecionada;
+    }
 
-	public void setIncidenciaSelecionada(IncidenciaModelView incidenciaSelecionada) {
-		this.incidenciaSelecionada = incidenciaSelecionada;
-	}
+    public void setIncidenciaSelecionada(IncidenciaModelView incidenciaSelecionada) {
+        this.incidenciaSelecionada = incidenciaSelecionada;
+    }
 
 }

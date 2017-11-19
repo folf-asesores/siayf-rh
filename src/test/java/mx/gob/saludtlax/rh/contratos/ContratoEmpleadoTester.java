@@ -1,5 +1,5 @@
-/**
- * 
+/*
+ *
  */
 
 package mx.gob.saludtlax.rh.contratos;

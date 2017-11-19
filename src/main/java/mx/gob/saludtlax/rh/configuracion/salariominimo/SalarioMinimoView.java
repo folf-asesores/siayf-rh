@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.salariominimo;
 
 import java.io.Serializable;
@@ -13,88 +14,86 @@ import java.util.List;
  */
 public class SalarioMinimoView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4449529231307220171L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4449529231307220171L;
 
-	private List<SalarioMinimoDTO> listaSalariosMinimos = new ArrayList<>();
+    private List<SalarioMinimoDTO> listaSalariosMinimos = new ArrayList<>();
 
-	private SalarioMinimoDTO creaSalarioMinimo = new SalarioMinimoDTO();
+    private SalarioMinimoDTO creaSalarioMinimo = new SalarioMinimoDTO();
 
-	private SalarioMinimoDTO actualizarSalarioMinimo = new SalarioMinimoDTO();
+    private SalarioMinimoDTO actualizarSalarioMinimo = new SalarioMinimoDTO();
 
-	private Integer idSalarioMinimoSeleccionado;
-	
-	private boolean panelPrincipal = true;
-	private boolean panelCrear = false;
-	private boolean panelActualizar = false;
-	private boolean dialogEliminar = false;
+    private Integer idSalarioMinimoSeleccionado;
 
-	public List<SalarioMinimoDTO> getListaSalariosMinimos() {
-		return listaSalariosMinimos;
-	}
+    private boolean panelPrincipal = true;
+    private boolean panelCrear = false;
+    private boolean panelActualizar = false;
+    private boolean dialogEliminar = false;
 
-	public void setListaSalariosMinimos(List<SalarioMinimoDTO> listaSalariosMinimos) {
-		this.listaSalariosMinimos = listaSalariosMinimos;
-	}
+    public List<SalarioMinimoDTO> getListaSalariosMinimos() {
+        return listaSalariosMinimos;
+    }
 
-	public SalarioMinimoDTO getCreaSalarioMinimo() {
-		return creaSalarioMinimo;
-	}
+    public void setListaSalariosMinimos(List<SalarioMinimoDTO> listaSalariosMinimos) {
+        this.listaSalariosMinimos = listaSalariosMinimos;
+    }
 
-	public void setCreaSalarioMinimo(SalarioMinimoDTO creaSalarioMinimo) {
-		this.creaSalarioMinimo = creaSalarioMinimo;
-	}
+    public SalarioMinimoDTO getCreaSalarioMinimo() {
+        return creaSalarioMinimo;
+    }
 
-	public SalarioMinimoDTO getActualizarSalarioMinimo() {
-		return actualizarSalarioMinimo;
-	}
+    public void setCreaSalarioMinimo(SalarioMinimoDTO creaSalarioMinimo) {
+        this.creaSalarioMinimo = creaSalarioMinimo;
+    }
 
-	public void setActualizarSalarioMinimo(SalarioMinimoDTO actualizarSalarioMinimo) {
-		this.actualizarSalarioMinimo = actualizarSalarioMinimo;
-	}
+    public SalarioMinimoDTO getActualizarSalarioMinimo() {
+        return actualizarSalarioMinimo;
+    }
 
-	public Integer getIdSalarioMinimoSeleccionado() {
-		return idSalarioMinimoSeleccionado;
-	}
+    public void setActualizarSalarioMinimo(SalarioMinimoDTO actualizarSalarioMinimo) {
+        this.actualizarSalarioMinimo = actualizarSalarioMinimo;
+    }
 
-	public void setIdSalarioMinimoSeleccionado(Integer idSalarioMinimoSeleccionado) {
-		this.idSalarioMinimoSeleccionado = idSalarioMinimoSeleccionado;
-	}
+    public Integer getIdSalarioMinimoSeleccionado() {
+        return idSalarioMinimoSeleccionado;
+    }
 
-	public boolean isPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public void setIdSalarioMinimoSeleccionado(Integer idSalarioMinimoSeleccionado) {
+        this.idSalarioMinimoSeleccionado = idSalarioMinimoSeleccionado;
+    }
 
-	public void setPanelPrincipal(boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public boolean isPanelPrincipal() {
+        return panelPrincipal;
+    }
 
-	public boolean isPanelCrear() {
-		return panelCrear;
-	}
+    public void setPanelPrincipal(boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
 
-	public void setPanelCrear(boolean panelCrear) {
-		this.panelCrear = panelCrear;
-	}
+    public boolean isPanelCrear() {
+        return panelCrear;
+    }
 
-	public boolean isPanelActualizar() {
-		return panelActualizar;
-	}
+    public void setPanelCrear(boolean panelCrear) {
+        this.panelCrear = panelCrear;
+    }
 
-	public void setPanelActualizar(boolean panelActualizar) {
-		this.panelActualizar = panelActualizar;
-	}
+    public boolean isPanelActualizar() {
+        return panelActualizar;
+    }
 
-	public boolean isDialogEliminar() {
-		return dialogEliminar;
-	}
+    public void setPanelActualizar(boolean panelActualizar) {
+        this.panelActualizar = panelActualizar;
+    }
 
-	public void setDialogEliminar(boolean dialogEliminar) {
-		this.dialogEliminar = dialogEliminar;
-	}
-	
-	
+    public boolean isDialogEliminar() {
+        return dialogEliminar;
+    }
+
+    public void setDialogEliminar(boolean dialogEliminar) {
+        this.dialogEliminar = dialogEliminar;
+    }
 
 }

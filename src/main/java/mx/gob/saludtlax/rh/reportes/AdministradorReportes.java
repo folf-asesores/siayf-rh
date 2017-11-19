@@ -13,6 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.reportes.excel.AlmacenReportesExcel;
 import mx.gob.saludtlax.rh.reportes.excel.ExcelGenerador;
 import mx.gob.saludtlax.rh.reportes.jasperreports.AlmacenReportesJasperReports;
@@ -21,14 +23,17 @@ import mx.gob.saludtlax.rh.reportes.txt.AlmacenReportesTxt;
 import mx.gob.saludtlax.rh.reportes.txt.TxtGenerador;
 import mx.gob.saludtlax.rh.reportes.word.AlmacenReporteWord;
 import mx.gob.saludtlax.rh.reportes.word.WordGenerador;
-import org.jboss.logging.Logger;
 
 /**
- * <p>Esta clase tiene como objetivo llevar una bitácora de los reportes que se
+ * <p>
+ * Esta clase tiene como objetivo llevar una bitácora de los reportes que se
  * generan en el sistema así como ayudar en la generación de los reportes del
- * sistema.</p>
+ * sistema.
+ * </p>
  *
- * <p>La generación del reporte se realiza en dos pasos.</p>
+ * <p>
+ * La generación del reporte se realiza en dos pasos.
+ * </p>
  *
  * <ol>
  * <li>Obtener el ID de referencia, para ello se requiere de una lista de
@@ -72,10 +77,13 @@ public class AdministradorReportes {
      * </pre></code>
      * </p>
      *
-     * @param parametros un arreglo de parámetros.
+     * @param parametros
+     *            un arreglo de parámetros.
      * @return una cadena con la referencia para generar el reporte.
-     * @throws IllegalArgumentException Si los parametros no son pares.
-     * @throws NullPointerException Si los paramtros están nulos o vacios.
+     * @throws IllegalArgumentException
+     *             Si los parametros no son pares.
+     * @throws NullPointerException
+     *             Si los paramtros están nulos o vacios.
      */
     public String obtenerReferencia(String[] parametros) throws NullPointerException, IllegalArgumentException {
         Map<String, String> mapaParametros = separarClaveValor(parametros);
@@ -83,16 +91,19 @@ public class AdministradorReportes {
 
         return bitacoraReporte.obtenerReferencia(mapaParametros);
     }
-        
+
     /**
      * Genera un reporte del cual previamente se han almacenado los parámetros
      * en la base de datos.
      *
-     * @param referencia cadena que permite recuperar los parametros almacenados
-     *                   en la base de datos.
+     * @param referencia
+     *            cadena que permite recuperar los parametros almacenados
+     *            en la base de datos.
      * @return los bytes que representa el archivo.
-     * @throws NullPointerException si la es nula o vacia.
-     * @throws IllegalArgumentException si la cadena no tiene los 36 cáracteres.
+     * @throws NullPointerException
+     *             si la es nula o vacia.
+     * @throws IllegalArgumentException
+     *             si la cadena no tiene los 36 cáracteres.
      */
     public byte[] obtenerReporte(String referencia) throws NullPointerException, IllegalArgumentException {
         if (referencia == null || referencia.trim().isEmpty()) {
@@ -118,16 +129,16 @@ public class AdministradorReportes {
                 break;
             case "pdf":
                 if (new AlmacenReportesJasperReports().extisteReporte(nombreReporte)) {
-                        generador = new JasperReportsGenerador();
+                    generador = new JasperReportsGenerador();
                 }
                 break;
             case "txt":
                 if (new AlmacenReportesJasperReports().extisteReporte(nombreReporte)) {
-                        generador = new JasperReportsGenerador();
+                    generador = new JasperReportsGenerador();
                 }
 
                 if (new AlmacenReportesTxt().extisteReporte(nombreReporte)) {
-                        generador = new TxtGenerador();
+                    generador = new TxtGenerador();
                 }
                 break;
             case "xlsx":
@@ -162,7 +173,9 @@ public class AdministradorReportes {
      * Permite obtener el tipo de un reporte que se vaya a generar o se haya
      * generado mediante la referencia.
      *
-     * <p>Como tipo de un reporte se debe entender por ejemplo:</p>
+     * <p>
+     * Como tipo de un reporte se debe entender por ejemplo:
+     * </p>
      * <ul>
      * <li>docx</li>
      * <li>pdf</li>
@@ -174,8 +187,9 @@ public class AdministradorReportes {
      * <strong>Nota:</strong> el tipo no siempre es la extensión del archivo.
      * </p>
      *
-     * @param referencia cadena que permite recuperar los parametros almacenados
-     *                   en la base de datos.
+     * @param referencia
+     *            cadena que permite recuperar los parametros almacenados
+     *            en la base de datos.
      * @return el tipo del reporte.
      */
     public String obtenerTipoReporte(String referencia) {
@@ -186,11 +200,11 @@ public class AdministradorReportes {
      * Convierte de manera básica el arreglo de parametros que recibe en un
      * <code>Map</code> de clave - valor.
      *
-     * @param parametros los parametrso del reporte a separar.
+     * @param parametros
+     *            los parametrso del reporte a separar.
      * @return los paramtrso separados.
      */
-    private Map<String, String> separarClaveValor(String[] parametros)
-            throws NullPointerException, IllegalArgumentException {
+    private Map<String, String> separarClaveValor(String[] parametros) throws NullPointerException, IllegalArgumentException {
 
         if (parametros == null) {
             throw new NullPointerException("No se ha encontrado ningún parametro.");
@@ -203,8 +217,7 @@ public class AdministradorReportes {
         }
 
         if ((tamanyo % 2) != 0) {
-            throw new IllegalArgumentException(
-                    "Los parámetros deben tener un valor para que siempre haya una clave y valor");
+            throw new IllegalArgumentException("Los parámetros deben tener un valor para que siempre haya una clave y valor");
         }
 
         Map<String, String> map = new HashMap<>();
@@ -216,8 +229,8 @@ public class AdministradorReportes {
 
                 String clave = parametros[iClave];
                 if (clave != null) {
-                        clave = clave.trim().toUpperCase().replace(' ', '_');
-                        map.put(clave, parametros[iValor]);
+                    clave = clave.trim().toUpperCase().replace(' ', '_');
+                    map.put(clave, parametros[iValor]);
                 }
             }
         }
@@ -228,12 +241,13 @@ public class AdministradorReportes {
      * Imprime los detalles de los parametros que del reporte en la bitacora del
      * servidor.
      *
-     * @param parametros los parametros a imprimir.
-     * @param etapa representa la etapa en la que está la generación del
-     *              reporte.
+     * @param parametros
+     *            los parametros a imprimir.
+     * @param etapa
+     *            representa la etapa en la que está la generación del
+     *            reporte.
      */
-    private void imprimirParametros(Map<String, String> parametros,
-            String etapa) {
+    private void imprimirParametros(Map<String, String> parametros, String etapa) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n========================================");
         sb.append("========================================\n");
@@ -247,13 +261,13 @@ public class AdministradorReportes {
         sb.append("========================================\n");
 
         for (Map.Entry<String, String> entry : parametros.entrySet()) {
-                String key = entry.getKey();
-                String value = entry.getValue();
+            String key = entry.getKey();
+            String value = entry.getValue();
 
-                sb.append(key);
-                sb.append("\t\t");
-                sb.append(value);
-                sb.append('\n');
+            sb.append(key);
+            sb.append("\t\t");
+            sb.append(value);
+            sb.append('\n');
         }
 
         LOGGER.info(sb.toString());
@@ -271,8 +285,7 @@ public class AdministradorReportes {
             BitacoraReporte bitacoraReportes = (BitacoraReporte) initContext.lookup(BITACORA_REPORTES_BEAN);
             return bitacoraReportes;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
-                    BITACORA_REPORTES_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\n{1}", BITACORA_REPORTES_BEAN, ex.getCause());
         }
 
         return null;

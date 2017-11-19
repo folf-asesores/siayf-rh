@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -25,7 +26,6 @@ public class ProcesoJuridicosEntity implements Serializable {
 
     @Column(name = "proceso")
     private String proceso;
-//		<<<<<Getters & Setters>>>>>
 
     public Integer getIdProcesoJuridico() {
         return idProcesoJuridico;

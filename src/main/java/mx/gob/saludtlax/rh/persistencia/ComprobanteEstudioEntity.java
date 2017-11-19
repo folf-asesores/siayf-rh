@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -22,29 +23,29 @@ import javax.persistence.Table;
 @Table(name = "comprobantes_estudios")
 public class ComprobanteEstudioEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -608962722279212532L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -608962722279212532L;
 
-	@Id
-	@Column(name = "id_comprobante_estudio")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idComprobanteEstudio;
+    @Id
+    @Column(name = "id_comprobante_estudio")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idComprobanteEstudio;
 
-	@Column(name = "estatus")
-	private String estatus;
+    @Column(name = "estatus")
+    private String estatus;
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public String getEstatus() {
+        return estatus;
+    }
 
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 
-	public Integer getIdComprobanteEstudio() {
-		return idComprobanteEstudio;
-	}
+    public Integer getIdComprobanteEstudio() {
+        return idComprobanteEstudio;
+    }
 
 }

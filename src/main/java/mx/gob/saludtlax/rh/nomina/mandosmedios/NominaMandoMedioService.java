@@ -1,13 +1,16 @@
 /*
  * NominaMandoMedioService.java
  * Creado el 29/Nov/2016 2:10:42 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.mandosmedios;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.persistencia.AdscripcionEntity;
 import mx.gob.saludtlax.rh.persistencia.AdscripcionRepository;
 import mx.gob.saludtlax.rh.persistencia.EmpleadoEntity;
@@ -18,17 +21,21 @@ import mx.gob.saludtlax.rh.persistencia.PuestoGeneralEntity;
 import mx.gob.saludtlax.rh.persistencia.PuestoGeneralRepository;
 
 /**
- * Esta clase sirve de ayudante del EJB {@link NominaMandoMedioEJB} para 
+ * Esta clase sirve de ayudante del EJB {@link NominaMandoMedioEJB} para
  * realizar las operaciones de negocios de las nominas de mandos medios.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NominaMandoMedioService {
-    
-    @Inject private AdscripcionRepository adscripcionRepository;
-    @Inject private EmpleadoRepository empleadoRepository;
-    @Inject private NominaMandoMedioRepository mandoMedioRepository;
-    @Inject private PuestoGeneralRepository puestoGeneralRepository;
+
+    @Inject
+    private AdscripcionRepository adscripcionRepository;
+    @Inject
+    private EmpleadoRepository empleadoRepository;
+    @Inject
+    private NominaMandoMedioRepository mandoMedioRepository;
+    @Inject
+    private PuestoGeneralRepository puestoGeneralRepository;
 
     protected void crear(NominaMandoMedioDTO dto) {
         NominaMandoMedioEntity entidad = convertirDtoAEntidad(dto);
@@ -42,7 +49,7 @@ public class NominaMandoMedioService {
 
     protected List<NominaMandoMedioDTO> consultarTodos() {
         List<NominaMandoMedioEntity> entidades = mandoMedioRepository.consultarTodos();
-        
+
         return convertirEntidadesADtos(entidades);
     }
 
@@ -59,16 +66,16 @@ public class NominaMandoMedioService {
     private NominaMandoMedioEntity convertirDtoAEntidad(NominaMandoMedioDTO dto) {
         return convertirDtoAEntidad(dto, null);
     }
-    
+
     private NominaMandoMedioEntity convertirDtoAEntidad(NominaMandoMedioDTO dto, NominaMandoMedioEntity entidad) {
-        if(entidad == null) {
+        if (entidad == null) {
             entidad = new NominaMandoMedioEntity();
         }
 
         AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(dto.getIdAdscripcion());
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(dto.getIdEmpleado());
         PuestoGeneralEntity puestoGeneral = puestoGeneralRepository.obtenerPorId(dto.getIdPuestoGeneral());
-        
+
         entidad.setAdscripcion(adscripcion);
         entidad.setEmpleado(empleado);
         entidad.setPuestoGeneral(puestoGeneral);
@@ -83,7 +90,7 @@ public class NominaMandoMedioService {
     }
 
     private NominaMandoMedioDTO convertirEntidadADto(NominaMandoMedioEntity entidad) {
-        if(entidad == null) {
+        if (entidad == null) {
             return null;
         }
 

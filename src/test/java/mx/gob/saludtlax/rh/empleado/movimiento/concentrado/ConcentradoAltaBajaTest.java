@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.movimiento.concentrado;
 
 import static org.junit.Assert.assertNotNull;
@@ -22,42 +23,41 @@ import mx.gob.saludtlax.rh.util.ArchivoUtil;
  *
  */
 public class ConcentradoAltaBajaTest {
-	
-	private static final Logger LOGGER = Logger.getLogger(ConcentradoAltaBajaTest.class.getName());
 
-	@Test
-	public void excelTest() throws IOException {
-		List<ConsentradoAltaBajaExcelDTO> detalles = new ArrayList<>();
+    private static final Logger LOGGER = Logger.getLogger(ConcentradoAltaBajaTest.class.getName());
 
-		for (int i = 0; i < 10; i++) {
+    @Test
+    public void excelTest() throws IOException {
+        List<ConsentradoAltaBajaExcelDTO> detalles = new ArrayList<>();
 
-			ConsentradoAltaBajaExcelDTO dto = new ConsentradoAltaBajaExcelDTO();
-			
-//			dto.setNumero(i);
-			dto.setRfc("GUHC591023TY6");
-			dto.setFecha(new Date());
-			dto.setNombreCompleto("GUILLEN,HERNANDEZ/CELIA");
-			dto.setClavePresupuestal("I0024161103 M02035 29004 0138");
-			dto.setAdscripcion("CENTRO DE SALUD URBANO DE APIZACO");
-			dto.setTipoNombramiento("BASE FEDERAL");
-			dto.setMovimiento("BAJA (LICENCIA PREJUBILATORIA");
-			dto.setObservaciones("A PARTIR DEL 01/01/2015 AL 31/03/2015");
+        for (int i = 0; i < 10; i++) {
 
-			detalles.add(dto);
-		}
+            ConsentradoAltaBajaExcelDTO dto = new ConsentradoAltaBajaExcelDTO();
 
-		ConsentradoAltaBajaExcel excel = new ConsentradoAltaBajaExcel();
+            //			dto.setNumero(i);
+            dto.setRfc("GUHC591023TY6");
+            dto.setFecha(new Date());
+            dto.setNombreCompleto("GUILLEN,HERNANDEZ/CELIA");
+            dto.setClavePresupuestal("I0024161103 M02035 29004 0138");
+            dto.setAdscripcion("CENTRO DE SALUD URBANO DE APIZACO");
+            dto.setTipoNombramiento("BASE FEDERAL");
+            dto.setMovimiento("BAJA (LICENCIA PREJUBILATORIA");
+            dto.setObservaciones("A PARTIR DEL 01/01/2015 AL 31/03/2015");
 
-		byte[] archivo = excel.generar(detalles);
+            detalles.add(dto);
+        }
 
-		try {
-			ArchivoUtil.guardarEnCarpetaUsuario(archivo, "Concentrado_Altas_Bajas.xlsx");
-		} catch (IOException ex) {
-			LOGGER.error(null, ex);
-		}
+        ConsentradoAltaBajaExcel excel = new ConsentradoAltaBajaExcel();
 
-		assertNotNull(archivo);
-	}
+        byte[] archivo = excel.generar(detalles);
 
+        try {
+            ArchivoUtil.guardarEnCarpetaUsuario(archivo, "Concentrado_Altas_Bajas.xlsx");
+        } catch (IOException ex) {
+            LOGGER.error(null, ex);
+        }
+
+        assertNotNull(archivo);
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.empleado;
 
 import java.io.Serializable;
@@ -23,134 +24,132 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 @ViewScoped
 public class IndexIncidenciaEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 280980765909030913L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 280980765909030913L;
 
-	@Inject
-	ServiciosWebEJB serviocWebEJB;
+    @Inject
+    ServiciosWebEJB serviocWebEJB;
 
-	@Inject
-	Empleado empleadoService;
+    @Inject
+    Empleado empleadoService;
 
-	@Inject
-	EmpleadoClientRest empleadoClienteRest;
+    @Inject
+    EmpleadoClientRest empleadoClienteRest;
 
-	InfoEmpleadoDTO empleadoDTO;
+    InfoEmpleadoDTO empleadoDTO;
 
-	ConsultarIncidenciasEmpleadoModel model = new ConsultarIncidenciasEmpleadoModel();
+    ConsultarIncidenciasEmpleadoModel model = new ConsultarIncidenciasEmpleadoModel();
 
-	private List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado;
+    private List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado;
 
-	private boolean mostrarDetalle = false;
+    private boolean mostrarDetalle = false;
 
-	public void init() {
+    public void init() {
 
-		try {
-			ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
-			if (!servicioRSEntity.isProduccion()) {
-				HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				String url = req.getContextPath().toString();
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-						"El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
-								+ "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        try {
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            if (!servicioRSEntity.isProduccion()) {
+                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String url = req.getContextPath().toString();
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                                + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-			}
+            }
 
-		} catch (ServicioWebException e1) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
+        } catch (ServicioWebException e1) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-		String id = params.get("exito");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String id = params.get("exito");
 
-		if (id != null) {
+        if (id != null) {
 
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Agregar",
-					"Se agrego la incidencia con exito");
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Agregar", "Se agrego la incidencia con exito");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-		}
+        }
 
-	}
-	
-	public void eliminarIncidencia(IncidenciaEmpleadoView incidenciaViewModel){
-		
-		try {
-			empleadoClienteRest.elminarIncidenciaEmpleado(incidenciaViewModel.getIdIncidenciaEmpleado());
-			listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
-		} catch (RESTClientException e) {
-			
-			e.printStackTrace();
-			
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
-	}
+    }
 
-	public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
+    public void eliminarIncidencia(IncidenciaEmpleadoView incidenciaViewModel) {
 
-		List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
+        try {
+            empleadoClienteRest.elminarIncidenciaEmpleado(incidenciaViewModel.getIdIncidenciaEmpleado());
+            listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
+        } catch (RESTClientException e) {
 
-		if (query == "") {
-			query = ".";
-		}
+            e.printStackTrace();
 
-		if (query.length() > 4) {
-			listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
-		}
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
+    }
 
-		return listadoEmpleadoDTO;
+    public List<InfoEmpleadoDTO> buscarEmpleadoAutoComplete(String query) {
 
-	}
+        List<InfoEmpleadoDTO> listadoEmpleadoDTO = null;
 
-	public void buscarIncidenciaEmpleado() {
+        if (query == "") {
+            query = ".";
+        }
 
-		try {
-			listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
-			mostrarDetalle = true;
-		} catch (RESTClientException e) {
-			mostrarDetalle = false;
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Buscar", e.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
-	}
+        if (query.length() > 4) {
+            listadoEmpleadoDTO = empleadoService.consultaPorCriterio(query);
+        }
 
-	public boolean isMostrarDetalle() {
-		return mostrarDetalle;
-	}
+        return listadoEmpleadoDTO;
 
-	public void setMostrarDetalle(boolean mostrarDetalle) {
-		this.mostrarDetalle = mostrarDetalle;
-	}
+    }
 
-	public List<IncidenciaEmpleadoView> getListadoIncidenciaEmpleado() {
-		return listadoIncidenciaEmpleado;
-	}
+    public void buscarIncidenciaEmpleado() {
 
-	public void setListadoIncidenciaEmpleado(List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado) {
-		this.listadoIncidenciaEmpleado = listadoIncidenciaEmpleado;
-	}
+        try {
+            listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
+            mostrarDetalle = true;
+        } catch (RESTClientException e) {
+            mostrarDetalle = false;
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Buscar", e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
+    }
 
-	public InfoEmpleadoDTO getEmpleadoDTO() {
-		return empleadoDTO;
-	}
+    public boolean isMostrarDetalle() {
+        return mostrarDetalle;
+    }
 
-	public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
-		this.empleadoDTO = empleadoDTO;
-	}
+    public void setMostrarDetalle(boolean mostrarDetalle) {
+        this.mostrarDetalle = mostrarDetalle;
+    }
 
-	public ConsultarIncidenciasEmpleadoModel getModel() {
-		return model;
-	}
+    public List<IncidenciaEmpleadoView> getListadoIncidenciaEmpleado() {
+        return listadoIncidenciaEmpleado;
+    }
 
-	public void setModel(ConsultarIncidenciasEmpleadoModel model) {
-		this.model = model;
-	}
+    public void setListadoIncidenciaEmpleado(List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado) {
+        this.listadoIncidenciaEmpleado = listadoIncidenciaEmpleado;
+    }
+
+    public InfoEmpleadoDTO getEmpleadoDTO() {
+        return empleadoDTO;
+    }
+
+    public void setEmpleadoDTO(InfoEmpleadoDTO empleadoDTO) {
+        this.empleadoDTO = empleadoDTO;
+    }
+
+    public ConsultarIncidenciasEmpleadoModel getModel() {
+        return model;
+    }
+
+    public void setModel(ConsultarIncidenciasEmpleadoModel model) {
+        this.model = model;
+    }
 
 }

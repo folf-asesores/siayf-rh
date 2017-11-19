@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.tiponomina;
 
 import java.util.List;
@@ -12,55 +13,55 @@ import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.SubfuenteFinanciam
 @Stateless
 public class TipoNominaEJB {
 
-	@Inject
-	private TipoNominaService tipoNominaService;
+    @Inject
+    private TipoNominaService tipoNominaService;
 
-	public List<TipoNominaDTO> obtenerTipoNominaLista() {
-		List<TipoNominaDTO> tipoNominaLista = tipoNominaService.listaTipoNomina();
-		return tipoNominaLista;
-	}
+    public List<TipoNominaDTO> obtenerTipoNominaLista() {
+        List<TipoNominaDTO> tipoNominaLista = tipoNominaService.listaTipoNomina();
+        return tipoNominaLista;
+    }
 
-	public List<TipoNominaListaDTO> obtenerListaTipoNomina() {
-		List<TipoNominaListaDTO> tipoNominaLista = tipoNominaService.tipoNominaLista();
-		return tipoNominaLista;
-	}
+    public List<TipoNominaListaDTO> obtenerListaTipoNomina() {
+        List<TipoNominaListaDTO> tipoNominaLista = tipoNominaService.tipoNominaLista();
+        return tipoNominaLista;
+    }
 
-	public TipoNominaDTO obtenerTipoNomina(TipoNominaDTO tipoNomina) {
-		TipoNominaDTO dto = tipoNominaService.obtenerTipoNominaPorId(tipoNomina.getIdTipoNomina());
-		return dto;
-	}
+    public TipoNominaDTO obtenerTipoNomina(TipoNominaDTO tipoNomina) {
+        TipoNominaDTO dto = tipoNominaService.obtenerTipoNominaPorId(tipoNomina.getIdTipoNomina());
+        return dto;
+    }
 
-	public TipoNominaDTO nuevoTipoNomina() {
-		return tipoNominaService.nuevoTipoNomina();
-	}
+    public TipoNominaDTO nuevoTipoNomina() {
+        return tipoNominaService.nuevoTipoNomina();
+    }
 
-	public TipoNominaDTO crearTipoNomina(TipoNominaDTO dto) {
-		return tipoNominaService.crearTipoNomina(dto);
-	}
+    public TipoNominaDTO crearTipoNomina(TipoNominaDTO dto) {
+        return tipoNominaService.crearTipoNomina(dto);
+    }
 
-	public TipoNominaDTO actualizarTipoNomina(TipoNominaDTO dto) {
-		return tipoNominaService.actualizarTipoNomina(dto);
-	}
+    public TipoNominaDTO actualizarTipoNomina(TipoNominaDTO dto) {
+        return tipoNominaService.actualizarTipoNomina(dto);
+    }
 
-	public void eliminarTipoNomina(TipoNominaDTO dto) {
-		tipoNominaService.eliminarTipoNomina(dto);
-	}
+    public void eliminarTipoNomina(TipoNominaDTO dto) {
+        tipoNominaService.eliminarTipoNomina(dto);
+    }
 
-	// <<<<<<Listas>>>>>>
+    // <<<<<<Listas>>>>>>
 
-	public List<ClasificacionNominaDTO> obtenerClasificacionLista() {
-		return tipoNominaService.obtenerClasificacion();
-	}
+    public List<ClasificacionNominaDTO> obtenerClasificacionLista() {
+        return tipoNominaService.obtenerClasificacion();
+    }
 
-	public List<FuenteFinanciamientoDTO> obtenerFuenteLista() {
-		return tipoNominaService.obtenerFuente();
-	}
+    public List<FuenteFinanciamientoDTO> obtenerFuenteLista() {
+        return tipoNominaService.obtenerFuente();
+    }
 
-	public List<SubfuenteFinanciamientoDTO> obtenerSubfuenteLista() {
-		return tipoNominaService.obtenerSubfuente();
-	}
+    public List<SubfuenteFinanciamientoDTO> obtenerSubfuenteLista() {
+        return tipoNominaService.obtenerSubfuente();
+    }
 
-	public List<TipoRecursoDTO> obtenerListaTipoRecurso() {
-		return tipoNominaService.obtenerListaTipoRecurso();
-	}
+    public List<TipoRecursoDTO> obtenerListaTipoRecurso() {
+        return tipoNominaService.obtenerListaTipoRecurso();
+    }
 }

@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -25,118 +26,114 @@ import javax.persistence.Table;
 @Table(name = "puestos_generales")
 public class PuestoGeneralEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4969884053592817780L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4969884053592817780L;
 
-	@Id
-	@Column(name = "id_puesto_general")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idPuestoGeneral;
+    @Id
+    @Column(name = "id_puesto_general")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idPuestoGeneral;
 
-	@Column(name = "codigo")
-	private String codigo;
+    @Column(name = "codigo")
+    private String codigo;
 
-	@Column(name = "puesto")
-	private String puesto;
+    @Column(name = "puesto")
+    private String puesto;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_puesto")
-	private TipoPuestoEntity idTipoPuesto;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_rama")
-	private RamaEntity idRama;
-	
-	@Column(name = "puesto_timbre")
-	private String puestoTimbre;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_puesto")
+    private TipoPuestoEntity idTipoPuesto;
 
-	
-	
-	
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_rama")
+    private RamaEntity idRama;
 
-	/**
-	 * @return the idPuestoGeneral
-	 */
-	public Integer getIdPuestoGeneral() {
-		return idPuestoGeneral;
-	}
+    @Column(name = "puesto_timbre")
+    private String puestoTimbre;
 
-	/**
-	 * @param idPuestoGeneral
-	 *            the idPuestoGeneral to set
-	 */
-	public void setIdPuestoGeneral(Integer idPuestoGeneral) {
-		this.idPuestoGeneral = idPuestoGeneral;
-	}
+    /**
+     * @return the idPuestoGeneral
+     */
+    public Integer getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
 
-	/**
-	 * @return the codigo
-	 */
-	public String getCodigo() {
-		return codigo;
-	}
+    /**
+     * @param idPuestoGeneral
+     *            the idPuestoGeneral to set
+     */
+    public void setIdPuestoGeneral(Integer idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
 
-	/**
-	 * @return the puesto
-	 */
-	public String getPuesto() {
-		return puesto;
-	}
+    /**
+     * @param codigo
+     *            the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
-	/**
-	 * @param puesto
-	 *            the puesto to set
-	 */
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
-	}
+    /**
+     * @return the puesto
+     */
+    public String getPuesto() {
+        return puesto;
+    }
 
-	/**
-	 * @return the idRama
-	 */
-	public RamaEntity getIdRama() {
-		return idRama;
-	}
+    /**
+     * @param puesto
+     *            the puesto to set
+     */
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
 
-	/**
-	 * @param idRama the idRama to set
-	 */
-	public void setIdRama(RamaEntity idRama) {
-		this.idRama = idRama;
-	}
+    /**
+     * @return the idRama
+     */
+    public RamaEntity getIdRama() {
+        return idRama;
+    }
 
-	public TipoPuestoEntity getIdTipoPuesto() {
-		return idTipoPuesto;
-	}
+    /**
+     * @param idRama
+     *            the idRama to set
+     */
+    public void setIdRama(RamaEntity idRama) {
+        this.idRama = idRama;
+    }
 
-	public void setIdTipoPuesto(TipoPuestoEntity idTipoPuesto) {
-		this.idTipoPuesto = idTipoPuesto;
-	}
+    public TipoPuestoEntity getIdTipoPuesto() {
+        return idTipoPuesto;
+    }
 
-	/**
-	 * @return the puestoTimbre
-	 */
-	public String getPuestoTimbre() {
-		return puestoTimbre;
-	}
+    public void setIdTipoPuesto(TipoPuestoEntity idTipoPuesto) {
+        this.idTipoPuesto = idTipoPuesto;
+    }
 
-	/**
-	 * @param puestoTimbre the puestoTimbre to set
-	 */
-	public void setPuestoTimbre(String puestoTimbre) {
-		this.puestoTimbre = puestoTimbre;
-	}
+    /**
+     * @return the puestoTimbre
+     */
+    public String getPuestoTimbre() {
+        return puestoTimbre;
+    }
 
-	
+    /**
+     * @param puestoTimbre
+     *            the puestoTimbre to set
+     */
+    public void setPuestoTimbre(String puestoTimbre) {
+        this.puestoTimbre = puestoTimbre;
+    }
 
 }

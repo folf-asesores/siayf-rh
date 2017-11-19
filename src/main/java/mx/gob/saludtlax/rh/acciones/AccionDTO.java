@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.acciones;
 
 import java.io.Serializable;
@@ -16,8 +17,7 @@ public class AccionDTO implements Serializable {
     public AccionDTO() {
     }
 
-    public AccionDTO(Integer idAccion, String clave, String descripcion, Integer idArea, Integer idModulo,
-            String nombreArea) {
+    public AccionDTO(Integer idAccion, String clave, String descripcion, Integer idArea, Integer idModulo, String nombreArea) {
         super();
         this.idAccion = idAccion;
         this.clave = clave;
@@ -77,14 +77,8 @@ public class AccionDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AccionDTO{"
-                + "idAccion=" + idAccion
-                + ", clave=" + clave
-                + ", descripcion=" + descripcion
-                + ", idArea=" + idArea
-                + ", idModulo=" + idModulo
-                + ", nombreArea=" + nombreArea
-                + '}';
+        return "AccionDTO{" + "idAccion=" + idAccion + ", clave=" + clave + ", descripcion=" + descripcion + ", idArea=" + idArea + ", idModulo=" + idModulo
+                + ", nombreArea=" + nombreArea + '}';
     }
 
 }

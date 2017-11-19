@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
@@ -11,96 +12,91 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO
 @Stateless
 public class ConsultaProsperaEJB {
 
-	@Inject
-	private ConsultaProsperaService consultaProsperaService;
-	
-//	Listas para Estructura Nomina Datos
-	
-	public List<EstructuraContratosDatDTO> obtenerConsultaProsperaLista() {
-		List<EstructuraContratosDatDTO> consultaNominaLista = consultaProsperaService.listaEstructuraProspera();
-		return consultaNominaLista;
-	}
+    @Inject
+    private ConsultaProsperaService consultaProsperaService;
 
-	public EstructuraContratosDatDTO obtenerConsultaProsperaListaPorId(EstructuraContratosDatDTO DTO) {
-		EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(DTO.getIdEstructurasContratos());
-		return dto;
-	}
-	
-	public List<EstructuraContratosDatDTO> obtenerConsultaProsperaListaPorCriterios(String rfcCriterio) {
-		List<EstructuraContratosDatDTO> consultaProsperaLista = consultaProsperaService.listaEstructuraProsperaPorCriterios(rfcCriterio);
-		return consultaProsperaLista;
-	}
+    //	Listas para Estructura Nomina Datos
 
-	
-//	Listas para Estructura Nomina Datos
-	
-	public List<EstructuraContratosTrailersDTO> obtenerConsultaNominaTrailersLista() {
-		List<EstructuraContratosTrailersDTO> consultaProsperaTrailersLista = consultaProsperaService.listaEstructuraProsperaTrailers();
-		return consultaProsperaTrailersLista;
-	}
+    public List<EstructuraContratosDatDTO> obtenerConsultaProsperaLista() {
+        List<EstructuraContratosDatDTO> consultaNominaLista = consultaProsperaService.listaEstructuraProspera();
+        return consultaNominaLista;
+    }
 
-	public List<EstructuraContratosTrailersDTO> obtenerConsultaProsperaTrailersListaPorCriterios(String rfc) {
-		return consultaProsperaService.listaConsultaProsperaTrailersPorCriterios(rfc);
-	}
+    public EstructuraContratosDatDTO obtenerConsultaProsperaListaPorId(EstructuraContratosDatDTO DTO) {
+        EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(DTO.getIdEstructurasContratos());
+        return dto;
+    }
 
-	public EstructuraContratosTrailersDTO obtenerConsultaProsperaTrailersListaPorId(EstructuraContratosTrailersDTO DTO) {
-		EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
-		return dto;
-	}
-	
-	
-//	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Datos
-	
-	public EstructuraContratosDatDTO nuevoDatos() {
-		return consultaProsperaService.nuevosDatos();
-	}
+    public List<EstructuraContratosDatDTO> obtenerConsultaProsperaListaPorCriterios(String rfcCriterio) {
+        List<EstructuraContratosDatDTO> consultaProsperaLista = consultaProsperaService.listaEstructuraProsperaPorCriterios(rfcCriterio);
+        return consultaProsperaLista;
+    }
 
-	public void eliminarDatos(EstructuraContratosDatDTO estructuraNominaSelect) {
-		
-		
-	}
+    //	Listas para Estructura Nomina Datos
 
-	public EstructuraContratosDatDTO obtenerDatos(EstructuraContratosDatDTO estructuraProsperaSelect) {
-		EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(estructuraProsperaSelect.getIdEstructurasContratos());
-		return dto;
-	}
+    public List<EstructuraContratosTrailersDTO> obtenerConsultaNominaTrailersLista() {
+        List<EstructuraContratosTrailersDTO> consultaProsperaTrailersLista = consultaProsperaService.listaEstructuraProsperaTrailers();
+        return consultaProsperaTrailersLista;
+    }
 
-	public void crearDatos(EstructuraContratosDatDTO estructuraProspera) {
-		consultaProsperaService.crearDatosProspera(estructuraProspera);		
-	}
+    public List<EstructuraContratosTrailersDTO> obtenerConsultaProsperaTrailersListaPorCriterios(String rfc) {
+        return consultaProsperaService.listaConsultaProsperaTrailersPorCriterios(rfc);
+    }
 
-	public void actualizarDatos(EstructuraContratosDatDTO estructuraProspera) {
-		consultaProsperaService.actualizarDatosProspera(estructuraProspera);
-	}
-	
-	
-	
-//	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Trailers
-	
-	public EstructuraContratosTrailersDTO nuevoTrailers() {
-		return consultaProsperaService.nuevosTrailersProspera();
-	}
+    public EstructuraContratosTrailersDTO obtenerConsultaProsperaTrailersListaPorId(EstructuraContratosTrailersDTO DTO) {
+        EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
+        return dto;
+    }
 
-	public void eliminarTrailers(EstructuraContratosTrailersDTO estructuraNominaSelect) {
-		
-		
-	}
+    //	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Datos
 
-	public EstructuraContratosTrailersDTO obtenerTrailers(EstructuraContratosTrailersDTO DTO) {
-		EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
-		return dto;
-	}
+    public EstructuraContratosDatDTO nuevoDatos() {
+        return consultaProsperaService.nuevosDatos();
+    }
 
-	public void crearTrailers(EstructuraContratosTrailersDTO dto) {
-		consultaProsperaService.crearTrailersProspera(dto);		
-	}
+    public void eliminarDatos(EstructuraContratosDatDTO estructuraNominaSelect) {
 
-	public void actualizarTrailers(EstructuraContratosTrailersDTO estructuraProspera) {
-		consultaProsperaService.actualizarTrailersProspera(estructuraProspera);
-	}
-//>>>>>>>>>Modifica el RFc en TRA<<<<<<<<<
-	public void modificarTrailers(String rfc, Integer id) {
-		consultaProsperaService.modificarTrailers(rfc,id);
-	}
+    }
+
+    public EstructuraContratosDatDTO obtenerDatos(EstructuraContratosDatDTO estructuraProsperaSelect) {
+        EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(estructuraProsperaSelect.getIdEstructurasContratos());
+        return dto;
+    }
+
+    public void crearDatos(EstructuraContratosDatDTO estructuraProspera) {
+        consultaProsperaService.crearDatosProspera(estructuraProspera);
+    }
+
+    public void actualizarDatos(EstructuraContratosDatDTO estructuraProspera) {
+        consultaProsperaService.actualizarDatosProspera(estructuraProspera);
+    }
+
+    //	Opciones CLAE (Crear-Leer-Actualizar-Eliminar) para Estructura Nomina Trailers
+
+    public EstructuraContratosTrailersDTO nuevoTrailers() {
+        return consultaProsperaService.nuevosTrailersProspera();
+    }
+
+    public void eliminarTrailers(EstructuraContratosTrailersDTO estructuraNominaSelect) {
+
+    }
+
+    public EstructuraContratosTrailersDTO obtenerTrailers(EstructuraContratosTrailersDTO DTO) {
+        EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
+        return dto;
+    }
+
+    public void crearTrailers(EstructuraContratosTrailersDTO dto) {
+        consultaProsperaService.crearTrailersProspera(dto);
+    }
+
+    public void actualizarTrailers(EstructuraContratosTrailersDTO estructuraProspera) {
+        consultaProsperaService.actualizarTrailersProspera(estructuraProspera);
+    }
+
+    //>>>>>>>>>Modifica el RFc en TRA<<<<<<<<<
+    public void modificarTrailers(String rfc, Integer id) {
+        consultaProsperaService.modificarTrailers(rfc, id);
+    }
 
 }

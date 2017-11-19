@@ -1,7 +1,7 @@
 /*
  * ComprobanteEmpleadoService.java
  * Creado el 22/nov/2016 4:25:46 AM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
@@ -25,7 +25,8 @@ public class ComprobanteEmpleadoService implements Serializable {
 
     private static final long serialVersionUID = 75388205920079865L;
 
-    @Inject private ComprobanteEmpleadoRepository comprobateEmpleadoRepository;
+    @Inject
+    private ComprobanteEmpleadoRepository comprobateEmpleadoRepository;
 
     protected byte[] generarReporte(Integer idProductoNomina) {
         List<ComprobanteEmpleadoPojo> datosBrutos = comprobateEmpleadoRepository.obtenerDatos(idProductoNomina);
@@ -41,7 +42,7 @@ public class ComprobanteEmpleadoService implements Serializable {
         for (int i = 0; i < datosBrutos.size(); i++) {
             ComprobanteEmpleadoPojo datoBruto = datosBrutos.get(i);
 
-            if(!iteradores.containsKey(datoBruto.getFiliacion())) {
+            if (!iteradores.containsKey(datoBruto.getFiliacion())) {
                 List<Integer> indices = new ArrayList<>();
                 indices.add(i);
                 iteradores.put(datoBruto.getFiliacion(), indices);
@@ -75,9 +76,11 @@ public class ComprobanteEmpleadoService implements Serializable {
                     datoTratado.setNeto(datoBruto.getNeto());
                     datoTratado.setConceptos(conceptos);
 
-                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()), datoBruto.getImporte()));
+                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()),
+                            datoBruto.getImporte()));
                 } else {
-                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()), datoBruto.getImporte()));
+                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()),
+                            datoBruto.getImporte()));
                 }
             }
 

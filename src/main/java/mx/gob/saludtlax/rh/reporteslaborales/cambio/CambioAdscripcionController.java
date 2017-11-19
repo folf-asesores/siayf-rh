@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class CambioAdscripcionController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2113176085297630496L;
 
@@ -40,10 +40,9 @@ public class CambioAdscripcionController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new CambioAdscripcionView();
+        view = new CambioAdscripcionView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -67,16 +66,16 @@ public class CambioAdscripcionController implements Serializable {
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<CambioAdscripcionDetalleDTO> resultado = this.cambioAdscripcionEJB.consultarPorCriterio(criterio);
-        this.view.setCambioDetalle(resultado);
+        List<CambioAdscripcionDetalleDTO> resultado = cambioAdscripcionEJB.consultarPorCriterio(criterio);
+        view.setCambioDetalle(resultado);
 
     }
 
     public void descargarComision() {
 
-        CambioAdscripcionDTO cambioAdscripcionDTO = this.view.getCambioAdscripcionDTO();
+        CambioAdscripcionDTO cambioAdscripcionDTO = view.getCambioAdscripcionDTO();
 
         CambioAdscripcionWord cambioAdscripcionWord = new CambioAdscripcionWord();
         byte[] bytesWord = cambioAdscripcionWord.generar(cambioAdscripcionDTO);
@@ -103,36 +102,36 @@ public class CambioAdscripcionController implements Serializable {
     }
 
     public void contenidoComision(Integer idTipoMovimiento) {
-        CambioAdscripcionDTO cambioAdscripcionDTO = this.cambioAdscripcionEJB.obtenerComisionOficial(idTipoMovimiento);
-        this.view.setCambioAdscripcionDTO(cambioAdscripcionDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarCambio(true);
+        CambioAdscripcionDTO cambioAdscripcionDTO = cambioAdscripcionEJB.obtenerComisionOficial(idTipoMovimiento);
+        view.setCambioAdscripcionDTO(cambioAdscripcionDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarCambio(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setCambioDetalle(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarCambio(false);
+        view.setCriterio("");
+        view.setCambioDetalle(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarCambio(false);
     }
 
     public void edicion() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarCambio(false);
-        this.view.setMostrarEdicion(true);
+        view.setMostrarPrincipal(false);
+        view.setMostrarCambio(false);
+        view.setMostrarEdicion(true);
     }
 
     public void guardar() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarCambio(true);
-        this.view.setMostrarEdicion(false);
+        view.setMostrarPrincipal(false);
+        view.setMostrarCambio(true);
+        view.setMostrarEdicion(false);
     }
 
     /**
      * @return the view
      */
     public CambioAdscripcionView getView() {
-        return this.view;
+        return view;
     }
 
     /**

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.administracionmodulo;
 
 import java.io.Serializable;
@@ -17,109 +18,111 @@ import mx.gob.saludtlax.rh.modulos.ModuloDTO;
  */
 public class ActualizarModuloView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4738618990853624740L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4738618990853624740L;
 
-	private Integer idModulo;
-	
-	private ModuloDTO actualizarModulo = new ModuloDTO();
-	
-	private List<AreaDTO> listaAreas = new ArrayList<AreaDTO>();
-	
-	private AccionDTO accion = new AccionDTO();
-	
-	private boolean mostrarTablaAccciones = true;
-	
-	private boolean mostrarFormularioAccion = false;
+    private Integer idModulo;
 
+    private ModuloDTO actualizarModulo = new ModuloDTO();
 
-	
+    private List<AreaDTO> listaAreas = new ArrayList<>();
 
-	/**
-	 * @return the idModulo
-	 */
-	public Integer getIdModulo() {
-		return idModulo;
-	}
+    private AccionDTO accion = new AccionDTO();
 
-	/**
-	 * @param idModulo
-	 *            the idModulo to set
-	 */
-	public void setIdModulo(Integer idModulo) {
-		this.idModulo = idModulo;
-	}
+    private boolean mostrarTablaAccciones = true;
 
-	/**
-	 * @return the actualizarModulo
-	 */
-	public ModuloDTO getActualizarModulo() {
-		return actualizarModulo;
-	}
+    private boolean mostrarFormularioAccion = false;
 
-	/**
-	 * @param actualizarModulo the actualizarModulo to set
-	 */
-	public void setActualizarModulo(ModuloDTO actualizarModulo) {
-		this.actualizarModulo = actualizarModulo;
-	}
+    /**
+     * @return the idModulo
+     */
+    public Integer getIdModulo() {
+        return idModulo;
+    }
 
-	/**
-	 * @return the listaAreas
-	 */
-	public List<AreaDTO> getListaAreas() {
-		return listaAreas;
-	}
+    /**
+     * @param idModulo
+     *            the idModulo to set
+     */
+    public void setIdModulo(Integer idModulo) {
+        this.idModulo = idModulo;
+    }
 
-	/**
-	 * @param listaAreas the listaAreas to set
-	 */
-	public void setListaAreas(List<AreaDTO> listaAreas) {
-		this.listaAreas = listaAreas;
-	}
+    /**
+     * @return the actualizarModulo
+     */
+    public ModuloDTO getActualizarModulo() {
+        return actualizarModulo;
+    }
 
-	/**
-	 * @return the accion
-	 */
-	public AccionDTO getAccion() {
-		return accion;
-	}
+    /**
+     * @param actualizarModulo
+     *            the actualizarModulo to set
+     */
+    public void setActualizarModulo(ModuloDTO actualizarModulo) {
+        this.actualizarModulo = actualizarModulo;
+    }
 
-	/**
-	 * @param accion the accion to set
-	 */
-	public void setAccion(AccionDTO accion) {
-		this.accion = accion;
-	}
+    /**
+     * @return the listaAreas
+     */
+    public List<AreaDTO> getListaAreas() {
+        return listaAreas;
+    }
 
-	/**
-	 * @return the mostrarTablaAccciones
-	 */
-	public boolean isMostrarTablaAccciones() {
-		return mostrarTablaAccciones;
-	}
+    /**
+     * @param listaAreas
+     *            the listaAreas to set
+     */
+    public void setListaAreas(List<AreaDTO> listaAreas) {
+        this.listaAreas = listaAreas;
+    }
 
-	/**
-	 * @param mostrarTablaAccciones the mostrarTablaAccciones to set
-	 */
-	public void setMostrarTablaAccciones(boolean mostrarTablaAccciones) {
-		this.mostrarTablaAccciones = mostrarTablaAccciones;
-	}
+    /**
+     * @return the accion
+     */
+    public AccionDTO getAccion() {
+        return accion;
+    }
 
-	/**
-	 * @return the mostrarFormularioAccion
-	 */
-	public boolean isMostrarFormularioAccion() {
-		return mostrarFormularioAccion;
-	}
+    /**
+     * @param accion
+     *            the accion to set
+     */
+    public void setAccion(AccionDTO accion) {
+        this.accion = accion;
+    }
 
-	/**
-	 * @param mostrarFormularioAccion the mostrarFormularioAccion to set
-	 */
-	public void setMostrarFormularioAccion(boolean mostrarFormularioAccion) {
-		this.mostrarFormularioAccion = mostrarFormularioAccion;
-	}
+    /**
+     * @return the mostrarTablaAccciones
+     */
+    public boolean isMostrarTablaAccciones() {
+        return mostrarTablaAccciones;
+    }
+
+    /**
+     * @param mostrarTablaAccciones
+     *            the mostrarTablaAccciones to set
+     */
+    public void setMostrarTablaAccciones(boolean mostrarTablaAccciones) {
+        this.mostrarTablaAccciones = mostrarTablaAccciones;
+    }
+
+    /**
+     * @return the mostrarFormularioAccion
+     */
+    public boolean isMostrarFormularioAccion() {
+        return mostrarFormularioAccion;
+    }
+
+    /**
+     * @param mostrarFormularioAccion
+     *            the mostrarFormularioAccion to set
+     */
+    public void setMostrarFormularioAccion(boolean mostrarFormularioAccion) {
+        this.mostrarFormularioAccion = mostrarFormularioAccion;
+    }
 
 }

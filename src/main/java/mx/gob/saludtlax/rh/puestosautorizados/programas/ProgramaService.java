@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.puestosautorizados.programas;
 
 import java.util.ArrayList;
@@ -38,341 +39,315 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * @since 25/08/2016 20:29:10
  */
 public class ProgramaService {
-	@Inject
-	private Autorizaciones autorizaciones;
-	@Inject
-	private DependenciaTempRepository dependenciasRepository;
-	@Inject
-	private FuenteFinanciamientoRepository fuenteFinanciamientoRepository;
-	@Inject
-	private SubFuenteFinanciamientoTempRepository subfuentefinanciamientoRepository;
-	@Inject
-	private ProyectoTempRepository proyectoRepository;
-	@Inject
-	private TipoRecursoTempRepository tipoRecursoTempRepository;
-	@Inject
-	private UnidadResponsableRepository unidadResponsableRepository;
+    @Inject
+    private Autorizaciones autorizaciones;
+    @Inject
+    private DependenciaTempRepository dependenciasRepository;
+    @Inject
+    private FuenteFinanciamientoRepository fuenteFinanciamientoRepository;
+    @Inject
+    private SubFuenteFinanciamientoTempRepository subfuentefinanciamientoRepository;
+    @Inject
+    private ProyectoTempRepository proyectoRepository;
+    @Inject
+    private TipoRecursoTempRepository tipoRecursoTempRepository;
+    @Inject
+    private UnidadResponsableRepository unidadResponsableRepository;
 
-	@Inject
-	private ProgramaRepository programaRepository;
+    @Inject
+    private ProgramaRepository programaRepository;
 
-	@Inject
-	private DetalleProgramaRepository detalleProgramaRepository;
+    @Inject
+    private DetalleProgramaRepository detalleProgramaRepository;
 
-	protected void crearPrograma(ProgramaDTO programaDTO, Integer idUsuario) {
+    protected void crearPrograma(ProgramaDTO programaDTO, Integer idUsuario) {
 
-		validarPrograma(programaDTO);
-		ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(programaDTO.getIdProyecto());
-		SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository
-				.obtenerPorId(programaDTO.getIdSubfuentefinanciamiento());
-		TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository
-				.obtenerPorId(programaDTO.getIdTipoRecurso());
-		UnidadResponsableEntity unidadResponsable = unidadResponsableRepository
-				.obtenerPorId(programaDTO.getIdUnidadResponsable());
+        validarPrograma(programaDTO);
+        ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(programaDTO.getIdProyecto());
+        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository.obtenerPorId(programaDTO.getIdSubfuentefinanciamiento());
+        TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository.obtenerPorId(programaDTO.getIdTipoRecurso());
+        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository.obtenerPorId(programaDTO.getIdUnidadResponsable());
 
-		DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(programaDTO.getIdDependencia());
-		FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository
-				.obtenerPorId(programaDTO.getIdFuenteFinanciamiento());
+        DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(programaDTO.getIdDependencia());
+        FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository.obtenerPorId(programaDTO.getIdFuenteFinanciamiento());
 
-		ProgramaEntity entity = new ProgramaEntity();
-		entity.setDependencia(dependencia);
-		entity.setFuenteFinanciamiento(fuenteFinanciamiento);
-		entity.setIdTipoConfiguracion(programaDTO.getTipoConfiguracion());
-		entity.setPrograma(programaDTO.getPrograma());
-		entity.setProyecto(proyecto);
-		entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
-		entity.setTipoRecurso(tipoRecursoTempEntity);
-		entity.setUnidadResponsable(unidadResponsable);
-		entity.setFechaAlta(FechaUtil.fechaActual());
-		programaRepository.crear(entity);
+        ProgramaEntity entity = new ProgramaEntity();
+        entity.setDependencia(dependencia);
+        entity.setFuenteFinanciamiento(fuenteFinanciamiento);
+        entity.setIdTipoConfiguracion(programaDTO.getTipoConfiguracion());
+        entity.setPrograma(programaDTO.getPrograma());
+        entity.setProyecto(proyecto);
+        entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+        entity.setTipoRecurso(tipoRecursoTempEntity);
+        entity.setUnidadResponsable(unidadResponsable);
+        entity.setFechaAlta(FechaUtil.fechaActual());
+        programaRepository.crear(entity);
 
-	}
+    }
 
-	private void validarPrograma(ProgramaDTO programa) {
-		if (programa == null) {
-			throw new ValidacionException("Los datos del programa son requeridos.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (ValidacionUtil.esCadenaVacia(programa.getPrograma())) {
-			throw new ValidacionException("El nombre del programa es requerido.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdProyecto())) {
-			throw new ValidacionException("El proyecto es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdDependencia())) {
-			throw new ValidacionException("La dependencia es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdUnidadResponsable())) {
-			throw new ValidacionException("La unidad responsable es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdFuenteFinanciamiento())) {
-			throw new ValidacionException("La fuente de financiamiento es requerida.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdSubfuentefinanciamiento())) {
-			throw new ValidacionException("La subfuente de financiamiento es requerida.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+    private void validarPrograma(ProgramaDTO programa) {
+        if (programa == null) {
+            throw new ValidacionException("Los datos del programa son requeridos.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (ValidacionUtil.esCadenaVacia(programa.getPrograma())) {
+            throw new ValidacionException("El nombre del programa es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdProyecto())) {
+            throw new ValidacionException("El proyecto es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdDependencia())) {
+            throw new ValidacionException("La dependencia es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdUnidadResponsable())) {
+            throw new ValidacionException("La unidad responsable es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdFuenteFinanciamiento())) {
+            throw new ValidacionException("La fuente de financiamiento es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdSubfuentefinanciamiento())) {
+            throw new ValidacionException("La subfuente de financiamiento es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (!ValidacionUtil.esNumeroPositivo(programa.getIdTipoRecurso())) {
-			throw new ValidacionException("El tipo de recurso es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-	}
+        if (!ValidacionUtil.esNumeroPositivo(programa.getIdTipoRecurso())) {
+            throw new ValidacionException("El tipo de recurso es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+    }
 
-	protected void crearDetallePrograma(DetalleProgramaDTO detalleProgramaDTO) {
+    protected void crearDetallePrograma(DetalleProgramaDTO detalleProgramaDTO) {
 
-		ProgramaEntity programa = programaRepository.obtenerPorId(detalleProgramaDTO.getIdPrograma());
+        ProgramaEntity programa = programaRepository.obtenerPorId(detalleProgramaDTO.getIdPrograma());
 
-		if (programa == null) {
-			throw new ValidacionException(
-					"No existe programa con el identificador especificado " + detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
-		}
+        if (programa == null) {
+            throw new ValidacionException("No existe programa con el identificador especificado " + detalleProgramaDTO.getIdPrograma(),
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+        }
 
-		if (programa.getProyecto() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado un proyecto es necesario asignar uno para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getProyecto() == null) {
+            throw new ValidacionException(
+                    "El programa no tiene asignado un proyecto es necesario asignar uno para registrar un detalle." + detalleProgramaDTO.getIdPrograma(),
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (programa.getDependencia() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado una dependencia es necesario asignar una para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getDependencia() == null) {
+            throw new ValidacionException(
+                    "El programa no tiene asignado una dependencia es necesario asignar una para registrar un detalle." + detalleProgramaDTO.getIdPrograma(),
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (programa.getUnidadResponsable() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado una unidad responsable es necesario asignar una para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getUnidadResponsable() == null) {
+            throw new ValidacionException("El programa no tiene asignado una unidad responsable es necesario asignar una para registrar un detalle."
+                    + detalleProgramaDTO.getIdPrograma(), ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (programa.getFuenteFinanciamiento() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado una fuente de financiamiento es necesario asignar una para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getFuenteFinanciamiento() == null) {
+            throw new ValidacionException("El programa no tiene asignado una fuente de financiamiento es necesario asignar una para registrar un detalle."
+                    + detalleProgramaDTO.getIdPrograma(), ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (programa.getSubfuenteFinanciamiento() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado una subfuente de financiamiento es necesario asignar una para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getSubfuenteFinanciamiento() == null) {
+            throw new ValidacionException("El programa no tiene asignado una subfuente de financiamiento es necesario asignar una para registrar un detalle."
+                    + detalleProgramaDTO.getIdPrograma(), ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		if (detalleProgramaDTO.getMesesContratacion() > 12) {
-			throw new ValidacionException("El periodo de contratación no debe ser mayor a 12",
-					ValidacionCodigoError.VALOR_NO_PERMITIDO);
-		}
+        if (detalleProgramaDTO.getMesesContratacion() > 12) {
+            throw new ValidacionException("El periodo de contratación no debe ser mayor a 12", ValidacionCodigoError.VALOR_NO_PERMITIDO);
+        }
 
-		if (programa.getTipoRecurso() == null) {
-			throw new ValidacionException(
-					"El programa no tiene asignado un tipo de recurso es necesario asignar una para registrar un detalle."
-							+ detalleProgramaDTO.getIdPrograma(),
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+        if (programa.getTipoRecurso() == null) {
+            throw new ValidacionException(
+                    "El programa no tiene asignado un tipo de recurso es necesario asignar una para registrar un detalle." + detalleProgramaDTO.getIdPrograma(),
+                    ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		DetalleProgramaEntity d = new DetalleProgramaEntity();
-		d.setTipoDetallePrograma(detalleProgramaDTO.getIdTipoDetalle());
+        DetalleProgramaEntity d = new DetalleProgramaEntity();
+        d.setTipoDetallePrograma(detalleProgramaDTO.getIdTipoDetalle());
 
-		if (detalleProgramaDTO.getIdTipoDetalle().equals(EnumTipoDetallePrograma.PARTIDA)) {
-			d.setClave(detalleProgramaDTO.getClave());
-			d.setCostoUnitario(detalleProgramaDTO.getCostoUnitario());
-			d.setMesesContratacion(detalleProgramaDTO.getMesesContratacion());
-			d.setNumeroPersonas(detalleProgramaDTO.getNumeroPersonas());
-			d.setDescripcion(detalleProgramaDTO.getDescripcion());
-			d.setTotalGlobal(detalleProgramaDTO.getTotalGlobal());
-			d.setIdPrograma(detalleProgramaDTO.getIdPrograma());
-			d.setEsHonorario(false);
-			d.setEstatus(EnumEstatusDetallePrograma.ESPERA_AUTORIZACION);
-			detalleProgramaRepository.crear(d);
+        if (detalleProgramaDTO.getIdTipoDetalle().equals(EnumTipoDetallePrograma.PARTIDA)) {
+            d.setClave(detalleProgramaDTO.getClave());
+            d.setCostoUnitario(detalleProgramaDTO.getCostoUnitario());
+            d.setMesesContratacion(detalleProgramaDTO.getMesesContratacion());
+            d.setNumeroPersonas(detalleProgramaDTO.getNumeroPersonas());
+            d.setDescripcion(detalleProgramaDTO.getDescripcion());
+            d.setTotalGlobal(detalleProgramaDTO.getTotalGlobal());
+            d.setIdPrograma(detalleProgramaDTO.getIdPrograma());
+            d.setEsHonorario(false);
+            d.setEstatus(EnumEstatusDetallePrograma.ESPERA_AUTORIZACION);
+            detalleProgramaRepository.crear(d);
 
-			String mensajeNotificacion = d.getNumeroPersonas() + " vacantes para el programa "
-					+ programa.getPrograma().toUpperCase() + " por un lapso de tiempo de " + d.getMesesContratacion()
-					+ " meses con un costo por persona de " + d.getCostoUnitario();
+            String mensajeNotificacion = d.getNumeroPersonas() + " vacantes para el programa " + programa.getPrograma().toUpperCase()
+                    + " por un lapso de tiempo de " + d.getMesesContratacion() + " meses con un costo por persona de " + d.getCostoUnitario();
 
-			NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
-			dto.setIdAccion(EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE);
-			dto.setIdEntidadContexto(d.getId());
-			dto.setIdUsuarioLogeado(detalleProgramaDTO.getIdUsuario());
-			dto.setMensajeNotificacion(mensajeNotificacion);
-			autorizaciones.iniciarProcesoAutorizacion(dto);
-		}
+            NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
+            dto.setIdAccion(EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE);
+            dto.setIdEntidadContexto(d.getId());
+            dto.setIdUsuarioLogeado(detalleProgramaDTO.getIdUsuario());
+            dto.setMensajeNotificacion(mensajeNotificacion);
+            autorizaciones.iniciarProcesoAutorizacion(dto);
+        }
 
-	}
+    }
 
-	protected ProgramaDTO obtenerProgramaPorId(Integer idPrograma) {
-		ProgramaEntity p = programaRepository.obtenerPorId(idPrograma);
-		ProgramaDTO dto = new ProgramaDTO();
+    protected ProgramaDTO obtenerProgramaPorId(Integer idPrograma) {
+        ProgramaEntity p = programaRepository.obtenerPorId(idPrograma);
+        ProgramaDTO dto = new ProgramaDTO();
 
-		dto.setIdProyecto(p.getProyecto().getIdProyecto());
-		dto.setIdDependencia(p.getDependencia().getIdDependencia());
-		if (p.getUnidadResponsable() != null) {
-			dto.setIdUnidadResponsable(p.getUnidadResponsable().getIdUnidadResponsable());
-		}
-		dto.setIdFuenteFinanciamiento(p.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
-		dto.setIdSubfuentefinanciamiento(p.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
-		dto.setIdTipoRecurso(p.getTipoRecurso().getIdTipoRecurso());
-		return dto;
-	}
+        dto.setIdProyecto(p.getProyecto().getIdProyecto());
+        dto.setIdDependencia(p.getDependencia().getIdDependencia());
+        if (p.getUnidadResponsable() != null) {
+            dto.setIdUnidadResponsable(p.getUnidadResponsable().getIdUnidadResponsable());
+        }
+        dto.setIdFuenteFinanciamiento(p.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
+        dto.setIdSubfuentefinanciamiento(p.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
+        dto.setIdTipoRecurso(p.getTipoRecurso().getIdTipoRecurso());
+        return dto;
+    }
 
-	protected List<InfoProgramaDTO> consultarProgramas() {
-		List<InfoProgramaDTO> programas = new ArrayList<>();
+    protected List<InfoProgramaDTO> consultarProgramas() {
+        List<InfoProgramaDTO> programas = new ArrayList<>();
 
-		List<ProgramaEntity> lista = programaRepository.consultarProgramas();
-		if (!lista.isEmpty()) {
-			for (ProgramaEntity p : lista) {
-				InfoProgramaDTO programaDTO = new InfoProgramaDTO();
-				programaDTO.setIdPrograma(p.getIdPrograma());
-				programaDTO.setPrograma(p.getPrograma());
-				programas.add(programaDTO);
-			}
-		}
+        List<ProgramaEntity> lista = programaRepository.consultarProgramas();
+        if (!lista.isEmpty()) {
+            for (ProgramaEntity p : lista) {
+                InfoProgramaDTO programaDTO = new InfoProgramaDTO();
+                programaDTO.setIdPrograma(p.getIdPrograma());
+                programaDTO.setPrograma(p.getPrograma());
+                programas.add(programaDTO);
+            }
+        }
 
-		return programas;
-	}
+        return programas;
+    }
 
-	protected List<InfoDetallePrograma> consultarDetallesProgramas(Integer idPrograma) {
-		if (!ValidacionUtil.esNumeroPositivo(idPrograma)) {
-			throw new ValidacionException("El identificador del programa del que desea obtener detalle es requerido.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+    protected List<InfoDetallePrograma> consultarDetallesProgramas(Integer idPrograma) {
+        if (!ValidacionUtil.esNumeroPositivo(idPrograma)) {
+            throw new ValidacionException("El identificador del programa del que desea obtener detalle es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		List<InfoDetallePrograma> detalles = new ArrayList<>();
-		List<DetalleProgramaEntity> lista = detalleProgramaRepository.consultarDetallesPrograma(idPrograma);
+        List<InfoDetallePrograma> detalles = new ArrayList<>();
+        List<DetalleProgramaEntity> lista = detalleProgramaRepository.consultarDetallesPrograma(idPrograma);
 
-		if (!lista.isEmpty()) {
-			for (DetalleProgramaEntity e : lista) {
-				InfoDetallePrograma dto = new InfoDetallePrograma();
-				dto.setClave(e.getClave());
-				dto.setDescripcion(e.getDescripcion());
-				dto.setEstatus(e.getEstatus());
-				dto.setMesesContratacion(e.getMesesContratacion());
-				dto.setNumeroPersonas(e.getNumeroPersonas());
-				dto.setPrecioUnitario(e.getCostoUnitario());
-				dto.setTotalGlobal(e.getTotalGlobal());
-				dto.setTipoDetalle(e.getTipoDetallePrograma());
-				detalles.add(dto);
-			}
-		}
-		return detalles;
-	}
+        if (!lista.isEmpty()) {
+            for (DetalleProgramaEntity e : lista) {
+                InfoDetallePrograma dto = new InfoDetallePrograma();
+                dto.setClave(e.getClave());
+                dto.setDescripcion(e.getDescripcion());
+                dto.setEstatus(e.getEstatus());
+                dto.setMesesContratacion(e.getMesesContratacion());
+                dto.setNumeroPersonas(e.getNumeroPersonas());
+                dto.setPrecioUnitario(e.getCostoUnitario());
+                dto.setTotalGlobal(e.getTotalGlobal());
+                dto.setTipoDetalle(e.getTipoDetallePrograma());
+                detalles.add(dto);
+            }
+        }
+        return detalles;
+    }
 
-	public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(Integer idDetallePrograma) {
-		if (!ValidacionUtil.esNumeroPositivo(idDetallePrograma)) {
-			throw new ValidacionException("El detalle del programa es requerido.",
-					ValidacionCodigoError.VALOR_REQUERIDO);
-		}
+    public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(Integer idDetallePrograma) {
+        if (!ValidacionUtil.esNumeroPositivo(idDetallePrograma)) {
+            throw new ValidacionException("El detalle del programa es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
 
-		DetalleProgramaEntity detallePrograma = detalleProgramaRepository.obtenerPorId(idDetallePrograma);
-		if (detallePrograma == null) {
-			throw new ValidacionException("El detalle con identificador " + idDetallePrograma + " no se ha encontrado",
-					ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
-		}
+        DetalleProgramaEntity detallePrograma = detalleProgramaRepository.obtenerPorId(idDetallePrograma);
+        if (detallePrograma == null) {
+            throw new ValidacionException("El detalle con identificador " + idDetallePrograma + " no se ha encontrado",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+        }
 
-		InfoDetallePrograma infoDetalle = new InfoDetallePrograma();
-		infoDetalle.setClave(detallePrograma.getClave());
-		infoDetalle.setDescripcion(detallePrograma.getDescripcion());
-		infoDetalle.setEstatus(detallePrograma.getEstatus());
-		infoDetalle.setMesesContratacion(detallePrograma.getMesesContratacion());
-		infoDetalle.setNumeroPersonas(detallePrograma.getNumeroPersonas());
-		infoDetalle.setPrecioUnitario(detallePrograma.getCostoUnitario());
-		infoDetalle.setTotalGlobal(detallePrograma.getTotalGlobal());
-		infoDetalle.setTipoDetalle(detallePrograma.getTipoDetallePrograma());
+        InfoDetallePrograma infoDetalle = new InfoDetallePrograma();
+        infoDetalle.setClave(detallePrograma.getClave());
+        infoDetalle.setDescripcion(detallePrograma.getDescripcion());
+        infoDetalle.setEstatus(detallePrograma.getEstatus());
+        infoDetalle.setMesesContratacion(detallePrograma.getMesesContratacion());
+        infoDetalle.setNumeroPersonas(detallePrograma.getNumeroPersonas());
+        infoDetalle.setPrecioUnitario(detallePrograma.getCostoUnitario());
+        infoDetalle.setTotalGlobal(detallePrograma.getTotalGlobal());
+        infoDetalle.setTipoDetalle(detallePrograma.getTipoDetallePrograma());
 
-		ProgramaEntity programa = programaRepository.obtenerPorId(detallePrograma.getIdPrograma());
+        ProgramaEntity programa = programaRepository.obtenerPorId(detallePrograma.getIdPrograma());
 
-		ConfiguracionDetalleProgramaDTO configuracionDetallePrograma = new ConfiguracionDetalleProgramaDTO();
-		configuracionDetallePrograma.setNombrePrograma(programa.getPrograma().toLowerCase());
-		if (detallePrograma.getTipoDetallePrograma().equals(EnumTipoDetallePrograma.PARTIDA)) {
-			configuracionDetallePrograma.setDependencia(programa.getDependencia().getDescripcion());
-			configuracionDetallePrograma.setFuenteFinanciamiento(programa.getFuenteFinanciamiento().getDescripcion());
-			configuracionDetallePrograma.setProyecto(programa.getProyecto().getDescripcion());
-			configuracionDetallePrograma
-					.setSubFuenteFinanciamiento(programa.getSubfuenteFinanciamiento().getDescripcion());
-			configuracionDetallePrograma.setTipoRecurso(programa.getTipoRecurso().getDescripcion());
-			configuracionDetallePrograma.setUnidadResponsable(programa.getUnidadResponsable().getDescripcion());
-		}
-		configuracionDetallePrograma.setDetallePrograma(infoDetalle);
+        ConfiguracionDetalleProgramaDTO configuracionDetallePrograma = new ConfiguracionDetalleProgramaDTO();
+        configuracionDetallePrograma.setNombrePrograma(programa.getPrograma().toLowerCase());
+        if (detallePrograma.getTipoDetallePrograma().equals(EnumTipoDetallePrograma.PARTIDA)) {
+            configuracionDetallePrograma.setDependencia(programa.getDependencia().getDescripcion());
+            configuracionDetallePrograma.setFuenteFinanciamiento(programa.getFuenteFinanciamiento().getDescripcion());
+            configuracionDetallePrograma.setProyecto(programa.getProyecto().getDescripcion());
+            configuracionDetallePrograma.setSubFuenteFinanciamiento(programa.getSubfuenteFinanciamiento().getDescripcion());
+            configuracionDetallePrograma.setTipoRecurso(programa.getTipoRecurso().getDescripcion());
+            configuracionDetallePrograma.setUnidadResponsable(programa.getUnidadResponsable().getDescripcion());
+        }
+        configuracionDetallePrograma.setDetallePrograma(infoDetalle);
 
-		return configuracionDetallePrograma;
+        return configuracionDetallePrograma;
 
-	}
+    }
 
-	protected void editarPrograma(ProgramaDTO edicionPrograma) {
-		if (!ValidacionUtil.esNumeroPositivo(edicionPrograma.getIdPrograma())) {
-			throw new ValidacionException("Seleccione un programa", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		ProgramaEntity entity = programaRepository.obtenerPorId(edicionPrograma.getIdPrograma());
-		if (entity == null) {
-			throw new ValidacionException("El programa no existe", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(edicionPrograma.getIdProyecto());
-		SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository
-				.obtenerPorId(edicionPrograma.getIdSubfuentefinanciamiento());
-		TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository
-				.obtenerPorId(edicionPrograma.getIdTipoRecurso());
-		UnidadResponsableEntity unidadResponsable = unidadResponsableRepository
-				.obtenerPorId(edicionPrograma.getIdUnidadResponsable());
+    protected void editarPrograma(ProgramaDTO edicionPrograma) {
+        if (!ValidacionUtil.esNumeroPositivo(edicionPrograma.getIdPrograma())) {
+            throw new ValidacionException("Seleccione un programa", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        ProgramaEntity entity = programaRepository.obtenerPorId(edicionPrograma.getIdPrograma());
+        if (entity == null) {
+            throw new ValidacionException("El programa no existe", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(edicionPrograma.getIdProyecto());
+        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository
+                .obtenerPorId(edicionPrograma.getIdSubfuentefinanciamiento());
+        TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository.obtenerPorId(edicionPrograma.getIdTipoRecurso());
+        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository.obtenerPorId(edicionPrograma.getIdUnidadResponsable());
 
-		DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(edicionPrograma.getIdDependencia());
-		FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository
-				.obtenerPorId(edicionPrograma.getIdFuenteFinanciamiento());
+        DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(edicionPrograma.getIdDependencia());
+        FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository.obtenerPorId(edicionPrograma.getIdFuenteFinanciamiento());
 
-		entity.setDependencia(dependencia);
-		entity.setFuenteFinanciamiento(fuenteFinanciamiento);
-		entity.setPrograma(edicionPrograma.getPrograma());
-		entity.setProyecto(proyecto);
-		entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
-		entity.setTipoRecurso(tipoRecursoTempEntity);
-		entity.setUnidadResponsable(unidadResponsable);
-		entity.setFechaUltimaActualizacion(FechaUtil.fechaActual());
-		programaRepository.actualizar(entity);
+        entity.setDependencia(dependencia);
+        entity.setFuenteFinanciamiento(fuenteFinanciamiento);
+        entity.setPrograma(edicionPrograma.getPrograma());
+        entity.setProyecto(proyecto);
+        entity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+        entity.setTipoRecurso(tipoRecursoTempEntity);
+        entity.setUnidadResponsable(unidadResponsable);
+        entity.setFechaUltimaActualizacion(FechaUtil.fechaActual());
+        programaRepository.actualizar(entity);
 
-	}
+    }
 
-	protected ProgramaDTO obtenerDetalleProgramaPorId(Integer idPrograma) {
-		if (!ValidacionUtil.esNumeroPositivo(idPrograma)) {
-			throw new ValidacionException("Seleccione un programa", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		ProgramaEntity p = programaRepository.obtenerPorId(idPrograma);
-		if (p == null) {
-			throw new ValidacionException("El programa no existe", ValidacionCodigoError.VALOR_REQUERIDO);
-		}
-		ProgramaDTO programa = new ProgramaDTO();
-		programa.setIdPrograma(p.getIdPrograma());
-		programa.setPrograma(p.getPrograma());
+    protected ProgramaDTO obtenerDetalleProgramaPorId(Integer idPrograma) {
+        if (!ValidacionUtil.esNumeroPositivo(idPrograma)) {
+            throw new ValidacionException("Seleccione un programa", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        ProgramaEntity p = programaRepository.obtenerPorId(idPrograma);
+        if (p == null) {
+            throw new ValidacionException("El programa no existe", ValidacionCodigoError.VALOR_REQUERIDO);
+        }
+        ProgramaDTO programa = new ProgramaDTO();
+        programa.setIdPrograma(p.getIdPrograma());
+        programa.setPrograma(p.getPrograma());
 
-		if (p.getProyecto() != null) {
-			programa.setIdProyecto(p.getProyecto().getIdProyecto());
-		}
+        if (p.getProyecto() != null) {
+            programa.setIdProyecto(p.getProyecto().getIdProyecto());
+        }
 
-		if (p.getDependencia() != null) {
-			programa.setIdDependencia(p.getDependencia().getIdDependencia());
-		}
+        if (p.getDependencia() != null) {
+            programa.setIdDependencia(p.getDependencia().getIdDependencia());
+        }
 
-		if (p.getUnidadResponsable() != null) {
-			programa.setIdUnidadResponsable(p.getUnidadResponsable().getIdUnidadResponsable());
-		}
+        if (p.getUnidadResponsable() != null) {
+            programa.setIdUnidadResponsable(p.getUnidadResponsable().getIdUnidadResponsable());
+        }
 
-		if (p.getFuenteFinanciamiento() != null) {
-			programa.setIdFuenteFinanciamiento(p.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
-		}
+        if (p.getFuenteFinanciamiento() != null) {
+            programa.setIdFuenteFinanciamiento(p.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
+        }
 
-		if (p.getSubfuenteFinanciamiento() != null) {
-			programa.setIdSubfuentefinanciamiento(p.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
-		}
+        if (p.getSubfuenteFinanciamiento() != null) {
+            programa.setIdSubfuentefinanciamiento(p.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
+        }
 
-		if (p.getTipoRecurso() != null) {
-			programa.setIdTipoRecurso(p.getTipoRecurso().getIdTipoRecurso());
-		}
+        if (p.getTipoRecurso() != null) {
+            programa.setIdTipoRecurso(p.getTipoRecurso().getIdTipoRecurso());
+        }
 
-		return programa;
+        return programa;
 
-	}
+    }
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.empleado.issste;
 
 import java.io.IOException;
@@ -23,77 +24,76 @@ import net.sf.jasperreports.engine.JasperRunManager;
 
 @WebServlet("/FormatoBajaServlet")
 public class FormatoBajaServlet extends HttpServlet {
-	
-       
+
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3913430459207915152L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
     public FormatoBajaServlet() {
         super();
-        
+
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
     @Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Integer idMovimientoIssste = Integer.parseInt(request.getParameter("idMovimientoIssste"));
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Integer idMovimientoIssste = Integer.parseInt(request.getParameter("idMovimientoIssste"));
 
-		byte[] bytes = doReport(idMovimientoIssste);
+        byte[] bytes = doReport(idMovimientoIssste);
 
-		ServletOutputStream servletOutputStream = response.getOutputStream();
-		response.setContentType("application/pdf");
-		response.setContentLength(bytes.length);
-		response.setHeader("Content-Disposition",
-				"inline;filename=" + "Formato_Bajas_ISSSTE.pdf");
-		servletOutputStream.write(bytes, 0, bytes.length);
-		servletOutputStream.flush();
-		servletOutputStream.close();
-	}
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        response.setHeader("Content-Disposition", "inline;filename=" + "Formato_Bajas_ISSSTE.pdf");
+        servletOutputStream.write(bytes, 0, bytes.length);
+        servletOutputStream.flush();
+        servletOutputStream.close();
+    }
 
-	private byte[] doReport(Integer idMovimientoIssste) {
-		byte[] bytes = null;
+    private byte[] doReport(Integer idMovimientoIssste) {
+        byte[] bytes = null;
 
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/REPORTE_FORMATO_BAJAS_ISSSTE.jasper");
-		Connection conexion = null;
-		try {
-			Context initcontext = new InitialContext();
-			DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/REPORTE_FORMATO_BAJAS_ISSSTE.jasper");
+        Connection conexion = null;
+        try {
+            Context initcontext = new InitialContext();
+            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
 
-			conexion = ds.getConnection();
+            conexion = ds.getConnection();
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
+            Map<String, Object> parameters = new HashMap<>();
 
-			parameters.put("ID_MOVIMIENTO_ISSSTE", idMovimientoIssste);
-			
+            parameters.put("ID_MOVIMIENTO_ISSSTE", idMovimientoIssste);
 
-			bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
 
-		} catch (NamingException ex) {
-			System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
-					+ getClass().getName());
-			ex.printStackTrace();
-		} catch (SQLException ex) {
-			System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
-			ex.printStackTrace();
-		} catch (JRException ex) {
-			System.err.println("Error durante la generación del reporte ");
-			ex.printStackTrace();
-		} finally {
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					System.err.println(
-							"Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
-					e.printStackTrace();
-				}
-			}
-		}
+        } catch (NamingException ex) {
+            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
+            ex.printStackTrace();
+        } catch (JRException ex) {
+            System.err.println("Error durante la generación del reporte ");
+            ex.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    System.err.println("Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		return bytes;
-	}
+        return bytes;
+    }
 
 }

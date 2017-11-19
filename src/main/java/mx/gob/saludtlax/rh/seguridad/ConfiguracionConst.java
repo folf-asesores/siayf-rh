@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.seguridad;
 
 import javax.servlet.http.Cookie;
@@ -13,11 +14,11 @@ public class ConfiguracionConst {
     public static final String COOKIE_NAME_FOR_LONG_LOGIN = "SIAYF-RH__LGN";
     /** Define la URL de la página principal del proyecto sin incluir el context path. */
     public static final String HOME_PAGE_URL = "/contenido/inicio.xhtml";
-    /** Define la URL de la página  de inicio de seisión del proyecto sin incluir el context path. */
+    /** Define la URL de la página de inicio de seisión del proyecto sin incluir el context path. */
     public static final String LOGIN_PAGE_URL = "/contenido/seguridad/login.xhtml";
-    /** Define la URL de la pagina de error para control de accesos.*/
-     public static final String ERROR_PAGE_URL = "/contenido/seguridad/error.xhtml";
-     
+    /** Define la URL de la pagina de error para control de accesos. */
+    public static final String ERROR_PAGE_URL = "/contenido/seguridad/error.xhtml";
+
     /** Define la URL de la página de cierre de sesión del proyecto sin incluir el context path. */
     public static final String LOGOUT_PAGE_URL = "/contenido/seguridad/logout.xhtml";
     /** Define la duracion mínima del token en segundos. */
@@ -72,8 +73,10 @@ public class ConfiguracionConst {
     /**
      * Permite saber si una cookie especifica existe en el cliente.
      *
-     * @param request el request para poder obtener las cookies del cliente.
-     * @param cookieName el nombre de la cookie a buscar.
+     * @param request
+     *            el request para poder obtener las cookies del cliente.
+     * @param cookieName
+     *            el nombre de la cookie a buscar.
      * @return verdad si se encuentra alguna cookie con el nombre deseado.
      */
     public static boolean existCookieNamed(HttpServletRequest request, String cookieName) {
@@ -93,11 +96,12 @@ public class ConfiguracionConst {
     /**
      * Permite obtener la IP del usuario.
      *
-     * @param request el request para obtener la IP.
+     * @param request
+     *            el request para obtener la IP.
      * @return una cadena con la IP del cliente.
      */
     public static String obtenerIp(HttpServletRequest request) {
-        String ip =  request.getHeader("X-FORWARDED-FOR");
+        String ip = request.getHeader("X-FORWARDED-FOR");
 
         if (ip == null) {
             ip = request.getRemoteAddr();

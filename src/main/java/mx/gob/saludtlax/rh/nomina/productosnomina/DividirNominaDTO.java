@@ -1,8 +1,9 @@
 /*
  * DividirNominaDTO.java
  * Creado el 25/Dec/2016 8:23:42 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class DividirNominaDTO implements Serializable, Comparable<DividirNominaDTO>  {
+public class DividirNominaDTO implements Serializable, Comparable<DividirNominaDTO> {
 
     private static final long serialVersionUID = -8248467557820073623L;
 
@@ -36,7 +37,9 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
         this(0, 0, "", 0, 0, "", "", 0, "", 0, "", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
-    public DividirNominaDTO(Integer idNominaEmpleado, Integer idProductoNomina, String nombreProductoNomina, Integer consecutivo, Integer idEmpleado, String rfc, String nombreEmpleado, Integer idUnidadResponsable, String unidadResponsable, Integer idRama, String rama, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto) {
+    public DividirNominaDTO(Integer idNominaEmpleado, Integer idProductoNomina, String nombreProductoNomina, Integer consecutivo, Integer idEmpleado,
+            String rfc, String nombreEmpleado, Integer idUnidadResponsable, String unidadResponsable, Integer idRama, String rama, BigDecimal percepciones,
+            BigDecimal deducciones, BigDecimal neto) {
         this.idNominaEmpleado = idNominaEmpleado;
         this.idProductoNomina = idProductoNomina;
         this.nombreProductoNomina = nombreProductoNomina;
@@ -65,13 +68,13 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of idNominaEmpleado
      *
-     * @param idNominaEmpleado new value of idNominaEmpleado
+     * @param idNominaEmpleado
+     *            new value of idNominaEmpleado
      */
     public void setIdNominaEmpleado(Integer idNominaEmpleado) {
         this.idNominaEmpleado = idNominaEmpleado;
     }
 
-    
     /**
      * Get the value of idProductoNomina
      *
@@ -84,7 +87,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of idProductoNomina
      *
-     * @param idProductoNomina new value of idProductoNomina
+     * @param idProductoNomina
+     *            new value of idProductoNomina
      */
     public void setIdProductoNomina(Integer idProductoNomina) {
         this.idProductoNomina = idProductoNomina;
@@ -102,7 +106,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of nombreProductoNomina
      *
-     * @param nombreProductoNomina new value of nombreProductoNomina
+     * @param nombreProductoNomina
+     *            new value of nombreProductoNomina
      */
     public void setNombreProductoNomina(String nombreProductoNomina) {
         this.nombreProductoNomina = nombreProductoNomina;
@@ -120,7 +125,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of consecutivo
      *
-     * @param consecutivo new value of consecutivo
+     * @param consecutivo
+     *            new value of consecutivo
      */
     public void setConsecutivo(Integer consecutivo) {
         this.consecutivo = consecutivo;
@@ -138,7 +144,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of idEmpleado
      *
-     * @param idEmpleado new value of idEmpleado
+     * @param idEmpleado
+     *            new value of idEmpleado
      */
     public void setIdEmpleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
@@ -156,7 +163,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of rfc
      *
-     * @param rfc new value of rfc
+     * @param rfc
+     *            new value of rfc
      */
     public void setRfc(String rfc) {
         this.rfc = rfc;
@@ -174,7 +182,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of nombreEmpleado
      *
-     * @param nombreEmpleado new value of nombreEmpleado
+     * @param nombreEmpleado
+     *            new value of nombreEmpleado
      */
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
@@ -192,7 +201,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of idUnidadResponsable
      *
-     * @param idUnidadResponsable new value of idUnidadResponsable
+     * @param idUnidadResponsable
+     *            new value of idUnidadResponsable
      */
     public void setIdUnidadResponsable(Integer idUnidadResponsable) {
         this.idUnidadResponsable = idUnidadResponsable;
@@ -210,7 +220,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of unidadResponsable
      *
-     * @param unidadResponsable new value of unidadResponsable
+     * @param unidadResponsable
+     *            new value of unidadResponsable
      */
     public void setUnidadResponsable(String unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
@@ -228,7 +239,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of idRama
      *
-     * @param idRama new value of idRama
+     * @param idRama
+     *            new value of idRama
      */
     public void setIdRama(Integer idRama) {
         this.idRama = idRama;
@@ -246,7 +258,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of rama
      *
-     * @param rama new value of rama
+     * @param rama
+     *            new value of rama
      */
     public void setRama(String rama) {
         this.rama = rama;
@@ -264,7 +277,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of percepciones
      *
-     * @param percepciones new value of percepciones
+     * @param percepciones
+     *            new value of percepciones
      */
     public void setPercepciones(BigDecimal percepciones) {
         this.percepciones = percepciones;
@@ -282,7 +296,8 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of deducciones
      *
-     * @param deducciones new value of deducciones
+     * @param deducciones
+     *            new value of deducciones
      */
     public void setDeducciones(BigDecimal deducciones) {
         this.deducciones = deducciones;
@@ -300,37 +315,31 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     /**
      * Set the value of neto
      *
-     * @param neto new value of neto
+     * @param neto
+     *            new value of neto
      */
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
     }
-    
+
     @Override
     public int compareTo(DividirNominaDTO o) {
         if (consecutivo == null) {
             return -1;
         }
-        
+
         if (o == null || o.consecutivo == null) {
             return 1;
         }
-        
+
         return Integer.compare(consecutivo, o.consecutivo);
     }
-    
+
     @Override
     public String toString() {
-        return "DividirNominaDTO{" 
-                + "idProductoNomina=" + idProductoNomina 
-                + ", nombreProductoNomina=" + nombreProductoNomina 
-                + ", idEmpleado=" + idEmpleado 
-                + ", rfc=" + rfc 
-                + ", nombre=" + nombreEmpleado 
-                + ", idUnidadResponsable=" + idUnidadResponsable 
-                + ", unidadResponsable=" + unidadResponsable 
-                + ", idRama=" + idRama 
-                + ", rama=" + rama + '}';
+        return "DividirNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", nombreProductoNomina=" + nombreProductoNomina + ", idEmpleado=" + idEmpleado
+                + ", rfc=" + rfc + ", nombre=" + nombreEmpleado + ", idUnidadResponsable=" + idUnidadResponsable + ", unidadResponsable=" + unidadResponsable
+                + ", idRama=" + idRama + ", rama=" + rama + '}';
     }
 
     @Override

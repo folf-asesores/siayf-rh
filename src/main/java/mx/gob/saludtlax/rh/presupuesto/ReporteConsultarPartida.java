@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.presupuesto;
 
 /**
@@ -62,7 +63,7 @@ public class ReporteConsultarPartida {
     //Hoja
     private final Sheet sheet = reporteConsultarPartida.createSheet("Reporte");
     private static final List<String> ENCABEZADOS;
-    
+
     static {
         ENCABEZADOS = new ArrayList<>();
         ENCABEZADOS.add("PARTIDA");
@@ -82,7 +83,6 @@ public class ReporteConsultarPartida {
     }
 
     public byte[] generarArchivoExcel(List<ConsultarPartidaDTO> listaReporte) throws IOException {
-
 
         Row headerRow = sheet.createRow(FILA_ENCABEZADOS);
         int i = 0;

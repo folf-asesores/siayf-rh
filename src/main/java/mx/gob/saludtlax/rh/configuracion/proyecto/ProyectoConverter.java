@@ -1,9 +1,10 @@
 /*
- * 
+ *
  * ProyectoConverter.java
  * Creado el Jul 29, 2016 4:28:36 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.proyecto;
 
 import javax.faces.component.UIComponent;
@@ -14,6 +15,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.catalogos.areasadscripcion.AreaAdscripcion;
 import mx.gob.saludtlax.rh.catalogos.areasadscripcion.AreaAdscripcionDTO;
 import mx.gob.saludtlax.rh.configuracion.dependencia.Dependencia;
@@ -22,13 +25,11 @@ import mx.gob.saludtlax.rh.configuracion.estrategia.Estrategia;
 import mx.gob.saludtlax.rh.configuracion.estrategia.EstrategiaDTO;
 import mx.gob.saludtlax.rh.configuracion.lineaaccion.LineaAccion;
 import mx.gob.saludtlax.rh.configuracion.lineaaccion.LineaAccionDTO;
-import mx.gob.saludtlax.rh.configuracion.unidadresponsable.UnidadResponsable;
 import mx.gob.saludtlax.rh.configuracion.sector.Sector;
 import mx.gob.saludtlax.rh.configuracion.sector.SectorDTO;
+import mx.gob.saludtlax.rh.configuracion.unidadresponsable.UnidadResponsable;
 import mx.gob.saludtlax.rh.configuracion.unidadresponsable.UnidadResponsableDTO;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.logging.Logger;
 
 /**
  *
@@ -46,46 +47,46 @@ public class ProyectoConverter implements Converter {
 
     @Override
     public Object getAsObject(FacesContext fc, UIComponent component, String value) {
-        
-        if(value != null && !ValidacionUtil.esCadenaVacia(value)) {
-            
-            switch(component.getId()) {
-                case "txtAreaAdscripcionNuevo" :
+
+        if (value != null && !ValidacionUtil.esCadenaVacia(value)) {
+
+            switch (component.getId()) {
+                case "txtAreaAdscripcionNuevo":
                     return getIdAreaAdscripcion(value);
-                case "txtDependenciaNuevo" :
+                case "txtDependenciaNuevo":
                     return getIdDependencia(value);
-                case "txtEstrategiaNuevo" :
+                case "txtEstrategiaNuevo":
                     return getIdEstrategia(value);
-                case "txtLineaAccionNuevo" :
+                case "txtLineaAccionNuevo":
                     return getIdLineaAccion(value);
-                case "txtSectorNuevo" :
+                case "txtSectorNuevo":
                     return getIdSector(value);
-                case "txtUnidadResponsableNuevo" :
+                case "txtUnidadResponsableNuevo":
                     return getIdUnidadResponsable(value);
                 default:
                     return null;
             }
         } else {
-           return null; 
+            return null;
         }
     }
 
     @Override
     public String getAsString(FacesContext fc, UIComponent component, Object object) {
-        if(object != null && object instanceof Integer) {
+        if (object != null && object instanceof Integer) {
             Integer id = (Integer) object;
-            switch(component.getId()){
-                case "txtAreaAdscripcionNuevo" :
+            switch (component.getId()) {
+                case "txtAreaAdscripcionNuevo":
                     return getDescripcionAreaAdscripcion(id);
-                case "txtDependenciaNuevo" :
+                case "txtDependenciaNuevo":
                     return getDescripcionDependencia(id);
-                case "txtEstrategiaNuevo" :
+                case "txtEstrategiaNuevo":
                     return getDescripcionEstrategia(id);
-                case "txtLineaAccionNuevo" :
+                case "txtLineaAccionNuevo":
                     return getDescripcionLineaAccion(id);
-                case "txtSectorNuevo" :
+                case "txtSectorNuevo":
                     return getDescripcionSector(id);
-                case "txtUnidadResponsableNuevo" :
+                case "txtUnidadResponsableNuevo":
                     return getDescripcionUnidadResponsable(id);
                 default:
                     return null;
@@ -97,33 +98,33 @@ public class ProyectoConverter implements Converter {
 
     private Integer getIdAreaAdscripcion(String value) {
         AreaAdscripcion areaAdscripcionEJB = getAreaAdscripcionEJB();
-        
-        if(areaAdscripcionEJB != null) {
+
+        if (areaAdscripcionEJB != null) {
             return areaAdscripcionEJB.consultarIdAreaAdscripcionPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
         }
     }
-    
+
     private String getDescripcionAreaAdscripcion(Integer id) {
         AreaAdscripcion areaAdscripcionEJB = getAreaAdscripcionEJB();
         AreaAdscripcionDTO areaAdscripcionDTO = areaAdscripcionEJB.obtenerPorId(id);
-        
+
         return areaAdscripcionDTO == null ? "" : areaAdscripcionDTO.getAreaAdscripcion();
     }
-    
+
     private Integer getIdDependencia(String value) {
         Dependencia dependenciaEJB = getDependenciaEJB();
-            
-        if(dependenciaEJB != null) {
+
+        if (dependenciaEJB != null) {
             return dependenciaEJB.consultarIdDependenciaPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
         }
     }
-    
+
     private String getDescripcionDependencia(int idDependecia) {
         DependenciaDTO dependencia = new DependenciaDTO();
         dependencia.setIdDependencia(idDependecia);
@@ -132,29 +133,29 @@ public class ProyectoConverter implements Converter {
 
         return dependencia == null ? "" : dependencia.getDescripcion();
     }
-    
+
     private Integer getIdEstrategia(String value) {
         Estrategia estrategiaEJB = getEstrategiaEJB();
-        
-        if(estrategiaEJB != null) {
+
+        if (estrategiaEJB != null) {
             return estrategiaEJB.consultarIdEstrategiaPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
         }
-    }    
-    
+    }
+
     private String getDescripcionEstrategia(Integer id) {
         Estrategia estrategiaEJB = getEstrategiaEJB();
         EstrategiaDTO estrategiaDTO = estrategiaEJB.obtenerPorId(id);
-        
+
         return estrategiaDTO == null ? "" : estrategiaDTO.getEstrategia();
     }
 
     private Integer getIdLineaAccion(String value) {
         LineaAccion lineaAccionEJB = getLineaAccionEJB();
-        
-        if(lineaAccionEJB != null) {
+
+        if (lineaAccionEJB != null) {
             return lineaAccionEJB.consultarIdLineaAccionPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
@@ -165,14 +166,14 @@ public class ProyectoConverter implements Converter {
     private String getDescripcionLineaAccion(Integer id) {
         LineaAccion lineaAccionEJB = getLineaAccionEJB();
         LineaAccionDTO lineaAccionDTO = lineaAccionEJB.obtenerPorId(id);
-        
+
         return lineaAccionDTO == null ? "" : lineaAccionDTO.getDescripcion();
     }
-    
+
     private Integer getIdSector(String value) {
         Sector sectorEJB = getSectorEJB();
-        
-        if(sectorEJB != null) {
+
+        if (sectorEJB != null) {
             return sectorEJB.consultarIdSectorPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
@@ -181,7 +182,7 @@ public class ProyectoConverter implements Converter {
     }
 
     private String getDescripcionSector(Integer id) {
-        if(id != null && id > 0){
+        if (id != null && id > 0) {
             Sector sectorEJB = getSectorEJB();
             SectorDTO sectorDTO = sectorEJB.obtenerPorId(id);
 
@@ -193,21 +194,21 @@ public class ProyectoConverter implements Converter {
 
     private Integer getIdUnidadResponsable(String value) {
         UnidadResponsable unidadResponsableEJB = getUnidadResponsableEJB();
-        
-        if(unidadResponsableEJB != null) {
+
+        if (unidadResponsableEJB != null) {
             return unidadResponsableEJB.consultarIdUnidadResponsablePorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
         }
     }
-    
+
     private String getDescripcionUnidadResponsable(Integer id) {
         UnidadResponsable unidadResponsableEJB = getUnidadResponsableEJB();
         UnidadResponsableDTO unidadResponsableDTO = new UnidadResponsableDTO();
         unidadResponsableDTO.setIdUnidadResponsable(id);
         unidadResponsableDTO = unidadResponsableEJB.obtenerUnidadResponsable(unidadResponsableDTO);
-        
+
         return unidadResponsableDTO == null ? "" : unidadResponsableDTO.getDescripcion();
     }
 
@@ -215,19 +216,19 @@ public class ProyectoConverter implements Converter {
         try {
             Context initContext = new InitialContext();
             AreaAdscripcion areaAdscripcionEJB = (AreaAdscripcion) initContext.lookup(AREA_ADSCRIPCION_BEAN);
-            
+
             return areaAdscripcionEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);
             return null;
         }
     }
-    
+
     private Dependencia getDependenciaEJB() {
         try {
             Context initContext = new InitialContext();
             Dependencia dependenciaEJB = (Dependencia) initContext.lookup(DEPENDENCIA_BEAN);
-            
+
             return dependenciaEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);
@@ -239,7 +240,7 @@ public class ProyectoConverter implements Converter {
         try {
             Context initContext = new InitialContext();
             Estrategia estrategiaEJB = (Estrategia) initContext.lookup(ESTRATEGIA_BEAN);
-            
+
             return estrategiaEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);
@@ -251,7 +252,7 @@ public class ProyectoConverter implements Converter {
         try {
             Context initContext = new InitialContext();
             LineaAccion lineaAccionEJB = (LineaAccion) initContext.lookup(LINEA_ACCION_BEAN);
-            
+
             return lineaAccionEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);
@@ -263,7 +264,7 @@ public class ProyectoConverter implements Converter {
         try {
             Context initContext = new InitialContext();
             Sector sectorEJB = (Sector) initContext.lookup(SECTOR_BEAN);
-            
+
             return sectorEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);
@@ -275,7 +276,7 @@ public class ProyectoConverter implements Converter {
         try {
             Context initContext = new InitialContext();
             UnidadResponsable unidadResponsableEJB = (UnidadResponsable) initContext.lookup(UNIDAD_RESPONSABLE_BEAN);
-            
+
             return unidadResponsableEJB;
         } catch (NamingException ex) {
             LOGGER.log(Logger.Level.ERROR, null, ex);

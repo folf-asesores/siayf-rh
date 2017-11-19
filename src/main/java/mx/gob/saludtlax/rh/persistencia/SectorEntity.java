@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class SectorEntity implements Serializable {
     }
 
     public void setIdSector(Integer idSectores) {
-        this.idSector = idSectores;
+        idSector = idSectores;
     }
 
     public String getSector() {

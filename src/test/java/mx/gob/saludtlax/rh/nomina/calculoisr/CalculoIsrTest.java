@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.calculoisr;
 
 import java.math.BigDecimal;
@@ -23,13 +24,13 @@ public class CalculoIsrTest {
 
     @Test
     public void calculoIsr() {
-    	System.out.println("Hola calculoIsr");
-		ConfiguracionIsrDTO configuracionIsr = new ConfiguracionIsrDTO();
-		BigDecimal sueldoQuincenal = new BigDecimal(9468);
-		configuracionIsr.setBaseGravable(sueldoQuincenal);
-		configuracionIsr.setIdTipoPeriodo(4);
-		configuracionIsr.setIdEmpleado(38503);
-		IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsr);
+        System.out.println("Hola calculoIsr");
+        ConfiguracionIsrDTO configuracionIsr = new ConfiguracionIsrDTO();
+        BigDecimal sueldoQuincenal = new BigDecimal(9468);
+        configuracionIsr.setBaseGravable(sueldoQuincenal);
+        configuracionIsr.setIdTipoPeriodo(4);
+        configuracionIsr.setIdEmpleado(38503);
+        IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsr);
         System.out.println(isr);
     }
 }

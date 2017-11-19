@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 13:05:12 05/08/2016
  */
@@ -22,49 +23,47 @@ import javax.persistence.Table;
 @Table(name = "especialidades")
 public class EspecialidadEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9175602848772687268L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9175602848772687268L;
 
-	@Id
-	@Column(name = "id_especialidad")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEspecialidad;
+    @Id
+    @Column(name = "id_especialidad")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEspecialidad;
 
-	@Column(name = "especialidad")
-	private String especialidad;
+    @Column(name = "especialidad")
+    private String especialidad;
 
-	
+    /**
+     * @return the idEspecialidad
+     */
+    public Integer getIdEspecialidad() {
+        return idEspecialidad;
+    }
 
-	/**
-	 * @return the idEspecialidad
-	 */
-	public Integer getIdEspecialidad() {
-		return idEspecialidad;
-	}
+    /**
+     * @param idEspecialidad
+     *            the idEspecialidad to set
+     */
+    public void setIdEspecialidad(Integer idEspecialidad) {
+        this.idEspecialidad = idEspecialidad;
+    }
 
-	/**
-	 * @param idEspecialidad
-	 *            the idEspecialidad to set
-	 */
-	public void setIdEspecialidad(Integer idEspecialidad) {
-		this.idEspecialidad = idEspecialidad;
-	}
+    /**
+     * @return the especialidad
+     */
+    public String getEspecialidad() {
+        return especialidad;
+    }
 
-	/**
-	 * @return the especialidad
-	 */
-	public String getEspecialidad() {
-		return especialidad;
-	}
-
-	/**
-	 * @param especialidad
-	 *            the especialidad to set
-	 */
-	public void setEspecialidad(String especialidad) {
-		this.especialidad = especialidad;
-	}
+    /**
+     * @param especialidad
+     *            the especialidad to set
+     */
+    public void setEspecialidad(String especialidad) {
+        this.especialidad = especialidad;
+    }
 
 }

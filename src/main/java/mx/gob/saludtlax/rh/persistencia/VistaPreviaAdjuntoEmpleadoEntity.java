@@ -1,11 +1,13 @@
 /*
  * VistaPreviaAdjuntoEmpleadoEntity.java
  * Creado el Aug 31, 2016 1:28:49 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,19 +27,19 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "vistas_previas_adjuntos_empleados")
 public class VistaPreviaAdjuntoEmpleadoEntity implements Serializable {
-    
+
     private static final long serialVersionUID = -9097745743667852611L;
-    
+
     @Id
     @Column(name = "id_vista_previa_adjunto_empleado")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idVistaPreviaAdjuntoEmpleado;
-    
+
     @Basic(fetch = FetchType.LAZY, optional = true)
     @Column(name = "vista_previa")
     @Lob
-    private byte [] vistaPrevia;
-    
+    private byte[] vistaPrevia;
+
     @JoinColumn(name = "id_informacion_adjunto_empleado")
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private InformacionAdjuntoEmpleadoEntity informacionAdjuntoEmpleado;

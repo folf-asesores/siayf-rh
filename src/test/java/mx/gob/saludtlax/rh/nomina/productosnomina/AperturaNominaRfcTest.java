@@ -1,8 +1,9 @@
 /*
  * AperturaNominaRfcTest.java
  * Creado el 01/Jan/2017 1:12:46 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.BufferedReader;
@@ -107,7 +108,7 @@ import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 public class AperturaNominaRfcTest {
 
     private static final Logger LOGGER = Logger.getLogger(AperturaNominaRfcTest.class.getName());
-    
+
     @Inject
     private AperturaNominaRfc aperturaNominaRfc;
 
@@ -175,7 +176,7 @@ public class AperturaNominaRfcTest {
         jar.addClass(RamaEntity.class);
         jar.addClass(SistemaException.class);
         jar.addClass(SubclasificacionTabuladorEntity.class);
-     //   jar.addClass(SubfuenteFinanciamientoEntity.class);
+        //   jar.addClass(SubfuenteFinanciamientoEntity.class);
         jar.addClass(SubFuenteFinanciamientoTempEntity.class);
         jar.addClass(SubFuenteFinanciamientoTempRepository.class);
         jar.addClass(SuplenciasQuincenaDTO.class);
@@ -205,18 +206,15 @@ public class AperturaNominaRfcTest {
         jar.addClass(ValidacionUtil.class);
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
     }
 
-     @Ignore
-     @Test
-     public void testAbrirProductoNomina() throws IOException {
+    @Ignore
+    @Test
+    public void testAbrirProductoNomina() throws IOException {
         LOGGER.info("Iniciando testAbrirProductoNomina");
         byte[] archivoRfc = ArchivoUtil.leerArchivo(null, "rfc-qna--22.txt", true);
         aperturaNominaRfc.abrirProductoNomina(2, archivoRfc);
@@ -229,12 +227,11 @@ public class AperturaNominaRfcTest {
         List<String> listaRfc = new ArrayList<>();
         int linea = 1;
 
-        try(ByteArrayInputStream bis = new ByteArrayInputStream(archivoRfc); 
-                BufferedReader br = new BufferedReader(new InputStreamReader(bis))) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(archivoRfc); BufferedReader br = new BufferedReader(new InputStreamReader(bis))) {
             String rfc;
 
-            while((rfc = br.readLine()) != null) {
-                if(ValidacionUtil.validarRfc(rfc)) {
+            while ((rfc = br.readLine()) != null) {
+                if (ValidacionUtil.validarRfc(rfc)) {
                     listaRfc.add(rfc);
                 } else {
                     System.out.printf("El RFC \"%s\" no es valido, en la línea %d.%n", rfc, linea);
@@ -242,14 +239,14 @@ public class AperturaNominaRfcTest {
                 linea++;
             }
         }
-        
+
         int cantidad = 1;
 
-        for(String rfc : listaRfc) {
+        for (String rfc : listaRfc) {
             System.out.printf("%d : %s%n", cantidad, rfc);
             cantidad++;
         }
-        
+
         Assert.assertNotNull(listaRfc);
     }
 }

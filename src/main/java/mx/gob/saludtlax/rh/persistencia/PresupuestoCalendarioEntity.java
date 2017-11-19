@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,344 +22,328 @@ import javax.persistence.Table;
 @Table(name = "presupuesto_calendario")
 public class PresupuestoCalendarioEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1284674257953241160L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1284674257953241160L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_presupuesto_autorizado")
-	private Integer idPresupuestoCalendario;
-	
-	@Column(name = "ur")
-	private Integer ur;
-	
-	@Column(name = "fin")
-	private Integer fin;
-	
-	@Column(name = "fn")
-	private Integer fn;
-	
-	@Column(name = "sf")
-	private Integer sf;
-	
-	@Column(name = "rg")
-	private Integer rg;
-	
-	@Column(name = "ai")
-	private Integer ai;
-	
-	@Column(name = "mpp")
-	private String mpp;
-	
-	@Column(name = "pp")
-	private Integer pp;
-	
-	@Column(name = "ptda")
-	private Integer ptda;
-	
-	@Column(name = "tg")
-	private Integer tg;
-	
-	@Column(name = "ff")
-	private Integer ff;
-	
-	@Column(name = "ef")
-	private Integer ef;
-	
-	@Column(name = "ppii")
-	private Integer ppii;
-	
-	@Column(name = "anio")
-	private Integer anio;
-	
-	@Column(name = "proyecto_anual")
-	private BigDecimal proyectoAnual;
-	
-	@Column(name = "enero")
-	private BigDecimal enero;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_presupuesto_autorizado")
+    private Integer idPresupuestoCalendario;
 
-	@Column(name = "febrero")
-	private BigDecimal febrero;
-	
-	@Column(name = "marzo")
-	private BigDecimal marzo;
-	
-	@Column(name = "abril")
-	private BigDecimal abril;
-	
-	@Column(name = "mayo")
-	private BigDecimal mayo;
-	
-	@Column(name = "junio")
-	private BigDecimal junio;
-	
-	@Column(name = "julio")
-	private BigDecimal julio;
-	
-	@Column(name = "agosto")
-	private BigDecimal agosto;
-	
-	@Column(name = "septiembre")
-	private BigDecimal septimbre;
-	
-	@Column(name = "octubre")
-	private BigDecimal octubre;
-	
-	@Column(name = "noviembre")
-	private BigDecimal noviembre;
-	
-	@Column(name = "diciembre")
-	private BigDecimal diciembre;
-	
-	
+    @Column(name = "ur")
+    private Integer ur;
 
-	@Override
-	public String toString() {
-		return "PresupuestoCalendarioEntity [idPresupuestoCalendario=" + idPresupuestoCalendario + ", ur=" + ur
-				+ ", fin=" + fin + ", fn=" + fn + ", sf=" + sf + ", rg=" + rg + ", ai=" + ai + ", mpp=" + mpp + ", pp="
-				+ pp + ", ptda=" + ptda + ", tg=" + tg + ", ff=" + ff + ", ef=" + ef + ", ppi=" + ppii
-				+ ", proyectoAnual=" + proyectoAnual + ", enero=" + enero + ", febrero=" + febrero + ", marzo=" + marzo
-				+ ", abril=" + abril + ", mayo=" + mayo + ", junio=" + junio + ", julio=" + julio + ", agosto=" + agosto
-				+ ", septimbre=" + septimbre + ", octubre=" + octubre + ", noviembre=" + noviembre + ", diciembre="
-				+ diciembre + "]";
-	}
-	
-	
+    @Column(name = "fin")
+    private Integer fin;
 
-	public Integer getIdPresupuestoCalendario() {
-		return idPresupuestoCalendario;
-	}
+    @Column(name = "fn")
+    private Integer fn;
 
-	public void setIdPresupuestoCalendario(Integer idPresupuestoCalendario) {
-		this.idPresupuestoCalendario = idPresupuestoCalendario;
-	}
+    @Column(name = "sf")
+    private Integer sf;
 
-	public Integer getUr() {
-		return ur;
-	}
+    @Column(name = "rg")
+    private Integer rg;
 
-	public void setUr(Integer ur) {
-		this.ur = ur;
-	}
+    @Column(name = "ai")
+    private Integer ai;
 
-	public Integer getFin() {
-		return fin;
-	}
+    @Column(name = "mpp")
+    private String mpp;
 
-	public void setFin(Integer fin) {
-		this.fin = fin;
-	}
+    @Column(name = "pp")
+    private Integer pp;
 
-	public Integer getFn() {
-		return fn;
-	}
+    @Column(name = "ptda")
+    private Integer ptda;
 
-	public void setFn(Integer fn) {
-		this.fn = fn;
-	}
+    @Column(name = "tg")
+    private Integer tg;
 
-	public Integer getSf() {
-		return sf;
-	}
+    @Column(name = "ff")
+    private Integer ff;
 
-	public void setSf(Integer sf) {
-		this.sf = sf;
-	}
+    @Column(name = "ef")
+    private Integer ef;
 
-	public Integer getRg() {
-		return rg;
-	}
+    @Column(name = "ppii")
+    private Integer ppii;
 
-	public void setRg(Integer rg) {
-		this.rg = rg;
-	}
+    @Column(name = "anio")
+    private Integer anio;
 
-	public Integer getAi() {
-		return ai;
-	}
+    @Column(name = "proyecto_anual")
+    private BigDecimal proyectoAnual;
 
-	public void setAi(Integer ai) {
-		this.ai = ai;
-	}
+    @Column(name = "enero")
+    private BigDecimal enero;
 
-	public String getMpp() {
-		return mpp;
-	}
+    @Column(name = "febrero")
+    private BigDecimal febrero;
 
-	public Integer getAnio() {
-		return anio;
-	}
+    @Column(name = "marzo")
+    private BigDecimal marzo;
 
-	public void setAnio(Integer anio) {
-		this.anio = anio;
-	}
+    @Column(name = "abril")
+    private BigDecimal abril;
 
-	public void setMpp(String mpp) {
-		this.mpp = mpp;
-	}
+    @Column(name = "mayo")
+    private BigDecimal mayo;
 
-	public Integer getPp() {
-		return pp;
-	}
+    @Column(name = "junio")
+    private BigDecimal junio;
 
-	public void setPp(Integer pp) {
-		this.pp = pp;
-	}
+    @Column(name = "julio")
+    private BigDecimal julio;
 
-	public Integer getPtda() {
-		return ptda;
-	}
+    @Column(name = "agosto")
+    private BigDecimal agosto;
 
-	public void setPtda(Integer ptda) {
-		this.ptda = ptda;
-	}
+    @Column(name = "septiembre")
+    private BigDecimal septimbre;
 
-	public Integer getTg() {
-		return tg;
-	}
+    @Column(name = "octubre")
+    private BigDecimal octubre;
 
-	public void setTg(Integer tg) {
-		this.tg = tg;
-	}
+    @Column(name = "noviembre")
+    private BigDecimal noviembre;
 
-	public Integer getFf() {
-		return ff;
-	}
+    @Column(name = "diciembre")
+    private BigDecimal diciembre;
 
-	public void setFf(Integer ff) {
-		this.ff = ff;
-	}
+    @Override
+    public String toString() {
+        return "PresupuestoCalendarioEntity [idPresupuestoCalendario=" + idPresupuestoCalendario + ", ur=" + ur + ", fin=" + fin + ", fn=" + fn + ", sf=" + sf
+                + ", rg=" + rg + ", ai=" + ai + ", mpp=" + mpp + ", pp=" + pp + ", ptda=" + ptda + ", tg=" + tg + ", ff=" + ff + ", ef=" + ef + ", ppi=" + ppii
+                + ", proyectoAnual=" + proyectoAnual + ", enero=" + enero + ", febrero=" + febrero + ", marzo=" + marzo + ", abril=" + abril + ", mayo=" + mayo
+                + ", junio=" + junio + ", julio=" + julio + ", agosto=" + agosto + ", septimbre=" + septimbre + ", octubre=" + octubre + ", noviembre="
+                + noviembre + ", diciembre=" + diciembre + "]";
+    }
 
-	public Integer getEf() {
-		return ef;
-	}
+    public Integer getIdPresupuestoCalendario() {
+        return idPresupuestoCalendario;
+    }
 
-	public void setEf(Integer ef) {
-		this.ef = ef;
-	}
+    public void setIdPresupuestoCalendario(Integer idPresupuestoCalendario) {
+        this.idPresupuestoCalendario = idPresupuestoCalendario;
+    }
 
-	public Integer getPpii() {
-		return ppii;
-	}
+    public Integer getUr() {
+        return ur;
+    }
 
-	public void setPpii(Integer ppii) {
-		this.ppii = ppii;
-	}
+    public void setUr(Integer ur) {
+        this.ur = ur;
+    }
 
-	public BigDecimal getProyectoAnual() {
-		return proyectoAnual;
-	}
+    public Integer getFin() {
+        return fin;
+    }
 
-	public void setProyectoAnual(BigDecimal proyectoAnual) {
-		this.proyectoAnual = proyectoAnual;
-	}
+    public void setFin(Integer fin) {
+        this.fin = fin;
+    }
 
-	public BigDecimal getEnero() {
-		return enero;
-	}
+    public Integer getFn() {
+        return fn;
+    }
 
-	public void setEnero(BigDecimal enero) {
-		this.enero = enero;
-	}
+    public void setFn(Integer fn) {
+        this.fn = fn;
+    }
 
-	public BigDecimal getFebrero() {
-		return febrero;
-	}
+    public Integer getSf() {
+        return sf;
+    }
 
-	public void setFebrero(BigDecimal febrero) {
-		this.febrero = febrero;
-	}
+    public void setSf(Integer sf) {
+        this.sf = sf;
+    }
 
-	public BigDecimal getMarzo() {
-		return marzo;
-	}
+    public Integer getRg() {
+        return rg;
+    }
 
-	public void setMarzo(BigDecimal marzo) {
-		this.marzo = marzo;
-	}
+    public void setRg(Integer rg) {
+        this.rg = rg;
+    }
 
-	public BigDecimal getAbril() {
-		return abril;
-	}
+    public Integer getAi() {
+        return ai;
+    }
 
-	public void setAbril(BigDecimal abril) {
-		this.abril = abril;
-	}
+    public void setAi(Integer ai) {
+        this.ai = ai;
+    }
 
-	public BigDecimal getMayo() {
-		return mayo;
-	}
+    public String getMpp() {
+        return mpp;
+    }
 
-	public void setMayo(BigDecimal mayo) {
-		this.mayo = mayo;
-	}
+    public Integer getAnio() {
+        return anio;
+    }
 
-	public BigDecimal getJunio() {
-		return junio;
-	}
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
 
-	public void setJunio(BigDecimal junio) {
-		this.junio = junio;
-	}
+    public void setMpp(String mpp) {
+        this.mpp = mpp;
+    }
 
-	public BigDecimal getJulio() {
-		return julio;
-	}
+    public Integer getPp() {
+        return pp;
+    }
 
-	public void setJulio(BigDecimal julio) {
-		this.julio = julio;
-	}
+    public void setPp(Integer pp) {
+        this.pp = pp;
+    }
 
-	public BigDecimal getAgosto() {
-		return agosto;
-	}
+    public Integer getPtda() {
+        return ptda;
+    }
 
-	public void setAgosto(BigDecimal agosto) {
-		this.agosto = agosto;
-	}
+    public void setPtda(Integer ptda) {
+        this.ptda = ptda;
+    }
 
-	public BigDecimal getSeptimbre() {
-		return septimbre;
-	}
+    public Integer getTg() {
+        return tg;
+    }
 
-	public void setSeptimbre(BigDecimal septimbre) {
-		this.septimbre = septimbre;
-	}
+    public void setTg(Integer tg) {
+        this.tg = tg;
+    }
 
-	public BigDecimal getOctubre() {
-		return octubre;
-	}
+    public Integer getFf() {
+        return ff;
+    }
 
-	public void setOctubre(BigDecimal octubre) {
-		this.octubre = octubre;
-	}
+    public void setFf(Integer ff) {
+        this.ff = ff;
+    }
 
-	public BigDecimal getNoviembre() {
-		return noviembre;
-	}
+    public Integer getEf() {
+        return ef;
+    }
 
-	public void setNoviembre(BigDecimal noviembre) {
-		this.noviembre = noviembre;
-	}
+    public void setEf(Integer ef) {
+        this.ef = ef;
+    }
 
-	public BigDecimal getDiciembre() {
-		return diciembre;
-	}
+    public Integer getPpii() {
+        return ppii;
+    }
 
-	public void setDiciembre(BigDecimal diciembre) {
-		this.diciembre = diciembre;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+    public void setPpii(Integer ppii) {
+        this.ppii = ppii;
+    }
+
+    public BigDecimal getProyectoAnual() {
+        return proyectoAnual;
+    }
+
+    public void setProyectoAnual(BigDecimal proyectoAnual) {
+        this.proyectoAnual = proyectoAnual;
+    }
+
+    public BigDecimal getEnero() {
+        return enero;
+    }
+
+    public void setEnero(BigDecimal enero) {
+        this.enero = enero;
+    }
+
+    public BigDecimal getFebrero() {
+        return febrero;
+    }
+
+    public void setFebrero(BigDecimal febrero) {
+        this.febrero = febrero;
+    }
+
+    public BigDecimal getMarzo() {
+        return marzo;
+    }
+
+    public void setMarzo(BigDecimal marzo) {
+        this.marzo = marzo;
+    }
+
+    public BigDecimal getAbril() {
+        return abril;
+    }
+
+    public void setAbril(BigDecimal abril) {
+        this.abril = abril;
+    }
+
+    public BigDecimal getMayo() {
+        return mayo;
+    }
+
+    public void setMayo(BigDecimal mayo) {
+        this.mayo = mayo;
+    }
+
+    public BigDecimal getJunio() {
+        return junio;
+    }
+
+    public void setJunio(BigDecimal junio) {
+        this.junio = junio;
+    }
+
+    public BigDecimal getJulio() {
+        return julio;
+    }
+
+    public void setJulio(BigDecimal julio) {
+        this.julio = julio;
+    }
+
+    public BigDecimal getAgosto() {
+        return agosto;
+    }
+
+    public void setAgosto(BigDecimal agosto) {
+        this.agosto = agosto;
+    }
+
+    public BigDecimal getSeptimbre() {
+        return septimbre;
+    }
+
+    public void setSeptimbre(BigDecimal septimbre) {
+        this.septimbre = septimbre;
+    }
+
+    public BigDecimal getOctubre() {
+        return octubre;
+    }
+
+    public void setOctubre(BigDecimal octubre) {
+        this.octubre = octubre;
+    }
+
+    public BigDecimal getNoviembre() {
+        return noviembre;
+    }
+
+    public void setNoviembre(BigDecimal noviembre) {
+        this.noviembre = noviembre;
+    }
+
+    public BigDecimal getDiciembre() {
+        return diciembre;
+    }
+
+    public void setDiciembre(BigDecimal diciembre) {
+        this.diciembre = diciembre;
+    }
 
 }

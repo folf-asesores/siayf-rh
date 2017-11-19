@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.configuracionnominaempleado;
 
 import javax.inject.Inject;

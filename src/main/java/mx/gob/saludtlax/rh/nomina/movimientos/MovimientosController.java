@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.movimientos;
 
 import java.io.Serializable;
@@ -22,148 +23,145 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 @ManagedBean(name = "movimientos")
 @SessionScoped
 public class MovimientosController implements Serializable {
-	private static final long serialVersionUID = 3091198275111877768L;
+    private static final long serialVersionUID = 3091198275111877768L;
 
-	@Inject
-	private Movimientos ejb;
+    @Inject
+    private Movimientos ejb;
 
-	@Inject
-	private Empleado empleadoEJB;
-	@Inject
-	private MovimientosView view;
-	@Inject
-	private Catalogo catalogosEJB;
+    @Inject
+    private Empleado empleadoEJB;
+    @Inject
+    private MovimientosView view;
+    @Inject
+    private Catalogo catalogosEJB;
 
+    private Boolean esTercero = false;
 
-	private Boolean esTercero = false;
+    @PostConstruct
+    public void init() {
+        view.setMovimientoLista(ejb.getMovimientosLista());
+        view.showPanelElegirMovimiento();
 
-	@PostConstruct
-	public void init() {
-		view.setMovimientoLista(ejb.getMovimientosLista());
-		view.showPanelElegirMovimiento();
+        view.setListaConceptos(SelectItemsUtil.listaCatalogos(catalogosEJB.tercerosInstitucionales()));
 
-		view.setListaConceptos(SelectItemsUtil.listaCatalogos(catalogosEJB.tercerosInstitucionales()));
+        List<SelectItem> quincenas = new ArrayList<>();
+        for (int i = 1; i <= 24; i++) {
+            quincenas.add(new SelectItem(i, "Quincena-" + i));
+        }
 
-		List<SelectItem> quincenas = new ArrayList<>();
-		for (int i = 1; i <= 24; i++) {
-			quincenas.add(new SelectItem(i, "Quincena-" + i));
-		}
+        view.setQuincenas(quincenas);
 
-		view.setQuincenas(quincenas);
+    }
 
-	}
+    public String irMovimiento() {
 
-	public String irMovimiento() {
-		
-		if (view.getClaveMovimiento() != null && view.getClaveMovimiento().contains("tr")) {
-			esTercero = true;
-		} else {
-			esTercero = false;
-		}
-		try {
-			// FacesContext contex = FacesContext.getCurrentInstance();
-			// contex.getExternalContext().redirect(ejb.getUrlFormPorClave(view.getClaveMovimiento()));
+        if (view.getClaveMovimiento() != null && view.getClaveMovimiento().contains("tr")) {
+            esTercero = true;
+        } else {
+            esTercero = false;
+        }
+        try {
+            // FacesContext contex = FacesContext.getCurrentInstance();
+            // contex.getExternalContext().redirect(ejb.getUrlFormPorClave(view.getClaveMovimiento()));
 
-			view.showPanelElegirEmpleado();
-		} catch (Exception e) {
-		}
-		return null;
-	}
+            view.showPanelElegirEmpleado();
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
-	public String buscarEmpleados() {
-		if (view.getCriterioEmpleado() == null) {
-			JSFUtils.errorMessage("Movimientos Fijos: ", "El criterio es necesario");
-		} else {
+    public String buscarEmpleados() {
+        if (view.getCriterioEmpleado() == null) {
+            JSFUtils.errorMessage("Movimientos Fijos: ", "El criterio es necesario");
+        } else {
 
-			List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(view.getCriterioEmpleado());
+            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(view.getCriterioEmpleado());
 
-			view.setMostrarTablaEmpleados(true);
+            view.setMostrarTablaEmpleados(true);
 
-			if (!listaEmpleados.isEmpty()) {
-				view.setEmpleadoLista(listaEmpleados);
-			}
-		}
-		return null;
-	}
+            if (!listaEmpleados.isEmpty()) {
+                view.setEmpleadoLista(listaEmpleados);
+            }
+        }
+        return null;
+    }
 
-	public String irMovimientos(InfoEmpleadoDTO empleadoSeleccionado) {
-		view.setPanelBusqueda(Boolean.TRUE);
-		view.setMostrarTablaEmpleados(Boolean.FALSE);
-		view.setPanelMovimientosFijos(Boolean.TRUE);
-		view.setEmpleadoSeleccionado(empleadoSeleccionado);
-		view.setEmpleadoDatos(empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado()));
-		view.setListaMovimientos(ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
-		view.setTipoMovimientoSeleccionado(ejb.obtenerTipoMovimiento(view.getClaveMovimiento()));
-		if(view.getClaveMovimiento().contentEquals("tr")){
-			view.setFormaRegistroMovSeleccionado(1);
-		}else{ 
-			view.setFormaRegistroMovSeleccionado(view.getTipoMovimientoSeleccionado().getFormaRegistro());
-		}
-		return null;
-	}
+    public String irMovimientos(InfoEmpleadoDTO empleadoSeleccionado) {
+        view.setPanelBusqueda(Boolean.TRUE);
+        view.setMostrarTablaEmpleados(Boolean.FALSE);
+        view.setPanelMovimientosFijos(Boolean.TRUE);
+        view.setEmpleadoSeleccionado(empleadoSeleccionado);
+        view.setEmpleadoDatos(empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado()));
+        view.setListaMovimientos(ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
+        view.setTipoMovimientoSeleccionado(ejb.obtenerTipoMovimiento(view.getClaveMovimiento()));
+        if (view.getClaveMovimiento().contentEquals("tr")) {
+            view.setFormaRegistroMovSeleccionado(1);
+        } else {
+            view.setFormaRegistroMovSeleccionado(view.getTipoMovimientoSeleccionado().getFormaRegistro());
+        }
+        return null;
+    }
 
-	public void cargarMivimientosPorEmpleado(){
-		System.out.println("actualizando mov de empleados"+ view.getEmpleadoSeleccionado()+"---"+view.getClaveMovimiento());
-		view.setListaMovimientos(
-				ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
-	}
-	
-	public String eliminarMovimiento() {
-		System.out.println("Eliminar mov: "+ view.getMovimientoSeleccionado());
-		ejb.eliminar(view.getMovimientoSeleccionado());
-		view.setListaMovimientos(
-				ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
-		return null;
-	}
+    public void cargarMivimientosPorEmpleado() {
+        System.out.println("actualizando mov de empleados" + view.getEmpleadoSeleccionado() + "---" + view.getClaveMovimiento());
+        view.setListaMovimientos(ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
+    }
 
-	public void editarRegistro() {
-		try {
-			ejb.editar(view.getMovimientoSeleccionado());
-			FacesMessage msg = new FacesMessage("Actualizado:", "Registro Actualizado correctamentee");
-			FacesContext.getCurrentInstance().addMessage(null, msg);
+    public String eliminarMovimiento() {
+        System.out.println("Eliminar mov: " + view.getMovimientoSeleccionado());
+        ejb.eliminar(view.getMovimientoSeleccionado());
+        view.setListaMovimientos(ejb.obtenerMovimientosPorEmpleado(view.getEmpleadoSeleccionado(), view.getClaveMovimiento()));
+        return null;
+    }
 
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
-		}
+    public void editarRegistro() {
+        try {
+            ejb.editar(view.getMovimientoSeleccionado());
+            FacesMessage msg = new FacesMessage("Actualizado:", "Registro Actualizado correctamentee");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
 
-	}
-	
-	public void regresarInicio() {
-		view.setPanelElegirMovimiento(Boolean.TRUE);
-		view.setPanelBusqueda(Boolean.TRUE);
-		view.setMostrarTablaEmpleados(Boolean.FALSE);
-		view.setPanelMovimientosFijos(Boolean.FALSE);
-	}
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
+        }
 
-	public String irInicio() {
-		view.setPanelBusqueda(Boolean.FALSE);
-		view.setMostrarTablaEmpleados(Boolean.FALSE);
-		view.setPanelMovimientosFijos(Boolean.FALSE);
+    }
 
-		return "";
+    public void regresarInicio() {
+        view.setPanelElegirMovimiento(Boolean.TRUE);
+        view.setPanelBusqueda(Boolean.TRUE);
+        view.setMostrarTablaEmpleados(Boolean.FALSE);
+        view.setPanelMovimientosFijos(Boolean.FALSE);
+    }
 
-	}
+    public String irInicio() {
+        view.setPanelBusqueda(Boolean.FALSE);
+        view.setMostrarTablaEmpleados(Boolean.FALSE);
+        view.setPanelMovimientosFijos(Boolean.FALSE);
 
-	public String iraFormulario() {
-		String url = "";
-		System.out.println("esta es la url "+view.getClaveMovimiento() +"---"+ view.getTipoMovimientoSeleccionado().getFormaRegistro());
-		if(view.getClaveMovimiento().contentEquals("tr")){
-		url = ejb.getUrlFormPorClave(1);	
-		}else{
-		url = ejb.getUrlFormPorClave(view.getTipoMovimientoSeleccionado().getFormaRegistro());
-		}
-		return url;
-	}
+        return "";
 
-	public MovimientosView getView() {
-		return view;
-	}
+    }
 
-	public Boolean getEsTercero() {
-		return esTercero;
-	}
+    public String iraFormulario() {
+        String url = "";
+        System.out.println("esta es la url " + view.getClaveMovimiento() + "---" + view.getTipoMovimientoSeleccionado().getFormaRegistro());
+        if (view.getClaveMovimiento().contentEquals("tr")) {
+            url = ejb.getUrlFormPorClave(1);
+        } else {
+            url = ejb.getUrlFormPorClave(view.getTipoMovimientoSeleccionado().getFormaRegistro());
+        }
+        return url;
+    }
 
-	public void setEsTercero(Boolean esTercero) {
-		this.esTercero = esTercero;
-	}
+    public MovimientosView getView() {
+        return view;
+    }
+
+    public Boolean getEsTercero() {
+        return esTercero;
+    }
+
+    public void setEsTercero(Boolean esTercero) {
+        this.esTercero = esTercero;
+    }
 }

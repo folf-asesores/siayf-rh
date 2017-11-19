@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.movimientos.reportes;
 
 import java.io.IOException;
@@ -36,192 +37,179 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class ReporteMovimientoEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7864109409853836597L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7864109409853836597L;
 
-	private MovimientoEmpleadoReporteView view;
+    private MovimientoEmpleadoReporteView view;
 
-	@PostConstruct
-	public void init() {
-		this.view = new MovimientoEmpleadoReporteView();
-		this.view.setListaTipoReporte(SelectItemsUtil.listaReporteMovimientoEmpleado());
-	}
+    @PostConstruct
+    public void init() {
+        view = new MovimientoEmpleadoReporteView();
+        view.setListaTipoReporte(SelectItemsUtil.listaReporteMovimientoEmpleado());
+    }
 
-	/******* Process ********/
+    
 
-	public void descargarExcel() {
+    public void descargarExcel() {
 
-		if (this.view.getFechaInicialComisionadoLicencia().after(this.view.getFechaFinalComisionadoLicencia())) {
-			JSFUtils.errorMessage("Error: ", "La fecha final no puede ser mayor a la fecha inicial");
-		} else {
+        if (view.getFechaInicialComisionadoLicencia().after(view.getFechaFinalComisionadoLicencia())) {
+            JSFUtils.errorMessage("Error: ", "La fecha final no puede ser mayor a la fecha inicial");
+        } else {
 
-			SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
 
-			String nombreReporte = "";
+            String nombreReporte = "";
 
-			if (this.view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.COMISIONADO_LICENCIA)) {
-				nombreReporte = "comisionado_licencia";
-			}
+            if (view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.COMISIONADO_LICENCIA)) {
+                nombreReporte = "comisionado_licencia";
+            }
 
-			if (this.view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.CONSENTRADO_ALTA_BAJA)) {
-				nombreReporte = "consentrado_alta_baja";
-			}
+            if (view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.CONSENTRADO_ALTA_BAJA)) {
+                nombreReporte = "consentrado_alta_baja";
+            }
 
-			try {
+            try {
 
-				HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				HttpSession httpSession = request.getSession(false);
-				UsuarioDTO usuario = (UsuarioDTO) httpSession
-						.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpSession httpSession = request.getSession(false);
+                UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-				String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
-						nombreReporte, "TIPO_REPORTE", "xlsx", "ID_TIPO_CONTRATACION",
-						String.valueOf(this.view.getIdTipoContratacion()), "FECHA_INICIAL",
-						String.valueOf(formatoDelTexto.format(this.view.getFechaInicialComisionadoLicencia())),
-						"FECHA_FINAL",
-						String.valueOf(formatoDelTexto.format(this.view.getFechaFinalComisionadoLicencia())) };
+                String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", nombreReporte, "TIPO_REPORTE", "xlsx",
+                        "ID_TIPO_CONTRATACION", String.valueOf(view.getIdTipoContratacion()), "FECHA_INICIAL",
+                        String.valueOf(formatoDelTexto.format(view.getFechaInicialComisionadoLicencia())), "FECHA_FINAL",
+                        String.valueOf(formatoDelTexto.format(view.getFechaFinalComisionadoLicencia())) };
 
-				AdministradorReportes admintradorReportes = new AdministradorReportes();
-				String referencia = admintradorReportes.obtenerReferencia(parametros);
+                AdministradorReportes admintradorReportes = new AdministradorReportes();
+                String referencia = admintradorReportes.obtenerReferencia(parametros);
 
-				this.view.setBytes(admintradorReportes.obtenerReporte(referencia));
+                view.setBytes(admintradorReportes.obtenerReporte(referencia));
 
-				if (this.view.getBytes() != null) {
-					JSFUtils.descargarArchivo(this.view.getBytes(),
-							this.view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.COMISIONADO_LICENCIA)
-									? "Comisionado_Licencia" : "Consentrado_Altas_Bajas",
-							TipoArchivo.getMIMEType("xlsx"));
-				}
+                if (view.getBytes() != null) {
+                    JSFUtils.descargarArchivo(view.getBytes(), view.getTipoReporte().equals(EnumTipoReporteMovimientoEmpleado.COMISIONADO_LICENCIA)
+                            ? "Comisionado_Licencia" : "Consentrado_Altas_Bajas", TipoArchivo.getMIMEType("xlsx"));
+                }
 
-			} catch (NullPointerException | IllegalArgumentException | IOException exception) {
+            } catch (NullPointerException | IllegalArgumentException | IOException exception) {
 
-				System.err.println(exception.getMessage());
-				exception.printStackTrace();
+                System.err.println(exception.getMessage());
+                exception.printStackTrace();
 
-			} catch (ReglaNegocioException reglaNegocioException) {
+            } catch (ReglaNegocioException reglaNegocioException) {
 
-				reglaNegocioException.printStackTrace();
-				JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+                reglaNegocioException.printStackTrace();
+                JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
 
-			} catch (ValidacionException validacionException) {
+            } catch (ValidacionException validacionException) {
 
-				validacionException.printStackTrace();
-				JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+                validacionException.printStackTrace();
+                JSFUtils.errorMessage("Error: ", validacionException.getMessage());
 
-			}
-		}
+            }
+        }
 
-	}
+    }
 
-	/******* Validators **/
+    
 
-	public void validatorHabilidadPersonal(FacesContext context, UIComponent component, Object value) {
-		String nombreComponente = component.getId();
-		switch (nombreComponente) {
-		case "fechaInicial":
-			Date fechaInicial = (Date) value;
+    public void validatorHabilidadPersonal(FacesContext context, UIComponent component, Object value) {
+        String nombreComponente = component.getId();
+        switch (nombreComponente) {
+            case "fechaInicial":
+                Date fechaInicial = (Date) value;
 
-			if (fechaInicial == null) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Seleccione la fecha inicial.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
-			break;
+                if (fechaInicial == null) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione la fecha inicial.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
+                break;
 
-		case "fechaFinal":
-			Date fechaFinal = (Date) value;
+            case "fechaFinal":
+                Date fechaFinal = (Date) value;
 
-			if (fechaFinal == null) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Seleccione la fecha final.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                if (fechaFinal == null) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione la fecha final.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			break;
+                break;
 
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar campos..");
-			break;
-		}
-	}
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar campos..");
+                break;
+        }
+    }
 
-	public void validatorTipoReporte(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
-		String nombreComponente = component.getId();
-		switch (nombreComponente) {
-		case "tipoReporte":
-			String tipoReporte = (String) value;
+    public void validatorTipoReporte(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+        String nombreComponente = component.getId();
+        switch (nombreComponente) {
+            case "tipoReporte":
+                String tipoReporte = (String) value;
 
-			if (tipoReporte == null) {
+                if (tipoReporte == null) {
 
-				this.view.setMostrarPanelDescargaReporte(false);
-				this.view.setFechaFinalComisionadoLicencia(null);
-				this.view.setFechaInicialComisionadoLicencia(null);
-				this.view.setTipoReporte("");
+                    view.setMostrarPanelDescargaReporte(false);
+                    view.setFechaFinalComisionadoLicencia(null);
+                    view.setFechaInicialComisionadoLicencia(null);
+                    view.setTipoReporte("");
 
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Seleccione el tipo de reporte.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione el tipo de reporte.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			if (ValidacionUtil.esCadenaVacia(tipoReporte)) {
+                if (ValidacionUtil.esCadenaVacia(tipoReporte)) {
 
-				this.view.setMostrarPanelDescargaReporte(false);
-				this.view.setFechaFinalComisionadoLicencia(null);
-				this.view.setFechaInicialComisionadoLicencia(null);
-				this.view.setTipoReporte("");
+                    view.setMostrarPanelDescargaReporte(false);
+                    view.setFechaFinalComisionadoLicencia(null);
+                    view.setFechaInicialComisionadoLicencia(null);
+                    view.setTipoReporte("");
 
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Seleccione el tipo de reporte.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
-			break;
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione el tipo de reporte.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
+                break;
 
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar campos..");
-			break;
-		}
-	}
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar campos..");
+                break;
+        }
+    }
 
-	/****** Renderes *****/
-	public void mostrarPanelDescarga() {
-		this.view.setMostrarPanelDescargaReporte(false);
-		this.view.setFechaFinalComisionadoLicencia(null);
-		this.view.setFechaInicialComisionadoLicencia(null);
-		this.view.setMostrarSelectTipoContratacion(false);
-		this.view.setIdTipoContratacion(0);
+    
+    public void mostrarPanelDescarga() {
+        view.setMostrarPanelDescargaReporte(false);
+        view.setFechaFinalComisionadoLicencia(null);
+        view.setFechaInicialComisionadoLicencia(null);
+        view.setMostrarSelectTipoContratacion(false);
+        view.setIdTipoContratacion(0);
 
-		if (!ValidacionUtil.esCadenaVacia(this.view.getTipoReporte())) {
-			this.view.setMostrarPanelDescargaReporte(true);
-			if (this.view.getTipoReporte().equals("Consentrado de Altas y Bajas")) {
-				this.view.setMostrarSelectTipoContratacion(true);
-			}
-		}
+        if (!ValidacionUtil.esCadenaVacia(view.getTipoReporte())) {
+            view.setMostrarPanelDescargaReporte(true);
+            if (view.getTipoReporte().equals("Consentrado de Altas y Bajas")) {
+                view.setMostrarSelectTipoContratacion(true);
+            }
+        }
 
-	}
+    }
 
-	
+    /**
+     * @return the view
+     */
+    public MovimientoEmpleadoReporteView getView() {
+        return view;
+    }
 
-	/**
-	 * @return the view
-	 */
-	public MovimientoEmpleadoReporteView getView() {
-		return view;
-	}
-
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(MovimientoEmpleadoReporteView view) {
-		this.view = view;
-	}
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(MovimientoEmpleadoReporteView view) {
+        this.view = view;
+    }
 
 }

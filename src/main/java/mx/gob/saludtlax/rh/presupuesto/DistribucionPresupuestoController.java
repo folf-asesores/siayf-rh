@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.presupuesto;
 
 import java.io.IOException;
@@ -26,88 +27,82 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 @SessionScoped
 public class DistribucionPresupuestoController {
 
-	private DistribucionPresupuestoView view;
+    private DistribucionPresupuestoView view;
 
-	@Inject private DistribucionPresupuestoEJB ejb;
+    @Inject
+    private DistribucionPresupuestoEJB ejb;
     private static final Logger LOGGER = Logger.getLogger(DistribucionPresupuestoController.class.getName());
 
-	@PostConstruct
-	public void initConsultarPresupuesto() {
-		view = new DistribucionPresupuestoView();
-		view.setListaTipoNombramiento(ejb.getListaTipoNombramiento());
-		view.setListaDependencia(ejb.getListaDependencia());
-		view.setListaSubfuente(ejb.getListaSubfuente());
-		view.setMostrarPrincipal(Boolean.TRUE);
-		view.setMostrarDistribucion(Boolean.FALSE);
-	}
+    @PostConstruct
+    public void initConsultarPresupuesto() {
+        view = new DistribucionPresupuestoView();
+        view.setListaTipoNombramiento(ejb.getListaTipoNombramiento());
+        view.setListaDependencia(ejb.getListaDependencia());
+        view.setListaSubfuente(ejb.getListaSubfuente());
+        view.setMostrarPrincipal(Boolean.TRUE);
+        view.setMostrarDistribucion(Boolean.FALSE);
+    }
 
-	public String obtenerDistribucionesPresupuestales() {
-		System.out.print("buscar");
+    public String obtenerDistribucionesPresupuestales() {
+        System.out.print("buscar");
         LOGGER.debugv("buscar\n");
-		try {
-			view.setListaDistribucion(ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia(), view.getIdSubfuente()));
-			view.setMostrarPrincipal(true);
-			LOGGER.debugv("Tamaño lista: {0}", view.getListaDistribucion().size());
-		} catch (ReglaNegocioException e) {
-			view.setListaDistribucion(new ArrayList<DistribucionPresupuestoDTO>());
-			JSFUtils.infoMessage(e.getMessage(), "");
-			view.setMostrarPrincipal(false);
-			this.view.setMostrarOpcionDescarga(false);
-			JSFUtils.infoMessage(e.getMessage(), "");
-		}
-		view.setMostrarDistribucion(false);
-		return null;
-	}
-	
-	public void descargarContrato() {
-		try {
+        try {
+            view.setListaDistribucion(
+                    ejb.distribucionPresupuesto(view.getAnioPresupuesto(), view.getIdTipoNombramiento(), view.getIdDependencia(), view.getIdSubfuente()));
+            view.setMostrarPrincipal(true);
+            LOGGER.debugv("Tamaño lista: {0}", view.getListaDistribucion().size());
+        } catch (ReglaNegocioException e) {
+            view.setListaDistribucion(new ArrayList<DistribucionPresupuestoDTO>());
+            JSFUtils.infoMessage(e.getMessage(), "");
+            view.setMostrarPrincipal(false);
+            view.setMostrarOpcionDescarga(false);
+            JSFUtils.infoMessage(e.getMessage(), "");
+        }
+        view.setMostrarDistribucion(false);
+        return null;
+    }
 
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest();
-			HttpSession httpSession = request.getSession(false);
-			UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+    public void descargarContrato() {
+        try {
 
-			String[] parametros = { 
-					"ID_USUARIO", String.valueOf(usuario.getIdUsuario()), 
-					"REPORTE_NOMBRE", "reporte_distribucion_presupuestal", 
-					"TIPO_REPORTE", "xlsx", 
-					"ANYO_PRESUPUESTO", String.valueOf(this.view.getAnioPresupuesto()),
-					"ID_TIPO_NOMBRAMIENTO", String.valueOf(this.view.getIdTipoNombramiento()),
-					"DEPENDENCIA", String.valueOf(this.view.getIdDependencia()),
-					"ID_SUBFUENTE_FINANCIAMIENTO", String.valueOf(this.view.getIdSubfuente())
-					};
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpSession httpSession = request.getSession(false);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-			AdministradorReportes admintradorReportes = new AdministradorReportes();
-			String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "reporte_distribucion_presupuestal", "TIPO_REPORTE",
+                    "xlsx", "ANYO_PRESUPUESTO", String.valueOf(view.getAnioPresupuesto()), "ID_TIPO_NOMBRAMIENTO", String.valueOf(view.getIdTipoNombramiento()),
+                    "DEPENDENCIA", String.valueOf(view.getIdDependencia()), "ID_SUBFUENTE_FINANCIAMIENTO", String.valueOf(view.getIdSubfuente()) };
 
-			byte[] bytes = admintradorReportes.obtenerReporte(referencia);
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
 
-			if (bytes != null) {
-				JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Distribucion_Presupuestal"),
-						TipoArchivo.getMIMEType("xlsx"));
-			}
+            byte[] bytes = admintradorReportes.obtenerReporte(referencia);
 
-			JSFUtils.infoMessage("Descargar Reporte: ", "Se descargo correctamente...");
+            if (bytes != null) {
+                JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Distribucion_Presupuestal"), TipoArchivo.getMIMEType("xlsx"));
+            }
 
-		} catch (NullPointerException | IllegalArgumentException | IOException exception) {
+            JSFUtils.infoMessage("Descargar Reporte: ", "Se descargo correctamente...");
 
-			exception.printStackTrace();
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			reglaNegocioException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidacionException validacionException) {
+        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
 
-			validacionException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		}
-	}
+            exception.printStackTrace();
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            reglaNegocioException.printStackTrace();
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        } catch (ValidacionException validacionException) {
 
-	public DistribucionPresupuestoView getView() {
-		return view;
-	}
+            validacionException.printStackTrace();
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        }
+    }
 
-	public void setView(DistribucionPresupuestoView view) {
-		this.view = view;
-	}
+    public DistribucionPresupuestoView getView() {
+        return view;
+    }
+
+    public void setView(DistribucionPresupuestoView view) {
+        this.view = view;
+    }
 }

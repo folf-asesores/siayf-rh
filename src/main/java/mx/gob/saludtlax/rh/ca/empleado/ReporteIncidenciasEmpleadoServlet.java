@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.empleado;
 
 import java.io.IOException;
@@ -21,89 +22,83 @@ import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
-@WebServlet(name = "reporteIncidenciasEmpleado", urlPatterns = { "/reporte-lista-incidencias-empleados",
-		"/reporte-lista-incidencias-empleados" })
+@WebServlet(name = "reporteIncidenciasEmpleado", urlPatterns = { "/reporte-lista-incidencias-empleados", "/reporte-lista-incidencias-empleados" })
 public class ReporteIncidenciasEmpleadoServlet extends HttpServlet {
-	
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5597969437553856355L;
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-		String fechaInicio = request.getParameter("fechaInicio");
-		String fechaFin = request.getParameter("fechaFin");
-		Integer idAdscripcion = Integer.parseInt(request.getParameter("ida"));
-		Integer idTipoContratacion = Integer.parseInt(request.getParameter("idt"));
-		Integer idDepartamento = -1;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5597969437553856355L;
 
-		try {
-			idDepartamento = Integer.parseInt(request.getParameter("idd"));
-		} catch (NumberFormatException e) {
-			idDepartamento = -1;
-		}
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+        String fechaInicio = request.getParameter("fechaInicio");
+        String fechaFin = request.getParameter("fechaFin");
+        Integer idAdscripcion = Integer.parseInt(request.getParameter("ida"));
+        Integer idTipoContratacion = Integer.parseInt(request.getParameter("idt"));
+        Integer idDepartamento = -1;
 
-		byte[] bytes = doReport(idEmpleado, fechaInicio, fechaFin, idAdscripcion, idTipoContratacion, idDepartamento);
+        try {
+            idDepartamento = Integer.parseInt(request.getParameter("idd"));
+        } catch (NumberFormatException e) {
+            idDepartamento = -1;
+        }
 
-		ServletOutputStream servletOutputStream = response.getOutputStream();
-		response.setContentType("application/pdf");
-		response.setContentLength(bytes.length);
-		servletOutputStream.write(bytes, 0, bytes.length);
-		servletOutputStream.flush();
-		servletOutputStream.close();
-	}
+        byte[] bytes = doReport(idEmpleado, fechaInicio, fechaFin, idAdscripcion, idTipoContratacion, idDepartamento);
 
-	private byte[] doReport(Integer idEmpleado, String fechaInicio, String fechaFin, Integer idAdscripcion,
-			Integer idTipoContratacion, Integer idDepartamento) {
-		byte[] bytes = null;
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        servletOutputStream.write(bytes, 0, bytes.length);
+        servletOutputStream.flush();
+        servletOutputStream.close();
+    }
 
-		InputStream inputStream = getClass().getClassLoader()
-				.getResourceAsStream("/reportes/listado_incidencias_empleados.jasper");
-		Connection conexion = null;
-		try {
-			Context initcontext = new InitialContext();
-			DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+    private byte[] doReport(Integer idEmpleado, String fechaInicio, String fechaFin, Integer idAdscripcion, Integer idTipoContratacion,
+            Integer idDepartamento) {
+        byte[] bytes = null;
 
-			conexion = ds.getConnection();
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/listado_incidencias_empleados.jasper");
+        Connection conexion = null;
+        try {
+            Context initcontext = new InitialContext();
+            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
+            conexion = ds.getConnection();
 
-			parameters.put("id_empleado_consulta", idEmpleado);
-			parameters.put("fecha_inicio_consulta", fechaInicio);
-			parameters.put("fecha_fin_consulta", fechaFin);
-			parameters.put("id_adscripcion_consulta", idAdscripcion);
-			parameters.put("id_tipo_contratacion_consulta", idTipoContratacion);
-			parameters.put("id_departamento_consulta", idDepartamento);
+            Map<String, Object> parameters = new HashMap<>();
 
-			bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            parameters.put("id_empleado_consulta", idEmpleado);
+            parameters.put("fecha_inicio_consulta", fechaInicio);
+            parameters.put("fecha_fin_consulta", fechaFin);
+            parameters.put("id_adscripcion_consulta", idAdscripcion);
+            parameters.put("id_tipo_contratacion_consulta", idTipoContratacion);
+            parameters.put("id_departamento_consulta", idDepartamento);
 
-		} catch (NamingException ex) {
-			System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
-					+ getClass().getName());
-			ex.printStackTrace();
-		} catch (SQLException ex) {
-			System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
-			ex.printStackTrace();
-		} catch (JRException ex) {
-			System.err.println("Error durante la generación del reporte ");
-			ex.printStackTrace();
-		} finally {
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					System.err.println(
-							"Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
-					e.printStackTrace();
-				}
-			}
-		}
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
 
-		return bytes;
-	}
+        } catch (NamingException ex) {
+            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
+            ex.printStackTrace();
+        } catch (JRException ex) {
+            System.err.println("Error durante la generación del reporte ");
+            ex.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    System.err.println("Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return bytes;
+    }
 
 }

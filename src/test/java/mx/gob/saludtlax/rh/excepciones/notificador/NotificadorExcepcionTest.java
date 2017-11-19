@@ -1,10 +1,13 @@
 /*
  *  NotificadorExcepcionTest.java
  *  Creado el Jun 16, 2016 2:05:55 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.excepciones.notificador;
 
+import static org.jboss.logging.Logger.getLogger;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -23,9 +26,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.jboss.logging.Logger.getLogger;
-import static org.junit.Assert.assertTrue;
-
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -33,34 +33,27 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Arquillian.class)
 public class NotificadorExcepcionTest {
 
-    @Inject private NotificadorExcepcion instance;
-    
+    @Inject
+    private NotificadorExcepcion instance;
+
     private static final Logger LOGGER = getLogger(NotificadorExcepcionTest.class.getName());
-    
-     @Deployment
+
+    @Deployment
     public static WebArchive createDeployment() {
-        WebArchive war = ShrinkWrap.create(WebArchive.class)
-                .addAsWebInfResource(EmptyAsset.INSTANCE,
-                ArchivePaths.create("beans.xml"));
-        
-        JavaArchive jar = ShrinkWrap.create(JavaArchive.class)
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml")
-                .addClass(NotificadorExcepcion.class)
-                .addClass(NotificadorExcepcionEJB.class)
-                ;
-        
+        WebArchive war = ShrinkWrap.create(WebArchive.class).addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
+
+        JavaArchive jar = ShrinkWrap.create(JavaArchive.class).addAsManifestResource("META-INF/beans.xml", "beans.xml").addClass(NotificadorExcepcion.class)
+                .addClass(NotificadorExcepcionEJB.class);
+
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
-        
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
+
         war.addAsLibraries(files);
-        
+
         return war;
     }
-    
+
     /**
      * Test of notificar method, of class NotificadorExcepcion.
      */
@@ -72,8 +65,8 @@ public class NotificadorExcepcionTest {
         String mensaje = "Argumento invalido";
         String pilaSeguimiento = "A StackTrace";
         instance.notificar(null, tipo, mensaje, pilaSeguimiento, null);
-        
+
         assertTrue(true);
     }
-    
+
 }

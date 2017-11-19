@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -13,79 +14,73 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="detalle_programacion_movimiento")
+@Table(name = "detalle_programacion_movimiento")
 public class DetalleProgramacionMovimientoEntity implements Serializable {
 
-		/**
-	 * 
-	 */
-	private static final long serialVersionUID = 634087231087585085L;
+    /**
+    *
+    */
+    private static final long serialVersionUID = 634087231087585085L;
 
-		@Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "id_detalle_programacion_movimiento")
-	    private Integer idDetalleProgramacionMovimiento;
-	 
-		@ManyToOne(fetch = FetchType.LAZY)
-	   	@JoinColumn(name = "id_programacion_movimiento")
-	    private ProgramarMovimientoEntity idProgramacionMovimiento;
-		
-		@ManyToOne(fetch = FetchType.LAZY)
-	   	@JoinColumn(name = "id_puesto")
-	    private PuestoGeneralEntity idPuesto;
-		
-	    @ManyToOne(fetch = FetchType.LAZY)
-	   	@JoinColumn(name = "id_tipo_contratacion")
-		private TipoContratacionEntity idTipoContratacion;
-	    
-	    @Column(name="importe")
-	    private BigDecimal importe;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_detalle_programacion_movimiento")
+    private Integer idDetalleProgramacionMovimiento;
 
-		public Integer getIdDetalleProgramacionMovimiento() {
-			return idDetalleProgramacionMovimiento;
-		}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_programacion_movimiento")
+    private ProgramarMovimientoEntity idProgramacionMovimiento;
 
-		public void setIdDetalleProgramacionMovimiento(Integer idDetalleProgramacionMovimiento) {
-			this.idDetalleProgramacionMovimiento = idDetalleProgramacionMovimiento;
-		}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_puesto")
+    private PuestoGeneralEntity idPuesto;
 
-		
-		
-		
-		public ProgramarMovimientoEntity getIdProgramacionMovimiento() {
-			return idProgramacionMovimiento;
-		}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_contratacion")
+    private TipoContratacionEntity idTipoContratacion;
 
-		public void setIdProgramacionMovimiento(ProgramarMovimientoEntity idProgramacionMovimiento) {
-			this.idProgramacionMovimiento = idProgramacionMovimiento;
-		}
+    @Column(name = "importe")
+    private BigDecimal importe;
 
-		public PuestoGeneralEntity getIdPuesto() {
-			return idPuesto;
-		}
+    public Integer getIdDetalleProgramacionMovimiento() {
+        return idDetalleProgramacionMovimiento;
+    }
 
-		public void setIdPuesto(PuestoGeneralEntity idPuesto) {
-			this.idPuesto = idPuesto;
-		}
+    public void setIdDetalleProgramacionMovimiento(Integer idDetalleProgramacionMovimiento) {
+        this.idDetalleProgramacionMovimiento = idDetalleProgramacionMovimiento;
+    }
 
-		public TipoContratacionEntity getIdTipoContratacion() {
-			return idTipoContratacion;
-		}
+    public ProgramarMovimientoEntity getIdProgramacionMovimiento() {
+        return idProgramacionMovimiento;
+    }
 
-		public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
-			this.idTipoContratacion = idTipoContratacion;
-		}
+    public void setIdProgramacionMovimiento(ProgramarMovimientoEntity idProgramacionMovimiento) {
+        this.idProgramacionMovimiento = idProgramacionMovimiento;
+    }
 
-		public BigDecimal getImporte() {
-			return importe;
-		}
+    public PuestoGeneralEntity getIdPuesto() {
+        return idPuesto;
+    }
 
-		public void setImporte(BigDecimal importe) {
-			this.importe = importe;
-		}
+    public void setIdPuesto(PuestoGeneralEntity idPuesto) {
+        this.idPuesto = idPuesto;
+    }
 
-	 
-	 
+    public TipoContratacionEntity getIdTipoContratacion() {
+        return idTipoContratacion;
+    }
+
+    public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
+        this.idTipoContratacion = idTipoContratacion;
+    }
+
+    public BigDecimal getImporte() {
+        return importe;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
 }

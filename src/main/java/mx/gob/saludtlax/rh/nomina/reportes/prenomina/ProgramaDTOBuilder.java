@@ -3,6 +3,7 @@
  * Creado el 11/Jul/2017 6:14:58 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Date;
@@ -20,7 +21,7 @@ public class ProgramaDTOBuilder {
     private Map<String, UnidadResponsableDTO> unidadesResponsables;
 
     public ProgramaDTOBuilder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
-        this.idPrograma =  idPrograma;
+        this.idPrograma = idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
         this.finPeriodo = finPeriodo;

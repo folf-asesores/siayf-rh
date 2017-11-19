@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.pensionalimenticia;
 
 import java.io.Serializable;
@@ -28,226 +29,215 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class EditarPensionAlimenticiaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8155106657288513705L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8155106657288513705L;
 
-	@Inject
-	PensionAlimenticiaEJB pensionAlimenticiaEJB;
+    @Inject
+    PensionAlimenticiaEJB pensionAlimenticiaEJB;
 
-	private InformacionEmpleadoDTO informacionEmpleadoDTO = new InformacionEmpleadoDTO();
+    private InformacionEmpleadoDTO informacionEmpleadoDTO = new InformacionEmpleadoDTO();
 
-	private BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm = new BeneficiarioPensionAlimenticiaForm();
+    private BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm = new BeneficiarioPensionAlimenticiaForm();
 
-	private List<SelectItem> listadoTipoCoutas;
+    private List<SelectItem> listadoTipoCoutas;
 
-	private List<SelectItem> listadoBancos;
+    private List<SelectItem> listadoBancos;
 
-	private String rfc;
+    private String rfc;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-		String idPensionAlimenticia = params.get("i");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String idPensionAlimenticia = params.get("i");
 
-		if (idPensionAlimenticia == null) {
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			String outcome = "index.html?faces-redirect=true";
-			facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
-		}
+        if (idPensionAlimenticia == null) {
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            String outcome = "index.html?faces-redirect=true";
+            facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+        }
 
-		this.beneficiarioPensionAlimenticiaForm = pensionAlimenticiaEJB
-				.obtenerPensionAlimenticiaPorId(new Integer(idPensionAlimenticia));
-		informacionEmpleadoDTO = pensionAlimenticiaEJB
-				.buscarEmpleado(new Integer(this.beneficiarioPensionAlimenticiaForm.getIdEmpleado()));
-		this.listadoTipoCoutas = pensionAlimenticiaEJB.listadoTipoCoutas();
-		this.listadoBancos = pensionAlimenticiaEJB.listadoBanco();
+        beneficiarioPensionAlimenticiaForm = pensionAlimenticiaEJB.obtenerPensionAlimenticiaPorId(new Integer(idPensionAlimenticia));
+        informacionEmpleadoDTO = pensionAlimenticiaEJB.buscarEmpleado(new Integer(beneficiarioPensionAlimenticiaForm.getIdEmpleado()));
+        listadoTipoCoutas = pensionAlimenticiaEJB.listadoTipoCoutas();
+        listadoBancos = pensionAlimenticiaEJB.listadoBanco();
 
-	}
+    }
 
-	public String editarInformacionPension() {
+    public String editarInformacionPension() {
 
-		pensionAlimenticiaEJB.editar(beneficiarioPensionAlimenticiaForm);
-		return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
-	}
+        pensionAlimenticiaEJB.editar(beneficiarioPensionAlimenticiaForm);
+        return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
+    }
 
-	public String eliminarPensionAlimenticia() {
+    public String eliminarPensionAlimenticia() {
 
-		pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiarioPensionAlimenticiaForm.getIdPensionAlimenticia());
-//		informacionEmpleadoDTO = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleadoDTO.getIdEmpleado());
-		return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
+        pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiarioPensionAlimenticiaForm.getIdPensionAlimenticia());
+        //		informacionEmpleadoDTO = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleadoDTO.getIdEmpleado());
+        return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
 
-	}
+    }
 
-	// ----Validaciones--//
-	public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+    // ----Validaciones--//
+    public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		case "expediente":
-			String expediente = (String) value;
+            case "expediente":
+                String expediente = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(expediente)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingres el numero de expediente.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "juzgado":
-			String juzgado = (String) value;
+                if (ValidacionUtil.esCadenaVacia(expediente)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingres el numero de expediente.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "juzgado":
+                String juzgado = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(juzgado)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese el numero de juzgado.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "oficio":
-			String oficio = (String) value;
+                if (ValidacionUtil.esCadenaVacia(juzgado)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de juzgado.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "oficio":
+                String oficio = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(oficio)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese el numero de oficio.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (ValidacionUtil.esCadenaVacia(oficio)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de oficio.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		case "rfc":
-			String rfc = (String) value;
+            case "rfc":
+                String rfc = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(rfc)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un rfc.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			} else if (!ValidacionUtil.validarRfc(rfc)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un rfc valido.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (ValidacionUtil.esCadenaVacia(rfc)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un rfc.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                } else if (!ValidacionUtil.validarRfc(rfc)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un rfc valido.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		case "nombre":
-			String nombre = (String) value;
+            case "nombre":
+                String nombre = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(nombre)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese el nombre del beneficiario.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (ValidacionUtil.esCadenaVacia(nombre)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre del beneficiario.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		case "tipo":
-			int tipo = (int) value;
+            case "tipo":
+                int tipo = (int) value;
 
-			if (tipo == 0) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor seleccione el tipo de descuento que se va aplicar.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "valor":
-			BigDecimal valor = (BigDecimal) value;
+                if (tipo == 0) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione el tipo de descuento que se va aplicar.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "valor":
+                BigDecimal valor = (BigDecimal) value;
 
-			if (valor == BigDecimal.ZERO || valor == null) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese una catidad mayor a 0.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (valor == BigDecimal.ZERO || valor == null) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una catidad mayor a 0.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		}
+        }
 
-	}
+    }
 
-	/***************** Getter and Setters ****************/
+    
 
-	/**
-	 * @return the beneficiarioPensionAlimenticiaForm
-	 */
-	public BeneficiarioPensionAlimenticiaForm getBeneficiarioPensionAlimenticiaForm() {
-		return beneficiarioPensionAlimenticiaForm;
-	}
+    /**
+     * @return the beneficiarioPensionAlimenticiaForm
+     */
+    public BeneficiarioPensionAlimenticiaForm getBeneficiarioPensionAlimenticiaForm() {
+        return beneficiarioPensionAlimenticiaForm;
+    }
 
-	/**
-	 * @param beneficiarioPensionAlimenticiaForm
-	 *            the beneficiarioPensionAlimenticiaForm to set
-	 */
-	public void setBeneficiarioPensionAlimenticiaForm(
-			BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm) {
-		this.beneficiarioPensionAlimenticiaForm = beneficiarioPensionAlimenticiaForm;
-	}
+    /**
+     * @param beneficiarioPensionAlimenticiaForm
+     *            the beneficiarioPensionAlimenticiaForm to set
+     */
+    public void setBeneficiarioPensionAlimenticiaForm(BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm) {
+        this.beneficiarioPensionAlimenticiaForm = beneficiarioPensionAlimenticiaForm;
+    }
 
-	/**
-	 * @return the listadoBancos
-	 */
-	public List<SelectItem> getListadoBancos() {
-		return listadoBancos;
-	}
+    /**
+     * @return the listadoBancos
+     */
+    public List<SelectItem> getListadoBancos() {
+        return listadoBancos;
+    }
 
-	/**
-	 * @param listadoBancos
-	 *            the listadoBancos to set
-	 */
-	public void setListadoBancos(List<SelectItem> listadoBancos) {
-		this.listadoBancos = listadoBancos;
-	}
+    /**
+     * @param listadoBancos
+     *            the listadoBancos to set
+     */
+    public void setListadoBancos(List<SelectItem> listadoBancos) {
+        this.listadoBancos = listadoBancos;
+    }
 
-	/**
-	 * @return the listadoTipoCoutas
-	 */
-	public List<SelectItem> getListadoTipoCoutas() {
-		return listadoTipoCoutas;
-	}
+    /**
+     * @return the listadoTipoCoutas
+     */
+    public List<SelectItem> getListadoTipoCoutas() {
+        return listadoTipoCoutas;
+    }
 
-	/**
-	 * @param listadoTipoCoutas
-	 *            the listadoTipoCoutas to set
-	 */
-	public void setListadoTipoCoutas(List<SelectItem> listadoTipoCoutas) {
-		this.listadoTipoCoutas = listadoTipoCoutas;
-	}
+    /**
+     * @param listadoTipoCoutas
+     *            the listadoTipoCoutas to set
+     */
+    public void setListadoTipoCoutas(List<SelectItem> listadoTipoCoutas) {
+        this.listadoTipoCoutas = listadoTipoCoutas;
+    }
 
-	/**
-	 * @return the informacionEmpleadoDTO
-	 */
-	public InformacionEmpleadoDTO getInformacionEmpleadoDTO() {
-		return informacionEmpleadoDTO;
-	}
+    /**
+     * @return the informacionEmpleadoDTO
+     */
+    public InformacionEmpleadoDTO getInformacionEmpleadoDTO() {
+        return informacionEmpleadoDTO;
+    }
 
-	/**
-	 * @param informacionEmpleadoDTO
-	 *            the informacionEmpleadoDTO to set
-	 */
-	public void setInformacionEmpleadoDTO(InformacionEmpleadoDTO informacionEmpleadoDTO) {
-		this.informacionEmpleadoDTO = informacionEmpleadoDTO;
-	}
+    /**
+     * @param informacionEmpleadoDTO
+     *            the informacionEmpleadoDTO to set
+     */
+    public void setInformacionEmpleadoDTO(InformacionEmpleadoDTO informacionEmpleadoDTO) {
+        this.informacionEmpleadoDTO = informacionEmpleadoDTO;
+    }
 
-	/**
-	 * @return the rfc
-	 */
-	public String getRfc() {
-		return rfc;
-	}
+    /**
+     * @return the rfc
+     */
+    public String getRfc() {
+        return rfc;
+    }
 
-	/**
-	 * @param rfc
-	 *            the rfc to set
-	 */
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    /**
+     * @param rfc
+     *            the rfc to set
+     */
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
 }

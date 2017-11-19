@@ -1,13 +1,16 @@
 /*
  * AdministrarExpedienteAspiranteView.java
  * Creado el Oct 21, 2016 12:32:14 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
+
 import mx.gob.saludtlax.rh.expediente.InformacionAdjuntoDTO;
 import mx.gob.saludtlax.rh.expediente.aspirante.ExpedienteAspiranteDTO;
 
@@ -34,7 +37,7 @@ public class AdministrarExpedienteAspiranteView {
     private Boolean mostrarImagenExpediente;
     private Boolean mostrarPanelCorrecciones;
     private Boolean mostrarResultadoConsulta;
-    private Boolean visualizarDatosCurso;    
+    private Boolean visualizarDatosCurso;
 
     private ExpedienteAspiranteDTO expediente;
     private HistorialAcademicoDTO historialAcademicoSeleccionado;
@@ -48,7 +51,7 @@ public class AdministrarExpedienteAspiranteView {
     private List<SelectItem> listaEscolaridades;
     private List<SelectItem> listaTiposDocumentosExpediente;
     private List<String> documentacionActualHistorial;
-    
+
     /**
      * Crea una nueva instancia de AdministrarExpedienteAspiranteView
      */
@@ -94,7 +97,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de criterio
      *
-     * @param criterio el nuevo valor de criterio
+     * @param criterio
+     *            el nuevo valor de criterio
      */
     public void setCriterio(String criterio) {
         this.criterio = criterio;
@@ -112,7 +116,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de aspirantes
      *
-     * @param aspirantes el nuevo valor de aspirantes
+     * @param aspirantes
+     *            el nuevo valor de aspirantes
      */
     public void setAspirantes(List<InfoAspiranteDTO> aspirantes) {
         this.aspirantes = aspirantes;
@@ -130,7 +135,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarResultadoConsulta
      *
-     * @param mostrarResultadoConsulta el nuevo valor de mostrarResultadoConsulta
+     * @param mostrarResultadoConsulta
+     *            el nuevo valor de mostrarResultadoConsulta
      */
     public void setMostrarResultadoConsulta(Boolean mostrarResultadoConsulta) {
         this.mostrarResultadoConsulta = mostrarResultadoConsulta;
@@ -148,7 +154,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de imagenExpediente
      *
-     * @param imagenExpediente el nuevo valor de imagenExpediente
+     * @param imagenExpediente
+     *            el nuevo valor de imagenExpediente
      */
     public void setImagenExpediente(String imagenExpediente) {
         this.imagenExpediente = imagenExpediente;
@@ -166,7 +173,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarAperturaExpediente
      *
-     * @param mostrarAperturaExpediente el nuevo valor de mostrarAperturaExpediente
+     * @param mostrarAperturaExpediente
+     *            el nuevo valor de mostrarAperturaExpediente
      */
     public void setMostrarAperturaExpediente(Boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
@@ -184,8 +192,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarActualizacionExpediente
      *
-     * @param mostrarActualizacionExpediente el nuevo valor de
-     * mostrarActualizacionExpediente
+     * @param mostrarActualizacionExpediente
+     *            el nuevo valor de
+     *            mostrarActualizacionExpediente
      */
     public void setMostrarActualizacionExpediente(Boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
@@ -203,7 +212,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de numeroExpediente
      *
-     * @param numeroExpediente el nuevo valor de numeroExpediente
+     * @param numeroExpediente
+     *            el nuevo valor de numeroExpediente
      */
     public void setNumeroExpediente(String numeroExpediente) {
         this.numeroExpediente = numeroExpediente;
@@ -221,7 +231,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de expediente
      *
-     * @param expediente el nuevo valor de expediente
+     * @param expediente
+     *            el nuevo valor de expediente
      */
     public void setExpediente(ExpedienteAspiranteDTO expediente) {
         this.expediente = expediente;
@@ -239,7 +250,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de idAspiranteSeleccionado
      *
-     * @param idAspiranteSeleccionado el nuevo valor de idAspiranteSeleccionado
+     * @param idAspiranteSeleccionado
+     *            el nuevo valor de idAspiranteSeleccionado
      */
     public void setIdAspiranteSeleccionado(Integer idAspiranteSeleccionado) {
         this.idAspiranteSeleccionado = idAspiranteSeleccionado;
@@ -257,7 +269,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de idExpediente
      *
-     * @param idExpediente el nuevo valor de idExpediente
+     * @param idExpediente
+     *            el nuevo valor de idExpediente
      */
     public void setIdExpediente(Integer idExpediente) {
         this.idExpediente = idExpediente;
@@ -275,7 +288,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de idDocumentoAdjuntable
      *
-     * @param idDocumentoAdjuntable el nuevo valor de idDocumentoAdjuntable
+     * @param idDocumentoAdjuntable
+     *            el nuevo valor de idDocumentoAdjuntable
      */
     public void setIdDocumentoAdjuntable(Integer idDocumentoAdjuntable) {
         this.idDocumentoAdjuntable = idDocumentoAdjuntable;
@@ -293,8 +307,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de listaTiposDocumentosExpediente
      *
-     * @param listaTiposDocumentosExpediente el nuevo valor de
-     * listaTiposDocumentosExpediente
+     * @param listaTiposDocumentosExpediente
+     *            el nuevo valor de
+     *            listaTiposDocumentosExpediente
      */
     public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
@@ -312,7 +327,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de documentosExpedientes
      *
-     * @param documentosExpedientes el nuevo valor de documentosExpedientes
+     * @param documentosExpedientes
+     *            el nuevo valor de documentosExpedientes
      */
     public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
@@ -330,7 +346,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de idImagenExpediente
      *
-     * @param idImagenExpediente el nuevo valor de idImagenExpediente
+     * @param idImagenExpediente
+     *            el nuevo valor de idImagenExpediente
      */
     public void setIdImagenExpediente(Integer idImagenExpediente) {
         this.idImagenExpediente = idImagenExpediente;
@@ -348,7 +365,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarImagenExpediente
      *
-     * @param mostrarImagenExpediente el nuevo valor de mostrarImagenExpediente
+     * @param mostrarImagenExpediente
+     *            el nuevo valor de mostrarImagenExpediente
      */
     public void setMostrarImagenExpediente(Boolean mostrarImagenExpediente) {
         this.mostrarImagenExpediente = mostrarImagenExpediente;
@@ -366,7 +384,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarPanelCorrecciones
      *
-     * @param mostrarPanelCorrecciones el nuevo valor de mostrarPanelCorrecciones
+     * @param mostrarPanelCorrecciones
+     *            el nuevo valor de mostrarPanelCorrecciones
      */
     public void setMostrarPanelCorrecciones(Boolean mostrarPanelCorrecciones) {
         this.mostrarPanelCorrecciones = mostrarPanelCorrecciones;
@@ -384,8 +403,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarAdjuntarDocumentoHistorial
      *
-     * @param mostrarAdjuntarDocumentoHistorial el nuevo valor de
-     * mostrarAdjuntarDocumentoHistorial
+     * @param mostrarAdjuntarDocumentoHistorial
+     *            el nuevo valor de
+     *            mostrarAdjuntarDocumentoHistorial
      */
     public void setMostrarAdjuntarDocumentoHistorial(Boolean mostrarAdjuntarDocumentoHistorial) {
         this.mostrarAdjuntarDocumentoHistorial = mostrarAdjuntarDocumentoHistorial;
@@ -403,7 +423,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de historialesAcademicos
      *
-     * @param historialesAcademicos el nuevo valor de historialesAcademicos
+     * @param historialesAcademicos
+     *            el nuevo valor de historialesAcademicos
      */
     public void setHistorialesAcademicos(List<HistorialAcademicoDTO> historialesAcademicos) {
         this.historialesAcademicos = historialesAcademicos;
@@ -421,7 +442,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de mostrarHistorialAcademico
      *
-     * @param mostrarHistorialAcademico el nuevo valor de mostrarHistorialAcademico
+     * @param mostrarHistorialAcademico
+     *            el nuevo valor de mostrarHistorialAcademico
      */
     public void setMostrarHistorialAcademico(Boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
@@ -439,8 +461,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de historialAcademicoSeleccionado
      *
-     * @param historialAcademicoSeleccionado el nuevo valor de
-     * historialAcademicoSeleccionado
+     * @param historialAcademicoSeleccionado
+     *            el nuevo valor de
+     *            historialAcademicoSeleccionado
      */
     public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
@@ -458,7 +481,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de historial
      *
-     * @param historial el nuevo valor de historial
+     * @param historial
+     *            el nuevo valor de historial
      */
     public void setHistorial(HistorialAcademicoDTO historial) {
         this.historial = historial;
@@ -476,7 +500,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de listaEscolaridades
      *
-     * @param listaEscolaridades el nuevo valor de listaEscolaridades
+     * @param listaEscolaridades
+     *            el nuevo valor de listaEscolaridades
      */
     public void setListaEscolaridades(List<SelectItem> listaEscolaridades) {
         this.listaEscolaridades = listaEscolaridades;
@@ -494,7 +519,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de visualizarDatosCurso
      *
-     * @param visualizarDatosCurso el nuevo valor de visualizarDatosCurso
+     * @param visualizarDatosCurso
+     *            el nuevo valor de visualizarDatosCurso
      */
     public void setVisualizarDatosCurso(Boolean visualizarDatosCurso) {
         this.visualizarDatosCurso = visualizarDatosCurso;
@@ -512,7 +538,8 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de listaComprobantesEstudios
      *
-     * @param listaComprobantesEstudios el nuevo valor de listaComprobantesEstudios
+     * @param listaComprobantesEstudios
+     *            el nuevo valor de listaComprobantesEstudios
      */
     public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
@@ -530,8 +557,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de documentacionActualHistorial
      *
-     * @param documentacionActualHistorial el nuevo valor de
-     * documentacionActualHistorial
+     * @param documentacionActualHistorial
+     *            el nuevo valor de
+     *            documentacionActualHistorial
      */
     public void setDocumentacionActualHistorial(List<String> documentacionActualHistorial) {
         this.documentacionActualHistorial = documentacionActualHistorial;
@@ -549,8 +577,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de idDocumentoAdjuntableHistorial
      *
-     * @param idDocumentoAdjuntableHistorial el nuevo valor de
-     * idDocumentoAdjuntableHistorial
+     * @param idDocumentoAdjuntableHistorial
+     *            el nuevo valor de
+     *            idDocumentoAdjuntableHistorial
      */
     public void setIdDocumentoAdjuntableHistorial(Integer idDocumentoAdjuntableHistorial) {
         this.idDocumentoAdjuntableHistorial = idDocumentoAdjuntableHistorial;
@@ -568,8 +597,9 @@ public class AdministrarExpedienteAspiranteView {
     /**
      * Pone el valor de listaDocumentosHistorialAcademico
      *
-     * @param listaDocumentosHistorialAcademico el nuevo valor de
-     * listaDocumentosHistorialAcademico
+     * @param listaDocumentosHistorialAcademico
+     *            el nuevo valor de
+     *            listaDocumentosHistorialAcademico
      */
     public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.pensionalimenticia;
 
 import java.io.Serializable;
@@ -14,94 +15,94 @@ import javax.inject.Inject;
 @ViewScoped
 public class IndexPensionAlimenticiaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -518433374279409272L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -518433374279409272L;
 
-	@Inject
-	PensionAlimenticiaEJB pensionAlimenticiaEJB;
+    @Inject
+    PensionAlimenticiaEJB pensionAlimenticiaEJB;
 
-	private String rfc;
+    private String rfc;
 
-	private InformacionEmpleadoDTO informacionEmpleado = new InformacionEmpleadoDTO();
+    private InformacionEmpleadoDTO informacionEmpleado = new InformacionEmpleadoDTO();
 
-	private boolean mostrarInformacion = Boolean.FALSE;
+    private boolean mostrarInformacion = Boolean.FALSE;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-		FacesContext context = FacesContext.getCurrentInstance();
-		Map<String, String> params = context.getExternalContext().getRequestParameterMap();
-		String id = params.get("i");
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String id = params.get("i");
 
-		if (id != null) {
-			informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(new Integer(id));
-			mostrarInformacion = Boolean.TRUE;
+        if (id != null) {
+            informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(new Integer(id));
+            mostrarInformacion = Boolean.TRUE;
 
-		}
+        }
 
-	}
+    }
 
-	public void buscarPorRFC() {
+    public void buscarPorRFC() {
 
-		if (rfc != null && rfc.length() > 0) {
+        if (rfc != null && rfc.length() > 0) {
 
-			informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(rfc);
+            informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(rfc);
 
-			if (informacionEmpleado == null) {
-				mostrarInformacion = Boolean.FALSE;
-				informacionEmpleado = new InformacionEmpleadoDTO();
+            if (informacionEmpleado == null) {
+                mostrarInformacion = Boolean.FALSE;
+                informacionEmpleado = new InformacionEmpleadoDTO();
 
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar",
-						"No se encontro información del empleado con el RFC ingresado");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-				return;
-			}
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar",
+                        "No se encontro información del empleado con el RFC ingresado");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                return;
+            }
 
-			mostrarInformacion = Boolean.TRUE;
+            mostrarInformacion = Boolean.TRUE;
 
-		} else {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar", "Ingrese un RFC");
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
+        } else {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar", "Ingrese un RFC");
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
 
-	}
+    }
 
-	public void eliminarPensionAlimenticia(BeneficiarioPensionAlimienticiaDTO beneficiario) {
+    public void eliminarPensionAlimenticia(BeneficiarioPensionAlimienticiaDTO beneficiario) {
 
-		pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiario.getIdPensionAlimenticia());
-		informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleado.getIdEmpleado());
+        pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiario.getIdPensionAlimenticia());
+        informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleado.getIdEmpleado());
 
-	}
+    }
 
-	public String guardar() {
+    public String guardar() {
 
-		return "";
-	}
+        return "";
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public InformacionEmpleadoDTO getInformacionEmpleado() {
-		return informacionEmpleado;
-	}
+    public InformacionEmpleadoDTO getInformacionEmpleado() {
+        return informacionEmpleado;
+    }
 
-	public void setInformacionEmpleado(InformacionEmpleadoDTO informacionEmpleado) {
-		this.informacionEmpleado = informacionEmpleado;
-	}
+    public void setInformacionEmpleado(InformacionEmpleadoDTO informacionEmpleado) {
+        this.informacionEmpleado = informacionEmpleado;
+    }
 
-	public boolean isMostrarInformacion() {
-		return mostrarInformacion;
-	}
+    public boolean isMostrarInformacion() {
+        return mostrarInformacion;
+    }
 
-	public void setMostrarInformacion(boolean mostrarInformacion) {
-		this.mostrarInformacion = mostrarInformacion;
-	}
+    public void setMostrarInformacion(boolean mostrarInformacion) {
+        this.mostrarInformacion = mostrarInformacion;
+    }
 
 }

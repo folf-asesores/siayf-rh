@@ -1,9 +1,11 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email	Lic.Eduardo_Mex@hotmail.com
+ * @email Lic.Eduardo_Mex@hotmail.com
  * @version 1.0
  * @since 25/07/2016 14:17:23
  */
@@ -22,7 +24,7 @@ public class ProyectoTempEntity implements Serializable {
     private static final long serialVersionUID = 3648966099601855479L;
 
     @Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_proyecto")
     private Integer idProyecto;
 
@@ -40,9 +42,8 @@ public class ProyectoTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ProyectoEntity [id proyecto=" + idProyecto + ", id dependencia=" + idDependencia
-                + ", id unidad responsable=" + idUnidadResponsable + ", id base 36=" + idBase36 + ", descripcion="
-                + descripcion + "]";
+        return "ProyectoEntity [id proyecto=" + idProyecto + ", id dependencia=" + idDependencia + ", id unidad responsable=" + idUnidadResponsable
+                + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
     }
 
     /**
@@ -53,7 +54,8 @@ public class ProyectoTempEntity implements Serializable {
     }
 
     /**
-     * @param idProyecto the idProyecto to set
+     * @param idProyecto
+     *            the idProyecto to set
      */
     public void setIdProyecto(Integer idProyecto) {
         this.idProyecto = idProyecto;
@@ -67,7 +69,8 @@ public class ProyectoTempEntity implements Serializable {
     }
 
     /**
-     * @param idDependencia the idDependencia to set
+     * @param idDependencia
+     *            the idDependencia to set
      */
     public void setIdDependencia(Integer idDependencia) {
         this.idDependencia = idDependencia;
@@ -81,7 +84,8 @@ public class ProyectoTempEntity implements Serializable {
     }
 
     /**
-     * @param idUnidadResponsable the idUnidadResponsable to set
+     * @param idUnidadResponsable
+     *            the idUnidadResponsable to set
      */
     public void setIdUnidadResponsable(Integer idUnidadResponsable) {
         this.idUnidadResponsable = idUnidadResponsable;
@@ -95,7 +99,8 @@ public class ProyectoTempEntity implements Serializable {
     }
 
     /**
-     * @param idBase36 the idBase36 to set
+     * @param idBase36
+     *            the idBase36 to set
      */
     public void setIdBase36(String idBase36) {
         this.idBase36 = idBase36;
@@ -109,7 +114,8 @@ public class ProyectoTempEntity implements Serializable {
     }
 
     /**
-     * @param descripcion the descripcion to set
+     * @param descripcion
+     *            the descripcion to set
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

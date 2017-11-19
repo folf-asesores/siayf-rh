@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,33 +22,33 @@ import javax.persistence.Table;
 @Table(name = "tipos_modificaciones_empleados")
 public class TipoModificacionEmpleadoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1388026326941481544L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1388026326941481544L;
 
-	@Id
-	@Column(name = "id_tipo_movimiento_empleado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idTipoMovimiento;
+    @Id
+    @Column(name = "id_tipo_movimiento_empleado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTipoMovimiento;
 
-	@Column(name = "movimiento")
-	private String movimiento;
+    @Column(name = "movimiento")
+    private String movimiento;
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
-	public String getMovimiento() {
-		return movimiento;
-	}
+    public String getMovimiento() {
+        return movimiento;
+    }
 
-	public void setMovimiento(String movimiento) {
-		this.movimiento = movimiento;
-	}
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
 
 }

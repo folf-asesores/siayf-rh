@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -40,7 +41,6 @@ public class TablaSubsidioEntity implements Serializable {
     @Column(name = "ejercicio_fiscal")
     private Integer ejercicioFiscal;
 
-//		<Getters & Setters>
     public Integer getIdTablaSubsidio() {
         return idTablaSubsidio;
     }

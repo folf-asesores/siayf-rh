@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.presupuesto;
 
 import java.util.List;
@@ -14,39 +15,39 @@ import mx.gob.saludtlax.rh.siif.SiifLaboralesSubfuentesService;
 
 @Stateless
 public class DistribucionPresupuestoEJB {
-	
-	@Inject
+
+    @Inject
     private TipoNombramientoService tipoNombramientoService;
-	@Inject
-	private DependenciaService dependenciaService;
-	@Inject
-	private SiifLaboralesSubfuentesService subfuentesService;
+    @Inject
+    private DependenciaService dependenciaService;
+    @Inject
+    private SiifLaboralesSubfuentesService subfuentesService;
     @Inject
     private DistribucionPresupuestoService distribucionPresupuestoService;
-    
+
     public List<TipoNombramientoDTO> getListaTipoNombramiento() {
         return tipoNombramientoService.listaNombramiento();
     }
-    
-    public List<DependenciaDTO> getListaDependencia(){
-    	return dependenciaService.listaDependencia();
-    }
-    
-    public List<SubfuenteFinanciamientoDTO> getListaSubfuente(){
-    	return subfuentesService.listaSubfuenteFinanciamiento();
-    }
-        
-    public List<DistribucionPresupuestoDTO> distribucionPresupuesto(Integer anioPresupuesto,
-            Integer idTipoNombramiento, Integer idDependencia, Integer idSubfuenteFinanciamiento) {
-        return distribucionPresupuestoService.obtenerProyeccionesMensuales(anioPresupuesto,idTipoNombramiento,idDependencia, idSubfuenteFinanciamiento);
+
+    public List<DependenciaDTO> getListaDependencia() {
+        return dependenciaService.listaDependencia();
     }
 
-//    public class reporteExcel{
-//    	public byte [] getReporte(int idDistribucionPresupuestal){
-//    		List<DistribucionPresupuestoDTO> lista = distribucionPresupuestoService.obtenerProyeccionesMensuales(idDistribucionPresupuestal);
-//    		Excel ex = new Excel();
-//    		return ex.getBytes(lista);
-//    	}
-//    }
+    public List<SubfuenteFinanciamientoDTO> getListaSubfuente() {
+        return subfuentesService.listaSubfuenteFinanciamiento();
+    }
+
+    public List<DistribucionPresupuestoDTO> distribucionPresupuesto(Integer anioPresupuesto, Integer idTipoNombramiento, Integer idDependencia,
+            Integer idSubfuenteFinanciamiento) {
+        return distribucionPresupuestoService.obtenerProyeccionesMensuales(anioPresupuesto, idTipoNombramiento, idDependencia, idSubfuenteFinanciamiento);
+    }
+
+    //    public class reporteExcel{
+    //    	public byte [] getReporte(int idDistribucionPresupuestal){
+    //    		List<DistribucionPresupuestoDTO> lista = distribucionPresupuestoService.obtenerProyeccionesMensuales(idDistribucionPresupuestal);
+    //    		Excel ex = new Excel();
+    //    		return ex.getBytes(lista);
+    //    	}
+    //    }
 
 }

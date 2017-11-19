@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.reincorporacion;
 
 import java.util.ArrayList;
@@ -12,70 +13,68 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoRepository;
 @Stateless
 public class ReincorporacionBaseEJB {
 
-	@Inject
-	private MovimientoEmpleadoRepository movimientoEmpleadoRepository;
+    @Inject
+    private MovimientoEmpleadoRepository movimientoEmpleadoRepository;
 
-	public ReincorporacionBaseDTO obtenerReincorporacion(Integer idTipoMovimiento) {
+    public ReincorporacionBaseDTO obtenerReincorporacion(Integer idTipoMovimiento) {
 
-		MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
-		ReincorporacionBaseDTO reincorporacionBaseDTO = new ReincorporacionBaseDTO();
-		
-		
-		
-		Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
-		
-		String presenteNombre = movimientoEmpleadoEntity.getEmpleado().getNombreCompleto();
-		String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-		String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
-		String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso()	+ " al " + movimientoEmpleadoEntity.getFechaFinPermiso();
-		String fechaNombramiento = "";
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        ReincorporacionBaseDTO reincorporacionBaseDTO = new ReincorporacionBaseDTO();
 
-		reincorporacionBaseDTO.setIdMovimiento(idMovimiento);
-		reincorporacionBaseDTO.setPresenteNombre(presenteNombre);
-		reincorporacionBaseDTO.setPresenteClaveUno(presenteClaveUno);
-		reincorporacionBaseDTO.setPresenteClaveDos(presenteClaveDos);
-		reincorporacionBaseDTO.setFecha(fecha);
-		reincorporacionBaseDTO.setFechaNombramiento(fechaNombramiento);
+        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
 
-		return reincorporacionBaseDTO;
-	}
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().getNombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
+        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al " + movimientoEmpleadoEntity.getFechaFinPermiso();
+        String fechaNombramiento = "";
 
-	public List<ReincorporacionBaseDetalleDTO> consultarPorCriterio(String criterio) {
+        reincorporacionBaseDTO.setIdMovimiento(idMovimiento);
+        reincorporacionBaseDTO.setPresenteNombre(presenteNombre);
+        reincorporacionBaseDTO.setPresenteClaveUno(presenteClaveUno);
+        reincorporacionBaseDTO.setPresenteClaveDos(presenteClaveDos);
+        reincorporacionBaseDTO.setFecha(fecha);
+        reincorporacionBaseDTO.setFechaNombramiento(fechaNombramiento);
 
-		List<ReincorporacionBaseDetalleDTO> resultado = new ArrayList<ReincorporacionBaseDetalleDTO>();
-		List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
+        return reincorporacionBaseDTO;
+    }
 
-		try {
-			movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
-		} catch (Exception ex) {
-		}
+    public List<ReincorporacionBaseDetalleDTO> consultarPorCriterio(String criterio) {
 
-		if (movimientoEmpleadoEntityList != null) {
+        List<ReincorporacionBaseDetalleDTO> resultado = new ArrayList<>();
+        List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
-			for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-				MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+        try {
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+        } catch (Exception ex) {
+        }
 
-				ReincorporacionBaseDetalleDTO dto = new ReincorporacionBaseDetalleDTO();
+        if (movimientoEmpleadoEntityList != null) {
 
-				String curp = m.getEmpleado().getCurp();
-				String empleado = m.getEmpleado().getNombreCompleto();
-				Integer idMovimiento = m.getIdMovimientoEmpleado();
-				String rfc = m.getEmpleado().getRfc();
-				String motivo = m.getMotivoPermiso();
-				String url = "";
+            for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
 
-				dto.setCurp(curp);
-				dto.setEmpleado(empleado);
-				dto.setIdMovimiento(idMovimiento);
-				dto.setRfc(rfc);
-				dto.setMotivo(motivo);
-				dto.setUrl(url);
+                ReincorporacionBaseDetalleDTO dto = new ReincorporacionBaseDetalleDTO();
 
-				resultado.add(dto);
-			}
-		}
+                String curp = m.getEmpleado().getCurp();
+                String empleado = m.getEmpleado().getNombreCompleto();
+                Integer idMovimiento = m.getIdMovimientoEmpleado();
+                String rfc = m.getEmpleado().getRfc();
+                String motivo = m.getMotivoPermiso();
+                String url = "";
 
-		return resultado;
-	}
+                dto.setCurp(curp);
+                dto.setEmpleado(empleado);
+                dto.setIdMovimiento(idMovimiento);
+                dto.setRfc(rfc);
+                dto.setMotivo(motivo);
+                dto.setUrl(url);
+
+                resultado.add(dto);
+            }
+        }
+
+        return resultado;
+    }
 
 }

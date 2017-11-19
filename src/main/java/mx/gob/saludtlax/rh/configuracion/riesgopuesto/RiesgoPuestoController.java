@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.riesgopuesto;
 
 import java.io.Serializable;
@@ -25,98 +26,97 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ViewScoped
 public class RiesgoPuestoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1545175823479673131L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1545175823479673131L;
 
-	@Inject
-	private RiesgoPuesto riesgoPuesto;
+    @Inject
+    private RiesgoPuesto riesgoPuesto;
 
-	private RiesgoPuestoView view;
+    private RiesgoPuestoView view;
 
-	@PostConstruct
-	private void init() {
-		view = new RiesgoPuestoView();
-		obtenerListaRiesgoPuesto();
-	}
+    @PostConstruct
+    private void init() {
+        view = new RiesgoPuestoView();
+        obtenerListaRiesgoPuesto();
+    }
 
-	public void obtenerListaRiesgoPuesto() {
+    public void obtenerListaRiesgoPuesto() {
 
-		List<RiesgoPuestoDTO> obtenerLista = riesgoPuesto.obtenerListaRiesgoPuesto();
+        List<RiesgoPuestoDTO> obtenerLista = riesgoPuesto.obtenerListaRiesgoPuesto();
 
-		if (!obtenerLista.isEmpty()) {
-			this.view.setObtenerListaPuestoDTOs(obtenerLista);
-		} else {
-			this.view.setObtenerListaPuestoDTOs(new ArrayList<RiesgoPuestoDTO>());
-		}
-	}
+        if (!obtenerLista.isEmpty()) {
+            view.setObtenerListaPuestoDTOs(obtenerLista);
+        } else {
+            view.setObtenerListaPuestoDTOs(new ArrayList<RiesgoPuestoDTO>());
+        }
+    }
 
-	public void accionRiesgoPuesto() {
-		try {
-			if (this.view.getAccionRiesgoPuesto().equals("Registrar")) {
-				riesgoPuesto.crearRiesgoPuesto(this.view.getRiesgoPuestoDTO());
-				JSFUtils.infoMessage("Registro Riesgo Puesto: ", "Se realizo correctamente");
-				limpiarVista();
-			} else if (this.view.getAccionRiesgoPuesto().equals("Actualizar")) {
-				riesgoPuesto.actualizarRiesgoPuesto(this.view.getRiesgoPuestoDTO());
-				JSFUtils.infoMessage("Actualización Riesgo Puesto: ", "Se realizo correctamente");
-				limpiarVista();
-			}
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
+    public void accionRiesgoPuesto() {
+        try {
+            if (view.getAccionRiesgoPuesto().equals("Registrar")) {
+                riesgoPuesto.crearRiesgoPuesto(view.getRiesgoPuestoDTO());
+                JSFUtils.infoMessage("Registro Riesgo Puesto: ", "Se realizo correctamente");
+                limpiarVista();
+            } else if (view.getAccionRiesgoPuesto().equals("Actualizar")) {
+                riesgoPuesto.actualizarRiesgoPuesto(view.getRiesgoPuestoDTO());
+                JSFUtils.infoMessage("Actualización Riesgo Puesto: ", "Se realizo correctamente");
+                limpiarVista();
+            }
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
 
-	}
+    }
 
-	public void eliminarRiesgoPuesto() {
-		try {
-			riesgoPuesto.eliminarRiesgoPuesto(this.view.getIdRiesgoPuesto());
-			JSFUtils.infoMessage("Eliminación Riesgo Puesto: ", "Se realizo correctamente");
-			cerrarDialogEliminar();
-			limpiarVista();
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
+    public void eliminarRiesgoPuesto() {
+        try {
+            riesgoPuesto.eliminarRiesgoPuesto(view.getIdRiesgoPuesto());
+            JSFUtils.infoMessage("Eliminación Riesgo Puesto: ", "Se realizo correctamente");
+            cerrarDialogEliminar();
+            limpiarVista();
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
 
-	public void seleccionarRiesgoPuesto(RiesgoPuestoDTO dto) {
-		this.view.setRiesgoPuestoDTO(dto);
-		this.view.setAccionRiesgoPuesto("Actualizar");
-	}
+    public void seleccionarRiesgoPuesto(RiesgoPuestoDTO dto) {
+        view.setRiesgoPuestoDTO(dto);
+        view.setAccionRiesgoPuesto("Actualizar");
+    }
 
-	public void seleccionarRiesgoEliminar(Integer idRiesgoPuesto) {
-		this.view.setIdRiesgoPuesto(idRiesgoPuesto);
-		this.view.setDialogRiesgoPuestoEliminar(true);
-	}
+    public void seleccionarRiesgoEliminar(Integer idRiesgoPuesto) {
+        view.setIdRiesgoPuesto(idRiesgoPuesto);
+        view.setDialogRiesgoPuestoEliminar(true);
+    }
 
-	public void cerrarDialogEliminar() {
-		this.view.setAccionRiesgoPuesto("Registrar");
-		this.view.setRiesgoPuestoDTO(new RiesgoPuestoDTO());
-		this.view.setDialogRiesgoPuestoEliminar(false);
-		obtenerListaRiesgoPuesto();
-	}
+    public void cerrarDialogEliminar() {
+        view.setAccionRiesgoPuesto("Registrar");
+        view.setRiesgoPuestoDTO(new RiesgoPuestoDTO());
+        view.setDialogRiesgoPuestoEliminar(false);
+        obtenerListaRiesgoPuesto();
+    }
 
-	public void limpiarVista() {
-		this.view.setAccionRiesgoPuesto("Registrar");
-		this.view.setRiesgoPuestoDTO(new RiesgoPuestoDTO());
-		obtenerListaRiesgoPuesto();
-	}
+    public void limpiarVista() {
+        view.setAccionRiesgoPuesto("Registrar");
+        view.setRiesgoPuestoDTO(new RiesgoPuestoDTO());
+        obtenerListaRiesgoPuesto();
+    }
 
-	
-	/**
-	 * @return the view
-	 */
-	public RiesgoPuestoView getView() {
-		return view;
-	}
+    /**
+     * @return the view
+     */
+    public RiesgoPuestoView getView() {
+        return view;
+    }
 
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(RiesgoPuestoView view) {
-		this.view = view;
-	}
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(RiesgoPuestoView view) {
+        this.view = view;
+    }
 
 }

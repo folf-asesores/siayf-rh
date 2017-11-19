@@ -3,10 +3,12 @@
  * Creado el 07/Dec/2016 10:45:36 PM
  *
  */
+
 package mx.gob.saludtlax.rh.reportes.txt;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import mx.gob.saludtlax.rh.reportes.AlmacenReportes;
 
 /**

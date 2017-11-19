@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -16,48 +17,46 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipos_recursos")
-public class TipoRecursoEntity implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4771841148156283457L;
+public class TipoRecursoEntity implements Serializable {
 
-	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_tipo_recurso")
-	private Integer idTipoRecurso;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4771841148156283457L;
 
-	@Column(name = "id_base_36")
-	private String idBase36;
+    @Id
+    //	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_recurso")
+    private Integer idTipoRecurso;
 
-	@Column(name = "descripcion")
-	private String descripcion;
+    @Column(name = "id_base_36")
+    private String idBase36;
 
-	public Integer getIdTipoRecurso() {
-		return idTipoRecurso;
-	}
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	public void setIdTipoRecurso(Integer idTipoRecurso) {
-		this.idTipoRecurso = idTipoRecurso;
-	}
+    public Integer getIdTipoRecurso() {
+        return idTipoRecurso;
+    }
 
-	public String getIdBase36() {
-		return idBase36;
-	}
+    public void setIdTipoRecurso(Integer idTipoRecurso) {
+        this.idTipoRecurso = idTipoRecurso;
+    }
 
-	public void setIdBase36(String idBase36) {
-		this.idBase36 = idBase36;
-	}
+    public String getIdBase36() {
+        return idBase36;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setIdBase36(String idBase36) {
+        this.idBase36 = idBase36;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	
-	
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 }

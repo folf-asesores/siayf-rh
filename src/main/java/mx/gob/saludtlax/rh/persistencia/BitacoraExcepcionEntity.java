@@ -1,8 +1,9 @@
 /*
  * BitacoraExcepcionEntity.java
  * Creado el Jun 24, 2016 2:10:02 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -31,35 +32,35 @@ import javax.persistence.TemporalType;
 public class BitacoraExcepcionEntity implements Serializable {
 
     private static final long serialVersionUID = 3903033883294920730L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_bitacora_excepcion")
     private Integer idBitacoraExcepcion;
-    
+
     @JoinColumn(name = "id_usuario", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private UsuarioEntity usuario;
-    
+
     @Basic(optional = false)
     @Column(name = "tipo_excepcion", nullable = false)
     private String tipoExcepcion;
-    
+
     @Basic(optional = false)
     @Column(name = "mensaje", nullable = true)
     private String mensaje;
-    
+
     @Basic(optional = false)
     @Lob
     @Column(name = "pila_seguimiento", nullable = false)
     private String pilaSeguimiento;
-    
+
     @Basic(optional = false)
     @Column(name = "fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
+
     @Basic(optional = false)
     @Column(name = "hora", nullable = false)
     @Temporal(TemporalType.TIME)
@@ -72,7 +73,8 @@ public class BitacoraExcepcionEntity implements Serializable {
         this.idBitacoraExcepcion = idBitacoraExcepcion;
     }
 
-    public BitacoraExcepcionEntity(Integer idBitacoraExcepcion, UsuarioEntity usuario, String tipoExcepcion, String mensaje, String pilaSeguimiento, Date fecha, Date hora) {
+    public BitacoraExcepcionEntity(Integer idBitacoraExcepcion, UsuarioEntity usuario, String tipoExcepcion, String mensaje, String pilaSeguimiento, Date fecha,
+            Date hora) {
         this.idBitacoraExcepcion = idBitacoraExcepcion;
         this.usuario = usuario;
         this.tipoExcepcion = tipoExcepcion;

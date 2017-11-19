@@ -1,6 +1,4 @@
 
-
-
 package mx.gob.saludtlax.rh.sat.xml.cfdi;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -9,14 +7,15 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
 /**
  * Tipo definido para expresar informaci�n aduanera
- * 
- * <p>Clase Java para t_InformacionAduanera complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ *
+ * <p>
+ * Clase Java para t_InformacionAduanera complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType name="t_InformacionAduanera">
  *   &lt;complexContent>
@@ -48,8 +47,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "t_InformacionAduanera")
@@ -64,11 +63,11 @@ public class TInformacionAduanera {
 
     /**
      * Obtiene el valor de la propiedad numero.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNumero() {
         return numero;
@@ -76,23 +75,23 @@ public class TInformacionAduanera {
 
     /**
      * Define el valor de la propiedad numero.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNumero(String value) {
-        this.numero = value;
+        numero = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fecha.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFecha() {
         return fecha;
@@ -100,23 +99,23 @@ public class TInformacionAduanera {
 
     /**
      * Define el valor de la propiedad fecha.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFecha(XMLGregorianCalendar value) {
-        this.fecha = value;
+        fecha = value;
     }
 
     /**
      * Obtiene el valor de la propiedad aduana.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getAduana() {
         return aduana;
@@ -124,14 +123,14 @@ public class TInformacionAduanera {
 
     /**
      * Define el valor de la propiedad aduana.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setAduana(String value) {
-        this.aduana = value;
+        aduana = value;
     }
 
 }

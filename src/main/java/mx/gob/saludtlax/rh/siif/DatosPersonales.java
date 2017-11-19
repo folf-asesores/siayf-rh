@@ -1,26 +1,26 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
 
 public interface DatosPersonales {
-	
-	public DatosPersonalesDTO obtenerConsultaPorRfc(String rfc);
 
-	List<DatosPersonalesDTO> obtenerListaConsultaPorRfc();
-	
-	
-	public void eliminarDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect) ;
+    public DatosPersonalesDTO obtenerConsultaPorRfc(String rfc);
 
-	DatosPersonalesDTO obtenerDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect);
+    List<DatosPersonalesDTO> obtenerListaConsultaPorRfc();
 
-	public void crearDatosPersonales(DatosPersonalesDTO DatosPersonales);
+    public void eliminarDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect);
 
-	public void actualizarDatosPersonales(DatosPersonalesDTO DatosPersonales);
-	
-	DatosPersonalesDTO nuevoDatosPersonales();
+    DatosPersonalesDTO obtenerDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect);
 
-	public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(String rfcCriterio);
-	
-	public Boolean verificaIdDatoPersonal(int idDatoPersonal);
+    public void crearDatosPersonales(DatosPersonalesDTO DatosPersonales);
+
+    public void actualizarDatosPersonales(DatosPersonalesDTO DatosPersonales);
+
+    DatosPersonalesDTO nuevoDatosPersonales();
+
+    public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(String rfcCriterio);
+
+    public Boolean verificaIdDatoPersonal(int idDatoPersonal);
 
 }

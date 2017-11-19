@@ -3,7 +3,10 @@
  * Creado el 29/Jan/2017 4:15:57 AM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -12,10 +15,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import mx.gob.saludtlax.rh.util.ArchivoUtil;
+
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
+
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
 /**
  *
@@ -28,9 +31,10 @@ public class DispersionExcelServiceTest {
 
     /**
      * Test of llenarDetalle method, of class DispersionExcelService.
+     * 
      * @throws java.io.IOException
      */
-//    @Ignore
+    //    @Ignore
     @Test
     public void testLlenarDetalle() throws IOException {
         System.out.println("llenarDetalle");
@@ -38,17 +42,12 @@ public class DispersionExcelServiceTest {
         List<DispersionDTO> detalles = new ArrayList<>();
         Random rnd = new Random();
         int fin = rnd.nextInt(80000);
-        for(int i = 0; i < fin; i++) {
-            DispersionDTO dispersionDTO = new DispersionDTO(
-                    "PEdRO PEREZ",
-                    String.format("%05d", i + 1),
-                    new BigDecimal(rnd.nextDouble(), MathContext.DECIMAL32),
-                    rnd.nextBoolean() ? "FF 1" : "FF 2",
-                    Calendar.getInstance().getTime()
-            );
+        for (int i = 0; i < fin; i++) {
+            DispersionDTO dispersionDTO = new DispersionDTO("PEdRO PEREZ", String.format("%05d", i + 1),
+                    new BigDecimal(rnd.nextDouble(), MathContext.DECIMAL32), rnd.nextBoolean() ? "FF 1" : "FF 2", Calendar.getInstance().getTime());
             detalles.add(dispersionDTO);
         }
-        
+
         List<List<DispersionDTO>> dispersionList = new ArrayList<>();
         dispersionList.add(detalles);
 

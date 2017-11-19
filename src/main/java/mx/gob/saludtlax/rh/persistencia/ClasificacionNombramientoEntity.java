@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -20,29 +21,29 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "clasificacion_nombramientos")
 public class ClasificacionNombramientoEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1481429631366360519L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1481429631366360519L;
 
-	@Id
-	@Column(name = "id_clasificacion_nombramiento")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idClasificacionNombramiento;
+    @Id
+    @Column(name = "id_clasificacion_nombramiento")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idClasificacionNombramiento;
 
-	@Column(name = "clasificacion_nombramiento")
-	private String clasificacionNombramiento;
+    @Column(name = "clasificacion_nombramiento")
+    private String clasificacionNombramiento;
 
-	public String getClasificacionNombramiento() {
-		return clasificacionNombramiento;
-	}
+    public String getClasificacionNombramiento() {
+        return clasificacionNombramiento;
+    }
 
-	public void setClasificacionNombramiento(String clasificacionNombramiento) {
-		this.clasificacionNombramiento = clasificacionNombramiento;
-	}
+    public void setClasificacionNombramiento(String clasificacionNombramiento) {
+        this.clasificacionNombramiento = clasificacionNombramiento;
+    }
 
-	public Integer getIdClasificacionNombramiento() {
-		return idClasificacionNombramiento;
-	}
+    public Integer getIdClasificacionNombramiento() {
+        return idClasificacionNombramiento;
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -12,33 +13,33 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "estatus_nominas_empleado")
 public class EstatusNominasEmpleadoEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8848678771725434434L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8848678771725434434L;
 
-	@Id
-	@Column(name = "id_estatus_nomina_empleado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEstatusNominaEmpleado;
+    @Id
+    @Column(name = "id_estatus_nomina_empleado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEstatusNominaEmpleado;
 
-	@Column(name = "estatus_nomina_empleado")
-	private String estatusNominaEmpleado;
+    @Column(name = "estatus_nomina_empleado")
+    private String estatusNominaEmpleado;
 
-	public Integer getIdEstatusNominaEmpleado() {
-		return idEstatusNominaEmpleado;
-	}
+    public Integer getIdEstatusNominaEmpleado() {
+        return idEstatusNominaEmpleado;
+    }
 
-	public void setIdEstatusNominaEmpleado(Integer idEstatusNominaEmpleado) {
-		this.idEstatusNominaEmpleado = idEstatusNominaEmpleado;
-	}
+    public void setIdEstatusNominaEmpleado(Integer idEstatusNominaEmpleado) {
+        this.idEstatusNominaEmpleado = idEstatusNominaEmpleado;
+    }
 
-	public String getEstatusNominaEmpleado() {
-		return estatusNominaEmpleado;
-	}
+    public String getEstatusNominaEmpleado() {
+        return estatusNominaEmpleado;
+    }
 
-	public void setEstatusNominaEmpleado(String estatusNominaEmpleado) {
-		this.estatusNominaEmpleado = estatusNominaEmpleado;
-	}
+    public void setEstatusNominaEmpleado(String estatusNominaEmpleado) {
+        this.estatusNominaEmpleado = estatusNominaEmpleado;
+    }
 
 }

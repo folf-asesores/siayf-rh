@@ -1,7 +1,7 @@
 /*
  * NominaMandoMedioRepository.java
  * Creado el 29/Nov/2016 1:30:41 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.persistencia;

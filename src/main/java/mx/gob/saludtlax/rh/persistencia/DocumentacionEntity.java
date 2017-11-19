@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -23,76 +24,76 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "documentaciones")
 public class DocumentacionEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -266939360341978627L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -266939360341978627L;
 
-	@Id
-	@Column(name = "id_documentacion")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idDocumentacion;
+    @Id
+    @Column(name = "id_documentacion")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idDocumentacion;
 
-	@Column(name = "tipo_documento")
-	private String tipoDocumento;
+    @Column(name = "tipo_documento")
+    private String tipoDocumento;
 
-	@Column(name = "documento")
-	private String documento;
+    @Column(name = "documento")
+    private String documento;
 
-	@Column(name = "tipo_licencia")
-	private String tipoLicencia;
+    @Column(name = "tipo_licencia")
+    private String tipoLicencia;
 
-	@Column(name = "id_empleado")
-	private Integer idEmpleado;
+    @Column(name = "id_empleado")
+    private Integer idEmpleado;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_aspirante")
-	private AspiranteEntity idAspirante;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aspirante")
+    private AspiranteEntity idAspirante;
 
-	/*************** Getters and Setter ***************/
+    
 
-	public Integer getIdDocumentacion() {
-		return idDocumentacion;
-	}
+    public Integer getIdDocumentacion() {
+        return idDocumentacion;
+    }
 
-	public void setIdAspirante(AspiranteEntity idAspirante) {
-		this.idAspirante = idAspirante;
-	}
+    public void setIdAspirante(AspiranteEntity idAspirante) {
+        this.idAspirante = idAspirante;
+    }
 
-	public String getTipoDocumento() {
-		return tipoDocumento;
-	}
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
 
-	public void setTipoDocumento(String tipoDocumento) {
-		this.tipoDocumento = tipoDocumento;
-	}
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
 
-	public String getDocumento() {
-		return documento;
-	}
+    public String getDocumento() {
+        return documento;
+    }
 
-	public void setDocumento(String documento) {
-		this.documento = documento;
-	}
+    public void setDocumento(String documento) {
+        this.documento = documento;
+    }
 
-	public String getTipoLicencia() {
-		return tipoLicencia;
-	}
+    public String getTipoLicencia() {
+        return tipoLicencia;
+    }
 
-	public void setTipoLicencia(String tipoLicencia) {
-		this.tipoLicencia = tipoLicencia;
-	}
+    public void setTipoLicencia(String tipoLicencia) {
+        this.tipoLicencia = tipoLicencia;
+    }
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setIdDocumentacion(Integer idDocumentacion) {
-		this.idDocumentacion = idDocumentacion;
-	}
+    public void setIdDocumentacion(Integer idDocumentacion) {
+        this.idDocumentacion = idDocumentacion;
+    }
 
 }

@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * LineaAccionEJB.java
  * Creado el Jul 27, 2016 1:29:17 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.lineaaccion;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,9 +18,10 @@ import javax.inject.Inject;
  */
 @Stateless
 public class LineaAccionEJB implements LineaAccion {
-    
-    @Inject LineaAccionService lineaAccionService;
-    
+
+    @Inject
+    LineaAccionService lineaAccionService;
+
     @Override
     public LineaAccionDTO obtenerPorId(int idLineaAccion) {
         return lineaAccionService.obtenerPorId(idLineaAccion);

@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.riesgopuesto;
 
 import java.io.Serializable;
@@ -15,96 +16,94 @@ import java.util.List;
  */
 public class RiesgoPuestoView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4983428741390069317L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4983428741390069317L;
 
-	private List<RiesgoPuestoDTO> obtenerListaPuestoDTOs = new ArrayList<>();
+    private List<RiesgoPuestoDTO> obtenerListaPuestoDTOs = new ArrayList<>();
 
-	private RiesgoPuestoDTO riesgoPuestoDTO = new RiesgoPuestoDTO();
+    private RiesgoPuestoDTO riesgoPuestoDTO = new RiesgoPuestoDTO();
 
-	private String accionRiesgoPuesto = "Registrar";
+    private String accionRiesgoPuesto = "Registrar";
 
-	private Integer idRiesgoPuesto;
+    private Integer idRiesgoPuesto;
 
-	private Boolean dialogRiesgoPuestoEliminar = Boolean.FALSE;
+    private Boolean dialogRiesgoPuestoEliminar = Boolean.FALSE;
 
-	
+    /**
+     * @return the obtenerListaPuestoDTOs
+     */
+    public List<RiesgoPuestoDTO> getObtenerListaPuestoDTOs() {
+        return obtenerListaPuestoDTOs;
+    }
 
-	/**
-	 * @return the obtenerListaPuestoDTOs
-	 */
-	public List<RiesgoPuestoDTO> getObtenerListaPuestoDTOs() {
-		return obtenerListaPuestoDTOs;
-	}
+    /**
+     * @param obtenerListaPuestoDTOs
+     *            the obtenerListaPuestoDTOs to set
+     */
+    public void setObtenerListaPuestoDTOs(List<RiesgoPuestoDTO> obtenerListaPuestoDTOs) {
+        this.obtenerListaPuestoDTOs = obtenerListaPuestoDTOs;
+    }
 
-	/**
-	 * @param obtenerListaPuestoDTOs
-	 *            the obtenerListaPuestoDTOs to set
-	 */
-	public void setObtenerListaPuestoDTOs(List<RiesgoPuestoDTO> obtenerListaPuestoDTOs) {
-		this.obtenerListaPuestoDTOs = obtenerListaPuestoDTOs;
-	}
+    /**
+     * @return the riesgoPuestoDTO
+     */
+    public RiesgoPuestoDTO getRiesgoPuestoDTO() {
+        return riesgoPuestoDTO;
+    }
 
-	/**
-	 * @return the riesgoPuestoDTO
-	 */
-	public RiesgoPuestoDTO getRiesgoPuestoDTO() {
-		return riesgoPuestoDTO;
-	}
+    /**
+     * @param riesgoPuestoDTO
+     *            the riesgoPuestoDTO to set
+     */
+    public void setRiesgoPuestoDTO(RiesgoPuestoDTO riesgoPuestoDTO) {
+        this.riesgoPuestoDTO = riesgoPuestoDTO;
+    }
 
-	/**
-	 * @param riesgoPuestoDTO
-	 *            the riesgoPuestoDTO to set
-	 */
-	public void setRiesgoPuestoDTO(RiesgoPuestoDTO riesgoPuestoDTO) {
-		this.riesgoPuestoDTO = riesgoPuestoDTO;
-	}
+    /**
+     * @return the accionRiesgoPuesto
+     */
+    public String getAccionRiesgoPuesto() {
+        return accionRiesgoPuesto;
+    }
 
-	/**
-	 * @return the accionRiesgoPuesto
-	 */
-	public String getAccionRiesgoPuesto() {
-		return accionRiesgoPuesto;
-	}
+    /**
+     * @param accionRiesgoPuesto
+     *            the accionRiesgoPuesto to set
+     */
+    public void setAccionRiesgoPuesto(String accionRiesgoPuesto) {
+        this.accionRiesgoPuesto = accionRiesgoPuesto;
+    }
 
-	/**
-	 * @param accionRiesgoPuesto
-	 *            the accionRiesgoPuesto to set
-	 */
-	public void setAccionRiesgoPuesto(String accionRiesgoPuesto) {
-		this.accionRiesgoPuesto = accionRiesgoPuesto;
-	}
+    /**
+     * @return the idRiesgoPuesto
+     */
+    public Integer getIdRiesgoPuesto() {
+        return idRiesgoPuesto;
+    }
 
-	/**
-	 * @return the idRiesgoPuesto
-	 */
-	public Integer getIdRiesgoPuesto() {
-		return idRiesgoPuesto;
-	}
+    /**
+     * @param idRiesgoPuesto
+     *            the idRiesgoPuesto to set
+     */
+    public void setIdRiesgoPuesto(Integer idRiesgoPuesto) {
+        this.idRiesgoPuesto = idRiesgoPuesto;
+    }
 
-	/**
-	 * @param idRiesgoPuesto
-	 *            the idRiesgoPuesto to set
-	 */
-	public void setIdRiesgoPuesto(Integer idRiesgoPuesto) {
-		this.idRiesgoPuesto = idRiesgoPuesto;
-	}
+    /**
+     * @return the dialogRiesgoPuestoEliminar
+     */
+    public Boolean getDialogRiesgoPuestoEliminar() {
+        return dialogRiesgoPuestoEliminar;
+    }
 
-	/**
-	 * @return the dialogRiesgoPuestoEliminar
-	 */
-	public Boolean getDialogRiesgoPuestoEliminar() {
-		return dialogRiesgoPuestoEliminar;
-	}
-
-	/**
-	 * @param dialogRiesgoPuestoEliminar
-	 *            the dialogRiesgoPuestoEliminar to set
-	 */
-	public void setDialogRiesgoPuestoEliminar(Boolean dialogRiesgoPuestoEliminar) {
-		this.dialogRiesgoPuestoEliminar = dialogRiesgoPuestoEliminar;
-	}
+    /**
+     * @param dialogRiesgoPuestoEliminar
+     *            the dialogRiesgoPuestoEliminar to set
+     */
+    public void setDialogRiesgoPuestoEliminar(Boolean dialogRiesgoPuestoEliminar) {
+        this.dialogRiesgoPuestoEliminar = dialogRiesgoPuestoEliminar;
+    }
 
 }

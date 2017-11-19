@@ -4,17 +4,19 @@ package mx.gob.saludtlax.rh.wsdl.sifoficial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for insercion_tramite_arr_detalle_tramite complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for insercion_tramite_arr_detalle_tramite complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType name="insercion_tramite_arr_detalle_tramite">
  *   &lt;complexContent>
@@ -38,13 +40,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "insercion_tramite_arr_detalle_tramite", propOrder = {
-    "element"
-})
+@XmlType(name = "insercion_tramite_arr_detalle_tramite", propOrder = { "element" })
 public class InsercionTramiteArrDetalleTramite {
 
     @XmlElement(required = true, nillable = true)
@@ -52,39 +52,41 @@ public class InsercionTramiteArrDetalleTramite {
 
     /**
      * Gets the value of the element property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getElement().add(newItem);
+     * getElement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link InsercionTramiteArrDetalleTramite.Element }
-     * 
-     * 
+     *
+     *
      */
     public List<InsercionTramiteArrDetalleTramite.Element> getElement() {
         if (element == null) {
-            element = new ArrayList<InsercionTramiteArrDetalleTramite.Element>();
+            element = new ArrayList<>();
         }
-        return this.element;
+        return element;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * Java class for anonymous complex type.
+     *
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -98,15 +100,11 @@ public class InsercionTramiteArrDetalleTramite {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "idProyecto",
-        "partida",
-        "importe"
-    })
+    @XmlType(name = "", propOrder = { "idProyecto", "partida", "importe" })
     public static class Element {
 
         @XmlElement(name = "id_proyecto", required = true, type = Integer.class, nillable = true)
@@ -118,11 +116,11 @@ public class InsercionTramiteArrDetalleTramite {
 
         /**
          * Gets the value of the idProyecto property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdProyecto() {
             return idProyecto;
@@ -130,23 +128,23 @@ public class InsercionTramiteArrDetalleTramite {
 
         /**
          * Sets the value of the idProyecto property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdProyecto(Integer value) {
-            this.idProyecto = value;
+            idProyecto = value;
         }
 
         /**
          * Gets the value of the partida property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getPartida() {
             return partida;
@@ -154,23 +152,23 @@ public class InsercionTramiteArrDetalleTramite {
 
         /**
          * Sets the value of the partida property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setPartida(String value) {
-            this.partida = value;
+            partida = value;
         }
 
         /**
          * Gets the value of the importe property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getImporte() {
             return importe;
@@ -178,14 +176,14 @@ public class InsercionTramiteArrDetalleTramite {
 
         /**
          * Sets the value of the importe property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setImporte(BigDecimal value) {
-            this.importe = value;
+            importe = value;
         }
 
     }

@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -19,24 +20,25 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  */
 public class RamaPuestoRepository extends GenericRepository<RamaPuestoEntity, Integer> implements Serializable {
 
-	/**
-	 * 
-	 */
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -248707723857368544L;
+    /**
+     *
+     */
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
 
-	/**
-	 * Obtiene la lista de rama puesto por identificador de puesto
-	 * 
-	 * @param idPuesto
-	 * @return
-	 */
-	public List<RamaPuestoEntity> obtenerListaRamaPuesto() {
-		return entityManager
-				.createQuery("SELECT r FROM RamaPuestoEntity AS r ORDER BY r.idRamaPuesto", RamaPuestoEntity.class)
-				.getResultList();
-	}
+    /**
+     * Obtiene la lista de rama puesto por identificador de puesto
+     *
+     * @param idPuesto
+     * @return
+     */
+    public List<RamaPuestoEntity> obtenerListaRamaPuesto() {
+        return entityManager.createQuery("SELECT r FROM RamaPuestoEntity AS r ORDER BY r.idRamaPuesto", RamaPuestoEntity.class).getResultList();
+    }
 
 }

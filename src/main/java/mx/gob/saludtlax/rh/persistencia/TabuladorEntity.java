@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 28/07/2016 12:19:23
  */
@@ -27,177 +28,175 @@ import javax.validation.constraints.NotNull;
 @Table(name = "tabuladores")
 public class TabuladorEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1386667764533913609L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1386667764533913609L;
 
-	@Id
-	@Column(name = "id_tabulador")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idTabulador;
+    @Id
+    @Column(name = "id_tabulador")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTabulador;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_puesto_general")
-	private PuestoGeneralEntity puestoGeneral;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_puesto_general")
+    private PuestoGeneralEntity puestoGeneral;
 
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_tabulador")
-	private TipoTabuladorEntity tipoTabulador;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_tabulador")
+    private TipoTabuladorEntity tipoTabulador;
 
-	@Column(name = "ejercicio_fiscal")
-	private Integer ejercicioFiscal;
+    @Column(name = "ejercicio_fiscal")
+    private Integer ejercicioFiscal;
 
-	@Column(name = "sueldo_bruto_mensual", precision = 18, scale = 2)
-	private BigDecimal sueldoBrutoMensual;
+    @Column(name = "sueldo_bruto_mensual", precision = 18, scale = 2)
+    private BigDecimal sueldoBrutoMensual;
 
-	@Column(name = "asignacion_bruta_mensual", precision = 18, scale = 2)
-	private BigDecimal asignacionBrutaMensual;
+    @Column(name = "asignacion_bruta_mensual", precision = 18, scale = 2)
+    private BigDecimal asignacionBrutaMensual;
 
-	@Column(name = "aga_bruta_mensual", precision = 18, scale = 2)
-	private BigDecimal agaBrutaMensual;
+    @Column(name = "aga_bruta_mensual", precision = 18, scale = 2)
+    private BigDecimal agaBrutaMensual;
 
-	@Column(name = "total_bruto_mensual", precision = 18, scale = 2)
-	private BigDecimal totalBrutoMensual;
+    @Column(name = "total_bruto_mensual", precision = 18, scale = 2)
+    private BigDecimal totalBrutoMensual;
 
-	@Column(name = "sueldo_base_mensual_minimo", precision = 18, scale = 2)
-	private BigDecimal sueldoBaseMensualMinimo;
+    @Column(name = "sueldo_base_mensual_minimo", precision = 18, scale = 2)
+    private BigDecimal sueldoBaseMensualMinimo;
 
-	@Column(name = "sueldo_base_mensual_medio", precision = 18, scale = 2)
-	private BigDecimal sueldoBaseMensualMedio;
+    @Column(name = "sueldo_base_mensual_medio", precision = 18, scale = 2)
+    private BigDecimal sueldoBaseMensualMedio;
 
-	@Column(name = "sueldo_base_mensual_maximo", precision = 18, scale = 2)
-	private BigDecimal sueldoBaseMensualMaximo;
+    @Column(name = "sueldo_base_mensual_maximo", precision = 18, scale = 2)
+    private BigDecimal sueldoBaseMensualMaximo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_subclasificacion_tabulador")
-	private SubclasificacionTabuladorEntity subclasificacion;
-	
-	@Column(name ="sueldo_diario")
-	private BigDecimal sueldoDiario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_subclasificacion_tabulador")
+    private SubclasificacionTabuladorEntity subclasificacion;
 
-	/************* Getters and Setter ********/
+    @Column(name = "sueldo_diario")
+    private BigDecimal sueldoDiario;
 
-	
-	
-	public Integer getIdTabulador() {
-		return idTabulador;
-	}
+    
 
-	public BigDecimal getSueldoDiario() {
-		return sueldoDiario;
-	}
+    public Integer getIdTabulador() {
+        return idTabulador;
+    }
 
-	public void setSueldoDiario(BigDecimal sueldoDiario) {
-		this.sueldoDiario = sueldoDiario;
-	}
+    public BigDecimal getSueldoDiario() {
+        return sueldoDiario;
+    }
 
-	public SubclasificacionTabuladorEntity getSubclasificacion() {
-		return subclasificacion;
-	}
+    public void setSueldoDiario(BigDecimal sueldoDiario) {
+        this.sueldoDiario = sueldoDiario;
+    }
 
-	public void setSubclasificacion(SubclasificacionTabuladorEntity subclasificacion) {
-		this.subclasificacion = subclasificacion;
-	}
+    public SubclasificacionTabuladorEntity getSubclasificacion() {
+        return subclasificacion;
+    }
 
-	public BigDecimal getSueldoBaseMensualMinimo() {
-		return sueldoBaseMensualMinimo;
-	}
+    public void setSubclasificacion(SubclasificacionTabuladorEntity subclasificacion) {
+        this.subclasificacion = subclasificacion;
+    }
 
-	public void setSueldoBaseMensualMinimo(BigDecimal sueldoBaseMensualMinimo) {
-		this.sueldoBaseMensualMinimo = sueldoBaseMensualMinimo;
-	}
+    public BigDecimal getSueldoBaseMensualMinimo() {
+        return sueldoBaseMensualMinimo;
+    }
 
-	public BigDecimal getSueldoBaseMensualMedio() {
-		return sueldoBaseMensualMedio;
-	}
+    public void setSueldoBaseMensualMinimo(BigDecimal sueldoBaseMensualMinimo) {
+        this.sueldoBaseMensualMinimo = sueldoBaseMensualMinimo;
+    }
 
-	public void setSueldoBaseMensualMedio(BigDecimal sueldoBaseMensualMedio) {
-		this.sueldoBaseMensualMedio = sueldoBaseMensualMedio;
-	}
+    public BigDecimal getSueldoBaseMensualMedio() {
+        return sueldoBaseMensualMedio;
+    }
 
-	public BigDecimal getSueldoBaseMensualMaximo() {
-		return sueldoBaseMensualMaximo;
-	}
+    public void setSueldoBaseMensualMedio(BigDecimal sueldoBaseMensualMedio) {
+        this.sueldoBaseMensualMedio = sueldoBaseMensualMedio;
+    }
 
-	public void setSueldoBaseMensualMaximo(BigDecimal sueldoBaseMensualMaximo) {
-		this.sueldoBaseMensualMaximo = sueldoBaseMensualMaximo;
-	}
+    public BigDecimal getSueldoBaseMensualMaximo() {
+        return sueldoBaseMensualMaximo;
+    }
 
-	public void setIdTabulador(Integer idTabulador) {
-		this.idTabulador = idTabulador;
-	}
+    public void setSueldoBaseMensualMaximo(BigDecimal sueldoBaseMensualMaximo) {
+        this.sueldoBaseMensualMaximo = sueldoBaseMensualMaximo;
+    }
 
-	public PuestoGeneralEntity getPuestoGeneral() {
-		return puestoGeneral;
-	}
+    public void setIdTabulador(Integer idTabulador) {
+        this.idTabulador = idTabulador;
+    }
 
-	public void setPuestoGeneral(PuestoGeneralEntity puestoGeneral) {
-		this.puestoGeneral = puestoGeneral;
-	}
+    public PuestoGeneralEntity getPuestoGeneral() {
+        return puestoGeneral;
+    }
 
-	public BigDecimal getSueldoBrutoMensual() {
-		return sueldoBrutoMensual;
-	}
+    public void setPuestoGeneral(PuestoGeneralEntity puestoGeneral) {
+        this.puestoGeneral = puestoGeneral;
+    }
 
-	public void setSueldoBrutoMensual(BigDecimal sueldoBrutoMensual) {
-		this.sueldoBrutoMensual = sueldoBrutoMensual;
-	}
+    public BigDecimal getSueldoBrutoMensual() {
+        return sueldoBrutoMensual;
+    }
 
-	public BigDecimal getAsignacionBrutaMensual() {
-		return asignacionBrutaMensual;
-	}
+    public void setSueldoBrutoMensual(BigDecimal sueldoBrutoMensual) {
+        this.sueldoBrutoMensual = sueldoBrutoMensual;
+    }
 
-	public void setAsignacionBrutaMensual(BigDecimal asignacionBrutaMensual) {
-		this.asignacionBrutaMensual = asignacionBrutaMensual;
-	}
+    public BigDecimal getAsignacionBrutaMensual() {
+        return asignacionBrutaMensual;
+    }
 
-	public BigDecimal getAgaBrutaMensual() {
-		return agaBrutaMensual;
-	}
+    public void setAsignacionBrutaMensual(BigDecimal asignacionBrutaMensual) {
+        this.asignacionBrutaMensual = asignacionBrutaMensual;
+    }
 
-	public void setAgaBrutaMensual(BigDecimal agaBrutaMensual) {
-		this.agaBrutaMensual = agaBrutaMensual;
-	}
+    public BigDecimal getAgaBrutaMensual() {
+        return agaBrutaMensual;
+    }
 
-	public BigDecimal getTotalBrutoMensual() {
-		return totalBrutoMensual;
-	}
+    public void setAgaBrutaMensual(BigDecimal agaBrutaMensual) {
+        this.agaBrutaMensual = agaBrutaMensual;
+    }
 
-	public void setTotalBrutoMensual(BigDecimal totalBrutoMensual) {
-		this.totalBrutoMensual = totalBrutoMensual;
-	}
+    public BigDecimal getTotalBrutoMensual() {
+        return totalBrutoMensual;
+    }
 
-	/**
-	 * @return the tipoTabulador
-	 */
-	public TipoTabuladorEntity getTipoTabulador() {
-		return tipoTabulador;
-	}
+    public void setTotalBrutoMensual(BigDecimal totalBrutoMensual) {
+        this.totalBrutoMensual = totalBrutoMensual;
+    }
 
-	/**
-	 * @param tipoTabulador
-	 *            the tipoTabulador to set
-	 */
-	public void setTipoTabulador(TipoTabuladorEntity tipoTabulador) {
-		this.tipoTabulador = tipoTabulador;
-	}
+    /**
+     * @return the tipoTabulador
+     */
+    public TipoTabuladorEntity getTipoTabulador() {
+        return tipoTabulador;
+    }
 
-	/**
-	 * @return the ejercicioFiscal
-	 */
-	public Integer getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    /**
+     * @param tipoTabulador
+     *            the tipoTabulador to set
+     */
+    public void setTipoTabulador(TipoTabuladorEntity tipoTabulador) {
+        this.tipoTabulador = tipoTabulador;
+    }
 
-	/**
-	 * @param ejercicioFiscal
-	 *            the ejercicioFiscal to set
-	 */
-	public void setEjercicioFiscal(Integer ejercicioFiscal) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    /**
+     * @return the ejercicioFiscal
+     */
+    public Integer getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
+
+    /**
+     * @param ejercicioFiscal
+     *            the ejercicioFiscal to set
+     */
+    public void setEjercicioFiscal(Integer ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
 }

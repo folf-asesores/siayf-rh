@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.io.Serializable;
@@ -27,7 +28,7 @@ public class ReporteSiifView implements Serializable {
     private List<EstructuraNominaTrailersDTO> trailersLista;
     private SiifBitacoraDTO siifBitacoraProcesada;
     private SiifBitacoraDTO siifDeudores;
-    private List<SIIFEncabezadoDTO> encabezadoList;    
+    private List<SIIFEncabezadoDTO> encabezadoList;
     private SIIFEncabezadoDTO encabezadoDTO;
     private List<SIIFEncabezadoDTO> encabezadoListSiif;
 
@@ -209,8 +210,7 @@ public class ReporteSiifView implements Serializable {
         return subfuenteFinanciamientoList;
     }
 
-    public void setSubfuenteFinanciamientoList(
-            List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
+    public void setSubfuenteFinanciamientoList(List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
         this.subfuenteFinanciamientoList = subfuenteFinanciamientoList;
     }
 
@@ -286,18 +286,16 @@ public class ReporteSiifView implements Serializable {
         this.panelNomina = panelNomina;
     }
 
-	public List<SIIFEncabezadoDTO> getEncabezadoListSiif() {
-		return encabezadoListSiif;
-	}
+    public List<SIIFEncabezadoDTO> getEncabezadoListSiif() {
+        return encabezadoListSiif;
+    }
 
-	public void setEncabezadoListSiif(List<SIIFEncabezadoDTO> encabezadoListSiif) {
-		this.encabezadoListSiif = encabezadoListSiif;
-	}
+    public void setEncabezadoListSiif(List<SIIFEncabezadoDTO> encabezadoListSiif) {
+        this.encabezadoListSiif = encabezadoListSiif;
+    }
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-    
-    
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
 }

@@ -1,8 +1,9 @@
 /*
  * NotificacionService.java
  * Creado el Aug 3, 2016 5:18:11 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.notificacion;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+
 import javax.inject.Inject;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,6 +25,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.persistence.NoResultException;
+
+import org.apache.commons.lang3.RandomStringUtils;
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.configuracion.app.ConfiguracionAplicacion;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
@@ -35,13 +41,11 @@ import mx.gob.saludtlax.rh.persistencia.NotificacionRepository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
 import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.jboss.logging.Logger;
 
 /**
- * Esta es una clase ayudante de {@link NotificacionEJB} que se encarga de 
+ * Esta es una clase ayudante de {@link NotificacionEJB} que se encarga de
  * realizar la lógica de las notificaciones.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NotificacionService {
@@ -49,7 +53,7 @@ public class NotificacionService {
     private static final Logger LOGGER = Logger.getLogger(NotificacionService.class.getName());
     private static final String REMITENTE = "noresponder@folfasesores.com";
     private static final String REMITENTE_CONTRASENYA = "noresponder2016";
-    private static final String SERVER_HOST  = "lilith.rxmx.net";
+    private static final String SERVER_HOST = "lilith.rxmx.net";
     private static final Properties PROPIEDADES_SMTP;
 
     static {
@@ -61,26 +65,29 @@ public class NotificacionService {
         PROPIEDADES_SMTP.put("mail.smtp.port", "465");
     }
 
-    @Inject private ConfiguracionAplicacion configuracionAplicacion;
-    @Inject private NotificacionRepository notificacionRepository;
-    @Inject private UsuarioRepository usuarioRepository;
+    @Inject
+    private ConfiguracionAplicacion configuracionAplicacion;
+    @Inject
+    private NotificacionRepository notificacionRepository;
+    @Inject
+    private UsuarioRepository usuarioRepository;
 
     protected void crear(NotificacionDTO notificacion) {
         UsuarioEntity usuario = usuarioRepository.obtenerPorId(notificacion.getIdRemitente());
-        
+
         List<NotificacionParametroEntity> parametrosEntities = new ArrayList<>();
-        
+
         for (Map.Entry<String, String> parametro : notificacion.getParametros().entrySet()) {
             NotificacionParametroEntity parametroEntity = new NotificacionParametroEntity();
             parametroEntity.setNombre(parametro.getKey());
             parametroEntity.setValor(parametro.getValue());
-            
+
             parametrosEntities.add(parametroEntity);
         }
-        
+
         List<NotificacionDestinatarioEntity> destinatarios = new ArrayList<>();
-        
-        for(Map.Entry<Integer, String> idDestinatario : notificacion.getIdsDestinatarios().entrySet()){
+
+        for (Map.Entry<Integer, String> idDestinatario : notificacion.getIdsDestinatarios().entrySet()) {
             UsuarioEntity destinatario = usuarioRepository.obtenerPorId(idDestinatario.getKey());
             NotificacionDestinatarioEntity destinatarioEntity = new NotificacionDestinatarioEntity();
             destinatarioEntity.setDestinatario(destinatario);
@@ -89,30 +96,27 @@ public class NotificacionService {
 
             destinatarios.add(destinatarioEntity);
         }
-        
+
         NotificacionEntity notificacionEntity = convertirDTOAEntidad(new NotificacionEntity(), notificacion, usuario, destinatarios, parametrosEntities);
-        
+
         Date fecha = Calendar.getInstance().getTime();
 
         notificacionEntity.setIdNotificacion(null);
         notificacionEntity.setFechaPublicacion(fecha);
         notificacionEntity.setHoraPublicacion(fecha);
-        
-        
+
         notificacionRepository.crear(notificacionEntity);
-        
+
         String rootPath = configuracionAplicacion.getConfiguracion("app.path");
-        
+
         if (ValidacionUtil.esCadenaVacia(rootPath)) {
-            throw new ValidationException(
-                    "El root path no debe estar vacio. No se enviará el correo electrónico de notificación.", 
-                    ValidacionCodigoError.VALOR_REQUERIDO
-            );
+            throw new ValidationException("El root path no debe estar vacio. No se enviará el correo electrónico de notificación.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         } else {
             enviarCorreoE(notificacionEntity, rootPath);
         }
     }
-    
+
     protected NotificacionDTO obtenerPorToken(String token) throws SistemaException {
         try {
             NotificacionEntity notificacion = notificacionRepository.obtenerPorToken(token);
@@ -124,7 +128,7 @@ public class NotificacionService {
                 Integer idDestinatario = idsDestinatarios.getKey();
                 String tokenI = idsDestinatarios.getValue();
 
-                if(!token.equals(tokenI)){
+                if (!token.equals(tokenI)) {
                     idsEliminar.add(idDestinatario);
                 }
             }
@@ -138,7 +142,7 @@ public class NotificacionService {
             throw new SistemaException("Token no encontrado", ex, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
     }
-    
+
     protected void marcarComoVista(String token) {
         notificacionRepository.marcarComoVista(token);
     }
@@ -146,18 +150,18 @@ public class NotificacionService {
     protected List<NotificacionDTO> consultarNotificacionesPorIdUsuario(Integer idUsuario) {
         List<NotificacionEntity> notificaciones = notificacionRepository.consutarNotificacionesPorIdUsuario(idUsuario);
         List<NotificacionDTO> notificacionesDTOs = convertirEntidadesADTOs(notificaciones);
-        
+
         for (NotificacionDTO notificacionDTO : notificacionesDTOs) {
             List<Integer> idsEliminar = new ArrayList<>();
-            
+
             for (Map.Entry<Integer, String> idsDestinatarios : notificacionDTO.getIdsDestinatarios().entrySet()) {
                 Integer idDestinatario = idsDestinatarios.getKey();
 
-                if(idUsuario.intValue() != idDestinatario.intValue()){
+                if (idUsuario.intValue() != idDestinatario.intValue()) {
                     idsEliminar.add(idDestinatario);
                 }
             }
-            
+
             for (Integer id : idsEliminar) {
                 notificacionDTO.getIdsDestinatarios().remove(id);
             }
@@ -165,22 +169,22 @@ public class NotificacionService {
 
         return notificacionesDTOs;
     }
-    
+
     protected List<NotificacionDTO> consultarNotificacionesPorIdUsuarioVisto(Integer idUsuario, boolean visto) {
         List<NotificacionEntity> notificaciones = notificacionRepository.consutarNotificacionesPorIdUsuarioVisto(idUsuario, visto);
         List<NotificacionDTO> notificacionesDTOs = convertirEntidadesADTOs(notificaciones);
-        
+
         for (NotificacionDTO notificacionDTO : notificacionesDTOs) {
             List<Integer> idsEliminar = new ArrayList<>();
-            
+
             for (Map.Entry<Integer, String> idsDestinatarios : notificacionDTO.getIdsDestinatarios().entrySet()) {
                 Integer idDestinatario = idsDestinatarios.getKey();
 
-                if(idUsuario.intValue() != idDestinatario.intValue()){
+                if (idUsuario.intValue() != idDestinatario.intValue()) {
                     idsEliminar.add(idDestinatario);
                 }
             }
-            
+
             for (Integer id : idsEliminar) {
                 notificacionDTO.getIdsDestinatarios().remove(id);
             }
@@ -191,17 +195,16 @@ public class NotificacionService {
 
     private void enviarCorreoE(NotificacionEntity notificacion, String rootPath) {
         try {
-            
+
             Collection<NotificacionDestinatarioEntity> destinatarios = notificacion.getDestinatarios();
-            if(destinatarios != null && !destinatarios.isEmpty()) {
+            if (destinatarios != null && !destinatarios.isEmpty()) {
                 for (NotificacionDestinatarioEntity destinatario : destinatarios) {
-                    Session session = Session.getInstance(PROPIEDADES_SMTP,
-                            new Authenticator() {
-                                @Override
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(REMITENTE, REMITENTE_CONTRASENYA);
-                                }
-                            });
+                    Session session = Session.getInstance(PROPIEDADES_SMTP, new Authenticator() {
+                        @Override
+                        protected PasswordAuthentication getPasswordAuthentication() {
+                            return new PasswordAuthentication(REMITENTE, REMITENTE_CONTRASENYA);
+                        }
+                    });
 
                     Message message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(REMITENTE));
@@ -235,19 +238,19 @@ public class NotificacionService {
         }
 
     }
-    
+
     private String generarToken() {
         String token = RandomStringUtils.randomAlphanumeric(128);
         return notificacionRepository.existeToken(token) ? generarToken() : token;
     }
 
     private static NotificacionDTO convertirEntidadADTO(NotificacionEntity entidad) {
-        if(entidad == null){
+        if (entidad == null) {
             return null;
         }
-        
+
         NotificacionDTO dto = new NotificacionDTO();
-        
+
         dto.setIdNotificacion(entidad.getIdNotificacion());
         dto.setIdRemitente(entidad.getRemitente().getIdUsuario());
         dto.setFechaPublicacion(entidad.getFechaPublicacion());
@@ -255,31 +258,32 @@ public class NotificacionService {
         dto.setModulo(entidad.getModulo());
         dto.setAsunto(entidad.getAsunto());
         dto.setCuerpo(entidad.getCuerpo());
-        
+
         Map<Integer, String> idsDestinatarios = new HashMap<>();
-        
+
         for (NotificacionDestinatarioEntity destinatario : entidad.getDestinatarios()) {
             idsDestinatarios.put(destinatario.getDestinatario().getIdUsuario(), destinatario.getToken());
         }
-        
+
         dto.setIdsDestinatarios(idsDestinatarios);
-        
+
         Map<String, String> parametros = new HashMap<>();
-        
+
         for (NotificacionParametroEntity parametro : entidad.getParametros()) {
             parametros.put(parametro.getNombre(), parametro.getValor());
         }
-        
+
         dto.setParametros(parametros);
-        
+
         return dto;
     }
 
-    private static NotificacionEntity convertirDTOAEntidad(NotificacionEntity entidad, NotificacionDTO dto, UsuarioEntity remitente, List<NotificacionDestinatarioEntity> destinatarios, List<NotificacionParametroEntity> parametros) {
+    private static NotificacionEntity convertirDTOAEntidad(NotificacionEntity entidad, NotificacionDTO dto, UsuarioEntity remitente,
+            List<NotificacionDestinatarioEntity> destinatarios, List<NotificacionParametroEntity> parametros) {
         if (entidad == null) {
             entidad = new NotificacionEntity();
         }
-    
+
         entidad.setIdNotificacion(dto.getIdNotificacion());
         entidad.setRemitente(remitente);
         entidad.setFechaPublicacion(dto.getFechaPublicacion());
@@ -287,31 +291,31 @@ public class NotificacionService {
         entidad.setModulo(dto.getModulo());
         entidad.setAsunto(dto.getAsunto());
         entidad.setCuerpo(dto.getCuerpo());
-        
+
         for (NotificacionParametroEntity parametro : parametros) {
             parametro.setNotificacion(entidad);
         }
-        
+
         entidad.setParametros(parametros);
-        
+
         for (NotificacionDestinatarioEntity destinatario : destinatarios) {
             destinatario.setNotificacion(entidad);
         }
-        
+
         entidad.setDestinatarios(destinatarios);
-        
+
         return entidad;
     }
 
     private List<NotificacionDTO> convertirEntidadesADTOs(List<NotificacionEntity> entidades) {
         List<NotificacionDTO> dtos = new ArrayList<>();
-        
+
         for (NotificacionEntity entidad : entidades) {
             NotificacionDTO dto = convertirEntidadADTO(entidad);
 
             dtos.add(dto);
         }
-        
+
         return dtos;
     }
 

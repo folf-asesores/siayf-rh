@@ -1,6 +1,7 @@
-/**
+/*
  * Copyright ® 2016
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 25/05/2016 13:50:30
  */
@@ -27,229 +28,222 @@ import javax.persistence.Table;
 @Table(name = "movimientos_empleado_nomina")
 public class MovimientoFijoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -764307789460118188L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -764307789460118188L;
 
-	@Id
-	@Column(name = "id_movimiento_fijo")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idMovimientoFijo;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tercero_institucional")
-	private TerceroInstitucionalEntity terceroInstitucional;
+    @Id
+    @Column(name = "id_movimiento_fijo")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMovimientoFijo;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_empleado")
-	private EmpleadoEntity empleado;
-	
-	@Column(name="rfc")
-	private String rfc;
-	
-	@Column(name = "quincena_operacion")
-	private Integer quincenaOperacion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tercero_institucional")
+    private TerceroInstitucionalEntity terceroInstitucional;
 
-	@Column(name = "anyo_operacion")
-	private Integer anyoOperacion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empleado")
+    private EmpleadoEntity empleado;
 
-	@Column(name = "importe_descontado")
-	private BigDecimal importeDescontado;
+    @Column(name = "rfc")
+    private String rfc;
 
-	@Column(name = "quincena_inicial")
-	private Integer quincenaInicial;
+    @Column(name = "quincena_operacion")
+    private Integer quincenaOperacion;
 
-	@Column(name = "quincena_final")
-	private Integer quincenaFinal;
-	
-	@Column(name = "anio_final")
-	private Integer anioFinal;
+    @Column(name = "anyo_operacion")
+    private Integer anyoOperacion;
 
-	
-	@Column(name="anio_inicial")
-	private Integer anioInicial;
-	
+    @Column(name = "importe_descontado")
+    private BigDecimal importeDescontado;
 
-	@Column(name="fecha_registro")
-	private Date fechaRegistro;
-	
-	@Column(name="fecha_modificacion")
-	private Date fechaModificacion;
-	
-	@Column(name="folio_documento")
-	private String folioDocumento;
-	
-	@Column(name="fecha_documento")
-	private Date fechaDocumento;
-	
-	@Column(name="id_tipo_movimiento")
-	private Integer idTipoMovimiento;
-	
-	@Column(name="dias")
-	private Integer dias;
+    @Column(name = "quincena_inicial")
+    private Integer quincenaInicial;
 
-	@Column(name="clave")
-	private String clave;
-	
-	@Column(name="estatus")
-	private Boolean estatus;
- 	public Integer getIdMovimientoFijo() {
-		return idMovimientoFijo;
-	}
+    @Column(name = "quincena_final")
+    private Integer quincenaFinal;
 
-	public void setIdMovimientoFijo(Integer idMovimientoFijo) {
-		this.idMovimientoFijo = idMovimientoFijo;
-	}
+    @Column(name = "anio_final")
+    private Integer anioFinal;
 
-	public TerceroInstitucionalEntity getTerceroInstitucional() {
-		return terceroInstitucional;
-	}
+    @Column(name = "anio_inicial")
+    private Integer anioInicial;
 
-	public void setTerceroInstitucional(TerceroInstitucionalEntity terceroInstitucional) {
-		this.terceroInstitucional = terceroInstitucional;
-	}
+    @Column(name = "fecha_registro")
+    private Date fechaRegistro;
 
-	public EmpleadoEntity getEmpleado() {
-		return empleado;
-	}
+    @Column(name = "fecha_modificacion")
+    private Date fechaModificacion;
 
-	public void setEmpleado(EmpleadoEntity empleado) {
-		this.empleado = empleado;
-	}
+    @Column(name = "folio_documento")
+    private String folioDocumento;
 
-	public Integer getQuincenaOperacion() {
-		return quincenaOperacion;
-	}
+    @Column(name = "fecha_documento")
+    private Date fechaDocumento;
 
-	public void setQuincenaOperacion(Integer quincenaOperacion) {
-		this.quincenaOperacion = quincenaOperacion;
-	}
+    @Column(name = "id_tipo_movimiento")
+    private Integer idTipoMovimiento;
 
-	public Integer getAnyoOperacion() {
-		return anyoOperacion;
-	}
+    @Column(name = "dias")
+    private Integer dias;
 
-	public void setAnyoOperacion(Integer anyoOperacion) {
-		this.anyoOperacion = anyoOperacion;
-	}
+    @Column(name = "clave")
+    private String clave;
 
-	
-	public BigDecimal getImporteDescontado() {
-		return importeDescontado;
-	}
+    @Column(name = "estatus")
+    private Boolean estatus;
 
-	public void setImporteDescontado(BigDecimal importeDescontado) {
-		this.importeDescontado = importeDescontado;
-	}
+    public Integer getIdMovimientoFijo() {
+        return idMovimientoFijo;
+    }
 
-	
+    public void setIdMovimientoFijo(Integer idMovimientoFijo) {
+        this.idMovimientoFijo = idMovimientoFijo;
+    }
 
-	public Integer getQuincenaInicial() {
-		return quincenaInicial;
-	}
+    public TerceroInstitucionalEntity getTerceroInstitucional() {
+        return terceroInstitucional;
+    }
 
-	public void setQuincenaInicial(Integer quincenaInicial) {
-		this.quincenaInicial = quincenaInicial;
-	}
+    public void setTerceroInstitucional(TerceroInstitucionalEntity terceroInstitucional) {
+        this.terceroInstitucional = terceroInstitucional;
+    }
 
-	public Integer getQuincenaFinal() {
-		return quincenaFinal;
-	}
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
 
-	public void setQuincenaFinal(Integer quincenaFinal) {
-		this.quincenaFinal = quincenaFinal;
-	}
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
 
-	
+    public Integer getQuincenaOperacion() {
+        return quincenaOperacion;
+    }
 
-	public Date getFechaRegistro() {
-		return fechaRegistro;
-	}
+    public void setQuincenaOperacion(Integer quincenaOperacion) {
+        this.quincenaOperacion = quincenaOperacion;
+    }
 
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+    public Integer getAnyoOperacion() {
+        return anyoOperacion;
+    }
 
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
+    public void setAnyoOperacion(Integer anyoOperacion) {
+        this.anyoOperacion = anyoOperacion;
+    }
 
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
+    public BigDecimal getImporteDescontado() {
+        return importeDescontado;
+    }
 
-	public Integer getAnioFinal() {
-		return anioFinal;
-	}
+    public void setImporteDescontado(BigDecimal importeDescontado) {
+        this.importeDescontado = importeDescontado;
+    }
 
-	public void setAnioFinal(Integer anioFinal) {
-		this.anioFinal = anioFinal;
-	}
+    public Integer getQuincenaInicial() {
+        return quincenaInicial;
+    }
 
-	public Integer getAnioInicial() {
-		return anioInicial;
-	}
+    public void setQuincenaInicial(Integer quincenaInicial) {
+        this.quincenaInicial = quincenaInicial;
+    }
 
-	public void setAnioInicial(Integer anioInicial) {
-		this.anioInicial = anioInicial;
-	}
+    public Integer getQuincenaFinal() {
+        return quincenaFinal;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setQuincenaFinal(Integer quincenaFinal) {
+        this.quincenaFinal = quincenaFinal;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
 
-	public String getFolioDocumento() {
-		return folioDocumento;
-	}
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
-	public void setFolioDocumento(String folioDocumento) {
-		this.folioDocumento = folioDocumento;
-	}
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
 
-	public Date getFechaDocumento() {
-		return fechaDocumento;
-	}
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 
-	public void setFechaDocumento(Date fechaDocumento) {
-		this.fechaDocumento = fechaDocumento;
-	}
+    public Integer getAnioFinal() {
+        return anioFinal;
+    }
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public void setAnioFinal(Integer anioFinal) {
+        this.anioFinal = anioFinal;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public Integer getAnioInicial() {
+        return anioInicial;
+    }
 
-	public Integer getDias() {
-		return dias;
-	}
+    public void setAnioInicial(Integer anioInicial) {
+        this.anioInicial = anioInicial;
+    }
 
-	public void setDias(Integer dias) {
-		this.dias = dias;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public String getFolioDocumento() {
+        return folioDocumento;
+    }
 
-	public Boolean getEstatus() {
-		return estatus;
-	}
+    public void setFolioDocumento(String folioDocumento) {
+        this.folioDocumento = folioDocumento;
+    }
 
-	public void setEstatus(Boolean estatus) {
-		this.estatus = estatus;
-	}
+    public Date getFechaDocumento() {
+        return fechaDocumento;
+    }
 
-	
+    public void setFechaDocumento(Date fechaDocumento) {
+        this.fechaDocumento = fechaDocumento;
+    }
+
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
+
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
+
+    public Integer getDias() {
+        return dias;
+    }
+
+    public void setDias(Integer dias) {
+        this.dias = dias;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public Boolean getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Boolean estatus) {
+        this.estatus = estatus;
+    }
+
 }

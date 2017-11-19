@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 
 import java.io.Serializable;
@@ -18,54 +19,54 @@ import javax.inject.Inject;
 @Stateless
 public class PuestoGeneralEJB implements PuestoGeneral, Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6480325997869609984L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6480325997869609984L;
 
-	@Inject
-	private PuestoGeneralService puestoGeneralService;
+    @Inject
+    private PuestoGeneralService puestoGeneralService;
 
-	@Override
-	public List<PuestoGeneralDTO> consultarListaPuestoGeneral() {
-		return puestoGeneralService.consultarListaPuestoGeneral();
-	}
+    @Override
+    public List<PuestoGeneralDTO> consultarListaPuestoGeneral() {
+        return puestoGeneralService.consultarListaPuestoGeneral();
+    }
 
-	@Override
-	public void crearPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
-		puestoGeneralService.crearPuestoGeneral(puestoGeneralDTO);
-	}
+    @Override
+    public void crearPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
+        puestoGeneralService.crearPuestoGeneral(puestoGeneralDTO);
+    }
 
-	@Override
-	public void actualizarPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
-		puestoGeneralService.actualizarPuestoGeneral(puestoGeneralDTO);
-	}
+    @Override
+    public void actualizarPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
+        puestoGeneralService.actualizarPuestoGeneral(puestoGeneralDTO);
+    }
 
-	@Override
-	public void eliminarPuestoGeneral(Integer idPuestoGeneral) {
-		puestoGeneralService.eliminarPuestoGeneral(idPuestoGeneral);
-	}
+    @Override
+    public void eliminarPuestoGeneral(Integer idPuestoGeneral) {
+        puestoGeneralService.eliminarPuestoGeneral(idPuestoGeneral);
+    }
 
-	@Override
-	public Boolean existeCodigo(String codigo) {
-		return puestoGeneralService.existeCodigo(codigo);
-	}
+    @Override
+    public Boolean existeCodigo(String codigo) {
+        return puestoGeneralService.existeCodigo(codigo);
+    }
 
-	@Override
-	public Boolean existeCodigoIdPuesto(Integer idPuestoGeneral, String codigo) {
-		return puestoGeneralService.existeCodigoIdPuesto(idPuestoGeneral, codigo);
-	}
+    @Override
+    public Boolean existeCodigoIdPuesto(Integer idPuestoGeneral, String codigo) {
+        return puestoGeneralService.existeCodigoIdPuesto(idPuestoGeneral, codigo);
+    }
 
-	@Override
-	public PuestoGeneralDTO puestoPorClave(String clave) {
-		
-		return puestoGeneralService.puestoPorClave(clave);
-	}
+    @Override
+    public PuestoGeneralDTO puestoPorClave(String clave) {
 
-	@Override
-	public PuestoGeneralDTO puestoPorId(Integer id) {
-		
-		return puestoGeneralService.puestoPorId(id);
-	}
+        return puestoGeneralService.puestoPorClave(clave);
+    }
+
+    @Override
+    public PuestoGeneralDTO puestoPorId(Integer id) {
+
+        return puestoGeneralService.puestoPorId(id);
+    }
 
 }

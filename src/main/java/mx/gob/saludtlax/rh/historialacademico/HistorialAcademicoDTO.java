@@ -1,227 +1,229 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.historialacademico;
 
 import java.util.Date;
 
 public class HistorialAcademicoDTO {
 
-	private Integer idHistorialAcademico;
-	private Integer idEmpleado;
-	private String nombreEscolaridad;
-	private Integer escolaridad = 0;
-	private Integer documentoComprobatorio = 0;
-	private String nombreDocumentoComprobatorio;
-	private String estatusComprobatorio;
-	private String nombreInstitucion;
-	private Date fechaInicial;
-	private Date FechaFinal;
-	private String duracion;
-	private String nombreCurso;
-	private Boolean cursando = false;
-	private Boolean tieneDocumentacion;
-	private Boolean esMaximoEstudio;
-	private Date fechaExpedicionCedula;
-	private Integer numeroCedula;
-	
-	private String comentarioMovimiento = "";
-	private Integer idUsuarioEnSesion;
-	
-	public String lccHistorial() {
-		return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico + ", escolaridad=" + escolaridad
-				+ ", idEmpleado=" + idEmpleado + ", comprobanteEstudio="
-				+ nombreDocumentoComprobatorio + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial=" + fechaInicial
-				+ ", FechaFinal=" + FechaFinal + ", duracion=" + duracion + ", cursando=" + cursando + ", nombreCurso="
-				+ nombreCurso + ", tieneDocumentacion=" + tieneDocumentacion + ", maximoEstudio=" + esMaximoEstudio
-				+ ", fechaExpedicionCedula=" + fechaExpedicionCedula + ", numeroCedula=" + numeroCedula + "]";
-	}
+    private Integer idHistorialAcademico;
+    private Integer idEmpleado;
+    private String nombreEscolaridad;
+    private Integer escolaridad = 0;
+    private Integer documentoComprobatorio = 0;
+    private String nombreDocumentoComprobatorio;
+    private String estatusComprobatorio;
+    private String nombreInstitucion;
+    private Date fechaInicial;
+    private Date FechaFinal;
+    private String duracion;
+    private String nombreCurso;
+    private Boolean cursando = false;
+    private Boolean tieneDocumentacion;
+    private Boolean esMaximoEstudio;
+    private Date fechaExpedicionCedula;
+    private Integer numeroCedula;
 
-	/************* Getters and Setter ***************/
+    private String comentarioMovimiento = "";
+    private Integer idUsuarioEnSesion;
 
-	public Integer getIdHistorialAcademico() {
-		return idHistorialAcademico;
-	}
+    public String lccHistorial() {
+        return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico + ", escolaridad=" + escolaridad + ", idEmpleado=" + idEmpleado
+                + ", comprobanteEstudio=" + nombreDocumentoComprobatorio + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial=" + fechaInicial
+                + ", FechaFinal=" + FechaFinal + ", duracion=" + duracion + ", cursando=" + cursando + ", nombreCurso=" + nombreCurso + ", tieneDocumentacion="
+                + tieneDocumentacion + ", maximoEstudio=" + esMaximoEstudio + ", fechaExpedicionCedula=" + fechaExpedicionCedula + ", numeroCedula="
+                + numeroCedula + "]";
+    }
 
-	public Boolean getEsMaximoEstudio() {
-		return esMaximoEstudio;
-	}
+    
 
-	public void setEsMaximoEstudio(Boolean esMaximoEstudio) {
-		this.esMaximoEstudio = esMaximoEstudio;
-	}
+    public Integer getIdHistorialAcademico() {
+        return idHistorialAcademico;
+    }
 
-	public Boolean getTieneDocumentacion() {
-		return tieneDocumentacion;
-	}
+    public Boolean getEsMaximoEstudio() {
+        return esMaximoEstudio;
+    }
 
-	public void setTieneDocumentacion(Boolean tieneDocumentacion) {
-		this.tieneDocumentacion = tieneDocumentacion;
-	}
+    public void setEsMaximoEstudio(Boolean esMaximoEstudio) {
+        this.esMaximoEstudio = esMaximoEstudio;
+    }
 
-	public String getNombreDocumentoComprobatorio() {
-		return nombreDocumentoComprobatorio;
-	}
+    public Boolean getTieneDocumentacion() {
+        return tieneDocumentacion;
+    }
 
-	public void setNombreDocumentoComprobatorio(String nombreDocumentoComprobatorio) {
-		this.nombreDocumentoComprobatorio = nombreDocumentoComprobatorio;
-	}
+    public void setTieneDocumentacion(Boolean tieneDocumentacion) {
+        this.tieneDocumentacion = tieneDocumentacion;
+    }
 
-	public String getNombreEscolaridad() {
-		return nombreEscolaridad;
-	}
+    public String getNombreDocumentoComprobatorio() {
+        return nombreDocumentoComprobatorio;
+    }
 
-	public void setNombreEscolaridad(String nombreEscolaridad) {
-		this.nombreEscolaridad = nombreEscolaridad;
-	}
+    public void setNombreDocumentoComprobatorio(String nombreDocumentoComprobatorio) {
+        this.nombreDocumentoComprobatorio = nombreDocumentoComprobatorio;
+    }
 
-	public void setIdHistorialAcademico(Integer idHistorialAcademico) {
-		this.idHistorialAcademico = idHistorialAcademico;
-	}
+    public String getNombreEscolaridad() {
+        return nombreEscolaridad;
+    }
 
-	public Integer getEscolaridad() {
-		return escolaridad;
-	}
+    public void setNombreEscolaridad(String nombreEscolaridad) {
+        this.nombreEscolaridad = nombreEscolaridad;
+    }
 
-	public void setEscolaridad(Integer escolaridad) {
-		this.escolaridad = escolaridad;
-	}
+    public void setIdHistorialAcademico(Integer idHistorialAcademico) {
+        this.idHistorialAcademico = idHistorialAcademico;
+    }
 
-	public Integer getDocumentoComprobatorio() {
-		return documentoComprobatorio;
-	}
+    public Integer getEscolaridad() {
+        return escolaridad;
+    }
 
-	public void setDocumentoComprobatorio(Integer documentoComprobatorio) {
-		this.documentoComprobatorio = documentoComprobatorio;
-	}
+    public void setEscolaridad(Integer escolaridad) {
+        this.escolaridad = escolaridad;
+    }
 
-	public String getNombreInstitucion() {
-		return nombreInstitucion;
-	}
+    public Integer getDocumentoComprobatorio() {
+        return documentoComprobatorio;
+    }
 
-	public void setNombreInstitucion(String nombreInstitucion) {
-		this.nombreInstitucion = nombreInstitucion;
-	}
+    public void setDocumentoComprobatorio(Integer documentoComprobatorio) {
+        this.documentoComprobatorio = documentoComprobatorio;
+    }
 
-	public Date getFechaInicial() {
-		return fechaInicial;
-	}
+    public String getNombreInstitucion() {
+        return nombreInstitucion;
+    }
 
-	public void setFechaInicial(Date fechaInicial) {
-		this.fechaInicial = fechaInicial;
-	}
+    public void setNombreInstitucion(String nombreInstitucion) {
+        this.nombreInstitucion = nombreInstitucion;
+    }
 
-	public Date getFechaFinal() {
-		return FechaFinal;
-	}
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
 
-	public void setFechaFinal(Date fechaFinal) {
-		FechaFinal = fechaFinal;
-	}
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
 
-	public String getDuracion() {
-		return duracion;
-	}
+    public Date getFechaFinal() {
+        return FechaFinal;
+    }
 
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
+    public void setFechaFinal(Date fechaFinal) {
+        FechaFinal = fechaFinal;
+    }
 
-	public String getNombreCurso() {
-		return nombreCurso;
-	}
+    public String getDuracion() {
+        return duracion;
+    }
 
-	public void setNombreCurso(String nombreCurso) {
-		this.nombreCurso = nombreCurso;
-	}
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
 
-	public Boolean getCursando() {
-		return cursando;
-	}
+    public String getNombreCurso() {
+        return nombreCurso;
+    }
 
-	public void setCursando(Boolean cursando) {
-		this.cursando = cursando;
-	}
+    public void setNombreCurso(String nombreCurso) {
+        this.nombreCurso = nombreCurso;
+    }
 
-	public String getEstatusComprobatorio() {
-		return estatusComprobatorio;
-	}
+    public Boolean getCursando() {
+        return cursando;
+    }
 
-	public void setEstatusComprobatorio(String estatusComprobatorio) {
-		this.estatusComprobatorio = estatusComprobatorio;
-	}
+    public void setCursando(Boolean cursando) {
+        this.cursando = cursando;
+    }
 
-	/**
-	 * @return the fechaExpedicionCedula
-	 */
-	public Date getFechaExpedicionCedula() {
-		return fechaExpedicionCedula;
-	}
+    public String getEstatusComprobatorio() {
+        return estatusComprobatorio;
+    }
 
-	/**
-	 * @param fechaExpedicionCedula
-	 *            the fechaExpedicionCedula to set
-	 */
-	public void setFechaExpedicionCedula(Date fechaExpedicionCedula) {
-		this.fechaExpedicionCedula = fechaExpedicionCedula;
-	}
+    public void setEstatusComprobatorio(String estatusComprobatorio) {
+        this.estatusComprobatorio = estatusComprobatorio;
+    }
 
-	/**
-	 * @return the numeroCedula
-	 */
-	public Integer getNumeroCedula() {
-		return numeroCedula;
-	}
+    /**
+     * @return the fechaExpedicionCedula
+     */
+    public Date getFechaExpedicionCedula() {
+        return fechaExpedicionCedula;
+    }
 
-	/**
-	 * @param numeroCedula
-	 *            the numeroCedula to set
-	 */
-	public void setNumeroCedula(Integer numeroCedula) {
-		this.numeroCedula = numeroCedula;
-	}
+    /**
+     * @param fechaExpedicionCedula
+     *            the fechaExpedicionCedula to set
+     */
+    public void setFechaExpedicionCedula(Date fechaExpedicionCedula) {
+        this.fechaExpedicionCedula = fechaExpedicionCedula;
+    }
 
-	/**
-	 * @return the idEmpleado
-	 */
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    /**
+     * @return the numeroCedula
+     */
+    public Integer getNumeroCedula() {
+        return numeroCedula;
+    }
 
-	/**
-	 * @param idEmpleado
-	 *            the idEmpleado to set
-	 */
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    /**
+     * @param numeroCedula
+     *            the numeroCedula to set
+     */
+    public void setNumeroCedula(Integer numeroCedula) {
+        this.numeroCedula = numeroCedula;
+    }
 
-	/**
-	 * @return the comentarioMovimiento
-	 */
-	public String getComentarioMovimiento() {
-		return comentarioMovimiento;
-	}
+    /**
+     * @return the idEmpleado
+     */
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	/**
-	 * @param comentarioMovimiento the comentarioMovimiento to set
-	 */
-	public void setComentarioMovimiento(String comentarioMovimiento) {
-		this.comentarioMovimiento = comentarioMovimiento;
-	}
+    /**
+     * @param idEmpleado
+     *            the idEmpleado to set
+     */
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	/**
-	 * @return the idUsuarioEnSesion
-	 */
-	public Integer getIdUsuarioEnSesion() {
-		return idUsuarioEnSesion;
-	}
+    /**
+     * @return the comentarioMovimiento
+     */
+    public String getComentarioMovimiento() {
+        return comentarioMovimiento;
+    }
 
-	/**
-	 * @param idUsuarioEnSesion the idUsuarioEnSesion to set
-	 */
-	public void setIdUsuarioEnSesion(Integer idUsuarioEnSesion) {
-		this.idUsuarioEnSesion = idUsuarioEnSesion;
-	}
+    /**
+     * @param comentarioMovimiento
+     *            the comentarioMovimiento to set
+     */
+    public void setComentarioMovimiento(String comentarioMovimiento) {
+        this.comentarioMovimiento = comentarioMovimiento;
+    }
+
+    /**
+     * @return the idUsuarioEnSesion
+     */
+    public Integer getIdUsuarioEnSesion() {
+        return idUsuarioEnSesion;
+    }
+
+    /**
+     * @param idUsuarioEnSesion
+     *            the idUsuarioEnSesion to set
+     */
+    public void setIdUsuarioEnSesion(Integer idUsuarioEnSesion) {
+        this.idUsuarioEnSesion = idUsuarioEnSesion;
+    }
 
 }

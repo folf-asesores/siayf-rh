@@ -1,11 +1,13 @@
 /*
  * ProductoNominaBitacoraRepository.java
  * Creado el 04/Jan/2017 9:00:44 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
+
 import javax.persistence.TypedQuery;
 
 /**
@@ -15,9 +17,7 @@ import javax.persistence.TypedQuery;
 public class ProductoNominaBitacoraRepository extends GenericRepository<ProductoNominaBitacoraAperturaEntity, Integer> {
 
     private static final long serialVersionUID = -2109380069261097103L;
-    private static final String OBTENER_EVENTOS = 
-            "SELECT evento"
-            + " FROM ProductoNominaBitacoraEventoEntity AS evento"
+    private static final String OBTENER_EVENTOS = "SELECT evento" + " FROM ProductoNominaBitacoraEventoEntity AS evento"
             + " WHERE evento.bitacora.idBitacora = :idBitacora";
 
     public List<ProductoNominaBitacoraEventoEntity> obtenerEventosPorIdBitacora(Integer idBitacora) {

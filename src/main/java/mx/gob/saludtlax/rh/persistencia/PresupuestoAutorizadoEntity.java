@@ -1,20 +1,20 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
-/**
- *
- * @author José Pablo
- *
- */
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author José Pablo
+ */
 @Entity
 @Table(name = "presupuesto_autorizado")
 public class PresupuestoAutorizadoEntity implements Serializable {

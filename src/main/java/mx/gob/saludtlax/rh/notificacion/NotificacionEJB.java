@@ -1,8 +1,9 @@
 /*
  * NotificacionEJB.java
  * Creado el Aug 3, 2016 5:16:14 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.notificacion;
 
 import java.util.List;
@@ -21,16 +22,17 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  * Este <code>EJB</code> es una implentación de las notificaciones, en esta se
- * realiza la mayoría de las validaciónes antes de delegar el proceso completo 
+ * realiza la mayoría de las validaciónes antes de delegar el proceso completo
  * a clases ayudantes (helpers).
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Stateless
 public class NotificacionEJB implements Notificacion {
 
-    @Inject private NotificacionService notificacionService;
-    
+    @Inject
+    private NotificacionService notificacionService;
+
     @Override
     @Asynchronous
     public void enviar(NotificacionDTO notificacion) {
@@ -40,14 +42,14 @@ public class NotificacionEJB implements Notificacion {
 
         notificacionService.crear(notificacion);
     }
-    
+
     @Override
     public NotificacionDTO obtenerPorToken(String token) throws ReglaNegocioException {
         if (ValidacionUtil.esCadenaVacia(token)) {
             throw new ValidationException("El token no debe estar vacio.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        
-        try{
+
+        try {
             return notificacionService.obtenerPorToken(token);
         } catch (SistemaException se) {
             if (SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS.equals(se.getCodigoError())) {
@@ -63,25 +65,25 @@ public class NotificacionEJB implements Notificacion {
         if (ValidacionUtil.esCadenaVacia(token)) {
             throw new ValidationException("El token no debe estar vacio.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        
+
         notificacionService.marcarComoVista(token);
     }
-    
+
     @Override
     public List<NotificacionDTO> consultarNotificacionesPorIdUsuario(Integer idUsuario) {
         if (ValidacionUtil.esMenorQueUno(idUsuario)) {
             throw new ValidationException("El ID de un usuario no puede ser cero o un número negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
         }
-        
+
         return notificacionService.consultarNotificacionesPorIdUsuario(idUsuario);
     }
-    
+
     @Override
     public List<NotificacionDTO> consultarNotificacionesPorIdUsuarioNoVistas(Integer idUsuario) {
         if (ValidacionUtil.esMenorQueUno(idUsuario)) {
             throw new ValidationException("El ID de un usuario no puede ser cero o un número negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
         }
-        
+
         return notificacionService.consultarNotificacionesPorIdUsuarioVisto(idUsuario, false);
     }
 }

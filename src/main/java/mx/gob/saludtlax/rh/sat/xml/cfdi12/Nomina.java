@@ -1,11 +1,11 @@
 
-
 package mx.gob.saludtlax.rh.sat.xml.cfdi12;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,12 +15,13 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -265,16 +266,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "percepciones",
-    "deducciones",
-    "incapacidades",
-    "horasExtras"
-})
+@XmlType(name = "", propOrder = { "percepciones", "deducciones", "incapacidades", "horasExtras" })
 @XmlRootElement(name = "Nomina")
 public class Nomina {
 
@@ -337,11 +333,11 @@ public class Nomina {
 
     /**
      * Obtiene el valor de la propiedad percepciones.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Nomina.Percepciones }
-     *     
+     *         possible object is
+     *         {@link Nomina.Percepciones }
+     *
      */
     public Nomina.Percepciones getPercepciones() {
         return percepciones;
@@ -349,23 +345,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad percepciones.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Nomina.Percepciones }
-     *     
+     *            allowed object is
+     *            {@link Nomina.Percepciones }
+     *
      */
     public void setPercepciones(Nomina.Percepciones value) {
-        this.percepciones = value;
+        percepciones = value;
     }
 
     /**
      * Obtiene el valor de la propiedad deducciones.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Nomina.Deducciones }
-     *     
+     *         possible object is
+     *         {@link Nomina.Deducciones }
+     *
      */
     public Nomina.Deducciones getDeducciones() {
         return deducciones;
@@ -373,23 +369,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad deducciones.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Nomina.Deducciones }
-     *     
+     *            allowed object is
+     *            {@link Nomina.Deducciones }
+     *
      */
     public void setDeducciones(Nomina.Deducciones value) {
-        this.deducciones = value;
+        deducciones = value;
     }
 
     /**
      * Obtiene el valor de la propiedad incapacidades.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Nomina.Incapacidades }
-     *     
+     *         possible object is
+     *         {@link Nomina.Incapacidades }
+     *
      */
     public Nomina.Incapacidades getIncapacidades() {
         return incapacidades;
@@ -397,23 +393,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad incapacidades.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Nomina.Incapacidades }
-     *     
+     *            allowed object is
+     *            {@link Nomina.Incapacidades }
+     *
      */
     public void setIncapacidades(Nomina.Incapacidades value) {
-        this.incapacidades = value;
+        incapacidades = value;
     }
 
     /**
      * Obtiene el valor de la propiedad horasExtras.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Nomina.HorasExtras }
-     *     
+     *         possible object is
+     *         {@link Nomina.HorasExtras }
+     *
      */
     public Nomina.HorasExtras getHorasExtras() {
         return horasExtras;
@@ -421,23 +417,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad horasExtras.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Nomina.HorasExtras }
-     *     
+     *            allowed object is
+     *            {@link Nomina.HorasExtras }
+     *
      */
     public void setHorasExtras(Nomina.HorasExtras value) {
-        this.horasExtras = value;
+        horasExtras = value;
     }
 
     /**
      * Obtiene el valor de la propiedad version.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getVersion() {
         if (version == null) {
@@ -449,23 +445,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad version.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setVersion(String value) {
-        this.version = value;
+        version = value;
     }
 
     /**
      * Obtiene el valor de la propiedad registroPatronal.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getRegistroPatronal() {
         return registroPatronal;
@@ -473,23 +469,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad registroPatronal.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setRegistroPatronal(String value) {
-        this.registroPatronal = value;
+        registroPatronal = value;
     }
 
     /**
      * Obtiene el valor de la propiedad numEmpleado.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNumEmpleado() {
         return numEmpleado;
@@ -497,23 +493,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad numEmpleado.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNumEmpleado(String value) {
-        this.numEmpleado = value;
+        numEmpleado = value;
     }
 
     /**
      * Obtiene el valor de la propiedad curp.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getCURP() {
         return curp;
@@ -521,19 +517,19 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad curp.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setCURP(String value) {
-        this.curp = value;
+        curp = value;
     }
 
     /**
      * Obtiene el valor de la propiedad tipoRegimen.
-     * 
+     *
      */
     public int getTipoRegimen() {
         return tipoRegimen;
@@ -541,19 +537,19 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad tipoRegimen.
-     * 
+     *
      */
     public void setTipoRegimen(int value) {
-        this.tipoRegimen = value;
+        tipoRegimen = value;
     }
 
     /**
      * Obtiene el valor de la propiedad numSeguridadSocial.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNumSeguridadSocial() {
         return numSeguridadSocial;
@@ -561,23 +557,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad numSeguridadSocial.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNumSeguridadSocial(String value) {
-        this.numSeguridadSocial = value;
+        numSeguridadSocial = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaPago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaPago() {
         return fechaPago;
@@ -585,23 +581,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad fechaPago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaPago(XMLGregorianCalendar value) {
-        this.fechaPago = value;
+        fechaPago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaInicialPago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaInicialPago() {
         return fechaInicialPago;
@@ -609,23 +605,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad fechaInicialPago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaInicialPago(XMLGregorianCalendar value) {
-        this.fechaInicialPago = value;
+        fechaInicialPago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaFinalPago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaFinalPago() {
         return fechaFinalPago;
@@ -633,23 +629,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad fechaFinalPago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaFinalPago(XMLGregorianCalendar value) {
-        this.fechaFinalPago = value;
+        fechaFinalPago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad numDiasPagados.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getNumDiasPagados() {
         return numDiasPagados;
@@ -657,23 +653,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad numDiasPagados.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setNumDiasPagados(BigDecimal value) {
-        this.numDiasPagados = value;
+        numDiasPagados = value;
     }
 
     /**
      * Obtiene el valor de la propiedad departamento.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getDepartamento() {
         return departamento;
@@ -681,23 +677,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad departamento.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setDepartamento(String value) {
-        this.departamento = value;
+        departamento = value;
     }
 
     /**
      * Obtiene el valor de la propiedad clabe.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigInteger }
-     *     
+     *         possible object is
+     *         {@link BigInteger }
+     *
      */
     public BigInteger getCLABE() {
         return clabe;
@@ -705,23 +701,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad clabe.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigInteger }
-     *     
+     *            allowed object is
+     *            {@link BigInteger }
+     *
      */
     public void setCLABE(BigInteger value) {
-        this.clabe = value;
+        clabe = value;
     }
 
     /**
      * Obtiene el valor de la propiedad banco.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     *
      */
     public String getBanco() {
         return banco;
@@ -729,23 +725,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad banco.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     *
      */
     public void setBanco(String value) {
-        this.banco = value;
+        banco = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaInicioRelLaboral.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaInicioRelLaboral() {
         return fechaInicioRelLaboral;
@@ -753,23 +749,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad fechaInicioRelLaboral.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaInicioRelLaboral(XMLGregorianCalendar value) {
-        this.fechaInicioRelLaboral = value;
+        fechaInicioRelLaboral = value;
     }
 
     /**
      * Obtiene el valor de la propiedad antiguedad.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     *
      */
     public Integer getAntiguedad() {
         return antiguedad;
@@ -777,23 +773,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad antiguedad.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     *
      */
     public void setAntiguedad(Integer value) {
-        this.antiguedad = value;
+        antiguedad = value;
     }
 
     /**
      * Obtiene el valor de la propiedad puesto.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getPuesto() {
         return puesto;
@@ -801,23 +797,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad puesto.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setPuesto(String value) {
-        this.puesto = value;
+        puesto = value;
     }
 
     /**
      * Obtiene el valor de la propiedad tipoContrato.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getTipoContrato() {
         return tipoContrato;
@@ -825,23 +821,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad tipoContrato.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setTipoContrato(String value) {
-        this.tipoContrato = value;
+        tipoContrato = value;
     }
 
     /**
      * Obtiene el valor de la propiedad tipoJornada.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getTipoJornada() {
         return tipoJornada;
@@ -849,23 +845,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad tipoJornada.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setTipoJornada(String value) {
-        this.tipoJornada = value;
+        tipoJornada = value;
     }
 
     /**
      * Obtiene el valor de la propiedad periodicidadPago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getPeriodicidadPago() {
         return periodicidadPago;
@@ -873,23 +869,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad periodicidadPago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setPeriodicidadPago(String value) {
-        this.periodicidadPago = value;
+        periodicidadPago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad salarioBaseCotApor.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getSalarioBaseCotApor() {
         return salarioBaseCotApor;
@@ -897,23 +893,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad salarioBaseCotApor.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setSalarioBaseCotApor(BigDecimal value) {
-        this.salarioBaseCotApor = value;
+        salarioBaseCotApor = value;
     }
 
     /**
      * Obtiene el valor de la propiedad riesgoPuesto.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *         possible object is
+     *         {@link Integer }
+     *
      */
     public Integer getRiesgoPuesto() {
         return riesgoPuesto;
@@ -921,23 +917,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad riesgoPuesto.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *            allowed object is
+     *            {@link Integer }
+     *
      */
     public void setRiesgoPuesto(Integer value) {
-        this.riesgoPuesto = value;
+        riesgoPuesto = value;
     }
 
     /**
      * Obtiene el valor de la propiedad salarioDiarioIntegrado.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getSalarioDiarioIntegrado() {
         return salarioDiarioIntegrado;
@@ -945,22 +941,23 @@ public class Nomina {
 
     /**
      * Define el valor de la propiedad salarioDiarioIntegrado.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setSalarioDiarioIntegrado(BigDecimal value) {
-        this.salarioDiarioIntegrado = value;
+        salarioDiarioIntegrado = value;
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1008,13 +1005,11 @@ public class Nomina {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "deduccion"
-    })
+    @XmlType(name = "", propOrder = { "deduccion" })
     public static class Deducciones {
 
         @XmlElement(name = "Deduccion", required = true)
@@ -1026,40 +1021,41 @@ public class Nomina {
 
         /**
          * Gets the value of the deduccion property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the deduccion property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getDeduccion().add(newItem);
+         * getDeduccion().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Nomina.Deducciones.Deduccion }
-         * 
-         * 
+         *
+         *
          */
         public List<Nomina.Deducciones.Deduccion> getDeduccion() {
             if (deduccion == null) {
-                deduccion = new ArrayList<Nomina.Deducciones.Deduccion>();
+                deduccion = new ArrayList<>();
             }
-            return this.deduccion;
+            return deduccion;
         }
 
         /**
          * Obtiene el valor de la propiedad totalGravado.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalGravado() {
             return totalGravado;
@@ -1067,23 +1063,23 @@ public class Nomina {
 
         /**
          * Define el valor de la propiedad totalGravado.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalGravado(BigDecimal value) {
-            this.totalGravado = value;
+            totalGravado = value;
         }
 
         /**
          * Obtiene el valor de la propiedad totalExento.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalExento() {
             return totalExento;
@@ -1091,22 +1087,23 @@ public class Nomina {
 
         /**
          * Define el valor de la propiedad totalExento.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalExento(BigDecimal value) {
-            this.totalExento = value;
+            totalExento = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1142,8 +1139,8 @@ public class Nomina {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1162,7 +1159,7 @@ public class Nomina {
 
             /**
              * Obtiene el valor de la propiedad tipoDeduccion.
-             * 
+             *
              */
             public String getTipoDeduccion() {
                 return tipoDeduccion;
@@ -1170,19 +1167,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad tipoDeduccion.
-             * 
+             *
              */
             public void setTipoDeduccion(String value) {
-                this.tipoDeduccion = value;
+                tipoDeduccion = value;
             }
 
             /**
              * Obtiene el valor de la propiedad clave.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getClave() {
                 return clave;
@@ -1190,23 +1187,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad clave.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setClave(String value) {
-                this.clave = value;
+                clave = value;
             }
 
             /**
              * Obtiene el valor de la propiedad concepto.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getConcepto() {
                 return concepto;
@@ -1214,23 +1211,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad concepto.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setConcepto(String value) {
-                this.concepto = value;
+                concepto = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importeGravado.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImporteGravado() {
                 return importeGravado;
@@ -1238,23 +1235,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad importeGravado.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImporteGravado(BigDecimal value) {
-                this.importeGravado = value;
+                importeGravado = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importeExento.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImporteExento() {
                 return importeExento;
@@ -1262,26 +1259,27 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad importeExento.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImporteExento(BigDecimal value) {
-                this.importeExento = value;
+                importeExento = value;
             }
 
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1312,13 +1310,11 @@ public class Nomina {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "horasExtra"
-    })
+    @XmlType(name = "", propOrder = { "horasExtra" })
     public static class HorasExtras {
 
         @XmlElement(name = "HorasExtra", required = true)
@@ -1326,39 +1322,41 @@ public class Nomina {
 
         /**
          * Gets the value of the horasExtra property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the horasExtra property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getHorasExtra().add(newItem);
+         * getHorasExtra().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Nomina.HorasExtras.HorasExtra }
-         * 
-         * 
+         *
+         *
          */
         public List<Nomina.HorasExtras.HorasExtra> getHorasExtra() {
             if (horasExtra == null) {
-                horasExtra = new ArrayList<Nomina.HorasExtras.HorasExtra>();
+                horasExtra = new ArrayList<>();
             }
-            return this.horasExtra;
+            return horasExtra;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1379,8 +1377,8 @@ public class Nomina {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1397,7 +1395,7 @@ public class Nomina {
 
             /**
              * Obtiene el valor de la propiedad dias.
-             * 
+             *
              */
             public int getDias() {
                 return dias;
@@ -1405,19 +1403,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad dias.
-             * 
+             *
              */
             public void setDias(int value) {
-                this.dias = value;
+                dias = value;
             }
 
             /**
              * Obtiene el valor de la propiedad tipoHoras.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getTipoHoras() {
                 return tipoHoras;
@@ -1425,19 +1423,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad tipoHoras.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setTipoHoras(String value) {
-                this.tipoHoras = value;
+                tipoHoras = value;
             }
 
             /**
              * Obtiene el valor de la propiedad horasExtra.
-             * 
+             *
              */
             public int getHorasExtra() {
                 return horasExtra;
@@ -1445,19 +1443,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad horasExtra.
-             * 
+             *
              */
             public void setHorasExtra(int value) {
-                this.horasExtra = value;
+                horasExtra = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importePagado.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImportePagado() {
                 return importePagado;
@@ -1465,26 +1463,27 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad importePagado.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImportePagado(BigDecimal value) {
-                this.importePagado = value;
+                importePagado = value;
             }
 
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1513,13 +1512,11 @@ public class Nomina {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "incapacidad"
-    })
+    @XmlType(name = "", propOrder = { "incapacidad" })
     public static class Incapacidades {
 
         @XmlElement(name = "Incapacidad", required = true)
@@ -1527,39 +1524,41 @@ public class Nomina {
 
         /**
          * Gets the value of the incapacidad property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the incapacidad property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getIncapacidad().add(newItem);
+         * getIncapacidad().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Nomina.Incapacidades.Incapacidad }
-         * 
-         * 
+         *
+         *
          */
         public List<Nomina.Incapacidades.Incapacidad> getIncapacidad() {
             if (incapacidad == null) {
-                incapacidad = new ArrayList<Nomina.Incapacidades.Incapacidad>();
+                incapacidad = new ArrayList<>();
             }
-            return this.incapacidad;
+            return incapacidad;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1578,8 +1577,8 @@ public class Nomina {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1594,11 +1593,11 @@ public class Nomina {
 
             /**
              * Obtiene el valor de la propiedad diasIncapacidad.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getDiasIncapacidad() {
                 return diasIncapacidad;
@@ -1606,19 +1605,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad diasIncapacidad.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setDiasIncapacidad(BigDecimal value) {
-                this.diasIncapacidad = value;
+                diasIncapacidad = value;
             }
 
             /**
              * Obtiene el valor de la propiedad tipoIncapacidad.
-             * 
+             *
              */
             public int getTipoIncapacidad() {
                 return tipoIncapacidad;
@@ -1626,19 +1625,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad tipoIncapacidad.
-             * 
+             *
              */
             public void setTipoIncapacidad(int value) {
-                this.tipoIncapacidad = value;
+                tipoIncapacidad = value;
             }
 
             /**
              * Obtiene el valor de la propiedad descuento.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getDescuento() {
                 return descuento;
@@ -1646,26 +1645,27 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad descuento.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setDescuento(BigDecimal value) {
-                this.descuento = value;
+                descuento = value;
             }
 
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1713,13 +1713,11 @@ public class Nomina {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "percepcion"
-    })
+    @XmlType(name = "", propOrder = { "percepcion" })
     public static class Percepciones {
 
         @XmlElement(name = "Percepcion", required = true)
@@ -1731,40 +1729,41 @@ public class Nomina {
 
         /**
          * Gets the value of the percepcion property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the percepcion property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getPercepcion().add(newItem);
+         * getPercepcion().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Nomina.Percepciones.Percepcion }
-         * 
-         * 
+         *
+         *
          */
         public List<Nomina.Percepciones.Percepcion> getPercepcion() {
             if (percepcion == null) {
-                percepcion = new ArrayList<Nomina.Percepciones.Percepcion>();
+                percepcion = new ArrayList<>();
             }
-            return this.percepcion;
+            return percepcion;
         }
 
         /**
          * Obtiene el valor de la propiedad totalGravado.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalGravado() {
             return totalGravado;
@@ -1772,23 +1771,23 @@ public class Nomina {
 
         /**
          * Define el valor de la propiedad totalGravado.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalGravado(BigDecimal value) {
-            this.totalGravado = value;
+            totalGravado = value;
         }
 
         /**
          * Obtiene el valor de la propiedad totalExento.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalExento() {
             return totalExento;
@@ -1796,22 +1795,23 @@ public class Nomina {
 
         /**
          * Define el valor de la propiedad totalExento.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalExento(BigDecimal value) {
-            this.totalExento = value;
+            totalExento = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1847,8 +1847,8 @@ public class Nomina {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1867,7 +1867,7 @@ public class Nomina {
 
             /**
              * Obtiene el valor de la propiedad tipoPercepcion.
-             * 
+             *
              */
             public String getTipoPercepcion() {
                 return tipoPercepcion;
@@ -1875,19 +1875,19 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad tipoPercepcion.
-             * 
+             *
              */
             public void setTipoPercepcion(String value) {
-                this.tipoPercepcion = value;
+                tipoPercepcion = value;
             }
 
             /**
              * Obtiene el valor de la propiedad clave.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getClave() {
                 return clave;
@@ -1895,23 +1895,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad clave.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setClave(String value) {
-                this.clave = value;
+                clave = value;
             }
 
             /**
              * Obtiene el valor de la propiedad concepto.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getConcepto() {
                 return concepto;
@@ -1919,23 +1919,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad concepto.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setConcepto(String value) {
-                this.concepto = value;
+                concepto = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importeGravado.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImporteGravado() {
                 return importeGravado;
@@ -1943,23 +1943,23 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad importeGravado.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImporteGravado(BigDecimal value) {
-                this.importeGravado = value;
+                importeGravado = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importeExento.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImporteExento() {
                 return importeExento;
@@ -1967,14 +1967,14 @@ public class Nomina {
 
             /**
              * Define el valor de la propiedad importeExento.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImporteExento(BigDecimal value) {
-                this.importeExento = value;
+                importeExento = value;
             }
 
         }

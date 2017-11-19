@@ -3,6 +3,7 @@
  * Creado el 28/Jun/2017 11:36:55 AM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Date;
@@ -78,7 +79,8 @@ public class ProductoNominaDTOBuilder {
     }
 
     public ProductoNominaDTO createProductoNominaDTO() {
-        return new ProductoNominaDTO(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);
+        return new ProductoNominaDTO(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo,
+                cargoAutorizo);
     }
 
 }

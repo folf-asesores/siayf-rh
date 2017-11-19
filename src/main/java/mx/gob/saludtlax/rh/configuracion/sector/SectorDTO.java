@@ -1,9 +1,10 @@
 /*
- * 
+ *
  * SectorDTO.java
  * Creado el Jul 27, 2016 12:24:06 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.sector;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import java.io.Serializable;
 public class SectorDTO implements Serializable {
 
     private static final long serialVersionUID = 7662687092010171940L;
-    
+
     private Integer idSectores;
     private String descripcion;
 

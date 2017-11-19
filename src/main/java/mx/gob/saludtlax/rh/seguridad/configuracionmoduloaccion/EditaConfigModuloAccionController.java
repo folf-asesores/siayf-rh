@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
@@ -13,7 +14,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
-
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
@@ -61,7 +61,7 @@ public class EditaConfigModuloAccionController implements Serializable {
     @PostConstruct
     public void init() {
 
-        this.view = new EditarConfigModuloAccionView();
+        view = new EditarConfigModuloAccionView();
 
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
@@ -69,7 +69,7 @@ public class EditaConfigModuloAccionController implements Serializable {
 
         if (!ValidacionUtil.esCadenaVacia(idConfigModuloAccion)) {
 
-            this.view.setIdConfigModuloAccion(new Integer(idConfigModuloAccion));
+            view.setIdConfigModuloAccion(new Integer(idConfigModuloAccion));
             vistaPrincipal();
         }
 
@@ -81,45 +81,43 @@ public class EditaConfigModuloAccionController implements Serializable {
     public void vistaPrincipal() {
 
         try {
-            this.view.setPanelPrincipal(true);
+            view.setPanelPrincipal(true);
 
             List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
-            this.view.setListaModulos(listaModulos);
+            view.setListaModulos(listaModulos);
 
-            ConfiguracionModuloAccionDTO dto = configuracionModuloAccion
-                    .obtenerConfAccModPorId(this.view.getIdConfigModuloAccion());
+            ConfiguracionModuloAccionDTO dto = configuracionModuloAccion.obtenerConfAccModPorId(view.getIdConfigModuloAccion());
 
-            this.view.setConfigModuloAccionEditar(dto);
+            view.setConfigModuloAccionEditar(dto);
 
             ModuloDTO modulo = new ModuloDTO();
 
-            for (ModuloDTO mod : this.view.getListaModulos()) {
-                if (mod.getIdModulo()
-                        .compareTo(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+            for (ModuloDTO mod : view.getListaModulos()) {
+                if (mod.getIdModulo().compareTo(view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
                     modulo = mod;
                 }
             }
 
             // Setea el id del modulo para luego compararlo
-            this.view.setIdModuloConparator(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo());
+            view.setIdModuloConparator(view.getConfigModuloAccionEditar().getModulo().getIdModulo());
 
             //Identificadores para realizar la busqueda de acciones filtradas
             Integer idModulo = modulo.getIdModulo();
             List<Integer> idAccionFiltro = new ArrayList<>();
 
-            for (AccionDTO ac : this.view.getConfigModuloAccionEditar().getAcciones()) {
+            for (AccionDTO ac : view.getConfigModuloAccionEditar().getAcciones()) {
                 idAccionFiltro.add(ac.getIdAccion());
             }
 
             List<AccionDTO> accionSource = accionEJB.obtenerAccionesFiltradas(idModulo, idAccionFiltro);
 
-            List<AccionDTO> accionTarget = this.view.getConfigModuloAccionEditar().getAcciones();
+            List<AccionDTO> accionTarget = view.getConfigModuloAccionEditar().getAcciones();
 
             // Construye el piklist
-            this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+            view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
         } catch (ReglaNegocioException | ValidacionException exception) {
-            this.view.setPanelPrincipal(false);
+            view.setPanelPrincipal(false);
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         }
 
@@ -131,16 +129,14 @@ public class EditaConfigModuloAccionController implements Serializable {
      */
     public void accionesPorModuloSeleccionado() {
         // si la configuracion es la misma refresca la vista al principal
-        if (this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()
-                .equals(this.view.getIdModuloConparator())) {
+        if (view.getConfigModuloAccionEditar().getModulo().getIdModulo().equals(view.getIdModuloConparator())) {
             vistaPrincipal();
         } else {
 
             ModuloDTO modulo = new ModuloDTO();
 
-            for (ModuloDTO mod : this.view.getListaModulos()) {
-                if (mod.getIdModulo()
-                        .compareTo(this.view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+            for (ModuloDTO mod : view.getListaModulos()) {
+                if (mod.getIdModulo().compareTo(view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
                     modulo = mod;
                 }
             }
@@ -148,7 +144,7 @@ public class EditaConfigModuloAccionController implements Serializable {
             List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo(modulo.getIdModulo());
             List<AccionDTO> accionTarget = new ArrayList<>();
 
-            this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+            view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
         }
 
@@ -159,11 +155,11 @@ public class EditaConfigModuloAccionController implements Serializable {
      */
     public void actualizarConfiguracionModuloAccion() {
 
-        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        List<AccionDTO> acciones = view.getPikListAcciones().getTarget();
 
-        this.view.getConfigModuloAccionEditar().setAcciones(acciones);
+        view.getConfigModuloAccionEditar().setAcciones(acciones);
 
-        configuracionModuloAccion.editar(this.view.getConfigModuloAccionEditar());
+        configuracionModuloAccion.editar(view.getConfigModuloAccionEditar());
 
         JSFUtils.infoMessage("Configuración: ", "¡Se actualizo correctamente!");
 
@@ -171,8 +167,7 @@ public class EditaConfigModuloAccionController implements Serializable {
 
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -190,7 +185,7 @@ public class EditaConfigModuloAccionController implements Serializable {
         }
     }
 
-    // ************ Getters and Setters ****************
+    
     /**
      * @return the view
      */
@@ -199,7 +194,8 @@ public class EditaConfigModuloAccionController implements Serializable {
     }
 
     /**
-     * @param view the view to set
+     * @param view
+     *            the view to set
      */
     public void setView(EditarConfigModuloAccionView view) {
         this.view = view;

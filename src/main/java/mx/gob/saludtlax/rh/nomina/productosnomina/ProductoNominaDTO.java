@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -50,15 +51,15 @@ public class ProductoNominaDTO implements Serializable {
     // private Date fechaFinCalculoAguinaldo; // Propiedad no usado
     private Date inicioRangoFaltas;
     private Date finRangoFaltas;
-	private BigDecimal diasPrimaVacasional;
-	private BigDecimal diasAguinaldo;
-	private BigDecimal diasExentoPrimaVacasional;
-	private BigDecimal diasExentoAguinaldo;
-	
-	private Boolean calcularFaltas;
+    private BigDecimal diasPrimaVacasional;
+    private BigDecimal diasAguinaldo;
+    private BigDecimal diasExentoPrimaVacasional;
+    private BigDecimal diasExentoAguinaldo;
+
+    private Boolean calcularFaltas;
 
     private Integer idNominaEmpleado;
-    
+
     public Integer getIdProductoNomina() {
         return idProductoNomina;
     }
@@ -396,50 +397,62 @@ public class ProductoNominaDTO implements Serializable {
     }
 
     public BigDecimal getDiasPrimaVacasional() {
-		return diasPrimaVacasional;
-	}
-
-	public void setDiasPrimaVacasional(BigDecimal diasPrimaVacasional) {
-		this.diasPrimaVacasional = diasPrimaVacasional;
-	}
-
-	public BigDecimal getDiasAguinaldo() {
-		return diasAguinaldo;
-	}
-
-	public void setDiasAguinaldo(BigDecimal diasAguinaldo) {
-		this.diasAguinaldo = diasAguinaldo;
-	}
-
-	public BigDecimal getDiasExentoPrimaVacasional() {
-		return diasExentoPrimaVacasional;
-	}
-
-	public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
-		this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
-	}
-
-	public BigDecimal getDiasExentoAguinaldo() {
-		return diasExentoAguinaldo;
-	}
-
-	public void setDiasExentoAguinaldo(BigDecimal diasExentoAguinaldo) {
-		this.diasExentoAguinaldo = diasExentoAguinaldo;
-	}
-
-	@Override
-    public String toString() {
-        return "ProductoNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", idTipoPeriodo=" + idTipoPeriodo + ", idPeriodoCalendario=" + idPeriodoCalendario + ", idUsuario=" + idUsuario + ", idEjercicioFiscal=" + idEjercicioFiscal + ", idEstatusProductoNomina=" + idEstatusProductoNomina + ", idBanco=" + idBanco + ", idCuentaBancaria=" + idCuentaBancaria + ", idTipoContratacion=" + idTipoContratacion + ", idFuenteFinanciamiento=" + idFuenteFinanciamiento + ", idSubfuenteFinanciamiento=" + idSubfuenteFinanciamiento + ", idTipoNomina=" + idTipoNomina + ", idArea=" + idArea + ", tipoPeriodo=" + tipoPeriodo + ", periodoCalendario=" + periodoCalendario + ", usuario=" + usuario + ", ejercicioFiscal=" + ejercicioFiscal + ", estatusProductoNomina=" + estatusProductoNomina + ", banco=" + banco + ", cuentaBancaria=" + cuentaBancaria + ", tipoContratacion=" + tipoContratacion + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", subfuenteFinanciamiento=" + subfuenteFinanciamiento + ", tipoNomina=" + tipoNomina + ", cambiarFuenteFinanciamiento=" + cambiarFuenteFinanciamiento + ", anyoEjercicioFiscal=" + anyoEjercicioFiscal + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", numeroPeriodo=" + numeroPeriodo + ", fechaPago=" + fechaPago + ", nombreProducto=" + nombreProducto + ", numeroInicioCheques=" + numeroInicioCheques + ", totalPercepciones=" + totalPercepciones + ", totalDeducciones=" + totalDeducciones + ", totalNeto=" + totalNeto + ", totalSubsidio=" + totalSubsidio + ", totalIsr=" + totalIsr + ", tipoRecurso=" + tipoRecurso + ", diasPagarAguinaldo=" + diasPagarAguinaldo + ", inicioRangoFaltas=" + inicioRangoFaltas + ", finRangoFaltas=" + finRangoFaltas + ", idNominaEmpleado=" + idNominaEmpleado + '}';
+        return diasPrimaVacasional;
     }
 
-	public Boolean getCalcularFaltas() {
-		if (calcularFaltas == null) {
-			calcularFaltas = Boolean.FALSE;
-		}
-		return calcularFaltas;
-	}
+    public void setDiasPrimaVacasional(BigDecimal diasPrimaVacasional) {
+        this.diasPrimaVacasional = diasPrimaVacasional;
+    }
 
-	public void setCalcularFaltas(Boolean calcularFaltas) {
-		this.calcularFaltas = calcularFaltas;
-	}
+    public BigDecimal getDiasAguinaldo() {
+        return diasAguinaldo;
+    }
+
+    public void setDiasAguinaldo(BigDecimal diasAguinaldo) {
+        this.diasAguinaldo = diasAguinaldo;
+    }
+
+    public BigDecimal getDiasExentoPrimaVacasional() {
+        return diasExentoPrimaVacasional;
+    }
+
+    public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
+        this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
+    }
+
+    public BigDecimal getDiasExentoAguinaldo() {
+        return diasExentoAguinaldo;
+    }
+
+    public void setDiasExentoAguinaldo(BigDecimal diasExentoAguinaldo) {
+        this.diasExentoAguinaldo = diasExentoAguinaldo;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", idTipoPeriodo=" + idTipoPeriodo + ", idPeriodoCalendario="
+                + idPeriodoCalendario + ", idUsuario=" + idUsuario + ", idEjercicioFiscal=" + idEjercicioFiscal + ", idEstatusProductoNomina="
+                + idEstatusProductoNomina + ", idBanco=" + idBanco + ", idCuentaBancaria=" + idCuentaBancaria + ", idTipoContratacion=" + idTipoContratacion
+                + ", idFuenteFinanciamiento=" + idFuenteFinanciamiento + ", idSubfuenteFinanciamiento=" + idSubfuenteFinanciamiento + ", idTipoNomina="
+                + idTipoNomina + ", idArea=" + idArea + ", tipoPeriodo=" + tipoPeriodo + ", periodoCalendario=" + periodoCalendario + ", usuario=" + usuario
+                + ", ejercicioFiscal=" + ejercicioFiscal + ", estatusProductoNomina=" + estatusProductoNomina + ", banco=" + banco + ", cuentaBancaria="
+                + cuentaBancaria + ", tipoContratacion=" + tipoContratacion + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", subfuenteFinanciamiento="
+                + subfuenteFinanciamiento + ", tipoNomina=" + tipoNomina + ", cambiarFuenteFinanciamiento=" + cambiarFuenteFinanciamiento
+                + ", anyoEjercicioFiscal=" + anyoEjercicioFiscal + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", numeroPeriodo="
+                + numeroPeriodo + ", fechaPago=" + fechaPago + ", nombreProducto=" + nombreProducto + ", numeroInicioCheques=" + numeroInicioCheques
+                + ", totalPercepciones=" + totalPercepciones + ", totalDeducciones=" + totalDeducciones + ", totalNeto=" + totalNeto + ", totalSubsidio="
+                + totalSubsidio + ", totalIsr=" + totalIsr + ", tipoRecurso=" + tipoRecurso + ", diasPagarAguinaldo=" + diasPagarAguinaldo
+                + ", inicioRangoFaltas=" + inicioRangoFaltas + ", finRangoFaltas=" + finRangoFaltas + ", idNominaEmpleado=" + idNominaEmpleado + '}';
+    }
+
+    public Boolean getCalcularFaltas() {
+        if (calcularFaltas == null) {
+            calcularFaltas = Boolean.FALSE;
+        }
+        return calcularFaltas;
+    }
+
+    public void setCalcularFaltas(Boolean calcularFaltas) {
+        this.calcularFaltas = calcularFaltas;
+    }
 }

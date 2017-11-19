@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.salariominimo;
 
 import java.util.List;
@@ -11,12 +12,12 @@ import java.util.List;
  */
 public interface SalarioMinimo {
 
-	public void crearSalarioMinimo(SalarioMinimoDTO dto);
+    public void crearSalarioMinimo(SalarioMinimoDTO dto);
 
-	public void actualizarSalarioMinimo(SalarioMinimoDTO dto);
+    public void actualizarSalarioMinimo(SalarioMinimoDTO dto);
 
-	public void eliminarSalarioMinimo(Integer idSalarioMinimo);
+    public void eliminarSalarioMinimo(Integer idSalarioMinimo);
 
-	public List<SalarioMinimoDTO> obtenerListaSalarioMinimo();
+    public List<SalarioMinimoDTO> obtenerListaSalarioMinimo();
 
 }

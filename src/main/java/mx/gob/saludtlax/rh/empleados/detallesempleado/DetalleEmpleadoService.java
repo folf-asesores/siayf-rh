@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.detallesempleado;
 
 import java.io.Serializable;
@@ -21,28 +22,27 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  */
 public class DetalleEmpleadoService implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4968811924541393668L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4968811924541393668L;
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
 
-	protected List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion) {
+    protected List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion) {
 
-		Session session = entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
 
-		Query query = session.createSQLQuery("CALL usp_detalles_empleados(:idTipoContratacion) ")
-				.setParameter("idTipoContratacion", idTipoContratacion);
+        Query query = session.createSQLQuery("CALL usp_detalles_empleados(:idTipoContratacion) ").setParameter("idTipoContratacion", idTipoContratacion);
 
-		query.setResultTransformer(Transformers.aliasToBean(DetalleEmpleadoDTO.class));
+        query.setResultTransformer(Transformers.aliasToBean(DetalleEmpleadoDTO.class));
 
-		@SuppressWarnings("unchecked")
-		List<DetalleEmpleadoDTO> list = query.list();
+        @SuppressWarnings("unchecked")
+        List<DetalleEmpleadoDTO> list = query.list();
 
-		return list;
+        return list;
 
-	}
+    }
 
 }

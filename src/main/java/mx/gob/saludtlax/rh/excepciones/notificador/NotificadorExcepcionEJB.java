@@ -1,8 +1,9 @@
 /*
  *  NotificadorExcepcionEJB.java
  *  Creado el Jun 16, 2016 1:26:10 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.excepciones.notificador;
 
 import java.util.Calendar;
@@ -22,9 +23,9 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import mx.gob.saludtlax.rh.util.FechaUtil;
-
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
  *
@@ -38,10 +39,11 @@ public class NotificadorExcepcionEJB implements NotificadorExcepcion {
     private static final Logger LOGGER = Logger.getLogger(NotificadorExcepcionEJB.class.getName());
     private static final String REMITENTE = "noresponder@folfasesores.com";
     private static final String REMITENTE_CONTRASENYA = "noresponder2016";
-    private static final String SERVER_HOST  = "lilith.rxmx.net";
+    private static final String SERVER_HOST = "lilith.rxmx.net";
     private static final Properties PROPIEDADES_SMTP = new Properties();
 
-    @Inject private NotificadorExcepcionService notificadorExcepcionService;
+    @Inject
+    private NotificadorExcepcionService notificadorExcepcionService;
 
     public NotificadorExcepcionEJB() {
         PROPIEDADES_SMTP.put("mail.smtp.auth", "true");
@@ -63,22 +65,21 @@ public class NotificadorExcepcionEJB implements NotificadorExcepcion {
             LOGGER.error("Error durante el envio del email.", ex);
         }
     }
-    
+
     private void enviarCorreoE(String nombreUsuario, String tipo, String mensaje, String pilaSeguimiento, String fechaHoraExcepcion) throws MessagingException {
-        Session session = Session.getInstance(PROPIEDADES_SMTP,
-                new Authenticator() {
+        Session session = Session.getInstance(PROPIEDADES_SMTP, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(REMITENTE, REMITENTE_CONTRASENYA);
             }
         });
-        
+
         Message message = new MimeMessage(session);
         message.setFrom(new InternetAddress(REMITENTE));
-	
+
         List<String> destinatarios = notificadorExcepcionService.consultarCorreos();
-        
-        if(destinatarios != null && !destinatarios.isEmpty()){
+
+        if (destinatarios != null && !destinatarios.isEmpty()) {
             for (String destinatario : destinatarios) {
                 message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
             }
@@ -87,14 +88,13 @@ public class NotificadorExcepcionEJB implements NotificadorExcepcion {
         }
 
         message.setSubject("Notificación: Error del sistema");
-        
+
         StringBuilder cuerpoCorreo = new StringBuilder();
-        cuerpoCorreo.append("<strong>Nombre de usuario:</strong> ").append(nombreUsuario).append("<br />")
-                .append("<strong>Tipo de error:</strong> ").append(tipo).append("<br />")
-                .append("<strong>Mensaje de error:</strong> ").append(mensaje).append("<br />")
-                .append("<strong>Fecha y hora:</strong> ").append(fechaHoraExcepcion).append("<br />")
-                .append("<strong>Pila de seguimiento:</strong><br />").append(pilaSeguimiento);
-        
+        cuerpoCorreo.append("<strong>Nombre de usuario:</strong> ").append(nombreUsuario).append("<br />").append("<strong>Tipo de error:</strong> ")
+                .append(tipo).append("<br />").append("<strong>Mensaje de error:</strong> ").append(mensaje).append("<br />")
+                .append("<strong>Fecha y hora:</strong> ").append(fechaHoraExcepcion).append("<br />").append("<strong>Pila de seguimiento:</strong><br />")
+                .append(pilaSeguimiento);
+
         message.setContent(cuerpoCorreo.toString(), "text/html");
         Transport.send(message);
     }
@@ -102,11 +102,11 @@ public class NotificadorExcepcionEJB implements NotificadorExcepcion {
     private void persistirExcepcion(String nombreUsuario, String tipo, String mensaje, String pilaSeguimiento, String fechaHoraException) {
         pilaSeguimiento = pilaSeguimiento.replace("<br />", "\n");
         Date fechaHora = FechaUtil.getFecha(fechaHoraException, "yyyy-MM-dd H:mm:ss");
-        
-        if(fechaHora == null) {
+
+        if (fechaHora == null) {
             fechaHora = Calendar.getInstance().getTime();
         }
-        
+
         notificadorExcepcionService.persistirExcepcion(nombreUsuario, tipo, mensaje, pilaSeguimiento, fechaHora);
     }
 

@@ -1,10 +1,8 @@
+
 package mx.gob.saludtlax.rh.persistencia;
-/**
- * 
- * @author José Pablo
- *  *
- */
+
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,47 +10,48 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author José Pablo
+ */
 @Entity
 @Table(name = "centro_responsabilidad")
 public class CentroResponsabilidadEntity implements Serializable {
-	private static final long serialVersionUID = 7212628000214644356L;
-	
-	@Id
-	@Column(name = "id_centro_responsabilidad")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idCentroResponsabilidad;
+    private static final long serialVersionUID = 7212628000214644356L;
 
-	@Column(name = "clave")
-	private String clave;
-	
-	@Column(name = "descripcion")
-	private String descripcion;
+    @Id
+    @Column(name = "id_centro_responsabilidad")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idCentroResponsabilidad;
 
-	public Integer getIdCentroResponsabilidad() {
-		return idCentroResponsabilidad;
-	}
+    @Column(name = "clave")
+    private String clave;
 
-	public void setIdCentroResponsabilidad(Integer idCentroResponsabilidad) {
-		this.idCentroResponsabilidad = idCentroResponsabilidad;
-	}
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	public String getClave() {
-		return clave;
-	}
+    public Integer getIdCentroResponsabilidad() {
+        return idCentroResponsabilidad;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public void setIdCentroResponsabilidad(Integer idCentroResponsabilidad) {
+        this.idCentroResponsabilidad = idCentroResponsabilidad;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getClave() {
+        return clave;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
 
-	
-	
-	
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
 }

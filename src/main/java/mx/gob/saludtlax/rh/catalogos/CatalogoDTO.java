@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.catalogos;
 
 /**
@@ -9,23 +10,23 @@ package mx.gob.saludtlax.rh.catalogos;
  * @since 10/03/2016-13:54:27
  */
 public class CatalogoDTO {
-	private Integer id;
-	private String nombre;
+    private Integer id;
+    private String nombre;
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
 }

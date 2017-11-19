@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * EstrategiaEJB.java
  * Creado el Jul 12, 2016 10:43:19 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.estrategia;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,8 +18,9 @@ import javax.inject.Inject;
  */
 @Stateless
 public class EstrategiaEJB implements Estrategia {
-    
-    @Inject private EstrategiaService estrategiaService;
+
+    @Inject
+    private EstrategiaService estrategiaService;
 
     @Override
     public int crear(EstrategiaDTO dto) {
@@ -38,7 +41,7 @@ public class EstrategiaEJB implements Estrategia {
     public List<EstrategiaDTO> consultarEstrategias() {
         return estrategiaService.consultarEstrategias();
     }
-    
+
     @Override
     public List<String> consultarDescripcionEstrategiaPorCriterio(String criterio) {
         return estrategiaService.consultarDescripcionEstrategiaPorCriterio(criterio);

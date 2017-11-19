@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.banco;
 
 import java.io.Serializable;
@@ -18,32 +19,32 @@ import javax.inject.Inject;
 @Stateless
 public class BancoEJB implements Banco, Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6340143902837762923L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6340143902837762923L;
 
-	@Inject
-	private BancoService bancoService;
+    @Inject
+    private BancoService bancoService;
 
-	@Override
-	public void crearBanco(BancoDTO bancoDTO) {
-		bancoService.crearBanco(bancoDTO);
-	}
+    @Override
+    public void crearBanco(BancoDTO bancoDTO) {
+        bancoService.crearBanco(bancoDTO);
+    }
 
-	@Override
-	public void actualizarBanco(BancoDTO bancoDTO) {
-		bancoService.actualizarBanco(bancoDTO);
-	}
+    @Override
+    public void actualizarBanco(BancoDTO bancoDTO) {
+        bancoService.actualizarBanco(bancoDTO);
+    }
 
-	@Override
-	public void eliminarBanco(Integer idBanco) {
-		bancoService.eliminarBanco(idBanco);
-	}
+    @Override
+    public void eliminarBanco(Integer idBanco) {
+        bancoService.eliminarBanco(idBanco);
+    }
 
-	@Override
-	public List<BancoDTO> obtenerListaBanco() {
-		return bancoService.obtenerListaBanco();
-	}
+    @Override
+    public List<BancoDTO> obtenerListaBanco() {
+        return bancoService.obtenerListaBanco();
+    }
 
 }

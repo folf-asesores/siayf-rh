@@ -1,69 +1,68 @@
+
 package mx.gob.saludtlax.rh.nomina.timbrado;
 
 import java.io.Serializable;
 
 /**
-*
-*@author Juan Carlos Ivan Ganzo Dominguez
-*
-*/
+ *
+ * @author Juan Carlos Ivan Ganzo Dominguez
+ *
+ */
 public class CFDIRespuesta implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7834466898561391170L;
-	
-	private String codigo;
-	
-	private String validate;
-	
-	private String mensaje;
-	
-	private String xml;
-	
-	private String uuid;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7834466898561391170L;
 
-	public String getCodigo() {
-		return codigo;
-	}
+    private String codigo;
 
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+    private String validate;
 
-	public String getValidate() {
-		return validate;
-	}
+    private String mensaje;
 
-	public void setValidate(String validate) {
-		this.validate = validate;
-	}
+    private String xml;
 
-	public String getMensaje() {
-		return mensaje;
-	}
+    private String uuid;
 
-	public void setMensaje(String mensaje) {
-		this.mensaje = mensaje;
-	}
+    public String getCodigo() {
+        return codigo;
+    }
 
-	public String getXml() {
-		return xml;
-	}
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
-	public void setXml(String xml) {
-		this.xml = xml;
-	}
+    public String getValidate() {
+        return validate;
+    }
 
-	public String getUuid() {
-		return uuid;
-	}
+    public void setValidate(String validate) {
+        this.validate = validate;
+    }
 
-	public void setUuid(String uuid) {
-		this.uuid = uuid;
-	}
-	
-	
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getXml() {
+        return xml;
+    }
+
+    public void setXml(String xml) {
+        this.xml = xml;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
 }

@@ -6,6 +6,9 @@
 
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
+import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,8 +23,6 @@ import javax.sql.DataSource;
 
 import org.jboss.logging.Logger;
 
-import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
-import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -30,51 +31,51 @@ public class PagoGeneralReporteService {
 
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteService.class.getName());
     private static final String USP_PAGO_GENERAL = "CALL usp_reporte_pago_general(?)";
-    private static final String CONSULTA_DESCRIPCION =
-            "  SELECT cn.descripcion"
-            + "  FROM conceptos_nominas_contratos AS cn"
-            + " WHERE cn.clave = ?";
+    private static final String CONSULTA_DESCRIPCION = "  SELECT cn.descripcion" + "  FROM conceptos_nominas_contratos AS cn" + " WHERE cn.clave = ?";
     private static final Map<String, String> TITULOS;
-    
+
     @Resource(mappedName = DATASOURCE)
     private DataSource ds;
 
     static {
-        TITULOS  = new HashMap<>();
-        TITULOS.put("programa","PROGRAMA");
+        TITULOS = new HashMap<>();
+        TITULOS.put("programa", "PROGRAMA");
         TITULOS.put("noConsecutivoRegistro", "NO. CONSECUTIVO REGISTRO");
-        TITULOS.put("mes","MES");
-        TITULOS.put("entidad","ENTIDAD");
-        TITULOS.put("tipoCentroSalud","TIPO CENTRO DE SALUD");
-        TITULOS.put("claveClues","CLAVE CLUES");
-        TITULOS.put("nombreUnidad","NOMBRE DE LA UNIDAD");
-        TITULOS.put("areaAdscripcion","ÁREA DE ADSCRIPCIÓN");
-        TITULOS.put("puesto","PUESTO");
-        TITULOS.put("clavePuesto","CLAVE PUESTO");
-        TITULOS.put("servicio","SERVICIO");
-        TITULOS.put("rama","RAMA");
-        TITULOS.put("nombre","NOMBRE");
-        TITULOS.put("rfc","RFC");
-        TITULOS.put("turno","TURNO");
-        TITULOS.put("fechaIngreso","FECHA DE INGRESO");
-        TITULOS.put("centroResponsabilidad","CENTRO DE RESPONSABILIDAD");
-        TITULOS.put("funcion","FUNCIÓN");
-        TITULOS.put("percepcionNeta","PERCEPCIÓN NETA");
-        TITULOS.put("deduccionTotal","DEDUCCIÓN TOTAL");
-        TITULOS.put("percepcionTotal","PERCEPCIÓN TOTAL");
-        TITULOS.put("total","TOTAL");
-        TITULOS.put("idPagoNomina","idPagoNomina");
+        TITULOS.put("mes", "MES");
+        TITULOS.put("entidad", "ENTIDAD");
+        TITULOS.put("tipoCentroSalud", "TIPO CENTRO DE SALUD");
+        TITULOS.put("claveClues", "CLAVE CLUES");
+        TITULOS.put("nombreUnidad", "NOMBRE DE LA UNIDAD");
+        TITULOS.put("areaAdscripcion", "ÁREA DE ADSCRIPCIÓN");
+        TITULOS.put("puesto", "PUESTO");
+        TITULOS.put("clavePuesto", "CLAVE PUESTO");
+        TITULOS.put("servicio", "SERVICIO");
+        TITULOS.put("rama", "RAMA");
+        TITULOS.put("nombre", "NOMBRE");
+        TITULOS.put("rfc", "RFC");
+        TITULOS.put("turno", "TURNO");
+        TITULOS.put("fechaIngreso", "FECHA DE INGRESO");
+        TITULOS.put("centroResponsabilidad", "CENTRO DE RESPONSABILIDAD");
+        TITULOS.put("funcion", "FUNCIÓN");
+        TITULOS.put("percepcionNeta", "PERCEPCIÓN NETA");
+        TITULOS.put("deduccionTotal", "DEDUCCIÓN TOTAL");
+        TITULOS.put("percepcionTotal", "PERCEPCIÓN TOTAL");
+        TITULOS.put("total", "TOTAL");
+        TITULOS.put("idPagoNomina", "idPagoNomina");
     }
 
     /**
      * Permite obtener los datos del reporte de pago general, así como los
      * titulos de la consulta.
      *
-     * @param idProductoNomina el ID del producto de nómina.
-     * @param titulos en este arreglo se guardaran los titulos de la consulta.
-     * @param datos los datos de la consulta.
+     * @param idProductoNomina
+     *            el ID del producto de nómina.
+     * @param titulos
+     *            en este arreglo se guardaran los titulos de la consulta.
+     * @param datos
+     *            los datos de la consulta.
      */
-    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object []> datos) {
+    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object[]> datos) {
         try (Connection connection = ds.getConnection()) {
             PreparedStatement pstmt = connection.prepareStatement(USP_PAGO_GENERAL);
             pstmt.setInt(1, idProductoNomina);
@@ -85,10 +86,10 @@ public class PagoGeneralReporteService {
 
             for (int i = 1; i <= totalColumnas; i++) {
                 String nombreEtiqueta = metaData.getColumnLabel(i);
-                if (TITULOS.containsKey(nombreEtiqueta)){
+                if (TITULOS.containsKey(nombreEtiqueta)) {
                     String titulo = TITULOS.get(nombreEtiqueta);
                     titulos.add(titulo);
-                } else if("id_nomina_empleado".equals(nombreEtiqueta)) {
+                } else if ("id_nomina_empleado".equals(nombreEtiqueta)) {
                     posicionIdNominaEmpleado = i;
                 } else {
                     String titulo = obtenerDescripcion(nombreEtiqueta);
@@ -96,8 +97,8 @@ public class PagoGeneralReporteService {
                 }
             }
 
-            while(rs.next()) {
-                Object [] objDatos = new Object[titulos.size()];
+            while (rs.next()) {
+                Object[] objDatos = new Object[titulos.size()];
 
                 int pos = 1;
                 for (int i = 0; i < titulos.size(); i++) {

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.conceptosnomina;
 
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public class ConceptosNominaFederalesController implements Serializable {
     @Inject
     private ConfiguracionConceptoPuestoEJB configuracionConceptoEjb;
 
-    private List<PuestoGeneralDTO> puestosTarget = new ArrayList<PuestoGeneralDTO>();
+    private List<PuestoGeneralDTO> puestosTarget = new ArrayList<>();
 
     private BigDecimal sueldoBase = BigDecimal.ZERO;
     private BigDecimal asignacionbruta = BigDecimal.ZERO;
@@ -67,7 +68,7 @@ public class ConceptosNominaFederalesController implements Serializable {
 
     public void cargarListaPuestos() {
         view.setPuestos(puestoGeneral.consultarListaPuestoGeneral());
-        view.setPuestosSeleccion(new DualListModel<PuestoGeneralDTO>(view.getPuestos(), puestosTarget));
+        view.setPuestosSeleccion(new DualListModel<>(view.getPuestos(), puestosTarget));
     }
 
     public Boolean esMandoMedio(ConfiguracionConceptoPuestoDTO configPuesto) {
@@ -81,8 +82,7 @@ public class ConceptosNominaFederalesController implements Serializable {
 
     public void obtenerConfiguraciones() {
         List<ConfiguracionConceptoPuestoDTO> listaConf = new ArrayList<>();
-        listaConf = configuracionConceptoEjb
-                .obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
+        listaConf = configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
         List<PuestoGeneralDTO> listaNewPuestos = new ArrayList<>();
         listaNewPuestos = puestoGeneral.consultarListaPuestoGeneral();
 
@@ -94,7 +94,7 @@ public class ConceptosNominaFederalesController implements Serializable {
             }
 
         }
-        view.setPuestosSeleccion(new DualListModel<PuestoGeneralDTO>(listaNewPuestos, puestosTarget));
+        view.setPuestosSeleccion(new DualListModel<>(listaNewPuestos, puestosTarget));
         view.setConfigPuesto(listaConf);
         view.setPuestos(listaNewPuestos);
     }
@@ -103,91 +103,91 @@ public class ConceptosNominaFederalesController implements Serializable {
      * Metodo usado para el componente pick List el cual fue remplazado por una
      * tabla seleccionable
      */
-//	public void guardarConfiguracionConceptos() {
-//		List<ConfiguracionConceptoPuestoDTO> listNewConfigDto = new ArrayList<>();
-//		if (!view.getPuestosSeleccion().getTarget().isEmpty()) {
-//			for (PuestoGeneralDTO puesto : view.getPuestosSeleccion().getTarget()) {
-//				ConfiguracionConceptoPuestoDTO newConfigConcepto = new ConfiguracionConceptoPuestoDTO();
-//				newConfigConcepto.setClaveConcepto(view.getConceptoNominaSelect().getClave());
-//				newConfigConcepto.setCodigoPuesto(puesto.getCodigo());
-//				newConfigConcepto.setDecripcionConcepto(view.getConceptoNominaSelect().getDescripcion());
-//				newConfigConcepto.setDescripcionPuesto(puesto.getPuesto());
-//
-//				if (view.getResult() != null) {
-//
-//					BigDecimal newImport = new BigDecimal(view.getResult().trim());
-//					newConfigConcepto.setImporte_concepto(newImport);
-//				}
-//
-//				TabuladorDTO tabulador = new TabuladorDTO();
-//				System.out.println("puesto " + puesto.getIdPuestoGeneral());
-//				// validar el año del tabulador
-//				// **************************************************************************
-//				try {
-//					tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(),
-//							FechaUtil.ejercicioActual());
-//					System.out.println("tabulador " + tabulador.getIdTabulador() + "--- "
-//							+ view.getConceptoNominaSelect().getClave());
-//					if (view.getConceptoNominaSelect().getClave().contentEquals("0700")) {
-//						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-//						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-//						newConfigConcepto.setImporte_concepto(
-//								tabulador.getSueldoBrutoMensual().setScale(2, RoundingMode.HALF_EVEN));
-//						newConfigConcepto.setFormula("EX0700");
-//					}
-//
-//					if (view.getConceptoNominaSelect().getClave().contentEquals("4200")) {
-//						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-//						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-//						newConfigConcepto.setImporte_concepto(tabulador.getAsignacionBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
-//						newConfigConcepto.setFormula("(EX4200)");
-//					}
-//
-//					if (view.getConceptoNominaSelect().getClave().contentEquals("55AG")) {
-//						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
-//						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
-//						newConfigConcepto.setImporte_concepto(
-//								tabulador.getAgaBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
-//						newConfigConcepto.setFormula("(EX55AG)");
-//					}
-//				} catch (NullPointerException ex) {
-//					JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto " + puesto.getCodigo());
-//				}
-//				newConfigConcepto.setId_concepto_nomina(view.getConceptoNominaSelect().getIdConceptoNomina());
-//				newConfigConcepto.setId_puesto_general(puesto.getIdPuestoGeneral());
-//				newConfigConcepto.setTipoPuesto(puesto.getIdTipoPuesto());
-//
-//				if(view.getConceptoNominaSelect().getFormula()!=null){
-//					newConfigConcepto.setFormula(view.getConceptoNominaSelect().getFormula());
-//					String formulanueva = newConfigConcepto.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual()+"");
-//				formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual()+"");
-//				formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual()+"");
-//				String resFormula = ejb.evaluarFormula(formulanueva);
-//				System.out.println("cambiar valor constante :. " +formulanueva +" "+ resFormula );
-//				BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
-//				newConfigConcepto.setImporte_concepto(valorFormula);
-//				}
-//				listNewConfigDto.add(newConfigConcepto);
-//			}
-//
-//			for (ConfiguracionConceptoPuestoDTO dtoDel : configuracionConceptoEjb
-//					.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina())) {
-//				configuracionConceptoEjb.borrar(dtoDel);
-//			}
-//
-//
-//			for (ConfiguracionConceptoPuestoDTO dto : listNewConfigDto) {
-//				configuracionConceptoEjb.crear(dto);
-//			}
-//			List<ConfiguracionConceptoPuestoDTO> listaConfignew = new ArrayList<>();
-//			listaConfignew=configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
-//			System.out.println("lista"+listaConfignew.size());
-//			view.getConfigPuesto().addAll(listaConfignew);
-//
-//			view.getPuestosSeleccion().getTarget().clear();
-//		}
-//
-//	}
+    //	public void guardarConfiguracionConceptos() {
+    //		List<ConfiguracionConceptoPuestoDTO> listNewConfigDto = new ArrayList<>();
+    //		if (!view.getPuestosSeleccion().getTarget().isEmpty()) {
+    //			for (PuestoGeneralDTO puesto : view.getPuestosSeleccion().getTarget()) {
+    //				ConfiguracionConceptoPuestoDTO newConfigConcepto = new ConfiguracionConceptoPuestoDTO();
+    //				newConfigConcepto.setClaveConcepto(view.getConceptoNominaSelect().getClave());
+    //				newConfigConcepto.setCodigoPuesto(puesto.getCodigo());
+    //				newConfigConcepto.setDecripcionConcepto(view.getConceptoNominaSelect().getDescripcion());
+    //				newConfigConcepto.setDescripcionPuesto(puesto.getPuesto());
+    //
+    //				if (view.getResult() != null) {
+    //
+    //					BigDecimal newImport = new BigDecimal(view.getResult().trim());
+    //					newConfigConcepto.setImporte_concepto(newImport);
+    //				}
+    //
+    //				TabuladorDTO tabulador = new TabuladorDTO();
+    //				System.out.println("puesto " + puesto.getIdPuestoGeneral());
+    //				// validar el año del tabulador
+    //				
+    //				try {
+    //					tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(),
+    //							FechaUtil.ejercicioActual());
+    //					System.out.println("tabulador " + tabulador.getIdTabulador() + "--- "
+    //							+ view.getConceptoNominaSelect().getClave());
+    //					if (view.getConceptoNominaSelect().getClave().contentEquals("0700")) {
+    //						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+    //						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
+    //						newConfigConcepto.setImporte_concepto(
+    //								tabulador.getSueldoBrutoMensual().setScale(2, RoundingMode.HALF_EVEN));
+    //						newConfigConcepto.setFormula("EX0700");
+    //					}
+    //
+    //					if (view.getConceptoNominaSelect().getClave().contentEquals("4200")) {
+    //						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+    //						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
+    //						newConfigConcepto.setImporte_concepto(tabulador.getAsignacionBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
+    //						newConfigConcepto.setFormula("(EX4200)");
+    //					}
+    //
+    //					if (view.getConceptoNominaSelect().getClave().contentEquals("55AG")) {
+    //						newConfigConcepto.setId_tabulador(tabulador.getIdTabulador());
+    //						newConfigConcepto.setEjercicioFiscalTabulador(tabulador.getEjercicioFiscal());
+    //						newConfigConcepto.setImporte_concepto(
+    //								tabulador.getAgaBrutaMensual().setScale(2, RoundingMode.HALF_EVEN));
+    //						newConfigConcepto.setFormula("(EX55AG)");
+    //					}
+    //				} catch (NullPointerException ex) {
+    //					JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto " + puesto.getCodigo());
+    //				}
+    //				newConfigConcepto.setId_concepto_nomina(view.getConceptoNominaSelect().getIdConceptoNomina());
+    //				newConfigConcepto.setId_puesto_general(puesto.getIdPuestoGeneral());
+    //				newConfigConcepto.setTipoPuesto(puesto.getIdTipoPuesto());
+    //
+    //				if(view.getConceptoNominaSelect().getFormula()!=null){
+    //					newConfigConcepto.setFormula(view.getConceptoNominaSelect().getFormula());
+    //					String formulanueva = newConfigConcepto.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual()+"");
+    //				formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual()+"");
+    //				formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual()+"");
+    //				String resFormula = ejb.evaluarFormula(formulanueva);
+    //				System.out.println("cambiar valor constante :. " +formulanueva +" "+ resFormula );
+    //				BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
+    //				newConfigConcepto.setImporte_concepto(valorFormula);
+    //				}
+    //				listNewConfigDto.add(newConfigConcepto);
+    //			}
+    //
+    //			for (ConfiguracionConceptoPuestoDTO dtoDel : configuracionConceptoEjb
+    //					.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina())) {
+    //				configuracionConceptoEjb.borrar(dtoDel);
+    //			}
+    //
+    //
+    //			for (ConfiguracionConceptoPuestoDTO dto : listNewConfigDto) {
+    //				configuracionConceptoEjb.crear(dto);
+    //			}
+    //			List<ConfiguracionConceptoPuestoDTO> listaConfignew = new ArrayList<>();
+    //			listaConfignew=configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
+    //			System.out.println("lista"+listaConfignew.size());
+    //			view.getConfigPuesto().addAll(listaConfignew);
+    //
+    //			view.getPuestosSeleccion().getTarget().clear();
+    //		}
+    //
+    //	}
     public void guardarConfiguracionConceptosNew() {
         List<ConfiguracionConceptoPuestoDTO> listNewConfigDto = new ArrayList<>();
         if (!view.getPuestosSeleccionados().isEmpty()) {
@@ -206,12 +206,10 @@ public class ConceptosNominaFederalesController implements Serializable {
                 TabuladorDTO tabulador = new TabuladorDTO();
                 System.out.println("puesto " + puesto.getIdPuestoGeneral());
                 // validar el año del tabulador
-                // **************************************************************************
+                
                 try {
-                    tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(),
-                            FechaUtil.ejercicioActual());
-                    System.out.println("tabulador " + tabulador.getIdTabulador() + "--- "
-                            + view.getConceptoNominaSelect().getClave());
+                    tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
+                    System.out.println("tabulador " + tabulador.getIdTabulador() + "--- " + view.getConceptoNominaSelect().getClave());
 
                 } catch (NullPointerException ex) {
                     JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto " + puesto.getCodigo());
@@ -238,12 +236,12 @@ public class ConceptosNominaFederalesController implements Serializable {
                 view.getPuestos().remove(puesto);
             }
 
-//			List<ConfiguracionConceptoPuestoDTO> configuracionesOld = new ArrayList<>();
-//			configuracionesOld= configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
-//			System.out.println("ConfiguracionesOld "+ configuracionesOld.size() +" conceptoNomina");
-//			for (ConfiguracionConceptoPuestoDTO dtoDel : configuracionesOld) {
-//				configuracionConceptoEjb.borrar(dtoDel);
-//			}
+            //			List<ConfiguracionConceptoPuestoDTO> configuracionesOld = new ArrayList<>();
+            //			configuracionesOld= configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
+            //			System.out.println("ConfiguracionesOld "+ configuracionesOld.size() +" conceptoNomina");
+            //			for (ConfiguracionConceptoPuestoDTO dtoDel : configuracionesOld) {
+            //				configuracionConceptoEjb.borrar(dtoDel);
+            //			}
             for (ConfiguracionConceptoPuestoDTO dto : listNewConfigDto) {
                 configuracionConceptoEjb.crear(dto);
             }

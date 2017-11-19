@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.banco;
 
 import java.io.Serializable;
@@ -21,70 +22,70 @@ import mx.gob.saludtlax.rh.persistencia.BancoSatRepository;
  */
 public class BancoService implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -732707831982712760L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -732707831982712760L;
 
-	@Inject
-	private BancoSatRepository bancoRepository;
+    @Inject
+    private BancoSatRepository bancoRepository;
 
-	protected void crearBanco(BancoDTO bancoDTO) {
+    protected void crearBanco(BancoDTO bancoDTO) {
 
-		String contexto = "Registro Banco: ";
+        String contexto = "Registro Banco: ";
 
-		Boolean validarClave = bancoRepository.validarClaveBanco(bancoDTO.getClave());
+        Boolean validarClave = bancoRepository.validarClaveBanco(bancoDTO.getClave());
 
-		if (validarClave) {
-			throw new ReglaNegocioException(contexto + "La clave del banco ya se encuentra registrado, ingrese otro", null);
-		}
+        if (validarClave) {
+            throw new ReglaNegocioException(contexto + "La clave del banco ya se encuentra registrado, ingrese otro", null);
+        }
 
-		BancoSatEntity bancoEntity = new BancoSatEntity();
+        BancoSatEntity bancoEntity = new BancoSatEntity();
 
-		bancoEntity.setClave(bancoDTO.getClave());
-		bancoEntity.setNombreCorto(bancoDTO.getNombreCorto());
-		bancoEntity.setRazonSocial(bancoDTO.getRazonSocial());
-		// creando Banco
-		bancoRepository.crear(bancoEntity);
+        bancoEntity.setClave(bancoDTO.getClave());
+        bancoEntity.setNombreCorto(bancoDTO.getNombreCorto());
+        bancoEntity.setRazonSocial(bancoDTO.getRazonSocial());
+        // creando Banco
+        bancoRepository.crear(bancoEntity);
 
-	}
+    }
 
-	protected void actualizarBanco(BancoDTO bancoDTO) {
+    protected void actualizarBanco(BancoDTO bancoDTO) {
 
-		BancoSatEntity bancoEntity = bancoRepository.obtenerPorId(bancoDTO.getIdBanco());
+        BancoSatEntity bancoEntity = bancoRepository.obtenerPorId(bancoDTO.getIdBanco());
 
-		bancoEntity.setClave(bancoDTO.getClave());
-		bancoEntity.setNombreCorto(bancoDTO.getNombreCorto());
-		bancoEntity.setRazonSocial(bancoDTO.getRazonSocial());
-		// actualizando Banco
-		bancoRepository.actualizar(bancoEntity);
+        bancoEntity.setClave(bancoDTO.getClave());
+        bancoEntity.setNombreCorto(bancoDTO.getNombreCorto());
+        bancoEntity.setRazonSocial(bancoDTO.getRazonSocial());
+        // actualizando Banco
+        bancoRepository.actualizar(bancoEntity);
 
-	}
+    }
 
-	protected void eliminarBanco(Integer idBanco) {
+    protected void eliminarBanco(Integer idBanco) {
 
-		BancoSatEntity bancoEntity = bancoRepository.obtenerPorId(idBanco);
-		// Eliminando banco
-		bancoRepository.eliminar(bancoEntity);
-	}
+        BancoSatEntity bancoEntity = bancoRepository.obtenerPorId(idBanco);
+        // Eliminando banco
+        bancoRepository.eliminar(bancoEntity);
+    }
 
-	protected List<BancoDTO> obtenerListaBanco() {
-		List<BancoDTO> listaBancoDTO = new ArrayList<BancoDTO>();
-		List<BancoSatEntity> listaBanco = bancoRepository.obtenerListaBanco();
+    protected List<BancoDTO> obtenerListaBanco() {
+        List<BancoDTO> listaBancoDTO = new ArrayList<>();
+        List<BancoSatEntity> listaBanco = bancoRepository.obtenerListaBanco();
 
-		if (!listaBanco.isEmpty()) {
-			for (BancoSatEntity bancoEntity : listaBanco) {
-				BancoDTO bancoDTO = new BancoDTO();
+        if (!listaBanco.isEmpty()) {
+            for (BancoSatEntity bancoEntity : listaBanco) {
+                BancoDTO bancoDTO = new BancoDTO();
 
-				bancoDTO.setIdBanco(bancoEntity.getIdBanco());
-				bancoDTO.setClave(bancoEntity.getClave());
-				bancoDTO.setNombreCorto(bancoEntity.getNombreCorto());
-				bancoDTO.setRazonSocial(bancoEntity.getRazonSocial());
+                bancoDTO.setIdBanco(bancoEntity.getIdBanco());
+                bancoDTO.setClave(bancoEntity.getClave());
+                bancoDTO.setNombreCorto(bancoEntity.getNombreCorto());
+                bancoDTO.setRazonSocial(bancoEntity.getRazonSocial());
 
-				listaBancoDTO.add(bancoDTO);
-			}
-		}
-		return listaBancoDTO;
-	}
+                listaBancoDTO.add(bancoDTO);
+            }
+        }
+        return listaBancoDTO;
+    }
 
 }

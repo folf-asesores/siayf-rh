@@ -1,8 +1,9 @@
 /*
  * InformacionAdjuntoDTO.java
  * Creado el May 12, 2016 12:57:19 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.expediente;
 
 import java.io.Serializable;
@@ -12,9 +13,9 @@ import mx.gob.saludtlax.rh.expediente.empleado.AdjuntoEmpleado;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
 /**
- * Esta clase tiene por objetivo solo describir un adjunto; para poder obtener 
- * el adjunto se debe emplear el EJB corespondiente, en caso de un empleado 
- * {@link AdjuntoEmpleado#obtenerAdjuntoPorIdAdjunto(int) } y en caso de un 
+ * Esta clase tiene por objetivo solo describir un adjunto; para poder obtener
+ * el adjunto se debe emplear el EJB corespondiente, en caso de un empleado
+ * {@link AdjuntoEmpleado#obtenerAdjuntoPorIdAdjunto(int) } y en caso de un
  * aspirante {@link AdjuntoAspirante#obtenerAdjuntoPorIdAdjunto(int)}.
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -44,24 +45,29 @@ public class InformacionAdjuntoDTO implements Serializable {
 
     /**
      * Permite crear un instancia inicializando los campos esenciales del DTO.
-     * 
-     * @param idAdjunto el ID del adjunto.
-     * @param entidadContexto el contexto del adjunto.
-     * @param idEntidadContexto el id del contexto.
-     * @param nombreAdjunto el nombre del archivo adjunto sin extensión.
-     * @param extension la extensión del adjunto.
-     * @param documentoAdjuntable el tipo de documento adjuntable que es.
-     * @param idExpediente el ID del expedinte.
-     * @param idEmpleado el ID del empleado si se trata de un adjunto del empleado.
-     * @param idAspirante el ID del aspirante si se trata de un adjunto del aspirante.
+     *
+     * @param idAdjunto
+     *            el ID del adjunto.
+     * @param entidadContexto
+     *            el contexto del adjunto.
+     * @param idEntidadContexto
+     *            el id del contexto.
+     * @param nombreAdjunto
+     *            el nombre del archivo adjunto sin extensión.
+     * @param extension
+     *            la extensión del adjunto.
+     * @param documentoAdjuntable
+     *            el tipo de documento adjuntable que es.
+     * @param idExpediente
+     *            el ID del expedinte.
+     * @param idEmpleado
+     *            el ID del empleado si se trata de un adjunto del empleado.
+     * @param idAspirante
+     *            el ID del aspirante si se trata de un adjunto del aspirante.
      * @param detalle
      */
-    public InformacionAdjuntoDTO(Integer idAdjunto, 
-            EntidadContexto entidadContexto, Integer idEntidadContexto,
-            String nombreAdjunto, TipoArchivo extension, 
-            DocumentoAdjuntableDTO documentoAdjuntable, Integer idExpediente, 
-            Integer idEmpleado,
-            Integer idAspirante, String detalle) {
+    public InformacionAdjuntoDTO(Integer idAdjunto, EntidadContexto entidadContexto, Integer idEntidadContexto, String nombreAdjunto, TipoArchivo extension,
+            DocumentoAdjuntableDTO documentoAdjuntable, Integer idExpediente, Integer idEmpleado, Integer idAspirante, String detalle) {
 
         this.idAdjunto = idAdjunto;
         this.entidadContexto = entidadContexto;
@@ -99,7 +105,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param idAdjunto the idAdjunto to set
+     * @param idAdjunto
+     *            the idAdjunto to set
      */
     public void setIdAdjunto(Integer idAdjunto) {
         this.idAdjunto = idAdjunto;
@@ -113,7 +120,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param entidadContexto the entidadContexto to set
+     * @param entidadContexto
+     *            the entidadContexto to set
      */
     public void setEntidadContexto(EntidadContexto entidadContexto) {
         this.entidadContexto = entidadContexto;
@@ -127,7 +135,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param idEntidadContexto the idEntidadContexto to set
+     * @param idEntidadContexto
+     *            the idEntidadContexto to set
      */
     public void setIdEntidadContexto(Integer idEntidadContexto) {
         this.idEntidadContexto = idEntidadContexto;
@@ -141,7 +150,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param nombreAdjunto the nombreAdjunto to set
+     * @param nombreAdjunto
+     *            the nombreAdjunto to set
      */
     public void setNombreAdjunto(String nombreAdjunto) {
         this.nombreAdjunto = nombreAdjunto;
@@ -155,7 +165,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param extension the extension to set
+     * @param extension
+     *            the extension to set
      */
     public void setExtension(TipoArchivo extension) {
         this.extension = extension;
@@ -169,7 +180,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param documentoAdjuntable the documentoAdjuntable to set
+     * @param documentoAdjuntable
+     *            the documentoAdjuntable to set
      */
     public void setDocumentoAdjuntable(DocumentoAdjuntableDTO documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
@@ -183,7 +195,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param idEmpleado the idEmpleado to set
+     * @param idEmpleado
+     *            the idEmpleado to set
      */
     public void setIdEmpleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
@@ -197,7 +210,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param idAspirante the idAspirante to set
+     * @param idAspirante
+     *            the idAspirante to set
      */
     public void setIdAspirante(Integer idAspirante) {
         this.idAspirante = idAspirante;
@@ -211,7 +225,8 @@ public class InformacionAdjuntoDTO implements Serializable {
     }
 
     /**
-     * @param detalle the detalle to set
+     * @param detalle
+     *            the detalle to set
      */
     public void setDetalle(String detalle) {
         this.detalle = detalle;

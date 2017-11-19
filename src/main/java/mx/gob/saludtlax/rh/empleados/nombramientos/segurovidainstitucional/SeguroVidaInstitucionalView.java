@@ -1,10 +1,10 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.nombramientos.segurovidainstitucional;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,185 +17,186 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
  */
 public class SeguroVidaInstitucionalView implements Serializable {
 
-	/**
-	 * 
-	 */
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7703798962984624601L;
 
-	private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<InfoEmpleadoDTO>();
+    /**
+     *
+     */
 
-	private List<InfoDependienteEconomicoDTO> listaDependientesEconomicos = new ArrayList<InfoDependienteEconomicoDTO>();
+    private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<>();
 
-	private List<BeneficiariosDTO> beneficiariosDTOsNuevos = new ArrayList<BeneficiariosDTO>();
+    private List<InfoDependienteEconomicoDTO> listaDependientesEconomicos = new ArrayList<>();
 
-	private InfoEmpleadoDTO infoEmpleadoDTO = new InfoEmpleadoDTO();
+    private List<BeneficiariosDTO> beneficiariosDTOsNuevos = new ArrayList<>();
 
-	private SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo = new SeguroVidaInstitucionalDTO();
+    private InfoEmpleadoDTO infoEmpleadoDTO = new InfoEmpleadoDTO();
 
-	private InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado = new InfoDependienteEconomicoDTO();
+    private SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo = new SeguroVidaInstitucionalDTO();
 
-	private String criterio;
+    private InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado = new InfoDependienteEconomicoDTO();
 
-	private Integer totalPorcentaje = 0;
+    private String criterio;
 
-	private Integer porcentajeBeneficiario;
+    private Integer totalPorcentaje = 0;
 
-	private boolean formularioAltaSeguro = false;
+    private Integer porcentajeBeneficiario;
 
-	private boolean dialogPorcentaje = false;
-	private boolean principal = true;
-	private boolean ventanaNuevoReporte = false;
-	private boolean reporteExitoso = false;
-	private boolean generarReporte = false;
-	private boolean datosEmpleadoSeleccionado = false;
-	private String urlReporte;
-	private Integer idSeguroVida = 0;
+    private boolean formularioAltaSeguro = false;
 
-	
+    private boolean dialogPorcentaje = false;
+    private boolean principal = true;
+    private boolean ventanaNuevoReporte = false;
+    private boolean reporteExitoso = false;
+    private boolean generarReporte = false;
+    private boolean datosEmpleadoSeleccionado = false;
+    private String urlReporte;
+    private Integer idSeguroVida = 0;
 
-	public List<InfoEmpleadoDTO> getListaEmpleados() {
-		return listaEmpleados;
-	}
+    public List<InfoEmpleadoDTO> getListaEmpleados() {
+        return listaEmpleados;
+    }
 
-	public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
-	}
+    public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
 
-	public String getCriterio() {
-		return criterio;
-	}
+    public String getCriterio() {
+        return criterio;
+    }
 
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
-	}
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
 
-	public InfoEmpleadoDTO getInfoEmpleadoDTO() {
-		return infoEmpleadoDTO;
-	}
+    public InfoEmpleadoDTO getInfoEmpleadoDTO() {
+        return infoEmpleadoDTO;
+    }
 
-	public void setInfoEmpleadoDTO(InfoEmpleadoDTO infoEmpleadoDTO) {
-		this.infoEmpleadoDTO = infoEmpleadoDTO;
-	}
+    public void setInfoEmpleadoDTO(InfoEmpleadoDTO infoEmpleadoDTO) {
+        this.infoEmpleadoDTO = infoEmpleadoDTO;
+    }
 
-	public boolean isFormularioAltaSeguro() {
-		return formularioAltaSeguro;
-	}
+    public boolean isFormularioAltaSeguro() {
+        return formularioAltaSeguro;
+    }
 
-	public void setFormularioAltaSeguro(boolean formularioAltaSeguro) {
-		this.formularioAltaSeguro = formularioAltaSeguro;
-	}
+    public void setFormularioAltaSeguro(boolean formularioAltaSeguro) {
+        this.formularioAltaSeguro = formularioAltaSeguro;
+    }
 
-	public boolean isDialogPorcentaje() {
-		return dialogPorcentaje;
-	}
+    public boolean isDialogPorcentaje() {
+        return dialogPorcentaje;
+    }
 
-	public void setDialogPorcentaje(boolean dialogPorcentaje) {
-		this.dialogPorcentaje = dialogPorcentaje;
-	}
+    public void setDialogPorcentaje(boolean dialogPorcentaje) {
+        this.dialogPorcentaje = dialogPorcentaje;
+    }
 
-	public SeguroVidaInstitucionalDTO getSeguroVidaInstitucionalDTONuevo() {
-		return seguroVidaInstitucionalDTONuevo;
-	}
+    public SeguroVidaInstitucionalDTO getSeguroVidaInstitucionalDTONuevo() {
+        return seguroVidaInstitucionalDTONuevo;
+    }
 
-	public void setSeguroVidaInstitucionalDTONuevo(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo) {
-		this.seguroVidaInstitucionalDTONuevo = seguroVidaInstitucionalDTONuevo;
-	}
+    public void setSeguroVidaInstitucionalDTONuevo(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo) {
+        this.seguroVidaInstitucionalDTONuevo = seguroVidaInstitucionalDTONuevo;
+    }
 
-	public List<BeneficiariosDTO> getBeneficiariosDTOsNuevos() {
-		return beneficiariosDTOsNuevos;
-	}
+    public List<BeneficiariosDTO> getBeneficiariosDTOsNuevos() {
+        return beneficiariosDTOsNuevos;
+    }
 
-	public void setBeneficiariosDTOsNuevos(List<BeneficiariosDTO> beneficiariosDTOsNuevos) {
-		this.beneficiariosDTOsNuevos = beneficiariosDTOsNuevos;
-	}
+    public void setBeneficiariosDTOsNuevos(List<BeneficiariosDTO> beneficiariosDTOsNuevos) {
+        this.beneficiariosDTOsNuevos = beneficiariosDTOsNuevos;
+    }
 
-	public InfoDependienteEconomicoDTO getInfoDependienteEconomicoDTOSeleccionado() {
-		return infoDependienteEconomicoDTOSeleccionado;
-	}
+    public InfoDependienteEconomicoDTO getInfoDependienteEconomicoDTOSeleccionado() {
+        return infoDependienteEconomicoDTOSeleccionado;
+    }
 
-	public void setInfoDependienteEconomicoDTOSeleccionado(
-			InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado) {
-		this.infoDependienteEconomicoDTOSeleccionado = infoDependienteEconomicoDTOSeleccionado;
-	}
+    public void setInfoDependienteEconomicoDTOSeleccionado(InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado) {
+        this.infoDependienteEconomicoDTOSeleccionado = infoDependienteEconomicoDTOSeleccionado;
+    }
 
-	public List<InfoDependienteEconomicoDTO> getListaDependientesEconomicos() {
-		return listaDependientesEconomicos;
-	}
+    public List<InfoDependienteEconomicoDTO> getListaDependientesEconomicos() {
+        return listaDependientesEconomicos;
+    }
 
-	public void setListaDependientesEconomicos(List<InfoDependienteEconomicoDTO> listaDependientesEconomicos) {
-		this.listaDependientesEconomicos = listaDependientesEconomicos;
-	}
+    public void setListaDependientesEconomicos(List<InfoDependienteEconomicoDTO> listaDependientesEconomicos) {
+        this.listaDependientesEconomicos = listaDependientesEconomicos;
+    }
 
-	public Integer getPorcentajeBeneficiario() {
-		return porcentajeBeneficiario;
-	}
+    public Integer getPorcentajeBeneficiario() {
+        return porcentajeBeneficiario;
+    }
 
-	public void setPorcentajeBeneficiario(Integer porcentajeBeneficiario) {
-		this.porcentajeBeneficiario = porcentajeBeneficiario;
-	}
+    public void setPorcentajeBeneficiario(Integer porcentajeBeneficiario) {
+        this.porcentajeBeneficiario = porcentajeBeneficiario;
+    }
 
-	public Integer getTotalPorcentaje() {
-		return totalPorcentaje;
-	}
+    public Integer getTotalPorcentaje() {
+        return totalPorcentaje;
+    }
 
-	public void setTotalPorcentaje(Integer totalPorcentaje) {
-		this.totalPorcentaje = totalPorcentaje;
-	}
+    public void setTotalPorcentaje(Integer totalPorcentaje) {
+        this.totalPorcentaje = totalPorcentaje;
+    }
 
-	public boolean isVentanaNuevoReporte() {
-		return ventanaNuevoReporte;
-	}
+    public boolean isVentanaNuevoReporte() {
+        return ventanaNuevoReporte;
+    }
 
-	public void setVentanaNuevoReporte(boolean ventanaNuevoReporte) {
-		this.ventanaNuevoReporte = ventanaNuevoReporte;
-	}
+    public void setVentanaNuevoReporte(boolean ventanaNuevoReporte) {
+        this.ventanaNuevoReporte = ventanaNuevoReporte;
+    }
 
-	public boolean isReporteExitoso() {
-		return reporteExitoso;
-	}
+    public boolean isReporteExitoso() {
+        return reporteExitoso;
+    }
 
-	public void setReporteExitoso(boolean reporteExitoso) {
-		this.reporteExitoso = reporteExitoso;
-	}
+    public void setReporteExitoso(boolean reporteExitoso) {
+        this.reporteExitoso = reporteExitoso;
+    }
 
-	public String getUrlReporte() {
-		return urlReporte;
-	}
+    public String getUrlReporte() {
+        return urlReporte;
+    }
 
-	public void setUrlReporte(String urlReporte) {
-		this.urlReporte = urlReporte;
-	}
+    public void setUrlReporte(String urlReporte) {
+        this.urlReporte = urlReporte;
+    }
 
-	public boolean isPrincipal() {
-		return principal;
-	}
+    public boolean isPrincipal() {
+        return principal;
+    }
 
-	public void setPrincipal(boolean principal) {
-		this.principal = principal;
-	}
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
+    }
 
-	public boolean isGenerarReporte() {
-		return generarReporte;
-	}
+    public boolean isGenerarReporte() {
+        return generarReporte;
+    }
 
-	public void setGenerarReporte(boolean generarReporte) {
-		this.generarReporte = generarReporte;
-	}
+    public void setGenerarReporte(boolean generarReporte) {
+        this.generarReporte = generarReporte;
+    }
 
-	public Integer getIdSeguroVida() {
-		return idSeguroVida;
-	}
+    public Integer getIdSeguroVida() {
+        return idSeguroVida;
+    }
 
-	public void setIdSeguroVida(Integer idSeguroVida) {
-		this.idSeguroVida = idSeguroVida;
-	}
+    public void setIdSeguroVida(Integer idSeguroVida) {
+        this.idSeguroVida = idSeguroVida;
+    }
 
-	public boolean isDatosEmpleadoSeleccionado() {
-		return datosEmpleadoSeleccionado;
-	}
+    public boolean isDatosEmpleadoSeleccionado() {
+        return datosEmpleadoSeleccionado;
+    }
 
-	public void setDatosEmpleadoSeleccionado(boolean datosEmpleadoSeleccionado) {
-		this.datosEmpleadoSeleccionado = datosEmpleadoSeleccionado;
-	}
+    public void setDatosEmpleadoSeleccionado(boolean datosEmpleadoSeleccionado) {
+        this.datosEmpleadoSeleccionado = datosEmpleadoSeleccionado;
+    }
 
 }

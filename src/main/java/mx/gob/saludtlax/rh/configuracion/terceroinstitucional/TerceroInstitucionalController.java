@@ -1,6 +1,7 @@
-/**
+/*
  * Copyright ® 2016
  */
+
 package mx.gob.saludtlax.rh.configuracion.terceroinstitucional;
 
 import java.io.Serializable;
@@ -17,7 +18,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 24/05/2016 12:27:23
  */
@@ -25,106 +26,107 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ViewScoped
 public class TerceroInstitucionalController implements Serializable {
 
-	/**
-	 * 
-	 */
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8069891535607788590L;
 
-	@Inject
-	private TerceroInstitucional terceroInstitucional;
+    /**
+     *
+     */
 
-	private TerceroInstitucionalView view;
+    @Inject
+    private TerceroInstitucional terceroInstitucional;
 
-	@PostConstruct
-	private void init() {
-		this.view = new TerceroInstitucionalView();
-		obtenerListaTerceroInstitucional();
-	}
+    private TerceroInstitucionalView view;
 
-	/**
-	 * obtiene la lista de terceros institucionales registrados en la bd
-	 */
-	public void obtenerListaTerceroInstitucional() {
-		try {
-			List<TerceroInstitucionalDTO> listaTercero = terceroInstitucional.obtenerListaTerceroInstitucional();
+    @PostConstruct
+    private void init() {
+        view = new TerceroInstitucionalView();
+        obtenerListaTerceroInstitucional();
+    }
 
-			this.view.setListaTerceroInstitucional(listaTercero);
+    /**
+     * obtiene la lista de terceros institucionales registrados en la bd
+     */
+    public void obtenerListaTerceroInstitucional() {
+        try {
+            List<TerceroInstitucionalDTO> listaTercero = terceroInstitucional.obtenerListaTerceroInstitucional();
 
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
+            view.setListaTerceroInstitucional(listaTercero);
 
-	/**
-	 * Crea o Registra un tercero institucional dependiendo de la accion que
-	 * este realizando el usuario
-	 */
-	public void crearActualizarTerceroInstitucional() {
-		try {
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
 
-			if (this.view.getAccionButton().equals("Registrar")) {
-				terceroInstitucional.crearTerceroInstitucional(this.view.getTerceroInstitucional());
-				JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
-			} else if (this.view.getAccionButton().equals("Actualizar")) {
-				terceroInstitucional.actualizarTerceroInstitucional(this.view.getTerceroInstitucional());
-				JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
-			}
+    /**
+     * Crea o Registra un tercero institucional dependiendo de la accion que
+     * este realizando el usuario
+     */
+    public void crearActualizarTerceroInstitucional() {
+        try {
 
-			deseleccionarTerceroInstitucional();
-		} catch (BusinessException | ValidationException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
+            if (view.getAccionButton().equals("Registrar")) {
+                terceroInstitucional.crearTerceroInstitucional(view.getTerceroInstitucional());
+                JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+            } else if (view.getAccionButton().equals("Actualizar")) {
+                terceroInstitucional.actualizarTerceroInstitucional(view.getTerceroInstitucional());
+                JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+            }
 
-	/**
-	 * Elimina el registro tercero institucional seleccionado
-	 */
-	public void eliminarTerceroInstitucional() {
-		try {
-			terceroInstitucional
-					.eliminarTerceroInstitucional(this.view.getTerceroInstitucional().getIdTerceroInstitucional());
-			JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
-			deseleccionarTerceroInstitucional();
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
+            deseleccionarTerceroInstitucional();
+        } catch (BusinessException | ValidationException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
 
-	/**
-	 * Cacha desde la vista el registro seleccionado y se lo setea al objeto
-	 * 
-	 * @param terceroInstitucionalDTO
-	 */
-	public void seleccionarActualizacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
-		this.view.setTerceroInstitucional(terceroInstitucionalDTO);
-		this.view.setAccionButton("Actualizar");
-	}
+    /**
+     * Elimina el registro tercero institucional seleccionado
+     */
+    public void eliminarTerceroInstitucional() {
+        try {
+            terceroInstitucional.eliminarTerceroInstitucional(view.getTerceroInstitucional().getIdTerceroInstitucional());
+            JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+            deseleccionarTerceroInstitucional();
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
 
-	/**
-	 * Cacha desde la vista el registro seleccionado y se lo setea al objeto
-	 * 
-	 * @param terceroInstitucionalDTO
-	 */
-	public void seleccionarEliminacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
-		this.view.setTerceroInstitucional(terceroInstitucionalDTO);
-	}
+    /**
+     * Cacha desde la vista el registro seleccionado y se lo setea al objeto
+     *
+     * @param terceroInstitucionalDTO
+     */
+    public void seleccionarActualizacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
+        view.setTerceroInstitucional(terceroInstitucionalDTO);
+        view.setAccionButton("Actualizar");
+    }
 
-	/**
-	 * Limpia el registro seleccionado
-	 */
-	public void deseleccionarTerceroInstitucional() {
-		this.view.setTerceroInstitucional(new TerceroInstitucionalDTO());
-		obtenerListaTerceroInstitucional();
-	}
+    /**
+     * Cacha desde la vista el registro seleccionado y se lo setea al objeto
+     *
+     * @param terceroInstitucionalDTO
+     */
+    public void seleccionarEliminacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
+        view.setTerceroInstitucional(terceroInstitucionalDTO);
+    }
 
-	
+    /**
+     * Limpia el registro seleccionado
+     */
+    public void deseleccionarTerceroInstitucional() {
+        view.setTerceroInstitucional(new TerceroInstitucionalDTO());
+        obtenerListaTerceroInstitucional();
+    }
 
-	public TerceroInstitucionalView getView() {
-		return view;
-	}
+    public TerceroInstitucionalView getView() {
+        return view;
+    }
 
-	public void setView(TerceroInstitucionalView view) {
-		this.view = view;
-	}
+    public void setView(TerceroInstitucionalView view) {
+        this.view = view;
+    }
 
 }

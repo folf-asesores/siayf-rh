@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
@@ -24,42 +25,40 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ViewScoped
 public class ConfigModuloAccionController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5533846908901889903L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5533846908901889903L;
 
-	@Inject
-	ConfiguracionModuloAccion configuracionModuloAccion;
+    @Inject
+    ConfiguracionModuloAccion configuracionModuloAccion;
 
-	private ConfigModuloAccionView view;
+    private ConfigModuloAccionView view;
 
-	@PostConstruct
-	public void init() {
-		this.view = new ConfigModuloAccionView();
+    @PostConstruct
+    public void init() {
+        view = new ConfigModuloAccionView();
 
-		List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = new ArrayList<>();
-		configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
+        List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = new ArrayList<>();
+        configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
 
-		this.view.getListaConfiguracionModuloAccion().clear();
-		this.view.getListaConfiguracionModuloAccion().addAll(configuracionModuloAccionTemp);
+        view.getListaConfiguracionModuloAccion().clear();
+        view.getListaConfiguracionModuloAccion().addAll(configuracionModuloAccionTemp);
 
-	}
+    }
 
-	public void eliminarConfiguracion(Integer idConfiguracionModuloAccion) {
-		configuracionModuloAccion.eliminar(idConfiguracionModuloAccion);
-		init();
-		JSFUtils.infoMessage("Configuración Modulo Acción: ", "¡Se elimino Correctamente!");
-	}
+    public void eliminarConfiguracion(Integer idConfiguracionModuloAccion) {
+        configuracionModuloAccion.eliminar(idConfiguracionModuloAccion);
+        init();
+        JSFUtils.infoMessage("Configuración Modulo Acción: ", "¡Se elimino Correctamente!");
+    }
 
-	
+    public ConfigModuloAccionView getView() {
+        return view;
+    }
 
-	public ConfigModuloAccionView getView() {
-		return view;
-	}
-
-	public void setView(ConfigModuloAccionView view) {
-		this.view = view;
-	}
+    public void setView(ConfigModuloAccionView view) {
+        this.view = view;
+    }
 
 }

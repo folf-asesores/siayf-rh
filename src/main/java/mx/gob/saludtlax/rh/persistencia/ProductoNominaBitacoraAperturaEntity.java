@@ -1,14 +1,16 @@
 /*
  * ProductoNominaBitacoraAperturaEntity.java
  * Creado el 04/Jan/2017 8:46:33 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +34,7 @@ import javax.validation.constraints.NotNull;
 public class ProductoNominaBitacoraAperturaEntity implements Serializable {
 
     private static final long serialVersionUID = 4000661675694671232L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -60,11 +62,7 @@ public class ProductoNominaBitacoraAperturaEntity implements Serializable {
     }
 
     public ProductoNominaBitacoraAperturaEntity(Integer idBitacora) {
-        this(
-                0,
-                Calendar.getInstance().getTime(),
-                Calendar.getInstance().getTime()
-        );
+        this(0, Calendar.getInstance().getTime(), Calendar.getInstance().getTime());
     }
 
     public ProductoNominaBitacoraAperturaEntity(Integer idBitacora, Date fecha, Date hora) {
@@ -107,12 +105,7 @@ public class ProductoNominaBitacoraAperturaEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductosNominaBitacorasAperturasEntity{"
-                + "idBitacora=" + idBitacora
-                + ", fecha=" + fecha
-                + ", hora=" + hora
-                + ", usuario=" + usuario
-                + '}';
+        return "ProductosNominaBitacorasAperturasEntity{" + "idBitacora=" + idBitacora + ", fecha=" + fecha + ", hora=" + hora + ", usuario=" + usuario + '}';
     }
 
     @Override
@@ -148,7 +141,5 @@ public class ProductoNominaBitacoraAperturaEntity implements Serializable {
         }
         return Objects.equals(usuario, other.usuario);
     }
-    
-    
-    
+
 }

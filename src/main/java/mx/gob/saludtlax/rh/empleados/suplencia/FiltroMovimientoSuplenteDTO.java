@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.suplencia;
 
 /**
@@ -10,32 +11,32 @@ package mx.gob.saludtlax.rh.empleados.suplencia;
  */
 public class FiltroMovimientoSuplenteDTO {
 
-	private int tipoConsulta;
-	private String criterio;
-	private Integer idSuplente;
+    private int tipoConsulta;
+    private String criterio;
+    private Integer idSuplente;
 
-	public Integer getIdSuplente() {
-		return idSuplente;
-	}
+    public Integer getIdSuplente() {
+        return idSuplente;
+    }
 
-	public void setIdSuplente(Integer idSuplente) {
-		this.idSuplente = idSuplente;
-	}
+    public void setIdSuplente(Integer idSuplente) {
+        this.idSuplente = idSuplente;
+    }
 
-	public int getTipoConsulta() {
-		return tipoConsulta;
-	}
+    public int getTipoConsulta() {
+        return tipoConsulta;
+    }
 
-	public void setTipoConsulta(int tipoConsulta) {
-		this.tipoConsulta = tipoConsulta;
-	}
+    public void setTipoConsulta(int tipoConsulta) {
+        this.tipoConsulta = tipoConsulta;
+    }
 
-	public String getCriterio() {
-		return criterio;
-	}
+    public String getCriterio() {
+        return criterio;
+    }
 
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
-	}
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
 
 }

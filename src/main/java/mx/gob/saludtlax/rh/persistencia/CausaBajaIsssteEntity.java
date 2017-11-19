@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -20,35 +21,33 @@ import javax.persistence.Table;
 @Table(name = "causas_bajas_issste")
 public class CausaBajaIsssteEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6712280530495002989L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_causa_baja")
-	private Integer idCausaBaja;
-	
-	@Column(name = "causa_baja")
-	private String causaBaja;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6712280530495002989L;
 
-	public Integer getIdCausaBaja() {
-		return idCausaBaja;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_causa_baja")
+    private Integer idCausaBaja;
 
-	public void setIdCausaBaja(Integer idCausaBaja) {
-		this.idCausaBaja = idCausaBaja;
-	}
+    @Column(name = "causa_baja")
+    private String causaBaja;
 
-	public String getCausaBaja() {
-		return causaBaja;
-	}
+    public Integer getIdCausaBaja() {
+        return idCausaBaja;
+    }
 
-	public void setCausaBaja(String causaBaja) {
-		this.causaBaja = causaBaja;
-	}
+    public void setIdCausaBaja(Integer idCausaBaja) {
+        this.idCausaBaja = idCausaBaja;
+    }
 
-	
+    public String getCausaBaja() {
+        return causaBaja;
+    }
+
+    public void setCausaBaja(String causaBaja) {
+        this.causaBaja = causaBaja;
+    }
 
 }

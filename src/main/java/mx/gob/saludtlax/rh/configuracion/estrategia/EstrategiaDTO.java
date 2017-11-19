@@ -1,9 +1,10 @@
 /*
- * 
+ *
  * EstrategiaDTO.java
  * Creado el Jul 12, 2016 10:25:02 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.estrategia;
 
 /**
@@ -11,9 +12,9 @@ package mx.gob.saludtlax.rh.configuracion.estrategia;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class EstrategiaDTO {
-       
-    private Integer idEstrategia;    
-    private int codigoEstrategia;    
+
+    private Integer idEstrategia;
+    private int codigoEstrategia;
     private String estrategia;
 
     public EstrategiaDTO() {

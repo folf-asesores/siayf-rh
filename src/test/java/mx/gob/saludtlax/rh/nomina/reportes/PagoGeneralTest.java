@@ -2,14 +2,30 @@
 
  * PagoGeneralTest.java
  * Creado el 15/Feb/2017 6:17:08 AM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
+
 import javax.inject.Inject;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
@@ -17,6 +33,7 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporteDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporteEJB;
 import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporteExcelService;
@@ -44,22 +61,6 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
-import mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte;
-
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -71,13 +72,13 @@ public class PagoGeneralTest {
 
     @Inject
     private PagoGeneralReporte pagoGeneral;
-    
+
     @Deployment
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
-        
+
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
@@ -116,10 +117,7 @@ public class PagoGeneralTest {
         jar.addClass(ValidacionUtil.class);
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -129,19 +127,14 @@ public class PagoGeneralTest {
     @Test
     public void obtenerReferencia() {
         LOGGER.info("Iniciando test obtenerReferencia");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "pago_general",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "9"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "pago_general", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA", "9" };
 
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         assertNotNull(referencia);
     }
-    
+
     @Ignore
     @Test
     public void obtenerReporte() throws IOException {
@@ -149,7 +142,7 @@ public class PagoGeneralTest {
         String referencia = "e8dc2e63-de43-4e65-9c16-0963d2b0";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
-        
+
         ArchivoUtil.guardarEnCarpetaUsuario(result, "pago-general.xlsx");
         assertNotNull(result);
     }
@@ -158,12 +151,7 @@ public class PagoGeneralTest {
     @Test
     public void testCompleto() throws IOException {
         LOGGER.info("Iniciando test completo");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "pago_general",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "28"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "pago_general", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA", "28" };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
@@ -172,7 +160,7 @@ public class PagoGeneralTest {
         ArchivoUtil.guardarEnCarpetaUsuario(result, "pago-general.xlsx");
         assertNotNull(result);
     }
-    
+
     @Ignore
     @Test
     public void testEjb() throws IOException {

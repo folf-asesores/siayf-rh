@@ -3,6 +3,7 @@
  * Creado el 07/Dec/2016 10:53:53 PM
  *
  */
+
 package mx.gob.saludtlax.rh.reportes.txt;
 
 import java.util.Map;
@@ -21,7 +22,7 @@ import mx.gob.saludtlax.rh.reportes.Generador;
 
 /**
  * Esta clase se encarga de generar los reporte de texto plano.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class TxtGenerador implements Generador {
@@ -47,19 +48,19 @@ public class TxtGenerador implements Generador {
                     ComprobanteEmpleado comprobanteEmpleadoBean = getBean(ComprobanteEmpleado.class);
                     bytes = comprobanteEmpleadoBean.generarReporte(idProductoNomina);
                 }
-                break;
+                    break;
                 case "dispersion_nomina": {
                     Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     Dispersion dispersionBean = getBean(Dispersion.class);
                     bytes = dispersionBean.generarReporte(idProductoNomina);
                 }
-                break;
+                    break;
                 case "listado-firmas": {
                     Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     Firma firmaBean = getBean(Firma.class);
                     bytes = firmaBean.generarReporte(idProductoNomina);
                 }
-                break;
+                    break;
                 case "prenomina_eventuales": {
                     Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     PrenominaReporte prenominaReporteBean = getBean(PrenominaReporte.class);

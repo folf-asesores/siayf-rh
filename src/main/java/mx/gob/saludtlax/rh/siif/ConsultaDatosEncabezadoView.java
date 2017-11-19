@@ -1,135 +1,121 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
 
 public class ConsultaDatosEncabezadoView {
-	private Integer idSiifEncabezado;
-	
-	private List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista;
-	private ConsultaDatosEncabezadoDTO datoEncabezado;
-	private ConsultaDatosEncabezadoDTO datoEncabezadoSelect;
+    private Integer idSiifEncabezado;
 
-	private Boolean panelPrincipal;
-	private Boolean oculto;
-	private Boolean panelDatosEncabezado;
-	private Boolean operacionNuevo;
-	private Boolean disabledIrGestionarDatosEncabezado;
+    private List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista;
+    private ConsultaDatosEncabezadoDTO datoEncabezado;
+    private ConsultaDatosEncabezadoDTO datoEncabezadoSelect;
 
-	public void panelPrincipal() {
-		datoEncabezadoSelect = null;
-		panelPrincipal = Boolean.TRUE;
-		disabledIrGestionarDatosEncabezado = Boolean.TRUE;
-		panelDatosEncabezado = Boolean.FALSE;
-		oculto = Boolean.FALSE;
-	}
-	
-	public void panelDatosPersonales() {
-		panelPrincipal = Boolean.FALSE;
-		panelDatosEncabezado = Boolean.TRUE;
-		oculto = Boolean.FALSE;
-	}
-	
-//	<<<<<Getters & Setters>>>>>
-	
-	
-	
-	public Boolean getPanelPrincipal() {
-		return panelPrincipal;
-	}
+    private Boolean panelPrincipal;
+    private Boolean oculto;
+    private Boolean panelDatosEncabezado;
+    private Boolean operacionNuevo;
+    private Boolean disabledIrGestionarDatosEncabezado;
 
+    public void panelPrincipal() {
+        datoEncabezadoSelect = null;
+        panelPrincipal = Boolean.TRUE;
+        disabledIrGestionarDatosEncabezado = Boolean.TRUE;
+        panelDatosEncabezado = Boolean.FALSE;
+        oculto = Boolean.FALSE;
+    }
 
-	public Integer getIdSiifEncabezado() {
-		return idSiifEncabezado;
-	}
+    public void panelDatosPersonales() {
+        panelPrincipal = Boolean.FALSE;
+        panelDatosEncabezado = Boolean.TRUE;
+        oculto = Boolean.FALSE;
+    }
 
-	public void setIdSiifEncabezado(Integer idSiifEncabezado) {
-		this.idSiifEncabezado = idSiifEncabezado;
-	}
-	public List<ConsultaDatosEncabezadoDTO> getListDatosPersonalesLista() {
-		return listDatosPersonalesLista;
-	}
+    public Boolean getPanelPrincipal() {
+        return panelPrincipal;
+    }
 
-	public void setListDatosPersonalesLista(List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista) {
-		this.listDatosPersonalesLista = listDatosPersonalesLista;
-	}
+    public Integer getIdSiifEncabezado() {
+        return idSiifEncabezado;
+    }
 
-	public ConsultaDatosEncabezadoDTO getDatoEncabezado() {
-		return datoEncabezado;
-	}
+    public void setIdSiifEncabezado(Integer idSiifEncabezado) {
+        this.idSiifEncabezado = idSiifEncabezado;
+    }
 
-	public void setDatoEncabezado(ConsultaDatosEncabezadoDTO datoEncabezado) {
-		this.datoEncabezado = datoEncabezado;
-	}
+    public List<ConsultaDatosEncabezadoDTO> getListDatosPersonalesLista() {
+        return listDatosPersonalesLista;
+    }
 
-	public ConsultaDatosEncabezadoDTO getDatoEncabezadoSelect() {
-		return datoEncabezadoSelect;
-	}
+    public void setListDatosPersonalesLista(List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista) {
+        this.listDatosPersonalesLista = listDatosPersonalesLista;
+    }
 
-	public void setDatoEncabezadoSelect(ConsultaDatosEncabezadoDTO datoEncabezadoSelect) {
-		this.datoEncabezadoSelect = datoEncabezadoSelect;
-	}
+    public ConsultaDatosEncabezadoDTO getDatoEncabezado() {
+        return datoEncabezado;
+    }
 
-	public Boolean getPanelDatosEncabezado() {
-		return panelDatosEncabezado;
-	}
+    public void setDatoEncabezado(ConsultaDatosEncabezadoDTO datoEncabezado) {
+        this.datoEncabezado = datoEncabezado;
+    }
 
-	public void setPanelDatosEncabezado(Boolean panelDatosEncabezado) {
-		this.panelDatosEncabezado = panelDatosEncabezado;
-	}
+    public ConsultaDatosEncabezadoDTO getDatoEncabezadoSelect() {
+        return datoEncabezadoSelect;
+    }
 
-	public Boolean getDisabledIrGestionarDatosEncabezado() {
-		return disabledIrGestionarDatosEncabezado;
-	}
+    public void setDatoEncabezadoSelect(ConsultaDatosEncabezadoDTO datoEncabezadoSelect) {
+        this.datoEncabezadoSelect = datoEncabezadoSelect;
+    }
 
-	public void setDisabledIrGestionarDatosEncabezado(Boolean disabledIrGestionarDatosEncabezado) {
-		this.disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosEncabezado;
-	}
+    public Boolean getPanelDatosEncabezado() {
+        return panelDatosEncabezado;
+    }
 
-	public void setPanelPrincipal(Boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public void setPanelDatosEncabezado(Boolean panelDatosEncabezado) {
+        this.panelDatosEncabezado = panelDatosEncabezado;
+    }
 
-	public Boolean getOculto() {
-		return oculto;
-	}
+    public Boolean getDisabledIrGestionarDatosEncabezado() {
+        return disabledIrGestionarDatosEncabezado;
+    }
 
-	public void setOculto(Boolean oculto) {
-		this.oculto = oculto;
-	}
+    public void setDisabledIrGestionarDatosEncabezado(Boolean disabledIrGestionarDatosEncabezado) {
+        this.disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosEncabezado;
+    }
 
+    public void setPanelPrincipal(Boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
 
-	public Boolean getPanelDatosPersonales() {
-		return panelDatosEncabezado;
-	}
+    public Boolean getOculto() {
+        return oculto;
+    }
 
+    public void setOculto(Boolean oculto) {
+        this.oculto = oculto;
+    }
 
-	public void setPanelDatosPersonales(Boolean panelDatosPersonales) {
-		this.panelDatosEncabezado = panelDatosPersonales;
-	}
+    public Boolean getPanelDatosPersonales() {
+        return panelDatosEncabezado;
+    }
 
+    public void setPanelDatosPersonales(Boolean panelDatosPersonales) {
+        panelDatosEncabezado = panelDatosPersonales;
+    }
 
-	public Boolean getOperacionNuevo() {
-		return operacionNuevo;
-	}
+    public Boolean getOperacionNuevo() {
+        return operacionNuevo;
+    }
 
+    public void setOperacionNuevo(Boolean operacionNuevo) {
+        this.operacionNuevo = operacionNuevo;
+    }
 
-	public void setOperacionNuevo(Boolean operacionNuevo) {
-		this.operacionNuevo = operacionNuevo;
-	}
+    public Boolean getDisabledIrGestionarDatosPersonales() {
+        return disabledIrGestionarDatosEncabezado;
+    }
 
+    public void setDisabledIrGestionarDatosPersonales(Boolean disabledIrGestionarDatosPersonales) {
+        disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosPersonales;
+    }
 
-	public Boolean getDisabledIrGestionarDatosPersonales() {
-		return disabledIrGestionarDatosEncabezado;
-	}
-
-
-	public void setDisabledIrGestionarDatosPersonales(Boolean disabledIrGestionarDatosPersonales) {
-		this.disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosPersonales;
-	}
-	
-	
-	
-	
-	
-	
 }

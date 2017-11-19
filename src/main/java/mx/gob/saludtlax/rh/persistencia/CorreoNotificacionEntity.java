@@ -1,11 +1,13 @@
 /*
  *  CorreoNotificacionEntity.java
  *  Creado el Jun 17, 2016 2:48:10 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,10 +31,10 @@ public class CorreoNotificacionEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_correo_notificacion")
     private Integer idCorreoNotificacion;
-    
+
     @Column(name = "nickname", nullable = false)
     private String nickname;
-    
+
     @Column(name = "correo_electronico", unique = true, nullable = false)
     private String correoElectronico;
 

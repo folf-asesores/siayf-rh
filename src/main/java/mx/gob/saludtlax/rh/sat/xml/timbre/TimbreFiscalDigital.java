@@ -1,5 +1,4 @@
 
-
 package mx.gob.saludtlax.rh.sat.xml.timbre;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,12 +9,13 @@ import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -63,8 +63,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
@@ -87,11 +87,11 @@ public class TimbreFiscalDigital {
 
     /**
      * Obtiene el valor de la propiedad version.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getVersion() {
         if (version == null) {
@@ -103,23 +103,23 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad version.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setVersion(String value) {
-        this.version = value;
+        version = value;
     }
 
     /**
      * Obtiene el valor de la propiedad uuid.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getUUID() {
         return uuid;
@@ -127,23 +127,23 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad uuid.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setUUID(String value) {
-        this.uuid = value;
+        uuid = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaTimbrado.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaTimbrado() {
         return fechaTimbrado;
@@ -151,23 +151,23 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad fechaTimbrado.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaTimbrado(XMLGregorianCalendar value) {
-        this.fechaTimbrado = value;
+        fechaTimbrado = value;
     }
 
     /**
      * Obtiene el valor de la propiedad selloCFD.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSelloCFD() {
         return selloCFD;
@@ -175,23 +175,23 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad selloCFD.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSelloCFD(String value) {
-        this.selloCFD = value;
+        selloCFD = value;
     }
 
     /**
      * Obtiene el valor de la propiedad noCertificadoSAT.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNoCertificadoSAT() {
         return noCertificadoSAT;
@@ -199,23 +199,23 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad noCertificadoSAT.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNoCertificadoSAT(String value) {
-        this.noCertificadoSAT = value;
+        noCertificadoSAT = value;
     }
 
     /**
      * Obtiene el valor de la propiedad selloSAT.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSelloSAT() {
         return selloSAT;
@@ -223,14 +223,14 @@ public class TimbreFiscalDigital {
 
     /**
      * Define el valor de la propiedad selloSAT.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSelloSAT(String value) {
-        this.selloSAT = value;
+        selloSAT = value;
     }
 
 }

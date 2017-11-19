@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -22,67 +23,65 @@ import javax.persistence.Table;
 @Table(name = "riesgos_puestos")
 public class RiesgoPuestoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5862446207985560825L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5862446207985560825L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_riesgo_puesto")
-	private Integer idRiesgoPuesto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_riesgo_puesto")
+    private Integer idRiesgoPuesto;
 
-	@Column(name = "clave")
-	private Integer clave;
+    @Column(name = "clave")
+    private Integer clave;
 
-	@Column(name = "descripcion_riesgo_puesto")
-	private String descripcionRiesgoPuesto;
+    @Column(name = "descripcion_riesgo_puesto")
+    private String descripcionRiesgoPuesto;
 
-	
+    /**
+     * @return the idRiesgoPuesto
+     */
+    public Integer getIdRiesgoPuesto() {
+        return idRiesgoPuesto;
+    }
 
-	/**
-	 * @return the idRiesgoPuesto
-	 */
-	public Integer getIdRiesgoPuesto() {
-		return idRiesgoPuesto;
-	}
+    /**
+     * @param idRiesgoPuesto
+     *            the idRiesgoPuesto to set
+     */
+    public void setIdRiesgoPuesto(Integer idRiesgoPuesto) {
+        this.idRiesgoPuesto = idRiesgoPuesto;
+    }
 
-	/**
-	 * @param idRiesgoPuesto
-	 *            the idRiesgoPuesto to set
-	 */
-	public void setIdRiesgoPuesto(Integer idRiesgoPuesto) {
-		this.idRiesgoPuesto = idRiesgoPuesto;
-	}
+    /**
+     * @return the clave
+     */
+    public Integer getClave() {
+        return clave;
+    }
 
-	/**
-	 * @return the clave
-	 */
-	public Integer getClave() {
-		return clave;
-	}
+    /**
+     * @param clave
+     *            the clave to set
+     */
+    public void setClave(Integer clave) {
+        this.clave = clave;
+    }
 
-	/**
-	 * @param clave
-	 *            the clave to set
-	 */
-	public void setClave(Integer clave) {
-		this.clave = clave;
-	}
+    /**
+     * @return the descripcionRiesgoPuesto
+     */
+    public String getDescripcionRiesgoPuesto() {
+        return descripcionRiesgoPuesto;
+    }
 
-	/**
-	 * @return the descripcionRiesgoPuesto
-	 */
-	public String getDescripcionRiesgoPuesto() {
-		return descripcionRiesgoPuesto;
-	}
-
-	/**
-	 * @param descripcionRiesgoPuesto
-	 *            the descripcionRiesgoPuesto to set
-	 */
-	public void setDescripcionRiesgoPuesto(String descripcionRiesgoPuesto) {
-		this.descripcionRiesgoPuesto = descripcionRiesgoPuesto;
-	}
+    /**
+     * @param descripcionRiesgoPuesto
+     *            the descripcionRiesgoPuesto to set
+     */
+    public void setDescripcionRiesgoPuesto(String descripcionRiesgoPuesto) {
+        this.descripcionRiesgoPuesto = descripcionRiesgoPuesto;
+    }
 
 }

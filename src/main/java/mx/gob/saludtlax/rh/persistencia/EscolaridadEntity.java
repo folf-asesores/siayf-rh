@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,50 +22,50 @@ import javax.persistence.Table;
 @Table(name = "escolaridades")
 public class EscolaridadEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7480644052515441771L;
-	@Id
-	@Column(name = "id_escolaridad")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEscolaridad;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7480644052515441771L;
+    @Id
+    @Column(name = "id_escolaridad")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEscolaridad;
 
-	@Column(name = "escolaridad")
-	private String escolaridad;
+    @Column(name = "escolaridad")
+    private String escolaridad;
 
-	@Column(name = "grupo_academico")
-	private String grupoAcademico;
+    @Column(name = "grupo_academico")
+    private String grupoAcademico;
 
-	@Column(name = "perfil")
-	private boolean perfil;
+    @Column(name = "perfil")
+    private boolean perfil;
 
-	public boolean isPerfil() {
-		return perfil;
-	}
+    public boolean isPerfil() {
+        return perfil;
+    }
 
-	public void setPerfil(boolean perfil) {
-		this.perfil = perfil;
-	}
+    public void setPerfil(boolean perfil) {
+        this.perfil = perfil;
+    }
 
-	public String getEscolaridad() {
-		return escolaridad;
-	}
+    public String getEscolaridad() {
+        return escolaridad;
+    }
 
-	public void setEscolaridad(String escolaridad) {
-		this.escolaridad = escolaridad;
-	}
+    public void setEscolaridad(String escolaridad) {
+        this.escolaridad = escolaridad;
+    }
 
-	public String getGrupoAcademico() {
-		return grupoAcademico;
-	}
+    public String getGrupoAcademico() {
+        return grupoAcademico;
+    }
 
-	public void setGrupoAcademico(String grupoAcademico) {
-		this.grupoAcademico = grupoAcademico;
-	}
+    public void setGrupoAcademico(String grupoAcademico) {
+        this.grupoAcademico = grupoAcademico;
+    }
 
-	public Integer getIdEscolaridad() {
-		return idEscolaridad;
-	}
+    public Integer getIdEscolaridad() {
+        return idEscolaridad;
+    }
 
 }

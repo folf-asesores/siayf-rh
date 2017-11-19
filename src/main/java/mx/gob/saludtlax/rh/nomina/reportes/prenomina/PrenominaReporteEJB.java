@@ -3,10 +3,12 @@
  * Creado el 11/Jul/2017 6:53:59 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;

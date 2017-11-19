@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -27,83 +28,80 @@ import javax.persistence.TemporalType;
 @Table(name = "detalle_buzon_autorizaciones")
 public class DetalleBuzonAutorizacionEntity implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8618805905090489656L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8618805905090489656L;
+    @Id
+    @Column(name = "id_buzon_usuarios")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idBuzon;
 
-	@Id
-	@Column(name = "id_buzon_usuarios")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idBuzon;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_buzon")
+    private BuzonAutorizacionesEntity buzon;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_buzon")
-	private BuzonAutorizacionesEntity buzon;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
+    private UsuarioEntity usuarioEntity;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario")
-	private UsuarioEntity usuarioEntity;
+    @Column(name = "autorizado")
+    private boolean autorizado;
 
-	@Column(name = "autorizado")
-	private boolean autorizado;
+    @Column(name = "fecha_autorizacion")
+    private Date fechaAutorizacion;
 
-	@Column(name = "fecha_autorizacion")
-	private Date fechaAutorizacion;
+    @Column(name = "hora_autorizacion")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date horaAutorizacion;
 
-	@Column(name = "hora_autorizacion")
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date horaAutorizacion;
+    public Integer getIdBuzon() {
+        return idBuzon;
+    }
 
-	
-	
-	public Integer getIdBuzon() {
-		return idBuzon;
-	}
+    public void setIdBuzon(Integer idBuzon) {
+        this.idBuzon = idBuzon;
+    }
 
-	public void setIdBuzon(Integer idBuzon) {
-		this.idBuzon = idBuzon;
-	}
+    public BuzonAutorizacionesEntity getBuzon() {
+        return buzon;
+    }
 
-	public BuzonAutorizacionesEntity getBuzon() {
-		return buzon;
-	}
+    public void setBuzon(BuzonAutorizacionesEntity buzon) {
+        this.buzon = buzon;
+    }
 
-	public void setBuzon(BuzonAutorizacionesEntity buzon) {
-		this.buzon = buzon;
-	}
+    public UsuarioEntity getUsuarioEntity() {
+        return usuarioEntity;
+    }
 
-	public UsuarioEntity getUsuarioEntity() {
-		return usuarioEntity;
-	}
+    public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+        this.usuarioEntity = usuarioEntity;
+    }
 
-	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
-		this.usuarioEntity = usuarioEntity;
-	}
+    public boolean isAutorizado() {
+        return autorizado;
+    }
 
-	public boolean isAutorizado() {
-		return autorizado;
-	}
+    public void setAutorizado(boolean autorizado) {
+        this.autorizado = autorizado;
+    }
 
-	public void setAutorizado(boolean autorizado) {
-		this.autorizado = autorizado;
-	}
+    public Date getFechaAutorizacion() {
+        return fechaAutorizacion;
+    }
 
-	public Date getFechaAutorizacion() {
-		return fechaAutorizacion;
-	}
+    public void setFechaAutorizacion(Date fechaAutorizacion) {
+        this.fechaAutorizacion = fechaAutorizacion;
+    }
 
-	public void setFechaAutorizacion(Date fechaAutorizacion) {
-		this.fechaAutorizacion = fechaAutorizacion;
-	}
+    public Date getHoraAutorizacion() {
+        return horaAutorizacion;
+    }
 
-	public Date getHoraAutorizacion() {
-		return horaAutorizacion;
-	}
-
-	public void setHoraAutorizacion(Date horaAutorizacion) {
-		this.horaAutorizacion = horaAutorizacion;
-	}
+    public void setHoraAutorizacion(Date horaAutorizacion) {
+        this.horaAutorizacion = horaAutorizacion;
+    }
 
 }

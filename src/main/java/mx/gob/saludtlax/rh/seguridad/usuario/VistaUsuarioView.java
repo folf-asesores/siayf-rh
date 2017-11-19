@@ -1,73 +1,73 @@
+
 package mx.gob.saludtlax.rh.seguridad.usuario;
 
 import java.util.List;
 
 public class VistaUsuarioView {
-	
-	private List<UsuarioDTO> usuarios;
-	private UsuarioDTO seleccionarUsuario;
-	private boolean principal;
-	private boolean acciones = false;
-	private boolean nueva;
-	private UsuarioDTO usuarioSeleccionado = new UsuarioDTO();
-	
-	private boolean tabla;
 
-	public List<UsuarioDTO> getUsuarios() {
-		return usuarios;
-	}
+    private List<UsuarioDTO> usuarios;
+    private UsuarioDTO seleccionarUsuario;
+    private boolean principal;
+    private boolean acciones = false;
+    private boolean nueva;
+    private UsuarioDTO usuarioSeleccionado = new UsuarioDTO();
 
-	public void setUsuarios(List<UsuarioDTO> usuarios) {
-		this.usuarios = usuarios;
-	}
+    private boolean tabla;
 
-	public UsuarioDTO getSeleccionarUsuario() {
-		return seleccionarUsuario;
-	}
+    public List<UsuarioDTO> getUsuarios() {
+        return usuarios;
+    }
 
-	public void setSeleccionarUsuario(UsuarioDTO seleccionarUsuario) {
-		this.seleccionarUsuario = seleccionarUsuario;
-	}
+    public void setUsuarios(List<UsuarioDTO> usuarios) {
+        this.usuarios = usuarios;
+    }
 
-	public Boolean getAcciones() {
-		return acciones;
-	}
+    public UsuarioDTO getSeleccionarUsuario() {
+        return seleccionarUsuario;
+    }
 
-	public void setAcciones(Boolean acciones) {
-		this.acciones = acciones;
-	}
+    public void setSeleccionarUsuario(UsuarioDTO seleccionarUsuario) {
+        this.seleccionarUsuario = seleccionarUsuario;
+    }
 
-	public Boolean getPrincipal() {
-		return principal;
-	}
+    public Boolean getAcciones() {
+        return acciones;
+    }
 
-	public void setPrincipal(Boolean principal) {
-		this.principal = principal;
-	}
+    public void setAcciones(Boolean acciones) {
+        this.acciones = acciones;
+    }
 
-	public UsuarioDTO getUsuarioSeleccionado() {
-		return usuarioSeleccionado;
-	}
+    public Boolean getPrincipal() {
+        return principal;
+    }
 
-	public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
-		this.usuarioSeleccionado = usuarioSeleccionado;
-	}
+    public void setPrincipal(Boolean principal) {
+        this.principal = principal;
+    }
 
-	public boolean isNueva() {
-		return nueva;
-	}
+    public UsuarioDTO getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
 
-	public void setNueva(boolean nueva) {
-		this.nueva = nueva;
-	}
+    public void setUsuarioSeleccionado(UsuarioDTO usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
+    }
 
-	public boolean isTabla() {
-		return tabla;
-	}
+    public boolean isNueva() {
+        return nueva;
+    }
 
-	public void setTabla(boolean tabla) {
-		this.tabla = tabla;
-	}
-	
+    public void setNueva(boolean nueva) {
+        this.nueva = nueva;
+    }
+
+    public boolean isTabla() {
+        return tabla;
+    }
+
+    public void setTabla(boolean tabla) {
+        this.tabla = tabla;
+    }
 
 }

@@ -1,79 +1,78 @@
+
 package mx.gob.saludtlax.rh.ca.jornada;
 
 import java.io.Serializable;
+
 /**
- * 
+ *
  * @author Juan Carlos Ivan Ganzo Dominguez
  *
  */
 public class ReglaAsistenciaJornadaFormModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2184007806412746590L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2184007806412746590L;
 
-	private Integer idReglaAsistenciaJornada;
-	
-	private Integer idJornada;
+    private Integer idReglaAsistenciaJornada;
 
-	private Integer idIncidencia;
+    private Integer idJornada;
 
-	private Integer minutoInicio;
+    private Integer idIncidencia;
 
-	private Integer minutoFinal;
+    private Integer minutoInicio;
 
-	private Integer requiereTramite;
+    private Integer minutoFinal;
 
-	public Integer getIdReglaAsistenciaJornada() {
-		return idReglaAsistenciaJornada;
-	}
+    private Integer requiereTramite;
 
-	public void setIdReglaAsistenciaJornada(Integer idReglaAsistenciaJornada) {
-		this.idReglaAsistenciaJornada = idReglaAsistenciaJornada;
-	}
+    public Integer getIdReglaAsistenciaJornada() {
+        return idReglaAsistenciaJornada;
+    }
 
-	public Integer getIdJornada() {
-		return idJornada;
-	}
+    public void setIdReglaAsistenciaJornada(Integer idReglaAsistenciaJornada) {
+        this.idReglaAsistenciaJornada = idReglaAsistenciaJornada;
+    }
 
-	public void setIdJornada(Integer idJornada) {
-		this.idJornada = idJornada;
-	}
+    public Integer getIdJornada() {
+        return idJornada;
+    }
 
-	public Integer getIdIncidencia() {
-		return idIncidencia;
-	}
+    public void setIdJornada(Integer idJornada) {
+        this.idJornada = idJornada;
+    }
 
-	public void setIdIncidencia(Integer idIncidencia) {
-		this.idIncidencia = idIncidencia;
-	}
+    public Integer getIdIncidencia() {
+        return idIncidencia;
+    }
 
-	public Integer getMinutoInicio() {
-		return minutoInicio;
-	}
+    public void setIdIncidencia(Integer idIncidencia) {
+        this.idIncidencia = idIncidencia;
+    }
 
-	public void setMinutoInicio(Integer minutoInicio) {
-		this.minutoInicio = minutoInicio;
-	}
+    public Integer getMinutoInicio() {
+        return minutoInicio;
+    }
 
-	public Integer getMinutoFinal() {
-		return minutoFinal;
-	}
+    public void setMinutoInicio(Integer minutoInicio) {
+        this.minutoInicio = minutoInicio;
+    }
 
-	public void setMinutoFinal(Integer minutoFinal) {
-		this.minutoFinal = minutoFinal;
-	}
+    public Integer getMinutoFinal() {
+        return minutoFinal;
+    }
 
-	public Integer getRequiereTramite() {
-		return requiereTramite;
-	}
+    public void setMinutoFinal(Integer minutoFinal) {
+        this.minutoFinal = minutoFinal;
+    }
 
-	public void setRequiereTramite(Integer requiereTramite) {
-		this.requiereTramite = requiereTramite;
-	}
-	
-	
-	
+    public Integer getRequiereTramite() {
+        return requiereTramite;
+    }
+
+    public void setRequiereTramite(Integer requiereTramite) {
+        this.requiereTramite = requiereTramite;
+    }
 
 }

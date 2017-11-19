@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -29,150 +30,150 @@ import javax.persistence.TemporalType;
 @Table(name = "movimientos_issste_empleado")
 public class MovimientoIsssteEmpleadoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5390513634318430753L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5390513634318430753L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_movimiento_issste")
-	private Integer idMovimientoIsssteEmpleado;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_movimiento_issste")
+    private Integer idMovimientoIsssteEmpleado;
 
-	@JoinColumn(name = "id_empleado", nullable = false)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private EmpleadoEntity empleado;
+    @JoinColumn(name = "id_empleado", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private EmpleadoEntity empleado;
 
-	@JoinColumn(name = "id_causa_baja", nullable = false)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private CausaBajaIsssteEntity causaBaja;
+    @JoinColumn(name = "id_causa_baja", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private CausaBajaIsssteEntity causaBaja;
 
-	@JoinColumn(name = "id_usuario", nullable = false)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private UsuarioEntity usuario;
-	
-	@JoinColumn(name = "id_tipo_movimiento_issste", nullable = false)
-	@ManyToOne(fetch = FetchType.LAZY)
-	private TipoMovimientoIsssteEntity tipoMovimientoIssste;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private UsuarioEntity usuario;
 
-	@Column(name = "sueldo_issste")
-	private BigDecimal sueldoIssste;
+    @JoinColumn(name = "id_tipo_movimiento_issste", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoMovimientoIsssteEntity tipoMovimientoIssste;
 
-	@Column(name = "sueldo_sar")
-	private BigDecimal sueldoSar;
+    @Column(name = "sueldo_issste")
+    private BigDecimal sueldoIssste;
 
-	@Column(name = "total_remuneracion")
-	private BigDecimal totalRemuneracion;
+    @Column(name = "sueldo_sar")
+    private BigDecimal sueldoSar;
 
-	@Column(name = "nivel_salarial")
-	private String nivelSalario;
+    @Column(name = "total_remuneracion")
+    private BigDecimal totalRemuneracion;
 
-	@Column(name = "nombramiento")
-	private String nombramiento;
+    @Column(name = "nivel_salarial")
+    private String nivelSalario;
 
-	@Basic(optional = false)
-	@Column(name = "fecha_movimiento")
-	@Temporal(TemporalType.DATE)
-	private Date fechaMovimiento;
+    @Column(name = "nombramiento")
+    private String nombramiento;
 
-	@Basic(optional = false)
-	@Column(name = "hora_movimiento")
-	private Time horaMovimiento;
+    @Basic(optional = false)
+    @Column(name = "fecha_movimiento")
+    @Temporal(TemporalType.DATE)
+    private Date fechaMovimiento;
 
-	public Integer getIdMovimientoIsssteEmpleado() {
-		return idMovimientoIsssteEmpleado;
-	}
+    @Basic(optional = false)
+    @Column(name = "hora_movimiento")
+    private Time horaMovimiento;
 
-	public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
-		this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
-	}
-	
-	public BigDecimal getSueldoIssste() {
-		return sueldoIssste;
-	}
+    public Integer getIdMovimientoIsssteEmpleado() {
+        return idMovimientoIsssteEmpleado;
+    }
 
-	public void setSueldoIssste(BigDecimal sueldoIssste) {
-		this.sueldoIssste = sueldoIssste;
-	}
+    public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
+        this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
+    }
 
-	public BigDecimal getSueldoSar() {
-		return sueldoSar;
-	}
+    public BigDecimal getSueldoIssste() {
+        return sueldoIssste;
+    }
 
-	public void setSueldoSar(BigDecimal sueldoSar) {
-		this.sueldoSar = sueldoSar;
-	}
+    public void setSueldoIssste(BigDecimal sueldoIssste) {
+        this.sueldoIssste = sueldoIssste;
+    }
 
-	public BigDecimal getTotalRemuneracion() {
-		return totalRemuneracion;
-	}
+    public BigDecimal getSueldoSar() {
+        return sueldoSar;
+    }
 
-	public void setTotalRemuneracion(BigDecimal totalRemuneracion) {
-		this.totalRemuneracion = totalRemuneracion;
-	}
+    public void setSueldoSar(BigDecimal sueldoSar) {
+        this.sueldoSar = sueldoSar;
+    }
 
-	public String getNivelSalario() {
-		return nivelSalario;
-	}
+    public BigDecimal getTotalRemuneracion() {
+        return totalRemuneracion;
+    }
 
-	public void setNivelSalario(String nivelSalario) {
-		this.nivelSalario = nivelSalario;
-	}
+    public void setTotalRemuneracion(BigDecimal totalRemuneracion) {
+        this.totalRemuneracion = totalRemuneracion;
+    }
 
-	public String getNombramiento() {
-		return nombramiento;
-	}
+    public String getNivelSalario() {
+        return nivelSalario;
+    }
 
-	public void setNombramiento(String nombramiento) {
-		this.nombramiento = nombramiento;
-	}
+    public void setNivelSalario(String nivelSalario) {
+        this.nivelSalario = nivelSalario;
+    }
 
-	public Date getFechaMovimiento() {
-		return fechaMovimiento;
-	}
+    public String getNombramiento() {
+        return nombramiento;
+    }
 
-	public void setFechaMovimiento(Date fechaMovimiento) {
-		this.fechaMovimiento = fechaMovimiento;
-	}
+    public void setNombramiento(String nombramiento) {
+        this.nombramiento = nombramiento;
+    }
 
-	public Time getHoraMovimiento() {
-		return horaMovimiento;
-	}
+    public Date getFechaMovimiento() {
+        return fechaMovimiento;
+    }
 
-	public void setHoraMovimiento(Time horaMovimiento) {
-		this.horaMovimiento = horaMovimiento;
-	}
+    public void setFechaMovimiento(Date fechaMovimiento) {
+        this.fechaMovimiento = fechaMovimiento;
+    }
 
-	public EmpleadoEntity getEmpleado() {
-		return empleado;
-	}
+    public Time getHoraMovimiento() {
+        return horaMovimiento;
+    }
 
-	public void setEmpleado(EmpleadoEntity empleado) {
-		this.empleado = empleado;
-	}
+    public void setHoraMovimiento(Time horaMovimiento) {
+        this.horaMovimiento = horaMovimiento;
+    }
 
-	public CausaBajaIsssteEntity getCausaBaja() {
-		return causaBaja;
-	}
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
 
-	public void setCausaBaja(CausaBajaIsssteEntity causaBaja) {
-		this.causaBaja = causaBaja;
-	}
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
 
-	public TipoMovimientoIsssteEntity getTipoMovimientoIssste() {
-		return tipoMovimientoIssste;
-	}
+    public CausaBajaIsssteEntity getCausaBaja() {
+        return causaBaja;
+    }
 
-	public void setTipoMovimientoIssste(TipoMovimientoIsssteEntity tipoMovimientoIssste) {
-		this.tipoMovimientoIssste = tipoMovimientoIssste;
-	}
+    public void setCausaBaja(CausaBajaIsssteEntity causaBaja) {
+        this.causaBaja = causaBaja;
+    }
 
-	public UsuarioEntity getUsuario() {
-		return usuario;
-	}
+    public TipoMovimientoIsssteEntity getTipoMovimientoIssste() {
+        return tipoMovimientoIssste;
+    }
 
-	public void setUsuario(UsuarioEntity usuario) {
-		this.usuario = usuario;
-	}
+    public void setTipoMovimientoIssste(TipoMovimientoIsssteEntity tipoMovimientoIssste) {
+        this.tipoMovimientoIssste = tipoMovimientoIssste;
+    }
+
+    public UsuarioEntity getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(UsuarioEntity usuario) {
+        this.usuario = usuario;
+    }
 
 }

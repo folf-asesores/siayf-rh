@@ -2,9 +2,9 @@
  * TipoArchivo.java
  * Creado el Mar 10, 2016, 7:14:07 PM
  *
- * Este enumerable contiene los tipos de archivo su extensión y además su MIME 
- * (Multipurpose Internet Mail Extensions) que se emplean en la aplicación. 
- * 
+ * Este enumerable contiene los tipos de archivo su extensión y además su MIME
+ * (Multipurpose Internet Mail Extensions) que se emplean en la aplicación.
+ *
  */
 
 package mx.gob.saludtlax.rh.util;
@@ -12,34 +12,25 @@ package mx.gob.saludtlax.rh.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.hibernate.dialect.MySQLMyISAMDialect;
-
 /**
  * Este enumerable contiene los tipos de archivos MIME Type y las extensiones de
  * estos. <strong>Solo están lo más comunes dentro de la aplicación.</strong>
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public enum TipoArchivo {
 
     CSV("text/csv", "csv"),
     //DAT("text/plain", "dat"),
-    JPEG("image/jpeg", "jpeg"),
-    JPG("image/jpg", "jpg"),
-    PDF("application/pdf", "pdf"),
-    PNG("image/png", "png"),
-    TIF("image/tiff", "tif"),
+    JPEG("image/jpeg", "jpeg"), JPG("image/jpg", "jpg"), PDF("application/pdf", "pdf"), PNG("image/png", "png"), TIF("image/tiff", "tif"),
     TIFF("image/tiff", "tiff"),
     //TRA("text/plain", "tra"),
-    TXT("text/plain", "txt"),
-    XLS("application/xls", "xls"),
-    XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
-    DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"),
-    XML("application/xml", "xml"), ZIP("application/zip", "zip");
+    TXT("text/plain", "txt"), XLS("application/xls", "xls"), XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
+    DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"), XML("application/xml", "xml"), ZIP("application/zip", "zip");
 
     /**
      * Constructor del enumerable.
-     * 
+     *
      * @param MIMEType
      *            la cadena que representa el MIMEType
      * @param extension
@@ -63,8 +54,9 @@ public enum TipoArchivo {
     /**
      * Este método devuelve la extensión asociada al tipo de archivo.
      *
-     * @param incluirPunto <code>true</code> para agregar el punto que precede a
-     * la extensión.
+     * @param incluirPunto
+     *            <code>true</code> para agregar el punto que precede a
+     *            la extensión.
      * @return la extensión.
      */
     public String getExtension(boolean incluirPunto) {
@@ -74,7 +66,8 @@ public enum TipoArchivo {
     /**
      * Devuelve la extensión del archivo de acuerdo al MIME Type que recibe.
      *
-     * @param mimeType el MIME Type para el cual se obtendrá la extensión
+     * @param mimeType
+     *            el MIME Type para el cual se obtendrá la extensión
      * @return la extensión presedida por punto y deacuerdo al MIME Type.
      */
     public static String getExtension(String mimeType) {
@@ -84,9 +77,11 @@ public enum TipoArchivo {
     /**
      * Devuelve la extensión del archivo de acuerdo al MIME Type que recibe.
      *
-     * @param mimeType el MIME Type para el cual se obtendrá la extensión.
-     * @param incluirPunto si se incluira el punto o no, al devolver la
-     * extensión.
+     * @param mimeType
+     *            el MIME Type para el cual se obtendrá la extensión.
+     * @param incluirPunto
+     *            si se incluira el punto o no, al devolver la
+     *            extensión.
      * @return la extensión según el MIME Type.
      */
     public static String getExtension(String mimeType, boolean incluirPunto) {
@@ -157,7 +152,8 @@ public enum TipoArchivo {
     /**
      * Este método devuelve el <code>TipoArchivo</code> apartir de una extesión.
      *
-     * @param extension la extensión del archivo que se requiere.
+     * @param extension
+     *            la extensión del archivo que se requiere.
      * @return una instancia del <code>TipoArchivo</code>.
      */
     public static TipoArchivo getTipoArchivoPorExtension(final String extension) {
@@ -182,8 +178,8 @@ public enum TipoArchivo {
         switch (extensionSimple.toString().toLowerCase()) {
             case "csv":
                 return CSV;
-//            case "dat":
-//                return DAT;
+            //            case "dat":
+            //                return DAT;
             case "jpeg":
                 return JPEG;
             case "jpg":
@@ -195,8 +191,8 @@ public enum TipoArchivo {
             case "tif":
             case "tiff":
                 return TIFF;
-//            case "tra":
-//                return TRA;
+            //            case "tra":
+            //                return TRA;
             case "txt":
                 return TXT;
             case "xls":
@@ -217,11 +213,12 @@ public enum TipoArchivo {
     /**
      * Este método devuelve el <code>TipoArchivo</code> apartir del MIME Type.
      *
-     * @param MIMEType al MIME Type del archivo que se requiere.
+     * @param MIMEType
+     *            al MIME Type del archivo que se requiere.
      * @return una instancia del <code>TipoArchivo</code>.
      */
     public static TipoArchivo getTipoArchivoPorMIMEType(String MIMEType) {
-    	System.out.println("ssssM"+MIMEType);
+        System.out.println("ssssM" + MIMEType);
         switch (MIMEType) {
             case "text/csv":
                 return CSV;

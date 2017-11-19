@@ -1,21 +1,21 @@
+
 package mx.gob.saludtlax.rh.wsdl.sifoficial;
-
-
-
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for consulta_detalle_retencionesResponse_elemento_retencion complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for consulta_detalle_retencionesResponse_elemento_retencion complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType name="consulta_detalle_retencionesResponse_elemento_retencion">
  *   &lt;complexContent>
@@ -44,13 +44,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_detalle_retencionesResponse_elemento_retencion", propOrder = {
-    "element"
-})
+@XmlType(name = "consulta_detalle_retencionesResponse_elemento_retencion", propOrder = { "element" })
 public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
     @XmlElement(required = true, nillable = true)
@@ -58,39 +56,41 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
     /**
      * Gets the value of the element property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getElement().add(newItem);
+     * getElement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ConsultaDetalleRetencionesResponseElementoRetencion.Element }
-     * 
-     * 
+     *
+     *
      */
     public List<ConsultaDetalleRetencionesResponseElementoRetencion.Element> getElement() {
         if (element == null) {
-            element = new ArrayList<ConsultaDetalleRetencionesResponseElementoRetencion.Element>();
+            element = new ArrayList<>();
         }
-        return this.element;
+        return element;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * Java class for anonymous complex type.
+     *
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -109,20 +109,12 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "idDetalleRetencionCuentaBancaria",
-        "idConceptoNomina",
-        "descripcionConceptoNomina",
-        "cuentaContableRetencion",
-        "descripcionCuentaContable",
-        "cuentaRetencion",
-        "cuentaContableBanco",
-        "descripcionCuentaBanco"
-    })
+    @XmlType(name = "", propOrder = { "idDetalleRetencionCuentaBancaria", "idConceptoNomina", "descripcionConceptoNomina", "cuentaContableRetencion",
+            "descripcionCuentaContable", "cuentaRetencion", "cuentaContableBanco", "descripcionCuentaBanco" })
     public static class Element {
 
         @XmlElement(name = "id_detalle_retencion_cuenta_bancaria", required = true, type = Integer.class, nillable = true)
@@ -144,11 +136,11 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Gets the value of the idDetalleRetencionCuentaBancaria property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdDetalleRetencionCuentaBancaria() {
             return idDetalleRetencionCuentaBancaria;
@@ -156,23 +148,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the idDetalleRetencionCuentaBancaria property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdDetalleRetencionCuentaBancaria(Integer value) {
-            this.idDetalleRetencionCuentaBancaria = value;
+            idDetalleRetencionCuentaBancaria = value;
         }
 
         /**
          * Gets the value of the idConceptoNomina property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdConceptoNomina() {
             return idConceptoNomina;
@@ -180,23 +172,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the idConceptoNomina property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdConceptoNomina(Integer value) {
-            this.idConceptoNomina = value;
+            idConceptoNomina = value;
         }
 
         /**
          * Gets the value of the descripcionConceptoNomina property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getDescripcionConceptoNomina() {
             return descripcionConceptoNomina;
@@ -204,23 +196,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the descripcionConceptoNomina property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setDescripcionConceptoNomina(String value) {
-            this.descripcionConceptoNomina = value;
+            descripcionConceptoNomina = value;
         }
 
         /**
          * Gets the value of the cuentaContableRetencion property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getCuentaContableRetencion() {
             return cuentaContableRetencion;
@@ -228,23 +220,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the cuentaContableRetencion property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setCuentaContableRetencion(String value) {
-            this.cuentaContableRetencion = value;
+            cuentaContableRetencion = value;
         }
 
         /**
          * Gets the value of the descripcionCuentaContable property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getDescripcionCuentaContable() {
             return descripcionCuentaContable;
@@ -252,23 +244,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the descripcionCuentaContable property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setDescripcionCuentaContable(String value) {
-            this.descripcionCuentaContable = value;
+            descripcionCuentaContable = value;
         }
 
         /**
          * Gets the value of the cuentaRetencion property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getCuentaRetencion() {
             return cuentaRetencion;
@@ -276,23 +268,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the cuentaRetencion property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setCuentaRetencion(String value) {
-            this.cuentaRetencion = value;
+            cuentaRetencion = value;
         }
 
         /**
          * Gets the value of the cuentaContableBanco property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getCuentaContableBanco() {
             return cuentaContableBanco;
@@ -300,23 +292,23 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the cuentaContableBanco property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setCuentaContableBanco(String value) {
-            this.cuentaContableBanco = value;
+            cuentaContableBanco = value;
         }
 
         /**
          * Gets the value of the descripcionCuentaBanco property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getDescripcionCuentaBanco() {
             return descripcionCuentaBanco;
@@ -324,14 +316,14 @@ public class ConsultaDetalleRetencionesResponseElementoRetencion {
 
         /**
          * Sets the value of the descripcionCuentaBanco property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setDescripcionCuentaBanco(String value) {
-            this.descripcionCuentaBanco = value;
+            descripcionCuentaBanco = value;
         }
 
     }

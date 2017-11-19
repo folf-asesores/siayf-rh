@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.util.List;

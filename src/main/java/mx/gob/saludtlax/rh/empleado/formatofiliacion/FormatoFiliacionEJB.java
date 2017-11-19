@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 import javax.ejb.Stateless;
@@ -13,12 +14,12 @@ import javax.inject.Inject;
 @Stateless
 public class FormatoFiliacionEJB implements FormatoFiliacion {
 
-	@Inject
-	private FormatoFiliacionService formatoFiliacionService;
+    @Inject
+    private FormatoFiliacionService formatoFiliacionService;
 
-	@Override
-	public Integer crearFormatoFiliacion(FormatoFiliacionDTO formatoFiliacionDTO) {
-		 return formatoFiliacionService.crearFormatoFiliacion(formatoFiliacionDTO);
-	}
+    @Override
+    public Integer crearFormatoFiliacion(FormatoFiliacionDTO formatoFiliacionDTO) {
+        return formatoFiliacionService.crearFormatoFiliacion(formatoFiliacionDTO);
+    }
 
 }

@@ -27,37 +27,36 @@ public class ConsultaNominaView {
     private Boolean disabledIrGestionarTrailers;
 
     public void panelPrincipal() {
-        this.estructuraNominaTrailersSelect = null;
-        this.estructuraNominaSelect = null;
-        this.panelPrincipal = Boolean.TRUE;
-        this.disabledIrGestionarDatos = Boolean.TRUE;
-        this.disabledIrGestionarTrailers = Boolean.TRUE;
-        this.panelDatos = Boolean.FALSE;
-        this.panelTrailers = Boolean.FALSE;
-        this.tabDat = Boolean.FALSE;
-        this.tabTra = Boolean.FALSE;
-        this.busqueda = Boolean.TRUE;
+        estructuraNominaTrailersSelect = null;
+        estructuraNominaSelect = null;
+        panelPrincipal = Boolean.TRUE;
+        disabledIrGestionarDatos = Boolean.TRUE;
+        disabledIrGestionarTrailers = Boolean.TRUE;
+        panelDatos = Boolean.FALSE;
+        panelTrailers = Boolean.FALSE;
+        tabDat = Boolean.FALSE;
+        tabTra = Boolean.FALSE;
+        busqueda = Boolean.TRUE;
     }
 
     public void panelDatos() {
-        this.panelPrincipal = Boolean.FALSE;
-        this.panelDatos = Boolean.TRUE;
-        this.busqueda = Boolean.FALSE;
+        panelPrincipal = Boolean.FALSE;
+        panelDatos = Boolean.TRUE;
+        busqueda = Boolean.FALSE;
     }
 
     public void panelTrailers() {
-        this.panelPrincipal = Boolean.FALSE;
-        this.panelTrailers = Boolean.TRUE;
-        this.busqueda = Boolean.FALSE;
+        panelPrincipal = Boolean.FALSE;
+        panelTrailers = Boolean.TRUE;
+        busqueda = Boolean.FALSE;
     }
-    //  <<<<<Getters & Setters>>>>>
 
     public List<EstructuraNominaDatDTO> getListEstructuraNomina() {
-        return this.listEstructuraNomina;
+        return listEstructuraNomina;
     }
 
     public String getRfcCriterio() {
-        return this.rfcCriterio;
+        return rfcCriterio;
     }
 
     public void setRfcCriterio(String rfcCriterio) {
@@ -69,7 +68,7 @@ public class ConsultaNominaView {
     }
 
     public EstructuraNominaDatDTO getEstructuraNomina() {
-        return this.estructuraNomina;
+        return estructuraNomina;
     }
 
     public void setEstructuraNomina(EstructuraNominaDatDTO estructuraNomina) {
@@ -77,7 +76,7 @@ public class ConsultaNominaView {
     }
 
     public EstructuraNominaDatDTO getEstructuraNominaSelect() {
-        return this.estructuraNominaSelect;
+        return estructuraNominaSelect;
     }
 
     public void setEstructuraNominaSelect(EstructuraNominaDatDTO estructuraNominaSelect) {
@@ -85,7 +84,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getPanelPrincipal() {
-        return this.panelPrincipal;
+        return panelPrincipal;
     }
 
     public void setPanelPrincipal(Boolean panelPrincipal) {
@@ -93,7 +92,7 @@ public class ConsultaNominaView {
     }
 
     public List<EstructuraNominaTrailersDTO> getListEstructuraNominaTrailers() {
-        return this.listEstructuraNominaTrailers;
+        return listEstructuraNominaTrailers;
     }
 
     public void setListEstructuraNominaTrailers(List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers) {
@@ -101,7 +100,7 @@ public class ConsultaNominaView {
     }
 
     public EstructuraNominaTrailersDTO getEstructuraNominaTrailers() {
-        return this.estructuraNominaTrailers;
+        return estructuraNominaTrailers;
     }
 
     public void setEstructuraNominaTrailers(EstructuraNominaTrailersDTO estructuraNominaTrailers) {
@@ -109,7 +108,7 @@ public class ConsultaNominaView {
     }
 
     public EstructuraNominaTrailersDTO getEstructuraNominaTrailersSelect() {
-        return this.estructuraNominaTrailersSelect;
+        return estructuraNominaTrailersSelect;
     }
 
     public void setEstructuraNominaTrailersSelect(EstructuraNominaTrailersDTO estructuraNominaTrailersSelect) {
@@ -117,7 +116,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getPanelDatos() {
-        return this.panelDatos;
+        return panelDatos;
     }
 
     public void setPanelDatos(Boolean panelDatos) {
@@ -125,7 +124,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getPanelTrailers() {
-        return this.panelTrailers;
+        return panelTrailers;
     }
 
     public void setPanelTrailers(Boolean panelTrailers) {
@@ -133,7 +132,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getTabDat() {
-        return this.tabDat;
+        return tabDat;
     }
 
     public void setTabDat(Boolean tabDat) {
@@ -141,7 +140,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getTabTra() {
-        return this.tabTra;
+        return tabTra;
     }
 
     public void setTabTra(Boolean tabTra) {
@@ -149,7 +148,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getBusqueda() {
-        return this.busqueda;
+        return busqueda;
     }
 
     public void setBusqueda(Boolean busqueda) {
@@ -157,7 +156,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getDisabledIrGestionarDatos() {
-        return this.disabledIrGestionarDatos;
+        return disabledIrGestionarDatos;
     }
 
     public void setDisabledIrGestionarDatos(Boolean disabledIrGestionarDatos) {
@@ -165,7 +164,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getDisabledIrGestionarTrailers() {
-        return this.disabledIrGestionarTrailers;
+        return disabledIrGestionarTrailers;
     }
 
     public void setDisabledIrGestionarTrailers(Boolean disabledIrGestionarTrailers) {
@@ -173,7 +172,7 @@ public class ConsultaNominaView {
     }
 
     public Boolean getOperacionNuevo() {
-        return this.operacionNuevo;
+        return operacionNuevo;
     }
 
     public void setOperacionNuevo(Boolean operacionNuevo) {
@@ -181,7 +180,7 @@ public class ConsultaNominaView {
     }
 
     public ConsultaDatosEncabezadoDTO getEstructuraNominaSeleccionada() {
-        return this.estructuraNominaSeleccionada;
+        return estructuraNominaSeleccionada;
     }
 
     public void setEstructuraNominaSeleccionada(ConsultaDatosEncabezadoDTO estructuraNominaSeleccionada) {

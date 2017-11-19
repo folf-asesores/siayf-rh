@@ -1,93 +1,93 @@
+
 package mx.gob.saludtlax.rh.configuracion.usuariosaprobaciones;
 
 import java.io.Serializable;
 
-public class UsuarioConfiguracionDTO implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6419563171384080550L;
-	
-	private Integer idConfiguracionAprobacion;
-	private Integer idAccionUsuario;
-	private String accion;
-	private String usuario;
-	private Integer idUsuario;
-	private String estatus;
-	private String movimiento;
-	private Integer idTipoMovimiento;
+public class UsuarioConfiguracionDTO implements Serializable {
 
-	// <<<<<Getters & Setters>>>>>
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6419563171384080550L;
 
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
+    private Integer idConfiguracionAprobacion;
+    private Integer idAccionUsuario;
+    private String accion;
+    private String usuario;
+    private Integer idUsuario;
+    private String estatus;
+    private String movimiento;
+    private Integer idTipoMovimiento;
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public String getMovimiento() {
-		return movimiento;
-	}
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
-	public void setMovimiento(String movimiento) {
-		this.movimiento = movimiento;
-	}
+    public String getMovimiento() {
+        return movimiento;
+    }
 
-	public Integer getIdAccionUsuario() {
-		return idAccionUsuario;
-	}
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
 
-	public void setIdAccionUsuario(Integer idAccionUsuario) {
-		this.idAccionUsuario = idAccionUsuario;
-	}
+    public Integer getIdAccionUsuario() {
+        return idAccionUsuario;
+    }
 
-	public String getAccion() {
-		return accion;
-	}
+    public void setIdAccionUsuario(Integer idAccionUsuario) {
+        this.idAccionUsuario = idAccionUsuario;
+    }
 
-	public void setAccion(String accion) {
-		this.accion = accion;
-	}
+    public String getAccion() {
+        return accion;
+    }
 
-	public String getUsuario() {
-		return usuario;
-	}
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
 
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
-	}
+    public String getUsuario() {
+        return usuario;
+    }
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    public String getEstatus() {
+        return estatus;
+    }
 
-	/**
-	 * @return the idConfiguracionAprobacion
-	 */
-	public Integer getIdConfiguracionAprobacion() {
-		return idConfiguracionAprobacion;
-	}
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 
-	/**
-	 * @param idConfiguracionAprobacion the idConfiguracionAprobacion to set
-	 */
-	public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
-		this.idConfiguracionAprobacion = idConfiguracionAprobacion;
-	}
+    /**
+     * @return the idConfiguracionAprobacion
+     */
+    public Integer getIdConfiguracionAprobacion() {
+        return idConfiguracionAprobacion;
+    }
+
+    /**
+     * @param idConfiguracionAprobacion
+     *            the idConfiguracionAprobacion to set
+     */
+    public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+        this.idConfiguracionAprobacion = idConfiguracionAprobacion;
+    }
 
 }

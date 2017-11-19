@@ -1,8 +1,9 @@
 /*
  * PagoGeneralReporteExcelService.java
  * Creado el 13/Feb/2017 4:41:32 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
 import java.io.ByteArrayOutputStream;
@@ -14,8 +15,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import mx.gob.saludtlax.rh.util.FechaUtil;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -29,6 +28,8 @@ import org.apache.poi.ss.util.DateFormatConverter;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
  *
@@ -47,7 +48,7 @@ public class PagoGeneralReporteExcelService implements Serializable {
     private void inicializar() {
         libro = new XSSFWorkbook();
     }
-    
+
     private void llenarTitulos(Sheet hoja, List<String> titulos) {
         Row fila = hoja.createRow(0);
 
@@ -57,13 +58,13 @@ public class PagoGeneralReporteExcelService implements Serializable {
         estiloTitulo.setFont(font);
 
         for (int i = 0; i < titulos.size(); i++) {
-            Cell celda = fila.createCell(i,  CellType.STRING);
+            Cell celda = fila.createCell(i, CellType.STRING);
             celda.setCellValue(titulos.get(i));
             celda.setCellStyle(estiloTitulo);
         }
     }
-    
-    private void llenarDetalle(Sheet hoja, List<Object []> datos) {
+
+    private void llenarDetalle(Sheet hoja, List<Object[]> datos) {
         int i = FILA_INICIO_DETALLE;
 
         CellStyle estiloMoneda = libro.createCellStyle();
@@ -75,19 +76,19 @@ public class PagoGeneralReporteExcelService implements Serializable {
         CellStyle estiloFecha = libro.createCellStyle();
         estiloFecha.setDataFormat(fechaDataFormat.getFormat(patronFecha));
 
-        for(Object[] row : datos) {
+        for (Object[] row : datos) {
             Row fila = hoja.createRow(i);
-            for(int j = 0; j < row.length; j++) {
+            for (int j = 0; j < row.length; j++) {
                 Object column = row[j];
-                if(column instanceof String) {
-                    Cell celda = fila.createCell(j,  CellType.STRING);
+                if (column instanceof String) {
+                    Cell celda = fila.createCell(j, CellType.STRING);
                     celda.setCellValue((String) column);
-                } else if(column instanceof BigDecimal) {
+                } else if (column instanceof BigDecimal) {
                     Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
                     BigDecimal decimal = (BigDecimal) column;
                     celda.setCellValue(decimal.doubleValue());
                     celda.setCellStyle(estiloMoneda);
-                } else if(column instanceof Long) {
+                } else if (column instanceof Long) {
                     Cell celda = fila.createCell(j, Cell.CELL_TYPE_NUMERIC);
                     Long numero = (Long) column;
                     celda.setCellValue(numero.intValue());
@@ -101,7 +102,7 @@ public class PagoGeneralReporteExcelService implements Serializable {
             i++;
         }
     }
-    
+
     private byte[] finalizar() throws IOException {
         byte[] archivo;
 
@@ -113,18 +114,21 @@ public class PagoGeneralReporteExcelService implements Serializable {
 
         return archivo;
     }
-    
+
     /**
      * Permite generar un reporte en una hoja de calculo con los datos del pago
      * general.
-     * 
-     * @param titulos los titulos de las columnas del reporte.
-     * @param datos los datos que se pondrán en la hoja de calculos.
+     *
+     * @param titulos
+     *            los titulos de las columnas del reporte.
+     * @param datos
+     *            los datos que se pondrán en la hoja de calculos.
      * @return un arreglo de bytes que representa una hoja de calculos del
-     * reporte de pago general.
-     * @throws IOException en caso de que haya algún error al crear el archivo.
+     *         reporte de pago general.
+     * @throws IOException
+     *             en caso de que haya algún error al crear el archivo.
      */
-    public byte[] obtenerBytes(List<String> titulos, List<Object []> datos) throws IOException {
+    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos) throws IOException {
         inicializar();
         if (titulos.contains("idPagoNomina")) {
             int posicion = 0;

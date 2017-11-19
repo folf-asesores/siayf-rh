@@ -1,9 +1,10 @@
+
 package mx.gob.saludtlax.rh.configuracion.banco;
 
 import java.util.List;
 
 /**
- * 
+ *
  * @author Eduardo Mex
  * @email Lic.Eduardo_Mex@hotmail.com
  * @version 1.0
@@ -11,12 +12,12 @@ import java.util.List;
  */
 public interface Banco {
 
-	void crearBanco(BancoDTO bancoDTO);
+    void crearBanco(BancoDTO bancoDTO);
 
-	void actualizarBanco(BancoDTO bancoDTO);
+    void actualizarBanco(BancoDTO bancoDTO);
 
-	void eliminarBanco(Integer idBanco);
+    void eliminarBanco(Integer idBanco);
 
-	List<BancoDTO> obtenerListaBanco();
+    List<BancoDTO> obtenerListaBanco();
 
 }

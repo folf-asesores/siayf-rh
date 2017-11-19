@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.datolaboral;
 
 /**
@@ -9,8 +10,7 @@ package mx.gob.saludtlax.rh.empleados.datolaboral;
  * @since 25/08/2016 20:35:56
  */
 public class EnumTipoConfiguracion {
-	public static final int GLOBAL = 1;
-	public static final int DESGLOSADA = 2;
-	
-	
+    public static final int GLOBAL = 1;
+    public static final int DESGLOSADA = 2;
+
 }

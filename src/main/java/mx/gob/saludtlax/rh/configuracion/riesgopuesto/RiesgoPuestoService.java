@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.riesgopuesto;
 
 import java.io.Serializable;
@@ -21,75 +22,75 @@ import mx.gob.saludtlax.rh.persistencia.RiesgoPuestoRepository;
  */
 public class RiesgoPuestoService implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5817829341056017550L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5817829341056017550L;
 
-	@Inject
-	private RiesgoPuestoRepository riesgoPuestoRepository;
+    @Inject
+    private RiesgoPuestoRepository riesgoPuestoRepository;
 
-	protected void crearRiesgoPuesto(RiesgoPuestoDTO dto) {
+    protected void crearRiesgoPuesto(RiesgoPuestoDTO dto) {
 
-		String contexto = "Registro Riesgo Puesto: ";
+        String contexto = "Registro Riesgo Puesto: ";
 
-		if (dto.getClave() == null) {
-			throw new BusinessException(contexto + "la clave es necesario, ingrese la clave");
-		}
+        if (dto.getClave() == null) {
+            throw new BusinessException(contexto + "la clave es necesario, ingrese la clave");
+        }
 
-		Boolean validarClave = riesgoPuestoRepository.validarClave(dto.getClave());
+        Boolean validarClave = riesgoPuestoRepository.validarClave(dto.getClave());
 
-		if (validarClave) {
-			throw new BusinessException(contexto + "la clave ya se encuetra registrada, ingrese otra clave");
-		}
+        if (validarClave) {
+            throw new BusinessException(contexto + "la clave ya se encuetra registrada, ingrese otra clave");
+        }
 
-		RiesgoPuestoEntity riesgoPuestoEntity = new RiesgoPuestoEntity();
+        RiesgoPuestoEntity riesgoPuestoEntity = new RiesgoPuestoEntity();
 
-		riesgoPuestoEntity.setClave(dto.getClave());
-		riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
+        riesgoPuestoEntity.setClave(dto.getClave());
+        riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
 
-		riesgoPuestoRepository.crear(riesgoPuestoEntity);
+        riesgoPuestoRepository.crear(riesgoPuestoEntity);
 
-	}
+    }
 
-	protected void actualizarRiesgoPuesto(RiesgoPuestoDTO dto) {
+    protected void actualizarRiesgoPuesto(RiesgoPuestoDTO dto) {
 
-		RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(dto.getIdRiesgoPuesto());
+        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(dto.getIdRiesgoPuesto());
 
-		riesgoPuestoEntity.setClave(dto.getClave());
-		riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
+        riesgoPuestoEntity.setClave(dto.getClave());
+        riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
 
-		riesgoPuestoRepository.actualizar(riesgoPuestoEntity);
+        riesgoPuestoRepository.actualizar(riesgoPuestoEntity);
 
-	}
+    }
 
-	protected void eliminarRiesgoPuesto(Integer idRiesgoPuesto) {
-		RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(idRiesgoPuesto);
+    protected void eliminarRiesgoPuesto(Integer idRiesgoPuesto) {
+        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(idRiesgoPuesto);
 
-		riesgoPuestoRepository.eliminar(riesgoPuestoEntity);
-	}
+        riesgoPuestoRepository.eliminar(riesgoPuestoEntity);
+    }
 
-	protected List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto() {
-		List<RiesgoPuestoDTO> listaRiesgoPuestoDTOs = new ArrayList<>();
+    protected List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto() {
+        List<RiesgoPuestoDTO> listaRiesgoPuestoDTOs = new ArrayList<>();
 
-		List<RiesgoPuestoEntity> obtenerRiesgoPuestoEntities = riesgoPuestoRepository.obtenerListaRiesgoPuesto();
+        List<RiesgoPuestoEntity> obtenerRiesgoPuestoEntities = riesgoPuestoRepository.obtenerListaRiesgoPuesto();
 
-		if (!obtenerRiesgoPuestoEntities.isEmpty()) {
-			for (RiesgoPuestoEntity riesgoPuestoEntity : obtenerRiesgoPuestoEntities) {
-				RiesgoPuestoDTO dto = new RiesgoPuestoDTO();
+        if (!obtenerRiesgoPuestoEntities.isEmpty()) {
+            for (RiesgoPuestoEntity riesgoPuestoEntity : obtenerRiesgoPuestoEntities) {
+                RiesgoPuestoDTO dto = new RiesgoPuestoDTO();
 
-				dto.setIdRiesgoPuesto(riesgoPuestoEntity.getIdRiesgoPuesto());
-				dto.setClave(riesgoPuestoEntity.getClave());
-				dto.setDescripcionRiesgoPuesto(riesgoPuestoEntity.getDescripcionRiesgoPuesto());
+                dto.setIdRiesgoPuesto(riesgoPuestoEntity.getIdRiesgoPuesto());
+                dto.setClave(riesgoPuestoEntity.getClave());
+                dto.setDescripcionRiesgoPuesto(riesgoPuestoEntity.getDescripcionRiesgoPuesto());
 
-				listaRiesgoPuestoDTOs.add(dto);
-			}
+                listaRiesgoPuestoDTOs.add(dto);
+            }
 
-		} else {
-			listaRiesgoPuestoDTOs = new ArrayList<>();
-		}
+        } else {
+            listaRiesgoPuestoDTOs = new ArrayList<>();
+        }
 
-		return listaRiesgoPuestoDTOs;
-	}
+        return listaRiesgoPuestoDTOs;
+    }
 
 }

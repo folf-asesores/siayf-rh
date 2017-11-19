@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -67,8 +68,7 @@ public class DependienteEconomicoEntity implements Serializable {
         StringBuilder nombreCompletoSB = new StringBuilder(nombre);
         nombreCompletoSB.append(' ');
 
-        if (this.apellidoPaterno != null
-                || !this.apellidoPaterno.trim().isEmpty()) {
+        if (apellidoPaterno != null || !apellidoPaterno.trim().isEmpty()) {
             nombreCompletoSB.append(apellidoPaterno);
             nombreCompletoSB.append(' ');
         }

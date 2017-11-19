@@ -1,13 +1,28 @@
 /*
  * ComprobanteEmpleadoTest.java
  * Creado el 13/ene/2017 8:08:31 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
@@ -45,21 +60,6 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -124,9 +124,7 @@ public class ComprobanteEmpleadoTest {
         jar.addClass(ValidacionException.class);
         war.addAsLibrary(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies().resolve().withTransitivity()
-                .asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -136,12 +134,7 @@ public class ComprobanteEmpleadoTest {
     @Test
     public void generarReporte() throws IOException {
         LOGGER.info("Iniciando test obtener comprobante de nomina");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "comprobante_nomina",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "30"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "comprobante_nomina", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "30" };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);

@@ -1,8 +1,9 @@
 /*
  * ProyectoView.java
  * Creado el 25/07/2016 01:46:15 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.proyecto;
 
 /**
@@ -12,7 +13,7 @@ package mx.gob.saludtlax.rh.configuracion.proyecto;
 public class ProyectoView {
     private int ejercicioFiscal;
     private ProyectoDTO proyectoDTO;
-    private boolean visibleTablaProyecto = true; 
+    private boolean visibleTablaProyecto = true;
     private boolean visiblePanelNuevo = false;
     private boolean editar = false;
 

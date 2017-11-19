@@ -1,8 +1,9 @@
 /*
  * TerminoDTO.java
  * Creado el 25/Nov/2016 5:34:54 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.Serializable;
@@ -38,9 +39,6 @@ public class TerminoDTO implements Serializable {
     private String fechaPlaza;
     private String nuevaClave;
     private String jefe;
-    
-    
-    
 
     /**
      *
@@ -234,92 +232,92 @@ public class TerminoDTO implements Serializable {
         this.encargadoAdministracion = encargadoAdministracion;
     }
 
-	public String getPosicionDos() {
-		return posicionDos;
-	}
+    public String getPosicionDos() {
+        return posicionDos;
+    }
 
-	public void setPosicionDos(String posicionDos) {
-		this.posicionDos = posicionDos;
-	}
+    public void setPosicionDos(String posicionDos) {
+        this.posicionDos = posicionDos;
+    }
 
-	public String getPosicionTres() {
-		return posicionTres;
-	}
+    public String getPosicionTres() {
+        return posicionTres;
+    }
 
-	public void setPosicionTres(String posicionTres) {
-		this.posicionTres = posicionTres;
-	}
+    public void setPosicionTres(String posicionTres) {
+        this.posicionTres = posicionTres;
+    }
 
-	public String getPosicionCuatro() {
-		return posicionCuatro;
-	}
+    public String getPosicionCuatro() {
+        return posicionCuatro;
+    }
 
-	public void setPosicionCuatro(String posicionCuatro) {
-		this.posicionCuatro = posicionCuatro;
-	}
+    public void setPosicionCuatro(String posicionCuatro) {
+        this.posicionCuatro = posicionCuatro;
+    }
 
-	public String getReincorporacionTitular() {
-		return reincorporacionTitular;
-	}
+    public String getReincorporacionTitular() {
+        return reincorporacionTitular;
+    }
 
-	public void setReincorporacionTitular(String reincorporacionTitular) {
-		this.reincorporacionTitular = reincorporacionTitular;
-	}
+    public void setReincorporacionTitular(String reincorporacionTitular) {
+        this.reincorporacionTitular = reincorporacionTitular;
+    }
 
-	public String getFechaTermino() {
-		return fechaTermino;
-	}
+    public String getFechaTermino() {
+        return fechaTermino;
+    }
 
-	public void setFechaTermino(String fechaTermino) {
-		this.fechaTermino = fechaTermino;
-	}
+    public void setFechaTermino(String fechaTermino) {
+        this.fechaTermino = fechaTermino;
+    }
 
-	public String getFuncion() {
-		return funcion;
-	}
+    public String getFuncion() {
+        return funcion;
+    }
 
-	public void setFuncion(String funcion) {
-		this.funcion = funcion;
-	}
+    public void setFuncion(String funcion) {
+        this.funcion = funcion;
+    }
 
-	public String getSecretarioSalud() {
-		return secretarioSalud;
-	}
+    public String getSecretarioSalud() {
+        return secretarioSalud;
+    }
 
-	public void setSecretarioSalud(String secretarioSalud) {
-		this.secretarioSalud = secretarioSalud;
-	}
+    public void setSecretarioSalud(String secretarioSalud) {
+        this.secretarioSalud = secretarioSalud;
+    }
 
-	public String getNuevaClave() {
-		return nuevaClave;
-	}
+    public String getNuevaClave() {
+        return nuevaClave;
+    }
 
-	public void setNuevaClave(String nuevaClave) {
-		this.nuevaClave = nuevaClave;
-	}
+    public void setNuevaClave(String nuevaClave) {
+        this.nuevaClave = nuevaClave;
+    }
 
-	public String getFechaPlaza() {
-		return fechaPlaza;
-	}
+    public String getFechaPlaza() {
+        return fechaPlaza;
+    }
 
-	public void setFechaPlaza(String fechaPlaza) {
-		this.fechaPlaza = fechaPlaza;
-	}
+    public void setFechaPlaza(String fechaPlaza) {
+        this.fechaPlaza = fechaPlaza;
+    }
 
-	public String getJefe() {
-		return jefe;
-	}
+    public String getJefe() {
+        return jefe;
+    }
 
-	public void setJefe(String jefe) {
-		this.jefe = jefe;
-	}
+    public void setJefe(String jefe) {
+        this.jefe = jefe;
+    }
 
-	public Integer getIdMovimiento() {
-		return idMovimiento;
-	}
+    public Integer getIdMovimiento() {
+        return idMovimiento;
+    }
 
-	public void setIdMovimiento(Integer idMovimiento) {
-		this.idMovimiento = idMovimiento;
-	}
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
 
 }

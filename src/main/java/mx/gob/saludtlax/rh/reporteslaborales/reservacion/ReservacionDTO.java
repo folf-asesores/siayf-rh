@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.reservacion;
 
 import java.io.Serializable;
@@ -30,13 +31,11 @@ public class ReservacionDTO implements Serializable {
     private String comunicado = "[Comunicado]";
     private String adscripcion;
     private String adscripcionAlta;
-	private String encargado;
-	private String clavePresupuestal;
-	private String vigencia;
-	private String solicitud;
-	private String jefe;
-    
-    
+    private String encargado;
+    private String clavePresupuestal;
+    private String vigencia;
+    private String solicitud;
+    private String jefe;
 
     /**
      *
@@ -262,88 +261,88 @@ public class ReservacionDTO implements Serializable {
         this.directoraAdministracion = directoraAdministracion;
     }
 
-	public String getComunicado() {
-		return comunicado;
-	}
+    public String getComunicado() {
+        return comunicado;
+    }
 
-	public void setComunicado(String comunicado) {
-		this.comunicado = comunicado;
-	}
+    public void setComunicado(String comunicado) {
+        this.comunicado = comunicado;
+    }
 
-	public String getAdscripcion() {
-		return adscripcion;
-	}
+    public String getAdscripcion() {
+        return adscripcion;
+    }
 
-	public void setAdscripcion(String adscripcion) {
-		this.adscripcion = adscripcion;
-	}
+    public void setAdscripcion(String adscripcion) {
+        this.adscripcion = adscripcion;
+    }
 
-	public Integer getIdMovimiento() {
-		return idMovimiento;
-	}
+    public Integer getIdMovimiento() {
+        return idMovimiento;
+    }
 
-	public void setIdMovimiento(Integer idMovimiento) {
-		this.idMovimiento = idMovimiento;
-	}
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public String getAdscripcionAlta() {
-		return adscripcionAlta;
-	}
+    public String getAdscripcionAlta() {
+        return adscripcionAlta;
+    }
 
-	public void setAdscripcionAlta(String adscripcionAlta) {
-		this.adscripcionAlta = adscripcionAlta;
-	}
+    public void setAdscripcionAlta(String adscripcionAlta) {
+        this.adscripcionAlta = adscripcionAlta;
+    }
 
-        public String getPosicionDos() {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
+    public String getPosicionDos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
-		public String getEncargado() {
-			return encargado;
-		}
+    public String getEncargado() {
+        return encargado;
+    }
 
-		public void setEncargado(String encargado) {
-			this.encargado = encargado;
-		}
+    public void setEncargado(String encargado) {
+        this.encargado = encargado;
+    }
 
-		public String getClavePresupuestal() {
-			return clavePresupuestal;
-		}
+    public String getClavePresupuestal() {
+        return clavePresupuestal;
+    }
 
-		public void setClavePresupuestal(String clavePresupuestal) {
-			this.clavePresupuestal = clavePresupuestal;
-		}
+    public void setClavePresupuestal(String clavePresupuestal) {
+        this.clavePresupuestal = clavePresupuestal;
+    }
 
-		public String getVigencia() {
-			return vigencia;
-		}
+    public String getVigencia() {
+        return vigencia;
+    }
 
-		public void setVigencia(String vigencia) {
-			this.vigencia = vigencia;
-		}
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
+    }
 
-		public String getSolicitud() {
-			return solicitud;
-		}
+    public String getSolicitud() {
+        return solicitud;
+    }
 
-		public void setSolicitud(String solicitud) {
-			this.solicitud = solicitud;
-		}
+    public void setSolicitud(String solicitud) {
+        this.solicitud = solicitud;
+    }
 
-		public String getJefe() {
-			return jefe;
-		}
+    public String getJefe() {
+        return jefe;
+    }
 
-		public void setJefe(String jefe) {
-			this.jefe = jefe;
-		}
+    public void setJefe(String jefe) {
+        this.jefe = jefe;
+    }
 
 }

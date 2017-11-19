@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -35,7 +36,6 @@ public class FuenteFinanciamientoEntity implements Serializable {
     @Column(name = "id_origen_recurso")
     private int idOrigenRecurso;
 
-    // <Getters & Setters>
     public Integer getIdFuenteFinanciamiento() {
         return idFuenteFinanciamiento;
     }

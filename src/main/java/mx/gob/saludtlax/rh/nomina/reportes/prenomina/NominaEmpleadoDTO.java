@@ -3,6 +3,7 @@
  * Creado el 27/Jun/2017 3:28:25 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Map;
@@ -54,10 +55,10 @@ public class NominaEmpleadoDTO {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 29 * hash + Objects.hashCode(this.rfc);
-        hash = 29 * hash + Objects.hashCode(this.nombre);
-        hash = 29 * hash + Objects.hashCode(this.percepciones);
-        hash = 29 * hash + Objects.hashCode(this.deducciones);
+        hash = 29 * hash + Objects.hashCode(rfc);
+        hash = 29 * hash + Objects.hashCode(nombre);
+        hash = 29 * hash + Objects.hashCode(percepciones);
+        hash = 29 * hash + Objects.hashCode(deducciones);
         return hash;
     }
 
@@ -73,16 +74,16 @@ public class NominaEmpleadoDTO {
             return false;
         }
         final NominaEmpleadoDTO other = (NominaEmpleadoDTO) obj;
-        if (!Objects.equals(this.rfc, other.rfc)) {
+        if (!Objects.equals(rfc, other.rfc)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
-        if (!Objects.equals(this.percepciones, other.percepciones)) {
+        if (!Objects.equals(percepciones, other.percepciones)) {
             return false;
         }
-        return Objects.equals(this.deducciones, other.deducciones);
+        return Objects.equals(deducciones, other.deducciones);
     }
 
     @Override

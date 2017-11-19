@@ -1,23 +1,26 @@
 /*
  * NominaMandoMedioView.java
  * Creado el 29/Nov/2016 6:15:21 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.mandosmedios;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
+
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
  * Esta clase ayuda al managed bean {@link NominaMandoMedioController}, contiene
  * las instancias de los componetes que conforman la vista.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NominaMandoMedioView {
-    
+
     private List<NominaMandoMedioDTO> nominaMandoMedioDtos;
     private Boolean mostrarPanelNuevo;
     private Boolean mostrarPanelEditar;
@@ -31,7 +34,7 @@ public class NominaMandoMedioView {
     private List<InfoEmpleadoDTO> empleados;
 
     /**
-     * Crea una nueva instancia de la NominaMandoMedioView e inicializa sus 
+     * Crea una nueva instancia de la NominaMandoMedioView e inicializa sus
      * propiedades.
      */
     public NominaMandoMedioView() {
@@ -60,7 +63,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of nominaMandoMedioDtos
      *
-     * @param nominaMandoMedioDtos new value of nominaMandoMedioDtos
+     * @param nominaMandoMedioDtos
+     *            new value of nominaMandoMedioDtos
      */
     public void setNominaMandoMedioDtos(List<NominaMandoMedioDTO> nominaMandoMedioDtos) {
         this.nominaMandoMedioDtos = nominaMandoMedioDtos;
@@ -78,7 +82,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of mostrarPanelNuevo
      *
-     * @param mostrarPanelNuevo new value of mostrarPanelNuevo
+     * @param mostrarPanelNuevo
+     *            new value of mostrarPanelNuevo
      */
     public void setMostrarPanelNuevo(Boolean mostrarPanelNuevo) {
         this.mostrarPanelNuevo = mostrarPanelNuevo;
@@ -96,7 +101,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of mostrarPanelEditar
      *
-     * @param mostrarPanelEditar new value of mostrarPanelEditar
+     * @param mostrarPanelEditar
+     *            new value of mostrarPanelEditar
      */
     public void setMostrarPanelEditar(Boolean mostrarPanelEditar) {
         this.mostrarPanelEditar = mostrarPanelEditar;
@@ -114,7 +120,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of nuevaNominaMandoMedio
      *
-     * @param nuevaNominaMandoMedio new value of nuevaNominaMandoMedio
+     * @param nuevaNominaMandoMedio
+     *            new value of nuevaNominaMandoMedio
      */
     public void setNuevaNominaMandoMedio(NominaMandoMedioDTO nuevaNominaMandoMedio) {
         this.nuevaNominaMandoMedio = nuevaNominaMandoMedio;
@@ -132,8 +139,9 @@ public class NominaMandoMedioView {
     /**
      * Set the value of nominaMandoMedioSeleccionada
      *
-     * @param nominaMandoMedioSeleccionada new value of
-     * nominaMandoMedioSeleccionada
+     * @param nominaMandoMedioSeleccionada
+     *            new value of
+     *            nominaMandoMedioSeleccionada
      */
     public void setNominaMandoMedioSeleccionada(NominaMandoMedioDTO nominaMandoMedioSeleccionada) {
         this.nominaMandoMedioSeleccionada = nominaMandoMedioSeleccionada;
@@ -151,7 +159,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of empleadoSeleccionado
      *
-     * @param empleadoSeleccionado new value of empleadoSeleccionado
+     * @param empleadoSeleccionado
+     *            new value of empleadoSeleccionado
      */
     public void setEmpleadoSeleccionado(InfoEmpleadoDTO empleadoSeleccionado) {
         this.empleadoSeleccionado = empleadoSeleccionado;
@@ -169,7 +178,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of adscripciones
      *
-     * @param adscripciones new value of adscripciones
+     * @param adscripciones
+     *            new value of adscripciones
      */
     public void setAdscripciones(List<SelectItem> adscripciones) {
         this.adscripciones = adscripciones;
@@ -187,7 +197,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of puestos
      *
-     * @param puestos new value of puestos
+     * @param puestos
+     *            new value of puestos
      */
     public void setPuestos(List<SelectItem> puestos) {
         this.puestos = puestos;
@@ -205,7 +216,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of mostrarDialogoEmpleado
      *
-     * @param mostrarDialogoEmpleado new value of mostrarDialogoEmpleado
+     * @param mostrarDialogoEmpleado
+     *            new value of mostrarDialogoEmpleado
      */
     public void setMostrarDialogoEmpleado(Boolean mostrarDialogoEmpleado) {
         this.mostrarDialogoEmpleado = mostrarDialogoEmpleado;
@@ -223,7 +235,8 @@ public class NominaMandoMedioView {
     /**
      * Set the value of consultaEmpleado
      *
-     * @param consultaEmpleado new value of consultaEmpleado
+     * @param consultaEmpleado
+     *            new value of consultaEmpleado
      */
     public void setConsultaEmpleado(String consultaEmpleado) {
         this.consultaEmpleado = consultaEmpleado;
@@ -241,11 +254,11 @@ public class NominaMandoMedioView {
     /**
      * Set the value of empleados
      *
-     * @param empleados new value of empleados
+     * @param empleados
+     *            new value of empleados
      */
     public void setEmpleados(List<InfoEmpleadoDTO> empleados) {
         this.empleados = empleados;
     }
-
 
 }

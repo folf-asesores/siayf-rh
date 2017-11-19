@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.conceptosnominacontratos;
 
 import java.io.Serializable;
@@ -13,36 +14,36 @@ import mx.gob.saludtlax.rh.nomina.Evaluador;
 
 @Stateless
 public class ConceptoNominaContratosEJB implements Serializable {
-	private static final long serialVersionUID = 2280757059626791094L;
+    private static final long serialVersionUID = 2280757059626791094L;
 
-	@Inject
-	private ConceptoNominaContratosService conceptoNominaContratosService;
+    @Inject
+    private ConceptoNominaContratosService conceptoNominaContratosService;
 
-	public List<ConceptoNominaContratosDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipoConceptoNominaEnum) {
-		List<ConceptoNominaContratosDTO> conceptoNominasLista = conceptoNominaContratosService.obtenerConceptoNominasLista(tipoConceptoNominaEnum);
-		return conceptoNominasLista;
-	}
+    public List<ConceptoNominaContratosDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipoConceptoNominaEnum) {
+        List<ConceptoNominaContratosDTO> conceptoNominasLista = conceptoNominaContratosService.obtenerConceptoNominasLista(tipoConceptoNominaEnum);
+        return conceptoNominasLista;
+    }
 
-	public List<EstatusConceptoNominaDTO> listaEstatusConceptoNomina() {
-		return conceptoNominaContratosService.listaEstatusConceptoNomina();
-	}
+    public List<EstatusConceptoNominaDTO> listaEstatusConceptoNomina() {
+        return conceptoNominaContratosService.listaEstatusConceptoNomina();
+    }
 
-	public List<CategoriaSatDTO> listaCategoriaSatPorTipo(Integer tipo) {
-		return conceptoNominaContratosService.listaCategoriaSatPorTipo(tipo);
-	}
+    public List<CategoriaSatDTO> listaCategoriaSatPorTipo(Integer tipo) {
+        return conceptoNominaContratosService.listaCategoriaSatPorTipo(tipo);
+    }
 
-	public ConceptoNominaContratosDTO nuevoConceptoNomina() {
-		return conceptoNominaContratosService.nuevoConceptoNomina();
-	}
+    public ConceptoNominaContratosDTO nuevoConceptoNomina() {
+        return conceptoNominaContratosService.nuevoConceptoNomina();
+    }
 
-	public ConceptoNominaContratosDTO crearConceptoNomina(ConceptoNominaContratosDTO dto) {
-		return conceptoNominaContratosService.crearConceptoNomina(dto);
-	}
+    public ConceptoNominaContratosDTO crearConceptoNomina(ConceptoNominaContratosDTO dto) {
+        return conceptoNominaContratosService.crearConceptoNomina(dto);
+    }
 
-	public String evaluarFormula(String editarFormula) {
-		Evaluador evaluador = new Evaluador(editarFormula);
-		return String.valueOf(evaluador.getResult());
-	}
+    public String evaluarFormula(String editarFormula) {
+        Evaluador evaluador = new Evaluador(editarFormula);
+        return String.valueOf(evaluador.getResult());
+    }
 
     public ConceptoNominaContratosDTO actualizarConceptoNomina(ConceptoNominaContratosDTO conceptoNomina) {
         return conceptoNominaContratosService.actualizarConceptoNomina(conceptoNomina);

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -13,53 +14,49 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="configuracion_tipo_movimiento")
+@Table(name = "configuracion_tipo_movimiento")
 public class ConfiguracionTipoMovimientoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5447848185944272600L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5447848185944272600L;
 
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="id_configuracion_concepto_nomina")
-	private Integer id;
-	
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_tipo_movimiento")
-	private TiposMovimientosNominaEntity tipoMovimiento;
-	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="id_concepto_nomina")
-	private ConceptoNominaFederalesEntity conceptoNomina;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_configuracion_concepto_nomina")
+    private Integer id;
 
-	public Integer getId() {
-		return id;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_movimiento")
+    private TiposMovimientosNominaEntity tipoMovimiento;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_concepto_nomina")
+    private ConceptoNominaFederalesEntity conceptoNomina;
 
-	public TiposMovimientosNominaEntity getTipoMovimiento() {
-		return tipoMovimiento;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setTipoMovimiento(TiposMovimientosNominaEntity tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public ConceptoNominaFederalesEntity getConceptoNomina() {
-		return conceptoNomina;
-	}
+    public TiposMovimientosNominaEntity getTipoMovimiento() {
+        return tipoMovimiento;
+    }
 
-	public void setConceptoNomina(ConceptoNominaFederalesEntity conceptoNomina) {
-		this.conceptoNomina = conceptoNomina;
-	}
-	
-	
-	
+    public void setTipoMovimiento(TiposMovimientosNominaEntity tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public ConceptoNominaFederalesEntity getConceptoNomina() {
+        return conceptoNomina;
+    }
+
+    public void setConceptoNomina(ConceptoNominaFederalesEntity conceptoNomina) {
+        this.conceptoNomina = conceptoNomina;
+    }
+
 }

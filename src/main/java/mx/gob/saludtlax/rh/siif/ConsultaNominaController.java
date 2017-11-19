@@ -27,7 +27,7 @@ public class ConsultaNominaController {
     private Boolean dialogo;
 
     public String getRfcOriginal() {
-        return this.rfcOriginal;
+        return rfcOriginal;
     }
 
     public void setRfcOriginal(String rfcOriginal) {
@@ -35,7 +35,7 @@ public class ConsultaNominaController {
     }
 
     public Boolean getConfirma() {
-        return this.confirma;
+        return confirma;
     }
 
     public void setConfirma(Boolean confirma) {
@@ -43,7 +43,7 @@ public class ConsultaNominaController {
     }
 
     public Boolean getDialogo() {
-        return this.dialogo;
+        return dialogo;
     }
 
     public void setDialogo(Boolean dialogo) {
@@ -52,154 +52,154 @@ public class ConsultaNominaController {
 
     @PostConstruct
     public void initConsultaNomina() {
-        this.view = new ConsultaNominaView();
+        view = new ConsultaNominaView();
         irPrincipal();
     }
 
     public String irPrincipal() {
-        System.out.println("consultaNomina-irPrincipal: this.view.getRfcCriterio():: " + this.view.getRfcCriterio());
+        System.out.println("consultaNomina-irPrincipal: this.view.getRfcCriterio():: " + view.getRfcCriterio());
         //this.view.setListDatosPersonalesLista(datoPersonal.obtenerlistaDatosPersonalesPorCriterio(this.view.getRfcCriterio()));
         //
-        this.view.setListEstructuraNomina(this.ejb.obtenerConsultaNominaListaPorCriterios(this.view.getEstructuraNominaSeleccionada()));
+        view.setListEstructuraNomina(ejb.obtenerConsultaNominaListaPorCriterios(view.getEstructuraNominaSeleccionada()));
         //this.view.setListEstructuraNomina(ejb.obtenerConsultaNominaContratoListaPorCriterios(this.view.getRfcCriterio()));
-        this.view.panelPrincipal();
+        view.panelPrincipal();
         return "/contenido/siif/consultaNomina.xhtml?redirect-true";
     }
 
     public String filtrarPorCriterios() {
-        this.view.setListEstructuraNomina(this.ejb.obtenerConsultaNominaListaPorCriterios(this.view.getRfcCriterio()));
-        this.view.setListEstructuraNominaTrailers(this.ejb.obtenerConsultaNominaTrailersListaPorCriterios(this.view.getRfcCriterio()));
-        this.view.setTabDat(Boolean.TRUE);
-        this.view.setTabTra(Boolean.TRUE);
+        view.setListEstructuraNomina(ejb.obtenerConsultaNominaListaPorCriterios(view.getRfcCriterio()));
+        view.setListEstructuraNominaTrailers(ejb.obtenerConsultaNominaTrailersListaPorCriterios(view.getRfcCriterio()));
+        view.setTabDat(Boolean.TRUE);
+        view.setTabTra(Boolean.TRUE);
         return null;
     }
 
     public ConsultaNominaView getView() {
-        return this.view;
+        return view;
     }
 
     public void ocultarBusqueda() {
-        Boolean a = this.view.getPanelDatos();
-        Boolean b = this.view.getPanelTrailers();
-        Boolean c = this.view.getBusqueda();
+        Boolean a = view.getPanelDatos();
+        Boolean b = view.getPanelTrailers();
+        Boolean c = view.getBusqueda();
         c = (a && b == false) ? c == true : c == false;
-        this.view.setBusqueda(c);
+        view.setBusqueda(c);
     }
 
     public void mostrarDialogo() {
-        this.dialogo = Boolean.TRUE;
+        dialogo = Boolean.TRUE;
     }
 
     public void ocultarDialogo() {
-        this.dialogo = Boolean.FALSE;
+        dialogo = Boolean.FALSE;
     }
 
     public void modificarTrailers() {
-        this.ejb.modificarTrailers(this.view.getEstructuraNomina().getRfc(), this.view.getEstructuraNominaSelect().getIdEstructurasNominas());
+        ejb.modificarTrailers(view.getEstructuraNomina().getRfc(), view.getEstructuraNominaSelect().getIdEstructurasNominas());
         //		System.out.println("el RFC es....."+view.getEstructuraNomina().getRfc());
         //		System.out.println("el Originales....."+rfcOriginal);
         //		System.out.println("el ID es....."+view.getEstructuraNominaSelect().getIdEstructurasNominas());
-        this.ejb.actualizarDatos(this.view.getEstructuraNomina());
+        ejb.actualizarDatos(view.getEstructuraNomina());
     }
 
-    //	> > > > > Opciones para Estructura Nomina Datos < < < < < <
+    // Opciones para Estructura Nomina Datos
 
     public String irNuevoDatos() {
-        this.view.setEstructuraNomina(this.ejb.nuevoDatos());
-        this.view.setOperacionNuevo(Boolean.TRUE);
-        this.view.panelDatos();
+        view.setEstructuraNomina(ejb.nuevoDatos());
+        view.setOperacionNuevo(Boolean.TRUE);
+        view.panelDatos();
         return null;
     }
 
     public void eliminarDatos() {
-        this.ejb.eliminarDatos(this.view.getEstructuraNominaSelect());
-        this.view.panelPrincipal();
+        ejb.eliminarDatos(view.getEstructuraNominaSelect());
+        view.panelPrincipal();
         irPrincipal();
     }
 
     public String irGestionarDatos() {
-        this.view.setEstructuraNomina(this.ejb.obtenerDatos(this.view.getEstructuraNominaSelect()));
-        this.view.setOperacionNuevo(Boolean.FALSE);
-        this.view.panelDatos();
-        this.rfcOriginal = this.view.getEstructuraNominaSelect().getRfc();
+        view.setEstructuraNomina(ejb.obtenerDatos(view.getEstructuraNominaSelect()));
+        view.setOperacionNuevo(Boolean.FALSE);
+        view.panelDatos();
+        rfcOriginal = view.getEstructuraNominaSelect().getRfc();
         return null;
     }
 
     public String guardarDatos() {
-        if (this.view.getOperacionNuevo()) {
-            this.ejb.crearDatos(this.view.getEstructuraNomina());
+        if (view.getOperacionNuevo()) {
+            ejb.crearDatos(view.getEstructuraNomina());
         } else {
-            System.out.println("Original..." + this.rfcOriginal + "Nuevo..." + this.view.getEstructuraNomina().getRfc());
-            if (this.rfcOriginal.equals(this.view.getEstructuraNomina().getRfc())) {
-                this.ejb.actualizarDatos(this.view.getEstructuraNomina());
+            System.out.println("Original..." + rfcOriginal + "Nuevo..." + view.getEstructuraNomina().getRfc());
+            if (rfcOriginal.equals(view.getEstructuraNomina().getRfc())) {
+                ejb.actualizarDatos(view.getEstructuraNomina());
             } else {
                 modificarTrailers();
             }
         }
-        this.view.setPanelDatos(Boolean.FALSE);
+        view.setPanelDatos(Boolean.FALSE);
         ocultarBusqueda();
         return null;
     }
 
     public String cancelarDatos() {
-        this.view.setPanelDatos(Boolean.FALSE);
+        view.setPanelDatos(Boolean.FALSE);
         ocultarBusqueda();
         return null;
     }
 
     public String cancelar() {
-        this.view.panelPrincipal();
+        view.panelPrincipal();
         return "/contenido/siif/revisarsiiffederalesdatos.xhtml?faces-redirect=true";
     }
 
-    //	> > > > > Opciones para Estructura Nomina Trailers < < < < < <
+    // Opciones para Estructura Nomina Trailers
 
     public String irNuevoTrailers() {
-        this.view.setEstructuraNominaTrailers(this.ejb.nuevoTrailers());
-        this.view.setOperacionNuevo(Boolean.TRUE);
-        this.view.panelTrailers();
+        view.setEstructuraNominaTrailers(ejb.nuevoTrailers());
+        view.setOperacionNuevo(Boolean.TRUE);
+        view.panelTrailers();
         return null;
     }
 
     public void eliminarTrailers() {
-        this.ejb.eliminarTrailers(this.view.getEstructuraNominaTrailersSelect());
-        this.view.panelPrincipal();
+        ejb.eliminarTrailers(view.getEstructuraNominaTrailersSelect());
+        view.panelPrincipal();
         irPrincipal();
     }
 
     public String irGestionarTrailers() {
-        this.view.setEstructuraNominaTrailers(this.ejb.obtenerTrailers(this.view.getEstructuraNominaTrailersSelect()));
-        this.view.setOperacionNuevo(Boolean.FALSE);
-        this.view.panelTrailers();
+        view.setEstructuraNominaTrailers(ejb.obtenerTrailers(view.getEstructuraNominaTrailersSelect()));
+        view.setOperacionNuevo(Boolean.FALSE);
+        view.panelTrailers();
         ;
         return null;
     }
 
     public String guardarTrailers() {
-        if (this.view.getOperacionNuevo()) {
-            this.ejb.crearTrailers(this.view.getEstructuraNominaTrailers());
+        if (view.getOperacionNuevo()) {
+            ejb.crearTrailers(view.getEstructuraNominaTrailers());
         } else {
-            this.ejb.actualizarTrailers(this.view.getEstructuraNominaTrailers());
+            ejb.actualizarTrailers(view.getEstructuraNominaTrailers());
         }
-        this.view.setPanelTrailers(Boolean.FALSE);
+        view.setPanelTrailers(Boolean.FALSE);
         ocultarBusqueda();
         return null;
     }
 
     public String cancelarTrailers() {
-        this.view.setPanelTrailers(Boolean.FALSE);
+        view.setPanelTrailers(Boolean.FALSE);
         ocultarBusqueda();
         return null;
     }
 
-    //Variables	
+    //Variables
 
     public void onRowSelectDatos(SelectEvent event) {
-        this.view.setDisabledIrGestionarDatos(Boolean.FALSE);
+        view.setDisabledIrGestionarDatos(Boolean.FALSE);
     }
 
     public void onRowUnselectDatos(UnselectEvent event) {
-        this.view.setDisabledIrGestionarDatos(Boolean.TRUE);
+        view.setDisabledIrGestionarDatos(Boolean.TRUE);
     }
 
     public void setView(ConsultaNominaView view) {
@@ -207,14 +207,12 @@ public class ConsultaNominaController {
     }
 
     public void onRowSelectTrailers(SelectEvent event) {
-        this.view.setDisabledIrGestionarTrailers(Boolean.FALSE);
+        view.setDisabledIrGestionarTrailers(Boolean.FALSE);
     }
 
     public void onRowUnselectTrailers(UnselectEvent event) {
-        this.view.setDisabledIrGestionarTrailers(Boolean.TRUE);
+        view.setDisabledIrGestionarTrailers(Boolean.TRUE);
     }
-
-    //	> > > > > Validadores < < < < < <
 
     public void validatorConsultaNomina(FacesContext context, UIComponent component, Object value) {
 

@@ -1,14 +1,16 @@
 /*
  * ProductoNominaBitacoraEventoEntity.java
  * Creado el 04/Jan/2017 8:46:34 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,6 +28,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import mx.gob.saludtlax.rh.nomina.productosnomina.AperturaNominaRfcBitacoraCategoria;
 
 /**
@@ -55,7 +58,7 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "hora")
@@ -76,12 +79,7 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
     }
 
     public ProductoNominaBitacoraEventoEntity(Integer idEvento) {
-        this(
-                0,
-                AperturaNominaRfcBitacoraCategoria.INFORMACION,
-                Calendar.getInstance().getTime(),
-                Calendar.getInstance().getTime()
-        );
+        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION, Calendar.getInstance().getTime(), Calendar.getInstance().getTime());
     }
 
     public ProductoNominaBitacoraEventoEntity(Integer idEvento, AperturaNominaRfcBitacoraCategoria categoria, Date fecha, Date hora) {
@@ -141,14 +139,8 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductosNominaBitacorasEventosEntity{" 
-                + "idEvento=" + idEvento 
-                + ", categoria=" + categoria 
-                + ", fecha=" + fecha
-                + ", hora=" + hora
-                + ", mensaje=" + mensaje
-                + ", idBitacora=" + bitacora
-                + '}';
+        return "ProductosNominaBitacorasEventosEntity{" + "idEvento=" + idEvento + ", categoria=" + categoria + ", fecha=" + fecha + ", hora=" + hora
+                + ", mensaje=" + mensaje + ", idBitacora=" + bitacora + '}';
     }
 
     @Override
@@ -192,5 +184,5 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
         }
         return Objects.equals(bitacora, other.bitacora);
     }
-    
+
 }

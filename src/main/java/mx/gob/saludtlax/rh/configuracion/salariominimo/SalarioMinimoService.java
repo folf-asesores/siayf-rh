@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.salariominimo;
 
 import java.io.Serializable;
@@ -18,61 +19,61 @@ import mx.gob.saludtlax.rh.persistencia.SalarioMinimoRepository;
  */
 public class SalarioMinimoService implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1076236767321363451L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1076236767321363451L;
 
-	@Inject
-	private SalarioMinimoRepository salarioMinimoRepository;
+    @Inject
+    private SalarioMinimoRepository salarioMinimoRepository;
 
-	public void crearSalarioMinimo(SalarioMinimoDTO dto) {
+    public void crearSalarioMinimo(SalarioMinimoDTO dto) {
 
-		SalarioMinimoEntity entity = new SalarioMinimoEntity();
+        SalarioMinimoEntity entity = new SalarioMinimoEntity();
 
-		entity.setFecha(dto.getFecha());
-		entity.setSalarioMinimo(dto.getSalarioMinimo());
+        entity.setFecha(dto.getFecha());
+        entity.setSalarioMinimo(dto.getSalarioMinimo());
 
-		salarioMinimoRepository.crear(entity);
+        salarioMinimoRepository.crear(entity);
 
-	}
+    }
 
-	public void actualizarSalarioMinimo(SalarioMinimoDTO dto) {
+    public void actualizarSalarioMinimo(SalarioMinimoDTO dto) {
 
-		SalarioMinimoEntity entity = salarioMinimoRepository.obtenerPorId(dto.getIdSalarioMinimo());
+        SalarioMinimoEntity entity = salarioMinimoRepository.obtenerPorId(dto.getIdSalarioMinimo());
 
-		entity.setFecha(dto.getFecha());
-		entity.setSalarioMinimo(dto.getSalarioMinimo());
+        entity.setFecha(dto.getFecha());
+        entity.setSalarioMinimo(dto.getSalarioMinimo());
 
-		salarioMinimoRepository.actualizar(entity);
+        salarioMinimoRepository.actualizar(entity);
 
-	}
+    }
 
-	public void eliminarSalarioMinimo(Integer idSalarioMinimo) {
+    public void eliminarSalarioMinimo(Integer idSalarioMinimo) {
 
-		salarioMinimoRepository.eliminarPorId(idSalarioMinimo);
+        salarioMinimoRepository.eliminarPorId(idSalarioMinimo);
 
-	}
+    }
 
-	public List<SalarioMinimoDTO> obtenerListaSalarioMinimo() {
+    public List<SalarioMinimoDTO> obtenerListaSalarioMinimo() {
 
-		List<SalarioMinimoDTO> dtos = new ArrayList<SalarioMinimoDTO>();
+        List<SalarioMinimoDTO> dtos = new ArrayList<>();
 
-		List<SalarioMinimoEntity> entities = salarioMinimoRepository.obtenerListaSalarioMinimo();
+        List<SalarioMinimoEntity> entities = salarioMinimoRepository.obtenerListaSalarioMinimo();
 
-		if (!entities.isEmpty() || entities != null) {
-			for (SalarioMinimoEntity salarioMinimoEntity : entities) {
-				SalarioMinimoDTO dto = new SalarioMinimoDTO();
+        if (!entities.isEmpty() || entities != null) {
+            for (SalarioMinimoEntity salarioMinimoEntity : entities) {
+                SalarioMinimoDTO dto = new SalarioMinimoDTO();
 
-				dto.setIdSalarioMinimo(salarioMinimoEntity.getIdSalarioMinimo());
-				dto.setFecha(salarioMinimoEntity.getFecha());
-				dto.setSalarioMinimo(salarioMinimoEntity.getSalarioMinimo());
+                dto.setIdSalarioMinimo(salarioMinimoEntity.getIdSalarioMinimo());
+                dto.setFecha(salarioMinimoEntity.getFecha());
+                dto.setSalarioMinimo(salarioMinimoEntity.getSalarioMinimo());
 
-				dtos.add(dto);
-			}
-		}
+                dtos.add(dto);
+            }
+        }
 
-		return dtos;
-	}
+        return dtos;
+    }
 
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.suplencia.relacionpersonal;
 
 import java.io.IOException;
@@ -34,112 +35,109 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 @ViewScoped
 public class RelacionPersonalSuplenteController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3857283165462315819L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3857283165462315819L;
 
-	@Inject
-	private RelacionPersonalSuplente relacionPersonalSuplente;
+    @Inject
+    private RelacionPersonalSuplente relacionPersonalSuplente;
 
-	private Integer numeroQuincena;
-	private Integer ejercicioFiscal;
-	private Integer idCentroResponsabilidad;
+    private Integer numeroQuincena;
+    private Integer ejercicioFiscal;
+    private Integer idCentroResponsabilidad;
 
-	private List<SelectItem> listaEjercicioFiscal;
-	private List<SelectItem> listaCentroResponsabilidad;
+    private List<SelectItem> listaEjercicioFiscal;
+    private List<SelectItem> listaCentroResponsabilidad;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-		this.listaEjercicioFiscal = relacionPersonalSuplente.listaEjercicioFiscal();
-		this.listaCentroResponsabilidad = relacionPersonalSuplente.listaCentroResponsabilidad();
+        listaEjercicioFiscal = relacionPersonalSuplente.listaEjercicioFiscal();
+        listaCentroResponsabilidad = relacionPersonalSuplente.listaCentroResponsabilidad();
 
-	}
+    }
 
-	public void descargarRelacionPersonalSuplente() {
-		try {
+    public void descargarRelacionPersonalSuplente() {
+        try {
 
-			HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-					.getRequest();
-			HttpSession httpSession = request.getSession(false);
-			UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpSession httpSession = request.getSession(false);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-			String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
-					"relacion_personal_suplente", "TIPO_REPORTE", "xlsx", "NUMERO_QUINCENA",
-					String.valueOf(this.numeroQuincena), "EJERCICIO_FISCAL", String.valueOf(this.ejercicioFiscal),
-					"ID_CENTRO_RESPONSABILIDAD", String.valueOf(this.idCentroResponsabilidad) };
+            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "relacion_personal_suplente", "TIPO_REPORTE",
+                    "xlsx", "NUMERO_QUINCENA", String.valueOf(numeroQuincena), "EJERCICIO_FISCAL", String.valueOf(ejercicioFiscal), "ID_CENTRO_RESPONSABILIDAD",
+                    String.valueOf(idCentroResponsabilidad) };
 
-			AdministradorReportes admintradorReportes = new AdministradorReportes();
-			String referencia = admintradorReportes.obtenerReferencia(parametros);
+            AdministradorReportes admintradorReportes = new AdministradorReportes();
+            String referencia = admintradorReportes.obtenerReferencia(parametros);
 
-			byte[] bytes = null;
+            byte[] bytes = null;
 
-			bytes = admintradorReportes.obtenerReporte(referencia);
+            bytes = admintradorReportes.obtenerReporte(referencia);
 
-			if (bytes != null) {
-				JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Relacion_Personal_Suplente"),
-						TipoArchivo.getMIMEType("xlsx"));
+            if (bytes != null) {
+                JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Relacion_Personal_Suplente"), TipoArchivo.getMIMEType("xlsx"));
 
-			}
+            }
 
-			JSFUtils.infoMessage("Descarga Relacion Personal Suplente: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descarga Relacion Personal Suplente: ", "Se descargo correctamente...");
 
-		} catch (NullPointerException | IllegalArgumentException | IOException exception) {
-			exception.printStackTrace();
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		} catch (ReglaNegocioException reglaNegocioException) {
-			reglaNegocioException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
-		} catch (ValidacionException validacionException) {
-			validacionException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", validacionException.getMessage());
-		} catch (SistemaException sistemaException) {
-			sistemaException.printStackTrace();
-			JSFUtils.errorMessage("Error: ", sistemaException.getMessage());
-		}
-	}
+        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+            exception.printStackTrace();
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        } catch (ReglaNegocioException reglaNegocioException) {
+            reglaNegocioException.printStackTrace();
+            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+        } catch (ValidacionException validacionException) {
+            validacionException.printStackTrace();
+            JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+        } catch (SistemaException sistemaException) {
+            sistemaException.printStackTrace();
+            JSFUtils.errorMessage("Error: ", sistemaException.getMessage());
+        }
+    }
 
-	/********** Getter and Setter ***********/
+    
 
-	public List<SelectItem> getListaEjercicioFiscal() {
-		return listaEjercicioFiscal;
-	}
+    public List<SelectItem> getListaEjercicioFiscal() {
+        return listaEjercicioFiscal;
+    }
 
-	public void setListaEjercicioFiscal(List<SelectItem> listaEjercicioFiscal) {
-		this.listaEjercicioFiscal = listaEjercicioFiscal;
-	}
+    public void setListaEjercicioFiscal(List<SelectItem> listaEjercicioFiscal) {
+        this.listaEjercicioFiscal = listaEjercicioFiscal;
+    }
 
-	public List<SelectItem> getListaCentroResponsabilidad() {
-		return listaCentroResponsabilidad;
-	}
+    public List<SelectItem> getListaCentroResponsabilidad() {
+        return listaCentroResponsabilidad;
+    }
 
-	public void setListaCentroResponsabilidad(List<SelectItem> listaCentroResponsabilidad) {
-		this.listaCentroResponsabilidad = listaCentroResponsabilidad;
-	}
+    public void setListaCentroResponsabilidad(List<SelectItem> listaCentroResponsabilidad) {
+        this.listaCentroResponsabilidad = listaCentroResponsabilidad;
+    }
 
-	public Integer getNumeroQuincena() {
-		return numeroQuincena;
-	}
+    public Integer getNumeroQuincena() {
+        return numeroQuincena;
+    }
 
-	public void setNumeroQuincena(Integer numeroQuincena) {
-		this.numeroQuincena = numeroQuincena;
-	}
+    public void setNumeroQuincena(Integer numeroQuincena) {
+        this.numeroQuincena = numeroQuincena;
+    }
 
-	public Integer getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public Integer getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	public void setEjercicioFiscal(Integer ejercicioFiscal) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public void setEjercicioFiscal(Integer ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
-	public Integer getIdCentroResponsabilidad() {
-		return idCentroResponsabilidad;
-	}
+    public Integer getIdCentroResponsabilidad() {
+        return idCentroResponsabilidad;
+    }
 
-	public void setIdCentroResponsabilidad(Integer idCentroResponsabilidad) {
-		this.idCentroResponsabilidad = idCentroResponsabilidad;
-	}
+    public void setIdCentroResponsabilidad(Integer idCentroResponsabilidad) {
+        this.idCentroResponsabilidad = idCentroResponsabilidad;
+    }
 
 }

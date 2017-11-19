@@ -1,9 +1,9 @@
+
 package mx.gob.saludtlax.rh.seguridad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -26,137 +26,119 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class AreasController implements Serializable {
 
-	private static final long serialVersionUID = 1708501946095782317L;
+    private static final long serialVersionUID = 1708501946095782317L;
 
-	@Inject
-	Areas areas;
-	
-	private List<AreaDTO> listaAreas = new ArrayList<>();
-	private AreaDTO areaSeleccionada;
-	private AreaDTO areaNew = new AreaDTO();
-	
-	@PostConstruct
-	public void inicio(){
-		List<AreaDTO> areasTemp = new ArrayList<>();
-		areasTemp = areas.obtenerAreas();
-		listaAreas.clear();
-		listaAreas.addAll(areasTemp);
-	}
-	
-	public void validatorArea(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+    @Inject
+    Areas areas;
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+    private List<AreaDTO> listaAreas = new ArrayList<>();
+    private AreaDTO areaSeleccionada;
+    private AreaDTO areaNew = new AreaDTO();
 
-		case "nombreArea":
-			String nombre = (String) value;
+    @PostConstruct
+    public void inicio() {
+        List<AreaDTO> areasTemp = new ArrayList<>();
+        areasTemp = areas.obtenerAreas();
+        listaAreas.clear();
+        listaAreas.addAll(areasTemp);
+    }
 
-			if (ValidacionUtil.esCadenaVacia(nombre)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un nombre.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "descArea":
-			String descripcionArea = (String) value;
+    public void validatorArea(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-			if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese descripcion.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "titularArea":
-			String titular = (String) value;
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-			if (ValidacionUtil.esCadenaVacia(titular)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese el nombre del titular.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		}
-	}
-	
-	public void agregarArea(){
-		areas.crearArea(areaNew);
-		JSFUtils.infoMessage("Exito:", "El area se creo correctamente.");
-		inicio();
-		areaNew = new AreaDTO();
-	}
-	
-	
-	public void onRowEdit(RowEditEvent event) {
+            case "nombreArea":
+                String nombre = (String) value;
 
-		try {
+                if (ValidacionUtil.esCadenaVacia(nombre)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "descArea":
+                String descripcionArea = (String) value;
 
-			AreaDTO area = ((AreaDTO) event.getObject());
-			areas.editarArea(area);
-			
-			FacesMessage msg = new FacesMessage("Actualizado:",
-					((AreaDTO) event.getObject()).getNombreArea());
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
-		}
+                if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese descripcion.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "titularArea":
+                String titular = (String) value;
 
-		
-	}
+                if (ValidacionUtil.esCadenaVacia(titular)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre del titular.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+        }
+    }
 
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edicion Cancelada:",
-				((AreaDTO) event.getObject()).getNombreArea());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
+    public void agregarArea() {
+        areas.crearArea(areaNew);
+        JSFUtils.infoMessage("Exito:", "El area se creo correctamente.");
+        inicio();
+        areaNew = new AreaDTO();
+    }
 
-	
-	public void eliminarArea(){
-	Boolean res=areas.eliminarArea(areaSeleccionada.getIdArea());
-	
-	System.out.println(res);
-	 if(!res){
-		 JSFUtils.warningMessage("","EL registro de Area no se puede eliminar ya que se encuentra usado por configuraciones de acciones o modulos.");
-	 }
-		inicio();
-	
-	}
-	
+    public void onRowEdit(RowEditEvent event) {
 
-	public List<AreaDTO> getListaAreas() {
-		return listaAreas;
-	}
+        try {
 
+            AreaDTO area = ((AreaDTO) event.getObject());
+            areas.editarArea(area);
 
-	public void setListaAreas(List<AreaDTO> listaAreas) {
-		this.listaAreas = listaAreas;
-	}
+            FacesMessage msg = new FacesMessage("Actualizado:", ((AreaDTO) event.getObject()).getNombreArea());
+            FacesContext.getCurrentInstance().addMessage(null, msg);
 
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("", "No se pudo guardar los cambios.");
+        }
 
-	public AreaDTO getAreaSeleccionada() {
-		return areaSeleccionada;
-	}
+    }
 
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edicion Cancelada:", ((AreaDTO) event.getObject()).getNombreArea());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
-	public void setAreaSeleccionada(AreaDTO areaSeleccionada) {
-		this.areaSeleccionada = areaSeleccionada;
-	}
+    public void eliminarArea() {
+        Boolean res = areas.eliminarArea(areaSeleccionada.getIdArea());
 
+        System.out.println(res);
+        if (!res) {
+            JSFUtils.warningMessage("", "EL registro de Area no se puede eliminar ya que se encuentra usado por configuraciones de acciones o modulos.");
+        }
+        inicio();
 
-	public AreaDTO getAreaNew() {
-		return areaNew;
-	}
+    }
 
+    public List<AreaDTO> getListaAreas() {
+        return listaAreas;
+    }
 
-	public void setAreaNew(AreaDTO areaNew) {
-		this.areaNew = areaNew;
-	}
-	
+    public void setListaAreas(List<AreaDTO> listaAreas) {
+        this.listaAreas = listaAreas;
+    }
 
-	
-	
+    public AreaDTO getAreaSeleccionada() {
+        return areaSeleccionada;
+    }
+
+    public void setAreaSeleccionada(AreaDTO areaSeleccionada) {
+        this.areaSeleccionada = areaSeleccionada;
+    }
+
+    public AreaDTO getAreaNew() {
+        return areaNew;
+    }
+
+    public void setAreaNew(AreaDTO areaNew) {
+        this.areaNew = areaNew;
+    }
+
 }

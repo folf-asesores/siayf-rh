@@ -1,55 +1,53 @@
+
 package mx.gob.saludtlax.rh.ca.cliente.biometrico;
 
 import java.io.Serializable;
 
-public class ClienteBiometricoFormModel implements Serializable{
+public class ClienteBiometricoFormModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2802944317053658936L;
-	
-	private int idClienteBiometricoFormModel;
-	
-	private String direccionIP;
-	
-	private int puerto;	
-	
-	private String unidad;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2802944317053658936L;
 
-	public int getIdClienteBiometricoFormModel() {
-		return idClienteBiometricoFormModel;
-	}
+    private int idClienteBiometricoFormModel;
 
-	public void setIdClienteBiometricoFormModel(int idClienteBiometricoFormModel) {
-		this.idClienteBiometricoFormModel = idClienteBiometricoFormModel;
-	}
+    private String direccionIP;
 
-	public String getDireccionIP() {
-		return direccionIP;
-	}
+    private int puerto;
 
-	public void setDireccionIP(String direccionIP) {
-		this.direccionIP = direccionIP;
-	}
+    private String unidad;
 
-	public int getPuerto() {
-		return puerto;
-	}
+    public int getIdClienteBiometricoFormModel() {
+        return idClienteBiometricoFormModel;
+    }
 
-	public void setPuerto(int puerto) {
-		this.puerto = puerto;
-	}
+    public void setIdClienteBiometricoFormModel(int idClienteBiometricoFormModel) {
+        this.idClienteBiometricoFormModel = idClienteBiometricoFormModel;
+    }
 
-	public String getUnidad() {
-		return unidad;
-	}
+    public String getDireccionIP() {
+        return direccionIP;
+    }
 
-	public void setUnidad(String unidad) {
-		this.unidad = unidad;
-	}
-	
-	
-	
+    public void setDireccionIP(String direccionIP) {
+        this.direccionIP = direccionIP;
+    }
+
+    public int getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(int puerto) {
+        this.puerto = puerto;
+    }
+
+    public String getUnidad() {
+        return unidad;
+    }
+
+    public void setUnidad(String unidad) {
+        this.unidad = unidad;
+    }
 
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 import java.io.Serializable;
@@ -17,260 +18,261 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
  */
 public class FormatoFiliacionView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1252782281030336529L;
-	
-	private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<InfoEmpleadoDTO>();
-	
-	private FormatoFiliacionDTO formatoFiliacionDTO =  new FormatoFiliacionDTO();
-	
-	private List<SelectItem> listaColorPiel = new ArrayList<SelectItem>();
-	private List<SelectItem> listaCabello = new ArrayList<SelectItem>();
-	private List<SelectItem> listaFrente = new ArrayList<SelectItem>();
-	private List<SelectItem> listaCeja = new ArrayList<SelectItem>();
-	private List<SelectItem> listaOjos = new ArrayList<SelectItem>();
-	private List<SelectItem> listaNariz = new ArrayList<SelectItem>();
-	private List<SelectItem> listaBoca = new ArrayList<SelectItem>();
-	
-	private Integer idEmpleado;
-	private Integer idFormato;
-	
-	
-	private String idColorPiel;
-	private String idCabello;
-	private String idFrente;
-	private String idCeja;
-	private String idOjos;
-	private String idNariz;
-	private String idBoca;
-	private String criterio;
-	private String nombreEmpleado;
-	
-	private boolean principal = true;
-	private boolean formulario = false;
-	private boolean habilitarDescarga = false;
-	private boolean mostrarReporteNuevaVentana = false;
-	private boolean mostrarExitoReporte = false;
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1252782281030336529L;
 
-	public FormatoFiliacionDTO getFormatoFiliacionDTO() {
-		return formatoFiliacionDTO;
-	}
+    private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<>();
 
-	public void setFormatoFiliacionDTO(FormatoFiliacionDTO formatoFiliacionDTO) {
-		this.formatoFiliacionDTO = formatoFiliacionDTO;
-	}
+    private FormatoFiliacionDTO formatoFiliacionDTO = new FormatoFiliacionDTO();
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    private List<SelectItem> listaColorPiel = new ArrayList<>();
+    private List<SelectItem> listaCabello = new ArrayList<>();
+    private List<SelectItem> listaFrente = new ArrayList<>();
+    private List<SelectItem> listaCeja = new ArrayList<>();
+    private List<SelectItem> listaOjos = new ArrayList<>();
+    private List<SelectItem> listaNariz = new ArrayList<>();
+    private List<SelectItem> listaBoca = new ArrayList<>();
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    private Integer idEmpleado;
+    private Integer idFormato;
 
-	public String getIdColorPiel() {
-		return idColorPiel;
-	}
+    private String idColorPiel;
+    private String idCabello;
+    private String idFrente;
+    private String idCeja;
+    private String idOjos;
+    private String idNariz;
+    private String idBoca;
+    private String criterio;
+    private String nombreEmpleado;
 
-	public void setIdColorPiel(String idColorPiel) {
-		this.idColorPiel = idColorPiel;
-	}
+    private boolean principal = true;
+    private boolean formulario = false;
+    private boolean habilitarDescarga = false;
+    private boolean mostrarReporteNuevaVentana = false;
+    private boolean mostrarExitoReporte = false;
 
-	public String getIdFrente() {
-		return idFrente;
-	}
+    public FormatoFiliacionDTO getFormatoFiliacionDTO() {
+        return formatoFiliacionDTO;
+    }
 
-	public void setIdFrente(String idFrente) {
-		this.idFrente = idFrente;
-	}
+    public void setFormatoFiliacionDTO(FormatoFiliacionDTO formatoFiliacionDTO) {
+        this.formatoFiliacionDTO = formatoFiliacionDTO;
+    }
 
-	public String getIdCeja() {
-		return idCeja;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public void setIdCeja(String idCeja) {
-		this.idCeja = idCeja;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public String getIdOjos() {
-		return idOjos;
-	}
+    public String getIdColorPiel() {
+        return idColorPiel;
+    }
 
-	public void setIdOjos(String idOjos) {
-		this.idOjos = idOjos;
-	}
+    public void setIdColorPiel(String idColorPiel) {
+        this.idColorPiel = idColorPiel;
+    }
 
-	public String getIdNariz() {
-		return idNariz;
-	}
+    public String getIdFrente() {
+        return idFrente;
+    }
 
-	public void setIdNariz(String idNariz) {
-		this.idNariz = idNariz;
-	}
+    public void setIdFrente(String idFrente) {
+        this.idFrente = idFrente;
+    }
 
-	public String getIdBoca() {
-		return idBoca;
-	}
+    public String getIdCeja() {
+        return idCeja;
+    }
 
-	public void setIdBoca(String idBoca) {
-		this.idBoca = idBoca;
-	}
+    public void setIdCeja(String idCeja) {
+        this.idCeja = idCeja;
+    }
 
-	public boolean isPrincipal() {
-		return principal;
-	}
+    public String getIdOjos() {
+        return idOjos;
+    }
 
-	public void setPrincipal(boolean principal) {
-		this.principal = principal;
-	}
+    public void setIdOjos(String idOjos) {
+        this.idOjos = idOjos;
+    }
 
-	public boolean isFormulario() {
-		return formulario;
-	}
+    public String getIdNariz() {
+        return idNariz;
+    }
 
-	public void setFormulario(boolean formulario) {
-		this.formulario = formulario;
-	}
+    public void setIdNariz(String idNariz) {
+        this.idNariz = idNariz;
+    }
 
-	public List<SelectItem> getListaColorPiel() {
-		return listaColorPiel;
-	}
+    public String getIdBoca() {
+        return idBoca;
+    }
 
-	public void setListaColorPiel(List<SelectItem> listaColorPiel) {
-		this.listaColorPiel = listaColorPiel;
-	}
+    public void setIdBoca(String idBoca) {
+        this.idBoca = idBoca;
+    }
 
-	public List<SelectItem> getListaCabello() {
-		return listaCabello;
-	}
+    public boolean isPrincipal() {
+        return principal;
+    }
 
-	public void setListaCabello(List<SelectItem> listaCabello) {
-		this.listaCabello = listaCabello;
-	}
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
+    }
 
-	public List<SelectItem> getListaFrente() {
-		return listaFrente;
-	}
+    public boolean isFormulario() {
+        return formulario;
+    }
 
-	public void setListaFrente(List<SelectItem> listaFrente) {
-		this.listaFrente = listaFrente;
-	}
+    public void setFormulario(boolean formulario) {
+        this.formulario = formulario;
+    }
 
-	public List<SelectItem> getListaCeja() {
-		return listaCeja;
-	}
+    public List<SelectItem> getListaColorPiel() {
+        return listaColorPiel;
+    }
 
-	public void setListaCeja(List<SelectItem> listaCeja) {
-		this.listaCeja = listaCeja;
-	}
+    public void setListaColorPiel(List<SelectItem> listaColorPiel) {
+        this.listaColorPiel = listaColorPiel;
+    }
 
-	public List<SelectItem> getListaOjos() {
-		return listaOjos;
-	}
+    public List<SelectItem> getListaCabello() {
+        return listaCabello;
+    }
 
-	public void setListaOjos(List<SelectItem> listaOjos) {
-		this.listaOjos = listaOjos;
-	}
+    public void setListaCabello(List<SelectItem> listaCabello) {
+        this.listaCabello = listaCabello;
+    }
 
-	public List<SelectItem> getListaNariz() {
-		return listaNariz;
-	}
+    public List<SelectItem> getListaFrente() {
+        return listaFrente;
+    }
 
-	public void setListaNariz(List<SelectItem> listaNariz) {
-		this.listaNariz = listaNariz;
-	}
+    public void setListaFrente(List<SelectItem> listaFrente) {
+        this.listaFrente = listaFrente;
+    }
 
-	public List<SelectItem> getListaBoca() {
-		return listaBoca;
-	}
+    public List<SelectItem> getListaCeja() {
+        return listaCeja;
+    }
 
-	public void setListaBoca(List<SelectItem> listaBoca) {
-		this.listaBoca = listaBoca;
-	}
+    public void setListaCeja(List<SelectItem> listaCeja) {
+        this.listaCeja = listaCeja;
+    }
 
-	public String getIdCabello() {
-		return idCabello;
-	}
+    public List<SelectItem> getListaOjos() {
+        return listaOjos;
+    }
 
-	public void setIdCabello(String idCabello) {
-		this.idCabello = idCabello;
-	}
+    public void setListaOjos(List<SelectItem> listaOjos) {
+        this.listaOjos = listaOjos;
+    }
 
-	public List<InfoEmpleadoDTO> getListaEmpleados() {
-		return listaEmpleados;
-	}
+    public List<SelectItem> getListaNariz() {
+        return listaNariz;
+    }
 
-	public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
-	}
+    public void setListaNariz(List<SelectItem> listaNariz) {
+        this.listaNariz = listaNariz;
+    }
 
-	public String getCriterio() {
-		return criterio;
-	}
+    public List<SelectItem> getListaBoca() {
+        return listaBoca;
+    }
 
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
-	}
+    public void setListaBoca(List<SelectItem> listaBoca) {
+        this.listaBoca = listaBoca;
+    }
 
-	public String getNombreEmpleado() {
-		return nombreEmpleado;
-	}
+    public String getIdCabello() {
+        return idCabello;
+    }
 
-	public void setNombreEmpleado(String nombreEmpleado) {
-		this.nombreEmpleado = nombreEmpleado;
-	}
+    public void setIdCabello(String idCabello) {
+        this.idCabello = idCabello;
+    }
 
-	/**
-	 * @return the mostrarReporteNuevaVentana
-	 */
-	public boolean isMostrarReporteNuevaVentana() {
-		return mostrarReporteNuevaVentana;
-	}
+    public List<InfoEmpleadoDTO> getListaEmpleados() {
+        return listaEmpleados;
+    }
 
-	/**
-	 * @param mostrarReporteNuevaVentana the mostrarReporteNuevaVentana to set
-	 */
-	public void setMostrarReporteNuevaVentana(boolean mostrarReporteNuevaVentana) {
-		this.mostrarReporteNuevaVentana = mostrarReporteNuevaVentana;
-	}
+    public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
 
-	/**
-	 * @return the idFormato
-	 */
-	public Integer getIdFormato() {
-		return idFormato;
-	}
+    public String getCriterio() {
+        return criterio;
+    }
 
-	/**
-	 * @param idFormato the idFormato to set
-	 */
-	public void setIdFormato(Integer idFormato) {
-		this.idFormato = idFormato;
-	}
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
 
-	/**
-	 * @return the mostrarExitoReporte
-	 */
-	public boolean isMostrarExitoReporte() {
-		return mostrarExitoReporte;
-	}
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
 
-	/**
-	 * @param mostrarExitoReporte the mostrarExitoReporte to set
-	 */
-	public void setMostrarExitoReporte(boolean mostrarExitoReporte) {
-		this.mostrarExitoReporte = mostrarExitoReporte;
-	}
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
+    }
 
-	public boolean isHabilitarDescarga() {
-		return habilitarDescarga;
-	}
+    /**
+     * @return the mostrarReporteNuevaVentana
+     */
+    public boolean isMostrarReporteNuevaVentana() {
+        return mostrarReporteNuevaVentana;
+    }
 
-	public void setHabilitarDescarga(boolean habilitarDescarga) {
-		this.habilitarDescarga = habilitarDescarga;
-	}
+    /**
+     * @param mostrarReporteNuevaVentana
+     *            the mostrarReporteNuevaVentana to set
+     */
+    public void setMostrarReporteNuevaVentana(boolean mostrarReporteNuevaVentana) {
+        this.mostrarReporteNuevaVentana = mostrarReporteNuevaVentana;
+    }
+
+    /**
+     * @return the idFormato
+     */
+    public Integer getIdFormato() {
+        return idFormato;
+    }
+
+    /**
+     * @param idFormato
+     *            the idFormato to set
+     */
+    public void setIdFormato(Integer idFormato) {
+        this.idFormato = idFormato;
+    }
+
+    /**
+     * @return the mostrarExitoReporte
+     */
+    public boolean isMostrarExitoReporte() {
+        return mostrarExitoReporte;
+    }
+
+    /**
+     * @param mostrarExitoReporte
+     *            the mostrarExitoReporte to set
+     */
+    public void setMostrarExitoReporte(boolean mostrarExitoReporte) {
+        this.mostrarExitoReporte = mostrarExitoReporte;
+    }
+
+    public boolean isHabilitarDescarga() {
+        return habilitarDescarga;
+    }
+
+    public void setHabilitarDescarga(boolean habilitarDescarga) {
+        this.habilitarDescarga = habilitarDescarga;
+    }
 
 }

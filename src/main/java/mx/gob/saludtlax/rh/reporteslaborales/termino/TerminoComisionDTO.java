@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.Serializable;

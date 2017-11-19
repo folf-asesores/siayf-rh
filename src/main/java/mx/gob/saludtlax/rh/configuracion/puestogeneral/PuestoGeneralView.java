@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 
 import java.io.Serializable;
@@ -17,156 +18,155 @@ import javax.faces.model.SelectItem;
  */
 public class PuestoGeneralView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1812302169427889509L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1812302169427889509L;
 
-	private List<PuestoGeneralDTO> listaPuestoGeneral = new ArrayList<>();
+    private List<PuestoGeneralDTO> listaPuestoGeneral = new ArrayList<>();
 
-	private List<SelectItem> listaTipoPuesto;
+    private List<SelectItem> listaTipoPuesto;
 
-	private List<SelectItem> listaRama;
+    private List<SelectItem> listaRama;
 
-	private PuestoGeneralDTO puestoGeneralDTO = new PuestoGeneralDTO();
+    private PuestoGeneralDTO puestoGeneralDTO = new PuestoGeneralDTO();
 
-	private PuestoGeneralDTO puestoGeneralDTOSeleccionado = new PuestoGeneralDTO();
+    private PuestoGeneralDTO puestoGeneralDTOSeleccionado = new PuestoGeneralDTO();
 
-	private Boolean dialogoEliminar = Boolean.FALSE;
+    private Boolean dialogoEliminar = Boolean.FALSE;
 
-	private Integer idPuestoGeneral;
+    private Integer idPuestoGeneral;
 
-	private boolean panelRegistro = false;
+    private boolean panelRegistro = false;
 
-	private boolean panelActualizar = false;
+    private boolean panelActualizar = false;
 
-	
+    /**
+     * @return the listaPuestoGeneral
+     */
+    public List<PuestoGeneralDTO> getListaPuestoGeneral() {
+        return listaPuestoGeneral;
+    }
 
-	/**
-	 * @return the listaPuestoGeneral
-	 */
-	public List<PuestoGeneralDTO> getListaPuestoGeneral() {
-		return listaPuestoGeneral;
-	}
+    /**
+     * @param listaPuestoGeneral
+     *            the listaPuestoGeneral to set
+     */
+    public void setListaPuestoGeneral(List<PuestoGeneralDTO> listaPuestoGeneral) {
+        this.listaPuestoGeneral = listaPuestoGeneral;
+    }
 
-	/**
-	 * @param listaPuestoGeneral
-	 *            the listaPuestoGeneral to set
-	 */
-	public void setListaPuestoGeneral(List<PuestoGeneralDTO> listaPuestoGeneral) {
-		this.listaPuestoGeneral = listaPuestoGeneral;
-	}
+    /**
+     * @return the puestoGeneralDTO
+     */
+    public PuestoGeneralDTO getPuestoGeneralDTO() {
+        return puestoGeneralDTO;
+    }
 
-	/**
-	 * @return the puestoGeneralDTO
-	 */
-	public PuestoGeneralDTO getPuestoGeneralDTO() {
-		return puestoGeneralDTO;
-	}
+    /**
+     * @param puestoGeneralDTO
+     *            the puestoGeneralDTO to set
+     */
+    public void setPuestoGeneralDTO(PuestoGeneralDTO puestoGeneralDTO) {
+        this.puestoGeneralDTO = puestoGeneralDTO;
+    }
 
-	/**
-	 * @param puestoGeneralDTO
-	 *            the puestoGeneralDTO to set
-	 */
-	public void setPuestoGeneralDTO(PuestoGeneralDTO puestoGeneralDTO) {
-		this.puestoGeneralDTO = puestoGeneralDTO;
-	}
+    /**
+     * @return the listaRama
+     */
+    public List<SelectItem> getListaRama() {
+        return listaRama;
+    }
 
-	/**
-	 * @return the listaRama
-	 */
-	public List<SelectItem> getListaRama() {
-		return listaRama;
-	}
+    /**
+     * @param listaRama
+     *            the listaRama to set
+     */
+    public void setListaRama(List<SelectItem> listaRama) {
+        this.listaRama = listaRama;
+    }
 
-	/**
-	 * @param listaRama
-	 *            the listaRama to set
-	 */
-	public void setListaRama(List<SelectItem> listaRama) {
-		this.listaRama = listaRama;
-	}
+    /**
+     * @return the dialogoEliminar
+     */
+    public Boolean getDialogoEliminar() {
+        return dialogoEliminar;
+    }
 
-	/**
-	 * @return the dialogoEliminar
-	 */
-	public Boolean getDialogoEliminar() {
-		return dialogoEliminar;
-	}
+    /**
+     * @param dialogoEliminar
+     *            the dialogoEliminar to set
+     */
+    public void setDialogoEliminar(Boolean dialogoEliminar) {
+        this.dialogoEliminar = dialogoEliminar;
+    }
 
-	/**
-	 * @param dialogoEliminar
-	 *            the dialogoEliminar to set
-	 */
-	public void setDialogoEliminar(Boolean dialogoEliminar) {
-		this.dialogoEliminar = dialogoEliminar;
-	}
+    /**
+     * @return the idPuestoGeneral
+     */
+    public Integer getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
 
-	/**
-	 * @return the idPuestoGeneral
-	 */
-	public Integer getIdPuestoGeneral() {
-		return idPuestoGeneral;
-	}
+    /**
+     * @param idPuestoGeneral
+     *            the idPuestoGeneral to set
+     */
+    public void setIdPuestoGeneral(Integer idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
 
-	/**
-	 * @param idPuestoGeneral
-	 *            the idPuestoGeneral to set
-	 */
-	public void setIdPuestoGeneral(Integer idPuestoGeneral) {
-		this.idPuestoGeneral = idPuestoGeneral;
-	}
+    public List<SelectItem> getListaTipoPuesto() {
+        return listaTipoPuesto;
+    }
 
-	public List<SelectItem> getListaTipoPuesto() {
-		return listaTipoPuesto;
-	}
+    public void setListaTipoPuesto(List<SelectItem> listaTipoPuesto) {
+        this.listaTipoPuesto = listaTipoPuesto;
+    }
 
-	public void setListaTipoPuesto(List<SelectItem> listaTipoPuesto) {
-		this.listaTipoPuesto = listaTipoPuesto;
-	}
+    /**
+     * @return the panelRegistro
+     */
+    public boolean isPanelRegistro() {
+        return panelRegistro;
+    }
 
-	/**
-	 * @return the panelRegistro
-	 */
-	public boolean isPanelRegistro() {
-		return panelRegistro;
-	}
+    /**
+     * @param panelRegistro
+     *            the panelRegistro to set
+     */
+    public void setPanelRegistro(boolean panelRegistro) {
+        this.panelRegistro = panelRegistro;
+    }
 
-	/**
-	 * @param panelRegistro
-	 *            the panelRegistro to set
-	 */
-	public void setPanelRegistro(boolean panelRegistro) {
-		this.panelRegistro = panelRegistro;
-	}
+    /**
+     * @return the panelActualizar
+     */
+    public boolean isPanelActualizar() {
+        return panelActualizar;
+    }
 
-	/**
-	 * @return the panelActualizar
-	 */
-	public boolean isPanelActualizar() {
-		return panelActualizar;
-	}
+    /**
+     * @param panelActualizar
+     *            the panelActualizar to set
+     */
+    public void setPanelActualizar(boolean panelActualizar) {
+        this.panelActualizar = panelActualizar;
+    }
 
-	/**
-	 * @param panelActualizar
-	 *            the panelActualizar to set
-	 */
-	public void setPanelActualizar(boolean panelActualizar) {
-		this.panelActualizar = panelActualizar;
-	}
+    /**
+     * @return the puestoGeneralDTOSeleccionado
+     */
+    public PuestoGeneralDTO getPuestoGeneralDTOSeleccionado() {
+        return puestoGeneralDTOSeleccionado;
+    }
 
-	/**
-	 * @return the puestoGeneralDTOSeleccionado
-	 */
-	public PuestoGeneralDTO getPuestoGeneralDTOSeleccionado() {
-		return puestoGeneralDTOSeleccionado;
-	}
-
-	/**
-	 * @param puestoGeneralDTOSeleccionado the puestoGeneralDTOSeleccionado to set
-	 */
-	public void setPuestoGeneralDTOSeleccionado(PuestoGeneralDTO puestoGeneralDTOSeleccionado) {
-		this.puestoGeneralDTOSeleccionado = puestoGeneralDTOSeleccionado;
-	}
+    /**
+     * @param puestoGeneralDTOSeleccionado
+     *            the puestoGeneralDTOSeleccionado to set
+     */
+    public void setPuestoGeneralDTOSeleccionado(PuestoGeneralDTO puestoGeneralDTOSeleccionado) {
+        this.puestoGeneralDTOSeleccionado = puestoGeneralDTOSeleccionado;
+    }
 
 }

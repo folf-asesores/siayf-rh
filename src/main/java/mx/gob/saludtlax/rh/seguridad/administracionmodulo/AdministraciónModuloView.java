@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.administracionmodulo;
 
 import java.io.Serializable;
@@ -13,29 +14,28 @@ import mx.gob.saludtlax.rh.modulos.ModuloDTO;
  * @author Eduardo Mex
  *
  */
-public class AdministraciónModuloView implements Serializable{
+public class AdministraciónModuloView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4298049848018177738L;
-	
-	private List<ModuloDTO> listaModulo = new ArrayList<>();
-	
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4298049848018177738L;
 
-	/**
-	 * @return the listaModulo
-	 */
-	public List<ModuloDTO> getListaModulo() {
-		return listaModulo;
-	}
+    private List<ModuloDTO> listaModulo = new ArrayList<>();
 
-	/**
-	 * @param listaModulo the listaModulo to set
-	 */
-	public void setListaModulo(List<ModuloDTO> listaModulo) {
-		this.listaModulo = listaModulo;
-	}
+    /**
+     * @return the listaModulo
+     */
+    public List<ModuloDTO> getListaModulo() {
+        return listaModulo;
+    }
+
+    /**
+     * @param listaModulo
+     *            the listaModulo to set
+     */
+    public void setListaModulo(List<ModuloDTO> listaModulo) {
+        this.listaModulo = listaModulo;
+    }
 
 }

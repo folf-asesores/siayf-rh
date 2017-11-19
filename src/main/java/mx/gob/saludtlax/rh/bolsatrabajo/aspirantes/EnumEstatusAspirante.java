@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 /**
@@ -9,8 +10,8 @@ package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
  * @since 07/03/2016-15:18:08
  */
 public class EnumEstatusAspirante {
-	public static String DISPONIBLE = "DISPONIBLE";
-	public static String EMPLEADO = "EMPLEADO";
-	public static String RECHAZADO = "RECHAZADO";
+    public static String DISPONIBLE = "DISPONIBLE";
+    public static String EMPLEADO = "EMPLEADO";
+    public static String RECHAZADO = "RECHAZADO";
 
 }

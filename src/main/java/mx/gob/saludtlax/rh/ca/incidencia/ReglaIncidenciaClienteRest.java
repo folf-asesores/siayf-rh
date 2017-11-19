@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.incidencia;
 
 import java.io.IOException;
@@ -18,150 +19,142 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import mx.gob.saludtlax.rh.ca.ClienteRest;
-import mx.gob.saludtlax.rh.ca.jornada.ReglaAsistenciaViewModel;
 import mx.gob.saludtlax.rh.excepciones.RESTClientException;
 import mx.gob.saludtlax.rh.util.ListadoMensajesSistema;
 import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 @Stateless
 public class ReglaIncidenciaClienteRest extends ClienteRest implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -137318489550762817L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -137318489550762817L;
 
-	public ReglaIncidenciaClienteRest() {
-		super(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
-	}
+    public ReglaIncidenciaClienteRest() {
+        super(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+    }
 
-	private final String RESOURCE_LISTADO_REGLAS_INCIDENCIAS = "/incidencia/regla/buscar/listado/";
-	private final String RESOURCE_NUEVA_REGLA_ASISTENCIA = "/incidencia/regla/agregar";
-	private final String RESOURCE_ELIMINA_REGLA_INCIDENCIA = "/incidencia/regla/eliminar/";
+    private final String RESOURCE_LISTADO_REGLAS_INCIDENCIAS = "/incidencia/regla/buscar/listado/";
+    private final String RESOURCE_NUEVA_REGLA_ASISTENCIA = "/incidencia/regla/agregar";
+    private final String RESOURCE_ELIMINA_REGLA_INCIDENCIA = "/incidencia/regla/eliminar/";
 
-	public List<ReglaIncidenciaViewModel> listadoReglasIncidencia(Integer idIncidencia, Integer idTipoContraacion)
-			throws RESTClientException {
+    public List<ReglaIncidenciaViewModel> listadoReglasIncidencia(Integer idIncidencia, Integer idTipoContraacion) throws RESTClientException {
 
-		List<ReglaIncidenciaViewModel> listadoReglasIncidenciaViewModel = null;
+        List<ReglaIncidenciaViewModel> listadoReglasIncidenciaViewModel = null;
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		HttpGet httpGet = new HttpGet(
-				url_serivicio + RESOURCE_LISTADO_REGLAS_INCIDENCIAS + idIncidencia + "/" + idTipoContraacion);
+        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO_REGLAS_INCIDENCIAS + idIncidencia + "/" + idTipoContraacion);
 
-		try {
-			CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+        try {
+            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
 
-			switch (servicioResponse.getStatusLine().getStatusCode()) {
-			case 200:
-				String result = EntityUtils.toString(servicioResponse.getEntity());
+            switch (servicioResponse.getStatusLine().getStatusCode()) {
+                case 200:
+                    String result = EntityUtils.toString(servicioResponse.getEntity());
 
-				Gson incidenciaGson = new Gson();
-				TypeToken<ArrayList<ReglaIncidenciaViewModel>> tokenListado = new TypeToken<ArrayList<ReglaIncidenciaViewModel>>() {
-				};
-				listadoReglasIncidenciaViewModel = incidenciaGson.fromJson(result, tokenListado.getType());
+                    Gson incidenciaGson = new Gson();
+                    TypeToken<ArrayList<ReglaIncidenciaViewModel>> tokenListado = new TypeToken<ArrayList<ReglaIncidenciaViewModel>>() {
+                    };
+                    listadoReglasIncidenciaViewModel = incidenciaGson.fromJson(result, tokenListado.getType());
 
-				break;
-			case 400:
-				throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
-			default:
-				throw new RESTClientException(
-						ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode()
-								+ " " + servicioResponse.getStatusLine().toString());
+                    break;
+                case 400:
+                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                default:
+                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                            + servicioResponse.getStatusLine().toString());
 
-			}
+            }
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			throw new RESTClientException(e.getMessage());
-		}
+            throw new RESTClientException(e.getMessage());
+        }
 
-		return listadoReglasIncidenciaViewModel;
+        return listadoReglasIncidenciaViewModel;
 
-	}
+    }
 
-	public void crearNuevaReglaIncidencia(ReglaIncidenciaFormModel reglaIncidenciaFormModel)
-			throws RESTClientException {
+    public void crearNuevaReglaIncidencia(ReglaIncidenciaFormModel reglaIncidenciaFormModel) throws RESTClientException {
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_NUEVA_REGLA_ASISTENCIA);
+        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_NUEVA_REGLA_ASISTENCIA);
 
-		Gson gson = new Gson();
-		StringEntity nuevaReglaIncidenciaFormModelJSON;
-		try {
-			nuevaReglaIncidenciaFormModelJSON = new StringEntity(gson.toJson(reglaIncidenciaFormModel));
+        Gson gson = new Gson();
+        StringEntity nuevaReglaIncidenciaFormModelJSON;
+        try {
+            nuevaReglaIncidenciaFormModelJSON = new StringEntity(gson.toJson(reglaIncidenciaFormModel));
 
-			nuevaReglaIncidenciaFormModelJSON.setContentType("application/json");
+            nuevaReglaIncidenciaFormModelJSON.setContentType("application/json");
 
-			httpPost.setEntity(nuevaReglaIncidenciaFormModelJSON);
+            httpPost.setEntity(nuevaReglaIncidenciaFormModelJSON);
 
-			CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
 
-			String resultNuevaIncidenciaEmpleado;
+            String resultNuevaIncidenciaEmpleado;
 
-			switch (servicioResponse.getStatusLine().getStatusCode()) {
-			case 200:
-				resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
-				break;
-			case 400:
-				resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
-				throw new RESTClientException(resultNuevaIncidenciaEmpleado);
+            switch (servicioResponse.getStatusLine().getStatusCode()) {
+                case 200:
+                    resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
+                    break;
+                case 400:
+                    resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
+                    throw new RESTClientException(resultNuevaIncidenciaEmpleado);
 
-			default:
+                default:
 
-				throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " "
-						+ servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
 
-			}
+            }
 
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			throw new RESTClientException(e.getMessage());
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-			throw new RESTClientException(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new RESTClientException(e.getMessage());
-		}
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            throw new RESTClientException(e.getMessage());
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+            throw new RESTClientException(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RESTClientException(e.getMessage());
+        }
 
-	}
+    }
 
-	public void elminarReglaIncidencia(Integer idReglaIncidenciaElminar) throws RESTClientException {
+    public void elminarReglaIncidencia(Integer idReglaIncidenciaElminar) throws RESTClientException {
 
-		CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		HttpDelete httpDelete = new HttpDelete(
-				url_serivicio + RESOURCE_ELIMINA_REGLA_INCIDENCIA + idReglaIncidenciaElminar);
+        HttpDelete httpDelete = new HttpDelete(url_serivicio + RESOURCE_ELIMINA_REGLA_INCIDENCIA + idReglaIncidenciaElminar);
 
-		try {
-			CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
+        try {
+            CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
 
-			switch (servicioResponse.getStatusLine().getStatusCode()) {
-			case 200:
-				String resultHorario = EntityUtils.toString(servicioResponse.getEntity());
-				break;
-			case 400:
+            switch (servicioResponse.getStatusLine().getStatusCode()) {
+                case 200:
+                    String resultHorario = EntityUtils.toString(servicioResponse.getEntity());
+                    break;
+                case 400:
 
-				throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
-			default:
+                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                default:
 
-				throw new RESTClientException(
-						ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode()
-								+ " " + servicioResponse.getStatusLine().toString());
+                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                            + servicioResponse.getStatusLine().toString());
 
-			}
+            }
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			throw new RESTClientException(e.getMessage());
-		}
+            throw new RESTClientException(e.getMessage());
+        }
 
-	}
+    }
 
 }

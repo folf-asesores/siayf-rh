@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -18,37 +19,35 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tipos_movimientos_issste")
-public class TipoMovimientoIsssteEntity implements Serializable{
+public class TipoMovimientoIsssteEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2278180670196759533L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_tipo_movimiento_issste")
-	private Integer idTipoMovimientoIsssteEmpleado;
-	
-	@Column(name = "tipo_movimiento_issste")
-	private String tipoMovimientoIssste;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2278180670196759533L;
 
-	public Integer getIdTipoMovimientoIsssteEmpleado() {
-		return idTipoMovimientoIsssteEmpleado;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_movimiento_issste")
+    private Integer idTipoMovimientoIsssteEmpleado;
 
-	public void setIdTipoMovimientoIsssteEmpleado(Integer idTipoMovimientoIsssteEmpleado) {
-		this.idTipoMovimientoIsssteEmpleado = idTipoMovimientoIsssteEmpleado;
-	}
+    @Column(name = "tipo_movimiento_issste")
+    private String tipoMovimientoIssste;
 
-	public String getTipoMovimientoIssste() {
-		return tipoMovimientoIssste;
-	}
+    public Integer getIdTipoMovimientoIsssteEmpleado() {
+        return idTipoMovimientoIsssteEmpleado;
+    }
 
-	public void setTipoMovimientoIssste(String tipoMovimientoIssste) {
-		this.tipoMovimientoIssste = tipoMovimientoIssste;
-	}
+    public void setIdTipoMovimientoIsssteEmpleado(Integer idTipoMovimientoIsssteEmpleado) {
+        this.idTipoMovimientoIsssteEmpleado = idTipoMovimientoIsssteEmpleado;
+    }
 
-	
-	
+    public String getTipoMovimientoIssste() {
+        return tipoMovimientoIssste;
+    }
+
+    public void setTipoMovimientoIssste(String tipoMovimientoIssste) {
+        this.tipoMovimientoIssste = tipoMovimientoIssste;
+    }
+
 }

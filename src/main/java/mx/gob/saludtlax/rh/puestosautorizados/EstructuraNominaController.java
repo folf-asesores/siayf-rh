@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.puestosautorizados;
 
 import java.io.Serializable;
@@ -29,67 +30,65 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ViewScoped
 public class EstructuraNominaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8088983899129614271L;
-	@Inject
-	private Empleado empleado;
-	@Inject
-	private PuestosAutorizadosEmpleados puestosAutorizados;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8088983899129614271L;
+    @Inject
+    private Empleado empleado;
+    @Inject
+    private PuestosAutorizadosEmpleados puestosAutorizados;
 
-	private EstructuraNominaView view;
+    private EstructuraNominaView view;
 
-	@PostConstruct
-	public void inicio() {
-		view = new EstructuraNominaView();
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-				.getRequest();
-		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-		view.setIdUsuarioLogeado(usuario.getIdUsuario());
-	}
+    @PostConstruct
+    public void inicio() {
+        view = new EstructuraNominaView();
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        view.setIdUsuarioLogeado(usuario.getIdUsuario());
+    }
 
-	public void consultarEmpleado() {
-		view.getFiltro().setTipoFiltro(EnumTipoFiltro.CRITERIO_FEDERALES);
-		view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
-		if (view.getEmpleados().isEmpty()) {
-			JSFUtils.warningMessage("",
-					"No se encontraron empleados con el criterio " + view.getFiltro().getCriterio());
-		}
-	}
+    public void consultarEmpleado() {
+        view.getFiltro().setTipoFiltro(EnumTipoFiltro.CRITERIO_FEDERALES);
+        view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
+        if (view.getEmpleados().isEmpty()) {
+            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + view.getFiltro().getCriterio());
+        }
+    }
 
-	public void ocultarEstructura() {
-		view.setMostrarInformacionPuesto(false);
-	}
+    public void ocultarEstructura() {
+        view.setMostrarInformacionPuesto(false);
+    }
 
-	public void actualizarEstructuras() {
-		try {
-			view.getEstructuraNomina().setIdUsuario(view.getIdUsuarioLogeado());
-			puestosAutorizados.actualizarEstructuraNomina(view.getEstructuraNomina());
-			view.setMostrarInformacionPuesto(false);
+    public void actualizarEstructuras() {
+        try {
+            view.getEstructuraNomina().setIdUsuario(view.getIdUsuarioLogeado());
+            puestosAutorizados.actualizarEstructuraNomina(view.getEstructuraNomina());
+            view.setMostrarInformacionPuesto(false);
 
-			JSFUtils.infoMessage("", "¡La información ha sido actualizada con éxito!");
+            JSFUtils.infoMessage("", "¡La información ha sido actualizada con éxito!");
 
-		} catch (ReglaNegocioException exception) {
-			JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
-		}
+        } catch (ReglaNegocioException exception) {
+            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+        }
 
-	}
+    }
 
-	public void seleccionarEmpleado(Integer idPuesto) {
-		view.setMostrarInformacionPuesto(true);
-		view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(idPuesto));
-		view.setEstructuraNomina(puestosAutorizados.obtenerEstructuraNominaPuesto(idPuesto));
-		view.getEstructuraNomina().setIdPuesto(idPuesto);
-	}
+    public void seleccionarEmpleado(Integer idPuesto) {
+        view.setMostrarInformacionPuesto(true);
+        view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(idPuesto));
+        view.setEstructuraNomina(puestosAutorizados.obtenerEstructuraNominaPuesto(idPuesto));
+        view.getEstructuraNomina().setIdPuesto(idPuesto);
+    }
 
-	public EstructuraNominaView getView() {
-		return view;
-	}
+    public EstructuraNominaView getView() {
+        return view;
+    }
 
-	public void setView(EstructuraNominaView view) {
-		this.view = view;
-	}
+    public void setView(EstructuraNominaView view) {
+        this.view = view;
+    }
 
 }

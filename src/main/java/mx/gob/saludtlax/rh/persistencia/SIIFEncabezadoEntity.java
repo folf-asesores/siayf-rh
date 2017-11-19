@@ -1,13 +1,14 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.Basic;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -25,46 +26,46 @@ import javax.persistence.TemporalType;
 public class SIIFEncabezadoEntity implements Serializable {
 
     private static final long serialVersionUID = -3491218769714297031L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_siif_encabezado")
     private Integer idSIIFEncabezado;
-    
+
     @Column(name = "id_nomina")
     private Integer idNomina;
-    
+
     @Column(name = "id_poder")
     private Character idPoder;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipo_nomina")
     private TipoNominaEntity tipoNomina;
-    
+
     @Column(name = "fecha_fin_quincena")
     @Temporal(TemporalType.DATE)
     private Date fechaFinQuincena;
-    
+
     @Column(name = "id_tipo_emision_nomina", length = 1)
     private String idTipoEmisionNomina;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cuenta_bancaria")
     private CuentasBancariasEntity cuentaBancaria;
-    
+
     @Column(name = "percepciones")
     private BigDecimal percepciones;
-    
+
     @Column(name = "deducciones")
     private BigDecimal deducciones;
-    
+
     @Column(name = "neto")
     private BigDecimal neto;
-    
+
     @Column(name = "id_estado_nomina")
     private Character idEstadoNomina;
-    
+
     @Column(name = "id_nombramiento")
     private Integer idNombramiento;
 
@@ -130,7 +131,7 @@ public class SIIFEncabezadoEntity implements Serializable {
     public void setCuentaBancaria(CuentasBancariasEntity cuentaBancaria) {
         this.cuentaBancaria = cuentaBancaria;
     }
-    
+
     public BigDecimal getPercepciones() {
         return percepciones;
     }
@@ -171,11 +172,11 @@ public class SIIFEncabezadoEntity implements Serializable {
         this.bitacora = bitacora;
     }
 
-	public Integer getIdNombramiento() {
-		return idNombramiento;
-	}
+    public Integer getIdNombramiento() {
+        return idNombramiento;
+    }
 
-	public void setIdNombramiento(Integer idNombramiento) {
-		this.idNombramiento = idNombramiento;
-	}
+    public void setIdNombramiento(Integer idNombramiento) {
+        this.idNombramiento = idNombramiento;
+    }
 }

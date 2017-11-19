@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.autorizaciones;
 
 import java.util.ArrayList;
@@ -11,136 +12,136 @@ import javax.faces.model.SelectItem;
 /**
  * @author Leila Schiaffini Ehuan
  * @since 11/08/2016 11:57:46
- * 
+ *
  */
 public class MiBuzonView {
 
-	private List<BuzonAutorizacionDTO> misNotificaciones = new ArrayList<BuzonAutorizacionDTO>();
-	private List<SelectItem> listaOperaciones = new ArrayList<>();
-	private DetalleAutorizacionDTO detalleAutorizacion = new DetalleAutorizacionDTO();
-	private AutorizacionDTO autorizacion = new AutorizacionDTO();
+    private List<BuzonAutorizacionDTO> misNotificaciones = new ArrayList<>();
+    private List<SelectItem> listaOperaciones = new ArrayList<>();
+    private DetalleAutorizacionDTO detalleAutorizacion = new DetalleAutorizacionDTO();
+    private AutorizacionDTO autorizacion = new AutorizacionDTO();
 
-	private boolean mostrarAutorizacion;
-	private boolean mostrarDetalleAperturaVacante;
-	private boolean mostrarDetalleAperturaVacantePrograma;
-	private boolean mostrarDetalleLaboralPrograma;
-	private boolean mostrarDetalleMovimiento;
-	private boolean mostrarDetalleSuplencia;
-	private boolean mostrarDetalleModificacionSueldo;
-	private Integer idAccion;
-	private Integer idUsuarioLogeado;
-	private Integer idOperacion;
+    private boolean mostrarAutorizacion;
+    private boolean mostrarDetalleAperturaVacante;
+    private boolean mostrarDetalleAperturaVacantePrograma;
+    private boolean mostrarDetalleLaboralPrograma;
+    private boolean mostrarDetalleMovimiento;
+    private boolean mostrarDetalleSuplencia;
+    private boolean mostrarDetalleModificacionSueldo;
+    private Integer idAccion;
+    private Integer idUsuarioLogeado;
+    private Integer idOperacion;
 
-	public Integer getIdOperacion() {
-		return idOperacion;
-	}
+    public Integer getIdOperacion() {
+        return idOperacion;
+    }
 
-	public void setIdOperacion(Integer idOperacion) {
-		this.idOperacion = idOperacion;
-	}
+    public void setIdOperacion(Integer idOperacion) {
+        this.idOperacion = idOperacion;
+    }
 
-	public List<SelectItem> getListaOperaciones() {
-		return listaOperaciones;
-	}
+    public List<SelectItem> getListaOperaciones() {
+        return listaOperaciones;
+    }
 
-	public void setListaOperaciones(List<SelectItem> listaOperaciones) {
-		this.listaOperaciones = listaOperaciones;
-	}
+    public void setListaOperaciones(List<SelectItem> listaOperaciones) {
+        this.listaOperaciones = listaOperaciones;
+    }
 
-	public boolean isMostrarDetalleModificacionSueldo() {
-		return mostrarDetalleModificacionSueldo;
-	}
+    public boolean isMostrarDetalleModificacionSueldo() {
+        return mostrarDetalleModificacionSueldo;
+    }
 
-	public void setMostrarDetalleModificacionSueldo(boolean mostrarDetalleModificacionSueldo) {
-		this.mostrarDetalleModificacionSueldo = mostrarDetalleModificacionSueldo;
-	}
+    public void setMostrarDetalleModificacionSueldo(boolean mostrarDetalleModificacionSueldo) {
+        this.mostrarDetalleModificacionSueldo = mostrarDetalleModificacionSueldo;
+    }
 
-	public boolean isMostrarDetalleSuplencia() {
-		return mostrarDetalleSuplencia;
-	}
+    public boolean isMostrarDetalleSuplencia() {
+        return mostrarDetalleSuplencia;
+    }
 
-	public void setMostrarDetalleSuplencia(boolean mostrarDetalleSuplencia) {
-		this.mostrarDetalleSuplencia = mostrarDetalleSuplencia;
-	}
+    public void setMostrarDetalleSuplencia(boolean mostrarDetalleSuplencia) {
+        this.mostrarDetalleSuplencia = mostrarDetalleSuplencia;
+    }
 
-	public boolean isMostrarDetalleMovimiento() {
-		return mostrarDetalleMovimiento;
-	}
+    public boolean isMostrarDetalleMovimiento() {
+        return mostrarDetalleMovimiento;
+    }
 
-	public void setMostrarDetalleMovimiento(boolean mostrarDetalleMovimiento) {
-		this.mostrarDetalleMovimiento = mostrarDetalleMovimiento;
-	}
+    public void setMostrarDetalleMovimiento(boolean mostrarDetalleMovimiento) {
+        this.mostrarDetalleMovimiento = mostrarDetalleMovimiento;
+    }
 
-	public boolean isMostrarDetalleLaboralPrograma() {
-		return mostrarDetalleLaboralPrograma;
-	}
+    public boolean isMostrarDetalleLaboralPrograma() {
+        return mostrarDetalleLaboralPrograma;
+    }
 
-	public void setMostrarDetalleLaboralPrograma(boolean mostrarDetalleLaboralPrograma) {
-		this.mostrarDetalleLaboralPrograma = mostrarDetalleLaboralPrograma;
-	}
+    public void setMostrarDetalleLaboralPrograma(boolean mostrarDetalleLaboralPrograma) {
+        this.mostrarDetalleLaboralPrograma = mostrarDetalleLaboralPrograma;
+    }
 
-	public boolean isMostrarAutorizacion() {
-		return mostrarAutorizacion;
-	}
+    public boolean isMostrarAutorizacion() {
+        return mostrarAutorizacion;
+    }
 
-	public void setMostrarAutorizacion(boolean mostrarAutorizacion) {
-		this.mostrarAutorizacion = mostrarAutorizacion;
-	}
+    public void setMostrarAutorizacion(boolean mostrarAutorizacion) {
+        this.mostrarAutorizacion = mostrarAutorizacion;
+    }
 
-	public boolean isMostrarDetalleAperturaVacantePrograma() {
-		return mostrarDetalleAperturaVacantePrograma;
-	}
+    public boolean isMostrarDetalleAperturaVacantePrograma() {
+        return mostrarDetalleAperturaVacantePrograma;
+    }
 
-	public void setMostrarDetalleAperturaVacantePrograma(boolean mostrarDetalleAperturaVacantePrograma) {
-		this.mostrarDetalleAperturaVacantePrograma = mostrarDetalleAperturaVacantePrograma;
-	}
+    public void setMostrarDetalleAperturaVacantePrograma(boolean mostrarDetalleAperturaVacantePrograma) {
+        this.mostrarDetalleAperturaVacantePrograma = mostrarDetalleAperturaVacantePrograma;
+    }
 
-	public Integer getIdUsuarioLogeado() {
-		return idUsuarioLogeado;
-	}
+    public Integer getIdUsuarioLogeado() {
+        return idUsuarioLogeado;
+    }
 
-	public void setIdUsuarioLogeado(Integer idUsuarioLogeado) {
-		this.idUsuarioLogeado = idUsuarioLogeado;
-	}
+    public void setIdUsuarioLogeado(Integer idUsuarioLogeado) {
+        this.idUsuarioLogeado = idUsuarioLogeado;
+    }
 
-	public Integer getIdAccion() {
-		return idAccion;
-	}
+    public Integer getIdAccion() {
+        return idAccion;
+    }
 
-	public void setIdAccion(Integer idAccion) {
-		this.idAccion = idAccion;
-	}
+    public void setIdAccion(Integer idAccion) {
+        this.idAccion = idAccion;
+    }
 
-	public AutorizacionDTO getAutorizacion() {
-		return autorizacion;
-	}
+    public AutorizacionDTO getAutorizacion() {
+        return autorizacion;
+    }
 
-	public void setAutorizacion(AutorizacionDTO autorizacion) {
-		this.autorizacion = autorizacion;
-	}
+    public void setAutorizacion(AutorizacionDTO autorizacion) {
+        this.autorizacion = autorizacion;
+    }
 
-	public DetalleAutorizacionDTO getDetalleAutorizacion() {
-		return detalleAutorizacion;
-	}
+    public DetalleAutorizacionDTO getDetalleAutorizacion() {
+        return detalleAutorizacion;
+    }
 
-	public void setDetalleAutorizacion(DetalleAutorizacionDTO detalleAutorizacion) {
-		this.detalleAutorizacion = detalleAutorizacion;
-	}
+    public void setDetalleAutorizacion(DetalleAutorizacionDTO detalleAutorizacion) {
+        this.detalleAutorizacion = detalleAutorizacion;
+    }
 
-	public boolean isMostrarDetalleAperturaVacante() {
-		return mostrarDetalleAperturaVacante;
-	}
+    public boolean isMostrarDetalleAperturaVacante() {
+        return mostrarDetalleAperturaVacante;
+    }
 
-	public void setMostrarDetalleAperturaVacante(boolean mostrarDetalleAperturaVacante) {
-		this.mostrarDetalleAperturaVacante = mostrarDetalleAperturaVacante;
-	}
+    public void setMostrarDetalleAperturaVacante(boolean mostrarDetalleAperturaVacante) {
+        this.mostrarDetalleAperturaVacante = mostrarDetalleAperturaVacante;
+    }
 
-	public List<BuzonAutorizacionDTO> getMisNotificaciones() {
-		return misNotificaciones;
-	}
+    public List<BuzonAutorizacionDTO> getMisNotificaciones() {
+        return misNotificaciones;
+    }
 
-	public void setMisNotificaciones(List<BuzonAutorizacionDTO> misNotificaciones) {
-		this.misNotificaciones = misNotificaciones;
-	}
+    public void setMisNotificaciones(List<BuzonAutorizacionDTO> misNotificaciones) {
+        this.misNotificaciones = misNotificaciones;
+    }
 
 }

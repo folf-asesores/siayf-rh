@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.banco;
 
 import java.io.Serializable;
@@ -15,96 +16,94 @@ import java.util.List;
  */
 public class BancoView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6851486859466454478L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6851486859466454478L;
 
-	private List<BancoDTO> listaBanco = new ArrayList<>();
+    private List<BancoDTO> listaBanco = new ArrayList<>();
 
-	private BancoDTO bancoDTO = new BancoDTO();
+    private BancoDTO bancoDTO = new BancoDTO();
 
-	private String accionBanco = "Registrar";
+    private String accionBanco = "Registrar";
 
-	private Integer idBanco;
+    private Integer idBanco;
 
-	private Boolean dialogEliminarBanco = Boolean.FALSE;
+    private Boolean dialogEliminarBanco = Boolean.FALSE;
 
-	
+    /**
+     * @return the listaBanco
+     */
+    public List<BancoDTO> getListaBanco() {
+        return listaBanco;
+    }
 
-	/**
-	 * @return the listaBanco
-	 */
-	public List<BancoDTO> getListaBanco() {
-		return listaBanco;
-	}
+    /**
+     * @param listaBanco
+     *            the listaBanco to set
+     */
+    public void setListaBanco(List<BancoDTO> listaBanco) {
+        this.listaBanco = listaBanco;
+    }
 
-	/**
-	 * @param listaBanco
-	 *            the listaBanco to set
-	 */
-	public void setListaBanco(List<BancoDTO> listaBanco) {
-		this.listaBanco = listaBanco;
-	}
+    /**
+     * @return the bancoDTO
+     */
+    public BancoDTO getBancoDTO() {
+        return bancoDTO;
+    }
 
-	/**
-	 * @return the bancoDTO
-	 */
-	public BancoDTO getBancoDTO() {
-		return bancoDTO;
-	}
+    /**
+     * @param bancoDTO
+     *            the bancoDTO to set
+     */
+    public void setBancoDTO(BancoDTO bancoDTO) {
+        this.bancoDTO = bancoDTO;
+    }
 
-	/**
-	 * @param bancoDTO
-	 *            the bancoDTO to set
-	 */
-	public void setBancoDTO(BancoDTO bancoDTO) {
-		this.bancoDTO = bancoDTO;
-	}
+    /**
+     * @return the accionBanco
+     */
+    public String getAccionBanco() {
+        return accionBanco;
+    }
 
-	/**
-	 * @return the accionBanco
-	 */
-	public String getAccionBanco() {
-		return accionBanco;
-	}
+    /**
+     * @param accionBanco
+     *            the accionBanco to set
+     */
+    public void setAccionBanco(String accionBanco) {
+        this.accionBanco = accionBanco;
+    }
 
-	/**
-	 * @param accionBanco
-	 *            the accionBanco to set
-	 */
-	public void setAccionBanco(String accionBanco) {
-		this.accionBanco = accionBanco;
-	}
+    /**
+     * @return the idBanco
+     */
+    public Integer getIdBanco() {
+        return idBanco;
+    }
 
-	/**
-	 * @return the idBanco
-	 */
-	public Integer getIdBanco() {
-		return idBanco;
-	}
+    /**
+     * @param idBanco
+     *            the idBanco to set
+     */
+    public void setIdBanco(Integer idBanco) {
+        this.idBanco = idBanco;
+    }
 
-	/**
-	 * @param idBanco
-	 *            the idBanco to set
-	 */
-	public void setIdBanco(Integer idBanco) {
-		this.idBanco = idBanco;
-	}
+    /**
+     * @return the dialogEliminarBanco
+     */
+    public Boolean getDialogEliminarBanco() {
+        return dialogEliminarBanco;
+    }
 
-	/**
-	 * @return the dialogEliminarBanco
-	 */
-	public Boolean getDialogEliminarBanco() {
-		return dialogEliminarBanco;
-	}
-
-	/**
-	 * @param dialogEliminarBanco
-	 *            the dialogEliminarBanco to set
-	 */
-	public void setDialogEliminarBanco(Boolean dialogEliminarBanco) {
-		this.dialogEliminarBanco = dialogEliminarBanco;
-	}
+    /**
+     * @param dialogEliminarBanco
+     *            the dialogEliminarBanco to set
+     */
+    public void setDialogEliminarBanco(Boolean dialogEliminarBanco) {
+        this.dialogEliminarBanco = dialogEliminarBanco;
+    }
 
 }

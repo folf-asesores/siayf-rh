@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.conceptosnomina;
 
 import java.io.Serializable;
@@ -27,166 +28,162 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ViewScoped
 public class ConsultaConceptosEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -847148044095954232L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -847148044095954232L;
 
-	@Inject
-	ConceptoNominaFederalesEJB conceptoNominaFederalesEJB;
-	@Inject
-	ConfiguracionPresupuestal configuracionPresupuestal;
-	@Inject
-	private Empleado empleadoEJB;
+    @Inject
+    ConceptoNominaFederalesEJB conceptoNominaFederalesEJB;
+    @Inject
+    ConfiguracionPresupuestal configuracionPresupuestal;
+    @Inject
+    private Empleado empleadoEJB;
 
-	@Inject
-	private Tabulador tabuladorEJB;
+    @Inject
+    private Tabulador tabuladorEJB;
 
-	@Inject
-	PuestoGeneral puestoGeneral;
+    @Inject
+    PuestoGeneral puestoGeneral;
 
-	private List<ConceptoNominaFederalesDTO> conceptos = new ArrayList<>();
-	private String criterioEmpleado = "";
-	private List<InfoEmpleadoDTO> empleadoLista = new ArrayList<>();
-	private InfoEmpleadoDTO empleadoSeleccionado;
-	private EmpleadoDetalladoDTO empleadoDatos = new EmpleadoDetalladoDTO();
-	private BigDecimal total;
-	private Boolean mostrarTablaEmpleados = false;
-	private Boolean panelBusqueda = true;
+    private List<ConceptoNominaFederalesDTO> conceptos = new ArrayList<>();
+    private String criterioEmpleado = "";
+    private List<InfoEmpleadoDTO> empleadoLista = new ArrayList<>();
+    private InfoEmpleadoDTO empleadoSeleccionado;
+    private EmpleadoDetalladoDTO empleadoDatos = new EmpleadoDetalladoDTO();
+    private BigDecimal total;
+    private Boolean mostrarTablaEmpleados = false;
+    private Boolean panelBusqueda = true;
 
-	public String buscarEmpleados() {
-		if (criterioEmpleado == null) {
-			JSFUtils.errorMessage("Conceptos empleado: ", "El criterio es necesario");
-		} else {
+    public String buscarEmpleados() {
+        if (criterioEmpleado == null) {
+            JSFUtils.errorMessage("Conceptos empleado: ", "El criterio es necesario");
+        } else {
 
-			List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(criterioEmpleado);
-			mostrarTablaEmpleados = (true);
-			if (!listaEmpleados.isEmpty()) {
-				empleadoLista.clear();
-				empleadoLista = listaEmpleados;
-			}
-		}
-		return null;
-	}
+            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(criterioEmpleado);
+            mostrarTablaEmpleados = (true);
+            if (!listaEmpleados.isEmpty()) {
+                empleadoLista.clear();
+                empleadoLista = listaEmpleados;
+            }
+        }
+        return null;
+    }
 
-	public void buscarConceptos() {
-		InfoConfiguracionDTO infoConfiguracionDTO = configuracionPresupuestal
-				.obtenerPorIdEmpleado(empleadoSeleccionado.getIdEmpleado());
-		try{
-		conceptos = conceptoNominaFederalesEJB
-				.obtenerConceptosPorConfiguracionPresupuestal(infoConfiguracionDTO.getIdConfiguracionPresupuesto());
-		}catch(NullPointerException e){
-			JSFUtils.errorMessage("Validacion:", "El empleado no tiene una configuracion presupuestal.");
-		}
-		
-		PuestoGeneralDTO puesto = puestoGeneral.puestoPorClave(empleadoDatos.getCodigoPuesto());
-        TabuladorDTO tabulador = tabuladorEJB
-                .obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
-		if(tabulador.getIdTabulador() == null){
-			JSFUtils.errorMessage("Tabulador:", "No se encontro configuración de tabulador para el empleado seleccionado");
-		}
-		BigDecimal subtotal = BigDecimal.ZERO;
-		for (ConceptoNominaFederalesDTO conceptoFederal : conceptos) {
-			if (conceptoFederal.getFormula() != null) {
+    public void buscarConceptos() {
+        InfoConfiguracionDTO infoConfiguracionDTO = configuracionPresupuestal.obtenerPorIdEmpleado(empleadoSeleccionado.getIdEmpleado());
+        try {
+            conceptos = conceptoNominaFederalesEJB.obtenerConceptosPorConfiguracionPresupuestal(infoConfiguracionDTO.getIdConfiguracionPresupuesto());
+        } catch (NullPointerException e) {
+            JSFUtils.errorMessage("Validacion:", "El empleado no tiene una configuracion presupuestal.");
+        }
 
-				String formulanueva = conceptoFederal.getFormula().replace("EX0700",
-						tabulador.getSueldoBrutoMensual() + "");
-				formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual() + "");
-				formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual() + "");
-				String resFormula = conceptoNominaFederalesEJB.evaluarFormula(formulanueva);
-				
-				BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
-				conceptoFederal.setImporte(valorFormula);
+        PuestoGeneralDTO puesto = puestoGeneral.puestoPorClave(empleadoDatos.getCodigoPuesto());
+        TabuladorDTO tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
+        if (tabulador.getIdTabulador() == null) {
+            JSFUtils.errorMessage("Tabulador:", "No se encontro configuración de tabulador para el empleado seleccionado");
+        }
+        BigDecimal subtotal = BigDecimal.ZERO;
+        for (ConceptoNominaFederalesDTO conceptoFederal : conceptos) {
+            if (conceptoFederal.getFormula() != null) {
 
-				if (conceptoFederal.getTipo().compareTo(1) == 0) {
-					subtotal = subtotal.add(conceptoFederal.getImporte());
-				}
-				if (conceptoFederal.getTipo().compareTo(2) == 0) {
-					subtotal = subtotal.subtract(conceptoFederal.getImporte());
-				}
-			}
-		}
-		total = subtotal;
-	}
+                String formulanueva = conceptoFederal.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual() + "");
+                formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual() + "");
+                formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual() + "");
+                String resFormula = conceptoNominaFederalesEJB.evaluarFormula(formulanueva);
 
-	public String irMovimientos(InfoEmpleadoDTO empleado) {
-		panelBusqueda = (Boolean.TRUE);
-		mostrarTablaEmpleados = (Boolean.FALSE);
+                BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
+                conceptoFederal.setImporte(valorFormula);
 
-		empleadoSeleccionado = empleado;
-		try{
-		empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado());
-	if(empleadoDatos.getPuesto()!=null){
-		
-		buscarConceptos();
-	}
-	}catch(ReglaNegocioException e){
-		JSFUtils.errorMessage("", e.getMessage());
-	}	
-		return "";
-	}
+                if (conceptoFederal.getTipo().compareTo(1) == 0) {
+                    subtotal = subtotal.add(conceptoFederal.getImporte());
+                }
+                if (conceptoFederal.getTipo().compareTo(2) == 0) {
+                    subtotal = subtotal.subtract(conceptoFederal.getImporte());
+                }
+            }
+        }
+        total = subtotal;
+    }
 
-	public String getCriterioEmpleado() {
-		return criterioEmpleado;
-	}
+    public String irMovimientos(InfoEmpleadoDTO empleado) {
+        panelBusqueda = (Boolean.TRUE);
+        mostrarTablaEmpleados = (Boolean.FALSE);
 
-	public void setCriterioEmpleado(String criterioEmpleado) {
-		this.criterioEmpleado = criterioEmpleado;
-	}
+        empleadoSeleccionado = empleado;
+        try {
+            empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado());
+            if (empleadoDatos.getPuesto() != null) {
 
-	public List<ConceptoNominaFederalesDTO> getConceptos() {
-		return conceptos;
-	}
+                buscarConceptos();
+            }
+        } catch (ReglaNegocioException e) {
+            JSFUtils.errorMessage("", e.getMessage());
+        }
+        return "";
+    }
 
-	public void setConceptos(List<ConceptoNominaFederalesDTO> conceptos) {
-		this.conceptos = conceptos;
-	}
+    public String getCriterioEmpleado() {
+        return criterioEmpleado;
+    }
 
-	public List<InfoEmpleadoDTO> getEmpleadoLista() {
-		return empleadoLista;
-	}
+    public void setCriterioEmpleado(String criterioEmpleado) {
+        this.criterioEmpleado = criterioEmpleado;
+    }
 
-	public void setEmpleadoLista(List<InfoEmpleadoDTO> empleadoLista) {
-		this.empleadoLista = empleadoLista;
-	}
+    public List<ConceptoNominaFederalesDTO> getConceptos() {
+        return conceptos;
+    }
 
-	public InfoEmpleadoDTO getEmpleadoSeleccionado() {
-		return empleadoSeleccionado;
-	}
+    public void setConceptos(List<ConceptoNominaFederalesDTO> conceptos) {
+        this.conceptos = conceptos;
+    }
 
-	public void setEmpleadoSeleccionado(InfoEmpleadoDTO empleadoSeleccionado) {
-		this.empleadoSeleccionado = empleadoSeleccionado;
-	}
+    public List<InfoEmpleadoDTO> getEmpleadoLista() {
+        return empleadoLista;
+    }
 
-	public Boolean getMostrarTablaEmpleados() {
-		return mostrarTablaEmpleados;
-	}
+    public void setEmpleadoLista(List<InfoEmpleadoDTO> empleadoLista) {
+        this.empleadoLista = empleadoLista;
+    }
 
-	public void setMostrarTablaEmpleados(Boolean mostrarTablaEmpleados) {
-		this.mostrarTablaEmpleados = mostrarTablaEmpleados;
-	}
+    public InfoEmpleadoDTO getEmpleadoSeleccionado() {
+        return empleadoSeleccionado;
+    }
 
-	public EmpleadoDetalladoDTO getEmpleadoDatos() {
-		return empleadoDatos;
-	}
+    public void setEmpleadoSeleccionado(InfoEmpleadoDTO empleadoSeleccionado) {
+        this.empleadoSeleccionado = empleadoSeleccionado;
+    }
 
-	public void setEmpleadoDatos(EmpleadoDetalladoDTO empleadoDatos) {
-		this.empleadoDatos = empleadoDatos;
-	}
+    public Boolean getMostrarTablaEmpleados() {
+        return mostrarTablaEmpleados;
+    }
 
-	public Boolean getPanelBusqueda() {
-		return panelBusqueda;
-	}
+    public void setMostrarTablaEmpleados(Boolean mostrarTablaEmpleados) {
+        this.mostrarTablaEmpleados = mostrarTablaEmpleados;
+    }
 
-	public void setPanelBusqueda(Boolean panelBusqueda) {
-		this.panelBusqueda = panelBusqueda;
-	}
+    public EmpleadoDetalladoDTO getEmpleadoDatos() {
+        return empleadoDatos;
+    }
 
-	public BigDecimal getTotal() {
-		return total;
-	}
+    public void setEmpleadoDatos(EmpleadoDetalladoDTO empleadoDatos) {
+        this.empleadoDatos = empleadoDatos;
+    }
 
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
+    public Boolean getPanelBusqueda() {
+        return panelBusqueda;
+    }
+
+    public void setPanelBusqueda(Boolean panelBusqueda) {
+        this.panelBusqueda = panelBusqueda;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 }

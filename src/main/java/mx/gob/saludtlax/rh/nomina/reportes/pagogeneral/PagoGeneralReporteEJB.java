@@ -1,21 +1,23 @@
 /*
  * PagoGeneralReporteEJB.java
  * Creado el 15/Feb/2017 5:20:53 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
+import org.jboss.logging.Logger;
 
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.logging.Logger;
 
 /**
  *
@@ -31,13 +33,11 @@ public class PagoGeneralReporteEJB implements PagoGeneralReporte {
     private PagoGeneralReporteService pagoGeneralService;
     @Inject
     private PagoGeneralReporteExcelService pagoGeneralExcelService;
-    
+
     @Override
-    public byte [] generarReporte(Integer idProductoNomina) {
-        if(ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException(
-                    "El ID del producto de nomina no puede ser cero o menor que uno",
-                    ValidacionCodigoError.NUMERO_NEGATIVO);
+    public byte[] generarReporte(Integer idProductoNomina) {
+        if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
+            throw new ValidacionException("El ID del producto de nomina no puede ser cero o menor que uno", ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         List<String> titulos = new ArrayList<>();

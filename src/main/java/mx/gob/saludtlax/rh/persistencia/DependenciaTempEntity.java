@@ -1,9 +1,11 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -48,8 +50,7 @@ public class DependenciaTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "DependenciaEntity [Id Dependencia =" + idDependencia + ", id base 36=" + idBase36 + ", descripcion="
-                + descripcion + "]";
+        return "DependenciaEntity [Id Dependencia =" + idDependencia + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
     }
 
     public int getIdEntePublico() {
@@ -92,7 +93,8 @@ public class DependenciaTempEntity implements Serializable {
     }
 
     /**
-     * @param idDependencia the idDependencia to set
+     * @param idDependencia
+     *            the idDependencia to set
      */
     public void setIdDependencia(Integer idDependencia) {
         this.idDependencia = idDependencia;
@@ -106,7 +108,8 @@ public class DependenciaTempEntity implements Serializable {
     }
 
     /**
-     * @param idBase36 the idBase36 to set
+     * @param idBase36
+     *            the idBase36 to set
      */
     public void setIdBase36(String idBase36) {
         this.idBase36 = idBase36;
@@ -120,7 +123,8 @@ public class DependenciaTempEntity implements Serializable {
     }
 
     /**
-     * @param descripcion the descripcion to set
+     * @param descripcion
+     *            the descripcion to set
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

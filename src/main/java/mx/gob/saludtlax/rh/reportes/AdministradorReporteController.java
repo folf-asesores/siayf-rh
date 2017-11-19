@@ -1,26 +1,28 @@
 /*
  * AdministradorReportes.java
  * Creado el 23/oct/2016 8:06:11 PM
- * 
+ *
  */
- 
+
 package mx.gob.saludtlax.rh.reportes;
 
 import java.io.ByteArrayInputStream;
 import java.io.Serializable;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
 import javax.inject.Named;
-import mx.gob.saludtlax.rh.util.TipoArchivo;
-import mx.gob.saludtlax.rh.util.ValidacionUtil;
+
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
+import mx.gob.saludtlax.rh.util.TipoArchivo;
+import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  * Este managed bean ayuda en la visualización de los reportes.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @author Eduardo Mex
  */
@@ -35,7 +37,7 @@ public class AdministradorReporteController implements Serializable {
     private final AdministradorReportes administradorReportes;
 
     public AdministradorReporteController() {
-        this.administradorReportes = new AdministradorReportes();
+        administradorReportes = new AdministradorReportes();
     }
 
     /**
@@ -49,7 +51,7 @@ public class AdministradorReporteController implements Serializable {
         } else {
             String referencia = context.getExternalContext().getRequestParameterMap().get("referencia");
 
-            if(!ValidacionUtil.esCadenaVacia(referencia) && "pdf".equals(administradorReportes.obtenerTipoReporte(referencia))) {
+            if (!ValidacionUtil.esCadenaVacia(referencia) && "pdf".equals(administradorReportes.obtenerTipoReporte(referencia))) {
                 byte[] bytesReporte = administradorReportes.obtenerReporte(referencia);
                 ByteArrayInputStream bais = new ByteArrayInputStream(bytesReporte);
 

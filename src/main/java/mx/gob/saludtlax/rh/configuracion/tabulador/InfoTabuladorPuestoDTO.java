@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.tabulador;
 
 import java.io.Serializable;
@@ -9,63 +10,66 @@ import java.io.Serializable;
  * @author eduardo
  *
  */
-public class InfoTabuladorPuestoDTO implements Serializable{
+public class InfoTabuladorPuestoDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	
-	
-	private String codigoPuestoGeneral;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2179334902510726691L;
 
-	private String nivelTipoPuesto;
+    /**
+     *
+     */
 
-	private String nombreRamaPuesto;
-	
-	
+    private String codigoPuestoGeneral;
 
-	/**
-	 * @return the codigoPuestoGeneral
-	 */
-	public String getCodigoPuestoGeneral() {
-		return codigoPuestoGeneral;
-	}
+    private String nivelTipoPuesto;
 
-	/**
-	 * @param codigoPuestoGeneral the codigoPuestoGeneral to set
-	 */
-	public void setCodigoPuestoGeneral(String codigoPuestoGeneral) {
-		this.codigoPuestoGeneral = codigoPuestoGeneral;
-	}
+    private String nombreRamaPuesto;
 
-	/**
-	 * @return the nivelTipoPuesto
-	 */
-	public String getNivelTipoPuesto() {
-		return nivelTipoPuesto;
-	}
+    /**
+     * @return the codigoPuestoGeneral
+     */
+    public String getCodigoPuestoGeneral() {
+        return codigoPuestoGeneral;
+    }
 
-	/**
-	 * @param nivelTipoPuesto the nivelTipoPuesto to set
-	 */
-	public void setNivelTipoPuesto(String nivelTipoPuesto) {
-		this.nivelTipoPuesto = nivelTipoPuesto;
-	}
+    /**
+     * @param codigoPuestoGeneral
+     *            the codigoPuestoGeneral to set
+     */
+    public void setCodigoPuestoGeneral(String codigoPuestoGeneral) {
+        this.codigoPuestoGeneral = codigoPuestoGeneral;
+    }
 
-	/**
-	 * @return the nombreRamaPuesto
-	 */
-	public String getNombreRamaPuesto() {
-		return nombreRamaPuesto;
-	}
+    /**
+     * @return the nivelTipoPuesto
+     */
+    public String getNivelTipoPuesto() {
+        return nivelTipoPuesto;
+    }
 
-	/**
-	 * @param nombreRamaPuesto the nombreRamaPuesto to set
-	 */
-	public void setNombreRamaPuesto(String nombreRamaPuesto) {
-		this.nombreRamaPuesto = nombreRamaPuesto;
-	}
-	
-	
+    /**
+     * @param nivelTipoPuesto
+     *            the nivelTipoPuesto to set
+     */
+    public void setNivelTipoPuesto(String nivelTipoPuesto) {
+        this.nivelTipoPuesto = nivelTipoPuesto;
+    }
+
+    /**
+     * @return the nombreRamaPuesto
+     */
+    public String getNombreRamaPuesto() {
+        return nombreRamaPuesto;
+    }
+
+    /**
+     * @param nombreRamaPuesto
+     *            the nombreRamaPuesto to set
+     */
+    public void setNombreRamaPuesto(String nombreRamaPuesto) {
+        this.nombreRamaPuesto = nombreRamaPuesto;
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.timbrado;
 
 import java.io.Serializable;
@@ -20,55 +21,53 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 @ViewScoped
 public class TimbradoProductoNominaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5110142312031288519L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 5110142312031288519L;
 
-	@Inject
-	TimbradoProductoNominaService timbradoProductoNominaService;
-	@Inject
-	ServiciosWebEJB servicioWebEJB;
+    @Inject
+    TimbradoProductoNominaService timbradoProductoNominaService;
+    @Inject
+    ServiciosWebEJB servicioWebEJB;
 
-	private List<ProductoNominaDTO> listadoProductosNominaDTO;
+    private List<ProductoNominaDTO> listadoProductosNominaDTO;
 
-	@PostConstruct
-	public void init() {
+    @PostConstruct
+    public void init() {
 
-		try {
-			ServiciosRSEntity servicioRSEntity = servicioWebEJB
-					.getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
-			if (!servicioRSEntity.isProduccion()) {
-				HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext()
-						.getRequest();
-				String url = req.getContextPath().toString();
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-						"El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
-								+ "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-				FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        try {
+            ServiciosRSEntity servicioRSEntity = servicioWebEJB.getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
+            if (!servicioRSEntity.isProduccion()) {
+                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                String url = req.getContextPath().toString();
+                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                                + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
-			}
+            }
 
-		} catch (ServicioWebException e1) {
-			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-			FacesContext.getCurrentInstance().addMessage(null, facesMessage);
-		}
+        } catch (ServicioWebException e1) {
+            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+        }
 
-		listadoProductosNominaDTO = timbradoProductoNominaService.listadoNominasPendientesPorTimbrar();
+        listadoProductosNominaDTO = timbradoProductoNominaService.listadoNominasPendientesPorTimbrar();
 
-	}
+    }
 
-	public void timbrarNomina(int idNominaSeleccionada) {
+    public void timbrarNomina(int idNominaSeleccionada) {
 
-		timbradoProductoNominaService.timbrarProductoNominina(idNominaSeleccionada);
-	}
+        timbradoProductoNominaService.timbrarProductoNominina(idNominaSeleccionada);
+    }
 
-	public List<ProductoNominaDTO> getListadoProductosNominaDTO() {
-		return listadoProductosNominaDTO;
-	}
+    public List<ProductoNominaDTO> getListadoProductosNominaDTO() {
+        return listadoProductosNominaDTO;
+    }
 
-	public void setListadoProductosNominaDTO(List<ProductoNominaDTO> listadoProductosNominaDTO) {
-		this.listadoProductosNominaDTO = listadoProductosNominaDTO;
-	}
+    public void setListadoProductosNominaDTO(List<ProductoNominaDTO> listadoProductosNominaDTO) {
+        this.listadoProductosNominaDTO = listadoProductosNominaDTO;
+    }
 
 }

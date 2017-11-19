@@ -1,7 +1,7 @@
 /*
  * FirmaDTO.java
  * Creado el 08/sep/2017 12:29:01 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
@@ -49,10 +49,10 @@ public final class FirmaEmpleadoDTO implements Serializable {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 97 * hash + Objects.hashCode(this.filiacion);
-        hash = 97 * hash + Objects.hashCode(this.nombre);
-        hash = 97 * hash + Objects.hashCode(this.numeroCheque);
-        hash = 97 * hash + Objects.hashCode(this.importe);
+        hash = 97 * hash + Objects.hashCode(filiacion);
+        hash = 97 * hash + Objects.hashCode(nombre);
+        hash = 97 * hash + Objects.hashCode(numeroCheque);
+        hash = 97 * hash + Objects.hashCode(importe);
         return hash;
     }
 
@@ -68,28 +68,23 @@ public final class FirmaEmpleadoDTO implements Serializable {
             return false;
         }
         final FirmaEmpleadoDTO other = (FirmaEmpleadoDTO) obj;
-        if (!Objects.equals(this.filiacion, other.filiacion)) {
+        if (!Objects.equals(filiacion, other.filiacion)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
-        if (!Objects.equals(this.numeroCheque, other.numeroCheque)) {
+        if (!Objects.equals(numeroCheque, other.numeroCheque)) {
             return false;
         }
-        return Objects.equals(this.importe, other.importe);
+        return Objects.equals(importe, other.importe);
     }
 
     @Override
     public String toString() {
-        return "FirmaEmpleadoDTO{"
-                + "filiacion : " + filiacion
-                + ", nombre : " + nombre
-                + ", numeroCheque : " + numeroCheque
-                + ", importe : " + importe
-                + '}';
+        return "FirmaEmpleadoDTO{" + "filiacion : " + filiacion + ", nombre : " + nombre + ", numeroCheque : " + numeroCheque + ", importe : " + importe + '}';
     }
-    
+
     public static final class Builder {
 
         private String filiacion;
@@ -124,7 +119,7 @@ public final class FirmaEmpleadoDTO implements Serializable {
             return this;
         }
 
-        public FirmaEmpleadoDTO construirFirmaEmpleadoDTO () {
+        public FirmaEmpleadoDTO construirFirmaEmpleadoDTO() {
             return new FirmaEmpleadoDTO(filiacion, nombre, numeroCheque, importe);
         }
     }

@@ -14,7 +14,7 @@
 //public class ConsultaMovimientosController implements Serializable {
 //
 //	/**
-//	 * 
+//	 *
 //	 */
 //	private static final long serialVersionUID = 8659315013652832562L;
 //	@Inject

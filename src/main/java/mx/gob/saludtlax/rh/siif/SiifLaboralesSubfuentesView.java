@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.util.List;
@@ -6,87 +7,85 @@ import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.FuenteFinanciamien
 import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.SubfuenteFinanciamientoDTO;
 
 public class SiifLaboralesSubfuentesView {
-	
-	private List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes;
-	private SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes;	
-	private SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect;
-	
-	private List<FuenteFinanciamientoDTO> listFuenteF;
-	private List<SubfuenteFinanciamientoDTO> listSubfuenteF;
 
-	private Boolean panelPrincipal;
-	private Boolean operacionNuevo;
-	private Boolean disabledEliminar;
-	
-	public void panelPrincipal() {
-		panelPrincipal = Boolean.TRUE;
-		disabledEliminar = Boolean.TRUE;
-	}
-	
-//	<<<<<Getters & Setters>>>>>
+    private List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes;
+    private SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes;
+    private SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect;
 
-	public List<SiifLaboralesSubfuentesDTO> getListSiifLaboralesSubfuentes() {
-		return listSiifLaboralesSubfuentes;
-	}
+    private List<FuenteFinanciamientoDTO> listFuenteF;
+    private List<SubfuenteFinanciamientoDTO> listSubfuenteF;
 
-	public void setListSiifLaboralesSubfuentes(List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
-		this.listSiifLaboralesSubfuentes = listSiifLaboralesSubfuentes;
-	}
+    private Boolean panelPrincipal;
+    private Boolean operacionNuevo;
+    private Boolean disabledEliminar;
 
-	public SiifLaboralesSubfuentesDTO getSiifLaboralesSubfuentes() {
-		return siifLaboralesSubfuentes;
-	}
+    public void panelPrincipal() {
+        panelPrincipal = Boolean.TRUE;
+        disabledEliminar = Boolean.TRUE;
+    }
 
-	public void setSiifLaboralesSubfuentes(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
-		this.siifLaboralesSubfuentes = siifLaboralesSubfuentes;
-	}
+    public List<SiifLaboralesSubfuentesDTO> getListSiifLaboralesSubfuentes() {
+        return listSiifLaboralesSubfuentes;
+    }
 
-	public SiifLaboralesSubfuentesDTO getSiifLaboralesSubfuentesSelect() {
-		return siifLaboralesSubfuentesSelect;
-	}
+    public void setListSiifLaboralesSubfuentes(List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
+        this.listSiifLaboralesSubfuentes = listSiifLaboralesSubfuentes;
+    }
 
-	public void setSiifLaboralesSubfuentesSelect(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
-		this.siifLaboralesSubfuentesSelect = siifLaboralesSubfuentesSelect;
-	}
+    public SiifLaboralesSubfuentesDTO getSiifLaboralesSubfuentes() {
+        return siifLaboralesSubfuentes;
+    }
 
-	public List<FuenteFinanciamientoDTO> getListFuenteF() {
-		return listFuenteF;
-	}
+    public void setSiifLaboralesSubfuentes(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
+        this.siifLaboralesSubfuentes = siifLaboralesSubfuentes;
+    }
 
-	public void setListFuenteF(List<FuenteFinanciamientoDTO> listFuenteF) {
-		this.listFuenteF = listFuenteF;
-	}
+    public SiifLaboralesSubfuentesDTO getSiifLaboralesSubfuentesSelect() {
+        return siifLaboralesSubfuentesSelect;
+    }
 
-	public List<SubfuenteFinanciamientoDTO> getListSubfuenteF() {
-		return listSubfuenteF;
-	}
+    public void setSiifLaboralesSubfuentesSelect(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
+        this.siifLaboralesSubfuentesSelect = siifLaboralesSubfuentesSelect;
+    }
 
-	public void setListSubfuenteF(List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
-		this.listSubfuenteF = listSubfuenteF;
-	}
+    public List<FuenteFinanciamientoDTO> getListFuenteF() {
+        return listFuenteF;
+    }
 
-	public Boolean getPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public void setListFuenteF(List<FuenteFinanciamientoDTO> listFuenteF) {
+        this.listFuenteF = listFuenteF;
+    }
 
-	public void setPanelPrincipal(Boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public List<SubfuenteFinanciamientoDTO> getListSubfuenteF() {
+        return listSubfuenteF;
+    }
 
-	public Boolean getOperacionNuevo() {
-		return operacionNuevo;
-	}
+    public void setListSubfuenteF(List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
+        this.listSubfuenteF = listSubfuenteF;
+    }
 
-	public void setOperacionNuevo(Boolean operacionNuevo) {
-		this.operacionNuevo = operacionNuevo;
-	}
+    public Boolean getPanelPrincipal() {
+        return panelPrincipal;
+    }
 
-	public Boolean getDisabledEliminar() {
-		return disabledEliminar;
-	}
+    public void setPanelPrincipal(Boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
 
-	public void setDisabledEliminar(Boolean disabledEliminar) {
-		this.disabledEliminar = disabledEliminar;
-	}
+    public Boolean getOperacionNuevo() {
+        return operacionNuevo;
+    }
+
+    public void setOperacionNuevo(Boolean operacionNuevo) {
+        this.operacionNuevo = operacionNuevo;
+    }
+
+    public Boolean getDisabledEliminar() {
+        return disabledEliminar;
+    }
+
+    public void setDisabledEliminar(Boolean disabledEliminar) {
+        this.disabledEliminar = disabledEliminar;
+    }
 
 }

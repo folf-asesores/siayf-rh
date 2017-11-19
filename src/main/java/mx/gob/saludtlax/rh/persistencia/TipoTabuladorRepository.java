@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -12,15 +13,13 @@ import java.util.List;
  */
 public class TipoTabuladorRepository extends GenericRepository<TipoTabuladorEntity, Integer> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -4818365157863704093L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4818365157863704093L;
 
-	public List<TipoTabuladorEntity> obtenerListaTipoTabulador() {
-		return em.createQuery("SELECT t FROM TipoTabuladorEntity as t", TipoTabuladorEntity.class).getResultList();
-	}
-	
-	
+    public List<TipoTabuladorEntity> obtenerListaTipoTabulador() {
+        return em.createQuery("SELECT t FROM TipoTabuladorEntity as t", TipoTabuladorEntity.class).getResultList();
+    }
 
 }

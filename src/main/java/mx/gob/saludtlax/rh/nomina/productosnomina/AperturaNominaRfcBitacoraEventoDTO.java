@@ -1,8 +1,9 @@
 /*
  * AperturaNominaRfcBitacoraEventoDTO.java
  * Creado el 03/Jan/2017 5:26:02 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -24,12 +25,7 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     private String mensaje;
 
     public AperturaNominaRfcBitacoraEventoDTO() {
-        this(
-                0,
-                AperturaNominaRfcBitacoraCategoria.INFORMACION,
-                Calendar.getInstance().getTime(),
-                ""
-        );
+        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION, Calendar.getInstance().getTime(), "");
     }
 
     public AperturaNominaRfcBitacoraEventoDTO(Integer idEvento, AperturaNominaRfcBitacoraCategoria categoria, Date fechaHora, String mensaje) {
@@ -51,7 +47,8 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     /**
      * Set the value of idEvento
      *
-     * @param idEvento new value of idEvento
+     * @param idEvento
+     *            new value of idEvento
      */
     public void setIdEvento(Integer idEvento) {
         this.idEvento = idEvento;
@@ -69,7 +66,8 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     /**
      * Set the value of categoria
      *
-     * @param categoria new value of categoria
+     * @param categoria
+     *            new value of categoria
      */
     public void setCategoria(AperturaNominaRfcBitacoraCategoria categoria) {
         this.categoria = categoria;
@@ -87,7 +85,8 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     /**
      * Set the value of fechaHora
      *
-     * @param fechaHora new value of fechaHora
+     * @param fechaHora
+     *            new value of fechaHora
      */
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
@@ -105,7 +104,8 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     /**
      * Set the value of mensaje
      *
-     * @param mensaje new value of mensaje
+     * @param mensaje
+     *            new value of mensaje
      */
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
@@ -113,14 +113,10 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AperturaNominaRfcBitacoraEvento{" 
-                + "idEvento=" + idEvento 
-                + ", categoria=" + categoria 
-                + ", fechaHora=" + fechaHora 
-                + ", mensaje=" + mensaje 
+        return "AperturaNominaRfcBitacoraEvento{" + "idEvento=" + idEvento + ", categoria=" + categoria + ", fechaHora=" + fechaHora + ", mensaje=" + mensaje
                 + '}';
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 12;

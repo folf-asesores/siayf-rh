@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.vacantes.seleccion;
 
 import java.io.Serializable;
@@ -34,7 +35,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 13:31:53 12/08/2016
  */
@@ -42,431 +43,375 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class SeleccionVacanteController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7596616355238493284L;
-
-	@Inject
-	private Catalogo catalogo;
-	@Inject
-	private BolsaTrabajo bolsaTrabajo;
-	@Inject
-	private Empleado empleado;
-	@Inject
-	private Especialidad especialidad;
-	@Inject
-	private PuestosAutorizadosEmpleados vacantes;
-	@Inject
-	private Profesion profesion;
-
-	private SeleccionVacanteView view;
-
-	@PostConstruct
-	public void init() {
-		this.view = new SeleccionVacanteView();
-
-		obtenerListaInfoVacante();
-
-	}
-
-	public void obtenerListaInfoVacante() {
-/*
-		List<InfoPuestoDTO> listaVacantes = vacantes
-				.consultarVacantesDisponibles();
-
-		if (!listaVacantes.isEmpty()) {
-			this.view.setListaSeleccionVacante(listaVacantes);
-		}*/
-
-	}
-
-	public void obtenerListaTipoCandidato() {
-		this.view.setListaTipoCandidato(SelectItemsUtil.listaTipoCandidato());
-	}
-
-	public void obtenerListaTipoPerfil(String tipoCandidato) {
-		this.view.setListaTipoPerfil(SelectItemsUtil
-				.listaTipoPerfil(tipoCandidato));
-	}
-
-	public void seleccionarCandidato(
-			InfoPuestoDTO infoSeleccionVacanteDTO) {
-		this.view.setSeleccionVacante(infoSeleccionVacanteDTO);
-
-		this.view.setMostrarTabla(false);
-		this.view.setMostrarSeleccionCandidato(true);
-
-		obtenerListaTipoCandidato();
-	}
-
-	public void obtenerListaVacantePostular() {
-
-		if (this.view.getTipoPerfil() == EnumFiltroPerfil.PROFESION) {
-			List<InfoVacantePostularDTO> listaVacantePostular = profesion
-					.obtenerListaProfesionPorTipoCandidato(
-							this.view.getTipoProfesion(),
-							this.view.getTipoCandidato());
-			// bolsaTrabajo.obtenerListaAspiranteCandidato();
-
-			if (!listaVacantePostular.isEmpty()) {
-				this.view.setListaVacantePostular(listaVacantePostular);
-			} else {
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-				JSFUtils.errorMessage(
-						"Selección Candidato: ",
-						"No se encontrarón candidatos con la profesión seleccionada, intentelo con otro...");
-			}
-
-		}
-
-		if (this.view.getTipoPerfil() == EnumFiltroPerfil.ESPECIALIDAD) {
-			List<InfoVacantePostularDTO> listaVacantePostular = especialidad
-					.obtenerListaEspecialidadPorTipoCandidato(
-							this.view.getTipoEspecialidad(),
-							this.view.getTipoCandidato());
-			// empleado.obtenerListaEmpleadoCandidato();
-
-			if (!listaVacantePostular.isEmpty()) {
-				this.view.setListaVacantePostular(listaVacantePostular);
-			} else {
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-				JSFUtils.errorMessage(
-						"Selección Candidato: ",
-						"No se encontrarón candidatos con la especialidad seleccionada, intentelo con otro...");
-			}
-		}
-
-		if (this.view.getTipoPerfil() != EnumFiltroPerfil.PROFESION
-				&& this.view.getTipoPerfil() != EnumFiltroPerfil.ESPECIALIDAD) {
-			this.view
-					.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-		}
-
-	}
-
-	public void mostrarConfirmacionPostular() {
-
-		if (!this.view.getListaSeleccionadaVacantePostular().isEmpty()) {
-			this.view.setMostrarConfirmacionPostular(true);
-
-		} else if (this.view.getListaSeleccionadaVacantePostular().isEmpty()) {
-
-			this.view.setMostrarConfirmacionPostular(false);
-			JSFUtils.errorMessage("Selección Candidato: ",
-					"Seleccione uno o mas candidatos para postular...");
-		}
-
-	}
-
-	public void cerrarConfirmacionPostular() {
-		this.view
-				.setListaSeleccionadaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-		this.view.setMostrarConfirmacionPostular(false);
-	}
-
-	public void mostrarFiltroPerfil() {
-		this.view.setMostrarFiltroPerfil(true);
-		this.view.setTipoPerfil(0);
-		this.view.setMostrarFiltroEspecialidad(false);
-		this.view.setTipoEspecialidad(0);
-		this.view.setMostrarFiltroProfesion(false);
-		this.view.setTipoProfesion(0);
-		this.view
-				.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-		this.view.setHeaderPerfil("Profesión/Especialidad");
-		this.view.setMostrarColumnaHeaderPerfil(false);
-
-		if (this.view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-			this.obtenerListaTipoPerfil("ASPIRANTES");
-
-		}
-
-		if (this.view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-			this.obtenerListaTipoPerfil("EMPLEADOS");
-		}
-
-	}
-
-	public void mostrarFiltroProfesionEspecialidad() {
-
-		this.view.setMostrarFiltroProfesion(false);
-		this.view.setTipoProfesion(0);
-		this.view.setMostrarFiltroEspecialidad(false);
-		this.view.setTipoEspecialidad(0);
-		this.view
-				.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-		this.view.setHeaderPerfil("Profesión/Especialidad");
-		this.view.setMostrarColumnaHeaderPerfil(false);
-
-		if (this.view.getTipoPerfil() == EnumFiltroPerfil.PROFESION) {
-			this.view.setMostrarFiltroProfesion(true);
-			this.view.setHeaderPerfil("Profesión");
-			this.view.setMostrarColumnaHeaderPerfil(true);
-			this.view.setListaTipoProfesion(SelectItemsUtil
-					.listaCatalogos(catalogo.obtenerListaProfesion()));
-
-		}
-
-		if (this.view.getTipoPerfil() == EnumFiltroPerfil.ESPECIALIDAD) {
-			this.view.setHeaderPerfil("Especialidad");
-			this.view.setMostrarColumnaHeaderPerfil(true);
-			this.view.setMostrarFiltroEspecialidad(true);
-			this.view.setListaTipoEspecialidad(SelectItemsUtil
-					.listaCatalogos(catalogo.obtenerListaEspecialidad()));
-		}
-
-		if (this.view.getTipoPerfil() == EnumFiltroPerfil.TODOS) {
-
-			if (this.view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-				List<InfoVacantePostularDTO> listaVacantePostular = bolsaTrabajo
-						.obtenerListaAspiranteCandidato();
-
-				if (!listaVacantePostular.isEmpty()) {
-					this.view.setListaVacantePostular(listaVacantePostular);
-				} else {
-					this.view
-							.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-					JSFUtils.errorMessage("Selección Candidato: ",
-							"No se encontrarón candidatos, intentelo con otro...");
-				}
-			}
-
-			if (this.view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-				List<InfoVacantePostularDTO> listaVacantePostular = empleado
-						.obtenerListaEmpleadoCandidato();
-
-				if (!listaVacantePostular.isEmpty()) {
-					this.view.setListaVacantePostular(listaVacantePostular);
-				} else {
-					this.view
-							.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-					JSFUtils.errorMessage("Selección Candidato: ",
-							"No se encontrarón candidatos, intentelo con otro...");
-				}
-			}
-
-			if (this.view.getTipoCandidato() != EnumTipoCandidato.ASPIRANTE
-					&& this.view.getTipoCandidato() != EnumTipoCandidato.EMPLEADO) {
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-			}
-
-		}
-	}
-
-	public void postularCandidatoVacante() {
-		if (!this.view.getListaSeleccionadaVacantePostular().isEmpty()) {
-			try {
-
-				List<CandidatoVacanteDTO> listaCandidatoVacante = new ArrayList<CandidatoVacanteDTO>();
-
-				HttpServletRequest request = (HttpServletRequest) FacesContext
-						.getCurrentInstance().getExternalContext().getRequest();
-				HttpSession httpSession = request.getSession(false);
-				UsuarioDTO usuario = (UsuarioDTO) httpSession
-						.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-
-				this.view.getPostuladoVacante().setUsuario(
-						usuario.getUserName());
-				this.view.getPostuladoVacante().setIdInventarioVacante(
-						this.view.getSeleccionVacante()
-								.getIdInventarioVacante());
-
-				for (InfoVacantePostularDTO infoVacantePostularDTO : this.view
-						.getListaSeleccionadaVacantePostular()) {
-
-					CandidatoVacanteDTO candidatoVacanteDTO = new CandidatoVacanteDTO();
-
-					candidatoVacanteDTO.setTipoCandidato(this.view
-							.getTipoCandidato());
-
-					if (this.view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-						candidatoVacanteDTO
-								.setIdContexto(infoVacantePostularDTO
-										.getIdEmpleadoAspirante());
-
-					}
-
-					if (this.view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-						candidatoVacanteDTO
-								.setIdContexto(infoVacantePostularDTO
-										.getIdEmpleadoAspirante());
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7596616355238493284L;
+
+    @Inject
+    private Catalogo catalogo;
+    @Inject
+    private BolsaTrabajo bolsaTrabajo;
+    @Inject
+    private Empleado empleado;
+    @Inject
+    private Especialidad especialidad;
+    @Inject
+    private PuestosAutorizadosEmpleados vacantes;
+    @Inject
+    private Profesion profesion;
+
+    private SeleccionVacanteView view;
+
+    @PostConstruct
+    public void init() {
+        view = new SeleccionVacanteView();
+
+        obtenerListaInfoVacante();
+
+    }
+
+    public void obtenerListaInfoVacante() {
+        /*
+         * List<InfoPuestoDTO> listaVacantes = vacantes
+         * .consultarVacantesDisponibles();
+         *
+         * if (!listaVacantes.isEmpty()) {
+         * this.view.setListaSeleccionVacante(listaVacantes);
+         * }
+         */
+
+    }
+
+    public void obtenerListaTipoCandidato() {
+        view.setListaTipoCandidato(SelectItemsUtil.listaTipoCandidato());
+    }
+
+    public void obtenerListaTipoPerfil(String tipoCandidato) {
+        view.setListaTipoPerfil(SelectItemsUtil.listaTipoPerfil(tipoCandidato));
+    }
+
+    public void seleccionarCandidato(InfoPuestoDTO infoSeleccionVacanteDTO) {
+        view.setSeleccionVacante(infoSeleccionVacanteDTO);
+
+        view.setMostrarTabla(false);
+        view.setMostrarSeleccionCandidato(true);
+
+        obtenerListaTipoCandidato();
+    }
+
+    public void obtenerListaVacantePostular() {
+
+        if (view.getTipoPerfil() == EnumFiltroPerfil.PROFESION) {
+            List<InfoVacantePostularDTO> listaVacantePostular = profesion.obtenerListaProfesionPorTipoCandidato(view.getTipoProfesion(),
+                    view.getTipoCandidato());
+            // bolsaTrabajo.obtenerListaAspiranteCandidato();
+
+            if (!listaVacantePostular.isEmpty()) {
+                view.setListaVacantePostular(listaVacantePostular);
+            } else {
+                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos con la profesión seleccionada, intentelo con otro...");
+            }
+
+        }
+
+        if (view.getTipoPerfil() == EnumFiltroPerfil.ESPECIALIDAD) {
+            List<InfoVacantePostularDTO> listaVacantePostular = especialidad.obtenerListaEspecialidadPorTipoCandidato(view.getTipoEspecialidad(),
+                    view.getTipoCandidato());
+            // empleado.obtenerListaEmpleadoCandidato();
+
+            if (!listaVacantePostular.isEmpty()) {
+                view.setListaVacantePostular(listaVacantePostular);
+            } else {
+                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos con la especialidad seleccionada, intentelo con otro...");
+            }
+        }
+
+        if (view.getTipoPerfil() != EnumFiltroPerfil.PROFESION && view.getTipoPerfil() != EnumFiltroPerfil.ESPECIALIDAD) {
+            view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        }
+
+    }
+
+    public void mostrarConfirmacionPostular() {
+
+        if (!view.getListaSeleccionadaVacantePostular().isEmpty()) {
+            view.setMostrarConfirmacionPostular(true);
+
+        } else if (view.getListaSeleccionadaVacantePostular().isEmpty()) {
+
+            view.setMostrarConfirmacionPostular(false);
+            JSFUtils.errorMessage("Selección Candidato: ", "Seleccione uno o mas candidatos para postular...");
+        }
+
+    }
+
+    public void cerrarConfirmacionPostular() {
+        view.setListaSeleccionadaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        view.setMostrarConfirmacionPostular(false);
+    }
+
+    public void mostrarFiltroPerfil() {
+        view.setMostrarFiltroPerfil(true);
+        view.setTipoPerfil(0);
+        view.setMostrarFiltroEspecialidad(false);
+        view.setTipoEspecialidad(0);
+        view.setMostrarFiltroProfesion(false);
+        view.setTipoProfesion(0);
+        view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        view.setHeaderPerfil("Profesión/Especialidad");
+        view.setMostrarColumnaHeaderPerfil(false);
 
-					}
-
-					listaCandidatoVacante.add(candidatoVacanteDTO);
-				}
-
-				this.view.getPostuladoVacante().setListaCandidatoVacante(
-						listaCandidatoVacante);
+        if (view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
+            obtenerListaTipoPerfil("ASPIRANTES");
 
-			/*	vacantes.postularCandidatoVacante(
-						this.view.getPostuladoVacante(),
-						this.view.getTipoCandidato());*/
+        }
 
-				JSFUtils.infoMessage("Selección Candidato: ",
-						"Se postulo correctamente...");
+        if (view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+            obtenerListaTipoPerfil("EMPLEADOS");
+        }
 
-				cerrarConfirmacionPostular();
+    }
 
-			} catch (ReglaNegocioException exception) {
+    public void mostrarFiltroProfesionEspecialidad() {
 
-				if (ReglaNegocioCodigoError.EMPLEADO_REPETIDO.equals(exception
-						.getCodigoError())) {
-					JSFUtils.errorMessage("",exception.getMessage());
-				}
+        view.setMostrarFiltroProfesion(false);
+        view.setTipoProfesion(0);
+        view.setMostrarFiltroEspecialidad(false);
+        view.setTipoEspecialidad(0);
+        view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        view.setHeaderPerfil("Profesión/Especialidad");
+        view.setMostrarColumnaHeaderPerfil(false);
 
-			}
-		} else {
-			JSFUtils.errorMessage("Selección Candidato: ",
-					"Seleccione uno o mas candidatos para postular...");
-		}
+        if (view.getTipoPerfil() == EnumFiltroPerfil.PROFESION) {
+            view.setMostrarFiltroProfesion(true);
+            view.setHeaderPerfil("Profesión");
+            view.setMostrarColumnaHeaderPerfil(true);
+            view.setListaTipoProfesion(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaProfesion()));
 
-	}
+        }
 
-	public String regresarPaginaSeleccionCandidato() {
-		return "/contenido/vacantes/postularCandidato.xhtml?faces-redirect=true";
-	}
+        if (view.getTipoPerfil() == EnumFiltroPerfil.ESPECIALIDAD) {
+            view.setHeaderPerfil("Especialidad");
+            view.setMostrarColumnaHeaderPerfil(true);
+            view.setMostrarFiltroEspecialidad(true);
+            view.setListaTipoEspecialidad(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaEspecialidad()));
+        }
 
-	public void validarCampo(FacesContext context, UIComponent component,
-			Object value) throws ValidatorException {
+        if (view.getTipoPerfil() == EnumFiltroPerfil.TODOS) {
 
-		String nombreComponente = component.getId();
-		String contexto = "Campo requerido.";
+            if (view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
+                List<InfoVacantePostularDTO> listaVacantePostular = bolsaTrabajo.obtenerListaAspiranteCandidato();
 
-		switch (nombreComponente) {
+                if (!listaVacantePostular.isEmpty()) {
+                    view.setListaVacantePostular(listaVacantePostular);
+                } else {
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos, intentelo con otro...");
+                }
+            }
 
-		case "tipoCandidato":
+            if (view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+                List<InfoVacantePostularDTO> listaVacantePostular = empleado.obtenerListaEmpleadoCandidato();
 
-			Integer tipoCandidato = (Integer) value;
+                if (!listaVacantePostular.isEmpty()) {
+                    view.setListaVacantePostular(listaVacantePostular);
+                } else {
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos, intentelo con otro...");
+                }
+            }
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoCandidato)) {
-				FacesMessage facesMessage = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo candidato");
-				context.addMessage(component.getClientId(), facesMessage);
+            if (view.getTipoCandidato() != EnumTipoCandidato.ASPIRANTE && view.getTipoCandidato() != EnumTipoCandidato.EMPLEADO) {
+                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+            }
 
-				this.view.setMostrarFiltroPerfil(false);
-				this.view.setTipoPerfil(0);
-				this.view.setMostrarFiltroEspecialidad(false);
-				this.view.setTipoEspecialidad(0);
-				this.view.setMostrarFiltroProfesion(false);
-				this.view.setTipoProfesion(0);
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-				this.view.setHeaderPerfil("Profesión/Especialidad");
-				this.view.setMostrarColumnaHeaderPerfil(false);
+        }
+    }
 
-				throw new ValidatorException(facesMessage);
-			}
+    public void postularCandidatoVacante() {
+        if (!view.getListaSeleccionadaVacantePostular().isEmpty()) {
+            try {
 
-			break;
+                List<CandidatoVacanteDTO> listaCandidatoVacante = new ArrayList<>();
 
-		case "tipoPerfil":
+                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpSession httpSession = request.getSession(false);
+                UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-			Integer tipoPerfil = (Integer) value;
+                view.getPostuladoVacante().setUsuario(usuario.getUserName());
+                view.getPostuladoVacante().setIdInventarioVacante(view.getSeleccionVacante().getIdInventarioVacante());
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoPerfil)) {
-				FacesMessage facesMessage = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo perfil");
-				context.addMessage(component.getClientId(), facesMessage);
+                for (InfoVacantePostularDTO infoVacantePostularDTO : view.getListaSeleccionadaVacantePostular()) {
 
-				this.view.setMostrarFiltroProfesion(false);
-				this.view.setTipoProfesion(0);
-				this.view.setMostrarFiltroEspecialidad(false);
-				this.view.setTipoEspecialidad(0);
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-				this.view.setHeaderPerfil("Profesión/Especialidad");
-				this.view.setMostrarColumnaHeaderPerfil(false);
+                    CandidatoVacanteDTO candidatoVacanteDTO = new CandidatoVacanteDTO();
 
-				throw new ValidatorException(facesMessage);
-			}
+                    candidatoVacanteDTO.setTipoCandidato(view.getTipoCandidato());
 
-			break;
+                    if (view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
+                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO.getIdEmpleadoAspirante());
 
-		case "tipoProfesion":
+                    }
 
-			Integer tipoProfesion = (Integer) value;
+                    if (view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO.getIdEmpleadoAspirante());
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoProfesion)) {
-				FacesMessage facesMessage = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo profesión");
-				context.addMessage(component.getClientId(), facesMessage);
+                    }
 
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    listaCandidatoVacante.add(candidatoVacanteDTO);
+                }
 
-				throw new ValidatorException(facesMessage);
-			}
+                view.getPostuladoVacante().setListaCandidatoVacante(listaCandidatoVacante);
 
-			break;
+                /*
+                 * vacantes.postularCandidatoVacante(
+                 * this.view.getPostuladoVacante(),
+                 * this.view.getTipoCandidato());
+                 */
 
-		case "tipoEspecialidad":
+                JSFUtils.infoMessage("Selección Candidato: ", "Se postulo correctamente...");
 
-			Integer tipoEspecialidad = (Integer) value;
+                cerrarConfirmacionPostular();
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoEspecialidad)) {
-				FacesMessage facesMessage = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo especialidad");
-				context.addMessage(component.getClientId(), facesMessage);
+            } catch (ReglaNegocioException exception) {
 
-				this.view
-						.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                if (ReglaNegocioCodigoError.EMPLEADO_REPETIDO.equals(exception.getCodigoError())) {
+                    JSFUtils.errorMessage("", exception.getMessage());
+                }
 
-				throw new ValidatorException(facesMessage);
-			}
+            }
+        } else {
+            JSFUtils.errorMessage("Selección Candidato: ", "Seleccione uno o mas candidatos para postular...");
+        }
 
-			break;
+    }
 
-		default:
-			JSFUtils.errorMessage("Selección Candidato: ",
-					"Error de validación...");
-			break;
-		}
+    public String regresarPaginaSeleccionCandidato() {
+        return "/contenido/vacantes/postularCandidato.xhtml?faces-redirect=true";
+    }
 
-	}
+    public void validarCampo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-	public String redireccionarConsultaCandidato() {
-		String resultado = "";
+        String nombreComponente = component.getId();
+        String contexto = "Campo requerido.";
 
-		if (this.view.getTipoCandidato() == null) {
-			JSFUtils.errorMessage("Error: ", "Seleccione el tipo de candidato");
-			return "";
-		}
+        switch (nombreComponente) {
 
-		if (this.view.getTipoCandidato() == 1) {
-			return "/contenido/aspirante/consultaAspirante.xhtml?faces-redirect=true";
-		}
+            case "tipoCandidato":
 
-		if (this.view.getTipoCandidato() == 2) {
-			return "/contenido/empleado/consultaEmpleado.xhtml?faces-redirect=true";
-		}
+                Integer tipoCandidato = (Integer) value;
 
-		return resultado;
-	}
+                if (!ValidacionUtil.esNumeroPositivo(tipoCandidato)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo candidato");
+                    context.addMessage(component.getClientId(), facesMessage);
 
-	
+                    view.setMostrarFiltroPerfil(false);
+                    view.setTipoPerfil(0);
+                    view.setMostrarFiltroEspecialidad(false);
+                    view.setTipoEspecialidad(0);
+                    view.setMostrarFiltroProfesion(false);
+                    view.setTipoProfesion(0);
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setHeaderPerfil("Profesión/Especialidad");
+                    view.setMostrarColumnaHeaderPerfil(false);
 
-	/**
-	 * @return the view
-	 */
-	public SeleccionVacanteView getView() {
-		return view;
-	}
+                    throw new ValidatorException(facesMessage);
+                }
 
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(SeleccionVacanteView view) {
-		this.view = view;
-	}
+                break;
+
+            case "tipoPerfil":
+
+                Integer tipoPerfil = (Integer) value;
+
+                if (!ValidacionUtil.esNumeroPositivo(tipoPerfil)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo perfil");
+                    context.addMessage(component.getClientId(), facesMessage);
+
+                    view.setMostrarFiltroProfesion(false);
+                    view.setTipoProfesion(0);
+                    view.setMostrarFiltroEspecialidad(false);
+                    view.setTipoEspecialidad(0);
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setHeaderPerfil("Profesión/Especialidad");
+                    view.setMostrarColumnaHeaderPerfil(false);
+
+                    throw new ValidatorException(facesMessage);
+                }
+
+                break;
+
+            case "tipoProfesion":
+
+                Integer tipoProfesion = (Integer) value;
+
+                if (!ValidacionUtil.esNumeroPositivo(tipoProfesion)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo profesión");
+                    context.addMessage(component.getClientId(), facesMessage);
+
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+
+                    throw new ValidatorException(facesMessage);
+                }
+
+                break;
+
+            case "tipoEspecialidad":
+
+                Integer tipoEspecialidad = (Integer) value;
+
+                if (!ValidacionUtil.esNumeroPositivo(tipoEspecialidad)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo especialidad");
+                    context.addMessage(component.getClientId(), facesMessage);
+
+                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+
+                    throw new ValidatorException(facesMessage);
+                }
+
+                break;
+
+            default:
+                JSFUtils.errorMessage("Selección Candidato: ", "Error de validación...");
+                break;
+        }
+
+    }
+
+    public String redireccionarConsultaCandidato() {
+        String resultado = "";
+
+        if (view.getTipoCandidato() == null) {
+            JSFUtils.errorMessage("Error: ", "Seleccione el tipo de candidato");
+            return "";
+        }
+
+        if (view.getTipoCandidato() == 1) {
+            return "/contenido/aspirante/consultaAspirante.xhtml?faces-redirect=true";
+        }
+
+        if (view.getTipoCandidato() == 2) {
+            return "/contenido/empleado/consultaEmpleado.xhtml?faces-redirect=true";
+        }
+
+        return resultado;
+    }
+
+    /**
+     * @return the view
+     */
+    public SeleccionVacanteView getView() {
+        return view;
+    }
+
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(SeleccionVacanteView view) {
+        this.view = view;
+    }
 
 }

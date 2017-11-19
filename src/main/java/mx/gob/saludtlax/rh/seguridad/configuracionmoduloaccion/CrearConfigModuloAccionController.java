@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
@@ -55,41 +56,40 @@ public class CrearConfigModuloAccionController implements Serializable {
     @PostConstruct
     public void init() {
 
-        this.view = new CrearConfigModuloAccionView();
+        view = new CrearConfigModuloAccionView();
 
         List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
-        this.view.setListaModulos(listaModulos);
+        view.setListaModulos(listaModulos);
 
     }
 
     public void accionesPorModuloSeleccionado() {
 
-        this.view.setListaAcciones(new ArrayList<AccionDTO>());
+        view.setListaAcciones(new ArrayList<AccionDTO>());
 
         ModuloDTO modulo = new ModuloDTO();
 
-        for (ModuloDTO mod : this.view.getListaModulos()) {
-            if (mod.getIdModulo()
-                    .compareTo(this.view.getConfiguracionModuloAccionDTONew().getModulo().getIdModulo()) == 0) {
+        for (ModuloDTO mod : view.getListaModulos()) {
+            if (mod.getIdModulo().compareTo(view.getConfiguracionModuloAccionDTONew().getModulo().getIdModulo()) == 0) {
                 modulo = mod;
             }
         }
-        this.view.setListaAcciones(accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo())));
+        view.setListaAcciones(accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo())));
 
         List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo()));
         List<AccionDTO> accionTarget = new ArrayList<>();
 
-        this.view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+        view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
 
     }
 
     public void agregarConfiguracionModuloAccion() {
 
-        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        List<AccionDTO> acciones = view.getPikListAcciones().getTarget();
 
-        this.view.getConfiguracionModuloAccionDTONew().setAcciones(acciones);
+        view.getConfiguracionModuloAccionDTONew().setAcciones(acciones);
 
-        configuracionModuloAccion.crear(this.view.getConfiguracionModuloAccionDTONew());
+        configuracionModuloAccion.crear(view.getConfiguracionModuloAccionDTONew());
 
         JSFUtils.infoMessage("Configuración: ", "¡Se registro correctamente!");
         init();
@@ -110,7 +110,7 @@ public class CrearConfigModuloAccionController implements Serializable {
         // msg.setDetail(builder.toString());
         //
         // FacesContext.getCurrentInstance().addMessage(null, msg);
-        List<AccionDTO> acciones = (List<AccionDTO>) this.view.getPikListAcciones().getTarget();
+        List<AccionDTO> acciones = view.getPikListAcciones().getTarget();
 
         for (AccionDTO accion : acciones) {
             LOGGER.debug(accion.toString());
@@ -118,8 +118,7 @@ public class CrearConfigModuloAccionController implements Serializable {
 
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value)
-            throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -138,8 +137,7 @@ public class CrearConfigModuloAccionController implements Serializable {
                 Integer accion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(accion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-                            "Seleccione una acción.");
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una acción.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -147,7 +145,7 @@ public class CrearConfigModuloAccionController implements Serializable {
         }
     }
 
-    // ************** Getters and Setters ********
+    
 
     /**
      * @return the view
@@ -157,7 +155,8 @@ public class CrearConfigModuloAccionController implements Serializable {
     }
 
     /**
-     * @param view the view to set
+     * @param view
+     *            the view to set
      */
     public void setView(CrearConfigModuloAccionView view) {
         this.view = view;

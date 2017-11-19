@@ -1,8 +1,9 @@
 /*
  *  NotificadorErroresView.java
  *  Creado el Jun 16, 2016 4:14:42 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.notificadorerror;
 
 import java.io.Serializable;
@@ -43,7 +44,8 @@ public class NotificadorErroresView implements Serializable {
     /**
      * Set the value of correosNotificacion
      *
-     * @param correosNotificacion new value of correosNotificacion
+     * @param correosNotificacion
+     *            new value of correosNotificacion
      */
     public void setCorreosNotificacion(List<CorreoNotificacionDTO> correosNotificacion) {
         this.correosNotificacion = correosNotificacion;
@@ -61,7 +63,8 @@ public class NotificadorErroresView implements Serializable {
     /**
      * Set the value of nuevoCorreoNotificacion
      *
-     * @param nuevoCorreoNotificacion new value of nuevoCorreoNotificacion
+     * @param nuevoCorreoNotificacion
+     *            new value of nuevoCorreoNotificacion
      */
     public void setNuevoCorreoNotificacion(CorreoNotificacionDTO nuevoCorreoNotificacion) {
         this.nuevoCorreoNotificacion = nuevoCorreoNotificacion;
@@ -79,7 +82,8 @@ public class NotificadorErroresView implements Serializable {
     /**
      * Set the value of editarCorreoNotificacion
      *
-     * @param editarCorreoNotificacion new value of editarCorreoNotificacion
+     * @param editarCorreoNotificacion
+     *            new value of editarCorreoNotificacion
      */
     public void setEditarCorreoNotificacion(CorreoNotificacionDTO editarCorreoNotificacion) {
         this.editarCorreoNotificacion = editarCorreoNotificacion;
@@ -97,7 +101,8 @@ public class NotificadorErroresView implements Serializable {
     /**
      * Set the value of mostrarDialogoNuevo
      *
-     * @param mostrarDialogoNuevo new value of mostrarDialogoNuevo
+     * @param mostrarDialogoNuevo
+     *            new value of mostrarDialogoNuevo
      */
     public void setMostrarDialogoNuevo(boolean mostrarDialogoNuevo) {
         this.mostrarDialogoNuevo = mostrarDialogoNuevo;
@@ -115,7 +120,8 @@ public class NotificadorErroresView implements Serializable {
     /**
      * Set the value of mostrarDialogoEditar
      *
-     * @param mostrarDialogoEditar new value of mostrarDialogoEditar
+     * @param mostrarDialogoEditar
+     *            new value of mostrarDialogoEditar
      */
     public void setMostrarDialogoEditar(boolean mostrarDialogoEditar) {
         this.mostrarDialogoEditar = mostrarDialogoEditar;

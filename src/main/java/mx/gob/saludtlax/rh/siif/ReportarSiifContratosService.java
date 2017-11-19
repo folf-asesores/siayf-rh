@@ -60,7 +60,7 @@ public class ReportarSiifContratosService {
     private Integer i;
 
     public Integer getI() {
-        return this.i;
+        return i;
     }
 
     public void setI(Integer i) {
@@ -70,7 +70,7 @@ public class ReportarSiifContratosService {
     /*** < < < < < Metodos > > > > > ***/
 
     public List<SiifBitacoraDTO> obtenerReporteSiifPorPeriodo(String periodo, Integer anio) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery("SELECT id_siif_bitacoras AS idSiifBitacora, " + " id_nombramiento AS idNombramiento, "
                         + " nombramiento_descripcion AS nombramiento, " + " total_nomina AS totalNomina, " + " status, " + " anio, "
@@ -87,7 +87,7 @@ public class ReportarSiifContratosService {
     }
 
     public List<CuentaBancariaDTO> obtenerCuentaBancariaList() {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("SELECT id_cuenta_bancaria AS idCuentaBancaria, " + "numero_cuenta AS numeroCuenta, " + "descripcion, "
                 + "clave_cuenta AS claveCuenta " + "FROM cuentas_bancarias");
         query.setResultTransformer(Transformers.aliasToBean(CuentaBancariaDTO.class));
@@ -97,7 +97,7 @@ public class ReportarSiifContratosService {
     }
 
     public List<TipoNominaDTO> obtenerTipoNominaList() {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(
                 "SELECT id_tipo_nomina AS idTipoNomina, " + "id_clasificacion_nomina AS idClasificacionNomina, " + "descripcion " + "FROM tipos_nominas");
         query.setResultTransformer(Transformers.aliasToBean(TipoNominaDTO.class));
@@ -108,7 +108,7 @@ public class ReportarSiifContratosService {
 
     public SiifBitacoraDTO obtenerSiiifBitacoraById(Integer idSiifBitacora) {
         System.out.println("id_siif_bitacoras:: " + idSiifBitacora);
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery("SELECT id_siif_bitacoras AS idSiifBitacora, " + "id_nombramiento AS idNombramiento, "
                         + "nombramiento_descripcion AS nombramiento, " + "total_nomina AS totalNomina, " + "status, " + "anio, "
@@ -139,7 +139,7 @@ public class ReportarSiifContratosService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public SiifBitacoraDTO cambiarClaveConceptosTraContratos(SiifBitacoraDTO bitacora) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_cambiar_clave_concepto_prospera(:idSiifBitacora)").setParameter("idSiifBitacora",
                 bitacora.getIdSiifBitacora());
         query.executeUpdate();
@@ -147,7 +147,7 @@ public class ReportarSiifContratosService {
     }
 
     public SiifBitacoraDTO verificarDatosContratos(SiifBitacoraDTO bitacora) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_calcular_totales_encabezados_prospera(:id_siif_bitacoras) ").setParameter("id_siif_bitacoras",
                 bitacora.getIdSiifBitacora());
         query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
@@ -159,7 +159,7 @@ public class ReportarSiifContratosService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public SiifBitacoraDTO calcularTotalesEncabezadosContratos(SiifBitacoraDTO bitacora) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_calcular_totales_encabezados_prospera(:id_siif_bitacoras) ").setParameter("id_siif_bitacoras",
                 bitacora.getIdSiifBitacora());
         query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
@@ -183,7 +183,7 @@ public class ReportarSiifContratosService {
 
         System.out.println("actualizarSiifBitacora:: reporte.getIdSiifBitacora():: " + reporte.getIdSiifBitacora());
         System.out.println(":::status::" + reporte.getStatus());
-        SiifBitacoraEntity entity = this.reporteSiifDAO.obtenerPorId(reporte.getIdSiifBitacora());
+        SiifBitacoraEntity entity = reporteSiifDAO.obtenerPorId(reporte.getIdSiifBitacora());
         entity.setAnio(reporte.getAnio());
         entity.setFechaEnvio(reporte.getFechaEnvio());
         entity.setFechaImportado(reporte.getFechaImportado());
@@ -196,7 +196,7 @@ public class ReportarSiifContratosService {
         entity.setTotalNomina(reporte.getTotalNomina());
         entity.setTotalNeto(reporte.getTotalNeto());
         entity.setTotalPercepciones(reporte.getTotalPercepciones());
-        this.reporteSiifDAO.actualizar(entity);
+        reporteSiifDAO.actualizar(entity);
     }
 
     public SiifBitacoraDTO crearSiifBitacoraContratos(PaqueteEntradaContratoDTO paqueteEntrada) {
@@ -206,18 +206,18 @@ public class ReportarSiifContratosService {
         entity.setIdTipoNomina(paqueteEntrada.getIdTipoNomina());
         entity.setAnioAfectacion(paqueteEntrada.getAnioAfectacion());
         entity.setPeriodoAfectacion(paqueteEntrada.getPeriodoAfectacion());
-        this.reporteSiifDAO.crear(entity);
+        reporteSiifDAO.crear(entity);
         return obtenerSiiifBitacoraById(entity.getIdReporteSiif());
     }
 
     public SiifBitacoraDTO importarDatosToSIIF(PaqueteEntradaContratoDTO paqueteEntrada, SiifBitacoraDTO bitacora) {
-        this.i = 0;
-        this.uploadedFile = new UploadExcelFileAnexo();
-        this.uploadedFile.validate(paqueteEntrada.getDat());
-        bitacora = settingDataDAT(this.uploadedFile.getAnexoDTOs(), bitacora);
-        bitacora.setTotalNomina(this.i);
-        this.uploadedFile.validate(paqueteEntrada.getTra());
-        bitacora = settingDataTRA(this.uploadedFile.getAnexoDTOs(), bitacora);
+        i = 0;
+        uploadedFile = new UploadExcelFileAnexo();
+        uploadedFile.validate(paqueteEntrada.getDat());
+        bitacora = settingDataDAT(uploadedFile.getAnexoDTOs(), bitacora);
+        bitacora.setTotalNomina(i);
+        uploadedFile.validate(paqueteEntrada.getTra());
+        bitacora = settingDataTRA(uploadedFile.getAnexoDTOs(), bitacora);
 
         bitacora.setAnio(Integer.valueOf(paqueteEntrada.getPeriodoAfectacion()));
         bitacora.setPeriodo(paqueteEntrada.getPeriodoAfectacion());
@@ -298,7 +298,7 @@ public class ReportarSiifContratosService {
     }
 
     public String registroEstructura(EstructuraContratoTrailersEntity estructura) {
-        this.entityManager.persist(estructura);
+        entityManager.persist(estructura);
         return estructura.getNumEmp();
     }
 
@@ -397,7 +397,7 @@ public class ReportarSiifContratosService {
                 estructuraDTO.setIdSiifBitacoras(bitacora.getIdSiifBitacora());
 
                 listaEstructura.add(estructuraDTO);
-                this.i++;
+                i++;
             }
 
             registrarListaEstructuraDat(listaEstructura);
@@ -510,7 +510,7 @@ public class ReportarSiifContratosService {
     }
 
     public String registroEstructuraExcel(EstructuraContratoEntity estructura) {
-        this.entityManager.persist(estructura);
+        entityManager.persist(estructura);
         return estructura.getNumEmp();
     }
 
@@ -519,7 +519,7 @@ public class ReportarSiifContratosService {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public SiifBitacoraDTO clasificarEncabezadosContratos(SiifBitacoraDTO bitacora) {
         System.out.println("ID::" + bitacora.getIdSiifBitacora());
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_clasificar_prospera_estructura(:idSiifBitacora)").setParameter("idSiifBitacora",
                 bitacora.getIdSiifBitacora());
         query.executeUpdate();
@@ -531,7 +531,7 @@ public class ReportarSiifContratosService {
         //		System.out.println("siifEncabezado:: " + siifEncabezado);
         //		System.out.println("siifEncabezado.getIdSIIFEncabezado():: " + siifEncabezado.getIdSIIFEncabezado());
         if (siifEncabezado.getIdSIIFEncabezado() != null) {
-            encabezadoEntity = this.entityManager.find(SIIFEncabezadoEntity.class, siifEncabezado.getIdSIIFEncabezado());
+            encabezadoEntity = entityManager.find(SIIFEncabezadoEntity.class, siifEncabezado.getIdSIIFEncabezado());
         }
         //		System.out.println("1 encabezadoEntity:: " + encabezadoEntity);
         if (encabezadoEntity == null) {
@@ -544,9 +544,9 @@ public class ReportarSiifContratosService {
             throw new ValidationException("El ID no puede ser negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        SiifBitacoraEntity bitacora = this.entityManager.find(SiifBitacoraEntity.class, idBitacora);
-        TipoNominaEntity tipoNomina = this.entityManager.find(TipoNominaEntity.class, siifEncabezado.getIdTipoNomina());
-        CuentasBancariasEntity cuentaBancaria = this.entityManager.find(CuentasBancariasEntity.class, siifEncabezado.getIdCuentaBancaria());
+        SiifBitacoraEntity bitacora = entityManager.find(SiifBitacoraEntity.class, idBitacora);
+        TipoNominaEntity tipoNomina = entityManager.find(TipoNominaEntity.class, siifEncabezado.getIdTipoNomina());
+        CuentasBancariasEntity cuentaBancaria = entityManager.find(CuentasBancariasEntity.class, siifEncabezado.getIdCuentaBancaria());
 
         //		System.out.println("2 encabezadoEntity:: " + encabezadoEntity);
 
@@ -563,14 +563,14 @@ public class ReportarSiifContratosService {
         encabezadoEntity.setIdEstadoNomina(siifEncabezado.getIdEstadoNomina() == null ? 'A' : siifEncabezado.getIdEstadoNomina());
         encabezadoEntity.setBitacora(bitacora);
 
-        this.encabezadoRepository.actualizar(encabezadoEntity);
+        encabezadoRepository.actualizar(encabezadoEntity);
 
         //Limpiar encabezados//
         limpiarSiifEncabezados(idBitacora);
     }
 
     public void limpiarSiifEncabezados(Integer idSiifBitacora) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_limpiar_siif_encabezados(:idSiifBitacora)").setParameter("idSiifBitacora", idSiifBitacora);
         query.executeUpdate();
 
@@ -578,13 +578,15 @@ public class ReportarSiifContratosService {
 
     public SiifBitacoraDTO actualizarEncabezadosContratos(SiifBitacoraDTO bitacora) {
         System.out.println("ID::" + bitacora.getIdSiifBitacora());
-        Session session = this.entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery(" SELECT " + " e.id_siif_encabezado AS idSIIFEncabezado, " + " e.id_nomina AS idNomina, "
-                + " e.id_poder AS idPoder, " + " e.id_tipo_nomina AS idTipoNomina, " + " e.fecha_fin_quincena AS fechaFinQuincena, "
-                + " e.id_tipo_emision_nomina AS idTipoEmisionNomina, " + " e.id_cuenta_bancaria AS idCuentaBancaria, " + " e.percepciones AS percepciones, "
-                + " e.deducciones AS deducciones, " + " e.neto AS neto, " + " e.id_estado_nomina AS idEstadoNomina, "
-                + " e.id_siif_bitacora AS idSIIFBitacora, " + " e.id_nombramiento AS idNombramiento, " + " e.sub_programa AS subPrograma "
-                + " FROM siif_encabezados AS e " + " WHERE e.id_siif_bitacora = :idSiifBitacora ").setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session
+                .createSQLQuery(" SELECT " + " e.id_siif_encabezado AS idSIIFEncabezado, " + " e.id_nomina AS idNomina, " + " e.id_poder AS idPoder, "
+                        + " e.id_tipo_nomina AS idTipoNomina, " + " e.fecha_fin_quincena AS fechaFinQuincena, "
+                        + " e.id_tipo_emision_nomina AS idTipoEmisionNomina, " + " e.id_cuenta_bancaria AS idCuentaBancaria, "
+                        + " e.percepciones AS percepciones, " + " e.deducciones AS deducciones, " + " e.neto AS neto, "
+                        + " e.id_estado_nomina AS idEstadoNomina, " + " e.id_siif_bitacora AS idSIIFBitacora, " + " e.id_nombramiento AS idNombramiento, "
+                        + " e.sub_programa AS subPrograma " + " FROM siif_encabezados AS e " + " WHERE e.id_siif_bitacora = :idSiifBitacora ")
+                .setParameter("idSiifBitacora", bitacora.getIdSiifBitacora());
         query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> result = query.list();

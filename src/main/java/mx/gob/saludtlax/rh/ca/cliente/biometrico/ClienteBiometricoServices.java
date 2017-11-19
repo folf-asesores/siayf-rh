@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.cliente.biometrico;
 
 import javax.ejb.Stateless;
@@ -11,13 +12,11 @@ import mx.gob.saludtlax.rh.excepciones.RESTClientException;
 @Stateless
 public class ClienteBiometricoServices {
 
-	
-	@Inject BiometricoClientRest biometricoClientRest;
-	
-	
-	
-	public BiometricoClientRestResponse guardar(BiometricoFormModel biometricoFormModel) throws RESTClientException{
-		return biometricoClientRest.guardarBiometrico(biometricoFormModel);
-		
-	}
+    @Inject
+    BiometricoClientRest biometricoClientRest;
+
+    public BiometricoClientRestResponse guardar(BiometricoFormModel biometricoFormModel) throws RESTClientException {
+        return biometricoClientRest.guardarBiometrico(biometricoFormModel);
+
+    }
 }

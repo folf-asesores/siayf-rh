@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 
 import java.io.Serializable;
@@ -9,7 +10,6 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -33,285 +33,272 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class PuestoGeneralController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7800298033568387061L;
-
-	@Inject
-	private PuestoGeneral puestoGeneral;
-	@Inject
-	private Catalogo catalogo;
-
-	private PuestoGeneralView view;
-
-	@PostConstruct
-	private void init() {
-		this.view = new PuestoGeneralView();
-		this.obtenerListaPuestoGeneral();
-
-		List<CatalogoDTO> listaTipoPuesto = catalogo.consultarTipoPuesto();
-		List<CatalogoDTO> listaRamas = catalogo.consultarRamas();
-
-		this.view.setListaTipoPuesto(SelectItemsUtil.listaCatalogos(listaTipoPuesto));
-		this.view.setListaRama(SelectItemsUtil.listaCatalogos(listaRamas));
-
-	}
-
-	public void obtenerListaPuestoGeneral() {
-		List<PuestoGeneralDTO> listaPuestoGeneralDTOs = puestoGeneral.consultarListaPuestoGeneral();
-		this.view.setListaPuestoGeneral(listaPuestoGeneralDTOs);
-	}
-
-	public void accionRegistra() {
-		try {
-
-			puestoGeneral.crearPuestoGeneral(this.view.getPuestoGeneralDTO());
-			cerrarPanelesSecundarios();
-			obtenerListaPuestoGeneral();
-			JSFUtils.infoMessage("Registro Puesto General: ", "Se realizo correctamente...");
-
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
-
-	public void accionActualizar() {
-		try {
-
-			puestoGeneral.actualizarPuestoGeneral(this.view.getPuestoGeneralDTOSeleccionado());
-			cerrarPanelesSecundarios();
-			obtenerListaPuestoGeneral();
-			JSFUtils.infoMessage("Actualización Puesto General: ", "Se realizo correctamente...");
-
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
-
-	public void eliminarPuestoGeneral() {
-		try {
-			puestoGeneral.eliminarPuestoGeneral(this.view.getIdPuestoGeneral());
-			cerrarDialogoAccionEliminar();
-			obtenerListaPuestoGeneral();
-			JSFUtils.infoMessage("Eliminación Puesto General: ", "Se realizo correctamente...");
-		} catch (BusinessException ex) {
-			JSFUtils.errorMessage("Error: ", ex.getMessage());
-		}
-	}
-
-	public void mostrarDialogoNuevoRegistro() {
-		this.view.setPuestoGeneralDTO(new PuestoGeneralDTO());
-		this.view.setPanelRegistro(true);
-		this.view.setPanelActualizar(false);
-	}
-
-	public void mostrarDialogoActualizarRegistro(PuestoGeneralDTO puestoGeneralDTO) {
-		this.view.setPuestoGeneralDTOSeleccionado(puestoGeneralDTO);
-		this.view.setPanelRegistro(false);
-		this.view.setPanelActualizar(true);
-	}
-
-	public void mostrarDialogoEliminar(Integer idPuestoGeneral) {
-		this.view.setIdPuestoGeneral(idPuestoGeneral);
-		this.view.setDialogoEliminar(true);
-		this.view.setPanelRegistro(false);
-		this.view.setPanelActualizar(false);
-	}
-
-	public void cerrarPanelesSecundarios() {
-		this.view.setPuestoGeneralDTO(new PuestoGeneralDTO());
-		this.view.setPuestoGeneralDTOSeleccionado(new PuestoGeneralDTO());
-		this.view.setPanelRegistro(false);
-		this.view.setPanelActualizar(false);
-		this.view.setDialogoEliminar(false);
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7800298033568387061L;
+
+    @Inject
+    private PuestoGeneral puestoGeneral;
+    @Inject
+    private Catalogo catalogo;
+
+    private PuestoGeneralView view;
+
+    @PostConstruct
+    private void init() {
+        view = new PuestoGeneralView();
+        obtenerListaPuestoGeneral();
+
+        List<CatalogoDTO> listaTipoPuesto = catalogo.consultarTipoPuesto();
+        List<CatalogoDTO> listaRamas = catalogo.consultarRamas();
+
+        view.setListaTipoPuesto(SelectItemsUtil.listaCatalogos(listaTipoPuesto));
+        view.setListaRama(SelectItemsUtil.listaCatalogos(listaRamas));
+
+    }
+
+    public void obtenerListaPuestoGeneral() {
+        List<PuestoGeneralDTO> listaPuestoGeneralDTOs = puestoGeneral.consultarListaPuestoGeneral();
+        view.setListaPuestoGeneral(listaPuestoGeneralDTOs);
+    }
+
+    public void accionRegistra() {
+        try {
+
+            puestoGeneral.crearPuestoGeneral(view.getPuestoGeneralDTO());
+            cerrarPanelesSecundarios();
+            obtenerListaPuestoGeneral();
+            JSFUtils.infoMessage("Registro Puesto General: ", "Se realizo correctamente...");
+
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
+
+    public void accionActualizar() {
+        try {
+
+            puestoGeneral.actualizarPuestoGeneral(view.getPuestoGeneralDTOSeleccionado());
+            cerrarPanelesSecundarios();
+            obtenerListaPuestoGeneral();
+            JSFUtils.infoMessage("Actualización Puesto General: ", "Se realizo correctamente...");
+
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
+
+    public void eliminarPuestoGeneral() {
+        try {
+            puestoGeneral.eliminarPuestoGeneral(view.getIdPuestoGeneral());
+            cerrarDialogoAccionEliminar();
+            obtenerListaPuestoGeneral();
+            JSFUtils.infoMessage("Eliminación Puesto General: ", "Se realizo correctamente...");
+        } catch (BusinessException ex) {
+            JSFUtils.errorMessage("Error: ", ex.getMessage());
+        }
+    }
+
+    public void mostrarDialogoNuevoRegistro() {
+        view.setPuestoGeneralDTO(new PuestoGeneralDTO());
+        view.setPanelRegistro(true);
+        view.setPanelActualizar(false);
+    }
+
+    public void mostrarDialogoActualizarRegistro(PuestoGeneralDTO puestoGeneralDTO) {
+        view.setPuestoGeneralDTOSeleccionado(puestoGeneralDTO);
+        view.setPanelRegistro(false);
+        view.setPanelActualizar(true);
+    }
 
-	public void cerrarDialogoAccionEliminar() {
-		this.view.setPuestoGeneralDTO(new PuestoGeneralDTO());
-		this.view.setDialogoEliminar(false);
-		this.view.setPanelRegistro(false);
-		this.view.setPanelActualizar(false);
-	}
-
-	public void validarCampoNuevo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void mostrarDialogoEliminar(Integer idPuestoGeneral) {
+        view.setIdPuestoGeneral(idPuestoGeneral);
+        view.setDialogoEliminar(true);
+        view.setPanelRegistro(false);
+        view.setPanelActualizar(false);
+    }
 
-		String nombreComponente = component.getId();
-		String contexto = "Campo requerido.";
+    public void cerrarPanelesSecundarios() {
+        view.setPuestoGeneralDTO(new PuestoGeneralDTO());
+        view.setPuestoGeneralDTOSeleccionado(new PuestoGeneralDTO());
+        view.setPanelRegistro(false);
+        view.setPanelActualizar(false);
+        view.setDialogoEliminar(false);
+    }
 
-		switch (nombreComponente) {
+    public void cerrarDialogoAccionEliminar() {
+        view.setPuestoGeneralDTO(new PuestoGeneralDTO());
+        view.setDialogoEliminar(false);
+        view.setPanelRegistro(false);
+        view.setPanelActualizar(false);
+    }
 
-		case "codigo":
+    public void validarCampoNuevo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-			String codigo = String.valueOf(value);
+        String nombreComponente = component.getId();
+        String contexto = "Campo requerido.";
 
-			if (ValidacionUtil.esCadenaVacia(codigo)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Ingrese la codigo");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
-			if (!ValidacionUtil.esCadenaVacia(codigo)) {
-				Boolean claveValido = false;
+        switch (nombreComponente) {
 
-				claveValido = puestoGeneral.existeCodigo(codigo.trim());
+            case "codigo":
 
-				if (claveValido) {
-					FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-							"el codigo ya existe");
-					context.addMessage(component.getClientId(), facesMessage);
-					throw new ValidatorException(facesMessage);
-				}
-			}
+                String codigo = String.valueOf(value);
 
-			break;
+                if (ValidacionUtil.esCadenaVacia(codigo)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese la codigo");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
+                if (!ValidacionUtil.esCadenaVacia(codigo)) {
+                    Boolean claveValido = false;
 
-		case "puesto":
+                    claveValido = puestoGeneral.existeCodigo(codigo.trim());
 
-			String puesto = String.valueOf(value);
+                    if (claveValido) {
+                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "el codigo ya existe");
+                        context.addMessage(component.getClientId(), facesMessage);
+                        throw new ValidatorException(facesMessage);
+                    }
+                }
 
-			if (ValidacionUtil.esCadenaVacia(puesto)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Ingrese el nombre del puesto");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                break;
 
-			break;
+            case "puesto":
 
-		case "tipoTabulador":
+                String puesto = String.valueOf(value);
 
-			Integer tipoTabulador = (Integer) value;
+                if (ValidacionUtil.esCadenaVacia(puesto)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el nombre del puesto");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
-				this.view.getPuestoGeneralDTO().setIdTipoPuesto(0);
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo de puesto");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
+                break;
 
-			}
+            case "tipoTabulador":
 
-			break;
+                Integer tipoTabulador = (Integer) value;
 
-		case "rama":
+                if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
+                    view.getPuestoGeneralDTO().setIdTipoPuesto(0);
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo de puesto");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
 
-			Integer rama = (Integer) value;
+                }
 
-			if (!ValidacionUtil.esNumeroPositivo(rama)) {
-				this.view.getPuestoGeneralDTO().setIdRama(0);
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione la rama");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                break;
 
-			break;
+            case "rama":
 
-		default:
-			break;
-		}
+                Integer rama = (Integer) value;
 
-	}
+                if (!ValidacionUtil.esNumeroPositivo(rama)) {
+                    view.getPuestoGeneralDTO().setIdRama(0);
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione la rama");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	public void validarCampoActualizar(FacesContext context, UIComponent component, Object value)
-			throws ValidatorException {
+                break;
 
-		String nombreComponente = component.getId();
-		String contexto = "Campo requerido.";
+            default:
+                break;
+        }
 
-		switch (nombreComponente) {
+    }
 
-		case "codigoA":
+    public void validarCampoActualizar(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-			String codigo = String.valueOf(value);
+        String nombreComponente = component.getId();
+        String contexto = "Campo requerido.";
 
-			if (ValidacionUtil.esCadenaVacia(codigo)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Ingrese la codigo");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
-			if (!ValidacionUtil.esCadenaVacia(codigo)) {
-				Boolean claveValido = false;
+        switch (nombreComponente) {
 
-				claveValido = puestoGeneral.existeCodigoIdPuesto(
-						this.view.getPuestoGeneralDTOSeleccionado().getIdPuestoGeneral(), codigo.trim());
+            case "codigoA":
 
-				if (!claveValido) {
-					claveValido = puestoGeneral.existeCodigo(codigo.trim());
+                String codigo = String.valueOf(value);
 
-					if (claveValido) {
-						FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-								"el codigo ya existe");
-						context.addMessage(component.getClientId(), facesMessage);
-						throw new ValidatorException(facesMessage);
-					}
-				}
-			}
+                if (ValidacionUtil.esCadenaVacia(codigo)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese la codigo");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
+                if (!ValidacionUtil.esCadenaVacia(codigo)) {
+                    Boolean claveValido = false;
 
-			break;
+                    claveValido = puestoGeneral.existeCodigoIdPuesto(view.getPuestoGeneralDTOSeleccionado().getIdPuestoGeneral(), codigo.trim());
 
-		case "puestoA":
+                    if (!claveValido) {
+                        claveValido = puestoGeneral.existeCodigo(codigo.trim());
 
-			String puesto = String.valueOf(value);
+                        if (claveValido) {
+                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "el codigo ya existe");
+                            context.addMessage(component.getClientId(), facesMessage);
+                            throw new ValidatorException(facesMessage);
+                        }
+                    }
+                }
 
-			if (ValidacionUtil.esCadenaVacia(puesto)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Ingrese el nombre del puesto");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                break;
 
-			break;
+            case "puestoA":
 
-		case "tipoTabuladorA":
+                String puesto = String.valueOf(value);
 
-			Integer tipoTabulador = (Integer) value;
+                if (ValidacionUtil.esCadenaVacia(puesto)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el nombre del puesto");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione el tipo de puesto");
-				context.addMessage(component.getClientId(), facesMessage);
+                break;
 
-				throw new ValidatorException(facesMessage);
-			}
+            case "tipoTabuladorA":
 
-			break;
+                Integer tipoTabulador = (Integer) value;
 
-		case "ramaA":
+                if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo de puesto");
+                    context.addMessage(component.getClientId(), facesMessage);
 
-			Integer rama = (Integer) value;
+                    throw new ValidatorException(facesMessage);
+                }
 
-			if (!ValidacionUtil.esNumeroPositivo(rama)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
-						"Seleccione la rama");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                break;
 
-			break;
+            case "ramaA":
 
-		default:
-			break;
-		}
+                Integer rama = (Integer) value;
 
-	}
+                if (!ValidacionUtil.esNumeroPositivo(rama)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione la rama");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	
-	/**
-	 * @return the view
-	 */
-	public PuestoGeneralView getView() {
-		return view;
-	}
+                break;
 
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(PuestoGeneralView view) {
-		this.view = view;
-	}
+            default:
+                break;
+        }
+
+    }
+
+    /**
+     * @return the view
+     */
+    public PuestoGeneralView getView() {
+        return view;
+    }
+
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(PuestoGeneralView view) {
+        this.view = view;
+    }
 
 }

@@ -1,28 +1,26 @@
 /*
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
-import java.util.List;
+
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Entity
 @Table(name = "documentos_adjuntables")
 public class DocumentoAdjuntableEntity implements Serializable {
 
-    /**  */
+    
     private static final long serialVersionUID = 6589084464076232301L;
 
     @Id
@@ -35,19 +33,19 @@ public class DocumentoAdjuntableEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "confidencial")
     private boolean confidencial;
-    
+
     @Basic(optional = false)
     @Column(name = "original")
     private boolean original;
-    
+
     @Basic(optional = false)
     @Column(name = "requerido")
     private boolean requerido;
-    
+
     @Basic(optional = false)
     @Column(name = "unico")
     private boolean unico;
-    
+
     @Basic(optional = false)
     @Column(name = "contexto_documento")
     private Integer contextoDocumento;

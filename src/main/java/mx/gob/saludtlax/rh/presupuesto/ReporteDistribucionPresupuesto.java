@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.presupuesto;
 
 import java.io.ByteArrayOutputStream;
@@ -64,9 +65,9 @@ public class ReporteDistribucionPresupuesto implements Serializable {
     private final XSSFWorkbook reporteDistribucion = new XSSFWorkbook();
     // Hoja
     private final Sheet sheet = reporteDistribucion.createSheet("Reporte");
-    
+
     private static final List<String> ENCABEZADOS;
-    
+
     static {
         ENCABEZADOS = new ArrayList<>();
         ENCABEZADOS.add("PARTIDA");
@@ -266,10 +267,10 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         fuenteTitulo.setBold(true);
         fuenteTitulo.setFontHeightInPoints((short) 10);
         CellStyle estilo = reporteDistribucion.createCellStyle();
-        estilo.setBorderLeft( BorderStyle.THIN);
-        estilo.setBorderTop( BorderStyle.THIN);
-        estilo.setBorderBottom( BorderStyle.THIN);
-        estilo.setBorderRight( BorderStyle.THIN);
+        estilo.setBorderLeft(BorderStyle.THIN);
+        estilo.setBorderTop(BorderStyle.THIN);
+        estilo.setBorderBottom(BorderStyle.THIN);
+        estilo.setBorderRight(BorderStyle.THIN);
         estilo.setAlignment(HorizontalAlignment.LEFT);
         estilo.setVerticalAlignment(VerticalAlignment.CENTER);
         estilo.setFont(fuenteTitulo);
@@ -283,10 +284,10 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         fuenteTitulo.setBold(true);
         fuenteTitulo.setFontHeightInPoints((short) 10);
         CellStyle estilo = reporteDistribucion.createCellStyle();
-        estilo.setBorderLeft( BorderStyle.THIN);
-        estilo.setBorderTop( BorderStyle.THIN);
-        estilo.setBorderBottom( BorderStyle.THIN);
-        estilo.setBorderRight( BorderStyle.THIN);
+        estilo.setBorderLeft(BorderStyle.THIN);
+        estilo.setBorderTop(BorderStyle.THIN);
+        estilo.setBorderBottom(BorderStyle.THIN);
+        estilo.setBorderRight(BorderStyle.THIN);
         estilo.setAlignment(HorizontalAlignment.RIGHT);
         estilo.setVerticalAlignment(VerticalAlignment.CENTER);
         estilo.setFont(fuenteTitulo);
@@ -300,10 +301,10 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         fuenteTitulo.setBold(true);
         fuenteTitulo.setFontHeightInPoints((short) 10);
         CellStyle estilo = reporteDistribucion.createCellStyle();
-        estilo.setBorderLeft( BorderStyle.THIN);
-        estilo.setBorderTop( BorderStyle.THIN);
-        estilo.setBorderBottom( BorderStyle.THIN);
-        estilo.setBorderRight( BorderStyle.THIN);
+        estilo.setBorderLeft(BorderStyle.THIN);
+        estilo.setBorderTop(BorderStyle.THIN);
+        estilo.setBorderBottom(BorderStyle.THIN);
+        estilo.setBorderRight(BorderStyle.THIN);
         estilo.setAlignment(HorizontalAlignment.RIGHT);
         estilo.setVerticalAlignment(VerticalAlignment.CENTER);
         estilo.setFont(fuenteTitulo);
@@ -318,9 +319,9 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         fuenteTitulo.setFontHeightInPoints((short) 10);
         CellStyle estilo = reporteDistribucion.createCellStyle();
         estilo.setBorderLeft(BorderStyle.THIN);
-        estilo.setBorderTop( BorderStyle.THIN);
-        estilo.setBorderBottom( BorderStyle.THIN);
-        estilo.setBorderRight( BorderStyle.THIN);
+        estilo.setBorderTop(BorderStyle.THIN);
+        estilo.setBorderBottom(BorderStyle.THIN);
+        estilo.setBorderRight(BorderStyle.THIN);
         estilo.setAlignment(HorizontalAlignment.CENTER);
         estilo.setVerticalAlignment(VerticalAlignment.CENTER);
         estilo.setFont(fuenteTitulo);

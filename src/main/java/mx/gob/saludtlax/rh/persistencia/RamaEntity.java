@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -14,56 +15,55 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @since  27/07/2016 10:57:02
+ * @since 27/07/2016 10:57:02
  * @version 1.0
- * @email lic.eduardo_mex@hotmail.com
+
  */
 @Entity
-@Table(name  = "ramas")
-public class RamaEntity implements Serializable{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3167242269188642706L;
+@Table(name = "ramas")
+public class RamaEntity implements Serializable {
 
-	@Id
-	@Column(name = "id_rama_puesto")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idRamaPuesto;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3167242269188642706L;
 
-	@Column(name  = "nombre_rama_puesto")
-	private String nombreRamaPuesto;
-	
-	
+    @Id
+    @Column(name = "id_rama_puesto")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idRamaPuesto;
 
-	/**
-	 * @return the idRamaPuesto
-	 */
-	public Integer getIdRamaPuesto() {
-		return idRamaPuesto;
-	}
+    @Column(name = "nombre_rama_puesto")
+    private String nombreRamaPuesto;
 
-	/**
-	 * @param idRamaPuesto the idRamaPuesto to set
-	 */
-	public void setIdRamaPuesto(Integer idRamaPuesto) {
-		this.idRamaPuesto = idRamaPuesto;
-	}
+    /**
+     * @return the idRamaPuesto
+     */
+    public Integer getIdRamaPuesto() {
+        return idRamaPuesto;
+    }
 
-	/**
-	 * @return the nombreRamaPuesto
-	 */
-	public String getNombreRamaPuesto() {
-		return nombreRamaPuesto;
-	}
+    /**
+     * @param idRamaPuesto
+     *            the idRamaPuesto to set
+     */
+    public void setIdRamaPuesto(Integer idRamaPuesto) {
+        this.idRamaPuesto = idRamaPuesto;
+    }
 
-	/**
-	 * @param nombreRamaPuesto the nombreRamaPuesto to set
-	 */
-	public void setNombreRamaPuesto(String nombreRamaPuesto) {
-		this.nombreRamaPuesto = nombreRamaPuesto;
-	}
-	
-	
+    /**
+     * @return the nombreRamaPuesto
+     */
+    public String getNombreRamaPuesto() {
+        return nombreRamaPuesto;
+    }
+
+    /**
+     * @param nombreRamaPuesto
+     *            the nombreRamaPuesto to set
+     */
+    public void setNombreRamaPuesto(String nombreRamaPuesto) {
+        this.nombreRamaPuesto = nombreRamaPuesto;
+    }
+
 }

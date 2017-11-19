@@ -1,13 +1,13 @@
 /*
  * PagoGeneralReporteDTO.java
  * Creado el 13/Feb/2017 5:02:48 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
@@ -22,7 +22,7 @@ public class PagoGeneralReporteDTO implements Serializable {
 
     private static final long serialVersionUID = -7771614443915548225L;
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteDTO.class.getName());
-    
+
     private String programa;
     private Integer numeroConsecutivoRegistro;
     private String mes;
@@ -57,8 +57,7 @@ public class PagoGeneralReporteDTO implements Serializable {
     private BigDecimal total;
 
     public PagoGeneralReporteDTO() {
-        this(
-                "", // programa
+        this("", // programa
                 0, // numeroConsecutivoRegistro
                 "", // mes
                 "", // entidad
@@ -89,22 +88,15 @@ public class PagoGeneralReporteDTO implements Serializable {
                 BigDecimal.ZERO,// faltas
                 BigDecimal.ZERO,// pensionAlimenticia
                 BigDecimal.ZERO,// deduccionTotal
-                BigDecimal.ZERO// total      
+                BigDecimal.ZERO// total
         );
     }
-    
-    public PagoGeneralReporteDTO(String programa, Integer numeroConsecutivoRegistro, 
-            String mes, String entidad, String tipoCentroSalud,
-            String claveClues, String nombreUnidad, String areaAdscripcion,
-            String puesto, String clavePuesto, String servicio, String rama,
-            String nombre, String rfc, String turno, Date fechaIngreso,
-            String centroResponsabilidad, String funcion, BigDecimal _01Sueldo,
-            BigDecimal _14pComp, BigDecimal _26Subsidio, BigDecimal _29rFaltas,
-            BigDecimal _30Retroa, BigDecimal _52Ispt,
-            BigDecimal _56EmbargoSalario, BigDecimal percepcionTotal,
-            BigDecimal percepcionNeta, BigDecimal isr, BigDecimal faltas,
-            BigDecimal pensionAlimenticia, BigDecimal deduccionTotal,
-            BigDecimal total) {
+
+    public PagoGeneralReporteDTO(String programa, Integer numeroConsecutivoRegistro, String mes, String entidad, String tipoCentroSalud, String claveClues,
+            String nombreUnidad, String areaAdscripcion, String puesto, String clavePuesto, String servicio, String rama, String nombre, String rfc,
+            String turno, Date fechaIngreso, String centroResponsabilidad, String funcion, BigDecimal _01Sueldo, BigDecimal _14pComp, BigDecimal _26Subsidio,
+            BigDecimal _29rFaltas, BigDecimal _30Retroa, BigDecimal _52Ispt, BigDecimal _56EmbargoSalario, BigDecimal percepcionTotal,
+            BigDecimal percepcionNeta, BigDecimal isr, BigDecimal faltas, BigDecimal pensionAlimenticia, BigDecimal deduccionTotal, BigDecimal total) {
         this.programa = programa;
         this.numeroConsecutivoRegistro = numeroConsecutivoRegistro;
         this.mes = mes;
@@ -138,7 +130,7 @@ public class PagoGeneralReporteDTO implements Serializable {
         this.deduccionTotal = deduccionTotal;
         this.total = total;
     }
-    
+
     /**
      * Get the value of programa
      *
@@ -151,7 +143,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of programa
      *
-     * @param programa new value of programa
+     * @param programa
+     *            new value of programa
      */
     public void setPrograma(String programa) {
         this.programa = programa;
@@ -169,7 +162,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of numeroConsecutivoRegistro
      *
-     * @param numeroConsecutivoRegistro new value of numeroConsecutivoRegistro
+     * @param numeroConsecutivoRegistro
+     *            new value of numeroConsecutivoRegistro
      */
     public void setNumeroConsecutivoRegistro(Integer numeroConsecutivoRegistro) {
         this.numeroConsecutivoRegistro = numeroConsecutivoRegistro;
@@ -187,7 +181,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of mes
      *
-     * @param mes new value of mes
+     * @param mes
+     *            new value of mes
      */
     public void setMes(String mes) {
         this.mes = mes;
@@ -205,7 +200,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of entidad
      *
-     * @param entidad new value of entidad
+     * @param entidad
+     *            new value of entidad
      */
     public void setEntidad(String entidad) {
         this.entidad = entidad;
@@ -223,7 +219,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of tipoCentroSalud
      *
-     * @param tipoCentroSalud new value of tipoCentroSalud
+     * @param tipoCentroSalud
+     *            new value of tipoCentroSalud
      */
     public void setTipoCentroSalud(String tipoCentroSalud) {
         this.tipoCentroSalud = tipoCentroSalud;
@@ -241,7 +238,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of claveClues
      *
-     * @param claveClues new value of claveClues
+     * @param claveClues
+     *            new value of claveClues
      */
     public void setClaveClues(String claveClues) {
         this.claveClues = claveClues;
@@ -259,7 +257,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of nombreUnidad
      *
-     * @param nombreUnidad new value of nombreUnidad
+     * @param nombreUnidad
+     *            new value of nombreUnidad
      */
     public void setNombreUnidad(String nombreUnidad) {
         this.nombreUnidad = nombreUnidad;
@@ -277,7 +276,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of areaAdscripcion
      *
-     * @param areaAdscripcion new value of areaAdscripcion
+     * @param areaAdscripcion
+     *            new value of areaAdscripcion
      */
     public void setAreaAdscripcion(String areaAdscripcion) {
         this.areaAdscripcion = areaAdscripcion;
@@ -295,7 +295,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of puesto
      *
-     * @param puesto new value of puesto
+     * @param puesto
+     *            new value of puesto
      */
     public void setPuesto(String puesto) {
         this.puesto = puesto;
@@ -313,7 +314,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of clavePuesto
      *
-     * @param clavePuesto new value of clavePuesto
+     * @param clavePuesto
+     *            new value of clavePuesto
      */
     public void setClavePuesto(String clavePuesto) {
         this.clavePuesto = clavePuesto;
@@ -331,7 +333,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of servicio
      *
-     * @param servicio new value of servicio
+     * @param servicio
+     *            new value of servicio
      */
     public void setServicio(String servicio) {
         this.servicio = servicio;
@@ -349,7 +352,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of rama
      *
-     * @param rama new value of rama
+     * @param rama
+     *            new value of rama
      */
     public void setRama(String rama) {
         this.rama = rama;
@@ -367,7 +371,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of nombre
      *
-     * @param nombre new value of nombre
+     * @param nombre
+     *            new value of nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -385,7 +390,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of rfc
      *
-     * @param rfc new value of rfc
+     * @param rfc
+     *            new value of rfc
      */
     public void setRfc(String rfc) {
         this.rfc = rfc;
@@ -403,7 +409,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of turno
      *
-     * @param turno new value of turno
+     * @param turno
+     *            new value of turno
      */
     public void setTurno(String turno) {
         this.turno = turno;
@@ -421,7 +428,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of fechaIngreso
      *
-     * @param fechaIngreso new value of fechaIngreso
+     * @param fechaIngreso
+     *            new value of fechaIngreso
      */
     public void setFechaIngreso(Date fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
@@ -439,7 +447,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of centroResponsabilidad
      *
-     * @param centroResponsabilidad new value of centroResponsabilidad
+     * @param centroResponsabilidad
+     *            new value of centroResponsabilidad
      */
     public void setCentroResponsabilidad(String centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
@@ -457,7 +466,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of funcion
      *
-     * @param funcion new value of funcion
+     * @param funcion
+     *            new value of funcion
      */
     public void setFuncion(String funcion) {
         this.funcion = funcion;
@@ -475,7 +485,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _01Sueldo
      *
-     * @param _01Sueldo new value of _01Sueldo
+     * @param _01Sueldo
+     *            new value of _01Sueldo
      */
     public void set01Sueldo(BigDecimal _01Sueldo) {
         this._01Sueldo = _01Sueldo == null ? BigDecimal.ZERO : _01Sueldo;
@@ -493,7 +504,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _14pComp
      *
-     * @param _14pComp new value of _14pComp
+     * @param _14pComp
+     *            new value of _14pComp
      */
     public void set14pComp(BigDecimal _14pComp) {
         this._14pComp = _14pComp == null ? BigDecimal.ZERO : _14pComp;
@@ -511,7 +523,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _26Subsidio
      *
-     * @param _26Subsidio new value of _26Subsidio
+     * @param _26Subsidio
+     *            new value of _26Subsidio
      */
     public void set26Subsidio(BigDecimal _26Subsidio) {
         this._26Subsidio = _26Subsidio == null ? BigDecimal.ZERO : _26Subsidio;
@@ -529,7 +542,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _29rFaltas
      *
-     * @param _29rFaltas new value of _29rFaltas
+     * @param _29rFaltas
+     *            new value of _29rFaltas
      */
     public void set29rFaltas(BigDecimal _29rFaltas) {
         this._29rFaltas = _29rFaltas == null ? BigDecimal.ZERO : _29rFaltas;
@@ -547,7 +561,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _30Retroa
      *
-     * @param _30Retroa new value of _30Retroa
+     * @param _30Retroa
+     *            new value of _30Retroa
      */
     public void set30Retroa(BigDecimal _30Retroa) {
         this._30Retroa = _30Retroa == null ? BigDecimal.ZERO : _30Retroa;
@@ -565,7 +580,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _52Ispt
      *
-     * @param _52Ispt new value of _52Ispt
+     * @param _52Ispt
+     *            new value of _52Ispt
      */
     public void set52Ispt(BigDecimal _52Ispt) {
         this._52Ispt = _52Ispt == null ? BigDecimal.ZERO : _52Ispt;
@@ -583,7 +599,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of _56EmbargoSalario
      *
-     * @param _56EmbargoSalario new value of _56EmbargoSalario
+     * @param _56EmbargoSalario
+     *            new value of _56EmbargoSalario
      */
     public void set56EmbargoSalario(BigDecimal _56EmbargoSalario) {
         this._56EmbargoSalario = _56EmbargoSalario == null ? BigDecimal.ZERO : _56EmbargoSalario;
@@ -601,7 +618,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of percepcionTotal
      *
-     * @param percepcionTotal new value of percepcionTotal
+     * @param percepcionTotal
+     *            new value of percepcionTotal
      */
     public void setPercepcionTotal(BigDecimal percepcionTotal) {
         this.percepcionTotal = percepcionTotal == null ? BigDecimal.ZERO : percepcionTotal;
@@ -619,7 +637,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of percepcionNeta
      *
-     * @param percepcionNeta new value of percepcionNeta
+     * @param percepcionNeta
+     *            new value of percepcionNeta
      */
     public void setPercepcionNeta(BigDecimal percepcionNeta) {
         this.percepcionNeta = percepcionNeta == null ? BigDecimal.ZERO : percepcionNeta;
@@ -637,7 +656,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of isr
      *
-     * @param isr new value of isr
+     * @param isr
+     *            new value of isr
      */
     public void setIsr(BigDecimal isr) {
         this.isr = isr == null ? BigDecimal.ZERO : isr;
@@ -655,10 +675,11 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of faltas
      *
-     * @param faltas new value of faltas
+     * @param faltas
+     *            new value of faltas
      */
     public void setFaltas(BigDecimal faltas) {
-        this.faltas = faltas == null ? BigDecimal.ZERO :  faltas;
+        this.faltas = faltas == null ? BigDecimal.ZERO : faltas;
     }
 
     /**
@@ -673,7 +694,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of pensionAlimenticia
      *
-     * @param pensionAlimenticia new value of pensionAlimenticia
+     * @param pensionAlimenticia
+     *            new value of pensionAlimenticia
      */
     public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
         this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia;
@@ -691,7 +713,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of deduccionTotal
      *
-     * @param deduccionTotal new value of deduccionTotal
+     * @param deduccionTotal
+     *            new value of deduccionTotal
      */
     public void setDeduccionTotal(BigDecimal deduccionTotal) {
         this.deduccionTotal = deduccionTotal == null ? BigDecimal.ZERO : deduccionTotal;
@@ -709,7 +732,8 @@ public class PagoGeneralReporteDTO implements Serializable {
     /**
      * Set the value of total
      *
-     * @param total new value of total
+     * @param total
+     *            new value of total
      */
     public void setTotal(BigDecimal total) {
         this.total = total == null ? BigDecimal.ZERO : total;
@@ -863,40 +887,14 @@ public class PagoGeneralReporteDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PagoQuincenaDTO{" 
-                + "programa=" + programa
-                + ", numeroConsecutivoRegistro=" + numeroConsecutivoRegistro
-                + ", mes=" + mes
-                + ", entidad=" + entidad
-                + ", tipoCentroSalud=" + tipoCentroSalud
-                + ", claveClues=" + claveClues
-                + ", nombreUnidad=" + nombreUnidad
-                + ", areaAdscripcion=" + areaAdscripcion
-                + ", puesto=" + puesto
-                + ", clavePuesto=" + clavePuesto
-                + ", servicio=" + servicio
-                + ", rama=" + rama
-                + ", nombre=" + nombre
-                + ", rfc=" + rfc
-                + ", turno=" + turno
-                + ", fechaIngreso=" + fechaIngreso
-                + ", centroResponsabilidad=" + centroResponsabilidad
-                + ", funcion=" + funcion
-                + ", _01Sueldo=" + _01Sueldo
-                + ", _14pComp=" + _14pComp
-                + ", _26Subsidio=" + _26Subsidio
-                + ", _29rFaltas=" + _29rFaltas
-                + ", _30Retroa=" + _30Retroa
-                + ", _52Ispt=" + _52Ispt
-                + ", _56EmbargoSalario=" + _56EmbargoSalario
-                + ", percepcionTotal=" + percepcionTotal
-                + ", percepcionNeta=" + percepcionNeta
-                + ", isr=" + isr
-                + ", faltas=" + faltas
-                + ", pensionAlimenticia=" + pensionAlimenticia
-                + ", deduccionTotal=" + deduccionTotal
-                + ", total=" + total
-                + '}';
+        return "PagoQuincenaDTO{" + "programa=" + programa + ", numeroConsecutivoRegistro=" + numeroConsecutivoRegistro + ", mes=" + mes + ", entidad="
+                + entidad + ", tipoCentroSalud=" + tipoCentroSalud + ", claveClues=" + claveClues + ", nombreUnidad=" + nombreUnidad + ", areaAdscripcion="
+                + areaAdscripcion + ", puesto=" + puesto + ", clavePuesto=" + clavePuesto + ", servicio=" + servicio + ", rama=" + rama + ", nombre=" + nombre
+                + ", rfc=" + rfc + ", turno=" + turno + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad=" + centroResponsabilidad + ", funcion="
+                + funcion + ", _01Sueldo=" + _01Sueldo + ", _14pComp=" + _14pComp + ", _26Subsidio=" + _26Subsidio + ", _29rFaltas=" + _29rFaltas
+                + ", _30Retroa=" + _30Retroa + ", _52Ispt=" + _52Ispt + ", _56EmbargoSalario=" + _56EmbargoSalario + ", percepcionTotal=" + percepcionTotal
+                + ", percepcionNeta=" + percepcionNeta + ", isr=" + isr + ", faltas=" + faltas + ", pensionAlimenticia=" + pensionAlimenticia
+                + ", deduccionTotal=" + deduccionTotal + ", total=" + total + '}';
     }
 
 }

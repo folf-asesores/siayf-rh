@@ -1,12 +1,15 @@
 /*
  * DependienteEconomicoView.java
  * Creado el Sep 26, 2016 10:47:41 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.administracion;
 
 import java.util.List;
+
 import javax.faces.model.SelectItem;
+
 import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 
 /**

@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -16,38 +17,40 @@ import javax.persistence.Table;
 @Table(name = "clasificaciones_nominas")
 public class ClasificacionNominaEntity implements Serializable {
 
-	private static final long serialVersionUID = -3491218769714297031L;
+    private static final long serialVersionUID = -3491218769714297031L;
 
-	@Id
-	@Column(name = "id_clasificacion_nomina")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idClasificacionNomina;
+    @Id
+    @Column(name = "id_clasificacion_nomina")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idClasificacionNomina;
 
+    @Column(name = "clasificacion_nomina")
+    private String clasificacionNomina;
+    @Column(name = "descripcion")
+    private String descripcion;
 
-	@Column(name = "clasificacion_nomina")
-	private String clasificacionNomina;
-	@Column(name = "descripcion")
-	private String descripcion;
+    public String getClasificacionNomina() {
+        return clasificacionNomina;
+    }
 
-//	<<<<<Getters & Setters>>>>>
+    public Integer getIdClasificacionNomina() {
+        return idClasificacionNomina;
+    }
 
-	public String getClasificacionNomina() {
-		return clasificacionNomina;
-	}
-	public Integer getIdClasificacionNomina() {
-		return idClasificacionNomina;
-	}
-	public void setIdClasificacionNomina(Integer idClasificacionNomina) {
-		this.idClasificacionNomina = idClasificacionNomina;
-	}
-	public void setClasificacionNomina(String clasificacionNomina) {
-		this.clasificacionNomina = clasificacionNomina;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setIdClasificacionNomina(Integer idClasificacionNomina) {
+        this.idClasificacionNomina = idClasificacionNomina;
+    }
+
+    public void setClasificacionNomina(String clasificacionNomina) {
+        this.clasificacionNomina = clasificacionNomina;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
 }

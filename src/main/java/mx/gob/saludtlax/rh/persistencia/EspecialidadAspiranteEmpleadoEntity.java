@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -18,69 +19,67 @@ import javax.validation.constraints.NotNull;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 14:04:40 05/08/2016
  */
 @Entity
 @Table(name = "especialidades_aspirantes_empleados")
-public class EspecialidadAspiranteEmpleadoEntity implements Serializable{
+public class EspecialidadAspiranteEmpleadoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6247996716398840195L;
-	
-	@Id
-	@Column(name = "id_especialidad_aspirante_empleado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEspecialidadAspiranteEmpleado;
-	
-	@NotNull
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_especialidad")
-	private EspecialidadEntity especialidad;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6247996716398840195L;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_aspirante")
-	private AspiranteEntity aspirante;
+    @Id
+    @Column(name = "id_especialidad_aspirante_empleado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEspecialidadAspiranteEmpleado;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_empleado")
-	private EmpleadoEntity empleado;
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_especialidad")
+    private EspecialidadEntity especialidad;
 
-	public Integer getIdEspecialidadAspiranteEmpleado() {
-		return idEspecialidadAspiranteEmpleado;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_aspirante")
+    private AspiranteEntity aspirante;
 
-	public void setIdEspecialidadAspiranteEmpleado(Integer idEspecialidadAspiranteEmpleado) {
-		this.idEspecialidadAspiranteEmpleado = idEspecialidadAspiranteEmpleado;
-	}
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empleado")
+    private EmpleadoEntity empleado;
 
-	public EspecialidadEntity getEspecialidad() {
-		return especialidad;
-	}
+    public Integer getIdEspecialidadAspiranteEmpleado() {
+        return idEspecialidadAspiranteEmpleado;
+    }
 
-	public void setEspecialidad(EspecialidadEntity especialidad) {
-		this.especialidad = especialidad;
-	}
+    public void setIdEspecialidadAspiranteEmpleado(Integer idEspecialidadAspiranteEmpleado) {
+        this.idEspecialidadAspiranteEmpleado = idEspecialidadAspiranteEmpleado;
+    }
 
-	public AspiranteEntity getAspirante() {
-		return aspirante;
-	}
+    public EspecialidadEntity getEspecialidad() {
+        return especialidad;
+    }
 
-	public void setAspirante(AspiranteEntity aspirante) {
-		this.aspirante = aspirante;
-	}
+    public void setEspecialidad(EspecialidadEntity especialidad) {
+        this.especialidad = especialidad;
+    }
 
-	public EmpleadoEntity getEmpleado() {
-		return empleado;
-	}
+    public AspiranteEntity getAspirante() {
+        return aspirante;
+    }
 
-	public void setEmpleado(EmpleadoEntity empleado) {
-		this.empleado = empleado;
-	}
+    public void setAspirante(AspiranteEntity aspirante) {
+        this.aspirante = aspirante;
+    }
 
-	
-	
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
+
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
+
 }

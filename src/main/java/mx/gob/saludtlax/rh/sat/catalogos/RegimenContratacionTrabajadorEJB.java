@@ -1,21 +1,24 @@
 /*
  *  RegimenContratacionTrabajadorEJB.java
  *  Creado el May 25, 2016 1:59:59 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.sat.catalogos;
 
 import java.util.List;
+
 import javax.inject.Inject;
 
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class RegimenContratacionTrabajadorEJB implements RegimenContratacionTrabajador{
+public class RegimenContratacionTrabajadorEJB implements RegimenContratacionTrabajador {
 
-    @Inject private RegimenContratacionTrabajadorService regimenContratacionTrabajadorService;
-    
+    @Inject
+    private RegimenContratacionTrabajadorService regimenContratacionTrabajadorService;
+
     @Override
     public int crear(RegimenContratacionTrabajadorDTO regimenContratacionTrabajadorDTO) {
         return regimenContratacionTrabajadorService.crear(regimenContratacionTrabajadorDTO);
@@ -40,5 +43,5 @@ public class RegimenContratacionTrabajadorEJB implements RegimenContratacionTrab
     public void eliminar(int idRegimenContratacionTrabajador) {
         regimenContratacionTrabajadorService.eliminar(idRegimenContratacionTrabajador);
     }
-    
+
 }

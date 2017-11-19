@@ -1,141 +1,139 @@
+
 package mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento;
 
 import java.util.List;
 
 public class FuenteFinanciamientoOPDView {
-	private Integer fuenteFinanciamientoCriterio;
-	private List<FuenteFinanciamientoDTO> listFuenteFinanciamiento;
-	
-	private Integer fuenteFinanciamientoOPDCriterio;
-	private List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD;
-	private List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista;
-	private FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect;
-	private FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD;
-	
-	private Integer subfuenteFinanciamientoCriterio;
-	private List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento;
+    private Integer fuenteFinanciamientoCriterio;
+    private List<FuenteFinanciamientoDTO> listFuenteFinanciamiento;
 
-	private Boolean disabledIrGestionarOPD;
-	private Boolean operacionNuevoOPD;	
-	private Boolean panelPrincipal;
-	private Boolean panelGestion;
-	
+    private Integer fuenteFinanciamientoOPDCriterio;
+    private List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD;
+    private List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista;
+    private FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect;
+    private FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD;
 
-	public void panelPrincipal() {
-		panelPrincipal = Boolean.TRUE;
-		panelGestion = Boolean.FALSE;
-		disabledIrGestionarOPD = Boolean.TRUE;
-		operacionNuevoOPD = null;
-	}
+    private Integer subfuenteFinanciamientoCriterio;
+    private List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento;
 
-	public void panelGestion() {
-		panelPrincipal = Boolean.FALSE;
-		panelGestion = Boolean.TRUE;
-	}
-//	<Getters & Setters>	
+    private Boolean disabledIrGestionarOPD;
+    private Boolean operacionNuevoOPD;
+    private Boolean panelPrincipal;
+    private Boolean panelGestion;
 
-	public Integer getFuenteFinanciamientoCriterio() {
-		return fuenteFinanciamientoCriterio;
-	}
+    public void panelPrincipal() {
+        panelPrincipal = Boolean.TRUE;
+        panelGestion = Boolean.FALSE;
+        disabledIrGestionarOPD = Boolean.TRUE;
+        operacionNuevoOPD = null;
+    }
 
-	public void setFuenteFinanciamientoCriterio(Integer fuenteFinanciamientoCriterio) {
-		this.fuenteFinanciamientoCriterio = fuenteFinanciamientoCriterio;
-	}
+    public void panelGestion() {
+        panelPrincipal = Boolean.FALSE;
+        panelGestion = Boolean.TRUE;
+    }
 
-	public List<FuenteFinanciamientoDTO> getListFuenteFinanciamiento() {
-		return listFuenteFinanciamiento;
-	}
+    public Integer getFuenteFinanciamientoCriterio() {
+        return fuenteFinanciamientoCriterio;
+    }
 
-	public void setListFuenteFinanciamiento(List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
-		this.listFuenteFinanciamiento = listFuenteFinanciamiento;
-	}
+    public void setFuenteFinanciamientoCriterio(Integer fuenteFinanciamientoCriterio) {
+        this.fuenteFinanciamientoCriterio = fuenteFinanciamientoCriterio;
+    }
 
-	public Integer getFuenteFinanciamientoOPDCriterio() {
-		return fuenteFinanciamientoOPDCriterio;
-	}
+    public List<FuenteFinanciamientoDTO> getListFuenteFinanciamiento() {
+        return listFuenteFinanciamiento;
+    }
 
-	public void setFuenteFinanciamientoOPDCriterio(Integer fuenteFinanciamientoOPDCriterio) {
-		this.fuenteFinanciamientoOPDCriterio = fuenteFinanciamientoOPDCriterio;
-	}
+    public void setListFuenteFinanciamiento(List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
+        this.listFuenteFinanciamiento = listFuenteFinanciamiento;
+    }
 
-	public List<FuenteFinanciamientoOPDDTO> getListFuenteFinanciamientoOPD() {
-		return listFuenteFinanciamientoOPD;
-	}
+    public Integer getFuenteFinanciamientoOPDCriterio() {
+        return fuenteFinanciamientoOPDCriterio;
+    }
 
-	public void setListFuenteFinanciamientoOPD(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
-		this.listFuenteFinanciamientoOPD = listFuenteFinanciamientoOPD;
-	}
+    public void setFuenteFinanciamientoOPDCriterio(Integer fuenteFinanciamientoOPDCriterio) {
+        this.fuenteFinanciamientoOPDCriterio = fuenteFinanciamientoOPDCriterio;
+    }
 
-	public List<FuenteFinanciamientoOPDDTO> getListFuenteFinanciamientoOPDLista() {
-		return listFuenteFinanciamientoOPDLista;
-	}
+    public List<FuenteFinanciamientoOPDDTO> getListFuenteFinanciamientoOPD() {
+        return listFuenteFinanciamientoOPD;
+    }
 
-	public void setListFuenteFinanciamientoOPDLista(
-			List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista) {
-		this.listFuenteFinanciamientoOPDLista = listFuenteFinanciamientoOPDLista;
-	}
+    public void setListFuenteFinanciamientoOPD(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
+        this.listFuenteFinanciamientoOPD = listFuenteFinanciamientoOPD;
+    }
 
-	public FuenteFinanciamientoOPDDTO getFuenteFinanciamientoOPDSelect() {
-		return fuenteFinanciamientoOPDSelect;
-	}
+    public List<FuenteFinanciamientoOPDDTO> getListFuenteFinanciamientoOPDLista() {
+        return listFuenteFinanciamientoOPDLista;
+    }
 
-	public void setFuenteFinanciamientoOPDSelect(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect) {
-		this.fuenteFinanciamientoOPDSelect = fuenteFinanciamientoOPDSelect;
-	}
+    public void setListFuenteFinanciamientoOPDLista(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista) {
+        this.listFuenteFinanciamientoOPDLista = listFuenteFinanciamientoOPDLista;
+    }
 
-	public FuenteFinanciamientoOPDDTO getFuenteFinanciamientoOPD() {
-		return fuenteFinanciamientoOPD;
-	}
+    public FuenteFinanciamientoOPDDTO getFuenteFinanciamientoOPDSelect() {
+        return fuenteFinanciamientoOPDSelect;
+    }
 
-	public void setFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
-		this.fuenteFinanciamientoOPD = fuenteFinanciamientoOPD;
-	}
+    public void setFuenteFinanciamientoOPDSelect(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect) {
+        this.fuenteFinanciamientoOPDSelect = fuenteFinanciamientoOPDSelect;
+    }
 
-	public Integer getSubfuenteFinanciamientoCriterio() {
-		return subfuenteFinanciamientoCriterio;
-	}
+    public FuenteFinanciamientoOPDDTO getFuenteFinanciamientoOPD() {
+        return fuenteFinanciamientoOPD;
+    }
 
-	public void setSubfuenteFinanciamientoCriterio(Integer subfuenteFinanciamientoCriterio) {
-		this.subfuenteFinanciamientoCriterio = subfuenteFinanciamientoCriterio;
-	}
+    public void setFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
+        this.fuenteFinanciamientoOPD = fuenteFinanciamientoOPD;
+    }
 
-	public List<SubfuenteFinanciamientoDTO> getListSubfuenteFinanciamiento() {
-		return listSubfuenteFinanciamiento;
-	}
+    public Integer getSubfuenteFinanciamientoCriterio() {
+        return subfuenteFinanciamientoCriterio;
+    }
 
-	public void setListSubfuenteFinanciamiento(List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
-		this.listSubfuenteFinanciamiento = listSubfuenteFinanciamiento;
-	}
+    public void setSubfuenteFinanciamientoCriterio(Integer subfuenteFinanciamientoCriterio) {
+        this.subfuenteFinanciamientoCriterio = subfuenteFinanciamientoCriterio;
+    }
 
-	public Boolean getDisabledIrGestionarOPD() {
-		return disabledIrGestionarOPD;
-	}
+    public List<SubfuenteFinanciamientoDTO> getListSubfuenteFinanciamiento() {
+        return listSubfuenteFinanciamiento;
+    }
 
-	public void setDisabledIrGestionarOPD(Boolean disabledIrGestionarOPD) {
-		this.disabledIrGestionarOPD = disabledIrGestionarOPD;
-	}
+    public void setListSubfuenteFinanciamiento(List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
+        this.listSubfuenteFinanciamiento = listSubfuenteFinanciamiento;
+    }
 
-	public Boolean getOperacionNuevoOPD() {
-		return operacionNuevoOPD;
-	}
+    public Boolean getDisabledIrGestionarOPD() {
+        return disabledIrGestionarOPD;
+    }
 
-	public void setOperacionNuevoOPD(Boolean operacionNuevoOPD) {
-		this.operacionNuevoOPD = operacionNuevoOPD;
-	}
+    public void setDisabledIrGestionarOPD(Boolean disabledIrGestionarOPD) {
+        this.disabledIrGestionarOPD = disabledIrGestionarOPD;
+    }
 
-	public Boolean getPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public Boolean getOperacionNuevoOPD() {
+        return operacionNuevoOPD;
+    }
 
-	public void setPanelPrincipal(Boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public void setOperacionNuevoOPD(Boolean operacionNuevoOPD) {
+        this.operacionNuevoOPD = operacionNuevoOPD;
+    }
 
-	public Boolean getPanelGestion() {
-		return panelGestion;
-	}
+    public Boolean getPanelPrincipal() {
+        return panelPrincipal;
+    }
 
-	public void setPanelGestion(Boolean panelGestion) {
-		this.panelGestion = panelGestion;
-	}
+    public void setPanelPrincipal(Boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
+
+    public Boolean getPanelGestion() {
+        return panelGestion;
+    }
+
+    public void setPanelGestion(Boolean panelGestion) {
+        this.panelGestion = panelGestion;
+    }
 }

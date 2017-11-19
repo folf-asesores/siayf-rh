@@ -3,6 +3,7 @@
  * Creado el 09/Dec/2016 6:32:39 PM
  *
  */
+
 package mx.gob.saludtlax.rh.siif.seguropopular;
 
 import java.io.ByteArrayOutputStream;
@@ -11,14 +12,16 @@ import java.io.InputStream;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
-import mx.gob.saludtlax.rh.excepciones.SistemaException;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
+import mx.gob.saludtlax.rh.excepciones.SistemaException;
 
 /**
  * Esta clase se encarga de trabajar el archivo de Excel (plantilla) para
@@ -33,64 +36,64 @@ public class SeguroPopularReporteExcel implements Serializable {
     /** La fila desde la cual se iniciara el vaciado de la información. */
     private static final int FILA_INICIO_DETALLE = 1;
     // Las columnas de la plantilla.
-    private static final int NUMERO_CONSECUTIVO                       = 0;
-    private static final int MES                                      = 1;
-    private static final int ESTADO                                   = 2;
-    private static final int TIPO_CENTRO_SALUD_HOSPITAL               = 3;
-    private static final int CLUES                                    = 4;
-    private static final int NOMBRE_LA_UNIDAD                         = 5;
-    private static final int AREA_ADSCRIPCION                         = 6;
-    private static final int PUESTO                                   = 7;
-    private static final int CLAVE_PUESTO                             = 8;
-    private static final int SERVICIO                                 = 9;
-    private static final int RAMA                                     = 10;
-    private static final int NOMBRE                                   = 11;
-    private static final int RFC                                      = 12;
-    private static final int TURNO                                    = 13;
-    private static final int FECHA_INGRESO                            = 14;
-    private static final int C07_SUELDO_BASE                          = 15;
-    private static final int C30_COMPENSACION_RIESGO                  = 16;
-    private static final int C32_PRIMA_DOMINICAL                      = 17;
-    private static final int C38_DESPENSA                             = 18;
-    private static final int C42_ASIGNACION_BRUTA                     = 19;
-    private static final int C44_PREVISION_SOCIAL_MULTIPLE            = 20;
-    private static final int C45_AYUDA_ANTEOJOS                       = 21;
-    private static final int C46_AYUDA_SERVICIO                       = 22;
-    private static final int C55_AYUDA_GASTOS_ACTUALIZACION           = 23;
-    private static final int CQQ_PRIMA_QUINQUENAL                     = 24;
-    private static final int PERCEPCION_TOTAL                         = 25;
-    private static final int C01_IMPUESTO_SOBRE_RENTA                 = 26;
-    private static final int C02_SR_PENSION_JUBILACION                = 27;
-    private static final int C02_SI_SERVICIO_MEDICO                   = 28;
-    private static final int C02_SS_SERVICIO_SOCIAL_CULTURAL          = 29;
-    private static final int C03_PRESTAMO_PERSONAL                    = 30;
-    private static final int C04_SS_SERVICIO_MEDICO_MATERNIDAD        = 31;
-    private static final int C04_SP_SEGURO_INVALIDEZ_VIDA             = 32;
+    private static final int NUMERO_CONSECUTIVO = 0;
+    private static final int MES = 1;
+    private static final int ESTADO = 2;
+    private static final int TIPO_CENTRO_SALUD_HOSPITAL = 3;
+    private static final int CLUES = 4;
+    private static final int NOMBRE_LA_UNIDAD = 5;
+    private static final int AREA_ADSCRIPCION = 6;
+    private static final int PUESTO = 7;
+    private static final int CLAVE_PUESTO = 8;
+    private static final int SERVICIO = 9;
+    private static final int RAMA = 10;
+    private static final int NOMBRE = 11;
+    private static final int RFC = 12;
+    private static final int TURNO = 13;
+    private static final int FECHA_INGRESO = 14;
+    private static final int C07_SUELDO_BASE = 15;
+    private static final int C30_COMPENSACION_RIESGO = 16;
+    private static final int C32_PRIMA_DOMINICAL = 17;
+    private static final int C38_DESPENSA = 18;
+    private static final int C42_ASIGNACION_BRUTA = 19;
+    private static final int C44_PREVISION_SOCIAL_MULTIPLE = 20;
+    private static final int C45_AYUDA_ANTEOJOS = 21;
+    private static final int C46_AYUDA_SERVICIO = 22;
+    private static final int C55_AYUDA_GASTOS_ACTUALIZACION = 23;
+    private static final int CQQ_PRIMA_QUINQUENAL = 24;
+    private static final int PERCEPCION_TOTAL = 25;
+    private static final int C01_IMPUESTO_SOBRE_RENTA = 26;
+    private static final int C02_SR_PENSION_JUBILACION = 27;
+    private static final int C02_SI_SERVICIO_MEDICO = 28;
+    private static final int C02_SS_SERVICIO_SOCIAL_CULTURAL = 29;
+    private static final int C03_PRESTAMO_PERSONAL = 30;
+    private static final int C04_SS_SERVICIO_MEDICO_MATERNIDAD = 31;
+    private static final int C04_SP_SEGURO_INVALIDEZ_VIDA = 32;
     private static final int C09_SEGURO_DANYO_PRESTAMO_AVALADO_ISSSTE = 33;
-    private static final int C17_RETARDO_FALTA                        = 34;
-    private static final int C21_FONDO_AHORRO_CAPITALIZABLE           = 35;
-    private static final int C29_RESPONSABILIDAD                      = 36;
-    private static final int C34_SEGURO_RIESGO_PROFESIONAL            = 37;
-    private static final int C46_INBURSA                              = 38;
-    private static final int C46_SEGURO_ARGOS                         = 39;
-    private static final int C46_ETESA                                = 40;
-    private static final int C46_LA_TENDA                             = 41;
-    private static final int C46_PS_PUBLISEG                          = 42;
-    private static final int C46_SEGUROS_GNP                          = 43;
-    private static final int C46_AUDITORIA_OPERACION_CREDIEMPLEADO    = 44;
-    private static final int C46_CREDITO_EXPRES                       = 45;
-    private static final int C51_SEGURO_VIDA_INSTITUCIONAL            = 46;
-    private static final int C56_PRESTAMO_HIPOTECARIO                 = 47;
-    private static final int C57_SEGURO_VIDA_ADICIONAL_METLIFE        = 48;
-    private static final int C58_CUOTA_SINDICAL                       = 49;
-    private static final int C62_PENSION_ALIMENTICIA                  = 50;
-    private static final int C64_FONDO_VIVIENDA                       = 51;
-    private static final int C70_FONDO_AHORRO_DEFUNCION               = 52;
-    private static final int C77_SEGURO_RETIRO_METLIFE                = 53;
-    private static final int C97_DESCUENTO_PROMOBIEN                  = 54;
-    private static final int CAS_AHORRO_SOLIDARIO                     = 55;
-    private static final int DEDUCCION_TOTAL                          = 56;
-    private static final int PERCEPCION_NETA                          = 57;
+    private static final int C17_RETARDO_FALTA = 34;
+    private static final int C21_FONDO_AHORRO_CAPITALIZABLE = 35;
+    private static final int C29_RESPONSABILIDAD = 36;
+    private static final int C34_SEGURO_RIESGO_PROFESIONAL = 37;
+    private static final int C46_INBURSA = 38;
+    private static final int C46_SEGURO_ARGOS = 39;
+    private static final int C46_ETESA = 40;
+    private static final int C46_LA_TENDA = 41;
+    private static final int C46_PS_PUBLISEG = 42;
+    private static final int C46_SEGUROS_GNP = 43;
+    private static final int C46_AUDITORIA_OPERACION_CREDIEMPLEADO = 44;
+    private static final int C46_CREDITO_EXPRES = 45;
+    private static final int C51_SEGURO_VIDA_INSTITUCIONAL = 46;
+    private static final int C56_PRESTAMO_HIPOTECARIO = 47;
+    private static final int C57_SEGURO_VIDA_ADICIONAL_METLIFE = 48;
+    private static final int C58_CUOTA_SINDICAL = 49;
+    private static final int C62_PENSION_ALIMENTICIA = 50;
+    private static final int C64_FONDO_VIVIENDA = 51;
+    private static final int C70_FONDO_AHORRO_DEFUNCION = 52;
+    private static final int C77_SEGURO_RETIRO_METLIFE = 53;
+    private static final int C97_DESCUENTO_PROMOBIEN = 54;
+    private static final int CAS_AHORRO_SOLIDARIO = 55;
+    private static final int DEDUCCION_TOTAL = 56;
+    private static final int PERCEPCION_NETA = 57;
     /** El nombre de la hoja donde se encuentra el detalle. */
     private static final String NOMBRE_HOJA = "SeguroPopular";
     /** Objeto que representa el stream del archivo de Excel. */
@@ -106,7 +109,8 @@ public class SeguroPopularReporteExcel implements Serializable {
      * Excel con la información que recibe por parametro y finalmente devuelve
      * la plantilla llena como arreglo de bytes.
      *
-     * @param detalles la información para llenar el archivo de Excel.
+     * @param detalles
+     *            la información para llenar el archivo de Excel.
      * @return un arreglo de bytes que representan al archivo de Excel.
      */
     protected byte[] generar(List<SeguroPopularReporteDTO> detalles) {
@@ -124,8 +128,9 @@ public class SeguroPopularReporteExcel implements Serializable {
      * Carga de la plantilla y prepara el libro y la hoja para que se puedan
      * usar.
      *
-     * @throws IOException en caso de que no se encuentre el archivo o este
-     * dañado lanzara esta excepción.
+     * @throws IOException
+     *             en caso de que no se encuentre el archivo o este
+     *             dañado lanzara esta excepción.
      */
     private void cargarPlantilla() throws IOException {
         is = SeguroPopularReporteExcel.class.getClassLoader().getResourceAsStream("plantillas/siif/plantilla--seguro-popular.xlsx");
@@ -136,7 +141,8 @@ public class SeguroPopularReporteExcel implements Serializable {
     /**
      * Se encarga de llenar la lista de los detalles.
      *
-     * @param detalles los datos que representa los detalles del reporte.
+     * @param detalles
+     *            los datos que representa los detalles del reporte.
      */
     private void llenarDetalles(List<SeguroPopularReporteDTO> detalles) {
         int iteradorFila = FILA_INICIO_DETALLE;
@@ -144,9 +150,9 @@ public class SeguroPopularReporteExcel implements Serializable {
         for (SeguroPopularReporteDTO detalle : detalles) {
             Row fila = hoja.createRow(iteradorFila);
 
-            for(int iteradorColumna = NUMERO_CONSECUTIVO; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
+            for (int iteradorColumna = NUMERO_CONSECUTIVO; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
                 Cell celda = fila.createCell(iteradorColumna);
-                switch(iteradorColumna) {
+                switch (iteradorColumna) {
                     case NUMERO_CONSECUTIVO:
                         celda.setCellValue(detalle.getNumeroConsecutivo());
                         break;
@@ -193,9 +199,9 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getFechaIngreso());
                         break;
                     case C07_SUELDO_BASE:
-                        if (detalle.getC07SueldoBase()!=null) {
+                        if (detalle.getC07SueldoBase() != null) {
                             celda.setCellValue(detalle.getC07SueldoBase().doubleValue());
-                        } else{
+                        } else {
                             celda.setCellValue(0.0);
                         }
                         break;
@@ -227,9 +233,9 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getCqqPrimaQuinquenal().doubleValue());
                         break;
                     case PERCEPCION_TOTAL:
-                        if (detalle.getPercepcionTotal()!=null) {
+                        if (detalle.getPercepcionTotal() != null) {
                             celda.setCellValue(detalle.getPercepcionTotal().doubleValue());
-                        } else{
+                        } else {
                             celda.setCellValue(0.0);
                         }
                         break;
@@ -237,7 +243,7 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getC01ImpuestoSobreRenta().doubleValue());
                         break;
                     case C02_SR_PENSION_JUBILACION:
-                        celda.setCellValue(detalle.getC02SrPensionJubilacion() .doubleValue());
+                        celda.setCellValue(detalle.getC02SrPensionJubilacion().doubleValue());
                         break;
                     case C02_SI_SERVICIO_MEDICO:
                         celda.setCellValue(detalle.getC02SiServicioMedico().doubleValue());
@@ -324,16 +330,16 @@ public class SeguroPopularReporteExcel implements Serializable {
                         celda.setCellValue(detalle.getCasAhorroSolidario().doubleValue());
                         break;
                     case DEDUCCION_TOTAL:
-                        if (detalle.getDeduccionTotal()!=null) {
+                        if (detalle.getDeduccionTotal() != null) {
                             celda.setCellValue(detalle.getDeduccionTotal().doubleValue());
-                        } else{
+                        } else {
                             celda.setCellValue(0.0);
                         }
                         break;
                     case PERCEPCION_NETA:
-                        if (detalle.getPercepcionNeta()!=null) {
+                        if (detalle.getPercepcionNeta() != null) {
                             celda.setCellValue(detalle.getPercepcionNeta().doubleValue());
-                        } else{
+                        } else {
                             celda.setCellValue(0.0);
                         }
                         break;
@@ -395,15 +401,15 @@ public class SeguroPopularReporteExcel implements Serializable {
         BigDecimal cero = BigDecimal.ZERO;
 
         for (SeguroPopularReporteDTO detalle : detalles) {
-            for(int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
-                switch(iteradorColumna) {
-                case C07_SUELDO_BASE:
+            for (int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
+                switch (iteradorColumna) {
+                    case C07_SUELDO_BASE:
                         if (detalle.getC07SueldoBase() != null) {
                             c07SueldoBaseTotal = c07SueldoBaseTotal.add(detalle.getC07SueldoBase());
                         } else {
                             c07SueldoBaseTotal = c07SueldoBaseTotal.add(cero);
                         }
-                    break;
+                        break;
                     case C30_COMPENSACION_RIESGO:
                         c30CompensacionRiesgoTotal = c30CompensacionRiesgoTotal.add(detalle.getC30CompensacionRiesgo());
                         break;
@@ -426,7 +432,7 @@ public class SeguroPopularReporteExcel implements Serializable {
                         c46AyudaServicioTotal = c46AyudaServicioTotal.add(detalle.getC46AyudaServicio());
                         break;
                     case C55_AYUDA_GASTOS_ACTUALIZACION:
-                        c55AyudaParaGastosActualizacionTotal = c55AyudaParaGastosActualizacionTotal .add(detalle.getC55AyudaParaGastosActualizacion());
+                        c55AyudaParaGastosActualizacionTotal = c55AyudaParaGastosActualizacionTotal.add(detalle.getC55AyudaParaGastosActualizacion());
                         break;
                     case CQQ_PRIMA_QUINQUENAL:
                         cqqPrimaQuinquenalTotal = cqqPrimaQuinquenalTotal.add(detalle.getCqqPrimaQuinquenal());
@@ -456,7 +462,8 @@ public class SeguroPopularReporteExcel implements Serializable {
                         c04SpSeguroInvalidezVidaTotal = c04SpSeguroInvalidezVidaTotal.add(detalle.getC04SpSeguroInvalidezVida());
                         break;
                     case C09_SEGURO_DANYO_PRESTAMO_AVALADO_ISSSTE:
-                        c09SeguroDanyoPrestamoAvaladoIsssteTotal = c09SeguroDanyoPrestamoAvaladoIsssteTotal.add(detalle.getC09SeguroDanyosPrestamoAvaladoIssste());
+                        c09SeguroDanyoPrestamoAvaladoIsssteTotal = c09SeguroDanyoPrestamoAvaladoIsssteTotal
+                                .add(detalle.getC09SeguroDanyosPrestamoAvaladoIssste());
                         break;
                     case C17_RETARDO_FALTA:
                         c17RetardoFaltaTotal = c17RetardoFaltaTotal.add(detalle.getC17RetardoFalta());
@@ -480,7 +487,7 @@ public class SeguroPopularReporteExcel implements Serializable {
                         c46EtesaTotal = c46EtesaTotal.add(detalle.getC46Etesa());
                         break;
                     case C46_LA_TENDA:
-                        c46LaTendaTotal= c46LaTendaTotal.add(detalle.getC46LaTenda());
+                        c46LaTendaTotal = c46LaTendaTotal.add(detalle.getC46LaTenda());
                         break;
                     case C46_PS_PUBLISEG:
                         c46PsPublisegTotal = c46PsPublisegTotal.add(detalle.getC46PsPubliseg());
@@ -540,141 +547,141 @@ public class SeguroPopularReporteExcel implements Serializable {
         int ultimaFila = hoja.getLastRowNum() + 1;
         Row fila = hoja.createRow(ultimaFila);
 
-        for(int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
+        for (int iteradorColumna = C07_SUELDO_BASE; iteradorColumna <= PERCEPCION_NETA; iteradorColumna++) {
             Cell celda = fila.createCell(iteradorColumna);
-            switch(iteradorColumna) {
-                    case C07_SUELDO_BASE:
-                        celda.setCellValue(c07SueldoBaseTotal.doubleValue());
-                        break;
-                    case C30_COMPENSACION_RIESGO:
-                        celda.setCellValue(c30CompensacionRiesgoTotal.doubleValue());
-                        break;
-                    case C32_PRIMA_DOMINICAL:
-                        celda.setCellValue(c32PrimaDominicalTotal.doubleValue());
-                        break;
-                    case C38_DESPENSA:
-                        celda.setCellValue(c38DespensaTotal.doubleValue());
-                        break;
-                    case C42_ASIGNACION_BRUTA:
-                        celda.setCellValue(c42AsignacionBrutaTotal.doubleValue());
-                        break;
-                    case C44_PREVISION_SOCIAL_MULTIPLE:
-                        celda.setCellValue(c44PrevisionSocialMultipleTotal.doubleValue());
-                        break;
-                    case C45_AYUDA_ANTEOJOS:
-                        celda.setCellValue(c45AyudaAnteojoTotal.doubleValue());
-                        break;
-                    case C46_AYUDA_SERVICIO:
-                        celda.setCellValue(c46AyudaServicioTotal.doubleValue());
-                        break;
-                    case C55_AYUDA_GASTOS_ACTUALIZACION:
-                        celda.setCellValue(c55AyudaParaGastosActualizacionTotal.doubleValue());
-                        break;
-                    case CQQ_PRIMA_QUINQUENAL:
-                        celda.setCellValue(cqqPrimaQuinquenalTotal.doubleValue());
-                        break;
-                    case PERCEPCION_TOTAL:
-                        celda.setCellValue(percepcionGranTotal.doubleValue());
-                        break;
-                    case C01_IMPUESTO_SOBRE_RENTA:
-                        celda.setCellValue(c01ImpuestoSobreRentaTotal.doubleValue());
-                        break;
-                    case C02_SR_PENSION_JUBILACION:
-                        celda.setCellValue(c02SrPensionJubilacionTotal.doubleValue());
-                        break;
-                    case C02_SI_SERVICIO_MEDICO:
-                        celda.setCellValue(c02SiServicioMedicoTotal.doubleValue());
-                        break;
-                    case C02_SS_SERVICIO_SOCIAL_CULTURAL:
-                        celda.setCellValue(c02SsServicioSocialCulturalTotal.doubleValue());
-                        break;
-                    case C03_PRESTAMO_PERSONAL:
-                        celda.setCellValue(c03PrestamoPersonalTotal.doubleValue());
-                        break;
-                    case C04_SS_SERVICIO_MEDICO_MATERNIDAD:
-                        celda.setCellValue(c04SsServicioMedicoMaternidadTotal.doubleValue());
-                        break;
-                    case C04_SP_SEGURO_INVALIDEZ_VIDA:
-                        celda.setCellValue(c04SpSeguroInvalidezVidaTotal.doubleValue());
-                        break;
-                    case C09_SEGURO_DANYO_PRESTAMO_AVALADO_ISSSTE:
-                        celda.setCellValue(c09SeguroDanyoPrestamoAvaladoIsssteTotal.doubleValue());
-                        break;
-                    case C17_RETARDO_FALTA:
-                        celda.setCellValue(c17RetardoFaltaTotal.doubleValue());
-                        break;
-                    case C21_FONDO_AHORRO_CAPITALIZABLE:
-                        celda.setCellValue(c21FondoAhorroCapitalizableTotal.doubleValue());
-                        break;
-                    case C29_RESPONSABILIDAD:
-                        celda.setCellValue(c29ResponsabilidadTotal.doubleValue());
-                        break;
-                    case C34_SEGURO_RIESGO_PROFESIONAL:
-                        celda.setCellValue(c34SeguroRiesgoProfesionalTotal.doubleValue());
-                        break;
-                    case C46_INBURSA:
-                        celda.setCellValue(c46InbursaTotal.doubleValue());
-                        break;
-                    case C46_SEGURO_ARGOS:
-                        celda.setCellValue(c46SeguroArgosTotal.doubleValue());
-                        break;
-                    case C46_ETESA:
-                        celda.setCellValue(c46EtesaTotal.doubleValue());
-                        break;
-                    case C46_LA_TENDA:
-                        celda.setCellValue(c46LaTendaTotal.doubleValue());
-                        break;
-                    case C46_PS_PUBLISEG:
-                        celda.setCellValue(c46PsPublisegTotal.doubleValue());
-                        break;
-                    case C46_SEGUROS_GNP:
-                        celda.setCellValue(c46SeguroGnpTotal.doubleValue());
-                        break;
-                    case C46_AUDITORIA_OPERACION_CREDIEMPLEADO:
-                        celda.setCellValue(c46AuditoriaOperacionCrediempleadoTotal.doubleValue());
-                        break;
-                    case C46_CREDITO_EXPRES:
-                        celda.setCellValue(c46CreditoExpresTotal.doubleValue());
-                        break;
-                    case C51_SEGURO_VIDA_INSTITUCIONAL:
-                        celda.setCellValue(c51SeguroVidaInstitucionalTotal.doubleValue());
-                        break;
-                    case C56_PRESTAMO_HIPOTECARIO:
-                        celda.setCellValue(c56PrestamoHipotecarioTotal.doubleValue());
-                        break;
-                    case C57_SEGURO_VIDA_ADICIONAL_METLIFE:
-                        celda.setCellValue(c57SeguroDeVidaAdicionalMetlifeTotal.doubleValue());
-                        break;
-                    case C58_CUOTA_SINDICAL:
-                        celda.setCellValue(c58CuotaSindicalTotal.doubleValue());
-                        break;
-                    case C62_PENSION_ALIMENTICIA:
-                        celda.setCellValue(c62PensionAlimenticiaTotal.doubleValue());
-                        break;
-                    case C64_FONDO_VIVIENDA:
-                        celda.setCellValue(c64FondoViviendaTotal.doubleValue());
-                        break;
-                    case C70_FONDO_AHORRO_DEFUNCION:
-                        celda.setCellValue(c70FondoAhorroDefuncionTotal.doubleValue());
-                        break;
-                    case C77_SEGURO_RETIRO_METLIFE:
-                        celda.setCellValue(c77SeguroRetiroMetlifeTotal.doubleValue());
-                        break;
-                    case C97_DESCUENTO_PROMOBIEN:
-                        celda.setCellValue(c97DescuentoPromobienTotal.doubleValue());
-                        break;
-                    case CAS_AHORRO_SOLIDARIO:
-                        celda.setCellValue(casAhorroSolidarioTotal.doubleValue());
-                        break;
-                    case DEDUCCION_TOTAL:
-                        celda.setCellValue(deduccionGranTotal.doubleValue());
-                        break;
-                    case PERCEPCION_NETA:
-                        celda.setCellValue(percepcionNetaTotal.doubleValue());
-                        break;
-                    default:
-                        // No hará nada.
-                        break;
+            switch (iteradorColumna) {
+                case C07_SUELDO_BASE:
+                    celda.setCellValue(c07SueldoBaseTotal.doubleValue());
+                    break;
+                case C30_COMPENSACION_RIESGO:
+                    celda.setCellValue(c30CompensacionRiesgoTotal.doubleValue());
+                    break;
+                case C32_PRIMA_DOMINICAL:
+                    celda.setCellValue(c32PrimaDominicalTotal.doubleValue());
+                    break;
+                case C38_DESPENSA:
+                    celda.setCellValue(c38DespensaTotal.doubleValue());
+                    break;
+                case C42_ASIGNACION_BRUTA:
+                    celda.setCellValue(c42AsignacionBrutaTotal.doubleValue());
+                    break;
+                case C44_PREVISION_SOCIAL_MULTIPLE:
+                    celda.setCellValue(c44PrevisionSocialMultipleTotal.doubleValue());
+                    break;
+                case C45_AYUDA_ANTEOJOS:
+                    celda.setCellValue(c45AyudaAnteojoTotal.doubleValue());
+                    break;
+                case C46_AYUDA_SERVICIO:
+                    celda.setCellValue(c46AyudaServicioTotal.doubleValue());
+                    break;
+                case C55_AYUDA_GASTOS_ACTUALIZACION:
+                    celda.setCellValue(c55AyudaParaGastosActualizacionTotal.doubleValue());
+                    break;
+                case CQQ_PRIMA_QUINQUENAL:
+                    celda.setCellValue(cqqPrimaQuinquenalTotal.doubleValue());
+                    break;
+                case PERCEPCION_TOTAL:
+                    celda.setCellValue(percepcionGranTotal.doubleValue());
+                    break;
+                case C01_IMPUESTO_SOBRE_RENTA:
+                    celda.setCellValue(c01ImpuestoSobreRentaTotal.doubleValue());
+                    break;
+                case C02_SR_PENSION_JUBILACION:
+                    celda.setCellValue(c02SrPensionJubilacionTotal.doubleValue());
+                    break;
+                case C02_SI_SERVICIO_MEDICO:
+                    celda.setCellValue(c02SiServicioMedicoTotal.doubleValue());
+                    break;
+                case C02_SS_SERVICIO_SOCIAL_CULTURAL:
+                    celda.setCellValue(c02SsServicioSocialCulturalTotal.doubleValue());
+                    break;
+                case C03_PRESTAMO_PERSONAL:
+                    celda.setCellValue(c03PrestamoPersonalTotal.doubleValue());
+                    break;
+                case C04_SS_SERVICIO_MEDICO_MATERNIDAD:
+                    celda.setCellValue(c04SsServicioMedicoMaternidadTotal.doubleValue());
+                    break;
+                case C04_SP_SEGURO_INVALIDEZ_VIDA:
+                    celda.setCellValue(c04SpSeguroInvalidezVidaTotal.doubleValue());
+                    break;
+                case C09_SEGURO_DANYO_PRESTAMO_AVALADO_ISSSTE:
+                    celda.setCellValue(c09SeguroDanyoPrestamoAvaladoIsssteTotal.doubleValue());
+                    break;
+                case C17_RETARDO_FALTA:
+                    celda.setCellValue(c17RetardoFaltaTotal.doubleValue());
+                    break;
+                case C21_FONDO_AHORRO_CAPITALIZABLE:
+                    celda.setCellValue(c21FondoAhorroCapitalizableTotal.doubleValue());
+                    break;
+                case C29_RESPONSABILIDAD:
+                    celda.setCellValue(c29ResponsabilidadTotal.doubleValue());
+                    break;
+                case C34_SEGURO_RIESGO_PROFESIONAL:
+                    celda.setCellValue(c34SeguroRiesgoProfesionalTotal.doubleValue());
+                    break;
+                case C46_INBURSA:
+                    celda.setCellValue(c46InbursaTotal.doubleValue());
+                    break;
+                case C46_SEGURO_ARGOS:
+                    celda.setCellValue(c46SeguroArgosTotal.doubleValue());
+                    break;
+                case C46_ETESA:
+                    celda.setCellValue(c46EtesaTotal.doubleValue());
+                    break;
+                case C46_LA_TENDA:
+                    celda.setCellValue(c46LaTendaTotal.doubleValue());
+                    break;
+                case C46_PS_PUBLISEG:
+                    celda.setCellValue(c46PsPublisegTotal.doubleValue());
+                    break;
+                case C46_SEGUROS_GNP:
+                    celda.setCellValue(c46SeguroGnpTotal.doubleValue());
+                    break;
+                case C46_AUDITORIA_OPERACION_CREDIEMPLEADO:
+                    celda.setCellValue(c46AuditoriaOperacionCrediempleadoTotal.doubleValue());
+                    break;
+                case C46_CREDITO_EXPRES:
+                    celda.setCellValue(c46CreditoExpresTotal.doubleValue());
+                    break;
+                case C51_SEGURO_VIDA_INSTITUCIONAL:
+                    celda.setCellValue(c51SeguroVidaInstitucionalTotal.doubleValue());
+                    break;
+                case C56_PRESTAMO_HIPOTECARIO:
+                    celda.setCellValue(c56PrestamoHipotecarioTotal.doubleValue());
+                    break;
+                case C57_SEGURO_VIDA_ADICIONAL_METLIFE:
+                    celda.setCellValue(c57SeguroDeVidaAdicionalMetlifeTotal.doubleValue());
+                    break;
+                case C58_CUOTA_SINDICAL:
+                    celda.setCellValue(c58CuotaSindicalTotal.doubleValue());
+                    break;
+                case C62_PENSION_ALIMENTICIA:
+                    celda.setCellValue(c62PensionAlimenticiaTotal.doubleValue());
+                    break;
+                case C64_FONDO_VIVIENDA:
+                    celda.setCellValue(c64FondoViviendaTotal.doubleValue());
+                    break;
+                case C70_FONDO_AHORRO_DEFUNCION:
+                    celda.setCellValue(c70FondoAhorroDefuncionTotal.doubleValue());
+                    break;
+                case C77_SEGURO_RETIRO_METLIFE:
+                    celda.setCellValue(c77SeguroRetiroMetlifeTotal.doubleValue());
+                    break;
+                case C97_DESCUENTO_PROMOBIEN:
+                    celda.setCellValue(c97DescuentoPromobienTotal.doubleValue());
+                    break;
+                case CAS_AHORRO_SOLIDARIO:
+                    celda.setCellValue(casAhorroSolidarioTotal.doubleValue());
+                    break;
+                case DEDUCCION_TOTAL:
+                    celda.setCellValue(deduccionGranTotal.doubleValue());
+                    break;
+                case PERCEPCION_NETA:
+                    celda.setCellValue(percepcionNetaTotal.doubleValue());
+                    break;
+                default:
+                    // No hará nada.
+                    break;
             }
         }
     }
@@ -683,8 +690,9 @@ public class SeguroPopularReporteExcel implements Serializable {
      * Devuelve el contenido del archivo cargado como un arreglo de bytes.
      *
      * @return los bytes que representan el archivo.
-     * @throws IOException en caso de no poder tener acceso al archivo se
-     * lanzara esta excepción.
+     * @throws IOException
+     *             en caso de no poder tener acceso al archivo se
+     *             lanzara esta excepción.
      */
     private byte[] obtenerBytes() throws IOException {
         byte[] bytes;

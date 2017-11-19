@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -36,7 +37,6 @@ public class CuentasBancariasEntity implements Serializable {
     @Column(name = "clave_cuenta")
     private Integer claveCuenta;
 
-//	<<<<<Getters & Setters>>>>>
     public Integer getIdCuentaBancaria() {
         return idCuentaBancaria;
     }

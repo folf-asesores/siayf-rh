@@ -3,17 +3,19 @@ package mx.gob.saludtlax.rh.wsdl.sifoficial;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for consulta_beneficiariosResponse_arr_beneficiarios complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for consulta_beneficiariosResponse_arr_beneficiarios complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType name="consulta_beneficiariosResponse_arr_beneficiarios">
  *   &lt;complexContent>
@@ -37,13 +39,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_beneficiariosResponse_arr_beneficiarios", propOrder = {
-    "element"
-})
+@XmlType(name = "consulta_beneficiariosResponse_arr_beneficiarios", propOrder = { "element" })
 public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
     @XmlElement(required = true, nillable = true)
@@ -51,39 +51,41 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
     /**
      * Gets the value of the element property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getElement().add(newItem);
+     * getElement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ConsultaBeneficiariosResponseArrBeneficiarios.Element }
-     * 
-     * 
+     *
+     *
      */
     public List<ConsultaBeneficiariosResponseArrBeneficiarios.Element> getElement() {
         if (element == null) {
-            element = new ArrayList<ConsultaBeneficiariosResponseArrBeneficiarios.Element>();
+            element = new ArrayList<>();
         }
-        return this.element;
+        return element;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * Java class for anonymous complex type.
+     *
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -97,15 +99,11 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "idBeneficiario",
-        "rfc",
-        "nombre"
-    })
+    @XmlType(name = "", propOrder = { "idBeneficiario", "rfc", "nombre" })
     public static class Element {
 
         @XmlElement(name = "id_beneficiario", required = true, type = Integer.class, nillable = true)
@@ -117,11 +115,11 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
         /**
          * Gets the value of the idBeneficiario property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdBeneficiario() {
             return idBeneficiario;
@@ -129,23 +127,23 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
         /**
          * Sets the value of the idBeneficiario property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdBeneficiario(Integer value) {
-            this.idBeneficiario = value;
+            idBeneficiario = value;
         }
 
         /**
          * Gets the value of the rfc property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getRfc() {
             return rfc;
@@ -153,23 +151,23 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
         /**
          * Sets the value of the rfc property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setRfc(String value) {
-            this.rfc = value;
+            rfc = value;
         }
 
         /**
          * Gets the value of the nombre property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getNombre() {
             return nombre;
@@ -177,14 +175,14 @@ public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
         /**
          * Sets the value of the nombre property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setNombre(String value) {
-            this.nombre = value;
+            nombre = value;
         }
 
     }

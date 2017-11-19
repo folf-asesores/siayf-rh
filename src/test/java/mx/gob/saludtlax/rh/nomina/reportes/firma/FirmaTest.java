@@ -1,27 +1,42 @@
 /*
  * FirmaTest.java
  * Creado el 11/sep/2017 1:58:21 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.io.File;
 import java.io.IOException;
+
 import javax.inject.Inject;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Assert;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
+import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteRepository;
 import mx.gob.saludtlax.rh.persistencia.GenericRepository;
 import mx.gob.saludtlax.rh.persistencia.PerfilUsuarioEntity;
+import mx.gob.saludtlax.rh.persistencia.ReporteParametroEntity;
 import mx.gob.saludtlax.rh.persistencia.Repository;
 import mx.gob.saludtlax.rh.persistencia.UsuarioEntity;
 import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
-import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
-import mx.gob.saludtlax.rh.persistencia.ReporteParametroEntity;
 import mx.gob.saludtlax.rh.reportes.AdministradorReportes;
 import mx.gob.saludtlax.rh.reportes.AlmacenReportes;
 import mx.gob.saludtlax.rh.reportes.BitacoraReporte;
@@ -37,20 +52,6 @@ import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
 
 /**
  *
@@ -110,13 +111,10 @@ public class FirmaTest {
 
         jar.addClass(AlmacenReportesJasperReports.class);
         jar.addClass(JasperReporte.class);
-        
+
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -137,12 +135,7 @@ public class FirmaTest {
     @Test
     public void generarReporteCompleto() throws IOException {
         LOGGER.info("Iniciando test completo.");
-        String[] parametros = new String[]{
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "listado-firmas",
-            "TIPO_REPORTE", "txt",
-            "ID_PRODUCTO_NOMINA", "30"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "listado-firmas", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "30" };
 
         AdministradorReportes administradorReportes = new AdministradorReportes();
         String referencia = administradorReportes.obtenerReferencia(parametros);

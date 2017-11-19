@@ -3,6 +3,7 @@
  * Creado el 27/Jun/2017 3:14:50 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.text.SimpleDateFormat;
@@ -28,7 +29,8 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public ProductoNominaDTO(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public ProductoNominaDTO(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas, String nombreElaboro, String cargoElaboro,
+            String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
@@ -93,16 +95,16 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 83 * hash + Objects.hashCode(this.idProductoNomina);
-        hash = 83 * hash + Objects.hashCode(this.quincena);
-        hash = 83 * hash + Objects.hashCode(this.fechaPago);
-        hash = 83 * hash + Objects.hashCode(this.programas);
-        hash = 83 * hash + Objects.hashCode(this.nombreElaboro);
-        hash = 83 * hash + Objects.hashCode(this.cargoElaboro);
-        hash = 83 * hash + Objects.hashCode(this.nombreReviso);
-        hash = 83 * hash + Objects.hashCode(this.cargoReviso);
-        hash = 83 * hash + Objects.hashCode(this.nombreAutorizo);
-        hash = 83 * hash + Objects.hashCode(this.cargoAutorizo);
+        hash = 83 * hash + Objects.hashCode(idProductoNomina);
+        hash = 83 * hash + Objects.hashCode(quincena);
+        hash = 83 * hash + Objects.hashCode(fechaPago);
+        hash = 83 * hash + Objects.hashCode(programas);
+        hash = 83 * hash + Objects.hashCode(nombreElaboro);
+        hash = 83 * hash + Objects.hashCode(cargoElaboro);
+        hash = 83 * hash + Objects.hashCode(nombreReviso);
+        hash = 83 * hash + Objects.hashCode(cargoReviso);
+        hash = 83 * hash + Objects.hashCode(nombreAutorizo);
+        hash = 83 * hash + Objects.hashCode(cargoAutorizo);
         return hash;
     }
 
@@ -118,39 +120,41 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
             return false;
         }
         final ProductoNominaDTO other = (ProductoNominaDTO) obj;
-        if (!Objects.equals(this.quincena, other.quincena)) {
+        if (!Objects.equals(quincena, other.quincena)) {
             return false;
         }
-        if (!Objects.equals(this.nombreElaboro, other.nombreElaboro)) {
+        if (!Objects.equals(nombreElaboro, other.nombreElaboro)) {
             return false;
         }
-        if (!Objects.equals(this.cargoElaboro, other.cargoElaboro)) {
+        if (!Objects.equals(cargoElaboro, other.cargoElaboro)) {
             return false;
         }
-        if (!Objects.equals(this.nombreReviso, other.nombreReviso)) {
+        if (!Objects.equals(nombreReviso, other.nombreReviso)) {
             return false;
         }
-        if (!Objects.equals(this.cargoReviso, other.cargoReviso)) {
+        if (!Objects.equals(cargoReviso, other.cargoReviso)) {
             return false;
         }
-        if (!Objects.equals(this.nombreAutorizo, other.nombreAutorizo)) {
+        if (!Objects.equals(nombreAutorizo, other.nombreAutorizo)) {
             return false;
         }
-        if (!Objects.equals(this.cargoAutorizo, other.cargoAutorizo)) {
+        if (!Objects.equals(cargoAutorizo, other.cargoAutorizo)) {
             return false;
         }
-        if (!Objects.equals(this.idProductoNomina, other.idProductoNomina)) {
+        if (!Objects.equals(idProductoNomina, other.idProductoNomina)) {
             return false;
         }
-        if (!Objects.equals(this.fechaPago, other.fechaPago)) {
+        if (!Objects.equals(fechaPago, other.fechaPago)) {
             return false;
         }
-        return Objects.equals(this.programas, other.programas);
+        return Objects.equals(programas, other.programas);
     }
 
     @Override
     public String toString() {
-        return "ProductoNomina{" + "idProductoNomina=" + idProductoNomina + ", quincena=" + getQuincena() + ", fechaPago=" + fechaPago + ", programas=" + programas + ", nombreElaboro=" + nombreElaboro + ", cargoElaboro=" + cargoElaboro + ", nombreReviso=" + nombreReviso + ", cargoReviso=" + cargoReviso + ", nombreAutorizo=" + nombreAutorizo + ", cargoAutorizo=" + cargoAutorizo + '}';
+        return "ProductoNomina{" + "idProductoNomina=" + idProductoNomina + ", quincena=" + getQuincena() + ", fechaPago=" + fechaPago + ", programas="
+                + programas + ", nombreElaboro=" + nombreElaboro + ", cargoElaboro=" + cargoElaboro + ", nombreReviso=" + nombreReviso + ", cargoReviso="
+                + cargoReviso + ", nombreAutorizo=" + nombreAutorizo + ", cargoAutorizo=" + cargoAutorizo + '}';
     }
 
 }

@@ -1,8 +1,9 @@
 /*
  * ComprobanteEmpleadoDTO.java
  * Creado el 18/nov/2016 3:12:03 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
 
 import java.io.Serializable;
@@ -53,7 +54,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         conceptos = new ArrayList<>();
     }
 
-    public ComprobanteEmpleadoDTO(String nombre, String filiacion, Date fechaPago, String claveCentroResponsabilidad, String numeroCheque, Date inicioPeriodo, Date finPeriodo, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, List<ConceptoComprobanteDTO> conceptos) {
+    public ComprobanteEmpleadoDTO(String nombre, String filiacion, Date fechaPago, String claveCentroResponsabilidad, String numeroCheque, Date inicioPeriodo,
+            Date finPeriodo, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, List<ConceptoComprobanteDTO> conceptos) {
         this.nombre = nombre;
         this.filiacion = filiacion;
         this.fechaPago = fechaPago;
@@ -79,7 +81,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of nombre
      *
-     * @param nombre new value of nombre
+     * @param nombre
+     *            new value of nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -97,7 +100,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of filiacion
      *
-     * @param filiacion new value of filiacion
+     * @param filiacion
+     *            new value of filiacion
      */
     public void setFiliacion(String filiacion) {
         this.filiacion = filiacion;
@@ -115,7 +119,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of fechaPago
      *
-     * @param fechaPago new value of fechaPago
+     * @param fechaPago
+     *            new value of fechaPago
      */
     public void setFechaPago(Date fechaPago) {
         this.fechaPago = fechaPago;
@@ -133,7 +138,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of claveCentroResponsabilidad
      *
-     * @param claveCentroResponsabilidad new value of claveCentroResponsabilidad
+     * @param claveCentroResponsabilidad
+     *            new value of claveCentroResponsabilidad
      */
     public void setClaveCentroResponsabilidad(String claveCentroResponsabilidad) {
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
@@ -151,7 +157,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of numeroCheque
      *
-     * @param numeroCheque new value of numeroCheque
+     * @param numeroCheque
+     *            new value of numeroCheque
      */
     public void setNumeroCheque(String numeroCheque) {
         this.numeroCheque = numeroCheque;
@@ -169,7 +176,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of inicioPeriodo
      *
-     * @param inicioPeriodo new value of inicioPeriodo
+     * @param inicioPeriodo
+     *            new value of inicioPeriodo
      */
     public void setInicioPeriodo(Date inicioPeriodo) {
         this.inicioPeriodo = inicioPeriodo;
@@ -187,7 +195,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of finPeriodo
      *
-     * @param finPeriodo new value of finPeriodo
+     * @param finPeriodo
+     *            new value of finPeriodo
      */
     public void setFinPeriodo(Date finPeriodo) {
         this.finPeriodo = finPeriodo;
@@ -205,7 +214,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of percepciones
      *
-     * @param percepciones new value of percepciones
+     * @param percepciones
+     *            new value of percepciones
      */
     public void setPercepciones(BigDecimal percepciones) {
         this.percepciones = percepciones;
@@ -223,7 +233,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of deducciones
      *
-     * @param deducciones new value of deducciones
+     * @param deducciones
+     *            new value of deducciones
      */
     public void setDeducciones(BigDecimal deducciones) {
         this.deducciones = deducciones;
@@ -241,7 +252,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of neto
      *
-     * @param neto new value of neto
+     * @param neto
+     *            new value of neto
      */
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
@@ -259,7 +271,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
     /**
      * Set the value of conceptos
      *
-     * @param conceptos new value of conceptos
+     * @param conceptos
+     *            new value of conceptos
      */
     public void setConceptos(List<ConceptoComprobanteDTO> conceptos) {
         this.conceptos = conceptos;
@@ -276,26 +289,15 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         if (o.claveCentroResponsabilidad == null) {
             return 1;
         }
-        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad)
-                ? filiacion.compareTo(o.filiacion)
-                : claveCentroResponsabilidad
-                        .compareTo(o.claveCentroResponsabilidad);
+        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad) ? filiacion.compareTo(o.filiacion)
+                : claveCentroResponsabilidad.compareTo(o.claveCentroResponsabilidad);
     }
 
     @Override
     public String toString() {
-        return "ComprobanteEmpleadoDTO{"
-                + "nombre : " + nombre
-                + ", filiacion : " + filiacion
-                + ", fechaPago : " + fechaPago
-                + ", claveCentroResponsabilidad : " + claveCentroResponsabilidad
-                + ", inicioPeriodo : " + inicioPeriodo
-                + ", finPeriodo : " + finPeriodo
-                + ", percepciones : " + percepciones
-                + ", deducciones : " + deducciones
-                + ", neto : " + neto
-                + ", conceptos : " + conceptos
-                + '}';
+        return "ComprobanteEmpleadoDTO{" + "nombre : " + nombre + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
+                + ", claveCentroResponsabilidad : " + claveCentroResponsabilidad + ", inicioPeriodo : " + inicioPeriodo + ", finPeriodo : " + finPeriodo
+                + ", percepciones : " + percepciones + ", deducciones : " + deducciones + ", neto : " + neto + ", conceptos : " + conceptos + '}';
     }
 
     @Override

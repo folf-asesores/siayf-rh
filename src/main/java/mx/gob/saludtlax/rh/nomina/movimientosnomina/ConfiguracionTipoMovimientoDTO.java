@@ -1,44 +1,41 @@
+
 package mx.gob.saludtlax.rh.nomina.movimientosnomina;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import mx.gob.saludtlax.rh.configuracion.conceptosnomina.ConceptoNominaDTO;
 import mx.gob.saludtlax.rh.configuracion.conceptosnomina.ConceptoNominaFederalesDTO;
 
 public class ConfiguracionTipoMovimientoDTO {
 
-	private Integer idConfiguracion;
-	
-	private TipoMovimientoNominaDTO tipoMovimiento;
-	
-	private List<ConceptoNominaFederalesDTO> listConceptoNomina = new ArrayList<>();
+    private Integer idConfiguracion;
 
-	public TipoMovimientoNominaDTO getTipoMovimiento() {
-		return tipoMovimiento;
-	}
+    private TipoMovimientoNominaDTO tipoMovimiento;
 
-	public void setTipoMovimiento(TipoMovimientoNominaDTO tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
-	}
+    private List<ConceptoNominaFederalesDTO> listConceptoNomina = new ArrayList<>();
 
-	public List<ConceptoNominaFederalesDTO> getListConceptoNomina() {
-		return listConceptoNomina;
-	}
+    public TipoMovimientoNominaDTO getTipoMovimiento() {
+        return tipoMovimiento;
+    }
 
-	public void setListConceptoNomina(List<ConceptoNominaFederalesDTO> listConceptoNomina) {
-		this.listConceptoNomina = listConceptoNomina;
-	}
+    public void setTipoMovimiento(TipoMovimientoNominaDTO tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
 
-	public Integer getIdConfiguracion() {
-		return idConfiguracion;
-	}
+    public List<ConceptoNominaFederalesDTO> getListConceptoNomina() {
+        return listConceptoNomina;
+    }
 
-	public void setIdConfiguracion(Integer idConfiguracion) {
-		this.idConfiguracion = idConfiguracion;
-	}
-	
-	
-	
- 	
+    public void setListConceptoNomina(List<ConceptoNominaFederalesDTO> listConceptoNomina) {
+        this.listConceptoNomina = listConceptoNomina;
+    }
+
+    public Integer getIdConfiguracion() {
+        return idConfiguracion;
+    }
+
+    public void setIdConfiguracion(Integer idConfiguracion) {
+        this.idConfiguracion = idConfiguracion;
+    }
+
 }

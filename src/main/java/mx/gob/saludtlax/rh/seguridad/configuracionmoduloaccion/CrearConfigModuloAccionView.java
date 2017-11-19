@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
@@ -20,79 +21,77 @@ import mx.gob.saludtlax.rh.modulos.ModuloDTO;
 
 public class CrearConfigModuloAccionView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1365363619019730301L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -1365363619019730301L;
 
-	private DualListModel<AccionDTO> pikListAcciones = new DualListModel<AccionDTO>();
+    private DualListModel<AccionDTO> pikListAcciones = new DualListModel<>();
 
-	private List<ModuloDTO> listaModulos = new ArrayList<ModuloDTO>();
+    private List<ModuloDTO> listaModulos = new ArrayList<>();
 
-	private List<AccionDTO> listaAcciones = new ArrayList<AccionDTO>();
+    private List<AccionDTO> listaAcciones = new ArrayList<>();
 
-	private ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
+    private ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
 
-	
+    /**
+     * @return the configuracionModuloAccionDTONew
+     */
+    public ConfiguracionModuloAccionDTO getConfiguracionModuloAccionDTONew() {
+        return configuracionModuloAccionDTONew;
+    }
 
-	/**
-	 * @return the configuracionModuloAccionDTONew
-	 */
-	public ConfiguracionModuloAccionDTO getConfiguracionModuloAccionDTONew() {
-		return configuracionModuloAccionDTONew;
-	}
+    /**
+     * @param configuracionModuloAccionDTONew
+     *            the configuracionModuloAccionDTONew to set
+     */
+    public void setConfiguracionModuloAccionDTONew(ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew) {
+        this.configuracionModuloAccionDTONew = configuracionModuloAccionDTONew;
+    }
 
-	/**
-	 * @param configuracionModuloAccionDTONew
-	 *            the configuracionModuloAccionDTONew to set
-	 */
-	public void setConfiguracionModuloAccionDTONew(ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew) {
-		this.configuracionModuloAccionDTONew = configuracionModuloAccionDTONew;
-	}
+    /**
+     * @return the listaModulos
+     */
+    public List<ModuloDTO> getListaModulos() {
+        return listaModulos;
+    }
 
-	/**
-	 * @return the listaModulos
-	 */
-	public List<ModuloDTO> getListaModulos() {
-		return listaModulos;
-	}
+    /**
+     * @param listaModulos
+     *            the listaModulos to set
+     */
+    public void setListaModulos(List<ModuloDTO> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
 
-	/**
-	 * @param listaModulos
-	 *            the listaModulos to set
-	 */
-	public void setListaModulos(List<ModuloDTO> listaModulos) {
-		this.listaModulos = listaModulos;
-	}
+    /**
+     * @return the listaAcciones
+     */
+    public List<AccionDTO> getListaAcciones() {
+        return listaAcciones;
+    }
 
-	/**
-	 * @return the listaAcciones
-	 */
-	public List<AccionDTO> getListaAcciones() {
-		return listaAcciones;
-	}
+    /**
+     * @param listaAcciones
+     *            the listaAcciones to set
+     */
+    public void setListaAcciones(List<AccionDTO> listaAcciones) {
+        this.listaAcciones = listaAcciones;
+    }
 
-	/**
-	 * @param listaAcciones
-	 *            the listaAcciones to set
-	 */
-	public void setListaAcciones(List<AccionDTO> listaAcciones) {
-		this.listaAcciones = listaAcciones;
-	}
+    /**
+     * @return the pikListAcciones
+     */
+    public DualListModel<AccionDTO> getPikListAcciones() {
+        return pikListAcciones;
+    }
 
-	/**
-	 * @return the pikListAcciones
-	 */
-	public DualListModel<AccionDTO> getPikListAcciones() {
-		return pikListAcciones;
-	}
-
-	/**
-	 * @param pikListAcciones
-	 *            the pikListAcciones to set
-	 */
-	public void setPikListAcciones(DualListModel<AccionDTO> pikListAcciones) {
-		this.pikListAcciones = pikListAcciones;
-	}
+    /**
+     * @param pikListAcciones
+     *            the pikListAcciones to set
+     */
+    public void setPikListAcciones(DualListModel<AccionDTO> pikListAcciones) {
+        this.pikListAcciones = pikListAcciones;
+    }
 
 }

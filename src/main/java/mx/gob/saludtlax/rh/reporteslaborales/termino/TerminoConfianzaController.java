@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class TerminoConfianzaController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7501320044148633206L;
 
@@ -40,10 +40,9 @@ public class TerminoConfianzaController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new TerminoView();
+        view = new TerminoView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -66,15 +65,15 @@ public class TerminoConfianzaController implements Serializable {
     }
 
     public void buscarEmpleados() {
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<TerminoDetalleDTO> resultado = this.terminoConfianzaEJB.consultarPorCriterio(criterio);
-        this.view.setTerminoDetalleDTO(resultado);
+        List<TerminoDetalleDTO> resultado = terminoConfianzaEJB.consultarPorCriterio(criterio);
+        view.setTerminoDetalleDTO(resultado);
     }
 
     public void descargarTermino() {
 
-        TerminoDTO terminoDTO = this.view.getTerminoDTO();
+        TerminoDTO terminoDTO = view.getTerminoDTO();
         TerminoConfianzaWord terminoConfianzaWord = new TerminoConfianzaWord();
         byte[] bytesWord = terminoConfianzaWord.generar(terminoDTO);
 
@@ -101,22 +100,22 @@ public class TerminoConfianzaController implements Serializable {
     }
 
     public void contenidoTermino(Integer idTipoMovimiento) {
-        TerminoDTO terminoDTO = this.terminoConfianzaEJB.obtenerTermino(idTipoMovimiento);
+        TerminoDTO terminoDTO = terminoConfianzaEJB.obtenerTermino(idTipoMovimiento);
 
-        this.view.setTerminoDTO(terminoDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarTermino(true);
+        view.setTerminoDTO(terminoDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarTermino(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setTerminoDetalleDTO(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarTermino(false);
+        view.setCriterio("");
+        view.setTerminoDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarTermino(false);
     }
 
     public TerminoView getView() {
-        return this.view;
+        return view;
     }
 
     public void setView(TerminoView view) {

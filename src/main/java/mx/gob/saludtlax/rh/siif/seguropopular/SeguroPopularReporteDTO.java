@@ -1,8 +1,9 @@
 /*
  * SeguroPopularReporteDTO.java
  * Creado el 09/Dec/2016 6:04:35 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.siif.seguropopular;
 
 import java.io.Serializable;
@@ -81,66 +82,12 @@ public class SeguroPopularReporteDTO implements Serializable {
      *
      */
     public SeguroPopularReporteDTO() {
-        this(
-                0, 
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                "",
-                Calendar.getInstance().getTime(), 
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO,
-                BigDecimal.ZERO
-        );
+        this(0, "", "", "", "", "", "", "", "", "", "", "", "", "", Calendar.getInstance().getTime(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
     /**
@@ -204,19 +151,31 @@ public class SeguroPopularReporteDTO implements Serializable {
      * @param deduccionTotal
      * @param percepcionNeta
      */
-    public SeguroPopularReporteDTO(Integer numerConsecutivo, String mes, String estado, String tipoDeCentroDeSaludODeHospital, String clues, String nombreUnidad, String areaAdscripcion, String puesto, String claveDePuesto, String servicio, String rama, String rombre, String rfc, String turno, Date fechaIngreso, BigDecimal c07SueldoBase, BigDecimal c30CompensacionRiesgo, BigDecimal c32PrimaDominical, BigDecimal c38Despensa, BigDecimal c42AsignacionBruta, BigDecimal c44PrevisionSocialMultiple, BigDecimal c45AyudaAnteojo, BigDecimal c46AyudaServicio, BigDecimal c55AyudaParaGastosActualizacion, BigDecimal cqqPrimaQuinquenal, BigDecimal percepcionTotal, BigDecimal c01ImpuestoSobreRenta, BigDecimal c02SrPensionesJubilaciones, BigDecimal c02SiServicioMedico, BigDecimal c02SsServicioSocialCultural, BigDecimal c03PrestamoPersonal, BigDecimal c04SsServiciosMedicosMaternidad, BigDecimal c04SpSeguroInvalidezVida, BigDecimal c09SeguroDanyosPrestamoAvaladoIssste, BigDecimal c17RetardoFalda, BigDecimal c21FondoAhorroCapitalizable, BigDecimal c29Responsabilidades, BigDecimal c34SeguroRiesgoProfesional, BigDecimal c46Inbursa, BigDecimal c46SeguroArgos, BigDecimal c46Etesa, BigDecimal c46LaTenda, BigDecimal c46PsPubliseg, BigDecimal c46SeguroGnp, BigDecimal c46AuditoriaOperacionCrediempleado, BigDecimal c46CreditoExpres, BigDecimal c51SeguroVidaInstitucional, BigDecimal c56PrestamoHipotecario, BigDecimal c57SeguroDeVidaAdicionalMetlife, BigDecimal c58CuotaSindical, BigDecimal c62PensionAlimenticia, BigDecimal c64FondoVivienda, BigDecimal c70FondoAhorroDefuncion, BigDecimal c77SeguroRetiroMetlife, BigDecimal c97DescuentosPromobien, BigDecimal casAhorroSolidario, BigDecimal deduccionTotal, BigDecimal percepcionNeta) {
-        this.numeroConsecutivo = numerConsecutivo;
+    public SeguroPopularReporteDTO(Integer numerConsecutivo, String mes, String estado, String tipoDeCentroDeSaludODeHospital, String clues,
+            String nombreUnidad, String areaAdscripcion, String puesto, String claveDePuesto, String servicio, String rama, String rombre, String rfc,
+            String turno, Date fechaIngreso, BigDecimal c07SueldoBase, BigDecimal c30CompensacionRiesgo, BigDecimal c32PrimaDominical, BigDecimal c38Despensa,
+            BigDecimal c42AsignacionBruta, BigDecimal c44PrevisionSocialMultiple, BigDecimal c45AyudaAnteojo, BigDecimal c46AyudaServicio,
+            BigDecimal c55AyudaParaGastosActualizacion, BigDecimal cqqPrimaQuinquenal, BigDecimal percepcionTotal, BigDecimal c01ImpuestoSobreRenta,
+            BigDecimal c02SrPensionesJubilaciones, BigDecimal c02SiServicioMedico, BigDecimal c02SsServicioSocialCultural, BigDecimal c03PrestamoPersonal,
+            BigDecimal c04SsServiciosMedicosMaternidad, BigDecimal c04SpSeguroInvalidezVida, BigDecimal c09SeguroDanyosPrestamoAvaladoIssste,
+            BigDecimal c17RetardoFalda, BigDecimal c21FondoAhorroCapitalizable, BigDecimal c29Responsabilidades, BigDecimal c34SeguroRiesgoProfesional,
+            BigDecimal c46Inbursa, BigDecimal c46SeguroArgos, BigDecimal c46Etesa, BigDecimal c46LaTenda, BigDecimal c46PsPubliseg, BigDecimal c46SeguroGnp,
+            BigDecimal c46AuditoriaOperacionCrediempleado, BigDecimal c46CreditoExpres, BigDecimal c51SeguroVidaInstitucional,
+            BigDecimal c56PrestamoHipotecario, BigDecimal c57SeguroDeVidaAdicionalMetlife, BigDecimal c58CuotaSindical, BigDecimal c62PensionAlimenticia,
+            BigDecimal c64FondoVivienda, BigDecimal c70FondoAhorroDefuncion, BigDecimal c77SeguroRetiroMetlife, BigDecimal c97DescuentosPromobien,
+            BigDecimal casAhorroSolidario, BigDecimal deduccionTotal, BigDecimal percepcionNeta) {
+        numeroConsecutivo = numerConsecutivo;
         this.mes = mes;
         this.estado = estado;
-        this.tipoCentroSaludHospital = tipoDeCentroDeSaludODeHospital;
+        tipoCentroSaludHospital = tipoDeCentroDeSaludODeHospital;
         this.clues = clues;
         this.nombreUnidad = nombreUnidad;
         this.areaAdscripcion = areaAdscripcion;
         this.puesto = puesto;
-        this.clavePuesto = claveDePuesto;
+        clavePuesto = claveDePuesto;
         this.servicio = servicio;
         this.rama = rama;
-        this.nombre = rombre;
+        nombre = rombre;
         this.rfc = rfc;
         this.turno = turno;
         this.fechaIngreso = fechaIngreso;
@@ -232,16 +191,16 @@ public class SeguroPopularReporteDTO implements Serializable {
         this.cqqPrimaQuinquenal = cqqPrimaQuinquenal;
         this.percepcionTotal = percepcionTotal;
         this.c01ImpuestoSobreRenta = c01ImpuestoSobreRenta;
-        this.c02SrPensionJubilacion = c02SrPensionesJubilaciones;
+        c02SrPensionJubilacion = c02SrPensionesJubilaciones;
         this.c02SiServicioMedico = c02SiServicioMedico;
         this.c02SsServicioSocialCultural = c02SsServicioSocialCultural;
         this.c03PrestamoPersonal = c03PrestamoPersonal;
-        this.c04SsServicioMedicoMaternidad = c04SsServiciosMedicosMaternidad;
+        c04SsServicioMedicoMaternidad = c04SsServiciosMedicosMaternidad;
         this.c04SpSeguroInvalidezVida = c04SpSeguroInvalidezVida;
         this.c09SeguroDanyosPrestamoAvaladoIssste = c09SeguroDanyosPrestamoAvaladoIssste;
-        this.c17RetardoFalta = c17RetardoFalda;
+        c17RetardoFalta = c17RetardoFalda;
         this.c21FondoAhorroCapitalizable = c21FondoAhorroCapitalizable;
-        this.c29Responsabilidad = c29Responsabilidades;
+        c29Responsabilidad = c29Responsabilidades;
         this.c34SeguroRiesgoProfesional = c34SeguroRiesgoProfesional;
         this.c46Inbursa = c46Inbursa;
         this.c46SeguroArgos = c46SeguroArgos;
@@ -259,7 +218,7 @@ public class SeguroPopularReporteDTO implements Serializable {
         this.c64FondoVivienda = c64FondoVivienda;
         this.c70FondoAhorroDefuncion = c70FondoAhorroDefuncion;
         this.c77SeguroRetiroMetlife = c77SeguroRetiroMetlife;
-        this.c97DescuentoPromobien = c97DescuentosPromobien;
+        c97DescuentoPromobien = c97DescuentosPromobien;
         this.casAhorroSolidario = casAhorroSolidario;
         this.deduccionTotal = deduccionTotal;
         this.percepcionNeta = percepcionNeta;

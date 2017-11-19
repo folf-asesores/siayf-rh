@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.detallesempleado;
 
 import java.util.List;
@@ -11,6 +12,6 @@ import java.util.List;
  */
 public interface DetalleEmpleado {
 
-	public List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion);
+    public List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion);
 
 }

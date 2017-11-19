@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.math.BigDecimal;
@@ -11,143 +12,147 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author 		Eduardo Mex
- * @email		Lic.Eduardo_Mex@hotmail.com
- * @version     1.0
- * @since       25/07/2016 14:16:03
+ * @author Eduardo Mex
+ * @email Lic.Eduardo_Mex@hotmail.com
+ * @version 1.0
+ * @since 25/07/2016 14:16:03
  */
 @Entity
 @Table(name = "presupuestos_temp")
 public class PresupuestoTemp {
-	
-	@Id
-	// @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "clave_presupuestal")
-	private String clavePresupuestal;
 
-	@Column(name = "id_mes")
-	private Integer idMes;
+    @Id
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "clave_presupuestal")
+    private String clavePresupuestal;
 
-	@Column(name = "por_ejercer")
-	private BigDecimal porEjercer;
+    @Column(name = "id_mes")
+    private Integer idMes;
 
-	@Column(name = "comprometido")
-	private BigDecimal comprometido;
+    @Column(name = "por_ejercer")
+    private BigDecimal porEjercer;
 
-	@Column(name = "devengado")
-	private BigDecimal devengado;
+    @Column(name = "comprometido")
+    private BigDecimal comprometido;
 
-	@Column(name = "ejercido")
-	private BigDecimal ejercido;
+    @Column(name = "devengado")
+    private BigDecimal devengado;
 
-	@Column(name = "pagado")
-	private BigDecimal pagado;
+    @Column(name = "ejercido")
+    private BigDecimal ejercido;
 
-	@Override
-	public String toString() {
-		return "PresupuestoEntity [clave presupuestal=" + clavePresupuestal + ", id mes=" + idMes + ", por ejercer="
-				+ porEjercer + ", compremetido=" + comprometido + ", devengado=" + devengado + ", ejercicio=" + ejercido
-				+ ", pagado=" + pagado + "]";
-	}
+    @Column(name = "pagado")
+    private BigDecimal pagado;
 
-	/**
-	 * @return the clavePresupuestal
-	 */
-	public String getClavePresupuestal() {
-		return clavePresupuestal;
-	}
+    @Override
+    public String toString() {
+        return "PresupuestoEntity [clave presupuestal=" + clavePresupuestal + ", id mes=" + idMes + ", por ejercer=" + porEjercer + ", compremetido="
+                + comprometido + ", devengado=" + devengado + ", ejercicio=" + ejercido + ", pagado=" + pagado + "]";
+    }
 
-	/**
-	 * @param clavePresupuestal the clavePresupuestal to set
-	 */
-	public void setClavePresupuestal(String clavePresupuestal) {
-		this.clavePresupuestal = clavePresupuestal;
-	}
+    /**
+     * @return the clavePresupuestal
+     */
+    public String getClavePresupuestal() {
+        return clavePresupuestal;
+    }
 
-	/**
-	 * @return the idMes
-	 */
-	public Integer getIdMes() {
-		return idMes;
-	}
+    /**
+     * @param clavePresupuestal
+     *            the clavePresupuestal to set
+     */
+    public void setClavePresupuestal(String clavePresupuestal) {
+        this.clavePresupuestal = clavePresupuestal;
+    }
 
-	/**
-	 * @param idMes the idMes to set
-	 */
-	public void setIdMes(Integer idMes) {
-		this.idMes = idMes;
-	}
+    /**
+     * @return the idMes
+     */
+    public Integer getIdMes() {
+        return idMes;
+    }
 
-	/**
-	 * @return the porEjercer
-	 */
-	public BigDecimal getPorEjercer() {
-		return porEjercer;
-	}
+    /**
+     * @param idMes
+     *            the idMes to set
+     */
+    public void setIdMes(Integer idMes) {
+        this.idMes = idMes;
+    }
 
-	/**
-	 * @param porEjercer the porEjercer to set
-	 */
-	public void setPorEjercer(BigDecimal porEjercer) {
-		this.porEjercer = porEjercer;
-	}
+    /**
+     * @return the porEjercer
+     */
+    public BigDecimal getPorEjercer() {
+        return porEjercer;
+    }
 
-	/**
-	 * @return the comprometido
-	 */
-	public BigDecimal getComprometido() {
-		return comprometido;
-	}
+    /**
+     * @param porEjercer
+     *            the porEjercer to set
+     */
+    public void setPorEjercer(BigDecimal porEjercer) {
+        this.porEjercer = porEjercer;
+    }
 
-	/**
-	 * @param comprometido the comprometido to set
-	 */
-	public void setComprometido(BigDecimal comprometido) {
-		this.comprometido = comprometido;
-	}
+    /**
+     * @return the comprometido
+     */
+    public BigDecimal getComprometido() {
+        return comprometido;
+    }
 
-	/**
-	 * @return the devengado
-	 */
-	public BigDecimal getDevengado() {
-		return devengado;
-	}
+    /**
+     * @param comprometido
+     *            the comprometido to set
+     */
+    public void setComprometido(BigDecimal comprometido) {
+        this.comprometido = comprometido;
+    }
 
-	/**
-	 * @param devengado the devengado to set
-	 */
-	public void setDevengado(BigDecimal devengado) {
-		this.devengado = devengado;
-	}
+    /**
+     * @return the devengado
+     */
+    public BigDecimal getDevengado() {
+        return devengado;
+    }
 
-	/**
-	 * @return the ejercido
-	 */
-	public BigDecimal getEjercido() {
-		return ejercido;
-	}
+    /**
+     * @param devengado
+     *            the devengado to set
+     */
+    public void setDevengado(BigDecimal devengado) {
+        this.devengado = devengado;
+    }
 
-	/**
-	 * @param ejercido the ejercido to set
-	 */
-	public void setEjercido(BigDecimal ejercido) {
-		this.ejercido = ejercido;
-	}
+    /**
+     * @return the ejercido
+     */
+    public BigDecimal getEjercido() {
+        return ejercido;
+    }
 
-	/**
-	 * @return the pagado
-	 */
-	public BigDecimal getPagado() {
-		return pagado;
-	}
+    /**
+     * @param ejercido
+     *            the ejercido to set
+     */
+    public void setEjercido(BigDecimal ejercido) {
+        this.ejercido = ejercido;
+    }
 
-	/**
-	 * @param pagado the pagado to set
-	 */
-	public void setPagado(BigDecimal pagado) {
-		this.pagado = pagado;
-	}
-	
-	
+    /**
+     * @return the pagado
+     */
+    public BigDecimal getPagado() {
+        return pagado;
+    }
+
+    /**
+     * @param pagado
+     *            the pagado to set
+     */
+    public void setPagado(BigDecimal pagado) {
+        this.pagado = pagado;
+    }
 
 }

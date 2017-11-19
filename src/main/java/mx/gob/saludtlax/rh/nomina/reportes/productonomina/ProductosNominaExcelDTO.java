@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.productonomina;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class ProductosNominaExcelDTO implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4410052793284349728L;
 
@@ -75,7 +76,7 @@ public class ProductosNominaExcelDTO implements Serializable {
         cuotaSindical = BigDecimal.ZERO;
         pensionAlimenticia = BigDecimal.ZERO;
     }
-    
+
     // Getters and Setters
 
     public String getRfc() {
@@ -135,22 +136,22 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public String getFuente() {
-		return fuente;
-	}
+        return fuente;
+    }
 
-	public void setFuente(String fuente) {
-		this.fuente = fuente;
-	}
+    public void setFuente(String fuente) {
+        this.fuente = fuente;
+    }
 
-	public String getSubfuente() {
-		return subfuente;
-	}
+    public String getSubfuente() {
+        return subfuente;
+    }
 
-	public void setSubfuente(String subfuente) {
-		this.subfuente = subfuente;
-	}
+    public void setSubfuente(String subfuente) {
+        this.subfuente = subfuente;
+    }
 
-	public BigDecimal getHonorariosAsimilables() {
+    public BigDecimal getHonorariosAsimilables() {
         return honorariosAsimilables;
     }
 
@@ -187,7 +188,7 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setBono(BigDecimal bono) {
-        this.bono = bono == null ? BigDecimal.ZERO :  bono;
+        this.bono = bono == null ? BigDecimal.ZERO : bono;
     }
 
     public BigDecimal getAguinaldo() {
@@ -309,47 +310,27 @@ public class ProductosNominaExcelDTO implements Serializable {
         percepciones = percepciones.add(otros == null ? BigDecimal.ZERO : otros);
 
         BigDecimal deducciones = BigDecimal.ZERO;
-        deducciones  = deducciones.add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
-        deducciones  = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
-        deducciones  = deducciones.add(responsabilidades == null ? BigDecimal.ZERO : responsabilidades);
-        deducciones  = deducciones.add(prestamo == null ? BigDecimal.ZERO : prestamo);
-        deducciones  = deducciones.add(juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
-        deducciones  = deducciones.add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
-        deducciones  = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
+        deducciones = deducciones.add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
+        deducciones = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
+        deducciones = deducciones.add(responsabilidades == null ? BigDecimal.ZERO : responsabilidades);
+        deducciones = deducciones.add(prestamo == null ? BigDecimal.ZERO : prestamo);
+        deducciones = deducciones.add(juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
+        deducciones = deducciones.add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
+        deducciones = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
 
         return percepciones.subtract(deducciones);
     }
 
     @Override
     public String toString() {
-        return "ProductosNominaExcelDTO["
-                + "rfc=" + rfc
-                + ", nombreEmpleado=" + nombreEmpleado
-                + ", fechaIngreso=" + fechaIngreso
-                + ", centroResponsabilidad=" + centroResponsabilidad
-                + ", conceptoCentroResponsabilidad=" + conceptoCentroResponsabilidad
-                + ", funcion=" + funcion
-                + ", programa=" + programa
-                + ", honorariosAsimilables=" + honorariosAsimilables
-                + ", suplencias=" + suplencias
-                + ", diasEconomicos=" + diasEconomicos
-                + ", percepcionComplementaria=" + percepcionComplementaria
-                + ", bono=" + bono
-                + ", aguinaldo=" + aguinaldo
-                + ", subsidio=" + subsidio
-                + ", primaVacacional=" + primaVacacional
-                + ", bonificacionFalta=" + bonificacionFalta
-                + ", retroactivo=" + retroactivo
-                + ", otros=" + otros
-                + ", faltasRetardos=" + faltasRetardos
-                + ", isr=" + isr
-                + ", responsabilidades=" + responsabilidades
-                + ", prestamo=" + prestamo
-                + ", juicioMercantil=" + juicioMercantil
-                + ", cuotaSindical=" + cuotaSindical
-                + ", pensionAlimenticia=" + pensionAlimenticia
-                + ", total=" + getTotal()
-                + ']';
+        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
+                + centroResponsabilidad + ", conceptoCentroResponsabilidad=" + conceptoCentroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa
+                + ", honorariosAsimilables=" + honorariosAsimilables + ", suplencias=" + suplencias + ", diasEconomicos=" + diasEconomicos
+                + ", percepcionComplementaria=" + percepcionComplementaria + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio=" + subsidio
+                + ", primaVacacional=" + primaVacacional + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo=" + retroactivo + ", otros=" + otros
+                + ", faltasRetardos=" + faltasRetardos + ", isr=" + isr + ", responsabilidades=" + responsabilidades + ", prestamo=" + prestamo
+                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical=" + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia + ", total="
+                + getTotal() + ']';
     }
 
     @Override
@@ -396,82 +377,82 @@ public class ProductosNominaExcelDTO implements Serializable {
             return false;
         }
         final ProductosNominaExcelDTO other = (ProductosNominaExcelDTO) obj;
-        if (!Objects.equals(this.rfc, other.rfc)) {
+        if (!Objects.equals(rfc, other.rfc)) {
             return false;
         }
-        if (!Objects.equals(this.nombreEmpleado, other.nombreEmpleado)) {
+        if (!Objects.equals(nombreEmpleado, other.nombreEmpleado)) {
             return false;
         }
-        if (!Objects.equals(this.centroResponsabilidad, other.centroResponsabilidad)) {
+        if (!Objects.equals(centroResponsabilidad, other.centroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(this.conceptoCentroResponsabilidad, other.conceptoCentroResponsabilidad)) {
+        if (!Objects.equals(conceptoCentroResponsabilidad, other.conceptoCentroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(this.funcion, other.funcion)) {
+        if (!Objects.equals(funcion, other.funcion)) {
             return false;
         }
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.fechaIngreso, other.fechaIngreso)) {
+        if (!Objects.equals(fechaIngreso, other.fechaIngreso)) {
             return false;
         }
-        if (!Objects.equals(this.honorariosAsimilables, other.honorariosAsimilables)) {
+        if (!Objects.equals(honorariosAsimilables, other.honorariosAsimilables)) {
             return false;
         }
-        if (!Objects.equals(this.suplencias, other.suplencias)) {
+        if (!Objects.equals(suplencias, other.suplencias)) {
             return false;
         }
-        if (!Objects.equals(this.diasEconomicos, other.diasEconomicos)) {
+        if (!Objects.equals(diasEconomicos, other.diasEconomicos)) {
             return false;
         }
-        if (!Objects.equals(this.percepcionComplementaria, other.percepcionComplementaria)) {
+        if (!Objects.equals(percepcionComplementaria, other.percepcionComplementaria)) {
             return false;
         }
-        if (!Objects.equals(this.bono, other.bono)) {
+        if (!Objects.equals(bono, other.bono)) {
             return false;
         }
-        if (!Objects.equals(this.aguinaldo, other.aguinaldo)) {
+        if (!Objects.equals(aguinaldo, other.aguinaldo)) {
             return false;
         }
-        if (!Objects.equals(this.subsidio, other.subsidio)) {
+        if (!Objects.equals(subsidio, other.subsidio)) {
             return false;
         }
-        if (!Objects.equals(this.primaVacacional, other.primaVacacional)) {
+        if (!Objects.equals(primaVacacional, other.primaVacacional)) {
             return false;
         }
-        if (!Objects.equals(this.bonificacionFalta, other.bonificacionFalta)) {
+        if (!Objects.equals(bonificacionFalta, other.bonificacionFalta)) {
             return false;
         }
-        if (!Objects.equals(this.retroactivo, other.retroactivo)) {
+        if (!Objects.equals(retroactivo, other.retroactivo)) {
             return false;
         }
-        if (!Objects.equals(this.otros, other.otros)) {
+        if (!Objects.equals(otros, other.otros)) {
             return false;
         }
-        if (!Objects.equals(this.faltasRetardos, other.faltasRetardos)) {
+        if (!Objects.equals(faltasRetardos, other.faltasRetardos)) {
             return false;
         }
-        if (!Objects.equals(this.isr, other.isr)) {
+        if (!Objects.equals(isr, other.isr)) {
             return false;
         }
-        if (!Objects.equals(this.responsabilidades, other.responsabilidades)) {
+        if (!Objects.equals(responsabilidades, other.responsabilidades)) {
             return false;
         }
-        if (!Objects.equals(this.prestamo, other.prestamo)) {
+        if (!Objects.equals(prestamo, other.prestamo)) {
             return false;
         }
-        if (!Objects.equals(this.juicioMercantil, other.juicioMercantil)) {
+        if (!Objects.equals(juicioMercantil, other.juicioMercantil)) {
             return false;
         }
-        if (!Objects.equals(this.cuotaSindical, other.cuotaSindical)) {
+        if (!Objects.equals(cuotaSindical, other.cuotaSindical)) {
             return false;
         }
-        if (!Objects.equals(this.pensionAlimenticia, other.pensionAlimenticia)) {
+        if (!Objects.equals(pensionAlimenticia, other.pensionAlimenticia)) {
             return false;
         }
-        return Objects.equals(this.getTotal(), other.getTotal());
+        return Objects.equals(getTotal(), other.getTotal());
     }
 
 }

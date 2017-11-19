@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.calendarioglobal;
 
 import java.util.List;
@@ -11,12 +12,12 @@ import java.util.List;
  */
 public interface CalendarioGlobal {
 
-	public void creaCalendarioGlobal(CalendarioGlobalDTO dto);
+    public void creaCalendarioGlobal(CalendarioGlobalDTO dto);
 
-	public void actualizarCalendarioGlobal(CalendarioGlobalDTO dto);
+    public void actualizarCalendarioGlobal(CalendarioGlobalDTO dto);
 
-	public void eliminarCalendarioGlobal(Integer idCalendarioGlobal);
+    public void eliminarCalendarioGlobal(Integer idCalendarioGlobal);
 
-	public List<CalendarioGlobalDTO> obtenerListaCalendarioGlobal();
+    public List<CalendarioGlobalDTO> obtenerListaCalendarioGlobal();
 
 }

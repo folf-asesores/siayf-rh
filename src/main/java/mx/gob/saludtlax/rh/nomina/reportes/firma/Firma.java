@@ -1,11 +1,13 @@
 /*
  * Firma.java
  * Creado el 11/sep/2017 11:05:32 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.io.Serializable;
+
 import javax.ejb.Local;
 
 /**
@@ -15,6 +17,6 @@ import javax.ejb.Local;
 @Local
 public interface Firma extends Serializable {
 
-    byte [] generarReporte(final Integer idProductoNomina);
+    byte[] generarReporte(final Integer idProductoNomina);
 
 }

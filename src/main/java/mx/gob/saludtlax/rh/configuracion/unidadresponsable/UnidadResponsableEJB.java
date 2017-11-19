@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.unidadresponsable;
 
 import java.util.List;
@@ -8,7 +9,8 @@ import javax.inject.Inject;
 @Stateless
 public class UnidadResponsableEJB implements UnidadResponsable {
 
-    @Inject private UnidadResponsableService unidadResponsableService;
+    @Inject
+    private UnidadResponsableService unidadResponsableService;
 
     @Override
     public List<UnidadResponsableDTO> obtenerUnidadResponsableLista() {
@@ -48,7 +50,7 @@ public class UnidadResponsableEJB implements UnidadResponsable {
     }
 
     @Override
-    public void  eliminarUnidadResponsable(UnidadResponsableDTO dto) {
+    public void eliminarUnidadResponsable(UnidadResponsableDTO dto) {
         unidadResponsableService.eliminarUnidadResponsable(dto);
     }
 }

@@ -15,9 +15,11 @@ import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
-import org.jboss.logging.Logger;
 
 /**
  *
@@ -63,9 +65,8 @@ public class DispersionReporteService implements Serializable {
     }
 
     private byte[] obternerBytes() {
-        try (FileInputStream fis = new FileInputStream(archivoDispersion);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
-            byte [] buffer = new byte[1024];
+        try (FileInputStream fis = new FileInputStream(archivoDispersion); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buffer)) != -1;) {
                 bos.write(buffer, 0, readNum);

@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.riesgopuesto;
 
 import java.io.Serializable;
@@ -18,32 +19,32 @@ import javax.inject.Inject;
 @Stateless
 public class RiesgoPuestoEJB implements RiesgoPuesto, Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 648837261243804947L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 648837261243804947L;
 
-	@Inject
-	private RiesgoPuestoService riesgoPuestoService;
+    @Inject
+    private RiesgoPuestoService riesgoPuestoService;
 
-	@Override
-	public void crearRiesgoPuesto(RiesgoPuestoDTO dto) {
-		riesgoPuestoService.crearRiesgoPuesto(dto);
-	}
+    @Override
+    public void crearRiesgoPuesto(RiesgoPuestoDTO dto) {
+        riesgoPuestoService.crearRiesgoPuesto(dto);
+    }
 
-	@Override
-	public void actualizarRiesgoPuesto(RiesgoPuestoDTO dto) {
-		riesgoPuestoService.actualizarRiesgoPuesto(dto);
-	}
+    @Override
+    public void actualizarRiesgoPuesto(RiesgoPuestoDTO dto) {
+        riesgoPuestoService.actualizarRiesgoPuesto(dto);
+    }
 
-	@Override
-	public void eliminarRiesgoPuesto(Integer idRiesgoPuesto) {
-		riesgoPuestoService.eliminarRiesgoPuesto(idRiesgoPuesto);
-	}
+    @Override
+    public void eliminarRiesgoPuesto(Integer idRiesgoPuesto) {
+        riesgoPuestoService.eliminarRiesgoPuesto(idRiesgoPuesto);
+    }
 
-	@Override
-	public List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto() {
-		return riesgoPuestoService.obtenerListaRiesgoPuesto();
-	}
+    @Override
+    public List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto() {
+        return riesgoPuestoService.obtenerListaRiesgoPuesto();
+    }
 
 }

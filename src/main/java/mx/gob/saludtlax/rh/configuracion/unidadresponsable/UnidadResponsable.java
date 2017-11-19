@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * UnidadResponsable.java
  * Creado el Jul 30, 2016 11:16:35 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.unidadresponsable;
 
 import java.util.List;
+
 import javax.ejb.Local;
 
 /**
@@ -31,5 +33,5 @@ public interface UnidadResponsable {
     UnidadResponsableDTO obtenerUnidadResponsable(UnidadResponsableDTO unidadResponsable);
 
     List<UnidadResponsableDTO> obtenerUnidadResponsableLista();
-    
+
 }

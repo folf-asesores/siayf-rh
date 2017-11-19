@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ReincorporacionBaseController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7359263173765732160L;
 
@@ -42,10 +42,9 @@ public class ReincorporacionBaseController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new ReincorporacionBaseView();
+        view = new ReincorporacionBaseView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -69,14 +68,14 @@ public class ReincorporacionBaseController implements Serializable {
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<ReincorporacionBaseDetalleDTO> resultado = this.reincorporacionBaseEJB.consultarPorCriterio(criterio);
-        this.view.setReincorporacionBaseDetalleDTO(resultado);
+        List<ReincorporacionBaseDetalleDTO> resultado = reincorporacionBaseEJB.consultarPorCriterio(criterio);
+        view.setReincorporacionBaseDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaConfianza() {
-        ReincorporacionBaseDTO reincorporacionBaseDTO = this.view.getReincorporacionBaseDTO();
+        ReincorporacionBaseDTO reincorporacionBaseDTO = view.getReincorporacionBaseDTO();
 
         ReincorporacionBaseWord reincorporacionBaseWord = new ReincorporacionBaseWord();
         byte[] bytesWord = reincorporacionBaseWord.generar(reincorporacionBaseDTO);
@@ -102,34 +101,34 @@ public class ReincorporacionBaseController implements Serializable {
     }
 
     public void contenidoReservacion(Integer idTipoMovimiento) {
-        ReincorporacionBaseDTO reincorporacionBaseDTO = this.reincorporacionBaseEJB.obtenerReincorporacion(idTipoMovimiento);
+        ReincorporacionBaseDTO reincorporacionBaseDTO = reincorporacionBaseEJB.obtenerReincorporacion(idTipoMovimiento);
 
-        this.view.setReincorporacionBaseDTO(reincorporacionBaseDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReincorporacion(true);
+        view.setReincorporacionBaseDTO(reincorporacionBaseDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReincorporacion(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setReincorporacionBaseDetalleDTO(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarReincorporacion(false);
+        view.setCriterio("");
+        view.setReincorporacionBaseDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarReincorporacion(false);
     }
 
     public void edicion() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReincorporacion(false);
-        this.view.setMostrarEdicion(true);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReincorporacion(false);
+        view.setMostrarEdicion(true);
     }
 
     public void guardar() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReincorporacion(true);
-        this.view.setMostrarEdicion(false);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReincorporacion(true);
+        view.setMostrarEdicion(false);
     }
 
     public ReincorporacionBaseView getView() {
-        return this.view;
+        return view;
     }
 
     public void setView(ReincorporacionBaseView view) {
@@ -137,7 +136,7 @@ public class ReincorporacionBaseController implements Serializable {
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {

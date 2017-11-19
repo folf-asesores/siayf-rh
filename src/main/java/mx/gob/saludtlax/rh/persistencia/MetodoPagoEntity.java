@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ public class MetodoPagoEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_metodo_pago")
+    @Column(name = "id_metodo_pago")
     private Integer idMetodoPago;
 
     @Column(name = "descripcion")
@@ -25,12 +26,15 @@ public class MetodoPagoEntity implements Serializable {
     public Integer getIdMetodoPago() {
         return idMetodoPago;
     }
+
     public void setIdMetodoPago(Integer idMetodoPago) {
         this.idMetodoPago = idMetodoPago;
     }
+
     public String getDescripcion() {
         return descripcion;
     }
+
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }

@@ -1,12 +1,28 @@
 /*
  * NominaFederalesTest.java
  * Creado el 15/Feb/2017 5:17:27 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
@@ -35,21 +51,6 @@ import mx.gob.saludtlax.rh.util.NumeroALetra;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
-
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -64,7 +65,7 @@ public class NominaFederalesTest {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
-        
+
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
@@ -103,10 +104,7 @@ public class NominaFederalesTest {
         jar.addAsResource("reportes/nomina_federales--deducciones-total.jrxml");
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -117,12 +115,7 @@ public class NominaFederalesTest {
     public void obtenerReferencia() {
         LOGGER.info("Iniciando test :: obtenerReferencia");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "nomina_federales",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "4"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "nomina_federales", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "4" };
 
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
@@ -136,7 +129,7 @@ public class NominaFederalesTest {
         String referencia = "73952277-fcd0-4f00-960d-bb51a6e1";
         AdministradorReportes instance = new AdministradorReportes();
         byte[] result = instance.obtenerReporte(referencia);
-        
+
         ArchivoUtil.guardarEnCarpetaUsuario(result, "nomina-federales.txt");
         assertNotNull(result);
     }
@@ -146,12 +139,7 @@ public class NominaFederalesTest {
     public void testReporte() throws IOException {
         LOGGER.info("Iniciando test :: Reporte");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "nomina_federales",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "4"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "nomina_federales", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "4" };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         byte[] result = adm.obtenerReporte(referencia);

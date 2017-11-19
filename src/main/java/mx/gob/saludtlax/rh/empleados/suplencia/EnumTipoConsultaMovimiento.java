@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.suplencia;
 
 /**
@@ -9,6 +10,6 @@ package mx.gob.saludtlax.rh.empleados.suplencia;
  * @since 09/02/2017 22:38:17
  */
 public class EnumTipoConsultaMovimiento {
-	public static final int MOVIMIENTOS_SUPLENTE_TIPO_MOVIMIENTO = 1;
+    public static final int MOVIMIENTOS_SUPLENTE_TIPO_MOVIMIENTO = 1;
 
 }

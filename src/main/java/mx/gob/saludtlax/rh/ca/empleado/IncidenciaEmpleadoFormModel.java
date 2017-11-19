@@ -1,142 +1,140 @@
+
 package mx.gob.saludtlax.rh.ca.empleado;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.Date;
 
 /**
  * Datos de entrada de la incidencia del empleado
- * 
+ *
  * @author Juan Carlos Ivan Ganzo Dominguez.
  *
  */
 public class IncidenciaEmpleadoFormModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1160864148853353136L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1160864148853353136L;
 
-	private Integer idIncidenciaEmpleado;
+    private Integer idIncidenciaEmpleado;
 
-	private Integer idEmpleado;
+    private Integer idEmpleado;
 
-	private Integer idIncidencia;
+    private Integer idIncidencia;
 
-	private Date fechaInicio;
+    private Date fechaInicio;
 
-	private Date fechaFin;
+    private Date fechaFin;
 
-	private Date fechaOficio;
+    private Date fechaOficio;
 
-	private String observaciones;
+    private String observaciones;
 
-	private Integer idUsuario;
+    private Integer idUsuario;
 
-	private Date horaInicio;
+    private Date horaInicio;
 
-	private Date horaFin;
+    private Date horaFin;
 
-	private String numeroOficio;
-	
-	private boolean ignorarValidacionReglaIncidencia;
+    private String numeroOficio;
 
-	public String getNumeroOficio() {
-		return numeroOficio;
-	}
+    private boolean ignorarValidacionReglaIncidencia;
 
-	public void setNumeroOficio(String numeroOficio) {
-		this.numeroOficio = numeroOficio;
-	}
+    public String getNumeroOficio() {
+        return numeroOficio;
+    }
 
-	public Integer getIdIncidenciaEmpleado() {
-		return idIncidenciaEmpleado;
-	}
+    public void setNumeroOficio(String numeroOficio) {
+        this.numeroOficio = numeroOficio;
+    }
 
-	public void setIdIncidenciaEmpleado(Integer idIncidenciaEmpleado) {
-		this.idIncidenciaEmpleado = idIncidenciaEmpleado;
-	}
+    public Integer getIdIncidenciaEmpleado() {
+        return idIncidenciaEmpleado;
+    }
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    public void setIdIncidenciaEmpleado(Integer idIncidenciaEmpleado) {
+        this.idIncidenciaEmpleado = idIncidenciaEmpleado;
+    }
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public Integer getIdIncidencia() {
-		return idIncidencia;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setIdIncidencia(Integer idIncidencia) {
-		this.idIncidencia = idIncidencia;
-	}
+    public Integer getIdIncidencia() {
+        return idIncidencia;
+    }
 
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
+    public void setIdIncidencia(Integer idIncidencia) {
+        this.idIncidencia = idIncidencia;
+    }
 
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
 
-	public Date getFechaFin() {
-		return fechaFin;
-	}
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
 
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
+    public Date getFechaFin() {
+        return fechaFin;
+    }
 
-	public Date getFechaOficio() {
-		return fechaOficio;
-	}
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
 
-	public void setFechaOficio(Date fechaOficio) {
-		this.fechaOficio = fechaOficio;
-	}
+    public Date getFechaOficio() {
+        return fechaOficio;
+    }
 
-	public String getObservaciones() {
-		return observaciones;
-	}
+    public void setFechaOficio(Date fechaOficio) {
+        this.fechaOficio = fechaOficio;
+    }
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
+    public String getObservaciones() {
+        return observaciones;
+    }
 
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
 
-	public Date getHoraInicio() {
-		return horaInicio;
-	}
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-	public void setHoraInicio(Date horaInicio) {
-		this.horaInicio = horaInicio;
-	}
+    public Date getHoraInicio() {
+        return horaInicio;
+    }
 
-	public Date getHoraFin() {
-		return horaFin;
-	}
+    public void setHoraInicio(Date horaInicio) {
+        this.horaInicio = horaInicio;
+    }
 
-	public void setHoraFin(Date horaFin) {
-		this.horaFin = horaFin;
-	}
+    public Date getHoraFin() {
+        return horaFin;
+    }
 
-	public boolean isIgnorarValidacionReglaIncidencia() {
-		return ignorarValidacionReglaIncidencia;
-	}
+    public void setHoraFin(Date horaFin) {
+        this.horaFin = horaFin;
+    }
 
-	public void setIgnorarValidacionReglaIncidencia(boolean ignorarValidacionReglaIncidencia) {
-		this.ignorarValidacionReglaIncidencia = ignorarValidacionReglaIncidencia;
-	}
+    public boolean isIgnorarValidacionReglaIncidencia() {
+        return ignorarValidacionReglaIncidencia;
+    }
 
-	
+    public void setIgnorarValidacionReglaIncidencia(boolean ignorarValidacionReglaIncidencia) {
+        this.ignorarValidacionReglaIncidencia = ignorarValidacionReglaIncidencia;
+    }
 
 }

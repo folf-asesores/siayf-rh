@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.reporteslaborales.formatoaltaissste;
 
 import java.util.ArrayList;
@@ -13,88 +14,87 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
  *
  */
 public class FormatoAltaIsssteView {
-	
-	private String urlReporte;
-	private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<InfoEmpleadoDTO>();
-	private InfoEmpleadoDTO empleadoSeleccionado= new InfoEmpleadoDTO(); 
-	private Integer idEmpleado;
-	private String criterio;
-	
-	private boolean principalDatos = true;
-	private boolean datosPersona = false;
-	private boolean ventanaNuevoReporte  = false;
-	private boolean reporteExitoso = false;
-		
-	
-	public String getUrlReporte() {
-		return urlReporte;
-	}
 
-	public void setUrlReporte(String urlReporte) {
-		this.urlReporte = urlReporte;
-	}
+    private String urlReporte;
+    private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<>();
+    private InfoEmpleadoDTO empleadoSeleccionado = new InfoEmpleadoDTO();
+    private Integer idEmpleado;
+    private String criterio;
 
-	public List<InfoEmpleadoDTO> getListaEmpleados() {
-		return listaEmpleados;
-	}
+    private boolean principalDatos = true;
+    private boolean datosPersona = false;
+    private boolean ventanaNuevoReporte = false;
+    private boolean reporteExitoso = false;
 
-	public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
-		this.listaEmpleados = listaEmpleados;
-	}
+    public String getUrlReporte() {
+        return urlReporte;
+    }
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    public void setUrlReporte(String urlReporte) {
+        this.urlReporte = urlReporte;
+    }
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public List<InfoEmpleadoDTO> getListaEmpleados() {
+        return listaEmpleados;
+    }
 
-	public String getCriterio() {
-		return criterio;
-	}
+    public void setListaEmpleados(List<InfoEmpleadoDTO> listaEmpleados) {
+        this.listaEmpleados = listaEmpleados;
+    }
 
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public InfoEmpleadoDTO getEmpleadoSeleccionado() {
-		return empleadoSeleccionado;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setEmpleadoSeleccionado(InfoEmpleadoDTO empleadoSeleccionado) {
-		this.empleadoSeleccionado = empleadoSeleccionado;
-	}
+    public String getCriterio() {
+        return criterio;
+    }
 
-	public boolean isPrincipalDatos() {
-		return principalDatos;
-	}
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
 
-	public void setPrincipalDatos(boolean principalDatos) {
-		this.principalDatos = principalDatos;
-	}
+    public InfoEmpleadoDTO getEmpleadoSeleccionado() {
+        return empleadoSeleccionado;
+    }
 
-	public boolean isDatosPersona() {
-		return datosPersona;
-	}
+    public void setEmpleadoSeleccionado(InfoEmpleadoDTO empleadoSeleccionado) {
+        this.empleadoSeleccionado = empleadoSeleccionado;
+    }
 
-	public void setDatosPersona(boolean datosPersona) {
-		this.datosPersona = datosPersona;
-	}
+    public boolean isPrincipalDatos() {
+        return principalDatos;
+    }
 
-	public boolean isVentanaNuevoReporte() {
-		return ventanaNuevoReporte;
-	}
+    public void setPrincipalDatos(boolean principalDatos) {
+        this.principalDatos = principalDatos;
+    }
 
-	public void setVentanaNuevoReporte(boolean ventanaNuevoReporte) {
-		this.ventanaNuevoReporte = ventanaNuevoReporte;
-	}
+    public boolean isDatosPersona() {
+        return datosPersona;
+    }
 
-	public boolean isReporteExitoso() {
-		return reporteExitoso;
-	}
+    public void setDatosPersona(boolean datosPersona) {
+        this.datosPersona = datosPersona;
+    }
 
-	public void setReporteExitoso(boolean reporteExitoso) {
-		this.reporteExitoso = reporteExitoso;
-	}
+    public boolean isVentanaNuevoReporte() {
+        return ventanaNuevoReporte;
+    }
+
+    public void setVentanaNuevoReporte(boolean ventanaNuevoReporte) {
+        this.ventanaNuevoReporte = ventanaNuevoReporte;
+    }
+
+    public boolean isReporteExitoso() {
+        return reporteExitoso;
+    }
+
+    public void setReporteExitoso(boolean reporteExitoso) {
+        this.reporteExitoso = reporteExitoso;
+    }
 }

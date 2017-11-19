@@ -1,11 +1,13 @@
 /*
  * NotificacionDestinatarioEntity.java
  * Creado el Aug 10, 2016 11:17:06 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,17 +35,17 @@ public class NotificacionDestinatarioEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_notificacion", referencedColumnName = "id_notificacion")
     private NotificacionEntity notificacion;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_destinatario", referencedColumnName = "id_usuario")
     private UsuarioEntity destinatario;
-    
+
     @Column(name = "token")
     private String token;
 
     @Column(name = "visto")
     private Boolean visto;
-    
+
     public NotificacionDestinatarioEntity() {
     }
 

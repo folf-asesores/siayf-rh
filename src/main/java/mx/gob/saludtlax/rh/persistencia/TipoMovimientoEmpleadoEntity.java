@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -20,90 +21,88 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tipos_movimientos_empleados")
 public class TipoMovimientoEmpleadoEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8521438247396175722L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8521438247396175722L;
 
-	@Id
-	@Column(name = "id_tipo_movimiento")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idTipoMovimiento;
+    @Id
+    @Column(name = "id_tipo_movimiento")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTipoMovimiento;
 
-	@Column(name = "movimiento")
-	private String movimiento;
+    @Column(name = "movimiento")
+    private String movimiento;
 
-	@Column(name = "id_padre")
-	private Integer idPadre;
+    @Column(name = "id_padre")
+    private Integer idPadre;
 
-	@Column(name = "clave")
-	private Integer clave;
+    @Column(name = "clave")
+    private Integer clave;
 
-	@Column(name = "antecedente")
-	private boolean conAntecedente;
+    @Column(name = "antecedente")
+    private boolean conAntecedente;
 
-	@Column(name = "visualizar_movimiento")
-	private boolean visualizarMovimiento;
-	
-	@Column(name = "autorizacion")
-	private boolean autorizacion;
-	
-	
+    @Column(name = "visualizar_movimiento")
+    private boolean visualizarMovimiento;
 
-	public boolean isAutorizacion() {
-		return autorizacion;
-	}
+    @Column(name = "autorizacion")
+    private boolean autorizacion;
 
-	public void setAutorizacion(boolean autorizacion) {
-		this.autorizacion = autorizacion;
-	}
+    public boolean isAutorizacion() {
+        return autorizacion;
+    }
 
-	public boolean isVisualizarMovimiento() {
-		return visualizarMovimiento;
-	}
+    public void setAutorizacion(boolean autorizacion) {
+        this.autorizacion = autorizacion;
+    }
 
-	public void setVisualizarMovimiento(boolean visualizarMovimiento) {
-		this.visualizarMovimiento = visualizarMovimiento;
-	}
+    public boolean isVisualizarMovimiento() {
+        return visualizarMovimiento;
+    }
 
-	public boolean isConAntecedente() {
-		return conAntecedente;
-	}
+    public void setVisualizarMovimiento(boolean visualizarMovimiento) {
+        this.visualizarMovimiento = visualizarMovimiento;
+    }
 
-	public void setConAntecedente(boolean conAntecedente) {
-		this.conAntecedente = conAntecedente;
-	}
+    public boolean isConAntecedente() {
+        return conAntecedente;
+    }
 
-	public Integer getIdPadre() {
-		return idPadre;
-	}
+    public void setConAntecedente(boolean conAntecedente) {
+        this.conAntecedente = conAntecedente;
+    }
 
-	public void setIdPadre(Integer idPadre) {
-		this.idPadre = idPadre;
-	}
+    public Integer getIdPadre() {
+        return idPadre;
+    }
 
-	public Integer getClave() {
-		return clave;
-	}
+    public void setIdPadre(Integer idPadre) {
+        this.idPadre = idPadre;
+    }
 
-	public void setClave(Integer clave) {
-		this.clave = clave;
-	}
+    public Integer getClave() {
+        return clave;
+    }
 
-	public String getMovimiento() {
-		return movimiento;
-	}
+    public void setClave(Integer clave) {
+        this.clave = clave;
+    }
 
-	public void setMovimiento(String movimiento) {
-		this.movimiento = movimiento;
-	}
+    public String getMovimiento() {
+        return movimiento;
+    }
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
+
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
 }

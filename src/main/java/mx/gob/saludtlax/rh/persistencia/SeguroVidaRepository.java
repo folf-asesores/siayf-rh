@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import javax.persistence.NoResultException;
@@ -11,32 +12,34 @@ import javax.persistence.NoResultException;
  */
 public class SeguroVidaRepository extends GenericRepository<SeguroVidaEntity, Integer> {
 
-	public boolean existeNumeroExpediente(String numeroExpediente) {
-		boolean resultado = false;
-		try {
-			SeguroVidaEntity seguroVidaEntity = em
-					.createQuery("SELECT s FROM SeguroVidaEntity AS s WHERE s.numeroExpediente =:numeroExpediente",
-							SeguroVidaEntity.class)
-					.setParameter("numeroExpediente", numeroExpediente).getSingleResult();
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4409722091118892140L;
 
-			resultado = true;
-		} catch (NoResultException e) {
-			resultado = false;
-		}
-		return resultado;
-	}
+    public boolean existeNumeroExpediente(String numeroExpediente) {
+        boolean resultado = false;
+        try {
+            SeguroVidaEntity seguroVidaEntity = em
+                    .createQuery("SELECT s FROM SeguroVidaEntity AS s WHERE s.numeroExpediente =:numeroExpediente", SeguroVidaEntity.class)
+                    .setParameter("numeroExpediente", numeroExpediente).getSingleResult();
 
-	public Integer existeEmpleado(Integer idEmpleado) {
-		try {
-			Integer idSeguro = em
-					.createQuery("SELECT s.idSeguroVida FROM SeguroVidaEntity AS s WHERE s.idEmpleado =:idEmpleado",
-							Integer.class)
-					.setParameter("idEmpleado", idEmpleado).getSingleResult();
+            resultado = true;
+        } catch (NoResultException e) {
+            resultado = false;
+        }
+        return resultado;
+    }
 
-			return idSeguro;
-		} catch (NoResultException e) {
-			return 0;
-		}
-	}
+    public Integer existeEmpleado(Integer idEmpleado) {
+        try {
+            Integer idSeguro = em.createQuery("SELECT s.idSeguroVida FROM SeguroVidaEntity AS s WHERE s.idEmpleado =:idEmpleado", Integer.class)
+                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+
+            return idSeguro;
+        } catch (NoResultException e) {
+            return 0;
+        }
+    }
 
 }

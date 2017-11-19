@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.importar.cfdi;
 
 import java.io.IOException;
@@ -21,209 +22,209 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ManagedBean(name = "importarXMLPaqueteNomina")
 @ViewScoped
 public class ImportarPaqueteCFDIController {
-	private static final Logger LOGGER = Logger.getLogger(ImportarPaqueteCFDIController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ImportarPaqueteCFDIController.class.getName());
 
-	@Inject
-	ProcesarPaqueteNominaService procesarPaqueteNominaService;
+    @Inject
+    ProcesarPaqueteNominaService procesarPaqueteNominaService;
 
-	private ImportarCFDIView view;
+    private ImportarCFDIView view;
 
-	private Integer progreso;
+    private Integer progreso;
 
-	private UploadedFile uploadFile;
+    private UploadedFile uploadFile;
 
-	private boolean mostrarBarraProgreso = false;
+    private boolean mostrarBarraProgreso = false;
 
-	private boolean habilitarProcesar = false;
+    private boolean habilitarProcesar = false;
 
-	private boolean mostrarTabla = false;
+    private boolean mostrarTabla = false;
 
-	private boolean mostrarSubirArchivo = true;
+    private boolean mostrarSubirArchivo = true;
 
-	private Integer totalProcesos;
+    private Integer totalProcesos;
 
-	private Integer completados;
+    private Integer completados;
 
-	private Integer monitor;
+    private Integer monitor;
 
-	private List<ComprobanteNominaView> listadoComprobanteNominaView;
+    private List<ComprobanteNominaView> listadoComprobanteNominaView;
 
-	List<Future<ComprobanteNominaView>> listadoNominasProcesando;
+    List<Future<ComprobanteNominaView>> listadoNominasProcesando;
 
-	@PostConstruct
-	public void conceptosInit() {
-		view = new ImportarCFDIView();
-		completados = 0;
-		monitor = 0;
-		listadoComprobanteNominaView = new ArrayList<ComprobanteNominaView>();
-	}
+    @PostConstruct
+    public void conceptosInit() {
+        view = new ImportarCFDIView();
+        completados = 0;
+        monitor = 0;
+        listadoComprobanteNominaView = new ArrayList<>();
+    }
 
-	public void test() throws InterruptedException, ExecutionException {
+    public void test() throws InterruptedException, ExecutionException {
 
-	}
+    }
 
-	public void cargarPaqueteCfdi() {
-		LOGGER.info(view.getFile().getFileName());
+    public void cargarPaqueteCfdi() {
+        LOGGER.info(view.getFile().getFileName());
 
-	}
+    }
 
-	public void procesarXML() throws IOException, InterruptedException {
+    public void procesarXML() throws IOException, InterruptedException {
 
-		listadoNominasProcesando = procesarPaqueteNominaService.procesar(uploadFile.getInputstream());
-		totalProcesos = listadoNominasProcesando.size();
-		// listadoComprobanteNominaView = paquete.getComprobanteNominaView();
-		mostrarTabla = true;
-	}
+        listadoNominasProcesando = procesarPaqueteNominaService.procesar(uploadFile.getInputstream());
+        totalProcesos = listadoNominasProcesando.size();
+        // listadoComprobanteNominaView = paquete.getComprobanteNominaView();
+        mostrarTabla = true;
+    }
 
-	public String irPrincipal() {
-		view.panelPrincipal();
-		return null;
-	}
+    public String irPrincipal() {
+        view.panelPrincipal();
+        return null;
+    }
 
-	public Integer getProgreso() {
+    public Integer getProgreso() {
 
-		if (listadoNominasProcesando == null) {
-			return 0;
-		}
+        if (listadoNominasProcesando == null) {
+            return 0;
+        }
 
-		Integer porcentaje = (completados * 100) / totalProcesos;
+        Integer porcentaje = (completados * 100) / totalProcesos;
 
-		System.out.println(monitor);
-		if (monitor == 2) {
+        System.out.println(monitor);
+        if (monitor == 2) {
 
-			System.out.println(monitor);
-			completados = 0;
+            System.out.println(monitor);
+            completados = 0;
 
-			for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoNominasProcesando) {
+            for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoNominasProcesando) {
 
-				if (comprobanteNominaViewFuture.isDone()) {
-					completados++;
-					/*
-					 * try { listadoComprobanteNominaView.add(
-					 * comprobanteNominaViewFuture.get()); completados++; }
-					 * catch (InterruptedException | ExecutionException e) {
-					 * e.printStackTrace(); } listadoNominasProcesando.remove(
-					 * comprobanteNominaViewFuture);
-					 */
+                if (comprobanteNominaViewFuture.isDone()) {
+                    completados++;
+                    /*
+                     * try { listadoComprobanteNominaView.add(
+                     * comprobanteNominaViewFuture.get()); completados++; }
+                     * catch (InterruptedException | ExecutionException e) {
+                     * e.printStackTrace(); } listadoNominasProcesando.remove(
+                     * comprobanteNominaViewFuture);
+                     */
 
-				}
+                }
 
-			}
-			monitor = 0;
+            }
+            monitor = 0;
 
-			return porcentaje;
+            return porcentaje;
 
-		} else {
+        } else {
 
-			monitor++;
-			return porcentaje;
-		}
+            monitor++;
+            return porcentaje;
+        }
 
-		// return 0;
-	}
+        // return 0;
+    }
 
-	public void mostrarTablaFinal() {
+    public void mostrarTablaFinal() {
 
-		for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoNominasProcesando) {
+        for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoNominasProcesando) {
 
-			if (comprobanteNominaViewFuture.isDone()) {
+            if (comprobanteNominaViewFuture.isDone()) {
 
-				try {
-					listadoComprobanteNominaView.add(comprobanteNominaViewFuture.get());
-					completados++;
-				} catch (InterruptedException | ExecutionException e) {
-					e.printStackTrace();
-				}
+                try {
+                    listadoComprobanteNominaView.add(comprobanteNominaViewFuture.get());
+                    completados++;
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
 
-			}
-		}
+            }
+        }
 
-		//listadoComprobanteNominaView = procesarPaqueteNominaService.getPaqueteNominaView().getComprobanteNominaView();
-		mostrarBarraProgreso = false;
-		mostrarSubirArchivo = true;
-		mostrarTabla = true;
+        //listadoComprobanteNominaView = procesarPaqueteNominaService.getPaqueteNominaView().getComprobanteNominaView();
+        mostrarBarraProgreso = false;
+        mostrarSubirArchivo = true;
+        mostrarTabla = true;
 
-	}
+    }
 
-	public void setProgreso(Integer progreso) {
-		this.progreso = progreso;
-	}
+    public void setProgreso(Integer progreso) {
+        this.progreso = progreso;
+    }
 
-	public void handleFileUpload(FileUploadEvent event) {
-		uploadFile = event.getFile();
-		
-		try {
-			mostrarBarraProgreso = true;
-			mostrarSubirArchivo = false;
-			mostrarTabla = false;
-			procesarXML();
-			JSFUtils.infoMessage("Se ha empezado a importar los CFDI", "Se ha empezado a importar los CFDI");
-			RequestContext.getCurrentInstance().execute("PF('pbLeerXML').start()");
+    public void handleFileUpload(FileUploadEvent event) {
+        uploadFile = event.getFile();
 
-		} catch (IOException e) {
+        try {
+            mostrarBarraProgreso = true;
+            mostrarSubirArchivo = false;
+            mostrarTabla = false;
+            procesarXML();
+            JSFUtils.infoMessage("Se ha empezado a importar los CFDI", "Se ha empezado a importar los CFDI");
+            RequestContext.getCurrentInstance().execute("PF('pbLeerXML').start()");
 
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			 
-			e.printStackTrace();
-		}
+        } catch (IOException e) {
 
-	}
+            e.printStackTrace();
+        } catch (InterruptedException e) {
 
-	public UploadedFile getUploadFile() {
-		return uploadFile;
-	}
+            e.printStackTrace();
+        }
 
-	public void setUploadFile(UploadedFile uploadFile) {
-		this.uploadFile = uploadFile;
-	}
+    }
 
-	public void procesar() {
+    public UploadedFile getUploadFile() {
+        return uploadFile;
+    }
 
-	}
+    public void setUploadFile(UploadedFile uploadFile) {
+        this.uploadFile = uploadFile;
+    }
 
-	public ImportarCFDIView getView() {
-		return view;
-	}
+    public void procesar() {
 
-	public boolean isMostrarBarraProgreso() {
-		return mostrarBarraProgreso;
-	}
+    }
 
-	public void setMostrarBarraProgreso(boolean mostrarBarraProgreso) {
-		this.mostrarBarraProgreso = mostrarBarraProgreso;
-	}
+    public ImportarCFDIView getView() {
+        return view;
+    }
 
-	public boolean isHabilitarProcesar() {
-		return habilitarProcesar;
-	}
+    public boolean isMostrarBarraProgreso() {
+        return mostrarBarraProgreso;
+    }
 
-	public void setHabilitarProcesar(boolean habilitarProcesar) {
-		this.habilitarProcesar = habilitarProcesar;
-	}
+    public void setMostrarBarraProgreso(boolean mostrarBarraProgreso) {
+        this.mostrarBarraProgreso = mostrarBarraProgreso;
+    }
 
-	public boolean isMostrarTabla() {
-		return mostrarTabla;
-	}
+    public boolean isHabilitarProcesar() {
+        return habilitarProcesar;
+    }
 
-	public void setMostrarTabla(boolean mostrarTabla) {
-		this.mostrarTabla = mostrarTabla;
-	}
+    public void setHabilitarProcesar(boolean habilitarProcesar) {
+        this.habilitarProcesar = habilitarProcesar;
+    }
 
-	public boolean isMostrarSubirArchivo() {
-		return mostrarSubirArchivo;
-	}
+    public boolean isMostrarTabla() {
+        return mostrarTabla;
+    }
 
-	public void setMostrarSubirArchivo(boolean mostrarSubirArchivo) {
-		this.mostrarSubirArchivo = mostrarSubirArchivo;
-	}
+    public void setMostrarTabla(boolean mostrarTabla) {
+        this.mostrarTabla = mostrarTabla;
+    }
 
-	public List<ComprobanteNominaView> getListadoComprobanteNominaView() {
-		return listadoComprobanteNominaView;
-	}
+    public boolean isMostrarSubirArchivo() {
+        return mostrarSubirArchivo;
+    }
 
-	public void setListadoComprobanteNominaView(List<ComprobanteNominaView> listadoComprobanteNominaView) {
-		this.listadoComprobanteNominaView = listadoComprobanteNominaView;
-	}
+    public void setMostrarSubirArchivo(boolean mostrarSubirArchivo) {
+        this.mostrarSubirArchivo = mostrarSubirArchivo;
+    }
+
+    public List<ComprobanteNominaView> getListadoComprobanteNominaView() {
+        return listadoComprobanteNominaView;
+    }
+
+    public void setListadoComprobanteNominaView(List<ComprobanteNominaView> listadoComprobanteNominaView) {
+        this.listadoComprobanteNominaView = listadoComprobanteNominaView;
+    }
 
 }

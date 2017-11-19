@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -24,7 +25,7 @@ import javax.persistence.Table;
 public class AdjuntoEmpleadoEntity implements Serializable {
 
     private static final long serialVersionUID = -901870899360620267L;
-	
+
     @Id
     @Column(name = "id_adjunto_empleado")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +34,7 @@ public class AdjuntoEmpleadoEntity implements Serializable {
     @Basic(fetch = FetchType.LAZY, optional = true)
     @Column(name = "archivo")
     @Lob
-    private byte [] archivo;
+    private byte[] archivo;
 
     /**
      * @return the idAdjunto
@@ -43,7 +44,8 @@ public class AdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param idAdjunto the idAdjunto to set
+     * @param idAdjunto
+     *            the idAdjunto to set
      */
     public void setIdAdjunto(Integer idAdjunto) {
         this.idAdjunto = idAdjunto;
@@ -57,7 +59,8 @@ public class AdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param archivo the archivo to set
+     * @param archivo
+     *            the archivo to set
      */
     public void setArchivo(byte[] archivo) {
         this.archivo = archivo;

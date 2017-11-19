@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -16,26 +17,29 @@ import javax.persistence.Table;
 @Table(name = "niveles_empleados")
 public class NivelEmpleadoEntity implements Serializable {
 
-	private static final long serialVersionUID = 8931640499924636932L;
+    private static final long serialVersionUID = 8931640499924636932L;
 
-	@Id
-	@Column(name = "id_nivel_empleado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idNivelEmpleado;
+    @Id
+    @Column(name = "id_nivel_empleado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idNivelEmpleado;
 
-	@Column(name = "nivel_empleado")
-	private String nivelEmpleado;
+    @Column(name = "nivel_empleado")
+    private String nivelEmpleado;
 
-	public Integer getIdNivelEmpleado() {
-		return idNivelEmpleado;
-	}
-	public void setIdNivelEmpleado(Integer idNivelEmpleado) {
-		this.idNivelEmpleado = idNivelEmpleado;
-	}
-	public String getNivelEmpleado() {
-		return nivelEmpleado;
-	}
-	public void setNivelEmpleado(String nivelEmpleado) {
-		this.nivelEmpleado = nivelEmpleado;
-	}
+    public Integer getIdNivelEmpleado() {
+        return idNivelEmpleado;
+    }
+
+    public void setIdNivelEmpleado(Integer idNivelEmpleado) {
+        this.idNivelEmpleado = idNivelEmpleado;
+    }
+
+    public String getNivelEmpleado() {
+        return nivelEmpleado;
+    }
+
+    public void setNivelEmpleado(String nivelEmpleado) {
+        this.nivelEmpleado = nivelEmpleado;
+    }
 }

@@ -1,52 +1,53 @@
+
 package mx.gob.saludtlax.rh.siif.reportarcontratos;
 
 import java.util.List;
+
 import mx.gob.saludtlax.rh.configuracion.cuentabancaria.CuentaBancariaDTO;
 import mx.gob.saludtlax.rh.configuracion.tiponomina.TipoNominaDTO;
 import mx.gob.saludtlax.rh.siif.PaqueteEntradaContratoDTO;
 import mx.gob.saludtlax.rh.siif.SiifBitacoraDTO;
 
 public class ReportarSiifProsperaView {
-	
-	private PaqueteEntradaContratoDTO paqueteEntrada = new PaqueteEntradaContratoDTO();
-	private List<CuentaBancariaDTO> cuentaBancariaList;
-	private List<TipoNominaDTO> tipoNominaList;
-	private SiifBitacoraDTO siifBitacoraProcesada;
 
-	public void panelPrincipal() {
-	}
+    private PaqueteEntradaContratoDTO paqueteEntrada = new PaqueteEntradaContratoDTO();
+    private List<CuentaBancariaDTO> cuentaBancariaList;
+    private List<TipoNominaDTO> tipoNominaList;
+    private SiifBitacoraDTO siifBitacoraProcesada;
 
-	public PaqueteEntradaContratoDTO getPaqueteEntrada() {
-		return paqueteEntrada;
-	}
+    public void panelPrincipal() {
+    }
 
-	public void setPaqueteEntrada(PaqueteEntradaContratoDTO paqueteEntrada) {
-		this.paqueteEntrada = paqueteEntrada;
-	}
+    public PaqueteEntradaContratoDTO getPaqueteEntrada() {
+        return paqueteEntrada;
+    }
 
-	public List<CuentaBancariaDTO> getCuentaBancariaList() {
-		return cuentaBancariaList;
-	}
+    public void setPaqueteEntrada(PaqueteEntradaContratoDTO paqueteEntrada) {
+        this.paqueteEntrada = paqueteEntrada;
+    }
 
-	public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
-		this.cuentaBancariaList = cuentaBancariaList;
-	}
+    public List<CuentaBancariaDTO> getCuentaBancariaList() {
+        return cuentaBancariaList;
+    }
 
-	public List<TipoNominaDTO> getTipoNominaList() {
-		return tipoNominaList;
-	}
+    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+        this.cuentaBancariaList = cuentaBancariaList;
+    }
 
-	public void setTipoNominaList(List<TipoNominaDTO> tipoNominaList) {
-		this.tipoNominaList = tipoNominaList;
-	}
+    public List<TipoNominaDTO> getTipoNominaList() {
+        return tipoNominaList;
+    }
 
-	public SiifBitacoraDTO getSiifBitacoraProcesada() {
-		return siifBitacoraProcesada;
-	}
+    public void setTipoNominaList(List<TipoNominaDTO> tipoNominaList) {
+        this.tipoNominaList = tipoNominaList;
+    }
 
-	public void setSiifBitacoraProcesada(SiifBitacoraDTO siifBitacoraProcesada) {
-		this.siifBitacoraProcesada = siifBitacoraProcesada;
-	}
-	
-	
+    public SiifBitacoraDTO getSiifBitacoraProcesada() {
+        return siifBitacoraProcesada;
+    }
+
+    public void setSiifBitacoraProcesada(SiifBitacoraDTO siifBitacoraProcesada) {
+        this.siifBitacoraProcesada = siifBitacoraProcesada;
+    }
+
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.excepciones;
 
 import java.io.PrintStream;
@@ -5,27 +6,29 @@ import java.io.PrintWriter;
 import java.util.Collections;
 import java.util.Map;
 import java.util.TreeMap;
+
 import javax.ejb.ApplicationException;
 
 /**
- * Esta clase define las excepciones que están relacionadas con las reglas de 
+ * Esta clase define las excepciones que están relacionadas con las reglas de
  * negocio.
- * 
+ *
  * @author luisAlfonso
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  * @deprecated Remplazada por {@link ReglaNegocioException}
  */
+@Deprecated
 @ApplicationException(rollback = true)
 public class BusinessException extends RuntimeException {
 
-    /**  */
+    
     private static final long serialVersionUID = 8853273999950326870L;
 
     private CodigoError codigoError;
     private final Map<String, Object> propiedades = new TreeMap<>();
-        
+
     /**
-     * 
+     *
      * @param message
      * @deprecated Remplazado por {@link BusinessException#BusinessException(java.lang.String, mx.gob.saludtlax.rh.excepciones.CodigoError) }
      */
@@ -48,7 +51,7 @@ public class BusinessException extends RuntimeException {
         super(message, cause);
         this.codigoError = codigoError;
     }
-    
+
     /**
      *
      * @return
@@ -64,7 +67,7 @@ public class BusinessException extends RuntimeException {
     public void setCodigoError(CodigoError codigoError) {
         this.codigoError = codigoError;
     }
-    
+
     /**
      *
      * @return
@@ -72,7 +75,7 @@ public class BusinessException extends RuntimeException {
     public Map<String, Object> getPropiedades() {
         return Collections.unmodifiableMap(propiedades);
     }
-    
+
     /**
      *
      * @param <T>
@@ -83,7 +86,7 @@ public class BusinessException extends RuntimeException {
     public <T> T get(String clave) {
         return (T) propiedades.get(clave);
     }
-    
+
     /**
      *
      * @param clave
@@ -101,21 +104,21 @@ public class BusinessException extends RuntimeException {
             printStackTrace(new PrintWriter(s));
         }
     }
-    
+
     @Override
     public void printStackTrace(PrintWriter s) {
         synchronized (s) {
             s.println(this);
             s.println("\t-------------------------------");
-            
+
             if (codigoError != null) {
                 s.println("\t" + codigoError + ":" + codigoError.getClass().getName() + "(" + codigoError.getNumero() + ")");
             }
-            
+
             for (String key : propiedades.keySet()) {
                 s.println("\t" + key + "=[" + propiedades.get(key) + "]");
             }
-            
+
             s.println("\t-------------------------------");
             StackTraceElement[] traceElements = getStackTrace();
 
@@ -130,5 +133,5 @@ public class BusinessException extends RuntimeException {
             }
             s.flush();
         }
-    }   
+    }
 }

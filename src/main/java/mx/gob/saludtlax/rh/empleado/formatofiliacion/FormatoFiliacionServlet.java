@@ -1,5 +1,5 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
 
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
@@ -29,7 +29,7 @@ import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 14:38:46 13/10/2016
  */
@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JasperRunManager;
 public class FormatoFiliacionServlet extends HttpServlet {
 
     /**
-    * 
+    *
     */
     private static final long serialVersionUID = 3946310335496722188L;
     private static final Logger LOGGER = Logger.getLogger(FormatoFiliacionServlet.class.getName());

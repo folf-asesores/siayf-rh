@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -27,7 +28,6 @@ public class SiifLaboralesSubfuentesEntity implements Serializable {
     @Column(name = "id_siif_datos_laborales")
     private Integer idSiifDatosLaborales;
 
-//	< < < Getters & Setters > > >
     public Integer getIdSiifLaboralesSubfuentes() {
         return idSiifLaboralesSubfuentes;
     }

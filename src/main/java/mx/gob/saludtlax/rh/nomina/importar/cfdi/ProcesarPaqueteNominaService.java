@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.importar.cfdi;
 
 import java.io.InputStream;
@@ -16,7 +17,7 @@ import mx.gob.saludtlax.rh.excepciones.ImportarPaqueteNominaException;
 import mx.gob.saludtlax.rh.sat.xml.nomina.paquete.PaqueteNomina;
 
 /**
- * 
+ *
  * @author Juan Carlos Ivan Ganzo Dominguez
  *
  */
@@ -24,148 +25,150 @@ import mx.gob.saludtlax.rh.sat.xml.nomina.paquete.PaqueteNomina;
 @Stateless
 public class ProcesarPaqueteNominaService implements Serializable {
 
-	private static final long serialVersionUID = 1241850105746944795L;
+    private static final long serialVersionUID = 1241850105746944795L;
 
-	@Inject
-	ComprobanteNominaService comprobanteNominaFactory;
+    @Inject
+    ComprobanteNominaService comprobanteNominaFactory;
 
-	private Integer avanceImportarPaquete;
+    private Integer avanceImportarPaquete;
 
-	private Boolean procesando;
+    private Boolean procesando;
 
-	private Integer totalRegistros;
+    private Integer totalRegistros;
 
-	private PaqueteNominaView paqueteNominaView;
+    private PaqueteNominaView paqueteNominaView;
 
-	private InputStream paqueteNominaIn;
+    private InputStream paqueteNominaIn;
 
-	private String pathXstl;
+    private String pathXstl;
 
-	public List<Future<ComprobanteNominaView>>  procesar(InputStream paqueteNominaIn) throws InterruptedException {
+    public List<Future<ComprobanteNominaView>> procesar(InputStream paqueteNominaIn) throws InterruptedException {
 
-		try {
+        try {
 
-			procesando = true;
-			//paqueteNominaView = importar(paqueteNominaIn);
-			procesando = false;
-			return importar(paqueteNominaIn);
-			
-		} catch (ImportarPaqueteNominaException e) {
+            procesando = true;
+            //paqueteNominaView = importar(paqueteNominaIn);
+            procesando = false;
+            return importar(paqueteNominaIn);
 
-			e.printStackTrace();
-			return null;
-		}
+        } catch (ImportarPaqueteNominaException e) {
 
-	}
+            e.printStackTrace();
+            return null;
+        }
 
-	public List<Future<ComprobanteNominaView>> importar(InputStream paqueteNomina) throws ImportarPaqueteNominaException {
+    }
 
-		List<Future<ComprobanteNominaView>> listadoComprobanteNominaFuture = new ArrayList<Future<ComprobanteNominaView>>();
+    public List<Future<ComprobanteNominaView>> importar(InputStream paqueteNomina) throws ImportarPaqueteNominaException {
 
-		try {
-			JAXBContext jaxbContext = JAXBContext.newInstance(PaqueteNomina.class);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-			PaqueteNomina paqueteNominaDTO = (PaqueteNomina) jaxbUnmarshaller.unmarshal(paqueteNomina);
+        List<Future<ComprobanteNominaView>> listadoComprobanteNominaFuture = new ArrayList<>();
 
-			PaqueteNominaView paqueteNominaView = new PaqueteNominaView();
-			paqueteNominaView.setId(paqueteNominaDTO.getId());
-			paqueteNominaView.setTotalRegistros(paqueteNominaDTO.getTotalRegistros());
+        try {
+            JAXBContext jaxbContext = JAXBContext.newInstance(PaqueteNomina.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            PaqueteNomina paqueteNominaDTO = (PaqueteNomina) jaxbUnmarshaller.unmarshal(paqueteNomina);
 
-			List<ComprobanteNominaView> listadoComprobanteNominaView = new ArrayList<ComprobanteNominaView>();
+            PaqueteNominaView paqueteNominaView = new PaqueteNominaView();
+            paqueteNominaView.setId(paqueteNominaDTO.getId());
+            paqueteNominaView.setTotalRegistros(paqueteNominaDTO.getTotalRegistros());
 
-			avanceImportarPaquete = 0;
+            List<ComprobanteNominaView> listadoComprobanteNominaView = new ArrayList<>();
 
-			for (PaqueteNomina.ControlComprobante comprobanteNomina : paqueteNominaDTO.getControlComprobanteNomina()) {
-				procesando = true;
-				listadoComprobanteNominaFuture.add(comprobanteNominaFactory.tranformComprobanteToNomina(
-						comprobanteNomina.getXmlComp(), comprobanteNomina.getId(), comprobanteNomina.getNum()));
+            avanceImportarPaquete = 0;
 
-			}
-			Integer totalHilo = listadoComprobanteNominaFuture.size();
+            for (PaqueteNomina.ControlComprobante comprobanteNomina : paqueteNominaDTO.getControlComprobanteNomina()) {
+                procesando = true;
+                listadoComprobanteNominaFuture.add(comprobanteNominaFactory.tranformComprobanteToNomina(comprobanteNomina.getXmlComp(),
+                        comprobanteNomina.getId(), comprobanteNomina.getNum()));
 
-			/*while (totalHilo > 0) {
+            }
+            Integer totalHilo = listadoComprobanteNominaFuture.size();
 
-				for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoComprobanteNominaFuture) {
+            /*
+             * while (totalHilo > 0) {
+             *
+             * for (Future<ComprobanteNominaView> comprobanteNominaViewFuture : listadoComprobanteNominaFuture) {
+             *
+             * if (comprobanteNominaViewFuture.isDone()) {
+             * try {
+             * listadoComprobanteNominaView.add(comprobanteNominaViewFuture.get());
+             * } catch (InterruptedException | ExecutionException e) {
+             * e.printStackTrace();
+             * }
+             * listadoComprobanteNominaFuture.remove(comprobanteNominaViewFuture);
+             * totalHilo--;
+             * break;
+             * }
+             *
+             * }
+             * }
+             */
 
-					if (comprobanteNominaViewFuture.isDone()) {
-						try {
-							listadoComprobanteNominaView.add(comprobanteNominaViewFuture.get());
-						} catch (InterruptedException | ExecutionException e) {
-							e.printStackTrace();
-						}
-						listadoComprobanteNominaFuture.remove(comprobanteNominaViewFuture);
-						totalHilo--;
-						break;
-					}
+            procesando = false;
 
-				}
-			}*/
+            paqueteNominaView.setComprobanteNominaView(listadoComprobanteNominaView);
 
-			procesando = false;
+            //return paqueteNominaView;
+            return listadoComprobanteNominaFuture;
 
-			paqueteNominaView.setComprobanteNominaView(listadoComprobanteNominaView);
+        } catch (JAXBException e) {
 
-			//return paqueteNominaView;
-			return listadoComprobanteNominaFuture;
+            /*
+             * log.error(e.getMessage()); log.error(e.getCause());
+             * log.error(e.getLocalizedMessage());
+             * log.error(e.fillInStackTrace());
+             */
 
-		} catch (JAXBException e) {
+            throw new ImportarPaqueteNominaException(e.getMessage());
+        }
+    }
 
-			/*
-			 * log.error(e.getMessage()); log.error(e.getCause());
-			 * log.error(e.getLocalizedMessage());
-			 * log.error(e.fillInStackTrace());
-			 */
+    public Integer getAvanceImportarPaquete() {
+        return avanceImportarPaquete;
+    }
 
-			throw new ImportarPaqueteNominaException(e.getMessage());
-		}
-	}
+    public void setAvanceImportarPaquete(Integer avanceImportarPaquete) {
+        this.avanceImportarPaquete = avanceImportarPaquete;
+    }
 
-	public Integer getAvanceImportarPaquete() {
-		return avanceImportarPaquete;
-	}
+    public Boolean getProcesando() {
+        return procesando;
+    }
 
-	public void setAvanceImportarPaquete(Integer avanceImportarPaquete) {
-		this.avanceImportarPaquete = avanceImportarPaquete;
-	}
+    public void setProcesando(Boolean procesando) {
+        this.procesando = procesando;
+    }
 
-	public Boolean getProcesando() {
-		return procesando;
-	}
+    public Integer getTotalRegistros() {
+        return totalRegistros;
+    }
 
-	public void setProcesando(Boolean procesando) {
-		this.procesando = procesando;
-	}
+    public void setTotalRegistros(Integer totalRegistros) {
+        this.totalRegistros = totalRegistros;
+    }
 
-	public Integer getTotalRegistros() {
-		return totalRegistros;
-	}
+    public PaqueteNominaView getPaqueteNominaView() {
+        return paqueteNominaView;
+    }
 
-	public void setTotalRegistros(Integer totalRegistros) {
-		this.totalRegistros = totalRegistros;
-	}
+    public void setPaqueteNominaView(PaqueteNominaView paqueteNominaView) {
+        this.paqueteNominaView = paqueteNominaView;
+    }
 
-	public PaqueteNominaView getPaqueteNominaView() {
-		return paqueteNominaView;
-	}
+    public InputStream getPaqueteNominaIn() {
+        return paqueteNominaIn;
+    }
 
-	public void setPaqueteNominaView(PaqueteNominaView paqueteNominaView) {
-		this.paqueteNominaView = paqueteNominaView;
-	}
+    public void setPaqueteNominaIn(InputStream paqueteNominaIn) {
+        this.paqueteNominaIn = paqueteNominaIn;
+    }
 
-	public InputStream getPaqueteNominaIn() {
-		return paqueteNominaIn;
-	}
+    public String getPathXstl() {
+        return pathXstl;
+    }
 
-	public void setPaqueteNominaIn(InputStream paqueteNominaIn) {
-		this.paqueteNominaIn = paqueteNominaIn;
-	}
-
-	public String getPathXstl() {
-		return pathXstl;
-	}
-
-	public void setPathXstl(String pathXstl) {
-		this.pathXstl = pathXstl;
-	}
+    public void setPathXstl(String pathXstl) {
+        this.pathXstl = pathXstl;
+    }
 
 }

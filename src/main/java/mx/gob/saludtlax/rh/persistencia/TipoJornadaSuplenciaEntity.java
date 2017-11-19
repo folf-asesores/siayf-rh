@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -15,45 +16,45 @@ import javax.persistence.Table;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 13/12/2016 03:04:35
+ * @since 13/12/2016 03:04:35
  */
 @Entity
 @Table(name = "jornadas_suplencias")
 public class TipoJornadaSuplenciaEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4356771416070062809L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_tipo_jornada")
-	private Integer id;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4356771416070062809L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_jornada")
+    private Integer id;
 
-	@Column(name = "jornada")
-	private String jornada;
+    @Column(name = "jornada")
+    private String jornada;
 
-	@Column(name = "doble")
-	private boolean doble;
+    @Column(name = "doble")
+    private boolean doble;
 
-	public String getJornada() {
-		return jornada;
-	}
+    public String getJornada() {
+        return jornada;
+    }
 
-	public void setJornada(String jornada) {
-		this.jornada = jornada;
-	}
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
 
-	public boolean isDoble() {
-		return doble;
-	}
+    public boolean isDoble() {
+        return doble;
+    }
 
-	public void setDoble(boolean doble) {
-		this.doble = doble;
-	}
+    public void setDoble(boolean doble) {
+        this.doble = doble;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public Integer getId() {
+        return id;
+    }
 
 }

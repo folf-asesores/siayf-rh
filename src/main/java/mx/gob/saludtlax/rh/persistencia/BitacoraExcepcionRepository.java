@@ -1,8 +1,9 @@
 /*
  * BitacoraExcepcionRepository.java
  * Creado el 25/06/2016 12:00:21 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 /**
@@ -17,11 +18,10 @@ public class BitacoraExcepcionRepository extends GenericRepository<BitacoraExcep
     public BitacoraExcepcionEntity actualizar(BitacoraExcepcionEntity entity) {
         throw new UnsupportedOperationException("No se permite la actualización de la bitacora");
     }
-    
+
     @Override
     public void eliminar(BitacoraExcepcionEntity entity) {
         throw new UnsupportedOperationException("No se permite la eliminación de la bitacora");
     }
 
-    
 }

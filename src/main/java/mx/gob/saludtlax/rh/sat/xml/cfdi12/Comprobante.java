@@ -1,11 +1,10 @@
 
-
-
 package mx.gob.saludtlax.rh.sat.xml.cfdi12;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -15,17 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
-
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "emisor",
-    "receptor",
-    "conceptos",
-    "impuestos",
-    "complemento",
-    "addenda"
-})
+@XmlType(name = "", propOrder = { "emisor", "receptor", "conceptos", "impuestos", "complemento", "addenda" })
 @XmlRootElement(name = "Comprobante")
 public class Comprobante {
 
@@ -90,11 +80,11 @@ public class Comprobante {
 
     /**
      * Obtiene el valor de la propiedad emisor.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Emisor }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Emisor }
+     *
      */
     public Comprobante.Emisor getEmisor() {
         return emisor;
@@ -102,23 +92,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad emisor.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Emisor }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Emisor }
+     *
      */
     public void setEmisor(Comprobante.Emisor value) {
-        this.emisor = value;
+        emisor = value;
     }
 
     /**
      * Obtiene el valor de la propiedad receptor.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Receptor }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Receptor }
+     *
      */
     public Comprobante.Receptor getReceptor() {
         return receptor;
@@ -126,23 +116,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad receptor.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Receptor }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Receptor }
+     *
      */
     public void setReceptor(Comprobante.Receptor value) {
-        this.receptor = value;
+        receptor = value;
     }
 
     /**
      * Obtiene el valor de la propiedad conceptos.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Conceptos }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Conceptos }
+     *
      */
     public Comprobante.Conceptos getConceptos() {
         return conceptos;
@@ -150,23 +140,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad conceptos.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Conceptos }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Conceptos }
+     *
      */
     public void setConceptos(Comprobante.Conceptos value) {
-        this.conceptos = value;
+        conceptos = value;
     }
 
     /**
      * Obtiene el valor de la propiedad impuestos.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Impuestos }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Impuestos }
+     *
      */
     public Comprobante.Impuestos getImpuestos() {
         return impuestos;
@@ -174,23 +164,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad impuestos.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Impuestos }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Impuestos }
+     *
      */
     public void setImpuestos(Comprobante.Impuestos value) {
-        this.impuestos = value;
+        impuestos = value;
     }
 
     /**
      * Obtiene el valor de la propiedad complemento.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Complemento }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Complemento }
+     *
      */
     public Comprobante.Complemento getComplemento() {
         return complemento;
@@ -198,23 +188,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad complemento.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Complemento }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Complemento }
+     *
      */
     public void setComplemento(Comprobante.Complemento value) {
-        this.complemento = value;
+        complemento = value;
     }
 
     /**
      * Obtiene el valor de la propiedad addenda.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Comprobante.Addenda }
-     *     
+     *         possible object is
+     *         {@link Comprobante.Addenda }
+     *
      */
     public Comprobante.Addenda getAddenda() {
         return addenda;
@@ -222,23 +212,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad addenda.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Comprobante.Addenda }
-     *     
+     *            allowed object is
+     *            {@link Comprobante.Addenda }
+     *
      */
     public void setAddenda(Comprobante.Addenda value) {
-        this.addenda = value;
+        addenda = value;
     }
 
     /**
      * Obtiene el valor de la propiedad version.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getVersion() {
         if (version == null) {
@@ -250,23 +240,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad version.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setVersion(String value) {
-        this.version = value;
+        version = value;
     }
 
     /**
      * Obtiene el valor de la propiedad serie.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSerie() {
         return serie;
@@ -274,23 +264,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad serie.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSerie(String value) {
-        this.serie = value;
+        serie = value;
     }
 
     /**
      * Obtiene el valor de la propiedad folio.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getFolio() {
         return folio;
@@ -298,23 +288,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad folio.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setFolio(String value) {
-        this.folio = value;
+        folio = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fecha.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFecha() {
         return fecha.normalize();
@@ -322,23 +312,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad fecha.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFecha(XMLGregorianCalendar value) {
-        this.fecha = value;
+        fecha = value;
     }
 
     /**
      * Obtiene el valor de la propiedad sello.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSello() {
         return sello;
@@ -346,23 +336,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad sello.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSello(String value) {
-        this.sello = value;
+        sello = value;
     }
 
     /**
      * Obtiene el valor de la propiedad formaDePago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getFormaDePago() {
         return formaDePago;
@@ -370,23 +360,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad formaDePago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setFormaDePago(String value) {
-        this.formaDePago = value;
+        formaDePago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad noCertificado.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNoCertificado() {
         return noCertificado;
@@ -394,23 +384,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad noCertificado.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNoCertificado(String value) {
-        this.noCertificado = value;
+        noCertificado = value;
     }
 
     /**
      * Obtiene el valor de la propiedad certificado.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getCertificado() {
         return certificado;
@@ -418,23 +408,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad certificado.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setCertificado(String value) {
-        this.certificado = value;
+        certificado = value;
     }
 
     /**
      * Obtiene el valor de la propiedad condicionesDePago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getCondicionesDePago() {
         return condicionesDePago;
@@ -442,23 +432,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad condicionesDePago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setCondicionesDePago(String value) {
-        this.condicionesDePago = value;
+        condicionesDePago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad subTotal.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getSubTotal() {
         return subTotal;
@@ -466,23 +456,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad subTotal.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setSubTotal(BigDecimal value) {
-        this.subTotal = value;
+        subTotal = value;
     }
 
     /**
      * Obtiene el valor de la propiedad descuento.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getDescuento() {
         return descuento;
@@ -490,23 +480,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad descuento.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setDescuento(BigDecimal value) {
-        this.descuento = value;
+        descuento = value;
     }
 
     /**
      * Obtiene el valor de la propiedad motivoDescuento.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getMotivoDescuento() {
         return motivoDescuento;
@@ -514,23 +504,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad motivoDescuento.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setMotivoDescuento(String value) {
-        this.motivoDescuento = value;
+        motivoDescuento = value;
     }
 
     /**
      * Obtiene el valor de la propiedad tipoCambio.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getTipoCambio() {
         return tipoCambio;
@@ -538,23 +528,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad tipoCambio.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setTipoCambio(String value) {
-        this.tipoCambio = value;
+        tipoCambio = value;
     }
 
     /**
      * Obtiene el valor de la propiedad moneda.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getMoneda() {
         return moneda;
@@ -562,23 +552,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad moneda.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setMoneda(String value) {
-        this.moneda = value;
+        moneda = value;
     }
 
     /**
      * Obtiene el valor de la propiedad total.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getTotal() {
         return total;
@@ -586,23 +576,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad total.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setTotal(BigDecimal value) {
-        this.total = value;
+        total = value;
     }
 
     /**
      * Obtiene el valor de la propiedad tipoDeComprobante.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getTipoDeComprobante() {
         return tipoDeComprobante;
@@ -610,23 +600,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad tipoDeComprobante.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setTipoDeComprobante(String value) {
-        this.tipoDeComprobante = value;
+        tipoDeComprobante = value;
     }
 
     /**
      * Obtiene el valor de la propiedad metodoDePago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getMetodoDePago() {
         return metodoDePago;
@@ -634,23 +624,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad metodoDePago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setMetodoDePago(String value) {
-        this.metodoDePago = value;
+        metodoDePago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad lugarExpedicion.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getLugarExpedicion() {
         return lugarExpedicion;
@@ -658,23 +648,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad lugarExpedicion.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setLugarExpedicion(String value) {
-        this.lugarExpedicion = value;
+        lugarExpedicion = value;
     }
 
     /**
      * Obtiene el valor de la propiedad numCtaPago.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNumCtaPago() {
         return numCtaPago;
@@ -682,23 +672,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad numCtaPago.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNumCtaPago(String value) {
-        this.numCtaPago = value;
+        numCtaPago = value;
     }
 
     /**
      * Obtiene el valor de la propiedad folioFiscalOrig.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getFolioFiscalOrig() {
         return folioFiscalOrig;
@@ -706,23 +696,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad folioFiscalOrig.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setFolioFiscalOrig(String value) {
-        this.folioFiscalOrig = value;
+        folioFiscalOrig = value;
     }
 
     /**
      * Obtiene el valor de la propiedad serieFolioFiscalOrig.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSerieFolioFiscalOrig() {
         return serieFolioFiscalOrig;
@@ -730,23 +720,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad serieFolioFiscalOrig.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSerieFolioFiscalOrig(String value) {
-        this.serieFolioFiscalOrig = value;
+        serieFolioFiscalOrig = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaFolioFiscalOrig.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaFolioFiscalOrig() {
         return fechaFolioFiscalOrig;
@@ -754,23 +744,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad fechaFolioFiscalOrig.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaFolioFiscalOrig(XMLGregorianCalendar value) {
-        this.fechaFolioFiscalOrig = value;
+        fechaFolioFiscalOrig = value;
     }
 
     /**
      * Obtiene el valor de la propiedad montoFolioFiscalOrig.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
+     *         possible object is
+     *         {@link BigDecimal }
+     *
      */
     public BigDecimal getMontoFolioFiscalOrig() {
         return montoFolioFiscalOrig;
@@ -778,22 +768,23 @@ public class Comprobante {
 
     /**
      * Define el valor de la propiedad montoFolioFiscalOrig.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
+     *            allowed object is
+     *            {@link BigDecimal }
+     *
      */
     public void setMontoFolioFiscalOrig(BigDecimal value) {
-        this.montoFolioFiscalOrig = value;
+        montoFolioFiscalOrig = value;
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -805,13 +796,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "any"
-    })
+    @XmlType(name = "", propOrder = { "any" })
     public static class Addenda {
 
         @XmlAnyElement(lax = true)
@@ -819,41 +808,43 @@ public class Comprobante {
 
         /**
          * Gets the value of the any property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the any property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getAny().add(newItem);
+         * getAny().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Object }
-         * 
-         * 
+         *
+         *
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
-            return this.any;
+            return any;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -865,13 +856,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "any"
-    })
+    @XmlType(name = "", propOrder = { "any" })
     public static class Complemento {
 
         @XmlAnyElement(lax = true)
@@ -879,41 +868,43 @@ public class Comprobante {
 
         /**
          * Gets the value of the any property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the any property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getAny().add(newItem);
+         * getAny().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Object }
-         * 
-         * 
+         *
+         *
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
-            return this.any;
+            return any;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1039,13 +1030,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "concepto"
-    })
+    @XmlType(name = "", propOrder = { "concepto" })
     public static class Conceptos {
 
         @XmlElement(name = "Concepto", required = true)
@@ -1053,39 +1042,41 @@ public class Comprobante {
 
         /**
          * Gets the value of the concepto property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the concepto property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getConcepto().add(newItem);
+         * getConcepto().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Comprobante.Conceptos.Concepto }
-         * 
-         * 
+         *
+         *
          */
         public List<Comprobante.Conceptos.Concepto> getConcepto() {
             if (concepto == null) {
-                concepto = new ArrayList<Comprobante.Conceptos.Concepto>();
+                concepto = new ArrayList<>();
             }
-            return this.concepto;
+            return concepto;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1201,16 +1192,11 @@ public class Comprobante {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "informacionAduanera",
-            "cuentaPredial",
-            "complementoConcepto",
-            "parte"
-        })
+        @XmlType(name = "", propOrder = { "informacionAduanera", "cuentaPredial", "complementoConcepto", "parte" })
         public static class Concepto {
 
             @XmlElement(name = "InformacionAduanera")
@@ -1236,40 +1222,41 @@ public class Comprobante {
 
             /**
              * Gets the value of the informacionAduanera property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the informacionAduanera property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
+             *
              * <pre>
-             *    getInformacionAduanera().add(newItem);
+             * getInformacionAduanera().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link TInformacionAduanera }
-             * 
-             * 
+             *
+             *
              */
             public List<TInformacionAduanera> getInformacionAduanera() {
                 if (informacionAduanera == null) {
-                    informacionAduanera = new ArrayList<TInformacionAduanera>();
+                    informacionAduanera = new ArrayList<>();
                 }
-                return this.informacionAduanera;
+                return informacionAduanera;
             }
 
             /**
              * Obtiene el valor de la propiedad cuentaPredial.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link Comprobante.Conceptos.Concepto.CuentaPredial }
-             *     
+             *         possible object is
+             *         {@link Comprobante.Conceptos.Concepto.CuentaPredial }
+             *
              */
             public Comprobante.Conceptos.Concepto.CuentaPredial getCuentaPredial() {
                 return cuentaPredial;
@@ -1277,23 +1264,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad cuentaPredial.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link Comprobante.Conceptos.Concepto.CuentaPredial }
-             *     
+             *            allowed object is
+             *            {@link Comprobante.Conceptos.Concepto.CuentaPredial }
+             *
              */
             public void setCuentaPredial(Comprobante.Conceptos.Concepto.CuentaPredial value) {
-                this.cuentaPredial = value;
+                cuentaPredial = value;
             }
 
             /**
              * Obtiene el valor de la propiedad complementoConcepto.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link Comprobante.Conceptos.Concepto.ComplementoConcepto }
-             *     
+             *         possible object is
+             *         {@link Comprobante.Conceptos.Concepto.ComplementoConcepto }
+             *
              */
             public Comprobante.Conceptos.Concepto.ComplementoConcepto getComplementoConcepto() {
                 return complementoConcepto;
@@ -1301,52 +1288,53 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad complementoConcepto.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link Comprobante.Conceptos.Concepto.ComplementoConcepto }
-             *     
+             *            allowed object is
+             *            {@link Comprobante.Conceptos.Concepto.ComplementoConcepto }
+             *
              */
             public void setComplementoConcepto(Comprobante.Conceptos.Concepto.ComplementoConcepto value) {
-                this.complementoConcepto = value;
+                complementoConcepto = value;
             }
 
             /**
              * Gets the value of the parte property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the parte property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
+             *
              * <pre>
-             *    getParte().add(newItem);
+             * getParte().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link Comprobante.Conceptos.Concepto.Parte }
-             * 
-             * 
+             *
+             *
              */
             public List<Comprobante.Conceptos.Concepto.Parte> getParte() {
                 if (parte == null) {
-                    parte = new ArrayList<Comprobante.Conceptos.Concepto.Parte>();
+                    parte = new ArrayList<>();
                 }
-                return this.parte;
+                return parte;
             }
 
             /**
              * Obtiene el valor de la propiedad cantidad.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getCantidad() {
                 return cantidad;
@@ -1354,23 +1342,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad cantidad.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setCantidad(BigDecimal value) {
-                this.cantidad = value;
+                cantidad = value;
             }
 
             /**
              * Obtiene el valor de la propiedad unidad.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getUnidad() {
                 return unidad;
@@ -1378,23 +1366,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad unidad.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setUnidad(String value) {
-                this.unidad = value;
+                unidad = value;
             }
 
             /**
              * Obtiene el valor de la propiedad noIdentificacion.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getNoIdentificacion() {
                 return noIdentificacion;
@@ -1402,23 +1390,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad noIdentificacion.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setNoIdentificacion(String value) {
-                this.noIdentificacion = value;
+                noIdentificacion = value;
             }
 
             /**
              * Obtiene el valor de la propiedad descripcion.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getDescripcion() {
                 return descripcion;
@@ -1426,23 +1414,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad descripcion.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setDescripcion(String value) {
-                this.descripcion = value;
+                descripcion = value;
             }
 
             /**
              * Obtiene el valor de la propiedad valorUnitario.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getValorUnitario() {
                 return valorUnitario;
@@ -1450,23 +1438,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad valorUnitario.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setValorUnitario(BigDecimal value) {
-                this.valorUnitario = value;
+                valorUnitario = value;
             }
 
             /**
              * Obtiene el valor de la propiedad importe.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getImporte() {
                 return importe;
@@ -1474,22 +1462,23 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad importe.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setImporte(BigDecimal value) {
-                this.importe = value;
+                importe = value;
             }
 
-
             /**
-             * <p>Clase Java para anonymous complex type.
-             * 
-             * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-             * 
+             * <p>
+             * Clase Java para anonymous complex type.
+             *
+             * <p>
+             * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -1501,13 +1490,11 @@ public class Comprobante {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "any"
-            })
+            @XmlType(name = "", propOrder = { "any" })
             public static class ComplementoConcepto {
 
                 @XmlAnyElement(lax = true)
@@ -1515,41 +1502,43 @@ public class Comprobante {
 
                 /**
                  * Gets the value of the any property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the JAXB object.
                  * This is why there is not a <CODE>set</CODE> method for the any property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
+                 *
                  * <pre>
-                 *    getAny().add(newItem);
+                 * getAny().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link Object }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<Object> getAny() {
                     if (any == null) {
-                        any = new ArrayList<Object>();
+                        any = new ArrayList<>();
                     }
-                    return this.any;
+                    return any;
                 }
 
             }
 
-
             /**
-             * <p>Clase Java para anonymous complex type.
-             * 
-             * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-             * 
+             * <p>
+             * Clase Java para anonymous complex type.
+             *
+             * <p>
+             * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -1566,8 +1555,8 @@ public class Comprobante {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
@@ -1578,11 +1567,11 @@ public class Comprobante {
 
                 /**
                  * Obtiene el valor de la propiedad numero.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getNumero() {
                     return numero;
@@ -1590,24 +1579,25 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad numero.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setNumero(String value) {
-                    this.numero = value;
+                    numero = value;
                 }
 
             }
 
-
             /**
-             * <p>Clase Java para anonymous complex type.
-             * 
-             * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-             * 
+             * <p>
+             * Clase Java para anonymous complex type.
+             *
+             * <p>
+             * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -1652,13 +1642,11 @@ public class Comprobante {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
-            @XmlType(name = "", propOrder = {
-                "informacionAduanera"
-            })
+            @XmlType(name = "", propOrder = { "informacionAduanera" })
             public static class Parte {
 
                 @XmlElement(name = "InformacionAduanera")
@@ -1678,40 +1666,41 @@ public class Comprobante {
 
                 /**
                  * Gets the value of the informacionAduanera property.
-                 * 
+                 *
                  * <p>
                  * This accessor method returns a reference to the live list,
                  * not a snapshot. Therefore any modification you make to the
                  * returned list will be present inside the JAXB object.
                  * This is why there is not a <CODE>set</CODE> method for the informacionAduanera property.
-                 * 
+                 *
                  * <p>
                  * For example, to add a new item, do as follows:
+                 *
                  * <pre>
-                 *    getInformacionAduanera().add(newItem);
+                 * getInformacionAduanera().add(newItem);
                  * </pre>
-                 * 
-                 * 
+                 *
+                 *
                  * <p>
                  * Objects of the following type(s) are allowed in the list
                  * {@link TInformacionAduanera }
-                 * 
-                 * 
+                 *
+                 *
                  */
                 public List<TInformacionAduanera> getInformacionAduanera() {
                     if (informacionAduanera == null) {
-                        informacionAduanera = new ArrayList<TInformacionAduanera>();
+                        informacionAduanera = new ArrayList<>();
                     }
-                    return this.informacionAduanera;
+                    return informacionAduanera;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad cantidad.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getCantidad() {
                     return cantidad;
@@ -1719,23 +1708,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad cantidad.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setCantidad(BigDecimal value) {
-                    this.cantidad = value;
+                    cantidad = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad unidad.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getUnidad() {
                     return unidad;
@@ -1743,23 +1732,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad unidad.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setUnidad(String value) {
-                    this.unidad = value;
+                    unidad = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad noIdentificacion.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getNoIdentificacion() {
                     return noIdentificacion;
@@ -1767,23 +1756,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad noIdentificacion.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setNoIdentificacion(String value) {
-                    this.noIdentificacion = value;
+                    noIdentificacion = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad descripcion.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getDescripcion() {
                     return descripcion;
@@ -1791,23 +1780,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad descripcion.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setDescripcion(String value) {
-                    this.descripcion = value;
+                    descripcion = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad valorUnitario.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getValorUnitario() {
                     return valorUnitario;
@@ -1815,23 +1804,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad valorUnitario.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setValorUnitario(BigDecimal value) {
-                    this.valorUnitario = value;
+                    valorUnitario = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad importe.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getImporte() {
                     return importe;
@@ -1839,14 +1828,14 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad importe.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setImporte(BigDecimal value) {
-                    this.importe = value;
+                    importe = value;
                 }
 
             }
@@ -1855,12 +1844,13 @@ public class Comprobante {
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1900,15 +1890,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "domicilioFiscal",
-        "expedidoEn",
-        "regimenFiscal"
-    })
+    @XmlType(name = "", propOrder = { "domicilioFiscal", "expedidoEn", "regimenFiscal" })
     public static class Emisor {
 
         @XmlElement(name = "DomicilioFiscal")
@@ -1924,11 +1910,11 @@ public class Comprobante {
 
         /**
          * Obtiene el valor de la propiedad domicilioFiscal.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link TUbicacionFiscal }
-         *     
+         *         possible object is
+         *         {@link TUbicacionFiscal }
+         *
          */
         public TUbicacionFiscal getDomicilioFiscal() {
             return domicilioFiscal;
@@ -1936,23 +1922,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad domicilioFiscal.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link TUbicacionFiscal }
-         *     
+         *            allowed object is
+         *            {@link TUbicacionFiscal }
+         *
          */
         public void setDomicilioFiscal(TUbicacionFiscal value) {
-            this.domicilioFiscal = value;
+            domicilioFiscal = value;
         }
 
         /**
          * Obtiene el valor de la propiedad expedidoEn.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link TUbicacion }
-         *     
+         *         possible object is
+         *         {@link TUbicacion }
+         *
          */
         public TUbicacion getExpedidoEn() {
             return expedidoEn;
@@ -1960,52 +1946,53 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad expedidoEn.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link TUbicacion }
-         *     
+         *            allowed object is
+         *            {@link TUbicacion }
+         *
          */
         public void setExpedidoEn(TUbicacion value) {
-            this.expedidoEn = value;
+            expedidoEn = value;
         }
 
         /**
          * Gets the value of the regimenFiscal property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the regimenFiscal property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getRegimenFiscal().add(newItem);
+         * getRegimenFiscal().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Comprobante.Emisor.RegimenFiscal }
-         * 
-         * 
+         *
+         *
          */
         public List<Comprobante.Emisor.RegimenFiscal> getRegimenFiscal() {
             if (regimenFiscal == null) {
-                regimenFiscal = new ArrayList<Comprobante.Emisor.RegimenFiscal>();
+                regimenFiscal = new ArrayList<>();
             }
-            return this.regimenFiscal;
+            return regimenFiscal;
         }
 
         /**
          * Obtiene el valor de la propiedad rfc.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getRfc() {
             return rfc;
@@ -2013,23 +2000,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad rfc.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setRfc(String value) {
-            this.rfc = value;
+            rfc = value;
         }
 
         /**
          * Obtiene el valor de la propiedad nombre.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getNombre() {
             return nombre;
@@ -2037,22 +2024,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad nombre.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setNombre(String value) {
-            this.nombre = value;
+            nombre = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -2069,8 +2057,8 @@ public class Comprobante {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -2081,11 +2069,11 @@ public class Comprobante {
 
             /**
              * Obtiene el valor de la propiedad regimen.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getRegimen() {
                 return regimen;
@@ -2093,26 +2081,27 @@ public class Comprobante {
 
             /**
              * Define el valor de la propiedad regimen.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setRegimen(String value) {
-                this.regimen = value;
+                regimen = value;
             }
 
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -2182,14 +2171,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "retenciones",
-        "traslados"
-    })
+    @XmlType(name = "", propOrder = { "retenciones", "traslados" })
     public static class Impuestos {
 
         @XmlElement(name = "Retenciones")
@@ -2203,11 +2189,11 @@ public class Comprobante {
 
         /**
          * Obtiene el valor de la propiedad retenciones.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Comprobante.Impuestos.Retenciones }
-         *     
+         *         possible object is
+         *         {@link Comprobante.Impuestos.Retenciones }
+         *
          */
         public Comprobante.Impuestos.Retenciones getRetenciones() {
             return retenciones;
@@ -2215,23 +2201,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad retenciones.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Comprobante.Impuestos.Retenciones }
-         *     
+         *            allowed object is
+         *            {@link Comprobante.Impuestos.Retenciones }
+         *
          */
         public void setRetenciones(Comprobante.Impuestos.Retenciones value) {
-            this.retenciones = value;
+            retenciones = value;
         }
 
         /**
          * Obtiene el valor de la propiedad traslados.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Comprobante.Impuestos.Traslados }
-         *     
+         *         possible object is
+         *         {@link Comprobante.Impuestos.Traslados }
+         *
          */
         public Comprobante.Impuestos.Traslados getTraslados() {
             return traslados;
@@ -2239,23 +2225,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad traslados.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Comprobante.Impuestos.Traslados }
-         *     
+         *            allowed object is
+         *            {@link Comprobante.Impuestos.Traslados }
+         *
          */
         public void setTraslados(Comprobante.Impuestos.Traslados value) {
-            this.traslados = value;
+            traslados = value;
         }
 
         /**
          * Obtiene el valor de la propiedad totalImpuestosRetenidos.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalImpuestosRetenidos() {
             return totalImpuestosRetenidos;
@@ -2263,23 +2249,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad totalImpuestosRetenidos.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalImpuestosRetenidos(BigDecimal value) {
-            this.totalImpuestosRetenidos = value;
+            totalImpuestosRetenidos = value;
         }
 
         /**
          * Obtiene el valor de la propiedad totalImpuestosTrasladados.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getTotalImpuestosTrasladados() {
             return totalImpuestosTrasladados;
@@ -2287,22 +2273,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad totalImpuestosTrasladados.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setTotalImpuestosTrasladados(BigDecimal value) {
-            this.totalImpuestosTrasladados = value;
+            totalImpuestosTrasladados = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -2331,13 +2318,11 @@ public class Comprobante {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "retencion"
-        })
+        @XmlType(name = "", propOrder = { "retencion" })
         public static class Retenciones {
 
             @XmlElement(name = "Retencion", required = true)
@@ -2345,39 +2330,41 @@ public class Comprobante {
 
             /**
              * Gets the value of the retencion property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the retencion property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
+             *
              * <pre>
-             *    getRetencion().add(newItem);
+             * getRetencion().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link Comprobante.Impuestos.Retenciones.Retencion }
-             * 
-             * 
+             *
+             *
              */
             public List<Comprobante.Impuestos.Retenciones.Retencion> getRetencion() {
                 if (retencion == null) {
-                    retencion = new ArrayList<Comprobante.Impuestos.Retenciones.Retencion>();
+                    retencion = new ArrayList<>();
                 }
-                return this.retencion;
+                return retencion;
             }
 
-
             /**
-             * <p>Clase Java para anonymous complex type.
-             * 
-             * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-             * 
+             * <p>
+             * Clase Java para anonymous complex type.
+             *
+             * <p>
+             * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -2396,8 +2383,8 @@ public class Comprobante {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
@@ -2410,11 +2397,11 @@ public class Comprobante {
 
                 /**
                  * Obtiene el valor de la propiedad impuesto.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getImpuesto() {
                     return impuesto;
@@ -2422,23 +2409,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad impuesto.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setImpuesto(String value) {
-                    this.impuesto = value;
+                    impuesto = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad importe.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getImporte() {
                     return importe;
@@ -2446,26 +2433,27 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad importe.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setImporte(BigDecimal value) {
-                    this.importe = value;
+                    importe = value;
                 }
 
             }
 
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -2495,13 +2483,11 @@ public class Comprobante {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = {
-            "traslado"
-        })
+        @XmlType(name = "", propOrder = { "traslado" })
         public static class Traslados {
 
             @XmlElement(name = "Traslado", required = true)
@@ -2509,39 +2495,41 @@ public class Comprobante {
 
             /**
              * Gets the value of the traslado property.
-             * 
+             *
              * <p>
              * This accessor method returns a reference to the live list,
              * not a snapshot. Therefore any modification you make to the
              * returned list will be present inside the JAXB object.
              * This is why there is not a <CODE>set</CODE> method for the traslado property.
-             * 
+             *
              * <p>
              * For example, to add a new item, do as follows:
+             *
              * <pre>
-             *    getTraslado().add(newItem);
+             * getTraslado().add(newItem);
              * </pre>
-             * 
-             * 
+             *
+             *
              * <p>
              * Objects of the following type(s) are allowed in the list
              * {@link Comprobante.Impuestos.Traslados.Traslado }
-             * 
-             * 
+             *
+             *
              */
             public List<Comprobante.Impuestos.Traslados.Traslado> getTraslado() {
                 if (traslado == null) {
-                    traslado = new ArrayList<Comprobante.Impuestos.Traslados.Traslado>();
+                    traslado = new ArrayList<>();
                 }
-                return this.traslado;
+                return traslado;
             }
 
-
             /**
-             * <p>Clase Java para anonymous complex type.
-             * 
-             * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-             * 
+             * <p>
+             * Clase Java para anonymous complex type.
+             *
+             * <p>
+             * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+             *
              * <pre>
              * &lt;complexType>
              *   &lt;complexContent>
@@ -2561,8 +2549,8 @@ public class Comprobante {
              *   &lt;/complexContent>
              * &lt;/complexType>
              * </pre>
-             * 
-             * 
+             *
+             *
              */
             @XmlAccessorType(XmlAccessType.FIELD)
             @XmlType(name = "")
@@ -2577,11 +2565,11 @@ public class Comprobante {
 
                 /**
                  * Obtiene el valor de la propiedad impuesto.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link String }
-                 *     
+                 *         possible object is
+                 *         {@link String }
+                 *
                  */
                 public String getImpuesto() {
                     return impuesto;
@@ -2589,23 +2577,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad impuesto.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link String }
-                 *     
+                 *            allowed object is
+                 *            {@link String }
+                 *
                  */
                 public void setImpuesto(String value) {
-                    this.impuesto = value;
+                    impuesto = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad tasa.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getTasa() {
                     return tasa;
@@ -2613,23 +2601,23 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad tasa.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setTasa(BigDecimal value) {
-                    this.tasa = value;
+                    tasa = value;
                 }
 
                 /**
                  * Obtiene el valor de la propiedad importe.
-                 * 
+                 *
                  * @return
-                 *     possible object is
-                 *     {@link BigDecimal }
-                 *     
+                 *         possible object is
+                 *         {@link BigDecimal }
+                 *
                  */
                 public BigDecimal getImporte() {
                     return importe;
@@ -2637,14 +2625,14 @@ public class Comprobante {
 
                 /**
                  * Define el valor de la propiedad importe.
-                 * 
+                 *
                  * @param value
-                 *     allowed object is
-                 *     {@link BigDecimal }
-                 *     
+                 *            allowed object is
+                 *            {@link BigDecimal }
+                 *
                  */
                 public void setImporte(BigDecimal value) {
-                    this.importe = value;
+                    importe = value;
                 }
 
             }
@@ -2653,12 +2641,13 @@ public class Comprobante {
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -2679,13 +2668,11 @@ public class Comprobante {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "domicilio"
-    })
+    @XmlType(name = "", propOrder = { "domicilio" })
     public static class Receptor {
 
         @XmlElement(name = "Domicilio")
@@ -2697,11 +2684,11 @@ public class Comprobante {
 
         /**
          * Obtiene el valor de la propiedad domicilio.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link TUbicacion }
-         *     
+         *         possible object is
+         *         {@link TUbicacion }
+         *
          */
         public TUbicacion getDomicilio() {
             return domicilio;
@@ -2709,23 +2696,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad domicilio.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link TUbicacion }
-         *     
+         *            allowed object is
+         *            {@link TUbicacion }
+         *
          */
         public void setDomicilio(TUbicacion value) {
-            this.domicilio = value;
+            domicilio = value;
         }
 
         /**
          * Obtiene el valor de la propiedad rfc.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getRfc() {
             return rfc;
@@ -2733,23 +2720,23 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad rfc.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setRfc(String value) {
-            this.rfc = value;
+            rfc = value;
         }
 
         /**
          * Obtiene el valor de la propiedad nombre.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getNombre() {
             return nombre;
@@ -2757,14 +2744,14 @@ public class Comprobante {
 
         /**
          * Define el valor de la propiedad nombre.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setNombre(String value) {
-            this.nombre = value;
+            nombre = value;
         }
 
     }

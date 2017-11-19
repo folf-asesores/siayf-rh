@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,69 +22,70 @@ import javax.persistence.Table;
 @Table(name = "adscripciones")
 public class AdscripcionEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	
-	
-	private static final long serialVersionUID = 5399979720967258644L;
-        
-	@Id
-	@Column(name = "id_adscripcion")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idAdscripcion;
+    /**
+     *
+     */
 
-	@Column(name = "adscripcion")
-	private String adscripcion;
-	
-	@Column(name = "domicilio_servicio")
-	private String domicilioServicio;
-        
-        @Column(name = "codigo_incidencias")
-        private String codigoIncidencias;
-        
-	/**
-	 * @return the domicilioServicio
-	 */
-	public String getDomicilioServicio() {
-		return domicilioServicio;
-	}
+    private static final long serialVersionUID = 5399979720967258644L;
 
-	/**
-	 * @param domicilioServicio the domicilioServicio to set
-	 */
-	public void setDomicilioServicio(String domicilioServicio) {
-		this.domicilioServicio = domicilioServicio;
-	}
+    @Id
+    @Column(name = "id_adscripcion")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idAdscripcion;
 
-	public String getAdscripcion() {
-		return adscripcion;
-	}
+    @Column(name = "adscripcion")
+    private String adscripcion;
 
-	public void setAdscripcion(String adscripcion) {
-		this.adscripcion = adscripcion;
-	}
+    @Column(name = "domicilio_servicio")
+    private String domicilioServicio;
 
-	public Integer getIdAdscripcion() {
-		return idAdscripcion;
-	}
+    @Column(name = "codigo_incidencias")
+    private String codigoIncidencias;
 
-        /**
-         * Get the value of codigoIncidencias
-         *
-         * @return the value of codigoIncidencias
-         */
-        public String getCodigoIncidencias() {
-            return codigoIncidencias;
-        }
+    /**
+     * @return the domicilioServicio
+     */
+    public String getDomicilioServicio() {
+        return domicilioServicio;
+    }
 
-        /**
-         * Set the value of codigoIncidencias
-         *
-         * @param codigoIncidencias new value of codigoIncidencias
-         */
-        public void setCodigoIncidencias(String codigoIncidencias) {
-            this.codigoIncidencias = codigoIncidencias;
-        }
+    /**
+     * @param domicilioServicio
+     *            the domicilioServicio to set
+     */
+    public void setDomicilioServicio(String domicilioServicio) {
+        this.domicilioServicio = domicilioServicio;
+    }
+
+    public String getAdscripcion() {
+        return adscripcion;
+    }
+
+    public void setAdscripcion(String adscripcion) {
+        this.adscripcion = adscripcion;
+    }
+
+    public Integer getIdAdscripcion() {
+        return idAdscripcion;
+    }
+
+    /**
+     * Get the value of codigoIncidencias
+     *
+     * @return the value of codigoIncidencias
+     */
+    public String getCodigoIncidencias() {
+        return codigoIncidencias;
+    }
+
+    /**
+     * Set the value of codigoIncidencias
+     *
+     * @param codigoIncidencias
+     *            new value of codigoIncidencias
+     */
+    public void setCodigoIncidencias(String codigoIncidencias) {
+        this.codigoIncidencias = codigoIncidencias;
+    }
 
 }

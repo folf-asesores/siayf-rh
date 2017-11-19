@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 /**
@@ -8,8 +9,8 @@ package mx.gob.saludtlax.rh.empleado.formatofiliacion;
  *
  */
 public class EnumFrente {
-	
-	public static final String FRENTE_PEQUENIA = "FRENTE PEQUEÑIA";
-	public static final String FRENTE_MEDIANA = "FRENTE MEDIANA";
-	public static final String FRENTE_GRANDE = "FRENTE GRANDE";
+
+    public static final String FRENTE_PEQUENIA = "FRENTE PEQUEÑIA";
+    public static final String FRENTE_MEDIANA = "FRENTE MEDIANA";
+    public static final String FRENTE_GRANDE = "FRENTE GRANDE";
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.vacantes.seleccion;
 
 /**
@@ -9,8 +10,8 @@ package mx.gob.saludtlax.rh.vacantes.seleccion;
  */
 public class EnumTipoCandidato {
 
-	public static final Integer ASPIRANTE = 1;
-	
-	public static final Integer EMPLEADO = 2;
+    public static final Integer ASPIRANTE = 1;
+
+    public static final Integer EMPLEADO = 2;
 
 }

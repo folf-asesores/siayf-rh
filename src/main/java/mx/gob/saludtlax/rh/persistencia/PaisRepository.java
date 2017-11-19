@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
@@ -16,26 +17,23 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  * @since 07/03/2016-20:10:18
  */
 public class PaisRepository {
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
 
-	/**
-	 * Consulta el país por identificador
-	 * */
-	public PaisEntity paisPorId(Integer idPais) {
-		return entityManager.find(PaisEntity.class, idPais);
-	}
+    /**
+     * Consulta el país por identificador
+     */
+    public PaisEntity paisPorId(Integer idPais) {
+        return entityManager.find(PaisEntity.class, idPais);
+    }
 
-	
-	/**
-	 * Consulta la lista de paises 
-	 * */
-	public List<PaisEntity> paises() {
+    /**
+     * Consulta la lista de paises
+     */
+    public List<PaisEntity> paises() {
 
-		List<PaisEntity> lista = entityManager.createQuery(
-				"SELECT p FROM PaisEntity AS p", PaisEntity.class)
-				.getResultList();
-		return lista;
-	}
+        List<PaisEntity> lista = entityManager.createQuery("SELECT p FROM PaisEntity AS p", PaisEntity.class).getResultList();
+        return lista;
+    }
 
 }

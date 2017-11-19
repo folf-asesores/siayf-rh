@@ -1,294 +1,287 @@
-/**
+/*
  * Copyright ® 2016
  */
+
 package mx.gob.saludtlax.rh.nomina.movimientofijo;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 25/05/2016 13:45:06
  */
 public class MovimientoNominaDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -232336985105177960L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -232336985105177960L;
 
-	private Integer idMovimientoFijo;
+    private Integer idMovimientoFijo;
 
-	private Integer idTerceroInstitucional;
-	
-	private String terceroInstitucional;
-	
-	private Date fechaDocumento;
-	
-	private String folio;
-	
+    private Integer idTerceroInstitucional;
+
+    private String terceroInstitucional;
+
+    private Date fechaDocumento;
+
+    private String folio;
+
     private Integer idEmpleado;
-    
+
     private String rfc;
-	
-	private Integer quincenaOperacion;
 
-	private Integer anyoOperacion;
+    private Integer quincenaOperacion;
 
-	private BigDecimal importeQuincenas;
+    private Integer anyoOperacion;
 
-	private BigDecimal importeDescontado = BigDecimal.ZERO;
+    private BigDecimal importeQuincenas;
 
-	private Integer quincenaInicial;
+    private BigDecimal importeDescontado = BigDecimal.ZERO;
 
-	private Integer quincenaFinal;
-	
-	private Integer anioFinal;
-	
-	private Integer anioInicial;
+    private Integer quincenaInicial;
 
-	private BigDecimal importeMensual;
+    private Integer quincenaFinal;
 
-	private BigDecimal importeQuincenal;
+    private Integer anioFinal;
 
-	private Date fechaRegistro;
-	
-	private Date fechaModificacion;
-	
-	private Integer idTipoMovimiento;
-	
-	private Integer dias;
-	
-	//bandera para saber que tipo de accion se realizara con el dto
-	private String tipoMovimiento;
-	
-	private String statusRegistro;
-	
-	private String clave;
-	
-	//valida la aplicacion del movimiento
-	private Boolean estatus;
-	
-	
-	public Integer getIdMovimientoFijo() {
-		return idMovimientoFijo;
-	}
+    private Integer anioInicial;
 
-	public void setIdMovimientoFijo(Integer idMovimientoFijo) {
-		this.idMovimientoFijo = idMovimientoFijo;
-	}
+    private BigDecimal importeMensual;
 
-	public Integer getIdTerceroInstitucional() {
-		return idTerceroInstitucional;
-	}
+    private BigDecimal importeQuincenal;
 
-	public void setIdTerceroInstitucional(Integer idTerceroInstitucional) {
-		this.idTerceroInstitucional = idTerceroInstitucional;
-	}
+    private Date fechaRegistro;
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    private Date fechaModificacion;
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    private Integer idTipoMovimiento;
 
-	public String getRfc() {
-		return rfc;
-	}
+    private Integer dias;
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    //bandera para saber que tipo de accion se realizara con el dto
+    private String tipoMovimiento;
 
-	public Integer getQuincenaOperacion() {
-		return quincenaOperacion;
-	}
+    private String statusRegistro;
 
-	public void setQuincenaOperacion(Integer quincenaOperacion) {
-		this.quincenaOperacion = quincenaOperacion;
-	}
+    private String clave;
 
-	public Integer getAnyoOperacion() {
-		return anyoOperacion;
-	}
+    //valida la aplicacion del movimiento
+    private Boolean estatus;
 
-	public void setAnyoOperacion(Integer anyoOperacion) {
-		this.anyoOperacion = anyoOperacion;
-	}
+    public Integer getIdMovimientoFijo() {
+        return idMovimientoFijo;
+    }
 
-	public BigDecimal getImporteQuincenas() {
-		return importeQuincenas;
-	}
+    public void setIdMovimientoFijo(Integer idMovimientoFijo) {
+        this.idMovimientoFijo = idMovimientoFijo;
+    }
 
-	public void setImporteQuincenas(BigDecimal importeQuincenas) {
-		this.importeQuincenas = importeQuincenas;
-	}
+    public Integer getIdTerceroInstitucional() {
+        return idTerceroInstitucional;
+    }
 
-	public BigDecimal getImporteDescontado() {
-		return importeDescontado;
-	}
+    public void setIdTerceroInstitucional(Integer idTerceroInstitucional) {
+        this.idTerceroInstitucional = idTerceroInstitucional;
+    }
 
-	public void setImporteDescontado(BigDecimal importeDescontado) {
-		this.importeDescontado = importeDescontado;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public Integer getQuincenaInicial() {
-		return quincenaInicial;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setQuincenaInicial(Integer quincenaInicial) {
-		this.quincenaInicial = quincenaInicial;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public Integer getQuincenaFinal() {
-		return quincenaFinal;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setQuincenaFinal(Integer quincenaFinal) {
-		this.quincenaFinal = quincenaFinal;
-	}
+    public Integer getQuincenaOperacion() {
+        return quincenaOperacion;
+    }
 
-	public BigDecimal getImporteMensual() {
-		return importeMensual;
-	}
+    public void setQuincenaOperacion(Integer quincenaOperacion) {
+        this.quincenaOperacion = quincenaOperacion;
+    }
 
-	public void setImporteMensual(BigDecimal importeMensual) {
-		this.importeMensual = importeMensual;
-	}
+    public Integer getAnyoOperacion() {
+        return anyoOperacion;
+    }
 
-	public BigDecimal getImporteQuincenal() {
-		return importeQuincenal;
-	}
+    public void setAnyoOperacion(Integer anyoOperacion) {
+        this.anyoOperacion = anyoOperacion;
+    }
 
-	public void setImporteQuincenal(BigDecimal importeQuincenal) {
-		this.importeQuincenal = importeQuincenal;
-	}
+    public BigDecimal getImporteQuincenas() {
+        return importeQuincenas;
+    }
 
-	public Integer getAnioFinal() {
-		return anioFinal;
-	}
+    public void setImporteQuincenas(BigDecimal importeQuincenas) {
+        this.importeQuincenas = importeQuincenas;
+    }
 
-	public void setAnioFinal(Integer anioFinal) {
-		this.anioFinal = anioFinal;
-	}
+    public BigDecimal getImporteDescontado() {
+        return importeDescontado;
+    }
 
-	public String getTerceroInstitucional() {
-		return terceroInstitucional;
-	}
+    public void setImporteDescontado(BigDecimal importeDescontado) {
+        this.importeDescontado = importeDescontado;
+    }
 
-	public void setTerceroInstitucional(String terceroInstitucional) {
-		this.terceroInstitucional = terceroInstitucional;
-	}
+    public Integer getQuincenaInicial() {
+        return quincenaInicial;
+    }
 
-	public Integer getAnioInicial() {
-		return anioInicial;
-	}
+    public void setQuincenaInicial(Integer quincenaInicial) {
+        this.quincenaInicial = quincenaInicial;
+    }
 
-	public void setAnioInicial(Integer anioInicial) {
-		this.anioInicial = anioInicial;
-	}
+    public Integer getQuincenaFinal() {
+        return quincenaFinal;
+    }
 
-	public Date getFechaRegistro() {
-		return fechaRegistro;
-	}
+    public void setQuincenaFinal(Integer quincenaFinal) {
+        this.quincenaFinal = quincenaFinal;
+    }
 
-	public void setFechaRegistro(Date fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+    public BigDecimal getImporteMensual() {
+        return importeMensual;
+    }
 
-	public Date getFechaModificacion() {
-		return fechaModificacion;
-	}
+    public void setImporteMensual(BigDecimal importeMensual) {
+        this.importeMensual = importeMensual;
+    }
 
-	public void setFechaModificacion(Date fechaModificacion) {
-		this.fechaModificacion = fechaModificacion;
-	}
+    public BigDecimal getImporteQuincenal() {
+        return importeQuincenal;
+    }
 
-	public String getFolio() {
-		return folio;
-	}
+    public void setImporteQuincenal(BigDecimal importeQuincenal) {
+        this.importeQuincenal = importeQuincenal;
+    }
 
-	public void setFolio(String folio) {
-		this.folio = folio;
-	}
+    public Integer getAnioFinal() {
+        return anioFinal;
+    }
 
-	public Date getFechaDocumento() {
-		return fechaDocumento;
-	}
+    public void setAnioFinal(Integer anioFinal) {
+        this.anioFinal = anioFinal;
+    }
 
-	public void setFechaDocumento(Date fechaDocumento) {
-		this.fechaDocumento = fechaDocumento;
-	}
+    public String getTerceroInstitucional() {
+        return terceroInstitucional;
+    }
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    public void setTerceroInstitucional(String terceroInstitucional) {
+        this.terceroInstitucional = terceroInstitucional;
+    }
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    public Integer getAnioInicial() {
+        return anioInicial;
+    }
 
-	public Integer getDias() {
-		return dias;
-	}
+    public void setAnioInicial(Integer anioInicial) {
+        this.anioInicial = anioInicial;
+    }
 
-	public void setDias(Integer dias) {
-		this.dias = dias;
-	}
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
 
-	public String getTipoMovimiento() {
-		return tipoMovimiento;
-	}
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
-	public void setTipoMovimiento(String tipoMovimiento) {
-		this.tipoMovimiento = tipoMovimiento;
-	}
+    public Date getFechaModificacion() {
+        return fechaModificacion;
+    }
 
-	public String getStatusRegistro() {
-		return statusRegistro;
-	}
+    public void setFechaModificacion(Date fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
+    }
 
-	public void setStatusRegistro(String statusRegistro) {
-		this.statusRegistro = statusRegistro;
-	}
+    public String getFolio() {
+        return folio;
+    }
 
-	
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public Date getFechaDocumento() {
+        return fechaDocumento;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public void setFechaDocumento(Date fechaDocumento) {
+        this.fechaDocumento = fechaDocumento;
+    }
 
-	public Boolean getEstatus() {
-		return estatus;
-	}
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public void setEstatus(Boolean estatus) {
-		this.estatus = estatus;
-	}
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
-	@Override
-	public String toString() {
-		return "MovimientoNominaDTO [idMovimientoFijo=" + idMovimientoFijo + ", idTerceroInstitucional="
-				+ idTerceroInstitucional + ", terceroInstitucional=" + terceroInstitucional + ", fechaDocumento="
-				+ fechaDocumento + ", folio=" + folio + ", idEmpleado=" + idEmpleado + ", rfc=" + rfc
-				+ ", quincenaOperacion=" + quincenaOperacion + ", anyoOperacion=" + anyoOperacion
-				+ ", importeQuincenas=" + importeQuincenas + ", importeDescontado=" + importeDescontado
-				+ ", quincenaInicial=" + quincenaInicial + ", quincenaFinal=" + quincenaFinal + ", anioFinal="
-				+ anioFinal + ", anioInicial=" + anioInicial + ", importeMensual=" + importeMensual
-				+ ", importeQuincenal=" + importeQuincenal + ", fechaRegistro=" + fechaRegistro + ", fechaModificacion="
-				+ fechaModificacion + ", idTipoMovimiento=" + idTipoMovimiento + ", dias=" + dias + ", tipoMovimiento="
-				+ tipoMovimiento + ", statusRegistro=" + statusRegistro + ", clave=" + clave + ", estatus=" + estatus
-				+ "]";
-	}
+    public Integer getDias() {
+        return dias;
+    }
 
-	
-	
+    public void setDias(Integer dias) {
+        this.dias = dias;
+    }
+
+    public String getTipoMovimiento() {
+        return tipoMovimiento;
+    }
+
+    public void setTipoMovimiento(String tipoMovimiento) {
+        this.tipoMovimiento = tipoMovimiento;
+    }
+
+    public String getStatusRegistro() {
+        return statusRegistro;
+    }
+
+    public void setStatusRegistro(String statusRegistro) {
+        this.statusRegistro = statusRegistro;
+    }
+
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public Boolean getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(Boolean estatus) {
+        this.estatus = estatus;
+    }
+
+    @Override
+    public String toString() {
+        return "MovimientoNominaDTO [idMovimientoFijo=" + idMovimientoFijo + ", idTerceroInstitucional=" + idTerceroInstitucional + ", terceroInstitucional="
+                + terceroInstitucional + ", fechaDocumento=" + fechaDocumento + ", folio=" + folio + ", idEmpleado=" + idEmpleado + ", rfc=" + rfc
+                + ", quincenaOperacion=" + quincenaOperacion + ", anyoOperacion=" + anyoOperacion + ", importeQuincenas=" + importeQuincenas
+                + ", importeDescontado=" + importeDescontado + ", quincenaInicial=" + quincenaInicial + ", quincenaFinal=" + quincenaFinal + ", anioFinal="
+                + anioFinal + ", anioInicial=" + anioInicial + ", importeMensual=" + importeMensual + ", importeQuincenal=" + importeQuincenal
+                + ", fechaRegistro=" + fechaRegistro + ", fechaModificacion=" + fechaModificacion + ", idTipoMovimiento=" + idTipoMovimiento + ", dias=" + dias
+                + ", tipoMovimiento=" + tipoMovimiento + ", statusRegistro=" + statusRegistro + ", clave=" + clave + ", estatus=" + estatus + "]";
+    }
+
 }

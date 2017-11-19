@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -20,246 +21,246 @@ import javax.persistence.Table;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 15/11/2016 16:17:04
+ * @since 15/11/2016 16:17:04
  */
 @Entity
 @Table(name = "personal_eventual")
 public class PadronEventualEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 585549243060628495L;
-	@Id
-	@Column(name = "id_eventual")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEventual;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 585549243060628495L;
+    @Id
+    @Column(name = "id_eventual")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEventual;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_contratacion")
-	private TipoContratacionEntity tipoContratacion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_contratacion")
+    private TipoContratacionEntity tipoContratacion;
 
-	@Column(name = "rfc")
-	private String rfc;
+    @Column(name = "rfc")
+    private String rfc;
 
-	@Column(name = "rfc_sat")
-	private String rfcsat;
+    @Column(name = "rfc_sat")
+    private String rfcsat;
 
-	@Column(name = "nombre")
-	private String nombre;
+    @Column(name = "nombre")
+    private String nombre;
 
-	@Column(name = "fecha_ingreso")
-	private Date fechaIngreso;
+    @Column(name = "fecha_ingreso")
+    private Date fechaIngreso;
 
-	@Column(name = "centro_responsabilidad")
-	private String centroResponsabilidad;
+    @Column(name = "centro_responsabilidad")
+    private String centroResponsabilidad;
 
-	@Column(name = "funcion")
-	private String funcion;
+    @Column(name = "funcion")
+    private String funcion;
 
-	@Column(name = "rama")
-	private String rama;
+    @Column(name = "rama")
+    private String rama;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_programa")
-	private ProgramaEntity programa;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_programa")
+    private ProgramaEntity programa;
 
-	@Column(name = "sueldo")
-	private BigDecimal sueldo;
+    @Column(name = "sueldo")
+    private BigDecimal sueldo;
 
-	@Column(name = "conPuesto")
-	private boolean conPuesto;
+    @Column(name = "conPuesto")
+    private boolean conPuesto;
 
-	@Column(name = "id_inventario")
-	private Integer idInventario;
+    @Column(name = "id_inventario")
+    private Integer idInventario;
 
-	@Column(name = "duplicado_siif")
-	private boolean duplicadoSiif;
+    @Column(name = "duplicado_siif")
+    private boolean duplicadoSiif;
 
-	@Column(name = "suplencia")
-	private boolean suplencia;
+    @Column(name = "suplencia")
+    private boolean suplencia;
 
-	@Column(name = "sueldo_01")
-	private BigDecimal sueldo1;
+    @Column(name = "sueldo_01")
+    private BigDecimal sueldo1;
 
-	@Column(name = "sueldo_14")
-	private BigDecimal sueldo14;
+    @Column(name = "sueldo_14")
+    private BigDecimal sueldo14;
 
-	@Column(name = "id_siif")
-	private Integer idSiif;
+    @Column(name = "id_siif")
+    private Integer idSiif;
 
-	@Column(name = "sin_empleado")
-	private Boolean sinEmpleado;
+    @Column(name = "sin_empleado")
+    private Boolean sinEmpleado;
 
-	@Column(name = " id_quincena_suplencia")
-	private Integer idQuincenaSuplencia;
+    @Column(name = " id_quincena_suplencia")
+    private Integer idQuincenaSuplencia;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = " id_centro_responsabilidad")
-	private CentroResponsabilidadEntity idCentroResponsabilidad;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = " id_centro_responsabilidad")
+    private CentroResponsabilidadEntity idCentroResponsabilidad;
 
-	public CentroResponsabilidadEntity getIdCentroResponsabilidad() {
-		return idCentroResponsabilidad;
-	}
+    public CentroResponsabilidadEntity getIdCentroResponsabilidad() {
+        return idCentroResponsabilidad;
+    }
 
-	public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
-		this.idCentroResponsabilidad = idCentroResponsabilidad;
-	}
+    public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
+        this.idCentroResponsabilidad = idCentroResponsabilidad;
+    }
 
-	public Integer getIdQuincenaSuplencia() {
-		return idQuincenaSuplencia;
-	}
+    public Integer getIdQuincenaSuplencia() {
+        return idQuincenaSuplencia;
+    }
 
-	public void setIdQuincenaSuplencia(Integer idQuincenaSuplencia) {
-		this.idQuincenaSuplencia = idQuincenaSuplencia;
-	}
+    public void setIdQuincenaSuplencia(Integer idQuincenaSuplencia) {
+        this.idQuincenaSuplencia = idQuincenaSuplencia;
+    }
 
-	public Boolean getSinEmpleado() {
-		return sinEmpleado;
-	}
+    public Boolean getSinEmpleado() {
+        return sinEmpleado;
+    }
 
-	public void setSinEmpleado(Boolean sinEmpleado) {
-		this.sinEmpleado = sinEmpleado;
-	}
+    public void setSinEmpleado(Boolean sinEmpleado) {
+        this.sinEmpleado = sinEmpleado;
+    }
 
-	public BigDecimal getSueldo1() {
-		return sueldo1;
-	}
+    public BigDecimal getSueldo1() {
+        return sueldo1;
+    }
 
-	public void setSueldo1(BigDecimal sueldo1) {
-		this.sueldo1 = sueldo1;
-	}
+    public void setSueldo1(BigDecimal sueldo1) {
+        this.sueldo1 = sueldo1;
+    }
 
-	public BigDecimal getSueldo14() {
-		return sueldo14;
-	}
+    public BigDecimal getSueldo14() {
+        return sueldo14;
+    }
 
-	public void setSueldo14(BigDecimal sueldo14) {
-		this.sueldo14 = sueldo14;
-	}
+    public void setSueldo14(BigDecimal sueldo14) {
+        this.sueldo14 = sueldo14;
+    }
 
-	public Integer getIdSiif() {
-		return idSiif;
-	}
+    public Integer getIdSiif() {
+        return idSiif;
+    }
 
-	public void setIdSiif(Integer idSiif) {
-		this.idSiif = idSiif;
-	}
+    public void setIdSiif(Integer idSiif) {
+        this.idSiif = idSiif;
+    }
 
-	public boolean isSuplencia() {
-		return suplencia;
-	}
+    public boolean isSuplencia() {
+        return suplencia;
+    }
 
-	public void setSuplencia(boolean suplencia) {
-		this.suplencia = suplencia;
-	}
+    public void setSuplencia(boolean suplencia) {
+        this.suplencia = suplencia;
+    }
 
-	public boolean isDuplicadoSiif() {
-		return duplicadoSiif;
-	}
+    public boolean isDuplicadoSiif() {
+        return duplicadoSiif;
+    }
 
-	public void setDuplicadoSiif(boolean duplicadoSiif) {
-		this.duplicadoSiif = duplicadoSiif;
-	}
+    public void setDuplicadoSiif(boolean duplicadoSiif) {
+        this.duplicadoSiif = duplicadoSiif;
+    }
 
-	public Integer getIdInventario() {
-		return idInventario;
-	}
+    public Integer getIdInventario() {
+        return idInventario;
+    }
 
-	public void setIdInventario(Integer idInventario) {
-		this.idInventario = idInventario;
-	}
+    public void setIdInventario(Integer idInventario) {
+        this.idInventario = idInventario;
+    }
 
-	public TipoContratacionEntity getTipoContratacion() {
-		return tipoContratacion;
-	}
+    public TipoContratacionEntity getTipoContratacion() {
+        return tipoContratacion;
+    }
 
-	public void setTipoContratacion(TipoContratacionEntity tipoContratacion) {
-		this.tipoContratacion = tipoContratacion;
-	}
+    public void setTipoContratacion(TipoContratacionEntity tipoContratacion) {
+        this.tipoContratacion = tipoContratacion;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public String getRfcsat() {
-		return rfcsat;
-	}
+    public String getRfcsat() {
+        return rfcsat;
+    }
 
-	public void setRfcsat(String rfcsat) {
-		this.rfcsat = rfcsat;
-	}
+    public void setRfcsat(String rfcsat) {
+        this.rfcsat = rfcsat;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public String getCentroResponsabilidad() {
-		return centroResponsabilidad;
-	}
+    public String getCentroResponsabilidad() {
+        return centroResponsabilidad;
+    }
 
-	public void setCentroResponsabilidad(String centroResponsabilidad) {
-		this.centroResponsabilidad = centroResponsabilidad;
-	}
+    public void setCentroResponsabilidad(String centroResponsabilidad) {
+        this.centroResponsabilidad = centroResponsabilidad;
+    }
 
-	public String getFuncion() {
-		return funcion;
-	}
+    public String getFuncion() {
+        return funcion;
+    }
 
-	public void setFuncion(String funcion) {
-		this.funcion = funcion;
-	}
+    public void setFuncion(String funcion) {
+        this.funcion = funcion;
+    }
 
-	public String getRama() {
-		return rama;
-	}
+    public String getRama() {
+        return rama;
+    }
 
-	public void setRama(String rama) {
-		this.rama = rama;
-	}
+    public void setRama(String rama) {
+        this.rama = rama;
+    }
 
-	public ProgramaEntity getPrograma() {
-		return programa;
-	}
+    public ProgramaEntity getPrograma() {
+        return programa;
+    }
 
-	public void setPrograma(ProgramaEntity programa) {
-		this.programa = programa;
-	}
+    public void setPrograma(ProgramaEntity programa) {
+        this.programa = programa;
+    }
 
-	public BigDecimal getSueldo() {
-		return sueldo;
-	}
+    public BigDecimal getSueldo() {
+        return sueldo;
+    }
 
-	public void setSueldo(BigDecimal sueldo) {
-		this.sueldo = sueldo;
-	}
+    public void setSueldo(BigDecimal sueldo) {
+        this.sueldo = sueldo;
+    }
 
-	public boolean isConPuesto() {
-		return conPuesto;
-	}
+    public boolean isConPuesto() {
+        return conPuesto;
+    }
 
-	public void setConPuesto(boolean conPuesto) {
-		this.conPuesto = conPuesto;
-	}
+    public void setConPuesto(boolean conPuesto) {
+        this.conPuesto = conPuesto;
+    }
 
-	public Integer getIdEventual() {
-		return idEventual;
-	}
+    public Integer getIdEventual() {
+        return idEventual;
+    }
 
 }

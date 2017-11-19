@@ -1,10 +1,15 @@
 /*
  * FirmaMotor.java
  * Creado el 07/sep/2017 6:48:15 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
+
+import static mx.gob.saludtlax.rh.util.ArchivoUtil.SEPARADOR_DE_ARCHIVO;
+import static mx.gob.saludtlax.rh.util.ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS;
+import static mx.gob.saludtlax.rh.util.ArchivoUtil.WINDOWS_LATIN_CHARSET;
+import static mx.gob.saludtlax.rh.util.FechaUtil.LUGAR_MEXICO;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -19,15 +24,10 @@ import org.jboss.logging.Logger;
 
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
-import static mx.gob.saludtlax.rh.util.FechaUtil.LUGAR_MEXICO;
-import static mx.gob.saludtlax.rh.util.ArchivoUtil.SEPARADOR_DE_ARCHIVO;
-import static mx.gob.saludtlax.rh.util.ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS;
-import static mx.gob.saludtlax.rh.util.ArchivoUtil.WINDOWS_LATIN_CHARSET;
-
 /**
- * Esta clase es el motor para la generación del reporte en texto plano del 
+ * Esta clase es el motor para la generación del reporte en texto plano del
  * listado de firmas.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class FirmaMotor {
@@ -38,8 +38,7 @@ public class FirmaMotor {
     private static final String ENCABEZADO_DIRECCION = " DIRECCION DE ADMINISTRACION";
     private static final String ENCABEZADO_SUBDIRECCION = "SUBDIRECCION DE RECURSOS HUMANOS";
     private static final String ENCABEZADO_DEPARTAMENTO = "DEPARTAMENTO DE PERSONAL EVENTUAL";
-    private static final String ENCABEZADO_TITULOS_DE_LAS_COLUMNAS
-            = "                                                                                  NUMERO DE\n"
+    private static final String ENCABEZADO_TITULOS_DE_LAS_COLUMNAS = "                                                                                  NUMERO DE\n"
             + " FILIACION               N O M B R E                        PERIODO DE PAGO        CHEQUE       IMPORTE        F  I  R  M  A      NUM.\n";
 
     private static final String PATRON_ENCABEZADO_NUMERO_DE_PAGINA = "PAGINA: %1$ ,7d";
@@ -48,10 +47,10 @@ public class FirmaMotor {
     private static final String PATRON_DETALLE_FIRMA = " %1$-13.13S %2$-39.39S %3$td-%3$Tb-%3$tY AL %4$td-%4$Tb-%4$tY  %5$7.7S $ %6$ ,13.2f ______________________ %7$06d ";
     private static final String PATRON_TOTAL_POR = "TOTAL %1$-10.10S : %2$4d";
     private static final String PATRON_IMPORTE_TOTAL = "$ %1$ ,13.2f";
-    
+
     private static final Integer COLUMNAS_POR_HOJA = 136;
     private static final Integer LINEAS_POR_HOJA = 66;
-    
+
     public byte[] obtenerArchivo(FirmaDTO firma) {
         try {
             if (!SEPARADOR_DE_ARCHIVO_WINDOWS.equals(SEPARADOR_DE_ARCHIVO)) {
@@ -79,10 +78,10 @@ public class FirmaMotor {
     }
 
     private StringBuilder llenarReporte(FirmaDTO firma) {
-        if(firma == null) {
+        if (firma == null) {
             LOGGER.warn("Firma es null");
         }
-        
+
         StringBuilder sb = new StringBuilder();
         int contadorLineas = 0;
         int pagina = 1;
@@ -92,29 +91,33 @@ public class FirmaMotor {
             int contadorProgramas = 1;
             int totalUnidadesResponsables = firma.getUnidadesResponsables().size();
             BigDecimal totalGeneral = BigDecimal.ZERO;
-            
-            for(UnidadResponsableDTO unidadResponsable : firma) {
+
+            for (UnidadResponsableDTO unidadResponsable : firma) {
                 int contadorEmpleadosPrograma = 0;
                 int contadorUnidadesResponsables = 0;
                 int totalProgramas = unidadResponsable.getProgramas().size();
                 BigDecimal totalPrograma = BigDecimal.ZERO;
 
-                for(ProgramaDTO programa : unidadResponsable) {
+                for (ProgramaDTO programa : unidadResponsable) {
                     int contadorEmpleadosUnidadResponsable = 0;
                     BigDecimal totalUnidadResponsable = BigDecimal.ZERO;
-                    contadorLineas = contadorLineas + llenarEncabezado(formatter, pagina, programa.getPrograma(), firma.getQuincena(), firma.getFechaPago(), unidadResponsable.getUnidadResponsable(), Calendar.getInstance().getTime());
+                    contadorLineas = contadorLineas + llenarEncabezado(formatter, pagina, programa.getPrograma(), firma.getQuincena(), firma.getFechaPago(),
+                            unidadResponsable.getUnidadResponsable(), Calendar.getInstance().getTime());
 
                     for (FirmaEmpleadoDTO firmaEmpleado : programa) {
                         int lineasRestantes = LINEAS_POR_HOJA - (contadorLineas % LINEAS_POR_HOJA);
-                        
+
                         if (lineasRestantes > 5) {
-                            contadorLineas = contadorLineas + llenarDetalle(formatter, firmaEmpleado, programa.getInicioPeriodo(), programa.getFinPeriodo(), contadorEmpleadosPrograma + 1);
+                            contadorLineas = contadorLineas + llenarDetalle(formatter, firmaEmpleado, programa.getInicioPeriodo(), programa.getFinPeriodo(),
+                                    contadorEmpleadosPrograma + 1);
                         } else {
                             agregarLineas(lineasRestantes, formatter);
                             contadorLineas = contadorLineas + lineasRestantes;
                             pagina = (contadorLineas / LINEAS_POR_HOJA) + 1;
-                            contadorLineas = contadorLineas + llenarEncabezado(formatter, pagina, programa.getPrograma(), firma.getQuincena(), firma.getFechaPago(), unidadResponsable.getUnidadResponsable(), Calendar.getInstance().getTime());
-                            contadorLineas = contadorLineas + llenarDetalle(formatter, firmaEmpleado, programa.getInicioPeriodo(), programa.getFinPeriodo(), contadorEmpleadosPrograma + 1);   
+                            contadorLineas = contadorLineas + llenarEncabezado(formatter, pagina, programa.getPrograma(), firma.getQuincena(),
+                                    firma.getFechaPago(), unidadResponsable.getUnidadResponsable(), Calendar.getInstance().getTime());
+                            contadorLineas = contadorLineas + llenarDetalle(formatter, firmaEmpleado, programa.getInicioPeriodo(), programa.getFinPeriodo(),
+                                    contadorEmpleadosPrograma + 1);
                         }
 
                         totalUnidadResponsable = totalUnidadResponsable.add(firmaEmpleado.getImporte());
@@ -124,18 +127,19 @@ public class FirmaMotor {
                         contadorEmpleadosGeneral++;
                         contadorEmpleadosUnidadResponsable++;
                     }
-                    
+
                     contadorUnidadesResponsables++;
                     contadorLineas = contadorLineas + llenarFinUnidadResponsable(formatter, contadorEmpleadosUnidadResponsable, totalUnidadResponsable);
-                    
-                    if(contadorUnidadesResponsables == totalProgramas) {
+
+                    if (contadorUnidadesResponsables == totalProgramas) {
                         contadorLineas = contadorLineas + llenarFinPrograma(formatter, contadorEmpleadosPrograma, totalPrograma);
 
-                        if(contadorProgramas == totalUnidadesResponsables) {
+                        if (contadorProgramas == totalUnidadesResponsables) {
                             contadorLineas = contadorLineas + llenarFinGeneral(formatter, contadorEmpleadosGeneral, totalGeneral);
-                            contadorLineas = contadorLineas + llenarFirmas(formatter, firma.getNombreElaboro(), firma.getCargoElaboro(), firma.getNombreElaboro(), firma.getCargoElaboro(), firma.getNombreAutorizo(), firma.getCargoAutorizo());
+                            contadorLineas = contadorLineas + llenarFirmas(formatter, firma.getNombreElaboro(), firma.getCargoElaboro(),
+                                    firma.getNombreElaboro(), firma.getCargoElaboro(), firma.getNombreAutorizo(), firma.getCargoAutorizo());
                         }
-                    } 
+                    }
 
                     int diferencia = LINEAS_POR_HOJA - (contadorLineas % LINEAS_POR_HOJA);
                     agregarLineas(diferencia, formatter);
@@ -150,9 +154,10 @@ public class FirmaMotor {
         return sb;
     }
 
-    private int llenarEncabezado(Formatter formatter, int pagina, String programa, String quincena, Date fechaPago, String unidadResponsable, Date fechaImpresion) {
+    private int llenarEncabezado(Formatter formatter, int pagina, String programa, String quincena, Date fechaPago, String unidadResponsable,
+            Date fechaImpresion) {
         int contadorLineas = 0;
-        
+
         agregarLineas(1, formatter);
         contadorLineas = contadorLineas + 1;
 
@@ -189,34 +194,35 @@ public class FirmaMotor {
         formatter.format(ENCABEZADO_TITULOS_DE_LAS_COLUMNAS);
         agregarLineaDivision(formatter);
         contadorLineas = contadorLineas + 4;
-        
+
         return contadorLineas;
     }
-    
+
     private int llenarDetalle(Formatter formatter, FirmaEmpleadoDTO firmaEmpleado, Date inicioPeriodo, Date finPeriodo, int contador) {
         int contadorLineas = 0;
-        
+
         agregarLineas(1, formatter);
-        formatter.format(PATRON_DETALLE_FIRMA, firmaEmpleado.getFiliacion(), firmaEmpleado.getNombre(), inicioPeriodo, finPeriodo, firmaEmpleado.getNumeroCheque(), firmaEmpleado.getImporte(), contador);
+        formatter.format(PATRON_DETALLE_FIRMA, firmaEmpleado.getFiliacion(), firmaEmpleado.getNombre(), inicioPeriodo, finPeriodo,
+                firmaEmpleado.getNumeroCheque(), firmaEmpleado.getImporte(), contador);
         agregarLineas(2, formatter);
         contadorLineas = contadorLineas + 3;
-        
+
         return contadorLineas;
     }
-    
+
     private int llenarFinUnidadResponsable(Formatter formatter, int totalEmpleadosUnidadResponsable, BigDecimal importeUnidadResponsable) {
         int contadorLineas = 0;
 
         agregarLineas(2, formatter);
         contadorLineas = contadorLineas + 2;
-        
+
         agregarEspacio(9, formatter);
         formatter.format(PATRON_TOTAL_POR, "POR CENTRO", totalEmpleadosUnidadResponsable);
         agregarEspacio(59, formatter);
         formatter.format(PATRON_IMPORTE_TOTAL, importeUnidadResponsable);
         agregarLineas(1, formatter);
         contadorLineas = contadorLineas + 1;
-        
+
         return contadorLineas;
     }
 
@@ -229,7 +235,7 @@ public class FirmaMotor {
         formatter.format(PATRON_IMPORTE_TOTAL, importePrograma);
         agregarLineas(1, formatter);
         contadorLineas = contadorLineas + 1;
-        
+
         return contadorLineas;
     }
 
@@ -238,23 +244,24 @@ public class FirmaMotor {
 
         agregarLineas(1, formatter);
         contadorLineas = contadorLineas + 1;
-        
+
         agregarEspacio(9, formatter);
         formatter.format(PATRON_TOTAL_POR, "GENERAL", totalEmpleadosPrograma);
         agregarEspacio(59, formatter);
         formatter.format(PATRON_IMPORTE_TOTAL, importePrograma);
         agregarLineas(1, formatter);
         contadorLineas = contadorLineas + 1;
-        
+
         return contadorLineas;
     }
 
-    private int llenarFirmas(Formatter formatter, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    private int llenarFirmas(Formatter formatter, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo,
+            String cargoAutorizo) {
         int contadorLineas = 0;
-        
+
         agregarLineas(4, formatter);
         contadorLineas = contadorLineas + 4;
-        
+
         agregarEspacio(6, formatter);
         formatter.format("E  L  A  B  O  R  O");
         agregarEspacio(30, formatter);
@@ -263,7 +270,7 @@ public class FirmaMotor {
         formatter.format("A  U  T  O  R  I  Z  O");
         agregarLineas(3, formatter);
         contadorLineas = contadorLineas + 3;
-        
+
         try {
             contadorLineas = contadorLineas + agregarLineasFirma(formatter);
         } catch (IOException ex) {
@@ -347,7 +354,7 @@ public class FirmaMotor {
                 case 2:
                     espacios = 14;
                     break;
-                default :
+                default:
                     espacios = 10;
                     break;
 
@@ -355,7 +362,7 @@ public class FirmaMotor {
 
             agregarEspacio(espacios, formatter);
 
-            for(int j = 0; j < numeroCaracteres; j++) {
+            for (int j = 0; j < numeroCaracteres; j++) {
                 appendable.append("_");
             }
         }
@@ -364,11 +371,11 @@ public class FirmaMotor {
 
         return 1;
     }
-    
-    private static String centrarTexto(int limite, String patron, Object ... args) {
+
+    private static String centrarTexto(int limite, String patron, Object... args) {
         try (Formatter formatter = new Formatter(LUGAR_MEXICO)) {
             formatter.format(patron, args);
-            
+
             return centrarTexto(formatter.toString(), limite);
         }
     }

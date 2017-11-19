@@ -1,48 +1,48 @@
+
 package mx.gob.saludtlax.rh.configuracion.conceptosnomina;
 
 import java.math.BigDecimal;
 
 public class ConceptoMovimientoFederalDTO {
 
-	private Integer idMovimiento;
-	
-	private Integer idConcepto;
-	
-	private String clave;
-	
-	private BigDecimal importe;
+    private Integer idMovimiento;
 
-	public Integer getIdMovimiento() {
-		return idMovimiento;
-	}
+    private Integer idConcepto;
 
-	public void setIdMovimiento(Integer idMovimiento) {
-		this.idMovimiento = idMovimiento;
-	}
+    private String clave;
 
-	public Integer getIdConcepto() {
-		return idConcepto;
-	}
+    private BigDecimal importe;
 
-	public void setIdConcepto(Integer idConcepto) {
-		this.idConcepto = idConcepto;
-	}
+    public Integer getIdMovimiento() {
+        return idMovimiento;
+    }
 
-	public String getClave() {
-		return clave;
-	}
+    public void setIdMovimiento(Integer idMovimiento) {
+        this.idMovimiento = idMovimiento;
+    }
 
-	public void setClave(String clave) {
-		this.clave = clave;
-	}
+    public Integer getIdConcepto() {
+        return idConcepto;
+    }
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public void setIdConcepto(Integer idConcepto) {
+        this.idConcepto = idConcepto;
+    }
 
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
-	
-	
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public BigDecimal getImporte() {
+        return importe;
+    }
+
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
 }

@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.puestosautorizados;
 
 import java.util.Collections;

@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ReservacionPlazaEleccionPopularController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5993921032049953176L;
 
@@ -40,10 +40,9 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new ReservacionView();
+        view = new ReservacionView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -67,14 +66,14 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = this.reservacionPlazaEleccionPopularEJB.consultarPorCriterio(criterio);
-        this.view.setReservacionDetalleDTO(resultado);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaEleccionPopularEJB.consultarPorCriterio(criterio);
+        view.setReservacionDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaEleccionPopular() {
-        ReservacionDTO reservacionDTO = this.view.getReservacionDTO();
+        ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
         ReservacionPlazaEleccionPopularWord reservacionPlazaEleccionPopularWord = new ReservacionPlazaEleccionPopularWord();
         byte[] bytesWord = reservacionPlazaEleccionPopularWord.generar(reservacionDTO);
@@ -100,22 +99,22 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
     }
 
     public void contenidoReservacionOtra(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = this.reservacionPlazaEleccionPopularEJB.obtenerReservacionOtra(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaEleccionPopularEJB.obtenerReservacionOtra(idTipoMovimiento);
 
-        this.view.setReservacionDTO(reservacionDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReservacion(true);
+        view.setReservacionDTO(reservacionDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReservacion(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setReservacionDetalleDTO(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarReservacion(false);
+        view.setCriterio("");
+        view.setReservacionDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarReservacion(false);
     }
 
     public ReservacionView getView() {
-        return this.view;
+        return view;
     }
 
     public void setView(ReservacionView view) {

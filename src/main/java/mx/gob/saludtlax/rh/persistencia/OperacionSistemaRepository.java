@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
@@ -12,21 +13,19 @@ import java.util.List;
  */
 public class OperacionSistemaRepository extends GenericRepository<OperacionSistemaEntity, Integer> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6819079619931387392L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6819079619931387392L;
 
-	public List<OperacionSistemaEntity> consultarOperaciones() {
-		List<OperacionSistemaEntity> lista = em
-				.createQuery(" SELECT o FROM OperacionSistemaEntity AS o", OperacionSistemaEntity.class)
-				.getResultList();
-		return lista;
-	}
+    public List<OperacionSistemaEntity> consultarOperaciones() {
+        List<OperacionSistemaEntity> lista = em.createQuery(" SELECT o FROM OperacionSistemaEntity AS o", OperacionSistemaEntity.class).getResultList();
+        return lista;
+    }
 
-	public String obtenerDescripcionOperacion(Integer idOperacion) {
-		return em.createQuery("SELECT o.operacion FROM OperacionSistemaEntity AS o WHERE o.idOperacion =:idOperacion",
-				String.class).setParameter("idOperacion", idOperacion).getSingleResult();
-	}
+    public String obtenerDescripcionOperacion(Integer idOperacion) {
+        return em.createQuery("SELECT o.operacion FROM OperacionSistemaEntity AS o WHERE o.idOperacion =:idOperacion", String.class)
+                .setParameter("idOperacion", idOperacion).getSingleResult();
+    }
 
 }

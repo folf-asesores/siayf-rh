@@ -1,6 +1,7 @@
-/**
+/*
  * Copyright ® 2016
  */
+
 package mx.gob.saludtlax.rh.nomina.movimientos;
 
 import java.io.Serializable;
@@ -32,180 +33,169 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 
 public class MovimientosService implements Serializable {
 
-	private static final long serialVersionUID = -2736791045459854674L;
+    private static final long serialVersionUID = -2736791045459854674L;
 
-		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
-	private EntityManager entityManager;
-	@Inject
-	MovimientoFijoRepository movimientoFijoRepository;
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
+    private EntityManager entityManager;
+    @Inject
+    MovimientoFijoRepository movimientoFijoRepository;
 
-	@Inject
-	ConfiguracionTipoMovimientoNominaReporsitory configuracionMovimiento;
+    @Inject
+    ConfiguracionTipoMovimientoNominaReporsitory configuracionMovimiento;
 
-	@Inject
-	ConceptoNominaFederalesRepository conceptoNominaFederalesRepository;
+    @Inject
+    ConceptoNominaFederalesRepository conceptoNominaFederalesRepository;
 
-	public TipoMovimientoDTO obtenerTipoMovimientoPorClave(String clave) {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery("SELECT " + "id_tipo_movimiento_nomina AS idMovimientoNomina, "
-				+ " clave, " + " descripcion, " + " forma_registro AS formaRegistro, "
-				+ "es_movimiento as esMovimiento," + "id_padre as idPadre " + " FROM tipos_movimientos_nomina"
-				+ " WHERE " + " tipos_movimientos_nomina.clave=:clave ").setParameter("clave", clave);
-		query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
-		@SuppressWarnings("unchecked")
-		List<TipoMovimientoDTO> result = (List<TipoMovimientoDTO>) query.list();
-		if (!result.isEmpty()) {
-			return result.get(0);
-		}
-		return null;
-	}
+    public TipoMovimientoDTO obtenerTipoMovimientoPorClave(String clave) {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("SELECT " + "id_tipo_movimiento_nomina AS idMovimientoNomina, " + " clave, " + " descripcion, "
+                + " forma_registro AS formaRegistro, " + "es_movimiento as esMovimiento," + "id_padre as idPadre " + " FROM tipos_movimientos_nomina"
+                + " WHERE " + " tipos_movimientos_nomina.clave=:clave ").setParameter("clave", clave);
+        query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
+        @SuppressWarnings("unchecked")
+        List<TipoMovimientoDTO> result = query.list();
+        if (!result.isEmpty()) {
+            return result.get(0);
+        }
+        return null;
+    }
 
-	public List<TipoMovimientoDTO> getMovimientosLista() {
-		Session session = entityManager.unwrap(Session.class);
-		Query query = session.createSQLQuery("SELECT " + "id_tipo_movimiento_nomina AS idMovimientoNomina, "
-				+ " clave, " + " descripcion, " + " forma_registro AS formaRegistro, "
-				+ "es_movimiento as esMovimiento," + "id_padre as idPadre " + " FROM tipos_movimientos_nomina"
-				+ " WHERE " + " id_padre IS NULL AND tipos_movimientos_nomina.forma_registro <> 0 ");
-		query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
-		@SuppressWarnings("unchecked")
-		List<TipoMovimientoDTO> result = (List<TipoMovimientoDTO>) query.list();
-		for (TipoMovimientoDTO movimientoDTO : result) {
-			query = session
-					.createSQLQuery(" SELECT " + " id_tipo_movimiento_nomina AS idMovimientoNomina, " + " clave, "
-							+ " descripcion, " + " forma_registro AS formaRegistro, "
-							+ " es_movimiento as esMovimiento," + " id_padre as idPadre "
-							+ " FROM tipos_movimientos_nomina" + " WHERE " + " id_padre = :idPadre " + "  ")
-					.setParameter("idPadre", movimientoDTO.getIdMovimientoNomina());
-			// System.out.println("movimientoDTO.getIdMovimientoNomina():: " +
-			// movimientoDTO.getIdMovimientoNomina());
-			query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
-			List<TipoMovimientoDTO> resultTem = new ArrayList<>();
-			@SuppressWarnings("unchecked")
-			List<TipoMovimientoDTO> resultSub = (List<TipoMovimientoDTO>) query.list();
-			resultTem.addAll(resultSub);
-			// System.out.println("resultTem:: " + resultTem);
-			movimientoDTO.setMovimientosLista(resultTem);
-		}
-		// System.out.println("result:: " + result);
-		return result;
-	}
+    public List<TipoMovimientoDTO> getMovimientosLista() {
+        Session session = entityManager.unwrap(Session.class);
+        Query query = session.createSQLQuery("SELECT " + "id_tipo_movimiento_nomina AS idMovimientoNomina, " + " clave, " + " descripcion, "
+                + " forma_registro AS formaRegistro, " + "es_movimiento as esMovimiento," + "id_padre as idPadre " + " FROM tipos_movimientos_nomina"
+                + " WHERE " + " id_padre IS NULL AND tipos_movimientos_nomina.forma_registro <> 0 ");
+        query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
+        @SuppressWarnings("unchecked")
+        List<TipoMovimientoDTO> result = query.list();
+        for (TipoMovimientoDTO movimientoDTO : result) {
+            query = session
+                    .createSQLQuery(" SELECT " + " id_tipo_movimiento_nomina AS idMovimientoNomina, " + " clave, " + " descripcion, "
+                            + " forma_registro AS formaRegistro, " + " es_movimiento as esMovimiento," + " id_padre as idPadre "
+                            + " FROM tipos_movimientos_nomina" + " WHERE " + " id_padre = :idPadre " + "  ")
+                    .setParameter("idPadre", movimientoDTO.getIdMovimientoNomina());
+            // System.out.println("movimientoDTO.getIdMovimientoNomina():: " +
+            // movimientoDTO.getIdMovimientoNomina());
+            query.setResultTransformer(Transformers.aliasToBean(TipoMovimientoDTO.class));
+            List<TipoMovimientoDTO> resultTem = new ArrayList<>();
+            @SuppressWarnings("unchecked")
+            List<TipoMovimientoDTO> resultSub = query.list();
+            resultTem.addAll(resultSub);
+            // System.out.println("resultTem:: " + resultTem);
+            movimientoDTO.setMovimientosLista(resultTem);
+        }
+        // System.out.println("result:: " + result);
+        return result;
+    }
 
-	public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado,
-			TipoMovimientoNominaDTO movimientoSeleccionado) {
-		try {
-			return movimientoFijoRepository.obtenerMovimientosFijosPorEmpleadoytipoMov(
-					empleadoSeleccionado.getIdEmpleado(), movimientoSeleccionado);
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado, TipoMovimientoNominaDTO movimientoSeleccionado) {
+        try {
+            return movimientoFijoRepository.obtenerMovimientosFijosPorEmpleadoytipoMov(empleadoSeleccionado.getIdEmpleado(), movimientoSeleccionado);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-	public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer empleado, Integer movimiento) {
-		try {
-			return movimientoFijoRepository.obtenerMovimiento(empleado, movimiento);
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer empleado, Integer movimiento) {
+        try {
+            return movimientoFijoRepository.obtenerMovimiento(empleado, movimiento);
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 
-	public List<ConceptoNominaFederalesEntity> obtenerMovimiento30PorEmpleado(Integer empleado) {
+    public List<ConceptoNominaFederalesEntity> obtenerMovimiento30PorEmpleado(Integer empleado) {
 
-		TipoMovimientoDTO mov = obtenerTipoMovimientoPorClave("7101");
-		
-		List<MovimientoNominaDTO> movs30AR = movimientoFijoRepository.obtenerMovimiento(empleado,
-				mov.getIdMovimientoNomina());
+        TipoMovimientoDTO mov = obtenerTipoMovimientoPorClave("7101");
 
-		List<ConfiguracionTipoMovimientoEntity> configuracionMov = null;
+        List<MovimientoNominaDTO> movs30AR = movimientoFijoRepository.obtenerMovimiento(empleado, mov.getIdMovimientoNomina());
 
-		if (!movs30AR.isEmpty()) {
+        List<ConfiguracionTipoMovimientoEntity> configuracionMov = null;
 
-			configuracionMov = configuracionMovimiento
-					.obenerConceptosPorTipoMovimiento(movs30AR.get(0).getIdTipoMovimiento());
-			
-			List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
+        if (!movs30AR.isEmpty()) {
 
-			if (!configuracionMov.isEmpty()) {
-				for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
-					conceptosMov.add(configMov.getConceptoNomina());
-				}
-			}
-			return conceptosMov;
-		}
-		mov = obtenerTipoMovimientoPorClave("7103");
-		List<MovimientoNominaDTO> movs30MR = movimientoFijoRepository.obtenerMovimiento(empleado,
-				mov.getIdMovimientoNomina());
+            configuracionMov = configuracionMovimiento.obenerConceptosPorTipoMovimiento(movs30AR.get(0).getIdTipoMovimiento());
 
-		if (!movs30MR.isEmpty()) {
-			configuracionMov = configuracionMovimiento
-					.obenerConceptosPorTipoMovimiento(movs30MR.get(0).getIdTipoMovimiento());
+            List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
 
-			List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
+            if (!configuracionMov.isEmpty()) {
+                for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
+                    conceptosMov.add(configMov.getConceptoNomina());
+                }
+            }
+            return conceptosMov;
+        }
+        mov = obtenerTipoMovimientoPorClave("7103");
+        List<MovimientoNominaDTO> movs30MR = movimientoFijoRepository.obtenerMovimiento(empleado, mov.getIdMovimientoNomina());
 
-			if (!configuracionMov.isEmpty()) {
-				for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
-					conceptosMov.add(configMov.getConceptoNomina());
-				}
-			}
-			return conceptosMov;
+        if (!movs30MR.isEmpty()) {
+            configuracionMov = configuracionMovimiento.obenerConceptosPorTipoMovimiento(movs30MR.get(0).getIdTipoMovimiento());
 
-		}
-		mov = obtenerTipoMovimientoPorClave("7105");
-		List<MovimientoNominaDTO> movs30BR = movimientoFijoRepository.obtenerMovimiento(empleado,
-				mov.getIdMovimientoNomina());
+            List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
 
-		if (!movs30BR.isEmpty()) {
-			configuracionMov = configuracionMovimiento
-					.obenerConceptosPorTipoMovimiento(movs30BR.get(0).getIdTipoMovimiento());
+            if (!configuracionMov.isEmpty()) {
+                for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
+                    conceptosMov.add(configMov.getConceptoNomina());
+                }
+            }
+            return conceptosMov;
 
-			List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
+        }
+        mov = obtenerTipoMovimientoPorClave("7105");
+        List<MovimientoNominaDTO> movs30BR = movimientoFijoRepository.obtenerMovimiento(empleado, mov.getIdMovimientoNomina());
 
-			if (!configuracionMov.isEmpty()) {
-				for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
-					conceptosMov.add(configMov.getConceptoNomina());
-				}
-			}
-			return conceptosMov;
-		}
+        if (!movs30BR.isEmpty()) {
+            configuracionMov = configuracionMovimiento.obenerConceptosPorTipoMovimiento(movs30BR.get(0).getIdTipoMovimiento());
 
-		return null;
+            List<ConceptoNominaFederalesEntity> conceptosMov = new ArrayList<>();
 
-	}
-	
-	public List<ConceptoNominaFederalesEntity> obtenerconceptosQuinquenios(Integer idEmpleado){
-		return null;
-	}
+            if (!configuracionMov.isEmpty()) {
+                for (ConfiguracionTipoMovimientoEntity configMov : configuracionMov) {
+                    conceptosMov.add(configMov.getConceptoNomina());
+                }
+            }
+            return conceptosMov;
+        }
 
-	public List<MovimientoNominaDTO> obtenerMovimientosTercerosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado) {
-		try {
-			return movimientoFijoRepository.obtenerMovimientosTercerosPorEmpleado(empleadoSeleccionado.getIdEmpleado());
-		} catch (NoResultException e) {
-			return null;
-		}
-	}
+        return null;
 
-	public void eliminar(MovimientoNominaDTO dto) {
-		movimientoFijoRepository.eliminar(movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo()));
-	}
+    }
 
-	public void editar(MovimientoNominaDTO dto) {
+    public List<ConceptoNominaFederalesEntity> obtenerconceptosQuinquenios(Integer idEmpleado) {
+        return null;
+    }
 
-		try {
-			MovimientoFijoEntity newMovimiento = movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo());
-			newMovimiento.setImporteDescontado(dto.getImporteDescontado());
-			newMovimiento.setQuincenaFinal(dto.getQuincenaFinal());
-			newMovimiento.setAnioFinal(dto.getAnioFinal());
-			newMovimiento.setFolioDocumento(dto.getFolio());
-			newMovimiento.setFechaDocumento(dto.getFechaDocumento());
-			newMovimiento.setIdTipoMovimiento(dto.getIdTipoMovimiento());
-			newMovimiento.setDias(dto.getDias());
-			newMovimiento.setFechaModificacion(FechaUtil.fechaActual());
-			newMovimiento.setEstatus(dto.getEstatus());
-			newMovimiento.setClave(dto.getClave());
-			// newMovimiento.setTerceroInstitucional(dto.getIdTerceroInstitucional()!=null?terceroInstitucionalRepository.obtenerPorId(dto.getIdTerceroInstitucional()):null);
-			// newMovimiento.setIdTipoMovimiento(dto.getIdTipoMovimiento());
-			movimientoFijoRepository.actualizar(newMovimiento);
-		} catch (PersistenceException e) {
-			throw new BusinessException();
-		}
-	}
+    public List<MovimientoNominaDTO> obtenerMovimientosTercerosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado) {
+        try {
+            return movimientoFijoRepository.obtenerMovimientosTercerosPorEmpleado(empleadoSeleccionado.getIdEmpleado());
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public void eliminar(MovimientoNominaDTO dto) {
+        movimientoFijoRepository.eliminar(movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo()));
+    }
+
+    public void editar(MovimientoNominaDTO dto) {
+
+        try {
+            MovimientoFijoEntity newMovimiento = movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo());
+            newMovimiento.setImporteDescontado(dto.getImporteDescontado());
+            newMovimiento.setQuincenaFinal(dto.getQuincenaFinal());
+            newMovimiento.setAnioFinal(dto.getAnioFinal());
+            newMovimiento.setFolioDocumento(dto.getFolio());
+            newMovimiento.setFechaDocumento(dto.getFechaDocumento());
+            newMovimiento.setIdTipoMovimiento(dto.getIdTipoMovimiento());
+            newMovimiento.setDias(dto.getDias());
+            newMovimiento.setFechaModificacion(FechaUtil.fechaActual());
+            newMovimiento.setEstatus(dto.getEstatus());
+            newMovimiento.setClave(dto.getClave());
+            // newMovimiento.setTerceroInstitucional(dto.getIdTerceroInstitucional()!=null?terceroInstitucionalRepository.obtenerPorId(dto.getIdTerceroInstitucional()):null);
+            // newMovimiento.setIdTipoMovimiento(dto.getIdTipoMovimiento());
+            movimientoFijoRepository.actualizar(newMovimiento);
+        } catch (PersistenceException e) {
+            throw new BusinessException();
+        }
+    }
 }

@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.profesion;
 
 import java.io.Serializable;
@@ -12,82 +13,81 @@ import java.io.Serializable;
  */
 public class ProfesionDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -271448965755413750L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -271448965755413750L;
 
-	private Integer idProfesionAspiranteEmpleado;
+    private Integer idProfesionAspiranteEmpleado;
 
-	private Integer idProfesion;
+    private Integer idProfesion;
 
-	private String profesion;
+    private String profesion;
 
-	/***************** Constructors ***********/
+    
 
-	public ProfesionDTO() {
-		super();
-	}
+    public ProfesionDTO() {
+        super();
+    }
 
-	public ProfesionDTO(Integer idProfesionAspiranteEmpleado, Integer idProfesion, String profesion) {
+    public ProfesionDTO(Integer idProfesionAspiranteEmpleado, Integer idProfesion, String profesion) {
 
-		this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
-		this.idProfesion = idProfesion;
-		this.profesion = profesion;
+        this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
+        this.idProfesion = idProfesion;
+        this.profesion = profesion;
 
-	}
+    }
 
-	public ProfesionDTO(Integer idProfesion, String profesion) {
+    public ProfesionDTO(Integer idProfesion, String profesion) {
 
-		this.idProfesion = idProfesion;
-		this.profesion = profesion;
+        this.idProfesion = idProfesion;
+        this.profesion = profesion;
 
-	}
+    }
 
-	
-	/**
-	 * @return the idProfesion
-	 */
-	public Integer getIdProfesion() {
-		return idProfesion;
-	}
+    /**
+     * @return the idProfesion
+     */
+    public Integer getIdProfesion() {
+        return idProfesion;
+    }
 
-	/**
-	 * @param idProfesion
-	 *            the idProfesion to set
-	 */
-	public void setIdProfesion(Integer idProfesion) {
-		this.idProfesion = idProfesion;
-	}
+    /**
+     * @param idProfesion
+     *            the idProfesion to set
+     */
+    public void setIdProfesion(Integer idProfesion) {
+        this.idProfesion = idProfesion;
+    }
 
-	/**
-	 * @return the profesion
-	 */
-	public String getProfesion() {
-		return profesion;
-	}
+    /**
+     * @return the profesion
+     */
+    public String getProfesion() {
+        return profesion;
+    }
 
-	/**
-	 * @param profesion
-	 *            the profesion to set
-	 */
-	public void setProfesion(String profesion) {
-		this.profesion = profesion;
-	}
+    /**
+     * @param profesion
+     *            the profesion to set
+     */
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
 
-	/**
-	 * @return the idProfesionAspiranteEmpleado
-	 */
-	public Integer getIdProfesionAspiranteEmpleado() {
-		return idProfesionAspiranteEmpleado;
-	}
+    /**
+     * @return the idProfesionAspiranteEmpleado
+     */
+    public Integer getIdProfesionAspiranteEmpleado() {
+        return idProfesionAspiranteEmpleado;
+    }
 
-	/**
-	 * @param idProfesionAspiranteEmpleado
-	 *            the idProfesionAspiranteEmpleado to set
-	 */
-	public void setIdProfesionAspiranteEmpleado(Integer idProfesionAspiranteEmpleado) {
-		this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
-	}
+    /**
+     * @param idProfesionAspiranteEmpleado
+     *            the idProfesionAspiranteEmpleado to set
+     */
+    public void setIdProfesionAspiranteEmpleado(Integer idProfesionAspiranteEmpleado) {
+        this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
+    }
 
 }

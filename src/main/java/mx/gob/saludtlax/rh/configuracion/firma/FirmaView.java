@@ -1,19 +1,21 @@
 /*
  * FirmaView.java
  * Creado el 15/Nov/2016 7:24:05 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.firma;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
 
 /**
- * Esta clase ayuda a la clase {@link FirmaController} manteniendo el estado de 
+ * Esta clase ayuda a la clase {@link FirmaController} manteniendo el estado de
  * los componentes de la vista.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class FirmaView {
@@ -43,7 +45,8 @@ public class FirmaView {
     /**
      * Set the value of adscripciones
      *
-     * @param adscripciones new value of adscripciones
+     * @param adscripciones
+     *            new value of adscripciones
      */
     public void setAdscripciones(List<SelectItem> adscripciones) {
         this.adscripciones = adscripciones;
@@ -61,7 +64,8 @@ public class FirmaView {
     /**
      * Set the value of firma
      *
-     * @param firma new value of firma
+     * @param firma
+     *            new value of firma
      */
     public void setFirma(FirmaDTO firma) {
         this.firma = firma;
@@ -79,7 +83,8 @@ public class FirmaView {
     /**
      * Set the value of firmaSeleccionada
      *
-     * @param firmaSeleccionada new value of firmaSeleccionada
+     * @param firmaSeleccionada
+     *            new value of firmaSeleccionada
      */
     public void setFirmaSeleccionada(FirmaDTO firmaSeleccionada) {
         this.firmaSeleccionada = firmaSeleccionada;
@@ -97,7 +102,8 @@ public class FirmaView {
     /**
      * Set the value of mostrarDialogoEditar
      *
-     * @param mostrarDialogoEditar new value of mostrarDialogoEditar
+     * @param mostrarDialogoEditar
+     *            new value of mostrarDialogoEditar
      */
     public void setMostrarDialogoEditar(boolean mostrarDialogoEditar) {
         this.mostrarDialogoEditar = mostrarDialogoEditar;
@@ -115,7 +121,8 @@ public class FirmaView {
     /**
      * Set the value of mostrarDialogoNuevo
      *
-     * @param mostrarDialogoNuevo new value of mostrarDialogoNuevo
+     * @param mostrarDialogoNuevo
+     *            new value of mostrarDialogoNuevo
      */
     public void setMostrarDialogoNuevo(boolean mostrarDialogoNuevo) {
         this.mostrarDialogoNuevo = mostrarDialogoNuevo;
@@ -133,12 +140,12 @@ public class FirmaView {
     /**
      * Set the value of firmas
      *
-     * @param firmas new value of firmas
+     * @param firmas
+     *            new value of firmas
      */
     public void setFirmas(List<FirmaDTO> firmas) {
         this.firmas = firmas;
     }
-
 
     /**
      * Get the value of firmasFiltradas
@@ -152,7 +159,8 @@ public class FirmaView {
     /**
      * Set the value of firmasFiltradas
      *
-     * @param firmasFiltradas new value of firmasFiltradas
+     * @param firmasFiltradas
+     *            new value of firmasFiltradas
      */
     public void setFirmasFiltradas(List<FirmaDTO> firmasFiltradas) {
         this.firmasFiltradas = firmasFiltradas;

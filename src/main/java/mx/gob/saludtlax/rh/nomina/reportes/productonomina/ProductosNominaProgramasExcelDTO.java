@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.productonomina;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class ProductosNominaProgramasExcelDTO implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4410052793284349728L;
 
@@ -41,7 +42,7 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         isr = BigDecimal.ZERO;
         pensionAlimenticia = BigDecimal.ZERO;
     }
-    
+
     // Getters and Setters
 
     public String getRfc() {
@@ -76,7 +77,6 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 
-    
     public String getFuncion() {
         return funcion;
     }
@@ -85,7 +85,6 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         this.funcion = funcion;
     }
 
-    
     public String getPrograma() {
         return programa;
     }
@@ -94,15 +93,13 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         this.programa = programa;
     }
 
-
     public BigDecimal getSueldo() {
         return sueldo;
     }
-    
-    public void seSueldo(BigDecimal sueldo) {
-        this.sueldo = sueldo == null ? BigDecimal.ZERO : sueldo;       
-    }
 
+    public void seSueldo(BigDecimal sueldo) {
+        this.sueldo = sueldo == null ? BigDecimal.ZERO : sueldo;
+    }
 
     public BigDecimal getIsr() {
         return isr;
@@ -111,7 +108,6 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
     public void setIsr(BigDecimal isr) {
         this.isr = isr == null ? BigDecimal.ZERO : isr;
     }
-
 
     public BigDecimal getPensionAlimenticia() {
         return pensionAlimenticia;
@@ -126,26 +122,17 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         percepciones = percepciones.add(sueldo == null ? BigDecimal.ZERO : sueldo);
 
         BigDecimal deducciones = BigDecimal.ZERO;
-        deducciones  = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
-        deducciones  = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
+        deducciones = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
+        deducciones = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
 
         return percepciones.subtract(deducciones);
     }
 
     @Override
     public String toString() {
-        return "ProductosNominaExcelDTO["
-                + "rfc=" + rfc
-                + ", nombreEmpleado=" + nombreEmpleado
-                + ", fechaIngreso=" + fechaIngreso
-                + ", centroResponsabilidad=" + centroResponsabilidad
-                + ", funcion=" + funcion
-                + ", programa=" + programa
-                + ", sueldo=" + sueldo
-                + ", isr=" + isr
-                + ", pensionAlimenticia=" + pensionAlimenticia
-                + ", total=" + getTotal()
-                + ']';
+        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
+                + centroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa + ", sueldo=" + sueldo + ", isr=" + isr + ", pensionAlimenticia="
+                + pensionAlimenticia + ", total=" + getTotal() + ']';
     }
 
     @Override
@@ -176,37 +163,37 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
             return false;
         }
         final ProductosNominaProgramasExcelDTO other = (ProductosNominaProgramasExcelDTO) obj;
-        if (!Objects.equals(this.rfc, other.rfc)) {
+        if (!Objects.equals(rfc, other.rfc)) {
             return false;
         }
-        if (!Objects.equals(this.nombreEmpleado, other.nombreEmpleado)) {
+        if (!Objects.equals(nombreEmpleado, other.nombreEmpleado)) {
             return false;
         }
-        if (!Objects.equals(this.centroResponsabilidad, other.centroResponsabilidad)) {
+        if (!Objects.equals(centroResponsabilidad, other.centroResponsabilidad)) {
             return false;
         }
-      
-        if (!Objects.equals(this.funcion, other.funcion)) {
+
+        if (!Objects.equals(funcion, other.funcion)) {
             return false;
         }
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.fechaIngreso, other.fechaIngreso)) {
+        if (!Objects.equals(fechaIngreso, other.fechaIngreso)) {
             return false;
         }
-        if (!Objects.equals(this.sueldo, other.sueldo)) {
-            return false;
-        }       
-       
-        if (!Objects.equals(this.isr, other.isr)) {
+        if (!Objects.equals(sueldo, other.sueldo)) {
             return false;
         }
-     
-        if (!Objects.equals(this.pensionAlimenticia, other.pensionAlimenticia)) {
+
+        if (!Objects.equals(isr, other.isr)) {
             return false;
         }
-        return Objects.equals(this.getTotal(), other.getTotal());
+
+        if (!Objects.equals(pensionAlimenticia, other.pensionAlimenticia)) {
+            return false;
+        }
+        return Objects.equals(getTotal(), other.getTotal());
     }
 
 }

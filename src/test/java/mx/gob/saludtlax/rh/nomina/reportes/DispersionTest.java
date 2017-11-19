@@ -6,8 +6,23 @@
 
 package mx.gob.saludtlax.rh.nomina.reportes;
 
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
@@ -46,21 +61,6 @@ import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.CadenaUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -119,9 +119,7 @@ public class DispersionTest {
         jar.addClass(ValidacionUtil.class);
         war.addAsLibrary(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies().resolve().withTransitivity()
-                .asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -131,12 +129,7 @@ public class DispersionTest {
     @Test
     public void obtenerReferencia() {
         LOGGER.info("Iniciando test obtenerReferencia");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "dispersion_nomina",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "1"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "dispersion_nomina", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "1" };
 
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
@@ -156,16 +149,11 @@ public class DispersionTest {
         assertNotNull(result);
     }
 
-//    @Ignore
+    //    @Ignore
     @Test
     public void testCompleto() throws IOException {
         LOGGER.info("Iniciando test completo");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "33",
-            "REPORTE_NOMBRE", "dispersion_nomina",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "30"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "33", "REPORTE_NOMBRE", "dispersion_nomina", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA", "30" };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);

@@ -1,11 +1,13 @@
 /*
  * PagoGeneralReporte.java
  * Creado el 15/Feb/2017 5:20:54 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
 import java.io.Serializable;
+
 import javax.ejb.Local;
 
 /**
@@ -15,6 +17,6 @@ import javax.ejb.Local;
 @Local
 public interface PagoGeneralReporte extends Serializable {
 
-    byte [] generarReporte(Integer idProductoNomina);
+    byte[] generarReporte(Integer idProductoNomina);
 
 }

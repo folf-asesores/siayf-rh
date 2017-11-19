@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -27,190 +28,187 @@ import javax.persistence.TemporalType;
 @Table(name = "movimientos_empleado")
 public class MovimientoEmpleadoEntity implements Serializable {
 
-	private static final long serialVersionUID = -8692279906405660081L;
+    private static final long serialVersionUID = -8692279906405660081L;
 
-	@Id
-	@Column(name = "id_movimiento_empleado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idMovimientoEmpleado;
+    @Id
+    @Column(name = "id_movimiento_empleado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMovimientoEmpleado;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_empleado")
-	private EmpleadoEntity empleado;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empleado")
+    private EmpleadoEntity empleado;
 
-	@Column(name = "fecha_ingreso")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date fechaIngreso;
+    @Column(name = "fecha_ingreso")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaIngreso;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "hora_ingreso")
-	private Date horaIngreso;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "hora_ingreso")
+    private Date horaIngreso;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_usuario")
-	private UsuarioEntity usuarioEntity;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario")
+    private UsuarioEntity usuarioEntity;
 
-	@Column(name = "numero_oficio")
-	private String numeroOficio;
+    @Column(name = "numero_oficio")
+    private String numeroOficio;
 
-	@JoinColumn(name = "id_movimiento_autorizado")
-	@ManyToOne(fetch = FetchType.LAZY)
-	private TipoMovimientoEmpleadoEntity movimiento;
+    @JoinColumn(name = "id_movimiento_autorizado")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private TipoMovimientoEmpleadoEntity movimiento;
 
-	@Column(name = "observaciones")
-	private String observaciones;
+    @Column(name = "observaciones")
+    private String observaciones;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_inventario_vacante")
-	private InventarioVacanteEntity inventarioVacante;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_inventario_vacante")
+    private InventarioVacanteEntity inventarioVacante;
 
-	@Column(name = "fecha_inicio_permiso")
-	private Date fechaInicioPermiso;
+    @Column(name = "fecha_inicio_permiso")
+    private Date fechaInicioPermiso;
 
-	@Column(name = "fecha_fin_permiso")
-	private Date fechaFinPermiso;
+    @Column(name = "fecha_fin_permiso")
+    private Date fechaFinPermiso;
 
-	@Column(name = "tipo_suplencia")
-	private Integer tipoSuplencia;
+    @Column(name = "tipo_suplencia")
+    private Integer tipoSuplencia;
 
-	@Column(name = "id_estatus_movimiento")
-	private String estatusMovimiento;
+    @Column(name = "id_estatus_movimiento")
+    private String estatusMovimiento;
 
-	@Column(name = "fecha_autorizacion")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date fechaAutorizacion;
-	
-	@Column(name = "motivo_permiso")
-	private String motivoPermiso;
-	
-	@Column(name = "id_puesto")
-	private Integer idPuestoGeneral;
-	
-	
+    @Column(name = "fecha_autorizacion")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaAutorizacion;
 
-	public Integer getIdPuestoGeneral() {
-		return idPuestoGeneral;
-	}
+    @Column(name = "motivo_permiso")
+    private String motivoPermiso;
 
-	public void setIdPuestoGeneral(Integer idPuestoGeneral) {
-		this.idPuestoGeneral = idPuestoGeneral;
-	}
+    @Column(name = "id_puesto")
+    private Integer idPuestoGeneral;
 
-	public Date getFechaAutorizacion() {
-		return fechaAutorizacion;
-	}
+    public Integer getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
 
-	public void setFechaAutorizacion(Date fechaAutorizacion) {
-		this.fechaAutorizacion = fechaAutorizacion;
-	}
+    public void setIdPuestoGeneral(Integer idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
 
-	public String getEstatusMovimiento() {
-		return estatusMovimiento;
-	}
+    public Date getFechaAutorizacion() {
+        return fechaAutorizacion;
+    }
 
-	public void setEstatusMovimiento(String estatusMovimiento) {
-		this.estatusMovimiento = estatusMovimiento;
-	}
+    public void setFechaAutorizacion(Date fechaAutorizacion) {
+        this.fechaAutorizacion = fechaAutorizacion;
+    }
 
-	public int getTipoSuplencia() {
-		return tipoSuplencia;
-	}
+    public String getEstatusMovimiento() {
+        return estatusMovimiento;
+    }
 
-	public void setTipoSuplencia(int tipoSuplencia) {
-		this.tipoSuplencia = tipoSuplencia;
-	}
+    public void setEstatusMovimiento(String estatusMovimiento) {
+        this.estatusMovimiento = estatusMovimiento;
+    }
 
-	public Date getFechaInicioPermiso() {
-		return fechaInicioPermiso;
-	}
+    public int getTipoSuplencia() {
+        return tipoSuplencia;
+    }
 
-	public void setFechaInicioPermiso(Date fechaInicioPermiso) {
-		this.fechaInicioPermiso = fechaInicioPermiso;
-	}
+    public void setTipoSuplencia(int tipoSuplencia) {
+        this.tipoSuplencia = tipoSuplencia;
+    }
 
-	public Date getFechaFinPermiso() {
-		return fechaFinPermiso;
-	}
+    public Date getFechaInicioPermiso() {
+        return fechaInicioPermiso;
+    }
 
-	public void setFechaFinPermiso(Date fechaFinPermiso) {
-		this.fechaFinPermiso = fechaFinPermiso;
-	}
+    public void setFechaInicioPermiso(Date fechaInicioPermiso) {
+        this.fechaInicioPermiso = fechaInicioPermiso;
+    }
 
-	public UsuarioEntity getUsuarioEntity() {
-		return usuarioEntity;
-	}
+    public Date getFechaFinPermiso() {
+        return fechaFinPermiso;
+    }
 
-	public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
-		this.usuarioEntity = usuarioEntity;
-	}
+    public void setFechaFinPermiso(Date fechaFinPermiso) {
+        this.fechaFinPermiso = fechaFinPermiso;
+    }
 
-	public String getObservaciones() {
-		return observaciones;
-	}
+    public UsuarioEntity getUsuarioEntity() {
+        return usuarioEntity;
+    }
 
-	public void setObservaciones(String observaciones) {
-		this.observaciones = observaciones;
-	}
+    public void setUsuarioEntity(UsuarioEntity usuarioEntity) {
+        this.usuarioEntity = usuarioEntity;
+    }
 
-	public EmpleadoEntity getEmpleado() {
-		return empleado;
-	}
+    public String getObservaciones() {
+        return observaciones;
+    }
 
-	public void setEmpleado(EmpleadoEntity empleado) {
-		this.empleado = empleado;
-	}
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
 
-	public String getNumeroOficio() {
-		return numeroOficio;
-	}
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
 
-	public void setNumeroOficio(String numeroOficio) {
-		this.numeroOficio = numeroOficio;
-	}
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
 
-	public TipoMovimientoEmpleadoEntity getMovimiento() {
-		return movimiento;
-	}
+    public String getNumeroOficio() {
+        return numeroOficio;
+    }
 
-	public void setMovimiento(TipoMovimientoEmpleadoEntity movimiento) {
-		this.movimiento = movimiento;
-	}
+    public void setNumeroOficio(String numeroOficio) {
+        this.numeroOficio = numeroOficio;
+    }
 
-	public Integer getIdMovimientoEmpleado() {
-		return idMovimientoEmpleado;
-	}
+    public TipoMovimientoEmpleadoEntity getMovimiento() {
+        return movimiento;
+    }
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    public void setMovimiento(TipoMovimientoEmpleadoEntity movimiento) {
+        this.movimiento = movimiento;
+    }
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    public Integer getIdMovimientoEmpleado() {
+        return idMovimientoEmpleado;
+    }
 
-	public Date getHoraIngreso() {
-		return horaIngreso;
-	}
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public void setHoraIngreso(Date horaIngreso) {
-		this.horaIngreso = horaIngreso;
-	}
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public InventarioVacanteEntity getInventarioVacante() {
-		return inventarioVacante;
-	}
+    public Date getHoraIngreso() {
+        return horaIngreso;
+    }
 
-	public void setInventarioVacante(InventarioVacanteEntity inventarioVacante) {
-		this.inventarioVacante = inventarioVacante;
-	}
+    public void setHoraIngreso(Date horaIngreso) {
+        this.horaIngreso = horaIngreso;
+    }
 
-	public String getMotivoPermiso() {
-		return motivoPermiso;
-	}
+    public InventarioVacanteEntity getInventarioVacante() {
+        return inventarioVacante;
+    }
 
-	public void setMotivoPermiso(String motivoPermiso) {
-		this.motivoPermiso = motivoPermiso;
-	}
+    public void setInventarioVacante(InventarioVacanteEntity inventarioVacante) {
+        this.inventarioVacante = inventarioVacante;
+    }
 
-	
+    public String getMotivoPermiso() {
+        return motivoPermiso;
+    }
+
+    public void setMotivoPermiso(String motivoPermiso) {
+        this.motivoPermiso = motivoPermiso;
+    }
+
 }

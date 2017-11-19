@@ -1,55 +1,56 @@
+
 package mx.gob.saludtlax.rh.siif.reportarfederales;
 
 import org.primefaces.model.UploadedFile;
 
 public class ReportarSiifFederalesView {
-	private UploadedFile dat;
-	private UploadedFile tra;
+    private UploadedFile dat;
+    private UploadedFile tra;
 
-	private Integer idNombramiento;
-	private String periodo;
-	private Integer anio;
+    private Integer idNombramiento;
+    private String periodo;
+    private Integer anio;
 
-	public void panelPrincipal() {
-	}
+    public void panelPrincipal() {
+    }
 
-	public UploadedFile getDat() {
-		return dat;
-	}
+    public UploadedFile getDat() {
+        return dat;
+    }
 
-	public void setDat(UploadedFile dat) {
-		this.dat = dat;
-	}
+    public void setDat(UploadedFile dat) {
+        this.dat = dat;
+    }
 
-	public UploadedFile getTra() {
-		return tra;
-	}
+    public UploadedFile getTra() {
+        return tra;
+    }
 
-	public void setTra(UploadedFile tra) {
-		this.tra = tra;
-	}
+    public void setTra(UploadedFile tra) {
+        this.tra = tra;
+    }
 
-	public Integer getIdNombramiento() {
-		return idNombramiento;
-	}
+    public Integer getIdNombramiento() {
+        return idNombramiento;
+    }
 
-	public void setIdNombramiento(Integer idNombramiento) {
-		this.idNombramiento = idNombramiento;
-	}
+    public void setIdNombramiento(Integer idNombramiento) {
+        this.idNombramiento = idNombramiento;
+    }
 
-	public String getPeriodo() {
-		return periodo;
-	}
+    public String getPeriodo() {
+        return periodo;
+    }
 
-	public void setPeriodo(String periodo) {
-		this.periodo = periodo;
-	}
+    public void setPeriodo(String periodo) {
+        this.periodo = periodo;
+    }
 
-	public Integer getAnio() {
-		return anio;
-	}
+    public Integer getAnio() {
+        return anio;
+    }
 
-	public void setAnio(Integer anio) {
-		this.anio = anio;
-	}
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
 }

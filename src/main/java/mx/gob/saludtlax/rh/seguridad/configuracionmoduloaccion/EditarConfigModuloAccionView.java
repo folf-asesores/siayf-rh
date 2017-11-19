@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.configuracionmoduloaccion;
 
 import java.io.Serializable;
@@ -17,97 +18,99 @@ import mx.gob.saludtlax.rh.modulos.ModuloDTO;
  * @author Eduardo Mex
  *
  */
-public class EditarConfigModuloAccionView implements Serializable{
+public class EditarConfigModuloAccionView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -271938671961676780L;
-	
-	private DualListModel<AccionDTO> pikListAcciones = new DualListModel<AccionDTO>();
-	
-	private List<ModuloDTO> listaModulos = new ArrayList<ModuloDTO>();
+    /**
+     *
+     */
+    private static final long serialVersionUID = -271938671961676780L;
 
-	private ConfiguracionModuloAccionDTO configModuloAccionEditar = new ConfiguracionModuloAccionDTO();
-	
-	private Integer idConfigModuloAccion;
-	
-	private Integer idModuloConparator;
-	
-	private boolean panelPrincipal;
-	
-	
+    private DualListModel<AccionDTO> pikListAcciones = new DualListModel<>();
 
-	/**
-	 * @return the idConfigModuloAccion
-	 */
-	public Integer getIdConfigModuloAccion() {
-		return idConfigModuloAccion;
-	}
+    private List<ModuloDTO> listaModulos = new ArrayList<>();
 
-	public List<ModuloDTO> getListaModulos() {
-		return listaModulos;
-	}
+    private ConfiguracionModuloAccionDTO configModuloAccionEditar = new ConfiguracionModuloAccionDTO();
 
-	public void setListaModulos(List<ModuloDTO> listaModulos) {
-		this.listaModulos = listaModulos;
-	}
+    private Integer idConfigModuloAccion;
 
-	public ConfiguracionModuloAccionDTO getConfigModuloAccionEditar() {
-		return configModuloAccionEditar;
-	}
+    private Integer idModuloConparator;
 
-	public void setConfigModuloAccionEditar(ConfiguracionModuloAccionDTO configModuloAccionEditar) {
-		this.configModuloAccionEditar = configModuloAccionEditar;
-	}
+    private boolean panelPrincipal;
 
-	/**
-	 * @param idConfigModuloAccion the idConfigModuloAccion to set
-	 */
-	public void setIdConfigModuloAccion(Integer idConfigModuloAccion) {
-		this.idConfigModuloAccion = idConfigModuloAccion;
-	}
+    /**
+     * @return the idConfigModuloAccion
+     */
+    public Integer getIdConfigModuloAccion() {
+        return idConfigModuloAccion;
+    }
 
-	/**
-	 * @return the pikListAcciones
-	 */
-	public DualListModel<AccionDTO> getPikListAcciones() {
-		return pikListAcciones;
-	}
+    public List<ModuloDTO> getListaModulos() {
+        return listaModulos;
+    }
 
-	/**
-	 * @param pikListAcciones the pikListAcciones to set
-	 */
-	public void setPikListAcciones(DualListModel<AccionDTO> pikListAcciones) {
-		this.pikListAcciones = pikListAcciones;
-	}
+    public void setListaModulos(List<ModuloDTO> listaModulos) {
+        this.listaModulos = listaModulos;
+    }
 
-	/**
-	 * @return the panelPrincipal
-	 */
-	public boolean isPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public ConfiguracionModuloAccionDTO getConfigModuloAccionEditar() {
+        return configModuloAccionEditar;
+    }
 
-	/**
-	 * @param panelPrincipal the panelPrincipal to set
-	 */
-	public void setPanelPrincipal(boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public void setConfigModuloAccionEditar(ConfiguracionModuloAccionDTO configModuloAccionEditar) {
+        this.configModuloAccionEditar = configModuloAccionEditar;
+    }
 
-	/**
-	 * @return the idModuloConparator
-	 */
-	public Integer getIdModuloConparator() {
-		return idModuloConparator;
-	}
+    /**
+     * @param idConfigModuloAccion
+     *            the idConfigModuloAccion to set
+     */
+    public void setIdConfigModuloAccion(Integer idConfigModuloAccion) {
+        this.idConfigModuloAccion = idConfigModuloAccion;
+    }
 
-	/**
-	 * @param idModuloConparator the idModuloConparator to set
-	 */
-	public void setIdModuloConparator(Integer idModuloConparator) {
-		this.idModuloConparator = idModuloConparator;
-	}
+    /**
+     * @return the pikListAcciones
+     */
+    public DualListModel<AccionDTO> getPikListAcciones() {
+        return pikListAcciones;
+    }
+
+    /**
+     * @param pikListAcciones
+     *            the pikListAcciones to set
+     */
+    public void setPikListAcciones(DualListModel<AccionDTO> pikListAcciones) {
+        this.pikListAcciones = pikListAcciones;
+    }
+
+    /**
+     * @return the panelPrincipal
+     */
+    public boolean isPanelPrincipal() {
+        return panelPrincipal;
+    }
+
+    /**
+     * @param panelPrincipal
+     *            the panelPrincipal to set
+     */
+    public void setPanelPrincipal(boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
+
+    /**
+     * @return the idModuloConparator
+     */
+    public Integer getIdModuloConparator() {
+        return idModuloConparator;
+    }
+
+    /**
+     * @param idModuloConparator
+     *            the idModuloConparator to set
+     */
+    public void setIdModuloConparator(Integer idModuloConparator) {
+        this.idModuloConparator = idModuloConparator;
+    }
 
 }

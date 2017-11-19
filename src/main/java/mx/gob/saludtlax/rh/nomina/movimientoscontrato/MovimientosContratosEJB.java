@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.movimientoscontrato;
 
 import java.math.BigDecimal;
@@ -17,68 +18,71 @@ import mx.gob.saludtlax.rh.nomina.productosnomina.ProductosNominaService;
 import mx.gob.saludtlax.rh.persistencia.MovimientosNominaContratosEntity;
 
 /**
- * 
+ *
  * @author José Pablo
  *
  */
 @Stateless
 public class MovimientosContratosEJB {
-	@Inject private MovimientosContratosService service;
-    @Inject private ProductosNominaService productosNominaService;
-    @Inject private NominaEmpleadoService nominaEmpleadoService;
-	@Inject private ConceptoNominaContratosService conceptoNominaContratosService;
-	@Inject private Empleado empleadoEJB;
+    @Inject
+    private MovimientosContratosService service;
+    @Inject
+    private ProductosNominaService productosNominaService;
+    @Inject
+    private NominaEmpleadoService nominaEmpleadoService;
+    @Inject
+    private ConceptoNominaContratosService conceptoNominaContratosService;
+    @Inject
+    private Empleado empleadoEJB;
 
     public EmpleadoDetalladoDTO obtenerEmpleadoDatos(Integer idEmpleadoSeleccionado) {
         return empleadoEJB.obtenerInformacionEmpleado(idEmpleadoSeleccionado);
     }
 
     public boolean esTipoDeContratos(Integer idEmpleado) {
-        return service.esTipoDeContratos (idEmpleado);
+        return service.esTipoDeContratos(idEmpleado);
     }
 
     public List<MovimientoContratosDTO> obtenerMovimientosNominaEmpleadoLista(Integer idEmpleadoSeleccionado) {
         return service.obtenerMovimientosNominaEmpleadoLista(idEmpleadoSeleccionado);
     }
 
-	public Integer crear(MovimientoContratosDTO dto) {
-		MovimientosNominaContratosEntity entitty = service.crear(dto);
-		return entitty.getIdMovimiento();
-	}
+    public Integer crear(MovimientoContratosDTO dto) {
+        MovimientosNominaContratosEntity entitty = service.crear(dto);
+        return entitty.getIdMovimiento();
+    }
 
-	public List<ConceptoNominaContratosDTO> obtenerConceptosLista(boolean aplicaMovimiento) {
+    public List<ConceptoNominaContratosDTO> obtenerConceptosLista(boolean aplicaMovimiento) {
         return conceptoNominaContratosService.obtenerConceptosLista(aplicaMovimiento);
-	}
+    }
 
-	public boolean esMovimientoFijo(Integer idConceptoContratos) {
-        return conceptoNominaContratosService.esMovimientoFijo (idConceptoContratos);
-	}
+    public boolean esMovimientoFijo(Integer idConceptoContratos) {
+        return conceptoNominaContratosService.esMovimientoFijo(idConceptoContratos);
+    }
 
-	public void guardarDetalle(DetalleMovimientoContratoDTO dto) {
-		service.guardarDetalle(dto);
-	}
+    public void guardarDetalle(DetalleMovimientoContratoDTO dto) {
+        service.guardarDetalle(dto);
+    }
 
     public List<ProductoNominaDTO> obtenerProductoNominaLista(Integer idEmpleado) {
-        List<NominaEmpleadoDTO> nominaEmpleadoLista =
-                nominaEmpleadoService.obntenerNominasActivaPorEmpleado(idEmpleado);
+        List<NominaEmpleadoDTO> nominaEmpleadoLista = nominaEmpleadoService.obntenerNominasActivaPorEmpleado(idEmpleado);
         return productosNominaService.obtenerProductoNominaLista(nominaEmpleadoLista);
     }
 
-	public BigDecimal calcularDescuentoFaltas(MovimientoContratosDTO movimientoContratos) {
-		BigDecimal monto = nominaEmpleadoService.calcularDescuentoFaltas(movimientoContratos);
-		return monto;
-	}
+    public BigDecimal calcularDescuentoFaltas(MovimientoContratosDTO movimientoContratos) {
+        BigDecimal monto = nominaEmpleadoService.calcularDescuentoFaltas(movimientoContratos);
+        return monto;
+    }
 
-	public void eliminarMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
-		service.eliminarMovimiento(movimientoContratos);
-	}
+    public void eliminarMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
+        service.eliminarMovimiento(movimientoContratos);
+    }
 
+    public void actualizarMovimientoContratos(MovimientoContratosDTO movimientoContratos) {
+        service.actualizarMovimientoContratos(movimientoContratos);
+    }
 
-	public void actualizarMovimientoContratos(MovimientoContratosDTO movimientoContratos) {
-		service.actualizarMovimientoContratos(movimientoContratos);
-	}
-
-	public MovimientoContratosDTO obtenerMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
-		return service.obtenerMovimientoContrato(movimientoContratos);
-	}
+    public MovimientoContratosDTO obtenerMovimientoContrato(MovimientoContratosDTO movimientoContratos) {
+        return service.obtenerMovimientoContrato(movimientoContratos);
+    }
 }

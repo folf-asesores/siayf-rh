@@ -1,11 +1,13 @@
 /*
  * ProyectoEJB.java
  * Creado el 23/07/2016 09:37:35 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.proyecto;
 
 import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -16,8 +18,9 @@ import javax.inject.Inject;
 @Stateless
 public class ProyectoEJB implements Proyecto {
 
-    @Inject private ProyectoService proyectoService;
-    
+    @Inject
+    private ProyectoService proyectoService;
+
     @Override
     public ProyectoDTO obtenerPorId(int idProyecto) {
         return proyectoService.obtenerPorId(idProyecto);

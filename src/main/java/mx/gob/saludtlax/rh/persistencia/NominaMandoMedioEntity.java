@@ -1,13 +1,14 @@
 /*
  * NominaMandoMedioEntity.java
  * Creado el 29/Nov/2016 1:23:48 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,42 +29,42 @@ import javax.validation.constraints.Size;
 public class NominaMandoMedioEntity implements Serializable {
 
     private static final long serialVersionUID = -3077702135837138909L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_nomina_mando_medio")
     private Integer idNominaMandoMedio;
-    
+
     @Size(max = 255)
     @Column(name = "puesto")
     private String puesto;
-    
+
     @Size(max = 255)
     @Column(name = "descripcion_codigo")
     private String descripcionCodigo;
-    
+
     @Size(max = 255)
     @Column(name = "tipo_contratacion")
     private String tipoContratacion;
-    
+
     @Column(name = "complemento")
     private BigDecimal complemento;
-    
+
     @Column(name = "isr")
     private BigDecimal isr;
-    
+
     @Column(name = "neto")
     private BigDecimal neto;
-    
+
     @JoinColumn(name = "id_empleado", referencedColumnName = "id_empleado")
     @ManyToOne(optional = false)
     private EmpleadoEntity empleado;
-    
+
     @JoinColumn(name = "id_adscripcion", referencedColumnName = "id_adscripcion")
     @ManyToOne(optional = false)
     private AdscripcionEntity adscripcion;
-    
+
     @JoinColumn(name = "id_puesto_general", referencedColumnName = "id_puesto_general")
     @ManyToOne(optional = false)
     private PuestoGeneralEntity puestoGeneral;
@@ -90,7 +91,7 @@ public class NominaMandoMedioEntity implements Serializable {
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
-    
+
     public String getDescripcionCodigo() {
         return descripcionCodigo;
     }
@@ -164,18 +165,18 @@ public class NominaMandoMedioEntity implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+
         if (!(object instanceof NominaMandoMedioEntity)) {
             return false;
         }
         NominaMandoMedioEntity other = (NominaMandoMedioEntity) object;
-        return !((this.idNominaMandoMedio == null && other.idNominaMandoMedio != null) 
-                || (this.idNominaMandoMedio != null && !this.idNominaMandoMedio.equals(other.idNominaMandoMedio)));
+        return !((idNominaMandoMedio == null && other.idNominaMandoMedio != null)
+                || (idNominaMandoMedio != null && !idNominaMandoMedio.equals(other.idNominaMandoMedio)));
     }
 
     @Override
     public String toString() {
         return "mx.gob.saludtlax.rh.persistencia.NominaMandoMedioMedio[ idNominaMandoMedio=" + idNominaMandoMedio + " ]";
     }
-    
+
 }

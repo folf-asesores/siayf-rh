@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.acciones;
 
 import java.util.ArrayList;
@@ -12,13 +13,13 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 
-import mx.gob.saludtlax.rh.persistencia.AccionesRepository;
 import mx.gob.saludtlax.rh.areas.AreaDTO;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccion;
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
 import mx.gob.saludtlax.rh.persistencia.AccionesEntity;
+import mx.gob.saludtlax.rh.persistencia.AccionesRepository;
 import mx.gob.saludtlax.rh.persistencia.AreasRepository;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
 import mx.gob.saludtlax.rh.util.Configuracion;
@@ -156,11 +157,10 @@ public class AccionService {
 
     public List<AreaDTO> listaArea() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT " + "id_area AS idArea, " + "nombre_area AS nombreArea " + "FROM areas");
+        Query query = session.createSQLQuery("SELECT " + "id_area AS idArea, " + "nombre_area AS nombreArea " + "FROM areas");
         query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
         @SuppressWarnings("unchecked")
-        List<AreaDTO> result = (List<AreaDTO>) query.list();
+        List<AreaDTO> result = query.list();
         return result;
     }
 

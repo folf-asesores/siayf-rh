@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.nombramientos.segurovidainstitucional;
 
 import javax.ejb.Stateless;
@@ -11,27 +12,27 @@ import javax.inject.Inject;
  *
  */
 @Stateless
-public class SeguroVidaInstitucionalEJB implements SeguroVidaInstitucional{
-	
-	@Inject
-	private SeguroVidaInstitucionalService seguroVidaInstitucionalService;
+public class SeguroVidaInstitucionalEJB implements SeguroVidaInstitucional {
 
-	@Override
-	public Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
-		
-		return seguroVidaInstitucionalService.crearSeguroVida(seguroVidaInstitucionalDTO);
-	}
+    @Inject
+    private SeguroVidaInstitucionalService seguroVidaInstitucionalService;
 
-	@Override
-	public boolean existeNumeroExpediente(String numeroExpediente) {
-		
-		return seguroVidaInstitucionalService.existeNumeroExpediente(numeroExpediente);
-	}
+    @Override
+    public Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
 
-	@Override
-	public Integer existeEmpleado(Integer idEmpleado) {
-		
-		return seguroVidaInstitucionalService.existeEmpleado(idEmpleado);
-	}
+        return seguroVidaInstitucionalService.crearSeguroVida(seguroVidaInstitucionalDTO);
+    }
+
+    @Override
+    public boolean existeNumeroExpediente(String numeroExpediente) {
+
+        return seguroVidaInstitucionalService.existeNumeroExpediente(numeroExpediente);
+    }
+
+    @Override
+    public Integer existeEmpleado(Integer idEmpleado) {
+
+        return seguroVidaInstitucionalService.existeEmpleado(idEmpleado);
+    }
 
 }

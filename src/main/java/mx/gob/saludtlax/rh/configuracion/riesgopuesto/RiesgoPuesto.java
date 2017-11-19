@@ -1,9 +1,10 @@
+
 package mx.gob.saludtlax.rh.configuracion.riesgopuesto;
 
 import java.util.List;
 
 /**
- * 
+ *
  * @author Eduardo Mex
  * @email Lic.Eduardo_Mex@hotmail.com
  * @version 1.0
@@ -11,12 +12,12 @@ import java.util.List;
  */
 public interface RiesgoPuesto {
 
-	void crearRiesgoPuesto(RiesgoPuestoDTO dto);
+    void crearRiesgoPuesto(RiesgoPuestoDTO dto);
 
-	void actualizarRiesgoPuesto(RiesgoPuestoDTO dto);
+    void actualizarRiesgoPuesto(RiesgoPuestoDTO dto);
 
-	void eliminarRiesgoPuesto(Integer idRiesgoPuesto);
+    void eliminarRiesgoPuesto(Integer idRiesgoPuesto);
 
-	List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto();
+    List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto();
 
 }

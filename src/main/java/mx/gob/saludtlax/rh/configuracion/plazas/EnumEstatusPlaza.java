@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.plazas;
 
 /**
@@ -8,8 +9,8 @@ package mx.gob.saludtlax.rh.configuracion.plazas;
  *
  */
 public class EnumEstatusPlaza {
-	public static String PRESUPUESTADA = "PRESUPUESTADA";
-	public static String VACANTE = "VACANTE";
-	public static String OCUPADA = "OCUPADA";
+    public static String PRESUPUESTADA = "PRESUPUESTADA";
+    public static String VACANTE = "VACANTE";
+    public static String OCUPADA = "OCUPADA";
 
 }

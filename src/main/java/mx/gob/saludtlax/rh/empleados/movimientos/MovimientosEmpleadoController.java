@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.movimientos;
 
 import java.io.Serializable;
@@ -38,136 +39,116 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 @ManagedBean(name = "movimientoPersonal")
 public class MovimientosEmpleadoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3392346042740305963L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3392346042740305963L;
 
-	@Inject
-	private Catalogo catalogo;
-	@Inject
-	private Empleado empleado;
-	@Inject
-	private MovimientosEmpleados movimientosEmpleados;
-	@Inject
-	private Tabulador tabulador;
+    @Inject
+    private Catalogo catalogo;
+    @Inject
+    private Empleado empleado;
+    @Inject
+    private MovimientosEmpleados movimientosEmpleados;
+    @Inject
+    private Tabulador tabulador;
 
-	private MovimientoEmpleadoView view;
+    private MovimientoEmpleadoView view;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new MovimientoEmpleadoView();
-		List<CatalogoDTO> movimientosPadre = catalogo
-				.consultaMovimientosAutorizadosPorPadre(0);
+    @PostConstruct
+    public void inicio() {
+        view = new MovimientoEmpleadoView();
+        List<CatalogoDTO> movimientosPadre = catalogo.consultaMovimientosAutorizadosPorPadre(0);
 
-		this.view.setListaMovimientosPadre(SelectItemsUtil
-				.listaCatalogos(movimientosPadre));
-		this.view.setMostrarPanelGroupBusqueda(true);
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession
-				.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-		this.view.getMovimiento().setIdUsuario(usuario.getIdUsuario());
+        view.setListaMovimientosPadre(SelectItemsUtil.listaCatalogos(movimientosPadre));
+        view.setMostrarPanelGroupBusqueda(true);
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        view.getMovimiento().setIdUsuario(usuario.getIdUsuario());
 
-	}
+    }
 
-	public void consultarEmpleado() {
+    public void consultarEmpleado() {
 
-		FiltroDTO filtroDTO = new FiltroDTO();
-		filtroDTO.setCriterio(this.view.getCriterio());
-		filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
+        FiltroDTO filtroDTO = new FiltroDTO();
+        filtroDTO.setCriterio(view.getCriterio());
+        filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
 
-		List<InfoEmpleadoDTO> listaInfoEmpleado = empleado
-				.consultarEmpleadosConPuestosActivos(filtroDTO);
-		this.view.setEmpleados(listaInfoEmpleado);
-		
-		if (view.getEmpleados().isEmpty()) {
-			JSFUtils.warningMessage(
-					"",
-					"No se encontraron empleados con el criterio "
-							+ filtroDTO.getCriterio());
-		}
+        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado.consultarEmpleadosConPuestosActivos(filtroDTO);
+        view.setEmpleados(listaInfoEmpleado);
 
-	}
+        if (view.getEmpleados().isEmpty()) {
+            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + filtroDTO.getCriterio());
+        }
 
-	public void seleccionarMovimiento() {
-		try {
-			this.view.setMostrarIncapacidad(false);
-			view.setMostrarFechas(false);
-			int movimiento = view.getMovimiento().getIdMovimiento();
-			int movimientoPadre = movimientosEmpleados
-					.obtenerPadreMovimiento(movimiento);
+    }
 
-			movimientosEmpleados.validarMovimiento(view.getInfoEmpleado()
-					.getIdVacante(), view.getMovimiento().getIdMovimiento());
+    public void seleccionarMovimiento() {
+        try {
+            view.setMostrarIncapacidad(false);
+            view.setMostrarFechas(false);
+            int movimiento = view.getMovimiento().getIdMovimiento();
+            int movimientoPadre = movimientosEmpleados.obtenerPadreMovimiento(movimiento);
 
-			if (movimientoPadre == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA
-					|| movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_C_S
-					|| movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_S_S
-					|| movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_C_S
-					|| movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_S_S) {
-				if (view.getMovimiento().getIdMovimiento() == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA) {
-					view.setMostrarIncapacidad(true);
-				} else {
-					view.setMostrarFechas(true);
-				}
-			} else if (movimiento == EnumTipoMovimiento.PROMOCION_PUESTO_AUMENTO_PERCEPCIONES) {
-				view.setMostrarModificacionPuesto(true);
-				view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo
-						.listaPuestos()));
-			}
-		} catch (ReglaNegocioException exception) {
-			JSFUtils.errorMessage("", exception.getMessage());
-		}
+            movimientosEmpleados.validarMovimiento(view.getInfoEmpleado().getIdVacante(), view.getMovimiento().getIdMovimiento());
 
-	}
+            if (movimientoPadre == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_C_S
+                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_S_S || movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_C_S
+                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_S_S) {
+                if (view.getMovimiento().getIdMovimiento() == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA) {
+                    view.setMostrarIncapacidad(true);
+                } else {
+                    view.setMostrarFechas(true);
+                }
+            } else if (movimiento == EnumTipoMovimiento.PROMOCION_PUESTO_AUMENTO_PERCEPCIONES) {
+                view.setMostrarModificacionPuesto(true);
+                view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+            }
+        } catch (ReglaNegocioException exception) {
+            JSFUtils.errorMessage("", exception.getMessage());
+        }
 
-	public void obtenerSalario() {
-		try {
-			view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(
-					view.getIdPuesto(), EnumTipoContratacion.BASE));
-		} catch (ReglaNegocioException exception) {
-			JSFUtils.errorMessage("", exception.getMessage());
-		}
+    }
 
-	}
+    public void obtenerSalario() {
+        try {
+            view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(view.getIdPuesto(), EnumTipoContratacion.BASE));
+        } catch (ReglaNegocioException exception) {
+            JSFUtils.errorMessage("", exception.getMessage());
+        }
 
-	public void seleccionarEmpleado(InfoEmpleadoDTO infoEmpleado) {
-		this.view.setMostrarPanelGroupBusqueda(false);
-		this.view.setMostrarPanelGroupMovimiento(true);
-		this.view.setInfoEmpleado(infoEmpleado);
-		this.view.getMovimiento().setIdVacante(infoEmpleado.getIdVacante());
+    }
 
-	}
+    public void seleccionarEmpleado(InfoEmpleadoDTO infoEmpleado) {
+        view.setMostrarPanelGroupBusqueda(false);
+        view.setMostrarPanelGroupMovimiento(true);
+        view.setInfoEmpleado(infoEmpleado);
+        view.getMovimiento().setIdVacante(infoEmpleado.getIdVacante());
 
-	public void consultarMovimientosHijos() {
-		List<CatalogoDTO> movimientosHijos = catalogo
-				.consultaMovimientosAutorizadosPorPadre(this.view
-						.getIdMovimientoPadre());
-		this.view.setListaMovimientosHijos(SelectItemsUtil
-				.listaCatalogos(movimientosHijos));
-	}
+    }
 
-	public void crearMovimiento() {
-		try {
-			movimientosEmpleados.crearMovimientoEmpleado(this.view
-					.getMovimiento());
-			inicio();
-			JSFUtils.infoMessage("",
-					"¡El movimiento ha sido registrado con éxito!");
-		} catch (ReglaNegocioException exception) {
-			throw new ReglaNegocioException(exception.getMessage(),
-					exception.getCodigoError());
-		}
-	}
+    public void consultarMovimientosHijos() {
+        List<CatalogoDTO> movimientosHijos = catalogo.consultaMovimientosAutorizadosPorPadre(view.getIdMovimientoPadre());
+        view.setListaMovimientosHijos(SelectItemsUtil.listaCatalogos(movimientosHijos));
+    }
 
-	public MovimientoEmpleadoView getView() {
-		return view;
-	}
+    public void crearMovimiento() {
+        try {
+            movimientosEmpleados.crearMovimientoEmpleado(view.getMovimiento());
+            inicio();
+            JSFUtils.infoMessage("", "¡El movimiento ha sido registrado con éxito!");
+        } catch (ReglaNegocioException exception) {
+            throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
+        }
+    }
 
-	public void setView(MovimientoEmpleadoView view) {
-		this.view = view;
-	}
+    public MovimientoEmpleadoView getView() {
+        return view;
+    }
+
+    public void setView(MovimientoEmpleadoView view) {
+        this.view = view;
+    }
 
 }

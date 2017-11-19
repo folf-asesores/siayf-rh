@@ -1,22 +1,23 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
-// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2017.01.16 a las 04:13:02 PM CST 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802
+// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
+// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen.
+// Generado el: 2017.01.16 a las 04:13:02 PM CST
 //
-
 
 package mx.gob.saludtlax.rh.sat.xml.nomina12;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Clase Java para c_Moneda.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * <p>
+ * Clase Java para c_Moneda.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ *
  * <pre>
  * &lt;simpleType name="c_Moneda">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -202,190 +203,18 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
+ *
  */
 @XmlType(name = "c_Moneda", namespace = "http://www.sat.gob.mx/sitio_internet/cfd/catalogos")
 @XmlEnum
 public enum CMoneda {
 
-    AED,
-    AFN,
-    ALL,
-    AMD,
-    ANG,
-    AOA,
-    ARS,
-    AUD,
-    AWG,
-    AZN,
-    BAM,
-    BBD,
-    BDT,
-    BGN,
-    BHD,
-    BIF,
-    BMD,
-    BND,
-    BOB,
-    BOV,
-    BRL,
-    BSD,
-    BTN,
-    BWP,
-    BYR,
-    BZD,
-    CAD,
-    CDF,
-    CHE,
-    CHF,
-    CHW,
-    CLF,
-    CLP,
-    CNY,
-    COP,
-    COU,
-    CRC,
-    CUC,
-    CUP,
-    CVE,
-    CZK,
-    DJF,
-    DKK,
-    DOP,
-    DZD,
-    EGP,
-    ERN,
-    ETB,
-    EUR,
-    FJD,
-    FKP,
-    GBP,
-    GEL,
-    GHS,
-    GIP,
-    GMD,
-    GNF,
-    GTQ,
-    GYD,
-    HKD,
-    HNL,
-    HRK,
-    HTG,
-    HUF,
-    IDR,
-    ILS,
-    INR,
-    IQD,
-    IRR,
-    ISK,
-    JMD,
-    JOD,
-    JPY,
-    KES,
-    KGS,
-    KHR,
-    KMF,
-    KPW,
-    KRW,
-    KWD,
-    KYD,
-    KZT,
-    LAK,
-    LBP,
-    LKR,
-    LRD,
-    LSL,
-    LYD,
-    MAD,
-    MDL,
-    MGA,
-    MKD,
-    MMK,
-    MNT,
-    MOP,
-    MRO,
-    MUR,
-    MVR,
-    MWK,
-    MXN,
-    MXV,
-    MYR,
-    MZN,
-    NAD,
-    NGN,
-    NIO,
-    NOK,
-    NPR,
-    NZD,
-    OMR,
-    PAB,
-    PEN,
-    PGK,
-    PHP,
-    PKR,
-    PLN,
-    PYG,
-    QAR,
-    RON,
-    RSD,
-    RUB,
-    RWF,
-    SAR,
-    SBD,
-    SCR,
-    SDG,
-    SEK,
-    SGD,
-    SHP,
-    SLL,
-    SOS,
-    SRD,
-    SSP,
-    STD,
-    SVC,
-    SYP,
-    SZL,
-    THB,
-    TJS,
-    TMT,
-    TND,
-    TOP,
-    TRY,
-    TTD,
-    TWD,
-    TZS,
-    UAH,
-    UGX,
-    USD,
-    USN,
-    UYI,
-    UYU,
-    UZS,
-    VEF,
-    VND,
-    VUV,
-    WST,
-    XAF,
-    XAG,
-    XAU,
-    XBA,
-    XBB,
-    XBC,
-    XBD,
-    XCD,
-    XDR,
-    XOF,
-    XPD,
-    XPF,
-    XPT,
-    XSU,
-    XTS,
-    XUA,
-    XXX,
-    YER,
-    ZAR,
-    ZMW,
-    ZWL;
+    AED, AFN, ALL, AMD, ANG, AOA, ARS, AUD, AWG, AZN, BAM, BBD, BDT, BGN, BHD, BIF, BMD, BND, BOB, BOV, BRL, BSD, BTN, BWP, BYR, BZD, CAD, CDF, CHE, CHF, CHW,
+    CLF, CLP, CNY, COP, COU, CRC, CUC, CUP, CVE, CZK, DJF, DKK, DOP, DZD, EGP, ERN, ETB, EUR, FJD, FKP, GBP, GEL, GHS, GIP, GMD, GNF, GTQ, GYD, HKD, HNL, HRK,
+    HTG, HUF, IDR, ILS, INR, IQD, IRR, ISK, JMD, JOD, JPY, KES, KGS, KHR, KMF, KPW, KRW, KWD, KYD, KZT, LAK, LBP, LKR, LRD, LSL, LYD, MAD, MDL, MGA, MKD, MMK,
+    MNT, MOP, MRO, MUR, MVR, MWK, MXN, MXV, MYR, MZN, NAD, NGN, NIO, NOK, NPR, NZD, OMR, PAB, PEN, PGK, PHP, PKR, PLN, PYG, QAR, RON, RSD, RUB, RWF, SAR, SBD,
+    SCR, SDG, SEK, SGD, SHP, SLL, SOS, SRD, SSP, STD, SVC, SYP, SZL, THB, TJS, TMT, TND, TOP, TRY, TTD, TWD, TZS, UAH, UGX, USD, USN, UYI, UYU, UZS, VEF, VND,
+    VUV, WST, XAF, XAG, XAU, XBA, XBB, XBC, XBD, XCD, XDR, XOF, XPD, XPF, XPT, XSU, XTS, XUA, XXX, YER, ZAR, ZMW, ZWL;
 
     public String value() {
         return name();

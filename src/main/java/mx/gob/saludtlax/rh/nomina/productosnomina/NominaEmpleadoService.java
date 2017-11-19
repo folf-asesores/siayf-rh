@@ -73,7 +73,7 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * 
+ *
  * @author José Pablo
  *
  */
@@ -119,7 +119,7 @@ public class NominaEmpleadoService {
 
     public Integer obntenerNominaActivaPorEmpleado(Integer idEmpleado) {
         try {
-            return this.nominaEmpleadoRepository.obtenerNominaPorEmpleado(idEmpleado);
+            return nominaEmpleadoRepository.obtenerNominaPorEmpleado(idEmpleado);
         } catch (NoResultException e) {
             System.out.println(e.getMessage());
             return null;
@@ -127,7 +127,7 @@ public class NominaEmpleadoService {
     }
 
     public List<NominaEmpleadoDTO> obntenerNominasActivaPorEmpleado(Integer idEmpleado) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(" SELECT " + " ne.id_nomina_empleado AS idNominaEmpleado, " + " ne.id_producto_nomina AS idProductoNomina, "
                         + " ne.id_empleado AS idEmpleado, " + " ne.consecutivo AS consecutivo, " + " ne.percepciones AS percepciones, "
@@ -146,7 +146,7 @@ public class NominaEmpleadoService {
             entity.setPercepciones(datos.getPercepciones());
             entity.setDeducciones(datos.getDeducciones());
             entity.setNeto(datos.getNeto());
-            this.nominaEmpleadoRepository.crear(entity);
+            nominaEmpleadoRepository.crear(entity);
         } catch (PersistenceException px) {
             px.printStackTrace();
         }
@@ -159,18 +159,18 @@ public class NominaEmpleadoService {
             entity.setPercepciones(datos.getPercepciones());
             entity.setDeducciones(datos.getDeducciones());
             entity.setNeto(datos.getNeto());
-            this.nominaEmpleadoRepository.actualizar(entity);
+            nominaEmpleadoRepository.actualizar(entity);
         } catch (PersistenceException px) {
             px.printStackTrace();
         }
     }
 
     public void elimina(NominaEmpleadoDTO datos) {
-        this.nominaEmpleadoRepository.eliminarPorId(datos.getIdNominaEmpleado());
+        nominaEmpleadoRepository.eliminarPorId(datos.getIdNominaEmpleado());
     }
 
     public List<NominaEmpleadoDTO> listaNominaEmpleado(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(" SELECT                                                                      "
                         + " ne.id_nomina_empleado 			AS idNominaEmpleado,                              "
@@ -198,7 +198,7 @@ public class NominaEmpleadoService {
     }
 
     public List<NominaEmpleadoDTO> obtenerNominaEmpleadoListPorPago(PagoNominaDTO pagoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(" SELECT                                                                "
                         + " ne.id_nomina_empleado 			AS idNominaEmpleado,                        "
@@ -226,7 +226,7 @@ public class NominaEmpleadoService {
     }
 
     public List<NominaEmpleadoDTO> obtenerNominaEmpleadoListSinPago(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(" SELECT                                                      "
                 + " ne.id_nomina_empleado AS idNominaEmpleado,                        " + " ne.id_producto_nomina AS idProductoNomina,                        "
                 + " ne.id_empleado AS idEmpleado,                                     " + " ne.consecutivo AS consecutivo,                                    "
@@ -246,7 +246,7 @@ public class NominaEmpleadoService {
     }
 
     public NominaEmpleadoDTO obtenerNominaEmpleadoDetalle(NominaEmpleadoDTO nominaEmpleado) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery("" + "  SELECT " + "  ne.id_nomina_empleado AS idNominaEmpleado, " + "  ne.id_producto_nomina AS idProductoNomina, "
                         + "  ne.id_empleado AS idEmpleado, " + "  ne.id_configuracion_presupuestal AS idConfiguracionPresupuestal, "
@@ -291,7 +291,7 @@ public class NominaEmpleadoService {
     }
 
     private List<ConceptosNominaEmpleadosDTO> obtenerListaConceptosNominaEmpleados(Integer idNominaEmpleado, Integer tipo) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(" SELECT " + " cne.id_conceptos_nomina_empleados AS idConceptosNominaEmpleado, "
                 + " cne.id_nomina_empleado AS idNominaEmpleado, " + " cne.tipo AS tipo, " + " cne.clave AS clave, " + " cne.tipo_sat AS tipoSat, "
                 + " cne.concepto AS concepto, " + " cne.importe_gravado AS importeGravado, " + " cne.importe_excento AS importeExcento, "
@@ -305,7 +305,7 @@ public class NominaEmpleadoService {
     }
 
     public List<NominaEmpleadoDTO> obtenerNominaEmpleadoList(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         System.out.println("productoNomina.getIdProductoNomina():: " + productoNomina.getIdProductoNomina());
         Query query = session
                 .createSQLQuery(
@@ -321,7 +321,7 @@ public class NominaEmpleadoService {
     }
 
     public List<NominaEmpleadoDTO> obtenerNominaEmpleadosSuplentes(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(
                         " SELECT " + " ne.id_nomina_empleado AS idNominaEmpleado, " + " ne.id_configuracion_presupuestal AS idConfiguracionPresupuestal, "
@@ -340,10 +340,10 @@ public class NominaEmpleadoService {
     public void calcularProductoNomina(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado, Boolean aplicarFaltas) {
         System.out.println("nominaEmpleado.getIdNominaEmpleado():: " + nominaEmpleado.getIdNominaEmpleado());
 
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
         nominaEmpleadoEntity.setCalculado(true);
         limpiarConceptos(nominaEmpleadoEntity);
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
 
         ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity.getIdConfiguracionPresupuestal();
         BigDecimal sueldo01 = (configuracionPresupuestal.getSueldo01() == null ? BigDecimal.ZERO : configuracionPresupuestal.getSueldo01());
@@ -412,7 +412,7 @@ public class NominaEmpleadoService {
                     primaVacacionalParams.setDiasPagar(diasPagar);
                     primaVacacionalParams.setTipoCalculo(TipoCalculoPrimaVacacionalEnum.MENSUAL);
 
-                    PrimaVacacionalResult primaVacacionalResult = this.primaVacacionalService.calcular(primaVacacionalParams);
+                    PrimaVacacionalResult primaVacacionalResult = primaVacacionalService.calcular(primaVacacionalParams);
                     if (primaVacacionalResult.getTotal() != null && primaVacacionalResult.getTotal().compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal importeExcento = primaVacacionalResult.getExcento();
                         BigDecimal importeGravado = primaVacacionalResult.getGravado();
@@ -445,13 +445,13 @@ public class NominaEmpleadoService {
          */
         BigDecimal subsidiosEntregar = BigDecimal.ZERO;
         BigDecimal impuestoRetener = BigDecimal.ZERO;
-        List<InfoMovimientoDTO> movimientoList = this.movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
+        List<InfoMovimientoDTO> movimientoList = movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
         for (InfoMovimientoDTO movimientoNominaContrato : movimientoList) {
             if (movimientoNominaContrato.getIdConcepto().equals(11)) {
                 ConfiguracionIsrDTO configuracionIsrRetroactivo = new ConfiguracionIsrDTO();
                 configuracionIsrRetroactivo.setBaseGravable(percepcionPeriodo);
                 configuracionIsrRetroactivo.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
-                IsrDTO isrRetroactivo = this.calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
+                IsrDTO isrRetroactivo = calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
                 subsidiosEntregar = isrRetroactivo.getSubsidiosEntregar().multiply(new BigDecimal(-1));
                 impuestoRetener = isrRetroactivo.getImpuestoRetener();
                 BigDecimal numeroPeriodos = movimientoNominaContrato.getMontoPeriodo().divide(percepcionPeriodo);
@@ -494,11 +494,11 @@ public class NominaEmpleadoService {
                 BigDecimal importeGravado = percepcionPeriodo.multiply(new BigDecimal(numeroPeriodos));
                 crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 11, importeExcento, importeGravado);
                 configuracionPresupuestal.setAplicaPrimerPago(Boolean.FALSE);
-                this.configuracionPresupuestoRepository.actualizar(configuracionPresupuestal);
+                configuracionPresupuestoRepository.actualizar(configuracionPresupuestal);
                 ConfiguracionIsrDTO configuracionIsrRetroactivo = new ConfiguracionIsrDTO();
                 configuracionIsrRetroactivo.setBaseGravable(percepcionPeriodo);
                 configuracionIsrRetroactivo.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
-                IsrDTO isrRetroactivo = this.calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
+                IsrDTO isrRetroactivo = calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
 
                 subsidiosEntregar = isrRetroactivo.getSubsidiosEntregar().multiply(new BigDecimal(-1));
                 System.out.println("subsidiosEntregar:: " + subsidiosEntregar);
@@ -524,7 +524,7 @@ public class NominaEmpleadoService {
         configuracionIsr.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
         configuracionIsr.setIdEmpleado(nominaEmpleado.getIdEmpleado());
 
-        IsrDTO isr = this.calculoIsrService.calcularIsrEmpleado(configuracionIsr);
+        IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsr);
         // SUBSIDIO
         if (isr.getSubsidiosEntregar().compareTo(BigDecimal.ZERO) < 0) {
             BigDecimal importeExcento = BigDecimal.ZERO;
@@ -538,15 +538,15 @@ public class NominaEmpleadoService {
             BigDecimal importeGravado = impuestoRetener.add(isr.getImpuestoRetener());
             crearConceptoNominaEmpleadoEventual(nominaEmpleadoEntity, 14, importeExcento, importeGravado);
         }
-        EstatusNominasEmpleadoEntity estatusNominaEmpleado = this.estatusNominasEmpleadoRepository.obtenerPorId(2);
+        EstatusNominasEmpleadoEntity estatusNominaEmpleado = estatusNominasEmpleadoRepository.obtenerPorId(2);
         nominaEmpleadoEntity.setIdEstatusNominaEmpleado(estatusNominaEmpleado);
-        this.nominaEmpleadoRepository.actualizar(nominaEmpleadoEntity);
+        nominaEmpleadoRepository.actualizar(nominaEmpleadoEntity);
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void calcularProductoNominaContratoFederal(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado, Boolean aplicarFaltas) {
         System.out.println("nominaEmpleado.getIdNominaEmpleado():: " + nominaEmpleado.getIdNominaEmpleado());
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
         limpiarConceptos(nominaEmpleadoEntity);
 
         ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity.getIdConfiguracionPresupuestal();
@@ -565,7 +565,7 @@ public class NominaEmpleadoService {
             System.out.println("idEmpleado:: " + nominaEmpleado.getIdEmpleado());
             System.out.println("inicioPeriodo:: " + inicioPeriodo);
             System.out.println("finPeriodo:: " + finPeriodo);
-            Session session = this.entityManager.unwrap(Session.class);
+            Session session = entityManager.unwrap(Session.class);
             Query query = session.createSQLQuery("CALL usp_total_descontar_rango_fecha(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
                     .setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
                     .setParameter("idEmpleado", nominaEmpleado.getIdEmpleado());
@@ -612,7 +612,7 @@ public class NominaEmpleadoService {
          * DÍAS ECONÓMICOS BONO BONIFICACIÓN DE FALTAS OTROS RESPONSABILIDADES
          * PRÉSTAMO JUICIO MERCANTIL
          */
-        List<InfoMovimientoDTO> movimientoList = this.movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
+        List<InfoMovimientoDTO> movimientoList = movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
         for (InfoMovimientoDTO movimientoNominaContrato : movimientoList) {
             BigDecimal importeExcento = BigDecimal.ZERO;
             BigDecimal importeGravado = movimientoNominaContrato.getMontoPeriodo();
@@ -640,7 +640,7 @@ public class NominaEmpleadoService {
                 ConfiguracionIsrDTO configuracionIsrRetroactivo = new ConfiguracionIsrDTO();
                 configuracionIsrRetroactivo.setBaseGravable(sueldoPeriodo);
                 configuracionIsrRetroactivo.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
-                IsrDTO isrRetroactivo = this.calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
+                IsrDTO isrRetroactivo = calculoIsrService.calcularIsrEmpleado(configuracionIsrRetroactivo);
 
                 subsidiosEntregar = isrRetroactivo.getSubsidiosEntregar().multiply(new BigDecimal(-1));
                 System.out.println("subsidiosEntregar:: " + subsidiosEntregar);
@@ -667,7 +667,7 @@ public class NominaEmpleadoService {
         configuracionIsr.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
         configuracionIsr.setIdEmpleado(nominaEmpleado.getIdEmpleado());
 
-        IsrDTO isr = this.calculoIsrService.calcularIsrEmpleado(configuracionIsr);
+        IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsr);
         // SUBSIDIO
         if (isr.getSubsidiosEntregar().compareTo(BigDecimal.ZERO) < 0) {
             BigDecimal importeExcento = BigDecimal.ZERO;
@@ -684,7 +684,7 @@ public class NominaEmpleadoService {
     }
 
     private void crearConceptoNominaEmpleadoEventual(NominaEmpleadoEntity nominaEmpleado, Integer idConcepto, BigDecimal excento, BigDecimal gravado) {
-        ConceptoNominaContratosEntity conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(idConcepto);
+        ConceptoNominaContratosEntity conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(idConcepto);
         ConceptosNominaEmpleadosEntity conceptoNominaEmpleadoEntity = null;
         conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
         conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
@@ -695,39 +695,39 @@ public class NominaEmpleadoService {
         conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleado);
         conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
         conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-        this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+        conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
     }
 
     private void limpiarConceptos(NominaEmpleadoEntity nominaEmpleadoEntity) {
-        List<ConceptosNominaEmpleadosEntity> conceptosNominaEmpleadosEntities = this.conceptosNominaEmpleadosRepository
+        List<ConceptosNominaEmpleadosEntity> conceptosNominaEmpleadosEntities = conceptosNominaEmpleadosRepository
                 .listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado().intValue());
         for (ConceptosNominaEmpleadosEntity empleadosEntity : conceptosNominaEmpleadosEntities) {
-            List<PensionAlimenticiaNominaEntity> listaPensionAlimenticiaNomina = this.pensionAlimenticiaNominaRepository
+            List<PensionAlimenticiaNominaEntity> listaPensionAlimenticiaNomina = pensionAlimenticiaNominaRepository
                     .listaPensionAlimenticiaNominaPorIdNominaEmpleado(nominaEmpleadoEntity);
             for (PensionAlimenticiaNominaEntity pensionAlimenticiaNominaEntity : listaPensionAlimenticiaNomina) {
-                this.pensionAlimenticiaNominaRepository.eliminar(pensionAlimenticiaNominaEntity);
+                pensionAlimenticiaNominaRepository.eliminar(pensionAlimenticiaNominaEntity);
             }
-            this.conceptosNominaEmpleadosRepository.eliminar(empleadosEntity);
+            conceptosNominaEmpleadosRepository.eliminar(empleadosEntity);
         }
-        QuincenasSuplenciasEntity quincenasSuplenciasEntity = this.quincenasSuplenciasRepository.obtenerPorNominaEmpleado(nominaEmpleadoEntity);
+        QuincenasSuplenciasEntity quincenasSuplenciasEntity = quincenasSuplenciasRepository.obtenerPorNominaEmpleado(nominaEmpleadoEntity);
         if (quincenasSuplenciasEntity != null) {
             quincenasSuplenciasEntity.setIdNomina(null);
-            this.quincenasSuplenciasRepository.actualizar(quincenasSuplenciasEntity);
+            quincenasSuplenciasRepository.actualizar(quincenasSuplenciasEntity);
         }
     }
 
     private Integer contarFaltas(List<FaltaContadaDTO> faltasPeriodo, NominaEmpleadoEntity nominaEmpleadoEntity, Boolean aplicarFaltas) {
-        List<FaltaContadaEntity> fatasContadas = this.fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
+        List<FaltaContadaEntity> fatasContadas = fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
         if (fatasContadas.isEmpty() && aplicarFaltas) {
             Integer faltas = 0;
             for (FaltaContadaDTO faltaContada : faltasPeriodo) {
-                if (!this.fataContadaRepository.faltaEstaContada(faltaContada.getIdFalta())) {
+                if (!fataContadaRepository.faltaEstaContada(faltaContada.getIdFalta())) {
                     FaltaContadaEntity fataContadaEntity = new FaltaContadaEntity();
                     fataContadaEntity.setFechaFalta(faltaContada.getFechaFalta());
                     fataContadaEntity.setEmpleado(nominaEmpleadoEntity.getIdEmpleado());
                     fataContadaEntity.setIdFalta(faltaContada.getIdFalta());
                     fataContadaEntity.setNominaEmpleado(nominaEmpleadoEntity);
-                    this.fataContadaRepository.crear(fataContadaEntity);
+                    fataContadaRepository.crear(fataContadaEntity);
                     faltas++;
                 }
             }
@@ -739,7 +739,7 @@ public class NominaEmpleadoService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void calcularProductoNominaSuplencias(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado) {
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
         ConceptosNominaEmpleadosEntity conceptoNominaEmpleadoEntity = null;
         ConceptoNominaContratosEntity conceptoNomina = null;
         Integer idEmpleado = nominaEmpleadoEntity.getIdEmpleado().getIdEmpleado();
@@ -756,10 +756,10 @@ public class NominaEmpleadoService {
                 configuracionIsrSuplente.setBaseGravable(sueldoQuincenalSuplente);
                 configuracionIsrSuplente.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
                 configuracionIsrSuplente.setIdEmpleado(nominaEmpleado.getIdEmpleado());
-                IsrDTO isr = this.calculoIsrService.calcularIsrEmpleado(configuracionIsrSuplente);
+                IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsrSuplente);
                 // SUBSIDIO
                 if (isr.getSubsidiosEntregar().compareTo(BigDecimal.ZERO) < 0) {
-                    conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(8);
+                    conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(8);
                     conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
                     conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
                     conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -769,13 +769,13 @@ public class NominaEmpleadoService {
                     conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
                     conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
                     conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-                    this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+                    conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
                     nominaEmpleadoEntity.setCalculado(true);
                 }
 
                 // I.S.R.
                 if (isr.getImpuestoRetener().compareTo(BigDecimal.ZERO) == 1) {
-                    conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(14);
+                    conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(14);
                     conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
                     conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
                     conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -785,7 +785,7 @@ public class NominaEmpleadoService {
                     conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
                     conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
                     conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-                    this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+                    conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
                     nominaEmpleadoEntity.setCalculado(true);
                 }
             }
@@ -793,7 +793,7 @@ public class NominaEmpleadoService {
 
         // SUPLENCIAS
         if (sueldo05.compareTo(BigDecimal.ZERO) == 1) {
-            conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(3);
+            conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(3);
             conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
             conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
             conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -803,13 +803,13 @@ public class NominaEmpleadoService {
             conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
             conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
             conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-            this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+            conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
         }
 
         // PENSIÓN ALIMENTICIA
         List<BeneficiarioPensionAlimienticiaDTO> beneficiarioPensionAlimienticiaList = obtenerPensionesActivas(nominaEmpleado.getIdEmpleado());
         for (BeneficiarioPensionAlimienticiaDTO beneficiarioPensionAlimienticia : beneficiarioPensionAlimienticiaList) {
-            conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(19);
+            conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(19);
             conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
             conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
             conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -819,7 +819,7 @@ public class NominaEmpleadoService {
             conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
             conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
             conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-            this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+            conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
             crearNominaEmpleadoPensionAlimienticia(beneficiarioPensionAlimienticia, nominaEmpleadoEntity, BigDecimal.ZERO);
         }
 
@@ -829,9 +829,9 @@ public class NominaEmpleadoService {
          * DÍAS ECONÓMICOS BONO BONIFICACIÓN DE FALTAS OTROS RESPONSABILIDADES
          * PRÉSTAMO JUICIO MERCANTIL
          */
-        List<InfoMovimientoDTO> movimientoList = this.movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
+        List<InfoMovimientoDTO> movimientoList = movimientosContratosService.obtenerInfoMovimientos(nominaEmpleadoEntity.getIdNominaEmpleado());
         for (InfoMovimientoDTO movimientoNominaContrato : movimientoList) {
-            conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(movimientoNominaContrato.getIdConcepto());
+            conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(movimientoNominaContrato.getIdConcepto());
             BigDecimal monto = movimientoNominaContrato.getMontoPeriodo();
             conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
             conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
@@ -842,14 +842,14 @@ public class NominaEmpleadoService {
             conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
             conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
             conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-            this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+            conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
 
         }
     }
 
     private void crearConceptosEmpleado(Integer idEmpleado, ProductoNominaDTO productoNomina, NominaEmpleadoEntity nominaEmpleadoEntity) {
         // Obtener las nóminas del empleado.
-        List<NominaAcumuladoDTO> nominasEmpleado = this.nominaEmpleadoRepository.obtenerNominaAutorizadaEmpleado(idEmpleado, productoNomina.getNumeroPeriodo(),
+        List<NominaAcumuladoDTO> nominasEmpleado = nominaEmpleadoRepository.obtenerNominaAutorizadaEmpleado(idEmpleado, productoNomina.getNumeroPeriodo(),
                 productoNomina.getAnyoEjercicioFiscal());
         ConceptosNominaEmpleadosEntity conceptoNominaEmpleadoEntity = null;
         ConceptoNominaContratosEntity conceptoNomina = null;
@@ -870,14 +870,13 @@ public class NominaEmpleadoService {
                         System.out.println("es retroactivo");
 
                     } else {
-                        List<BigDecimal> conceptos = this.conceptosNominaEmpleadosRepository.obtenerImportesGravadosPorIdNomina(nomina.getIdNominaEmpleado());
+                        List<BigDecimal> conceptos = conceptosNominaEmpleadosRepository.obtenerImportesGravadosPorIdNomina(nomina.getIdNominaEmpleado());
                         conceptosImporteGravado.addAll(conceptos);
 
-                        List<BigDecimal> importeIsr = this.conceptosNominaEmpleadosRepository.obtenerImportesISRPorIdNomina(nomina.getIdNominaEmpleado());
+                        List<BigDecimal> importeIsr = conceptosNominaEmpleadosRepository.obtenerImportesISRPorIdNomina(nomina.getIdNominaEmpleado());
                         conceptosImporteIsr.addAll(importeIsr);
 
-                        List<BigDecimal> importesSubsidio = this.conceptosNominaEmpleadosRepository
-                                .obtenerImportesSubsidioPorIdNomina(nomina.getIdNominaEmpleado());
+                        List<BigDecimal> importesSubsidio = conceptosNominaEmpleadosRepository.obtenerImportesSubsidioPorIdNomina(nomina.getIdNominaEmpleado());
                         conceptosImporteSubsidio.addAll(importesSubsidio);
 
                     }
@@ -907,7 +906,7 @@ public class NominaEmpleadoService {
                     calculoIsrAcumulado.setBaseGravable(importeGravadoAcumulado);
                     calculoIsrAcumulado.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
                     calculoIsrAcumulado.setIdEmpleado(nominaEmpleadoEntity.getIdEmpleado().getIdEmpleado());
-                    IsrDTO isrAcumulado = this.calculoIsrService.calcularIsrEmpleado(calculoIsrAcumulado);
+                    IsrDTO isrAcumulado = calculoIsrService.calcularIsrEmpleado(calculoIsrAcumulado);
 
                     // Si el ISR Acumulado calcula ISR Entonces se procede a
                     // generar el cálculo para el nuevo isr y el concepto.
@@ -934,7 +933,7 @@ public class NominaEmpleadoService {
 
                                 if (ISRFinal.compareTo(BigDecimal.ZERO) == 1) {
 
-                                    conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(14);
+                                    conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(14);
                                     conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
                                     conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
                                     conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -944,7 +943,7 @@ public class NominaEmpleadoService {
                                     conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
                                     conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
                                     conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-                                    this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+                                    conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
                                     nominaEmpleadoEntity.setCalculado(true);
 
                                 } else {
@@ -973,7 +972,7 @@ public class NominaEmpleadoService {
 
                                 // SUBSIDIO
                                 if (subsidioFinal.compareTo(BigDecimal.ZERO) < 0) {
-                                    conceptoNomina = this.conceptoNominaContratosRepository.obtenerPorId(8);
+                                    conceptoNomina = conceptoNominaContratosRepository.obtenerPorId(8);
                                     conceptoNominaEmpleadoEntity = new ConceptosNominaEmpleadosEntity();
                                     conceptoNominaEmpleadoEntity.setClave(conceptoNomina.getClave());
                                     conceptoNominaEmpleadoEntity.setConcepto(conceptoNomina.getDescripcion());
@@ -983,7 +982,7 @@ public class NominaEmpleadoService {
                                     conceptoNominaEmpleadoEntity.setNominaEmpleado(nominaEmpleadoEntity);
                                     conceptoNominaEmpleadoEntity.setTipo(conceptoNomina.getTipo());
                                     conceptoNominaEmpleadoEntity.setTipoSat(conceptoNomina.getCategoriaSAT().getClave());
-                                    this.conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
+                                    conceptosNominaEmpleadosRepository.crear(conceptoNominaEmpleadoEntity);
                                     nominaEmpleadoEntity.setCalculado(true);
 
                                 } else {
@@ -1011,7 +1010,7 @@ public class NominaEmpleadoService {
         } else {
             System.out.println("===========================================================================================================");
             nominaEmpleadoEntity.setMotivo("No se ha procesado su nómina como empleado, es requerida para generar el acumulado ISR.");
-            this.nominaEmpleadoRepository.actualizar(nominaEmpleadoEntity);
+            nominaEmpleadoRepository.actualizar(nominaEmpleadoEntity);
         }
     }
 
@@ -1024,9 +1023,9 @@ public class NominaEmpleadoService {
         pensionAlimenticia.setCentroResponsabilidad(nominaEmpleado.getIdCentroResponsabilidad());
         pensionAlimenticia.setEmpleado(nominaEmpleado.getIdEmpleado());
         pensionAlimenticia.setEstatusNominaEmpleado(nominaEmpleado.getIdEstatusNominaEmpleado());
-        pensionAlimenticia.setMetodoPago(this.metodoPagoRepository.obtenerPorId(nominaEmpleado.getIdMetodoPago()));
+        pensionAlimenticia.setMetodoPago(metodoPagoRepository.obtenerPorId(nominaEmpleado.getIdMetodoPago()));
         pensionAlimenticia.setNominaEmpleado(nominaEmpleado);
-        pensionAlimenticia.setPensionAlimenticia(this.pensionAlimenticiaRepository.obtenerPorId(pension.getIdPensionAlimenticia()));
+        pensionAlimenticia.setPensionAlimenticia(pensionAlimenticiaRepository.obtenerPorId(pension.getIdPensionAlimenticia()));
         pensionAlimenticia.setConfiguracionPresupuesto(nominaEmpleado.getIdConfiguracionPresupuestal());
         pensionAlimenticia.setBanco(null); // Pendiente
         pensionAlimenticia.setPrograma(nominaEmpleado.getPrograma());
@@ -1036,7 +1035,7 @@ public class NominaEmpleadoService {
         pensionAlimenticia.setNumeroCuenta(nominaEmpleado.getNumeroCuenta());
         pensionAlimenticia.setMonto(montoPension);
 
-        this.pensionAlimenticiaNominaRepository.crear(pensionAlimenticia);
+        pensionAlimenticiaNominaRepository.crear(pensionAlimenticia);
     }
 
     private BigDecimal clacularPension(BeneficiarioPensionAlimienticiaDTO beneficiarioPensionAlimienticia, BigDecimal basePensionPeriodo) {
@@ -1075,7 +1074,7 @@ public class NominaEmpleadoService {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public List<BeneficiarioPensionAlimienticiaDTO> obtenerPensionesActivas(int idEmpleado) {
 
-        List<PensionAlimenticiaEntity> listadoPensionAlimenticiaEntity = this.pensionAlimenticiaRepository.obtenerPensionesActivasPorIdEmpleado(idEmpleado);
+        List<PensionAlimenticiaEntity> listadoPensionAlimenticiaEntity = pensionAlimenticiaRepository.obtenerPensionesActivasPorIdEmpleado(idEmpleado);
 
         List<BeneficiarioPensionAlimienticiaDTO> listadoBeneficiariosDTO = new ArrayList<>();
         if (listadoPensionAlimenticiaEntity != null) {
@@ -1102,7 +1101,7 @@ public class NominaEmpleadoService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void actualizarTotalesNominaEmpleado(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_actualizar_totales_nominas_empleado(:idProductoNomina) ").setParameter("idProductoNomina",
                 productoNomina.getIdProductoNomina());
         query.executeUpdate();
@@ -1111,7 +1110,7 @@ public class NominaEmpleadoService {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void actualizarTotalesPorNominaEmpleado(NominaEmpleadoDTO nominaEmpleado) {
         System.out.println("actualizarTotalesPorNominaEmpleado - nominaEmpleado.getIdNominaEmpleado():: " + nominaEmpleado.getIdNominaEmpleado());
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_actualizar_totales_nominas_por_empleado(:idNominaEmpleado) ").setParameter("idNominaEmpleado",
                 nominaEmpleado.getIdNominaEmpleado());
         query.executeUpdate();
@@ -1122,10 +1121,10 @@ public class NominaEmpleadoService {
 
         try {
 
-            EjercicioFiscalEntity ejercicioF = this.entityManager
+            EjercicioFiscalEntity ejercicioF = entityManager
                     .createQuery("Select e from EjercicioFiscalEntity as e where e.ejercicioFiscal=:ejercicioFiscal", EjercicioFiscalEntity.class)
                     .setParameter("ejercicioFiscal", ejercicioFiscal).getSingleResult();
-            PeriodoCalendariosEntity query = this.entityManager
+            PeriodoCalendariosEntity query = entityManager
                     .createQuery("SELECT pc FROM PeriodoCalendariosEntity as pc "
                             + "WHERE pc.tipoPeriodo.idTipoPeriodo=:tipoPeriodo and pc.idEjercicioFiscal=:ejercicioFiscal and :fecha "
                             + "BETWEEN pc.inicioPeriodo AND pc.finPeriodo", PeriodoCalendariosEntity.class)
@@ -1140,32 +1139,32 @@ public class NominaEmpleadoService {
 
     // Metodo con configuracion de leila
     public Integer obtenerNumeroQuincena(Integer mes, Integer dia) {
-        return this.configuracionQuincenaRepository.obtenerConfiguracionQuincena(mes, dia);
+        return configuracionQuincenaRepository.obtenerConfiguracionQuincena(mes, dia);
     }
 
     public Integer obtenerMes(Integer qna) {
-        return this.configuracionQuincenaRepository.mesPorNumQuincena(qna);
+        return configuracionQuincenaRepository.mesPorNumQuincena(qna);
     }
 
     public List<NominaErroneaDTO> consultarNominasErroneas(Integer idProductoNomina) {
         if (!ValidacionUtil.esNumeroPositivo(idProductoNomina)) {
             throw new ValidacionException("Para obtener los cálculos erroneos es requerido el  producto nómina", ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        List<NominaErroneaDTO> nominaErroneaList = this.nominaEmpleadoRepository.consultarNominaConErrorEmpleado(idProductoNomina);
+        List<NominaErroneaDTO> nominaErroneaList = nominaEmpleadoRepository.consultarNominaConErrorEmpleado(idProductoNomina);
         return nominaErroneaList;
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void validarProductoNomina(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_validar_producto_nomina(:idProductoNomina) ").setParameter("idProductoNomina",
                 productoNomina.getIdProductoNomina());
         query.executeUpdate();
     }
 
     public List<FaltaContadaDTO> obtenerFaltasContadas(ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(conceptoNominaEmpleado.getIdNominaEmpleado());
-        List<FaltaContadaEntity> fatasContadas = this.fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(conceptoNominaEmpleado.getIdNominaEmpleado());
+        List<FaltaContadaEntity> fatasContadas = fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
         List<FaltaContadaDTO> faltasContadasDTO = new ArrayList<>();
         for (FaltaContadaEntity fataContada : fatasContadas) {
             FaltaContadaDTO faltaContadaDTO = new FaltaContadaDTO();
@@ -1179,13 +1178,13 @@ public class NominaEmpleadoService {
     }
 
     public List<FaltaContadaDTO> obtenerFaltasNoContadas(List<FaltaContadaDTO> faltasContadas, ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(conceptoNominaEmpleado.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(conceptoNominaEmpleado.getIdNominaEmpleado());
         ProductoNominaEntity productoNomina = nominaEmpleadoEntity.getIdProductoNomina();
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String inicioPeriodo = format.format(productoNomina.getInicioRangoFaltas());
         String finPeriodo = format.format(productoNomina.getFinRangoFaltas());
 
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_fechas_descontar_rango(:inicioPeriodo, :finPeriodo, :idEmpleado) ")
                 .setParameter("inicioPeriodo", inicioPeriodo).setParameter("finPeriodo", finPeriodo)
                 .setParameter("idEmpleado", nominaEmpleadoEntity.getIdEmpleado());
@@ -1214,28 +1213,28 @@ public class NominaEmpleadoService {
     }
 
     public void actualizarConcepto(ConceptosNominaEmpleadosDTO conceptosNomina, List<FaltaContadaDTO> faltasContadasDTO) {
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(conceptosNomina.getIdNominaEmpleado());
-        List<FaltaContadaEntity> faltasContadas = this.fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(conceptosNomina.getIdNominaEmpleado());
+        List<FaltaContadaEntity> faltasContadas = fataContadaRepository.consultarFatasContadas(nominaEmpleadoEntity);
         if (!faltasContadas.isEmpty()) {
             for (FaltaContadaEntity fataContada : faltasContadas) {
-                this.fataContadaRepository.eliminar(fataContada);
+                fataContadaRepository.eliminar(fataContada);
             }
         }
         for (FaltaContadaDTO faltaContada : faltasContadasDTO) {
-            if (!this.fataContadaRepository.faltaEstaContada(faltaContada.getIdFalta())) {
+            if (!fataContadaRepository.faltaEstaContada(faltaContada.getIdFalta())) {
                 FaltaContadaEntity fataContadaEntity = new FaltaContadaEntity();
                 fataContadaEntity.setFechaFalta(faltaContada.getFechaFalta());
                 fataContadaEntity.setEmpleado(nominaEmpleadoEntity.getIdEmpleado());
                 fataContadaEntity.setIdFalta(faltaContada.getIdFalta());
                 fataContadaEntity.setNominaEmpleado(nominaEmpleadoEntity);
-                this.fataContadaRepository.crear(fataContadaEntity);
+                fataContadaRepository.crear(fataContadaEntity);
             }
         }
 
     }
 
     public void cambiarEstatusNominaEmpleado(ProductoNominaDTO productoNomina, Integer idEstatusNominaEmpleado) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(" SELECT " + " ne.id_nomina_empleado AS idNominaEmpleado " + " FROM nomina_empleado AS ne " + " WHERE "
                         + " ne.id_producto_nomina = :idProductoNomina " + " ORDER BY " + " ne.consecutivo  " + " ")
@@ -1243,30 +1242,30 @@ public class NominaEmpleadoService {
         query.setResultTransformer(Transformers.aliasToBean(NominaEmpleadoDTO.class));
         @SuppressWarnings("unchecked")
         List<NominaEmpleadoDTO> result = query.list();
-        EstatusNominasEmpleadoEntity estatusNominaEmpleado = this.estatusNominasEmpleadoRepository.obtenerPorId(idEstatusNominaEmpleado);
+        EstatusNominasEmpleadoEntity estatusNominaEmpleado = estatusNominasEmpleadoRepository.obtenerPorId(idEstatusNominaEmpleado);
         for (NominaEmpleadoDTO nominaEmpleado : result) {
-            NominaEmpleadoEntity entity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+            NominaEmpleadoEntity entity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
             entity.setIdEstatusNominaEmpleado(estatusNominaEmpleado);
             switch (idEstatusNominaEmpleado) {
                 case 3:
-                    List<MovimientosNominaContratosEntity> movimientos = this.movimientosNominaContratosRepository
+                    List<MovimientosNominaContratosEntity> movimientos = movimientosNominaContratosRepository
                             .obtenerMovimientosNominaContratosPorIdNominaEmpleado(entity.getIdNominaEmpleado());
                     for (MovimientosNominaContratosEntity movimientosNominaContratosEntity : movimientos) {
                         // 2 Proceso
                         movimientosNominaContratosEntity.setIdEstatus(2);
-                        this.movimientosNominaContratosRepository.actualizar(movimientosNominaContratosEntity);
+                        movimientosNominaContratosRepository.actualizar(movimientosNominaContratosEntity);
                     }
                     break;
                 default:
                     break;
             }
-            this.nominaEmpleadoRepository.actualizar(entity);
+            nominaEmpleadoRepository.actualizar(entity);
         }
     }
 
     public void calcularProductoNominaAguinaldoContrato(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado) {
 
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
         limpiarConceptos(nominaEmpleadoEntity);
         ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity.getIdConfiguracionPresupuestal();
         BigDecimal sueldo01 = configuracionPresupuestal.getSueldo01();
@@ -1282,7 +1281,7 @@ public class NominaEmpleadoService {
         aguinaldoParams.setIdEmpleado(nominaEmpleadoEntity.getIdEmpleado().getIdEmpleado());
         aguinaldoParams.setBaseAguinaldo(sueldo01);
 
-        AguinaldoResult aguinaldoResult = this.calculoAguinaldoService.calcular(aguinaldoParams);
+        AguinaldoResult aguinaldoResult = calculoAguinaldoService.calcular(aguinaldoParams);
 
         if (aguinaldoResult.getTotal() != null && aguinaldoResult.getTotal().compareTo(BigDecimal.ZERO) > 0) {
             BigDecimal importeExcento = aguinaldoResult.getExcento();
@@ -1306,7 +1305,7 @@ public class NominaEmpleadoService {
         configuracionIsr.setBaseGravable(sueldoQuincenal.add(isrAcumulado.getIngresoGravable()));
         configuracionIsr.setIdTipoPeriodo(productoNomina.getIdTipoPeriodo());
         configuracionIsr.setIdEmpleado(nominaEmpleado.getIdEmpleado());
-        IsrDTO isr = this.calculoIsrService.calcularIsrEmpleado(configuracionIsr);
+        IsrDTO isr = calculoIsrService.calcularIsrEmpleado(configuracionIsr);
         // SUBSIDIO
         if (isr.getSubsidiosEntregar().compareTo(BigDecimal.ZERO) < 0) {
             BigDecimal importeExcento = BigDecimal.ZERO;
@@ -1350,7 +1349,7 @@ public class NominaEmpleadoService {
     }
 
     private List<ConceptosNominaEmpleadosDTO> obtenerConceptosAcumulados(Integer numeroPeriodo, Integer tipo, Integer idNominaEmpleado) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session
                 .createSQLQuery(" SELECT                                                                      "
                         + " cne.id_conceptos_nomina_empleados AS idConceptosNominaEmpleado,                   "
@@ -1382,7 +1381,7 @@ public class NominaEmpleadoService {
     }
 
     public List<PensionesNominaDTO> obtenerPensionesNominaList(ProductoNominaDTO productoNomina) {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_obtener_pensiones_prodcuto(:idProductoNomina) ").setParameter("idProductoNomina",
                 productoNomina.getIdProductoNomina());
         query.setResultTransformer(Transformers.aliasToBean(PensionesNominaDTO.class));
@@ -1392,7 +1391,7 @@ public class NominaEmpleadoService {
     }
 
     public BigDecimal calcularDescuentoFaltas(MovimientoContratosDTO movimientoContratos) {
-        NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(movimientoContratos.getIdNominaEmpleado());
+        NominaEmpleadoEntity nominaEmpleadoEntity = nominaEmpleadoRepository.obtenerPorId(movimientoContratos.getIdNominaEmpleado());
         Integer faltas = movimientoContratos.getFaltaContadaList().size();
         ConfiguracionPresupuestoEntity configuracionPresupuestal = nominaEmpleadoEntity.getIdConfiguracionPresupuestal();
         BigDecimal sueldo01 = (configuracionPresupuestal.getSueldo01() == null ? BigDecimal.ZERO : configuracionPresupuestal.getSueldo01());
@@ -1409,7 +1408,7 @@ public class NominaEmpleadoService {
     }
 
     public Integer obtenerUltimoNumeroCheque() {
-        Session session = this.entityManager.unwrap(Session.class);
+        Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(" SELECT                                                             "
                 + " MAX(n.numero_cheque)                                                     "
                 + " FROM nomina_empleado AS n                                                "

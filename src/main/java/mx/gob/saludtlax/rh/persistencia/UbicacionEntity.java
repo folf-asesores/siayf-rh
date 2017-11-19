@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -12,12 +13,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "Ubicacion")
 public class UbicacionEntity implements Serializable {
-	private static final long serialVersionUID = -4892649627480897576L;
+    private static final long serialVersionUID = -4892649627480897576L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="IdUbicacion")
-	private Integer idUbicacion;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "IdUbicacion")
+    private Integer idUbicacion;
     @Column(name = "calle")
     private String calle;
     @Column(name = "noExterior")
@@ -40,63 +41,82 @@ public class UbicacionEntity implements Serializable {
     private String codigoPostal;
 
     public String getCalle() {
-		return calle;
-	}
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-	public String getNoExterior() {
-		return noExterior;
-	}
-	public void setNoExterior(String noExterior) {
-		this.noExterior = noExterior;
-	}
-	public String getNoInterior() {
-		return noInterior;
-	}
-	public void setNoInterior(String noInterior) {
-		this.noInterior = noInterior;
-	}
-	public String getColonia() {
-		return colonia;
-	}
-	public void setColonia(String colonia) {
-		this.colonia = colonia;
-	}
-	public String getLocalidad() {
-		return localidad;
-	}
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
-	public String getReferencia() {
-		return referencia;
-	}
-	public void setReferencia(String referencia) {
-		this.referencia = referencia;
-	}
-	public String getMunicipio() {
-		return municipio;
-	}
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-	public String getCodigoPostal() {
-		return codigoPostal;
-	}
-	public void setCodigoPostal(String codigoPostal) {
-		this.codigoPostal = codigoPostal;
-	}
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getNoExterior() {
+        return noExterior;
+    }
+
+    public void setNoExterior(String noExterior) {
+        this.noExterior = noExterior;
+    }
+
+    public String getNoInterior() {
+        return noInterior;
+    }
+
+    public void setNoInterior(String noInterior) {
+        this.noInterior = noInterior;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
+
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(String municipio) {
+        this.municipio = municipio;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
 }

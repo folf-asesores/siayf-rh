@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.dependencia;
 
 import java.util.List;

@@ -3,6 +3,7 @@
  * Creado el 27/jun/2017 3:16:41 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.io.Serializable;
@@ -62,9 +63,9 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 31 * hash + Objects.hashCode(this.numeroUnidadResponsable);
-        hash = 31 * hash + Objects.hashCode(this.unidadResponsable);
-        hash = 31 * hash + Objects.hashCode(this.programas);
+        hash = 31 * hash + Objects.hashCode(numeroUnidadResponsable);
+        hash = 31 * hash + Objects.hashCode(unidadResponsable);
+        hash = 31 * hash + Objects.hashCode(programas);
         return hash;
     }
 
@@ -80,24 +81,21 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
             return false;
         }
         final UnidadResponsableDTO other = (UnidadResponsableDTO) obj;
-        if (!Objects.equals(this.numeroUnidadResponsable, other.numeroUnidadResponsable)) {
+        if (!Objects.equals(numeroUnidadResponsable, other.numeroUnidadResponsable)) {
             return false;
         }
-        if (!Objects.equals(this.unidadResponsable, other.unidadResponsable)) {
+        if (!Objects.equals(unidadResponsable, other.unidadResponsable)) {
             return false;
         }
-        return Objects.equals(this.programas, other.programas);
+        return Objects.equals(programas, other.programas);
     }
 
     @Override
     public String toString() {
-        return "UnidadResponsableDTO{" 
-                + "numeroUnidadResponsable : " + numeroUnidadResponsable 
-                + ", unidadResponsable : " + unidadResponsable 
-                + ", programas : [" + programas 
-                + "]}";
+        return "UnidadResponsableDTO{" + "numeroUnidadResponsable : " + numeroUnidadResponsable + ", unidadResponsable : " + unidadResponsable
+                + ", programas : [" + programas + "]}";
     }
-    
+
     public static final class Builder {
         private String unidadResponsable;
         private String numeroUnidadResponsable;
@@ -127,5 +125,5 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
         public UnidadResponsableDTO construirUnidadResponsableDTO() {
             return new UnidadResponsableDTO(numeroUnidadResponsable, unidadResponsable, programas);
         }
-    }    
+    }
 }

@@ -50,7 +50,8 @@ public final class PrenominaReporteTextoPlanoTools {
         return getEncabezado(numeroPagina, programa, quincena, fechaPago, null, null);
     }
 
-    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable, String numeroUnidadResponsable) {
+    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable,
+            String numeroUnidadResponsable) {
         String encabezado;
 
         try (Formatter formatter = new Formatter()) {
@@ -85,7 +86,8 @@ public final class PrenominaReporteTextoPlanoTools {
         return encabezado;
     }
 
-    protected String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<PercepcionDTO> percepciones, List<DeduccionDTO> deducciones) {
+    protected String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<PercepcionDTO> percepciones,
+            List<DeduccionDTO> deducciones) {
         String detalle;
 
         try (Formatter formatter = new Formatter()) {
@@ -94,8 +96,7 @@ public final class PrenominaReporteTextoPlanoTools {
             if (percepciones != null && !percepciones.isEmpty() && deducciones != null && !deducciones.isEmpty()) {
                 BigDecimal totalPercepciones = BigDecimal.ZERO;
                 BigDecimal totalDeducciones = BigDecimal.ZERO;
-                int limiteContador = percepciones.size() > deducciones.size()
-                        ? percepciones.size() : deducciones.size();
+                int limiteContador = percepciones.size() > deducciones.size() ? percepciones.size() : deducciones.size();
 
                 for (int i = 0; i < limiteContador; i++) {
                     PercepcionDTO percepcion = i < percepciones.size() ? percepciones.get(i) : null;
@@ -174,7 +175,8 @@ public final class PrenominaReporteTextoPlanoTools {
         return detalle;
     }
 
-    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados, boolean pension) {
+    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados,
+            boolean pension) {
         // Percepciones
         BigDecimal honorariosAsimilares = BigDecimal.ZERO;
         BigDecimal honorarios = BigDecimal.ZERO;
@@ -194,48 +196,47 @@ public final class PrenominaReporteTextoPlanoTools {
             String clave = percepcion.getKey();
             BigDecimal monto = percepcion.getValue();
 
-            switch(clave) {
-                case "01" :
+            switch (clave) {
+                case "01":
                     honorariosAsimilares = monto;
                     break;
-                case "02" :
+                case "02":
                     honorarios = monto;
                     break;
-                case "05" :
+                case "05":
                     suplencias = monto;
                     break;
-                case "08" :
+                case "08":
                     diasEconomicos = monto;
                     break;
-                case "14" :
+                case "14":
                     percepcionComplementaria = monto;
                     break;
-                case "17" :
+                case "17":
                     valesFinAnyo = monto;
                     break;
-                case "24" :
+                case "24":
                     aguinaldo = monto;
                     break;
-                case "26" :
+                case "26":
                     subsiodio = monto;
                     break;
-                case "27" :
+                case "27":
                     primaVacacional = monto;
                     break;
-                case "29" :
+                case "29":
                     bonoFaltas = monto;
                     break;
-                case "30" :
+                case "30":
                     retroactivo = monto;
                     break;
-                case "32" :
+                case "32":
                     otros = monto;
                     break;
             }
 
             totalPercepciones = totalPercepciones.add(monto);
         }
-
 
         // Deducciones
         BigDecimal faltasRetardos = BigDecimal.ZERO;
@@ -250,23 +251,23 @@ public final class PrenominaReporteTextoPlanoTools {
             String clave = deduccion.getKey();
             BigDecimal monto = deduccion.getValue();
 
-            switch(clave) {
-                case "51" :
+            switch (clave) {
+                case "51":
                     faltasRetardos = monto;
                     break;
-                case "52" :
+                case "52":
                     isr = monto;
                     break;
-                case "53" :
+                case "53":
                     responsabilidades = monto;
                     break;
-                case "55" :
+                case "55":
                     prestamos = monto;
                     break;
-                case "56" :
+                case "56":
                     embargoSalario = monto;
                     break;
-                case "62" :
+                case "62":
                     pensionAlimenticia = monto;
                     break;
             }
@@ -313,7 +314,7 @@ public final class PrenominaReporteTextoPlanoTools {
 
             String totalPor;
             String totalEmpleadosProcesados;
-            switch(tipoNomina) {
+            switch (tipoNomina) {
                 case TOTAL_NOMINA_POR_UNIDAD:
                     totalPor = "TOTAL POR CENTRO DE RESPONSABILIDAD :";
                     totalEmpleadosProcesados = "TOTAL DE EMPLEADOS POR CENTRO";
@@ -341,7 +342,8 @@ public final class PrenominaReporteTextoPlanoTools {
         return totales;
     }
 
-    protected String getFirmas(BigDecimal total, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    protected String getFirmas(BigDecimal total, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo,
+            String cargoAutorizo) {
         String firmas;
 
         try (Formatter firmasFormatter = new Formatter()) {
@@ -393,11 +395,10 @@ public final class PrenominaReporteTextoPlanoTools {
         return numeroLineas;
     }
 
-
     protected static String agregarEspacios(int numeroEspacios) {
         StringBuilder sb = new StringBuilder();
 
-        for(int i = 0; i < numeroEspacios; i++) {
+        for (int i = 0; i < numeroEspacios; i++) {
             sb.append(' ');
         }
 
@@ -406,7 +407,7 @@ public final class PrenominaReporteTextoPlanoTools {
 
     protected static String agregarLineasEnBlanco(int lineasRestantes) {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < lineasRestantes; i++) {
+        for (int i = 0; i < lineasRestantes; i++) {
             sb.append('\n');
         }
         return sb.toString();
@@ -417,7 +418,7 @@ public final class PrenominaReporteTextoPlanoTools {
         sb.append(' ');
         int numeroCaracteres = 229;
 
-        for(int i = 0; i < numeroCaracteres; i++) {
+        for (int i = 0; i < numeroCaracteres; i++) {
             sb.append('=');
         }
         sb.append(' ');
@@ -444,14 +445,14 @@ public final class PrenominaReporteTextoPlanoTools {
                 case 2:
                     espacios = 25;
                     break;
-                default :
+                default:
                     espacios = 10;
                     break;
 
             }
 
             sb.append(agregarEspacios(espacios));
-            for(int j = 0; j < numeroCaracteres; j++) {
+            for (int j = 0; j < numeroCaracteres; j++) {
                 sb.append('_');
             }
         }
@@ -460,7 +461,6 @@ public final class PrenominaReporteTextoPlanoTools {
 
         return sb.toString();
     }
-
 
     protected static String centrarTexto(String texto, int limite) {
         if (texto == null) {

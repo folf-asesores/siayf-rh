@@ -3,6 +3,7 @@
  * Creado el 27/Jun/2017 3:16:41 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.util.Iterator;
@@ -45,9 +46,9 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this.unidadResponsable);
-        hash = 47 * hash + Objects.hashCode(this.numeroUnidadResponsable);
-        hash = 47 * hash + Objects.hashCode(this.nominasEmpleados);
+        hash = 47 * hash + Objects.hashCode(unidadResponsable);
+        hash = 47 * hash + Objects.hashCode(numeroUnidadResponsable);
+        hash = 47 * hash + Objects.hashCode(nominasEmpleados);
         return hash;
     }
 
@@ -63,17 +64,18 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
             return false;
         }
         final UnidadResponsableDTO other = (UnidadResponsableDTO) obj;
-        if (!Objects.equals(this.unidadResponsable, other.unidadResponsable)) {
+        if (!Objects.equals(unidadResponsable, other.unidadResponsable)) {
             return false;
         }
-        if (!Objects.equals(this.numeroUnidadResponsable, other.numeroUnidadResponsable)) {
+        if (!Objects.equals(numeroUnidadResponsable, other.numeroUnidadResponsable)) {
             return false;
         }
-        return Objects.equals(this.nominasEmpleados, other.nominasEmpleados);
+        return Objects.equals(nominasEmpleados, other.nominasEmpleados);
     }
 
     @Override
     public String toString() {
-        return "UnidadResponsableDTO{" + "numeroUnidadResponsable=" + numeroUnidadResponsable + ", unidadResponsable=" + unidadResponsable + ", nominasEmpleados=" + nominasEmpleados + '}';
+        return "UnidadResponsableDTO{" + "numeroUnidadResponsable=" + numeroUnidadResponsable + ", unidadResponsable=" + unidadResponsable
+                + ", nominasEmpleados=" + nominasEmpleados + '}';
     }
 }

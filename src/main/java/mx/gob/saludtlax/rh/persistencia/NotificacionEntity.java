@@ -1,13 +1,15 @@
 /*
  * NotificacionEntity.java
  * Creado el Aug 10, 2016 11:17:06 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,6 +24,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import mx.gob.saludtlax.rh.notificacion.Modulo;
 
 /**
@@ -33,12 +36,12 @@ import mx.gob.saludtlax.rh.notificacion.Modulo;
 public class NotificacionEntity implements Serializable {
 
     private static final long serialVersionUID = 485846273097451593L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_notificacion")
     private Integer idNotificacion;
-    
+
     @ManyToOne
     @JoinColumn(name = "id_remitente", referencedColumnName = "id_usuario")
     private UsuarioEntity remitente;
@@ -59,13 +62,12 @@ public class NotificacionEntity implements Serializable {
 
     @Column(name = "cuerpo")
     private String cuerpo;
-    
+
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "notificacion")
     private Collection<NotificacionDestinatarioEntity> destinatarios;
-    
+
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "notificacion")
     private Collection<NotificacionParametroEntity> parametros;
-    
 
     public NotificacionEntity() {
     }

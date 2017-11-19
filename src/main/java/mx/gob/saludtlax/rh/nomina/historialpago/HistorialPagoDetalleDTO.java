@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.historialpago;
 
 import java.io.Serializable;
@@ -11,331 +12,329 @@ import java.util.Date;
  * @author Eduardo Mex
  *
  */
-public class HistorialPagoDetalleDTO implements Serializable{
+public class HistorialPagoDetalleDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2133672734636138987L;
-	
-	private String nombreProducto;
-	private Date inicioPeriodo;
-	private Date finPeriodo;
-	private String rfc;
-	private String nombreEmpleado;
-	private Date fechaIngreso;
-	private String centroResponsabilidad;
-	private String conceptoCentroResponsabilidad;
-	private String funcion;
-	private String programa;
-	private BigDecimal honorariosAsimilables;
-	private BigDecimal suplencias;
-	private BigDecimal diasEconomicos;
-	private BigDecimal percepcionComplementaria;
-	private BigDecimal bono;
-	private BigDecimal aguinaldo;
-	private BigDecimal subsidio;
-	private BigDecimal primaVacacional;
-	private BigDecimal bonificacionFalta;
-	private BigDecimal retroactivo;
-	private BigDecimal otros;
-	private BigDecimal faltasRetardos;
-	private BigDecimal isr;
-	private BigDecimal responsabilidades;
-	private BigDecimal prestamo;
-	private BigDecimal juicioMercantil;
-	private BigDecimal cuotaSindical;
-	private BigDecimal pensionAlimenticia;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2133672734636138987L;
 
-	private BigDecimal total;
+    private String nombreProducto;
+    private Date inicioPeriodo;
+    private Date finPeriodo;
+    private String rfc;
+    private String nombreEmpleado;
+    private Date fechaIngreso;
+    private String centroResponsabilidad;
+    private String conceptoCentroResponsabilidad;
+    private String funcion;
+    private String programa;
+    private BigDecimal honorariosAsimilables;
+    private BigDecimal suplencias;
+    private BigDecimal diasEconomicos;
+    private BigDecimal percepcionComplementaria;
+    private BigDecimal bono;
+    private BigDecimal aguinaldo;
+    private BigDecimal subsidio;
+    private BigDecimal primaVacacional;
+    private BigDecimal bonificacionFalta;
+    private BigDecimal retroactivo;
+    private BigDecimal otros;
+    private BigDecimal faltasRetardos;
+    private BigDecimal isr;
+    private BigDecimal responsabilidades;
+    private BigDecimal prestamo;
+    private BigDecimal juicioMercantil;
+    private BigDecimal cuotaSindical;
+    private BigDecimal pensionAlimenticia;
 
-	@Override
-	public String toString() {
-		return "HistorialPagoDetalleDTO [rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso="
-				+ fechaIngreso + ", centroResponsabilidad=" + centroResponsabilidad + ", conceptoCentroResponsabilidad="
-				+ conceptoCentroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa
-				+ ", honorariosAsimilables=" + honorariosAsimilables + ", suplencias=" + suplencias
-				+ ", diasEconomicos=" + diasEconomicos + ", percepcionComplementaria=" + percepcionComplementaria
-				+ ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio=" + subsidio + ", primaVacacional="
-				+ primaVacacional + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo=" + retroactivo
-				+ ", otros=" + otros + ", faltasRetardos=" + faltasRetardos + ", isr=" + isr + ", responsabilidades="
-				+ responsabilidades + ", prestamo=" + prestamo + ", juicioMercantil=" + juicioMercantil
-				+ ", cuotaSindical=" + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia + ", total=" + total
-				+ "]";
-	}
+    private BigDecimal total;
 
-	public String getRfc() {
-		return rfc;
-	}
+    @Override
+    public String toString() {
+        return "HistorialPagoDetalleDTO [rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
+                + centroResponsabilidad + ", conceptoCentroResponsabilidad=" + conceptoCentroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa
+                + ", honorariosAsimilables=" + honorariosAsimilables + ", suplencias=" + suplencias + ", diasEconomicos=" + diasEconomicos
+                + ", percepcionComplementaria=" + percepcionComplementaria + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio=" + subsidio
+                + ", primaVacacional=" + primaVacacional + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo=" + retroactivo + ", otros=" + otros
+                + ", faltasRetardos=" + faltasRetardos + ", isr=" + isr + ", responsabilidades=" + responsabilidades + ", prestamo=" + prestamo
+                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical=" + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia + ", total="
+                + total + "]";
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public String getNombreEmpleado() {
-		return nombreEmpleado;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setNombreEmpleado(String nombreEmpleado) {
-		this.nombreEmpleado = nombreEmpleado;
-	}
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
 
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
+    }
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public String getCentroResponsabilidad() {
-		return centroResponsabilidad;
-	}
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public void setCentroResponsabilidad(String centroResponsabilidad) {
-		this.centroResponsabilidad = centroResponsabilidad;
-	}
+    public String getCentroResponsabilidad() {
+        return centroResponsabilidad;
+    }
 
-	public String getConceptoCentroResponsabilidad() {
-		return conceptoCentroResponsabilidad;
-	}
+    public void setCentroResponsabilidad(String centroResponsabilidad) {
+        this.centroResponsabilidad = centroResponsabilidad;
+    }
 
-	public void setConceptoCentroResponsabilidad(String conceptoCentroResponsabilidad) {
-		this.conceptoCentroResponsabilidad = conceptoCentroResponsabilidad;
-	}
+    public String getConceptoCentroResponsabilidad() {
+        return conceptoCentroResponsabilidad;
+    }
 
-	public String getFuncion() {
-		return funcion;
-	}
+    public void setConceptoCentroResponsabilidad(String conceptoCentroResponsabilidad) {
+        this.conceptoCentroResponsabilidad = conceptoCentroResponsabilidad;
+    }
 
-	public void setFuncion(String funcion) {
-		this.funcion = funcion;
-	}
+    public String getFuncion() {
+        return funcion;
+    }
 
-	public String getPrograma() {
-		return programa;
-	}
+    public void setFuncion(String funcion) {
+        this.funcion = funcion;
+    }
 
-	public void setPrograma(String programa) {
-		this.programa = programa;
-	}
+    public String getPrograma() {
+        return programa;
+    }
 
-	public BigDecimal getHonorariosAsimilables() {
-		return honorariosAsimilables;
-	}
+    public void setPrograma(String programa) {
+        this.programa = programa;
+    }
 
-	public void setHonorariosAsimilables(BigDecimal honorariosAsimilables) {
-		this.honorariosAsimilables = honorariosAsimilables;
-	}
+    public BigDecimal getHonorariosAsimilables() {
+        return honorariosAsimilables;
+    }
 
-	public BigDecimal getSuplencias() {
-		return suplencias;
-	}
+    public void setHonorariosAsimilables(BigDecimal honorariosAsimilables) {
+        this.honorariosAsimilables = honorariosAsimilables;
+    }
 
-	public void setSuplencias(BigDecimal suplencias) {
-		this.suplencias = suplencias;
-	}
+    public BigDecimal getSuplencias() {
+        return suplencias;
+    }
 
-	public BigDecimal getDiasEconomicos() {
-		return diasEconomicos;
-	}
+    public void setSuplencias(BigDecimal suplencias) {
+        this.suplencias = suplencias;
+    }
 
-	public void setDiasEconomicos(BigDecimal diasEconomicos) {
-		this.diasEconomicos = diasEconomicos;
-	}
+    public BigDecimal getDiasEconomicos() {
+        return diasEconomicos;
+    }
 
-	public BigDecimal getPercepcionComplementaria() {
-		return percepcionComplementaria;
-	}
+    public void setDiasEconomicos(BigDecimal diasEconomicos) {
+        this.diasEconomicos = diasEconomicos;
+    }
 
-	public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
-		this.percepcionComplementaria = percepcionComplementaria;
-	}
+    public BigDecimal getPercepcionComplementaria() {
+        return percepcionComplementaria;
+    }
 
-	public BigDecimal getBono() {
-		return bono;
-	}
+    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
+        this.percepcionComplementaria = percepcionComplementaria;
+    }
 
-	public void setBono(BigDecimal bono) {
-		this.bono = bono;
-	}
+    public BigDecimal getBono() {
+        return bono;
+    }
 
-	public BigDecimal getAguinaldo() {
-		return aguinaldo;
-	}
+    public void setBono(BigDecimal bono) {
+        this.bono = bono;
+    }
 
-	public void setAguinaldo(BigDecimal aguinaldo) {
-		this.aguinaldo = aguinaldo;
-	}
+    public BigDecimal getAguinaldo() {
+        return aguinaldo;
+    }
 
-	public BigDecimal getSubsidio() {
-		return subsidio;
-	}
+    public void setAguinaldo(BigDecimal aguinaldo) {
+        this.aguinaldo = aguinaldo;
+    }
 
-	public void setSubsidio(BigDecimal subsidio) {
-		this.subsidio = subsidio;
-	}
+    public BigDecimal getSubsidio() {
+        return subsidio;
+    }
 
-	public BigDecimal getPrimaVacacional() {
-		return primaVacacional;
-	}
+    public void setSubsidio(BigDecimal subsidio) {
+        this.subsidio = subsidio;
+    }
 
-	public void setPrimaVacacional(BigDecimal primaVacacional) {
-		this.primaVacacional = primaVacacional;
-	}
+    public BigDecimal getPrimaVacacional() {
+        return primaVacacional;
+    }
 
-	public BigDecimal getBonificacionFalta() {
-		return bonificacionFalta;
-	}
+    public void setPrimaVacacional(BigDecimal primaVacacional) {
+        this.primaVacacional = primaVacacional;
+    }
 
-	public void setBonificacionFalta(BigDecimal bonificacionFalta) {
-		this.bonificacionFalta = bonificacionFalta;
-	}
+    public BigDecimal getBonificacionFalta() {
+        return bonificacionFalta;
+    }
 
-	public BigDecimal getRetroactivo() {
-		return retroactivo;
-	}
+    public void setBonificacionFalta(BigDecimal bonificacionFalta) {
+        this.bonificacionFalta = bonificacionFalta;
+    }
 
-	public void setRetroactivo(BigDecimal retroactivo) {
-		this.retroactivo = retroactivo;
-	}
+    public BigDecimal getRetroactivo() {
+        return retroactivo;
+    }
 
-	public BigDecimal getOtros() {
-		return otros;
-	}
+    public void setRetroactivo(BigDecimal retroactivo) {
+        this.retroactivo = retroactivo;
+    }
 
-	public void setOtros(BigDecimal otros) {
-		this.otros = otros;
-	}
+    public BigDecimal getOtros() {
+        return otros;
+    }
 
-	public BigDecimal getFaltasRetardos() {
-		return faltasRetardos;
-	}
+    public void setOtros(BigDecimal otros) {
+        this.otros = otros;
+    }
 
-	public void setFaltasRetardos(BigDecimal faltasRetardos) {
-		this.faltasRetardos = faltasRetardos;
-	}
+    public BigDecimal getFaltasRetardos() {
+        return faltasRetardos;
+    }
 
-	public BigDecimal getIsr() {
-		return isr;
-	}
+    public void setFaltasRetardos(BigDecimal faltasRetardos) {
+        this.faltasRetardos = faltasRetardos;
+    }
 
-	public void setIsr(BigDecimal isr) {
-		this.isr = isr;
-	}
+    public BigDecimal getIsr() {
+        return isr;
+    }
 
-	public BigDecimal getResponsabilidades() {
-		return responsabilidades;
-	}
+    public void setIsr(BigDecimal isr) {
+        this.isr = isr;
+    }
 
-	public void setResponsabilidades(BigDecimal responsabilidades) {
-		this.responsabilidades = responsabilidades;
-	}
+    public BigDecimal getResponsabilidades() {
+        return responsabilidades;
+    }
 
-	public BigDecimal getPrestamo() {
-		return prestamo;
-	}
+    public void setResponsabilidades(BigDecimal responsabilidades) {
+        this.responsabilidades = responsabilidades;
+    }
 
-	public void setPrestamo(BigDecimal prestamo) {
-		this.prestamo = prestamo;
-	}
+    public BigDecimal getPrestamo() {
+        return prestamo;
+    }
 
-	public BigDecimal getJuicioMercantil() {
-		return juicioMercantil;
-	}
+    public void setPrestamo(BigDecimal prestamo) {
+        this.prestamo = prestamo;
+    }
 
-	public void setJuicioMercantil(BigDecimal juicioMercantil) {
-		this.juicioMercantil = juicioMercantil;
-	}
+    public BigDecimal getJuicioMercantil() {
+        return juicioMercantil;
+    }
 
-	public BigDecimal getCuotaSindical() {
-		return cuotaSindical;
-	}
+    public void setJuicioMercantil(BigDecimal juicioMercantil) {
+        this.juicioMercantil = juicioMercantil;
+    }
 
-	public void setCuotaSindical(BigDecimal cuotaSindical) {
-		this.cuotaSindical = cuotaSindical;
-	}
+    public BigDecimal getCuotaSindical() {
+        return cuotaSindical;
+    }
 
-	public BigDecimal getPensionAlimenticia() {
-		return pensionAlimenticia;
-	}
+    public void setCuotaSindical(BigDecimal cuotaSindical) {
+        this.cuotaSindical = cuotaSindical;
+    }
 
-	public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
-		this.pensionAlimenticia = pensionAlimenticia;
-	}
+    public BigDecimal getPensionAlimenticia() {
+        return pensionAlimenticia;
+    }
 
-	public BigDecimal getTotal() {
-		
-		this.total = BigDecimal.ZERO;
+    public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
+        this.pensionAlimenticia = pensionAlimenticia;
+    }
 
-		this.total = total.add(this.honorariosAsimilables == null ? BigDecimal.ZERO : this.honorariosAsimilables);
-		this.total = total.add(this.suplencias == null ? BigDecimal.ZERO : this.suplencias);
-		this.total = total.add(this.diasEconomicos == null ? BigDecimal.ZERO : this.diasEconomicos);
-		this.total = total.add(this.percepcionComplementaria == null ? BigDecimal.ZERO : this.percepcionComplementaria);
-		this.total = total.add(this.bono == null ? BigDecimal.ZERO : this.bono);
-		this.total = total.add(this.aguinaldo == null ? BigDecimal.ZERO : this.aguinaldo);
-		this.total = total.add(this.subsidio == null ? BigDecimal.ZERO : this.subsidio);
-		this.total = total.add(this.primaVacacional == null ? BigDecimal.ZERO : this.primaVacacional);
-		this.total = total.add(this.bonificacionFalta == null ? BigDecimal.ZERO : this.bonificacionFalta);
-		this.total = total.add(this.retroactivo == null ? BigDecimal.ZERO : this.retroactivo);
-		this.total = total.add(this.otros == null ? BigDecimal.ZERO : this.otros);
-		this.total = total.add(this.faltasRetardos == null ? BigDecimal.ZERO : this.faltasRetardos);
-		this.total = total.add(this.isr == null ? BigDecimal.ZERO : this.isr);
-		this.total = total.add(this.responsabilidades == null ? BigDecimal.ZERO : this.responsabilidades);
-		this.total = total.add(this.prestamo == null ? BigDecimal.ZERO : this.prestamo);
-		this.total = total.add(this.juicioMercantil == null ? BigDecimal.ZERO : this.juicioMercantil);
-		this.total = total.add(this.cuotaSindical == null ? BigDecimal.ZERO : this.cuotaSindical);
-		this.total = total.add(this.pensionAlimenticia == null ? BigDecimal.ZERO : this.pensionAlimenticia);
-		
-		return total;
-	}
+    public BigDecimal getTotal() {
 
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
+        total = BigDecimal.ZERO;
 
-	/**
-	 * @return the finPeriodo
-	 */
-	public Date getFinPeriodo() {
-		return finPeriodo;
-	}
+        total = total.add(honorariosAsimilables == null ? BigDecimal.ZERO : honorariosAsimilables);
+        total = total.add(suplencias == null ? BigDecimal.ZERO : suplencias);
+        total = total.add(diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos);
+        total = total.add(percepcionComplementaria == null ? BigDecimal.ZERO : percepcionComplementaria);
+        total = total.add(bono == null ? BigDecimal.ZERO : bono);
+        total = total.add(aguinaldo == null ? BigDecimal.ZERO : aguinaldo);
+        total = total.add(subsidio == null ? BigDecimal.ZERO : subsidio);
+        total = total.add(primaVacacional == null ? BigDecimal.ZERO : primaVacacional);
+        total = total.add(bonificacionFalta == null ? BigDecimal.ZERO : bonificacionFalta);
+        total = total.add(retroactivo == null ? BigDecimal.ZERO : retroactivo);
+        total = total.add(otros == null ? BigDecimal.ZERO : otros);
+        total = total.add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
+        total = total.add(isr == null ? BigDecimal.ZERO : isr);
+        total = total.add(responsabilidades == null ? BigDecimal.ZERO : responsabilidades);
+        total = total.add(prestamo == null ? BigDecimal.ZERO : prestamo);
+        total = total.add(juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
+        total = total.add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
+        total = total.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
 
-	/**
-	 * @param finPeriodo the finPeriodo to set
-	 */
-	public void setFinPeriodo(Date finPeriodo) {
-		this.finPeriodo = finPeriodo;
-	}
+        return total;
+    }
 
-	/**
-	 * @return the inicioPeriodo
-	 */
-	public Date getInicioPeriodo() {
-		return inicioPeriodo;
-	}
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
 
-	/**
-	 * @param inicioPeriodo the inicioPeriodo to set
-	 */
-	public void setInicioPeriodo(Date inicioPeriodo) {
-		this.inicioPeriodo = inicioPeriodo;
-	}
+    /**
+     * @return the finPeriodo
+     */
+    public Date getFinPeriodo() {
+        return finPeriodo;
+    }
 
-	/**
-	 * @return the nombreProducto
-	 */
-	public String getNombreProducto() {
-		return nombreProducto;
-	}
+    /**
+     * @param finPeriodo
+     *            the finPeriodo to set
+     */
+    public void setFinPeriodo(Date finPeriodo) {
+        this.finPeriodo = finPeriodo;
+    }
 
-	/**
-	 * @param nombreProducto the nombreProducto to set
-	 */
-	public void setNombreProducto(String nombreProducto) {
-		this.nombreProducto = nombreProducto;
-	}
-	
-	
+    /**
+     * @return the inicioPeriodo
+     */
+    public Date getInicioPeriodo() {
+        return inicioPeriodo;
+    }
+
+    /**
+     * @param inicioPeriodo
+     *            the inicioPeriodo to set
+     */
+    public void setInicioPeriodo(Date inicioPeriodo) {
+        this.inicioPeriodo = inicioPeriodo;
+    }
+
+    /**
+     * @return the nombreProducto
+     */
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    /**
+     * @param nombreProducto
+     *            the nombreProducto to set
+     */
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
 
 }

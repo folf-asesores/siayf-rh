@@ -1,9 +1,11 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email	Lic.Eduardo_Mex@hotmail.com
+ * @email Lic.Eduardo_Mex@hotmail.com
  * @version 1.0
  * @since 25/07/2016 14:14:59
  */
@@ -34,8 +36,7 @@ public class PartidaTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PartidaEntity [id partida=" + idPartida + ", id capitulo=" + idCapitulo + ", descripcion=" + descripcion
-                + "]";
+        return "PartidaEntity [id partida=" + idPartida + ", id capitulo=" + idCapitulo + ", descripcion=" + descripcion + "]";
     }
 
 }

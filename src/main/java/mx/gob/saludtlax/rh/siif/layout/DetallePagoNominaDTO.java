@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif.layout;
 
 import java.math.BigDecimal;
@@ -14,8 +15,9 @@ public class DetallePagoNominaDTO {
     public DetallePagoNominaDTO() {
     }
 
-    public DetallePagoNominaDTO(Integer idPAgoNomina, Integer idNomina, Integer idEmpeladoDatosLaborales, String noChequeCuenta, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto) {
-        this.idPagoNomina = idPAgoNomina;
+    public DetallePagoNominaDTO(Integer idPAgoNomina, Integer idNomina, Integer idEmpeladoDatosLaborales, String noChequeCuenta, BigDecimal percepciones,
+            BigDecimal deducciones, BigDecimal neto) {
+        idPagoNomina = idPAgoNomina;
         this.idNomina = idNomina;
         this.idEmpeladoDatosLaborales = idEmpeladoDatosLaborales;
         this.noChequeCuenta = noChequeCuenta;

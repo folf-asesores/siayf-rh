@@ -1,12 +1,11 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
 
 /**
  * @author Leila Schiaffini Ehuan
@@ -14,225 +13,230 @@ import javax.persistence.Column;
  * @since 07/03/2016-14:46:00
  */
 public class HistorialAcademicoDTO implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -8995069172844451028L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8995069172844451028L;
 
-	private Integer idHistorialAcademico = 0;
+    private Integer idHistorialAcademico = 0;
 
-	private String nombreEscolaridad;
+    private String nombreEscolaridad;
 
-	private Integer escolaridad = 0;
+    private Integer escolaridad = 0;
 
-	private Integer aspirante = 0;
+    private Integer aspirante = 0;
 
-	private Integer comprobanteEstudio = 0;
+    private Integer comprobanteEstudio = 0;
 
-	private String nombreComprobanteEstudio;
+    private String nombreComprobanteEstudio;
 
-	private String estatusComprobanteEstudio;
+    private String estatusComprobanteEstudio;
 
-	private String nombreInstitucion;
+    private String nombreInstitucion;
 
-	private Date fechaInicial;
+    private Date fechaInicial;
 
-	private Date FechaFinal;
+    private Date FechaFinal;
 
-	private String duracion;
+    private String duracion;
 
-	private String nombreCurso;
+    private String nombreCurso;
 
-	private Boolean cursando = false;
-	
-	private Boolean tieneDocumentacion = false;
+    private Boolean cursando = false;
 
-	private Boolean esMaximoEstudio;
-	
-	private Date fechaExpedicionCedula;
+    private Boolean tieneDocumentacion = false;
 
-	private Integer numeroCedula;
+    private Boolean esMaximoEstudio;
 
+    private Date fechaExpedicionCedula;
 
-	/************* Getters and Setter ***************/
+    private Integer numeroCedula;
 
-	public Integer getIdHistorialAcademico() {
-		return idHistorialAcademico;
-	}
+    
 
-	public String getNombreEscolaridad() {
-		return nombreEscolaridad;
-	}
+    public Integer getIdHistorialAcademico() {
+        return idHistorialAcademico;
+    }
 
-	public void setNombreEscolaridad(String nombreEscolaridad) {
-		this.nombreEscolaridad = nombreEscolaridad;
-	}
+    public String getNombreEscolaridad() {
+        return nombreEscolaridad;
+    }
 
-	public void setIdHistorialAcademico(Integer idHistorialAcademico) {
-		this.idHistorialAcademico = idHistorialAcademico;
-	}
+    public void setNombreEscolaridad(String nombreEscolaridad) {
+        this.nombreEscolaridad = nombreEscolaridad;
+    }
 
-	public Integer getEscolaridad() {
-		return escolaridad;
-	}
+    public void setIdHistorialAcademico(Integer idHistorialAcademico) {
+        this.idHistorialAcademico = idHistorialAcademico;
+    }
 
-	public void setEscolaridad(Integer escolaridad) {
-		this.escolaridad = escolaridad;
-	}
+    public Integer getEscolaridad() {
+        return escolaridad;
+    }
 
-	public Integer getAspirante() {
-		return aspirante;
-	}
+    public void setEscolaridad(Integer escolaridad) {
+        this.escolaridad = escolaridad;
+    }
 
-	public void setAspirante(Integer aspirante) {
-		this.aspirante = aspirante;
-	}
+    public Integer getAspirante() {
+        return aspirante;
+    }
 
-	public String getNombreInstitucion() {
-		return nombreInstitucion;
-	}
+    public void setAspirante(Integer aspirante) {
+        this.aspirante = aspirante;
+    }
 
-	public void setNombreInstitucion(String nombreInstitucion) {
-		this.nombreInstitucion = nombreInstitucion;
-	}
+    public String getNombreInstitucion() {
+        return nombreInstitucion;
+    }
 
-	public Date getFechaInicial() {
-		return fechaInicial;
-	}
+    public void setNombreInstitucion(String nombreInstitucion) {
+        this.nombreInstitucion = nombreInstitucion;
+    }
 
-	public void setFechaInicial(Date fechaInicial) {
-		this.fechaInicial = fechaInicial;
-	}
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
 
-	public Date getFechaFinal() {
-		return FechaFinal;
-	}
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
 
-	public void setFechaFinal(Date fechaFinal) {
-		FechaFinal = fechaFinal;
-	}
+    public Date getFechaFinal() {
+        return FechaFinal;
+    }
 
-	public String getDuracion() {
-		return duracion;
-	}
+    public void setFechaFinal(Date fechaFinal) {
+        FechaFinal = fechaFinal;
+    }
 
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
+    public String getDuracion() {
+        return duracion;
+    }
 
-	public String getNombreCurso() {
-		return nombreCurso;
-	}
+    public void setDuracion(String duracion) {
+        this.duracion = duracion;
+    }
 
-	public void setNombreCurso(String nombreCurso) {
-		this.nombreCurso = nombreCurso;
-	}
+    public String getNombreCurso() {
+        return nombreCurso;
+    }
 
-	public Boolean getCursando() {
-		return cursando;
-	}
+    public void setNombreCurso(String nombreCurso) {
+        this.nombreCurso = nombreCurso;
+    }
 
-	public void setCursando(Boolean cursando) {
-		this.cursando = cursando;
-	}
+    public Boolean getCursando() {
+        return cursando;
+    }
 
-	/**
-	 * @return the comprobanteEstudio
-	 */
-	public Integer getComprobanteEstudio() {
-		return comprobanteEstudio;
-	}
+    public void setCursando(Boolean cursando) {
+        this.cursando = cursando;
+    }
 
-	/**
-	 * @param comprobanteEstudio
-	 *            the comprobanteEstudio to set
-	 */
-	public void setComprobanteEstudio(Integer comprobanteEstudio) {
-		this.comprobanteEstudio = comprobanteEstudio;
-	}
+    /**
+     * @return the comprobanteEstudio
+     */
+    public Integer getComprobanteEstudio() {
+        return comprobanteEstudio;
+    }
 
-	/**
-	 * @return the estatusComprobanteEstudio
-	 */
-	public String getEstatusComprobanteEstudio() {
-		return estatusComprobanteEstudio;
-	}
+    /**
+     * @param comprobanteEstudio
+     *            the comprobanteEstudio to set
+     */
+    public void setComprobanteEstudio(Integer comprobanteEstudio) {
+        this.comprobanteEstudio = comprobanteEstudio;
+    }
 
-	/**
-	 * @param estatusComprobanteEstudio the estatusComprobanteEstudio to set
-	 */
-	public void setEstatusComprobanteEstudio(String estatusComprobanteEstudio) {
-		this.estatusComprobanteEstudio = estatusComprobanteEstudio;
-	}
+    /**
+     * @return the estatusComprobanteEstudio
+     */
+    public String getEstatusComprobanteEstudio() {
+        return estatusComprobanteEstudio;
+    }
 
-	/**
-	 * @return the nombreComprobanteEstudio
-	 */
-	public String getNombreComprobanteEstudio() {
-		return nombreComprobanteEstudio;
-	}
+    /**
+     * @param estatusComprobanteEstudio
+     *            the estatusComprobanteEstudio to set
+     */
+    public void setEstatusComprobanteEstudio(String estatusComprobanteEstudio) {
+        this.estatusComprobanteEstudio = estatusComprobanteEstudio;
+    }
 
-	/**
-	 * @param nombreComprobanteEstudio the nombreComprobanteEstudio to set
-	 */
-	public void setNombreComprobanteEstudio(String nombreComprobanteEstudio) {
-		this.nombreComprobanteEstudio = nombreComprobanteEstudio;
-	}
+    /**
+     * @return the nombreComprobanteEstudio
+     */
+    public String getNombreComprobanteEstudio() {
+        return nombreComprobanteEstudio;
+    }
 
-	/**
-	 * @return the tieneDocumentacion
-	 */
-	public Boolean getTieneDocumentacion() {
-		return tieneDocumentacion;
-	}
+    /**
+     * @param nombreComprobanteEstudio
+     *            the nombreComprobanteEstudio to set
+     */
+    public void setNombreComprobanteEstudio(String nombreComprobanteEstudio) {
+        this.nombreComprobanteEstudio = nombreComprobanteEstudio;
+    }
 
-	/**
-	 * @param tieneDocumentacion the tieneDocumentacion to set
-	 */
-	public void setTieneDocumentacion(Boolean tieneDocumentacion) {
-		this.tieneDocumentacion = tieneDocumentacion;
-	}
+    /**
+     * @return the tieneDocumentacion
+     */
+    public Boolean getTieneDocumentacion() {
+        return tieneDocumentacion;
+    }
 
-	/**
-	 * @return the esMaximoEstudio
-	 */
-	public Boolean getEsMaximoEstudio() {
-		return esMaximoEstudio;
-	}
+    /**
+     * @param tieneDocumentacion
+     *            the tieneDocumentacion to set
+     */
+    public void setTieneDocumentacion(Boolean tieneDocumentacion) {
+        this.tieneDocumentacion = tieneDocumentacion;
+    }
 
-	/**
-	 * @param esMaximoEstudio the esMaximoEstudio to set
-	 */
-	public void setEsMaximoEstudio(Boolean esMaximoEstudio) {
-		this.esMaximoEstudio = esMaximoEstudio;
-	}
+    /**
+     * @return the esMaximoEstudio
+     */
+    public Boolean getEsMaximoEstudio() {
+        return esMaximoEstudio;
+    }
 
-	/**
-	 * @return the fechaExpedicionCedula
-	 */
-	public Date getFechaExpedicionCedula() {
-		return fechaExpedicionCedula;
-	}
+    /**
+     * @param esMaximoEstudio
+     *            the esMaximoEstudio to set
+     */
+    public void setEsMaximoEstudio(Boolean esMaximoEstudio) {
+        this.esMaximoEstudio = esMaximoEstudio;
+    }
 
-	/**
-	 * @param fechaExpedicionCedula the fechaExpedicionCedula to set
-	 */
-	public void setFechaExpedicionCedula(Date fechaExpedicionCedula) {
-		this.fechaExpedicionCedula = fechaExpedicionCedula;
-	}
+    /**
+     * @return the fechaExpedicionCedula
+     */
+    public Date getFechaExpedicionCedula() {
+        return fechaExpedicionCedula;
+    }
 
-	/**
-	 * @return the numeroCedula
-	 */
-	public Integer getNumeroCedula() {
-		return numeroCedula;
-	}
+    /**
+     * @param fechaExpedicionCedula
+     *            the fechaExpedicionCedula to set
+     */
+    public void setFechaExpedicionCedula(Date fechaExpedicionCedula) {
+        this.fechaExpedicionCedula = fechaExpedicionCedula;
+    }
 
-	/**
-	 * @param numeroCedula the numeroCedula to set
-	 */
-	public void setNumeroCedula(Integer numeroCedula) {
-		this.numeroCedula = numeroCedula;
-	}
+    /**
+     * @return the numeroCedula
+     */
+    public Integer getNumeroCedula() {
+        return numeroCedula;
+    }
+
+    /**
+     * @param numeroCedula
+     *            the numeroCedula to set
+     */
+    public void setNumeroCedula(Integer numeroCedula) {
+        this.numeroCedula = numeroCedula;
+    }
 
 }

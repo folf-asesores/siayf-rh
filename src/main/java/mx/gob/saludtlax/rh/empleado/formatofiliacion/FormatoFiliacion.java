@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 /**
@@ -8,7 +9,7 @@ package mx.gob.saludtlax.rh.empleado.formatofiliacion;
  *
  */
 public interface FormatoFiliacion {
-	
-	public Integer crearFormatoFiliacion(FormatoFiliacionDTO formatoFiliacionDTO);
+
+    public Integer crearFormatoFiliacion(FormatoFiliacionDTO formatoFiliacionDTO);
 
 }

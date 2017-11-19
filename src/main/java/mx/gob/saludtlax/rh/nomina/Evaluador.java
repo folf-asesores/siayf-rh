@@ -1,7 +1,9 @@
+
 package mx.gob.saludtlax.rh.nomina;
 
 import java.util.Stack;
 import java.util.StringTokenizer;
+
 import org.jboss.logging.Logger;
 
 public class Evaluador {
@@ -19,26 +21,26 @@ public class Evaluador {
     private static final int MINUS = 8;
 
     // PrecTable matches order of Token enumeration
-    private static Precedence[] precTable = new Precedence[] {
-        new Precedence(0, -1), // EOL
-        new Precedence(0, 0), // VALUE
-        new Precedence(100, 0), // OPAREN
-        new Precedence(0, 99), // CPAREN
-        new Precedence(6, 5), // EXP
-        new Precedence(3, 4), // MULT
-        new Precedence(3, 4), // DIV
-        new Precedence(1, 2), // PLUS
-        new Precedence(1, 2) // MINUS
+    private static Precedence[] precTable = new Precedence[] { new Precedence(0, -1), // EOL
+            new Precedence(0, 0), // VALUE
+            new Precedence(100, 0), // OPAREN
+            new Precedence(0, 99), // CPAREN
+            new Precedence(6, 5), // EXP
+            new Precedence(3, 4), // MULT
+            new Precedence(3, 4), // DIV
+            new Precedence(1, 2), // PLUS
+            new Precedence(1, 2) // MINUS
     };
 
     private Stack<Integer> opStack; // Operator stack for conversion
     private Stack<Double> postfixStack; // Stack for postfix machine
     private StringTokenizer str; // StringTokenizer stream
-    
+
     /**
      * Construct an evaluator object.
      *
-     * @param s the string containing the expression.
+     * @param s
+     *            the string containing the expression.
      */
     public Evaluador(String s) {
         opStack = new Stack<>();
@@ -122,8 +124,8 @@ public class Evaluador {
     }
 
     /*
-	 * topAndPop the postfix machine stack; return the result. If the stack is
-	 * empty, print an error message.
+     * topAndPop the postfix machine stack; return the result. If the stack is
+     * empty, print an error message.
      */
     private double postfixPop() {
         if (postfixStack.isEmpty()) {

@@ -1,8 +1,9 @@
 /*
  * FirmaPojo.java
  * Creado el 08/sep/2017 4:32:12 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
 
 import java.math.BigDecimal;
@@ -190,25 +191,25 @@ public class FirmaPojo {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.idProductoNomina);
-        hash = 67 * hash + Objects.hashCode(this.idPrograma);
-        hash = 67 * hash + Objects.hashCode(this.programa);
-        hash = 67 * hash + Objects.hashCode(this.clave);
-        hash = 67 * hash + Objects.hashCode(this.descripcion);
-        hash = 67 * hash + Objects.hashCode(this.fechaPago);
-        hash = 67 * hash + Objects.hashCode(this.filiacion);
-        hash = 67 * hash + Objects.hashCode(this.nombre);
-        hash = 67 * hash + Objects.hashCode(this.inicioPeriodo);
-        hash = 67 * hash + Objects.hashCode(this.finPeriodo);
-        hash = 67 * hash + Objects.hashCode(this.numeroCheque);
-        hash = 67 * hash + Objects.hashCode(this.neto);
-        hash = 67 * hash + Objects.hashCode(this.consecutivo);
-        hash = 67 * hash + Objects.hashCode(this.jefe1Nombre);
-        hash = 67 * hash + Objects.hashCode(this.jefe1Cargo);
-        hash = 67 * hash + Objects.hashCode(this.jefe2Nombre);
-        hash = 67 * hash + Objects.hashCode(this.jefe2Cargo);
-        hash = 67 * hash + Objects.hashCode(this.jefe3Nombre);
-        hash = 67 * hash + Objects.hashCode(this.jefe3Cargo);
+        hash = 67 * hash + Objects.hashCode(idProductoNomina);
+        hash = 67 * hash + Objects.hashCode(idPrograma);
+        hash = 67 * hash + Objects.hashCode(programa);
+        hash = 67 * hash + Objects.hashCode(clave);
+        hash = 67 * hash + Objects.hashCode(descripcion);
+        hash = 67 * hash + Objects.hashCode(fechaPago);
+        hash = 67 * hash + Objects.hashCode(filiacion);
+        hash = 67 * hash + Objects.hashCode(nombre);
+        hash = 67 * hash + Objects.hashCode(inicioPeriodo);
+        hash = 67 * hash + Objects.hashCode(finPeriodo);
+        hash = 67 * hash + Objects.hashCode(numeroCheque);
+        hash = 67 * hash + Objects.hashCode(neto);
+        hash = 67 * hash + Objects.hashCode(consecutivo);
+        hash = 67 * hash + Objects.hashCode(jefe1Nombre);
+        hash = 67 * hash + Objects.hashCode(jefe1Cargo);
+        hash = 67 * hash + Objects.hashCode(jefe2Nombre);
+        hash = 67 * hash + Objects.hashCode(jefe2Cargo);
+        hash = 67 * hash + Objects.hashCode(jefe3Nombre);
+        hash = 67 * hash + Objects.hashCode(jefe3Cargo);
         return hash;
     }
 
@@ -224,86 +225,70 @@ public class FirmaPojo {
             return false;
         }
         final FirmaPojo other = (FirmaPojo) obj;
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.clave, other.clave)) {
+        if (!Objects.equals(clave, other.clave)) {
             return false;
         }
-        if (!Objects.equals(this.descripcion, other.descripcion)) {
+        if (!Objects.equals(descripcion, other.descripcion)) {
             return false;
         }
-        if (!Objects.equals(this.filiacion, other.filiacion)) {
+        if (!Objects.equals(filiacion, other.filiacion)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
-        if (!Objects.equals(this.numeroCheque, other.numeroCheque)) {
+        if (!Objects.equals(numeroCheque, other.numeroCheque)) {
             return false;
         }
-        if (!Objects.equals(this.jefe1Nombre, other.jefe1Nombre)) {
+        if (!Objects.equals(jefe1Nombre, other.jefe1Nombre)) {
             return false;
         }
-        if (!Objects.equals(this.jefe1Cargo, other.jefe1Cargo)) {
+        if (!Objects.equals(jefe1Cargo, other.jefe1Cargo)) {
             return false;
         }
-        if (!Objects.equals(this.jefe2Nombre, other.jefe2Nombre)) {
+        if (!Objects.equals(jefe2Nombre, other.jefe2Nombre)) {
             return false;
         }
-        if (!Objects.equals(this.jefe2Cargo, other.jefe2Cargo)) {
+        if (!Objects.equals(jefe2Cargo, other.jefe2Cargo)) {
             return false;
         }
-        if (!Objects.equals(this.jefe3Nombre, other.jefe3Nombre)) {
+        if (!Objects.equals(jefe3Nombre, other.jefe3Nombre)) {
             return false;
         }
-        if (!Objects.equals(this.jefe3Cargo, other.jefe3Cargo)) {
+        if (!Objects.equals(jefe3Cargo, other.jefe3Cargo)) {
             return false;
         }
-        if (!Objects.equals(this.idProductoNomina, other.idProductoNomina)) {
+        if (!Objects.equals(idProductoNomina, other.idProductoNomina)) {
             return false;
         }
-        if (!Objects.equals(this.idPrograma, other.idPrograma)) {
+        if (!Objects.equals(idPrograma, other.idPrograma)) {
             return false;
         }
-        if (!Objects.equals(this.fechaPago, other.fechaPago)) {
+        if (!Objects.equals(fechaPago, other.fechaPago)) {
             return false;
         }
-        if (!Objects.equals(this.inicioPeriodo, other.inicioPeriodo)) {
+        if (!Objects.equals(inicioPeriodo, other.inicioPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.finPeriodo, other.finPeriodo)) {
+        if (!Objects.equals(finPeriodo, other.finPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.neto, other.neto)) {
+        if (!Objects.equals(neto, other.neto)) {
             return false;
         }
-        return Objects.equals(this.consecutivo, other.consecutivo);
+        return Objects.equals(consecutivo, other.consecutivo);
     }
 
     @Override
     public String toString() {
-        return "FirmaPojo{" 
-                + "idProductoNomina : " + idProductoNomina
-                + ", idPrograma : " + idPrograma
-                + ", programa : " + programa
-                + ", clave : " + clave
-                + ", descripcion : " + descripcion
-                + ", fechaPago : " + fechaPago
-                + ", filiacion : " + filiacion
-                + ", nombre : " + nombre
-                + ", inicioPeriodo : " + inicioPeriodo
-                + ", finPeriodo : " + finPeriodo
-                + ", numeroCheque : " + numeroCheque
-                + ", neto : " + neto
-                + ", consecutivo : " + consecutivo
-                + ", jefe1Nombre : " + jefe1Nombre
-                + ", jefe1Cargo : " + jefe1Cargo
-                + ", jefe2Nombre : " + jefe2Nombre
-                + ", jefe2Cargo : " + jefe2Cargo
-                + ", jefe3Nombre : " + jefe3Nombre
-                + ", jefe3Cargo : " + jefe3Cargo
-                + '}';
+        return "FirmaPojo{" + "idProductoNomina : " + idProductoNomina + ", idPrograma : " + idPrograma + ", programa : " + programa + ", clave : " + clave
+                + ", descripcion : " + descripcion + ", fechaPago : " + fechaPago + ", filiacion : " + filiacion + ", nombre : " + nombre + ", inicioPeriodo : "
+                + inicioPeriodo + ", finPeriodo : " + finPeriodo + ", numeroCheque : " + numeroCheque + ", neto : " + neto + ", consecutivo : " + consecutivo
+                + ", jefe1Nombre : " + jefe1Nombre + ", jefe1Cargo : " + jefe1Cargo + ", jefe2Nombre : " + jefe2Nombre + ", jefe2Cargo : " + jefe2Cargo
+                + ", jefe3Nombre : " + jefe3Nombre + ", jefe3Cargo : " + jefe3Cargo + '}';
     }
 
 }

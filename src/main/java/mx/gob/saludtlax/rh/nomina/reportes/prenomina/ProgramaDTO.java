@@ -59,11 +59,11 @@ public final class ProgramaDTO implements Iterable<UnidadResponsableDTO> {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 47 * hash + Objects.hashCode(this.idPrograma);
-        hash = 47 * hash + Objects.hashCode(this.programa);
-        hash = 47 * hash + Objects.hashCode(this.inicioPeriodo);
-        hash = 47 * hash + Objects.hashCode(this.finPeriodo);
-        hash = 47 * hash + Objects.hashCode(this.unidadesResponsables);
+        hash = 47 * hash + Objects.hashCode(idPrograma);
+        hash = 47 * hash + Objects.hashCode(programa);
+        hash = 47 * hash + Objects.hashCode(inicioPeriodo);
+        hash = 47 * hash + Objects.hashCode(finPeriodo);
+        hash = 47 * hash + Objects.hashCode(unidadesResponsables);
         return hash;
     }
 
@@ -79,23 +79,24 @@ public final class ProgramaDTO implements Iterable<UnidadResponsableDTO> {
             return false;
         }
         final ProgramaDTO other = (ProgramaDTO) obj;
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.idPrograma, other.idPrograma)) {
+        if (!Objects.equals(idPrograma, other.idPrograma)) {
             return false;
         }
-        if (!Objects.equals(this.inicioPeriodo, other.inicioPeriodo)) {
+        if (!Objects.equals(inicioPeriodo, other.inicioPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.finPeriodo, other.finPeriodo)) {
+        if (!Objects.equals(finPeriodo, other.finPeriodo)) {
             return false;
         }
-        return Objects.equals(this.unidadesResponsables, other.unidadesResponsables);
+        return Objects.equals(unidadesResponsables, other.unidadesResponsables);
     }
 
     @Override
     public String toString() {
-        return "Programa{" + "idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", unidadesResponsables=" + unidadesResponsables + '}';
+        return "Programa{" + "idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo
+                + ", unidadesResponsables=" + unidadesResponsables + '}';
     }
 }

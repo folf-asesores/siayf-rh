@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -18,7 +19,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 17:57:37 24/09/2016
  */
@@ -215,7 +216,8 @@ public class EstructuraNominaDatAcumEntity implements Serializable {
     }
 
     /**
-     * @param idContexto the idContexto to set
+     * @param idContexto
+     *            the idContexto to set
      */
     public void setIdContexto(String idContexto) {
         this.idContexto = idContexto;

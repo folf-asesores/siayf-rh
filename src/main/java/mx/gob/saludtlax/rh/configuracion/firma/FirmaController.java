@@ -1,23 +1,26 @@
 /*
  * FirmaController.java
  * Creado el 15/Nov/2016 7:00:58 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.firma;
 
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.event.ActionEvent;
-import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
+
 import mx.gob.saludtlax.rh.catalogos.Catalogo;
 import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 
 /**
- * Este ManagedBean controla el comportamiento de la vista 
+ * Este ManagedBean controla el comportamiento de la vista
  * /contenido/configuracion/firma.xhtml.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "firmaController")
@@ -25,9 +28,11 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 public class FirmaController implements Serializable {
 
     private static final long serialVersionUID = 7760290884357673767L;
-    
-    @Inject private Catalogo catalogoBean;
-    @Inject private Firma firmaBean;
+
+    @Inject
+    private Catalogo catalogoBean;
+    @Inject
+    private Firma firmaBean;
 
     private FirmaView view;
 
@@ -37,7 +42,7 @@ public class FirmaController implements Serializable {
     public FirmaController() {
         view = new FirmaView();
     }
-    
+
     /**
      * Completa la inicialización del ManagedBean.
      */
@@ -49,8 +54,9 @@ public class FirmaController implements Serializable {
 
     /**
      * Permite guardar una nueva firma.
-     * 
-     * @param actionEvent el evento de guardado.
+     *
+     * @param actionEvent
+     *            el evento de guardado.
      */
     public void guardar(ActionEvent actionEvent) {
         firmaBean.crear(view.getFirma());
@@ -59,8 +65,9 @@ public class FirmaController implements Serializable {
 
     /**
      * Permite actualizar una firma.
-     * 
-     * @param actionEvent el evento de guardado.
+     *
+     * @param actionEvent
+     *            el evento de guardado.
      */
     public void actualizar(ActionEvent actionEvent) {
         firmaBean.actualizar(view.getFirmaSeleccionada());
@@ -69,15 +76,16 @@ public class FirmaController implements Serializable {
 
     /**
      * Permite eliminar una firma existente.
-     * @param idFirma 
+     *
+     * @param idFirma
      */
     public void eliminar(Integer idFirma) {
         firmaBean.eliminar(idFirma);
         limpiar(null);
     }
-    
+
     /**
-     * 
+     *
      * @param actionEvent
      */
     public void mostrarDialogoNuevo(ActionEvent actionEvent) {
@@ -86,20 +94,22 @@ public class FirmaController implements Serializable {
     }
 
     /**
-     * Permite mostrar el cuadro de dialogo para poder editar la información de 
+     * Permite mostrar el cuadro de dialogo para poder editar la información de
      * una firma.
-     * 
-     * @param firma la firma que se mostrará en el dialogo de edición.
+     *
+     * @param firma
+     *            la firma que se mostrará en el dialogo de edición.
      */
     public void mostrarDialogoEditar(FirmaDTO firma) {
         view.setFirmaSeleccionada(firma);
         view.setMostrarDialogoEditar(true);
     }
-    
+
     /**
      * Permite limpiar las instancias para los cuadros de dialogos.
-     * 
-     * @param actionEvent el evento que genera la acción.
+     *
+     * @param actionEvent
+     *            el evento que genera la acción.
      */
     public void limpiar(ActionEvent actionEvent) {
         view.setFirmaSeleccionada(new FirmaDTO());
@@ -121,7 +131,8 @@ public class FirmaController implements Serializable {
     /**
      * Set the value of view
      *
-     * @param view new value of view
+     * @param view
+     *            new value of view
      */
     public void setView(FirmaView view) {
         this.view = view;

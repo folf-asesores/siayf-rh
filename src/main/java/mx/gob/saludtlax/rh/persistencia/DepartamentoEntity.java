@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,28 +22,28 @@ import javax.persistence.Table;
 @Table(name = "departamentos")
 public class DepartamentoEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -894415813438389674L;
-	@Id
-	@Column(name = "id_departamento")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idDepartamento;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -894415813438389674L;
+    @Id
+    @Column(name = "id_departamento")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idDepartamento;
 
-	@Column(name = "departamento")
-	private String departamentos;
+    @Column(name = "departamento")
+    private String departamentos;
 
-	public Integer getIdDepartamento() {
-		return idDepartamento;
-	}
+    public Integer getIdDepartamento() {
+        return idDepartamento;
+    }
 
-	public String getDepartamentos() {
-		return departamentos;
-	}
+    public String getDepartamentos() {
+        return departamentos;
+    }
 
-	public void setDepartamentos(String departamentos) {
-		this.departamentos = departamentos;
-	}
+    public void setDepartamentos(String departamentos) {
+        this.departamentos = departamentos;
+    }
 
 }

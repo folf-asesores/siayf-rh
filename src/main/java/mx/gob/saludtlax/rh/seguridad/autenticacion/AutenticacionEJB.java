@@ -1,10 +1,11 @@
+
 package mx.gob.saludtlax.rh.seguridad.autenticacion;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+
 import mx.gob.saludtlax.rh.excepciones.SeguridadCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SeguridadException;
-
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;

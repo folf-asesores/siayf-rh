@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -36,7 +37,6 @@ public class UnidadResponsableEntity implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
-    // <Getters & Setters>
     public Integer getIdUnidadResponsable() {
         return idUnidadResponsable;
     }

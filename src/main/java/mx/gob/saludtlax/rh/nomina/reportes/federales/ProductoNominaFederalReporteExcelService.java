@@ -1,7 +1,7 @@
 /*
  * ProductoNominaFederalReporteExcelService.java
  * Creado el 16/Mar/2017 11:24:10 AM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.federales;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
-import mx.gob.saludtlax.rh.util.FechaUtil;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -25,6 +25,8 @@ import org.apache.poi.ss.util.DateFormatConverter;
 import org.apache.poi.ss.util.WorkbookUtil;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
  *
@@ -41,13 +43,13 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
     private Sheet hoja;
     /** Es la fila apartir de la cual inicia el detalle. */
     private static final int FILA_INICIO_DETALLE = 1;
-    
+
     private void inicializar() {
         libro = new XSSFWorkbook();
         String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("PRODUCTO NOMINA FEDERAL", '_');
         hoja = libro.createSheet(nombreHojaSeguro);
     }
-    
+
     private void llenarTitulos(final List<String> titulos) {
         Row fila = hoja.createRow(0);
 
@@ -57,13 +59,13 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         estiloTitulo.setFont(font);
 
         for (int i = 0; i < titulos.size(); i++) {
-            Cell celda = fila.createCell(i,  CellType.STRING);
+            Cell celda = fila.createCell(i, CellType.STRING);
             celda.setCellValue(titulos.get(i));
             celda.setCellStyle(estiloTitulo);
         }
     }
-    
-    private void llenarDetalle(final List<Object []> datos) {
+
+    private void llenarDetalle(final List<Object[]> datos) {
         int i = FILA_INICIO_DETALLE;
 
         CellStyle estiloMoneda = libro.createCellStyle();
@@ -74,31 +76,31 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO, FechaUtil.PATRON_FECHA_CORTA);
         CellStyle estiloFecha = libro.createCellStyle();
         estiloFecha.setDataFormat(fechaDataFormat.getFormat(patronFecha));
-        
-        Double [] totales = new Double[datos.get(0).length];
 
-        for(Object[] row : datos) {
+        Double[] totales = new Double[datos.get(0).length];
+
+        for (Object[] row : datos) {
             Row fila = hoja.createRow(i);
-            for(int j = 0; j < row.length; j++) {
+            for (int j = 0; j < row.length; j++) {
                 Object column = row[j];
-                if(column instanceof String) {
-                    Cell celda = fila.createCell(j,  CellType.STRING);
+                if (column instanceof String) {
+                    Cell celda = fila.createCell(j, CellType.STRING);
                     celda.setCellValue((String) column);
-                } else if(column instanceof BigDecimal) {
-                    Cell celda = fila.createCell(j,  CellType.NUMERIC);
+                } else if (column instanceof BigDecimal) {
+                    Cell celda = fila.createCell(j, CellType.NUMERIC);
                     BigDecimal decimal = (BigDecimal) column;
                     double valor = decimal.doubleValue();
-                    
+
                     if (totales[j] == null) {
                         totales[j] = 0.0;
                     }
-                    
+
                     totales[j] = totales[j] + valor;
-                    
+
                     celda.setCellValue(valor);
                     celda.setCellStyle(estiloMoneda);
-                } else if(column instanceof Long) {
-                    Cell celda = fila.createCell(j,  CellType.NUMERIC);
+                } else if (column instanceof Long) {
+                    Cell celda = fila.createCell(j, CellType.NUMERIC);
                     Long numero = (Long) column;
                     celda.setCellValue(numero.intValue());
                 } else if (column instanceof Date) {
@@ -110,7 +112,7 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
             }
             i++;
         }
-        
+
         llenarTotales(totales);
         totales = null;
     }
@@ -119,13 +121,13 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         CellStyle estiloMoneda = libro.createCellStyle();
         DataFormat monedaDataFormat = libro.createDataFormat();
         estiloMoneda.setDataFormat(monedaDataFormat.getFormat("$#,#0.00"));
-        
+
         int ultimaFila = hoja.getLastRowNum();
         Row fila = hoja.createRow(ultimaFila + 1);
-        
-        for(int j = 0; j < totales.length; j++) {
+
+        for (int j = 0; j < totales.length; j++) {
             if (totales[j] != null) {
-                Cell celda = fila.createCell(j,  CellType.NUMERIC);
+                Cell celda = fila.createCell(j, CellType.NUMERIC);
                 celda.setCellValue(totales[j]);
                 celda.setCellStyle(estiloMoneda);
             }
@@ -147,14 +149,17 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
     /**
      * Permite generar un reporte en una hoja de calculo con los datos del pago
      * general.
-     * 
-     * @param titulos los titulos de las columnas del reporte.
-     * @param datos los datos que se pondrán en la hoja de calculos.
+     *
+     * @param titulos
+     *            los titulos de las columnas del reporte.
+     * @param datos
+     *            los datos que se pondrán en la hoja de calculos.
      * @return un arreglo de bytes que representa una hoja de calculos del
-     * reporte de pago general.
-     * @throws IOException en caso de que haya algún error al crear el archivo.
+     *         reporte de pago general.
+     * @throws IOException
+     *             en caso de que haya algún error al crear el archivo.
      */
-    public byte[] obtenerBytes(List<String> titulos, List<Object []> datos) throws IOException {
+    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos) throws IOException {
         inicializar();
         llenarTitulos(titulos);
         llenarDetalle(datos);

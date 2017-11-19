@@ -1,8 +1,9 @@
 /*
  * NotificacionDTO.java
  * Creado el Aug 3, 2016 4:42:33 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.notificacion;
 
 import java.io.Serializable;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class NotificacionDTO implements Serializable {
 
     private static final long serialVersionUID = 3792033464231614169L;
-    
+
     private Integer idNotificacion;
     private Integer idRemitente;
     private Date fechaPublicacion;
@@ -32,7 +33,8 @@ public class NotificacionDTO implements Serializable {
     public NotificacionDTO() {
     }
 
-    public NotificacionDTO(Integer idRemitente, Modulo modulo, String asunto, String cuerpo, Map<Integer, String> idsDestinatarios, Map<String, String> parametros) {
+    public NotificacionDTO(Integer idRemitente, Modulo modulo, String asunto, String cuerpo, Map<Integer, String> idsDestinatarios,
+            Map<String, String> parametros) {
         this.idRemitente = idRemitente;
         this.modulo = modulo;
         this.asunto = asunto;

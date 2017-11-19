@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.empleados.movimientos;
 
 import java.util.Date;
@@ -10,50 +11,46 @@ import mx.gob.saludtlax.rh.empleados.movimientos.reportes.ComisionadoLicenciaExc
 
 @Stateless
 public class MovimientosEmpleadosEJB implements MovimientosEmpleados {
-	
-	@Inject
-	private ConsultaMovimientoService consultaMovimientoService;
-	@Inject
-	private MovimientosEmpleadosService movimientosEmpleadosService;
 
-	@Override
-	public void crearMovimientoEmpleado(
-			RegistroMovimientoDTO registroMovimientoDTO) {
-		movimientosEmpleadosService.crearMovimiento(registroMovimientoDTO);
+    @Inject
+    private ConsultaMovimientoService consultaMovimientoService;
+    @Inject
+    private MovimientosEmpleadosService movimientosEmpleadosService;
 
-	}
+    @Override
+    public void crearMovimientoEmpleado(RegistroMovimientoDTO registroMovimientoDTO) {
+        movimientosEmpleadosService.crearMovimiento(registroMovimientoDTO);
 
-	@Override
-	public List<InfoMovimientoDTO> consultarMovimientos(
-			FiltroConsultaDTO filtroConsultaDTO) {
+    }
 
-		return consultaMovimientoService
-				.consultarMovimientos(filtroConsultaDTO);
-	}
+    @Override
+    public List<InfoMovimientoDTO> consultarMovimientos(FiltroConsultaDTO filtroConsultaDTO) {
 
-	@Override
-	public DetalleMovimientoDTO obtenerDetalleMovimiento(Integer idMovimiento) {
+        return consultaMovimientoService.consultarMovimientos(filtroConsultaDTO);
+    }
 
-		return consultaMovimientoService.obtenerDetalleMovimiento(idMovimiento);
-	}
+    @Override
+    public DetalleMovimientoDTO obtenerDetalleMovimiento(Integer idMovimiento) {
 
-	@Override
-	public Integer obtenerPadreMovimiento(Integer idMovimiento) {
-	
-		return movimientosEmpleadosService.obtenerPadreMovimiento(idMovimiento);
-	}
+        return consultaMovimientoService.obtenerDetalleMovimiento(idMovimiento);
+    }
 
-	@Override
-	public void validarMovimiento(Integer idPuesto, Integer tipoMovimiento) {
-		//movimientosEmpleadosService.validarMovimiento(idPuesto, tipoMovimiento);
-		
-	}
+    @Override
+    public Integer obtenerPadreMovimiento(Integer idMovimiento) {
 
-	@Override
-	public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial,
-			Date fechaFinal) {
-		
-		return consultaMovimientoService.listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial, fechaFinal);
-	}
+        return movimientosEmpleadosService.obtenerPadreMovimiento(idMovimiento);
+    }
+
+    @Override
+    public void validarMovimiento(Integer idPuesto, Integer tipoMovimiento) {
+        //movimientosEmpleadosService.validarMovimiento(idPuesto, tipoMovimiento);
+
+    }
+
+    @Override
+    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial, Date fechaFinal) {
+
+        return consultaMovimientoService.listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial, fechaFinal);
+    }
 
 }

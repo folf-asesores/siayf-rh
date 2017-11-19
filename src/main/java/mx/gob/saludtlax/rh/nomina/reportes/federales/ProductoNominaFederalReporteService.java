@@ -1,10 +1,12 @@
 /*
  * ProductoNominaFederalReporteService.java
  * Creado el 16/mar/2017 11:21:03 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.federales;
 
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -21,23 +23,20 @@ import javax.sql.DataSource;
 
 import org.jboss.logging.Logger;
 
-import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
-
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ProductoNominaFederalReporteService implements Serializable {
-    
+
     private static final long serialVersionUID = -3622224990346218269L;
     private static final Logger LOGGER = Logger.getLogger(ProductoNominaFederalReporteService.class.getName());
-    private static final String USP_PRODUCTO_NOMINA_FEDERAL =
-            "CALL usp_reporte_producto_nomina_federales(?)";
+    private static final String USP_PRODUCTO_NOMINA_FEDERAL = "CALL usp_reporte_producto_nomina_federales(?)";
 
     @Resource(mappedName = DATASOURCE)
-    private DataSource ds; 
+    private DataSource ds;
     private static final Map<String, String> TITULOS = new HashMap<>();
-    
+
     static {
         TITULOS.put("numeroEmpleado", "NÚMERO DE EMPLEADO");
         TITULOS.put("nombreEmpleado", "NOMBRE DEL EMPLEADO");
@@ -59,14 +58,17 @@ public class ProductoNominaFederalReporteService implements Serializable {
     }
 
     /**
-     * Permite obtener los datos del reporte de producto de nómina de empleados 
+     * Permite obtener los datos del reporte de producto de nómina de empleados
      * federales, así como los titulos de la consulta.
-     * 
-     * @param idProductoNomina el ID del producto de nómina.
-     * @param titulos en este arreglo se guardaran los titulos de la consulta.
-     * @param datos los datos de la consulta.
+     *
+     * @param idProductoNomina
+     *            el ID del producto de nómina.
+     * @param titulos
+     *            en este arreglo se guardaran los titulos de la consulta.
+     * @param datos
+     *            los datos de la consulta.
      */
-    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object []> datos) {
+    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object[]> datos) {
         try (Connection connection = ds.getConnection()) {
             PreparedStatement pstmt = connection.prepareStatement(USP_PRODUCTO_NOMINA_FEDERAL);
             pstmt.setInt(1, idProductoNomina);
@@ -80,15 +82,15 @@ public class ProductoNominaFederalReporteService implements Serializable {
                 if (TITULOS.containsKey(etiquetaColumna)) {
                     String titulo = TITULOS.get(etiquetaColumna);
                     titulos.add(titulo);
-                } else if("id_nomina_empleado".equals(etiquetaColumna)) {
+                } else if ("id_nomina_empleado".equals(etiquetaColumna)) {
                     posicionIdNominaEmpleado = i;
                 } else {
                     titulos.add(etiquetaColumna);
                 }
             }
-            
-            while(rs.next()) {
-                Object [] objDatos = new Object[titulos.size()];
+
+            while (rs.next()) {
+                Object[] objDatos = new Object[titulos.size()];
 
                 int pos = 1;
                 for (int i = 0; i < titulos.size(); i++) {
@@ -115,7 +117,7 @@ public class ProductoNominaFederalReporteService implements Serializable {
                             objDatos[i] = rs.getObject(columnLabel);
                             break;
                     }
-                    
+
                     pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1 : pos + 2;
                 }
                 datos.add(objDatos);

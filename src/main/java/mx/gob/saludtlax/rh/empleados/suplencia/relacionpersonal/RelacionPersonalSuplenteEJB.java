@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.suplencia.relacionpersonal;
 
 import java.io.Serializable;
@@ -20,38 +21,37 @@ import mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalService;
 @Stateless
 public class RelacionPersonalSuplenteEJB implements RelacionPersonalSuplente, Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6107641243367646840L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6107641243367646840L;
 
-	@Inject
-	private EjercicioFiscalService ejercicioFiscalService;
+    @Inject
+    private EjercicioFiscalService ejercicioFiscalService;
 
-	@Inject
-	private CentroResponsabilidadService centroResponsabilidadService;
+    @Inject
+    private CentroResponsabilidadService centroResponsabilidadService;
 
-	@Inject
-	private RelacionPersonalSuplenteService relacionPersonalSuplenteService;
+    @Inject
+    private RelacionPersonalSuplenteService relacionPersonalSuplenteService;
 
-	@Override
-	public List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(Integer numeroQuincena,
-			Integer ejercicioFiscal, Integer idCentroResponsabilidad) {
+    @Override
+    public List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(Integer numeroQuincena, Integer ejercicioFiscal,
+            Integer idCentroResponsabilidad) {
 
-		return relacionPersonalSuplenteService.obtenerListaRelacionPersonalSuplente(numeroQuincena, ejercicioFiscal,
-				idCentroResponsabilidad);
-	}
+        return relacionPersonalSuplenteService.obtenerListaRelacionPersonalSuplente(numeroQuincena, ejercicioFiscal, idCentroResponsabilidad);
+    }
 
-	@Override
-	public List<SelectItem> listaEjercicioFiscal() {
+    @Override
+    public List<SelectItem> listaEjercicioFiscal() {
 
-		return ejercicioFiscalService.listaEjercicioFiscalItems();
-	}
+        return ejercicioFiscalService.listaEjercicioFiscalItems();
+    }
 
-	@Override
-	public List<SelectItem> listaCentroResponsabilidad() {
+    @Override
+    public List<SelectItem> listaCentroResponsabilidad() {
 
-		return centroResponsabilidadService.obtenerCentroResponsabilidadItems();
-	}
+        return centroResponsabilidadService.obtenerCentroResponsabilidadItems();
+    }
 
 }

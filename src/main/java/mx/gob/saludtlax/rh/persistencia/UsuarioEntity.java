@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -74,8 +75,7 @@ public class UsuarioEntity implements Serializable {
     private Integer id_adscripcion;
 
     public String nombreCompleto() {
-        String nombreCompleto = nombre + " " + apellidoPaterno + " "
-                + apellidoMaterno;
+        String nombreCompleto = nombre + " " + apellidoPaterno + " " + apellidoMaterno;
         return nombreCompleto;
     }
 

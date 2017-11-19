@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.autorizaciones;
 
 /**
@@ -10,51 +11,50 @@ package mx.gob.saludtlax.rh.autorizaciones;
  */
 public class BuzonAutorizacionDTO {
 
-	private Integer idBuzonAutorizacion;
-	private String accion;
-	private Integer idAccion;
-	private String descripcion;
-	private String finalizado;
-	
+    private Integer idBuzonAutorizacion;
+    private String accion;
+    private Integer idAccion;
+    private String descripcion;
+    private String finalizado;
 
-	public Integer getIdAccion() {
-		return idAccion;
-	}
+    public Integer getIdAccion() {
+        return idAccion;
+    }
 
-	public void setIdAccion(Integer idAccion) {
-		this.idAccion = idAccion;
-	}
+    public void setIdAccion(Integer idAccion) {
+        this.idAccion = idAccion;
+    }
 
-	public Integer getIdBuzonAutorizacion() {
-		return idBuzonAutorizacion;
-	}
+    public Integer getIdBuzonAutorizacion() {
+        return idBuzonAutorizacion;
+    }
 
-	public void setIdBuzonAutorizacion(Integer idBuzonAutorizacion) {
-		this.idBuzonAutorizacion = idBuzonAutorizacion;
-	}
+    public void setIdBuzonAutorizacion(Integer idBuzonAutorizacion) {
+        this.idBuzonAutorizacion = idBuzonAutorizacion;
+    }
 
-	public String getAccion() {
-		return accion;
-	}
+    public String getAccion() {
+        return accion;
+    }
 
-	public void setAccion(String accion) {
-		this.accion = accion;
-	}
+    public void setAccion(String accion) {
+        this.accion = accion;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public String getFinalizado() {
-		return finalizado;
-	}
+    public String getFinalizado() {
+        return finalizado;
+    }
 
-	public void setFinalizado(String finalizado) {
-		this.finalizado = finalizado;
-	}
+    public void setFinalizado(String finalizado) {
+        this.finalizado = finalizado;
+    }
 
 }

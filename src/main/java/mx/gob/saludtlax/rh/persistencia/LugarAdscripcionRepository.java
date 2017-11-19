@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
@@ -14,18 +15,21 @@ import javax.persistence.NoResultException;
  */
 public class LugarAdscripcionRepository extends GenericRepository<LugarAdscripcionEntity, Integer> {
 
-	public List<LugarAdscripcionEntity> consultarAdscripciones() {
-		return em.createQuery("SELECT l FROM LugarAdscripcionEntity AS l", LugarAdscripcionEntity.class)
-				.getResultList();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6296489297219095633L;
 
-	public String obtenerDescripcionLugarAdscripcionPorId(Integer idLugarAdscripcion) {
-		try {
-			return em.createQuery(
-					"SELECT l.lugarAdscripcion FROM LugarAdscripcionEntity AS l WHERE l.idLugarAdscripcion =:idLugarAdscripcion",
-					String.class).setParameter("idLugarAdscripcion", idLugarAdscripcion).getSingleResult();
-		} catch (NoResultException e) {
-			return "";
-		}
-	}
+    public List<LugarAdscripcionEntity> consultarAdscripciones() {
+        return em.createQuery("SELECT l FROM LugarAdscripcionEntity AS l", LugarAdscripcionEntity.class).getResultList();
+    }
+
+    public String obtenerDescripcionLugarAdscripcionPorId(Integer idLugarAdscripcion) {
+        try {
+            return em.createQuery("SELECT l.lugarAdscripcion FROM LugarAdscripcionEntity AS l WHERE l.idLugarAdscripcion =:idLugarAdscripcion", String.class)
+                    .setParameter("idLugarAdscripcion", idLugarAdscripcion).getSingleResult();
+        } catch (NoResultException e) {
+            return "";
+        }
+    }
 }

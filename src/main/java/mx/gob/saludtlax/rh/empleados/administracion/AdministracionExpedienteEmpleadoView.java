@@ -1,13 +1,16 @@
 /*
  * AdministracionExpedienteEmpleadoView.java
  * Creado el Oct 18, 2016 12:23:22 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.administracion;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.model.SelectItem;
+
 import mx.gob.saludtlax.rh.expediente.InformacionAdjuntoDTO;
 import mx.gob.saludtlax.rh.expediente.empleado.ExpedienteDTO;
 import mx.gob.saludtlax.rh.experiencialaboral.ExperienciaLaboralDTO;
@@ -74,19 +77,16 @@ public class AdministracionExpedienteEmpleadoView {
     private boolean mostrarOtroParentesco;
     private boolean mostrarAdjuntarDocumentoDependiente;
     private boolean mostrarRegistroExperienciaLaboral;
-    
 
-  
+    public EmpleadoDetalladoDTO getEmpleadoSeleccionado() {
+        return empleadoSeleccionado;
+    }
 
-	public EmpleadoDetalladoDTO getEmpleadoSeleccionado() {
-		return empleadoSeleccionado;
-	}
+    public void setEmpleadoSeleccionado(EmpleadoDetalladoDTO empleadoSeleccionado) {
+        this.empleadoSeleccionado = empleadoSeleccionado;
+    }
 
-	public void setEmpleadoSeleccionado(EmpleadoDetalladoDTO empleadoSeleccionado) {
-		this.empleadoSeleccionado = empleadoSeleccionado;
-	}
-
-	public AdministracionExpedienteEmpleadoView() {
+    public AdministracionExpedienteEmpleadoView() {
         mostrarPanelCorrecciones = false;
     }
 
@@ -110,8 +110,7 @@ public class AdministracionExpedienteEmpleadoView {
         return mostrarRegistroExperienciaLaboral;
     }
 
-    public void setMostrarRegistroExperienciaLaboral(
-            boolean mostrarRegistroExperienciaLaboral) {
+    public void setMostrarRegistroExperienciaLaboral(boolean mostrarRegistroExperienciaLaboral) {
         this.mostrarRegistroExperienciaLaboral = mostrarRegistroExperienciaLaboral;
     }
 
@@ -119,8 +118,7 @@ public class AdministracionExpedienteEmpleadoView {
         return mostrarAdjuntarDocumentoDependiente;
     }
 
-    public void setMostrarAdjuntarDocumentoDependiente(
-            boolean mostrarAdjuntarDocumentoDependiente) {
+    public void setMostrarAdjuntarDocumentoDependiente(boolean mostrarAdjuntarDocumentoDependiente) {
         this.mostrarAdjuntarDocumentoDependiente = mostrarAdjuntarDocumentoDependiente;
     }
 
@@ -128,8 +126,7 @@ public class AdministracionExpedienteEmpleadoView {
         return idDocumentoAduntableDependiente;
     }
 
-    public void setIdDocumentoAduntableDependiente(
-            Integer idDocumentoAduntableDependiente) {
+    public void setIdDocumentoAduntableDependiente(Integer idDocumentoAduntableDependiente) {
         this.idDocumentoAduntableDependiente = idDocumentoAduntableDependiente;
     }
 
@@ -137,8 +134,7 @@ public class AdministracionExpedienteEmpleadoView {
         return dependienteSeleccionado;
     }
 
-    public void setDependienteSeleccionado(
-            InfoDependienteEconomicoDTO dependienteSeleccionado) {
+    public void setDependienteSeleccionado(InfoDependienteEconomicoDTO dependienteSeleccionado) {
         this.dependienteSeleccionado = dependienteSeleccionado;
     }
 
@@ -146,8 +142,7 @@ public class AdministracionExpedienteEmpleadoView {
         return listaDocumentosDependientes;
     }
 
-    public void setListaDocumentosDependientes(
-            List<SelectItem> listaDocumentosDependientes) {
+    public void setListaDocumentosDependientes(List<SelectItem> listaDocumentosDependientes) {
         this.listaDocumentosDependientes = listaDocumentosDependientes;
     }
 
@@ -155,8 +150,7 @@ public class AdministracionExpedienteEmpleadoView {
         return dependientesEconomicos;
     }
 
-    public void setDependientesEconomicos(
-            List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
+    public void setDependientesEconomicos(List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
         this.dependientesEconomicos = dependientesEconomicos;
     }
 
@@ -172,8 +166,7 @@ public class AdministracionExpedienteEmpleadoView {
         return mostrarDependientesEconomicos;
     }
 
-    public void setMostrarDependientesEconomicos(
-            boolean mostrarDependientesEconomicos) {
+    public void setMostrarDependientesEconomicos(boolean mostrarDependientesEconomicos) {
         this.mostrarDependientesEconomicos = mostrarDependientesEconomicos;
     }
 
@@ -197,8 +190,7 @@ public class AdministracionExpedienteEmpleadoView {
         return idDocumentoAdjuntableHistorial;
     }
 
-    public void setIdDocumentoAdjuntableHistorial(
-            Integer idDocumentoAdjuntableHistorial) {
+    public void setIdDocumentoAdjuntableHistorial(Integer idDocumentoAdjuntableHistorial) {
         this.idDocumentoAdjuntableHistorial = idDocumentoAdjuntableHistorial;
     }
 
@@ -206,8 +198,7 @@ public class AdministracionExpedienteEmpleadoView {
         return listaDocumentosHistorialAcademico;
     }
 
-    public void setListaDocumentosHistorialAcademico(
-            List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 
@@ -215,8 +206,7 @@ public class AdministracionExpedienteEmpleadoView {
         return documentacionActualHistorial;
     }
 
-    public void setDocumentacionActualHistorial(
-            List<String> documentacionActualHistorial) {
+    public void setDocumentacionActualHistorial(List<String> documentacionActualHistorial) {
         this.documentacionActualHistorial = documentacionActualHistorial;
     }
 
@@ -248,8 +238,7 @@ public class AdministracionExpedienteEmpleadoView {
         return mostrarAdjuntarDocumentoHistorial;
     }
 
-    public void setMostrarAdjuntarDocumentoHistorial(
-            boolean mostrarAdjuntarDocumentoHistorial) {
+    public void setMostrarAdjuntarDocumentoHistorial(boolean mostrarAdjuntarDocumentoHistorial) {
         this.mostrarAdjuntarDocumentoHistorial = mostrarAdjuntarDocumentoHistorial;
     }
 
@@ -273,8 +262,7 @@ public class AdministracionExpedienteEmpleadoView {
         return documentosExpedientes;
     }
 
-    public void setDocumentosExpedientes(
-            List<InformacionAdjuntoDTO> documentosExpedientes) {
+    public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
     }
 
@@ -290,8 +278,7 @@ public class AdministracionExpedienteEmpleadoView {
         return listaTiposDocumentosExpediente;
     }
 
-    public void setListaTiposDocumentosExpediente(
-            List<SelectItem> listaTiposDocumentosExpediente) {
+    public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
     }
 
@@ -323,8 +310,7 @@ public class AdministracionExpedienteEmpleadoView {
         return mostrarActualizacionExpediente;
     }
 
-    public void setMostrarActualizacionExpediente(
-            boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -415,8 +401,7 @@ public class AdministracionExpedienteEmpleadoView {
         return listaComprobantesEstudios;
     }
 
-    public void setListaComprobantesEstudios(
-            List<SelectItem> listaComprobantesEstudios) {
+    public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
     }
 
@@ -424,8 +409,7 @@ public class AdministracionExpedienteEmpleadoView {
         return historialesAcademicos;
     }
 
-    public void setHistorialesAcademicos(
-            List<HistorialAcademicoDTO> historialesAcademicos) {
+    public void setHistorialesAcademicos(List<HistorialAcademicoDTO> historialesAcademicos) {
         this.historialesAcademicos = historialesAcademicos;
     }
 
@@ -433,8 +417,7 @@ public class AdministracionExpedienteEmpleadoView {
         return experienciasLaborales;
     }
 
-    public void setExperienciasLaborales(
-            List<ExperienciaLaboralDTO> experienciasLaborales) {
+    public void setExperienciasLaborales(List<ExperienciaLaboralDTO> experienciasLaborales) {
         this.experienciasLaborales = experienciasLaborales;
     }
 
@@ -450,8 +433,7 @@ public class AdministracionExpedienteEmpleadoView {
         return historialAcademicoSeleccionado;
     }
 
-    public void setHistorialAcademicoSeleccionado(
-            HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 

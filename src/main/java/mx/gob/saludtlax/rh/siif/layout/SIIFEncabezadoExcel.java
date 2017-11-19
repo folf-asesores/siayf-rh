@@ -1,8 +1,9 @@
 /*
  * SIIFEncabezadoExcel.java
  * Creado el 4/07/2016 05:05:57 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.siif.layout;
 
 import java.io.ByteArrayOutputStream;
@@ -17,18 +18,18 @@ import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
 
-import mx.gob.saludtlax.rh.siif.EstructuraSeguroPopularDTO;
-import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosDatDTO;
-import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO;
-import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
-import mx.gob.saludtlax.rh.util.FechaUtil;
-
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.siif.EstructuraSeguroPopularDTO;
+import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosDatDTO;
+import mx.gob.saludtlax.rh.siif.reportarcontratos.EstructuraContratosTrailersDTO;
+import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
+import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
  *
@@ -38,7 +39,7 @@ public class SIIFEncabezadoExcel implements Serializable {
 
     private static final long serialVersionUID = 749345586381372642L;
     private static final Logger LOGGER = Logger.getLogger(SIIFEncabezadoExcel.class.getName());
-    
+
     private final InputStream is = SIIFEncabezadoExcel.class.getResourceAsStream("/encabezado--plantilla.xlsx");
     private final InputStream isFinal = SIIFEncabezadoExcel.class.getResourceAsStream("/encabezado--plantilla--final.xlsx");
     private final InputStream isSegPop = SIIFEncabezadoExcel.class.getResourceAsStream("/plantilla--segpop.xlsx");
@@ -95,14 +96,16 @@ public class SIIFEncabezadoExcel implements Serializable {
     private static final int COLUMNA_PERCEPCIONES_NETAS = 'Q' - 'A';
     private static final int COLUMNA_DEDUCCIONES_NETAS = 'R' - 'A';
     private static final int COLUMNA_NETAS = 'S' - 'A';
-    private FileWriter writer= null;
+    private FileWriter writer = null;
     private File archivo;
+
     /**
      * Este método carga de la plantilla y prepara el libro y la hoja que se
      * pueda usaer.
      *
-     * @throws IOException en caso de que no se encuentre el archivo o este
-     * dañado lanzara esta excepción.
+     * @throws IOException
+     *             en caso de que no se encuentre el archivo o este
+     *             dañado lanzara esta excepción.
      */
     private void cargarPlantilla() throws IOException {
         libro = new XSSFWorkbook(is);
@@ -114,7 +117,7 @@ public class SIIFEncabezadoExcel implements Serializable {
         hoja = libro.getSheet(NOMBRE_HOJA);
     }
 
-    private void cargarPlantillaSegPop() throws IOException {    	
+    private void cargarPlantillaSegPop() throws IOException {
         libro = new XSSFWorkbook(isSegPop);
         hoja = libro.getSheet(NOMBRE_HOJA_SEGURO_POPULAR);
     }
@@ -123,8 +126,9 @@ public class SIIFEncabezadoExcel implements Serializable {
      * Devuelve el contenido del archivo cargado como un arreglo de bytes.
      *
      * @return los bytes que representan el archivo.
-     * @throws IOException en caso de no poder tener acceso al archivo se
-     * lanzara esta excepción.
+     * @throws IOException
+     *             en caso de no poder tener acceso al archivo se
+     *             lanzara esta excepción.
      */
     private byte[] obtenerBytes() throws IOException {
         byte[] bytes;
@@ -140,14 +144,12 @@ public class SIIFEncabezadoExcel implements Serializable {
         return bytes;
     }
 
-    
     private byte[] obtenerBytesTraZip() throws IOException {
-    	// File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.tra");
-    	// File file = new File("/PRDO.tra");
+        // File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.tra");
+        // File file = new File("/PRDO.tra");
         byte[] buf = new byte[1024];
         byte[] bytes = null;
-        try (FileInputStream fis = new FileInputStream(archivo);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();) {
+        try (FileInputStream fis = new FileInputStream(archivo); ByteArrayOutputStream bos = new ByteArrayOutputStream();) {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 bos.write(buf, 0, readNum); //no doubt here is 0
                 //Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
@@ -160,18 +162,17 @@ public class SIIFEncabezadoExcel implements Serializable {
 
         return bytes;
     }
-    
+
     private byte[] obtenerBytesDatZip() throws IOException {
         // File file = new File("c:/Users/FOLF-LMST/Documents/datytra/PRDO.dat");
         // File file = new File("/PRDO.dat");
         byte[] bytes = null;
-        try (FileInputStream fis = new FileInputStream(archivo);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(archivo); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buf = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 bos.write(buf, 0, readNum); // no doubt here is 0
-                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+                                           // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
             }
 
             bytes = bos.toByteArray();
@@ -180,16 +181,14 @@ public class SIIFEncabezadoExcel implements Serializable {
         }
         return bytes;
     }
-    
 
     private byte[] obtenerBytesTraContZip(String producto) throws IOException {
-        byte[] bytes = null;    	
-        try (FileInputStream fis = new FileInputStream(archivo);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        byte[] bytes = null;
+        try (FileInputStream fis = new FileInputStream(archivo); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buf = new byte[1024];
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 bos.write(buf, 0, readNum); // no doubt here is 0
-                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+                                           // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
             }
             bytes = bos.toByteArray();
         } catch (IOException ex) {
@@ -198,31 +197,30 @@ public class SIIFEncabezadoExcel implements Serializable {
 
         return bytes;
     }
-    
+
     private byte[] obtenerBytesDatContZip(String producto) throws IOException {
-     	//File file = new File("c:/Users/FOLF-LMST/Documents/datytra/"+producto+".dat");
-     	//File file = new File("/PRDO.dat");
+        //File file = new File("c:/Users/FOLF-LMST/Documents/datytra/"+producto+".dat");
+        //File file = new File("/PRDO.dat");
         byte[] buf = new byte[1024];
         byte[] bytes = null;
-        try (FileInputStream fis = new FileInputStream(archivo);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(archivo); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
                 bos.write(buf, 0, readNum); // no doubt here is 0
-                                            // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
-                //System.out.println("read " + readNum + " bytes,");
+                                           // Writes len bytes from the specified byte array starting at offset off to this byte array output stream.
+                                           //System.out.println("read " + readNum + " bytes,");
             }
             bytes = bos.toByteArray();
-         } catch (IOException ex) {
+        } catch (IOException ex) {
             LOGGER.error(ex.getMessage(), ex);
-         }
-         return bytes;
-     }
-    
-    
+        }
+        return bytes;
+    }
+
     /**
      * Este método se encarga de llenar la fila de detalles en los anexos.
      *
-     * @param listaDetallesAnexo los datos que se guardaran en archivo de Excel.
+     * @param listaDetallesAnexo
+     *            los datos que se guardaran en archivo de Excel.
      */
     private void llenarDetalles(List<SIIFEncabezadoDTO> listaDetallesAnexo) {
         int i = FILA_INICIO_DETALLE;
@@ -241,9 +239,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             celdaIdTipoNomina.setCellValue(detalle.getIdTipoNomina());
 
             //Verificar FechaFinQuincena
-            String fechaString = detalle.getFechaFinQuincena() != null 
-                    ? FechaUtil.formatearFecha("dd/MM/yyyy", detalle.getFechaFinQuincena()) 
-                    : "01/01/2016";
+            String fechaString = detalle.getFechaFinQuincena() != null ? FechaUtil.formatearFecha("dd/MM/yyyy", detalle.getFechaFinQuincena()) : "01/01/2016";
 
             Cell celdaFechaFinQuincena = filaDetalle.createCell(COLUMNA_FECHA_FIN_QUINCENA);
             celdaFechaFinQuincena.setCellValue(fechaString);
@@ -256,22 +252,25 @@ public class SIIFEncabezadoExcel implements Serializable {
             celdaIdCuentaBancaria.setCellValue(detalle.getClaveCuentaBancaria());
 
             Cell celdaPercepciones = filaDetalle.createCell(COLUMNA_PERCEPCIONES);
-            if(detalle.getPercepciones() != null)
-            	celdaPercepciones.setCellValue(detalle.getPercepciones().doubleValue());
-            else 
-            	celdaPercepciones.setCellValue(0.0);
-            
-            Cell celdaDeducciones = filaDetalle.createCell(COLUMNA_DEDDUCCIONES);            
-            if(detalle.getDeducciones() != null)
-            	celdaDeducciones.setCellValue(detalle.getDeducciones().doubleValue());
-            else
-            	celdaDeducciones.setCellValue(0.0);
+            if (detalle.getPercepciones() != null) {
+                celdaPercepciones.setCellValue(detalle.getPercepciones().doubleValue());
+            } else {
+                celdaPercepciones.setCellValue(0.0);
+            }
+
+            Cell celdaDeducciones = filaDetalle.createCell(COLUMNA_DEDDUCCIONES);
+            if (detalle.getDeducciones() != null) {
+                celdaDeducciones.setCellValue(detalle.getDeducciones().doubleValue());
+            } else {
+                celdaDeducciones.setCellValue(0.0);
+            }
 
             Cell celdaNeto = filaDetalle.createCell(COLUMNA_NETO);
-            if(detalle.getDeducciones() != null)
-            	celdaNeto.setCellValue(detalle.getNeto().doubleValue());
-            else
-            	celdaNeto.setCellValue(0.0);
+            if (detalle.getDeducciones() != null) {
+                celdaNeto.setCellValue(detalle.getNeto().doubleValue());
+            } else {
+                celdaNeto.setCellValue(0.0);
+            }
 
             Cell celdaIdEstadoNomina = filaDetalle.createCell(COLUMNA_ID_ESTADO_NOMINA);
             celdaIdEstadoNomina.setCellValue(detalle.getIdEstadoNomina().toString());
@@ -298,9 +297,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             celdaIdTipoNomina.setCellValue(detalle.getIdTipoNomina());
 
             //Verificar FechaFinQuincena
-            Date fecha = detalle.getFechaFinQuincena() != null 
-                    ? detalle.getFechaFinQuincena() 
-                    : FechaUtil.getFecha("2016-07-31", "YYYY-MM-dd");
+            Date fecha = detalle.getFechaFinQuincena() != null ? detalle.getFechaFinQuincena() : FechaUtil.getFecha("2016-07-31", "YYYY-MM-dd");
             System.out.println("Fecha Final :: " + fecha);
 
             Cell celdaFechaFinQuincena = filaDetalle.createCell(COLUMNA_FECHA_FIN_QUINCENA);
@@ -374,49 +371,48 @@ public class SIIFEncabezadoExcel implements Serializable {
             celdaRfc.setCellValue(detalle.getRfc());
 
             Cell celdaTurno = filaDetalle.createCell(COLUMNA_TURNO);
-            if(detalle.getTurno()!=null){
-            	celdaTurno.setCellValue(detalle.getTurno());
-            }else{
-            	celdaTurno.setCellValue(" ");
+            if (detalle.getTurno() != null) {
+                celdaTurno.setCellValue(detalle.getTurno());
+            } else {
+                celdaTurno.setCellValue(" ");
             }
 
             Cell celdaFecha = filaDetalle.createCell(COLUMNA_FECHA);
             celdaFecha.setCellValue(detalle.getFingreso());
 
             Cell celdaSueldo = filaDetalle.createCell(COLUMNA_SUELDO);
-            if(detalle.getSueldoBase()!=null){
-            	celdaSueldo.setCellValue(detalle.getSueldoBase().toString());
-            }else{
-            	celdaSueldo.setCellValue("0.0");
+            if (detalle.getSueldoBase() != null) {
+                celdaSueldo.setCellValue(detalle.getSueldoBase().toString());
+            } else {
+                celdaSueldo.setCellValue("0.0");
             }
-            
+
             Cell celdaPercepcion = filaDetalle.createCell(COLUMNA_PERCEPCIONES_NETAS);
-            if(detalle.getPercepcion()!=null){
-            	celdaPercepcion.setCellValue(detalle.getPercepcion().toString());
-            }else{
-            	celdaPercepcion.setCellValue("0.0");
-            }            	
+            if (detalle.getPercepcion() != null) {
+                celdaPercepcion.setCellValue(detalle.getPercepcion().toString());
+            } else {
+                celdaPercepcion.setCellValue("0.0");
+            }
 
             Cell celdaDeduccion = filaDetalle.createCell(COLUMNA_DEDUCCIONES_NETAS);
-            if(detalle.getDeduccion()!=null){
-            	celdaDeduccion.setCellValue(detalle.getDeduccion().toString());
-            }else{
-            	celdaDeduccion.setCellValue("0.0");
-            }            
+            if (detalle.getDeduccion() != null) {
+                celdaDeduccion.setCellValue(detalle.getDeduccion().toString());
+            } else {
+                celdaDeduccion.setCellValue("0.0");
+            }
 
             Cell celdaNetas = filaDetalle.createCell(COLUMNA_NETAS);
-            if(detalle.getNeto()!=null){
-            	celdaNetas.setCellValue(detalle.getNeto().toString());
-            }else{
-            	celdaNetas.setCellValue("0.0");
-            }            
+            if (detalle.getNeto() != null) {
+                celdaNetas.setCellValue(detalle.getNeto().toString());
+            } else {
+                celdaNetas.setCellValue("0.0");
+            }
 
             i++;
             hoja.shiftRows(i, i + 1, 1);
         }
     }
 
-    
     private void llenarDetallesTra(List<EstructuraContratosTrailersDTO> listaDetallesAnexo) {
         //int i = FILA_INICIO_DETALLE;
         System.out.println("Lista Tra:::" + listaDetallesAnexo.size());
@@ -464,7 +460,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    
+
     private void llenarDetallesDat(List<EstructuraContratosDatDTO> listaDetallesAnexo) {
         //int i = FILA_INICIO_DETALLE;
         System.out.println("Lista Dat:::" + listaDetallesAnexo.size());
@@ -638,8 +634,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             LOGGER.error(e.getMessage(), e);
         }
     }
-    
-    
+
     private void llenarDetallesTraCont(List<EstructuraContratosTrailersDTO> listaDetallesAnexo, String producto) {
         try {
             Path path = Files.createTempFile(producto, ".tra");
@@ -681,9 +676,8 @@ public class SIIFEncabezadoExcel implements Serializable {
             LOGGER.error(e.getMessage(), e);
         }
     }
-   
-    
-    private void llenarDetallesDatCont(List<EstructuraContratosDatDTO> listaDetallesAnexo,String producto) {                            
+
+    private void llenarDetallesDatCont(List<EstructuraContratosDatDTO> listaDetallesAnexo, String producto) {
         try {
             Path path = Files.createTempFile(producto, ".dat");
             archivo = path.toFile();
@@ -864,7 +858,8 @@ public class SIIFEncabezadoExcel implements Serializable {
      * Excel con la información que recibe por parametro y finalmente devuelve
      * la plantilla llena como arreglo de bytes.
      *
-     * @param listaDetalles la información para llenar el archivo de Excel.
+     * @param listaDetalles
+     *            la información para llenar el archivo de Excel.
      * @return un arreglo de bytes que representan al archivo de Excel.
      */
     public byte[] generar(List<SIIFEncabezadoDTO> listaDetalles) {
@@ -873,8 +868,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             llenarDetalles(listaDetalles);
             return obtenerBytes();
         } catch (IOException e) {
-            throw new ReglaNegocioException(
-                    "Ocurrio un error al leer la platilla");
+            throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
         }
     }
 
@@ -895,8 +889,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             llenarDetallesDat(listaDetalles);
             return obtenerBytesDatZip();
         } catch (IOException e) {
-            throw new ReglaNegocioException(
-                    "Ocurrio un error al leer la platilla");
+            throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
         }
     }
 
@@ -929,8 +922,7 @@ public class SIIFEncabezadoExcel implements Serializable {
             llenarDetallesSeguroPopular(listaDetalles);
             return obtenerBytes();
         } catch (IOException e) {
-            throw new ReglaNegocioException(
-                    "Ocurrio un error al leer la platilla");
+            throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
         }
     }
 

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 import java.io.IOException;
@@ -36,333 +37,304 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class ConsultaAspiranteController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6278321558656065977L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6278321558656065977L;
 
-	@Inject
-	private BolsaTrabajo bolsaTrabajo;
-	@Inject
-	private Catalogo catalogo;
+    @Inject
+    private BolsaTrabajo bolsaTrabajo;
+    @Inject
+    private Catalogo catalogo;
 
-	private ConsultaAspiranteView view;
+    private ConsultaAspiranteView view;
 
-	private static final int DATOS_GENERALES = 1;
-	private static final int HISTORIAL_ACADEMICO = 2;
-	private static final int EXPERIENCIA_LABORAL = 3;
-	private static final int HABILIDADES_PERSONALES = 4;
-	private static final int EXPEDIENTE = 5;
+    private static final int DATOS_GENERALES = 1;
+    private static final int HISTORIAL_ACADEMICO = 2;
+    private static final int EXPERIENCIA_LABORAL = 3;
+    private static final int HABILIDADES_PERSONALES = 4;
+    private static final int EXPEDIENTE = 5;
 
-	@PostConstruct
-	public void inicio() {
+    @PostConstruct
+    public void inicio() {
 
-		this.view = new ConsultaAspiranteView();
-
-		this.view.setListaFiltros(SelectItemsUtil
-				.listaFiltrosConsultaAspirantes());
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession httpSession = request.getSession(false);
-		Integer idAspirante = (Integer) httpSession.getAttribute("idAspirante");
-		if (idAspirante != null) {
-			verDetalleAspirante(idAspirante);
-			httpSession.removeAttribute("idAspirante");
-		}
-	}
+        view = new ConsultaAspiranteView();
 
-	public void cargarCatalogo() {
-		List<CatalogoDTO> listaPaises = catalogo.listaPaises();
-		List<CatalogoDTO> listaPuestos = catalogo.listaPuestos();
-		List<CatalogoDTO> listaDepartamentos = catalogo.listaDepartamentos();
-		List<CatalogoDTO> estado = catalogo.listaEstados();
+        view.setListaFiltros(SelectItemsUtil.listaFiltrosConsultaAspirantes());
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        Integer idAspirante = (Integer) httpSession.getAttribute("idAspirante");
+        if (idAspirante != null) {
+            verDetalleAspirante(idAspirante);
+            httpSession.removeAttribute("idAspirante");
+        }
+    }
 
-		this.view.setListaPaises(SelectItemsUtil.listaCatalogos(listaPaises));
-		this.view.setListaEstadosCiviles(SelectItemsUtil.listaEstadosCivil());
-		this.view.setListaNacionalidades(SelectItemsUtil.listaNacionalidad());
-		this.view.setListaTiposSangre(SelectItemsUtil.listaTiposSangre());
-		this.view.setListaTiposSexo(SelectItemsUtil.listaTiposSexo());
-		this.view.setListaPuestos(SelectItemsUtil.listaCatalogos(listaPuestos));
-		this.view.setListaDepartamentos(SelectItemsUtil
-				.listaCatalogos(listaDepartamentos));
-		this.view.setListaViveCon(SelectItemsUtil.listaViveCon());
-		this.view.setListaDependientes(SelectItemsUtil.listaDependientes());
-		this.view.setListaTiposLicencia(SelectItemsUtil.listaTiposLicencia());
-		this.view.setListaEstados(SelectItemsUtil.listaCatalogos(estado));
-
-		this.view.setMostrarDatosPersonales(true);
+    public void cargarCatalogo() {
+        List<CatalogoDTO> listaPaises = catalogo.listaPaises();
+        List<CatalogoDTO> listaPuestos = catalogo.listaPuestos();
+        List<CatalogoDTO> listaDepartamentos = catalogo.listaDepartamentos();
+        List<CatalogoDTO> estado = catalogo.listaEstados();
 
-	}
-
-	public void obtenerInfoAspirante() {
+        view.setListaPaises(SelectItemsUtil.listaCatalogos(listaPaises));
+        view.setListaEstadosCiviles(SelectItemsUtil.listaEstadosCivil());
+        view.setListaNacionalidades(SelectItemsUtil.listaNacionalidad());
+        view.setListaTiposSangre(SelectItemsUtil.listaTiposSangre());
+        view.setListaTiposSexo(SelectItemsUtil.listaTiposSexo());
+        view.setListaPuestos(SelectItemsUtil.listaCatalogos(listaPuestos));
+        view.setListaDepartamentos(SelectItemsUtil.listaCatalogos(listaDepartamentos));
+        view.setListaViveCon(SelectItemsUtil.listaViveCon());
+        view.setListaDependientes(SelectItemsUtil.listaDependientes());
+        view.setListaTiposLicencia(SelectItemsUtil.listaTiposLicencia());
+        view.setListaEstados(SelectItemsUtil.listaCatalogos(estado));
 
-		view.setMostrarDetallesAspirante(false);
-		view.setAspirante(new AspiranteDTO());
-		view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
-		view.setIdAspirante(0);
+        view.setMostrarDatosPersonales(true);
 
-		cerrarMenu();
+    }
 
-		view.getFiltro()
-				.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
-		List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajo
-				.consultarPorCriterio(this.view.getFiltro());
+    public void obtenerInfoAspirante() {
 
-		if (!listaInfoAspirante.isEmpty()) {
-			this.view.setListaInfoAspirante(listaInfoAspirante);
-			this.view.setMostrarResultados(true);
+        view.setMostrarDetallesAspirante(false);
+        view.setAspirante(new AspiranteDTO());
+        view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
+        view.setIdAspirante(0);
 
-			this.view.setMostrarTipoBusquedaHeader(false);
-			this.view.setTipoBusquedaHeader("");
+        cerrarMenu();
 
-		} else {
-			this.view.setListaInfoAspirante(new ArrayList<InfoAspiranteDTO>());
-			this.view.setMostrarResultados(false);
-			this.view.setFiltro(new FiltroDTO());
-			JSFUtils.errorMessage("Consulta Aspirante",
-					"No se encontrarón resultados, intentelo de nuevo");
-		}
-	}
+        view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+        List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajo.consultarPorCriterio(view.getFiltro());
 
-	public void menu(int panel) {
+        if (!listaInfoAspirante.isEmpty()) {
+            view.setListaInfoAspirante(listaInfoAspirante);
+            view.setMostrarResultados(true);
 
-		try {
+            view.setMostrarTipoBusquedaHeader(false);
+            view.setTipoBusquedaHeader("");
 
-			cerrarMenu();
+        } else {
+            view.setListaInfoAspirante(new ArrayList<InfoAspiranteDTO>());
+            view.setMostrarResultados(false);
+            view.setFiltro(new FiltroDTO());
+            JSFUtils.errorMessage("Consulta Aspirante", "No se encontrarón resultados, intentelo de nuevo");
+        }
+    }
 
-			switch (panel) {
+    public void menu(int panel) {
 
-			case DATOS_GENERALES:
+        try {
 
-				this.view.setMostrarDatosPersonales(true);
+            cerrarMenu();
 
-				break;
+            switch (panel) {
 
-			case HISTORIAL_ACADEMICO:
+                case DATOS_GENERALES:
 
-				this.view.setMostrarHistorialAcademico(true);
+                    view.setMostrarDatosPersonales(true);
 
-				this.view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
+                    break;
 
-				this.view.setListaEscolaridades(SelectItemsUtil
-						.listaEscolaridad(catalogo.listaEscolaridad()));
-				this.view.setListaComprobantesEstudio(SelectItemsUtil
-						.listaCatalogos(catalogo.listaComprobantesEstudios()));
+                case HISTORIAL_ACADEMICO:
 
-				List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajo
-						.obtenerListaHistorialAcademico(this.view
-								.getIdAspirante());
+                    view.setMostrarHistorialAcademico(true);
 
-				if (!listaHistorial.isEmpty()) {
-					view.setListaHistorialAcademico(listaHistorial);
-				} else {
-					view.setListaHistorialAcademico(new ArrayList<HistorialAcademicoDTO>());
-					JSFUtils.warningMessage(
-							"Historial Academico: ",
-							"Se ha detectado que no ha registrado ningún historial academico, se recomienda mantener su información actualizada");
-				}
+                    view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
 
-				break;
+                    view.setListaEscolaridades(SelectItemsUtil.listaEscolaridad(catalogo.listaEscolaridad()));
+                    view.setListaComprobantesEstudio(SelectItemsUtil.listaCatalogos(catalogo.listaComprobantesEstudios()));
 
-			case EXPERIENCIA_LABORAL:
+                    List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspirante());
 
-				this.view.setMostrarExperienciaLaboral(true);
+                    if (!listaHistorial.isEmpty()) {
+                        view.setListaHistorialAcademico(listaHistorial);
+                    } else {
+                        view.setListaHistorialAcademico(new ArrayList<HistorialAcademicoDTO>());
+                        JSFUtils.warningMessage("Historial Academico: ",
+                                "Se ha detectado que no ha registrado ningún historial academico, se recomienda mantener su información actualizada");
+                    }
 
-				this.view
-						.setExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+                    break;
 
-				List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajo
-						.obtenerListaExperienciaLaboral(this.view
-								.getIdAspirante());
+                case EXPERIENCIA_LABORAL:
 
-				if (!listaExperienciaLaboral.isEmpty()) {
-					this.view
-							.setListaExperienciaLaboral(listaExperienciaLaboral);
-				} else {
-					this.view
-							.setListaExperienciaLaboral(new ArrayList<ExperienciaLaboralAspiranteDTO>());
-					JSFUtils.warningMessage(
-							"Experiencia Laboral: ",
-							"Se ha detectado que no ha registrado ninguna experiencia laboral, se recomienda mantener su información actualizada");
-				}
-
-				break;
-			case HABILIDADES_PERSONALES:
+                    view.setMostrarExperienciaLaboral(true);
 
-				this.view.setMostrarHabilidadPersonal(true);
+                    view.setExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
 
-				HabilidadesPersonalesAspiranteDTO habilidad = bolsaTrabajo
-						.obtenerHabilidadesPersonalesPorIdAspirante(this.view
-								.getIdAspirante());
+                    List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajo.obtenerListaExperienciaLaboral(view.getIdAspirante());
 
-				if (habilidad.getIdEncuestaPersonalAspirante() != 0) {
+                    if (!listaExperienciaLaboral.isEmpty()) {
+                        view.setListaExperienciaLaboral(listaExperienciaLaboral);
+                    } else {
+                        view.setListaExperienciaLaboral(new ArrayList<ExperienciaLaboralAspiranteDTO>());
+                        JSFUtils.warningMessage("Experiencia Laboral: ",
+                                "Se ha detectado que no ha registrado ninguna experiencia laboral, se recomienda mantener su información actualizada");
+                    }
 
-					this.view.setEncuestaPersonal(habilidad);
+                    break;
+                case HABILIDADES_PERSONALES:
 
-				} else {
-					this.view
-							.setEncuestaPersonal(new HabilidadesPersonalesAspiranteDTO());
+                    view.setMostrarHabilidadPersonal(true);
 
-					JSFUtils.warningMessage(
-							"Habilidades Parsonales: ",
-							"Se ha detectado que no ha registrado ningún habilidad personal, se recomienda mantener su información actualizada");
-				}
+                    HabilidadesPersonalesAspiranteDTO habilidad = bolsaTrabajo.obtenerHabilidadesPersonalesPorIdAspirante(view.getIdAspirante());
 
-				break;
+                    if (habilidad.getIdEncuestaPersonalAspirante() != 0) {
 
-			case EXPEDIENTE:
+                        view.setEncuestaPersonal(habilidad);
 
-				break;
-			}
+                    } else {
+                        view.setEncuestaPersonal(new HabilidadesPersonalesAspiranteDTO());
 
-		} catch (BusinessException exception) {
-			throw new BusinessException(exception.getMessage());
-		}
+                        JSFUtils.warningMessage("Habilidades Parsonales: ",
+                                "Se ha detectado que no ha registrado ningún habilidad personal, se recomienda mantener su información actualizada");
+                    }
 
-	}
+                    break;
 
-	public void cerrarMenu() {
-		this.view.setMostrarDatosPersonales(false);
-		this.view.setMostrarHistorialAcademico(false);
-		this.view.setMostrarProfesion(false);
-		this.view.setMostrarEspecialidad(false);
-		this.view.setMostrarExperienciaLaboral(false);
-		this.view.setMostrarExperienciaLaboralSeleccionado(false);
-		this.view.setMostrarHabilidadPersonal(false);
-		this.view.setMostrarHistorialAcedemicoSeleccionado(false);
+                case EXPEDIENTE:
 
-	}
+                    break;
+            }
 
-	public void verDetalleAspirante(Integer idAspirante) {
-		try {
+        } catch (BusinessException exception) {
+            throw new BusinessException(exception.getMessage());
+        }
 
-			this.view.setIdAspirante(idAspirante);
+    }
 
-			this.view.setMostrarDetallesAspirante(true);
-			this.view.setMostrarResultados(false);
-			this.view.setMostrarDatosPersonales(true);
-			this.view.setMostrarHistorialAcademico(false);
-			this.view.setMostrarProfesion(false);
-			this.view.setMostrarEspecialidad(false);
-			this.view.setMostrarExperienciaLaboral(false);
-			this.view.setMostrarHabilidadPersonal(false);
+    public void cerrarMenu() {
+        view.setMostrarDatosPersonales(false);
+        view.setMostrarHistorialAcademico(false);
+        view.setMostrarProfesion(false);
+        view.setMostrarEspecialidad(false);
+        view.setMostrarExperienciaLaboral(false);
+        view.setMostrarExperienciaLaboralSeleccionado(false);
+        view.setMostrarHabilidadPersonal(false);
+        view.setMostrarHistorialAcedemicoSeleccionado(false);
 
-			AspiranteDTO aspirante = bolsaTrabajo
-					.obtenerAspirantePorIdentificador(idAspirante);
+    }
 
-			List<String> personasDependientes = new ArrayList<String>();
+    public void verDetalleAspirante(Integer idAspirante) {
+        try {
 
-			// VALIDANDO LAS PERSONAS QUE DEPENDEN DEL ASPIRANTE
-			if (aspirante.getNumeroConyuges() != 0) {
-				personasDependientes.add("CONYUGE");
-			}
+            view.setIdAspirante(idAspirante);
 
-			if (aspirante.getNumeroHijos() != 0) {
-				personasDependientes.add("HIJOS");
-			}
+            view.setMostrarDetallesAspirante(true);
+            view.setMostrarResultados(false);
+            view.setMostrarDatosPersonales(true);
+            view.setMostrarHistorialAcademico(false);
+            view.setMostrarProfesion(false);
+            view.setMostrarEspecialidad(false);
+            view.setMostrarExperienciaLaboral(false);
+            view.setMostrarHabilidadPersonal(false);
 
-			if (aspirante.getNumeroPadres() != 0) {
-				personasDependientes.add("PADRES");
-			}
+            AspiranteDTO aspirante = bolsaTrabajo.obtenerAspirantePorIdentificador(idAspirante);
 
-			if (aspirante.getNumeroOtros() != 0) {
-				personasDependientes.add("OTROS");
-			}
+            List<String> personasDependientes = new ArrayList<>();
 
-			this.view.setPersonasDependientes(personasDependientes);
-			/*
-			 * List<CatalogoDTO> municipios = catalogo
-			 * .consultarMunicipiosPorEstado(aspirante.getDireccionDTO().
-			 * getIdMunicipio());
-			 * this.view.setListaMunicipios(SelectItemsUtil.listaCatalogos(
-			 * municipios));
-			 * 
-			 * List<CatalogoDTO> asentamientos = catalogo
-			 * .consultarAsantamientosPorMunicipios(aspirante.getDireccionDTO().
-			 * getIdAsentamiento());
-			 * this.view.setListaAsentamientos(SelectItemsUtil.listaCatalogos(
-			 * asentamientos));
-			 */
+            // VALIDANDO LAS PERSONAS QUE DEPENDEN DEL ASPIRANTE
+            if (aspirante.getNumeroConyuges() != 0) {
+                personasDependientes.add("CONYUGE");
+            }
 
-			this.cargarCatalogo();
+            if (aspirante.getNumeroHijos() != 0) {
+                personasDependientes.add("HIJOS");
+            }
 
-			this.view.setAspirante(aspirante);
+            if (aspirante.getNumeroPadres() != 0) {
+                personasDependientes.add("PADRES");
+            }
 
-		} catch (BusinessException exception) {
-			throw new BusinessException(exception.getMessage());
-		}
-	}
+            if (aspirante.getNumeroOtros() != 0) {
+                personasDependientes.add("OTROS");
+            }
 
-	public void verDetalleHistorialAcademico(
-			HistorialAcademicoDTO historialAcademicoDTO) {
-		this.view.setHistorialAcademicoDTO(historialAcademicoDTO);
+            view.setPersonasDependientes(personasDependientes);
+            /*
+             * List<CatalogoDTO> municipios = catalogo
+             * .consultarMunicipiosPorEstado(aspirante.getDireccionDTO().
+             * getIdMunicipio());
+             * this.view.setListaMunicipios(SelectItemsUtil.listaCatalogos(
+             * municipios));
+             *
+             * List<CatalogoDTO> asentamientos = catalogo
+             * .consultarAsantamientosPorMunicipios(aspirante.getDireccionDTO().
+             * getIdAsentamiento());
+             * this.view.setListaAsentamientos(SelectItemsUtil.listaCatalogos(
+             * asentamientos));
+             */
 
-		this.view.setMostrarHistorialAcademico(false);
-		this.view.setMostrarHistorialAcedemicoSeleccionado(true);
-	}
+            cargarCatalogo();
 
-	public void cerrarDetalleHistorialAcademico() {
-		this.view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
+            view.setAspirante(aspirante);
 
-		this.view.setMostrarHistorialAcademico(true);
-		this.view.setMostrarHistorialAcedemicoSeleccionado(false);
-	}
+        } catch (BusinessException exception) {
+            throw new BusinessException(exception.getMessage());
+        }
+    }
 
-	public void verDetalleExperienciaLaboral(
-			ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
-		this.view.setExperienciaLaboral(experienciaLaboralAspiranteDTO);
+    public void verDetalleHistorialAcademico(HistorialAcademicoDTO historialAcademicoDTO) {
+        view.setHistorialAcademicoDTO(historialAcademicoDTO);
 
-		this.view.setMostrarExperienciaLaboral(false);
-		this.view.setMostrarExperienciaLaboralSeleccionado(true);
-	}
+        view.setMostrarHistorialAcademico(false);
+        view.setMostrarHistorialAcedemicoSeleccionado(true);
+    }
 
-	public void cerrarExperienciaLaboral() {
-		this.view.setExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+    public void cerrarDetalleHistorialAcademico() {
+        view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
 
-		this.view.setMostrarExperienciaLaboral(true);
-		this.view.setMostrarExperienciaLaboralSeleccionado(false);
-	}
+        view.setMostrarHistorialAcademico(true);
+        view.setMostrarHistorialAcedemicoSeleccionado(false);
+    }
 
-	public void validarConsulta(FacesContext context, UIComponent component,
-			Object value) throws ValidatorException {
+    public void verDetalleExperienciaLaboral(ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
+        view.setExperienciaLaboral(experienciaLaboralAspiranteDTO);
 
-		String nombreComponente = component.getId();
-		String contexto = "Campo requerido.";
+        view.setMostrarExperienciaLaboral(false);
+        view.setMostrarExperienciaLaboralSeleccionado(true);
+    }
 
-		switch (nombreComponente) {
+    public void cerrarExperienciaLaboral() {
+        view.setExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
 
-		case "criterio":
+        view.setMostrarExperienciaLaboral(true);
+        view.setMostrarExperienciaLaboralSeleccionado(false);
+    }
 
-			String criterio = String.valueOf(value);
+    public void validarConsulta(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-			if (ValidacionUtil.esCadenaVacia(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, contexto,
-						"Ingrese el criterio");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+        String nombreComponente = component.getId();
+        String contexto = "Campo requerido.";
 
-			break;
+        switch (nombreComponente) {
 
-		default:
-			break;
-		}
+            case "criterio":
 
-	}
+                String criterio = String.valueOf(value);
 
-	public void regresarModulo() throws IOException {
-		JSFUtils.redireccionar("/siayf-rh/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true");
-	}
+                if (ValidacionUtil.esCadenaVacia(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el criterio");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	
+                break;
 
-	public ConsultaAspiranteView getView() {
-		return view;
-	}
+            default:
+                break;
+        }
 
-	public void setView(ConsultaAspiranteView view) {
-		this.view = view;
-	}
+    }
+
+    public void regresarModulo() throws IOException {
+        JSFUtils.redireccionar("/siayf-rh/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true");
+    }
+
+    public ConsultaAspiranteView getView() {
+        return view;
+    }
+
+    public void setView(ConsultaAspiranteView view) {
+        this.view = view;
+    }
 
 }

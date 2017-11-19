@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -44,7 +45,7 @@ public class TokenEntity implements Serializable {
     @Column(name = "fecha_expira")
     @Temporal(TemporalType.DATE)
     private Date fechaExpira;
-    
+
     @Column(name = "hora_expira")
     @Temporal(TemporalType.TIME)
     private Date horaExpira;
@@ -117,7 +118,7 @@ public class TokenEntity implements Serializable {
     }
 
     public void setUsuario(UsuarioEntity idUsuario) {
-        this.usuario = idUsuario;
+        usuario = idUsuario;
     }
 
 }

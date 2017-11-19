@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -22,240 +23,238 @@ import javax.persistence.TemporalType;
 /**
  * @author Leila Schiaffini Ehuan
  * @since 2016-10-19
- * 
+ *
  */
 @Entity
 @Table(name = "suplentes_autorizados")
 public class SuplenteAutorizadoEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6076064225297480061L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6076064225297480061L;
 
-	@Id
-	@Column(name = "id_suplente_autorizado")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idSuplenteAutorizado;
+    @Id
+    @Column(name = "id_suplente_autorizado")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idSuplenteAutorizado;
 
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_empleado")
-	private EmpleadoEntity empleado;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_empleado")
+    private EmpleadoEntity empleado;
 
-	@Column(name = "estatus")
-	private String estatus;
+    @Column(name = "estatus")
+    private String estatus;
 
-	@Column(name = "fecha_alta")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date fechaAlta;
+    @Column(name = "fecha_alta")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaAlta;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "hora_alta")
-	private Date horaAlta;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "hora_alta")
+    private Date horaAlta;
 
-	@Column(name = "fecha_baja")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date fechaBaja;
+    @Column(name = "fecha_baja")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaBaja;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "hora_baja")
-	private Date horaBaja;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "hora_baja")
+    private Date horaBaja;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_puesto_general")
-	private PuestoGeneralEntity puesto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_puesto_general")
+    private PuestoGeneralEntity puesto;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_centro_responsabilidad")
-	private CentroResponsabilidadEntity centroResponsabilidad;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_centro_responsabilidad")
+    private CentroResponsabilidadEntity centroResponsabilidad;
 
-	@Column(name = "id_metodo_pago")
-	private int metodoPago;
+    @Column(name = "id_metodo_pago")
+    private int metodoPago;
 
-	@Column(name = "numero")
-	private String numero;
+    @Column(name = "numero")
+    private String numero;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_funcion")
-	private FuncionEntity funcion;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_funcion")
+    private FuncionEntity funcion;
 
-	@Column(name = "numero_laboral")
-	private Integer numeroLaboral;
+    @Column(name = "numero_laboral")
+    private Integer numeroLaboral;
 
-	@Column(name = "numero_personal")
-	private Integer numeroPersonal;
+    @Column(name = "numero_personal")
+    private Integer numeroPersonal;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_proyecto")
-	private ProyectoTempEntity proyecto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proyecto")
+    private ProyectoTempEntity proyecto;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_dependencia")
-	private DependenciaTempEntity dependencia;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_dependencia")
+    private DependenciaTempEntity dependencia;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_unidad_responsable")
-	private UnidadResponsableEntity unidadResponsable;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_unidad_responsable")
+    private UnidadResponsableEntity unidadResponsable;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "fecha_ingreso")
-	private Date fechaIngreso;
-	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "primera_quincena")
-	private Date primeraQuincena;
-	
-	
-	
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_ingreso")
+    private Date fechaIngreso;
 
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "primera_quincena")
+    private Date primeraQuincena;
 
-	public Date getPrimeraQuincena() {
-		return primeraQuincena;
-	}
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
 
-	public void setPrimeraQuincena(Date primeraQuincena) {
-		this.primeraQuincena = primeraQuincena;
-	}
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
 
-	public Integer getNumeroPersonal() {
-		return numeroPersonal;
-	}
+    public Date getPrimeraQuincena() {
+        return primeraQuincena;
+    }
 
-	public void setNumeroPersonal(Integer numeroPersonal) {
-		this.numeroPersonal = numeroPersonal;
-	}
+    public void setPrimeraQuincena(Date primeraQuincena) {
+        this.primeraQuincena = primeraQuincena;
+    }
 
-	public void setNumeroLaboral(Integer numeroLaboral) {
-		this.numeroLaboral = numeroLaboral;
-	}
+    public Integer getNumeroPersonal() {
+        return numeroPersonal;
+    }
 
-	public ProyectoTempEntity getProyecto() {
-		return proyecto;
-	}
+    public void setNumeroPersonal(Integer numeroPersonal) {
+        this.numeroPersonal = numeroPersonal;
+    }
 
-	public void setProyecto(ProyectoTempEntity proyecto) {
-		this.proyecto = proyecto;
-	}
+    public void setNumeroLaboral(Integer numeroLaboral) {
+        this.numeroLaboral = numeroLaboral;
+    }
 
-	public DependenciaTempEntity getDependencia() {
-		return dependencia;
-	}
+    public ProyectoTempEntity getProyecto() {
+        return proyecto;
+    }
 
-	public void setDependencia(DependenciaTempEntity dependencia) {
-		this.dependencia = dependencia;
-	}
+    public void setProyecto(ProyectoTempEntity proyecto) {
+        this.proyecto = proyecto;
+    }
 
-	public UnidadResponsableEntity getUnidadResponsable() {
-		return unidadResponsable;
-	}
+    public DependenciaTempEntity getDependencia() {
+        return dependencia;
+    }
 
-	public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
-		this.unidadResponsable = unidadResponsable;
-	}
+    public void setDependencia(DependenciaTempEntity dependencia) {
+        this.dependencia = dependencia;
+    }
 
-	public CentroResponsabilidadEntity getCentroResponsabilidad() {
-		return centroResponsabilidad;
-	}
+    public UnidadResponsableEntity getUnidadResponsable() {
+        return unidadResponsable;
+    }
 
-	public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
-		this.centroResponsabilidad = centroResponsabilidad;
-	}
+    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+    }
 
-	public FuncionEntity getFuncion() {
-		return funcion;
-	}
+    public CentroResponsabilidadEntity getCentroResponsabilidad() {
+        return centroResponsabilidad;
+    }
 
-	public void setFuncion(FuncionEntity funcion) {
-		this.funcion = funcion;
-	}
+    public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
+        this.centroResponsabilidad = centroResponsabilidad;
+    }
 
-	public int getMetodoPago() {
-		return metodoPago;
-	}
+    public FuncionEntity getFuncion() {
+        return funcion;
+    }
 
-	public void setMetodoPago(int metodoPago) {
-		this.metodoPago = metodoPago;
-	}
+    public void setFuncion(FuncionEntity funcion) {
+        this.funcion = funcion;
+    }
 
-	public String getNumero() {
-		return numero;
-	}
+    public int getMetodoPago() {
+        return metodoPago;
+    }
 
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
+    public void setMetodoPago(int metodoPago) {
+        this.metodoPago = metodoPago;
+    }
 
-	public int getNumeroLaboral() {
-		return numeroLaboral;
-	}
+    public String getNumero() {
+        return numero;
+    }
 
-	public void setNumeroLaboral(int numeroLaboral) {
-		this.numeroLaboral = numeroLaboral;
-	}
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
 
-	public PuestoGeneralEntity getPuesto() {
-		return puesto;
-	}
+    public int getNumeroLaboral() {
+        return numeroLaboral;
+    }
 
-	public void setPuesto(PuestoGeneralEntity puesto) {
-		this.puesto = puesto;
-	}
+    public void setNumeroLaboral(int numeroLaboral) {
+        this.numeroLaboral = numeroLaboral;
+    }
 
-	public EmpleadoEntity getEmpleado() {
-		return empleado;
-	}
+    public PuestoGeneralEntity getPuesto() {
+        return puesto;
+    }
 
-	public void setEmpleado(EmpleadoEntity empleado) {
-		this.empleado = empleado;
-	}
+    public void setPuesto(PuestoGeneralEntity puesto) {
+        this.puesto = puesto;
+    }
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public EmpleadoEntity getEmpleado() {
+        return empleado;
+    }
 
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    public void setEmpleado(EmpleadoEntity empleado) {
+        this.empleado = empleado;
+    }
 
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
+    public String getEstatus() {
+        return estatus;
+    }
 
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 
-	public Date getHoraAlta() {
-		return horaAlta;
-	}
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
 
-	public void setHoraAlta(Date horaAlta) {
-		this.horaAlta = horaAlta;
-	}
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 
-	public Date getFechaBaja() {
-		return fechaBaja;
-	}
+    public Date getHoraAlta() {
+        return horaAlta;
+    }
 
-	public void setFechaBaja(Date fechaBaja) {
-		this.fechaBaja = fechaBaja;
-	}
+    public void setHoraAlta(Date horaAlta) {
+        this.horaAlta = horaAlta;
+    }
 
-	public Date getHoraBaja() {
-		return horaBaja;
-	}
+    public Date getFechaBaja() {
+        return fechaBaja;
+    }
 
-	public void setHoraBaja(Date horaBaja) {
-		this.horaBaja = horaBaja;
-	}
+    public void setFechaBaja(Date fechaBaja) {
+        this.fechaBaja = fechaBaja;
+    }
 
-	public Integer getIdSuplenteAutorizado() {
-		return idSuplenteAutorizado;
-	}
+    public Date getHoraBaja() {
+        return horaBaja;
+    }
+
+    public void setHoraBaja(Date horaBaja) {
+        this.horaBaja = horaBaja;
+    }
+
+    public Integer getIdSuplenteAutorizado() {
+        return idSuplenteAutorizado;
+    }
 
 }

@@ -1,12 +1,14 @@
 /*
  * AlmacenReportesExcel.java
  * Creado el Sep 23, 2016 7:17:59 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.reportes.excel;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import mx.gob.saludtlax.rh.reportes.AlmacenReportes;
 
 /**
@@ -19,51 +21,34 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
 
     // 1. El reporte no usa plantillas para su generación.
     static {
-        ExcelReporte acumulados = new ExcelReporte(
-                "acumulados--plantilla.xlsx", "plantillas/acumulados/");
+        ExcelReporte acumulados = new ExcelReporte("acumulados--plantilla.xlsx", "plantillas/acumulados/");
 
-        ExcelReporte comisionadoLicencia = new ExcelReporte(
-                "Comisionado_Licencia.xlsx", "plantillas/comisionadoLicencia/");
+        ExcelReporte comisionadoLicencia = new ExcelReporte("Comisionado_Licencia.xlsx", "plantillas/comisionadoLicencia/");
 
-        ExcelReporte consentradoAltaBaja = new ExcelReporte(
-                "Concentrado_Altas_Bajas.xlsx",
-                "plantillas/consentradoAltaBaja/");
+        ExcelReporte consentradoAltaBaja = new ExcelReporte("Concentrado_Altas_Bajas.xlsx", "plantillas/consentradoAltaBaja/");
 
-        ExcelReporte seguroPopular = new ExcelReporte(
-                "plantilla--seguro-popular.xlsx", "plantillas/siif/");
+        ExcelReporte seguroPopular = new ExcelReporte("plantilla--seguro-popular.xlsx", "plantillas/siif/");
 
-        ExcelReporte seguroPopularReporte = new ExcelReporte(
-                "plantilla--seguro-popular.xlsx", "plantillas/siif/");
+        ExcelReporte seguroPopularReporte = new ExcelReporte("plantilla--seguro-popular.xlsx", "plantillas/siif/");
 
-        ExcelReporte proyeccionesPresupuestalesContratoPorMes 
-                = new ExcelReporte("Contrato_Estatal_Federal.xlsx",
-                        "plantillas/contrato/");
+        ExcelReporte proyeccionesPresupuestalesContratoPorMes = new ExcelReporte("Contrato_Estatal_Federal.xlsx", "plantillas/contrato/");
 
-        ExcelReporte proyeccionesPresupuestalesContrato = new ExcelReporte(
-                "Contrato_Estatal_Federal.xlsx", "plantillas/contrato/");
+        ExcelReporte proyeccionesPresupuestalesContrato = new ExcelReporte("Contrato_Estatal_Federal.xlsx", "plantillas/contrato/");
 
-        ExcelReporte detalleEmpleado = new ExcelReporte(
-                "Detalle_Empleado.xlsx", "plantillas/empleado/");
+        ExcelReporte detalleEmpleado = new ExcelReporte("Detalle_Empleado.xlsx", "plantillas/empleado/");
 
-        ExcelReporte productoNominaReporte = new ExcelReporte(
-                "Producto_Nomina.xlsx", "plantillas/nommina/");
-        
-        ExcelReporte prooductoNominaEstatusReporte = new ExcelReporte(
-        		"Producto_Nomina.xlsx", "plantillas/nommina/");
+        ExcelReporte productoNominaReporte = new ExcelReporte("Producto_Nomina.xlsx", "plantillas/nommina/");
 
-        ExcelReporte productoNominaSuplenciaReporte = new ExcelReporte(
-                "Producto_Nomina.xlsx", "plantillas/nommina/");
+        ExcelReporte prooductoNominaEstatusReporte = new ExcelReporte("Producto_Nomina.xlsx", "plantillas/nommina/");
 
-        ExcelReporte historialPagoReporte = new ExcelReporte(
-                "Historial_Pago.xlsx", "plantillas/nommina/");
+        ExcelReporte productoNominaSuplenciaReporte = new ExcelReporte("Producto_Nomina.xlsx", "plantillas/nommina/");
 
-        ExcelReporte relacionPersonalSuplenteReporte = new ExcelReporte(
-                "Relacion_Personal_Suplente.xlsx", "plantillas/suplencia/");
-        
-        ExcelReporte productoNominaFederalProgramasReporte = new ExcelReporte(
-                "Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
-        ExcelReporte productoNominaProgramasReporte = new ExcelReporte(
-                "Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
+        ExcelReporte historialPagoReporte = new ExcelReporte("Historial_Pago.xlsx", "plantillas/nommina/");
+
+        ExcelReporte relacionPersonalSuplenteReporte = new ExcelReporte("Relacion_Personal_Suplente.xlsx", "plantillas/suplencia/");
+
+        ExcelReporte productoNominaFederalProgramasReporte = new ExcelReporte("Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
+        ExcelReporte productoNominaProgramasReporte = new ExcelReporte("Producto_Nomina_Programas.xlsx", "plantillas/nommina/");
 
         ExcelReporte dispercionReporte = new ExcelReporte(null, null); // 1.
         ExcelReporte pagoGeneralReporte = new ExcelReporte(null, null); // 1.
@@ -81,7 +66,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
         REPORTES.put("detalle_empleado", detalleEmpleado);
         REPORTES.put("producto_nomina", productoNominaReporte);
         REPORTES.put("producto_nomina_suplencia", productoNominaSuplenciaReporte);
-        REPORTES.put("producto_nomina_estatus",prooductoNominaEstatusReporte);
+        REPORTES.put("producto_nomina_estatus", prooductoNominaEstatusReporte);
         REPORTES.put("historial_pago", historialPagoReporte);
         REPORTES.put("relacion_personal_suplente", relacionPersonalSuplenteReporte);
         REPORTES.put("dispersion_nomina", dispercionReporte);
@@ -97,7 +82,7 @@ public class AlmacenReportesExcel implements AlmacenReportes<ExcelReporte> {
     }
 
     @Override
-	public boolean extisteReporte(String nombreReporte) {
+    public boolean extisteReporte(String nombreReporte) {
         return REPORTES.containsKey(nombreReporte);
     }
 

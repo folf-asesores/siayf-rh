@@ -1,33 +1,36 @@
 /*
  * AcumuladoExcelTest.java
  * Creado el Sep 24, 2016 1:13:19 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.acumulados;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import mx.gob.saludtlax.rh.util.ArchivoUtil;
+
 import org.jboss.logging.Logger;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class AcumuladoExcelTest {
-    
+
     private static final Logger LOGGER = Logger.getLogger(AcumuladoExcelTest.class.getName());
-    
+
     @Test
     public void excelTest() throws IOException {
         List<AcumuladosDTO> detalles = new ArrayList<>();
-        
-        for(int i = 0; i < 10; i++) {
+
+        for (int i = 0; i < 10; i++) {
             AcumuladosDTO dto = new AcumuladosDTO();
 
             dto.setIdAcumulado(i);
@@ -59,7 +62,7 @@ public class AcumuladoExcelTest {
         } catch (IOException ex) {
             LOGGER.error(null, ex);
         }
-        
+
         assertNotNull(archivo);
     }
 }

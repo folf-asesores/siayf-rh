@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.puestosautorizados;
 
 import java.util.List;
@@ -8,52 +9,52 @@ import mx.gob.saludtlax.rh.vacantes.seleccion.InfoPuestoDTO;
 
 public interface PuestosAutorizadosEmpleados {
 
-	/**
-	 * Crea los datos laborales de un nuevo puesto para ser autorizando.
-	 * 
-	 * @param solicitud
-	 *            infomración de la solicitud
-	 */
-	public void solicitarAperturaVacante(SolicitudNuevoPuestoDTO solicitud);
+    /**
+     * Crea los datos laborales de un nuevo puesto para ser autorizando.
+     *
+     * @param solicitud
+     *            infomración de la solicitud
+     */
+    public void solicitarAperturaVacante(SolicitudNuevoPuestoDTO solicitud);
 
-	public List<InventarioVacanteDTO> consultarInventariosVacantes();
+    public List<InventarioVacanteDTO> consultarInventariosVacantes();
 
-	public List<InfoPuestoDTO> consultaVacantesPorCriterio(FiltroVacanteDTO filtroVacanteDTO);
+    public List<InfoPuestoDTO> consultaVacantesPorCriterio(FiltroVacanteDTO filtroVacanteDTO);
 
-	public PuestoEmpleadoDTO obtenerInformacionPuesto(Integer idIventario);
+    public PuestoEmpleadoDTO obtenerInformacionPuesto(Integer idIventario);
 
-	public void ubicarEmpleado(UbicacionEmpleadoDTO ubicacionEmpleadoDTO);
+    public void ubicarEmpleado(UbicacionEmpleadoDTO ubicacionEmpleadoDTO);
 
-	public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(Integer idEmpleado);
+    public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(Integer idEmpleado);
 
-	public PuestoEmpleadoDTO obtenerInformacionIdPuesto(Integer idPuesto);
+    public PuestoEmpleadoDTO obtenerInformacionIdPuesto(Integer idPuesto);
 
-	public void modificacionPrograma(Integer idPuesto, Integer idPrograma);
+    public void modificacionPrograma(Integer idPuesto, Integer idPrograma);
 
-	/**
-	 * Consulta el resumen de codigos por contratación activos.
-	 */
-	public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(Integer tipoContratacion);
+    /**
+     * Consulta el resumen de codigos por contratación activos.
+     */
+    public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(Integer tipoContratacion);
 
-	/**
-	 * Consulta el listado de empleados asignados a los puestos autorizados.
-	 */
-	public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus);
+    /**
+     * Consulta el listado de empleados asignados a los puestos autorizados.
+     */
+    public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus);
 
-	public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
+    public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
 
-	public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto);
+    public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto);
 
-	/**
-	 * Actualiza la estructura nómina de puestos federales.
-	 */
-	public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO);
+    /**
+     * Actualiza la estructura nómina de puestos federales.
+     */
+    public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO);
 
-	/**
-	 * Obtiene la estructura nómina de un puesto federal.
-	 */
-	public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto);
+    /**
+     * Obtiene la estructura nómina de un puesto federal.
+     */
+    public EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto);
 
-	public DetallePuestoDTO obtenerPuesto(Integer idPuesto);
+    public DetallePuestoDTO obtenerPuesto(Integer idPuesto);
 
 }

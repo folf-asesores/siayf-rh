@@ -1,11 +1,13 @@
 /*
  *  NotificadorErroresController.java
  *  Creado el Jun 16, 2016 4:14:27 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.notificadorerror;
 
 import java.io.Serializable;
+
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -14,7 +16,7 @@ import javax.inject.Named;
 /**
  * Este ManagedBean controla la vista
  * /contenido/configuracion/notificacion-de-errores.xhtml.
- * 
+ *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Named(value = "notificadorErroresController")
@@ -23,7 +25,8 @@ public class NotificadorErroresController implements Serializable {
 
     private static final long serialVersionUID = -6655950760281785758L;
 
-    @Inject private NotificadorErrores notificadorErroresEJB;
+    @Inject
+    private NotificadorErrores notificadorErroresEJB;
 
     private NotificadorErroresView view;
 
@@ -33,7 +36,7 @@ public class NotificadorErroresController implements Serializable {
     public NotificadorErroresController() {
         view = new NotificadorErroresView();
     }
-    
+
     @PostConstruct
     public void init() {
         view.setCorreosNotificacion(notificadorErroresEJB.consutarCorreosNotificacion());
@@ -87,7 +90,8 @@ public class NotificadorErroresController implements Serializable {
     /**
      * Set the value of view
      *
-     * @param view new value of view
+     * @param view
+     *            new value of view
      */
     public void setView(NotificadorErroresView view) {
         this.view = view;

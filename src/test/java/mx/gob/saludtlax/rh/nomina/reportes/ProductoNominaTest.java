@@ -3,10 +3,26 @@
  * Creado el 13/Feb/2017 8:26:47 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
@@ -44,21 +60,6 @@ import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -117,9 +118,7 @@ public class ProductoNominaTest {
         jar.addAsResource("plantillas/nomina/Producto_Nomina.xlsx");
         war.addAsLibrary(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies().resolve().withTransitivity()
-                .asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -129,12 +128,7 @@ public class ProductoNominaTest {
     @Test
     public void obtenerReferencia() {
         LOGGER.info("Iniciando test obtenerReferencia");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "42",
-            "REPORTE_NOMBRE", "producto_nomina",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "9"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "42", "REPORTE_NOMBRE", "producto_nomina", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA", "9" };
 
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
@@ -146,7 +140,7 @@ public class ProductoNominaTest {
     @Test
     public void obtenerReporte() throws IOException {
         LOGGER.info("Iniciando test obtenerReporte");
-//        String referencia = "4c25e610-8d82-4130-979b-b952022f";
+        //        String referencia = "4c25e610-8d82-4130-979b-b952022f";
         String referencia = "7fb464b2-260f-43ec-afd9-eab002d8";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);

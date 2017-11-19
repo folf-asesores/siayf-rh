@@ -3,10 +3,26 @@
  * Creado el 28/Nov/2016 9:38:10 AM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
@@ -34,21 +50,6 @@ import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.NumeroALetra;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -105,10 +106,7 @@ public class PrenominaEventualesTest {
         jar.addAsResource("reportes/prenomina_eventuales--deducciones-total.jrxml");
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -119,12 +117,7 @@ public class PrenominaEventualesTest {
     public void obtenerReferencia() {
         LOGGER.info("Corre");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[]{
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "prenomina_eventuales",
-            "TIPO_REPORTE", "txt",
-            "ID_PRODUCTO_NOMINA", "6"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "prenomina_eventuales", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "6" };
 
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
@@ -136,9 +129,9 @@ public class PrenominaEventualesTest {
     public void obtenerReporte() throws IOException {
         LOGGER.info("obtenerReporte");
         // ID_NOMINA = 28
-//        String referencia = "80fbbf0e-76b3-4a22-8ee4-ac167a1f";
+        //        String referencia = "80fbbf0e-76b3-4a22-8ee4-ac167a1f";
         // ID_NOMINA = 30
-//        String referencia = "730234d9-a8e7-41fb-95b8-ee2a472a";
+        //        String referencia = "730234d9-a8e7-41fb-95b8-ee2a472a";
         // ID_NOMINA = 32
         String referencia = "312b6624-dce5-4680-a644-7b9ff3a5";
 
@@ -154,12 +147,7 @@ public class PrenominaEventualesTest {
     public void testReporte() throws IOException {
         LOGGER.info("Iniciando test : Reporte");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] {
-            "ID_USUARIO", "33",
-            "REPORTE_NOMBRE", "prenomina_eventuales",
-            "TIPO_REPORTE", "txt",
-            "ID_PRODUCTO_NOMINA", "30"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "33", "REPORTE_NOMBRE", "prenomina_eventuales", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "30" };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         byte[] result = adm.obtenerReporte(referencia);

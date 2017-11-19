@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.movimientos;
 
 /**
@@ -10,8 +11,8 @@ package mx.gob.saludtlax.rh.empleados.movimientos;
  */
 public class EnumEstatusMovimiento {
 
-	public static final String PENDIENTE = "PENDIENTE";
-	public static final String AUTORIZADO = "AUTORIZADO";
-	public static final String CANCELADO = "CANCELADO";
+    public static final String PENDIENTE = "PENDIENTE";
+    public static final String AUTORIZADO = "AUTORIZADO";
+    public static final String CANCELADO = "CANCELADO";
 
 }

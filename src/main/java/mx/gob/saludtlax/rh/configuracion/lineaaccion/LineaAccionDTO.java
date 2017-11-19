@@ -1,9 +1,10 @@
 /*
- * 
+ *
  * LineaAccionDTO.java
  * Creado el Jul 27, 2016 1:49:05 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.lineaaccion;
 
 /**

@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -33,7 +34,6 @@ public class SIIFDeudoresDiversosEntity implements Serializable {
     @Column(name = "importe")
     private BigDecimal importe;
 
-//    <<<Getters & Setters>>>
     public Integer getIdDeudoresDiversos() {
         return idDeudoresDiversos;
     }

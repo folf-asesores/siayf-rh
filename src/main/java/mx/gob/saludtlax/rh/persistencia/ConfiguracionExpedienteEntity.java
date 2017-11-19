@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -51,8 +52,7 @@ public class ConfiguracionExpedienteEntity implements Serializable {
         return documentoAdjuntable;
     }
 
-    public void setDocumentoAdjuntable(
-            DocumentoAdjuntableEntity documentoAdjuntable) {
+    public void setDocumentoAdjuntable(DocumentoAdjuntableEntity documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 

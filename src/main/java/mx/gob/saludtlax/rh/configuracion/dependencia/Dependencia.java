@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * Dependencia.java
  * Creado el Jul 31, 2016 8:38:54 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.dependencia;
 
 import java.util.List;
+
 import javax.ejb.Local;
 
 /**
@@ -31,5 +33,5 @@ public interface Dependencia {
     DependenciaDTO obtenerDependencia(DependenciaDTO dependencia);
 
     List<DependenciaDTO> obtenerDependenciaLista();
-    
+
 }

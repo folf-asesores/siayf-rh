@@ -3,8 +3,8 @@
  * Creado el 07/Dec/2016 6:51:15 PM
  *
  */
-package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
+package mx.gob.saludtlax.rh.nomina.reportes.dispersion;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -40,18 +40,23 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Constructor que se puede emplear en la generación del archivo de texto.
      *
-     * @param numeroCuenta el número de cuenta.
-     * @param monto el monto del pago.
-     * @param nombreEmpleado el nombre del empleado.
-     * @param numeroCheque el número de cheque.
-     * @param nombreProducto el nombre del producto de nómina.
+     * @param numeroCuenta
+     *            el número de cuenta.
+     * @param monto
+     *            el monto del pago.
+     * @param nombreEmpleado
+     *            el nombre del empleado.
+     * @param numeroCheque
+     *            el número de cheque.
+     * @param nombreProducto
+     *            el nombre del producto de nómina.
      */
     public DispersionDTO(String numeroCuenta, BigDecimal monto, String nombreEmpleado, String numeroCheque, String nombreProducto) {
         this.numeroCuenta = numeroCuenta;
         this.monto = monto;
-        this.fechaPago = Calendar.getInstance().getTime();
+        fechaPago = Calendar.getInstance().getTime();
         this.nombreEmpleado = nombreEmpleado;
-        this.fuenteFinanciamiento = "";
+        fuenteFinanciamiento = "";
         this.numeroCheque = numeroCheque;
         this.nombreProducto = nombreProducto;
     }
@@ -60,11 +65,16 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
      * Constructor que se puede emplear en la generación de la hoja de cálculo
      * (Excel).
      *
-     * @param nombreEmpleado el nombre del empleado.
-     * @param numeroCuenta el número de cuenta.
-     * @param monto el monto del pago.
-     * @param fuenteFinanciamiento la fuente del financiamiento del empleado.
-     * @param fechaPago la fecha de pago.
+     * @param nombreEmpleado
+     *            el nombre del empleado.
+     * @param numeroCuenta
+     *            el número de cuenta.
+     * @param monto
+     *            el monto del pago.
+     * @param fuenteFinanciamiento
+     *            la fuente del financiamiento del empleado.
+     * @param fechaPago
+     *            la fecha de pago.
      */
     public DispersionDTO(String nombreEmpleado, String numeroCuenta, BigDecimal monto, String fuenteFinanciamiento, Date fechaPago) {
         this.numeroCuenta = numeroCuenta;
@@ -72,8 +82,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
         this.fechaPago = fechaPago;
         this.nombreEmpleado = nombreEmpleado;
         this.fuenteFinanciamiento = fuenteFinanciamiento;
-        this.numeroCheque = "";
-        this.nombreProducto = "";
+        numeroCheque = "";
+        nombreProducto = "";
     }
 
     /**
@@ -88,13 +98,14 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of numeroCuenta
      *
-     * @param numeroCuenta new value of numeroCuenta
+     * @param numeroCuenta
+     *            new value of numeroCuenta
      */
     public void setNumeroCuenta(String numeroCuenta) {
         this.numeroCuenta = numeroCuenta;
     }
 
-   /**
+    /**
      * Get the value of monto
      *
      * @return the value of monto
@@ -106,7 +117,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of monto
      *
-     * @param monto new value of monto
+     * @param monto
+     *            new value of monto
      */
     public void setMonto(BigDecimal monto) {
         this.monto = monto;
@@ -124,7 +136,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of fechaPago
      *
-     * @param fechaPago new value of fechaPago
+     * @param fechaPago
+     *            new value of fechaPago
      */
     public void setFechaPago(Date fechaPago) {
         this.fechaPago = fechaPago;
@@ -142,7 +155,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of nombreEmpleado
      *
-     * @param nombreEmpleado new value of nombreEmpleado
+     * @param nombreEmpleado
+     *            new value of nombreEmpleado
      */
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
@@ -160,7 +174,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of fuenteFinanciamiento
      *
-     * @param fuenteFinanciamiento new value of fuenteFinanciamiento
+     * @param fuenteFinanciamiento
+     *            new value of fuenteFinanciamiento
      */
     public void setFuenteFinanciamiento(String fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
@@ -178,7 +193,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of numeroCheque
      *
-     * @param numeroCheque new value of numeroCheque
+     * @param numeroCheque
+     *            new value of numeroCheque
      */
     public void setNumeroCheque(String numeroCheque) {
         this.numeroCheque = numeroCheque;
@@ -196,7 +212,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
     /**
      * Set the value of nombreProducto
      *
-     * @param nombreProducto new value of nombreProducto
+     * @param nombreProducto
+     *            new value of nombreProducto
      */
     public void setNombreProducto(String nombreProducto) {
         this.nombreProducto = nombreProducto;
@@ -204,13 +221,13 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
 
     @Override
     public int compareTo(DispersionDTO o) {
-        if(o == null) {
+        if (o == null) {
             return 1;
         }
 
         int compare;
 
-        if(fuenteFinanciamiento == null && o.fuenteFinanciamiento == null) {
+        if (fuenteFinanciamiento == null && o.fuenteFinanciamiento == null) {
             compare = 0;
         } else if (fuenteFinanciamiento == null && o.fuenteFinanciamiento != null) {
             compare = -1;
@@ -220,10 +237,10 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
             compare = fuenteFinanciamiento.compareTo(o.fuenteFinanciamiento);
         }
 
-        if(compare == 0) {
+        if (compare == 0) {
             if (numeroCuenta == null && o.numeroCuenta == null) {
                 return 0;
-            } else if(numeroCuenta == null && o.numeroCuenta != null) {
+            } else if (numeroCuenta == null && o.numeroCuenta != null) {
                 return -1;
             } else if (numeroCuenta != null && o.numeroCuenta == null) {
                 return 1;
@@ -237,15 +254,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
 
     @Override
     public String toString() {
-        return "DispersionDTO{"
-                + "numeroCuenta=" + numeroCuenta
-                + ", monto=" + monto
-                + ", fechaPago=" + fechaPago
-                + ", nombreEmpleado=" + nombreEmpleado
-                + ", fuenteFinanciamiento=" + fuenteFinanciamiento
-                + ", numeroCheque=" + numeroCheque
-                + ", nombreProducto=" + nombreProducto
-                + '}';
+        return "DispersionDTO{" + "numeroCuenta=" + numeroCuenta + ", monto=" + monto + ", fechaPago=" + fechaPago + ", nombreEmpleado=" + nombreEmpleado
+                + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", numeroCheque=" + numeroCheque + ", nombreProducto=" + nombreProducto + '}';
     }
 
     @Override

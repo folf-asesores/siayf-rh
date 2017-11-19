@@ -1,7 +1,7 @@
 /*
  * ReglaNegocioException.java
  * Creado Jun 23, 2016 2:36:23 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.excepciones;
@@ -16,27 +16,29 @@ import java.util.TreeMap;
 import javax.ejb.ApplicationException;
 
 /**
- * Esta clase define las excepciones que están relacionadas con las reglas de 
+ * Esta clase define las excepciones que están relacionadas con las reglas de
  * negocio.
- * 
+ *
  * @author luisAlfonso
  * @author Zaid
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-@ApplicationException(rollback=true)
-public class ReglaNegocioException extends RuntimeException implements Serializable{
+@ApplicationException(rollback = true)
+public class ReglaNegocioException extends RuntimeException implements Serializable {
 
-    /**  */
-    private static final long serialVersionUID = 4423246025732842148L;
     
+    private static final long serialVersionUID = 4423246025732842148L;
+
     private ReglaNegocioCodigoError codigoError;
     private final Map<String, Object> propiedades = new TreeMap<>();
-    
+
     /**
      * Inicializa la excepción.
-     * 
-     * @param message un mensaje breve para describir el error.
-     * @param codigoError el código de error que identifica la excepción.
+     *
+     * @param message
+     *            un mensaje breve para describir el error.
+     * @param codigoError
+     *            el código de error que identifica la excepción.
      */
     public ReglaNegocioException(String message, ReglaNegocioCodigoError codigoError) {
         super(message);
@@ -45,9 +47,11 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
 
     /**
      * Inicializa la excepción.
-     * 
-     * @param cause la razón que ocaciono la excepción.
-     * @param codigoError el código de error que identifica la excepción.
+     *
+     * @param cause
+     *            la razón que ocaciono la excepción.
+     * @param codigoError
+     *            el código de error que identifica la excepción.
      */
     public ReglaNegocioException(Throwable cause, ReglaNegocioCodigoError codigoError) {
         super(cause);
@@ -56,19 +60,22 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
 
     /**
      * Inicializa la excepción.
-     * 
-     * @param message un mensaje breve para describir el error.
-     * @param cause la razón que ocaciono la excepción.
-     * @param codigoError el código de error que identifica la excepción.
+     *
+     * @param message
+     *            un mensaje breve para describir el error.
+     * @param cause
+     *            la razón que ocaciono la excepción.
+     * @param codigoError
+     *            el código de error que identifica la excepción.
      */
     public ReglaNegocioException(String message, Throwable cause, ReglaNegocioCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
-    
+
     /**
      * Este método devuelve el código de error con un enumerable.
-     * 
+     *
      * @return el código de error que identifica la excepción.
      */
     public ReglaNegocioCodigoError getCodigoError() {
@@ -77,38 +84,43 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
 
     /**
      * Este método permite establecer el código de error.
-     * 
-     * @param codigoError el código de error que identifica la excepción.
+     *
+     * @param codigoError
+     *            el código de error que identifica la excepción.
      */
     public void setCodigoError(ReglaNegocioCodigoError codigoError) {
         this.codigoError = codigoError;
     }
-    
+
     /**
      * Este método permite obtener propiedades adicionales sobre la excepción.
-     * 
+     *
      * @return las propiedades de la excepciones.
      */
     public Map<String, Object> getPropiedades() {
         return Collections.unmodifiableMap(propiedades);
     }
-    
+
     /**
      * Este método permite obtener una propiedad adicional sobre la excepción.
-     * 
-     * @param <T> el tipo que será retornado.
-     * @param clave el nombre clave de la propiedad.
+     *
+     * @param <T>
+     *            el tipo que será retornado.
+     * @param clave
+     *            el nombre clave de la propiedad.
      * @return
      */
     public <T> T get(String clave) {
         return (T) propiedades.get(clave);
     }
-    
+
     /**
      * este método permite agregar propiedades adicionales a la excepción.
-     * 
-     * @param clave la clave con la que se identificara la propiedad.
-     * @param valor el valor que tendrá dicha propiedad.
+     *
+     * @param clave
+     *            la clave con la que se identificara la propiedad.
+     * @param valor
+     *            el valor que tendrá dicha propiedad.
      * @return un instancia de la excepción.
      */
     public ReglaNegocioException set(String clave, Object valor) {
@@ -122,21 +134,21 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
             printStackTrace(new PrintWriter(s));
         }
     }
-    
+
     @Override
     public void printStackTrace(PrintWriter s) {
         synchronized (s) {
             s.println(this);
             s.println("\t-------------------------------");
-            
+
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero()  + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
             }
-            
+
             for (String key : propiedades.keySet()) {
                 s.println("\t" + key + "=[" + propiedades.get(key) + "]");
             }
-            
+
             s.println("\t-------------------------------");
             StackTraceElement[] traceElements = getStackTrace();
 

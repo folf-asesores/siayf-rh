@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.seguridad.administracionmodulo;
 
 import java.io.Serializable;
@@ -36,198 +37,193 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class CrearModuloController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7773234668768784817L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7773234668768784817L;
 
-	@Inject
-	private Modulos modulos;
-	@Inject
-	private Areas areaEJB;
+    @Inject
+    private Modulos modulos;
+    @Inject
+    private Areas areaEJB;
 
-	private CrearModuloView view;
+    private CrearModuloView view;
 
-	private List<AccionDTO> acciones = new ArrayList<AccionDTO>();
+    private List<AccionDTO> acciones = new ArrayList<>();
 
-	@PostConstruct
-	public void init() {
-		vistaPrincipal();
-	}
+    @PostConstruct
+    public void init() {
+        vistaPrincipal();
+    }
 
-	public void vistaPrincipal() {
+    public void vistaPrincipal() {
 
-		this.view = new CrearModuloView();
+        view = new CrearModuloView();
 
-		this.acciones = new ArrayList<AccionDTO>();
+        acciones = new ArrayList<>();
 
-		List<AreaDTO> listaAreas = areaEJB.obtenerAreas();
+        List<AreaDTO> listaAreas = areaEJB.obtenerAreas();
 
-		if (!listaAreas.isEmpty()) {
-			this.view.setListaAreas(listaAreas);
-		}
-	}
+        if (!listaAreas.isEmpty()) {
+            view.setListaAreas(listaAreas);
+        }
+    }
 
-	public void registrarModulo() {
+    public void registrarModulo() {
 
-		try {
-			ModuloDTO moduloDTO = this.view.getCrearModulo();
+        try {
+            ModuloDTO moduloDTO = view.getCrearModulo();
 
-			moduloDTO.setAcciones(acciones);
+            moduloDTO.setAcciones(acciones);
 
-			modulos.crearModulo(moduloDTO);
-			vistaPrincipal();
-			JSFUtils.infoMessage("Registrar Modulo: ", "¡El registro se realizo correctamente!");
+            modulos.crearModulo(moduloDTO);
+            vistaPrincipal();
+            JSFUtils.infoMessage("Registrar Modulo: ", "¡El registro se realizo correctamente!");
 
-		} catch (ReglaNegocioException | ValidacionException exception) {
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		}
+        } catch (ReglaNegocioException | ValidacionException exception) {
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
 
-	}
+    }
 
-	public void validatorModulo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorModulo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		case "nombreModulo":
-			String nombre = (String) value;
+            case "nombreModulo":
+                String nombre = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(nombre)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un nombre.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "url":
-			String descripcionArea = (String) value;
+                if (ValidacionUtil.esCadenaVacia(nombre)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "url":
+                String descripcionArea = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese url.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "idArea":
-			Integer idPeriodoCalendario = (Integer) value;
-			if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una area.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		}
-	}
+                if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese url.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "idArea":
+                Integer idPeriodoCalendario = (Integer) value;
+                if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una area.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+        }
+    }
 
-	public void validatorAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		case "claveAccion":
-			String claveAccion = (String) value;
+            case "claveAccion":
+                String claveAccion = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(claveAccion)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese una clave.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
-		case "descripcion":
-			String descripcion = (String) value;
+                if (ValidacionUtil.esCadenaVacia(claveAccion)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una clave.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
+            case "descripcion":
+                String descripcion = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(descripcion)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese descripcion.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
+                if (ValidacionUtil.esCadenaVacia(descripcion)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese descripcion.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
 
-		}
-	}
+        }
+    }
 
-	public void onRowEdit(RowEditEvent event) {
+    public void onRowEdit(RowEditEvent event) {
 
-		FacesMessage msg = new FacesMessage("Actualizado: ", ((AccionDTO) event.getObject()).getClave());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesMessage msg = new FacesMessage("Actualizado: ", ((AccionDTO) event.getObject()).getClave());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
 
-	}
+    }
 
-	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Edicion Cancelada: ", ((AccionDTO) event.getObject()).getClave());
-		FacesContext.getCurrentInstance().addMessage(null, msg);
-	}
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edicion Cancelada: ", ((AccionDTO) event.getObject()).getClave());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
 
-	public void eliminarAccionDeLaLista(AccionDTO accion) {
+    public void eliminarAccionDeLaLista(AccionDTO accion) {
 
-		this.acciones.remove(accion);
+        acciones.remove(accion);
 
-		JSFUtils.infoMessage("Eliminar Acción: ", "¡Se elimino correctamente!");
-	}
+        JSFUtils.infoMessage("Eliminar Acción: ", "¡Se elimino correctamente!");
+    }
 
-	public void registrarAccion() {
-		// Copia
-		List<AccionDTO> listaAcciones = new ArrayList<AccionDTO>();
+    public void registrarAccion() {
+        // Copia
+        List<AccionDTO> listaAcciones = new ArrayList<>();
 
-		listaAcciones.addAll(this.acciones);
+        listaAcciones.addAll(acciones);
 
-		listaAcciones.add(this.view.getAccion());
+        listaAcciones.add(view.getAccion());
 
-		// limpia
-		this.acciones.clear();
+        // limpia
+        acciones.clear();
 
-		this.acciones.addAll(listaAcciones);
+        acciones.addAll(listaAcciones);
 
-		cerrarFormularioAccion();
+        cerrarFormularioAccion();
 
-		JSFUtils.infoMessage("Agregar Acción: ", "¡Se agrego correctamente!");
+        JSFUtils.infoMessage("Agregar Acción: ", "¡Se agrego correctamente!");
 
-	}
+    }
 
-	public void mostrarFormularioAccion() {
-		this.view.setAccion(new AccionDTO());
-		this.view.setMostrarTablaAccciones(false);
-		this.view.setMostrarFormularioAccion(true);
-	}
+    public void mostrarFormularioAccion() {
+        view.setAccion(new AccionDTO());
+        view.setMostrarTablaAccciones(false);
+        view.setMostrarFormularioAccion(true);
+    }
 
-	public void cerrarFormularioAccion() {
-		this.view.setAccion(new AccionDTO());
-		this.view.setMostrarTablaAccciones(true);
-		this.view.setMostrarFormularioAccion(false);
-	}
+    public void cerrarFormularioAccion() {
+        view.setAccion(new AccionDTO());
+        view.setMostrarTablaAccciones(true);
+        view.setMostrarFormularioAccion(false);
+    }
 
-	
-	/**
-	 * @return the view
-	 */
-	public CrearModuloView getView() {
-		return view;
-	}
+    /**
+     * @return the view
+     */
+    public CrearModuloView getView() {
+        return view;
+    }
 
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(CrearModuloView view) {
-		this.view = view;
-	}
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(CrearModuloView view) {
+        this.view = view;
+    }
 
-	/**
-	 * @return the acciones
-	 */
-	public List<AccionDTO> getAcciones() {
-		return acciones;
-	}
+    /**
+     * @return the acciones
+     */
+    public List<AccionDTO> getAcciones() {
+        return acciones;
+    }
 
-	/**
-	 * @param acciones
-	 *            the acciones to set
-	 */
-	public void setAcciones(List<AccionDTO> acciones) {
-		this.acciones = acciones;
-	}
+    /**
+     * @param acciones
+     *            the acciones to set
+     */
+    public void setAcciones(List<AccionDTO> acciones) {
+        this.acciones = acciones;
+    }
 
 }

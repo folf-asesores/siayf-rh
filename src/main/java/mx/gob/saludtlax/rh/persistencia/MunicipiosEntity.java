@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,39 +22,39 @@ import javax.persistence.Table;
 @Table(name = "municipios")
 public class MunicipiosEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5481812985416881508L;
-	@Id
-	@Column(name = "id_municipio")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idMunicipio;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5481812985416881508L;
+    @Id
+    @Column(name = "id_municipio")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idMunicipio;
 
-	@Column(name = "Nombre")
-	private String nombre;
+    @Column(name = "Nombre")
+    private String nombre;
 
-	@Column(name = "id_estado")
-	private Integer idEstado;
+    @Column(name = "id_estado")
+    private Integer idEstado;
 
-	public Integer getIdMunicipio() {
-		return idMunicipio;
-	}
+    public Integer getIdMunicipio() {
+        return idMunicipio;
+    }
 
-	public void setIdMunicipio(Integer idMunicipio) {
-		this.idMunicipio = idMunicipio;
-	}
+    public void setIdMunicipio(Integer idMunicipio) {
+        this.idMunicipio = idMunicipio;
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public Integer getIdEstado() {
-		return idEstado;
-	}
+    public Integer getIdEstado() {
+        return idEstado;
+    }
 
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -21,210 +22,208 @@ import javax.persistence.Temporal;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 07/11/2016 22:23:50
+ * @since 07/11/2016 22:23:50
  */
 @Entity
 @Table(name = "quincenas_suplencias")
 public class QuincenasSuplenciasEntity implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4411374768727379682L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4411374768727379682L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_quincena_suplencia")
-	private Integer idQuincenaSuplencia;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_quincena_suplencia")
+    private Integer idQuincenaSuplencia;
 
-	@Column(name = "numero_quincena")
-	private int numeroQuincena;
+    @Column(name = "numero_quincena")
+    private int numeroQuincena;
 
-	@Column(name = "ejercicio_fiscal")
-	private int ejercicioFiscal;
-	
-	@Column(name ="id_mes")
-	private Integer idMes;
-	
-	@Column(name ="total_dias")
-	private Integer totalDias;
+    @Column(name = "ejercicio_fiscal")
+    private int ejercicioFiscal;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_suplente")
-	private SuplenteAutorizadoEntity suplente;
+    @Column(name = "id_mes")
+    private Integer idMes;
 
-	@Column(name = "fecha_cierre")
-	@Temporal(javax.persistence.TemporalType.DATE)
-	private Date fechaCierre;
+    @Column(name = "total_dias")
+    private Integer totalDias;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_proyecto")
-	private ProyectoTempEntity proyecto;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_suplente")
+    private SuplenteAutorizadoEntity suplente;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_dependencia")
-	private DependenciaTempEntity dependencia;
+    @Column(name = "fecha_cierre")
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaCierre;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_unidad_responsable")
-	private UnidadResponsableEntity unidadResponsable;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proyecto")
+    private ProyectoTempEntity proyecto;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_fuente_financiamiento")
-	private FuenteFinanciamientoEntity fuenteFinanciamiento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_dependencia")
+    private DependenciaTempEntity dependencia;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_subfuente_financiamiento")
-	private SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_unidad_responsable")
+    private UnidadResponsableEntity unidadResponsable;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_tipo_recurso")
-	private TipoRecursoTempEntity tipoRecurso;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_fuente_financiamiento")
+    private FuenteFinanciamientoEntity fuenteFinanciamiento;
 
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_cuenta")
-	private CuentasBancariasEntity cuenta;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_subfuente_financiamiento")
+    private SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento;
 
-	@Column(name = "total")
-	private BigDecimal total;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tipo_recurso")
+    private TipoRecursoTempEntity tipoRecurso;
 
-	@Column(name = "estatus")
-	private String estatus;
-	
-	@Column(name ="id_nomina")
-	private Integer idNomina;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cuenta")
+    private CuentasBancariasEntity cuenta;
 
-	
-	
-	public Integer getIdNomina() {
-		return idNomina;
-	}
+    @Column(name = "total")
+    private BigDecimal total;
 
-	public void setIdNomina(Integer idNomina) {
-		this.idNomina = idNomina;
-	}
+    @Column(name = "estatus")
+    private String estatus;
 
-	public Integer getIdMes() {
-		return idMes;
-	}
+    @Column(name = "id_nomina")
+    private Integer idNomina;
 
-	public void setIdMes(Integer idMes) {
-		this.idMes = idMes;
-	}
+    public Integer getIdNomina() {
+        return idNomina;
+    }
 
-	public Integer getTotalDias() {
-		return totalDias;
-	}
+    public void setIdNomina(Integer idNomina) {
+        this.idNomina = idNomina;
+    }
 
-	public void setTotalDias(Integer totalDias) {
-		this.totalDias = totalDias;
-	}
+    public Integer getIdMes() {
+        return idMes;
+    }
 
-	public void setNumeroQuincena(int numeroQuincena) {
-		this.numeroQuincena = numeroQuincena;
-	}
+    public void setIdMes(Integer idMes) {
+        this.idMes = idMes;
+    }
 
-	public Integer getIdQuincenaSuplencia() {
-		return idQuincenaSuplencia;
-	}
+    public Integer getTotalDias() {
+        return totalDias;
+    }
 
-	public int getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public void setTotalDias(Integer totalDias) {
+        this.totalDias = totalDias;
+    }
 
-	public void setEjercicioFiscal(int ejercicioFiscal) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public void setNumeroQuincena(int numeroQuincena) {
+        this.numeroQuincena = numeroQuincena;
+    }
 
-	public SuplenteAutorizadoEntity getSuplente() {
-		return suplente;
-	}
+    public Integer getIdQuincenaSuplencia() {
+        return idQuincenaSuplencia;
+    }
 
-	public void setSuplente(SuplenteAutorizadoEntity suplente) {
-		this.suplente = suplente;
-	}
+    public int getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
 
-	public Date getFechaCierre() {
-		return fechaCierre;
-	}
+    public void setEjercicioFiscal(int ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
-	public void setFechaCierre(Date fechaCierre) {
-		this.fechaCierre = fechaCierre;
-	}
+    public SuplenteAutorizadoEntity getSuplente() {
+        return suplente;
+    }
 
-	public ProyectoTempEntity getProyecto() {
-		return proyecto;
-	}
+    public void setSuplente(SuplenteAutorizadoEntity suplente) {
+        this.suplente = suplente;
+    }
 
-	public void setProyecto(ProyectoTempEntity proyecto) {
-		this.proyecto = proyecto;
-	}
+    public Date getFechaCierre() {
+        return fechaCierre;
+    }
 
-	public DependenciaTempEntity getDependencia() {
-		return dependencia;
-	}
+    public void setFechaCierre(Date fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
 
-	public void setDependencia(DependenciaTempEntity dependencia) {
-		this.dependencia = dependencia;
-	}
+    public ProyectoTempEntity getProyecto() {
+        return proyecto;
+    }
 
-	public UnidadResponsableEntity getUnidadResponsable() {
-		return unidadResponsable;
-	}
+    public void setProyecto(ProyectoTempEntity proyecto) {
+        this.proyecto = proyecto;
+    }
 
-	public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
-		this.unidadResponsable = unidadResponsable;
-	}
+    public DependenciaTempEntity getDependencia() {
+        return dependencia;
+    }
 
-	public FuenteFinanciamientoEntity getFuenteFinanciamiento() {
-		return fuenteFinanciamiento;
-	}
+    public void setDependencia(DependenciaTempEntity dependencia) {
+        this.dependencia = dependencia;
+    }
 
-	public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
-		this.fuenteFinanciamiento = fuenteFinanciamiento;
-	}
+    public UnidadResponsableEntity getUnidadResponsable() {
+        return unidadResponsable;
+    }
 
-	public SubFuenteFinanciamientoTempEntity getSubfuenteFinanciamiento() {
-		return subfuenteFinanciamiento;
-	}
+    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+        this.unidadResponsable = unidadResponsable;
+    }
 
-	public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
-		this.subfuenteFinanciamiento = subfuenteFinanciamiento;
-	}
+    public FuenteFinanciamientoEntity getFuenteFinanciamiento() {
+        return fuenteFinanciamiento;
+    }
 
-	public TipoRecursoTempEntity getTipoRecurso() {
-		return tipoRecurso;
-	}
+    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+        this.fuenteFinanciamiento = fuenteFinanciamiento;
+    }
 
-	public void setTipoRecurso(TipoRecursoTempEntity tipoRecurso) {
-		this.tipoRecurso = tipoRecurso;
-	}
+    public SubFuenteFinanciamientoTempEntity getSubfuenteFinanciamiento() {
+        return subfuenteFinanciamiento;
+    }
 
-	public CuentasBancariasEntity getCuenta() {
-		return cuenta;
-	}
+    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+        this.subfuenteFinanciamiento = subfuenteFinanciamiento;
+    }
 
-	public void setCuenta(CuentasBancariasEntity cuenta) {
-		this.cuenta = cuenta;
-	}
+    public TipoRecursoTempEntity getTipoRecurso() {
+        return tipoRecurso;
+    }
 
-	public BigDecimal getTotal() {
-		return total;
-	}
+    public void setTipoRecurso(TipoRecursoTempEntity tipoRecurso) {
+        this.tipoRecurso = tipoRecurso;
+    }
 
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
+    public CuentasBancariasEntity getCuenta() {
+        return cuenta;
+    }
 
-	public String getEstatus() {
-		return estatus;
-	}
+    public void setCuenta(CuentasBancariasEntity cuenta) {
+        this.cuenta = cuenta;
+    }
 
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    public BigDecimal getTotal() {
+        return total;
+    }
 
-	public int getNumeroQuincena() {
-		return numeroQuincena;
-	}
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public int getNumeroQuincena() {
+        return numeroQuincena;
+    }
 
 }

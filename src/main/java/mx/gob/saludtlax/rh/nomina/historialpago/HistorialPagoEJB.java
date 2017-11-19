@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.historialpago;
 
 import java.io.Serializable;
@@ -14,20 +15,20 @@ import javax.inject.Inject;
  *
  */
 @Stateless
-public class HistorialPagoEJB implements HistorialPago , Serializable {
+public class HistorialPagoEJB implements HistorialPago, Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7934794779526103095L;
-	
-	@Inject
-	private HistorialPagoService historialPagoService;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7934794779526103095L;
 
-	@Override
-	public List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(Integer idEmpleado) {
-		
-		return historialPagoService.obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
-	}
+    @Inject
+    private HistorialPagoService historialPagoService;
+
+    @Override
+    public List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(Integer idEmpleado) {
+
+        return historialPagoService.obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
+    }
 
 }

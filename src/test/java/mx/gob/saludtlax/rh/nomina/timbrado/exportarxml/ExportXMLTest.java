@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.timbrado.exportarxml;
 
 import java.io.Serializable;
@@ -14,17 +15,17 @@ import mx.gob.saludtlax.rh.nomina.exportarxml.ExportarXmlService;
 
 @RunWith(Arquillian.class)
 public class ExportXMLTest implements Serializable {
-	private static final long serialVersionUID = 3945364712566019882L;
-	@Inject
-	ExportarXmlService service;
+    private static final long serialVersionUID = 3945364712566019882L;
+    @Inject
+    ExportarXmlService service;
 
-	@Deployment
-	public static WebArchive createDeployment() {
-		return InitExportXMLTest.crearWar();
-	}
+    @Deployment
+    public static WebArchive createDeployment() {
+        return InitExportXMLTest.crearWar();
+    }
 
-	@Test
-	public void testExportXml() {
-		service.exportarXml();
-	}
+    @Test
+    public void testExportXml() {
+        service.exportarXml();
+    }
 }

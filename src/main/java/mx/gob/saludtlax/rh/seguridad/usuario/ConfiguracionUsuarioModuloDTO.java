@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.seguridad.usuario;
 
 import java.io.Serializable;
@@ -45,6 +46,5 @@ public class ConfiguracionUsuarioModuloDTO implements Serializable {
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
-
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.IOException;
@@ -23,106 +24,103 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  *
  */
 
-@ManagedBean (name = "terminoInterinato")
+@ManagedBean(name = "terminoInterinato")
 @SessionScoped
-public class TerminoInterinatoController implements Serializable{
+public class TerminoInterinatoController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -9081288022997790571L;
-	
-	@Inject
-	private TerminoInterinatoEJB terminoInterinatoEJB;
-	
-	private TerminoView view;
-	
-	@PostConstruct
-	public void inicio() {
-		this.view = new TerminoView();
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = -9081288022997790571L;
 
-	
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    @Inject
+    private TerminoInterinatoEJB terminoInterinatoEJB;
 
-		String nombreComponete = component.getId();
+    private TerminoView view;
 
-		switch (nombreComponete) {
-		case "criterio":
-			Integer criterio = (Integer) value;
+    @PostConstruct
+    public void inicio() {
+        view = new TerminoView();
+    }
 
-			if (ValidacionUtil.esNumeroPositivo(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+        String nombreComponete = component.getId();
 
-	public void buscarEmpleados() {
-		String criterio = view.getCriterio();
+        switch (nombreComponete) {
+            case "criterio":
+                Integer criterio = (Integer) value;
 
-		List<TerminoDetalleDTO> resultado = terminoInterinatoEJB.consultarPorCriterio(criterio);
-		view.setTerminoDetalleDTO(resultado);
-	}
+                if (ValidacionUtil.esNumeroPositivo(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	public void descargarTermino() {
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-		TerminoDTO terminoDTO = view.getTerminoDTO();
-		TerminoInterinatoWord terminoInterinatoWord = new TerminoInterinatoWord();
-		byte[] bytesWord = terminoInterinatoWord.generar(terminoDTO);
+    public void buscarEmpleados() {
+        String criterio = view.getCriterio();
 
-		FacesContext fc = FacesContext.getCurrentInstance();
+        List<TerminoDetalleDTO> resultado = terminoInterinatoEJB.consultarPorCriterio(criterio);
+        view.setTerminoDetalleDTO(resultado);
+    }
 
-		try {
-			ExternalContext ec = fc.getExternalContext();
+    public void descargarTermino() {
 
-			ec.responseReset();
-			ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-			ec.setResponseContentLength(bytesWord.length);
-			ec.setResponseHeader("Content-Disposition",
-					"attachment;filename=" + "TerminoInterinato.docx");
+        TerminoDTO terminoDTO = view.getTerminoDTO();
+        TerminoInterinatoWord terminoInterinatoWord = new TerminoInterinatoWord();
+        byte[] bytesWord = terminoInterinatoWord.generar(terminoDTO);
 
-			OutputStream outputStream = ec.getResponseOutputStream();
-			outputStream.write(bytesWord, 0, bytesWord.length);
-			outputStream.flush();
+        FacesContext fc = FacesContext.getCurrentInstance();
 
-		} catch (IOException e) {
-			 
-			e.printStackTrace();
-		} finally {
-			fc.responseComplete();
-		}
+        try {
+            ExternalContext ec = fc.getExternalContext();
 
-	}
+            ec.responseReset();
+            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentLength(bytesWord.length);
+            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoInterinato.docx");
 
-	public void contenidoTermino(Integer idTipoMovimiento) {
-		TerminoDTO terminoDTO = terminoInterinatoEJB.obtenerTermino(idTipoMovimiento);
+            OutputStream outputStream = ec.getResponseOutputStream();
+            outputStream.write(bytesWord, 0, bytesWord.length);
+            outputStream.flush();
 
-		view.setTerminoDTO(terminoDTO);
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarTermino(true);
-	}
+        } catch (IOException e) {
 
-	public void regresar() {
-		this.view.setCriterio("");
-		this.view.setTerminoDetalleDTO(null);
-		this.view.setMostrarPrincipal(true);
-		this.view.setMostrarTermino(false);
-	}
+            e.printStackTrace();
+        } finally {
+            fc.responseComplete();
+        }
 
-	public TerminoView getView() {
-		return view;
-	}
+    }
 
-	public void setView(TerminoView view) {
-		this.view = view;
-	}
+    public void contenidoTermino(Integer idTipoMovimiento) {
+        TerminoDTO terminoDTO = terminoInterinatoEJB.obtenerTermino(idTipoMovimiento);
+
+        view.setTerminoDTO(terminoDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarTermino(true);
+    }
+
+    public void regresar() {
+        view.setCriterio("");
+        view.setTerminoDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarTermino(false);
+    }
+
+    public TerminoView getView() {
+        return view;
+    }
+
+    public void setView(TerminoView view) {
+        this.view = view;
+    }
 
 }

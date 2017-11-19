@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -106,7 +107,6 @@ public class SIIFDatosLaboralesEntity implements Serializable {
     @Column(name = "id_nomina")
     private Integer idNomina;
 
-//    <<<Getters & Setters>>>
     public Integer getIdDatoLaboral() {
         return idDatoLaboral;
     }

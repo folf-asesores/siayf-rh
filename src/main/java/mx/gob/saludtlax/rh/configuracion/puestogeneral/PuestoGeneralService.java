@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 
 import java.io.Serializable;
@@ -24,156 +25,150 @@ import mx.gob.saludtlax.rh.persistencia.TipoPuestoRepository;
  */
 public class PuestoGeneralService implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8585448503480291928L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8585448503480291928L;
 
-	@Inject
-	private PuestoGeneralRepository puestoGeneralRepository;
-	@Inject
-	private TipoPuestoRepository tipoPuestoRepository;
-	@Inject
-	private RamaRepository ramaRepository;
+    @Inject
+    private PuestoGeneralRepository puestoGeneralRepository;
+    @Inject
+    private TipoPuestoRepository tipoPuestoRepository;
+    @Inject
+    private RamaRepository ramaRepository;
 
-	protected List<PuestoGeneralDTO> consultarListaPuestoGeneral() {
-		List<PuestoGeneralDTO> listaPuestoGeneralDTOs = new ArrayList<PuestoGeneralDTO>();
-		List<PuestoGeneralEntity> listaPuestoGeneralEntities = puestoGeneralRepository.obtenerListaPuestoGeneral();
+    protected List<PuestoGeneralDTO> consultarListaPuestoGeneral() {
+        List<PuestoGeneralDTO> listaPuestoGeneralDTOs = new ArrayList<>();
+        List<PuestoGeneralEntity> listaPuestoGeneralEntities = puestoGeneralRepository.obtenerListaPuestoGeneral();
 
-		if (listaPuestoGeneralEntities != null && !listaPuestoGeneralEntities.isEmpty()) {
+        if (listaPuestoGeneralEntities != null && !listaPuestoGeneralEntities.isEmpty()) {
 
-			for (PuestoGeneralEntity puestoGeneralEntity : listaPuestoGeneralEntities) {
-				PuestoGeneralDTO dto = new PuestoGeneralDTO();
+            for (PuestoGeneralEntity puestoGeneralEntity : listaPuestoGeneralEntities) {
+                PuestoGeneralDTO dto = new PuestoGeneralDTO();
 
-				dto.setIdPuestoGeneral(puestoGeneralEntity.getIdPuestoGeneral());
-				dto.setCodigo(puestoGeneralEntity.getCodigo());
-				dto.setPuesto(puestoGeneralEntity.getPuesto());
+                dto.setIdPuestoGeneral(puestoGeneralEntity.getIdPuestoGeneral());
+                dto.setCodigo(puestoGeneralEntity.getCodigo());
+                dto.setPuesto(puestoGeneralEntity.getPuesto());
 
-				if (puestoGeneralEntity.getIdTipoPuesto() != null
-						|| puestoGeneralEntity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
-					dto.setIdTipoPuesto(puestoGeneralEntity.getIdTipoPuesto().getIdTipoPuesto());
-					dto.setDescripcionTipoPuesto(puestoGeneralEntity.getIdTipoPuesto().getDescripcion());
-				}
+                if (puestoGeneralEntity.getIdTipoPuesto() != null || puestoGeneralEntity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
+                    dto.setIdTipoPuesto(puestoGeneralEntity.getIdTipoPuesto().getIdTipoPuesto());
+                    dto.setDescripcionTipoPuesto(puestoGeneralEntity.getIdTipoPuesto().getDescripcion());
+                }
 
-				if (puestoGeneralEntity.getIdRama() != null) {
-					dto.setIdRama(puestoGeneralEntity.getIdRama().getIdRamaPuesto());
-					dto.setDescripcionRama(puestoGeneralEntity.getIdRama().getNombreRamaPuesto());
-				}
+                if (puestoGeneralEntity.getIdRama() != null) {
+                    dto.setIdRama(puestoGeneralEntity.getIdRama().getIdRamaPuesto());
+                    dto.setDescripcionRama(puestoGeneralEntity.getIdRama().getNombreRamaPuesto());
+                }
 
-				listaPuestoGeneralDTOs.add(dto);
-			}
+                listaPuestoGeneralDTOs.add(dto);
+            }
 
-		}
+        }
 
-		return listaPuestoGeneralDTOs;
-	}
+        return listaPuestoGeneralDTOs;
+    }
 
-	protected void crearPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
+    protected void crearPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
 
-		PuestoGeneralEntity puestoGeneralEntity = new PuestoGeneralEntity();
+        PuestoGeneralEntity puestoGeneralEntity = new PuestoGeneralEntity();
 
-		puestoGeneralEntity.setCodigo(puestoGeneralDTO.getCodigo());
-		puestoGeneralEntity.setPuesto(puestoGeneralDTO.getPuesto());
+        puestoGeneralEntity.setCodigo(puestoGeneralDTO.getCodigo());
+        puestoGeneralEntity.setPuesto(puestoGeneralDTO.getPuesto());
 
-		if (puestoGeneralDTO.getIdTipoPuesto() != 0) {
-			TipoPuestoEntity tipoTabuladorEntity = tipoPuestoRepository
-					.obtenerPorId(puestoGeneralDTO.getIdTipoPuesto());
+        if (puestoGeneralDTO.getIdTipoPuesto() != 0) {
+            TipoPuestoEntity tipoTabuladorEntity = tipoPuestoRepository.obtenerPorId(puestoGeneralDTO.getIdTipoPuesto());
 
-			puestoGeneralEntity.setIdTipoPuesto(tipoTabuladorEntity);
-		}
+            puestoGeneralEntity.setIdTipoPuesto(tipoTabuladorEntity);
+        }
 
-		if (puestoGeneralDTO.getIdRama() != 0) {
-			RamaEntity ramaEntity = ramaRepository.obtenerPorId(puestoGeneralDTO.getIdRama());
+        if (puestoGeneralDTO.getIdRama() != 0) {
+            RamaEntity ramaEntity = ramaRepository.obtenerPorId(puestoGeneralDTO.getIdRama());
 
-			puestoGeneralEntity.setIdRama(ramaEntity);
-		}
+            puestoGeneralEntity.setIdRama(ramaEntity);
+        }
 
-		puestoGeneralRepository.crear(puestoGeneralEntity);
-	}
+        puestoGeneralRepository.crear(puestoGeneralEntity);
+    }
 
-	protected void actualizarPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
+    protected void actualizarPuestoGeneral(PuestoGeneralDTO puestoGeneralDTO) {
 
-		PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository
-				.obtenerPorId(puestoGeneralDTO.getIdPuestoGeneral());
+        PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository.obtenerPorId(puestoGeneralDTO.getIdPuestoGeneral());
 
-		puestoGeneralEntity.setCodigo(puestoGeneralDTO.getCodigo());
-		puestoGeneralEntity.setPuesto(puestoGeneralDTO.getPuesto());
+        puestoGeneralEntity.setCodigo(puestoGeneralDTO.getCodigo());
+        puestoGeneralEntity.setPuesto(puestoGeneralDTO.getPuesto());
 
-		if (puestoGeneralDTO.getIdTipoPuesto() != 0) {
-			TipoPuestoEntity tipoTabuladorEntity = tipoPuestoRepository
-					.obtenerPorId(puestoGeneralDTO.getIdTipoPuesto());
+        if (puestoGeneralDTO.getIdTipoPuesto() != 0) {
+            TipoPuestoEntity tipoTabuladorEntity = tipoPuestoRepository.obtenerPorId(puestoGeneralDTO.getIdTipoPuesto());
 
-			puestoGeneralEntity.setIdTipoPuesto(tipoTabuladorEntity);
-		}
+            puestoGeneralEntity.setIdTipoPuesto(tipoTabuladorEntity);
+        }
 
-		if (puestoGeneralDTO.getIdRama() != 0) {
-			RamaEntity ramaEntity = ramaRepository.obtenerPorId(puestoGeneralDTO.getIdRama());
+        if (puestoGeneralDTO.getIdRama() != 0) {
+            RamaEntity ramaEntity = ramaRepository.obtenerPorId(puestoGeneralDTO.getIdRama());
 
-			puestoGeneralEntity.setIdRama(ramaEntity);
-		}
+            puestoGeneralEntity.setIdRama(ramaEntity);
+        }
 
-		puestoGeneralRepository.actualizar(puestoGeneralEntity);
+        puestoGeneralRepository.actualizar(puestoGeneralEntity);
 
-	}
+    }
 
-	protected void eliminarPuestoGeneral(Integer idPuestoGeneral) {
-		PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository.obtenerPorId(idPuestoGeneral);
-		
-		puestoGeneralRepository.eliminar(puestoGeneralEntity);
+    protected void eliminarPuestoGeneral(Integer idPuestoGeneral) {
+        PuestoGeneralEntity puestoGeneralEntity = puestoGeneralRepository.obtenerPorId(idPuestoGeneral);
 
-	}
+        puestoGeneralRepository.eliminar(puestoGeneralEntity);
 
-	protected Boolean existeCodigo(String codigo) {
-		return puestoGeneralRepository.existePuestoPorCodigo(codigo);
-	}
+    }
 
-	protected Boolean existeCodigoIdPuesto(Integer idPuestoGeneral, String codigo) {
+    protected Boolean existeCodigo(String codigo) {
+        return puestoGeneralRepository.existePuestoPorCodigo(codigo);
+    }
 
-		return puestoGeneralRepository.existePuestoPorCodigoIdPuesto(idPuestoGeneral, codigo);
-	}
+    protected Boolean existeCodigoIdPuesto(Integer idPuestoGeneral, String codigo) {
 
-	protected PuestoGeneralDTO puestoPorClave(String clave){
-		PuestoGeneralEntity entity = puestoGeneralRepository.puestoPorClave(clave);
-		PuestoGeneralDTO dto = new PuestoGeneralDTO();
+        return puestoGeneralRepository.existePuestoPorCodigoIdPuesto(idPuestoGeneral, codigo);
+    }
 
-		dto.setIdPuestoGeneral(entity.getIdPuestoGeneral());
-		dto.setCodigo(entity.getCodigo());
-		dto.setPuesto(entity.getPuesto());
+    protected PuestoGeneralDTO puestoPorClave(String clave) {
+        PuestoGeneralEntity entity = puestoGeneralRepository.puestoPorClave(clave);
+        PuestoGeneralDTO dto = new PuestoGeneralDTO();
 
-		if (entity.getIdTipoPuesto() != null
-				|| entity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
-			dto.setIdTipoPuesto(entity.getIdTipoPuesto().getIdTipoPuesto());
-			dto.setDescripcionTipoPuesto(entity.getIdTipoPuesto().getDescripcion());
-		}
+        dto.setIdPuestoGeneral(entity.getIdPuestoGeneral());
+        dto.setCodigo(entity.getCodigo());
+        dto.setPuesto(entity.getPuesto());
 
-		if (entity.getIdRama() != null) {
-			dto.setIdRama(entity.getIdRama().getIdRamaPuesto());
-			dto.setDescripcionRama(entity.getIdRama().getNombreRamaPuesto());
-		}
+        if (entity.getIdTipoPuesto() != null || entity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
+            dto.setIdTipoPuesto(entity.getIdTipoPuesto().getIdTipoPuesto());
+            dto.setDescripcionTipoPuesto(entity.getIdTipoPuesto().getDescripcion());
+        }
 
-		return dto;
-	}
-	
-	protected PuestoGeneralDTO puestoPorId(Integer id){
-		PuestoGeneralEntity entity = puestoGeneralRepository.obtenerPorId(id);
-		PuestoGeneralDTO dto = new PuestoGeneralDTO();
+        if (entity.getIdRama() != null) {
+            dto.setIdRama(entity.getIdRama().getIdRamaPuesto());
+            dto.setDescripcionRama(entity.getIdRama().getNombreRamaPuesto());
+        }
 
-		dto.setIdPuestoGeneral(entity.getIdPuestoGeneral());
-		dto.setCodigo(entity.getCodigo());
-		dto.setPuesto(entity.getPuesto());
+        return dto;
+    }
 
-		if (entity.getIdTipoPuesto() != null
-				|| entity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
-			dto.setIdTipoPuesto(entity.getIdTipoPuesto().getIdTipoPuesto());
-			dto.setDescripcionTipoPuesto(entity.getIdTipoPuesto().getDescripcion());
-		}
+    protected PuestoGeneralDTO puestoPorId(Integer id) {
+        PuestoGeneralEntity entity = puestoGeneralRepository.obtenerPorId(id);
+        PuestoGeneralDTO dto = new PuestoGeneralDTO();
 
-		if (entity.getIdRama() != null) {
-			dto.setIdRama(entity.getIdRama().getIdRamaPuesto());
-			dto.setDescripcionRama(entity.getIdRama().getNombreRamaPuesto());
-		}
+        dto.setIdPuestoGeneral(entity.getIdPuestoGeneral());
+        dto.setCodigo(entity.getCodigo());
+        dto.setPuesto(entity.getPuesto());
 
-		return dto;
-	}
-	
+        if (entity.getIdTipoPuesto() != null || entity.getIdTipoPuesto().getIdTipoPuesto() != 0) {
+            dto.setIdTipoPuesto(entity.getIdTipoPuesto().getIdTipoPuesto());
+            dto.setDescripcionTipoPuesto(entity.getIdTipoPuesto().getDescripcion());
+        }
+
+        if (entity.getIdRama() != null) {
+            dto.setIdRama(entity.getIdRama().getIdRamaPuesto());
+            dto.setDescripcionRama(entity.getIdRama().getNombreRamaPuesto());
+        }
+
+        return dto;
+    }
+
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -19,41 +20,40 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "paises")
-public class PaisEntity implements Serializable{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4680342419711436315L;
-	@Id
-	@Column(name = "id_pais")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idPais;
-	
-	@Column(name ="nombre")
-	private String nombre;
-	
-	@Column(name ="nacionalidad")
-	private String nacionalidad;
+public class PaisEntity implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 4680342419711436315L;
+    @Id
+    @Column(name = "id_pais")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idPais;
 
-	public String getNombre() {
-		return nombre;
-	}
+    @Column(name = "nombre")
+    private String nombre;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    @Column(name = "nacionalidad")
+    private String nacionalidad;
 
-	public String getNacionalidad() {
-		return nacionalidad;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public Integer getIdPais() {
-		return idPais;
-	}
-	
-	
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+
+    public Integer getIdPais() {
+        return idPais;
+    }
+
 }

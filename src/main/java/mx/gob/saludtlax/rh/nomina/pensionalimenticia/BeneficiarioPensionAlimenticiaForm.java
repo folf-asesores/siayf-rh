@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.pensionalimenticia;
 
 import java.io.Serializable;
@@ -6,129 +7,127 @@ import java.util.Date;
 
 public class BeneficiarioPensionAlimenticiaForm implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5788040582457479788L;
-	
-	public int idPensionAlimenticia;
-	public int idEmpleado;
-	public String rfc;
-	public String beneficiario;
-	public String oficio;
-	public String numeroExpediente;
-	public String numeroJuzgado;
-	public Date fechaAlta;
-	public int idTipoCoutaPension;
-	public int estatus;
-	public String numeroCuentaBancaria;
-	public int idBanco;
-	public BigDecimal valor;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5788040582457479788L;
 
-	public int getIdEmpleado() {
-		return idEmpleado;
-	}
+    public int idPensionAlimenticia;
+    public int idEmpleado;
+    public String rfc;
+    public String beneficiario;
+    public String oficio;
+    public String numeroExpediente;
+    public String numeroJuzgado;
+    public Date fechaAlta;
+    public int idTipoCoutaPension;
+    public int estatus;
+    public String numeroCuentaBancaria;
+    public int idBanco;
+    public BigDecimal valor;
 
-	public void setIdEmpleado(int idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public int getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setIdEmpleado(int idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public String getBeneficiario() {
-		return beneficiario;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setBeneficiario(String beneficiario) {
-		this.beneficiario = beneficiario;
-	}
+    public String getBeneficiario() {
+        return beneficiario;
+    }
 
-	public String getOficio() {
-		return oficio;
-	}
+    public void setBeneficiario(String beneficiario) {
+        this.beneficiario = beneficiario;
+    }
 
-	public void setOficio(String oficio) {
-		this.oficio = oficio;
-	}
+    public String getOficio() {
+        return oficio;
+    }
 
-	public String getNumeroExpediente() {
-		return numeroExpediente;
-	}
+    public void setOficio(String oficio) {
+        this.oficio = oficio;
+    }
 
-	public void setNumeroExpediente(String numeroExpediente) {
-		this.numeroExpediente = numeroExpediente;
-	}
+    public String getNumeroExpediente() {
+        return numeroExpediente;
+    }
 
-	public String getNumeroJuzgado() {
-		return numeroJuzgado;
-	}
+    public void setNumeroExpediente(String numeroExpediente) {
+        this.numeroExpediente = numeroExpediente;
+    }
 
-	public void setNumeroJuzgado(String numeroJuzgado) {
-		this.numeroJuzgado = numeroJuzgado;
-	}
+    public String getNumeroJuzgado() {
+        return numeroJuzgado;
+    }
 
-	public Date getFechaAlta() {
-		return fechaAlta;
-	}
+    public void setNumeroJuzgado(String numeroJuzgado) {
+        this.numeroJuzgado = numeroJuzgado;
+    }
 
-	public void setFechaAlta(Date fechaAlta) {
-		this.fechaAlta = fechaAlta;
-	}
+    public Date getFechaAlta() {
+        return fechaAlta;
+    }
 
-	public int getIdTipoCoutaPension() {
-		return idTipoCoutaPension;
-	}
+    public void setFechaAlta(Date fechaAlta) {
+        this.fechaAlta = fechaAlta;
+    }
 
-	public void setIdTipoCoutaPension(int idTipoCoutaPension) {
-		this.idTipoCoutaPension = idTipoCoutaPension;
-	}
+    public int getIdTipoCoutaPension() {
+        return idTipoCoutaPension;
+    }
 
-	public int getEstatus() {
-		return estatus;
-	}
+    public void setIdTipoCoutaPension(int idTipoCoutaPension) {
+        this.idTipoCoutaPension = idTipoCoutaPension;
+    }
 
-	public int getIdPensionAlimenticia() {
-		return idPensionAlimenticia;
-	}
+    public int getEstatus() {
+        return estatus;
+    }
 
-	public void setIdPensionAlimenticia(int idPensionAlimenticia) {
-		this.idPensionAlimenticia = idPensionAlimenticia;
-	}
+    public int getIdPensionAlimenticia() {
+        return idPensionAlimenticia;
+    }
 
-	public void setEstatus(int estatus) {
-		this.estatus = estatus;
-	}
+    public void setIdPensionAlimenticia(int idPensionAlimenticia) {
+        this.idPensionAlimenticia = idPensionAlimenticia;
+    }
 
-	public BigDecimal getValor() {
-		return valor;
-	}
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
+    }
 
-	public void setValor(BigDecimal valor) {
-		this.valor = valor;
-	}
+    public BigDecimal getValor() {
+        return valor;
+    }
 
-	public String getNumeroCuentaBancaria() {
-		return numeroCuentaBancaria;
-	}
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
 
-	public void setNumeroCuentaBancaria(String numeroCuentaBancaria) {
-		this.numeroCuentaBancaria = numeroCuentaBancaria;
-	}
+    public String getNumeroCuentaBancaria() {
+        return numeroCuentaBancaria;
+    }
 
-	public int getIdBanco() {
-		return idBanco;
-	}
+    public void setNumeroCuentaBancaria(String numeroCuentaBancaria) {
+        this.numeroCuentaBancaria = numeroCuentaBancaria;
+    }
 
-	public void setIdBanco(int idBanco) {
-		this.idBanco = idBanco;
-	}
-	
-	
+    public int getIdBanco() {
+        return idBanco;
+    }
+
+    public void setIdBanco(int idBanco) {
+        this.idBanco = idBanco;
+    }
 
 }

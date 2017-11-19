@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.siif;
 
 import java.math.BigDecimal;
@@ -24,7 +25,6 @@ public class EstructuraNominaTrailersDTO {
     private String conceptoSiif;
     private Integer idSiifBitacora;
 
-//	< < < < < Getters & S e t t e r s >>>>>
     public Integer getIdEstructurasNominasTrailers() {
         return idEstructurasNominasTrailers;
     }

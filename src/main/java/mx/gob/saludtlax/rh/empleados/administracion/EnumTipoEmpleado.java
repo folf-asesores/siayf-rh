@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.administracion;
 
 /**
@@ -10,7 +11,7 @@ package mx.gob.saludtlax.rh.empleados.administracion;
  */
 public class EnumTipoEmpleado {
 
-	public static final int EMPLEADO = 1;
-	public static final int SUPLENTE = 2;
+    public static final int EMPLEADO = 1;
+    public static final int SUPLENTE = 2;
 
 }

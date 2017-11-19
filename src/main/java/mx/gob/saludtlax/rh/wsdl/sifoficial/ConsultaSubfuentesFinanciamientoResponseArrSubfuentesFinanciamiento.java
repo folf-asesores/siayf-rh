@@ -3,17 +3,19 @@ package mx.gob.saludtlax.rh.wsdl.sifoficial;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType name="consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento">
  *   &lt;complexContent>
@@ -40,13 +42,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento", propOrder = {
-    "element"
-})
+@XmlType(name = "consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento", propOrder = { "element" })
 public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento {
 
     @XmlElement(required = true, nillable = true)
@@ -54,39 +54,41 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
     /**
      * Gets the value of the element property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getElement().add(newItem);
+     * getElement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento.Element }
-     * 
-     * 
+     *
+     *
      */
     public List<ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento.Element> getElement() {
         if (element == null) {
-            element = new ArrayList<ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento.Element>();
+            element = new ArrayList<>();
         }
-        return this.element;
+        return element;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * Java class for anonymous complex type.
+     *
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -103,18 +105,12 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "idSubfuenteFinanciamiento",
-        "idFuenteFinanciamiento",
-        "idFuenteFinanciamientoOpd",
-        "idBase36",
-        "descripcion",
-        "idRamoFederal"
-    })
+    @XmlType(name = "", propOrder = { "idSubfuenteFinanciamiento", "idFuenteFinanciamiento", "idFuenteFinanciamientoOpd", "idBase36", "descripcion",
+            "idRamoFederal" })
     public static class Element {
 
         @XmlElement(name = "id_subfuente_financiamiento", required = true, type = Integer.class, nillable = true)
@@ -132,11 +128,11 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Gets the value of the idSubfuenteFinanciamiento property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdSubfuenteFinanciamiento() {
             return idSubfuenteFinanciamiento;
@@ -144,23 +140,23 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the idSubfuenteFinanciamiento property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdSubfuenteFinanciamiento(Integer value) {
-            this.idSubfuenteFinanciamiento = value;
+            idSubfuenteFinanciamiento = value;
         }
 
         /**
          * Gets the value of the idFuenteFinanciamiento property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdFuenteFinanciamiento() {
             return idFuenteFinanciamiento;
@@ -168,23 +164,23 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the idFuenteFinanciamiento property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdFuenteFinanciamiento(Integer value) {
-            this.idFuenteFinanciamiento = value;
+            idFuenteFinanciamiento = value;
         }
 
         /**
          * Gets the value of the idFuenteFinanciamientoOpd property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdFuenteFinanciamientoOpd() {
             return idFuenteFinanciamientoOpd;
@@ -192,23 +188,23 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the idFuenteFinanciamientoOpd property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdFuenteFinanciamientoOpd(Integer value) {
-            this.idFuenteFinanciamientoOpd = value;
+            idFuenteFinanciamientoOpd = value;
         }
 
         /**
          * Gets the value of the idBase36 property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getIdBase36() {
             return idBase36;
@@ -216,23 +212,23 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the idBase36 property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setIdBase36(String value) {
-            this.idBase36 = value;
+            idBase36 = value;
         }
 
         /**
          * Gets the value of the descripcion property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getDescripcion() {
             return descripcion;
@@ -240,23 +236,23 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the descripcion property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setDescripcion(String value) {
-            this.descripcion = value;
+            descripcion = value;
         }
 
         /**
          * Gets the value of the idRamoFederal property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdRamoFederal() {
             return idRamoFederal;
@@ -264,14 +260,14 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
 
         /**
          * Sets the value of the idRamoFederal property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdRamoFederal(Integer value) {
-            this.idRamoFederal = value;
+            idRamoFederal = value;
         }
 
     }

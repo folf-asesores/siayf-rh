@@ -12,11 +12,9 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.inject.Inject;
-import mx.gob.saludtlax.rh.util.ArchivoUtil;
-import mx.gob.saludtlax.rh.util.Configuracion;
-import mx.gob.saludtlax.rh.util.NumeroALetra;
-import mx.gob.saludtlax.rh.util.ValidacionUtil;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ArchivePaths;
@@ -29,6 +27,11 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import mx.gob.saludtlax.rh.util.ArchivoUtil;
+import mx.gob.saludtlax.rh.util.Configuracion;
+import mx.gob.saludtlax.rh.util.NumeroALetra;
+import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  *
@@ -68,10 +71,7 @@ public class PrenominaReporteTextoPlanoTest {
         jar.addClass(ValidacionUtil.class);
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;

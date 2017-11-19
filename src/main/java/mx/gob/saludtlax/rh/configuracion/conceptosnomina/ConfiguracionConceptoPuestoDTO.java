@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.conceptosnomina;
 
 import java.io.Serializable;

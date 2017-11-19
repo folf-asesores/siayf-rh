@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.nombramientos.segurovidainstitucional;
 
 /**
@@ -9,10 +10,10 @@ package mx.gob.saludtlax.rh.empleados.nombramientos.segurovidainstitucional;
  */
 public interface SeguroVidaInstitucional {
 
-	public Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO);
+    public Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO);
 
-	public boolean existeNumeroExpediente(String numeroExpediente);
+    public boolean existeNumeroExpediente(String numeroExpediente);
 
-	public Integer existeEmpleado(Integer idEmpleado);
+    public Integer existeEmpleado(Integer idEmpleado);
 
 }

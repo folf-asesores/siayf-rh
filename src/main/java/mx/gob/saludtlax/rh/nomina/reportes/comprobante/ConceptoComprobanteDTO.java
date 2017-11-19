@@ -1,7 +1,7 @@
 /*
  * ConceptoComprobanteDTO.java
  * Creado el 18/nov/2016 3:42:37 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
@@ -57,8 +57,10 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
      * Crea una nueva instancia de esta clase e inicializa las propiedades con
      * los valores que recibe como parametros.
      *
-     * @param clave la clave del concepto.
-     * @param importe el importe aplicado al concepto.
+     * @param clave
+     *            la clave del concepto.
+     * @param importe
+     *            el importe aplicado al concepto.
      */
     public ConceptoComprobanteDTO(short clave, BigDecimal importe) {
         this.clave = clave;
@@ -77,7 +79,8 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     /**
      * Set the value of clave
      *
-     * @param clave new value of clave
+     * @param clave
+     *            new value of clave
      */
     public void setClave(short clave) {
         this.clave = clave;
@@ -95,7 +98,8 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     /**
      * Set the value of importe
      *
-     * @param importe new value of importe
+     * @param importe
+     *            new value of importe
      */
     public void setImporte(BigDecimal importe) {
         this.importe = importe;
@@ -115,8 +119,8 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 89 * hash + this.clave;
-        hash = 89 * hash + Objects.hashCode(this.importe);
+        hash = 89 * hash + clave;
+        hash = 89 * hash + Objects.hashCode(importe);
         return hash;
     }
 
@@ -132,18 +136,15 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
             return false;
         }
         final ConceptoComprobanteDTO other = (ConceptoComprobanteDTO) obj;
-        if (this.clave != other.clave) {
+        if (clave != other.clave) {
             return false;
         }
-        return Objects.equals(this.importe, other.importe);
+        return Objects.equals(importe, other.importe);
     }
 
     @Override
     public String toString() {
-        return "ConceptoComprobanteDTO{"
-                + "clave : " + clave
-                + ", importe : " + importe
-                + '}';
+        return "ConceptoComprobanteDTO{" + "clave : " + clave + ", importe : " + importe + '}';
     }
 
 }

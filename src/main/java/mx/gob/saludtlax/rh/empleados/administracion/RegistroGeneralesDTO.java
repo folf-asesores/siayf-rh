@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.administracion;
 
 /**
@@ -9,23 +10,23 @@ package mx.gob.saludtlax.rh.empleados.administracion;
  * @since 21/04/2016-21:30:21
  */
 public class RegistroGeneralesDTO {
-	private Integer idEmpleado;
-	private Integer fase;
+    private Integer idEmpleado;
+    private Integer fase;
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public Integer getFase() {
-		return fase;
-	}
+    public Integer getFase() {
+        return fase;
+    }
 
-	public void setFase(Integer fase) {
-		this.fase = fase;
-	}
+    public void setFase(Integer fase) {
+        this.fase = fase;
+    }
 
 }

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.biometrico;
 
 import java.io.Serializable;
@@ -6,123 +7,119 @@ import com.google.gson.annotations.SerializedName;
 
 public class BiometricoFormModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2201558796539497760L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2201558796539497760L;
 
-	@SerializedName("IdEquipo")
-	private Integer idEquipo;
-	
-	
-	
-	@SerializedName("IdTipoEquipo")
-	private Integer idTipoEquipo;
+    @SerializedName("IdEquipo")
+    private Integer idEquipo;
 
-	@SerializedName("Descripcion")
-	private String descripcion;
+    @SerializedName("IdTipoEquipo")
+    private Integer idTipoEquipo;
 
-	@SerializedName("IP")
-	private String iP;
+    @SerializedName("Descripcion")
+    private String descripcion;
 
-	@SerializedName("Ubicacion")
-	private String ubicacion;
+    @SerializedName("IP")
+    private String iP;
 
-	@SerializedName("NumeroSerie")
-	private String numeroSerie;
-	
-	@SerializedName("ClaveComunicacion")
-	private Integer claveComunicacion;
-	
-	@SerializedName("Puerto")
-	private Integer puerto;
-	
-	@SerializedName("Activo")
-	private Integer activo;
-	
-	@SerializedName("IdServicioCliente")
-	 private Integer idClienteBiometrico;
+    @SerializedName("Ubicacion")
+    private String ubicacion;
 
-	public Integer getActivo() {
-		return activo;
-	}
+    @SerializedName("NumeroSerie")
+    private String numeroSerie;
 
-	public void setActivo(Integer activo) {
-		this.activo = activo;
-	}
+    @SerializedName("ClaveComunicacion")
+    private Integer claveComunicacion;
 
-	public Integer getIdEquipo() {
-		return idEquipo;
-	}
+    @SerializedName("Puerto")
+    private Integer puerto;
 
-	public void setIdEquipo(Integer idEquipo) {
-		this.idEquipo = idEquipo;
-	}
+    @SerializedName("Activo")
+    private Integer activo;
 
-	public Integer getIdTipoEquipo() {
-		return idTipoEquipo;
-	}
+    @SerializedName("IdServicioCliente")
+    private Integer idClienteBiometrico;
 
-	public void setIdTipoEquipo(Integer idTipoEquipo) {
-		this.idTipoEquipo = idTipoEquipo;
-	}
+    public Integer getActivo() {
+        return activo;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setActivo(Integer activo) {
+        this.activo = activo;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public Integer getIdEquipo() {
+        return idEquipo;
+    }
 
-	public String getiP() {
-		return iP;
-	}
+    public void setIdEquipo(Integer idEquipo) {
+        this.idEquipo = idEquipo;
+    }
 
-	public void setiP(String iP) {
-		this.iP = iP;
-	}
+    public Integer getIdTipoEquipo() {
+        return idTipoEquipo;
+    }
 
-	public String getUbicacion() {
-		return ubicacion;
-	}
+    public void setIdTipoEquipo(Integer idTipoEquipo) {
+        this.idTipoEquipo = idTipoEquipo;
+    }
 
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public String getNumeroSerie() {
-		return numeroSerie;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setNumeroSerie(String numeroSerie) {
-		this.numeroSerie = numeroSerie;
-	}
+    public String getiP() {
+        return iP;
+    }
 
-	public Integer getClaveComunicacion() {
-		return claveComunicacion;
-	}
+    public void setiP(String iP) {
+        this.iP = iP;
+    }
 
-	public void setClaveComunicacion(Integer claveComunicacion) {
-		this.claveComunicacion = claveComunicacion;
-	}
+    public String getUbicacion() {
+        return ubicacion;
+    }
 
-	public Integer getPuerto() {
-		return puerto;
-	}
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
 
-	public void setPuerto(Integer puerto) {
-		this.puerto = puerto;
-	}
+    public String getNumeroSerie() {
+        return numeroSerie;
+    }
 
-	public Integer getIdClienteBiometrico() {
-		return idClienteBiometrico;
-	}
+    public void setNumeroSerie(String numeroSerie) {
+        this.numeroSerie = numeroSerie;
+    }
 
-	public void setIdClienteBiometrico(Integer idClienteBiometrico) {
-		this.idClienteBiometrico = idClienteBiometrico;
-	}
-	
-	
+    public Integer getClaveComunicacion() {
+        return claveComunicacion;
+    }
+
+    public void setClaveComunicacion(Integer claveComunicacion) {
+        this.claveComunicacion = claveComunicacion;
+    }
+
+    public Integer getPuerto() {
+        return puerto;
+    }
+
+    public void setPuerto(Integer puerto) {
+        this.puerto = puerto;
+    }
+
+    public Integer getIdClienteBiometrico() {
+        return idClienteBiometrico;
+    }
+
+    public void setIdClienteBiometrico(Integer idClienteBiometrico) {
+        this.idClienteBiometrico = idClienteBiometrico;
+    }
 
 }

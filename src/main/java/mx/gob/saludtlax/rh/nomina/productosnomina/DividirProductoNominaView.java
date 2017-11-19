@@ -1,8 +1,9 @@
 /*
  * DividirProductoNominaView.java
  * Creado el 25/Dec/2016 6:09:22 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -41,7 +42,8 @@ public class DividirProductoNominaView implements Serializable {
     /**
      * Set the value of idProductoNomina
      *
-     * @param idProductoNomina new value of idProductoNomina
+     * @param idProductoNomina
+     *            new value of idProductoNomina
      */
     public void setIdProductoNomina(Integer idProductoNomina) {
         this.idProductoNomina = idProductoNomina;
@@ -59,7 +61,8 @@ public class DividirProductoNominaView implements Serializable {
     /**
      * Set the value of nombreProductoNominaNuevo
      *
-     * @param nombreProductoNominaNuevo new value of nombreProductoNominaNuevo
+     * @param nombreProductoNominaNuevo
+     *            new value of nombreProductoNominaNuevo
      */
     public void setNombreProductoNominaNuevo(String nombreProductoNominaNuevo) {
         this.nombreProductoNominaNuevo = nombreProductoNominaNuevo;
@@ -77,7 +80,8 @@ public class DividirProductoNominaView implements Serializable {
     /**
      * Set the value of productoNomina
      *
-     * @param productoNomina new value of productoNomina
+     * @param productoNomina
+     *            new value of productoNomina
      */
     public void setProductoNomina(List<DividirNominaDTO> productoNomina) {
         this.productoNomina = productoNomina;
@@ -95,7 +99,8 @@ public class DividirProductoNominaView implements Serializable {
     /**
      * Set the value of productoNominaSeleccionado
      *
-     * @param productoNominaSeleccionado new value of productoNominaSeleccionado
+     * @param productoNominaSeleccionado
+     *            new value of productoNominaSeleccionado
      */
     public void setProductoNominaSeleccionado(List<DividirNominaDTO> productoNominaSeleccionado) {
         this.productoNominaSeleccionado = productoNominaSeleccionado;
@@ -113,7 +118,8 @@ public class DividirProductoNominaView implements Serializable {
     /**
      * Set the value of productoNominaFiltrados
      *
-     * @param productoNominaFiltrados new value of productoNominaFiltrados
+     * @param productoNominaFiltrados
+     *            new value of productoNominaFiltrados
      */
     public void setProductoNominaFiltrados(List<DividirNominaDTO> productoNominaFiltrados) {
         this.productoNominaFiltrados = productoNominaFiltrados;

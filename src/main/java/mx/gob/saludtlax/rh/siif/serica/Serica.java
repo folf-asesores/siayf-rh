@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.siif.serica;
 
 /**
@@ -8,9 +9,9 @@ package mx.gob.saludtlax.rh.siif.serica;
  *
  */
 public interface Serica {
-	
-public	byte[] getDetalleSerica();	
 
-public byte[] getDetallerSericaPeriodo(Integer periodo, Integer ejercicioFiscal);
+    public byte[] getDetalleSerica();
+
+    public byte[] getDetallerSericaPeriodo(Integer periodo, Integer ejercicioFiscal);
 
 }

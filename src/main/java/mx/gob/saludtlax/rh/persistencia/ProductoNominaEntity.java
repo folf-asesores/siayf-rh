@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -129,16 +130,15 @@ public class ProductoNominaEntity implements Serializable {
     @Column(name = "fin_rango_faltas")
     @Temporal(TemporalType.DATE)
     private Date finRangoFaltas;
-	@Column(name = "dias_prima_vacasional")
-	private BigDecimal diasPrimaVacasional;
-	@Column(name = "dias_aguinaldo")
-	private BigDecimal diasAguinaldo;
-	@Column(name = "dias_exento_prima_vacasional")
-	private BigDecimal diasExentoPrimaVacasional;
-	@Column(name = "dias_exento_aguinaldo")
-	private BigDecimal diasExentoAguinaldo;
+    @Column(name = "dias_prima_vacasional")
+    private BigDecimal diasPrimaVacasional;
+    @Column(name = "dias_aguinaldo")
+    private BigDecimal diasAguinaldo;
+    @Column(name = "dias_exento_prima_vacasional")
+    private BigDecimal diasExentoPrimaVacasional;
+    @Column(name = "dias_exento_aguinaldo")
+    private BigDecimal diasExentoAguinaldo;
 
-    
     public Integer getIdProductoNomina() {
         return idProductoNomina;
     }
@@ -363,35 +363,35 @@ public class ProductoNominaEntity implements Serializable {
         this.finRangoFaltas = finRangoFaltas;
     }
 
-	public BigDecimal getDiasPrimaVacasional() {
-		return diasPrimaVacasional;
-	}
+    public BigDecimal getDiasPrimaVacasional() {
+        return diasPrimaVacasional;
+    }
 
-	public void setDiasPrimaVacasional(BigDecimal diasPrimaVacasional) {
-		this.diasPrimaVacasional = diasPrimaVacasional;
-	}
+    public void setDiasPrimaVacasional(BigDecimal diasPrimaVacasional) {
+        this.diasPrimaVacasional = diasPrimaVacasional;
+    }
 
-	public BigDecimal getDiasAguinaldo() {
-		return diasAguinaldo;
-	}
+    public BigDecimal getDiasAguinaldo() {
+        return diasAguinaldo;
+    }
 
-	public void setDiasAguinaldo(BigDecimal diasAguinaldo) {
-		this.diasAguinaldo = diasAguinaldo;
-	}
+    public void setDiasAguinaldo(BigDecimal diasAguinaldo) {
+        this.diasAguinaldo = diasAguinaldo;
+    }
 
-	public BigDecimal getDiasExentoPrimaVacasional() {
-		return diasExentoPrimaVacasional;
-	}
+    public BigDecimal getDiasExentoPrimaVacasional() {
+        return diasExentoPrimaVacasional;
+    }
 
-	public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
-		this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
-	}
+    public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
+        this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
+    }
 
-	public BigDecimal getDiasExentoAguinaldo() {
-		return diasExentoAguinaldo;
-	}
+    public BigDecimal getDiasExentoAguinaldo() {
+        return diasExentoAguinaldo;
+    }
 
-	public void setDiasExentoAguinaldo(BigDecimal diasExentoAguinaldo) {
-		this.diasExentoAguinaldo = diasExentoAguinaldo;
-	}
+    public void setDiasExentoAguinaldo(BigDecimal diasExentoAguinaldo) {
+        this.diasExentoAguinaldo = diasExentoAguinaldo;
+    }
 }

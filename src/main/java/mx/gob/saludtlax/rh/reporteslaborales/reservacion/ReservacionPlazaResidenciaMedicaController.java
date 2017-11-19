@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ReservacionPlazaResidenciaMedicaController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6835460786897763061L;
 
@@ -40,10 +40,9 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
 
     @PostConstruct
     public void inicio() {
-        this.view = new ReservacionView();
+        view = new ReservacionView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -67,14 +66,14 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = this.reservacionPlazaResidenciaMedicaEJB.consultarPorCriterio(criterio);
-        this.view.setReservacionDetalleDTO(resultado);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaResidenciaMedicaEJB.consultarPorCriterio(criterio);
+        view.setReservacionDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaResidenciaMedica() {
-        ReservacionDTO reservacionDTO = this.view.getReservacionDTO();
+        ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
         ReservacionPlazaResidenciaMedicaWord reservacionPlazaResidenciaMedicaWord = new ReservacionPlazaResidenciaMedicaWord();
         byte[] bytesWord = reservacionPlazaResidenciaMedicaWord.generar(reservacionDTO);
@@ -100,22 +99,22 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
     }
 
     public void contenidoReservacionMedica(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = this.reservacionPlazaResidenciaMedicaEJB.obtenerReservacion(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaResidenciaMedicaEJB.obtenerReservacion(idTipoMovimiento);
 
-        this.view.setReservacionDTO(reservacionDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReservacion(true);
+        view.setReservacionDTO(reservacionDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReservacion(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setReservacionDetalleDTO(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarReservacion(false);
+        view.setCriterio("");
+        view.setReservacionDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarReservacion(false);
     }
 
     public ReservacionView getView() {
-        return this.view;
+        return view;
     }
 
     public void setView(ReservacionView view) {

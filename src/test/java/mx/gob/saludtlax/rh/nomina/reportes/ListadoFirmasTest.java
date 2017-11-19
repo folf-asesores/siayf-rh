@@ -1,9 +1,12 @@
 /*
  * ListadoFirmasTest.java
  * Creado el 23/Nov/2016 6:38:50 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,10 +14,25 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteRepository;
@@ -43,6 +61,7 @@ import mx.gob.saludtlax.rh.util.NumeroALetra;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -54,20 +73,6 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleTextReportConfiguration;
 import net.sf.jasperreports.export.SimpleWriterExporterOutput;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import static org.junit.Assert.assertNotNull;
 
 /**
  *
@@ -75,7 +80,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @RunWith(Arquillian.class)
 public class ListadoFirmasTest {
-    
+
     private static final String DATASOURCE_NAME = "java:jboss/datasources/SIAYFRHDS";
     private static final Logger LOGGER = Logger.getLogger(ListadoFirmasTest.class.getName());
 
@@ -119,12 +124,9 @@ public class ListadoFirmasTest {
         jar.addAsResource("reportes/listado-firmas.jrxml");
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
-        
+
         return war;
     }
 
@@ -133,12 +135,7 @@ public class ListadoFirmasTest {
     public void obtenerReferenciaListadoFirmas() {
         LOGGER.info("Iniciando :: obtenerReferenciaListadoFirmas");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "listado-firmas",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "1"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "listado-firmas", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "1" };
 
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
@@ -156,18 +153,13 @@ public class ListadoFirmasTest {
         ArchivoUtil.guardarEnCarpetaUsuario(result, "listado-firmas.txt");
         assertNotNull(result);
     }
-    
+
     @Ignore
     @Test
     public void testListadoFirmas() throws IOException {
-                LOGGER.info("Iniciando :: testListadoFirmas");
+        LOGGER.info("Iniciando :: testListadoFirmas");
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] {
-            "ID_USUARIO", "18",
-            "REPORTE_NOMBRE", "listado-firmas",
-            "TIPO_REPORTE",  "txt",
-            "ID_PRODUCTO_NOMINA", "6"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "18", "REPORTE_NOMBRE", "listado-firmas", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA", "6" };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         AdministradorReportes instance = new AdministradorReportes();
@@ -175,8 +167,7 @@ public class ListadoFirmasTest {
         ArchivoUtil.guardarEnCarpetaUsuario(result, "listado-firmas.txt");
         assertNotNull(result);
     }
-    
-    
+
     @Ignore
     @Test
     public void generateReportWithJdbcDataSource() throws JRException, NamingException, SQLException {
@@ -214,7 +205,7 @@ public class ListadoFirmasTest {
         JRCsvDataSource dataSource = new JRCsvDataSource(JRLoader.getLocationInputStream(csvFileName));
         dataSource.setRecordDelimiter("\n");
         dataSource.setUseFirstRowAsHeader(true);
-        dataSource.setColumnNames(new String[]{ "USER_NAME", "LAST_ACCESSED", "IS_ACTIVE", "POINTS"});
+        dataSource.setColumnNames(new String[] { "USER_NAME", "LAST_ACCESSED", "IS_ACTIVE", "POINTS" });
 
         JasperReport jasperReport = JasperCompileManager.compileReport(reportSource);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, dataSource);

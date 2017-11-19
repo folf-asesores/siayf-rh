@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.modulos;
 
 import java.util.List;
@@ -9,37 +10,38 @@ import mx.gob.saludtlax.rh.areas.AreaDTO;
 
 @Stateless
 public class ModulosEJB implements Modulos {
-	
-	@Inject
-	private ModulosService service;
 
-	@Override
-	public void crearModulo(ModuloDTO dto) {
-		service.crear(dto);
-	}
+    @Inject
+    private ModulosService service;
 
-	@Override
-	public void editarModulo(ModuloDTO dto) {
-		service.editar(dto);
-	}
+    @Override
+    public void crearModulo(ModuloDTO dto) {
+        service.crear(dto);
+    }
 
-	@Override
-	public Boolean eliminarModulo(Integer idModulo) {
-     return service.eliminar(idModulo);
-	}
+    @Override
+    public void editarModulo(ModuloDTO dto) {
+        service.editar(dto);
+    }
 
-	@Override
-	public List<ModuloDTO> listaModulos() {
-		return service.listaModulos();
-	}
-	public List<AreaDTO> listaArea(){
-		return service.listaArea();
-	}
+    @Override
+    public Boolean eliminarModulo(Integer idModulo) {
+        return service.eliminar(idModulo);
+    }
 
-	@Override
-	public ModuloDTO obtenerModuloPorId(Integer idModulo) {
-		
-		return service.obtenerModuloPorId(idModulo);
-	}
-	
+    @Override
+    public List<ModuloDTO> listaModulos() {
+        return service.listaModulos();
+    }
+
+    public List<AreaDTO> listaArea() {
+        return service.listaArea();
+    }
+
+    @Override
+    public ModuloDTO obtenerModuloPorId(Integer idModulo) {
+
+        return service.obtenerModuloPorId(idModulo);
+    }
+
 }

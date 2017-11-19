@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -23,7 +24,6 @@ public class TipoPeriodoEntity implements Serializable {
     @Column(name = "tipo_periodo")
     private String tipoPeriodo;
 
-//	<Getters & Setters>
     public Integer getIdTipoPeriodo() {
         return idTipoPeriodo;
     }

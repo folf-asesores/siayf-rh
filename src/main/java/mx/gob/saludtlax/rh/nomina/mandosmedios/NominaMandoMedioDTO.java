@@ -1,8 +1,9 @@
 /*
  * NominaMandoMedioDTO.java
  * Creado el 29/Nov/2016 1:34:21 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.mandosmedios;
 
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class NominaMandoMedioDTO implements Serializable {
-    
+
     private static final long serialVersionUID = -3907124701083193488L;
 
     private Integer idNominaMandoMedio;
@@ -43,7 +44,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of idNominaMandoMedio
      *
-     * @param idNominaMandoMedio new value of idNominaMandoMedio
+     * @param idNominaMandoMedio
+     *            new value of idNominaMandoMedio
      */
     public void setIdNominaMandoMedio(Integer idNominaMandoMedio) {
         this.idNominaMandoMedio = idNominaMandoMedio;
@@ -61,7 +63,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of idEmpleado
      *
-     * @param idEmpleado new value of idEmpleado
+     * @param idEmpleado
+     *            new value of idEmpleado
      */
     public void setIdEmpleado(Integer idEmpleado) {
         this.idEmpleado = idEmpleado;
@@ -79,12 +82,13 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of nombreEmpleado
      *
-     * @param nombreEmpleado new value of nombreEmpleado
+     * @param nombreEmpleado
+     *            new value of nombreEmpleado
      */
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
     }
-    
+
     /**
      * Get the value of rfc
      *
@@ -97,7 +101,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of rfc
      *
-     * @param rfc new value of rfc
+     * @param rfc
+     *            new value of rfc
      */
     public void setRfc(String rfc) {
         this.rfc = rfc;
@@ -115,7 +120,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of idAdscripcion
      *
-     * @param idAdscripcion new value of idAdscripcion
+     * @param idAdscripcion
+     *            new value of idAdscripcion
      */
     public void setIdAdscripcion(Integer idAdscripcion) {
         this.idAdscripcion = idAdscripcion;
@@ -133,7 +139,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of adscripcion
      *
-     * @param adscripcion new value of adscripcion
+     * @param adscripcion
+     *            new value of adscripcion
      */
     public void setAdscripcion(String adscripcion) {
         this.adscripcion = adscripcion;
@@ -151,13 +158,14 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of puesto
      *
-     * @param puesto new value of puesto
+     * @param puesto
+     *            new value of puesto
      */
     public void setPuesto(String puesto) {
         this.puesto = puesto;
     }
-    
- /**
+
+    /**
      * Get the value of idPuestoGeneral
      *
      * @return the value of idPuestoGeneral
@@ -169,7 +177,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of idPuestoGeneral
      *
-     * @param idPuestoGeneral new value of idPuestoGeneral
+     * @param idPuestoGeneral
+     *            new value of idPuestoGeneral
      */
     public void setIdPuestoGeneral(Integer idPuestoGeneral) {
         this.idPuestoGeneral = idPuestoGeneral;
@@ -187,7 +196,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of codigoFuncional
      *
-     * @param codigoFuncional new value of codigoFuncional
+     * @param codigoFuncional
+     *            new value of codigoFuncional
      */
     public void setCodigoFuncional(String codigoFuncional) {
         this.codigoFuncional = codigoFuncional;
@@ -205,7 +215,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of descripcionCodigo
      *
-     * @param descripcionCodigo new value of descripcionCodigo
+     * @param descripcionCodigo
+     *            new value of descripcionCodigo
      */
     public void setDescripcionCodigo(String descripcionCodigo) {
         this.descripcionCodigo = descripcionCodigo;
@@ -223,7 +234,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of tipoContratacion
      *
-     * @param tipoContratacion new value of tipoContratacion
+     * @param tipoContratacion
+     *            new value of tipoContratacion
      */
     public void setTipoContratacion(String tipoContratacion) {
         this.tipoContratacion = tipoContratacion;
@@ -241,7 +253,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of complemento
      *
-     * @param complemento new value of complemento
+     * @param complemento
+     *            new value of complemento
      */
     public void setComplemento(BigDecimal complemento) {
         this.complemento = complemento;
@@ -259,7 +272,8 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of isr
      *
-     * @param isr new value of isr
+     * @param isr
+     *            new value of isr
      */
     public void setIsr(BigDecimal isr) {
         this.isr = isr;
@@ -277,10 +291,11 @@ public class NominaMandoMedioDTO implements Serializable {
     /**
      * Set the value of neto
      *
-     * @param neto new value of neto
+     * @param neto
+     *            new value of neto
      */
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
     }
-    
+
 }

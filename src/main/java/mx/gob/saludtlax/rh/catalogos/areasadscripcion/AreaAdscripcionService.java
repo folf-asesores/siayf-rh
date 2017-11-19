@@ -1,8 +1,12 @@
+
 package mx.gob.saludtlax.rh.catalogos.areasadscripcion;
 
 import java.util.List;
 
 import javax.inject.Inject;
+
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioCodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
@@ -10,23 +14,22 @@ import mx.gob.saludtlax.rh.excepciones.ValidationException;
 import mx.gob.saludtlax.rh.persistencia.AreaAdscripcionEntity;
 import mx.gob.saludtlax.rh.persistencia.AreasAdscripcionRepository;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-import org.jboss.logging.Logger;
 
 public class AreaAdscripcionService {
 
     @Inject
     private AreasAdscripcionRepository areasAdscripcionRepository;
-    
+
     private static final Logger LOGGER = Logger.getLogger(AreaAdscripcionService.class.getName());
 
-    //Comentado porque genera un error de NullPointerException (porque el 
+    //Comentado porque genera un error de NullPointerException (porque el
     //arreglo de chars no tiene nada).
     //private char[] clave;
     //String claves = String.valueOf(clave);
 
     protected void crearAreaAdscripcion(AreaAdscripcionDTO areaAdscripcionDTO) {
         String claves = "";
-        
+
         //consulta que no exista un area con la clave
         boolean existe = areasAdscripcionRepository.existeClave(claves);
 
@@ -37,16 +40,14 @@ public class AreaAdscripcionService {
     }
 
     protected AreaAdscripcionDTO obtenerPorId(int idAreaAdscripcion) {
-        if(ValidacionUtil.esMenorQueUno(idAreaAdscripcion)){
-            throw new ValidationException("El ID del área de adscripción a "
-                    + "buscar no puede ser nulo o menor que uno.", 
+        if (ValidacionUtil.esMenorQueUno(idAreaAdscripcion)) {
+            throw new ValidationException("El ID del área de adscripción a " + "buscar no puede ser nulo o menor que uno.",
                     ValidacionCodigoError.NUMERO_NEGATIVO);
         }
-        
-        AreaAdscripcionEntity entidad = areasAdscripcionRepository
-                .obtenerPorId(idAreaAdscripcion);
-        
-        if(entidad != null) {
+
+        AreaAdscripcionEntity entidad = areasAdscripcionRepository.obtenerPorId(idAreaAdscripcion);
+
+        if (entidad != null) {
             return convertirEntidadADTO(entidad);
         } else {
             return null;
@@ -73,7 +74,7 @@ public class AreaAdscripcionService {
     }
 
     public List<AreaAdscripcionEntity> verAreas() {
-	return areasAdscripcionRepository.listaAreas();
+        return areasAdscripcionRepository.listaAreas();
     }
 
     protected List<String> consultarAreaAdscripcionPorCriterio(String consulta) {

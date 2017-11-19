@@ -1,8 +1,9 @@
 /*
  * ProyectoDTO.java
  * Creado el 23/07/2016 09:41:58 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.proyecto;
 
 /**
@@ -10,7 +11,7 @@ package mx.gob.saludtlax.rh.configuracion.proyecto;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class ProyectoDTO {
-    
+
     private Integer idProyecto;
     private Integer idDependencia;
     private Integer idUnidadResponsable;
@@ -27,7 +28,8 @@ public class ProyectoDTO {
     public ProyectoDTO() {
     }
 
-    public ProyectoDTO(Integer idProyecto, Integer idDependencia, Integer idUnidadResponsable, String base36, Integer clave, String nombre, Integer idSector, String claveAreaAdscripcion, Integer idEstrategia, Integer idLineaAccion, Integer idAreaAdscripcion, Integer ejercicioFiscal) {
+    public ProyectoDTO(Integer idProyecto, Integer idDependencia, Integer idUnidadResponsable, String base36, Integer clave, String nombre, Integer idSector,
+            String claveAreaAdscripcion, Integer idEstrategia, Integer idLineaAccion, Integer idAreaAdscripcion, Integer ejercicioFiscal) {
         this.idProyecto = idProyecto;
         this.idDependencia = idDependencia;
         this.idUnidadResponsable = idUnidadResponsable;

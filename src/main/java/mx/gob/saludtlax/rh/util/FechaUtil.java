@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.util;
 
 import java.sql.Time;
@@ -10,12 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
-import mx.gob.saludtlax.rh.excepciones.ValidacionException;
-
 import org.jboss.logging.Logger;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+
+import mx.gob.saludtlax.rh.excepciones.ValidacionCodigoError;
+import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 
 /**
  * Esta clase es una utilería que permite trabajar con la fecha y la hora, tanto
@@ -88,7 +89,7 @@ public class FechaUtil {
         return fechaSinTiempo;
     }
 
-/**
+    /**
      * Retorna el ejercicio fiscal actual
      *
      * @return
@@ -160,7 +161,8 @@ public class FechaUtil {
     /**
      * Este método devuelve la fecha en formato: dd/MM/yyyy.
      *
-     * @param fecha una fecha.
+     * @param fecha
+     *            una fecha.
      * @return la fecha formateada.
      */
     public static String formatoFecha(Date fecha) {
@@ -170,7 +172,8 @@ public class FechaUtil {
     /**
      * Este método devuelve la fecha y la hora en formato: dd/MM/yyyy HH:mm:ss
      *
-     * @param fechaHora una fecha.
+     * @param fechaHora
+     *            una fecha.
      * @return la fecha formateada.
      */
     public static String formatoFechaHora(Date fechaHora) {
@@ -190,8 +193,10 @@ public class FechaUtil {
      * Este método permite convertir una fecha según el patrón que recibe
      * siempre que el patrón sea valido.
      *
-     * @param patronFecha el patrón que se seguirá para formatear la fecha.
-     * @param fecha una fecha.
+     * @param patronFecha
+     *            el patrón que se seguirá para formatear la fecha.
+     * @param fecha
+     *            una fecha.
      * @return la fecha formateada.
      */
     public static String formatearFecha(String patronFecha, Date fecha) {
@@ -201,8 +206,7 @@ public class FechaUtil {
         }
 
         if (patronFecha == null || patronFecha.trim().isEmpty()) {
-            LOGGER.warnv(
-                    "No se ha recibido un patrón por tanto se usar el patrón: \"{0}\" para transformar la fecha.", PATRON_FECHA_CORTA);
+            LOGGER.warnv("No se ha recibido un patrón por tanto se usar el patrón: \"{0}\" para transformar la fecha.", PATRON_FECHA_CORTA);
             patronFecha = PATRON_FECHA_CORTA;
         }
 
@@ -214,8 +218,10 @@ public class FechaUtil {
      * Este método analiza una cadena y la transforma a un tipo fecha si el
      * formato es valido.
      *
-     * @param fecha una cadena que representa una fecha u hora.
-     * @param patronFecha el patrón (formato) que tiene la fecha.
+     * @param fecha
+     *            una cadena que representa una fecha u hora.
+     * @param patronFecha
+     *            el patrón (formato) que tiene la fecha.
      * @return si el formato es correcto una instancia de tipo fecha, en caso
      *         contrario retorna null.
      */
@@ -235,8 +241,10 @@ public class FechaUtil {
 
     /**
      *
-     * @param mes el mes.
-     * @param ejercicioFiscal el año.
+     * @param mes
+     *            el mes.
+     * @param ejercicioFiscal
+     *            el año.
      * @return
      */
     public static Date ultimoDiaMes(int mes, int ejercicioFiscal) {
@@ -271,7 +279,8 @@ public class FechaUtil {
     /**
      * Calcula la edad de la persona.
      *
-     * @param fechaNacimiento la fecha de nacimiento.
+     * @param fechaNacimiento
+     *            la fecha de nacimiento.
      * @return la edad.
      */
     public static int calcularEdad(Date fechaNacimiento) {
@@ -301,16 +310,17 @@ public class FechaUtil {
     /**
      * Permite la fecha de inicio de un mes, una quincena o de una semana.
      *
-     * @param fecha la fecha que se tomara como base.
-     * @param tipoFechas el tipo de fechas que se requiere ya sea
+     * @param fecha
+     *            la fecha que se tomara como base.
+     * @param tipoFechas
+     *            el tipo de fechas que se requiere ya sea
      *            {@link #FECHAS_POR_MES}, {@link #FECHAS_POR_QUINCENA},
      *            {@link #FECHAS_POR_SEMANA}.
      * @return un arreglo con dos valores el inicio y fin según sea el caso.
      */
     public static Date[] obtenerFechasInicioFinal(Date fecha, int tipoFechas) {
         if (fecha == null) {
-            throw new ValidacionException("No se puede obtener las de inicio y fin sin una fecha origen",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("No se puede obtener las de inicio y fin sin una fecha origen", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         Date[] fechas = new Date[2];
@@ -331,58 +341,58 @@ public class FechaUtil {
         }
 
         switch (tipoFechas) {
-        case FECHAS_POR_MES:
-            calendarInicio.set(Calendar.DAY_OF_MONTH, 1);
-            fechas[0] = calendarInicio.getTime();
-            fechas[1] = ultimoDiaMes(mes, anyo);
-
-            return fechas;
-        case FECHAS_POR_QUINCENA:
-            if (dia <= 15) {
+            case FECHAS_POR_MES:
                 calendarInicio.set(Calendar.DAY_OF_MONTH, 1);
-                Calendar calendarFin = Calendar.getInstance();
-                calendarInicio.setTime(fecha);
-                calendarInicio.set(Calendar.DAY_OF_MONTH, 15);
-
-                fechas[0] = calendarInicio.getTime();
-                fechas[1] = calendarFin.getTime();
-            } else {
-                calendarInicio.set(Calendar.DAY_OF_MONTH, 16);
                 fechas[0] = calendarInicio.getTime();
                 fechas[1] = ultimoDiaMes(mes, anyo);
-            }
 
-            return fechas;
-        case FECHAS_POR_SEMANA:
-            int diaSemana = calendarInicio.get(Calendar.DAY_OF_WEEK);
+                return fechas;
+            case FECHAS_POR_QUINCENA:
+                if (dia <= 15) {
+                    calendarInicio.set(Calendar.DAY_OF_MONTH, 1);
+                    Calendar calendarFin = Calendar.getInstance();
+                    calendarInicio.setTime(fecha);
+                    calendarInicio.set(Calendar.DAY_OF_MONTH, 15);
 
-            switch (diaSemana) {
-            case Calendar.MONDAY:
-                fechas[0] = calendarInicio.getTime();
-                calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
-                fechas[1] = calendarInicio.getTime();
-                break;
-            case Calendar.TUESDAY:
-            case Calendar.WEDNESDAY:
-            case Calendar.THURSDAY:
-            case Calendar.FRIDAY:
-                calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-            case Calendar.SATURDAY:
-                calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-                fechas[0] = calendarInicio.getTime();
-                calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
-                fechas[1] = calendarInicio.getTime();
-                break;
-            case Calendar.SUNDAY:
-                fechas[1] = calendarInicio.getTime();
-                calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) - 6);
-                fechas[0] = calendarInicio.getTime();
-                break;
-            }
+                    fechas[0] = calendarInicio.getTime();
+                    fechas[1] = calendarFin.getTime();
+                } else {
+                    calendarInicio.set(Calendar.DAY_OF_MONTH, 16);
+                    fechas[0] = calendarInicio.getTime();
+                    fechas[1] = ultimoDiaMes(mes, anyo);
+                }
 
-            return fechas;
-        default:
-            return fechas;
+                return fechas;
+            case FECHAS_POR_SEMANA:
+                int diaSemana = calendarInicio.get(Calendar.DAY_OF_WEEK);
+
+                switch (diaSemana) {
+                    case Calendar.MONDAY:
+                        fechas[0] = calendarInicio.getTime();
+                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
+                        fechas[1] = calendarInicio.getTime();
+                        break;
+                    case Calendar.TUESDAY:
+                    case Calendar.WEDNESDAY:
+                    case Calendar.THURSDAY:
+                    case Calendar.FRIDAY:
+                        calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                    case Calendar.SATURDAY:
+                        calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                        fechas[0] = calendarInicio.getTime();
+                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
+                        fechas[1] = calendarInicio.getTime();
+                        break;
+                    case Calendar.SUNDAY:
+                        fechas[1] = calendarInicio.getTime();
+                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) - 6);
+                        fechas[0] = calendarInicio.getTime();
+                        break;
+                }
+
+                return fechas;
+            default:
+                return fechas;
         }
     }
 
@@ -464,7 +474,7 @@ public class FechaUtil {
         return fechaI.compareTo(fechaF) == 1;
     }
 
-	public static Date stringToDate(String fecha) {
+    public static Date stringToDate(String fecha) {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat(PATRON_FECHA_CORTA, LUGAR_MEXICO);
             return dateFormat.parse(fecha);
@@ -472,5 +482,5 @@ public class FechaUtil {
             LOGGER.warnv("Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}", fecha, PATRON_FECHA_CORTA, ex.getCause());
             return null;
         }
-	}
+    }
 }

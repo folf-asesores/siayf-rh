@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 
 import java.io.Serializable;
@@ -13,116 +14,116 @@ import java.io.Serializable;
  */
 public class PuestoGeneralDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6683844987788458941L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6683844987788458941L;
 
-	private Integer idPuestoGeneral;
+    private Integer idPuestoGeneral;
 
-	private String codigo;	
+    private String codigo;
 
-	private String puesto;
+    private String puesto;
 
-	private Integer idTipoPuesto = 0;
+    private Integer idTipoPuesto = 0;
 
-	private String descripcionTipoPuesto;
+    private String descripcionTipoPuesto;
 
-	private Integer idRama = 0;
+    private Integer idRama = 0;
 
-	private String descripcionRama;
+    private String descripcionRama;
 
-	/*********** Getters and Setter *******/
+    
 
-	/**
-	 * @return the idPuestoGeneral
-	 */
-	public Integer getIdPuestoGeneral() {
-		return idPuestoGeneral;
-	}
+    /**
+     * @return the idPuestoGeneral
+     */
+    public Integer getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
 
-	/**
-	 * @param idPuestoGeneral
-	 *            the idPuestoGeneral to set
-	 */
-	public void setIdPuestoGeneral(Integer idPuestoGeneral) {
-		this.idPuestoGeneral = idPuestoGeneral;
-	}
+    /**
+     * @param idPuestoGeneral
+     *            the idPuestoGeneral to set
+     */
+    public void setIdPuestoGeneral(Integer idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
 
-	/**
-	 * @return the codigo
-	 */
-	public String getCodigo() {
-		return codigo;
-	}
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
 
-	/**
-	 * @param codigo
-	 *            the codigo to set
-	 */
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
+    /**
+     * @param codigo
+     *            the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
 
-	/**
-	 * @return the puesto
-	 */
-	public String getPuesto() {
-		return puesto;
-	}
+    /**
+     * @return the puesto
+     */
+    public String getPuesto() {
+        return puesto;
+    }
 
-	/**
-	 * @param puesto
-	 *            the puesto to set
-	 */
-	public void setPuesto(String puesto) {
-		this.puesto = puesto;
-	}
+    /**
+     * @param puesto
+     *            the puesto to set
+     */
+    public void setPuesto(String puesto) {
+        this.puesto = puesto;
+    }
 
-	/**
-	 * @return the idRama
-	 */
-	public Integer getIdRama() {
-		return idRama;
-	}
+    /**
+     * @return the idRama
+     */
+    public Integer getIdRama() {
+        return idRama;
+    }
 
-	/**
-	 * @param idRama
-	 *            the idRama to set
-	 */
-	public void setIdRama(Integer idRama) {
-		this.idRama = idRama;
-	}
+    /**
+     * @param idRama
+     *            the idRama to set
+     */
+    public void setIdRama(Integer idRama) {
+        this.idRama = idRama;
+    }
 
-	/**
-	 * @return the descripcionRama
-	 */
-	public String getDescripcionRama() {
-		return descripcionRama;
-	}
+    /**
+     * @return the descripcionRama
+     */
+    public String getDescripcionRama() {
+        return descripcionRama;
+    }
 
-	/**
-	 * @param descripcionRama
-	 *            the descripcionRama to set
-	 */
-	public void setDescripcionRama(String descripcionRama) {
-		this.descripcionRama = descripcionRama;
-	}
+    /**
+     * @param descripcionRama
+     *            the descripcionRama to set
+     */
+    public void setDescripcionRama(String descripcionRama) {
+        this.descripcionRama = descripcionRama;
+    }
 
-	public Integer getIdTipoPuesto() {
-		return idTipoPuesto;
-	}
+    public Integer getIdTipoPuesto() {
+        return idTipoPuesto;
+    }
 
-	public void setIdTipoPuesto(Integer idTipoPuesto) {
-		this.idTipoPuesto = idTipoPuesto;
-	}
+    public void setIdTipoPuesto(Integer idTipoPuesto) {
+        this.idTipoPuesto = idTipoPuesto;
+    }
 
-	public String getDescripcionTipoPuesto() {
-		return descripcionTipoPuesto;
-	}
+    public String getDescripcionTipoPuesto() {
+        return descripcionTipoPuesto;
+    }
 
-	public void setDescripcionTipoPuesto(String descripcionTipoPuesto) {
-		this.descripcionTipoPuesto = descripcionTipoPuesto;
-	}
+    public void setDescripcionTipoPuesto(String descripcionTipoPuesto) {
+        this.descripcionTipoPuesto = descripcionTipoPuesto;
+    }
 
 }

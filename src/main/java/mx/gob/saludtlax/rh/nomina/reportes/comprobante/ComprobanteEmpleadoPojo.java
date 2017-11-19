@@ -1,7 +1,7 @@
 /*
  * ComprobanteEmpleadoPojo.java
  * Creado el 22/nov/2016 6:11:00 AM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.comprobante;
@@ -14,9 +14,9 @@ import java.util.Objects;
 import mx.gob.saludtlax.rh.persistencia.ComprobanteEmpleadoRepository;
 
 /**
- * Esta clase representa la información tal cual se obtiene desde la 
+ * Esta clase representa la información tal cual se obtiene desde la
  * base de datos.
- * 
+ *
  * @see ComprobanteEmpleadoRepository#obtenerDatos(java.lang.Integer)
  * @see ComprobanteEmpleadoService#convertir(java.util.List)
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -50,7 +50,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of nombre
      *
-     * @param nombre new value of nombre
+     * @param nombre
+     *            new value of nombre
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -68,7 +69,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of filiacion
      *
-     * @param filiacion new value of filiacion
+     * @param filiacion
+     *            new value of filiacion
      */
     public void setFiliacion(String filiacion) {
         this.filiacion = filiacion;
@@ -86,7 +88,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of fechaPago
      *
-     * @param fechaPago new value of fechaPago
+     * @param fechaPago
+     *            new value of fechaPago
      */
     public void setFechaPago(Date fechaPago) {
         this.fechaPago = fechaPago;
@@ -104,7 +107,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of claveCentroResposabilidad
      *
-     * @param claveCentroResposabilidad new value of claveCentroResposabilidad
+     * @param claveCentroResposabilidad
+     *            new value of claveCentroResposabilidad
      */
     public void setClaveCentroResposabilidad(String claveCentroResposabilidad) {
         this.claveCentroResposabilidad = claveCentroResposabilidad;
@@ -122,7 +126,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of inicioPeriodo
      *
-     * @param inicioPeriodo new value of inicioPeriodo
+     * @param inicioPeriodo
+     *            new value of inicioPeriodo
      */
     public void setInicioPeriodo(Date inicioPeriodo) {
         this.inicioPeriodo = inicioPeriodo;
@@ -140,7 +145,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of finPeriodo
      *
-     * @param finPeriodo new value of finPeriodo
+     * @param finPeriodo
+     *            new value of finPeriodo
      */
     public void setFinPeriodo(Date finPeriodo) {
         this.finPeriodo = finPeriodo;
@@ -158,12 +164,13 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of numeroCheque
      *
-     * @param numeroCheque new value of numeroCheque
+     * @param numeroCheque
+     *            new value of numeroCheque
      */
     public void setNumeroCheque(String numeroCheque) {
         this.numeroCheque = numeroCheque;
     }
-    
+
     /**
      * Get the value of percepciones
      *
@@ -176,7 +183,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of percepciones
      *
-     * @param percepciones new value of percepciones
+     * @param percepciones
+     *            new value of percepciones
      */
     public void setPercepciones(BigDecimal percepciones) {
         this.percepciones = percepciones;
@@ -194,7 +202,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of deducciones
      *
-     * @param deducciones new value of deducciones
+     * @param deducciones
+     *            new value of deducciones
      */
     public void setDeducciones(BigDecimal deducciones) {
         this.deducciones = deducciones;
@@ -212,7 +221,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of neto
      *
-     * @param neto new value of neto
+     * @param neto
+     *            new value of neto
      */
     public void setNeto(BigDecimal neto) {
         this.neto = neto;
@@ -230,7 +240,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of clave
      *
-     * @param clave new value of clave
+     * @param clave
+     *            new value of clave
      */
     public void setClave(String clave) {
         this.clave = clave;
@@ -248,7 +259,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
     /**
      * Set the value of importe
      *
-     * @param importe new value of importe
+     * @param importe
+     *            new value of importe
      */
     public void setImporte(BigDecimal importe) {
         this.importe = importe;
@@ -256,20 +268,10 @@ public class ComprobanteEmpleadoPojo implements Serializable {
 
     @Override
     public String toString() {
-        return "ComprobanteEmpleadoPOJO{"
-                + "nombre : " + nombre
-                + ", filiacion : " + filiacion
-                + ", fechaPago : " + fechaPago
-                + ", claveCentroResposabilidad : " + claveCentroResposabilidad
-                + ", numeroCheque : " + numeroCheque
-                + ", inicioPeriodo : " + inicioPeriodo
-                + ", finPeriodo : " + finPeriodo
-                + ", percepciones : " + percepciones
-                + ", deducciones : " + deducciones
-                + ", neto : " + neto
-                + ", clave : " + clave
-                + ", importe : " + importe
-                + '}';
+        return "ComprobanteEmpleadoPOJO{" + "nombre : " + nombre + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
+                + ", claveCentroResposabilidad : " + claveCentroResposabilidad + ", numeroCheque : " + numeroCheque + ", inicioPeriodo : " + inicioPeriodo
+                + ", finPeriodo : " + finPeriodo + ", percepciones : " + percepciones + ", deducciones : " + deducciones + ", neto : " + neto + ", clave : "
+                + clave + ", importe : " + importe + '}';
     }
 
     @Override

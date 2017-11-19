@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -12,268 +13,266 @@ import javax.persistence.Table;
 
 @Table(name = "distribucion_presupuestal")
 @Entity
-public class DistribucionPresupuestoEntity implements Serializable{
+public class DistribucionPresupuestoEntity implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8482450829285727060L;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 8482450829285727060L;
+    @Id
+    @Column(name = "id_distribucion_presupuestal")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idDistribucionPresupuestal;
 
-	@Id
-	@Column(name = "id_distribucion_presupuestal")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idDistribucionPresupuestal;
-	
-	@Column (name = "id_subfuente_financiamiento")
-	private Integer idSubfuenteFinanciamiento;
-	
-	@Column (name = "id_unidad_responsable")
-	private Integer idUnidadResponsable;
-	
-	@Column (name = "id_nombramiento")
-	private Integer idNombramiento;
-	
-	@Column (name = "id_partida")
-	private Integer idPartida;
-	
-	@Column (name = "partida")
-	private String partida;
-	
-	@Column (name = "id_dependencia")
-	private String idDependencia;
-	
-	@Column (name = "id_quincena")
-	private String idQuincena;
-		
-	@Column (name = "enero")
-	private BigDecimal enero;
-	
-	@Column (name = "febrero")
-	private BigDecimal febrero;
-	
-	@Column (name = "marzo")
-	private BigDecimal marzo;
-	
-	@Column (name = "abril")
-	private BigDecimal abril;
-	
-	@Column (name = "mayo")
-	private BigDecimal mayo;
-	
-	@Column (name = "junio")
-	private BigDecimal junio;
-	
-	@Column (name = "julio")
-	private BigDecimal julio;
-	
-	@Column (name = "agosto")
-	private BigDecimal agosto;
-	
-	@Column (name = "septiembre")
-	private BigDecimal septiembre;
-	
-	@Column (name = "octubre")
-	private BigDecimal octubre;
-	
-	@Column (name = "noviembre")
-	private BigDecimal noviembre;
-	
-	@Column (name = "diciembre")
-	private BigDecimal diciembre;
-	
-	@Column (name = "anio")
-	private Integer anio;
-	
-	@Column (name = "total")
-	private BigDecimal total;
-	
-	@Column (name = "fecha_fin_quincena")
-	private String fechaFinQuincena;
+    @Column(name = "id_subfuente_financiamiento")
+    private Integer idSubfuenteFinanciamiento;
 
-	public Integer getIdDistribucionPresupuestal() {
-		return idDistribucionPresupuestal;
-	}
+    @Column(name = "id_unidad_responsable")
+    private Integer idUnidadResponsable;
 
-	public void setIdDistribucionPresupuestal(Integer idDistribucionPresupuestal) {
-		this.idDistribucionPresupuestal = idDistribucionPresupuestal;
-	}
+    @Column(name = "id_nombramiento")
+    private Integer idNombramiento;
 
-	public Integer getIdSubfuenteFinanciamiento() {
-		return idSubfuenteFinanciamiento;
-	}
+    @Column(name = "id_partida")
+    private Integer idPartida;
 
-	public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
-		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
-	}
+    @Column(name = "partida")
+    private String partida;
 
-	public Integer getIdUnidadResponsable() {
-		return idUnidadResponsable;
-	}
+    @Column(name = "id_dependencia")
+    private String idDependencia;
 
-	public void setIdUnidadResponsable(Integer idUnidadResponsable) {
-		this.idUnidadResponsable = idUnidadResponsable;
-	}
+    @Column(name = "id_quincena")
+    private String idQuincena;
 
-	public Integer getIdNombramiento() {
-		return idNombramiento;
-	}
+    @Column(name = "enero")
+    private BigDecimal enero;
 
-	public void setIdNombramiento(Integer idNombramiento) {
-		this.idNombramiento = idNombramiento;
-	}
+    @Column(name = "febrero")
+    private BigDecimal febrero;
 
-	public Integer getIdPartida() {
-		return idPartida;
-	}
+    @Column(name = "marzo")
+    private BigDecimal marzo;
 
-	public void setIdPartida(Integer idPartida) {
-		this.idPartida = idPartida;
-	}
+    @Column(name = "abril")
+    private BigDecimal abril;
 
-	public String getPartida() {
-		return partida;
-	}
+    @Column(name = "mayo")
+    private BigDecimal mayo;
 
-	public void setPartida(String partida) {
-		this.partida = partida;
-	}
+    @Column(name = "junio")
+    private BigDecimal junio;
 
-	public String getIdDependencia() {
-		return idDependencia;
-	}
+    @Column(name = "julio")
+    private BigDecimal julio;
 
-	public void setIdDependencia(String idDependencia) {
-		this.idDependencia = idDependencia;
-	}
+    @Column(name = "agosto")
+    private BigDecimal agosto;
 
-	public String getIdQuincena() {
-		return idQuincena;
-	}
+    @Column(name = "septiembre")
+    private BigDecimal septiembre;
 
-	public void setIdQuincena(String idQuincena) {
-		this.idQuincena = idQuincena;
-	}
+    @Column(name = "octubre")
+    private BigDecimal octubre;
 
-	public BigDecimal getEnero() {
-		return enero;
-	}
+    @Column(name = "noviembre")
+    private BigDecimal noviembre;
 
-	public void setEnero(BigDecimal enero) {
-		this.enero = enero;
-	}
+    @Column(name = "diciembre")
+    private BigDecimal diciembre;
 
-	public BigDecimal getFebrero() {
-		return febrero;
-	}
+    @Column(name = "anio")
+    private Integer anio;
 
-	public void setFebrero(BigDecimal febrero) {
-		this.febrero = febrero;
-	}
+    @Column(name = "total")
+    private BigDecimal total;
 
-	public BigDecimal getMarzo() {
-		return marzo;
-	}
+    @Column(name = "fecha_fin_quincena")
+    private String fechaFinQuincena;
 
-	public void setMarzo(BigDecimal marzo) {
-		this.marzo = marzo;
-	}
+    public Integer getIdDistribucionPresupuestal() {
+        return idDistribucionPresupuestal;
+    }
 
-	public BigDecimal getAbril() {
-		return abril;
-	}
+    public void setIdDistribucionPresupuestal(Integer idDistribucionPresupuestal) {
+        this.idDistribucionPresupuestal = idDistribucionPresupuestal;
+    }
 
-	public void setAbril(BigDecimal abril) {
-		this.abril = abril;
-	}
+    public Integer getIdSubfuenteFinanciamiento() {
+        return idSubfuenteFinanciamiento;
+    }
 
-	public BigDecimal getMayo() {
-		return mayo;
-	}
+    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+        this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
+    }
 
-	public void setMayo(BigDecimal mayo) {
-		this.mayo = mayo;
-	}
+    public Integer getIdUnidadResponsable() {
+        return idUnidadResponsable;
+    }
 
-	public BigDecimal getJunio() {
-		return junio;
-	}
+    public void setIdUnidadResponsable(Integer idUnidadResponsable) {
+        this.idUnidadResponsable = idUnidadResponsable;
+    }
 
-	public void setJunio(BigDecimal junio) {
-		this.junio = junio;
-	}
+    public Integer getIdNombramiento() {
+        return idNombramiento;
+    }
 
-	public BigDecimal getJulio() {
-		return julio;
-	}
+    public void setIdNombramiento(Integer idNombramiento) {
+        this.idNombramiento = idNombramiento;
+    }
 
-	public void setJulio(BigDecimal julio) {
-		this.julio = julio;
-	}
+    public Integer getIdPartida() {
+        return idPartida;
+    }
 
-	public BigDecimal getAgosto() {
-		return agosto;
-	}
+    public void setIdPartida(Integer idPartida) {
+        this.idPartida = idPartida;
+    }
 
-	public void setAgosto(BigDecimal agosto) {
-		this.agosto = agosto;
-	}
+    public String getPartida() {
+        return partida;
+    }
 
-	public BigDecimal getSeptiembre() {
-		return septiembre;
-	}
+    public void setPartida(String partida) {
+        this.partida = partida;
+    }
 
-	public void setSeptiembre(BigDecimal septiembre) {
-		this.septiembre = septiembre;
-	}
+    public String getIdDependencia() {
+        return idDependencia;
+    }
 
-	public BigDecimal getOctubre() {
-		return octubre;
-	}
+    public void setIdDependencia(String idDependencia) {
+        this.idDependencia = idDependencia;
+    }
 
-	public void setOctubre(BigDecimal octubre) {
-		this.octubre = octubre;
-	}
+    public String getIdQuincena() {
+        return idQuincena;
+    }
 
-	public BigDecimal getNoviembre() {
-		return noviembre;
-	}
+    public void setIdQuincena(String idQuincena) {
+        this.idQuincena = idQuincena;
+    }
 
-	public void setNoviembre(BigDecimal noviembre) {
-		this.noviembre = noviembre;
-	}
+    public BigDecimal getEnero() {
+        return enero;
+    }
 
-	public BigDecimal getDiciembre() {
-		return diciembre;
-	}
+    public void setEnero(BigDecimal enero) {
+        this.enero = enero;
+    }
 
-	public void setDiciembre(BigDecimal diciembre) {
-		this.diciembre = diciembre;
-	}
+    public BigDecimal getFebrero() {
+        return febrero;
+    }
 
-	public Integer getAnio() {
-		return anio;
-	}
+    public void setFebrero(BigDecimal febrero) {
+        this.febrero = febrero;
+    }
 
-	public void setAnio(Integer anio) {
-		this.anio = anio;
-	}
+    public BigDecimal getMarzo() {
+        return marzo;
+    }
 
-	public BigDecimal getTotal() {
-		return total;
-	}
+    public void setMarzo(BigDecimal marzo) {
+        this.marzo = marzo;
+    }
 
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
+    public BigDecimal getAbril() {
+        return abril;
+    }
 
-	public String getFechaFinQuincena() {
-		return fechaFinQuincena;
-	}
+    public void setAbril(BigDecimal abril) {
+        this.abril = abril;
+    }
 
-	public void setFechaFinQuincena(String fechaFinQuincena) {
-		this.fechaFinQuincena = fechaFinQuincena;
-	}
-	
-	
+    public BigDecimal getMayo() {
+        return mayo;
+    }
+
+    public void setMayo(BigDecimal mayo) {
+        this.mayo = mayo;
+    }
+
+    public BigDecimal getJunio() {
+        return junio;
+    }
+
+    public void setJunio(BigDecimal junio) {
+        this.junio = junio;
+    }
+
+    public BigDecimal getJulio() {
+        return julio;
+    }
+
+    public void setJulio(BigDecimal julio) {
+        this.julio = julio;
+    }
+
+    public BigDecimal getAgosto() {
+        return agosto;
+    }
+
+    public void setAgosto(BigDecimal agosto) {
+        this.agosto = agosto;
+    }
+
+    public BigDecimal getSeptiembre() {
+        return septiembre;
+    }
+
+    public void setSeptiembre(BigDecimal septiembre) {
+        this.septiembre = septiembre;
+    }
+
+    public BigDecimal getOctubre() {
+        return octubre;
+    }
+
+    public void setOctubre(BigDecimal octubre) {
+        this.octubre = octubre;
+    }
+
+    public BigDecimal getNoviembre() {
+        return noviembre;
+    }
+
+    public void setNoviembre(BigDecimal noviembre) {
+        this.noviembre = noviembre;
+    }
+
+    public BigDecimal getDiciembre() {
+        return diciembre;
+    }
+
+    public void setDiciembre(BigDecimal diciembre) {
+        this.diciembre = diciembre;
+    }
+
+    public Integer getAnio() {
+        return anio;
+    }
+
+    public void setAnio(Integer anio) {
+        this.anio = anio;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
+    }
+
+    public String getFechaFinQuincena() {
+        return fechaFinQuincena;
+    }
+
+    public void setFechaFinQuincena(String fechaFinQuincena) {
+        this.fechaFinQuincena = fechaFinQuincena;
+    }
+
 }

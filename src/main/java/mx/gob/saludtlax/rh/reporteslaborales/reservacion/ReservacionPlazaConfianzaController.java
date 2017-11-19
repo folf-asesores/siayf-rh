@@ -29,7 +29,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ReservacionPlazaConfianzaController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7359263173765732160L;
 
@@ -42,10 +42,9 @@ public class ReservacionPlazaConfianzaController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new ReservacionView();
+        view = new ReservacionView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -69,17 +68,17 @@ public class ReservacionPlazaConfianzaController implements Serializable {
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = this.reservacionPlazaConfianzaEJB.consultarPorCriterio(criterio);
-        this.view.setReservacionDetalleDTO(resultado);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaConfianzaEJB.consultarPorCriterio(criterio);
+        view.setReservacionDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaConfianza() {
-        ReservacionDTO reservacionDTO = this.view.getReservacionDTO();
+        ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
-        Integer idMovimientoEmpledo = this.reservacionPlazaConfianzaEJB.guardar(reservacionDTO);
-        ReservacionDTO reservacionDTOPersistida = this.reservacionPlazaConfianzaEJB.obtenerReservacion(idMovimientoEmpledo);
+        Integer idMovimientoEmpledo = reservacionPlazaConfianzaEJB.guardar(reservacionDTO);
+        ReservacionDTO reservacionDTOPersistida = reservacionPlazaConfianzaEJB.obtenerReservacion(idMovimientoEmpledo);
 
         ReservacionPlazaConfianzaWord wordReservacionPlazaConfianza = new ReservacionPlazaConfianzaWord();
         byte[] bytesWord = wordReservacionPlazaConfianza.generar(reservacionDTOPersistida);
@@ -105,34 +104,34 @@ public class ReservacionPlazaConfianzaController implements Serializable {
     }
 
     public void contenidoReservacion(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = this.reservacionPlazaConfianzaEJB.obtenerReservacion(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaConfianzaEJB.obtenerReservacion(idTipoMovimiento);
 
-        this.view.setReservacionDTO(reservacionDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReservacion(true);
+        view.setReservacionDTO(reservacionDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReservacion(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setReservacionDetalleDTO(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarReservacion(false);
+        view.setCriterio("");
+        view.setReservacionDetalleDTO(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarReservacion(false);
     }
 
     public void edicion() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReservacion(false);
-        this.view.setMostrarEdicion(true);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReservacion(false);
+        view.setMostrarEdicion(true);
     }
 
     public void guardar() {
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarReservacion(true);
-        this.view.setMostrarEdicion(false);
+        view.setMostrarPrincipal(false);
+        view.setMostrarReservacion(true);
+        view.setMostrarEdicion(false);
     }
 
     public ReservacionView getView() {
-        return this.view;
+        return view;
     }
 
     public void setView(ReservacionView view) {
@@ -140,7 +139,7 @@ public class ReservacionPlazaConfianzaController implements Serializable {
     }
 
     public String getNombre() {
-        return this.nombre;
+        return nombre;
     }
 
     public void setNombre(String nombre) {

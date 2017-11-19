@@ -1,12 +1,14 @@
 /*
- * 
+ *
  * InformacionAdjuntoAspiranteEntity.java
  * Creado el Jun 11, 2016 3:11:25 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +35,7 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 public class InformacionAdjuntoAspiranteEntity implements Serializable {
 
     private static final long serialVersionUID = -4301921087395030578L;
-    
+
     @Id
     @Column(name = "id_informacion_adjunto_aspirante")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +44,7 @@ public class InformacionAdjuntoAspiranteEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "nombre_adjunto")
     private String nombreAdjunto;
-    
+
     @Basic(optional = false)
     @Enumerated(EnumType.STRING)
     @Column(name = "extension")
@@ -51,15 +53,15 @@ public class InformacionAdjuntoAspiranteEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "entidad_contexto")
     private EntidadContexto entidadContexto;
-    
+
     @Basic(optional = false)
     @Column(name = "id_entidad_contexto")
     private int idEntidadContexto;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_documento_adjuntable")
-    private DocumentoAdjuntableEntity documentoAdjuntable;    
-    
+    private DocumentoAdjuntableEntity documentoAdjuntable;
+
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_expediente", referencedColumnName = "id_expediente_aspirante")
     private ExpedienteAspiranteEntity expedienteAspirante;

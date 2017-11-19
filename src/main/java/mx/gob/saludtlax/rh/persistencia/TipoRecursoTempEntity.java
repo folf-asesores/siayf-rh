@@ -1,9 +1,11 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email	Lic.Eduardo_Mex@hotmail.com
+ * @email Lic.Eduardo_Mex@hotmail.com
  * @version 1.0
  * @since 25/07/2016 14:20:07
  */
@@ -22,7 +24,7 @@ public class TipoRecursoTempEntity implements Serializable {
     private static final long serialVersionUID = -9060780883349036497L;
 
     @Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    //	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_tipo_recurso")
     private Integer idTipoRecurso;
 
@@ -34,8 +36,7 @@ public class TipoRecursoTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "TipoRecursoEntity [id tipo recurso=" + idTipoRecurso + ", id base 36=" + idBase36 + ", descripcion="
-                + descripcion + "]";
+        return "TipoRecursoEntity [id tipo recurso=" + idTipoRecurso + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
     }
 
     /**
@@ -46,7 +47,8 @@ public class TipoRecursoTempEntity implements Serializable {
     }
 
     /**
-     * @param idTipoRecurso the idTipoRecurso to set
+     * @param idTipoRecurso
+     *            the idTipoRecurso to set
      */
     public void setIdTipoRecurso(Integer idTipoRecurso) {
         this.idTipoRecurso = idTipoRecurso;
@@ -60,7 +62,8 @@ public class TipoRecursoTempEntity implements Serializable {
     }
 
     /**
-     * @param idBase36 the idBase36 to set
+     * @param idBase36
+     *            the idBase36 to set
      */
     public void setIdBase36(String idBase36) {
         this.idBase36 = idBase36;
@@ -74,7 +77,8 @@ public class TipoRecursoTempEntity implements Serializable {
     }
 
     /**
-     * @param descripcion the descripcion to set
+     * @param descripcion
+     *            the descripcion to set
      */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.ca.incidencia;
 
 import java.io.Serializable;
@@ -7,71 +8,69 @@ import javax.ejb.Stateless;
 @Stateless
 public class PeriodoEsperaFormModel implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3447030190476970038L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3447030190476970038L;
 
-	private Integer idIncidenciaOrigen;
+    private Integer idIncidenciaOrigen;
 
-	private Integer idTipoContratacion;
+    private Integer idTipoContratacion;
 
-	private Integer idTiempoEspera;
+    private Integer idTiempoEspera;
 
-	private Boolean diasNaturales;
+    private Boolean diasNaturales;
 
-	private Integer idIncidencia;
-	
-	private Integer idPeriodosEsperaIncidencia;
+    private Integer idIncidencia;
 
-	public Integer getIdIncidenciaOrigen() {
-		return idIncidenciaOrigen;
-	}
+    private Integer idPeriodosEsperaIncidencia;
 
-	public void setIdIncidenciaOrigen(Integer idIncidenciaOrigen) {
-		this.idIncidenciaOrigen = idIncidenciaOrigen;
-	}
+    public Integer getIdIncidenciaOrigen() {
+        return idIncidenciaOrigen;
+    }
 
-	public Integer getIdTipoContratacion() {
-		return idTipoContratacion;
-	}
+    public void setIdIncidenciaOrigen(Integer idIncidenciaOrigen) {
+        this.idIncidenciaOrigen = idIncidenciaOrigen;
+    }
 
-	public void setIdTipoContratacion(Integer idTipoContratacion) {
-		this.idTipoContratacion = idTipoContratacion;
-	}
+    public Integer getIdTipoContratacion() {
+        return idTipoContratacion;
+    }
 
-	public Integer getIdTiempoEspera() {
-		return idTiempoEspera;
-	}
+    public void setIdTipoContratacion(Integer idTipoContratacion) {
+        this.idTipoContratacion = idTipoContratacion;
+    }
 
-	public void setIdTiempoEspera(Integer idTiempoEspera) {
-		this.idTiempoEspera = idTiempoEspera;
-	}
+    public Integer getIdTiempoEspera() {
+        return idTiempoEspera;
+    }
 
-	public Boolean getDiasNaturales() {
-		return diasNaturales;
-	}
+    public void setIdTiempoEspera(Integer idTiempoEspera) {
+        this.idTiempoEspera = idTiempoEspera;
+    }
 
-	public void setDiasNaturales(Boolean diasNaturales) {
-		this.diasNaturales = diasNaturales;
-	}
+    public Boolean getDiasNaturales() {
+        return diasNaturales;
+    }
 
-	public Integer getIdIncidencia() {
-		return idIncidencia;
-	}
+    public void setDiasNaturales(Boolean diasNaturales) {
+        this.diasNaturales = diasNaturales;
+    }
 
-	public void setIdIncidencia(Integer idIncidencia) {
-		this.idIncidencia = idIncidencia;
-	}
+    public Integer getIdIncidencia() {
+        return idIncidencia;
+    }
 
-	public Integer getIdPeriodosEsperaIncidencia() {
-		return idPeriodosEsperaIncidencia;
-	}
+    public void setIdIncidencia(Integer idIncidencia) {
+        this.idIncidencia = idIncidencia;
+    }
 
-	public void setIdPeriodosEsperaIncidencia(Integer idPeriodosEsperaIncidencia) {
-		this.idPeriodosEsperaIncidencia = idPeriodosEsperaIncidencia;
-	}
-	
-	
+    public Integer getIdPeriodosEsperaIncidencia() {
+        return idPeriodosEsperaIncidencia;
+    }
+
+    public void setIdPeriodosEsperaIncidencia(Integer idPeriodosEsperaIncidencia) {
+        this.idPeriodosEsperaIncidencia = idPeriodosEsperaIncidencia;
+    }
 
 }

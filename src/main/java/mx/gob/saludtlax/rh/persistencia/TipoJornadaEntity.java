@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -15,34 +16,38 @@ import javax.persistence.Table;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 12/12/2016 12:51:34
+ * @since 12/12/2016 12:51:34
  */
 @Entity
 @Table(name = "tipos_jornadas")
 public class TipoJornadaEntity implements Serializable {
-	/**
-	 * 
-	 */
-	
+    /**
+     *
+     */
+    private static final long serialVersionUID = -74846215275046096L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_tipo_jornada")
-	private Integer id;
+    /**
+     *
+     */
 
-	@Column(name = "tipo_jornada")
-	private String tipoJornada;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tipo_jornada")
+    private Integer id;
 
-	public String getTipoJornada() {
-		return tipoJornada;
-	}
+    @Column(name = "tipo_jornada")
+    private String tipoJornada;
 
-	public void setTipoJornada(String tipoJornada) {
-		this.tipoJornada = tipoJornada;
-	}
+    public String getTipoJornada() {
+        return tipoJornada;
+    }
 
-	public Integer getId() {
-		return id;
-	}
+    public void setTipoJornada(String tipoJornada) {
+        this.tipoJornada = tipoJornada;
+    }
+
+    public Integer getId() {
+        return id;
+    }
 
 }

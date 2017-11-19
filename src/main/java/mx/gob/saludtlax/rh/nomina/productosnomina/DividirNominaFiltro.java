@@ -1,8 +1,9 @@
 /*
  * DividirNominaFiltro.java
  * Creado el 26/Dec/2016 8:50:27 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -48,7 +49,8 @@ public class DividirNominaFiltro implements Serializable {
     /**
      * Set the value of idProductoNomina
      *
-     * @param idProductoNomina new value of idProductoNomina
+     * @param idProductoNomina
+     *            new value of idProductoNomina
      */
     public void setIdProductoNomina(Integer idProductoNomina) {
         this.idProductoNomina = idProductoNomina;
@@ -66,7 +68,8 @@ public class DividirNominaFiltro implements Serializable {
     /**
      * Set the value of nombreProductoNomina
      *
-     * @param nombreProductoNomina new value of nombreProductoNomina
+     * @param nombreProductoNomina
+     *            new value of nombreProductoNomina
      */
     public void setNombreProductoNomina(String nombreProductoNomina) {
         this.nombreProductoNomina = nombreProductoNomina;
@@ -84,7 +87,8 @@ public class DividirNominaFiltro implements Serializable {
     /**
      * Set the value of rfc
      *
-     * @param rfc new value of rfc
+     * @param rfc
+     *            new value of rfc
      */
     public void setRfc(List<String> rfc) {
         this.rfc = rfc;
@@ -102,7 +106,8 @@ public class DividirNominaFiltro implements Serializable {
     /**
      * Set the value of unidadResponsable
      *
-     * @param unidadResponsable new value of unidadResponsable
+     * @param unidadResponsable
+     *            new value of unidadResponsable
      */
     public void setUnidadResponsable(String unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
@@ -120,7 +125,8 @@ public class DividirNominaFiltro implements Serializable {
     /**
      * Set the value of ramaPuesto
      *
-     * @param ramaPuesto new value of ramaPuesto
+     * @param ramaPuesto
+     *            new value of ramaPuesto
      */
     public void setRamaPuesto(String ramaPuesto) {
         this.ramaPuesto = ramaPuesto;
@@ -128,13 +134,8 @@ public class DividirNominaFiltro implements Serializable {
 
     @Override
     public String toString() {
-        return "DividirNominaFiltro{"
-                + "idProductoNomina=" + idProductoNomina
-                + ", nombreProductoNomina=" + nombreProductoNomina
-                + ", rfc=" + rfc
-                + ", unidadResponsable=" + unidadResponsable
-                + ", ramaPuesto=" + ramaPuesto
-                + '}';
+        return "DividirNominaFiltro{" + "idProductoNomina=" + idProductoNomina + ", nombreProductoNomina=" + nombreProductoNomina + ", rfc=" + rfc
+                + ", unidadResponsable=" + unidadResponsable + ", ramaPuesto=" + ramaPuesto + '}';
     }
 
     @Override

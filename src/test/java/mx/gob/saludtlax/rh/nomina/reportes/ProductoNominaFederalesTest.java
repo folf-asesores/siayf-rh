@@ -1,12 +1,29 @@
 /*
  * ProductoNominaFederalesTest.java
  * Creado el 16/Mar/2017 5:02:04 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes;
+
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.logging.Logger;
+import org.jboss.shrinkwrap.api.ArchivePaths;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.shrinkwrap.api.spec.WebArchive;
+import org.jboss.shrinkwrap.resolver.api.maven.Maven;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import mx.gob.saludtlax.rh.excepciones.CodigoError;
 import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
@@ -35,20 +52,6 @@ import mx.gob.saludtlax.rh.reportes.excel.ExcelReporte;
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.logging.Logger;
-import org.jboss.shrinkwrap.api.ArchivePaths;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import static org.junit.Assert.*;
-import org.junit.Ignore;
-
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  *
@@ -58,13 +61,13 @@ import org.junit.runner.RunWith;
 public class ProductoNominaFederalesTest {
 
     private static final Logger LOGGER = Logger.getLogger(ProductoNominaFederalesTest.class.getName());
-    
+
     @Deployment
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
-        
+
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
@@ -98,10 +101,7 @@ public class ProductoNominaFederalesTest {
         jar.addClass(ValidacionUtil.class);
         war.addAsLibraries(jar);
 
-        File[] files = Maven.resolver().loadPomFromFile("pom.xml")
-                .importRuntimeDependencies()
-                .resolve()
-                .withTransitivity().asFile();
+        File[] files = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(files);
 
         return war;
@@ -111,20 +111,16 @@ public class ProductoNominaFederalesTest {
     @Test
     public void obtenerReferencia() {
         LOGGER.info("Iniciando test obtenerReferencia");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "30",
-            "REPORTE_NOMBRE", "producto_nomina_federales",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "27"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "30", "REPORTE_NOMBRE", "producto_nomina_federales", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA",
+                "27" };
 
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
         assertNotNull(referencia);
-        
+
     }
-    
+
     @Ignore
     @Test
     public void obtenerReporte() throws IOException {
@@ -132,7 +128,7 @@ public class ProductoNominaFederalesTest {
         String referencia = "c9cb86e7-de32-4ed3-ba79-a226ea93";
         AdministradorReportes admin = new AdministradorReportes();
         byte[] result = admin.obtenerReporte(referencia);
-        
+
         ArchivoUtil.guardarEnCarpetaUsuario(result, "producto-nomina-federales.xlsx");
         assertNotNull(result);
     }
@@ -141,12 +137,8 @@ public class ProductoNominaFederalesTest {
     @Test
     public void testReporteCompleto() throws IOException {
         LOGGER.info("Iniciando test completo");
-        String[] parametros = new String[] {
-            "ID_USUARIO", "30",
-            "REPORTE_NOMBRE", "producto_nomina_federales",
-            "TIPO_REPORTE",  "xlsx",
-            "ID_PRODUCTO_NOMINA", "27"
-        };
+        String[] parametros = new String[] { "ID_USUARIO", "30", "REPORTE_NOMBRE", "producto_nomina_federales", "TIPO_REPORTE", "xlsx", "ID_PRODUCTO_NOMINA",
+                "27" };
         AdministradorReportes admin = new AdministradorReportes();
         String referencia = admin.obtenerReferencia(parametros);
         LOGGER.infov("Referencia: {0}", referencia);
@@ -155,6 +147,5 @@ public class ProductoNominaFederalesTest {
         ArchivoUtil.guardarEnCarpetaUsuario(result, "producto-nomina-federales.xlsx");
         assertNotNull(result);
     }
-    
-    
+
 }

@@ -13,9 +13,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import mx.gob.saludtlax.rh.reportes.Generador;
-import net.sf.jasperreports.engine.JasperReport;
 import org.jboss.logging.Logger;
+
+import mx.gob.saludtlax.rh.reportes.Generador;
+
+import net.sf.jasperreports.engine.JasperReport;
 
 /**
  * @author Eduardo Mex
@@ -87,7 +89,7 @@ public class JasperReportsGenerador implements Generador {
             } catch (ParseException ex) {
                 LOGGER.error(ex.getMessage());
             }
-        } else if(String.class.isAssignableFrom(t)) {
+        } else if (String.class.isAssignableFrom(t)) {
             return (T) String.valueOf(valor);
         }
 

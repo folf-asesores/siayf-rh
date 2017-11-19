@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.movimientos;
 
 import java.util.ArrayList;
@@ -12,182 +13,182 @@ import javax.faces.model.SelectItem;
 /**
  * @author Leila Schiaffini Ehuan
  * @since 14/09/2016 16:24:05
- * 
+ *
  */
 public class ConsultaMovimientoView {
 
-	private List<SelectItem> listaFiltros;
-	private List<SelectItem> listaMovimientos;
-	private List<SelectItem> listaMovimientosHijos;
+    private List<SelectItem> listaFiltros;
+    private List<SelectItem> listaMovimientos;
+    private List<SelectItem> listaMovimientosHijos;
 
-	private DetalleMovimientoDTO detalleMovimiento;
-	private List<InfoMovimientoDTO> movimientos = new ArrayList<InfoMovimientoDTO>();
-	private Integer idPadre;
-	private Integer idHijo;
-	private Integer idFiltro;
-	private String criterio;
-	private boolean mostrarBusqueda;
-	private boolean mostrarDetalle;
-	private boolean mostrarHijos;
-	private boolean mostrarPadres;
-	private boolean mostrarCriterio;
-	private Boolean fechas=Boolean.FALSE;
-	private Boolean rfc=Boolean.FALSE;
-	
-	private Date fechaInicial;
-	private Date fechaFinal;
-	private String parametro; // rfc o nombres
+    private DetalleMovimientoDTO detalleMovimiento;
+    private List<InfoMovimientoDTO> movimientos = new ArrayList<>();
+    private Integer idPadre;
+    private Integer idHijo;
+    private Integer idFiltro;
+    private String criterio;
+    private boolean mostrarBusqueda;
+    private boolean mostrarDetalle;
+    private boolean mostrarHijos;
+    private boolean mostrarPadres;
+    private boolean mostrarCriterio;
+    private Boolean fechas = Boolean.FALSE;
+    private Boolean rfc = Boolean.FALSE;
 
-	public DetalleMovimientoDTO getDetalleMovimiento() {
-		return detalleMovimiento;
-	}
+    private Date fechaInicial;
+    private Date fechaFinal;
+    private String parametro; // rfc o nombres
 
-	public void setDetalleMovimiento(DetalleMovimientoDTO detalleMovimiento) {
-		this.detalleMovimiento = detalleMovimiento;
-	}
+    public DetalleMovimientoDTO getDetalleMovimiento() {
+        return detalleMovimiento;
+    }
 
-	public boolean isMostrarPadres() {
-		return mostrarPadres;
-	}
+    public void setDetalleMovimiento(DetalleMovimientoDTO detalleMovimiento) {
+        this.detalleMovimiento = detalleMovimiento;
+    }
 
-	public void setMostrarPadres(boolean mostrarPadres) {
-		this.mostrarPadres = mostrarPadres;
-	}
+    public boolean isMostrarPadres() {
+        return mostrarPadres;
+    }
 
-	public boolean isMostrarHijos() {
-		return mostrarHijos;
-	}
+    public void setMostrarPadres(boolean mostrarPadres) {
+        this.mostrarPadres = mostrarPadres;
+    }
 
-	public void setMostrarHijos(boolean mostrarHijos) {
-		this.mostrarHijos = mostrarHijos;
-	}
+    public boolean isMostrarHijos() {
+        return mostrarHijos;
+    }
 
-	public boolean isMostrarCriterio() {
-		return mostrarCriterio;
-	}
+    public void setMostrarHijos(boolean mostrarHijos) {
+        this.mostrarHijos = mostrarHijos;
+    }
 
-	public void setMostrarCriterio(boolean mostrarCriterio) {
-		this.mostrarCriterio = mostrarCriterio;
-	}
+    public boolean isMostrarCriterio() {
+        return mostrarCriterio;
+    }
 
-	public Integer getIdFiltro() {
-		return idFiltro;
-	}
+    public void setMostrarCriterio(boolean mostrarCriterio) {
+        this.mostrarCriterio = mostrarCriterio;
+    }
 
-	public void setIdFiltro(Integer idFiltro) {
-		this.idFiltro = idFiltro;
-	}
+    public Integer getIdFiltro() {
+        return idFiltro;
+    }
 
-	public List<SelectItem> getListaFiltros() {
-		return listaFiltros;
-	}
+    public void setIdFiltro(Integer idFiltro) {
+        this.idFiltro = idFiltro;
+    }
 
-	public void setListaFiltros(List<SelectItem> listaFiltros) {
-		this.listaFiltros = listaFiltros;
-	}
+    public List<SelectItem> getListaFiltros() {
+        return listaFiltros;
+    }
 
-	public List<SelectItem> getListaMovimientos() {
-		return listaMovimientos;
-	}
+    public void setListaFiltros(List<SelectItem> listaFiltros) {
+        this.listaFiltros = listaFiltros;
+    }
 
-	public void setListaMovimientos(List<SelectItem> listaMovimientos) {
-		this.listaMovimientos = listaMovimientos;
-	}
+    public List<SelectItem> getListaMovimientos() {
+        return listaMovimientos;
+    }
 
-	public List<SelectItem> getListaMovimientosHijos() {
-		return listaMovimientosHijos;
-	}
+    public void setListaMovimientos(List<SelectItem> listaMovimientos) {
+        this.listaMovimientos = listaMovimientos;
+    }
 
-	public void setListaMovimientosHijos(List<SelectItem> listaMovimientosHijos) {
-		this.listaMovimientosHijos = listaMovimientosHijos;
-	}
+    public List<SelectItem> getListaMovimientosHijos() {
+        return listaMovimientosHijos;
+    }
 
-	public boolean isMostrarBusqueda() {
-		return mostrarBusqueda;
-	}
+    public void setListaMovimientosHijos(List<SelectItem> listaMovimientosHijos) {
+        this.listaMovimientosHijos = listaMovimientosHijos;
+    }
 
-	public void setMostrarBusqueda(boolean mostrarBusqueda) {
-		this.mostrarBusqueda = mostrarBusqueda;
-	}
+    public boolean isMostrarBusqueda() {
+        return mostrarBusqueda;
+    }
 
-	public boolean isMostrarDetalle() {
-		return mostrarDetalle;
-	}
+    public void setMostrarBusqueda(boolean mostrarBusqueda) {
+        this.mostrarBusqueda = mostrarBusqueda;
+    }
 
-	public void setMostrarDetalle(boolean mostrarDetalle) {
-		this.mostrarDetalle = mostrarDetalle;
-	}
+    public boolean isMostrarDetalle() {
+        return mostrarDetalle;
+    }
 
-	public List<InfoMovimientoDTO> getMovimientos() {
-		return movimientos;
-	}
+    public void setMostrarDetalle(boolean mostrarDetalle) {
+        this.mostrarDetalle = mostrarDetalle;
+    }
 
-	public void setMovimientos(List<InfoMovimientoDTO> movimientos) {
-		this.movimientos = movimientos;
-	}
+    public List<InfoMovimientoDTO> getMovimientos() {
+        return movimientos;
+    }
 
-	public Integer getIdPadre() {
-		return idPadre;
-	}
+    public void setMovimientos(List<InfoMovimientoDTO> movimientos) {
+        this.movimientos = movimientos;
+    }
 
-	public void setIdPadre(Integer idPadre) {
-		this.idPadre = idPadre;
-	}
+    public Integer getIdPadre() {
+        return idPadre;
+    }
 
-	public Integer getIdHijo() {
-		return idHijo;
-	}
+    public void setIdPadre(Integer idPadre) {
+        this.idPadre = idPadre;
+    }
 
-	public void setIdHijo(Integer idHijo) {
-		this.idHijo = idHijo;
-	}
+    public Integer getIdHijo() {
+        return idHijo;
+    }
 
-	public String getCriterio() {
-		return criterio;
-	}
+    public void setIdHijo(Integer idHijo) {
+        this.idHijo = idHijo;
+    }
 
-	public void setCriterio(String criterio) {
-		this.criterio = criterio;
-	}
+    public String getCriterio() {
+        return criterio;
+    }
 
-	public Boolean getFechas() {
-		return fechas;
-	}
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
 
-	public void setFechas(Boolean fechas) {
-		this.fechas = fechas;
-	}
+    public Boolean getFechas() {
+        return fechas;
+    }
 
-	public Boolean getRfc() {
-		return rfc;
-	}
+    public void setFechas(Boolean fechas) {
+        this.fechas = fechas;
+    }
 
-	public void setRfc(Boolean rfc) {
-		this.rfc = rfc;
-	}
+    public Boolean getRfc() {
+        return rfc;
+    }
 
-	public Date getFechaInicial() {
-		return fechaInicial;
-	}
+    public void setRfc(Boolean rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setFechaInicial(Date fechaInicial) {
-		this.fechaInicial = fechaInicial;
-	}
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
 
-	public Date getFechaFinal() {
-		return fechaFinal;
-	}
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
 
-	public void setFechaFinal(Date fechaFinal) {
-		this.fechaFinal = fechaFinal;
-	}
+    public Date getFechaFinal() {
+        return fechaFinal;
+    }
 
-	public String getParametro() {
-		return parametro;
-	}
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
 
-	public void setParametro(String parametro) {
-		this.parametro = parametro;
-	}
+    public String getParametro() {
+        return parametro;
+    }
+
+    public void setParametro(String parametro) {
+        this.parametro = parametro;
+    }
 
 }

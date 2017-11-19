@@ -1,143 +1,141 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleado.issste;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-
 /**
  * @author Eduardo Mex
  *
  */
-public class MovimientoIsssteEmpleadoDTO implements Serializable{
+public class MovimientoIsssteEmpleadoDTO implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3066288982770375755L;
-	
-	private Integer idMovimientoIsssteEmpleado;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -3066288982770375755L;
 
-	private Integer idEmpleado;
+    private Integer idMovimientoIsssteEmpleado;
 
-	private Integer idTipoMovimientoIssste;
+    private Integer idEmpleado;
 
-	private BigDecimal sueldoIssste;
+    private Integer idTipoMovimientoIssste;
 
-	private BigDecimal sueldoSar;
+    private BigDecimal sueldoIssste;
 
-	private BigDecimal totalRemuneracion;
+    private BigDecimal sueldoSar;
 
-	private String nivelSalario;
+    private BigDecimal totalRemuneracion;
 
-	private String nombramiento;
+    private String nivelSalario;
 
-	private Integer idCausaBaja;
+    private String nombramiento;
 
-	private Integer idUsuario;
-	
-	private Integer idTipoNombramiento;
-	
-	private Integer idNivelSalarial;
+    private Integer idCausaBaja;
 
-	public Integer getIdMovimientoIsssteEmpleado() {
-		return idMovimientoIsssteEmpleado;
-	}
+    private Integer idUsuario;
 
-	public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
-		this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
-	}
+    private Integer idTipoNombramiento;
 
-	public Integer getIdEmpleado() {
-		return idEmpleado;
-	}
+    private Integer idNivelSalarial;
 
-	public void setIdEmpleado(Integer idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
+    public Integer getIdMovimientoIsssteEmpleado() {
+        return idMovimientoIsssteEmpleado;
+    }
 
-	public Integer getIdTipoMovimientoIssste() {
-		return idTipoMovimientoIssste;
-	}
+    public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
+        this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
+    }
 
-	public void setIdTipoMovimientoIssste(Integer idTipoMovimientoIssste) {
-		this.idTipoMovimientoIssste = idTipoMovimientoIssste;
-	}
+    public Integer getIdEmpleado() {
+        return idEmpleado;
+    }
 
-	public BigDecimal getSueldoIssste() {
-		return sueldoIssste;
-	}
+    public void setIdEmpleado(Integer idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
 
-	public void setSueldoIssste(BigDecimal sueldoIssste) {
-		this.sueldoIssste = sueldoIssste;
-	}
+    public Integer getIdTipoMovimientoIssste() {
+        return idTipoMovimientoIssste;
+    }
 
-	public BigDecimal getSueldoSar() {
-		return sueldoSar;
-	}
+    public void setIdTipoMovimientoIssste(Integer idTipoMovimientoIssste) {
+        this.idTipoMovimientoIssste = idTipoMovimientoIssste;
+    }
 
-	public void setSueldoSar(BigDecimal sueldoSar) {
-		this.sueldoSar = sueldoSar;
-	}
+    public BigDecimal getSueldoIssste() {
+        return sueldoIssste;
+    }
 
-	public BigDecimal getTotalRemuneracion() {
-		return totalRemuneracion;
-	}
+    public void setSueldoIssste(BigDecimal sueldoIssste) {
+        this.sueldoIssste = sueldoIssste;
+    }
 
-	public void setTotalRemuneracion(BigDecimal totalRemuneracion) {
-		this.totalRemuneracion = totalRemuneracion;
-	}
+    public BigDecimal getSueldoSar() {
+        return sueldoSar;
+    }
 
-	public String getNivelSalario() {
-		return nivelSalario;
-	}
+    public void setSueldoSar(BigDecimal sueldoSar) {
+        this.sueldoSar = sueldoSar;
+    }
 
-	public void setNivelSalario(String nivelSalario) {
-		this.nivelSalario = nivelSalario;
-	}
+    public BigDecimal getTotalRemuneracion() {
+        return totalRemuneracion;
+    }
 
-	public String getNombramiento() {
-		return nombramiento;
-	}
+    public void setTotalRemuneracion(BigDecimal totalRemuneracion) {
+        this.totalRemuneracion = totalRemuneracion;
+    }
 
-	public void setNombramiento(String nombramiento) {
-		this.nombramiento = nombramiento;
-	}
+    public String getNivelSalario() {
+        return nivelSalario;
+    }
 
-	public Integer getIdCausaBaja() {
-		return idCausaBaja;
-	}
+    public void setNivelSalario(String nivelSalario) {
+        this.nivelSalario = nivelSalario;
+    }
 
-	public void setIdCausaBaja(Integer idCausaBaja) {
-		this.idCausaBaja = idCausaBaja;
-	}
+    public String getNombramiento() {
+        return nombramiento;
+    }
 
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
+    public void setNombramiento(String nombramiento) {
+        this.nombramiento = nombramiento;
+    }
 
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public Integer getIdCausaBaja() {
+        return idCausaBaja;
+    }
 
-	public Integer getIdTipoNombramiento() {
-		return idTipoNombramiento;
-	}
+    public void setIdCausaBaja(Integer idCausaBaja) {
+        this.idCausaBaja = idCausaBaja;
+    }
 
-	public void setIdTipoNombramiento(Integer idTipoNombramiento) {
-		this.idTipoNombramiento = idTipoNombramiento;
-	}
+    public Integer getIdUsuario() {
+        return idUsuario;
+    }
 
-	public Integer getIdNivelSalarial() {
-		return idNivelSalarial;
-	}
+    public void setIdUsuario(Integer idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
-	public void setIdNivelSalarial(Integer idNivelSalarial) {
-		this.idNivelSalarial = idNivelSalarial;
-	}
-	
-	
+    public Integer getIdTipoNombramiento() {
+        return idTipoNombramiento;
+    }
+
+    public void setIdTipoNombramiento(Integer idTipoNombramiento) {
+        this.idTipoNombramiento = idTipoNombramiento;
+    }
+
+    public Integer getIdNivelSalarial() {
+        return idNivelSalarial;
+    }
+
+    public void setIdNivelSalarial(Integer idNivelSalarial) {
+        this.idNivelSalarial = idNivelSalarial;
+    }
 
 }

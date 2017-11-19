@@ -1,22 +1,23 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
-// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2017.01.16 a las 04:13:02 PM CST 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802
+// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
+// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen.
+// Generado el: 2017.01.16 a las 04:13:02 PM CST
 //
-
 
 package mx.gob.saludtlax.rh.sat.xml.nomina12;
 
 import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Clase Java para c_Estado.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
  * <p>
+ * Clase Java para c_Estado.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ * <p>
+ *
  * <pre>
  * &lt;simpleType name="c_Estado">
  *   &lt;restriction base="{http://www.w3.org/2001/XMLSchema}string">
@@ -119,107 +120,15 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/restriction>
  * &lt;/simpleType>
  * </pre>
- * 
+ *
  */
 @XmlType(name = "c_Estado", namespace = "http://www.sat.gob.mx/sitio_internet/cfd/catalogos")
 @XmlEnum
 public enum CEstado {
 
-    AGU,
-    BCN,
-    BCS,
-    CAM,
-    CHP,
-    CHH,
-    COA,
-    COL,
-    DIF,
-    DUR,
-    GUA,
-    GRO,
-    HID,
-    JAL,
-    MEX,
-    MIC,
-    MOR,
-    NAY,
-    NLE,
-    OAX,
-    PUE,
-    QUE,
-    ROO,
-    SLP,
-    SIN,
-    SON,
-    TAB,
-    TAM,
-    TLA,
-    VER,
-    YUC,
-    ZAC,
-    AL,
-    AK,
-    AZ,
-    AR,
-    CA,
-    NC,
-    SC,
-    CO,
-    CT,
-    ND,
-    SD,
-    DE,
-    FL,
-    GA,
-    HI,
-    ID,
-    IL,
-    IN,
-    IA,
-    KS,
-    KY,
-    LA,
-    ME,
-    MD,
-    MA,
-    MI,
-    MN,
-    MS,
-    MO,
-    MT,
-    NE,
-    NV,
-    NJ,
-    NY,
-    NH,
-    NM,
-    OH,
-    OK,
-    OR,
-    PA,
-    RI,
-    TN,
-    TX,
-    UT,
-    VT,
-    VA,
-    WV,
-    WA,
-    WI,
-    WY,
-    ON,
-    QC,
-    NS,
-    NB,
-    MB,
-    BC,
-    PE,
-    SK,
-    AB,
-    NL,
-    NT,
-    YT,
-    UN;
+    AGU, BCN, BCS, CAM, CHP, CHH, COA, COL, DIF, DUR, GUA, GRO, HID, JAL, MEX, MIC, MOR, NAY, NLE, OAX, PUE, QUE, ROO, SLP, SIN, SON, TAB, TAM, TLA, VER, YUC,
+    ZAC, AL, AK, AZ, AR, CA, NC, SC, CO, CT, ND, SD, DE, FL, GA, HI, ID, IL, IN, IA, KS, KY, LA, ME, MD, MA, MI, MN, MS, MO, MT, NE, NV, NJ, NY, NH, NM, OH, OK,
+    OR, PA, RI, TN, TX, UT, VT, VA, WV, WA, WI, WY, ON, QC, NS, NB, MB, BC, PE, SK, AB, NL, NT, YT, UN;
 
     public String value() {
         return name();

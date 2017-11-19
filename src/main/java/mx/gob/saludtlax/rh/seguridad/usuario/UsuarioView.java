@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.seguridad.usuario;
 
 import java.util.List;
@@ -20,8 +21,8 @@ public class UsuarioView {
     private boolean habilitarPanelUsuario;
     private boolean habilitarFormulario;
     private boolean habilitarFormularioEdicion;
-    
-    private boolean cambiarContrasenia=false;
+
+    private boolean cambiarContrasenia = false;
 
     public void habilitarEdicion() {
         habilitarTabla = true;
@@ -169,12 +170,12 @@ public class UsuarioView {
         this.habilitarFormularioEdicion = habilitarFormularioEdicion;
     }
 
-	public boolean isCambiarContrasenia() {
-		return cambiarContrasenia;
-	}
+    public boolean isCambiarContrasenia() {
+        return cambiarContrasenia;
+    }
 
-	public void setCambiarContrasenia(boolean cambiarContrasenia) {
-		this.cambiarContrasenia = cambiarContrasenia;
-	}
+    public void setCambiarContrasenia(boolean cambiarContrasenia) {
+        this.cambiarContrasenia = cambiarContrasenia;
+    }
 
 }

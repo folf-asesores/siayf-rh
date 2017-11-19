@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 17:54:48 24/09/2016
  */
@@ -23,234 +24,236 @@ import javax.persistence.Table;
 @Table(name = "estructuras_nominas_trailers_acum")
 public class EstructuraNominaTrailersAcumEntity implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7414143121408826250L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -7414143121408826250L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_estructuras_nominas_trailers")
-	private Integer idEstructurasNominasTrailers;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_estructuras_nominas_trailers")
+    private Integer idEstructurasNominasTrailers;
 
-	@Column(name = "num_emp")
-	private String numEmp;
-	@Column(name = "rfc")
-	private String rfc;
-	@Column(name = "num_cheq")
-	private String numCheq;
-	@Column(name = "t_concep")
-	private Integer tConcep;
-	@Column(name = "concep")
-	private String concep;
-	@Column(name = "importe")
-	private BigDecimal importe;
-	@Column(name = "anio")
-	private String anio;
-	@Column(name = "qna")
-	private String qna;
-	@Column(name = "pta_ant")
-	private String ptaAnt;
-	@Column(name = "tot_pagos")
-	private String totPAgos;
-	@Column(name = "pago_efec")
-	private String pagoEfec;
-	@Column(name = "nom_prod")
-	private String nomProd;
-	@Column(name = "num_ctrol")
-	private Integer numCtrol;
-	@Column(name = "id_estructuras_nominas")
-	private Integer idEstructurasNominas;
-	@Column(name = "sub_cheque")
-	private Integer subCheque;
-	@Column(name = "id_concepto")
-	private Integer idConcepto;
-	@Column(name = "concepto_siif")
-	private String conceptoSiif;
-	@Column(name = "id_siif_bitacoras")
-	private Integer idSiifBitacora;
-	
-	@Column(name = "id_contexto")
-	private String idContexto;
+    @Column(name = "num_emp")
+    private String numEmp;
+    @Column(name = "rfc")
+    private String rfc;
+    @Column(name = "num_cheq")
+    private String numCheq;
+    @Column(name = "t_concep")
+    private Integer tConcep;
+    @Column(name = "concep")
+    private String concep;
+    @Column(name = "importe")
+    private BigDecimal importe;
+    @Column(name = "anio")
+    private String anio;
+    @Column(name = "qna")
+    private String qna;
+    @Column(name = "pta_ant")
+    private String ptaAnt;
+    @Column(name = "tot_pagos")
+    private String totPAgos;
+    @Column(name = "pago_efec")
+    private String pagoEfec;
+    @Column(name = "nom_prod")
+    private String nomProd;
+    @Column(name = "num_ctrol")
+    private Integer numCtrol;
+    @Column(name = "id_estructuras_nominas")
+    private Integer idEstructurasNominas;
+    @Column(name = "sub_cheque")
+    private Integer subCheque;
+    @Column(name = "id_concepto")
+    private Integer idConcepto;
+    @Column(name = "concepto_siif")
+    private String conceptoSiif;
+    @Column(name = "id_siif_bitacoras")
+    private Integer idSiifBitacora;
 
-	public Integer getIdEstructurasNominasTrailers() {
-		return idEstructurasNominasTrailers;
-	}
+    @Column(name = "id_contexto")
+    private String idContexto;
 
-	public void setIdEstructurasNominasTrailers(Integer idEstructurasNominasTrailers) {
-		this.idEstructurasNominasTrailers = idEstructurasNominasTrailers;
-	}
+    public Integer getIdEstructurasNominasTrailers() {
+        return idEstructurasNominasTrailers;
+    }
 
-	public String getNumEmp() {
-		return numEmp;
-	}
+    public void setIdEstructurasNominasTrailers(Integer idEstructurasNominasTrailers) {
+        this.idEstructurasNominasTrailers = idEstructurasNominasTrailers;
+    }
 
-	public void setNumEmp(String numEmp) {
-		this.numEmp = numEmp;
-	}
+    public String getNumEmp() {
+        return numEmp;
+    }
 
-	public String getRfc() {
-		return rfc;
-	}
+    public void setNumEmp(String numEmp) {
+        this.numEmp = numEmp;
+    }
 
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
+    public String getRfc() {
+        return rfc;
+    }
 
-	public String getNumCheq() {
-		return numCheq;
-	}
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
 
-	public void setNumCheq(String numCheq) {
-		this.numCheq = numCheq;
-	}
+    public String getNumCheq() {
+        return numCheq;
+    }
 
-	/**
-	 * @return the tConcep
-	 */
-	public Integer gettConcep() {
-		return tConcep;
-	}
+    public void setNumCheq(String numCheq) {
+        this.numCheq = numCheq;
+    }
 
-	/**
-	 * @param tConcep the tConcep to set
-	 */
-	public void settConcep(Integer tConcep) {
-		this.tConcep = tConcep;
-	}
+    /**
+     * @return the tConcep
+     */
+    public Integer gettConcep() {
+        return tConcep;
+    }
 
-	/**
-	 * @return the idContexto
-	 */
-	public String getIdContexto() {
-		return idContexto;
-	}
+    /**
+     * @param tConcep
+     *            the tConcep to set
+     */
+    public void settConcep(Integer tConcep) {
+        this.tConcep = tConcep;
+    }
 
-	/**
-	 * @param idContexto the idContexto to set
-	 */
-	public void setIdContexto(String idContexto) {
-		this.idContexto = idContexto;
-	}
+    /**
+     * @return the idContexto
+     */
+    public String getIdContexto() {
+        return idContexto;
+    }
 
-	public Integer getTConcep() {
-		return tConcep;
-	}
+    /**
+     * @param idContexto
+     *            the idContexto to set
+     */
+    public void setIdContexto(String idContexto) {
+        this.idContexto = idContexto;
+    }
 
-	public void setTConcep(Integer tConcep) {
-		this.tConcep = tConcep;
-	}
+    public Integer getTConcep() {
+        return tConcep;
+    }
 
-	public String getConcep() {
-		return concep;
-	}
+    public void setTConcep(Integer tConcep) {
+        this.tConcep = tConcep;
+    }
 
-	public void setConcep(String concep) {
-		this.concep = concep;
-	}
+    public String getConcep() {
+        return concep;
+    }
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public void setConcep(String concep) {
+        this.concep = concep;
+    }
 
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	public String getAnio() {
-		return anio;
-	}
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
 
-	public void setAnio(String anio) {
-		this.anio = anio;
-	}
+    public String getAnio() {
+        return anio;
+    }
 
-	public String getQna() {
-		return qna;
-	}
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
 
-	public void setQna(String qna) {
-		this.qna = qna;
-	}
+    public String getQna() {
+        return qna;
+    }
 
-	public String getPtaAnt() {
-		return ptaAnt;
-	}
+    public void setQna(String qna) {
+        this.qna = qna;
+    }
 
-	public void setPtaAnt(String ptaAnt) {
-		this.ptaAnt = ptaAnt;
-	}
+    public String getPtaAnt() {
+        return ptaAnt;
+    }
 
-	public String getTotPAgos() {
-		return totPAgos;
-	}
+    public void setPtaAnt(String ptaAnt) {
+        this.ptaAnt = ptaAnt;
+    }
 
-	public void setTotPAgos(String totPAgos) {
-		this.totPAgos = totPAgos;
-	}
+    public String getTotPAgos() {
+        return totPAgos;
+    }
 
-	public String getPagoEfec() {
-		return pagoEfec;
-	}
+    public void setTotPAgos(String totPAgos) {
+        this.totPAgos = totPAgos;
+    }
 
-	public void setPagoEfec(String pagoEfec) {
-		this.pagoEfec = pagoEfec;
-	}
+    public String getPagoEfec() {
+        return pagoEfec;
+    }
 
-	public String getNomProd() {
-		return nomProd;
-	}
+    public void setPagoEfec(String pagoEfec) {
+        this.pagoEfec = pagoEfec;
+    }
 
-	public void setNomProd(String nomProd) {
-		this.nomProd = nomProd;
-	}
+    public String getNomProd() {
+        return nomProd;
+    }
 
-	public Integer getNumCtrol() {
-		return numCtrol;
-	}
+    public void setNomProd(String nomProd) {
+        this.nomProd = nomProd;
+    }
 
-	public void setNumCtrol(Integer numCtrol) {
-		this.numCtrol = numCtrol;
-	}
+    public Integer getNumCtrol() {
+        return numCtrol;
+    }
 
-	public Integer getIdEstructurasNominas() {
-		return idEstructurasNominas;
-	}
+    public void setNumCtrol(Integer numCtrol) {
+        this.numCtrol = numCtrol;
+    }
 
-	public void setIdEstructurasNominas(Integer idEstructurasNominas) {
-		this.idEstructurasNominas = idEstructurasNominas;
-	}
+    public Integer getIdEstructurasNominas() {
+        return idEstructurasNominas;
+    }
 
-	public Integer getIdSiifBitacora() {
-		return idSiifBitacora;
-	}
+    public void setIdEstructurasNominas(Integer idEstructurasNominas) {
+        this.idEstructurasNominas = idEstructurasNominas;
+    }
 
-	public void setIdSiifBitacora(Integer idSiifBitacora) {
-		this.idSiifBitacora = idSiifBitacora;
-	}
+    public Integer getIdSiifBitacora() {
+        return idSiifBitacora;
+    }
 
-	public Integer getSubCheque() {
-		return subCheque;
-	}
+    public void setIdSiifBitacora(Integer idSiifBitacora) {
+        this.idSiifBitacora = idSiifBitacora;
+    }
 
-	public void setSubCheque(Integer subCheque) {
-		this.subCheque = subCheque;
-	}
+    public Integer getSubCheque() {
+        return subCheque;
+    }
 
-	public Integer getIdConcepto() {
-		return idConcepto;
-	}
+    public void setSubCheque(Integer subCheque) {
+        this.subCheque = subCheque;
+    }
 
-	public void setIdConcepto(Integer idConcepto) {
-		this.idConcepto = idConcepto;
-	}
+    public Integer getIdConcepto() {
+        return idConcepto;
+    }
 
-	public String getConceptoSiif() {
-		return conceptoSiif;
-	}
+    public void setIdConcepto(Integer idConcepto) {
+        this.idConcepto = idConcepto;
+    }
 
-	public void setConceptoSiif(String conceptoSiif) {
-		this.conceptoSiif = conceptoSiif;
-	}
+    public String getConceptoSiif() {
+        return conceptoSiif;
+    }
+
+    public void setConceptoSiif(String conceptoSiif) {
+        this.conceptoSiif = conceptoSiif;
+    }
 
 }

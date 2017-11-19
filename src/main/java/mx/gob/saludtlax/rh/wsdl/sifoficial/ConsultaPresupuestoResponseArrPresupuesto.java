@@ -4,17 +4,19 @@ package mx.gob.saludtlax.rh.wsdl.sifoficial;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Java class for consulta_presupuestoResponse_arr_presupuesto complex type.
- * 
- * <p>The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
+ * Java class for consulta_presupuestoResponse_arr_presupuesto complex type.
+ *
+ * <p>
+ * The following schema fragment specifies the expected content contained within this class.
+ *
  * <pre>
  * &lt;complexType name="consulta_presupuestoResponse_arr_presupuesto">
  *   &lt;complexContent>
@@ -41,13 +43,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_presupuestoResponse_arr_presupuesto", propOrder = {
-    "element"
-})
+@XmlType(name = "consulta_presupuestoResponse_arr_presupuesto", propOrder = { "element" })
 public class ConsultaPresupuestoResponseArrPresupuesto {
 
     @XmlElement(required = true, nillable = true)
@@ -55,39 +55,41 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
     /**
      * Gets the value of the element property.
-     * 
+     *
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
      * This is why there is not a <CODE>set</CODE> method for the element property.
-     * 
+     *
      * <p>
      * For example, to add a new item, do as follows:
+     *
      * <pre>
-     *    getElement().add(newItem);
+     * getElement().add(newItem);
      * </pre>
-     * 
-     * 
+     *
+     *
      * <p>
      * Objects of the following type(s) are allowed in the list
      * {@link ConsultaPresupuestoResponseArrPresupuesto.Element }
-     * 
-     * 
+     *
+     *
      */
     public List<ConsultaPresupuestoResponseArrPresupuesto.Element> getElement() {
         if (element == null) {
-            element = new ArrayList<ConsultaPresupuestoResponseArrPresupuesto.Element>();
+            element = new ArrayList<>();
         }
-        return this.element;
+        return element;
     }
 
-
     /**
-     * <p>Java class for anonymous complex type.
-     * 
-     * <p>The following schema fragment specifies the expected content contained within this class.
-     * 
+     * <p>
+     * Java class for anonymous complex type.
+     *
+     * <p>
+     * The following schema fragment specifies the expected content contained within this class.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -104,18 +106,11 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "idMes",
-        "porEjercer",
-        "comprometido",
-        "devengado",
-        "ejercido",
-        "pagado"
-    })
+    @XmlType(name = "", propOrder = { "idMes", "porEjercer", "comprometido", "devengado", "ejercido", "pagado" })
     public static class Element {
 
         @XmlElement(name = "id_mes", required = true, type = Integer.class, nillable = true)
@@ -133,11 +128,11 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Gets the value of the idMes property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Integer }
-         *     
+         *         possible object is
+         *         {@link Integer }
+         *
          */
         public Integer getIdMes() {
             return idMes;
@@ -145,23 +140,23 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the idMes property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Integer }
-         *     
+         *            allowed object is
+         *            {@link Integer }
+         *
          */
         public void setIdMes(Integer value) {
-            this.idMes = value;
+            idMes = value;
         }
 
         /**
          * Gets the value of the porEjercer property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getPorEjercer() {
             return porEjercer;
@@ -169,23 +164,23 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the porEjercer property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setPorEjercer(BigDecimal value) {
-            this.porEjercer = value;
+            porEjercer = value;
         }
 
         /**
          * Gets the value of the comprometido property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getComprometido() {
             return comprometido;
@@ -193,23 +188,23 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the comprometido property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setComprometido(BigDecimal value) {
-            this.comprometido = value;
+            comprometido = value;
         }
 
         /**
          * Gets the value of the devengado property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getDevengado() {
             return devengado;
@@ -217,23 +212,23 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the devengado property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setDevengado(BigDecimal value) {
-            this.devengado = value;
+            devengado = value;
         }
 
         /**
          * Gets the value of the ejercido property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getEjercido() {
             return ejercido;
@@ -241,23 +236,23 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the ejercido property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setEjercido(BigDecimal value) {
-            this.ejercido = value;
+            ejercido = value;
         }
 
         /**
          * Gets the value of the pagado property.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getPagado() {
             return pagado;
@@ -265,14 +260,14 @@ public class ConsultaPresupuestoResponseArrPresupuesto {
 
         /**
          * Sets the value of the pagado property.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setPagado(BigDecimal value) {
-            this.pagado = value;
+            pagado = value;
         }
 
     }

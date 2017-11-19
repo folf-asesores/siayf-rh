@@ -3,6 +3,7 @@
  * Creado el 09/Jul/2017 4:45:23 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.math.BigDecimal;
@@ -208,27 +209,27 @@ public class PrenominaDTO {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.elaboroNombre);
-        hash = 67 * hash + Objects.hashCode(this.elaboroCargo);
-        hash = 67 * hash + Objects.hashCode(this.revisoNombre);
-        hash = 67 * hash + Objects.hashCode(this.revisoCargo);
-        hash = 67 * hash + Objects.hashCode(this.autorizoNombre);
-        hash = 67 * hash + Objects.hashCode(this.autorizoCargo);
-        hash = 67 * hash + Objects.hashCode(this.fechaPago);
-        hash = 67 * hash + Objects.hashCode(this.idProductoNomina);
-        hash = 67 * hash + Objects.hashCode(this.idPrograma);
-        hash = 67 * hash + Objects.hashCode(this.programa);
-        hash = 67 * hash + Objects.hashCode(this.inicioPeriodo);
-        hash = 67 * hash + Objects.hashCode(this.finPeriodo);
-        hash = 67 * hash + Objects.hashCode(this.claveCentroResponsabilidad);
-        hash = 67 * hash + Objects.hashCode(this.descripcionCentroResponsabilidad);
-        hash = 67 * hash + Objects.hashCode(this.rfc);
-        hash = 67 * hash + Objects.hashCode(this.nombre);
-        hash = 67 * hash + Objects.hashCode(this.claveConcepto);
-        hash = 67 * hash + Objects.hashCode(this.descripcionConcepto);
-        hash = 67 * hash + Objects.hashCode(this.importe);
-        hash = 67 * hash + Objects.hashCode(this.total);
-        hash = 67 * hash + Objects.hashCode(this.tipo);
+        hash = 67 * hash + Objects.hashCode(elaboroNombre);
+        hash = 67 * hash + Objects.hashCode(elaboroCargo);
+        hash = 67 * hash + Objects.hashCode(revisoNombre);
+        hash = 67 * hash + Objects.hashCode(revisoCargo);
+        hash = 67 * hash + Objects.hashCode(autorizoNombre);
+        hash = 67 * hash + Objects.hashCode(autorizoCargo);
+        hash = 67 * hash + Objects.hashCode(fechaPago);
+        hash = 67 * hash + Objects.hashCode(idProductoNomina);
+        hash = 67 * hash + Objects.hashCode(idPrograma);
+        hash = 67 * hash + Objects.hashCode(programa);
+        hash = 67 * hash + Objects.hashCode(inicioPeriodo);
+        hash = 67 * hash + Objects.hashCode(finPeriodo);
+        hash = 67 * hash + Objects.hashCode(claveCentroResponsabilidad);
+        hash = 67 * hash + Objects.hashCode(descripcionCentroResponsabilidad);
+        hash = 67 * hash + Objects.hashCode(rfc);
+        hash = 67 * hash + Objects.hashCode(nombre);
+        hash = 67 * hash + Objects.hashCode(claveConcepto);
+        hash = 67 * hash + Objects.hashCode(descripcionConcepto);
+        hash = 67 * hash + Objects.hashCode(importe);
+        hash = 67 * hash + Objects.hashCode(total);
+        hash = 67 * hash + Objects.hashCode(tipo);
         return hash;
     }
 
@@ -244,71 +245,76 @@ public class PrenominaDTO {
             return false;
         }
         final PrenominaDTO other = (PrenominaDTO) obj;
-        if (!Objects.equals(this.elaboroNombre, other.elaboroNombre)) {
+        if (!Objects.equals(elaboroNombre, other.elaboroNombre)) {
             return false;
         }
-        if (!Objects.equals(this.elaboroCargo, other.elaboroCargo)) {
+        if (!Objects.equals(elaboroCargo, other.elaboroCargo)) {
             return false;
         }
-        if (!Objects.equals(this.revisoNombre, other.revisoNombre)) {
+        if (!Objects.equals(revisoNombre, other.revisoNombre)) {
             return false;
         }
-        if (!Objects.equals(this.revisoCargo, other.revisoCargo)) {
+        if (!Objects.equals(revisoCargo, other.revisoCargo)) {
             return false;
         }
-        if (!Objects.equals(this.autorizoNombre, other.autorizoNombre)) {
+        if (!Objects.equals(autorizoNombre, other.autorizoNombre)) {
             return false;
         }
-        if (!Objects.equals(this.autorizoCargo, other.autorizoCargo)) {
+        if (!Objects.equals(autorizoCargo, other.autorizoCargo)) {
             return false;
         }
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.claveCentroResponsabilidad, other.claveCentroResponsabilidad)) {
+        if (!Objects.equals(claveCentroResponsabilidad, other.claveCentroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(this.descripcionCentroResponsabilidad, other.descripcionCentroResponsabilidad)) {
+        if (!Objects.equals(descripcionCentroResponsabilidad, other.descripcionCentroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(this.rfc, other.rfc)) {
+        if (!Objects.equals(rfc, other.rfc)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
-        if (!Objects.equals(this.claveConcepto, other.claveConcepto)) {
+        if (!Objects.equals(claveConcepto, other.claveConcepto)) {
             return false;
         }
-        if (!Objects.equals(this.descripcionConcepto, other.descripcionConcepto)) {
+        if (!Objects.equals(descripcionConcepto, other.descripcionConcepto)) {
             return false;
         }
-        if (!Objects.equals(this.tipo, other.tipo)) {
+        if (!Objects.equals(tipo, other.tipo)) {
             return false;
         }
-        if (!Objects.equals(this.fechaPago, other.fechaPago)) {
+        if (!Objects.equals(fechaPago, other.fechaPago)) {
             return false;
         }
-        if (!Objects.equals(this.idProductoNomina, other.idProductoNomina)) {
+        if (!Objects.equals(idProductoNomina, other.idProductoNomina)) {
             return false;
         }
-        if (!Objects.equals(this.idPrograma, other.idPrograma)) {
+        if (!Objects.equals(idPrograma, other.idPrograma)) {
             return false;
         }
-        if (!Objects.equals(this.inicioPeriodo, other.inicioPeriodo)) {
+        if (!Objects.equals(inicioPeriodo, other.inicioPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.finPeriodo, other.finPeriodo)) {
+        if (!Objects.equals(finPeriodo, other.finPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.importe, other.importe)) {
+        if (!Objects.equals(importe, other.importe)) {
             return false;
         }
-        return Objects.equals(this.total, other.total);
+        return Objects.equals(total, other.total);
     }
 
     @Override
     public String toString() {
-        return "PrenominaDTO{" + "elaboroNombre=" + elaboroNombre + ", elaboroCargo=" + elaboroCargo + ", revisoNombre=" + revisoNombre + ", revisoCargo=" + revisoCargo + ", autorizoNombre=" + autorizoNombre + ", autorizoCargo=" + autorizoCargo + ", fechaPago=" + fechaPago + ", idProductoNomina=" + idProductoNomina + ", idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", claveCentroResponsabilidad=" + claveCentroResponsabilidad + ", descripcionCentroResponsabilidad=" + descripcionCentroResponsabilidad + ", rfc=" + rfc + ", nombre=" + nombre + ", claveConcepto=" + claveConcepto + ", descripcionConcepto=" + descripcionConcepto + ", importe=" + importe + ", total=" + total + ", tipo=" + tipo + '}';
+        return "PrenominaDTO{" + "elaboroNombre=" + elaboroNombre + ", elaboroCargo=" + elaboroCargo + ", revisoNombre=" + revisoNombre + ", revisoCargo="
+                + revisoCargo + ", autorizoNombre=" + autorizoNombre + ", autorizoCargo=" + autorizoCargo + ", fechaPago=" + fechaPago + ", idProductoNomina="
+                + idProductoNomina + ", idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo
+                + ", claveCentroResponsabilidad=" + claveCentroResponsabilidad + ", descripcionCentroResponsabilidad=" + descripcionCentroResponsabilidad
+                + ", rfc=" + rfc + ", nombre=" + nombre + ", claveConcepto=" + claveConcepto + ", descripcionConcepto=" + descripcionConcepto + ", importe="
+                + importe + ", total=" + total + ", tipo=" + tipo + '}';
     }
 }

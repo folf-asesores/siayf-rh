@@ -1,16 +1,16 @@
 //
-// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802 
-// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
-// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen. 
-// Generado el: 2016.04.21 a las 10:07:08 AM CDT 
+// Este archivo ha sido generado por la arquitectura JavaTM para la implantaci�n de la referencia de enlace (JAXB) XML v2.2.8-b130911.1802
+// Visite <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a>
+// Todas las modificaciones realizadas en este archivo se perder�n si se vuelve a compilar el esquema de origen.
+// Generado el: 2016.04.21 a las 10:07:08 AM CDT
 //
-
 
 package mx.gob.saludtlax.rh.sat.xml.retenciones;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAnyElement;
@@ -20,12 +20,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-
 /**
- * <p>Clase Java para anonymous complex type.
- * 
- * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
- * 
+ * <p>
+ * Clase Java para anonymous complex type.
+ *
+ * <p>
+ * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+ *
  * <pre>
  * &lt;complexType>
  *   &lt;complexContent>
@@ -274,18 +275,11 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;/complexContent>
  * &lt;/complexType>
  * </pre>
- * 
- * 
+ *
+ *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "emisor",
-    "receptor",
-    "periodo",
-    "totales",
-    "complemento",
-    "addenda"
-})
+@XmlType(name = "", propOrder = { "emisor", "receptor", "periodo", "totales", "complemento", "addenda" })
 @XmlRootElement(name = "Retenciones")
 public class Retenciones {
 
@@ -320,11 +314,11 @@ public class Retenciones {
 
     /**
      * Obtiene el valor de la propiedad emisor.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Emisor }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Emisor }
+     *
      */
     public Retenciones.Emisor getEmisor() {
         return emisor;
@@ -332,23 +326,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad emisor.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Emisor }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Emisor }
+     *
      */
     public void setEmisor(Retenciones.Emisor value) {
-        this.emisor = value;
+        emisor = value;
     }
 
     /**
      * Obtiene el valor de la propiedad receptor.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Receptor }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Receptor }
+     *
      */
     public Retenciones.Receptor getReceptor() {
         return receptor;
@@ -356,23 +350,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad receptor.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Receptor }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Receptor }
+     *
      */
     public void setReceptor(Retenciones.Receptor value) {
-        this.receptor = value;
+        receptor = value;
     }
 
     /**
      * Obtiene el valor de la propiedad periodo.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Periodo }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Periodo }
+     *
      */
     public Retenciones.Periodo getPeriodo() {
         return periodo;
@@ -380,23 +374,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad periodo.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Periodo }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Periodo }
+     *
      */
     public void setPeriodo(Retenciones.Periodo value) {
-        this.periodo = value;
+        periodo = value;
     }
 
     /**
      * Obtiene el valor de la propiedad totales.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Totales }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Totales }
+     *
      */
     public Retenciones.Totales getTotales() {
         return totales;
@@ -404,23 +398,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad totales.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Totales }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Totales }
+     *
      */
     public void setTotales(Retenciones.Totales value) {
-        this.totales = value;
+        totales = value;
     }
 
     /**
      * Obtiene el valor de la propiedad complemento.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Complemento }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Complemento }
+     *
      */
     public Retenciones.Complemento getComplemento() {
         return complemento;
@@ -428,23 +422,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad complemento.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Complemento }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Complemento }
+     *
      */
     public void setComplemento(Retenciones.Complemento value) {
-        this.complemento = value;
+        complemento = value;
     }
 
     /**
      * Obtiene el valor de la propiedad addenda.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link Retenciones.Addenda }
-     *     
+     *         possible object is
+     *         {@link Retenciones.Addenda }
+     *
      */
     public Retenciones.Addenda getAddenda() {
         return addenda;
@@ -452,23 +446,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad addenda.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link Retenciones.Addenda }
-     *     
+     *            allowed object is
+     *            {@link Retenciones.Addenda }
+     *
      */
     public void setAddenda(Retenciones.Addenda value) {
-        this.addenda = value;
+        addenda = value;
     }
 
     /**
      * Obtiene el valor de la propiedad version.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getVersion() {
         if (version == null) {
@@ -480,23 +474,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad version.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setVersion(String value) {
-        this.version = value;
+        version = value;
     }
 
     /**
      * Obtiene el valor de la propiedad folioInt.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getFolioInt() {
         return folioInt;
@@ -504,23 +498,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad folioInt.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setFolioInt(String value) {
-        this.folioInt = value;
+        folioInt = value;
     }
 
     /**
      * Obtiene el valor de la propiedad sello.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getSello() {
         return sello;
@@ -528,23 +522,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad sello.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setSello(String value) {
-        this.sello = value;
+        sello = value;
     }
 
     /**
      * Obtiene el valor de la propiedad numCert.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getNumCert() {
         return numCert;
@@ -552,23 +546,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad numCert.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setNumCert(String value) {
-        this.numCert = value;
+        numCert = value;
     }
 
     /**
      * Obtiene el valor de la propiedad cert.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getCert() {
         return cert;
@@ -576,23 +570,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad cert.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setCert(String value) {
-        this.cert = value;
+        cert = value;
     }
 
     /**
      * Obtiene el valor de la propiedad fechaExp.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *         possible object is
+     *         {@link XMLGregorianCalendar }
+     *
      */
     public XMLGregorianCalendar getFechaExp() {
         return fechaExp;
@@ -600,23 +594,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad fechaExp.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *            allowed object is
+     *            {@link XMLGregorianCalendar }
+     *
      */
     public void setFechaExp(XMLGregorianCalendar value) {
-        this.fechaExp = value;
+        fechaExp = value;
     }
 
     /**
      * Obtiene el valor de la propiedad cveRetenc.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getCveRetenc() {
         return cveRetenc;
@@ -624,23 +618,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad cveRetenc.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setCveRetenc(String value) {
-        this.cveRetenc = value;
+        cveRetenc = value;
     }
 
     /**
      * Obtiene el valor de la propiedad descRetenc.
-     * 
+     *
      * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *         possible object is
+     *         {@link String }
+     *
      */
     public String getDescRetenc() {
         return descRetenc;
@@ -648,22 +642,23 @@ public class Retenciones {
 
     /**
      * Define el valor de la propiedad descRetenc.
-     * 
+     *
      * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *            allowed object is
+     *            {@link String }
+     *
      */
     public void setDescRetenc(String value) {
-        this.descRetenc = value;
+        descRetenc = value;
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -675,13 +670,11 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "any"
-    })
+    @XmlType(name = "", propOrder = { "any" })
     public static class Addenda {
 
         @XmlAnyElement(lax = true)
@@ -689,41 +682,43 @@ public class Retenciones {
 
         /**
          * Gets the value of the any property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the any property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getAny().add(newItem);
+         * getAny().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Object }
-         * 
-         * 
+         *
+         *
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
-            return this.any;
+            return any;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -735,13 +730,11 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "any"
-    })
+    @XmlType(name = "", propOrder = { "any" })
     public static class Complemento {
 
         @XmlAnyElement(lax = true)
@@ -749,41 +742,43 @@ public class Retenciones {
 
         /**
          * Gets the value of the any property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the any property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getAny().add(newItem);
+         * getAny().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Object }
-         * 
-         * 
+         *
+         *
          */
         public List<Object> getAny() {
             if (any == null) {
-                any = new ArrayList<Object>();
+                any = new ArrayList<>();
             }
-            return this.any;
+            return any;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -803,8 +798,8 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
@@ -819,11 +814,11 @@ public class Retenciones {
 
         /**
          * Obtiene el valor de la propiedad rfcEmisor.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getRFCEmisor() {
             return rfcEmisor;
@@ -831,23 +826,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad rfcEmisor.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setRFCEmisor(String value) {
-            this.rfcEmisor = value;
+            rfcEmisor = value;
         }
 
         /**
          * Obtiene el valor de la propiedad nomDenRazSocE.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getNomDenRazSocE() {
             return nomDenRazSocE;
@@ -855,23 +850,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad nomDenRazSocE.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setNomDenRazSocE(String value) {
-            this.nomDenRazSocE = value;
+            nomDenRazSocE = value;
         }
 
         /**
          * Obtiene el valor de la propiedad curpe.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getCURPE() {
             return curpe;
@@ -879,24 +874,25 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad curpe.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setCURPE(String value) {
-            this.curpe = value;
+            curpe = value;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -929,8 +925,8 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
     @XmlType(name = "")
@@ -945,7 +941,7 @@ public class Retenciones {
 
         /**
          * Obtiene el valor de la propiedad mesIni.
-         * 
+         *
          */
         public int getMesIni() {
             return mesIni;
@@ -953,15 +949,15 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad mesIni.
-         * 
+         *
          */
         public void setMesIni(int value) {
-            this.mesIni = value;
+            mesIni = value;
         }
 
         /**
          * Obtiene el valor de la propiedad mesFin.
-         * 
+         *
          */
         public int getMesFin() {
             return mesFin;
@@ -969,15 +965,15 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad mesFin.
-         * 
+         *
          */
         public void setMesFin(int value) {
-            this.mesFin = value;
+            mesFin = value;
         }
 
         /**
          * Obtiene el valor de la propiedad ejerc.
-         * 
+         *
          */
         public int getEjerc() {
             return ejerc;
@@ -985,20 +981,21 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad ejerc.
-         * 
+         *
          */
         public void setEjerc(int value) {
-            this.ejerc = value;
+            ejerc = value;
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1068,14 +1065,11 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "nacional",
-        "extranjero"
-    })
+    @XmlType(name = "", propOrder = { "nacional", "extranjero" })
     public static class Receptor {
 
         @XmlElement(name = "Nacional")
@@ -1087,11 +1081,11 @@ public class Retenciones {
 
         /**
          * Obtiene el valor de la propiedad nacional.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Retenciones.Receptor.Nacional }
-         *     
+         *         possible object is
+         *         {@link Retenciones.Receptor.Nacional }
+         *
          */
         public Retenciones.Receptor.Nacional getNacional() {
             return nacional;
@@ -1099,23 +1093,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad nacional.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Retenciones.Receptor.Nacional }
-         *     
+         *            allowed object is
+         *            {@link Retenciones.Receptor.Nacional }
+         *
          */
         public void setNacional(Retenciones.Receptor.Nacional value) {
-            this.nacional = value;
+            nacional = value;
         }
 
         /**
          * Obtiene el valor de la propiedad extranjero.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link Retenciones.Receptor.Extranjero }
-         *     
+         *         possible object is
+         *         {@link Retenciones.Receptor.Extranjero }
+         *
          */
         public Retenciones.Receptor.Extranjero getExtranjero() {
             return extranjero;
@@ -1123,23 +1117,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad extranjero.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link Retenciones.Receptor.Extranjero }
-         *     
+         *            allowed object is
+         *            {@link Retenciones.Receptor.Extranjero }
+         *
          */
         public void setExtranjero(Retenciones.Receptor.Extranjero value) {
-            this.extranjero = value;
+            extranjero = value;
         }
 
         /**
          * Obtiene el valor de la propiedad nacionalidad.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link String }
-         *     
+         *         possible object is
+         *         {@link String }
+         *
          */
         public String getNacionalidad() {
             return nacionalidad;
@@ -1147,22 +1141,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad nacionalidad.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link String }
-         *     
+         *            allowed object is
+         *            {@link String }
+         *
          */
         public void setNacionalidad(String value) {
-            this.nacionalidad = value;
+            nacionalidad = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1189,8 +1184,8 @@ public class Retenciones {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1203,11 +1198,11 @@ public class Retenciones {
 
             /**
              * Obtiene el valor de la propiedad numRegIdTrib.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getNumRegIdTrib() {
                 return numRegIdTrib;
@@ -1215,23 +1210,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad numRegIdTrib.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setNumRegIdTrib(String value) {
-                this.numRegIdTrib = value;
+                numRegIdTrib = value;
             }
 
             /**
              * Obtiene el valor de la propiedad nomDenRazSocR.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getNomDenRazSocR() {
                 return nomDenRazSocR;
@@ -1239,24 +1234,25 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad nomDenRazSocR.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setNomDenRazSocR(String value) {
-                this.nomDenRazSocR = value;
+                nomDenRazSocR = value;
             }
 
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1281,8 +1277,8 @@ public class Retenciones {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1297,11 +1293,11 @@ public class Retenciones {
 
             /**
              * Obtiene el valor de la propiedad rfcRecep.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getRFCRecep() {
                 return rfcRecep;
@@ -1309,23 +1305,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad rfcRecep.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setRFCRecep(String value) {
-                this.rfcRecep = value;
+                rfcRecep = value;
             }
 
             /**
              * Obtiene el valor de la propiedad nomDenRazSocR.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getNomDenRazSocR() {
                 return nomDenRazSocR;
@@ -1333,23 +1329,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad nomDenRazSocR.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setNomDenRazSocR(String value) {
-                this.nomDenRazSocR = value;
+                nomDenRazSocR = value;
             }
 
             /**
              * Obtiene el valor de la propiedad curpr.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getCURPR() {
                 return curpr;
@@ -1357,26 +1353,27 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad curpr.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setCURPR(String value) {
-                this.curpr = value;
+                curpr = value;
             }
 
         }
 
     }
 
-
     /**
-     * <p>Clase Java para anonymous complex type.
-     * 
-     * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-     * 
+     * <p>
+     * Clase Java para anonymous complex type.
+     *
+     * <p>
+     * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+     *
      * <pre>
      * &lt;complexType>
      *   &lt;complexContent>
@@ -1416,13 +1413,11 @@ public class Retenciones {
      *   &lt;/complexContent>
      * &lt;/complexType>
      * </pre>
-     * 
-     * 
+     *
+     *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = {
-        "impRetenidos"
-    })
+    @XmlType(name = "", propOrder = { "impRetenidos" })
     public static class Totales {
 
         @XmlElement(name = "ImpRetenidos")
@@ -1438,40 +1433,41 @@ public class Retenciones {
 
         /**
          * Gets the value of the impRetenidos property.
-         * 
+         *
          * <p>
          * This accessor method returns a reference to the live list,
          * not a snapshot. Therefore any modification you make to the
          * returned list will be present inside the JAXB object.
          * This is why there is not a <CODE>set</CODE> method for the impRetenidos property.
-         * 
+         *
          * <p>
          * For example, to add a new item, do as follows:
+         *
          * <pre>
-         *    getImpRetenidos().add(newItem);
+         * getImpRetenidos().add(newItem);
          * </pre>
-         * 
-         * 
+         *
+         *
          * <p>
          * Objects of the following type(s) are allowed in the list
          * {@link Retenciones.Totales.ImpRetenidos }
-         * 
-         * 
+         *
+         *
          */
         public List<Retenciones.Totales.ImpRetenidos> getImpRetenidos() {
             if (impRetenidos == null) {
-                impRetenidos = new ArrayList<Retenciones.Totales.ImpRetenidos>();
+                impRetenidos = new ArrayList<>();
             }
-            return this.impRetenidos;
+            return impRetenidos;
         }
 
         /**
          * Obtiene el valor de la propiedad montoTotOperacion.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getMontoTotOperacion() {
             return montoTotOperacion;
@@ -1479,23 +1475,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad montoTotOperacion.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setMontoTotOperacion(BigDecimal value) {
-            this.montoTotOperacion = value;
+            montoTotOperacion = value;
         }
 
         /**
          * Obtiene el valor de la propiedad montoTotGrav.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getMontoTotGrav() {
             return montoTotGrav;
@@ -1503,23 +1499,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad montoTotGrav.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setMontoTotGrav(BigDecimal value) {
-            this.montoTotGrav = value;
+            montoTotGrav = value;
         }
 
         /**
          * Obtiene el valor de la propiedad montoTotExent.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getMontoTotExent() {
             return montoTotExent;
@@ -1527,23 +1523,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad montoTotExent.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setMontoTotExent(BigDecimal value) {
-            this.montoTotExent = value;
+            montoTotExent = value;
         }
 
         /**
          * Obtiene el valor de la propiedad montoTotRet.
-         * 
+         *
          * @return
-         *     possible object is
-         *     {@link BigDecimal }
-         *     
+         *         possible object is
+         *         {@link BigDecimal }
+         *
          */
         public BigDecimal getMontoTotRet() {
             return montoTotRet;
@@ -1551,22 +1547,23 @@ public class Retenciones {
 
         /**
          * Define el valor de la propiedad montoTotRet.
-         * 
+         *
          * @param value
-         *     allowed object is
-         *     {@link BigDecimal }
-         *     
+         *            allowed object is
+         *            {@link BigDecimal }
+         *
          */
         public void setMontoTotRet(BigDecimal value) {
-            this.montoTotRet = value;
+            montoTotRet = value;
         }
 
-
         /**
-         * <p>Clase Java para anonymous complex type.
-         * 
-         * <p>El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
-         * 
+         * <p>
+         * Clase Java para anonymous complex type.
+         *
+         * <p>
+         * El siguiente fragmento de esquema especifica el contenido que se espera que haya en esta clase.
+         *
          * <pre>
          * &lt;complexType>
          *   &lt;complexContent>
@@ -1592,8 +1589,8 @@ public class Retenciones {
          *   &lt;/complexContent>
          * &lt;/complexType>
          * </pre>
-         * 
-         * 
+         *
+         *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
         @XmlType(name = "")
@@ -1610,11 +1607,11 @@ public class Retenciones {
 
             /**
              * Obtiene el valor de la propiedad baseRet.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getBaseRet() {
                 return baseRet;
@@ -1622,23 +1619,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad baseRet.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setBaseRet(BigDecimal value) {
-                this.baseRet = value;
+                baseRet = value;
             }
 
             /**
              * Obtiene el valor de la propiedad impuesto.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getImpuesto() {
                 return impuesto;
@@ -1646,23 +1643,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad impuesto.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setImpuesto(String value) {
-                this.impuesto = value;
+                impuesto = value;
             }
 
             /**
              * Obtiene el valor de la propiedad montoRet.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link BigDecimal }
-             *     
+             *         possible object is
+             *         {@link BigDecimal }
+             *
              */
             public BigDecimal getMontoRet() {
                 return montoRet;
@@ -1670,23 +1667,23 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad montoRet.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link BigDecimal }
-             *     
+             *            allowed object is
+             *            {@link BigDecimal }
+             *
              */
             public void setMontoRet(BigDecimal value) {
-                this.montoRet = value;
+                montoRet = value;
             }
 
             /**
              * Obtiene el valor de la propiedad tipoPagoRet.
-             * 
+             *
              * @return
-             *     possible object is
-             *     {@link String }
-             *     
+             *         possible object is
+             *         {@link String }
+             *
              */
             public String getTipoPagoRet() {
                 return tipoPagoRet;
@@ -1694,14 +1691,14 @@ public class Retenciones {
 
             /**
              * Define el valor de la propiedad tipoPagoRet.
-             * 
+             *
              * @param value
-             *     allowed object is
-             *     {@link String }
-             *     
+             *            allowed object is
+             *            {@link String }
+             *
              */
             public void setTipoPagoRet(String value) {
-                this.tipoPagoRet = value;
+                tipoPagoRet = value;
             }
 
         }

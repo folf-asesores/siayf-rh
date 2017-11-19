@@ -1,16 +1,18 @@
 /*
  * InformacionAdjuntoEmpleadoEntity.java
  * Creado el May 12, 2016 10:13:45 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -46,7 +48,7 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "extension")
     private TipoArchivo extension;
-    
+
     @Basic(optional = false)
     @Enumerated(EnumType.STRING)
     @Column(name = "entidad_contexto")
@@ -84,11 +86,11 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param idInformacionAdjuntoEmpleado the idInformacionAdjuntoEmpleado to
-     * set
+     * @param idInformacionAdjuntoEmpleado
+     *            the idInformacionAdjuntoEmpleado to
+     *            set
      */
-    public void setIdInformacionAdjuntoEmpleado(
-            Integer idInformacionAdjuntoEmpleado) {
+    public void setIdInformacionAdjuntoEmpleado(Integer idInformacionAdjuntoEmpleado) {
         this.idInformacionAdjuntoEmpleado = idInformacionAdjuntoEmpleado;
     }
 
@@ -100,7 +102,8 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param entidadContexto the entidadContexto to set
+     * @param entidadContexto
+     *            the entidadContexto to set
      */
     public void setEntidadContexto(EntidadContexto entidadContexto) {
         this.entidadContexto = entidadContexto;
@@ -114,14 +117,16 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param idEntidadContexto the idEntidadContexto to set
+     * @param idEntidadContexto
+     *            the idEntidadContexto to set
      */
     public void setIdEntidadContexto(Integer idEntidadContexto) {
         this.idEntidadContexto = idEntidadContexto;
     }
 
     /**
-     * @param nombreAdjunto the nombreAdjunto to set
+     * @param nombreAdjunto
+     *            the nombreAdjunto to set
      */
     public void setNombreAdjunto(String nombreAdjunto) {
         this.nombreAdjunto = nombreAdjunto;
@@ -135,7 +140,8 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param extension the extension to set
+     * @param extension
+     *            the extension to set
      */
     public void setExtension(TipoArchivo extension) {
         this.extension = extension;
@@ -149,10 +155,10 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
     }
 
     /**
-     * @param documentoAdjuntable the documentoAdjuntable to set
+     * @param documentoAdjuntable
+     *            the documentoAdjuntable to set
      */
-    public void setDocumentoAdjuntable(
-            DocumentoAdjuntableEntity documentoAdjuntable) {
+    public void setDocumentoAdjuntable(DocumentoAdjuntableEntity documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 }

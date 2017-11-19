@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.modulos;
 
 import java.io.Serializable;
@@ -21,10 +22,10 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.persistencia.AccionesEntity;
 import mx.gob.saludtlax.rh.persistencia.AccionesRepository;
 import mx.gob.saludtlax.rh.persistencia.AreasRepository;
+import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 import mx.gob.saludtlax.rh.persistencia.ModuloRepository;
 import mx.gob.saludtlax.rh.util.Configuracion;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
-import mx.gob.saludtlax.rh.persistencia.ModuloEntity;
 
 public class ModulosService implements Serializable {
 
@@ -56,28 +57,23 @@ public class ModulosService implements Serializable {
         String contexto = "Registrar Modulo: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores requeridos",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Ingrese los valores requeridos", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese la url.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor Ingrese la url.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-            throw new ValidacionException(contexto + "Por favor seleccione el area",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor seleccione el area", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (dto.getAcciones().isEmpty()) {
-            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         ModuloEntity entity = new ModuloEntity();
@@ -106,28 +102,23 @@ public class ModulosService implements Serializable {
         String contexto = "Actualizar Modulo: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores requeridos",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Ingrese los valores requeridos", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese la url.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor Ingrese la url.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-            throw new ValidacionException(contexto + "Por favor seleccione el area",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor seleccione el area", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (dto.getAcciones().isEmpty()) {
-            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.",
-                    ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.", ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         ModuloEntity entity = moduloRepository.obtenerPorId(dto.getIdModulo());
@@ -215,7 +206,7 @@ public class ModulosService implements Serializable {
         Query query = session.createSQLQuery("SELECT " + "id_area AS id, " + "nombre_area AS nombre " + "FROM areas");
         query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
         @SuppressWarnings("unchecked")
-        List<AreaDTO> result = (List<AreaDTO>) query.list();
+        List<AreaDTO> result = query.list();
         return result;
     }
 

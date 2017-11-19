@@ -1,8 +1,9 @@
 /*
  * AperturaNominaRfcBitacoraDTO.java
  * Creado el 03/Jan/2017 5:29:45 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -15,12 +16,12 @@ import java.util.Objects;
 /**
  * La bitácora debe ayudar a contestar las siguientes preguntas cuándo ocurrio,
  * dónde ocurrio y qué ocurrio.
- * 
+ *
  * @see AperturaNominaRfcBitacoraEventoDTO
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class AperturaNominaRfcBitacoraDTO implements Serializable {
-    
+
     private static final long serialVersionUID = -1188685157962720355L;
 
     private Integer idBitacora;
@@ -29,21 +30,16 @@ public class AperturaNominaRfcBitacoraDTO implements Serializable {
     private Date fechaHora;
 
     public AperturaNominaRfcBitacoraDTO() {
-        this(
-                0,
-                0,
-                new ArrayList<AperturaNominaRfcBitacoraEventoDTO>(),
-                Calendar.getInstance().getTime()
-        );
+        this(0, 0, new ArrayList<AperturaNominaRfcBitacoraEventoDTO>(), Calendar.getInstance().getTime());
     }
-    
+
     public AperturaNominaRfcBitacoraDTO(Integer idBitacora, Integer idUsuario, List<AperturaNominaRfcBitacoraEventoDTO> eventos, Date fechaHora) {
         this.idBitacora = idBitacora;
         this.idUsuario = idUsuario;
         this.eventos = eventos;
         this.fechaHora = fechaHora;
     }
-    
+
     /**
      * Get the value of idBitacora
      *
@@ -56,7 +52,8 @@ public class AperturaNominaRfcBitacoraDTO implements Serializable {
     /**
      * Set the value of idBitacora
      *
-     * @param idBitacora new value of idBitacora
+     * @param idBitacora
+     *            new value of idBitacora
      */
     public void setIdBitacora(Integer idBitacora) {
         this.idBitacora = idBitacora;
@@ -74,16 +71,18 @@ public class AperturaNominaRfcBitacoraDTO implements Serializable {
     /**
      * Set the value of idUsuario
      *
-     * @param idUsuario new value of idUsuario
+     * @param idUsuario
+     *            new value of idUsuario
      */
     public void setIdUsuario(Integer idUsuario) {
         this.idUsuario = idUsuario;
     }
-    
+
     /**
      * Set the value of eventos
      *
-     * @param eventos  new the value of eventos
+     * @param eventos
+     *            new the value of eventos
      */
     public void setEventos(List<AperturaNominaRfcBitacoraEventoDTO> eventos) {
         this.eventos = eventos;
@@ -110,7 +109,8 @@ public class AperturaNominaRfcBitacoraDTO implements Serializable {
     /**
      * Set the value of fechaHora
      *
-     * @param fechaHora new value of fechaHora
+     * @param fechaHora
+     *            new value of fechaHora
      */
     public void setFechaHora(Date fechaHora) {
         this.fechaHora = fechaHora;
@@ -118,11 +118,7 @@ public class AperturaNominaRfcBitacoraDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AperturaNominaRfcBitacoraDTO{" 
-                + "idBitacora=" + idBitacora
-                + ", idUsuario=" + idUsuario
-                + ", eventos=" + eventos
-                + ", fechaHora=" + fechaHora
+        return "AperturaNominaRfcBitacoraDTO{" + "idBitacora=" + idBitacora + ", idUsuario=" + idUsuario + ", eventos=" + eventos + ", fechaHora=" + fechaHora
                 + '}';
     }
 

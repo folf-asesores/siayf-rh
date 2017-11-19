@@ -3,6 +3,7 @@
  * Creado el 27/Jun/2017 3:35:09 PM
  *
  */
+
 package mx.gob.saludtlax.rh.nomina.reportes.prenomina;
 
 import java.math.BigDecimal;
@@ -39,9 +40,9 @@ public final class DeduccionDTO {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.clave);
-        hash = 61 * hash + Objects.hashCode(this.nombre);
-        hash = 61 * hash + Objects.hashCode(this.monto);
+        hash = 61 * hash + Objects.hashCode(clave);
+        hash = 61 * hash + Objects.hashCode(nombre);
+        hash = 61 * hash + Objects.hashCode(monto);
         return hash;
     }
 
@@ -57,13 +58,13 @@ public final class DeduccionDTO {
             return false;
         }
         final DeduccionDTO other = (DeduccionDTO) obj;
-        if (!Objects.equals(this.clave, other.clave)) {
+        if (!Objects.equals(clave, other.clave)) {
             return false;
         }
-        if (!Objects.equals(this.nombre, other.nombre)) {
+        if (!Objects.equals(nombre, other.nombre)) {
             return false;
         }
-        return Objects.equals(this.monto, other.monto);
+        return Objects.equals(monto, other.monto);
     }
 
     @Override

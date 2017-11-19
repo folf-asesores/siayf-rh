@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import javax.persistence.NoResultException;
@@ -12,20 +13,20 @@ import javax.persistence.NoResultException;
  */
 public class TipoModificacionEmpleadoRepository extends GenericRepository<TipoModificacionEmpleadoEntity, Integer> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7217142933884066432L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7217142933884066432L;
 
-	public TipoModificacionEmpleadoEntity obtenerTipoModificacionPorCriterio(String criterio) {
+    public TipoModificacionEmpleadoEntity obtenerTipoModificacionPorCriterio(String criterio) {
 
-		try {
-			return em.createQuery("SELECT t FROM TipoModificacionEmpleadoEntity AS t WHERE t.movimiento=:criterio",
-					TipoModificacionEmpleadoEntity.class).setParameter("criterio", criterio).getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		}
+        try {
+            return em.createQuery("SELECT t FROM TipoModificacionEmpleadoEntity AS t WHERE t.movimiento=:criterio", TipoModificacionEmpleadoEntity.class)
+                    .setParameter("criterio", criterio).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
 
-	}
+    }
 
 }

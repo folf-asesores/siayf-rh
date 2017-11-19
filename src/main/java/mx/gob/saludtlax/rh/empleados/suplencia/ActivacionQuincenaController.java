@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.suplencia;
 
 import java.io.Serializable;
@@ -21,80 +22,78 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 /**
  * @author Leila Schiaffini Ehuan
  *
- * @Since 29/12/2016 13:59:36
+ * @since 29/12/2016 13:59:36
  */
-@ManagedBean(name ="activacionQuincena")
+@ManagedBean(name = "activacionQuincena")
 @ViewScoped
 public class ActivacionQuincenaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 3985551155276750524L;
-	@Inject
-	private Suplencia suplencia;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3985551155276750524L;
+    @Inject
+    private Suplencia suplencia;
 
-	private QuincenaActivaDTO quincenaActiva;
-	private int numeroQuincena;
-	private int idUsuario;
-	private int ejercicioFiscal;
+    private QuincenaActivaDTO quincenaActiva;
+    private int numeroQuincena;
+    private int idUsuario;
+    private int ejercicioFiscal;
 
-	@PostConstruct
-	public void inicio() {
-		
-		HttpServletRequest request = (HttpServletRequest) FacesContext
-				.getCurrentInstance().getExternalContext().getRequest();
-		HttpSession httpSession = request.getSession(false);
-		UsuarioDTO usuario = (UsuarioDTO) httpSession
-				.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-		setQuincenaActiva(suplencia.obtenerQuincenaActiva());
-		
-		setIdUsuario(usuario.getIdUsuario());
+    @PostConstruct
+    public void inicio() {
 
-	}
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpSession httpSession = request.getSession(false);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        setQuincenaActiva(suplencia.obtenerQuincenaActiva());
 
-	public void activarQuincena() {
-		try {
-			suplencia.activarQuincenaSuplencia(numeroQuincena, ejercicioFiscal, idUsuario);
-			inicio();
-			JSFUtils.infoMessage("", "¡Se ha activado la quincena con éxito!");
-			setNumeroQuincena(0);
+        setIdUsuario(usuario.getIdUsuario());
 
-		} catch (ValidacionException exception) {
-			JSFUtils.errorMessage("", exception.getMessage());
-		}
-	}
+    }
 
-	public QuincenaActivaDTO getQuincenaActiva() {
-		return quincenaActiva;
-	}
+    public void activarQuincena() {
+        try {
+            suplencia.activarQuincenaSuplencia(numeroQuincena, ejercicioFiscal, idUsuario);
+            inicio();
+            JSFUtils.infoMessage("", "¡Se ha activado la quincena con éxito!");
+            setNumeroQuincena(0);
 
-	public void setQuincenaActiva(QuincenaActivaDTO quincenaActiva) {
-		this.quincenaActiva = quincenaActiva;
-	}
+        } catch (ValidacionException exception) {
+            JSFUtils.errorMessage("", exception.getMessage());
+        }
+    }
 
-	public int getNumeroQuincena() {
-		return numeroQuincena;
-	}
+    public QuincenaActivaDTO getQuincenaActiva() {
+        return quincenaActiva;
+    }
 
-	public void setNumeroQuincena(int numeroQuincena) {
-		this.numeroQuincena = numeroQuincena;
-	}
+    public void setQuincenaActiva(QuincenaActivaDTO quincenaActiva) {
+        this.quincenaActiva = quincenaActiva;
+    }
 
-	public int getIdUsuario() {
-		return idUsuario;
-	}
+    public int getNumeroQuincena() {
+        return numeroQuincena;
+    }
 
-	public void setIdUsuario(int idUsuario) {
-		this.idUsuario = idUsuario;
-	}
+    public void setNumeroQuincena(int numeroQuincena) {
+        this.numeroQuincena = numeroQuincena;
+    }
 
-	public int getEjercicioFiscal() {
-		return ejercicioFiscal;
-	}
+    public int getIdUsuario() {
+        return idUsuario;
+    }
 
-	public void setEjercicioFiscal(int ejercicioFiscal) {
-		this.ejercicioFiscal = ejercicioFiscal;
-	}
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public int getEjercicioFiscal() {
+        return ejercicioFiscal;
+    }
+
+    public void setEjercicioFiscal(int ejercicioFiscal) {
+        this.ejercicioFiscal = ejercicioFiscal;
+    }
 
 }

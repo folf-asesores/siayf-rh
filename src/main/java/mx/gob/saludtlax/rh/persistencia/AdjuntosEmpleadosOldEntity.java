@@ -1,11 +1,13 @@
 /*
  * AdjuntosEmpleadosOldEntity.java
  * Creado el Sep 5, 2016 11:04:31 AM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +27,13 @@ import javax.validation.constraints.NotNull;
 public class AdjuntosEmpleadosOldEntity implements Serializable {
 
     private static final long serialVersionUID = -3093385397767218785L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_adjunto_empleado")
     private Integer idAdjuntoEmpleado;
-    
+
     @Basic(optional = false)
     @NotNull
     @Lob

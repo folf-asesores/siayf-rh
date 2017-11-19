@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -92,7 +93,5 @@ public class ConfiguracionConceptoPuestoEntity implements Serializable {
     public void setFormula(String formula) {
         this.formula = formula;
     }
-
-
 
 }

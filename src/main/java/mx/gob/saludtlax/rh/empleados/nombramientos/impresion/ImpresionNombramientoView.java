@@ -1,6 +1,7 @@
-/**
- * Copyright © 2016
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.empleados.nombramientos.impresion;
 
 import java.io.Serializable;
@@ -15,284 +16,285 @@ import mx.gob.saludtlax.rh.puestosautorizados.PuestoEmpleadoDTO;
 
 /**
  * @author Eduardo Mex
- * @email lic.eduardo_mex@hotmail.com
+
  * @version 1.0
  * @since 13:31:22 13/09/2016
  */
 public class ImpresionNombramientoView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 6898060539285305143L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6898060539285305143L;
 
-	private List<InfoNombramientoDTO> listaNombramiento = new ArrayList<InfoNombramientoDTO>();
+    private List<InfoNombramientoDTO> listaNombramiento = new ArrayList<>();
 
-	private List<SelectItem> itemsTipoNombramiento = new ArrayList<SelectItem>();
+    private List<SelectItem> itemsTipoNombramiento = new ArrayList<>();
 
-	private PuestoEmpleadoDTO puestoEmpleadoDTO = new PuestoEmpleadoDTO();
+    private PuestoEmpleadoDTO puestoEmpleadoDTO = new PuestoEmpleadoDTO();
 
-	private ClasificacionReporteDTO clasificacionReporteDTO = new ClasificacionReporteDTO();
+    private ClasificacionReporteDTO clasificacionReporteDTO = new ClasificacionReporteDTO();
 
-	private InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO = new InfoLugarAdscripcionNombramientoDTO();
+    private InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO = new InfoLugarAdscripcionNombramientoDTO();
 
-	private Integer tipoNombramiento;
+    private Integer tipoNombramiento;
 
-	private Integer idNombramiento;
+    private Integer idNombramiento;
 
-	private String tipoAdscripcion;
+    private String tipoAdscripcion;
 
-	private byte[] bytes = null;
+    private byte[] bytes = null;
 
-	private boolean mostrarConfirmacionImpresion = false;
-	
-	private boolean mostrarFormalizado = false;
-	
-	private boolean mostrarInterinato = false;
+    private boolean mostrarConfirmacionImpresion = false;
 
-	private boolean mostrarPrincipal = true;
-	
-	private boolean mostrarOpcionDescarga = false;
+    private boolean mostrarFormalizado = false;
 
-	private boolean imprimirNombramiento = false;
+    private boolean mostrarInterinato = false;
 
-	private Map<String, String> itemsTiposAdscripcion = new LinkedHashMap<String, String>();
-	
-	private String nombreTipoNombramiento;
+    private boolean mostrarPrincipal = true;
 
-	/*********** Geters and Setters ************/
+    private boolean mostrarOpcionDescarga = false;
 
-	/**
-	 * @return the tipoNombramiento
-	 */
-	public Integer getTipoNombramiento() {
-		return tipoNombramiento;
-	}
+    private boolean imprimirNombramiento = false;
 
-	/**
-	 * @param tipoNombramiento
-	 *            the tipoNombramiento to set
-	 */
-	public void setTipoNombramiento(Integer tipoNombramiento) {
-		this.tipoNombramiento = tipoNombramiento;
-	}
+    private Map<String, String> itemsTiposAdscripcion = new LinkedHashMap<>();
 
-	/**
-	 * @return the listaNombramiento
-	 */
-	public List<InfoNombramientoDTO> getListaNombramiento() {
-		return listaNombramiento;
-	}
+    private String nombreTipoNombramiento;
 
-	/**
-	 * @param listaNombramiento
-	 *            the listaNombramiento to set
-	 */
-	public void setListaNombramiento(List<InfoNombramientoDTO> listaNombramiento) {
-		this.listaNombramiento = listaNombramiento;
-	}
+    
 
-	/**
-	 * @return the itemsTipoNombramiento
-	 */
-	public List<SelectItem> getItemsTipoNombramiento() {
-		return itemsTipoNombramiento;
-	}
+    /**
+     * @return the tipoNombramiento
+     */
+    public Integer getTipoNombramiento() {
+        return tipoNombramiento;
+    }
 
-	/**
-	 * @param itemsTipoNombramiento
-	 *            the itemsTipoNombramiento to set
-	 */
-	public void setItemsTipoNombramiento(List<SelectItem> itemsTipoNombramiento) {
-		this.itemsTipoNombramiento = itemsTipoNombramiento;
-	}
+    /**
+     * @param tipoNombramiento
+     *            the tipoNombramiento to set
+     */
+    public void setTipoNombramiento(Integer tipoNombramiento) {
+        this.tipoNombramiento = tipoNombramiento;
+    }
 
-	/**
-	 * @return the bytes
-	 */
-	public byte[] getBytes() {
-		return bytes;
-	}
+    /**
+     * @return the listaNombramiento
+     */
+    public List<InfoNombramientoDTO> getListaNombramiento() {
+        return listaNombramiento;
+    }
 
-	/**
-	 * @param bytes
-	 *            the bytes to set
-	 */
-	public void setBytes(byte[] bytes) {
-		this.bytes = bytes;
-	}
+    /**
+     * @param listaNombramiento
+     *            the listaNombramiento to set
+     */
+    public void setListaNombramiento(List<InfoNombramientoDTO> listaNombramiento) {
+        this.listaNombramiento = listaNombramiento;
+    }
 
-	/**
-	 * @return the idNombramiento
-	 */
-	public Integer getIdNombramiento() {
-		return idNombramiento;
-	}
+    /**
+     * @return the itemsTipoNombramiento
+     */
+    public List<SelectItem> getItemsTipoNombramiento() {
+        return itemsTipoNombramiento;
+    }
 
-	/**
-	 * @param idNombramiento
-	 *            the idNombramiento to set
-	 */
-	public void setIdNombramiento(Integer idNombramiento) {
-		this.idNombramiento = idNombramiento;
-	}
+    /**
+     * @param itemsTipoNombramiento
+     *            the itemsTipoNombramiento to set
+     */
+    public void setItemsTipoNombramiento(List<SelectItem> itemsTipoNombramiento) {
+        this.itemsTipoNombramiento = itemsTipoNombramiento;
+    }
 
-	/**
-	 * @return the mostrarConfirmacionImpresion
-	 */
-	public boolean isMostrarConfirmacionImpresion() {
-		return mostrarConfirmacionImpresion;
-	}
+    /**
+     * @return the bytes
+     */
+    public byte[] getBytes() {
+        return bytes;
+    }
 
-	/**
-	 * @param mostrarConfirmacionImpresion
-	 *            the mostrarConfirmacionImpresion to set
-	 */
-	public void setMostrarConfirmacionImpresion(boolean mostrarConfirmacionImpresion) {
-		this.mostrarConfirmacionImpresion = mostrarConfirmacionImpresion;
-	}
+    /**
+     * @param bytes
+     *            the bytes to set
+     */
+    public void setBytes(byte[] bytes) {
+        this.bytes = bytes;
+    }
 
-	/**
-	 * @return the mostrarPrincipal
-	 */
-	public boolean isMostrarPrincipal() {
-		return mostrarPrincipal;
-	}
+    /**
+     * @return the idNombramiento
+     */
+    public Integer getIdNombramiento() {
+        return idNombramiento;
+    }
 
-	/**
-	 * @param mostrarPrincipal
-	 *            the mostrarPrincipal to set
-	 */
-	public void setMostrarPrincipal(boolean mostrarPrincipal) {
-		this.mostrarPrincipal = mostrarPrincipal;
-	}
+    /**
+     * @param idNombramiento
+     *            the idNombramiento to set
+     */
+    public void setIdNombramiento(Integer idNombramiento) {
+        this.idNombramiento = idNombramiento;
+    }
 
-	/**
-	 * @return the puestoEmpleadoDTO
-	 */
-	public PuestoEmpleadoDTO getPuestoEmpleadoDTO() {
-		return puestoEmpleadoDTO;
-	}
+    /**
+     * @return the mostrarConfirmacionImpresion
+     */
+    public boolean isMostrarConfirmacionImpresion() {
+        return mostrarConfirmacionImpresion;
+    }
 
-	/**
-	 * @param puestoEmpleadoDTO
-	 *            the puestoEmpleadoDTO to set
-	 */
-	public void setPuestoEmpleadoDTO(PuestoEmpleadoDTO puestoEmpleadoDTO) {
-		this.puestoEmpleadoDTO = puestoEmpleadoDTO;
-	}
+    /**
+     * @param mostrarConfirmacionImpresion
+     *            the mostrarConfirmacionImpresion to set
+     */
+    public void setMostrarConfirmacionImpresion(boolean mostrarConfirmacionImpresion) {
+        this.mostrarConfirmacionImpresion = mostrarConfirmacionImpresion;
+    }
 
-	/**
-	 * @return the infoLugarAdscripcionNombramientoDTO
-	 */
-	public InfoLugarAdscripcionNombramientoDTO getInfoLugarAdscripcionNombramientoDTO() {
-		return infoLugarAdscripcionNombramientoDTO;
-	}
+    /**
+     * @return the mostrarPrincipal
+     */
+    public boolean isMostrarPrincipal() {
+        return mostrarPrincipal;
+    }
 
-	/**
-	 * @param infoLugarAdscripcionNombramientoDTO
-	 *            the infoLugarAdscripcionNombramientoDTO to set
-	 */
-	public void setInfoLugarAdscripcionNombramientoDTO(
-			InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO) {
-		this.infoLugarAdscripcionNombramientoDTO = infoLugarAdscripcionNombramientoDTO;
-	}
+    /**
+     * @param mostrarPrincipal
+     *            the mostrarPrincipal to set
+     */
+    public void setMostrarPrincipal(boolean mostrarPrincipal) {
+        this.mostrarPrincipal = mostrarPrincipal;
+    }
 
-	/**
-	 * @return the tipoAdscripcion
-	 */
-	public String getTipoAdscripcion() {
-		return tipoAdscripcion;
-	}
+    /**
+     * @return the puestoEmpleadoDTO
+     */
+    public PuestoEmpleadoDTO getPuestoEmpleadoDTO() {
+        return puestoEmpleadoDTO;
+    }
 
-	/**
-	 * @param tipoAdscripcion
-	 *            the tipoAdscripcion to set
-	 */
-	public void setTipoAdscripcion(String tipoAdscripcion) {
-		this.tipoAdscripcion = tipoAdscripcion;
-	}
+    /**
+     * @param puestoEmpleadoDTO
+     *            the puestoEmpleadoDTO to set
+     */
+    public void setPuestoEmpleadoDTO(PuestoEmpleadoDTO puestoEmpleadoDTO) {
+        this.puestoEmpleadoDTO = puestoEmpleadoDTO;
+    }
 
-	/**
-	 * @return the itemsTiposAdscripcion
-	 */
-	public Map<String, String> getItemsTiposAdscripcion() {
-		return itemsTiposAdscripcion;
-	}
+    /**
+     * @return the infoLugarAdscripcionNombramientoDTO
+     */
+    public InfoLugarAdscripcionNombramientoDTO getInfoLugarAdscripcionNombramientoDTO() {
+        return infoLugarAdscripcionNombramientoDTO;
+    }
 
-	/**
-	 * @param itemsTiposAdscripcion
-	 *            the itemsTiposAdscripcion to set
-	 */
-	public void setItemsTiposAdscripcion(Map<String, String> itemsTiposAdscripcion) {
-		this.itemsTiposAdscripcion = itemsTiposAdscripcion;
-	}
+    /**
+     * @param infoLugarAdscripcionNombramientoDTO
+     *            the infoLugarAdscripcionNombramientoDTO to set
+     */
+    public void setInfoLugarAdscripcionNombramientoDTO(InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO) {
+        this.infoLugarAdscripcionNombramientoDTO = infoLugarAdscripcionNombramientoDTO;
+    }
 
-	/**
-	 * @return the imprimirNombramiento
-	 */
-	public boolean isImprimirNombramiento() {
-		return imprimirNombramiento;
-	}
+    /**
+     * @return the tipoAdscripcion
+     */
+    public String getTipoAdscripcion() {
+        return tipoAdscripcion;
+    }
 
-	/**
-	 * @param imprimirNombramiento
-	 *            the imprimirNombramiento to set
-	 */
-	public void setImprimirNombramiento(boolean imprimirNombramiento) {
-		this.imprimirNombramiento = imprimirNombramiento;
-	}
+    /**
+     * @param tipoAdscripcion
+     *            the tipoAdscripcion to set
+     */
+    public void setTipoAdscripcion(String tipoAdscripcion) {
+        this.tipoAdscripcion = tipoAdscripcion;
+    }
 
-	/**
-	 * @return the clasificacionReporteDTO
-	 */
-	public ClasificacionReporteDTO getClasificacionReporteDTO() {
-		return clasificacionReporteDTO;
-	}
+    /**
+     * @return the itemsTiposAdscripcion
+     */
+    public Map<String, String> getItemsTiposAdscripcion() {
+        return itemsTiposAdscripcion;
+    }
 
-	/**
-	 * @param clasificacionReporteDTO the clasificacionReporteDTO to set
-	 */
-	public void setClasificacionReporteDTO(ClasificacionReporteDTO clasificacionReporteDTO) {
-		this.clasificacionReporteDTO = clasificacionReporteDTO;
-	}
+    /**
+     * @param itemsTiposAdscripcion
+     *            the itemsTiposAdscripcion to set
+     */
+    public void setItemsTiposAdscripcion(Map<String, String> itemsTiposAdscripcion) {
+        this.itemsTiposAdscripcion = itemsTiposAdscripcion;
+    }
 
-	/**
-	 * @return the nombreTipoNombramiento
-	 */
-	public String getNombreTipoNombramiento() {
-		return nombreTipoNombramiento;
-	}
+    /**
+     * @return the imprimirNombramiento
+     */
+    public boolean isImprimirNombramiento() {
+        return imprimirNombramiento;
+    }
 
-	/**
-	 * @param nombreTipoNombramiento the nombreTipoNombramiento to set
-	 */
-	public void setNombreTipoNombramiento(String nombreTipoNombramiento) {
-		this.nombreTipoNombramiento = nombreTipoNombramiento;
-	}
+    /**
+     * @param imprimirNombramiento
+     *            the imprimirNombramiento to set
+     */
+    public void setImprimirNombramiento(boolean imprimirNombramiento) {
+        this.imprimirNombramiento = imprimirNombramiento;
+    }
 
-	public boolean isMostrarFormalizado() {
-		return mostrarFormalizado;
-	}
+    /**
+     * @return the clasificacionReporteDTO
+     */
+    public ClasificacionReporteDTO getClasificacionReporteDTO() {
+        return clasificacionReporteDTO;
+    }
 
-	public void setMostrarFormalizado(boolean mostrarFormalizado) {
-		this.mostrarFormalizado = mostrarFormalizado;
-	}
+    /**
+     * @param clasificacionReporteDTO
+     *            the clasificacionReporteDTO to set
+     */
+    public void setClasificacionReporteDTO(ClasificacionReporteDTO clasificacionReporteDTO) {
+        this.clasificacionReporteDTO = clasificacionReporteDTO;
+    }
 
-	public boolean isMostrarInterinato() {
-		return mostrarInterinato;
-	}
+    /**
+     * @return the nombreTipoNombramiento
+     */
+    public String getNombreTipoNombramiento() {
+        return nombreTipoNombramiento;
+    }
 
-	public void setMostrarInterinato(boolean mostrarInterinato) {
-		this.mostrarInterinato = mostrarInterinato;
-	}
+    /**
+     * @param nombreTipoNombramiento
+     *            the nombreTipoNombramiento to set
+     */
+    public void setNombreTipoNombramiento(String nombreTipoNombramiento) {
+        this.nombreTipoNombramiento = nombreTipoNombramiento;
+    }
 
-	public boolean isMostrarOpcionDescarga() {
-		return mostrarOpcionDescarga;
-	}
+    public boolean isMostrarFormalizado() {
+        return mostrarFormalizado;
+    }
 
-	public void setMostrarOpcionDescarga(boolean mostrarOpcionDescarga) {
-		this.mostrarOpcionDescarga = mostrarOpcionDescarga;
-	}
+    public void setMostrarFormalizado(boolean mostrarFormalizado) {
+        this.mostrarFormalizado = mostrarFormalizado;
+    }
+
+    public boolean isMostrarInterinato() {
+        return mostrarInterinato;
+    }
+
+    public void setMostrarInterinato(boolean mostrarInterinato) {
+        this.mostrarInterinato = mostrarInterinato;
+    }
+
+    public boolean isMostrarOpcionDescarga() {
+        return mostrarOpcionDescarga;
+    }
+
+    public void setMostrarOpcionDescarga(boolean mostrarOpcionDescarga) {
+        this.mostrarOpcionDescarga = mostrarOpcionDescarga;
+    }
 
 }

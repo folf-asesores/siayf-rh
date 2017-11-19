@@ -1,13 +1,19 @@
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
 
 public class HoraExtraComprobanteRepository extends GenericRepository<HoraExtraComprobanteEntity, Integer> {
-	public List<HoraExtraComprobanteEntity> obtenerPercepcionesPorIdComprobante(Integer idComprobante) {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 9119950044906261207L;
 
-		return super.em.createQuery("FROM HoraExtraComprobanteEntity h WHERE h.idComprobante=:idComprobante",
-				HoraExtraComprobanteEntity.class).setParameter("idComprobante", idComprobante).getResultList();
+    public List<HoraExtraComprobanteEntity> obtenerPercepcionesPorIdComprobante(Integer idComprobante) {
 
-	}
+        return super.em.createQuery("FROM HoraExtraComprobanteEntity h WHERE h.idComprobante=:idComprobante", HoraExtraComprobanteEntity.class)
+                .setParameter("idComprobante", idComprobante).getResultList();
+
+    }
 
 }

@@ -1,8 +1,9 @@
 /*
  * SIIFDatService.java
  * Creado el 06/Dec/2016 10:29:33 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.siif.layout;
 
 import java.io.ByteArrayOutputStream;
@@ -13,10 +14,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+
+import org.jboss.logging.Logger;
+
 import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.siif.EstructuraNominaDatDTO;
-import org.jboss.logging.Logger;
 
 /**
  *
@@ -41,13 +44,13 @@ public class SIIFDatService {
     }
 
     private void llenarDetallesDat(List<EstructuraNominaDatDTO> listaDetallesAnexo) {
-        try(FileWriter writer = new FileWriter(archivoDat)) {
+        try (FileWriter writer = new FileWriter(archivoDat)) {
             for (EstructuraNominaDatDTO detalle : listaDetallesAnexo) {
                 writer.append(detalle.getRfc() == null ? "" : detalle.getRfc());
                 writer.append('|');
                 writer.append(detalle.getNumEmp() == null ? "" : detalle.getNumEmp());
                 writer.append('|');
-                writer.append(detalle.getCurp() == null ? "": detalle.getCurp());
+                writer.append(detalle.getCurp() == null ? "" : detalle.getCurp());
                 writer.append('|');
                 writer.append(detalle.getNombre() == null ? "" : detalle.getNombre());
                 writer.append('|');
@@ -69,8 +72,8 @@ public class SIIFDatService {
                 writer.append('|');
                 writer.append(detalle.getPuesto() == null ? "" : detalle.getPuesto());
                 writer.append('|');
-//                writer.append(detalle.getCrespDes() == null ? "" : detalle.getDesPuesto());
-//                writer.append('|');
+                //                writer.append(detalle.getCrespDes() == null ? "" : detalle.getDesPuesto());
+                //                writer.append('|');
                 writer.append(detalle.getUr() == null ? "" : detalle.getUr());
                 writer.append('|');
                 writer.append(detalle.getGf() == null ? "" : detalle.getGf());
@@ -81,14 +84,14 @@ public class SIIFDatService {
                 writer.append('|');
                 writer.append(detalle.getPg() == null ? "" : detalle.getPg());
                 writer.append('|');
-                writer.append(detalle.getAi() == null ? "" :detalle.getAi());
+                writer.append(detalle.getAi() == null ? "" : detalle.getAi());
                 writer.append('|');
                 writer.append(detalle.getPp() == null ? "" : detalle.getPp());
                 writer.append('|');
                 writer.append(detalle.getPartida() == null ? "" : detalle.getPartida());
                 writer.append('|');
-//                writer.append(detalle.getPuestoTab() == null ? "" : detalle.getPuestoTab());
-//                writer.append('|');
+                //                writer.append(detalle.getPuestoTab() == null ? "" : detalle.getPuestoTab());
+                //                writer.append('|');
                 writer.append(detalle.getNumPto() == null ? "" : detalle.getNumPto());
                 writer.append('|');
                 writer.append(detalle.getEdo() == null ? "" : detalle.getEdo());
@@ -123,7 +126,7 @@ public class SIIFDatService {
                 writer.append('|');
                 writer.append(detalle.getfIgf() == null ? "" : detalle.getfIgf());
                 writer.append('|');
-                writer.append(detalle.getfIssa()== null ? "" : detalle.getfIssa());
+                writer.append(detalle.getfIssa() == null ? "" : detalle.getfIssa());
                 writer.append('|');
                 writer.append(detalle.getfReing() == null ? "" : detalle.getfReing());
                 writer.append('|');
@@ -206,8 +209,7 @@ public class SIIFDatService {
     }
 
     private byte[] obtenerBytesDat() throws IOException {
-        try (FileInputStream fis = new FileInputStream(archivoDat);
-                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(archivoDat); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buf = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buf)) != -1;) {

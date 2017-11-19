@@ -1,14 +1,16 @@
 /*
  * PagoGeneralServiceTest.java
  * Creado el 16/Feb/2017 4:53:43 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
-import java.io.File;
-import javax.inject.Inject;
+import static org.junit.Assert.assertTrue;
 
-import mx.gob.saludtlax.rh.nomina.productosnomina.PagoGeneralService;
+import java.io.File;
+
+import javax.inject.Inject;
 
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -19,11 +21,11 @@ import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
-import org.junit.Test;
 import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
+import mx.gob.saludtlax.rh.nomina.productosnomina.PagoGeneralService;
 
 /**
  *
@@ -35,13 +37,13 @@ public class PagoGeneralServiceTest {
     private PagoGeneralService pagoGeneralService;
 
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralServiceTest.class.getName());
-    
+
     @Deployment
     public static WebArchive crearWar() {
         WebArchive war = ShrinkWrap.create(WebArchive.class);
         war.addAsWebInfResource(EmptyAsset.INSTANCE, ArchivePaths.create("beans.xml"));
         war.addAsManifestResource("log4j-jboss.properties", "log4j.properties");
-        
+
         JavaArchive jar = ShrinkWrap.create(JavaArchive.class);
         jar.addAsManifestResource("META-INF/beans.xml", "beans.xml");
         jar.addAsManifestResource("META-INF/test-persistence.xml", "persistence.xml");
@@ -83,13 +85,12 @@ public class PagoGeneralServiceTest {
         jar.addClass(UsuarioEntity.class);
         war.addAsLibraries(jar);
 
-        File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve()
-                        .withTransitivity().asFile();
+        File[] dependencies = Maven.resolver().loadPomFromFile("pom.xml").importRuntimeDependencies().resolve().withTransitivity().asFile();
         war.addAsLibraries(dependencies);
 
         return war;
     }
-    
+
     @Ignore
     @Test
     public void test() {

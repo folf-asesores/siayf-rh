@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -26,7 +27,6 @@ public class PerfilesVoluntariosEntity implements Serializable {
     @Column(name = "perfil")
     private String perfil;
 
-//		<<<<<Getters & Setters>>>>>
     public String getPerfil() {
         return perfil;
     }

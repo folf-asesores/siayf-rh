@@ -77,11 +77,11 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 13 * hash + Objects.hashCode(this.idPrograma);
-        hash = 13 * hash + Objects.hashCode(this.programa);
-        hash = 13 * hash + Objects.hashCode(this.inicioPeriodo);
-        hash = 13 * hash + Objects.hashCode(this.finPeriodo);
-        hash = 13 * hash + Objects.hashCode(this.firmasEmpleados);
+        hash = 13 * hash + Objects.hashCode(idPrograma);
+        hash = 13 * hash + Objects.hashCode(programa);
+        hash = 13 * hash + Objects.hashCode(inicioPeriodo);
+        hash = 13 * hash + Objects.hashCode(finPeriodo);
+        hash = 13 * hash + Objects.hashCode(firmasEmpleados);
         return hash;
     }
 
@@ -97,30 +97,25 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
             return false;
         }
         final ProgramaDTO other = (ProgramaDTO) obj;
-        if (!Objects.equals(this.programa, other.programa)) {
+        if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(this.idPrograma, other.idPrograma)) {
+        if (!Objects.equals(idPrograma, other.idPrograma)) {
             return false;
         }
-        if (!Objects.equals(this.inicioPeriodo, other.inicioPeriodo)) {
+        if (!Objects.equals(inicioPeriodo, other.inicioPeriodo)) {
             return false;
         }
-        if (!Objects.equals(this.finPeriodo, other.finPeriodo)) {
+        if (!Objects.equals(finPeriodo, other.finPeriodo)) {
             return false;
         }
-        return Objects.equals(this.firmasEmpleados, other.firmasEmpleados);
+        return Objects.equals(firmasEmpleados, other.firmasEmpleados);
     }
 
     @Override
     public String toString() {
-        return "ProgramaDTO{" 
-                + "idPrograma : " + idPrograma
-                + ", programa : " + programa
-                + ", inicioPeriodo : " + inicioPeriodo
-                + ", finPeriodo : " + finPeriodo
-                + ", firmasEmpleados : [" + firmasEmpleados
-                + "]}";
+        return "ProgramaDTO{" + "idPrograma : " + idPrograma + ", programa : " + programa + ", inicioPeriodo : " + inicioPeriodo + ", finPeriodo : "
+                + finPeriodo + ", firmasEmpleados : [" + firmasEmpleados + "]}";
     }
 
     public static final class Builder {
@@ -132,7 +127,7 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
         private Map<String, FirmaEmpleadoDTO> firmasEmpleados;
 
         public Builder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
-            this.idPrograma =  idPrograma;
+            this.idPrograma = idPrograma;
             this.programa = programa;
             this.inicioPeriodo = inicioPeriodo;
             this.finPeriodo = finPeriodo;

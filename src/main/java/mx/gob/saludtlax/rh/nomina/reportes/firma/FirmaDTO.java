@@ -1,7 +1,7 @@
 /*
  * FirmaDTO.java
  * Creado el 08/Sep/2017 12:34:48 PM
- * 
+ *
  */
 
 package mx.gob.saludtlax.rh.nomina.reportes.firma;
@@ -32,7 +32,8 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public FirmaDTO(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public FirmaDTO(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables, String nombreElaboro, String cargoElaboro,
+            String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.unidadesResponsables = unidadesResponsables;
@@ -97,16 +98,16 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.idProductoNomina);
-        hash = 59 * hash + Objects.hashCode(this.quincena);
-        hash = 59 * hash + Objects.hashCode(this.fechaPago);
-        hash = 59 * hash + Objects.hashCode(this.unidadesResponsables);
-        hash = 59 * hash + Objects.hashCode(this.nombreElaboro);
-        hash = 59 * hash + Objects.hashCode(this.cargoElaboro);
-        hash = 59 * hash + Objects.hashCode(this.nombreReviso);
-        hash = 59 * hash + Objects.hashCode(this.cargoReviso);
-        hash = 59 * hash + Objects.hashCode(this.nombreAutorizo);
-        hash = 59 * hash + Objects.hashCode(this.cargoAutorizo);
+        hash = 59 * hash + Objects.hashCode(idProductoNomina);
+        hash = 59 * hash + Objects.hashCode(quincena);
+        hash = 59 * hash + Objects.hashCode(fechaPago);
+        hash = 59 * hash + Objects.hashCode(unidadesResponsables);
+        hash = 59 * hash + Objects.hashCode(nombreElaboro);
+        hash = 59 * hash + Objects.hashCode(cargoElaboro);
+        hash = 59 * hash + Objects.hashCode(nombreReviso);
+        hash = 59 * hash + Objects.hashCode(cargoReviso);
+        hash = 59 * hash + Objects.hashCode(nombreAutorizo);
+        hash = 59 * hash + Objects.hashCode(cargoAutorizo);
         return hash;
     }
 
@@ -122,52 +123,43 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
             return false;
         }
         final FirmaDTO other = (FirmaDTO) obj;
-        if (!Objects.equals(this.quincena, other.quincena)) {
+        if (!Objects.equals(quincena, other.quincena)) {
             return false;
         }
-        if (!Objects.equals(this.nombreElaboro, other.nombreElaboro)) {
+        if (!Objects.equals(nombreElaboro, other.nombreElaboro)) {
             return false;
         }
-        if (!Objects.equals(this.cargoElaboro, other.cargoElaboro)) {
+        if (!Objects.equals(cargoElaboro, other.cargoElaboro)) {
             return false;
         }
-        if (!Objects.equals(this.nombreReviso, other.nombreReviso)) {
+        if (!Objects.equals(nombreReviso, other.nombreReviso)) {
             return false;
         }
-        if (!Objects.equals(this.cargoReviso, other.cargoReviso)) {
+        if (!Objects.equals(cargoReviso, other.cargoReviso)) {
             return false;
         }
-        if (!Objects.equals(this.nombreAutorizo, other.nombreAutorizo)) {
+        if (!Objects.equals(nombreAutorizo, other.nombreAutorizo)) {
             return false;
         }
-        if (!Objects.equals(this.cargoAutorizo, other.cargoAutorizo)) {
+        if (!Objects.equals(cargoAutorizo, other.cargoAutorizo)) {
             return false;
         }
-        if (!Objects.equals(this.idProductoNomina, other.idProductoNomina)) {
+        if (!Objects.equals(idProductoNomina, other.idProductoNomina)) {
             return false;
         }
-        if (!Objects.equals(this.fechaPago, other.fechaPago)) {
+        if (!Objects.equals(fechaPago, other.fechaPago)) {
             return false;
         }
-        return Objects.equals(this.unidadesResponsables, other.unidadesResponsables);
+        return Objects.equals(unidadesResponsables, other.unidadesResponsables);
     }
 
     @Override
     public String toString() {
-        return "FirmaDTO {"
-                + "idProductoNomina : " + idProductoNomina
-                + ", quincena : " + quincena
-                + ", fechaPago : " + fechaPago
-                + ", programas : [" + unidadesResponsables
-                + "], nombreElaboro : " + nombreElaboro
-                + ", cargoElaboro : " + cargoElaboro
-                + ", nombreReviso : " + nombreReviso
-                + ", cargoReviso : " + cargoReviso
-                + ", nombreAutorizo : " + nombreAutorizo
-                + ", cargoAutorizo : " + cargoAutorizo
-                + '}';
+        return "FirmaDTO {" + "idProductoNomina : " + idProductoNomina + ", quincena : " + quincena + ", fechaPago : " + fechaPago + ", programas : ["
+                + unidadesResponsables + "], nombreElaboro : " + nombreElaboro + ", cargoElaboro : " + cargoElaboro + ", nombreReviso : " + nombreReviso
+                + ", cargoReviso : " + cargoReviso + ", nombreAutorizo : " + nombreAutorizo + ", cargoAutorizo : " + cargoAutorizo + '}';
     }
-    
+
     public static final class Builder {
 
         private Integer idProductoNomina;
@@ -238,7 +230,8 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
         }
 
         public FirmaDTO construirFirmaDTO() {
-            return new FirmaDTO(idProductoNomina, fechaPago, unidadesResponsables, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);                
+            return new FirmaDTO(idProductoNomina, fechaPago, unidadesResponsables, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo,
+                    cargoAutorizo);
         }
     }
 

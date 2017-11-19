@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 
 /**
@@ -9,7 +10,7 @@ package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
  * @since 07/03/2016-15:52:41
  */
 public class EnumNacionalidad {
-	public static final String MEXICANA = "MEXICANA";
-	public static final String EXTRANJERA = "EXTRANJERA";
+    public static final String MEXICANA = "MEXICANA";
+    public static final String EXTRANJERA = "EXTRANJERA";
 
 }

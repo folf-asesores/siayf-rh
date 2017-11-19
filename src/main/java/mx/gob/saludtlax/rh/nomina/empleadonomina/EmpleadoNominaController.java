@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.empleadonomina;
 
 //@ManagedBean(name = "empleadoNomina")

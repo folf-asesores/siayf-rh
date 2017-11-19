@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class ComisionOficialController implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2113176085297630496L;
 
@@ -35,10 +35,9 @@ public class ComisionOficialController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        this.view = new ComisionOficialView();
+        view = new ComisionOficialView();
     }
 
-    
     public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
@@ -61,15 +60,15 @@ public class ComisionOficialController implements Serializable {
 
     public void buscarEmpleados() {
 
-        String criterio = this.view.getCriterio();
+        String criterio = view.getCriterio();
 
-        List<ComisionDetalleDTO> resultado = this.comisionEJB.consultarPorCriterio(criterio);
-        this.view.setComisionDetalle(resultado);
+        List<ComisionDetalleDTO> resultado = comisionEJB.consultarPorCriterio(criterio);
+        view.setComisionDetalle(resultado);
     }
 
     public void descargarComision() {
 
-        ComisionOficialDTO comisionOficialDTO = this.view.getComisionOficialDTO();
+        ComisionOficialDTO comisionOficialDTO = view.getComisionOficialDTO();
 
         WordComisionOficial wordComisionOficial = new WordComisionOficial();
         byte[] bytesWord = wordComisionOficial.generar(comisionOficialDTO);
@@ -96,24 +95,24 @@ public class ComisionOficialController implements Serializable {
     }
 
     public void contenidoComision(Integer idTipoMovimiento) {
-        ComisionOficialDTO comisionOficialDTO = this.comisionEJB.obtenerComisionOficial(idTipoMovimiento);
-        this.view.setComisionOficialDTO(comisionOficialDTO);
-        this.view.setMostrarPrincipal(false);
-        this.view.setMostrarComision(true);
+        ComisionOficialDTO comisionOficialDTO = comisionEJB.obtenerComisionOficial(idTipoMovimiento);
+        view.setComisionOficialDTO(comisionOficialDTO);
+        view.setMostrarPrincipal(false);
+        view.setMostrarComision(true);
     }
 
     public void regresar() {
-        this.view.setCriterio("");
-        this.view.setComisionDetalle(null);
-        this.view.setMostrarPrincipal(true);
-        this.view.setMostrarComision(false);
+        view.setCriterio("");
+        view.setComisionDetalle(null);
+        view.setMostrarPrincipal(true);
+        view.setMostrarComision(false);
     }
 
     /**
      * @return the view
      */
     public ComisionOficialView getView() {
-        return this.view;
+        return view;
     }
 
     /**

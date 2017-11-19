@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.nomina.movimientosnomina;
 
 import java.io.Serializable;
@@ -5,93 +6,90 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+public class ProgramarMovimientoDTO implements Serializable {
 
-public class ProgramarMovimientoDTO implements Serializable{
+    /**
+     *
+     */
+    private static final long serialVersionUID = -4972078020063455366L;
 
-	  /**
-	 * 
-	 */
-	private static final long serialVersionUID = -4972078020063455366L;
+    private Integer idProgramacionMovimiento;
 
-	private Integer idProgramacionMovimiento;
-	  
-	  private Integer idTipoMovimiento;
-	  
-	  private String movimiento;
-		    
-	  private Integer periodoAplicacion;
-	 
-	  private Integer tipoAplicacion;
-	  
-	  private BigDecimal importe;
+    private Integer idTipoMovimiento;
 
-	  private String descripcion;
-	  private List<DetalleProgramacionMovimientoDTO> listaDetalles = new ArrayList<>();
+    private String movimiento;
 
-	public Integer getIdProgramacionMovimiento() {
-		return idProgramacionMovimiento;
-	}
+    private Integer periodoAplicacion;
 
-	public void setIdProgramacionMovimiento(Integer idProgramacionMovimiento) {
-		this.idProgramacionMovimiento = idProgramacionMovimiento;
-	}
+    private Integer tipoAplicacion;
 
-	public Integer getIdTipoMovimiento() {
-		return idTipoMovimiento;
-	}
+    private BigDecimal importe;
 
-	public void setIdTipoMovimiento(Integer idTipoMovimiento) {
-		this.idTipoMovimiento = idTipoMovimiento;
-	}
+    private String descripcion;
+    private List<DetalleProgramacionMovimientoDTO> listaDetalles = new ArrayList<>();
 
-	public String getMovimiento() {
-		return movimiento;
-	}
+    public Integer getIdProgramacionMovimiento() {
+        return idProgramacionMovimiento;
+    }
 
-	public void setMovimiento(String movimiento) {
-		this.movimiento = movimiento;
-	}
+    public void setIdProgramacionMovimiento(Integer idProgramacionMovimiento) {
+        this.idProgramacionMovimiento = idProgramacionMovimiento;
+    }
 
-	public Integer getPeriodoAplicacion() {
-		return periodoAplicacion;
-	}
+    public Integer getIdTipoMovimiento() {
+        return idTipoMovimiento;
+    }
 
-	public void setPeriodoAplicacion(Integer periodoAplicacion) {
-		this.periodoAplicacion = periodoAplicacion;
-	}
+    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+        this.idTipoMovimiento = idTipoMovimiento;
+    }
 
-	public Integer getTipoAplicacion() {
-		return tipoAplicacion;
-	}
+    public String getMovimiento() {
+        return movimiento;
+    }
 
-	public void setTipoAplicacion(Integer tipoAplicacion) {
-		this.tipoAplicacion = tipoAplicacion;
-	}
+    public void setMovimiento(String movimiento) {
+        this.movimiento = movimiento;
+    }
 
-	public BigDecimal getImporte() {
-		return importe;
-	}
+    public Integer getPeriodoAplicacion() {
+        return periodoAplicacion;
+    }
 
-	public void setImporte(BigDecimal importe) {
-		this.importe = importe;
-	}
+    public void setPeriodoAplicacion(Integer periodoAplicacion) {
+        this.periodoAplicacion = periodoAplicacion;
+    }
 
-	public List<DetalleProgramacionMovimientoDTO> getListaDetalles() {
-		return listaDetalles;
-	}
+    public Integer getTipoAplicacion() {
+        return tipoAplicacion;
+    }
 
-	public void setListaDetalles(List<DetalleProgramacionMovimientoDTO> listaDetalles) {
-		this.listaDetalles = listaDetalles;
-	}
+    public void setTipoAplicacion(Integer tipoAplicacion) {
+        this.tipoAplicacion = tipoAplicacion;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public BigDecimal getImporte() {
+        return importe;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	} 
-	  
-	  
-	
+    public void setImporte(BigDecimal importe) {
+        this.importe = importe;
+    }
+
+    public List<DetalleProgramacionMovimientoDTO> getListaDetalles() {
+        return listaDetalles;
+    }
+
+    public void setListaDetalles(List<DetalleProgramacionMovimientoDTO> listaDetalles) {
+        this.listaDetalles = listaDetalles;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
 }

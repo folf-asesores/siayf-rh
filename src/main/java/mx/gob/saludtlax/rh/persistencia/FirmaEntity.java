@@ -1,11 +1,13 @@
 /*
  * FirmaEntity.java
  * Creado el 15/Nov/2016 4:38:08 PM
- * 
+ *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,23 +30,23 @@ import javax.validation.constraints.Size;
 public class FirmaEntity implements Serializable {
 
     private static final long serialVersionUID = -5602463577141765035L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_firma")
     private Integer idFirma;
-    
+
     @Size(max = 255)
     @NotNull
     @Column(name = "nombre")
     private String nombre;
-    
+
     @Size(max = 255)
     @NotNull
     @Column(name = "cargo")
     private String cargo;
-    
+
     @NotNull
     @Column(name = "nivel")
     private Integer nivel;
@@ -104,8 +106,7 @@ public class FirmaEntity implements Serializable {
      * @param cargo
      */
     public void setCargo(String cargo) {
-        this.cargo = cargo  == null ? ""
-                : cargo.toUpperCase().trim();
+        this.cargo = cargo == null ? "" : cargo.toUpperCase().trim();
     }
 
     /**
@@ -136,13 +137,13 @@ public class FirmaEntity implements Serializable {
     /**
      * Set the value of nivel
      *
-     * @param nivel new value of nivel
+     * @param nivel
+     *            new value of nivel
      */
     public void setNivel(Integer nivel) {
         this.nivel = nivel;
     }
 
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -152,12 +153,12 @@ public class FirmaEntity implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        
+
         if (!(object instanceof FirmaEntity)) {
             return false;
         }
         FirmaEntity other = (FirmaEntity) object;
-        if ((this.idFirma == null && other.idFirma != null) || (this.idFirma != null && !this.idFirma.equals(other.idFirma))) {
+        if ((idFirma == null && other.idFirma != null) || (idFirma != null && !idFirma.equals(other.idFirma))) {
             return false;
         }
         return true;
@@ -167,5 +168,5 @@ public class FirmaEntity implements Serializable {
     public String toString() {
         return "mx.gob.saludtlax.rh.persistencia.Firmas[ idFirma=" + idFirma + " ]";
     }
-    
+
 }

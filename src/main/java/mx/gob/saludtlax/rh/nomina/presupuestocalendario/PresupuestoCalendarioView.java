@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.presupuestocalendario;
 
 import java.io.Serializable;
@@ -12,87 +13,88 @@ import java.util.List;
  */
 public class PresupuestoCalendarioView implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7181623592648906555L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 7181623592648906555L;
 
-	private List<PresupuestoCalendarioDTO> listaPresupuestoCalendario;
+    private List<PresupuestoCalendarioDTO> listaPresupuestoCalendario;
 
-	private PresupuestoCalendarioDTO creaPresupuestoCalendario;
+    private PresupuestoCalendarioDTO creaPresupuestoCalendario;
 
-	private PresupuestoCalendarioDTO actualizarPresupuestoCalendario;
+    private PresupuestoCalendarioDTO actualizarPresupuestoCalendario;
 
-	private boolean mostrarVistaPrincipal;
+    private boolean mostrarVistaPrincipal;
 
-	private boolean mostrarVistaCrear;
+    private boolean mostrarVistaCrear;
 
-	private boolean mostrarVistaActualizar;
-	
-	private Integer anioCriterio;
+    private boolean mostrarVistaActualizar;
 
-	/****************** Gettters and Setters **************/
+    private Integer anioCriterio;
 
-	public List<PresupuestoCalendarioDTO> getListaPresupuestoCalendario() {
-		return listaPresupuestoCalendario;
-	}
+    
 
-	public void setListaPresupuestoCalendario(List<PresupuestoCalendarioDTO> listaPresupuestoCalendario) {
-		this.listaPresupuestoCalendario = listaPresupuestoCalendario;
-	}
+    public List<PresupuestoCalendarioDTO> getListaPresupuestoCalendario() {
+        return listaPresupuestoCalendario;
+    }
 
-	public PresupuestoCalendarioDTO getCreaPresupuestoCalendario() {
-		return creaPresupuestoCalendario;
-	}
+    public void setListaPresupuestoCalendario(List<PresupuestoCalendarioDTO> listaPresupuestoCalendario) {
+        this.listaPresupuestoCalendario = listaPresupuestoCalendario;
+    }
 
-	public void setCreaPresupuestoCalendario(PresupuestoCalendarioDTO creaPresupuestoCalendario) {
-		this.creaPresupuestoCalendario = creaPresupuestoCalendario;
-	}
+    public PresupuestoCalendarioDTO getCreaPresupuestoCalendario() {
+        return creaPresupuestoCalendario;
+    }
 
-	public PresupuestoCalendarioDTO getActualizarPresupuestoCalendario() {
-		return actualizarPresupuestoCalendario;
-	}
+    public void setCreaPresupuestoCalendario(PresupuestoCalendarioDTO creaPresupuestoCalendario) {
+        this.creaPresupuestoCalendario = creaPresupuestoCalendario;
+    }
 
-	public void setActualizarPresupuestoCalendario(PresupuestoCalendarioDTO actualizarPresupuestoCalendario) {
-		this.actualizarPresupuestoCalendario = actualizarPresupuestoCalendario;
-	}
+    public PresupuestoCalendarioDTO getActualizarPresupuestoCalendario() {
+        return actualizarPresupuestoCalendario;
+    }
 
-	public boolean isMostrarVistaPrincipal() {
-		return mostrarVistaPrincipal;
-	}
+    public void setActualizarPresupuestoCalendario(PresupuestoCalendarioDTO actualizarPresupuestoCalendario) {
+        this.actualizarPresupuestoCalendario = actualizarPresupuestoCalendario;
+    }
 
-	public void setMostrarVistaPrincipal(boolean mostrarVistaPrincipal) {
-		this.mostrarVistaPrincipal = mostrarVistaPrincipal;
-	}
+    public boolean isMostrarVistaPrincipal() {
+        return mostrarVistaPrincipal;
+    }
 
-	public boolean isMostrarVistaCrear() {
-		return mostrarVistaCrear;
-	}
+    public void setMostrarVistaPrincipal(boolean mostrarVistaPrincipal) {
+        this.mostrarVistaPrincipal = mostrarVistaPrincipal;
+    }
 
-	public void setMostrarVistaCrear(boolean mostrarVistaCrear) {
-		this.mostrarVistaCrear = mostrarVistaCrear;
-	}
+    public boolean isMostrarVistaCrear() {
+        return mostrarVistaCrear;
+    }
 
-	public boolean isMostrarVistaActualizar() {
-		return mostrarVistaActualizar;
-	}
+    public void setMostrarVistaCrear(boolean mostrarVistaCrear) {
+        this.mostrarVistaCrear = mostrarVistaCrear;
+    }
 
-	public void setMostrarVistaActualizar(boolean mostrarVistaActualizar) {
-		this.mostrarVistaActualizar = mostrarVistaActualizar;
-	}
+    public boolean isMostrarVistaActualizar() {
+        return mostrarVistaActualizar;
+    }
 
-	/**
-	 * @return the anioCriterio
-	 */
-	public Integer getAnioCriterio() {
-		return anioCriterio;
-	}
+    public void setMostrarVistaActualizar(boolean mostrarVistaActualizar) {
+        this.mostrarVistaActualizar = mostrarVistaActualizar;
+    }
 
-	/**
-	 * @param anioCriterio the anioCriterio to set
-	 */
-	public void setAnioCriterio(Integer anioCriterio) {
-		this.anioCriterio = anioCriterio;
-	}
+    /**
+     * @return the anioCriterio
+     */
+    public Integer getAnioCriterio() {
+        return anioCriterio;
+    }
+
+    /**
+     * @param anioCriterio
+     *            the anioCriterio to set
+     */
+    public void setAnioCriterio(Integer anioCriterio) {
+        this.anioCriterio = anioCriterio;
+    }
 
 }

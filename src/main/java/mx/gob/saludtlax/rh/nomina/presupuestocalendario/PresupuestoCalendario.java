@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.presupuestocalendario;
 
 import java.util.List;
@@ -11,14 +12,14 @@ import java.util.List;
  */
 public interface PresupuestoCalendario {
 
-	public void crearPresupuestoCalendario(PresupuestoCalendarioDTO dto);
+    public void crearPresupuestoCalendario(PresupuestoCalendarioDTO dto);
 
-	public void actualizarPresupuestoCalendario(PresupuestoCalendarioDTO dto);
+    public void actualizarPresupuestoCalendario(PresupuestoCalendarioDTO dto);
 
-	public void eliminarPresupuestoCalendario(Integer idPresupuestoCalendario);
+    public void eliminarPresupuestoCalendario(Integer idPresupuestoCalendario);
 
-	public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendario();
-	
-	public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(Integer anio);
+    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendario();
+
+    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(Integer anio);
 
 }

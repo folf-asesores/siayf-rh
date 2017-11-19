@@ -1,6 +1,7 @@
-/**
+/*
  *
  */
+
 package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
@@ -43,7 +44,6 @@ public class ProcesoEntity implements Serializable {
     @Column(name = "comentarios")
     private String comentarios;
 
-//		<<<<<Getters & Setters>>>>>
     public Integer getIdProcesoEmpleado() {
         return idProcesoEmpleado;
     }

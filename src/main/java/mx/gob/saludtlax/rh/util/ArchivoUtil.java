@@ -3,6 +3,7 @@
  * Creado el 30/06/2016 11:35:45 AM
  *
  */
+
 package mx.gob.saludtlax.rh.util;
 
 import java.awt.image.BufferedImage;
@@ -19,7 +20,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
@@ -54,26 +57,24 @@ public class ArchivoUtil {
      * determina la extesión del archivo según el contenido del mismo. Su
      * función la realiza escribiendo en la carpeta temporal el archivo.
      *
-     * @param nombreArchivo el nombre del archivo (incluso sin extensión).
-     * @param ext la extensión que se desea probar.
-     * @param bytes los datos del archivo.
+     * @param nombreArchivo
+     *            el nombre del archivo (incluso sin extensión).
+     * @param ext
+     *            la extensión que se desea probar.
+     * @param bytes
+     *            los datos del archivo.
      * @return
      */
-    public static Map<String, Object> validarArchivo(String nombreArchivo,
-            TipoArchivo ext, byte[] bytes) {
+    public static Map<String, Object> validarArchivo(String nombreArchivo, TipoArchivo ext, byte[] bytes) {
         Map<String, Object> mapa = new HashMap<>();
 
         try {
             String nombreSinExtension = obtenerNombreSinExtension(nombreArchivo);
-            Path archivoTemporal = Files
-                    .createTempFile(nombreSinExtension + '_', ".tmp");
+            Path archivoTemporal = Files.createTempFile(nombreSinExtension + '_', ".tmp");
             Files.write(archivoTemporal, bytes);
-            String contentType
-                    = (Files.probeContentType(archivoTemporal) == null)
-                    ? ext.getMIMEType() : Files.probeContentType(archivoTemporal);
+            String contentType = (Files.probeContentType(archivoTemporal) == null) ? ext.getMIMEType() : Files.probeContentType(archivoTemporal);
             LOGGER.debugv("contentType: {0}", contentType);
-            TipoArchivo tipoReal = TipoArchivo
-                    .getTipoArchivoPorMIMEType(contentType);
+            TipoArchivo tipoReal = TipoArchivo.getTipoArchivoPorMIMEType(contentType);
             Files.delete(archivoTemporal);
 
             mapa.put("NOMBRE_DE_ARCHIVO", nombreSinExtension);
@@ -97,7 +98,8 @@ public class ArchivoUtil {
     public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, String contentTypeDeseado, String extensionDeseada) {
         String contentTypeReal = obtenerMIMEType(contenido);
 
-        LOGGER.debugv("Nombre del archivo: {0} Content Type del archivo: {1} Content Type deseado: {2} Extensi\u00f3n deseada: {3} Content Type real: {4}", new Object[]{nombreArchivo, contentType, contentTypeDeseado, extensionDeseada, contentTypeReal});
+        LOGGER.debugv("Nombre del archivo: {0} Content Type del archivo: {1} Content Type deseado: {2} Extensi\u00f3n deseada: {3} Content Type real: {4}",
+                new Object[] { nombreArchivo, contentType, contentTypeDeseado, extensionDeseada, contentTypeReal });
 
         if (!contentTypeDeseado.equals(contentTypeReal)) {
             return false;
@@ -136,10 +138,12 @@ public class ArchivoUtil {
     /**
      * Este método permite conocer el MIME Type de un archivo.
      *
-     * @param contenido un arreglo de bytes con el contenido del archivo a nivel
-     * de bytes.
+     * @param contenido
+     *            un arreglo de bytes con el contenido del archivo a nivel
+     *            de bytes.
      * @return el MIME Type.
-     * @throws NullPointerException si el contenido es nulo.
+     * @throws NullPointerException
+     *             si el contenido es nulo.
      */
     private static String obtenerMIMEType(byte[] contenido) {
         try {
@@ -147,8 +151,7 @@ public class ArchivoUtil {
                 throw new NullPointerException("No se puede obtener el MIMEType de un null");
             }
 
-            Path archivoTemporal = Files
-                    .createTempFile(GenerateUtil.generarId(), ".tmp");
+            Path archivoTemporal = Files.createTempFile(GenerateUtil.generarId(), ".tmp");
             Files.write(archivoTemporal, contenido);
 
             String contentType = Files.probeContentType(archivoTemporal);
@@ -164,11 +167,14 @@ public class ArchivoUtil {
     /**
      * Permite obtener un archivo guardado en el disco.
      *
-     * @param ruta la ruta en la que se leera el archivo.
-     * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
+     * @param ruta
+     *            la ruta en la que se leera el archivo.
+     * @param nombreArchivo
+     *            el nombre del archivo, que debe incluir la extesión.
      * @return los bytes que representan el archivo.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
-     * el archivo.
+     * @throws java.io.IOException
+     *             si ocurre de lectura o escritura al guardar
+     *             el archivo.
      */
     public static byte[] leerArchivo(String ruta, String nombreArchivo) throws IOException {
         return leerArchivo(ruta, nombreArchivo, false);
@@ -177,13 +183,17 @@ public class ArchivoUtil {
     /**
      * Permite obtener un archivo guardado en el disco.
      *
-     * @param ruta la ruta en la que se leera el archivo.
-     * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
-     * @param usarCarpetaUsuario si la ruta se tomara desde la carpeta del
-     * usuario.
+     * @param ruta
+     *            la ruta en la que se leera el archivo.
+     * @param nombreArchivo
+     *            el nombre del archivo, que debe incluir la extesión.
+     * @param usarCarpetaUsuario
+     *            si la ruta se tomara desde la carpeta del
+     *            usuario.
      * @return los bytes que representan el archivo.
-     * @throws IOException si ocurre de lectura o escritura al guardar el
-     * archivo.
+     * @throws IOException
+     *             si ocurre de lectura o escritura al guardar el
+     *             archivo.
      */
     public static byte[] leerArchivo(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
         if (ruta == null) {
@@ -200,9 +210,12 @@ public class ArchivoUtil {
      * Permite guardar un archivo en la carpeta principal (user home) del
      * usuario.
      *
-     * @param file los bytes que representan el archivo.
-     * @param fileName el nombre del archivo, incluyendo la extensión.
-     * @throws IOException si ocurre alguna excepción de escritura o lectura.
+     * @param file
+     *            los bytes que representan el archivo.
+     * @param fileName
+     *            el nombre del archivo, incluyendo la extensión.
+     * @throws IOException
+     *             si ocurre alguna excepción de escritura o lectura.
      */
     public static void guardarEnCarpetaUsuario(byte[] file, String fileName) throws IOException {
         if (file == null) {
@@ -213,22 +226,27 @@ public class ArchivoUtil {
             String filePath = CARPETA_USUARIO + SEPARADOR_DE_ARCHIVO + fileName;
             Path path = Paths.get(filePath);
             Files.write(path, file);
-//            Files.write(path, file, StandardOpenOption.READ,
-//                    StandardOpenOption.WRITE,
-//                    StandardOpenOption.TRUNCATE_EXISTING);
+            //            Files.write(path, file, StandardOpenOption.READ,
+            //                    StandardOpenOption.WRITE,
+            //                    StandardOpenOption.TRUNCATE_EXISTING);
         }
     }
 
     /**
      * Permite guardar un archivo.
      *
-     * @param ruta la ruta en la que se guardará el archivo.
-     * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
-     * @param archivo los bytes que representan el archivo.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
-     * usuario.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
-     * el archivo.
+     * @param ruta
+     *            la ruta en la que se guardará el archivo.
+     * @param nombreArchivo
+     *            el nombre del archivo, que debe incluir la extesión.
+     * @param archivo
+     *            los bytes que representan el archivo.
+     * @param usarCarpetaUsuario
+     *            usar como raíz la carpeta principal del
+     *            usuario.
+     * @throws java.io.IOException
+     *             si ocurre de lectura o escritura al guardar
+     *             el archivo.
      */
     public static void guardarArchivo(String ruta, String nombreArchivo, byte[] archivo, boolean usarCarpetaUsuario) throws IOException {
         guardarArchivo(ruta, nombreArchivo, archivo, true, usarCarpetaUsuario);
@@ -237,18 +255,22 @@ public class ArchivoUtil {
     /**
      * Permite guardar un archivo.
      *
-     * @param ruta la ruta en la que se guardará el archivo.
-     * @param nombreArchivo el nombre del archivo, que debe incluir la extesión.
-     * @param archivo los bytes que representan el archivo.
-     * @param sobreescribir permite sobre escribir el archivo si existe.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
-     * usuario.
-     * @throws java.io.IOException si ocurre de lectura o escritura al guardar
-     * el archivo.
+     * @param ruta
+     *            la ruta en la que se guardará el archivo.
+     * @param nombreArchivo
+     *            el nombre del archivo, que debe incluir la extesión.
+     * @param archivo
+     *            los bytes que representan el archivo.
+     * @param sobreescribir
+     *            permite sobre escribir el archivo si existe.
+     * @param usarCarpetaUsuario
+     *            usar como raíz la carpeta principal del
+     *            usuario.
+     * @throws java.io.IOException
+     *             si ocurre de lectura o escritura al guardar
+     *             el archivo.
      */
-    public static void guardarArchivo(String ruta, String nombreArchivo,
-            byte[] archivo, boolean sobreescribir, boolean usarCarpetaUsuario)
-            throws IOException {
+    public static void guardarArchivo(String ruta, String nombreArchivo, byte[] archivo, boolean sobreescribir, boolean usarCarpetaUsuario) throws IOException {
 
         Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
         Path rutaArchivo = Paths.get(rutaReal.toString(), nombreArchivo);
@@ -270,12 +292,14 @@ public class ArchivoUtil {
     /**
      * Permite mover un archivo.
      *
-     * @param origen la ruta de origen.
-     * @param destino la ruta destino.
-     * @param usarCarpetaUsuario si se usará la carpeta personal del usuario.
+     * @param origen
+     *            la ruta de origen.
+     * @param destino
+     *            la ruta destino.
+     * @param usarCarpetaUsuario
+     *            si se usará la carpeta personal del usuario.
      */
-    public static void moverArchivo(String origen, String destino,
-            boolean usarCarpetaUsuario) {
+    public static void moverArchivo(String origen, String destino, boolean usarCarpetaUsuario) {
         try {
             Path rutaOrigen = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, origen) : Paths.get(origen);
             Path rutaDestino = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, destino) : Paths.get(destino);
@@ -289,10 +313,13 @@ public class ArchivoUtil {
     /**
      * Permite eliminar un archivo del disco.
      *
-     * @param ruta la ruta en la que se encuentra el archivo que será eliminado.
-     * @param nombreArchivo el nombre del archivo que será eliminado.
-     * @throws IOException si ocurre un error de lectura o escritura al eliminar
-     * el archivo.
+     * @param ruta
+     *            la ruta en la que se encuentra el archivo que será eliminado.
+     * @param nombreArchivo
+     *            el nombre del archivo que será eliminado.
+     * @throws IOException
+     *             si ocurre un error de lectura o escritura al eliminar
+     *             el archivo.
      */
     public static void eliminarArchivo(String ruta, String nombreArchivo) throws IOException {
         Path path = Paths.get(ruta, nombreArchivo);
@@ -303,11 +330,14 @@ public class ArchivoUtil {
      * Permite eliminar archivos ignorando la extensión de estos, basandose tan
      * sólo en nombre del archivo.
      *
-     * @param ruta la ruta en la que se encuentra el archivo que será eliminado.
-     * @param nombreArchivo el nombre del archivo que será eliminado, sin
-     * extensión.
-     * @param usarCarpetaUsuario usar como raíz la carpeta principal del
-     * usuario.
+     * @param ruta
+     *            la ruta en la que se encuentra el archivo que será eliminado.
+     * @param nombreArchivo
+     *            el nombre del archivo que será eliminado, sin
+     *            extensión.
+     * @param usarCarpetaUsuario
+     *            usar como raíz la carpeta principal del
+     *            usuario.
      * @throws IOException
      */
     public static void eliminarArchivoSoloConNombre(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
@@ -335,11 +365,13 @@ public class ArchivoUtil {
      * devuelve un arreglo de bytes que representa la vistata previa en formato
      * png.
      *
-     * @param extension la extensión del archivo.
-     * @param archivo un arreglo de bytes que representa el archivo del cual se
-     * obtendrá la vista previa.
+     * @param extension
+     *            la extensión del archivo.
+     * @param archivo
+     *            un arreglo de bytes que representa el archivo del cual se
+     *            obtendrá la vista previa.
      * @return un areglo de bytes con la vista previa en un archivo en formato
-     * png.
+     *         png.
      */
     public static byte[] crearVistaPrevia(TipoArchivo extension, byte[] archivo) {
         switch (extension) {
@@ -349,9 +381,7 @@ public class ArchivoUtil {
 
                     try (PDDocument document = PDDocument.load(archivo)) {
                         PDFRenderer pdfRenderer = new PDFRenderer(document);
-                        BufferedImage bim = pdfRenderer
-                                .renderImage(PDF_PRIMERA_PAGINA,
-                                        PDF_ESCALA, ImageType.RGB);
+                        BufferedImage bim = pdfRenderer.renderImage(PDF_PRIMERA_PAGINA, PDF_ESCALA, ImageType.RGB);
 
                         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
                             ImageIOUtil.writeImage(bim, "png", bos);
@@ -369,17 +399,14 @@ public class ArchivoUtil {
             case PNG:
                 try {
                     /*
- * Para trabajar las vistas previas me apoye de esta página
- * http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
- * aún están pendientes los cambios para evitar el posible error cuando el
- * esquema de colores de la imagen es CMKY en vez de RGB
+                     * Para trabajar las vistas previas me apoye de esta página
+                     * http://paxcel.net/blog/java-thumbnail-generator-imagescalar-vs-imagemagic/
+                     * aún están pendientes los cambios para evitar el posible error cuando el
+                     * esquema de colores de la imagen es CMKY en vez de RGB
                      */
                     InputStream is = new ByteArrayInputStream(archivo);
                     BufferedImage img = ImageIO.read(is);
-                    BufferedImage vistaPrevia = Scalr
-                            .resize(img, Scalr.Method.QUALITY,
-                                    Scalr.Mode.AUTOMATIC, IMAGEN_ANCHO,
-                                    IMAGEN_ALTO, Scalr.OP_ANTIALIAS);
+                    BufferedImage vistaPrevia = Scalr.resize(img, Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, IMAGEN_ANCHO, IMAGEN_ALTO, Scalr.OP_ANTIALIAS);
 
                     byte[] vistaPreviaBytes;
 
@@ -395,8 +422,7 @@ public class ArchivoUtil {
                 break;
             case TIFF:
                 try {
-                    InputStream is
-                            = ArchivoUtil.class.getClassLoader().getResourceAsStream("imagenes/tif-icon.png");
+                    InputStream is = ArchivoUtil.class.getClassLoader().getResourceAsStream("imagenes/tif-icon.png");
 
                     byte[] vistaPreviaBytes;
 
@@ -427,12 +453,14 @@ public class ArchivoUtil {
      * Permite convertir un archivo de texto plano con códificación UTF-8 y
      * caracteres de fin de línea tipo UNIX a formato de Windows.
      *
-     * @param archivo un arreglo de bytes que representa un archivo de texto
-     * plano.
+     * @param archivo
+     *            un arreglo de bytes que representa un archivo de texto
+     *            plano.
      * @return un arreglo de bytes que representa un archivo de texto plano con
-     * códificación de Windows.
-     * @throws IOException en caso de que haya error de lectura o escritura al
-     * crear los archivos temporales.
+     *         códificación de Windows.
+     * @throws IOException
+     *             en caso de que haya error de lectura o escritura al
+     *             crear los archivos temporales.
      */
     public static byte[] codificarComoWindows(final byte[] archivo) throws IOException {
         if (archivo == null) {
@@ -469,12 +497,14 @@ public class ArchivoUtil {
      * Permite convertir un archivo de texto plano con códificación UTF-8 y
      * caracteres de fin de línea tipo UNIX a formato de MS-DOS.
      *
-     * @param archivo un arreglo de bytes que representa un archivo de texto
-     * plano.
+     * @param archivo
+     *            un arreglo de bytes que representa un archivo de texto
+     *            plano.
      * @return un arreglo de bytes que representa un archivo de texto plano con
-     * códificación de Windows.
-     * @throws IOException en caso de que haya error de lectura o escritura al
-     * crear los archivos temporales.
+     *         códificación de Windows.
+     * @throws IOException
+     *             en caso de que haya error de lectura o escritura al
+     *             crear los archivos temporales.
      */
     public static byte[] codificarComoMsDos(final byte[] archivo) throws IOException {
         if (archivo == null) {
@@ -498,7 +528,7 @@ public class ArchivoUtil {
             int j = i + 1;
             boolean agregar = true;
             int lineaHoja = i % 66;
-//            LOGGER.debugv("lineaHoja: {0}",lineaHoja);
+            //            LOGGER.debugv("lineaHoja: {0}",lineaHoja);
             if (j < lineas.size()) {
                 String lineaSiguiente = lineas.get(j);
                 String nuevaLineaSiguiente = lineaSiguiente.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
@@ -549,12 +579,12 @@ public class ArchivoUtil {
             } else {
                 lineasEliminadas++;
             }
-//            if((lineaHoja + 1) == 66) {
-//                for (int k = 0; k < lineasEliminadas; k++) {
-//                    lineasNuevas.add("");
-//                }
-//                lineasEliminadas = 0;
-//            }
+            //            if((lineaHoja + 1) == 66) {
+            //                for (int k = 0; k < lineasEliminadas; k++) {
+            //                    lineasNuevas.add("");
+            //                }
+            //                lineasEliminadas = 0;
+            //            }
         }
 
         Path archivoTemporalWin = Files.createTempFile("destino", ".txt");
@@ -563,7 +593,7 @@ public class ArchivoUtil {
 
         byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
         LOGGER.info("La conversión en formato de MS-DOS se ha completado correctamente.");
-//        Files.delete(archivoTemporal);
+        //        Files.delete(archivoTemporal);
         Files.delete(archivoTemporalWin);
         return archivoWindows;
     }
@@ -573,7 +603,8 @@ public class ArchivoUtil {
      * nombre del archivo eliminando carácteres especiales además de que
      * transforma las letras en minúsculas.
      *
-     * @param nombreArchivo el nombre del archivo con extensión o sin ella.
+     * @param nombreArchivo
+     *            el nombre del archivo con extensión o sin ella.
      * @return el nombre del archivo sin extensión.
      */
     public static String obtenerNombreSinExtension(String nombreArchivo) {
@@ -599,9 +630,13 @@ public class ArchivoUtil {
 
     /**
      * Elimina los espacios al final del archivo.
-     * @param ruta la ruta del archivo del cual se eliminaran los espacio en blanco.
-     * @param charset el juego de caracteres con los que se abrirá el archivo.
-     * @throws IOException en caso de ocurrir un error de lectura o escritura.
+     *
+     * @param ruta
+     *            la ruta del archivo del cual se eliminaran los espacio en blanco.
+     * @param charset
+     *            el juego de caracteres con los que se abrirá el archivo.
+     * @throws IOException
+     *             en caso de ocurrir un error de lectura o escritura.
      */
     public static void eliminarEspaciosAlFinalLinea(Path ruta, Charset charset) throws IOException {
         List<String> lineas = Files.readAllLines(ruta, charset);

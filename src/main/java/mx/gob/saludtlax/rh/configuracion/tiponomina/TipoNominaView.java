@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.configuracion.tiponomina;
 
 import java.util.List;
@@ -7,154 +8,154 @@ import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.FuenteFinanciamien
 import mx.gob.saludtlax.rh.configuracion.fuenteFinanciamiento.SubfuenteFinanciamientoDTO;
 
 public class TipoNominaView {
-	private Integer tipoNominaCriterio;
-	private List<TipoNominaDTO> listTipoNomina;
-	private List<TipoNominaListaDTO> TipoNominaLista;
-	private TipoNominaDTO tipoNominaSelect;
-	private TipoNominaDTO tipoNomina;
+    private Integer tipoNominaCriterio;
+    private List<TipoNominaDTO> listTipoNomina;
+    private List<TipoNominaListaDTO> TipoNominaLista;
+    private TipoNominaDTO tipoNominaSelect;
+    private TipoNominaDTO tipoNomina;
 
-	private Boolean disabledIrGestionar;
-	private Boolean operacionNuevo;	
-	private Boolean opEliminar;
-	private Boolean panelPrincipal;
-	private Boolean panelGestion;
-	
-	private List<ClasificacionNominaDTO> listClasificacion;
-	private List<FuenteFinanciamientoDTO> listFuente;
-	private List<SubfuenteFinanciamientoDTO> listSubfuente;
-	private List<TipoRecursoDTO> listTipoRecurso;
+    private Boolean disabledIrGestionar;
+    private Boolean operacionNuevo;
+    private Boolean opEliminar;
+    private Boolean panelPrincipal;
+    private Boolean panelGestion;
 
-	public void panelPrincipal() {
-		tipoNominaSelect = null;
-		panelPrincipal = Boolean.TRUE;
-		panelGestion = Boolean.FALSE;
-		disabledIrGestionar = Boolean.TRUE;
-		operacionNuevo = null;
-		opEliminar = null;
-	}
+    private List<ClasificacionNominaDTO> listClasificacion;
+    private List<FuenteFinanciamientoDTO> listFuente;
+    private List<SubfuenteFinanciamientoDTO> listSubfuente;
+    private List<TipoRecursoDTO> listTipoRecurso;
 
-	public void panelGestion() {
-		panelPrincipal = Boolean.FALSE;
-		panelGestion = Boolean.TRUE;
-	}
-//	<Getters & Setters>
+    public void panelPrincipal() {
+        tipoNominaSelect = null;
+        panelPrincipal = Boolean.TRUE;
+        panelGestion = Boolean.FALSE;
+        disabledIrGestionar = Boolean.TRUE;
+        operacionNuevo = null;
+        opEliminar = null;
+    }
 
-	public Integer getTipoNominaCriterio() {
-		return tipoNominaCriterio;
-	}
+    public void panelGestion() {
+        panelPrincipal = Boolean.FALSE;
+        panelGestion = Boolean.TRUE;
+    }
 
-	public void setTipoNominaCriterio(Integer tipoNominaCriterio) {
-		this.tipoNominaCriterio = tipoNominaCriterio;
-	}
+    public Integer getTipoNominaCriterio() {
+        return tipoNominaCriterio;
+    }
 
-	public List<TipoNominaDTO> getListTipoNomina() {
-		return listTipoNomina;
-	}
+    public void setTipoNominaCriterio(Integer tipoNominaCriterio) {
+        this.tipoNominaCriterio = tipoNominaCriterio;
+    }
 
-	public void setListTipoNomina(List<TipoNominaDTO> listTipoNomina) {
-		this.listTipoNomina = listTipoNomina;
-	}
+    public List<TipoNominaDTO> getListTipoNomina() {
+        return listTipoNomina;
+    }
 
-	public TipoNominaDTO getTipoNominaSelect() {
-		return tipoNominaSelect;
-	}
+    public void setListTipoNomina(List<TipoNominaDTO> listTipoNomina) {
+        this.listTipoNomina = listTipoNomina;
+    }
 
-	public void setTipoNominaSelect(TipoNominaDTO tipoNominaSelect) {
-		this.tipoNominaSelect = tipoNominaSelect;
-	}
+    public TipoNominaDTO getTipoNominaSelect() {
+        return tipoNominaSelect;
+    }
 
-	public TipoNominaDTO getTipoNomina() {
-		return tipoNomina;
-	}
+    public void setTipoNominaSelect(TipoNominaDTO tipoNominaSelect) {
+        this.tipoNominaSelect = tipoNominaSelect;
+    }
 
-	public void setTipoNomina(TipoNominaDTO tipoNomina) {
-		this.tipoNomina = tipoNomina;
-	}
+    public TipoNominaDTO getTipoNomina() {
+        return tipoNomina;
+    }
 
-	public Boolean getDisabledIrGestionar() {
-		return disabledIrGestionar;
-	}
+    public void setTipoNomina(TipoNominaDTO tipoNomina) {
+        this.tipoNomina = tipoNomina;
+    }
 
-	public void setDisabledIrGestionar(Boolean disabledIrGestionar) {
-		this.disabledIrGestionar = disabledIrGestionar;
-	}
+    public Boolean getDisabledIrGestionar() {
+        return disabledIrGestionar;
+    }
 
-	public Boolean getOperacionNuevo() {
-		return operacionNuevo;
-	}
+    public void setDisabledIrGestionar(Boolean disabledIrGestionar) {
+        this.disabledIrGestionar = disabledIrGestionar;
+    }
 
-	public void setOperacionNuevo(Boolean operacionNuevo) {
-		this.operacionNuevo = operacionNuevo;
-	}
+    public Boolean getOperacionNuevo() {
+        return operacionNuevo;
+    }
 
-	public Boolean getOpEliminar() {
-		return opEliminar;
-	}
+    public void setOperacionNuevo(Boolean operacionNuevo) {
+        this.operacionNuevo = operacionNuevo;
+    }
 
-	public void setOpEliminar(Boolean opEliminar) {
-		this.opEliminar = opEliminar;
-	}
+    public Boolean getOpEliminar() {
+        return opEliminar;
+    }
 
-	public Boolean getPanelPrincipal() {
-		return panelPrincipal;
-	}
+    public void setOpEliminar(Boolean opEliminar) {
+        this.opEliminar = opEliminar;
+    }
 
-	public void setPanelPrincipal(Boolean panelPrincipal) {
-		this.panelPrincipal = panelPrincipal;
-	}
+    public Boolean getPanelPrincipal() {
+        return panelPrincipal;
+    }
 
-	public Boolean getPanelGestion() {
-		return panelGestion;
-	}
+    public void setPanelPrincipal(Boolean panelPrincipal) {
+        this.panelPrincipal = panelPrincipal;
+    }
 
-	public void setPanelGestion(Boolean panelGestion) {
-		this.panelGestion = panelGestion;
-	}
+    public Boolean getPanelGestion() {
+        return panelGestion;
+    }
 
-	public List<ClasificacionNominaDTO> getListClasificacion() {
-		return listClasificacion;
-	}
+    public void setPanelGestion(Boolean panelGestion) {
+        this.panelGestion = panelGestion;
+    }
 
-	public void setListClasificacion(List<ClasificacionNominaDTO> listClasificacion) {
-		this.listClasificacion = listClasificacion;
-	}
+    public List<ClasificacionNominaDTO> getListClasificacion() {
+        return listClasificacion;
+    }
 
-	public List<FuenteFinanciamientoDTO> getListFuente() {
-		return listFuente;
-	}
+    public void setListClasificacion(List<ClasificacionNominaDTO> listClasificacion) {
+        this.listClasificacion = listClasificacion;
+    }
 
-	public void setListFuente(List<FuenteFinanciamientoDTO> listFuente) {
-		this.listFuente = listFuente;
-	}
+    public List<FuenteFinanciamientoDTO> getListFuente() {
+        return listFuente;
+    }
 
-	public List<SubfuenteFinanciamientoDTO> getListSubfuente() {
-		return listSubfuente;
-	}
+    public void setListFuente(List<FuenteFinanciamientoDTO> listFuente) {
+        this.listFuente = listFuente;
+    }
 
-	public void setListSubfuente(List<SubfuenteFinanciamientoDTO> listSubfuente) {
-		this.listSubfuente = listSubfuente;
-	}
+    public List<SubfuenteFinanciamientoDTO> getListSubfuente() {
+        return listSubfuente;
+    }
 
-	public List<TipoNominaListaDTO> getTipoNominaLista() {
-		return TipoNominaLista;
-	}
+    public void setListSubfuente(List<SubfuenteFinanciamientoDTO> listSubfuente) {
+        this.listSubfuente = listSubfuente;
+    }
 
-	/**
-	 * @return the listTipoRecurso
-	 */
-	public List<TipoRecursoDTO> getListTipoRecurso() {
-		return listTipoRecurso;
-	}
+    public List<TipoNominaListaDTO> getTipoNominaLista() {
+        return TipoNominaLista;
+    }
 
-	/**
-	 * @param listTipoRecurso the listTipoRecurso to set
-	 */
-	public void setListTipoRecurso(List<TipoRecursoDTO> listTipoRecurso) {
-		this.listTipoRecurso = listTipoRecurso;
-	}
+    /**
+     * @return the listTipoRecurso
+     */
+    public List<TipoRecursoDTO> getListTipoRecurso() {
+        return listTipoRecurso;
+    }
 
-	public void setTipoNominaLista(List<TipoNominaListaDTO> tipoNominaLista) {
-		TipoNominaLista = tipoNominaLista;
-	}
-	
+    /**
+     * @param listTipoRecurso
+     *            the listTipoRecurso to set
+     */
+    public void setListTipoRecurso(List<TipoRecursoDTO> listTipoRecurso) {
+        this.listTipoRecurso = listTipoRecurso;
+    }
+
+    public void setTipoNominaLista(List<TipoNominaListaDTO> tipoNominaLista) {
+        TipoNominaLista = tipoNominaLista;
+    }
+
 }

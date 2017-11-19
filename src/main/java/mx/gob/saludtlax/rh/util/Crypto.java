@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.util;
 
 import java.io.UnsupportedEncodingException;

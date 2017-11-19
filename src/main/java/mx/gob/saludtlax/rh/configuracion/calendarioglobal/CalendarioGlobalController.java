@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.configuracion.calendarioglobal;
 
 import java.io.Serializable;
@@ -28,159 +29,153 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @ViewScoped
 public class CalendarioGlobalController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2593671016077613239L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -2593671016077613239L;
 
-	@Inject
-	private CalendarioGlobal calendarioGlobal;
+    @Inject
+    private CalendarioGlobal calendarioGlobal;
 
-	private CalendarioGlobalView view;
+    private CalendarioGlobalView view;
 
-	@PostConstruct
-	public void init() {
-		this.view = new CalendarioGlobalView();
+    @PostConstruct
+    public void init() {
+        view = new CalendarioGlobalView();
 
-		vistaPrincipal();
-	}
+        vistaPrincipal();
+    }
 
-	public void vistaPrincipal() {
-		this.view.setListaCalendarioGlobal(calendarioGlobal.obtenerListaCalendarioGlobal());
-		this.view.setActualizarCalendarioGlobal(new CalendarioGlobalDTO());
-		this.view.setCreaCalendarioGlobal(new CalendarioGlobalDTO());
-		this.view.setMostrarVistaPrincipal(true);
-		this.view.setMostrarVistaCrear(false);
-		this.view.setMostrarVistaActualizar(false);
-		this.view.setIdCalendarioGlobal(0);
-	}
+    public void vistaPrincipal() {
+        view.setListaCalendarioGlobal(calendarioGlobal.obtenerListaCalendarioGlobal());
+        view.setActualizarCalendarioGlobal(new CalendarioGlobalDTO());
+        view.setCreaCalendarioGlobal(new CalendarioGlobalDTO());
+        view.setMostrarVistaPrincipal(true);
+        view.setMostrarVistaCrear(false);
+        view.setMostrarVistaActualizar(false);
+        view.setIdCalendarioGlobal(0);
+    }
 
-	public void crearCalendarioGlobal() {
-		try {
+    public void crearCalendarioGlobal() {
+        try {
 
-			calendarioGlobal.creaCalendarioGlobal(this.view.getCreaCalendarioGlobal());
+            calendarioGlobal.creaCalendarioGlobal(view.getCreaCalendarioGlobal());
 
-			vistaPrincipal();
+            vistaPrincipal();
 
-			JSFUtils.infoMessage("Calendario Global: ", "¡Se registro correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ", "¡Se registro correctamente!");
 
-		} catch (ReglaNegocioException | ValidacionException exception) {
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		}
-	}
+        } catch (ReglaNegocioException | ValidacionException exception) {
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
+    }
 
-	public void actualizarCalendarioGlobal() {
-		try {
+    public void actualizarCalendarioGlobal() {
+        try {
 
-			calendarioGlobal.actualizarCalendarioGlobal(this.view.getActualizarCalendarioGlobal());
+            calendarioGlobal.actualizarCalendarioGlobal(view.getActualizarCalendarioGlobal());
 
-			vistaPrincipal();
+            vistaPrincipal();
 
-			JSFUtils.infoMessage("Calendario Global: ", "¡Se actualizo correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ", "¡Se actualizo correctamente!");
 
-		} catch (ReglaNegocioException | ValidacionException exception) {
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		}
-	}
+        } catch (ReglaNegocioException | ValidacionException exception) {
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
+    }
 
-	public void eliminarCalendarioGlobal(Integer idCalendarioGlobal) {
-		try {
+    public void eliminarCalendarioGlobal(Integer idCalendarioGlobal) {
+        try {
 
-			calendarioGlobal.eliminarCalendarioGlobal(idCalendarioGlobal);
+            calendarioGlobal.eliminarCalendarioGlobal(idCalendarioGlobal);
 
-			vistaPrincipal();
+            vistaPrincipal();
 
-			JSFUtils.infoMessage("Calendario Global: ", "¡Se elimino correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ", "¡Se elimino correctamente!");
 
-		} catch (ReglaNegocioException | ValidacionException exception) {
-			JSFUtils.errorMessage("Error: ", exception.getMessage());
-		}
-	}
+        } catch (ReglaNegocioException | ValidacionException exception) {
+            JSFUtils.errorMessage("Error: ", exception.getMessage());
+        }
+    }
 
-	public void mostrarVistaCrearCalendarioGlobal() {
-		this.view.setCreaCalendarioGlobal(new CalendarioGlobalDTO());
-		this.view.setMostrarVistaPrincipal(false);
-		this.view.setMostrarVistaCrear(true);
-		this.view.setMostrarVistaActualizar(false);
-	}
+    public void mostrarVistaCrearCalendarioGlobal() {
+        view.setCreaCalendarioGlobal(new CalendarioGlobalDTO());
+        view.setMostrarVistaPrincipal(false);
+        view.setMostrarVistaCrear(true);
+        view.setMostrarVistaActualizar(false);
+    }
 
-	public void mostrarVistaActualizarCalendarioGlobal(CalendarioGlobalDTO dto) {
-		this.view.setActualizarCalendarioGlobal(dto);
-		this.view.setMostrarVistaPrincipal(false);
-		this.view.setMostrarVistaCrear(false);
-		this.view.setMostrarVistaActualizar(true);
-	}
+    public void mostrarVistaActualizarCalendarioGlobal(CalendarioGlobalDTO dto) {
+        view.setActualizarCalendarioGlobal(dto);
+        view.setMostrarVistaPrincipal(false);
+        view.setMostrarVistaCrear(false);
+        view.setMostrarVistaActualizar(true);
+    }
 
-	// ----Validaciones--//
-	public void validatorRegistro(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    // ----Validaciones--//
+    public void validatorRegistro(FacesContext context, UIComponent component, Object value) throws ValidatorException {
 
-		String nombreComponete = component.getId();
-		switch (nombreComponete) {
+        String nombreComponete = component.getId();
+        switch (nombreComponete) {
 
-		case "partida8000Crear":
-			Integer partida8000 = (Integer) value;
+            case "partida8000Crear":
+                Integer partida8000 = (Integer) value;
 
-			if (!ValidacionUtil.esNumeroPositivo(partida8000)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese la partida 8000.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (!ValidacionUtil.esNumeroPositivo(partida8000)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la partida 8000.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		case "partida1000Crear":
-			Integer partida1000 = (Integer) value;
+            case "partida1000Crear":
+                Integer partida1000 = (Integer) value;
 
-			if (!ValidacionUtil.esNumeroPositivo(partida1000)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese la partida 1000.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
+                if (!ValidacionUtil.esNumeroPositivo(partida1000)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la partida 1000.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
 
-			break;
+                break;
 
-		case "conceptoCrear":
-			String concepto = (String) value;
+            case "conceptoCrear":
+                String concepto = (String) value;
 
-			if (ValidacionUtil.esCadenaVacia(concepto)) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese el concepto.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (ValidacionUtil.esCadenaVacia(concepto)) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el concepto.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		case "importeAnualCrear":
-			BigDecimal importeAnual = (BigDecimal) value;
+            case "importeAnualCrear":
+                BigDecimal importeAnual = (BigDecimal) value;
 
-			if (importeAnual == BigDecimal.ZERO || importeAnual == null) {
-				FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese una catidad mayor a 0.");
-				context.addMessage(component.getClientId(), facesMessage1);
-				throw new ValidatorException(facesMessage1);
-			}
-			break;
+                if (importeAnual == BigDecimal.ZERO || importeAnual == null) {
+                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una catidad mayor a 0.");
+                    context.addMessage(component.getClientId(), facesMessage1);
+                    throw new ValidatorException(facesMessage1);
+                }
+                break;
 
-		}
+        }
 
-	}
+    }
 
-	
+    /**
+     * @return the view
+     */
+    public CalendarioGlobalView getView() {
+        return view;
+    }
 
-	/**
-	 * @return the view
-	 */
-	public CalendarioGlobalView getView() {
-		return view;
-	}
-
-	/**
-	 * @param view
-	 *            the view to set
-	 */
-	public void setView(CalendarioGlobalView view) {
-		this.view = view;
-	}
+    /**
+     * @param view
+     *            the view to set
+     */
+    public void setView(CalendarioGlobalView view) {
+        this.view = view;
+    }
 
 }

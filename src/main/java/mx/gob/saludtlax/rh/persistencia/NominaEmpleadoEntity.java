@@ -1,7 +1,10 @@
+
 package mx.gob.saludtlax.rh.persistencia;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -127,311 +130,406 @@ public class NominaEmpleadoEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pago_nomina")
     private PagoNominaEntity pagoNomina;
-	@Column(name = "rfc")
-	private String rfc;
-	@Column(name = "curp")
-	private String curp;
-	@Column(name = "fecha_ingreso")
-	private Date fechaIngreso;
-	@Column(name = "subfuncion")
-	private String subfuncion;
-	@Column(name = "financiamiento")
-	private String financiamiento;
-	@Column(name = "fecha_inicio")
+    @Column(name = "rfc")
+    private String rfc;
+    @Column(name = "curp")
+    private String curp;
+    @Column(name = "fecha_ingreso")
+    private Date fechaIngreso;
+    @Column(name = "subfuncion")
+    private String subfuncion;
+    @Column(name = "financiamiento")
+    private String financiamiento;
+    @Column(name = "fecha_inicio")
     private Date fechaInicio;
     @Column(name = "fecha_fin")
     private Date fechaFin;
-	@Column(name = "jornada")
-	private String jornada;
+    @Column(name = "jornada")
+    private String jornada;
     @Column(name = "clues")
     private String clues;
 
     public Integer getIdNominaEmpleado() {
-		return idNominaEmpleado;
-	}
-	public void setIdNominaEmpleado(Integer idNominaEmpleado) {
-		this.idNominaEmpleado = idNominaEmpleado;
-	}
-	public ProductoNominaEntity getIdProductoNomina() {
-		return idProductoNomina;
-	}
-	public void setIdProductoNomina(ProductoNominaEntity idProductoNomina) {
-		this.idProductoNomina = idProductoNomina;
-	}
-	public EmpleadoEntity getIdEmpleado() {
-		return idEmpleado;
-	}
-	public void setIdEmpleado(EmpleadoEntity idEmpleado) {
-		this.idEmpleado = idEmpleado;
-	}
-	public BigDecimal getPercepciones() {
-		return percepciones;
-	}
-	public void setPercepciones(BigDecimal percepciones) {
-		this.percepciones = percepciones;
-	}
-	public BigDecimal getDeducciones() {
-		return deducciones;
-	}
-	public void setDeducciones(BigDecimal deducciones) {
-		this.deducciones = deducciones;
-	}
-	public BigDecimal getNeto() {
-		return neto;
-	}
-	public void setNeto(BigDecimal neto) {
-		this.neto = neto;
-	}
-	public ProyectoTempEntity getIdProyecto() {
-		return idProyecto;
-	}
-	public void setIdProyecto(ProyectoTempEntity idProyecto) {
-		this.idProyecto = idProyecto;
-	}
-	public DependenciaTempEntity getIdDependencia() {
-		return idDependencia;
-	}
-	public void setIdDependencia(DependenciaTempEntity idDependencia) {
-		this.idDependencia = idDependencia;
-	}
-	public UnidadResponsableEntity getIdUnidadResponsable() {
-		return idUnidadResponsable;
-	}
-	public void setIdUnidadResponsable(UnidadResponsableEntity idUnidadResponsable) {
-		this.idUnidadResponsable = idUnidadResponsable;
-	}
-	public TipoContratacionEntity getIdTipoContratacion() {
-		return idTipoContratacion;
-	}
-	public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
-		this.idTipoContratacion = idTipoContratacion;
-	}
-	public TiposNombramientosEntity getIdTipoNombramiento() {
-		return idTipoNombramiento;
-	}
-	public void setIdTipoNombramiento(TiposNombramientosEntity idTipoNombramiento) {
-		this.idTipoNombramiento = idTipoNombramiento;
-	}
-	public PuestoGeneralEntity getIdPuestoGeneral() {
-		return idPuestoGeneral;
-	}
-	public void setIdPuestoGeneral(PuestoGeneralEntity idPuestoGeneral) {
-		this.idPuestoGeneral = idPuestoGeneral;
-	}
-	public FuenteFinanciamientoEntity getIdFuenteFinanciamiento() {
-		return idFuenteFinanciamiento;
-	}
-	public void setIdFuenteFinanciamiento(FuenteFinanciamientoEntity idFuenteFinanciamiento) {
-		this.idFuenteFinanciamiento = idFuenteFinanciamiento;
-	}
-	public SubFuenteFinanciamientoTempEntity getIdSubfuenteFinanciamiento() {
-		return idSubfuenteFinanciamiento;
-	}
-	public void setIdSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity idSubfuenteFinanciamiento) {
-		this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
-	}
-	public TipoRecursoTempEntity getIdTipoRecurso() {
-		return idTipoRecurso;
-	}
-	public void setIdTipoRecurso(TipoRecursoTempEntity idTipoRecurso) {
-		this.idTipoRecurso = idTipoRecurso;
-	}
-	public Integer getNumeroEmpleado() {
-		return numeroEmpleado;
-	}
-	public void setNumeroEmpleado(Integer numeroEmpleado) {
-		this.numeroEmpleado = numeroEmpleado;
-	}
-	public Date getFechaAltaConfiguracion() {
-		return fechaAltaConfiguracion;
-	}
-	public void setFechaAltaConfiguracion(Date fechaAltaConfiguracion) {
-		this.fechaAltaConfiguracion = fechaAltaConfiguracion;
-	}
-	public BigDecimal getSueldo() {
-		return sueldo;
-	}
-	public void setSueldo(BigDecimal sueldo) {
-		this.sueldo = sueldo;
-	}
-	public TabuladorEntity getIdTabulador() {
-		return idTabulador;
-	}
-	public void setIdTabulador(TabuladorEntity idTabulador) {
-		this.idTabulador = idTabulador;
-	}
-	public ConfiguracionPresupuestoEntity getIdConfiguracionPresupuestal() {
-		return idConfiguracionPresupuestal;
-	}
-	public void setIdConfiguracionPresupuestal(ConfiguracionPresupuestoEntity idConfiguracionPresupuestal) {
-		this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
-	}
-	public String getNumeroCuenta() {
-		return numeroCuenta;
-	}
-	public void setNumeroCuenta(String numeroCuenta) {
-		this.numeroCuenta = numeroCuenta;
-	}
-	public CuentasBancariasEntity getIdCuentaBancaria() {
-		return idCuentaBancaria;
-	}
-	public void setIdCuentaBancaria(CuentasBancariasEntity idCuentaBancaria) {
-		this.idCuentaBancaria = idCuentaBancaria;
-	}
-	public Integer getIdMetodoPago() {
-		return idMetodoPago;
-	}
-	public void setIdMetodoPago(Integer idMetodoPago) {
-		this.idMetodoPago = idMetodoPago;
-	}
-	public Date getInicioPeriodo() {
-		return inicioPeriodo;
-	}
-	public void setInicioPeriodo(Date inicioPeriodo) {
-		this.inicioPeriodo = inicioPeriodo;
-	}
-	public Date getFinPeriodo() {
-		return finPeriodo;
-	}
-	public void setFinPeriodo(Date finPeriodo) {
-		this.finPeriodo = finPeriodo;
-	}
-	public Date getFechaPago() {
-		return fechaPago;
-	}
-	public void setFechaPago(Date fechaPago) {
-		this.fechaPago = fechaPago;
-	}
-	public Integer getNumeroDiasPagados() {
-		return numeroDiasPagados;
-	}
-	public void setNumeroDiasPagados(Integer numeroDiasPagados) {
-		this.numeroDiasPagados = numeroDiasPagados;
-	}
-	public CentroResponsabilidadEntity getIdCentroResponsabilidad() {
-		return idCentroResponsabilidad;
-	}
-	public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
-		this.idCentroResponsabilidad = idCentroResponsabilidad;
-	}
-	public Integer getConsecutivo() {
-		return consecutivo;
-	}
-	public void setConsecutivo(Integer consecutivo) {
-		this.consecutivo = consecutivo;
-	}
-	public Integer getNumeroCheque() {
-		return numeroCheque;
-	}
-	public void setNumeroCheque(Integer numeroCheque) {
-		this.numeroCheque = numeroCheque;
-	}
-	public EstatusNominasEmpleadoEntity getIdEstatusNominaEmpleado() {
-		return idEstatusNominaEmpleado;
-	}
-	public void setIdEstatusNominaEmpleado(EstatusNominasEmpleadoEntity idEstatusNominaEmpleado) {
-		this.idEstatusNominaEmpleado = idEstatusNominaEmpleado;
-	}
-	public Integer getNumeroIdPersonal() {
-		return numeroIdPersonal;
-	}
-	public void setNumeroIdPersonal(Integer numeroIdPersonal) {
-		this.numeroIdPersonal = numeroIdPersonal;
-	}
-	public Integer getNumeroIdLaboral() {
-		return numeroIdLaboral;
-	}
-	public void setNumeroIdLaboral(Integer numeroIdLaboral) {
-		this.numeroIdLaboral = numeroIdLaboral;
-	}
-	public FuncionEntity getIdFuncion() {
-		return idFuncion;
-	}
-	public void setIdFuncion(FuncionEntity idFuncion) {
-		this.idFuncion = idFuncion;
-	}
-	public ProgramaEntity getPrograma() {
-		return programa;
-	}
-	public void setPrograma(ProgramaEntity programa) {
-		this.programa = programa;
-	}
-	public boolean isCalculado() {
-		return calculado;
-	}
-	public void setCalculado(boolean calculado) {
-		this.calculado = calculado;
-	}
-	public String getMotivo() {
-		return motivo;
-	}
-	public void setMotivo(String motivo) {
-		this.motivo = motivo;
-	}
-	public Integer getIdComprobante() {
-		return idComprobante;
-	}
-	public void setIdComprobante(Integer idComprobante) {
-		this.idComprobante = idComprobante;
-	}
-	public PagoNominaEntity getPagoNomina() {
-		return pagoNomina;
-	}
-	public void setPagoNomina(PagoNominaEntity pagoNomina) {
-		this.pagoNomina = pagoNomina;
-	}
-	public String getRfc() {
-		return rfc;
-	}
-	public void setRfc(String rfc) {
-		this.rfc = rfc;
-	}
-	public String getCurp() {
-		return curp;
-	}
-	public void setCurp(String curp) {
-		this.curp = curp;
-	}
-	public Date getFechaIngreso() {
-		return fechaIngreso;
-	}
-	public void setFechaIngreso(Date fechaIngreso) {
-		this.fechaIngreso = fechaIngreso;
-	}
-	public String getSubfuncion() {
-		return subfuncion;
-	}
-	public void setSubfuncion(String subfuncion) {
-		this.subfuncion = subfuncion;
-	}
-	public String getFinanciamiento() {
-		return financiamiento;
-	}
-	public void setFinanciamiento(String financiamiento) {
-		this.financiamiento = financiamiento;
-	}
-	public Date getFechaInicio() {
-		return fechaInicio;
-	}
-	public void setFechaInicio(Date fechaInicio) {
-		this.fechaInicio = fechaInicio;
-	}
-	public Date getFechaFin() {
-		return fechaFin;
-	}
-	public void setFechaFin(Date fechaFin) {
-		this.fechaFin = fechaFin;
-	}
-	public String getJornada() {
-		return jornada;
-	}
-	public void setJornada(String jornada) {
-		this.jornada = jornada;
-	}
-	public String getClues() {
-		return clues;
-	}
-	public void setClues(String clues) {
-		this.clues = clues;
-	}
+        return idNominaEmpleado;
+    }
+
+    public void setIdNominaEmpleado(Integer idNominaEmpleado) {
+        this.idNominaEmpleado = idNominaEmpleado;
+    }
+
+    public ProductoNominaEntity getIdProductoNomina() {
+        return idProductoNomina;
+    }
+
+    public void setIdProductoNomina(ProductoNominaEntity idProductoNomina) {
+        this.idProductoNomina = idProductoNomina;
+    }
+
+    public EmpleadoEntity getIdEmpleado() {
+        return idEmpleado;
+    }
+
+    public void setIdEmpleado(EmpleadoEntity idEmpleado) {
+        this.idEmpleado = idEmpleado;
+    }
+
+    public BigDecimal getPercepciones() {
+        return percepciones;
+    }
+
+    public void setPercepciones(BigDecimal percepciones) {
+        this.percepciones = percepciones;
+    }
+
+    public BigDecimal getDeducciones() {
+        return deducciones;
+    }
+
+    public void setDeducciones(BigDecimal deducciones) {
+        this.deducciones = deducciones;
+    }
+
+    public BigDecimal getNeto() {
+        return neto;
+    }
+
+    public void setNeto(BigDecimal neto) {
+        this.neto = neto;
+    }
+
+    public ProyectoTempEntity getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(ProyectoTempEntity idProyecto) {
+        this.idProyecto = idProyecto;
+    }
+
+    public DependenciaTempEntity getIdDependencia() {
+        return idDependencia;
+    }
+
+    public void setIdDependencia(DependenciaTempEntity idDependencia) {
+        this.idDependencia = idDependencia;
+    }
+
+    public UnidadResponsableEntity getIdUnidadResponsable() {
+        return idUnidadResponsable;
+    }
+
+    public void setIdUnidadResponsable(UnidadResponsableEntity idUnidadResponsable) {
+        this.idUnidadResponsable = idUnidadResponsable;
+    }
+
+    public TipoContratacionEntity getIdTipoContratacion() {
+        return idTipoContratacion;
+    }
+
+    public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
+        this.idTipoContratacion = idTipoContratacion;
+    }
+
+    public TiposNombramientosEntity getIdTipoNombramiento() {
+        return idTipoNombramiento;
+    }
+
+    public void setIdTipoNombramiento(TiposNombramientosEntity idTipoNombramiento) {
+        this.idTipoNombramiento = idTipoNombramiento;
+    }
+
+    public PuestoGeneralEntity getIdPuestoGeneral() {
+        return idPuestoGeneral;
+    }
+
+    public void setIdPuestoGeneral(PuestoGeneralEntity idPuestoGeneral) {
+        this.idPuestoGeneral = idPuestoGeneral;
+    }
+
+    public FuenteFinanciamientoEntity getIdFuenteFinanciamiento() {
+        return idFuenteFinanciamiento;
+    }
+
+    public void setIdFuenteFinanciamiento(FuenteFinanciamientoEntity idFuenteFinanciamiento) {
+        this.idFuenteFinanciamiento = idFuenteFinanciamiento;
+    }
+
+    public SubFuenteFinanciamientoTempEntity getIdSubfuenteFinanciamiento() {
+        return idSubfuenteFinanciamiento;
+    }
+
+    public void setIdSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity idSubfuenteFinanciamiento) {
+        this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
+    }
+
+    public TipoRecursoTempEntity getIdTipoRecurso() {
+        return idTipoRecurso;
+    }
+
+    public void setIdTipoRecurso(TipoRecursoTempEntity idTipoRecurso) {
+        this.idTipoRecurso = idTipoRecurso;
+    }
+
+    public Integer getNumeroEmpleado() {
+        return numeroEmpleado;
+    }
+
+    public void setNumeroEmpleado(Integer numeroEmpleado) {
+        this.numeroEmpleado = numeroEmpleado;
+    }
+
+    public Date getFechaAltaConfiguracion() {
+        return fechaAltaConfiguracion;
+    }
+
+    public void setFechaAltaConfiguracion(Date fechaAltaConfiguracion) {
+        this.fechaAltaConfiguracion = fechaAltaConfiguracion;
+    }
+
+    public BigDecimal getSueldo() {
+        return sueldo;
+    }
+
+    public void setSueldo(BigDecimal sueldo) {
+        this.sueldo = sueldo;
+    }
+
+    public TabuladorEntity getIdTabulador() {
+        return idTabulador;
+    }
+
+    public void setIdTabulador(TabuladorEntity idTabulador) {
+        this.idTabulador = idTabulador;
+    }
+
+    public ConfiguracionPresupuestoEntity getIdConfiguracionPresupuestal() {
+        return idConfiguracionPresupuestal;
+    }
+
+    public void setIdConfiguracionPresupuestal(ConfiguracionPresupuestoEntity idConfiguracionPresupuestal) {
+        this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
+    }
+
+    public String getNumeroCuenta() {
+        return numeroCuenta;
+    }
+
+    public void setNumeroCuenta(String numeroCuenta) {
+        this.numeroCuenta = numeroCuenta;
+    }
+
+    public CuentasBancariasEntity getIdCuentaBancaria() {
+        return idCuentaBancaria;
+    }
+
+    public void setIdCuentaBancaria(CuentasBancariasEntity idCuentaBancaria) {
+        this.idCuentaBancaria = idCuentaBancaria;
+    }
+
+    public Integer getIdMetodoPago() {
+        return idMetodoPago;
+    }
+
+    public void setIdMetodoPago(Integer idMetodoPago) {
+        this.idMetodoPago = idMetodoPago;
+    }
+
+    public Date getInicioPeriodo() {
+        return inicioPeriodo;
+    }
+
+    public void setInicioPeriodo(Date inicioPeriodo) {
+        this.inicioPeriodo = inicioPeriodo;
+    }
+
+    public Date getFinPeriodo() {
+        return finPeriodo;
+    }
+
+    public void setFinPeriodo(Date finPeriodo) {
+        this.finPeriodo = finPeriodo;
+    }
+
+    public Date getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(Date fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+    public Integer getNumeroDiasPagados() {
+        return numeroDiasPagados;
+    }
+
+    public void setNumeroDiasPagados(Integer numeroDiasPagados) {
+        this.numeroDiasPagados = numeroDiasPagados;
+    }
+
+    public CentroResponsabilidadEntity getIdCentroResponsabilidad() {
+        return idCentroResponsabilidad;
+    }
+
+    public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
+        this.idCentroResponsabilidad = idCentroResponsabilidad;
+    }
+
+    public Integer getConsecutivo() {
+        return consecutivo;
+    }
+
+    public void setConsecutivo(Integer consecutivo) {
+        this.consecutivo = consecutivo;
+    }
+
+    public Integer getNumeroCheque() {
+        return numeroCheque;
+    }
+
+    public void setNumeroCheque(Integer numeroCheque) {
+        this.numeroCheque = numeroCheque;
+    }
+
+    public EstatusNominasEmpleadoEntity getIdEstatusNominaEmpleado() {
+        return idEstatusNominaEmpleado;
+    }
+
+    public void setIdEstatusNominaEmpleado(EstatusNominasEmpleadoEntity idEstatusNominaEmpleado) {
+        this.idEstatusNominaEmpleado = idEstatusNominaEmpleado;
+    }
+
+    public Integer getNumeroIdPersonal() {
+        return numeroIdPersonal;
+    }
+
+    public void setNumeroIdPersonal(Integer numeroIdPersonal) {
+        this.numeroIdPersonal = numeroIdPersonal;
+    }
+
+    public Integer getNumeroIdLaboral() {
+        return numeroIdLaboral;
+    }
+
+    public void setNumeroIdLaboral(Integer numeroIdLaboral) {
+        this.numeroIdLaboral = numeroIdLaboral;
+    }
+
+    public FuncionEntity getIdFuncion() {
+        return idFuncion;
+    }
+
+    public void setIdFuncion(FuncionEntity idFuncion) {
+        this.idFuncion = idFuncion;
+    }
+
+    public ProgramaEntity getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(ProgramaEntity programa) {
+        this.programa = programa;
+    }
+
+    public boolean isCalculado() {
+        return calculado;
+    }
+
+    public void setCalculado(boolean calculado) {
+        this.calculado = calculado;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }
+
+    public Integer getIdComprobante() {
+        return idComprobante;
+    }
+
+    public void setIdComprobante(Integer idComprobante) {
+        this.idComprobante = idComprobante;
+    }
+
+    public PagoNominaEntity getPagoNomina() {
+        return pagoNomina;
+    }
+
+    public void setPagoNomina(PagoNominaEntity pagoNomina) {
+        this.pagoNomina = pagoNomina;
+    }
+
+    public String getRfc() {
+        return rfc;
+    }
+
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
+    }
+
+    public String getCurp() {
+        return curp;
+    }
+
+    public void setCurp(String curp) {
+        this.curp = curp;
+    }
+
+    public Date getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void setFechaIngreso(Date fechaIngreso) {
+        this.fechaIngreso = fechaIngreso;
+    }
+
+    public String getSubfuncion() {
+        return subfuncion;
+    }
+
+    public void setSubfuncion(String subfuncion) {
+        this.subfuncion = subfuncion;
+    }
+
+    public String getFinanciamiento() {
+        return financiamiento;
+    }
+
+    public void setFinanciamiento(String financiamiento) {
+        this.financiamiento = financiamiento;
+    }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
+    public String getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(String jornada) {
+        this.jornada = jornada;
+    }
+
+    public String getClues() {
+        return clues;
+    }
+
+    public void setClues(String clues) {
+        this.clues = clues;
+    }
 }

@@ -1,6 +1,7 @@
-/**
- * 
+/*
+ *
  */
+
 package mx.gob.saludtlax.rh.nomina.productosnomina;
 
 import java.io.Serializable;
@@ -16,26 +17,29 @@ import javax.persistence.Table;
 @Table(name = "estatus_productos_nomina")
 public class EstatusProductoNominaDTO implements Serializable {
 
-	private static final long serialVersionUID = 213087133101081752L;
+    private static final long serialVersionUID = 213087133101081752L;
 
-	@Id
-	@Column(name = "id_estatus_producto_nomina")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idEstatusConceptoNomina;
+    @Id
+    @Column(name = "id_estatus_producto_nomina")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idEstatusConceptoNomina;
 
-	@Column(name = "estatus")
-	private String estatus;
+    @Column(name = "estatus")
+    private String estatus;
 
-	public Integer getIdEstatusConceptoNomina() {
-		return idEstatusConceptoNomina;
-	}
-	public void setIdEstatusConceptoNomina(Integer idEstatusConceptoNomina) {
-		this.idEstatusConceptoNomina = idEstatusConceptoNomina;
-	}
-	public String getEstatus() {
-		return estatus;
-	}
-	public void setEstatus(String estatus) {
-		this.estatus = estatus;
-	}
+    public Integer getIdEstatusConceptoNomina() {
+        return idEstatusConceptoNomina;
+    }
+
+    public void setIdEstatusConceptoNomina(Integer idEstatusConceptoNomina) {
+        this.idEstatusConceptoNomina = idEstatusConceptoNomina;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
 }
