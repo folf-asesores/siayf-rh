@@ -269,7 +269,8 @@ public class NominaEmpleadoDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -357,7 +358,8 @@ public class NominaEmpleadoDTO implements Serializable {
         return idConfiguracionPresupuestal;
     }
 
-    public void setIdConfiguracionPresupuestal(Integer idConfiguracionPresupuestal) {
+    public void setIdConfiguracionPresupuestal(
+            Integer idConfiguracionPresupuestal) {
         this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
     }
 
@@ -525,7 +527,8 @@ public class NominaEmpleadoDTO implements Serializable {
         return percepcionesList;
     }
 
-    public void setPercepcionesList(List<ConceptosNominaEmpleadosDTO> percepcionesList) {
+    public void setPercepcionesList(
+            List<ConceptosNominaEmpleadosDTO> percepcionesList) {
         this.percepcionesList = percepcionesList;
     }
 
@@ -533,7 +536,8 @@ public class NominaEmpleadoDTO implements Serializable {
         return deduccionesList;
     }
 
-    public void setDeduccionesList(List<ConceptosNominaEmpleadosDTO> deduccionesList) {
+    public void setDeduccionesList(
+            List<ConceptosNominaEmpleadosDTO> deduccionesList) {
         this.deduccionesList = deduccionesList;
     }
 

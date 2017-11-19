@@ -15,7 +15,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 public class ProductoNominaValidator {
 
-    public void validatorProductoNomina(FacesContext context, UIComponent component, Object value) {
+    public void validatorProductoNomina(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -23,7 +24,9 @@ public class ProductoNominaValidator {
             case "idEjercicioFiscal":
                 Integer idEjercicioFiscal = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idEjercicioFiscal)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un ejercicio fiscal.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un ejercicio fiscal.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -31,7 +34,9 @@ public class ProductoNominaValidator {
             case "idPeriodoCalendario":
                 Integer idPeriodoCalendario = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un periodo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un periodo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -39,7 +44,9 @@ public class ProductoNominaValidator {
             case "idTipoNombramiento":
                 Integer idTipoNombramiento = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idTipoNombramiento)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un tipo de nombramiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un tipo de nombramiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -47,15 +54,20 @@ public class ProductoNominaValidator {
             case "idFuenteFinanciamiento":
                 Integer idFuenteFinanciamiento = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idFuenteFinanciamiento)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una fuente de financiamiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una fuente de financiamiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
                 break;
             case "idSubfuenteFinanciamiento":
                 Integer idSubfuenteFinanciamiento = (Integer) value;
-                if (!ValidacionUtil.esNumeroPositivo(idSubfuenteFinanciamiento)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una subfuente de financiamiento.");
+                if (!ValidacionUtil
+                        .esNumeroPositivo(idSubfuenteFinanciamiento)) {
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una subfuente de financiamiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -63,7 +75,9 @@ public class ProductoNominaValidator {
             case "idTipoNomina":
                 Integer idTipoNomina = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idTipoNomina)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un tipo de nómina.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un tipo de nómina.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -71,7 +85,9 @@ public class ProductoNominaValidator {
             case "fechaPago":
                 Date fechaPago = (Date) value;
                 if (fechaPago == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una fecha de pago.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una fecha de pago.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

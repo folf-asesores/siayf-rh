@@ -12,8 +12,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 28/07/2016 13:10:51
  */
@@ -54,9 +54,11 @@ public class TabuladorEJB implements Tabulador, Serializable {
     }
 
     @Override
-    public InfoSueldoDTO obtenerSueldoPorPuestoTipoTabulador(Integer idPuestoGeneral, Integer tipoContratacion) {
+    public InfoSueldoDTO obtenerSueldoPorPuestoTipoTabulador(
+            Integer idPuestoGeneral, Integer tipoContratacion) {
 
-        return tabuladorService.obtenerSueldoPorPuestoTabulador(idPuestoGeneral, tipoContratacion);
+        return tabuladorService.obtenerSueldoPorPuestoTabulador(idPuestoGeneral,
+                tipoContratacion);
     }
 
     @Override
@@ -71,7 +73,8 @@ public class TabuladorEJB implements Tabulador, Serializable {
     }
 
     @Override
-    public TabuladorDTO obtenerTabuladorPorPuesto(Integer idPuesto, Integer anioFiscal) {
+    public TabuladorDTO obtenerTabuladorPorPuesto(Integer idPuesto,
+            Integer anioFiscal) {
         return tabuladorService.obtenerTabuladorPorPuesto(idPuesto, anioFiscal);
     }
 

@@ -40,7 +40,8 @@ public class AltaBajaNominaEmpleadoDTO implements Serializable {
         return idConfiguracionPresupuestalValue;
     }
 
-    public void setIdConfiguracionPresupuestalValue(Integer idConfiguracionPresupuestalValue) {
+    public void setIdConfiguracionPresupuestalValue(
+            Integer idConfiguracionPresupuestalValue) {
         this.idConfiguracionPresupuestalValue = idConfiguracionPresupuestalValue;
     }
 

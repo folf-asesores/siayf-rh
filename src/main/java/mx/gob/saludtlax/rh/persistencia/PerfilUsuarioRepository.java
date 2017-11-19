@@ -9,7 +9,9 @@ import javax.persistence.PersistenceContext;
 
 import mx.gob.saludtlax.rh.util.Configuracion;
 
-public class PerfilUsuarioRepository extends GenericRepository<PerfilUsuarioEntity, Integer> implements Serializable {
+public class PerfilUsuarioRepository
+        extends GenericRepository<PerfilUsuarioEntity, Integer>
+        implements Serializable {
 
     private static final long serialVersionUID = 7897606793185133307L;
 
@@ -27,7 +29,10 @@ public class PerfilUsuarioRepository extends GenericRepository<PerfilUsuarioEnti
      * Devuelve la lista de perfiles registrados en el sistema
      */
     public List<PerfilUsuarioEntity> perfiles() {
-        List<PerfilUsuarioEntity> listaPerfiles = entityManager.createQuery("SELECT a FROM PerfilUsuarioEntity a", PerfilUsuarioEntity.class).getResultList();
+        List<PerfilUsuarioEntity> listaPerfiles = entityManager
+                .createQuery("SELECT a FROM PerfilUsuarioEntity a",
+                        PerfilUsuarioEntity.class)
+                .getResultList();
         return listaPerfiles;
     }
 

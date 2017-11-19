@@ -57,32 +57,43 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         }
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return;
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("i");
 
         if (id == null) {
-            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest req = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             String url = req.getContextPath().toString();
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error Acceso",
-                    "Ocurrio un error al intentar buscar la incidencia seleccionada por favor regresa al  <a href='" + url
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_WARN, "Error Acceso",
+                    "Ocurrio un error al intentar buscar la incidencia seleccionada por favor regresa al  <a href='"
+                            + url
                             + "/contenido/controlasistencia/catalogo/incidencia/index.xhtml'>catalogo de incidencias</a>");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return;
@@ -93,10 +104,12 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         try {
             llenarPeriodosEspera();
 
-            incidenciaViewModel = incidenciaClientRest.buscarIncidenciaPorId(idIncidencia);
+            incidenciaViewModel = incidenciaClientRest
+                    .buscarIncidenciaPorId(idIncidencia);
         } catch (RESTClientException e) {
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -106,7 +119,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
             llenarPeriodosEspera();
         } catch (RESTClientException e) {
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -114,7 +128,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
     public void nuevoPeriodoEsperaIncidencia() {
 
         periodoEsperaFormModel = new PeriodoEsperaFormModel();
-        RequestContext.getCurrentInstance().execute("PF('dglNuevoPeriodoEsperaIncidencia').show()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dglNuevoPeriodoEsperaIncidencia').show()");
 
     }
 
@@ -123,9 +138,11 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         List<IncidenciaModelView> listadoIncidencias = null;
 
         try {
-            listadoIncidencias = incidenciaClientRest.buscarIncidenciaPorDescripcion(query);
+            listadoIncidencias = incidenciaClientRest
+                    .buscarIncidenciaPorDescripcion(query);
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
             e.printStackTrace();
         }
         return listadoIncidencias;
@@ -136,44 +153,54 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         try {
             periodoEsperaFormModel.setIdIncidenciaOrigen(idIncidencia);
             periodoEsperaFormModel.setDiasNaturales(true);
-            periodoEsperaClienteRest.crearNuevoPeriodoEsperaIncidencia(periodoEsperaFormModel);
+            periodoEsperaClienteRest
+                    .crearNuevoPeriodoEsperaIncidencia(periodoEsperaFormModel);
             llenarPeriodosEspera();
-            RequestContext.getCurrentInstance().execute("PF('dglNuevoPeriodoEsperaIncidencia').hide()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dglNuevoPeriodoEsperaIncidencia').hide()");
         } catch (RESTClientException e) {
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
     }
 
-    public void eliminarPeriodoEsperaIncidencia(PeriodoEsperaViewModel periodoEsperaViewModel) {
+    public void eliminarPeriodoEsperaIncidencia(
+            PeriodoEsperaViewModel periodoEsperaViewModel) {
 
         try {
-            periodoEsperaClienteRest.elminarPeriodoEsperaIncidencia(periodoEsperaViewModel.getIdPeriodoEsperaIncidencias());
+            periodoEsperaClienteRest.elminarPeriodoEsperaIncidencia(
+                    periodoEsperaViewModel.getIdPeriodoEsperaIncidencias());
             llenarPeriodosEspera();
         } catch (RESTClientException e) {
 
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
 
     private void llenarPeriodosEspera() throws RESTClientException {
 
-        listadoPeriodoEsperaViewModel = periodoEsperaClienteRest.listadoPeriodoEsperaIncidencia(idIncidencia, idTipoContatacion);
+        listadoPeriodoEsperaViewModel = periodoEsperaClienteRest
+                .listadoPeriodoEsperaIncidencia(idIncidencia,
+                        idTipoContatacion);
 
     }
 
     private void llenarTiposContratacion() {
 
-        List<TipoContratacionEntity> listadoTipoContratacionEntity = tipoContratacionRepository.consultarTodos();
+        List<TipoContratacionEntity> listadoTipoContratacionEntity = tipoContratacionRepository
+                .consultarTodos();
         listadoTiposContrataciones = new ArrayList<>();
         SelectItem selectItemTipoContratacion = new SelectItem();
         for (TipoContratacionEntity tipoContratacionEntity : listadoTipoContratacionEntity) {
 
             selectItemTipoContratacion = new SelectItem();
 
-            selectItemTipoContratacion.setLabel(tipoContratacionEntity.getTipoContratacion());
+            selectItemTipoContratacion
+                    .setLabel(tipoContratacionEntity.getTipoContratacion());
             selectItemTipoContratacion.setValue(tipoContratacionEntity.getId());
             listadoTiposContrataciones.add(selectItemTipoContratacion);
 
@@ -201,7 +228,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         return listadoTiposContrataciones;
     }
 
-    public void setListadoTiposContrataciones(List<SelectItem> listadoTiposContrataciones) {
+    public void setListadoTiposContrataciones(
+            List<SelectItem> listadoTiposContrataciones) {
         this.listadoTiposContrataciones = listadoTiposContrataciones;
     }
 
@@ -209,7 +237,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         return incidenciaViewModel;
     }
 
-    public void setIncidenciaViewModel(IncidenciaModelView incidenciaViewModel) {
+    public void setIncidenciaViewModel(
+            IncidenciaModelView incidenciaViewModel) {
         this.incidenciaViewModel = incidenciaViewModel;
     }
 
@@ -217,7 +246,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         return listadoPeriodoEsperaViewModel;
     }
 
-    public void setListadoPeriodoEsperaViewModel(List<PeriodoEsperaViewModel> listadoPeriodoEsperaViewModel) {
+    public void setListadoPeriodoEsperaViewModel(
+            List<PeriodoEsperaViewModel> listadoPeriodoEsperaViewModel) {
         this.listadoPeriodoEsperaViewModel = listadoPeriodoEsperaViewModel;
     }
 
@@ -225,7 +255,8 @@ public class IndexPeriodoEsperaIncidenciaController implements Serializable {
         return periodoEsperaFormModel;
     }
 
-    public void setPeriodoEsperaFormModel(PeriodoEsperaFormModel periodoEsperaFormModel) {
+    public void setPeriodoEsperaFormModel(
+            PeriodoEsperaFormModel periodoEsperaFormModel) {
         this.periodoEsperaFormModel = periodoEsperaFormModel;
     }
 

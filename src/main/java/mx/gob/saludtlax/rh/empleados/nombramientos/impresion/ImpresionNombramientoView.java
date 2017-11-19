@@ -15,8 +15,8 @@ import javax.faces.model.SelectItem;
 import mx.gob.saludtlax.rh.puestosautorizados.PuestoEmpleadoDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:31:22 13/09/2016
  */
@@ -61,8 +61,6 @@ public class ImpresionNombramientoView implements Serializable {
 
     private String nombreTipoNombramiento;
 
-    
-
     /**
      * @return the tipoNombramiento
      */
@@ -89,7 +87,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param listaNombramiento
      *            the listaNombramiento to set
      */
-    public void setListaNombramiento(List<InfoNombramientoDTO> listaNombramiento) {
+    public void setListaNombramiento(
+            List<InfoNombramientoDTO> listaNombramiento) {
         this.listaNombramiento = listaNombramiento;
     }
 
@@ -104,7 +103,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param itemsTipoNombramiento
      *            the itemsTipoNombramiento to set
      */
-    public void setItemsTipoNombramiento(List<SelectItem> itemsTipoNombramiento) {
+    public void setItemsTipoNombramiento(
+            List<SelectItem> itemsTipoNombramiento) {
         this.itemsTipoNombramiento = itemsTipoNombramiento;
     }
 
@@ -149,7 +149,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param mostrarConfirmacionImpresion
      *            the mostrarConfirmacionImpresion to set
      */
-    public void setMostrarConfirmacionImpresion(boolean mostrarConfirmacionImpresion) {
+    public void setMostrarConfirmacionImpresion(
+            boolean mostrarConfirmacionImpresion) {
         this.mostrarConfirmacionImpresion = mostrarConfirmacionImpresion;
     }
 
@@ -194,7 +195,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param infoLugarAdscripcionNombramientoDTO
      *            the infoLugarAdscripcionNombramientoDTO to set
      */
-    public void setInfoLugarAdscripcionNombramientoDTO(InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO) {
+    public void setInfoLugarAdscripcionNombramientoDTO(
+            InfoLugarAdscripcionNombramientoDTO infoLugarAdscripcionNombramientoDTO) {
         this.infoLugarAdscripcionNombramientoDTO = infoLugarAdscripcionNombramientoDTO;
     }
 
@@ -224,7 +226,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param itemsTiposAdscripcion
      *            the itemsTiposAdscripcion to set
      */
-    public void setItemsTiposAdscripcion(Map<String, String> itemsTiposAdscripcion) {
+    public void setItemsTiposAdscripcion(
+            Map<String, String> itemsTiposAdscripcion) {
         this.itemsTiposAdscripcion = itemsTiposAdscripcion;
     }
 
@@ -254,7 +257,8 @@ public class ImpresionNombramientoView implements Serializable {
      * @param clasificacionReporteDTO
      *            the clasificacionReporteDTO to set
      */
-    public void setClasificacionReporteDTO(ClasificacionReporteDTO clasificacionReporteDTO) {
+    public void setClasificacionReporteDTO(
+            ClasificacionReporteDTO clasificacionReporteDTO) {
         this.clasificacionReporteDTO = clasificacionReporteDTO;
     }
 

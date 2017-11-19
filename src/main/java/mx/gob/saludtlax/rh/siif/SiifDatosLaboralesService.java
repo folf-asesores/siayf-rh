@@ -40,16 +40,36 @@ public class SiifDatosLaboralesService {
 
     public List<SiifDatosLaboralesDTO> listaSiifDatosLaborales() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, " + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
-                + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, " + "rfc AS rfc, " + "id_rfc AS idRfc, " + "id_plaza AS idPlaza, "
-                + "id_proyecto AS idProyecto, " + "id_dependencia AS idDependencia, " + "id_unidad_responsable AS idUnidadResponsable, "
-                + "nombramiento AS nombramiento, " + "id_puesto AS idPuesto, " + "id_sindicato AS idSindicato, " + "id_habilitado AS idHabilitado, "
-                + "fecha_ingreso AS fechaIngreso, " + "no_quinquenios AS noQuinquenios, " + "sueldo_mensual AS sueldoMensual, "
-                + "percepcion_complementaria AS percepcionComplementaria, " + "despensa AS despensa, " + "incentivo_ahorro AS incentivoAhorro, "
-                + "compensacion AS compensacion, " + "quinquenio AS quinquenio, " + "no_cuenta AS noCuenta, " + "policia AS policia, "
-                + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                + "id_tipo_recurso As idTipoRecurso, " + "id_estado_empleado AS idEstadoEmpleado, " + "id_nomina AS idNomina " + "FROM siif_datos_laborales");
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, "
+                        + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
+                        + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, "
+                        + "rfc AS rfc, " + "id_rfc AS idRfc, "
+                        + "id_plaza AS idPlaza, "
+                        + "id_proyecto AS idProyecto, "
+                        + "id_dependencia AS idDependencia, "
+                        + "id_unidad_responsable AS idUnidadResponsable, "
+                        + "nombramiento AS nombramiento, "
+                        + "id_puesto AS idPuesto, "
+                        + "id_sindicato AS idSindicato, "
+                        + "id_habilitado AS idHabilitado, "
+                        + "fecha_ingreso AS fechaIngreso, "
+                        + "no_quinquenios AS noQuinquenios, "
+                        + "sueldo_mensual AS sueldoMensual, "
+                        + "percepcion_complementaria AS percepcionComplementaria, "
+                        + "despensa AS despensa, "
+                        + "incentivo_ahorro AS incentivoAhorro, "
+                        + "compensacion AS compensacion, "
+                        + "quinquenio AS quinquenio, "
+                        + "no_cuenta AS noCuenta, " + "policia AS policia, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_tipo_recurso As idTipoRecurso, "
+                        + "id_estado_empleado AS idEstadoEmpleado, "
+                        + "id_nomina AS idNomina "
+                        + "FROM siif_datos_laborales");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifDatosLaboralesDTO> result = query.list();
         return result;
@@ -57,72 +77,141 @@ public class SiifDatosLaboralesService {
 
     public List<SiifDatosLaboralesListaDTO> listaSiifDatosLaboralesLista() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT * FROM siif_datos_laborales_lista");
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesListaDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT * FROM siif_datos_laborales_lista");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesListaDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifDatosLaboralesListaDTO> result = query.list();
         return result;
     }
 
-    public List<SiifDatosLaboralesDTO> listaSiifDatosLaboralesPorCriterio(String rfc) {
+    public List<SiifDatosLaboralesDTO> listaSiifDatosLaboralesPorCriterio(
+            String rfc) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, " + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
-                + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, " + "rfc AS rfc, " + "id_rfc AS idRfc, " + "id_plaza AS idPlaza, "
-                + "id_proyecto AS idProyecto, " + "id_dependencia AS idDependencia, " + "id_unidad_responsable AS idUnidadResponsable, "
-                + "nombramiento AS nombramiento, " + "id_puesto AS idPuesto, " + "id_sindicato AS idSindicato, " + "id_habilitado AS idHabilitado, "
-                + "fecha_ingreso AS fechaIngreso, " + "no_quinquenios AS noQuinquenios, " + "sueldo_mensual AS sueldoMensual, "
-                + "percepcion_complementaria AS percepcionComplementaria, " + "despensa AS despensa, " + "incentivo_ahorro AS incentivoAhorro, "
-                + "compensacion AS compensacion, " + "quinquenio AS quinquenio, " + "no_cuenta AS noCuenta, " + "policia AS policia, "
-                + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                + "id_tipo_recurso As idTipoRecurso, " + "id_estado_empleado AS idEstadoEmpleado, " + "id_nomina AS idNomina "
-                + "FROM siif_datos_laborales WHERE rfc LIKE :rfc").setParameter("rfc", "%" + rfc + "%");
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, "
+                        + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
+                        + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, "
+                        + "rfc AS rfc, " + "id_rfc AS idRfc, "
+                        + "id_plaza AS idPlaza, "
+                        + "id_proyecto AS idProyecto, "
+                        + "id_dependencia AS idDependencia, "
+                        + "id_unidad_responsable AS idUnidadResponsable, "
+                        + "nombramiento AS nombramiento, "
+                        + "id_puesto AS idPuesto, "
+                        + "id_sindicato AS idSindicato, "
+                        + "id_habilitado AS idHabilitado, "
+                        + "fecha_ingreso AS fechaIngreso, "
+                        + "no_quinquenios AS noQuinquenios, "
+                        + "sueldo_mensual AS sueldoMensual, "
+                        + "percepcion_complementaria AS percepcionComplementaria, "
+                        + "despensa AS despensa, "
+                        + "incentivo_ahorro AS incentivoAhorro, "
+                        + "compensacion AS compensacion, "
+                        + "quinquenio AS quinquenio, "
+                        + "no_cuenta AS noCuenta, " + "policia AS policia, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_tipo_recurso As idTipoRecurso, "
+                        + "id_estado_empleado AS idEstadoEmpleado, "
+                        + "id_nomina AS idNomina "
+                        + "FROM siif_datos_laborales WHERE rfc LIKE :rfc")
+                .setParameter("rfc", "%" + rfc + "%");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifDatosLaboralesDTO> result = query.list();
         return result;
     }
 
-    public List<SiifDatosLaboralesListaDTO> listaSiifDatosLaboralesListaPorCriterio(String rfc) {
+    public List<SiifDatosLaboralesListaDTO> listaSiifDatosLaboralesListaPorCriterio(
+            String rfc) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT * FROM siif_datos_laborales_lista WHERE rfc = :rfc").setParameter("rfc", rfc);
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesListaDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT * FROM siif_datos_laborales_lista WHERE rfc = :rfc")
+                .setParameter("rfc", rfc);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesListaDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifDatosLaboralesListaDTO> result = query.list();
         return result;
     }
 
-    public SiifDatosLaboralesDTO obtenerSiifDatosLaboralesPorId(Integer idDatoLaboral) {
+    public SiifDatosLaboralesDTO obtenerSiifDatosLaboralesPorId(
+            Integer idDatoLaboral) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, " + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
-                + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, " + "rfc AS rfc, " + "id_rfc AS idRfc, " + "id_plaza AS idPlaza, "
-                + "id_proyecto AS idProyecto, " + "id_dependencia AS idDependencia, " + "id_unidad_responsable AS idUnidadResponsable, "
-                + "nombramiento AS nombramiento, " + "id_puesto AS idPuesto, " + "id_sindicato AS idSindicato, " + "id_habilitado AS idHabilitado, "
-                + "fecha_ingreso AS fechaIngreso, " + "no_quinquenios AS noQuinquenios, " + "sueldo_mensual AS sueldoMensual, "
-                + "percepcion_complementaria AS percepcionComplementaria, " + "despensa AS despensa, " + "incentivo_ahorro AS incentivoAhorro, "
-                + "compensacion AS compensacion, " + "quinquenio AS quinquenio, " + "no_cuenta AS noCuenta, " + "policia AS policia, "
-                + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                + "id_tipo_recurso As idTipoRecurso, " + "id_estado_empleado AS idEstadoEmpleado, " + "id_nomina AS idNomina "
-                + "FROM siif_datos_laborales WHERE id_dato_laboral = :idDatoLaboral").setParameter("idDatoLaboral", idDatoLaboral);
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
-        SiifDatosLaboralesDTO result = (SiifDatosLaboralesDTO) query.list().get(0);
+        Query query = session
+                .createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, "
+                        + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
+                        + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, "
+                        + "rfc AS rfc, " + "id_rfc AS idRfc, "
+                        + "id_plaza AS idPlaza, "
+                        + "id_proyecto AS idProyecto, "
+                        + "id_dependencia AS idDependencia, "
+                        + "id_unidad_responsable AS idUnidadResponsable, "
+                        + "nombramiento AS nombramiento, "
+                        + "id_puesto AS idPuesto, "
+                        + "id_sindicato AS idSindicato, "
+                        + "id_habilitado AS idHabilitado, "
+                        + "fecha_ingreso AS fechaIngreso, "
+                        + "no_quinquenios AS noQuinquenios, "
+                        + "sueldo_mensual AS sueldoMensual, "
+                        + "percepcion_complementaria AS percepcionComplementaria, "
+                        + "despensa AS despensa, "
+                        + "incentivo_ahorro AS incentivoAhorro, "
+                        + "compensacion AS compensacion, "
+                        + "quinquenio AS quinquenio, "
+                        + "no_cuenta AS noCuenta, " + "policia AS policia, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_tipo_recurso As idTipoRecurso, "
+                        + "id_estado_empleado AS idEstadoEmpleado, "
+                        + "id_nomina AS idNomina "
+                        + "FROM siif_datos_laborales WHERE id_dato_laboral = :idDatoLaboral")
+                .setParameter("idDatoLaboral", idDatoLaboral);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
+        SiifDatosLaboralesDTO result = (SiifDatosLaboralesDTO) query.list()
+                .get(0);
         return result;
     }
 
-    public List<SiifDatosLaboralesDTO> listaConsultaDatosLaboralesPorIdPersonales(Integer idEmpleadoDatosPersonales) {
+    public List<SiifDatosLaboralesDTO> listaConsultaDatosLaboralesPorIdPersonales(
+            Integer idEmpleadoDatosPersonales) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session
-                .createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, " + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
-                        + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, " + "rfc AS rfc, " + "id_rfc AS idRfc, " + "id_plaza AS idPlaza, "
-                        + "id_proyecto AS idProyecto, " + "id_dependencia AS idDependencia, " + "id_unidad_responsable AS idUnidadResponsable, "
-                        + "nombramiento AS nombramiento, " + "id_puesto AS idPuesto, " + "id_sindicato AS idSindicato, " + "id_habilitado AS idHabilitado, "
-                        + "fecha_ingreso AS fechaIngreso, " + "no_quinquenios AS noQuinquenios, " + "sueldo_mensual AS sueldoMensual, "
-                        + "percepcion_complementaria AS percepcionComplementaria, " + "despensa AS despensa, " + "incentivo_ahorro AS incentivoAhorro, "
-                        + "compensacion AS compensacion, " + "quinquenio AS quinquenio, " + "no_cuenta AS noCuenta, " + "policia AS policia, "
-                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                        + "id_tipo_recurso As idTipoRecurso, " + "id_estado_empleado AS idEstadoEmpleado, " + "id_nomina AS idNomina "
+                .createSQLQuery("SELECT id_dato_laboral AS idDatoLaboral, "
+                        + "id_empleado_datos_laborales AS idEmpleadoDatosLaborales, "
+                        + "id_empleado_datos_personales AS idEmpleadoDatosPersonales, "
+                        + "rfc AS rfc, " + "id_rfc AS idRfc, "
+                        + "id_plaza AS idPlaza, "
+                        + "id_proyecto AS idProyecto, "
+                        + "id_dependencia AS idDependencia, "
+                        + "id_unidad_responsable AS idUnidadResponsable, "
+                        + "nombramiento AS nombramiento, "
+                        + "id_puesto AS idPuesto, "
+                        + "id_sindicato AS idSindicato, "
+                        + "id_habilitado AS idHabilitado, "
+                        + "fecha_ingreso AS fechaIngreso, "
+                        + "no_quinquenios AS noQuinquenios, "
+                        + "sueldo_mensual AS sueldoMensual, "
+                        + "percepcion_complementaria AS percepcionComplementaria, "
+                        + "despensa AS despensa, "
+                        + "incentivo_ahorro AS incentivoAhorro, "
+                        + "compensacion AS compensacion, "
+                        + "quinquenio AS quinquenio, "
+                        + "no_cuenta AS noCuenta, " + "policia AS policia, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_tipo_recurso As idTipoRecurso, "
+                        + "id_estado_empleado AS idEstadoEmpleado, "
+                        + "id_nomina AS idNomina "
                         + "FROM siif_datos_laborales WHERE id_empleado_datos_personales = :idEmpleadoDatosPersonales")
-                .setParameter("idEmpleadoDatosPersonales", idEmpleadoDatosPersonales);
-        query.setResultTransformer(Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
+                .setParameter("idEmpleadoDatosPersonales",
+                        idEmpleadoDatosPersonales);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifDatosLaboralesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifDatosLaboralesDTO> result = query.list();
         return result;
@@ -130,9 +219,12 @@ public class SiifDatosLaboralesService {
 
     public int verificaIdDatoLaboralPorId(Integer idDatoLaboral) {
         Session session = entityManager.unwrap(Session.class);
-        SQLQuery query = (SQLQuery) session.createSQLQuery("SELECT id_empleado_datos_laborales AS idEmpleadoDatosLaborales FROM siif_datos_laborales "
-                + " where id_empleado_datos_personales=:idDatoLaboral").setParameter("idDatoLaboral", idDatoLaboral);
-        query.setResultTransformer(Transformers.aliasToBean(DatosLaboralesDTO.class));
+        SQLQuery query = (SQLQuery) session.createSQLQuery(
+                "SELECT id_empleado_datos_laborales AS idEmpleadoDatosLaborales FROM siif_datos_laborales "
+                        + " where id_empleado_datos_personales=:idDatoLaboral")
+                .setParameter("idDatoLaboral", idDatoLaboral);
+        query.setResultTransformer(
+                Transformers.aliasToBean(DatosLaboralesDTO.class));
         DatosLaboralesDTO result;
         if (query.list().size() > 0) {
             result = (DatosLaboralesDTO) query.list().get(0);
@@ -146,35 +238,49 @@ public class SiifDatosLaboralesService {
 
     public List<SiifLaboralesSubfuentesDTO> listaSiifLaboralesSubfuentes() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
-                + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                + "id_siif_datos_laborales AS idSiifDatosLaborales " + "FROM siif_laborales_subfuentes");
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
+                        + "FROM siif_laborales_subfuentes");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifLaboralesSubfuentesDTO> result = query.list();
         return result;
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesPorId(Integer idSiifLaboralesSubfuentes) {
+    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesPorId(
+            Integer idSiifLaboralesSubfuentes) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_siif_datos_laborales AS idSiifDatosLaborales "
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
                         + "FROM siif_laborales_subfuentes WHERE id_siif_laborales_subfuentes = :idSiifLaboralesSubfuentes")
-                .setParameter("idSiifLaboralesSubfuentes", idSiifLaboralesSubfuentes);
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
-        SiifLaboralesSubfuentesDTO result = (SiifLaboralesSubfuentesDTO) query.list().get(0);
+                .setParameter("idSiifLaboralesSubfuentes",
+                        idSiifLaboralesSubfuentes);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        SiifLaboralesSubfuentesDTO result = (SiifLaboralesSubfuentesDTO) query
+                .list().get(0);
         return result;
     }
 
-    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIdDatos(Integer idSiifDatosLaborales) {
+    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIdDatos(
+            Integer idSiifDatosLaborales) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_siif_datos_laborales AS idSiifDatosLaborales "
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
                         + "FROM siif_laborales_subfuentes WHERE id_siif_datos_laborales = :idSiifDatosLaborales")
                 .setParameter("idSiifDatosLaborales", idSiifDatosLaborales);
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifLaboralesSubfuentesDTO> result = query.list();
         return result;
@@ -184,8 +290,10 @@ public class SiifDatosLaboralesService {
 
     public Integer asignarID(String rfc) {
         //		try{
-        Integer r = entityManager.createQuery("SELECT MAX (idEmpleadoDatosLaborales) " + "FROM SIIFDatosLaboralesEntity WHERE rfc=:rfc", Integer.class)
-                .setParameter("rfc", rfc).getSingleResult();
+        Integer r = entityManager.createQuery(
+                "SELECT MAX (idEmpleadoDatosLaborales) "
+                        + "FROM SIIFDatosLaboralesEntity WHERE rfc=:rfc",
+                Integer.class).setParameter("rfc", rfc).getSingleResult();
         if (r == null) {
             return siguienteIDE(rfc);
         }
@@ -197,28 +305,34 @@ public class SiifDatosLaboralesService {
 
     public Integer siguienteIDE(String rfc) {
         Integer t = new Integer(0);
-        String s = entityManager.createQuery("SELECT nombramiento " + "FROM SIIFDatosLaboralesEntity WHERE rfc=:rfc", String.class).setParameter("rfc", rfc)
-                .getSingleResult();
+        String s = entityManager.createQuery(
+                "SELECT nombramiento "
+                        + "FROM SIIFDatosLaboralesEntity WHERE rfc=:rfc",
+                String.class).setParameter("rfc", rfc).getSingleResult();
         if (s == "E") {
-            Integer p = entityManager
-                    .createQuery("SELECT MAX(idEmpleadoDatosLaborales) " + "FROM siif_datos_laborales " + "WHERE idEmpleadoDatosLaborales > 10000",
-                            Integer.class)
-                    .getSingleResult();
+            Integer p = entityManager.createQuery(
+                    "SELECT MAX(idEmpleadoDatosLaborales) "
+                            + "FROM siif_datos_laborales "
+                            + "WHERE idEmpleadoDatosLaborales > 10000",
+                    Integer.class).getSingleResult();
             t = p + 1;
             return t;
         } else {
-            Integer p = entityManager
-                    .createQuery("SELECT MAX(idEmpleadoDatosLaborales) " + "FROM SIIFDatosLaboralesEntity " + "WHERE idEmpleadoDatosLaborales < 10000",
-                            Integer.class)
-                    .getSingleResult();
+            Integer p = entityManager.createQuery(
+                    "SELECT MAX(idEmpleadoDatosLaborales) "
+                            + "FROM SIIFDatosLaboralesEntity "
+                            + "WHERE idEmpleadoDatosLaborales < 10000",
+                    Integer.class).getSingleResult();
             t = p + 1;
             return t;
         }
     }
 
     public Integer siguienteID(String rfc) {
-        Integer p = entityManager.createQuery("SELECT MAX(idRfc) " + "FROM SIIFDatosLaboralesEntity WHERE rfc = :rfc", Integer.class).setParameter("rfc", rfc)
-                .getSingleResult();
+        Integer p = entityManager.createQuery(
+                "SELECT MAX(idRfc) "
+                        + "FROM SIIFDatosLaboralesEntity WHERE rfc = :rfc",
+                Integer.class).setParameter("rfc", rfc).getSingleResult();
         return (p == null) ? 0 : p + 1;
     }
 
@@ -288,7 +402,8 @@ public class SiifDatosLaboralesService {
         //		}
     }
 
-    public SiifDatosLaboralesDTO crearDatosLaborales(SiifDatosLaboralesDTO dto, String rfc) {
+    public SiifDatosLaboralesDTO crearDatosLaborales(SiifDatosLaboralesDTO dto,
+            String rfc) {
         //	try{
         SIIFDatosLaboralesEntity entity = new SIIFDatosLaboralesEntity();
         //		y=siguienteID(rfc);
@@ -327,8 +442,10 @@ public class SiifDatosLaboralesService {
         //		}
     }
 
-    public SiifDatosLaboralesDTO actualizarDatosLaborales(SiifDatosLaboralesDTO dto) {
-        SIIFDatosLaboralesEntity entity = siifDatosLaboralesDAO.obtenerPorId(dto.getIdDatoLaboral());
+    public SiifDatosLaboralesDTO actualizarDatosLaborales(
+            SiifDatosLaboralesDTO dto) {
+        SIIFDatosLaboralesEntity entity = siifDatosLaboralesDAO
+                .obtenerPorId(dto.getIdDatoLaboral());
         //consulta Maximo si son contratos aplicarlos despues de 10,000 +1  si  son base antes de 10,000 + 1
         entity.setIdEmpleadoDatosLaborales(dto.getIdEmpleadoDatosLaborales());
         //igual al resultante de la consulta de arriba
@@ -364,7 +481,8 @@ public class SiifDatosLaboralesService {
     }
 
     public void eliminarDatosLaborales(SiifDatosLaboralesDTO dto) {
-        SIIFDatosLaboralesEntity entity = entityManager.find(SIIFDatosLaboralesEntity.class, dto.getIdDatoLaboral());
+        SIIFDatosLaboralesEntity entity = entityManager
+                .find(SIIFDatosLaboralesEntity.class, dto.getIdDatoLaboral());
         entityManager.remove(entity);
     }
 
@@ -377,33 +495,45 @@ public class SiifDatosLaboralesService {
         return dto;
     }
 
-    public SiifLaboralesSubfuentesDTO crearSubfuentes(Integer idDatosLaborales) {
+    public SiifLaboralesSubfuentesDTO crearSubfuentes(
+            Integer idDatosLaborales) {
         SiifLaboralesSubfuentesEntity entity = new SiifLaboralesSubfuentesEntity();
         entity.setIdSubfuenteFinanciamiento(null);
         entity.setIdSiifDatosLaborales(idDatosLaborales);
         siifLaboralesSubfuentesDAO.crear(entity);
-        return obtenerSiifLaboralesSubfuentesPorId(entity.getIdSiifLaboralesSubfuentes());
+        return obtenerSiifLaboralesSubfuentesPorId(
+                entity.getIdSiifLaboralesSubfuentes());
     }
 
-    public void actualizarDatos(List<SiifLaboralesSubfuentesDTO> list, Integer idDL) {
+    public void actualizarDatos(List<SiifLaboralesSubfuentesDTO> list,
+            Integer idDL) {
         for (SiifLaboralesSubfuentesDTO subfuente : list) {
-            System.out.println("id::" + subfuente.getIdSiifLaboralesSubfuentes());
+            System.out
+                    .println("id::" + subfuente.getIdSiifLaboralesSubfuentes());
             SiifLaboralesSubfuentesEntity entity = new SiifLaboralesSubfuentesEntity();
-            entity = siifLaboralesSubfuentesDAO.obtenerPorId(subfuente.getIdSiifLaboralesSubfuentes());
-            entity.setIdSubfuenteFinanciamiento(subfuente.getIdSubfuenteFinanciamiento());
+            entity = siifLaboralesSubfuentesDAO
+                    .obtenerPorId(subfuente.getIdSiifLaboralesSubfuentes());
+            entity.setIdSubfuenteFinanciamiento(
+                    subfuente.getIdSubfuenteFinanciamiento());
             siifLaboralesSubfuentesDAO.actualizar(entity);
         }
     }
 
     public void eliminarSiifLAborlaesSubfuente(SiifLaboralesSubfuentesDTO dto) {
-        SiifLaboralesSubfuentesEntity entity = entityManager.find(SiifLaboralesSubfuentesEntity.class, dto.getIdSiifLaboralesSubfuentes());
+        SiifLaboralesSubfuentesEntity entity = entityManager.find(
+                SiifLaboralesSubfuentesEntity.class,
+                dto.getIdSiifLaboralesSubfuentes());
         entityManager.remove(entity);
     }
 
     public List<DependenciaDTO> obtenerDependencia() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_dependencia AS idDependencia, " + "descripcion AS descripcion " + "FROM dependencias_temp");
-        query.setResultTransformer(Transformers.aliasToBean(DependenciaDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT id_dependencia AS idDependencia, "
+                        + "descripcion AS descripcion "
+                        + "FROM dependencias_temp");
+        query.setResultTransformer(
+                Transformers.aliasToBean(DependenciaDTO.class));
         @SuppressWarnings("unchecked")
         List<DependenciaDTO> result = query.list();
         return result;
@@ -411,9 +541,12 @@ public class SiifDatosLaboralesService {
 
     public List<UnidadResponsableDTO> obtenerUnidad() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_unidad_responsable AS idUnidadResponsable, " + "descripcion AS descripcion " + "FROM unidades_responsables");
-        query.setResultTransformer(Transformers.aliasToBean(UnidadResponsableDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_unidad_responsable AS idUnidadResponsable, "
+                        + "descripcion AS descripcion "
+                        + "FROM unidades_responsables");
+        query.setResultTransformer(
+                Transformers.aliasToBean(UnidadResponsableDTO.class));
         @SuppressWarnings("unchecked")
         List<UnidadResponsableDTO> result = query.list();
         return result;
@@ -421,8 +554,12 @@ public class SiifDatosLaboralesService {
 
     public List<TipoNombramientoDTO> obtenerNombramiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT nombramiento AS nombramiento, " + "descripcion AS descripcion " + "FROM tipos_nombramientos");
-        query.setResultTransformer(Transformers.aliasToBean(TipoNombramientoDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT nombramiento AS nombramiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM tipos_nombramientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoNombramientoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoNombramientoDTO> result = query.list();
         return result;
@@ -430,8 +567,12 @@ public class SiifDatosLaboralesService {
 
     public List<TipoNombramientoDTO> obtenerNombramientoID() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT nombramiento AS nombramiento, " + "descripcion AS descripcion " + "FROM tipos_nombramientos");
-        query.setResultTransformer(Transformers.aliasToBean(TipoNombramientoDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT nombramiento AS nombramiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM tipos_nombramientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoNombramientoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoNombramientoDTO> result = query.list();
         return result;
@@ -451,8 +592,10 @@ public class SiifDatosLaboralesService {
 
     public List<PuestosGeneralesDTO> obtenerPuesto() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT codigo AS codigo, " + "puesto AS puesto " + "FROM puestos_generales");
-        query.setResultTransformer(Transformers.aliasToBean(PuestosGeneralesDTO.class));
+        Query query = session.createSQLQuery("SELECT codigo AS codigo, "
+                + "puesto AS puesto " + "FROM puestos_generales");
+        query.setResultTransformer(
+                Transformers.aliasToBean(PuestosGeneralesDTO.class));
         @SuppressWarnings("unchecked")
         List<PuestosGeneralesDTO> result = query.list();
         return result;
@@ -460,9 +603,12 @@ public class SiifDatosLaboralesService {
 
     public List<FuenteFinanciamientoDTO> obtenerFuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM fuentes_financiamientos");
-        query.setResultTransformer(Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM fuentes_financiamientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<FuenteFinanciamientoDTO> result = query.list();
         return result;
@@ -471,8 +617,11 @@ public class SiifDatosLaboralesService {
     public List<SubfuenteFinanciamientoDTO> obtenerSubfuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(
-                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM subfuentes_financiamientos_temp");
-        query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
+                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM subfuentes_financiamientos_temp");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<SubfuenteFinanciamientoDTO> result = query.list();
         return result;
@@ -481,27 +630,35 @@ public class SiifDatosLaboralesService {
     public List<ProyectosTempDTO> obtenerProyecto() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session
-                .createSQLQuery("SELECT id_proyecto AS idProyecto, " + "CONCAT(id_proyecto,' - ',descripcion) AS descripcion " + "FROM proyectos_temp ");
-        query.setResultTransformer(Transformers.aliasToBean(ProyectosTempDTO.class));
+                .createSQLQuery("SELECT id_proyecto AS idProyecto, "
+                        + "CONCAT(id_proyecto,' - ',descripcion) AS descripcion "
+                        + "FROM proyectos_temp ");
+        query.setResultTransformer(
+                Transformers.aliasToBean(ProyectosTempDTO.class));
         @SuppressWarnings("unchecked")
         List<ProyectosTempDTO> result = query.list();
         return result;
     }
 
     public void modificarLaborales(String rfc, Integer id) {
-        for (SiifDatosLaboralesDTO tra : listaConsultaDatosLaboralesPorIdPersonales(id)) {
+        for (SiifDatosLaboralesDTO tra : listaConsultaDatosLaboralesPorIdPersonales(
+                id)) {
             //			for(SiifDatosLaboralesDTO tra: listaSiifDatosLaboralesPorCriterio(rfcOriginal)){
             System.out.println("lista encontrada..." + tra);
-            SIIFDatosLaboralesEntity entity = siifDatosLaboralesDAO.obtenerPorId(tra.getIdDatoLaboral());
+            SIIFDatosLaboralesEntity entity = siifDatosLaboralesDAO
+                    .obtenerPorId(tra.getIdDatoLaboral());
             entity.setRfc(rfc);
         }
     }
 
     public List<FuenteFinanciamientoDTO> listaFuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM fuentes_financiamientos");
-        query.setResultTransformer(Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM fuentes_financiamientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<FuenteFinanciamientoDTO> result = query.list();
         return result;
@@ -510,20 +667,28 @@ public class SiifDatosLaboralesService {
     public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(
-                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM subfuentes_financiamientos_temp");
-        query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
+                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM subfuentes_financiamientos_temp");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<SubfuenteFinanciamientoDTO> result = query.list();
         return result;
     }
 
-    public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoPorIdFF(Integer idFuenteFinanciamiento) {
+    public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoPorIdFF(
+            Integer idFuenteFinanciamiento) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "descripcion AS descripcion " + "FROM subfuentes_financiamientos_temp WHERE id_fuente_financiamiento =:idFuenteFinanciamiento")
-                .setParameter("idFuenteFiananciamiento", idFuenteFinanciamiento);
-        query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM subfuentes_financiamientos_temp WHERE id_fuente_financiamiento =:idFuenteFinanciamiento")
+                .setParameter("idFuenteFiananciamiento",
+                        idFuenteFinanciamiento);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<SubfuenteFinanciamientoDTO> result = query.list();
         return result;
@@ -532,7 +697,8 @@ public class SiifDatosLaboralesService {
     public void change() {
         for (SiifDatosLaboralesDTO laborales : listaSiifDatosLaborales()) {
             SiifLaboralesSubfuentesEntity entity = new SiifLaboralesSubfuentesEntity();
-            entity.setIdSubfuenteFinanciamiento(laborales.getIdSubfuenteFinanciamiento());
+            entity.setIdSubfuenteFinanciamiento(
+                    laborales.getIdSubfuenteFinanciamiento());
             entity.setIdSiifDatosLaborales(laborales.getIdDatoLaboral());
             siifLaboralesSubfuentesDAO.crear(entity);
         }

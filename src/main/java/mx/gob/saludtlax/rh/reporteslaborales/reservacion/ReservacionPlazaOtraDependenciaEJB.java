@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoRepository;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -24,15 +24,20 @@ public class ReservacionPlazaOtraDependenciaEJB {
 
     public ReservacionDTO obtenerReservacionOtra(Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         ReservacionDTO reservacionDTO = new ReservacionDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
         String asunto = "ASUNTO";
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().nombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClavedos = movimientoEmpleadoEntity.getEmpleado().getCurp();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .nombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClavedos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
         String comunicado = "externa sin goce de sueldo en el puesto con funciones de base para ocupar puesto de confianza en otra Dependencia, "
                 + "me permito comunicarle que con fundamento en los Artículos 43 Fracción VIII de la Ley Federal de los Trabajadores al Servicio "
                 + "del Estado y 148 Fracción II de las Condiciones Generales de Trabajo de la Secretaría de Salud";
@@ -73,14 +78,16 @@ public class ReservacionPlazaOtraDependenciaEJB {
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 ReservacionDetalleDTO dto = new ReservacionDetalleDTO();
 

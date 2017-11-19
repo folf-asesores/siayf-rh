@@ -52,8 +52,6 @@ public class HistorialAcademicoDTO implements Serializable {
 
     private Integer numeroCedula;
 
-    
-
     public Integer getIdHistorialAcademico() {
         return idHistorialAcademico;
     }

@@ -13,7 +13,8 @@ public class FuenteFinanciamientoView {
         return nuevaFuenteFinanciamiento;
     }
 
-    public void setNuevaFuenteFinanciamiento(FuenteFinanciamientoDTO nuevaFuenteFinanciamiento) {
+    public void setNuevaFuenteFinanciamiento(
+            FuenteFinanciamientoDTO nuevaFuenteFinanciamiento) {
         this.nuevaFuenteFinanciamiento = nuevaFuenteFinanciamiento;
     }
 
@@ -21,7 +22,8 @@ public class FuenteFinanciamientoView {
         return listFuenteFinanciamiento;
     }
 
-    public void setListFuenteFinanciamiento(List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
+    public void setListFuenteFinanciamiento(
+            List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
         this.listFuenteFinanciamiento = listFuenteFinanciamiento;
     }
 
@@ -29,7 +31,8 @@ public class FuenteFinanciamientoView {
         return mostrarRegistroFuenteFinanciamiento;
     }
 
-    public void setMostrarRegistroFuenteFinanciamiento(boolean mostrarRegistroFuenteFinanciamiento) {
+    public void setMostrarRegistroFuenteFinanciamiento(
+            boolean mostrarRegistroFuenteFinanciamiento) {
         this.mostrarRegistroFuenteFinanciamiento = mostrarRegistroFuenteFinanciamiento;
     }
 

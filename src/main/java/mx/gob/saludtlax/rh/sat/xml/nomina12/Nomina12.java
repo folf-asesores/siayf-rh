@@ -461,7 +461,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "emisor", "receptor", "percepciones", "deducciones", "otrosPagos", "incapacidades" })
+@XmlType(name = "", propOrder = { "emisor", "receptor", "percepciones",
+        "deducciones", "otrosPagos", "incapacidades" })
 @XmlRootElement(name = "Nomina")
 public class Nomina12 {
 
@@ -1750,7 +1751,8 @@ public class Nomina12 {
          *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = { "subsidioAlEmpleo", "compensacionSaldosAFavor" })
+        @XmlType(name = "", propOrder = { "subsidioAlEmpleo",
+                "compensacionSaldosAFavor" })
         public static class OtroPago {
 
             @XmlElement(name = "SubsidioAlEmpleo")
@@ -1786,7 +1788,8 @@ public class Nomina12 {
              *            {@link Nomina12.OtrosPagos.OtroPago.SubsidioAlEmpleo }
              *
              */
-            public void setSubsidioAlEmpleo(Nomina12.OtrosPagos.OtroPago.SubsidioAlEmpleo value) {
+            public void setSubsidioAlEmpleo(
+                    Nomina12.OtrosPagos.OtroPago.SubsidioAlEmpleo value) {
                 subsidioAlEmpleo = value;
             }
 
@@ -1810,7 +1813,8 @@ public class Nomina12 {
              *            {@link Nomina12.OtrosPagos.OtroPago.CompensacionSaldosAFavor }
              *
              */
-            public void setCompensacionSaldosAFavor(Nomina12.OtrosPagos.OtroPago.CompensacionSaldosAFavor value) {
+            public void setCompensacionSaldosAFavor(
+                    Nomina12.OtrosPagos.OtroPago.CompensacionSaldosAFavor value) {
                 compensacionSaldosAFavor = value;
             }
 
@@ -2216,7 +2220,8 @@ public class Nomina12 {
      *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = { "percepcion", "jubilacionPensionRetiro", "separacionIndemnizacion" })
+    @XmlType(name = "", propOrder = { "percepcion", "jubilacionPensionRetiro",
+            "separacionIndemnizacion" })
     public static class Percepciones {
 
         @XmlElement(name = "Percepcion", required = true)
@@ -2286,7 +2291,8 @@ public class Nomina12 {
          *            {@link Nomina12.Percepciones.JubilacionPensionRetiro }
          *
          */
-        public void setJubilacionPensionRetiro(Nomina12.Percepciones.JubilacionPensionRetiro value) {
+        public void setJubilacionPensionRetiro(
+                Nomina12.Percepciones.JubilacionPensionRetiro value) {
             jubilacionPensionRetiro = value;
         }
 
@@ -2310,7 +2316,8 @@ public class Nomina12 {
          *            {@link Nomina12.Percepciones.SeparacionIndemnizacion }
          *
          */
-        public void setSeparacionIndemnizacion(Nomina12.Percepciones.SeparacionIndemnizacion value) {
+        public void setSeparacionIndemnizacion(
+                Nomina12.Percepciones.SeparacionIndemnizacion value) {
             separacionIndemnizacion = value;
         }
 
@@ -2728,7 +2735,8 @@ public class Nomina12 {
              *            {@link Nomina12.Percepciones.Percepcion.AccionesOTitulos }
              *
              */
-            public void setAccionesOTitulos(Nomina12.Percepciones.Percepcion.AccionesOTitulos value) {
+            public void setAccionesOTitulos(
+                    Nomina12.Percepciones.Percepcion.AccionesOTitulos value) {
                 accionesOTitulos = value;
             }
 

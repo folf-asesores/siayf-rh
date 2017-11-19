@@ -24,7 +24,8 @@ public class ConsultarPeriodoEJB {
     @SuppressWarnings("unchecked")
     public List<String> obtenerPeriodoList() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT fecha_fin_quincena FROM acumulado_partida GROUP BY fecha_fin_quincena");
+        Query query = session.createSQLQuery(
+                "SELECT fecha_fin_quincena FROM acumulado_partida GROUP BY fecha_fin_quincena");
         List<Date> list = query.list();
         List<String> listStr = new ArrayList<>();
         for (Date date : list) {
@@ -37,8 +38,11 @@ public class ConsultarPeriodoEJB {
     public List<ConsultaPeriodo> consultarNominaPorPeriodo(String periodoStr) {
         Date periodo = FechaUtil.stringToDate(periodoStr);
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consulta_periodo(:periodo)").setParameter("periodo", periodo);
-        query.setResultTransformer(Transformers.aliasToBean(ConsultaPeriodo.class));
+        Query query = session
+                .createSQLQuery("CALL usp_consulta_periodo(:periodo)")
+                .setParameter("periodo", periodo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConsultaPeriodo.class));
         List<ConsultaPeriodo> list = query.list();
         return list;
     }

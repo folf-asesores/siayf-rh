@@ -24,7 +24,8 @@ public class RevisarChequesServices implements Serializable {
     protected List<RevisarChequesDTO> obtenerListaRevisarCheques() {
         List<RevisarChequesDTO> listaRevisarChequesDTOs = new ArrayList<>();
 
-        listaRevisarChequesDTOs = revisarChequesRepository.obtenerListaRevisarCheques();
+        listaRevisarChequesDTOs = revisarChequesRepository
+                .obtenerListaRevisarCheques();
 
         //		if (!obtenerRevisarChequesEntities.isEmpty()) {
         //			for (RevisarChequesEntity revisarchequesEntity : obtenerRevisarChequesEntities) {
@@ -45,17 +46,20 @@ public class RevisarChequesServices implements Serializable {
         return listaRevisarChequesDTOs;
     }
 
-    protected List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo, Integer anio) {
+    protected List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo,
+            Integer anio) {
         List<RevisarChequesDTO> listaRevisarChequesDTOs = new ArrayList<>();
 
-        listaRevisarChequesDTOs = revisarChequesRepository.obtenerListaRevisarCheques(periodo, anio);
+        listaRevisarChequesDTOs = revisarChequesRepository
+                .obtenerListaRevisarCheques(periodo, anio);
 
         return listaRevisarChequesDTOs;
     }
 
     protected List<RevisarChequesDTO> obtenerListaRevisarChequesAvanzada() {
         List<RevisarChequesDTO> listaRevisarChequesDTOs = new ArrayList<>();
-        listaRevisarChequesDTOs = revisarChequesRepository.obtenerListaRevisarChequesAvanzada();
+        listaRevisarChequesDTOs = revisarChequesRepository
+                .obtenerListaRevisarChequesAvanzada();
         return listaRevisarChequesDTOs;
     }
 

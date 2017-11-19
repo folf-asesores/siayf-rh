@@ -20,10 +20,12 @@ public interface DividirNomina extends Serializable {
 
     List<DividirNominaDTO> obtenerProductoNomina(Integer primerResultado);
 
-    List<DividirNominaDTO> obtenerProductoNomina(Integer primerResultado, Integer cantidadResultados, Integer idProductoNomina);
+    List<DividirNominaDTO> obtenerProductoNomina(Integer primerResultado,
+            Integer cantidadResultados, Integer idProductoNomina);
 
     Integer obtenerTotalProductosNomina(Integer idProductoNomina);
 
-    List<DividirNominaDTO> dividirProductoNomina(DividirNominaFiltro filtro, Integer idUsuario);
+    List<DividirNominaDTO> dividirProductoNomina(DividirNominaFiltro filtro,
+            Integer idUsuario);
 
 }

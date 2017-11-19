@@ -51,8 +51,11 @@ public class SIIFEncabezadoDTO {
     //        this.idEstadoNomina = idEstadoNomina;
     //    }
 
-    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena, Integer claveCuentaBancaria,
-            String idTipoEmisionNomina, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina) {
+    public SIIFEncabezadoDTO(Integer idNomina, Character idPoder,
+            Integer idTipoNomina, Date fechaFinQuincena,
+            Integer claveCuentaBancaria, String idTipoEmisionNomina,
+            BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto,
+            Character idEstadoNomina) {
         this.idNomina = idNomina;
         this.idPoder = idPoder;
         this.idTipoNomina = idTipoNomina;
@@ -65,9 +68,12 @@ public class SIIFEncabezadoDTO {
         this.idEstadoNomina = idEstadoNomina;
     }
 
-    public SIIFEncabezadoDTO(Integer idSIIFEncabezado, Integer idNomina, Character idPoder, Integer idTipoNomina, Date fechaFinQuincena,
-            String idTipoEmisionNomina, Integer idCuentaBancaria, Integer claveCuentaBancaria, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto,
-            Character idEstadoNomina, Integer idSIIFBitacora) {
+    public SIIFEncabezadoDTO(Integer idSIIFEncabezado, Integer idNomina,
+            Character idPoder, Integer idTipoNomina, Date fechaFinQuincena,
+            String idTipoEmisionNomina, Integer idCuentaBancaria,
+            Integer claveCuentaBancaria, BigDecimal percepciones,
+            BigDecimal deducciones, BigDecimal neto, Character idEstadoNomina,
+            Integer idSIIFBitacora) {
         this.idSIIFEncabezado = idSIIFEncabezado;
         this.idNomina = idNomina;
         this.idPoder = idPoder;

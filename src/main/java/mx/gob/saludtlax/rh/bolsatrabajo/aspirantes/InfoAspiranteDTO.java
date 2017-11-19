@@ -23,13 +23,12 @@ public class InfoAspiranteDTO {
     private String estudios;
     private String profesionEspecialidad;
 
-    
-
     public InfoAspiranteDTO() {
         super();
     }
 
-    public InfoAspiranteDTO(Integer idAspirante, String nombre, String curp, String rfc, String direccion, String estatus) {
+    public InfoAspiranteDTO(Integer idAspirante, String nombre, String curp,
+            String rfc, String direccion, String estatus) {
 
         this.idAspirante = idAspirante;
         this.nombre = nombre;
@@ -39,7 +38,9 @@ public class InfoAspiranteDTO {
         this.estatus = estatus;
     }
 
-    public InfoAspiranteDTO(Integer idAspirante, String nombre, String curp, String rfc, String direccion, String estatus, String profesionEspecialidad) {
+    public InfoAspiranteDTO(Integer idAspirante, String nombre, String curp,
+            String rfc, String direccion, String estatus,
+            String profesionEspecialidad) {
 
         this.idAspirante = idAspirante;
         this.nombre = nombre;

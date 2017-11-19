@@ -19,8 +19,8 @@ import mx.gob.saludtlax.rh.persistencia.ProfesionRepository;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 10/03/2016 11:34:08
  */
 @Stateless
@@ -54,7 +54,8 @@ public class ProfesionEJB implements Serializable, Profesion {
             profesionRepository.crear(profesionRegistrar);
 
         } catch (PersistenceException e) {
-            throw new BusinessException("No se registro la Profesión, intentelo de nuevo");
+            throw new BusinessException(
+                    "No se registro la Profesión, intentelo de nuevo");
         }
     }
 
@@ -69,13 +70,15 @@ public class ProfesionEJB implements Serializable, Profesion {
     public void actualizarProfesion(ProfesionDTO profesion) {
 
         try {
-            ProfesionEntity profesionActualizar = profesionRepository.obtenerPorId(profesion.getIdProfesion());
+            ProfesionEntity profesionActualizar = profesionRepository
+                    .obtenerPorId(profesion.getIdProfesion());
 
             profesionActualizar.setProfesion(profesion.getProfesion());
 
             profesionRepository.actualizar(profesionActualizar);
         } catch (PersistenceException e) {
-            throw new BusinessException("No se actualizarón los datos, intentelo de nuevo");
+            throw new BusinessException(
+                    "No se actualizarón los datos, intentelo de nuevo");
         }
 
     }
@@ -92,7 +95,8 @@ public class ProfesionEJB implements Serializable, Profesion {
         try {
             profesionRepository.eliminarPorId(idProfesion);
         } catch (PersistenceException ex) {
-            throw new BusinessException("No se elimino la Profesión, Intentelo de nuevo");
+            throw new BusinessException(
+                    "No se elimino la Profesión, Intentelo de nuevo");
         }
 
     }
@@ -107,10 +111,13 @@ public class ProfesionEJB implements Serializable, Profesion {
     public List<ProfesionDTO> listaProfesion() {
         try {
             List<ProfesionDTO> listaProfesion = new ArrayList<>();
-            List<ProfesionEntity> profesionEntities = profesionRepository.obtenerListaProfesion();
+            List<ProfesionEntity> profesionEntities = profesionRepository
+                    .obtenerListaProfesion();
 
             for (ProfesionEntity profesionEntity : profesionEntities) {
-                ProfesionDTO profesion = new ProfesionDTO(profesionEntity.getIdProfesion(), profesionEntity.getProfesion());
+                ProfesionDTO profesion = new ProfesionDTO(
+                        profesionEntity.getIdProfesion(),
+                        profesionEntity.getProfesion());
                 listaProfesion.add(profesion);
             }
             return listaProfesion;
@@ -127,30 +134,38 @@ public class ProfesionEJB implements Serializable, Profesion {
      * obtenerListaProfesionPorIdAspirante(java.lang.Integer)
      */
     @Override
-    public List<ProfesionDTO> obtenerListaProfesionPorIdAspirante(Integer idAspirante) {
-        return profesionService.obtenerListaProfesionPorIdAspirante(idAspirante);
+    public List<ProfesionDTO> obtenerListaProfesionPorIdAspirante(
+            Integer idAspirante) {
+        return profesionService
+                .obtenerListaProfesionPorIdAspirante(idAspirante);
     }
 
     @Override
-    public List<ProfesionDTO> obtenerListaProfesionPorIdEmpleado(Integer idEmpleado) {
+    public List<ProfesionDTO> obtenerListaProfesionPorIdEmpleado(
+            Integer idEmpleado) {
 
         return profesionService.obtenerListaProfesionPorIdEmpleado(idEmpleado);
     }
 
     @Override
-    public List<InfoVacantePostularDTO> obtenerListaProfesionPorTipoCandidato(Integer idProfesion, Integer tipoCandidato) {
+    public List<InfoVacantePostularDTO> obtenerListaProfesionPorTipoCandidato(
+            Integer idProfesion, Integer tipoCandidato) {
 
-        return profesionService.obtenerListaProfesionPorTipoCandidato(idProfesion, tipoCandidato);
+        return profesionService.obtenerListaProfesionPorTipoCandidato(
+                idProfesion, tipoCandidato);
     }
 
     @Override
-    public void crearProfesionAspirante(Integer idProfesion, Integer idAspirante) {
+    public void crearProfesionAspirante(Integer idProfesion,
+            Integer idAspirante) {
         profesionService.crearProfesionAspirante(idProfesion, idAspirante);
     }
 
     @Override
-    public void actualizarProfesionAspirante(ProfesionDTO profesionDTO, Integer idAspirante) {
-        profesionService.actualizarProfesionAspirante(profesionDTO, idAspirante);
+    public void actualizarProfesionAspirante(ProfesionDTO profesionDTO,
+            Integer idAspirante) {
+        profesionService.actualizarProfesionAspirante(profesionDTO,
+                idAspirante);
 
     }
 

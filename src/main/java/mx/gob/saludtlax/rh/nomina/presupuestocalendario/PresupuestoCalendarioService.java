@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.persistencia.PresupuestoCalendarioEntity;
 import mx.gob.saludtlax.rh.persistencia.PresupuestoCalendarioRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class PresupuestoCalendarioService implements Serializable {
@@ -63,8 +63,10 @@ public class PresupuestoCalendarioService implements Serializable {
 
     }
 
-    protected void actualizarPresupuestoCalendario(PresupuestoCalendarioDTO dto) {
-        PresupuestoCalendarioEntity entity = presupuestoCalendarioRepository.obtenerPorId(dto.getIdPresupuestoCalendario());
+    protected void actualizarPresupuestoCalendario(
+            PresupuestoCalendarioDTO dto) {
+        PresupuestoCalendarioEntity entity = presupuestoCalendarioRepository
+                .obtenerPorId(dto.getIdPresupuestoCalendario());
 
         entity.setUr(dto.getUr());
         entity.setFin(dto.getFin());
@@ -98,7 +100,8 @@ public class PresupuestoCalendarioService implements Serializable {
 
     }
 
-    protected void eliminarPresupuestoCalendario(Integer idPresupuestoCalendario) {
+    protected void eliminarPresupuestoCalendario(
+            Integer idPresupuestoCalendario) {
 
         presupuestoCalendarioRepository.eliminarPorId(idPresupuestoCalendario);
     }
@@ -107,15 +110,24 @@ public class PresupuestoCalendarioService implements Serializable {
 
         List<PresupuestoCalendarioDTO> listaDtos = new ArrayList<>();
 
-        List<PresupuestoCalendarioEntity> listaEntities = presupuestoCalendarioRepository.obtenerListaPresupuestoCalendario();
+        List<PresupuestoCalendarioEntity> listaEntities = presupuestoCalendarioRepository
+                .obtenerListaPresupuestoCalendario();
 
         if (!listaEntities.isEmpty()) {
             for (PresupuestoCalendarioEntity entity : listaEntities) {
-                PresupuestoCalendarioDTO dto = new PresupuestoCalendarioDTO(entity.getIdPresupuestoCalendario(), entity.getUr(), entity.getFin(),
-                        entity.getFn(), entity.getSf(), entity.getRg(), entity.getAi(), entity.getMpp(), entity.getPp(), entity.getPtda(), entity.getTg(),
-                        entity.getFf(), entity.getEf(), entity.getPpii(), entity.getAnio(), entity.getProyectoAnual(), entity.getEnero(), entity.getFebrero(),
-                        entity.getMarzo(), entity.getAbril(), entity.getMayo(), entity.getJunio(), entity.getJulio(), entity.getAgosto(), entity.getSeptimbre(),
-                        entity.getOctubre(), entity.getNoviembre(), entity.getDiciembre());
+                PresupuestoCalendarioDTO dto = new PresupuestoCalendarioDTO(
+                        entity.getIdPresupuestoCalendario(), entity.getUr(),
+                        entity.getFin(), entity.getFn(), entity.getSf(),
+                        entity.getRg(), entity.getAi(), entity.getMpp(),
+                        entity.getPp(), entity.getPtda(), entity.getTg(),
+                        entity.getFf(), entity.getEf(), entity.getPpii(),
+                        entity.getAnio(), entity.getProyectoAnual(),
+                        entity.getEnero(), entity.getFebrero(),
+                        entity.getMarzo(), entity.getAbril(), entity.getMayo(),
+                        entity.getJunio(), entity.getJulio(),
+                        entity.getAgosto(), entity.getSeptimbre(),
+                        entity.getOctubre(), entity.getNoviembre(),
+                        entity.getDiciembre());
 
                 listaDtos.add(dto);
             }
@@ -124,19 +136,29 @@ public class PresupuestoCalendarioService implements Serializable {
         return listaDtos;
     }
 
-    protected List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(Integer anio) {
+    protected List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(
+            Integer anio) {
 
         List<PresupuestoCalendarioDTO> listaDtos = new ArrayList<>();
 
-        List<PresupuestoCalendarioEntity> listaEntities = presupuestoCalendarioRepository.obtenerListaPresupuestoCalendarioPorAnio(anio);
+        List<PresupuestoCalendarioEntity> listaEntities = presupuestoCalendarioRepository
+                .obtenerListaPresupuestoCalendarioPorAnio(anio);
 
         if (!listaEntities.isEmpty()) {
             for (PresupuestoCalendarioEntity entity : listaEntities) {
-                PresupuestoCalendarioDTO dto = new PresupuestoCalendarioDTO(entity.getIdPresupuestoCalendario(), entity.getUr(), entity.getFin(),
-                        entity.getFn(), entity.getSf(), entity.getRg(), entity.getAi(), entity.getMpp(), entity.getPp(), entity.getPtda(), entity.getTg(),
-                        entity.getFf(), entity.getEf(), entity.getPpii(), entity.getAnio(), entity.getProyectoAnual(), entity.getEnero(), entity.getFebrero(),
-                        entity.getMarzo(), entity.getAbril(), entity.getMayo(), entity.getJunio(), entity.getJulio(), entity.getAgosto(), entity.getSeptimbre(),
-                        entity.getOctubre(), entity.getNoviembre(), entity.getDiciembre());
+                PresupuestoCalendarioDTO dto = new PresupuestoCalendarioDTO(
+                        entity.getIdPresupuestoCalendario(), entity.getUr(),
+                        entity.getFin(), entity.getFn(), entity.getSf(),
+                        entity.getRg(), entity.getAi(), entity.getMpp(),
+                        entity.getPp(), entity.getPtda(), entity.getTg(),
+                        entity.getFf(), entity.getEf(), entity.getPpii(),
+                        entity.getAnio(), entity.getProyectoAnual(),
+                        entity.getEnero(), entity.getFebrero(),
+                        entity.getMarzo(), entity.getAbril(), entity.getMayo(),
+                        entity.getJunio(), entity.getJulio(),
+                        entity.getAgosto(), entity.getSeptimbre(),
+                        entity.getOctubre(), entity.getNoviembre(),
+                        entity.getDiciembre());
 
                 listaDtos.add(dto);
             }

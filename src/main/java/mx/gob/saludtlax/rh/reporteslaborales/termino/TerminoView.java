@@ -39,7 +39,8 @@ public class TerminoView implements Serializable {
         return terminoDetalleDTO;
     }
 
-    public void setTerminoDetalleDTO(List<TerminoDetalleDTO> terminoDetalleDTO) {
+    public void setTerminoDetalleDTO(
+            List<TerminoDetalleDTO> terminoDetalleDTO) {
         this.terminoDetalleDTO = terminoDetalleDTO;
     }
 

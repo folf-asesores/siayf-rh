@@ -34,7 +34,8 @@ import org.jboss.logging.Logger;
  */
 public class DispersionExcelService {
 
-    private static final Logger LOGGER = Logger.getLogger(DispersionExcelService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DispersionExcelService.class.getName());
 
     /** El nombre de la hoja sobre la que se trabajará. */
     private final String nombreHoja = "dispersion";
@@ -58,7 +59,8 @@ public class DispersionExcelService {
         font.setBold(true);
         estiloTitulo.setFont(font);
 
-        Cell numeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, CellType.STRING);
+        Cell numeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA,
+                CellType.STRING);
         numeroCuenta.setCellValue("Número de cuenta");
         numeroCuenta.setCellStyle(estiloTitulo);
 
@@ -70,7 +72,8 @@ public class DispersionExcelService {
         leyenda.setCellValue("Leyenda");
         leyenda.setCellStyle(estiloTitulo);
 
-        Cell nombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, CellType.STRING);
+        Cell nombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO,
+                CellType.STRING);
         nombreEmpleado.setCellValue("Nombre del empleado");
         nombreEmpleado.setCellStyle(estiloTitulo);
     }
@@ -83,7 +86,9 @@ public class DispersionExcelService {
         Collections.sort(detalles);
 
         for (DispersionDTO dispersionDTO : detalles) {
-            if (i != FILA_INICIO_DETALLE && !fuenteFinanciamiento.equalsIgnoreCase(dispersionDTO.getFuenteFinanciamiento())) {
+            if (i != FILA_INICIO_DETALLE
+                    && !fuenteFinanciamiento.equalsIgnoreCase(
+                            dispersionDTO.getFuenteFinanciamiento())) {
                 llenarTotal(i, fuenteFinanciamiento, totalMonto, contador);
                 i += 2;
                 totalMonto = 0;
@@ -91,7 +96,8 @@ public class DispersionExcelService {
             }
 
             Row fila = hoja.createRow(i);
-            Cell celdaNumeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, CellType.STRING);
+            Cell celdaNumeroCuenta = fila.createCell(COLUMNA_NUMERO_DE_CUENTA,
+                    CellType.STRING);
             celdaNumeroCuenta.setCellValue(dispersionDTO.getNumeroCuenta());
 
             Cell celdaMonto = fila.createCell(COLUMNA_MONTO, CellType.NUMERIC);
@@ -99,12 +105,15 @@ public class DispersionExcelService {
             totalMonto += monto;
             celdaMonto.setCellValue(monto);
 
-            Cell celdadLeyenda = fila.createCell(COLUMNA_LEYENDA, CellType.STRING);
+            Cell celdadLeyenda = fila.createCell(COLUMNA_LEYENDA,
+                    CellType.STRING);
             String leyenda = obtenerLeyenda(dispersionDTO.getFechaPago());
             celdadLeyenda.setCellValue(leyenda);
 
-            Cell celdadNombreEmpleado = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, CellType.STRING);
-            celdadNombreEmpleado.setCellValue(dispersionDTO.getNombreEmpleado().toUpperCase());
+            Cell celdadNombreEmpleado = fila
+                    .createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, CellType.STRING);
+            celdadNombreEmpleado.setCellValue(
+                    dispersionDTO.getNombreEmpleado().toUpperCase());
 
             i++;
             contador++;
@@ -114,7 +123,8 @@ public class DispersionExcelService {
         llenarTotal(i, fuenteFinanciamiento, totalMonto, contador);
     }
 
-    private void llenarTotal(int indice, String fuenteFinanciamiento, double totalMonto, int totalEmpleados) {
+    private void llenarTotal(int indice, String fuenteFinanciamiento,
+            double totalMonto, int totalEmpleados) {
         CellStyle estiloTotalTitulo = libro.createCellStyle();
         Font fuenteTitulo = libro.createFont();
         fuenteTitulo.setBold(true);
@@ -127,19 +137,24 @@ public class DispersionExcelService {
         estiloTotalValor.setAlignment(HorizontalAlignment.RIGHT);
 
         Row fila = hoja.createRow(indice);
-        Cell celdadFuenteFinanciemientoTitulo = fila.createCell(COLUMNA_NUMERO_DE_CUENTA, CellType.STRING);
-        celdadFuenteFinanciemientoTitulo.setCellValue(String.format("Total %s", fuenteFinanciamiento));
+        Cell celdadFuenteFinanciemientoTitulo = fila
+                .createCell(COLUMNA_NUMERO_DE_CUENTA, CellType.STRING);
+        celdadFuenteFinanciemientoTitulo
+                .setCellValue(String.format("Total %s", fuenteFinanciamiento));
         celdadFuenteFinanciemientoTitulo.setCellStyle(estiloTotalTitulo);
 
-        Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO, CellType.NUMERIC);
+        Cell celdadFuenteFinanciemientoValor = fila.createCell(COLUMNA_MONTO,
+                CellType.NUMERIC);
         celdadFuenteFinanciemientoValor.setCellValue(totalMonto);
         celdadFuenteFinanciemientoValor.setCellStyle(estiloTotalValor);
 
-        Cell celdadTotalEmpleadosTitulo = fila.createCell(COLUMNA_LEYENDA, CellType.STRING);
+        Cell celdadTotalEmpleadosTitulo = fila.createCell(COLUMNA_LEYENDA,
+                CellType.STRING);
         celdadTotalEmpleadosTitulo.setCellValue("Total empleados");
         celdadTotalEmpleadosTitulo.setCellStyle(estiloTotalTitulo);
 
-        Cell celdadTotalEmpleadosValor = fila.createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, CellType.NUMERIC);
+        Cell celdadTotalEmpleadosValor = fila
+                .createCell(COLUMNA_NOMBRE_DEL_EMPLEADO, CellType.NUMERIC);
         celdadTotalEmpleadosValor.setCellValue(totalEmpleados);
         celdadTotalEmpleadosValor.setCellStyle(estiloTotalValor);
     }
@@ -156,11 +171,13 @@ public class DispersionExcelService {
         return archivo;
     }
 
-    public byte[] obtenerBytes(List<List<DispersionDTO>> dispersionList) throws IOException {
+    public byte[] obtenerBytes(List<List<DispersionDTO>> dispersionList)
+            throws IOException {
         libro = new XSSFWorkbook();
         Integer number = 1;
         for (List<DispersionDTO> dispersion : dispersionList) {
-            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja + number++, '_');
+            String nombreHojaSeguro = WorkbookUtil
+                    .createSafeSheetName(nombreHoja + number++, '_');
             LOGGER.info(nombreHojaSeguro);
             hoja = libro.createSheet(nombreHojaSeguro);
 

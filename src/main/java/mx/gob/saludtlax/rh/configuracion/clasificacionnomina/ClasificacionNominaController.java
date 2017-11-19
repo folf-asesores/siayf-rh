@@ -53,7 +53,8 @@ public class ClasificacionNominaController {
     }
 
     public String irGestionarClasificacionNomina() {
-        view.setClasificacionNomina(ejb.obtenerClasificacionNomina(view.getClasificacionNominaSelect()));
+        view.setClasificacionNomina(ejb.obtenerClasificacionNomina(
+                view.getClasificacionNominaSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.setOpEliminar(Boolean.TRUE);
         view.panelGestion();
@@ -99,7 +100,8 @@ public class ClasificacionNominaController {
         dialogo = Boolean.FALSE;
     }
 
-    public void validatorClasificacion(FacesContext context, UIComponent component, Object value) {
+    public void validatorClasificacion(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -107,7 +109,9 @@ public class ClasificacionNominaController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Descripción");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Descripción");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -116,13 +120,18 @@ public class ClasificacionNominaController {
                 String ID = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(ID)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una ID de la Clasificacion");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una ID de la Clasificacion");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (ID.length() > 1) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El ID es de un maximo de 1 caracter");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El ID es de un maximo de 1 caracter");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

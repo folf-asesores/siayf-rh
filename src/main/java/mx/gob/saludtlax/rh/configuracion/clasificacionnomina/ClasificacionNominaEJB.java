@@ -13,12 +13,16 @@ public class ClasificacionNominaEJB {
     private ClasificacionNominaService clasificacionNominaService;
 
     public List<ClasificacionNominaDTO> obtenerClasificacionNominaLista() {
-        List<ClasificacionNominaDTO> clasificacionNominaLista = clasificacionNominaService.listaClasificacionNomina();
+        List<ClasificacionNominaDTO> clasificacionNominaLista = clasificacionNominaService
+                .listaClasificacionNomina();
         return clasificacionNominaLista;
     }
 
-    public ClasificacionNominaDTO obtenerClasificacionNomina(ClasificacionNominaDTO clasificacionNomina) {
-        ClasificacionNominaDTO dto = clasificacionNominaService.obtenerClasificacionNominaPorId(clasificacionNomina.getIdClasificacionNomina());
+    public ClasificacionNominaDTO obtenerClasificacionNomina(
+            ClasificacionNominaDTO clasificacionNomina) {
+        ClasificacionNominaDTO dto = clasificacionNominaService
+                .obtenerClasificacionNominaPorId(
+                        clasificacionNomina.getIdClasificacionNomina());
         return dto;
     }
 
@@ -26,11 +30,13 @@ public class ClasificacionNominaEJB {
         return clasificacionNominaService.nuevoClasificacionNomina();
     }
 
-    public ClasificacionNominaDTO crearClasificacionNomina(ClasificacionNominaDTO dto) {
+    public ClasificacionNominaDTO crearClasificacionNomina(
+            ClasificacionNominaDTO dto) {
         return clasificacionNominaService.crearClasificacionNomina(dto);
     }
 
-    public ClasificacionNominaDTO actualizarClasificacionNomina(ClasificacionNominaDTO dto) {
+    public ClasificacionNominaDTO actualizarClasificacionNomina(
+            ClasificacionNominaDTO dto) {
         return clasificacionNominaService.actualizarClasificacionNomina(dto);
     }
 

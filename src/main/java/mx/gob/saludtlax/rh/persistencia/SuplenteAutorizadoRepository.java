@@ -15,7 +15,8 @@ import mx.gob.saludtlax.rh.empleados.suplencia.SuplenteDTO;
  * @since 2016-10-19
  *
  */
-public class SuplenteAutorizadoRepository extends GenericRepository<SuplenteAutorizadoEntity, Integer> {
+public class SuplenteAutorizadoRepository
+        extends GenericRepository<SuplenteAutorizadoEntity, Integer> {
 
     /**
      *
@@ -24,8 +25,10 @@ public class SuplenteAutorizadoRepository extends GenericRepository<SuplenteAuto
 
     public boolean esEmpleadoActivoComoSuplente(Integer idEmpleado) {
         try {
-            em.createQuery("SELECT s.idSuplenteAutorizado FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado", Integer.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            em.createQuery(
+                    "SELECT s.idSuplenteAutorizado FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado",
+                    Integer.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -33,9 +36,12 @@ public class SuplenteAutorizadoRepository extends GenericRepository<SuplenteAuto
 
     }
 
-    public SuplenteAutorizadoEntity obtenerEmpleadoSuplente(Integer idEmpleado) {
+    public SuplenteAutorizadoEntity obtenerEmpleadoSuplente(
+            Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT s FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado", SuplenteAutorizadoEntity.class)
+            return em.createQuery(
+                    "SELECT s FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado",
+                    SuplenteAutorizadoEntity.class)
                     .setParameter("idEmpleado", idEmpleado).getSingleResult();
 
         } catch (NoResultException exception) {
@@ -45,27 +51,28 @@ public class SuplenteAutorizadoRepository extends GenericRepository<SuplenteAuto
     }
 
     public List<SuplenteDTO> consultarSuplentesPorCriterio(String criterio) {
-        return em
-                .createQuery(
-                        "SELECT NEW mx.gob.saludtlax.rh.empleados.suplencia.SuplenteDTO (s.idSuplenteAutorizado, s.empleado.rfc, s.empleado.nombreCompleto, "
-                                + "s.estatus, s.empleado.tipoEmpleado.tipoEmpleado, s.empleado.idEmpleado) FROM SuplenteAutorizadoEntity AS s "
-                                + "WHERE s.empleado.rfc LIKE :criterio OR s.empleado.nombreCompleto LIKE :criterio ORDER BY s.empleado.rfc ASC",
-                        SuplenteDTO.class)
+        return em.createQuery(
+                "SELECT NEW mx.gob.saludtlax.rh.empleados.suplencia.SuplenteDTO (s.idSuplenteAutorizado, s.empleado.rfc, s.empleado.nombreCompleto, "
+                        + "s.estatus, s.empleado.tipoEmpleado.tipoEmpleado, s.empleado.idEmpleado) FROM SuplenteAutorizadoEntity AS s "
+                        + "WHERE s.empleado.rfc LIKE :criterio OR s.empleado.nombreCompleto LIKE :criterio ORDER BY s.empleado.rfc ASC",
+                SuplenteDTO.class)
                 .setParameter("criterio", "%" + criterio + "%").getResultList();
     }
 
     public List<SuplenteDTO> consultarSuplentesPorIdEstatus(String estatus) {
-        return em
-                .createQuery("SELECT NEW mx.gob.saludtlax.rh.empleados.suplencia.SuplenteDTO (s.idSuplenteAutorizado, s.empleado.rfc,"
+        return em.createQuery(
+                "SELECT NEW mx.gob.saludtlax.rh.empleados.suplencia.SuplenteDTO (s.idSuplenteAutorizado, s.empleado.rfc,"
                         + " s.empleado.nombreCompleto, s.estatus, s.empleado.tipoEmpleado.tipoEmpleado, s.empleado.idEmpleado)"
-                        + " FROM SuplenteAutorizadoEntity AS s WHERE s.estatus =:estatus ORDER BY s.empleado.rfc ASC", SuplenteDTO.class)
-                .setParameter("estatus", estatus).getResultList();
+                        + " FROM SuplenteAutorizadoEntity AS s WHERE s.estatus =:estatus ORDER BY s.empleado.rfc ASC",
+                SuplenteDTO.class).setParameter("estatus", estatus)
+                .getResultList();
     }
 
     public boolean estaHabilitadoEmpleadoComoSuplente(Integer idEmpleado) {
         try {
-            em.createQuery("SELECT s.idSuplenteAutorizado FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado", Integer.class)
-                    .getResultList();
+            em.createQuery(
+                    "SELECT s.idSuplenteAutorizado FROM SuplenteAutorizadoEntity AS s WHERE s.empleado.idEmpleado =:idEmpleado",
+                    Integer.class).getResultList();
             return true;
         } catch (NoResultException exception) {
             return false;

@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author eduardo mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity

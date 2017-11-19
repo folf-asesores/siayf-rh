@@ -28,35 +28,49 @@ public class SiifLaboralesSubfuentesService {
 
     public List<SiifLaboralesSubfuentesDTO> listaSiifLaboralesSubfuentes() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
-                + "id_fuente_financiamiento AS idFuenteFinanciamiento, " + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
-                + "id_siif_datos_laborales AS idSiifDatosLaborales " + "FROM siif_laborales_subfuentes");
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
+                        + "FROM siif_laborales_subfuentes");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifLaboralesSubfuentesDTO> result = query.list();
         return result;
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesPorId(Integer idSiifLaboralesSubfuentes) {
+    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesPorId(
+            Integer idSiifLaboralesSubfuentes) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_siif_datos_laborales AS idSiifDatosLaborales "
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
                         + "FROM siif_laborales_subfuentes WHERE id_siif_laborales_subfuentes = :idSiifLaboralesSubfuentes")
-                .setParameter("idSiifLaboralesSubfuentes", idSiifLaboralesSubfuentes);
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
-        SiifLaboralesSubfuentesDTO result = (SiifLaboralesSubfuentesDTO) query.list().get(0);
+                .setParameter("idSiifLaboralesSubfuentes",
+                        idSiifLaboralesSubfuentes);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        SiifLaboralesSubfuentesDTO result = (SiifLaboralesSubfuentesDTO) query
+                .list().get(0);
         return result;
     }
 
-    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIdDatos(Integer idSiifDatosLaborales) {
+    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIdDatos(
+            Integer idSiifDatosLaborales) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_siif_datos_laborales AS idSiifDatosLaborales "
+        Query query = session.createSQLQuery(
+                "SELECT id_siif_laborales_subfuentes AS idSiifLaboralesSubfuentes, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_siif_datos_laborales AS idSiifDatosLaborales "
                         + "FROM siif_laborales_subfuentes WHERE id_siif_datos_laborales = :idSiifDatosLaborales")
                 .setParameter("idSiifDatosLaborales", idSiifDatosLaborales);
-        query.setResultTransformer(Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(SiifLaboralesSubfuentesDTO.class));
         @SuppressWarnings("unchecked")
         List<SiifLaboralesSubfuentesDTO> result = query.list();
         return result;
@@ -71,27 +85,35 @@ public class SiifLaboralesSubfuentesService {
         return dto;
     }
 
-    public SiifLaboralesSubfuentesDTO crearSubfuentes(SiifLaboralesSubfuentesDTO dto) {
+    public SiifLaboralesSubfuentesDTO crearSubfuentes(
+            SiifLaboralesSubfuentesDTO dto) {
         SiifLaboralesSubfuentesEntity entity = new SiifLaboralesSubfuentesEntity();
         entity.setIdFuenteFinanciamiento(1);
         entity.setIdSubfuenteFinanciamiento(1);
         //		entity.setIdSiifDatosLaborales(Se necesita traer el dato del id de la consulta padre);
         DAO.crear(entity);
-        return obtenerSiifLaboralesSubfuentesPorId(entity.getIdSiifLaboralesSubfuentes());
+        return obtenerSiifLaboralesSubfuentesPorId(
+                entity.getIdSiifLaboralesSubfuentes());
     }
 
     public void actualizarDatos(SiifLaboralesSubfuentesDTO dto, Integer idDL) {
-        for (SiifLaboralesSubfuentesDTO subfuente : obtenerSiifLaboralesSubfuentesPorIdDatos(idDL)) {
-            SiifLaboralesSubfuentesEntity entity = DAO.obtenerPorId(dto.getIdSiifLaboralesSubfuentes());
-            entity.setIdFuenteFinanciamiento(subfuente.getIdFuenteFinanciamiento());
-            entity.setIdSubfuenteFinanciamiento(subfuente.getIdSubfuenteFinanciamiento());
+        for (SiifLaboralesSubfuentesDTO subfuente : obtenerSiifLaboralesSubfuentesPorIdDatos(
+                idDL)) {
+            SiifLaboralesSubfuentesEntity entity = DAO
+                    .obtenerPorId(dto.getIdSiifLaboralesSubfuentes());
+            entity.setIdFuenteFinanciamiento(
+                    subfuente.getIdFuenteFinanciamiento());
+            entity.setIdSubfuenteFinanciamiento(
+                    subfuente.getIdSubfuenteFinanciamiento());
             //		entity.setIdSiifDatosLaborales(Se necesita traer el dato del id de la consulta);
             DAO.actualizar(entity);
         }
     }
 
     public void eliminarSiifLAborlaesSubfuente(SiifLaboralesSubfuentesDTO dto) {
-        SiifLaboralesSubfuentesEntity entity = entityManager.find(SiifLaboralesSubfuentesEntity.class, dto.getIdSiifLaboralesSubfuentes());
+        SiifLaboralesSubfuentesEntity entity = entityManager.find(
+                SiifLaboralesSubfuentesEntity.class,
+                dto.getIdSiifLaboralesSubfuentes());
         entityManager.remove(entity);
     }
 
@@ -99,9 +121,12 @@ public class SiifLaboralesSubfuentesService {
 
     public List<FuenteFinanciamientoDTO> listaFuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM fuentes_financiamientos");
-        query.setResultTransformer(Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM fuentes_financiamientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(FuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<FuenteFinanciamientoDTO> result = query.list();
         return result;
@@ -110,20 +135,28 @@ public class SiifLaboralesSubfuentesService {
     public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamiento() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(
-                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "descripcion AS descripcion " + "FROM subfuentes_financiamientos");
-        query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
+                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM subfuentes_financiamientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<SubfuenteFinanciamientoDTO> result = query.list();
         return result;
     }
 
-    public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoPorIdFF(Integer idFuenteFinanciamiento) {
+    public List<SubfuenteFinanciamientoDTO> listaSubfuenteFinanciamientoPorIdFF(
+            Integer idFuenteFinanciamiento) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, " + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
-                        + "descripcion AS descripcion " + "FROM subfuentes_financiamientos WHERE id_fuente_financiamiento =:idFuenteFinanciamiento")
-                .setParameter("idFuenteFiananciamiento", idFuenteFinanciamiento);
-        query.setResultTransformer(Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_subfuente_financiamiento AS idSubfuenteFinanciamiento, "
+                        + "id_fuente_financiamiento AS idFuenteFinanciamiento, "
+                        + "descripcion AS descripcion "
+                        + "FROM subfuentes_financiamientos WHERE id_fuente_financiamiento =:idFuenteFinanciamiento")
+                .setParameter("idFuenteFiananciamiento",
+                        idFuenteFinanciamiento);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SubfuenteFinanciamientoDTO.class));
         @SuppressWarnings("unchecked")
         List<SubfuenteFinanciamientoDTO> result = query.list();
         return result;

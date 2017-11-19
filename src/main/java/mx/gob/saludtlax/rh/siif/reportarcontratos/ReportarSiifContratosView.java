@@ -48,7 +48,8 @@ public class ReportarSiifContratosView {
         return paqueteEntradaContra;
     }
 
-    public void setPaqueteEntradaContra(PaqueteEntradaContratoDTO paqueteEntrada) {
+    public void setPaqueteEntradaContra(
+            PaqueteEntradaContratoDTO paqueteEntrada) {
         paqueteEntradaContra = paqueteEntrada;
     }
 
@@ -56,7 +57,8 @@ public class ReportarSiifContratosView {
         return cuentaBancariaList;
     }
 
-    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+    public void setCuentaBancariaList(
+            List<CuentaBancariaDTO> cuentaBancariaList) {
         this.cuentaBancariaList = cuentaBancariaList;
     }
 
@@ -117,7 +119,8 @@ public class ReportarSiifContratosView {
         return siifEncabezadoSelect;
     }
 
-    public void setSiifEncabezadoSelect(SIIFEncabezadoDTO siifEncabezadoSelect) {
+    public void setSiifEncabezadoSelect(
+            SIIFEncabezadoDTO siifEncabezadoSelect) {
         this.siifEncabezadoSelect = siifEncabezadoSelect;
     }
 
@@ -149,7 +152,8 @@ public class ReportarSiifContratosView {
         return subfuenteFinanciamientoList;
     }
 
-    public void setSubfuenteFinanciamientoList(List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
+    public void setSubfuenteFinanciamientoList(
+            List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
         this.subfuenteFinanciamientoList = subfuenteFinanciamientoList;
     }
 
@@ -157,7 +161,8 @@ public class ReportarSiifContratosView {
         return trailersLista;
     }
 
-    public void setTrailersLista(List<EstructuraNominaTrailersDTO> trailersLista) {
+    public void setTrailersLista(
+            List<EstructuraNominaTrailersDTO> trailersLista) {
         this.trailersLista = trailersLista;
     }
 
@@ -165,7 +170,8 @@ public class ReportarSiifContratosView {
         return siifBitacoraProcesada;
     }
 
-    public void setSiifBitacoraProcesada(SiifBitacoraDTO siifBitacoraProcesada) {
+    public void setSiifBitacoraProcesada(
+            SiifBitacoraDTO siifBitacoraProcesada) {
         this.siifBitacoraProcesada = siifBitacoraProcesada;
     }
 

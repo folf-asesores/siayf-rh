@@ -30,7 +30,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "crearModulo")
@@ -78,7 +78,8 @@ public class CrearModuloController implements Serializable {
 
             modulos.crearModulo(moduloDTO);
             vistaPrincipal();
-            JSFUtils.infoMessage("Registrar Modulo: ", "¡El registro se realizo correctamente!");
+            JSFUtils.infoMessage("Registrar Modulo: ",
+                    "¡El registro se realizo correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -86,7 +87,8 @@ public class CrearModuloController implements Serializable {
 
     }
 
-    public void validatorModulo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorModulo(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -95,7 +97,9 @@ public class CrearModuloController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un nombre.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -104,7 +108,9 @@ public class CrearModuloController implements Serializable {
                 String descripcionArea = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese url.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese url.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -112,7 +118,9 @@ public class CrearModuloController implements Serializable {
             case "idArea":
                 Integer idPeriodoCalendario = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una area.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una area.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -120,7 +128,8 @@ public class CrearModuloController implements Serializable {
         }
     }
 
-    public void validatorAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorAccion(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -129,7 +138,9 @@ public class CrearModuloController implements Serializable {
                 String claveAccion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(claveAccion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una clave.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una clave.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -138,7 +149,9 @@ public class CrearModuloController implements Serializable {
                 String descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(descripcion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese descripcion.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese descripcion.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -148,13 +161,15 @@ public class CrearModuloController implements Serializable {
 
     public void onRowEdit(RowEditEvent event) {
 
-        FacesMessage msg = new FacesMessage("Actualizado: ", ((AccionDTO) event.getObject()).getClave());
+        FacesMessage msg = new FacesMessage("Actualizado: ",
+                ((AccionDTO) event.getObject()).getClave());
         FacesContext.getCurrentInstance().addMessage(null, msg);
 
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion Cancelada: ", ((AccionDTO) event.getObject()).getClave());
+        FacesMessage msg = new FacesMessage("Edicion Cancelada: ",
+                ((AccionDTO) event.getObject()).getClave());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

@@ -14,8 +14,8 @@ import mx.gob.saludtlax.rh.configuracion.especialidad.EspecialidadDTO;
 import mx.gob.saludtlax.rh.configuracion.profesion.ProfesionDTO;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12/05/2016 17:28:24
  */
@@ -243,7 +243,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param listaTipoEspecialidad
      *            the listaTipoEspecialidad to set
      */
-    public void setListaTipoEspecialidad(List<SelectItem> listaTipoEspecialidad) {
+    public void setListaTipoEspecialidad(
+            List<SelectItem> listaTipoEspecialidad) {
         this.listaTipoEspecialidad = listaTipoEspecialidad;
     }
 
@@ -303,7 +304,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param mostrarFormularioEspecialidad
      *            the mostrarFormularioEspecialidad to set
      */
-    public void setMostrarFormularioEspecialidad(boolean mostrarFormularioEspecialidad) {
+    public void setMostrarFormularioEspecialidad(
+            boolean mostrarFormularioEspecialidad) {
         this.mostrarFormularioEspecialidad = mostrarFormularioEspecialidad;
     }
 
@@ -415,7 +417,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return listaEstatusEscolaridades;
     }
 
-    public void setListaEstatusEscolaridades(List<SelectItem> listaEstatusEscolaridades) {
+    public void setListaEstatusEscolaridades(
+            List<SelectItem> listaEstatusEscolaridades) {
         this.listaEstatusEscolaridades = listaEstatusEscolaridades;
     }
 
@@ -431,7 +434,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarPanelDatosAspirante;
     }
 
-    public void setMostrarPanelDatosAspirante(Boolean mostrarPanelDatosAspirante) {
+    public void setMostrarPanelDatosAspirante(
+            Boolean mostrarPanelDatosAspirante) {
         this.mostrarPanelDatosAspirante = mostrarPanelDatosAspirante;
     }
 
@@ -439,7 +443,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarPanelConsultaAspirante;
     }
 
-    public void setMostrarPanelConsultaAspirante(Boolean mostrarPanelConsultaAspirante) {
+    public void setMostrarPanelConsultaAspirante(
+            Boolean mostrarPanelConsultaAspirante) {
         this.mostrarPanelConsultaAspirante = mostrarPanelConsultaAspirante;
     }
 
@@ -455,7 +460,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarHistorialAcademico;
     }
 
-    public void setMostrarHistorialAcademico(boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -463,7 +469,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarExperienciaLaboral;
     }
 
-    public void setMostrarExperienciaLaboral(boolean mostrarExperienciaLaboral) {
+    public void setMostrarExperienciaLaboral(
+            boolean mostrarExperienciaLaboral) {
         this.mostrarExperienciaLaboral = mostrarExperienciaLaboral;
     }
 
@@ -509,7 +516,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param listaHistorialAcademicoAspirante
      *            the listaHistorialAcademicoAspirante to set
      */
-    public void setListaHistorialAcademicoAspirante(List<HistorialAcademicoDTO> listaHistorialAcademicoAspirante) {
+    public void setListaHistorialAcademicoAspirante(
+            List<HistorialAcademicoDTO> listaHistorialAcademicoAspirante) {
         this.listaHistorialAcademicoAspirante = listaHistorialAcademicoAspirante;
     }
 
@@ -524,7 +532,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param listaExperienciaLaboralAspirante
      *            the listaExperienciaLaboralAspirante to set
      */
-    public void setListaExperienciaLaboralAspirante(List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboralAspirante) {
+    public void setListaExperienciaLaboralAspirante(
+            List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboralAspirante) {
         this.listaExperienciaLaboralAspirante = listaExperienciaLaboralAspirante;
     }
 
@@ -569,7 +578,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param actualizacionExperienciaLaboral
      *            the actualizacionExperienciaLaboral to set
      */
-    public void setActualizacionExperienciaLaboral(ExperienciaLaboralAspiranteDTO actualizacionExperienciaLaboral) {
+    public void setActualizacionExperienciaLaboral(
+            ExperienciaLaboralAspiranteDTO actualizacionExperienciaLaboral) {
         this.actualizacionExperienciaLaboral = actualizacionExperienciaLaboral;
     }
 
@@ -615,7 +625,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTxtNombresParientes;
     }
 
-    public void setMostrarTxtNombresParientes(boolean mostrarTxtNombresParientes) {
+    public void setMostrarTxtNombresParientes(
+            boolean mostrarTxtNombresParientes) {
         this.mostrarTxtNombresParientes = mostrarTxtNombresParientes;
     }
 
@@ -631,7 +642,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTxtNombreSindicato;
     }
 
-    public void setMostrarTxtNombreSindicato(boolean mostrarTxtNombreSindicato) {
+    public void setMostrarTxtNombreSindicato(
+            boolean mostrarTxtNombreSindicato) {
         this.mostrarTxtNombreSindicato = mostrarTxtNombreSindicato;
     }
 
@@ -639,7 +651,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTxtNombreSegurVida;
     }
 
-    public void setMostrarTxtNombreSegurVida(boolean mostrarTxtNombreSegurVida) {
+    public void setMostrarTxtNombreSegurVida(
+            boolean mostrarTxtNombreSegurVida) {
         this.mostrarTxtNombreSegurVida = mostrarTxtNombreSegurVida;
     }
 
@@ -655,7 +668,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTxtRazonNoCambioResidencia;
     }
 
-    public void setMostrarTxtRazonNoCambioResidencia(boolean mostrarTxtRazonNoCambioResidencia) {
+    public void setMostrarTxtRazonNoCambioResidencia(
+            boolean mostrarTxtRazonNoCambioResidencia) {
         this.mostrarTxtRazonNoCambioResidencia = mostrarTxtRazonNoCambioResidencia;
     }
 
@@ -695,7 +709,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTxtAutomovilPropio;
     }
 
-    public void setMostrarTxtAutomovilPropio(boolean mostrarTxtAutomovilPropio) {
+    public void setMostrarTxtAutomovilPropio(
+            boolean mostrarTxtAutomovilPropio) {
         this.mostrarTxtAutomovilPropio = mostrarTxtAutomovilPropio;
     }
 
@@ -783,7 +798,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return listaInfoAspirante;
     }
 
-    public void setListaInfoAspirante(List<InfoAspiranteDTO> listaInfoAspirante) {
+    public void setListaInfoAspirante(
+            List<InfoAspiranteDTO> listaInfoAspirante) {
         this.listaInfoAspirante = listaInfoAspirante;
     }
 
@@ -807,7 +823,8 @@ public class ActualizacionAspiranteView implements Serializable {
         return mostrarTipoBusquedaHeader;
     }
 
-    public void setMostrarTipoBusquedaHeader(boolean mostrarTipoBusquedaHeader) {
+    public void setMostrarTipoBusquedaHeader(
+            boolean mostrarTipoBusquedaHeader) {
         this.mostrarTipoBusquedaHeader = mostrarTipoBusquedaHeader;
     }
 
@@ -853,7 +870,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param historialAcademico
      *            the historialAcademico to set
      */
-    public void setHistorialAcademico(HistorialAcademicoDTO historialAcademico) {
+    public void setHistorialAcademico(
+            HistorialAcademicoDTO historialAcademico) {
         HistorialAcademico = historialAcademico;
     }
 
@@ -868,7 +886,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param mostrarPanelHistorialAcedemico
      *            the mostrarPanelHistorialAcedemico to set
      */
-    public void setMostrarPanelHistorialAcedemico(boolean mostrarPanelHistorialAcedemico) {
+    public void setMostrarPanelHistorialAcedemico(
+            boolean mostrarPanelHistorialAcedemico) {
         this.mostrarPanelHistorialAcedemico = mostrarPanelHistorialAcedemico;
     }
 
@@ -883,7 +902,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param listaComprobantesEstudio
      *            the listaComprobantesEstudio to set
      */
-    public void setListaComprobantesEstudio(List<SelectItem> listaComprobantesEstudio) {
+    public void setListaComprobantesEstudio(
+            List<SelectItem> listaComprobantesEstudio) {
         this.listaComprobantesEstudio = listaComprobantesEstudio;
     }
 
@@ -913,7 +933,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param mostrarFormularioPofesion
      *            the mostrarFormularioPofesion to set
      */
-    public void setMostrarFormularioPofesion(boolean mostrarFormularioPofesion) {
+    public void setMostrarFormularioPofesion(
+            boolean mostrarFormularioPofesion) {
         this.mostrarFormularioPofesion = mostrarFormularioPofesion;
     }
 
@@ -958,7 +979,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param mostrarFormularioExperiencia
      *            the mostrarFormularioExperiencia to set
      */
-    public void setMostrarFormularioExperiencia(boolean mostrarFormularioExperiencia) {
+    public void setMostrarFormularioExperiencia(
+            boolean mostrarFormularioExperiencia) {
         this.mostrarFormularioExperiencia = mostrarFormularioExperiencia;
     }
 
@@ -973,7 +995,8 @@ public class ActualizacionAspiranteView implements Serializable {
      * @param habilidadesPersonales
      *            the habilidadesPersonales to set
      */
-    public void setHabilidadesPersonales(HabilidadesPersonalesAspiranteDTO habilidadesPersonales) {
+    public void setHabilidadesPersonales(
+            HabilidadesPersonalesAspiranteDTO habilidadesPersonales) {
         this.habilidadesPersonales = habilidadesPersonales;
     }
 

@@ -66,20 +66,32 @@ public class PuestoAutorizadoService {
      * Crea la solicitud de un nuevo puesto, generando los datos labores del
      * puesto.
      */
-    protected void solicitarCreacionPuesto(SolicitudNuevoPuestoDTO solicitudPuestoDTO) {
-        Integer idDatosLaborales = datosLaborales.crearDatosLaborales(solicitudPuestoDTO);
+    protected void solicitarCreacionPuesto(
+            SolicitudNuevoPuestoDTO solicitudPuestoDTO) {
+        Integer idDatosLaborales = datosLaborales
+                .crearDatosLaborales(solicitudPuestoDTO);
         NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
-        if (solicitudPuestoDTO.getDatosLaborales().getTipoContratacion() == EnumTipoContratacion.INTERINATO) {
-            InventarioVacanteEntity puestoDisponible = inventarioVacanteRepository.obtenerPorId(solicitudPuestoDTO.getIdPuestoDisponible());
+        if (solicitudPuestoDTO.getDatosLaborales()
+                .getTipoContratacion() == EnumTipoContratacion.INTERINATO) {
+            InventarioVacanteEntity puestoDisponible = inventarioVacanteRepository
+                    .obtenerPorId(solicitudPuestoDTO.getIdPuestoDisponible());
             if (puestoDisponible == null) {
                 throw new ValidacionException(
-                        "El puesto disponible para interinato con identificador " + solicitudPuestoDTO.getIdPuestoDisponible() + " no existe.",
+                        "El puesto disponible para interinato con identificador "
+                                + solicitudPuestoDTO.getIdPuestoDisponible()
+                                + " no existe.",
                         ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
             }
 
-            String mensaje = " interinato para cubrir a personal de " + puestoDisponible.getTipoContratacion().getTipoContratacion() + " "
-                    + puestoDisponible.getMovimientoPermiso().getEmpleado().getNombreCompleto() + " por el motivo de "
-                    + puestoDisponible.getMovimientoPermiso().getMovimiento().getMovimiento();
+            String mensaje = " interinato para cubrir a personal de "
+                    + puestoDisponible.getTipoContratacion()
+                            .getTipoContratacion()
+                    + " "
+                    + puestoDisponible.getMovimientoPermiso().getEmpleado()
+                            .getNombreCompleto()
+                    + " por el motivo de "
+                    + puestoDisponible.getMovimientoPermiso().getMovimiento()
+                            .getMovimiento();
             dto.setMensajeNotificacion(mensaje);
             dto.setIdAccion(EnumTiposAccionesAutorizacion.APERTURA_INTERINATO);
 
@@ -94,28 +106,41 @@ public class PuestoAutorizadoService {
 
     }
 
-    protected void postularCandidatoVacante(PostuladoVacanteDTO dto, Integer tipoCandidato) {
+    protected void postularCandidatoVacante(PostuladoVacanteDTO dto,
+            Integer tipoCandidato) {
 
         String contexto = "Postular Vacante: ";
 
         if (tipoCandidato == EnumTipoCandidato.ASPIRANTE) {
 
-            for (CandidatoVacanteDTO candidatoVacanteDTO : dto.getListaCandidatoVacante()) {
-                AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(candidatoVacanteDTO.getIdContexto());
+            for (CandidatoVacanteDTO candidatoVacanteDTO : dto
+                    .getListaCandidatoVacante()) {
+                AspiranteEntity aspiranteEntity = aspiranteRepository
+                        .obtenerPorId(candidatoVacanteDTO.getIdContexto());
 
-                InventarioVacanteEntity inventarioVacanteEntity = inventarioVacanteRepository.obtenerPorId(dto.getIdInventarioVacante());
+                InventarioVacanteEntity inventarioVacanteEntity = inventarioVacanteRepository
+                        .obtenerPorId(dto.getIdInventarioVacante());
 
-                if (candidatoVacanteRepository.existeIdContextoPostuladoVacante(candidatoVacanteDTO.getIdContexto(), dto.getIdInventarioVacante())) {
+                if (candidatoVacanteRepository.existeIdContextoPostuladoVacante(
+                        candidatoVacanteDTO.getIdContexto(),
+                        dto.getIdInventarioVacante())) {
 
-                    throw new ReglaNegocioException(
-                            contexto + "El aspirante " + aspiranteEntity.getNombreCompleto() + " ya se encuentra postulado para la vacante "
-                                    + inventarioVacanteEntity.getConfiguracion().getPuesto().getPuesto() + "seleccione otro candidato",
+                    throw new ReglaNegocioException(contexto + "El aspirante "
+                            + aspiranteEntity.getNombreCompleto()
+                            + " ya se encuentra postulado para la vacante "
+                            + inventarioVacanteEntity.getConfiguracion()
+                                    .getPuesto().getPuesto()
+                            + "seleccione otro candidato",
                             ReglaNegocioCodigoError.CANDIDATO_REPETIDO);
                 }
 
-                if (candidatoVacanteRepository.existeIdContexto(candidatoVacanteDTO.getIdContexto())) {
+                if (candidatoVacanteRepository.existeIdContexto(
+                        candidatoVacanteDTO.getIdContexto())) {
 
-                    throw new ReglaNegocioException(contexto + "El aspirante " + aspiranteEntity.getNombreCompleto() + " ya se encuentra postulado...",
+                    throw new ReglaNegocioException(
+                            contexto + "El aspirante "
+                                    + aspiranteEntity.getNombreCompleto()
+                                    + " ya se encuentra postulado...",
                             ReglaNegocioCodigoError.CANDIDATO_REPETIDO);
                 }
 
@@ -123,33 +148,51 @@ public class PuestoAutorizadoService {
 
             // Si no esta postulado registra el candidato
 
-            Integer idPostuladoVacante = crearPostuladoVacante(dto.getUsuario(), dto.getIdInventarioVacante());
+            Integer idPostuladoVacante = crearPostuladoVacante(dto.getUsuario(),
+                    dto.getIdInventarioVacante());
 
-            for (CandidatoVacanteDTO candidatoVacanteDTO : dto.getListaCandidatoVacante()) {
+            for (CandidatoVacanteDTO candidatoVacanteDTO : dto
+                    .getListaCandidatoVacante()) {
 
-                crearCandidatoVacante(tipoCandidato, candidatoVacanteDTO.getIdContexto(), idPostuladoVacante);
+                crearCandidatoVacante(tipoCandidato,
+                        candidatoVacanteDTO.getIdContexto(),
+                        idPostuladoVacante);
 
             }
         }
 
         if (tipoCandidato == EnumTipoCandidato.EMPLEADO) {
 
-            for (CandidatoVacanteDTO candidatoVacanteDTO : dto.getListaCandidatoVacante()) {
+            for (CandidatoVacanteDTO candidatoVacanteDTO : dto
+                    .getListaCandidatoVacante()) {
 
-                EmpleadoEntity empleadoEntity = empleadoRepository.obtenerPorId(candidatoVacanteDTO.getIdContexto());
+                EmpleadoEntity empleadoEntity = empleadoRepository
+                        .obtenerPorId(candidatoVacanteDTO.getIdContexto());
 
-                InventarioVacanteEntity inventarioVacanteEntity = inventarioVacanteRepository.obtenerPorId(dto.getIdInventarioVacante());
+                InventarioVacanteEntity inventarioVacanteEntity = inventarioVacanteRepository
+                        .obtenerPorId(dto.getIdInventarioVacante());
 
-                if (candidatoVacanteRepository.existeIdContextoPostuladoVacante(candidatoVacanteDTO.getIdContexto(), dto.getIdInventarioVacante())) {
+                if (candidatoVacanteRepository.existeIdContextoPostuladoVacante(
+                        candidatoVacanteDTO.getIdContexto(),
+                        dto.getIdInventarioVacante())) {
 
-                    throw new ReglaNegocioException(contexto + "El empleado " + empleadoEntity.getNombreCompleto()
-                            + " ya se encuentra postulado para la vacante " + inventarioVacanteEntity.getFolioVacante() + " con código "
-                            + inventarioVacanteEntity.getConfiguracion().getPuesto().getCodigo(), ReglaNegocioCodigoError.EMPLEADO_REPETIDO);
+                    throw new ReglaNegocioException(contexto + "El empleado "
+                            + empleadoEntity.getNombreCompleto()
+                            + " ya se encuentra postulado para la vacante "
+                            + inventarioVacanteEntity.getFolioVacante()
+                            + " con código "
+                            + inventarioVacanteEntity.getConfiguracion()
+                                    .getPuesto().getCodigo(),
+                            ReglaNegocioCodigoError.EMPLEADO_REPETIDO);
                 }
 
-                if (candidatoVacanteRepository.existeIdContexto(candidatoVacanteDTO.getIdContexto())) {
+                if (candidatoVacanteRepository.existeIdContexto(
+                        candidatoVacanteDTO.getIdContexto())) {
 
-                    throw new ReglaNegocioException(contexto + "El empleado " + empleadoEntity.getNombreCompleto() + " ya se encuentra postulado...",
+                    throw new ReglaNegocioException(
+                            contexto + "El empleado "
+                                    + empleadoEntity.getNombreCompleto()
+                                    + " ya se encuentra postulado...",
                             ReglaNegocioCodigoError.EMPLEADO_REPETIDO);
                 }
 
@@ -157,28 +200,35 @@ public class PuestoAutorizadoService {
 
             // Si no esta postulado registra el candidato
 
-            Integer idPostuladoVacante = crearPostuladoVacante(dto.getUsuario(), dto.getIdInventarioVacante());
+            Integer idPostuladoVacante = crearPostuladoVacante(dto.getUsuario(),
+                    dto.getIdInventarioVacante());
 
-            for (CandidatoVacanteDTO candidatoVacanteDTO : dto.getListaCandidatoVacante()) {
+            for (CandidatoVacanteDTO candidatoVacanteDTO : dto
+                    .getListaCandidatoVacante()) {
 
-                crearCandidatoVacante(tipoCandidato, candidatoVacanteDTO.getIdContexto(), idPostuladoVacante);
+                crearCandidatoVacante(tipoCandidato,
+                        candidatoVacanteDTO.getIdContexto(),
+                        idPostuladoVacante);
 
             }
         }
 
     }
 
-    protected Integer crearPostuladoVacante(String userName, Integer idInventarioVacante) {
+    protected Integer crearPostuladoVacante(String userName,
+            Integer idInventarioVacante) {
 
         PostulacionVacanteEntity postuladoVacanteEntity = new PostulacionVacanteEntity();
 
         postuladoVacanteEntity.setFechaPostulacion(FechaUtil.fechaActual());
         postuladoVacanteEntity.setHoraPostulacion(FechaUtil.horaActual());
 
-        UsuarioEntity usuario = usuarioRepository.obtenerUsuarioPorNombreUsuario(userName);
+        UsuarioEntity usuario = usuarioRepository
+                .obtenerUsuarioPorNombreUsuario(userName);
         postuladoVacanteEntity.setUsuario(usuario);
 
-        InventarioVacanteEntity inventarioVacante = inventarioVacanteRepository.obtenerPorId(idInventarioVacante);
+        InventarioVacanteEntity inventarioVacante = inventarioVacanteRepository
+                .obtenerPorId(idInventarioVacante);
         postuladoVacanteEntity.setInventarioVacante(inventarioVacante);
 
         String siDisponible = "SI";
@@ -191,14 +241,16 @@ public class PuestoAutorizadoService {
 
     }
 
-    protected void crearCandidatoVacante(Integer tipoCandidato, Integer idContexto, Integer idPostuladoVacante) {
+    protected void crearCandidatoVacante(Integer tipoCandidato,
+            Integer idContexto, Integer idPostuladoVacante) {
 
         CandidatoVacanteEntity candidatoVacanteEntity = new CandidatoVacanteEntity();
 
         candidatoVacanteEntity.setTipoCandidato(tipoCandidato);
         candidatoVacanteEntity.setIdContexto(idContexto);
 
-        PostulacionVacanteEntity postuladoVacanteEntity = postulacionRepository.obtenerPorId(idPostuladoVacante);
+        PostulacionVacanteEntity postuladoVacanteEntity = postulacionRepository
+                .obtenerPorId(idPostuladoVacante);
         candidatoVacanteEntity.setPostuladoVacante(postuladoVacanteEntity);
 
         boolean noSeleccionado = false;
@@ -209,7 +261,8 @@ public class PuestoAutorizadoService {
 
     }
 
-    protected void solicitarCrearPuestosVoluntarios(int numeroPuestos, Integer idUsuario) {
+    protected void solicitarCrearPuestosVoluntarios(int numeroPuestos,
+            Integer idUsuario) {
 
     }
 

@@ -22,7 +22,8 @@ import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
-@WebServlet(name = "reporteTarjetaEmpleado", urlPatterns = { "/reporte-tarjeta-empleado", "/reporte-tarjeta-empleado" })
+@WebServlet(name = "reporteTarjetaEmpleado", urlPatterns = {
+        "/reporte-tarjeta-empleado", "/reporte-tarjeta-empleado" })
 public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
 
     /**
@@ -31,12 +32,15 @@ public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
     private static final long serialVersionUID = 3783011767309850674L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        Integer idEmpleado = Integer
+                .parseInt(request.getParameter("idEmpleado"));
         String fechaInicio = request.getParameter("fechaInicio");
         String fechaFin = request.getParameter("fechaFin");
         Integer idAdscripcion = Integer.parseInt(request.getParameter("ida"));
-        Integer idTipoContratacion = Integer.parseInt(request.getParameter("idt"));
+        Integer idTipoContratacion = Integer
+                .parseInt(request.getParameter("idt"));
         Integer idDepartamento = -1;
 
         try {
@@ -45,7 +49,8 @@ public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
             idDepartamento = -1;
         }
 
-        byte[] bytes = doReport(idEmpleado, fechaInicio, fechaFin, idAdscripcion, idTipoContratacion, idDepartamento);
+        byte[] bytes = doReport(idEmpleado, fechaInicio, fechaFin,
+                idAdscripcion, idTipoContratacion, idDepartamento);
 
         ServletOutputStream servletOutputStream = response.getOutputStream();
         response.setContentType("application/pdf");
@@ -55,15 +60,18 @@ public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
         servletOutputStream.close();
     }
 
-    private byte[] doReport(Integer idEmpleado, String fechaInicio, String fechaFin, Integer idAdscripcion, Integer idTipoContratacion,
+    private byte[] doReport(Integer idEmpleado, String fechaInicio,
+            String fechaFin, Integer idAdscripcion, Integer idTipoContratacion,
             Integer idDepartamento) {
         byte[] bytes = null;
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/kardes_listado.jasper");
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("/reportes/kardes_listado.jasper");
         Connection conexion = null;
         try {
             Context initcontext = new InitialContext();
-            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+            DataSource ds = (DataSource) initcontext
+                    .lookup("java:jboss/datasources/SIAYFRHDS");
 
             conexion = ds.getConnection();
 
@@ -76,13 +84,18 @@ public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
             parameters.put("id_tipo_contratacion", idTipoContratacion);
             parameters.put("id_departamento_consulta", idDepartamento);
 
-            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters,
+                    conexion);
 
         } catch (NamingException ex) {
-            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            System.err.println(
+                    "Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (SQLException ex) {
-            System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
+            System.err.println(
+                    "Error al tratar obtener la conexiÃ³n con la base de datos en "
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (JRException ex) {
             System.err.println("Error durante la generación del reporte ");
@@ -92,7 +105,9 @@ public class ReporteTarjetaEmpleadoServlet extends HttpServlet {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    System.err.println("Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
+                    System.err.println(
+                            "Error al tratar cerrar la conexiÃ³n con la base de datos en "
+                                    + getClass().getName());
                     e.printStackTrace();
                 }
             }

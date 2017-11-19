@@ -20,11 +20,13 @@ public class EstructuraContratoTrailersService {
     @Inject
     private EstructuraContratosTrailersQuery estructuraTrailersQuery;
 
-    public void registrarListaEstructura(List<EstructuraContratosTrailersDTO> listaEstructura) {
+    public void registrarListaEstructura(
+            List<EstructuraContratosTrailersDTO> listaEstructura) {
         try {
 
             if (listaEstructura.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (EstructuraContratosTrailersDTO trailers : listaEstructura) {
@@ -42,8 +44,10 @@ public class EstructuraContratoTrailersService {
                 estructuraEntity.setPagoEfec(trailers.getPagoEfec());
                 estructuraEntity.setNomProd(trailers.getNomProd());
                 estructuraEntity.setNumCtrol(trailers.getNumControl());
-                estructuraEntity.setIdSiifBitacoras(trailers.getIdSiifBitacoras());
-                estructuraEntity.setConcep(trailers.getConcep() + trailers.getPtaAnt());
+                estructuraEntity
+                        .setIdSiifBitacoras(trailers.getIdSiifBitacoras());
+                estructuraEntity
+                        .setConcep(trailers.getConcep() + trailers.getPtaAnt());
 
                 estructuraTrailersQuery.registroEstructura(estructuraEntity);
             }
@@ -53,11 +57,13 @@ public class EstructuraContratoTrailersService {
         }
     }
 
-    public void registrarListaEstructuraDat(List<EstructuraContratosDatDTO> listaEstructura) {
+    public void registrarListaEstructuraDat(
+            List<EstructuraContratosDatDTO> listaEstructura) {
         try {
 
             if (listaEstructura.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (EstructuraContratosDatDTO trailers : listaEstructura) {
@@ -93,7 +99,8 @@ public class EstructuraContratoTrailersService {
                 estructuraEntity.setCr(trailers.getCr());
                 estructuraEntity.setCi(trailers.getCi());
                 estructuraEntity.setPagaD(trailers.getPagaD());
-                estructuraEntity.setFinanciamiento(trailers.getFinanciamiento());
+                estructuraEntity
+                        .setFinanciamiento(trailers.getFinanciamiento());
                 estructuraEntity.setTabPto(trailers.getTabPto());
                 estructuraEntity.setNivel(trailers.getNivel());
                 estructuraEntity.setRango(trailers.getRango());
@@ -150,11 +157,13 @@ public class EstructuraContratoTrailersService {
         }
     }
 
-    public void registrarListaEstructuraExcel(List<EstructuraContratosExcelDTO> listaEstructura) {
+    public void registrarListaEstructuraExcel(
+            List<EstructuraContratosExcelDTO> listaEstructura) {
         try {
 
             if (listaEstructura.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (EstructuraContratosExcelDTO cont : listaEstructura) {
@@ -202,7 +211,8 @@ public class EstructuraContratoTrailersService {
                 estructuraEntity.setRamas(cont.getRamas());
                 estructuraEntity.setTurno(cont.getTurno());
 
-                estructuraTrailersQuery.registroEstructuraExcel(estructuraEntity);
+                estructuraTrailersQuery
+                        .registroEstructuraExcel(estructuraEntity);
             }
         } catch (PersistenceException ex) {
             ex.printStackTrace();
@@ -210,11 +220,13 @@ public class EstructuraContratoTrailersService {
         }
     }
 
-    public void registrarListaSeguroPopular(List<SiifSeguroPopularDTO> listaSeguro) {
+    public void registrarListaSeguroPopular(
+            List<SiifSeguroPopularDTO> listaSeguro) {
         try {
 
             if (listaSeguro.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (SiifSeguroPopularDTO seguro : listaSeguro) {
@@ -233,11 +245,13 @@ public class EstructuraContratoTrailersService {
         }
     }
 
-    public void registrarListaDeudoresDiversos(List<SiifDeudoresDiversosDTO> listaSeguro) {
+    public void registrarListaDeudoresDiversos(
+            List<SiifDeudoresDiversosDTO> listaSeguro) {
         try {
 
             if (listaSeguro.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (SiifDeudoresDiversosDTO seguro : listaSeguro) {
@@ -255,11 +269,13 @@ public class EstructuraContratoTrailersService {
         }
     }
 
-    public void registrarListaDispersionCheques(List<SiifDispersionChequesDTO> listaCheques) {
+    public void registrarListaDispersionCheques(
+            List<SiifDispersionChequesDTO> listaCheques) {
         try {
 
             if (listaCheques.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (SiifDispersionChequesDTO lista : listaCheques) {

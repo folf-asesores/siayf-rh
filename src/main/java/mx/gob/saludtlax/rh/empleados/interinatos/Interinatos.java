@@ -17,7 +17,8 @@ public interface Interinatos {
      * Consulta los puestos disponibles a interinato por permiso o por falta de
      * recurso.
      */
-    public List<DisponiblesInterinatoDTO> consultarCandidatosInterinato(Integer tipoBusqueda);
+    public List<DisponiblesInterinatoDTO> consultarCandidatosInterinato(
+            Integer tipoBusqueda);
 
     public void solicitarInterinato(InterinatoDTO interinato);
 }

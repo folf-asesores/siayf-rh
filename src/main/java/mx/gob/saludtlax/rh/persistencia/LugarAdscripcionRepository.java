@@ -13,7 +13,8 @@ import javax.persistence.NoResultException;
  *
  * @since 04/09/2016 21:35:42
  */
-public class LugarAdscripcionRepository extends GenericRepository<LugarAdscripcionEntity, Integer> {
+public class LugarAdscripcionRepository
+        extends GenericRepository<LugarAdscripcionEntity, Integer> {
 
     /**
      *
@@ -21,13 +22,18 @@ public class LugarAdscripcionRepository extends GenericRepository<LugarAdscripci
     private static final long serialVersionUID = 6296489297219095633L;
 
     public List<LugarAdscripcionEntity> consultarAdscripciones() {
-        return em.createQuery("SELECT l FROM LugarAdscripcionEntity AS l", LugarAdscripcionEntity.class).getResultList();
+        return em.createQuery("SELECT l FROM LugarAdscripcionEntity AS l",
+                LugarAdscripcionEntity.class).getResultList();
     }
 
-    public String obtenerDescripcionLugarAdscripcionPorId(Integer idLugarAdscripcion) {
+    public String obtenerDescripcionLugarAdscripcionPorId(
+            Integer idLugarAdscripcion) {
         try {
-            return em.createQuery("SELECT l.lugarAdscripcion FROM LugarAdscripcionEntity AS l WHERE l.idLugarAdscripcion =:idLugarAdscripcion", String.class)
-                    .setParameter("idLugarAdscripcion", idLugarAdscripcion).getSingleResult();
+            return em.createQuery(
+                    "SELECT l.lugarAdscripcion FROM LugarAdscripcionEntity AS l WHERE l.idLugarAdscripcion =:idLugarAdscripcion",
+                    String.class)
+                    .setParameter("idLugarAdscripcion", idLugarAdscripcion)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return "";
         }

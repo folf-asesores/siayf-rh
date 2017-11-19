@@ -32,14 +32,18 @@ public class DatosEncabezadoServices implements Serializable {
     @Inject
     private SIIFEncabezadoRepository siifEncabezadoRepository;
 
-    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(Integer idEncabezado) {
-        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository.obtenerListaDatosEncabezado(idEncabezado);
+    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(
+            Integer idEncabezado) {
+        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository
+                .obtenerListaDatosEncabezado(idEncabezado);
         return listaDatosEncabezadoDTOs;
     }
 
-    protected ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(Integer idDatoPersonal) {
+    protected ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(
+            Integer idDatoPersonal) {
 
-        return datosEncabezadoRepository.obtenerDatosEncabezadoPorId(idDatoPersonal);
+        return datosEncabezadoRepository
+                .obtenerDatosEncabezadoPorId(idDatoPersonal);
     }
     //
     //	protected List<RevisarChequesDTO> obtenerListaRevisarChequesAvanzada() {
@@ -48,13 +52,17 @@ public class DatosEncabezadoServices implements Serializable {
     //		return listaRevisarChequesDTOs;
     //	}
 
-    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(Integer idSiifEncabezado) {
-        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository.obtenerListaDatosEncabezadoProspera(idSiifEncabezado);
+    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(
+            Integer idSiifEncabezado) {
+        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository
+                .obtenerListaDatosEncabezadoProspera(idSiifEncabezado);
         return listaDatosEncabezadoDTOs;
     }
 
-    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(Integer idSiifEncabezado) {
-        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository.obtenerListaDatosEncabezadoContrato(idSiifEncabezado);
+    protected List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(
+            Integer idSiifEncabezado) {
+        List<ConsultaDatosEncabezadoDTO> listaDatosEncabezadoDTOs = datosEncabezadoRepository
+                .obtenerListaDatosEncabezadoContrato(idSiifEncabezado);
         return listaDatosEncabezadoDTOs;
     }
 
@@ -62,10 +70,14 @@ public class DatosEncabezadoServices implements Serializable {
         return siifEncabezadoRepository.obtenerCuentaBancaria(idSiifEncabezado);
     }
 
-    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO, Integer qna) {
+    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO,
+            Integer qna) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_actualizar_cheques_siif(:idSiifEncabezdo,:qna)")
-                .setParameter("idSiifEncabezdo", encabezadoDTO.getIdSIIFEncabezado()).setParameter("qna", qna);
+        Query query = session.createSQLQuery(
+                "CALL usp_actualizar_cheques_siif(:idSiifEncabezdo,:qna)")
+                .setParameter("idSiifEncabezdo",
+                        encabezadoDTO.getIdSIIFEncabezado())
+                .setParameter("qna", qna);
         query.executeUpdate();
         return null;
     }

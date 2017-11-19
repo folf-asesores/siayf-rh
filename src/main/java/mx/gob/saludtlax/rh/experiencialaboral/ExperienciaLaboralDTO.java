@@ -43,10 +43,16 @@ public class ExperienciaLaboralDTO {
     private Integer idUsuarioEnSesion;
 
     public String lccExperiencia() {
-        return "ExperienciaLaboral[idExperienciaLaboral=" + idExperienciaLaboral + ", nombreEmpresa=" + nombreEmpresa + ", puesto=" + puestoAspirante
-                + ", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + ", direccionEmpresa=" + direccionEmpresa + ", motivoSeparacion="
-                + motivoSeparacion + ", sueldoMensual=" + sueldoMensual + ", comentarios=" + comentarios + ", telefono=" + telefonoEmpresa + ", correoContacto="
-                + correoEmpresa + ", nombreJefe=" + nombreJefe + ", puestoJefe=" + puestoJefe + ", solicitarInformacion=" + solicitarInformacion
+        return "ExperienciaLaboral[idExperienciaLaboral=" + idExperienciaLaboral
+                + ", nombreEmpresa=" + nombreEmpresa + ", puesto="
+                + puestoAspirante + ", fechaInicial=" + fechaInicial
+                + ", fechaFinal=" + fechaFinal + ", direccionEmpresa="
+                + direccionEmpresa + ", motivoSeparacion=" + motivoSeparacion
+                + ", sueldoMensual=" + sueldoMensual + ", comentarios="
+                + comentarios + ", telefono=" + telefonoEmpresa
+                + ", correoContacto=" + correoEmpresa + ", nombreJefe="
+                + nombreJefe + ", puestoJefe=" + puestoJefe
+                + ", solicitarInformacion=" + solicitarInformacion
                 + ", razonNoSolicitar=" + razonNoSolicitar + "]";
     }
 

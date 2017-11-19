@@ -27,9 +27,11 @@ public class AreaAdscripcionEJB implements AreaAdscripcion {
     }
 
     @Override
-    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(TipoFiltro filtro, Integer idFiltro) {
+    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(
+            TipoFiltro filtro, Integer idFiltro) {
 
-        return areaAdscripcionService.consultarAreasAdscripcion(filtro, idFiltro);
+        return areaAdscripcionService.consultarAreasAdscripcion(filtro,
+                idFiltro);
     }
 
     public List<AreaAdscripcionEntity> verAreas() {
@@ -38,12 +40,15 @@ public class AreaAdscripcionEJB implements AreaAdscripcion {
 
     @Override
     public List<String> consultarAreaAdscripcionPorCriterio(String consulta) {
-        return areaAdscripcionService.consultarAreaAdscripcionPorCriterio(consulta);
+        return areaAdscripcionService
+                .consultarAreaAdscripcionPorCriterio(consulta);
     }
 
     @Override
-    public Integer consultarIdAreaAdscripcionPorDescripcion(String descripcion) {
-        return areaAdscripcionService.consultarIdAreaAdscripcionPorDescripcion(descripcion);
+    public Integer consultarIdAreaAdscripcionPorDescripcion(
+            String descripcion) {
+        return areaAdscripcionService
+                .consultarIdAreaAdscripcionPorDescripcion(descripcion);
     }
 
 }

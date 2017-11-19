@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.configuracion.usuariosaprobaciones;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ActualizacionConfiguracionAprobacionDTO implements Serializable {
@@ -27,7 +27,8 @@ public class ActualizacionConfiguracionAprobacionDTO implements Serializable {
         return idConfiguracionAprobacion;
     }
 
-    public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+    public void setIdConfiguracionAprobacion(
+            Integer idConfiguracionAprobacion) {
         this.idConfiguracionAprobacion = idConfiguracionAprobacion;
     }
 

@@ -65,7 +65,8 @@ public class SistemaException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public SistemaException(String message, Throwable cause, SistemaCodigoError codigoError) {
+    public SistemaException(String message, Throwable cause,
+            SistemaCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -139,7 +140,8 @@ public class SistemaException extends RuntimeException {
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero()
+                        + ":" + codigoError.getClass().getName());
             }
 
             for (String key : propiedades.keySet()) {

@@ -31,7 +31,7 @@ import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
  * reportes.
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 @Stateless
 public class BitacoraReporteEJB implements BitacoraReporte {
@@ -41,16 +41,19 @@ public class BitacoraReporteEJB implements BitacoraReporte {
     @Inject
     private UsuarioRepository empleadoRepository;
 
-    private static final Logger LOGGER = Logger.getLogger(BitacoraReporteEJB.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(BitacoraReporteEJB.class);
 
     @Override
     public String obtenerReferencia(Map<String, String> parametros) {
         if (parametros == null || parametros.isEmpty()) {
-            throw new NullPointerException("No se puede generar un reporte sin parametros");
+            throw new NullPointerException(
+                    "No se puede generar un reporte sin parametros");
         }
 
         BitacoraReporteEntity entidad = new BitacoraReporteEntity();
-        UsuarioEntity usuario = empleadoRepository.obtenerPorId(Integer.parseInt(parametros.get("ID_USUARIO")));
+        UsuarioEntity usuario = empleadoRepository
+                .obtenerPorId(Integer.parseInt(parametros.get("ID_USUARIO")));
         String nombreReporte = parametros.get("REPORTE_NOMBRE");
         Date fecha = Calendar.getInstance().getTime();
 
@@ -88,17 +91,21 @@ public class BitacoraReporteEJB implements BitacoraReporte {
     public Map<String, String> obtenerParametros(String referencia) {
         Map<String, String> parametros = new HashMap<>();
         UUID uuid = UUID.fromString(referencia);
-        BitacoraReporteEntity bitacoraReporteEntity = bitacoraReporteRepository.obtenerPorId(uuid);
+        BitacoraReporteEntity bitacoraReporteEntity = bitacoraReporteRepository
+                .obtenerPorId(uuid);
 
         if (bitacoraReporteEntity == null) {
             LOGGER.warn("No se encontro la entidad");
             return Collections.emptyMap();
         }
 
-        parametros.put("ID_USUARIO", String.valueOf(bitacoraReporteEntity.getUsuario().getIdUsuario()));
-        parametros.put("REPORTE_NOMBRE", bitacoraReporteEntity.getNombreReporte());
+        parametros.put("ID_USUARIO", String
+                .valueOf(bitacoraReporteEntity.getUsuario().getIdUsuario()));
+        parametros.put("REPORTE_NOMBRE",
+                bitacoraReporteEntity.getNombreReporte());
 
-        for (ReporteParametroEntity reporteParametroEntity : bitacoraReporteEntity.getReporteParametros()) {
+        for (ReporteParametroEntity reporteParametroEntity : bitacoraReporteEntity
+                .getReporteParametros()) {
             String key = reporteParametroEntity.getClave();
             String value = reporteParametroEntity.getValor();
 

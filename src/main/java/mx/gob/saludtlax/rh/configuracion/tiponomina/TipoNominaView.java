@@ -115,7 +115,8 @@ public class TipoNominaView {
         return listClasificacion;
     }
 
-    public void setListClasificacion(List<ClasificacionNominaDTO> listClasificacion) {
+    public void setListClasificacion(
+            List<ClasificacionNominaDTO> listClasificacion) {
         this.listClasificacion = listClasificacion;
     }
 
@@ -131,7 +132,8 @@ public class TipoNominaView {
         return listSubfuente;
     }
 
-    public void setListSubfuente(List<SubfuenteFinanciamientoDTO> listSubfuente) {
+    public void setListSubfuente(
+            List<SubfuenteFinanciamientoDTO> listSubfuente) {
         this.listSubfuente = listSubfuente;
     }
 

@@ -147,7 +147,8 @@ public class PensionAlimenticiaEntity implements Serializable {
         return tipoCoutaAlimenticia;
     }
 
-    public void setTipoCoutaAlimenticia(TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia) {
+    public void setTipoCoutaAlimenticia(
+            TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia) {
         this.tipoCoutaAlimenticia = tipoCoutaAlimenticia;
     }
 

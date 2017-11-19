@@ -30,7 +30,8 @@ public class ReportarSiifProsperaView {
         return cuentaBancariaList;
     }
 
-    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+    public void setCuentaBancariaList(
+            List<CuentaBancariaDTO> cuentaBancariaList) {
         this.cuentaBancariaList = cuentaBancariaList;
     }
 
@@ -46,7 +47,8 @@ public class ReportarSiifProsperaView {
         return siifBitacoraProcesada;
     }
 
-    public void setSiifBitacoraProcesada(SiifBitacoraDTO siifBitacoraProcesada) {
+    public void setSiifBitacoraProcesada(
+            SiifBitacoraDTO siifBitacoraProcesada) {
         this.siifBitacoraProcesada = siifBitacoraProcesada;
     }
 

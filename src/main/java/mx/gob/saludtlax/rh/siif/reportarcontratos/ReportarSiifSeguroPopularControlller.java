@@ -22,7 +22,8 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ManagedBean(name = "reportarSiifSeguroPopular")
 @SessionScoped
 public class ReportarSiifSeguroPopularControlller {
-    private static final Logger LOGGER = Logger.getLogger(ReportarSiifSeguroPopularControlller.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ReportarSiifSeguroPopularControlller.class.getName());
 
     @Inject
     private ReportarSiifSeguroPopularEJB ejb;
@@ -55,19 +56,23 @@ public class ReportarSiifSeguroPopularControlller {
         System.out.println("view.getDat():: " + view.getDatSP());
 
         boolean eval = true;
-        if (view.getDatSP() == null || StringUtils.isEmpty(view.getDatSP().getFileName())) {
-            JSFUtils.errorMessage("Archivo Requerido", "El Archivo XLS/XLSX es requerido, El Archivo debe tener la extención *.xls / *.xlsx");
+        if (view.getDatSP() == null
+                || StringUtils.isEmpty(view.getDatSP().getFileName())) {
+            JSFUtils.errorMessage("Archivo Requerido",
+                    "El Archivo XLS/XLSX es requerido, El Archivo debe tener la extención *.xls / *.xlsx");
             eval = false;
         }
 
         if (eval) {
-            System.out.println("view.getDat():: " + view.getDatSP().getFileName());
+            System.out.println(
+                    "view.getDat():: " + view.getDatSP().getFileName());
 
             LOGGER.info(view.getDatSP().getFileName());
 
             try {
                 ejb.procesarNominaTheosToSIIF(view.getDatSP());
-                JSFUtils.infoMessage("En este momento ha terminado de subir el archivo y se empieza a procesar",
+                JSFUtils.infoMessage(
+                        "En este momento ha terminado de subir el archivo y se empieza a procesar",
                         "En este momento ha terminado de subir el archivo y se empieza a procesar");
             } catch (Exception e) {
                 e.printStackTrace();
@@ -161,7 +166,8 @@ public class ReportarSiifSeguroPopularControlller {
 
             }
             estructuraContratoTra.registrarListaSeguroPopular(listaEstructura);
-            JSFUtils.infoMessage("Registro Seguro Popular", "Proceso realizado correctamente");
+            JSFUtils.infoMessage("Registro Seguro Popular",
+                    "Proceso realizado correctamente");
         } catch (EstructuraException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
         }
@@ -184,8 +190,10 @@ public class ReportarSiifSeguroPopularControlller {
                 listaEstructura.add(DTO);
 
             }
-            estructuraContratoTra.registrarListaDeudoresDiversos(listaEstructura);
-            JSFUtils.infoMessage("Registro Deudores Diversos", "Proceso realizado correctamente");
+            estructuraContratoTra
+                    .registrarListaDeudoresDiversos(listaEstructura);
+            JSFUtils.infoMessage("Registro Deudores Diversos",
+                    "Proceso realizado correctamente");
         } catch (EstructuraException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
         }
@@ -211,8 +219,10 @@ public class ReportarSiifSeguroPopularControlller {
                 listaEstructura.add(DTO);
 
             }
-            estructuraContratoTra.registrarListaDispersionCheques(listaEstructura);
-            JSFUtils.infoMessage("Registro Dispersion Cheques", "Proceso realizado correctamente");
+            estructuraContratoTra
+                    .registrarListaDispersionCheques(listaEstructura);
+            JSFUtils.infoMessage("Registro Dispersion Cheques",
+                    "Proceso realizado correctamente");
         } catch (EstructuraException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
         }
@@ -234,7 +244,8 @@ public class ReportarSiifSeguroPopularControlller {
                 EstructuraDTO genericoDTO = arrayIterator.next();
                 DatosPersonalesDTO DTO = new DatosPersonalesDTO();
 
-                DTO.setIdEmpleadoDatosPersonales(genericoDTO.getDato(0, Integer.class));
+                DTO.setIdEmpleadoDatosPersonales(
+                        genericoDTO.getDato(0, Integer.class));
                 DTO.setRfc(genericoDTO.getDato(1, String.class));
                 DTO.setApellidoPaterno(genericoDTO.getDato(2, String.class));
                 DTO.setApellidoMaterno(genericoDTO.getDato(3, String.class));
@@ -254,7 +265,8 @@ public class ReportarSiifSeguroPopularControlller {
             }
             // estructuraContratoTra.registrarListaDispersionCheques(listaEstructura);
             datoPersonalLaboralEJB.registrarListaDatoPersonal(listaEstructura);
-            JSFUtils.infoMessage("Registro Datos Personales: ", "Proceso realizado correctamente");
+            JSFUtils.infoMessage("Registro Datos Personales: ",
+                    "Proceso realizado correctamente");
         } catch (EstructuraException | ReglaNegocioException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
         }
@@ -276,14 +288,17 @@ public class ReportarSiifSeguroPopularControlller {
                 EstructuraDTO genericoDTO = arrayIterator.next();
                 SiifDatosLaboralesDTO DTO = new SiifDatosLaboralesDTO();
 
-                DTO.setIdEmpleadoDatosLaborales(genericoDTO.getDato(0, Integer.class));
-                DTO.setIdEmpleadoDatosPersonales(genericoDTO.getDato(1, Integer.class));
+                DTO.setIdEmpleadoDatosLaborales(
+                        genericoDTO.getDato(0, Integer.class));
+                DTO.setIdEmpleadoDatosPersonales(
+                        genericoDTO.getDato(1, Integer.class));
                 DTO.setRfc(genericoDTO.getDato(2, String.class));
                 DTO.setIdRfc(genericoDTO.getDato(3, Integer.class));
                 DTO.setIdPlaza(genericoDTO.getDato(4, String.class));
                 DTO.setIdProyecto(genericoDTO.getDato(5, Integer.class));
                 DTO.setIdDependencia(genericoDTO.getDato(6, Integer.class));
-                DTO.setIdUnidadResponsable(genericoDTO.getDato(7, Integer.class));
+                DTO.setIdUnidadResponsable(
+                        genericoDTO.getDato(7, Integer.class));
                 DTO.setNombramiento(genericoDTO.getDato(8, String.class));
                 DTO.setIdPuesto((genericoDTO.getDato(9, String.class)));
                 DTO.setIdSindicato(genericoDTO.getDato(10, Integer.class));
@@ -291,15 +306,19 @@ public class ReportarSiifSeguroPopularControlller {
                 DTO.setFechaIngreso(genericoDTO.getDato(12, Date.class));
                 DTO.setNoQuinquenios(genericoDTO.getDato(13, Integer.class));
                 DTO.setSueldoMensual(genericoDTO.getDato(14, BigDecimal.class));
-                DTO.setPercepcionComplementaria(genericoDTO.getDato(15, BigDecimal.class));
+                DTO.setPercepcionComplementaria(
+                        genericoDTO.getDato(15, BigDecimal.class));
                 DTO.setDespensa(genericoDTO.getDato(16, BigDecimal.class));
-                DTO.setIncentivoAhorro(genericoDTO.getDato(17, BigDecimal.class));
+                DTO.setIncentivoAhorro(
+                        genericoDTO.getDato(17, BigDecimal.class));
                 DTO.setCompensacion(genericoDTO.getDato(18, BigDecimal.class));
                 DTO.setQuinquenio(genericoDTO.getDato(19, BigDecimal.class));
                 DTO.setNoCuenta(genericoDTO.getDato(20, String.class));
                 DTO.setPolicia(genericoDTO.getDato(21, Integer.class));
-                DTO.setIdFuenteFinanciamiento(genericoDTO.getDato(22, Integer.class));
-                DTO.setIdSubfuenteFinanciamiento(genericoDTO.getDato(23, Integer.class));
+                DTO.setIdFuenteFinanciamiento(
+                        genericoDTO.getDato(22, Integer.class));
+                DTO.setIdSubfuenteFinanciamiento(
+                        genericoDTO.getDato(23, Integer.class));
                 DTO.setIdTipoRecurso(genericoDTO.getDato(24, Integer.class));
                 DTO.setIdEstadoEmpleado(genericoDTO.getDato(25, String.class));
                 DTO.setIdNomina(genericoDTO.getDato(26, Integer.class));
@@ -309,7 +328,8 @@ public class ReportarSiifSeguroPopularControlller {
             }
             // estructuraContratoTra.registrarListaDispersionCheques(listaEstructura);
             datoPersonalLaboralEJB.registrarListaDatoLaboral(listaEstructura);
-            JSFUtils.infoMessage("Registro Datos Laborales: ", "Proceso realizado correctamente");
+            JSFUtils.infoMessage("Registro Datos Laborales: ",
+                    "Proceso realizado correctamente");
         } catch (EstructuraException | ReglaNegocioException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
         }

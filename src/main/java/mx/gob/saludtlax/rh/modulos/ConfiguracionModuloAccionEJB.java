@@ -36,30 +36,35 @@ public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion {
     }
 
     @Override
-    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorModulo(Integer idModulo) {
+    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorModulo(
+            Integer idModulo) {
         return service.obtenerRegistrosPorModulo(idModulo);
     }
 
     @Override
-    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(Integer idAccion) {
+    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(
+            Integer idAccion) {
 
         return service.obtenerRegistrosPorAccion(idAccion);
     }
 
     @Override
-    public ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod) {
+    public ConfiguracionModuloAccionDTO obtenerConfAccModPorId(
+            Integer IdConfAccMod) {
 
         return service.obtenerConfAccModPorId(IdConfAccMod);
     }
 
     @Override
-    public List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion, List<Integer> idAcciones) {
+    public List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(
+            Integer idConfiguracion, List<Integer> idAcciones) {
 
         return null;
     }
 
     @Override
-    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(Integer idUsuario) {
+    public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(
+            Integer idUsuario) {
         return service.configuracionPorUsuario(idUsuario);
     }
 

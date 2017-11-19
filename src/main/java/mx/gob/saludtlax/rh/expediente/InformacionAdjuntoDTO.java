@@ -66,8 +66,11 @@ public class InformacionAdjuntoDTO implements Serializable {
      *            el ID del aspirante si se trata de un adjunto del aspirante.
      * @param detalle
      */
-    public InformacionAdjuntoDTO(Integer idAdjunto, EntidadContexto entidadContexto, Integer idEntidadContexto, String nombreAdjunto, TipoArchivo extension,
-            DocumentoAdjuntableDTO documentoAdjuntable, Integer idExpediente, Integer idEmpleado, Integer idAspirante, String detalle) {
+    public InformacionAdjuntoDTO(Integer idAdjunto,
+            EntidadContexto entidadContexto, Integer idEntidadContexto,
+            String nombreAdjunto, TipoArchivo extension,
+            DocumentoAdjuntableDTO documentoAdjuntable, Integer idExpediente,
+            Integer idEmpleado, Integer idAspirante, String detalle) {
 
         this.idAdjunto = idAdjunto;
         this.entidadContexto = entidadContexto;
@@ -183,7 +186,8 @@ public class InformacionAdjuntoDTO implements Serializable {
      * @param documentoAdjuntable
      *            the documentoAdjuntable to set
      */
-    public void setDocumentoAdjuntable(DocumentoAdjuntableDTO documentoAdjuntable) {
+    public void setDocumentoAdjuntable(
+            DocumentoAdjuntableDTO documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 

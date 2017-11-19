@@ -13,7 +13,9 @@ import java.io.Serializable;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class AdjuntoAspiranteRepository extends GenericRepository<AdjuntoAspiranteEntity, Integer> implements Serializable {
+public class AdjuntoAspiranteRepository
+        extends GenericRepository<AdjuntoAspiranteEntity, Integer>
+        implements Serializable {
 
     private static final long serialVersionUID = -5566556287499817555L;
 

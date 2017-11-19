@@ -65,7 +65,8 @@ public class ConsultaProsperaView {
         return listEstructuraProspera;
     }
 
-    public void setListEstructuraProspera(List<EstructuraContratosDatDTO> listEstructuraProspera) {
+    public void setListEstructuraProspera(
+            List<EstructuraContratosDatDTO> listEstructuraProspera) {
         this.listEstructuraProspera = listEstructuraProspera;
     }
 
@@ -73,7 +74,8 @@ public class ConsultaProsperaView {
         return estructuraProspera;
     }
 
-    public void setEstructuraProspera(EstructuraContratosDatDTO estructuraProspera) {
+    public void setEstructuraProspera(
+            EstructuraContratosDatDTO estructuraProspera) {
         this.estructuraProspera = estructuraProspera;
     }
 
@@ -81,7 +83,8 @@ public class ConsultaProsperaView {
         return estructuraProsperaSelect;
     }
 
-    public void setEstructuraProsperaSelect(EstructuraContratosDatDTO estructuraProsperaSelect) {
+    public void setEstructuraProsperaSelect(
+            EstructuraContratosDatDTO estructuraProsperaSelect) {
         this.estructuraProsperaSelect = estructuraProsperaSelect;
     }
 
@@ -89,7 +92,8 @@ public class ConsultaProsperaView {
         return listEstructuraProsperaTrailers;
     }
 
-    public void setListEstructuraProsperaTrailers(List<EstructuraContratosTrailersDTO> listEstructuraProsperaTrailers) {
+    public void setListEstructuraProsperaTrailers(
+            List<EstructuraContratosTrailersDTO> listEstructuraProsperaTrailers) {
         this.listEstructuraProsperaTrailers = listEstructuraProsperaTrailers;
     }
 
@@ -97,7 +101,8 @@ public class ConsultaProsperaView {
         return estructuraProsperaTrailers;
     }
 
-    public void setEstructuraProsperaTrailers(EstructuraContratosTrailersDTO estructuraProsperaTrailers) {
+    public void setEstructuraProsperaTrailers(
+            EstructuraContratosTrailersDTO estructuraProsperaTrailers) {
         this.estructuraProsperaTrailers = estructuraProsperaTrailers;
     }
 
@@ -105,7 +110,8 @@ public class ConsultaProsperaView {
         return estructuraProsperaTrailersSelect;
     }
 
-    public void setEstructuraProsperaTrailersSelect(EstructuraContratosTrailersDTO estructuraProsperaTrailersSelect) {
+    public void setEstructuraProsperaTrailersSelect(
+            EstructuraContratosTrailersDTO estructuraProsperaTrailersSelect) {
         this.estructuraProsperaTrailersSelect = estructuraProsperaTrailersSelect;
     }
 
@@ -177,7 +183,8 @@ public class ConsultaProsperaView {
         return disabledIrGestionarTrailers;
     }
 
-    public void setDisabledIrGestionarTrailers(Boolean disabledIrGestionarTrailers) {
+    public void setDisabledIrGestionarTrailers(
+            Boolean disabledIrGestionarTrailers) {
         this.disabledIrGestionarTrailers = disabledIrGestionarTrailers;
     }
 
@@ -191,7 +198,8 @@ public class ConsultaProsperaView {
 
     }
 
-    public void setEstructuraProsperaTrailers(EstructuraNominaTrailersDTO nuevoTrailers) {
+    public void setEstructuraProsperaTrailers(
+            EstructuraNominaTrailersDTO nuevoTrailers) {
 
     }
 

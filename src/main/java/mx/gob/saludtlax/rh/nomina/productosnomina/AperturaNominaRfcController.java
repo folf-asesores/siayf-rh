@@ -40,7 +40,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class AperturaNominaRfcController implements Serializable {
 
     private static final long serialVersionUID = 6898204281387972710L;
-    private static final Logger LOGGER = Logger.getLogger(AperturaNominaRfcController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AperturaNominaRfcController.class.getName());
 
     @Inject
     private AperturaNominaRfc aperturaNominaRfcEjb;
@@ -60,25 +61,34 @@ public class AperturaNominaRfcController implements Serializable {
 
     @PostConstruct
     public void init() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Map<String, String> params = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
         String idProductoNominaStr = params.get("idProductoNomina");
-        idProductoNomina = idProductoNominaStr != null ? Integer.parseInt(idProductoNominaStr) : 0;
-        idUsuario = AutenticacionUtil.recuperarUsuarioSesion() != null ? AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario() : 0;
+        idProductoNomina = idProductoNominaStr != null
+                ? Integer.parseInt(idProductoNominaStr) : 0;
+        idUsuario = AutenticacionUtil.recuperarUsuarioSesion() != null
+                ? AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario() : 0;
         idBitacora = aperturaNominaRfcEjb.obtenerIdBitacora(idUsuario);
     }
 
     public void abrirProductoNomina() {
-        aperturaNominaRfcEjb.abrirProductoNomina(idProductoNomina, listaRfc, idBitacora);
-        FacesMessage message = new FacesMessage("Producto de nómina aperturado", "El producto de nómina se ha aperturado correctamente.");
+        aperturaNominaRfcEjb.abrirProductoNomina(idProductoNomina, listaRfc,
+                idBitacora);
+        FacesMessage message = new FacesMessage("Producto de nómina aperturado",
+                "El producto de nómina se ha aperturado correctamente.");
         FacesContext.getCurrentInstance().addMessage(null, message);
         actualizarBitacora();
     }
 
     public void procesarArchivo(FileUploadEvent event) {
         try {
-            aperturaNominaRfcEjb.registrarEnBitacoraEventoInformacion(idBitacora, "Archivo cargado: {0}", event.getFile().getFileName());
+            aperturaNominaRfcEjb.registrarEnBitacoraEventoInformacion(
+                    idBitacora, "Archivo cargado: {0}",
+                    event.getFile().getFileName());
             obtenerListaRfc(event.getFile().getInputstream());
-            FacesMessage message = new FacesMessage("Archivo cargado correctamente", "Se han cargado " + listaRfc.size() + " RFC correctamente");
+            FacesMessage message = new FacesMessage(
+                    "Archivo cargado correctamente",
+                    "Se han cargado " + listaRfc.size() + " RFC correctamente");
             FacesContext.getCurrentInstance().addMessage(null, message);
         } catch (IOException ex) {
             LOGGER.error(ex);
@@ -95,13 +105,17 @@ public class AperturaNominaRfcController implements Serializable {
 
         int linea = 1;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(is))) {
             String rfc;
             while ((rfc = br.readLine()) != null) {
                 if (ValidacionUtil.validarRfc(rfc)) {
                     listaRfc.add(rfc);
                 } else {
-                    aperturaNominaRfcEjb.registrarEnBitacoraEventoError(idBitacora, "El formato del RFC \"{0}\" no es valido, en la línea {1}.", rfc, linea);
+                    aperturaNominaRfcEjb.registrarEnBitacoraEventoError(
+                            idBitacora,
+                            "El formato del RFC \"{0}\" no es valido, en la línea {1}.",
+                            rfc, linea);
                 }
                 linea++;
             }

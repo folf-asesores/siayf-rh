@@ -56,14 +56,16 @@ public class AutorizacionesController implements Serializable {
     }
 
     public String irCrear() {
-        view.setListAutorizaciones(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaAutorizaciones()));
+        view.setListAutorizaciones(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaAutorizaciones()));
         //	view.setListaUsuarios(autorizacionUsuario.obtenerListaUsuarios());
         view.panelCrear();
         return null;
     }
 
     public String irActualizar() {
-        view.setListAutorizaciones(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaAutorizaciones()));
+        view.setListAutorizaciones(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaAutorizaciones()));
         //		view.setListaAutorizados(autorizacionUsuario.obtenerListaAutorizadosDesactivados());
         view.panelActualizar();
         return null;
@@ -106,7 +108,8 @@ public class AutorizacionesController implements Serializable {
     public void actualizarAutorizacion() {
         try {
             List<UsuarioConfiguracionDTO> lid = new ArrayList<>();
-            for (UsuarioConfiguracionDTO usuario : view.getAutorizadosSelect()) {
+            for (UsuarioConfiguracionDTO usuario : view
+                    .getAutorizadosSelect()) {
                 lid.add(usuario);
             }
             //	autorizacionUsuario.actualizarConfiguracionAutorizacion(lid, view.getDes());
@@ -119,7 +122,8 @@ public class AutorizacionesController implements Serializable {
     public void eliminarAutorizacion() {
         try {
             List<UsuarioConfiguracionDTO> lid = new ArrayList<>();
-            for (UsuarioConfiguracionDTO usuario : view.getAutorizadosSelect()) {
+            for (UsuarioConfiguracionDTO usuario : view
+                    .getAutorizadosSelect()) {
                 lid.add(usuario);
             }
             //		autorizacionUsuario.eliminaConfiguracionAutorizacion(lid);
@@ -154,7 +158,8 @@ public class AutorizacionesController implements Serializable {
     }
     //	>>>>>Validadores<<<<<
 
-    public void validatorAutorizaciones(FacesContext context, UIComponent component, Object value) {
+    public void validatorAutorizaciones(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -163,7 +168,9 @@ public class AutorizacionesController implements Serializable {
                 Integer accion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(accion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una Accion");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una Accion");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

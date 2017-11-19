@@ -15,7 +15,8 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
  *
  * @since 14/03/2017
  */
-public class EstructuraRepository extends GenericRepository<EstructuraEntity, Integer> {
+public class EstructuraRepository
+        extends GenericRepository<EstructuraEntity, Integer> {
 
     /**
      *
@@ -25,12 +26,16 @@ public class EstructuraRepository extends GenericRepository<EstructuraEntity, In
     public EstructuraEntity obtenerEstructuraPorIdPuesto(Integer idPuesto) {
 
         try {
-            return em.createQuery("SELECT e FROM EstructuraEntity AS e WHERE e.idPuesto =:idPuesto", EstructuraEntity.class).setParameter("idPuesto", idPuesto)
+            return em.createQuery(
+                    "SELECT e FROM EstructuraEntity AS e WHERE e.idPuesto =:idPuesto",
+                    EstructuraEntity.class).setParameter("idPuesto", idPuesto)
                     .getSingleResult();
         } catch (NoResultException exception) {
             return null;
         } catch (NonUniqueResultException exception) {
-            throw new SistemaException("El puesto tiene asignada más de una estructura.", SistemaCodigoError.ERROR_MULTIPLES_RESULTADOS);
+            throw new SistemaException(
+                    "El puesto tiene asignada más de una estructura.",
+                    SistemaCodigoError.ERROR_MULTIPLES_RESULTADOS);
         }
     }
 

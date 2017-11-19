@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ProductosNominaExcelDTO implements Serializable {
@@ -115,7 +115,8 @@ public class ProductosNominaExcelDTO implements Serializable {
         return conceptoCentroResponsabilidad;
     }
 
-    public void setConceptoCentroResponsabilidad(String conceptoCentroResponsabilidad) {
+    public void setConceptoCentroResponsabilidad(
+            String conceptoCentroResponsabilidad) {
         this.conceptoCentroResponsabilidad = conceptoCentroResponsabilidad;
     }
 
@@ -156,7 +157,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setHonorariosAsimilables(BigDecimal honorariosAsimilables) {
-        this.honorariosAsimilables = honorariosAsimilables == null ? BigDecimal.ZERO : honorariosAsimilables;
+        this.honorariosAsimilables = honorariosAsimilables == null
+                ? BigDecimal.ZERO : honorariosAsimilables;
     }
 
     public BigDecimal getSuplencias() {
@@ -172,15 +174,18 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setDiasEconomicos(BigDecimal diasEconomicos) {
-        this.diasEconomicos = diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos;
+        this.diasEconomicos = diasEconomicos == null ? BigDecimal.ZERO
+                : diasEconomicos;
     }
 
     public BigDecimal getPercepcionComplementaria() {
         return percepcionComplementaria;
     }
 
-    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
-        this.percepcionComplementaria = percepcionComplementaria == null ? BigDecimal.ZERO : percepcionComplementaria;
+    public void setPercepcionComplementaria(
+            BigDecimal percepcionComplementaria) {
+        this.percepcionComplementaria = percepcionComplementaria == null
+                ? BigDecimal.ZERO : percepcionComplementaria;
     }
 
     public BigDecimal getBono() {
@@ -212,7 +217,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setPrimaVacacional(BigDecimal primaVacacional) {
-        this.primaVacacional = primaVacacional == null ? BigDecimal.ZERO : primaVacacional;
+        this.primaVacacional = primaVacacional == null ? BigDecimal.ZERO
+                : primaVacacional;
     }
 
     public BigDecimal getBonificacionFalta() {
@@ -220,7 +226,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setBonificacionFalta(BigDecimal bonificacionFalta) {
-        this.bonificacionFalta = bonificacionFalta == null ? BigDecimal.ZERO : bonificacionFalta;
+        this.bonificacionFalta = bonificacionFalta == null ? BigDecimal.ZERO
+                : bonificacionFalta;
     }
 
     public BigDecimal getRetroactivo() {
@@ -244,7 +251,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setFaltasRetardos(BigDecimal faltasRetardos) {
-        this.faltasRetardos = faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos;
+        this.faltasRetardos = faltasRetardos == null ? BigDecimal.ZERO
+                : faltasRetardos;
     }
 
     public BigDecimal getIsr() {
@@ -276,7 +284,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setJuicioMercantil(BigDecimal juicioMercantil) {
-        this.juicioMercantil = juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil;
+        this.juicioMercantil = juicioMercantil == null ? BigDecimal.ZERO
+                : juicioMercantil;
     }
 
     public BigDecimal getCuotaSindical() {
@@ -284,7 +293,8 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setCuotaSindical(BigDecimal cuotaSindical) {
-        this.cuotaSindical = cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical;
+        this.cuotaSindical = cuotaSindical == null ? BigDecimal.ZERO
+                : cuotaSindical;
     }
 
     public BigDecimal getPensionAlimenticia() {
@@ -292,45 +302,72 @@ public class ProductosNominaExcelDTO implements Serializable {
     }
 
     public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
-        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia;
+        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO
+                : pensionAlimenticia;
     }
 
     public BigDecimal getTotal() {
         BigDecimal percepciones = BigDecimal.ZERO;
-        percepciones = percepciones.add(honorariosAsimilables == null ? BigDecimal.ZERO : honorariosAsimilables);
-        percepciones = percepciones.add(suplencias == null ? BigDecimal.ZERO : suplencias);
-        percepciones = percepciones.add(diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos);
-        percepciones = percepciones.add(percepcionComplementaria == null ? BigDecimal.ZERO : percepcionComplementaria);
+        percepciones = percepciones.add(honorariosAsimilables == null
+                ? BigDecimal.ZERO : honorariosAsimilables);
+        percepciones = percepciones
+                .add(suplencias == null ? BigDecimal.ZERO : suplencias);
+        percepciones = percepciones
+                .add(diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos);
+        percepciones = percepciones.add(percepcionComplementaria == null
+                ? BigDecimal.ZERO : percepcionComplementaria);
         percepciones = percepciones.add(bono == null ? BigDecimal.ZERO : bono);
-        percepciones = percepciones.add(aguinaldo == null ? BigDecimal.ZERO : aguinaldo);
-        percepciones = percepciones.add(subsidio == null ? BigDecimal.ZERO : subsidio);
-        percepciones = percepciones.add(primaVacacional == null ? BigDecimal.ZERO : primaVacacional);
-        percepciones = percepciones.add(bonificacionFalta == null ? BigDecimal.ZERO : bonificacionFalta);
-        percepciones = percepciones.add(retroactivo == null ? BigDecimal.ZERO : retroactivo);
-        percepciones = percepciones.add(otros == null ? BigDecimal.ZERO : otros);
+        percepciones = percepciones
+                .add(aguinaldo == null ? BigDecimal.ZERO : aguinaldo);
+        percepciones = percepciones
+                .add(subsidio == null ? BigDecimal.ZERO : subsidio);
+        percepciones = percepciones.add(
+                primaVacacional == null ? BigDecimal.ZERO : primaVacacional);
+        percepciones = percepciones.add(bonificacionFalta == null
+                ? BigDecimal.ZERO : bonificacionFalta);
+        percepciones = percepciones
+                .add(retroactivo == null ? BigDecimal.ZERO : retroactivo);
+        percepciones = percepciones
+                .add(otros == null ? BigDecimal.ZERO : otros);
 
         BigDecimal deducciones = BigDecimal.ZERO;
-        deducciones = deducciones.add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
+        deducciones = deducciones
+                .add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
         deducciones = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
-        deducciones = deducciones.add(responsabilidades == null ? BigDecimal.ZERO : responsabilidades);
-        deducciones = deducciones.add(prestamo == null ? BigDecimal.ZERO : prestamo);
-        deducciones = deducciones.add(juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
-        deducciones = deducciones.add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
-        deducciones = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
+        deducciones = deducciones.add(responsabilidades == null
+                ? BigDecimal.ZERO : responsabilidades);
+        deducciones = deducciones
+                .add(prestamo == null ? BigDecimal.ZERO : prestamo);
+        deducciones = deducciones.add(
+                juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
+        deducciones = deducciones
+                .add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
+        deducciones = deducciones.add(pensionAlimenticia == null
+                ? BigDecimal.ZERO : pensionAlimenticia);
 
         return percepciones.subtract(deducciones);
     }
 
     @Override
     public String toString() {
-        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
-                + centroResponsabilidad + ", conceptoCentroResponsabilidad=" + conceptoCentroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa
-                + ", honorariosAsimilables=" + honorariosAsimilables + ", suplencias=" + suplencias + ", diasEconomicos=" + diasEconomicos
-                + ", percepcionComplementaria=" + percepcionComplementaria + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio=" + subsidio
-                + ", primaVacacional=" + primaVacacional + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo=" + retroactivo + ", otros=" + otros
-                + ", faltasRetardos=" + faltasRetardos + ", isr=" + isr + ", responsabilidades=" + responsabilidades + ", prestamo=" + prestamo
-                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical=" + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia + ", total="
-                + getTotal() + ']';
+        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado="
+                + nombreEmpleado + ", fechaIngreso=" + fechaIngreso
+                + ", centroResponsabilidad=" + centroResponsabilidad
+                + ", conceptoCentroResponsabilidad="
+                + conceptoCentroResponsabilidad + ", funcion=" + funcion
+                + ", programa=" + programa + ", honorariosAsimilables="
+                + honorariosAsimilables + ", suplencias=" + suplencias
+                + ", diasEconomicos=" + diasEconomicos
+                + ", percepcionComplementaria=" + percepcionComplementaria
+                + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio="
+                + subsidio + ", primaVacacional=" + primaVacacional
+                + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo="
+                + retroactivo + ", otros=" + otros + ", faltasRetardos="
+                + faltasRetardos + ", isr=" + isr + ", responsabilidades="
+                + responsabilidades + ", prestamo=" + prestamo
+                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical="
+                + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia
+                + ", total=" + getTotal() + ']';
     }
 
     @Override
@@ -383,10 +420,12 @@ public class ProductosNominaExcelDTO implements Serializable {
         if (!Objects.equals(nombreEmpleado, other.nombreEmpleado)) {
             return false;
         }
-        if (!Objects.equals(centroResponsabilidad, other.centroResponsabilidad)) {
+        if (!Objects.equals(centroResponsabilidad,
+                other.centroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(conceptoCentroResponsabilidad, other.conceptoCentroResponsabilidad)) {
+        if (!Objects.equals(conceptoCentroResponsabilidad,
+                other.conceptoCentroResponsabilidad)) {
             return false;
         }
         if (!Objects.equals(funcion, other.funcion)) {
@@ -398,7 +437,8 @@ public class ProductosNominaExcelDTO implements Serializable {
         if (!Objects.equals(fechaIngreso, other.fechaIngreso)) {
             return false;
         }
-        if (!Objects.equals(honorariosAsimilables, other.honorariosAsimilables)) {
+        if (!Objects.equals(honorariosAsimilables,
+                other.honorariosAsimilables)) {
             return false;
         }
         if (!Objects.equals(suplencias, other.suplencias)) {
@@ -407,7 +447,8 @@ public class ProductosNominaExcelDTO implements Serializable {
         if (!Objects.equals(diasEconomicos, other.diasEconomicos)) {
             return false;
         }
-        if (!Objects.equals(percepcionComplementaria, other.percepcionComplementaria)) {
+        if (!Objects.equals(percepcionComplementaria,
+                other.percepcionComplementaria)) {
             return false;
         }
         if (!Objects.equals(bono, other.bono)) {

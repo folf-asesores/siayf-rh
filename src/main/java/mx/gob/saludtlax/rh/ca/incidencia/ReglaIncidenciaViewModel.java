@@ -83,7 +83,8 @@ public class ReglaIncidenciaViewModel implements Serializable {
         return tipoContratacionDescripcion;
     }
 
-    public void setTipoContratacionDescripcion(String tipoContratacionDescripcion) {
+    public void setTipoContratacionDescripcion(
+            String tipoContratacionDescripcion) {
         this.tipoContratacionDescripcion = tipoContratacionDescripcion;
     }
 

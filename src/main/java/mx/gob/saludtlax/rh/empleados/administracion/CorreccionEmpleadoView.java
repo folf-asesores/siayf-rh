@@ -98,7 +98,8 @@ public class CorreccionEmpleadoView {
         return mostrarRegistroExperienciaLaboral;
     }
 
-    public void setMostrarRegistroExperienciaLaboral(boolean mostrarRegistroExperienciaLaboral) {
+    public void setMostrarRegistroExperienciaLaboral(
+            boolean mostrarRegistroExperienciaLaboral) {
         this.mostrarRegistroExperienciaLaboral = mostrarRegistroExperienciaLaboral;
     }
 
@@ -106,7 +107,8 @@ public class CorreccionEmpleadoView {
         return mostrarAdjuntarDocumentoDependiente;
     }
 
-    public void setMostrarAdjuntarDocumentoDependiente(boolean mostrarAdjuntarDocumentoDependiente) {
+    public void setMostrarAdjuntarDocumentoDependiente(
+            boolean mostrarAdjuntarDocumentoDependiente) {
         this.mostrarAdjuntarDocumentoDependiente = mostrarAdjuntarDocumentoDependiente;
     }
 
@@ -114,7 +116,8 @@ public class CorreccionEmpleadoView {
         return idDocumentoAduntableDependiente;
     }
 
-    public void setIdDocumentoAduntableDependiente(Integer idDocumentoAduntableDependiente) {
+    public void setIdDocumentoAduntableDependiente(
+            Integer idDocumentoAduntableDependiente) {
         this.idDocumentoAduntableDependiente = idDocumentoAduntableDependiente;
     }
 
@@ -122,7 +125,8 @@ public class CorreccionEmpleadoView {
         return dependienteSeleccionado;
     }
 
-    public void setDependienteSeleccionado(InfoDependienteEconomicoDTO dependienteSeleccionado) {
+    public void setDependienteSeleccionado(
+            InfoDependienteEconomicoDTO dependienteSeleccionado) {
         this.dependienteSeleccionado = dependienteSeleccionado;
     }
 
@@ -130,7 +134,8 @@ public class CorreccionEmpleadoView {
         return listaDocumentosDependientes;
     }
 
-    public void setListaDocumentosDependientes(List<SelectItem> listaDocumentosDependientes) {
+    public void setListaDocumentosDependientes(
+            List<SelectItem> listaDocumentosDependientes) {
         this.listaDocumentosDependientes = listaDocumentosDependientes;
     }
 
@@ -138,7 +143,8 @@ public class CorreccionEmpleadoView {
         return dependientesEconomicos;
     }
 
-    public void setDependientesEconomicos(List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
+    public void setDependientesEconomicos(
+            List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
         this.dependientesEconomicos = dependientesEconomicos;
     }
 
@@ -154,7 +160,8 @@ public class CorreccionEmpleadoView {
         return visualizarBotonDependientes;
     }
 
-    public void setVisualizarBotonDependientes(boolean visualizarBotonDependientes) {
+    public void setVisualizarBotonDependientes(
+            boolean visualizarBotonDependientes) {
         this.visualizarBotonDependientes = visualizarBotonDependientes;
     }
 
@@ -162,7 +169,8 @@ public class CorreccionEmpleadoView {
         return mostrarDependientesEconomicos;
     }
 
-    public void setMostrarDependientesEconomicos(boolean mostrarDependientesEconomicos) {
+    public void setMostrarDependientesEconomicos(
+            boolean mostrarDependientesEconomicos) {
         this.mostrarDependientesEconomicos = mostrarDependientesEconomicos;
     }
 
@@ -186,7 +194,8 @@ public class CorreccionEmpleadoView {
         return idDocumentoAdjuntableHistorial;
     }
 
-    public void setIdDocumentoAdjuntableHistorial(Integer idDocumentoAdjuntableHistorial) {
+    public void setIdDocumentoAdjuntableHistorial(
+            Integer idDocumentoAdjuntableHistorial) {
         this.idDocumentoAdjuntableHistorial = idDocumentoAdjuntableHistorial;
     }
 
@@ -194,7 +203,8 @@ public class CorreccionEmpleadoView {
         return listaDocumentosHistorialAcademico;
     }
 
-    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(
+            List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 
@@ -202,7 +212,8 @@ public class CorreccionEmpleadoView {
         return documentacionActualHistorial;
     }
 
-    public void setDocumentacionActualHistorial(List<String> documentacionActualHistorial) {
+    public void setDocumentacionActualHistorial(
+            List<String> documentacionActualHistorial) {
         this.documentacionActualHistorial = documentacionActualHistorial;
     }
 
@@ -234,7 +245,8 @@ public class CorreccionEmpleadoView {
         return mostrarAdjuntarDocumentoHistorial;
     }
 
-    public void setMostrarAdjuntarDocumentoHistorial(boolean mostrarAdjuntarDocumentoHistorial) {
+    public void setMostrarAdjuntarDocumentoHistorial(
+            boolean mostrarAdjuntarDocumentoHistorial) {
         this.mostrarAdjuntarDocumentoHistorial = mostrarAdjuntarDocumentoHistorial;
     }
 
@@ -258,7 +270,8 @@ public class CorreccionEmpleadoView {
         return documentosExpedientes;
     }
 
-    public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
+    public void setDocumentosExpedientes(
+            List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
     }
 
@@ -274,7 +287,8 @@ public class CorreccionEmpleadoView {
         return listaTiposDocumentosExpediente;
     }
 
-    public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
+    public void setListaTiposDocumentosExpediente(
+            List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
     }
 
@@ -298,7 +312,8 @@ public class CorreccionEmpleadoView {
         return mostrarAperturaExpediente;
     }
 
-    public void setMostrarAperturaExpediente(boolean mostrarAperturaExpediente) {
+    public void setMostrarAperturaExpediente(
+            boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
     }
 
@@ -306,7 +321,8 @@ public class CorreccionEmpleadoView {
         return mostrarActualizacionExpediente;
     }
 
-    public void setMostrarActualizacionExpediente(boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(
+            boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -357,7 +373,8 @@ public class CorreccionEmpleadoView {
         return listaTiposParentescos;
     }
 
-    public void setListaTiposParentescos(List<SelectItem> listaTiposParentescos) {
+    public void setListaTiposParentescos(
+            List<SelectItem> listaTiposParentescos) {
         this.listaTiposParentescos = listaTiposParentescos;
     }
 
@@ -397,7 +414,8 @@ public class CorreccionEmpleadoView {
         return listaComprobantesEstudios;
     }
 
-    public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
+    public void setListaComprobantesEstudios(
+            List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
     }
 
@@ -405,7 +423,8 @@ public class CorreccionEmpleadoView {
         return historialesAcademicos;
     }
 
-    public void setHistorialesAcademicos(List<HistorialAcademicoDTO> historialesAcademicos) {
+    public void setHistorialesAcademicos(
+            List<HistorialAcademicoDTO> historialesAcademicos) {
         this.historialesAcademicos = historialesAcademicos;
     }
 
@@ -413,7 +432,8 @@ public class CorreccionEmpleadoView {
         return experienciasLaborales;
     }
 
-    public void setExperienciasLaborales(List<ExperienciaLaboralDTO> experienciasLaborales) {
+    public void setExperienciasLaborales(
+            List<ExperienciaLaboralDTO> experienciasLaborales) {
         this.experienciasLaborales = experienciasLaborales;
     }
 
@@ -437,7 +457,8 @@ public class CorreccionEmpleadoView {
         return historialAcademicoSeleccionado;
     }
 
-    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 
@@ -445,7 +466,8 @@ public class CorreccionEmpleadoView {
         return experienciaLaboral;
     }
 
-    public void setExperienciaLaboral(ExperienciaLaboralDTO experienciaLaboral) {
+    public void setExperienciaLaboral(
+            ExperienciaLaboralDTO experienciaLaboral) {
         this.experienciaLaboral = experienciaLaboral;
     }
 
@@ -469,7 +491,8 @@ public class CorreccionEmpleadoView {
         return mostrarHistorialAcademico;
     }
 
-    public void setMostrarHistorialAcademico(boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -477,7 +500,8 @@ public class CorreccionEmpleadoView {
         return mostrarExperienciaLaboral;
     }
 
-    public void setMostrarExperienciaLaboral(boolean mostrarExperienciaLaboral) {
+    public void setMostrarExperienciaLaboral(
+            boolean mostrarExperienciaLaboral) {
         this.mostrarExperienciaLaboral = mostrarExperienciaLaboral;
     }
 

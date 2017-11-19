@@ -11,11 +11,12 @@ import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  * @version 10/03/2016 11:02:43
  */
-public class ProfesionRepository extends GenericRepository<ProfesionEntity, Integer> implements Serializable {
+public class ProfesionRepository extends
+        GenericRepository<ProfesionEntity, Integer> implements Serializable {
 
     /**
      *
@@ -23,7 +24,8 @@ public class ProfesionRepository extends GenericRepository<ProfesionEntity, Inte
     private static final long serialVersionUID = -3837863046702903172L;
 
     public List<ProfesionEntity> obtenerListaProfesion() {
-        return em.createQuery("SELECT p FROM ProfesionEntity AS p", ProfesionEntity.class).getResultList();
+        return em.createQuery("SELECT p FROM ProfesionEntity AS p",
+                ProfesionEntity.class).getResultList();
     }
 
     public boolean existeIdProfesion(Integer idProfesion) {
@@ -31,8 +33,10 @@ public class ProfesionRepository extends GenericRepository<ProfesionEntity, Inte
 
         try {
 
-            Integer existeId = em.createQuery("SELECT p.idProfesion FROM ProfesionEntity AS p WHERE p.idProfesion =:idProfesion", Integer.class)
-                    .setParameter("idProfesion", idProfesion).getSingleResult();
+            Integer existeId = em.createQuery(
+                    "SELECT p.idProfesion FROM ProfesionEntity AS p WHERE p.idProfesion =:idProfesion",
+                    Integer.class).setParameter("idProfesion", idProfesion)
+                    .getSingleResult();
 
             resultado = true;
 

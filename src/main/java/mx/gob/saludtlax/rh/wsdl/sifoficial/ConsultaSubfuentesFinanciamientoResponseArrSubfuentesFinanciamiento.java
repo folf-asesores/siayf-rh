@@ -46,7 +46,8 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento", propOrder = { "element" })
+@XmlType(name = "consulta_subfuentes_financiamientoResponse_arr_subfuentes_financiamiento", propOrder = {
+        "element" })
 public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento {
 
     @XmlElement(required = true, nillable = true)
@@ -109,8 +110,9 @@ public class ConsultaSubfuentesFinanciamientoResponseArrSubfuentesFinanciamiento
      *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = { "idSubfuenteFinanciamiento", "idFuenteFinanciamiento", "idFuenteFinanciamientoOpd", "idBase36", "descripcion",
-            "idRamoFederal" })
+    @XmlType(name = "", propOrder = { "idSubfuenteFinanciamiento",
+            "idFuenteFinanciamiento", "idFuenteFinanciamientoOpd", "idBase36",
+            "descripcion", "idRamoFederal" })
     public static class Element {
 
         @XmlElement(name = "id_subfuente_financiamiento", required = true, type = Integer.class, nillable = true)

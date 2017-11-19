@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/05/2016 13:45:06
  */
@@ -275,13 +275,23 @@ public class MovimientoNominaDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "MovimientoNominaDTO [idMovimientoFijo=" + idMovimientoFijo + ", idTerceroInstitucional=" + idTerceroInstitucional + ", terceroInstitucional="
-                + terceroInstitucional + ", fechaDocumento=" + fechaDocumento + ", folio=" + folio + ", idEmpleado=" + idEmpleado + ", rfc=" + rfc
-                + ", quincenaOperacion=" + quincenaOperacion + ", anyoOperacion=" + anyoOperacion + ", importeQuincenas=" + importeQuincenas
-                + ", importeDescontado=" + importeDescontado + ", quincenaInicial=" + quincenaInicial + ", quincenaFinal=" + quincenaFinal + ", anioFinal="
-                + anioFinal + ", anioInicial=" + anioInicial + ", importeMensual=" + importeMensual + ", importeQuincenal=" + importeQuincenal
-                + ", fechaRegistro=" + fechaRegistro + ", fechaModificacion=" + fechaModificacion + ", idTipoMovimiento=" + idTipoMovimiento + ", dias=" + dias
-                + ", tipoMovimiento=" + tipoMovimiento + ", statusRegistro=" + statusRegistro + ", clave=" + clave + ", estatus=" + estatus + "]";
+        return "MovimientoNominaDTO [idMovimientoFijo=" + idMovimientoFijo
+                + ", idTerceroInstitucional=" + idTerceroInstitucional
+                + ", terceroInstitucional=" + terceroInstitucional
+                + ", fechaDocumento=" + fechaDocumento + ", folio=" + folio
+                + ", idEmpleado=" + idEmpleado + ", rfc=" + rfc
+                + ", quincenaOperacion=" + quincenaOperacion
+                + ", anyoOperacion=" + anyoOperacion + ", importeQuincenas="
+                + importeQuincenas + ", importeDescontado=" + importeDescontado
+                + ", quincenaInicial=" + quincenaInicial + ", quincenaFinal="
+                + quincenaFinal + ", anioFinal=" + anioFinal + ", anioInicial="
+                + anioInicial + ", importeMensual=" + importeMensual
+                + ", importeQuincenal=" + importeQuincenal + ", fechaRegistro="
+                + fechaRegistro + ", fechaModificacion=" + fechaModificacion
+                + ", idTipoMovimiento=" + idTipoMovimiento + ", dias=" + dias
+                + ", tipoMovimiento=" + tipoMovimiento + ", statusRegistro="
+                + statusRegistro + ", clave=" + clave + ", estatus=" + estatus
+                + "]";
     }
 
 }

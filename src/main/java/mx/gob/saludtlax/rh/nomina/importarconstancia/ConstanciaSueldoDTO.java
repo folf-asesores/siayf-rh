@@ -210,7 +210,8 @@ public class ConstanciaSueldoDTO {
         return TarifaUtilizadaActualizada;
     }
 
-    public void setTarifaUtilizadaActualizada(Integer tarifaUtilizadaActualizada) {
+    public void setTarifaUtilizadaActualizada(
+            Integer tarifaUtilizadaActualizada) {
         TarifaUtilizadaActualizada = tarifaUtilizadaActualizada;
     }
 
@@ -338,7 +339,8 @@ public class ConstanciaSueldoDTO {
         return AplicoAportacionesVoluntarias;
     }
 
-    public void setAplicoAportacionesVoluntarias(Integer aplicoAportacionesVoluntarias) {
+    public void setAplicoAportacionesVoluntarias(
+            Integer aplicoAportacionesVoluntarias) {
         AplicoAportacionesVoluntarias = aplicoAportacionesVoluntarias;
     }
 
@@ -346,7 +348,8 @@ public class ConstanciaSueldoDTO {
         return AportacionesVoluntariasDeducibles;
     }
 
-    public void setAportacionesVoluntariasDeducibles(Integer aportacionesVoluntariasDeducibles) {
+    public void setAportacionesVoluntariasDeducibles(
+            Integer aportacionesVoluntariasDeducibles) {
         AportacionesVoluntariasDeducibles = aportacionesVoluntariasDeducibles;
     }
 
@@ -370,7 +373,8 @@ public class ConstanciaSueldoDTO {
         return PagosEfectuadosTrabajadores;
     }
 
-    public void setPagosEfectuadosTrabajadores(Integer pagosEfectuadosTrabajadores) {
+    public void setPagosEfectuadosTrabajadores(
+            Integer pagosEfectuadosTrabajadores) {
         PagosEfectuadosTrabajadores = pagosEfectuadosTrabajadores;
     }
 
@@ -394,7 +398,8 @@ public class ConstanciaSueldoDTO {
         return GratificacionAnualGravado;
     }
 
-    public void setGratificacionAnualGravado(BigDecimal gratificacionAnualGravado) {
+    public void setGratificacionAnualGravado(
+            BigDecimal gratificacionAnualGravado) {
         GratificacionAnualGravado = gratificacionAnualGravado;
     }
 
@@ -402,7 +407,8 @@ public class ConstanciaSueldoDTO {
         return GratificacionAnualExento;
     }
 
-    public void setGratificacionAnualExento(BigDecimal gratificacionAnualExento) {
+    public void setGratificacionAnualExento(
+            BigDecimal gratificacionAnualExento) {
         GratificacionAnualExento = gratificacionAnualExento;
     }
 
@@ -426,7 +432,8 @@ public class ConstanciaSueldoDTO {
         return TiempoExtraordinarioGravado;
     }
 
-    public void setTiempoExtraordinarioGravado(BigDecimal tiempoExtraordinarioGravado) {
+    public void setTiempoExtraordinarioGravado(
+            BigDecimal tiempoExtraordinarioGravado) {
         TiempoExtraordinarioGravado = tiempoExtraordinarioGravado;
     }
 
@@ -434,7 +441,8 @@ public class ConstanciaSueldoDTO {
         return TiempoExtraordinarioExento;
     }
 
-    public void setTiempoExtraordinarioExento(BigDecimal tiempoExtraordinarioExento) {
+    public void setTiempoExtraordinarioExento(
+            BigDecimal tiempoExtraordinarioExento) {
         TiempoExtraordinarioExento = tiempoExtraordinarioExento;
     }
 
@@ -474,7 +482,8 @@ public class ConstanciaSueldoDTO {
         return ParticipacionTrabajadoresUtilidades;
     }
 
-    public void setParticipacionTrabajadoresUtilidades(Integer participacionTrabajadoresUtilidades) {
+    public void setParticipacionTrabajadoresUtilidades(
+            Integer participacionTrabajadoresUtilidades) {
         ParticipacionTrabajadoresUtilidades = participacionTrabajadoresUtilidades;
     }
 
@@ -482,7 +491,8 @@ public class ConstanciaSueldoDTO {
         return SegundaParticipacionTrabajadoresUtilidades;
     }
 
-    public void setSegundaParticipacionTrabajadoresUtilidades(Integer segundaParticipacionTrabajadoresUtilidades) {
+    public void setSegundaParticipacionTrabajadoresUtilidades(
+            Integer segundaParticipacionTrabajadoresUtilidades) {
         SegundaParticipacionTrabajadoresUtilidades = segundaParticipacionTrabajadoresUtilidades;
     }
 
@@ -554,7 +564,8 @@ public class ConstanciaSueldoDTO {
         return AyudaGastosFuneralGravado;
     }
 
-    public void setAyudaGastosFuneralGravado(BigDecimal ayudaGastosFuneralGravado) {
+    public void setAyudaGastosFuneralGravado(
+            BigDecimal ayudaGastosFuneralGravado) {
         AyudaGastosFuneralGravado = ayudaGastosFuneralGravado;
     }
 
@@ -562,7 +573,8 @@ public class ConstanciaSueldoDTO {
         return AyudaGastosFuneralExento;
     }
 
-    public void setAyudaGastosFuneralExento(BigDecimal ayudaGastosFuneralExento) {
+    public void setAyudaGastosFuneralExento(
+            BigDecimal ayudaGastosFuneralExento) {
         AyudaGastosFuneralExento = ayudaGastosFuneralExento;
     }
 
@@ -570,7 +582,8 @@ public class ConstanciaSueldoDTO {
         return ContribucionTrabajadorGravado;
     }
 
-    public void setContribucionTrabajadorGravado(BigDecimal contribucionTrabajadorGravado) {
+    public void setContribucionTrabajadorGravado(
+            BigDecimal contribucionTrabajadorGravado) {
         ContribucionTrabajadorGravado = contribucionTrabajadorGravado;
     }
 
@@ -578,7 +591,8 @@ public class ConstanciaSueldoDTO {
         return ContribucionTrabajadorExento;
     }
 
-    public void setContribucionTrabajadorExento(BigDecimal contribucionTrabajadorExento) {
+    public void setContribucionTrabajadorExento(
+            BigDecimal contribucionTrabajadorExento) {
         ContribucionTrabajadorExento = contribucionTrabajadorExento;
     }
 
@@ -586,7 +600,8 @@ public class ConstanciaSueldoDTO {
         return PremiosPuntualidadGravado;
     }
 
-    public void setPremiosPuntualidadGravado(BigDecimal premiosPuntualidadGravado) {
+    public void setPremiosPuntualidadGravado(
+            BigDecimal premiosPuntualidadGravado) {
         PremiosPuntualidadGravado = premiosPuntualidadGravado;
     }
 
@@ -594,7 +609,8 @@ public class ConstanciaSueldoDTO {
         return PremiosPuntualidadExento;
     }
 
-    public void setPremiosPuntualidadExento(BigDecimal premiosPuntualidadExento) {
+    public void setPremiosPuntualidadExento(
+            BigDecimal premiosPuntualidadExento) {
         PremiosPuntualidadExento = premiosPuntualidadExento;
     }
 
@@ -618,7 +634,8 @@ public class ConstanciaSueldoDTO {
         return SeguroGastosMedicosMayoresGravado;
     }
 
-    public void setSeguroGastosMedicosMayoresGravado(BigDecimal seguroGastosMedicosMayoresGravado) {
+    public void setSeguroGastosMedicosMayoresGravado(
+            BigDecimal seguroGastosMedicosMayoresGravado) {
         SeguroGastosMedicosMayoresGravado = seguroGastosMedicosMayoresGravado;
     }
 
@@ -626,7 +643,8 @@ public class ConstanciaSueldoDTO {
         return SeguroGastosMedicosMayoresExento;
     }
 
-    public void setSeguroGastosMedicosMayoresExento(BigDecimal seguroGastosMedicosMayoresExento) {
+    public void setSeguroGastosMedicosMayoresExento(
+            BigDecimal seguroGastosMedicosMayoresExento) {
         SeguroGastosMedicosMayoresExento = seguroGastosMedicosMayoresExento;
     }
 
@@ -698,7 +716,8 @@ public class ConstanciaSueldoDTO {
         return AyudaArticulosEscolaresGravado;
     }
 
-    public void setAyudaArticulosEscolaresGravado(BigDecimal ayudaArticulosEscolaresGravado) {
+    public void setAyudaArticulosEscolaresGravado(
+            BigDecimal ayudaArticulosEscolaresGravado) {
         AyudaArticulosEscolaresGravado = ayudaArticulosEscolaresGravado;
     }
 
@@ -706,7 +725,8 @@ public class ConstanciaSueldoDTO {
         return AyudaArticulosEscolaresExento;
     }
 
-    public void setAyudaArticulosEscolaresExento(BigDecimal ayudaArticulosEscolaresExento) {
+    public void setAyudaArticulosEscolaresExento(
+            BigDecimal ayudaArticulosEscolaresExento) {
         AyudaArticulosEscolaresExento = ayudaArticulosEscolaresExento;
     }
 
@@ -762,7 +782,8 @@ public class ConstanciaSueldoDTO {
         return SubsidioIncapacidadGravado;
     }
 
-    public void setSubsidioIncapacidadGravado(BigDecimal subsidioIncapacidadGravado) {
+    public void setSubsidioIncapacidadGravado(
+            BigDecimal subsidioIncapacidadGravado) {
         SubsidioIncapacidadGravado = subsidioIncapacidadGravado;
     }
 
@@ -770,7 +791,8 @@ public class ConstanciaSueldoDTO {
         return SubsidioIncapacidadExento;
     }
 
-    public void setSubsidioIncapacidadExento(BigDecimal subsidioIncapacidadExento) {
+    public void setSubsidioIncapacidadExento(
+            BigDecimal subsidioIncapacidadExento) {
         SubsidioIncapacidadExento = subsidioIncapacidadExento;
     }
 
@@ -826,7 +848,8 @@ public class ConstanciaSueldoDTO {
         return SumaIngresoPorSueldoGravado;
     }
 
-    public void setSumaIngresoPorSueldoGravado(BigDecimal sumaIngresoPorSueldoGravado) {
+    public void setSumaIngresoPorSueldoGravado(
+            BigDecimal sumaIngresoPorSueldoGravado) {
         SumaIngresoPorSueldoGravado = sumaIngresoPorSueldoGravado;
     }
 
@@ -834,7 +857,8 @@ public class ConstanciaSueldoDTO {
         return SumaIngresoPorSueldoExento;
     }
 
-    public void setSumaIngresoPorSueldoExento(BigDecimal sumaIngresoPorSueldoExento) {
+    public void setSumaIngresoPorSueldoExento(
+            BigDecimal sumaIngresoPorSueldoExento) {
         SumaIngresoPorSueldoExento = sumaIngresoPorSueldoExento;
     }
 
@@ -842,7 +866,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoRetenidoEjercicioDeclara;
     }
 
-    public void setImpuestoRetenidoEjercicioDeclara(BigDecimal impuestoRetenidoEjercicioDeclara) {
+    public void setImpuestoRetenidoEjercicioDeclara(
+            BigDecimal impuestoRetenidoEjercicioDeclara) {
         ImpuestoRetenidoEjercicioDeclara = impuestoRetenidoEjercicioDeclara;
     }
 
@@ -850,7 +875,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoRetenidoPorOtros;
     }
 
-    public void setImpuestoRetenidoPorOtros(BigDecimal impuestoRetenidoPorOtros) {
+    public void setImpuestoRetenidoPorOtros(
+            BigDecimal impuestoRetenidoPorOtros) {
         ImpuestoRetenidoPorOtros = impuestoRetenidoPorOtros;
     }
 
@@ -890,7 +916,8 @@ public class ConstanciaSueldoDTO {
         return TotalConceptoPrevisionSocial;
     }
 
-    public void setTotalConceptoPrevisionSocial(BigDecimal totalConceptoPrevisionSocial) {
+    public void setTotalConceptoPrevisionSocial(
+            BigDecimal totalConceptoPrevisionSocial) {
         TotalConceptoPrevisionSocial = totalConceptoPrevisionSocial;
     }
 
@@ -898,7 +925,8 @@ public class ConstanciaSueldoDTO {
         return SumaExentosPorPrevisionSocial;
     }
 
-    public void setSumaExentosPorPrevisionSocial(BigDecimal sumaExentosPorPrevisionSocial) {
+    public void setSumaExentosPorPrevisionSocial(
+            BigDecimal sumaExentosPorPrevisionSocial) {
         SumaExentosPorPrevisionSocial = sumaExentosPorPrevisionSocial;
     }
 
@@ -914,7 +942,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoLocalIngresosPorSueldo;
     }
 
-    public void setImpuestoLocalIngresosPorSueldo(BigDecimal impuestoLocalIngresosPorSueldo) {
+    public void setImpuestoLocalIngresosPorSueldo(
+            BigDecimal impuestoLocalIngresosPorSueldo) {
         ImpuestoLocalIngresosPorSueldo = impuestoLocalIngresosPorSueldo;
     }
 
@@ -930,7 +959,8 @@ public class ConstanciaSueldoDTO {
         return TotalAportacionesVoluntariasDeducibles;
     }
 
-    public void setTotalAportacionesVoluntariasDeducibles(BigDecimal totalAportacionesVoluntariasDeducibles) {
+    public void setTotalAportacionesVoluntariasDeducibles(
+            BigDecimal totalAportacionesVoluntariasDeducibles) {
         TotalAportacionesVoluntariasDeducibles = totalAportacionesVoluntariasDeducibles;
     }
 
@@ -962,7 +992,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoIngresosAcumulables;
     }
 
-    public void setImpuestoIngresosAcumulables(BigDecimal impuestoIngresosAcumulables) {
+    public void setImpuestoIngresosAcumulables(
+            BigDecimal impuestoIngresosAcumulables) {
         ImpuestoIngresosAcumulables = impuestoIngresosAcumulables;
     }
 
@@ -970,7 +1001,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoIngresosNoAcumulables;
     }
 
-    public void setImpuestoIngresosNoAcumulables(BigDecimal impuestoIngresosNoAcumulables) {
+    public void setImpuestoIngresosNoAcumulables(
+            BigDecimal impuestoIngresosNoAcumulables) {
         ImpuestoIngresosNoAcumulables = impuestoIngresosNoAcumulables;
     }
 
@@ -978,7 +1010,8 @@ public class ConstanciaSueldoDTO {
         return ImpuestoLocalPrestacionServicioSubordinado;
     }
 
-    public void setImpuestoLocalPrestacionServicioSubordinado(BigDecimal impuestoLocalPrestacionServicioSubordinado) {
+    public void setImpuestoLocalPrestacionServicioSubordinado(
+            BigDecimal impuestoLocalPrestacionServicioSubordinado) {
         ImpuestoLocalPrestacionServicioSubordinado = impuestoLocalPrestacionServicioSubordinado;
     }
 

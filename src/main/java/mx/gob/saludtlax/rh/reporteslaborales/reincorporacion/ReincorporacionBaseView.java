@@ -37,7 +37,8 @@ public class ReincorporacionBaseView implements Serializable {
         return reincorporacionBaseLista;
     }
 
-    public void setReincorporacionBaseLista(List<ReincorporacionBaseDTO> reincorporacionBaseLista) {
+    public void setReincorporacionBaseLista(
+            List<ReincorporacionBaseDTO> reincorporacionBaseLista) {
         this.reincorporacionBaseLista = reincorporacionBaseLista;
     }
 
@@ -45,7 +46,8 @@ public class ReincorporacionBaseView implements Serializable {
         return reincorporacionBaseDetalleDTO;
     }
 
-    public void setReincorporacionBaseDetalleDTO(List<ReincorporacionBaseDetalleDTO> reincorporacionBaseDetalleDTO) {
+    public void setReincorporacionBaseDetalleDTO(
+            List<ReincorporacionBaseDetalleDTO> reincorporacionBaseDetalleDTO) {
         this.reincorporacionBaseDetalleDTO = reincorporacionBaseDetalleDTO;
     }
 
@@ -53,7 +55,8 @@ public class ReincorporacionBaseView implements Serializable {
         return reincorporacionBaseDTO;
     }
 
-    public void setReincorporacionBaseDTO(ReincorporacionBaseDTO reincorporacionBaseDTO) {
+    public void setReincorporacionBaseDTO(
+            ReincorporacionBaseDTO reincorporacionBaseDTO) {
         this.reincorporacionBaseDTO = reincorporacionBaseDTO;
     }
 

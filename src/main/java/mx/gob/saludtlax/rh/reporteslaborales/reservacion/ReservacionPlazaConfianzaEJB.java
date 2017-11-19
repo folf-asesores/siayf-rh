@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoRepository;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -23,16 +23,21 @@ public class ReservacionPlazaConfianzaEJB {
 
     public ReservacionDTO obtenerReservacion(Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         ReservacionDTO reservacionDTO = new ReservacionDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
         String asunto = "Se concede licencia sin goce de sueldo en el puesto con funciones de base, para ocupar puesto de confianza dentro de "
                 + "la Secretaría de Salud en el Estado y O.P.D. Salud de Tlaxcala.";
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().nombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .nombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
         String comunicado = " para que se le otorgue licencia sin goce de sueldo en el puesto con funciones de base para ocupar "
                 + "puesto de confianza dentro de la Secretaría de Salud en el Estado y O.P.D. Salud de Tlaxcala, me permito comunicarle "
                 + "que con fundamento en los Artículos 43 Fracción VIII de la Ley Federal de los Trabajadores al Servicio del Estado y 148 "
@@ -78,14 +83,16 @@ public class ReservacionPlazaConfianzaEJB {
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 ReservacionDetalleDTO dto = new ReservacionDetalleDTO();
 

@@ -18,12 +18,16 @@ public class IsrService {
     @Inject
     private TablaSubsidioRepositroy tablaSubsidioDAO;
 
-    public ResultadoIsrDTO calculoIsr(BigDecimal ingresoGravable, Integer peridiocidad, Integer anio) {
+    public ResultadoIsrDTO calculoIsr(BigDecimal ingresoGravable,
+            Integer peridiocidad, Integer anio) {
         ResultadoIsrDTO resultadoIsrDTO = new ResultadoIsrDTO();
-        TarifaRetencionEntity tarifaRetencion = tarifaRetencionDAO.getTarifaRetencionByDatos(ingresoGravable, peridiocidad, anio);
-        TablaSubsidioEntity tablaSubsidio = tablaSubsidioDAO.getTablaSubsidioByDatos(ingresoGravable, peridiocidad, anio);
+        TarifaRetencionEntity tarifaRetencion = tarifaRetencionDAO
+                .getTarifaRetencionByDatos(ingresoGravable, peridiocidad, anio);
+        TablaSubsidioEntity tablaSubsidio = tablaSubsidioDAO
+                .getTablaSubsidioByDatos(ingresoGravable, peridiocidad, anio);
 
-        BigDecimal op1 = ingresoGravable.subtract(tarifaRetencion.getLimiteInferior());
+        BigDecimal op1 = ingresoGravable
+                .subtract(tarifaRetencion.getLimiteInferior());
         // Se saca el exedente del Ingreso Gravable - Limite inferior Correspondiente
         BigDecimal op2 = op1.multiply(tarifaRetencion.getPorcentajeAplicable());
         // Se obtiene el impuesto marginal al multiplicar por el Porcentaje especificada en la Tabla de Tarifa de Retencion

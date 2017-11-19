@@ -37,7 +37,8 @@ public class CentroResponsabilidadController {
     }
 
     public String irPrincipal() {
-        view.setListCentroResponsabilidad(ejb.obtenerCentroresponsabilidadLista());
+        view.setListCentroResponsabilidad(
+                ejb.obtenerCentroresponsabilidadLista());
         view.panelPrincipal();
         return null;
     }
@@ -57,8 +58,10 @@ public class CentroResponsabilidadController {
         irPrincipal();
     }
 
-    public String irGestionarCentroresponsabilidad(CentroResponsabilidadDTO centroSeleccionado) {
-        view.setCentroResponsabilidad(ejb.obtenerCuentaBancaria(centroSeleccionado));
+    public String irGestionarCentroresponsabilidad(
+            CentroResponsabilidadDTO centroSeleccionado) {
+        view.setCentroResponsabilidad(
+                ejb.obtenerCuentaBancaria(centroSeleccionado));
         view.setOperacionNuevo(Boolean.FALSE);
         view.setOpEliminar(Boolean.TRUE);
         view.panelGestion();
@@ -73,7 +76,8 @@ public class CentroResponsabilidadController {
         if (view.getOperacionNuevo()) {
             ejb.crearCentroResponsabilidad(view.getCentroResponsabilidad());
         } else {
-            ejb.actualizarCentroResponsabilidad(view.getCentroResponsabilidad());
+            ejb.actualizarCentroResponsabilidad(
+                    view.getCentroResponsabilidad());
         }
         view.panelGestion();
         irPrincipal();
@@ -104,16 +108,17 @@ public class CentroResponsabilidadController {
         this.dialogo = dialogo;
     }
 
-    
-
-    public void validatorCentroResponsabilidad(FacesContext context, UIComponent component, Object value) {
+    public void validatorCentroResponsabilidad(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "Clave":
                 Integer Clave = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(Clave)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor introcuzca una clave.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor introcuzca una clave.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -122,7 +127,9 @@ public class CentroResponsabilidadController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una adscripción.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una adscripción.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

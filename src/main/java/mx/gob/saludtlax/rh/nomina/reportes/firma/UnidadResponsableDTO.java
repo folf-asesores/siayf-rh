@@ -15,7 +15,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public final class UnidadResponsableDTO implements Serializable, Comparable<UnidadResponsableDTO>, Iterable<ProgramaDTO> {
+public final class UnidadResponsableDTO implements Serializable,
+        Comparable<UnidadResponsableDTO>, Iterable<ProgramaDTO> {
 
     private static final long serialVersionUID = -8412099433503592992L;
 
@@ -23,7 +24,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
     private final String unidadResponsable;
     private final Map<Integer, ProgramaDTO> programas;
 
-    public UnidadResponsableDTO(String numeroUnidadResponsable, String unidadResponsable, Map<Integer, ProgramaDTO> programas) {
+    public UnidadResponsableDTO(String numeroUnidadResponsable,
+            String unidadResponsable, Map<Integer, ProgramaDTO> programas) {
         this.numeroUnidadResponsable = numeroUnidadResponsable;
         this.unidadResponsable = unidadResponsable;
         this.programas = programas;
@@ -43,7 +45,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
 
     @Override
     public int compareTo(UnidadResponsableDTO o) {
-        if (numeroUnidadResponsable == null && o.numeroUnidadResponsable == null) {
+        if (numeroUnidadResponsable == null
+                && o.numeroUnidadResponsable == null) {
             return 0;
         }
         if (numeroUnidadResponsable == null) {
@@ -81,7 +84,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
             return false;
         }
         final UnidadResponsableDTO other = (UnidadResponsableDTO) obj;
-        if (!Objects.equals(numeroUnidadResponsable, other.numeroUnidadResponsable)) {
+        if (!Objects.equals(numeroUnidadResponsable,
+                other.numeroUnidadResponsable)) {
             return false;
         }
         if (!Objects.equals(unidadResponsable, other.unidadResponsable)) {
@@ -92,8 +96,9 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
 
     @Override
     public String toString() {
-        return "UnidadResponsableDTO{" + "numeroUnidadResponsable : " + numeroUnidadResponsable + ", unidadResponsable : " + unidadResponsable
-                + ", programas : [" + programas + "]}";
+        return "UnidadResponsableDTO{" + "numeroUnidadResponsable : "
+                + numeroUnidadResponsable + ", unidadResponsable : "
+                + unidadResponsable + ", programas : [" + programas + "]}";
     }
 
     public static final class Builder {
@@ -101,7 +106,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
         private String numeroUnidadResponsable;
         private Map<Integer, ProgramaDTO> programas;
 
-        public Builder(String numeroUnidadResponsable, String unidadResponsable) {
+        public Builder(String numeroUnidadResponsable,
+                String unidadResponsable) {
             this.unidadResponsable = unidadResponsable;
             this.numeroUnidadResponsable = numeroUnidadResponsable;
             programas = null;
@@ -112,7 +118,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
             return this;
         }
 
-        public Builder setNumeroUnidadResponsable(String numeroUnidadResponsable) {
+        public Builder setNumeroUnidadResponsable(
+                String numeroUnidadResponsable) {
             this.numeroUnidadResponsable = numeroUnidadResponsable;
             return this;
         }
@@ -123,7 +130,8 @@ public final class UnidadResponsableDTO implements Serializable, Comparable<Unid
         }
 
         public UnidadResponsableDTO construirUnidadResponsableDTO() {
-            return new UnidadResponsableDTO(numeroUnidadResponsable, unidadResponsable, programas);
+            return new UnidadResponsableDTO(numeroUnidadResponsable,
+                    unidadResponsable, programas);
         }
     }
 }

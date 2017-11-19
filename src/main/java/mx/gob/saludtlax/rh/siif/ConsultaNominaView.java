@@ -63,7 +63,8 @@ public class ConsultaNominaView {
         this.rfcCriterio = rfcCriterio;
     }
 
-    public void setListEstructuraNomina(List<EstructuraNominaDatDTO> listEstructuraNomina) {
+    public void setListEstructuraNomina(
+            List<EstructuraNominaDatDTO> listEstructuraNomina) {
         this.listEstructuraNomina = listEstructuraNomina;
     }
 
@@ -79,7 +80,8 @@ public class ConsultaNominaView {
         return estructuraNominaSelect;
     }
 
-    public void setEstructuraNominaSelect(EstructuraNominaDatDTO estructuraNominaSelect) {
+    public void setEstructuraNominaSelect(
+            EstructuraNominaDatDTO estructuraNominaSelect) {
         this.estructuraNominaSelect = estructuraNominaSelect;
     }
 
@@ -95,7 +97,8 @@ public class ConsultaNominaView {
         return listEstructuraNominaTrailers;
     }
 
-    public void setListEstructuraNominaTrailers(List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers) {
+    public void setListEstructuraNominaTrailers(
+            List<EstructuraNominaTrailersDTO> listEstructuraNominaTrailers) {
         this.listEstructuraNominaTrailers = listEstructuraNominaTrailers;
     }
 
@@ -103,7 +106,8 @@ public class ConsultaNominaView {
         return estructuraNominaTrailers;
     }
 
-    public void setEstructuraNominaTrailers(EstructuraNominaTrailersDTO estructuraNominaTrailers) {
+    public void setEstructuraNominaTrailers(
+            EstructuraNominaTrailersDTO estructuraNominaTrailers) {
         this.estructuraNominaTrailers = estructuraNominaTrailers;
     }
 
@@ -111,7 +115,8 @@ public class ConsultaNominaView {
         return estructuraNominaTrailersSelect;
     }
 
-    public void setEstructuraNominaTrailersSelect(EstructuraNominaTrailersDTO estructuraNominaTrailersSelect) {
+    public void setEstructuraNominaTrailersSelect(
+            EstructuraNominaTrailersDTO estructuraNominaTrailersSelect) {
         this.estructuraNominaTrailersSelect = estructuraNominaTrailersSelect;
     }
 
@@ -167,7 +172,8 @@ public class ConsultaNominaView {
         return disabledIrGestionarTrailers;
     }
 
-    public void setDisabledIrGestionarTrailers(Boolean disabledIrGestionarTrailers) {
+    public void setDisabledIrGestionarTrailers(
+            Boolean disabledIrGestionarTrailers) {
         this.disabledIrGestionarTrailers = disabledIrGestionarTrailers;
     }
 
@@ -183,7 +189,8 @@ public class ConsultaNominaView {
         return estructuraNominaSeleccionada;
     }
 
-    public void setEstructuraNominaSeleccionada(ConsultaDatosEncabezadoDTO estructuraNominaSeleccionada) {
+    public void setEstructuraNominaSeleccionada(
+            ConsultaDatosEncabezadoDTO estructuraNominaSeleccionada) {
         this.estructuraNominaSeleccionada = estructuraNominaSeleccionada;
     }
 

@@ -9,8 +9,8 @@ import java.util.List;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12:24:50 09/08/2016
  */
@@ -22,7 +22,8 @@ public interface Especialidad {
      * @param idAspirante
      * @return
      */
-    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdAspirante(Integer idAspirante);
+    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdAspirante(
+            Integer idAspirante);
 
     /***
      * Obtiene las especialidades por identificador del empleado
@@ -30,13 +31,17 @@ public interface Especialidad {
      * @param idEmpleado
      * @return
      */
-    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdEmpleado(Integer idEmpleado);
+    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdEmpleado(
+            Integer idEmpleado);
 
-    public List<InfoVacantePostularDTO> obtenerListaEspecialidadPorTipoCandidato(Integer idEspecialidad, Integer tipoCandidato);
+    public List<InfoVacantePostularDTO> obtenerListaEspecialidadPorTipoCandidato(
+            Integer idEspecialidad, Integer tipoCandidato);
 
-    public void crearEspecialidadAspirante(Integer idEspecialidad, Integer idAspirante);
+    public void crearEspecialidadAspirante(Integer idEspecialidad,
+            Integer idAspirante);
 
-    public void actualizarEspecialidadAspirante(EspecialidadDTO dto, Integer idAspirante);
+    public void actualizarEspecialidadAspirante(EspecialidadDTO dto,
+            Integer idAspirante);
 
     public void eliminarEspecialidadAspirante(Integer idEspecialidadAspirante);
 

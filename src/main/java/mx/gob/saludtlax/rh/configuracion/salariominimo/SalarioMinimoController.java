@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "salarioMinimo")
@@ -47,7 +47,8 @@ public class SalarioMinimoController implements Serializable {
      * Obteniendo la lista de salarios minimos registrados en la bd
      */
     public void obtenerListaSalarioMinimo() {
-        List<SalarioMinimoDTO> lista = salarioMinimo.obtenerListaSalarioMinimo();
+        List<SalarioMinimoDTO> lista = salarioMinimo
+                .obtenerListaSalarioMinimo();
 
         view.setListaSalariosMinimos(lista);
     }
@@ -55,7 +56,8 @@ public class SalarioMinimoController implements Serializable {
     public void crearSalarioMinimo() {
         try {
             salarioMinimo.crearSalarioMinimo(view.getCreaSalarioMinimo());
-            JSFUtils.infoMessage("Registro Salario Minimo: ", "Se realizo correctamente.");
+            JSFUtils.infoMessage("Registro Salario Minimo: ",
+                    "Se realizo correctamente.");
             mostrarPrincipal();
         } catch (ReglaNegocioException | ValidacionException e) {
             JSFUtils.errorMessage("Error: ", e.getMessage());
@@ -64,8 +66,10 @@ public class SalarioMinimoController implements Serializable {
 
     public void actualizarSalarioMinimo() {
         try {
-            salarioMinimo.actualizarSalarioMinimo(view.getActualizarSalarioMinimo());
-            JSFUtils.infoMessage("Actualización Salario Minimo: ", "Se realizo correctamente.");
+            salarioMinimo
+                    .actualizarSalarioMinimo(view.getActualizarSalarioMinimo());
+            JSFUtils.infoMessage("Actualización Salario Minimo: ",
+                    "Se realizo correctamente.");
             mostrarPrincipal();
         } catch (ReglaNegocioException | ValidacionException e) {
             JSFUtils.errorMessage("Error: ", e.getMessage());
@@ -74,8 +78,10 @@ public class SalarioMinimoController implements Serializable {
 
     public void eliminarSalarioMinimo() {
         try {
-            salarioMinimo.eliminarSalarioMinimo(view.getIdSalarioMinimoSeleccionado());
-            JSFUtils.infoMessage("Eliminación Salario Minimo: ", "Se realizo correctamente.");
+            salarioMinimo.eliminarSalarioMinimo(
+                    view.getIdSalarioMinimoSeleccionado());
+            JSFUtils.infoMessage("Eliminación Salario Minimo: ",
+                    "Se realizo correctamente.");
             mostrarPrincipal();
         } catch (ReglaNegocioException | ValidacionException e) {
             JSFUtils.errorMessage("Error: ", e.getMessage());
@@ -118,7 +124,8 @@ public class SalarioMinimoController implements Serializable {
     }
 
     public void regresarModulo() throws IOException {
-        JSFUtils.redireccionar("/siayf-rh/contenido/configuracion/salariosMinimos.xhtml?faces-redirect=true");
+        JSFUtils.redireccionar(
+                "/siayf-rh/contenido/configuracion/salariosMinimos.xhtml?faces-redirect=true");
     }
 
     public SalarioMinimoView getView() {

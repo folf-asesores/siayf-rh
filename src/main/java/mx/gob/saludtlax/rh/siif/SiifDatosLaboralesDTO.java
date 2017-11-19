@@ -55,7 +55,8 @@ public class SiifDatosLaboralesDTO {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 
@@ -167,7 +168,8 @@ public class SiifDatosLaboralesDTO {
         return percepcionComplementaria;
     }
 
-    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
+    public void setPercepcionComplementaria(
+            BigDecimal percepcionComplementaria) {
         this.percepcionComplementaria = percepcionComplementaria;
     }
 
@@ -231,7 +233,8 @@ public class SiifDatosLaboralesDTO {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

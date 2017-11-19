@@ -73,7 +73,8 @@ public class FaltaContadaEntity implements Serializable {
         return movimientoNominaEventual;
     }
 
-    public void setMovimientoNominaEventual(MovimientosNominaContratosEntity movimientoNominaEventual) {
+    public void setMovimientoNominaEventual(
+            MovimientosNominaContratosEntity movimientoNominaEventual) {
         this.movimientoNominaEventual = movimientoNominaEventual;
     }
 

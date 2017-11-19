@@ -16,7 +16,8 @@ public class CatalogosWsEJB {
     @Inject
     WebServicesSifRepository webServicesSifRepository;
 
-    public void guardarConceptosNominaPartida(List<ConceptoPartidaNominaDTO> listaConceptos) {
+    public void guardarConceptosNominaPartida(
+            List<ConceptoPartidaNominaDTO> listaConceptos) {
         System.out.println("limpiando ... ");
         webServicesSifRepository.limpiarTablaConceptoPartidaNomina();
 
@@ -30,7 +31,8 @@ public class CatalogosWsEJB {
 
     }
 
-    public void guardarDetalleRetenciones(List<RetencionDTO> listaElementosRetenciones) {
+    public void guardarDetalleRetenciones(
+            List<RetencionDTO> listaElementosRetenciones) {
         System.out.println("limpiando...");
         webServicesSifRepository.limpiarTablaDetalleRetenciones();
 

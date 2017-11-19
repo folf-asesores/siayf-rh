@@ -42,7 +42,8 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
      */
     private static final long serialVersionUID = 7656431642454175625L;
 
-    static Logger log = Logger.getLogger(Configuracion.LOGGER_CONTROL_ASISTENCIA);
+    static Logger log = Logger
+            .getLogger(Configuracion.LOGGER_CONTROL_ASISTENCIA);
 
     private final String RESOURCE_JORNADA_NUEVO = "/jornada/agregar";
 
@@ -64,41 +65,55 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
     private final String RESOURCE_HORARIO_JORNADA_ELIMINAR = "/jornada/horario/eliminar/";
 
-    public JornadaFormModel obtenerJornadaPorId(Integer idJornada) throws RESTClientException {
+    public JornadaFormModel obtenerJornadaPorId(Integer idJornada)
+            throws RESTClientException {
         JornadaFormModel jornadaFormModel = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         log.debug(url_serivicio + RESOURCE_JORNADA_ID + idJornada);
 
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_JORNADA_ID + idJornada);
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_JORNADA_ID + idJornada);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
-            log.debug("Estatus:" + servicioResponse.getStatusLine().getStatusCode() + servicioResponse.getStatusLine().getReasonPhrase());
+            log.debug("Estatus:"
+                    + servicioResponse.getStatusLine().getStatusCode()
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
 
-                    String resultJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultJornada);
 
                     Gson jornadaGson = new Gson();
-                    jornadaFormModel = jornadaGson.fromJson(resultJornada, JornadaFormModel.class);
+                    jornadaFormModel = jornadaGson.fromJson(resultJornada,
+                            JornadaFormModel.class);
 
                     log.debug(jornadaFormModel);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -115,32 +130,44 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
         return jornadaFormModel;
     }
 
-    public void eliminarReglaAsistencia(Integer idRegla) throws RESTClientException {
+    public void eliminarReglaAsistencia(Integer idRegla)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         log.debug(url_serivicio + RESOURCE_REGLA_ASISTENCIA_ELIMINAR + idRegla);
 
-        HttpDelete httpDelete = new HttpDelete(url_serivicio + RESOURCE_REGLA_ASISTENCIA_ELIMINAR + idRegla);
+        HttpDelete httpDelete = new HttpDelete(
+                url_serivicio + RESOURCE_REGLA_ASISTENCIA_ELIMINAR + idRegla);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpDelete);
 
-            log.debug("Estatus:" + servicioResponse.getStatusLine().getStatusCode() + servicioResponse.getStatusLine().getReasonPhrase());
+            log.debug("Estatus:"
+                    + servicioResponse.getStatusLine().getStatusCode()
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -156,32 +183,45 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
     }
 
-    public void eliminarHorarioJornada(Integer idHorarioJornada) throws RESTClientException {
+    public void eliminarHorarioJornada(Integer idHorarioJornada)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        log.debug(url_serivicio + RESOURCE_HORARIO_JORNADA_ELIMINAR + idHorarioJornada);
+        log.debug(url_serivicio + RESOURCE_HORARIO_JORNADA_ELIMINAR
+                + idHorarioJornada);
 
-        HttpDelete httpDelete = new HttpDelete(url_serivicio + RESOURCE_HORARIO_JORNADA_ELIMINAR + idHorarioJornada);
+        HttpDelete httpDelete = new HttpDelete(url_serivicio
+                + RESOURCE_HORARIO_JORNADA_ELIMINAR + idHorarioJornada);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpDelete);
 
-            log.debug("Estatus:" + servicioResponse.getStatusLine().getStatusCode() + servicioResponse.getStatusLine().getReasonPhrase());
+            log.debug("Estatus:"
+                    + servicioResponse.getStatusLine().getStatusCode()
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -197,35 +237,49 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
     }
 
-    public List<ReglaAsistenciaViewModel> listadoReglasAsistenciaPorJornada(Integer idJornada) throws RESTClientException {
+    public List<ReglaAsistenciaViewModel> listadoReglasAsistenciaPorJornada(
+            Integer idJornada) throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         List<ReglaAsistenciaViewModel> listadoReglaAsistenciaViewModel = new ArrayList<>();
 
-        log.debug(url_serivicio + RESOURCE_REGLAASISTENCIA_ID_JORNADA + idJornada);
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_REGLAASISTENCIA_ID_JORNADA + idJornada);
+        log.debug(url_serivicio + RESOURCE_REGLAASISTENCIA_ID_JORNADA
+                + idJornada);
+        HttpGet httpGet = new HttpGet(url_serivicio
+                + RESOURCE_REGLAASISTENCIA_ID_JORNADA + idJornada);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultReglaAsistencia = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultReglaAsistencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultReglaAsistencia);
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<ReglaAsistenciaViewModel>> tokenListadoReglaJornada = new TypeToken<ArrayList<ReglaAsistenciaViewModel>>() {
                     };
-                    listadoReglaAsistenciaViewModel = incidenciaGson.fromJson(resultReglaAsistencia, tokenListadoReglaJornada.getType());
+                    listadoReglaAsistenciaViewModel = incidenciaGson.fromJson(
+                            resultReglaAsistencia,
+                            tokenListadoReglaJornada.getType());
                     log.debug(listadoReglaAsistenciaViewModel);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -241,35 +295,48 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
     }
 
-    public List<HorarioJornadaViewModel> listadoHorarioPorJornada(Integer idHorario) throws RESTClientException {
+    public List<HorarioJornadaViewModel> listadoHorarioPorJornada(
+            Integer idHorario) throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         List<HorarioJornadaViewModel> listadoHorarioJornadaViewModel = new ArrayList<>();
 
         log.debug(url_serivicio + RESOURCE_HORARIO_ID_JORNADA + idHorario);
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_HORARIO_ID_JORNADA + idHorario);
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_HORARIO_ID_JORNADA + idHorario);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultHorarioJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultHorarioJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultHorarioJornada);
                     Gson horarioJornadaGson = new Gson();
                     TypeToken<ArrayList<HorarioJornadaViewModel>> tokenListadoHorarioJornada = new TypeToken<ArrayList<HorarioJornadaViewModel>>() {
                     };
-                    listadoHorarioJornadaViewModel = horarioJornadaGson.fromJson(resultHorarioJornada, tokenListadoHorarioJornada.getType());
+                    listadoHorarioJornadaViewModel = horarioJornadaGson
+                            .fromJson(resultHorarioJornada,
+                                    tokenListadoHorarioJornada.getType());
                     log.debug(listadoHorarioJornadaViewModel);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -294,26 +361,36 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
         HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_JORNADA_LISTADO);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultJornada);
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<JornadaFormModel>> tokenListadoJornada = new TypeToken<ArrayList<JornadaFormModel>>() {
                     };
-                    listadoJornadaViewModel = incidenciaGson.fromJson(resultJornada, tokenListadoJornada.getType());
+                    listadoJornadaViewModel = incidenciaGson.fromJson(
+                            resultJornada, tokenListadoJornada.getType());
                     log.debug(listadoJornadaViewModel);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -343,7 +420,9 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
      *             En caso que ocurra un error al guarda las reglas de
      *             asistencia.
      */
-    public Integer nuevaJornada(JornadaFormModel jornadaFormModel) throws RESTClientJornadaException, RESTClientReglaAsistenciaJornadaException {
+    public Integer nuevaJornada(JornadaFormModel jornadaFormModel)
+            throws RESTClientJornadaException,
+            RESTClientReglaAsistenciaJornadaException {
 
         Integer idJornada = null;
 
@@ -351,7 +430,8 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
         log.debug(url_serivicio + RESOURCE_JORNADA_NUEVO);
 
-        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_JORNADA_NUEVO);
+        HttpPost httpPost = new HttpPost(
+                url_serivicio + RESOURCE_JORNADA_NUEVO);
 
         Gson gson = new Gson();
         StringEntity nuevaJornadaJSON;
@@ -362,26 +442,32 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
             httpPost.setEntity(nuevaJornadaJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultNuevaJornada;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevaJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultNuevaJornada);
                     idJornada = new Integer(resultNuevaJornada);
                     break;
                 case 400:
-                    resultNuevaJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.error(resultNuevaJornada);
                     throw new RESTClientJornadaException(resultNuevaJornada);
 
                 default:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                     log.error(servicioResponse.getStatusLine().getStatusCode());
                     throw new RESTClientJornadaException(
-                            servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 
@@ -406,14 +492,17 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
             throw new RESTClientJornadaException(e.getMessage());
         }
 
-        log.debug("Termina de guardar las reglas de asistencia de la jornada: " + idJornada);
+        log.debug("Termina de guardar las reglas de asistencia de la jornada: "
+                + idJornada);
 
         return idJornada;
 
     }
 
-    public Integer nuevoHorarioJornada(HorarioJornadaFormModel horarioJornadaFormModel)
-            throws RESTClientJornadaException, RESTClientReglaAsistenciaJornadaException {
+    public Integer nuevoHorarioJornada(
+            HorarioJornadaFormModel horarioJornadaFormModel)
+            throws RESTClientJornadaException,
+            RESTClientReglaAsistenciaJornadaException {
 
         Integer idHorarioJornada = null;
 
@@ -421,38 +510,48 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
         log.debug(url_serivicio + RESOURCE_HORARIO_JORNADA_AGREGAR);
 
-        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_HORARIO_JORNADA_AGREGAR);
+        HttpPost httpPost = new HttpPost(
+                url_serivicio + RESOURCE_HORARIO_JORNADA_AGREGAR);
 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
+        Gson gson = new GsonBuilder()
+                .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").create();
         StringEntity nuevoHorarioJSON;
         try {
-            nuevoHorarioJSON = new StringEntity(gson.toJson(horarioJornadaFormModel));
+            nuevoHorarioJSON = new StringEntity(
+                    gson.toJson(horarioJornadaFormModel));
             nuevoHorarioJSON.setContentType("application/json");
 
             log.debug(nuevoHorarioJSON);
 
             httpPost.setEntity(nuevoHorarioJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultNuevoHorarioJornada;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevoHorarioJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoHorarioJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultNuevoHorarioJornada);
                     idHorarioJornada = new Integer(resultNuevoHorarioJornada);
                     break;
                 case 400:
-                    resultNuevoHorarioJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoHorarioJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.error(resultNuevoHorarioJornada);
-                    throw new RESTClientJornadaException(resultNuevoHorarioJornada);
+                    throw new RESTClientJornadaException(
+                            resultNuevoHorarioJornada);
 
                 default:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                     log.error(servicioResponse.getStatusLine().getStatusCode());
                     throw new RESTClientJornadaException(
-                            servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 
@@ -477,7 +576,8 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
             throw new RESTClientJornadaException(e.getMessage());
         }
 
-        log.debug("Termina de guardar el horario de la jornada: " + idHorarioJornada);
+        log.debug("Termina de guardar el horario de la jornada: "
+                + idHorarioJornada);
 
         return idHorarioJornada;
 
@@ -497,7 +597,9 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
      *             En caso que ocurra un error al guarda las reglas de
      *             asistencia.
      */
-    public Integer actuializarJornada(JornadaFormModel jornadaFormModel) throws RESTClientJornadaException, RESTClientReglaAsistenciaJornadaException {
+    public Integer actuializarJornada(JornadaFormModel jornadaFormModel)
+            throws RESTClientJornadaException,
+            RESTClientReglaAsistenciaJornadaException {
 
         Integer idJornada = null;
 
@@ -505,7 +607,8 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
         log.debug(url_serivicio + RESOURCE_JORNADA_ACTUALIZAR);
 
-        HttpPut httpPut = new HttpPut(url_serivicio + RESOURCE_JORNADA_ACTUALIZAR);
+        HttpPut httpPut = new HttpPut(
+                url_serivicio + RESOURCE_JORNADA_ACTUALIZAR);
 
         Gson gson = new Gson();
         StringEntity jornadaJSON;
@@ -516,26 +619,32 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
             httpPut.setEntity(jornadaJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPut);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPut);
 
             String resultJornada;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultJornada);
                     idJornada = new Integer(resultJornada);
                     break;
                 case 400:
-                    resultJornada = EntityUtils.toString(servicioResponse.getEntity());
+                    resultJornada = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.error(resultJornada);
                     throw new RESTClientJornadaException(resultJornada);
 
                 default:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                     log.error(servicioResponse.getStatusLine().getStatusCode());
                     throw new RESTClientJornadaException(
-                            servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 
@@ -560,7 +669,8 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
             throw new RESTClientJornadaException(e.getMessage());
         }
 
-        log.debug("Termina de guardar las reglas de asistencia de la jornada: " + idJornada);
+        log.debug("Termina de guardar las reglas de asistencia de la jornada: "
+                + idJornada);
 
         return idJornada;
 
@@ -576,7 +686,9 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
      *             en caso que ocurra un error al momento de persistir la
      *             informacion.
      */
-    public Integer nuevaReglaAsistenciaJornada(ReglaAsistenciaJornadaFormModel reglaAsistencia) throws RESTClientException {
+    public Integer nuevaReglaAsistenciaJornada(
+            ReglaAsistenciaJornadaFormModel reglaAsistencia)
+            throws RESTClientException {
 
         Integer idReglaAsistenciaJornada = null;
 
@@ -584,33 +696,43 @@ public class JornadaClienteRest extends ClienteRest implements Serializable {
 
         log.debug(url_serivicio + RESOURCE_REGLAASISTENCIA_NUEVO);
 
-        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_REGLAASISTENCIA_NUEVO);
+        HttpPost httpPost = new HttpPost(
+                url_serivicio + RESOURCE_REGLAASISTENCIA_NUEVO);
 
         Gson gson = new Gson();
         StringEntity nuevaReglaAsistenciaJSON;
 
         try {
-            nuevaReglaAsistenciaJSON = new StringEntity(gson.toJson(reglaAsistencia));
+            nuevaReglaAsistenciaJSON = new StringEntity(
+                    gson.toJson(reglaAsistencia));
             nuevaReglaAsistenciaJSON.setContentType("application/json");
             log.debug(nuevaReglaAsistenciaJSON);
             httpPost.setEntity(nuevaReglaAsistenciaJSON);
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultNuevaReglaAsistencia;
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevaReglaAsistencia = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaReglaAsistencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultNuevaReglaAsistencia);
-                    idReglaAsistenciaJornada = new Integer(resultNuevaReglaAsistencia);
+                    idReglaAsistenciaJornada = new Integer(
+                            resultNuevaReglaAsistencia);
                     break;
                 case 400:
-                    resultNuevaReglaAsistencia = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaReglaAsistencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.error(resultNuevaReglaAsistencia);
                     throw new RESTClientException(resultNuevaReglaAsistencia);
                 default:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                     log.error(servicioResponse.getStatusLine().getStatusCode());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
             }
 
         } catch (UnsupportedEncodingException e) {

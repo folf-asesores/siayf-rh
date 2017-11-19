@@ -31,7 +31,8 @@ public interface Autenticacion {
      *             en caso de que ocurra un erro de
      *             inico de sesión.
      */
-    String iniciarSesion(String nombreUsuario, String contrasenya, boolean mantenerSesion);
+    String iniciarSesion(String nombreUsuario, String contrasenya,
+            boolean mantenerSesion);
 
     /**
      * Permite cerrar la sesión del usuario que conincide con el token de

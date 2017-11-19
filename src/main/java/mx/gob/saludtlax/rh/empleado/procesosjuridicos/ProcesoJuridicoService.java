@@ -43,7 +43,8 @@ public class ProcesoJuridicoService {
 
     public List<ProcesoDTO> obtenerProcesoLista() {
         List<ProcesoDTO> procesoDTO = new ArrayList<>();
-        for (ProcesoEntity proceso : procesosRepository.obternerListaProcesoJuridico()) {
+        for (ProcesoEntity proceso : procesosRepository
+                .obternerListaProcesoJuridico()) {
             ProcesoDTO dto = new ProcesoDTO();
             dto.setIdProcesoEmpleado(proceso.getIdProcesoEmpleado());
             dto.setIdEmpleado(proceso.getIdEmleado());
@@ -61,7 +62,8 @@ public class ProcesoJuridicoService {
 
     public ProcesoDTO gestionarProceso(ProcesoDTO dto) {
         ProcesoDTO DTO = new ProcesoDTO();
-        ProcesoEntity entity = procesosRepository.obtenerPorId(dto.getIdProcesoEmpleado());
+        ProcesoEntity entity = procesosRepository
+                .obtenerPorId(dto.getIdProcesoEmpleado());
         DTO.setIdProcesoEmpleado(entity.getIdProcesoEmpleado());
         DTO.setIdProceso(entity.getIdProceso());
         DTO.setFechaInicio(entity.getFechaInicio());
@@ -73,7 +75,8 @@ public class ProcesoJuridicoService {
     }
 
     public void actualizarProceso(ProcesoDTO dto) {
-        ProcesoEntity entity = procesosRepository.obtenerPorId(dto.getIdProcesoEmpleado());
+        ProcesoEntity entity = procesosRepository
+                .obtenerPorId(dto.getIdProcesoEmpleado());
         System.out.println("Proceso::" + dto.getIdProceso());
         entity.setIdProceso(dto.getIdProceso());
         entity.setFechaInicio(dto.getFechaInicio());

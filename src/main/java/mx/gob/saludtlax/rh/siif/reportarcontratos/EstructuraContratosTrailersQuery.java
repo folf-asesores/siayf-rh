@@ -21,12 +21,14 @@ public class EstructuraContratosTrailersQuery implements Serializable {
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
-    public String registroEstructuraExcel(EstructuraContratoExcelEntity estructura) {
+    public String registroEstructuraExcel(
+            EstructuraContratoExcelEntity estructura) {
         entityManager.persist(estructura);
         return estructura.getIdEstructura();
     }
 
-    public String registroEstructura(EstructuraContratoTrailersEntity estructura) {
+    public String registroEstructura(
+            EstructuraContratoTrailersEntity estructura) {
         entityManager.persist(estructura);
         return estructura.getNumEmp();
     }
@@ -46,7 +48,8 @@ public class EstructuraContratosTrailersQuery implements Serializable {
         return entity.getRfc();
     }
 
-    public String registroDispersionCheques(SIIFDispersionChequesEntity entity) {
+    public String registroDispersionCheques(
+            SIIFDispersionChequesEntity entity) {
         entityManager.persist(entity);
         return entity.getRfc();
     }

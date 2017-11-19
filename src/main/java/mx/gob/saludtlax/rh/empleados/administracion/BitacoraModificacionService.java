@@ -65,13 +65,16 @@ public class BitacoraModificacionService implements Serializable {
     @Inject
     private ExperienciaLaboralRepository experienciaLaboralRepository;
 
-    protected void registrarBitacoraModificacionDatoGeneral(DatosGeneralesDTO datosGeneralesDTO) {
+    protected void registrarBitacoraModificacionDatoGeneral(
+            DatosGeneralesDTO datosGeneralesDTO) {
 
-        EmpleadoEntity empleado = validarEmpleado(datosGeneralesDTO.getIdEmpleado());
+        EmpleadoEntity empleado = validarEmpleado(
+                datosGeneralesDTO.getIdEmpleado());
 
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
 
-        if (empleado.getRfc().compareToIgnoreCase(datosGeneralesDTO.getRfc().trim()) != 0) {
+        if (empleado.getRfc()
+                .compareToIgnoreCase(datosGeneralesDTO.getRfc().trim()) != 0) {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
@@ -83,7 +86,8 @@ public class BitacoraModificacionService implements Serializable {
             registrarBitacora(dto);
         }
 
-        else if (empleado.getCurp().compareToIgnoreCase(datosGeneralesDTO.getCurp().trim()) != 0) {
+        else if (empleado.getCurp()
+                .compareToIgnoreCase(datosGeneralesDTO.getCurp().trim()) != 0) {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
@@ -95,7 +99,8 @@ public class BitacoraModificacionService implements Serializable {
             registrarBitacora(dto);
         }
 
-        else if (empleado.getNombre().compareTo(datosGeneralesDTO.getNombre().trim()) != 0) {
+        else if (empleado.getNombre()
+                .compareTo(datosGeneralesDTO.getNombre().trim()) != 0) {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
@@ -107,7 +112,8 @@ public class BitacoraModificacionService implements Serializable {
             registrarBitacora(dto);
         }
 
-        else if (empleado.getApellidoPaterno().compareTo(datosGeneralesDTO.getApellidoPaterno().trim()) != 0) {
+        else if (empleado.getApellidoPaterno().compareTo(
+                datosGeneralesDTO.getApellidoPaterno().trim()) != 0) {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
@@ -119,7 +125,8 @@ public class BitacoraModificacionService implements Serializable {
             registrarBitacora(dto);
         }
 
-        else if (empleado.getApellidoMaterno().compareTo(datosGeneralesDTO.getApellidoMaterno().trim()) != 0) {
+        else if (empleado.getApellidoMaterno().compareTo(
+                datosGeneralesDTO.getApellidoMaterno().trim()) != 0) {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
@@ -136,7 +143,8 @@ public class BitacoraModificacionService implements Serializable {
             dto = new BitacoraEmpleadoDTO();
             dto.setComentarios(datosGeneralesDTO.getComentarioMovimiento());
             dto.setEmpleado(datosGeneralesDTO.getIdEmpleado());
-            dto.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.DATOS_GENERALES);
+            dto.setTipoMovimientoEmpleado(
+                    EnumTipoModificacionEmpleado.DATOS_GENERALES);
             dto.setIdUsuario(datosGeneralesDTO.getIdUsuarioEnSesion());
             dto.setLccActual(datosGeneralesDTO.lccDatoGeneral());
             dto.setLccAnterior(empleado.lccDatoGeneral());
@@ -150,21 +158,27 @@ public class BitacoraModificacionService implements Serializable {
         String contexto = "validarEmpleado: ";
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            throw new ReglaNegocioException(contexto + "El empleado con identificador " + idEmpleado + " no esta registrado en el sistema",
+            throw new ReglaNegocioException(
+                    contexto + "El empleado con identificador " + idEmpleado
+                            + " no esta registrado en el sistema",
                     ReglaNegocioCodigoError.EMPLEADO_NO_ENCONTRADO);
         }
 
         if (empleado.getIdEstatus().equals("INACTIVO")) {
-            throw new ReglaNegocioException(contexto + " El empleado no esta activo.", ReglaNegocioCodigoError.EMPLEADO_INACTIVO);
+            throw new ReglaNegocioException(
+                    contexto + " El empleado no esta activo.",
+                    ReglaNegocioCodigoError.EMPLEADO_INACTIVO);
         }
 
         return empleado;
     }
 
-    protected void registrarBitacoraModificacionDomicilio(DomicilioDTO domicilioDTO, Integer idEmpleado) {
+    protected void registrarBitacoraModificacionDomicilio(
+            DomicilioDTO domicilioDTO, Integer idEmpleado) {
         EmpleadoEntity empleado = validarEmpleado(idEmpleado);
 
-        DireccionEntity direccionEntity = direccionRepository.consultarDireccionEmpleadoPorId(empleado.getIdEmpleado());
+        DireccionEntity direccionEntity = direccionRepository
+                .consultarDireccionEmpleadoPorId(empleado.getIdEmpleado());
 
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
 
@@ -173,21 +187,26 @@ public class BitacoraModificacionService implements Serializable {
         dto.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.DOMICILIO);
         dto.setIdUsuario(domicilioDTO.getIdUsuarioEnSesion());
         dto.setLccActual(domicilioDTO.lccDireccion());
-        dto.setLccAnterior(direccionEntity != null ? direccionEntity.lccDomicilio() : " ");
+        dto.setLccAnterior(
+                direccionEntity != null ? direccionEntity.lccDomicilio() : " ");
 
         registrarBitacora(dto);
     }
 
-    public void registrarBitacoraModificacionHistorial(HistorialAcademicoDTO historialAcademicoDTO) {
-        EmpleadoEntity empleado = validarEmpleado(historialAcademicoDTO.getIdEmpleado());
+    public void registrarBitacoraModificacionHistorial(
+            HistorialAcademicoDTO historialAcademicoDTO) {
+        EmpleadoEntity empleado = validarEmpleado(
+                historialAcademicoDTO.getIdEmpleado());
 
-        HistorialAcademicoEntity historialAcademicoEntity = historialAcademicoRepository.obtenerPorId(historialAcademicoDTO.getIdHistorialAcademico());
+        HistorialAcademicoEntity historialAcademicoEntity = historialAcademicoRepository
+                .obtenerPorId(historialAcademicoDTO.getIdHistorialAcademico());
 
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
 
         dto.setComentarios(historialAcademicoDTO.getComentarioMovimiento());
         dto.setEmpleado(empleado.getIdEmpleado());
-        dto.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.HISTORIAL_ACADEMICO);
+        dto.setTipoMovimientoEmpleado(
+                EnumTipoModificacionEmpleado.HISTORIAL_ACADEMICO);
         dto.setIdUsuario(historialAcademicoDTO.getIdUsuarioEnSesion());
         dto.setLccActual(historialAcademicoDTO.lccHistorial());
         dto.setLccAnterior(historialAcademicoEntity.lccHistorial());
@@ -196,16 +215,19 @@ public class BitacoraModificacionService implements Serializable {
 
     }
 
-    public void registrarBitacoraModificacionExperiencia(ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
+    public void registrarBitacoraModificacionExperiencia(
+            ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
         EmpleadoEntity empleado = validarEmpleado(idEmpleado);
 
-        ExperienciaLaboralEntity experienciaLaboralEntity = experienciaLaboralRepository.obtenerPorId(experienciaLaboral.getIdExperienciaLaboral());
+        ExperienciaLaboralEntity experienciaLaboralEntity = experienciaLaboralRepository
+                .obtenerPorId(experienciaLaboral.getIdExperienciaLaboral());
 
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
 
         dto.setComentarios(experienciaLaboral.getComentarioMovimiento());
         dto.setEmpleado(empleado.getIdEmpleado());
-        dto.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.EXPERIENCIA_LABORAL);
+        dto.setTipoMovimientoEmpleado(
+                EnumTipoModificacionEmpleado.EXPERIENCIA_LABORAL);
         dto.setIdUsuario(experienciaLaboral.getIdUsuarioEnSesion());
         dto.setLccActual(experienciaLaboral.lccExperiencia());
         dto.setLccAnterior(experienciaLaboralEntity.lccExperiencia());
@@ -221,14 +243,17 @@ public class BitacoraModificacionService implements Serializable {
      * @param bitacoraEmpleadoDTO
      */
     public Integer registrarBitacora(BitacoraEmpleadoDTO bitacoraEmpleadoDTO) {
-        TipoModificacionEmpleadoEntity tipoMovimiento = tipoModificacionEmpleadoRepository.obtenerPorId(bitacoraEmpleadoDTO.getTipoMovimientoEmpleado());
-        UsuarioEntity usuarioEntity = usuarioRepository.obtenerPorId(bitacoraEmpleadoDTO.getIdUsuario());
+        TipoModificacionEmpleadoEntity tipoMovimiento = tipoModificacionEmpleadoRepository
+                .obtenerPorId(bitacoraEmpleadoDTO.getTipoMovimientoEmpleado());
+        UsuarioEntity usuarioEntity = usuarioRepository
+                .obtenerPorId(bitacoraEmpleadoDTO.getIdUsuario());
         BitacoraModificacionEmpleadoEntity bitacora = new BitacoraModificacionEmpleadoEntity();
 
         if (bitacoraEmpleadoDTO.getComentarios() == null) {
             bitacora.setComentarios(" ");
         } else {
-            bitacora.setComentarios(bitacoraEmpleadoDTO.getComentarios().toUpperCase());
+            bitacora.setComentarios(
+                    bitacoraEmpleadoDTO.getComentarios().toUpperCase());
         }
 
         bitacora.setFecha(FechaUtil.fechaActualSinHora());
@@ -243,14 +268,16 @@ public class BitacoraModificacionService implements Serializable {
         return bitacora.getIdBitacoraMovimiento();
     }
 
-    public void registrarBitacoraProductoNominaEmpleado(NominaEmpleadoEntity nominaEmpleado, String lccActual, Integer idUsuario,
-            Integer tipoMovimientoNomina) {
+    public void registrarBitacoraProductoNominaEmpleado(
+            NominaEmpleadoEntity nominaEmpleado, String lccActual,
+            Integer idUsuario, Integer tipoMovimientoNomina) {
 
         String criterioTipoMovimiento = "ACTUALIZACIÓN PRODUCTO NOMINA EMPLEADO";
 
         BitacoraEmpleadoDTO bitacoraEmpleadoDTO = new BitacoraEmpleadoDTO();
 
-        TipoModificacionEmpleadoEntity tipoMovimiento = tipoModificacionEmpleadoRepository.obtenerTipoModificacionPorCriterio(criterioTipoMovimiento);
+        TipoModificacionEmpleadoEntity tipoMovimiento = tipoModificacionEmpleadoRepository
+                .obtenerTipoModificacionPorCriterio(criterioTipoMovimiento);
 
         if (tipoMovimiento == null) {
             tipoMovimiento = new TipoModificacionEmpleadoEntity();
@@ -260,17 +287,21 @@ public class BitacoraModificacionService implements Serializable {
             tipoModificacionEmpleadoRepository.crear(tipoMovimiento);
         }
 
-        bitacoraEmpleadoDTO.setTipoMovimientoEmpleado(tipoMovimiento.getIdTipoMovimiento());
+        bitacoraEmpleadoDTO.setTipoMovimientoEmpleado(
+                tipoMovimiento.getIdTipoMovimiento());
         bitacoraEmpleadoDTO.setIdUsuario(idUsuario);
         bitacoraEmpleadoDTO.setLccActual(lccActual);
-        bitacoraEmpleadoDTO.setLccAnterior(obtenerTipoMovimientoNomina(nominaEmpleado, tipoMovimientoNomina));
-        bitacoraEmpleadoDTO.setEmpleado(nominaEmpleado.getIdEmpleado().getIdEmpleado());
+        bitacoraEmpleadoDTO.setLccAnterior(obtenerTipoMovimientoNomina(
+                nominaEmpleado, tipoMovimientoNomina));
+        bitacoraEmpleadoDTO
+                .setEmpleado(nominaEmpleado.getIdEmpleado().getIdEmpleado());
         bitacoraEmpleadoDTO.setComentarios(criterioTipoMovimiento);
 
         registrarBitacora(bitacoraEmpleadoDTO);
     }
 
-    public static String obtenerTipoMovimientoNomina(NominaEmpleadoEntity nominaEmpleado, int tipoMovimientoNomina) {
+    public static String obtenerTipoMovimientoNomina(
+            NominaEmpleadoEntity nominaEmpleado, int tipoMovimientoNomina) {
 
         String tipoMovimiento = "";
 
@@ -279,7 +310,8 @@ public class BitacoraModificacionService implements Serializable {
             case 1:// ESTATUS FALTA PULIR ESTA PARTE, SI SE REQUIERE AGREGAR OTRO
                    // TIPO DE MOVIMIENTO PARA ADMINISTRAR ESTA PARTE PUEDE AGREGAN
                    // OTRO CASE.
-                tipoMovimiento = nominaEmpleado.getIdEstatusNominaEmpleado().getEstatusNominaEmpleado();
+                tipoMovimiento = nominaEmpleado.getIdEstatusNominaEmpleado()
+                        .getEstatusNominaEmpleado();
                 break;
 
             default:
@@ -290,9 +322,11 @@ public class BitacoraModificacionService implements Serializable {
         return tipoMovimiento;
     }
 
-    public List<BitacoraEmpleadoDTO> consultarBitacorasMovimientos(Integer idEmpleado) {
+    public List<BitacoraEmpleadoDTO> consultarBitacorasMovimientos(
+            Integer idEmpleado) {
         List<BitacoraEmpleadoDTO> bitacoras = new ArrayList<>();
-        List<BitacoraModificacionEmpleadoEntity> consulta = bitacoraModificacionEmpleadoRepository.consultarBitacorasModificacionesIdEmpleado(idEmpleado);
+        List<BitacoraModificacionEmpleadoEntity> consulta = bitacoraModificacionEmpleadoRepository
+                .consultarBitacorasModificacionesIdEmpleado(idEmpleado);
         if (!consulta.isEmpty()) {
             for (BitacoraModificacionEmpleadoEntity b : consulta) {
                 BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
@@ -317,13 +351,19 @@ public class BitacoraModificacionService implements Serializable {
      */
     public BitacoraEmpleadoDTO obtenerBitacoraPorId(Integer idBitacora) {
         if (!ValidacionUtil.esNumeroPositivo(idBitacora)) {
-            throw new ValidacionException("El identificador de la bitácora es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El identificador de la bitácora es requerido.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        BitacoraModificacionEmpleadoEntity b = bitacoraModificacionEmpleadoRepository.obtenerPorId(idBitacora);
+        BitacoraModificacionEmpleadoEntity b = bitacoraModificacionEmpleadoRepository
+                .obtenerPorId(idBitacora);
         if (b == null) {
-            throw new SistemaException("No se encontró bitacora con identificador " + idBitacora, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró bitacora con identificador " + idBitacora,
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(b.getIdEmpleado());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(b.getIdEmpleado());
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
         dto.setComentarios(b.getComentarios());
         dto.setUsuario(b.getUsuario().nombreCompleto());

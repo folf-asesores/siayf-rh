@@ -34,7 +34,8 @@ public class SuplenteDTO {
 
     }
 
-    public SuplenteDTO(Integer idSuplente, String rfc, String nombre, String estatus, String tipoSuplente, Integer idEmpleado) {
+    public SuplenteDTO(Integer idSuplente, String rfc, String nombre,
+            String estatus, String tipoSuplente, Integer idEmpleado) {
         super();
         this.idSuplente = idSuplente;
         this.rfc = rfc;

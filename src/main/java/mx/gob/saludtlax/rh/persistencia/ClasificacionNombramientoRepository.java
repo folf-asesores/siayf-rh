@@ -12,7 +12,9 @@ import java.util.List;
  *
  * @since 04/09/2016 20:35:56
  */
-public class ClasificacionNombramientoRepository extends GenericRepository<ClasificacionNombramientoEntity, Integer> implements Serializable {
+public class ClasificacionNombramientoRepository
+        extends GenericRepository<ClasificacionNombramientoEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -21,7 +23,9 @@ public class ClasificacionNombramientoRepository extends GenericRepository<Clasi
 
     public List<ClasificacionNombramientoEntity> listaClasificacionNombramiento() {
         try {
-            return em.createQuery("SELECT c FROM ClasificacionNombramientoEntity AS c", ClasificacionNombramientoEntity.class).getResultList();
+            return em.createQuery(
+                    "SELECT c FROM ClasificacionNombramientoEntity AS c",
+                    ClasificacionNombramientoEntity.class).getResultList();
         } catch (NullPointerException ex) {
             return null;
         }

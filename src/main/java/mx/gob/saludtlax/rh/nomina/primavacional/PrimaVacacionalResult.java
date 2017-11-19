@@ -71,6 +71,8 @@ public class PrimaVacacionalResult implements Serializable {
 
     @Override
     public String toString() {
-        return "Total: " + total + " \n Antiguedad Empleado: " + antiguedadEmpleado + " \n Fecha Ingreso: " + fechaIngreso.toString();
+        return "Total: " + total + " \n Antiguedad Empleado: "
+                + antiguedadEmpleado + " \n Fecha Ingreso: "
+                + fechaIngreso.toString();
     }
 }

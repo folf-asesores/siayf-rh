@@ -20,13 +20,14 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
 @ManagedBean(name = "terminoComisionReincorporacionAdscripcion")
 @SessionScoped
-public class TerminoComisionReincorporacionAdscripcionController implements Serializable {
+public class TerminoComisionReincorporacionAdscripcionController
+        implements Serializable {
 
     /**
      *
@@ -43,7 +44,8 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
         view = new TerminoView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -52,7 +54,9 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -67,7 +71,8 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
     public void buscarEmpleados() {
         String criterio = view.getCriterio();
 
-        List<TerminoDetalleDTO> resultado = terminoComisionReincorporacionAdscripcionEJB.consultarPorCriterio(criterio);
+        List<TerminoDetalleDTO> resultado = terminoComisionReincorporacionAdscripcionEJB
+                .consultarPorCriterio(criterio);
         view.setTerminoDetalleDTO(resultado);
     }
 
@@ -75,7 +80,8 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
 
         TerminoDTO terminoDTO = view.getTerminoDTO();
         TerminoComisionReincorporacionAdscripcionWord terminoComisionReincorporacionAdscripcionWord = new TerminoComisionReincorporacionAdscripcionWord();
-        byte[] bytesWord = terminoComisionReincorporacionAdscripcionWord.generar(terminoDTO);
+        byte[] bytesWord = terminoComisionReincorporacionAdscripcionWord
+                .generar(terminoDTO);
 
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -83,9 +89,11 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoComisionReincorporacionAdscripcion.docx");
+            ec.setResponseHeader("Content-Disposition", "attachment;filename="
+                    + "TerminoComisionReincorporacionAdscripcion.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -100,7 +108,8 @@ public class TerminoComisionReincorporacionAdscripcionController implements Seri
     }
 
     public void contenidoTermino(Integer idTipoMovimiento) {
-        TerminoDTO terminoDTO = terminoComisionReincorporacionAdscripcionEJB.obtenerTermino(idTipoMovimiento);
+        TerminoDTO terminoDTO = terminoComisionReincorporacionAdscripcionEJB
+                .obtenerTermino(idTipoMovimiento);
 
         view.setTerminoDTO(terminoDTO);
         view.setMostrarPrincipal(false);

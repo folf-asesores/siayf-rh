@@ -23,7 +23,8 @@ public class CalculoIsrService {
         if (configuracionIsr == null) {
             return null;
         }
-        if (configuracionIsr.getBaseGravable() == null || configuracionIsr.getBaseGravable().compareTo(BigDecimal.ZERO) < 1) {
+        if (configuracionIsr.getBaseGravable() == null || configuracionIsr
+                .getBaseGravable().compareTo(BigDecimal.ZERO) < 1) {
             isr.setImpuestoRetener(BigDecimal.ZERO);
             isr.setIngresoGravable(BigDecimal.ZERO);
             isr.setSubsidiosEntregar(BigDecimal.ZERO);
@@ -32,37 +33,56 @@ public class CalculoIsrService {
             TarifaIsrDTO tarifaIsr = obtenerTarifaIsr(configuracionIsr);
             BigDecimal subsidio = obtenerSubsidio(configuracionIsr);
 
-            BigDecimal diferencia = configuracionIsr.getBaseGravable().subtract(tarifaIsr.getLimiteInferior());
-            BigDecimal tasaInteres = tarifaIsr.getPorcentajeAplicable().divide(new BigDecimal(100));
+            BigDecimal diferencia = configuracionIsr.getBaseGravable()
+                    .subtract(tarifaIsr.getLimiteInferior());
+            BigDecimal tasaInteres = tarifaIsr.getPorcentajeAplicable()
+                    .divide(new BigDecimal(100));
             BigDecimal impuestoMarginal = diferencia.multiply(tasaInteres);
-            BigDecimal impuestoPrevio = impuestoMarginal.add(tarifaIsr.getCuotaFija());
-            BigDecimal impuestoRetener = impuestoPrevio.subtract(subsidio).setScale(0, RoundingMode.HALF_DOWN);
-            BigDecimal subsidioEntregar = impuestoPrevio.subtract(subsidio).setScale(0, RoundingMode.HALF_DOWN);
+            BigDecimal impuestoPrevio = impuestoMarginal
+                    .add(tarifaIsr.getCuotaFija());
+            BigDecimal impuestoRetener = impuestoPrevio.subtract(subsidio)
+                    .setScale(0, RoundingMode.HALF_DOWN);
+            BigDecimal subsidioEntregar = impuestoPrevio.subtract(subsidio)
+                    .setScale(0, RoundingMode.HALF_DOWN);
 
-            impuestoRetener = (impuestoRetener.compareTo(BigDecimal.ZERO) < 0) ? BigDecimal.ZERO : impuestoRetener;
-            subsidioEntregar = (subsidioEntregar.compareTo(BigDecimal.ZERO) < 0) ? subsidioEntregar : BigDecimal.ZERO;
+            impuestoRetener = (impuestoRetener.compareTo(BigDecimal.ZERO) < 0)
+                    ? BigDecimal.ZERO : impuestoRetener;
+            subsidioEntregar = (subsidioEntregar.compareTo(BigDecimal.ZERO) < 0)
+                    ? subsidioEntregar : BigDecimal.ZERO;
 
             isr.setImpuestoRetener(impuestoRetener);
             isr.setIngresoGravable(configuracionIsr.getBaseGravable());
             isr.setSubsidiosEntregar(subsidioEntregar);
-            isr.setPercepcionEfectiva(configuracionIsr.getBaseGravable().subtract(impuestoRetener).subtract(subsidioEntregar));
+            isr.setPercepcionEfectiva(configuracionIsr.getBaseGravable()
+                    .subtract(impuestoRetener).subtract(subsidioEntregar));
         }
         return isr;
     }
 
     public ConfiguracionIsrDTO obtenerConfiguracioIsr(Integer idEmpleado) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT sueldo AS baseGravable, " + " id_tipo_periodo AS idTipoPeriodo"
-                + " FROM configuraciones_presupuestales_empleados " + " WHERE id_empleado = :idEmpleado").setParameter("idEmpleado", idEmpleado);
-        query.setResultTransformer(Transformers.aliasToBean(ConfiguracionIsrDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT sueldo AS baseGravable, "
+                        + " id_tipo_periodo AS idTipoPeriodo"
+                        + " FROM configuraciones_presupuestales_empleados "
+                        + " WHERE id_empleado = :idEmpleado")
+                .setParameter("idEmpleado", idEmpleado);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConfiguracionIsrDTO.class));
         @SuppressWarnings("unchecked")
 
         List<ConfiguracionIsrDTO> result = query.list();
-        ConfiguracionIsrDTO configuracionIsrDTO = result.isEmpty() ? null : result.get(0);
-        System.out.println("configuracionIsrDTO.getIdTabulador():: " + configuracionIsrDTO.getIdTabulador());
+        ConfiguracionIsrDTO configuracionIsrDTO = result.isEmpty() ? null
+                : result.get(0);
+        System.out.println("configuracionIsrDTO.getIdTabulador():: "
+                + configuracionIsrDTO.getIdTabulador());
         if (configuracionIsrDTO.getBaseGravable() == null) {
-            query = session.createSQLQuery("SELECT " + " sueldo_bruto_mensual " + " FROM tabuladores " + " WHERE id_tabulador = :idTabulador")
-                    .setParameter("idTabulador", configuracionIsrDTO.getIdTabulador());
+            query = session
+                    .createSQLQuery("SELECT " + " sueldo_bruto_mensual "
+                            + " FROM tabuladores "
+                            + " WHERE id_tabulador = :idTabulador")
+                    .setParameter("idTabulador",
+                            configuracionIsrDTO.getIdTabulador());
             BigDecimal sueldo = (BigDecimal) query.list().get(0);
             configuracionIsrDTO.setBaseGravable(sueldo);
         }
@@ -73,9 +93,15 @@ public class CalculoIsrService {
     private BigDecimal obtenerSubsidio(ConfiguracionIsrDTO configuracionIsr) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session
-                .createSQLQuery("SELECT " + " subsidio " + " FROM tablas_subsidios " + " WHERE " + " id_tipo_periodo = :idTipoPeriodo " + " AND "
-                        + " ( :baseGravable BETWEEN " + "	limite_inferior AND limite_superior) ")
-                .setParameter("idTipoPeriodo", configuracionIsr.getIdTipoPeriodo()).setParameter("baseGravable", configuracionIsr.getBaseGravable());
+                .createSQLQuery("SELECT " + " subsidio "
+                        + " FROM tablas_subsidios " + " WHERE "
+                        + " id_tipo_periodo = :idTipoPeriodo " + " AND "
+                        + " ( :baseGravable BETWEEN "
+                        + "	limite_inferior AND limite_superior) ")
+                .setParameter("idTipoPeriodo",
+                        configuracionIsr.getIdTipoPeriodo())
+                .setParameter("baseGravable",
+                        configuracionIsr.getBaseGravable());
         @SuppressWarnings("unchecked")
         List<BigDecimal> result = query.list();
         return result.isEmpty() ? null : result.get(0);
@@ -83,12 +109,17 @@ public class CalculoIsrService {
 
     private TarifaIsrDTO obtenerTarifaIsr(ConfiguracionIsrDTO baseGravable) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT " + " limite_inferior AS limiteInferior, " + " porcentaje_aplicable AS porcentajeAplicable, "
-                        + " cuota_fija AS cuotaFija " + " FROM tarifas_retenciones " + " WHERE " + " id_tipo_periodo = :idTipoPeriodo " + " AND "
-                        + " ( :baseGravable BETWEEN " + "	limite_inferior AND limite_superior ) ")
-                .setParameter("idTipoPeriodo", baseGravable.getIdTipoPeriodo()).setParameter("baseGravable", baseGravable.getBaseGravable());
-        query.setResultTransformer(Transformers.aliasToBean(TarifaIsrDTO.class));
+        Query query = session.createSQLQuery("SELECT "
+                + " limite_inferior AS limiteInferior, "
+                + " porcentaje_aplicable AS porcentajeAplicable, "
+                + " cuota_fija AS cuotaFija " + " FROM tarifas_retenciones "
+                + " WHERE " + " id_tipo_periodo = :idTipoPeriodo " + " AND "
+                + " ( :baseGravable BETWEEN "
+                + "	limite_inferior AND limite_superior ) ")
+                .setParameter("idTipoPeriodo", baseGravable.getIdTipoPeriodo())
+                .setParameter("baseGravable", baseGravable.getBaseGravable());
+        query.setResultTransformer(
+                Transformers.aliasToBean(TarifaIsrDTO.class));
         @SuppressWarnings("unchecked")
         List<TarifaIsrDTO> result = query.list();
         return result.isEmpty() ? null : result.get(0);

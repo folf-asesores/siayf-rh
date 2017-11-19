@@ -80,7 +80,8 @@ public class ConfiguracionAprobacionView implements Serializable {
         return usuariosSeleccionados;
     }
 
-    public void setUsuariosSeleccionados(List<InfoUsuarioDTO> usuariosSeleccionados) {
+    public void setUsuariosSeleccionados(
+            List<InfoUsuarioDTO> usuariosSeleccionados) {
         this.usuariosSeleccionados = usuariosSeleccionados;
     }
 
@@ -135,7 +136,8 @@ public class ConfiguracionAprobacionView implements Serializable {
      * @param listaTipoMovimientoEmpleado
      *            the listaTipoMovimientoEmpleado to set
      */
-    public void setListaTipoMovimientoEmpleado(List<SelectItem> listaTipoMovimientoEmpleado) {
+    public void setListaTipoMovimientoEmpleado(
+            List<SelectItem> listaTipoMovimientoEmpleado) {
         this.listaTipoMovimientoEmpleado = listaTipoMovimientoEmpleado;
     }
 
@@ -150,7 +152,8 @@ public class ConfiguracionAprobacionView implements Serializable {
      * @param listaUsuarioActivoItems
      *            the listaUsuarioActivoItems to set
      */
-    public void setListaUsuarioActivoItems(List<SelectItem> listaUsuarioActivoItems) {
+    public void setListaUsuarioActivoItems(
+            List<SelectItem> listaUsuarioActivoItems) {
         this.listaUsuarioActivoItems = listaUsuarioActivoItems;
     }
 
@@ -165,7 +168,8 @@ public class ConfiguracionAprobacionView implements Serializable {
      * @param actualizarConfiguracionAprobacion
      *            the actualizarConfiguracionAprobacion to set
      */
-    public void setActualizarConfiguracionAprobacion(ActualizacionConfiguracionAprobacionDTO actualizarConfiguracionAprobacion) {
+    public void setActualizarConfiguracionAprobacion(
+            ActualizacionConfiguracionAprobacionDTO actualizarConfiguracionAprobacion) {
         this.actualizarConfiguracionAprobacion = actualizarConfiguracionAprobacion;
     }
 
@@ -180,7 +184,8 @@ public class ConfiguracionAprobacionView implements Serializable {
      * @param idConfiguracionAprobacion
      *            the idConfiguracionAprobacion to set
      */
-    public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+    public void setIdConfiguracionAprobacion(
+            Integer idConfiguracionAprobacion) {
         this.idConfiguracionAprobacion = idConfiguracionAprobacion;
     }
 

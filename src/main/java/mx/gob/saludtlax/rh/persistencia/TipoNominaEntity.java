@@ -101,7 +101,8 @@ public class TipoNominaEntity implements Serializable {
         return idSubfuenteFinanciemaiento;
     }
 
-    public void setIdSubfuenteFinanciemaiento(Integer idSubfuenteFinanciemaiento) {
+    public void setIdSubfuenteFinanciemaiento(
+            Integer idSubfuenteFinanciemaiento) {
         this.idSubfuenteFinanciemaiento = idSubfuenteFinanciemaiento;
     }
 

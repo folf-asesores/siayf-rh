@@ -84,11 +84,14 @@ public class SIIFLayoutStoredProcedure {
             dato.setIdLocalidad((String) obj[7]);
             dato.setIdColonia((String) obj[8]);
             dato.setCalle(obj[9] != null ? ((String) obj[9]) : "NULL");
-            dato.setNumeroExterior(obj[10] != null ? ((String) obj[10]) : "NULL");
-            dato.setNumeroInterior(obj[11] != null ? ((String) obj[11]) : "NULL");
+            dato.setNumeroExterior(
+                    obj[10] != null ? ((String) obj[10]) : "NULL");
+            dato.setNumeroInterior(
+                    obj[11] != null ? ((String) obj[11]) : "NULL");
             dato.setCodigoPostal(obj[12] != null ? ((String) obj[12]) : "NULL");
             dato.setTelefono(obj[13] != null ? ((String) obj[13]) : "NULL");
-            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdEstadoEmpleado(
+                    obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
             dato.setIdNomina((Integer) obj[15]);
 
             datosPersonalesDTOs.add(dato);
@@ -108,7 +111,11 @@ public class SIIFLayoutStoredProcedure {
         for (Object[] obj : result) {
             DatosLaboralesDTO dato = new DatosLaboralesDTO();
 
-            Integer idEmpleadoDatosLaborales = obj[0] != null ? (obj[0] instanceof BigInteger ? ((BigInteger) obj[0]).intValue() : (Integer) obj[0]) : 0;
+            Integer idEmpleadoDatosLaborales = obj[0] != null
+                    ? (obj[0] instanceof BigInteger
+                            ? ((BigInteger) obj[0]).intValue()
+                            : (Integer) obj[0])
+                    : 0;
 
             dato.setIdEmpleadoDatosLaborales(idEmpleadoDatosLaborales);
             dato.setIdEmpleadoDatosPersonales((Integer) obj[1]);
@@ -145,7 +152,8 @@ public class SIIFLayoutStoredProcedure {
         return datosLaboralesDTOs;
     }
 
-    public List<DatosLaboralesDTO> generarDatosLaboralesNombramiento(int idEncabezado, String nombramiento) {
+    public List<DatosLaboralesDTO> generarDatosLaboralesNombramiento(
+            int idEncabezado, String nombramiento) {
         Query query = em.createNativeQuery(OBTENER_DATOS_LABORALES_NOM);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, nombramiento);
@@ -157,7 +165,11 @@ public class SIIFLayoutStoredProcedure {
         for (Object[] obj : result) {
             DatosLaboralesDTO dato = new DatosLaboralesDTO();
 
-            Integer idEmpleadoDatosLaborales = obj[0] != null ? (obj[0] instanceof BigInteger ? ((BigInteger) obj[0]).intValue() : (Integer) obj[0]) : 0;
+            Integer idEmpleadoDatosLaborales = obj[0] != null
+                    ? (obj[0] instanceof BigInteger
+                            ? ((BigInteger) obj[0]).intValue()
+                            : (Integer) obj[0])
+                    : 0;
 
             dato.setIdEmpleadoDatosLaborales(idEmpleadoDatosLaborales);
             dato.setIdEmpleadoDatosPersonales((Integer) obj[1]);
@@ -193,7 +205,8 @@ public class SIIFLayoutStoredProcedure {
         return datosLaboralesDTOs;
     }
 
-    public List<DetalleNominaDTO> generarDetalleNomina(int idEncabezado, int idBitacora) {
+    public List<DetalleNominaDTO> generarDetalleNomina(int idEncabezado,
+            int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_NOMINA);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -210,7 +223,8 @@ public class SIIFLayoutStoredProcedure {
             DetalleNominaDTO dato = new DetalleNominaDTO();
 
             dato.setIdDetalleNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpleadoDatosLaborales((Integer) obj[2]);
             dato.setIdConceptoNomina((String) obj[3]);
             dato.setImporte((BigDecimal) obj[4]);
@@ -222,7 +236,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetalleNomina;
     }
 
-    public List<DetallePagoNominaDTO> generarDetallePagoNomina(int idEncabezado, int idBitacora) {
+    public List<DetallePagoNominaDTO> generarDetallePagoNomina(int idEncabezado,
+            int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_PAGO_NOMINA);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -235,7 +250,8 @@ public class SIIFLayoutStoredProcedure {
             DetallePagoNominaDTO dato = new DetallePagoNominaDTO();
 
             dato.setIdPagoNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpeladoDatosLaborales((Integer) obj[2]);
             dato.setNoChequeCuenta((String) obj[3]);
             dato.setPercepciones((BigDecimal) obj[4]);
@@ -252,7 +268,8 @@ public class SIIFLayoutStoredProcedure {
      * Aqui inician los de Contrato
      **/
 
-    public List<DatosPersonalesDTO> obtenerDatosPersonalesContrato(int idEncabezado) {
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesContrato(
+            int idEncabezado) {
         Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_CONTRATO);
         System.out.println();
         query.setParameter(1, idEncabezado);
@@ -279,7 +296,8 @@ public class SIIFLayoutStoredProcedure {
             dato.setNumeroInterior((String) obj[11]);
             dato.setCodigoPostal((String) obj[12]);
             dato.setTelefono((String) obj[13]);
-            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdEstadoEmpleado(
+                    obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
 
             datosPersonalesDTOs.add(dato);
         }
@@ -287,7 +305,8 @@ public class SIIFLayoutStoredProcedure {
         return datosPersonalesDTOs;
     }
 
-    public List<DatosLaboralesDTO> generarDatosLaboralesContrato(int idEncabezado) {
+    public List<DatosLaboralesDTO> generarDatosLaboralesContrato(
+            int idEncabezado) {
         Query query = em.createNativeQuery(OBTENER_DATOS_LABORALES_CONTRATO);
         query.setParameter(1, idEncabezado);
 
@@ -298,7 +317,11 @@ public class SIIFLayoutStoredProcedure {
         for (Object[] obj : result) {
             DatosLaboralesDTO dato = new DatosLaboralesDTO();
 
-            Integer idEmpleadoDatosLaborales = obj[0] != null ? (obj[0] instanceof BigInteger ? ((BigInteger) obj[0]).intValue() : (Integer) obj[0]) : 0;
+            Integer idEmpleadoDatosLaborales = obj[0] != null
+                    ? (obj[0] instanceof BigInteger
+                            ? ((BigInteger) obj[0]).intValue()
+                            : (Integer) obj[0])
+                    : 0;
 
             dato.setIdEmpleadoDatosLaborales(idEmpleadoDatosLaborales);
             dato.setIdEmpleadoDatosPersonales((Integer) obj[1]);
@@ -334,7 +357,8 @@ public class SIIFLayoutStoredProcedure {
         return datosLaboralesDTOs;
     }
 
-    public List<DetalleNominaDTO> generarDetalleContrato(int idEncabezado, int idBitacora) {
+    public List<DetalleNominaDTO> generarDetalleContrato(int idEncabezado,
+            int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_CONTRATO);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -347,7 +371,8 @@ public class SIIFLayoutStoredProcedure {
             DetalleNominaDTO dato = new DetalleNominaDTO();
 
             dato.setIdDetalleNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpleadoDatosLaborales((Integer) obj[2]);
             dato.setIdConceptoNomina((String) obj[3]);
             dato.setImporte((BigDecimal) obj[4]);
@@ -359,7 +384,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetalleNomina;
     }
 
-    public List<DetallePagoNominaDTO> generarDetallePagoContrato(int idEncabezado, int idBitacora) {
+    public List<DetallePagoNominaDTO> generarDetallePagoContrato(
+            int idEncabezado, int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_PAGO_CONTRATO);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -372,7 +398,8 @@ public class SIIFLayoutStoredProcedure {
             DetallePagoNominaDTO dato = new DetallePagoNominaDTO();
 
             dato.setIdPagoNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpeladoDatosLaborales((Integer) obj[2]);
             dato.setNoChequeCuenta((String) obj[3]);
             dato.setPercepciones((BigDecimal) obj[4]);
@@ -389,7 +416,9 @@ public class SIIFLayoutStoredProcedure {
      * Aqui inician los finales
      **/
 
-    public List<DatosPersonalesDTO> obtenerDatosPersonalesFinal(int idCuentaBancaria, int idTipoNomina, String idTipoEmisionNomina) {
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesFinal(
+            int idCuentaBancaria, int idTipoNomina,
+            String idTipoEmisionNomina) {
         Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_FINAL);
         System.out.println();
         query.setParameter(1, idCuentaBancaria);
@@ -418,7 +447,8 @@ public class SIIFLayoutStoredProcedure {
             dato.setNumeroInterior((String) obj[11]);
             dato.setCodigoPostal((String) obj[12]);
             dato.setTelefono((String) obj[13]);
-            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdEstadoEmpleado(
+                    obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
 
             datosPersonalesDTOs.add(dato);
         }
@@ -426,7 +456,9 @@ public class SIIFLayoutStoredProcedure {
         return datosPersonalesDTOs;
     }
 
-    public List<DatosLaboralesDTO> generarDatosLaboralesFinal(int idCuentaBancaria, int idTipoNomina, String idTipoEmisionNomina) {
+    public List<DatosLaboralesDTO> generarDatosLaboralesFinal(
+            int idCuentaBancaria, int idTipoNomina,
+            String idTipoEmisionNomina) {
         Query query = em.createNativeQuery(OBTENER_DATOS_LABORALES_FINAL);
         query.setParameter(1, idCuentaBancaria);
         query.setParameter(2, idTipoNomina);
@@ -439,7 +471,11 @@ public class SIIFLayoutStoredProcedure {
         for (Object[] obj : result) {
             DatosLaboralesDTO dato = new DatosLaboralesDTO();
 
-            Integer idEmpleadoDatosLaborales = obj[0] != null ? (obj[0] instanceof BigInteger ? ((BigInteger) obj[0]).intValue() : (Integer) obj[0]) : 0;
+            Integer idEmpleadoDatosLaborales = obj[0] != null
+                    ? (obj[0] instanceof BigInteger
+                            ? ((BigInteger) obj[0]).intValue()
+                            : (Integer) obj[0])
+                    : 0;
 
             dato.setIdEmpleadoDatosLaborales(idEmpleadoDatosLaborales);
             dato.setIdEmpleadoDatosPersonales((Integer) obj[1]);
@@ -475,7 +511,9 @@ public class SIIFLayoutStoredProcedure {
         return datosLaboralesDTOs;
     }
 
-    public List<DetalleNominaDTO> generarDetalleNominaFinal(int idCuentaBancaria, int idTipoNomina, String idTipoEmisionNomina) {
+    public List<DetalleNominaDTO> generarDetalleNominaFinal(
+            int idCuentaBancaria, int idTipoNomina,
+            String idTipoEmisionNomina) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_NOMINA_FINAL);
         query.setParameter(1, idCuentaBancaria);
         query.setParameter(2, idTipoNomina);
@@ -493,7 +531,8 @@ public class SIIFLayoutStoredProcedure {
             DetalleNominaDTO dato = new DetalleNominaDTO();
 
             dato.setIdDetalleNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpleadoDatosLaborales((Integer) obj[2]);
             dato.setIdConceptoNomina((String) obj[3]);
             dato.setImporte((BigDecimal) obj[4]);
@@ -505,7 +544,9 @@ public class SIIFLayoutStoredProcedure {
         return datosDetalleNomina;
     }
 
-    public List<DetallePagoNominaDTO> generarDetallePagoNominaFinal(int idCuentaBancaria, int idTipoNomina, String idTipoEmisionNomina) {
+    public List<DetallePagoNominaDTO> generarDetallePagoNominaFinal(
+            int idCuentaBancaria, int idTipoNomina,
+            String idTipoEmisionNomina) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_PAGO_NOMINA_FINAL);
         query.setParameter(1, idCuentaBancaria);
         query.setParameter(2, idTipoNomina);
@@ -519,7 +560,8 @@ public class SIIFLayoutStoredProcedure {
             DetallePagoNominaDTO dato = new DetallePagoNominaDTO();
 
             dato.setIdPagoNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpeladoDatosLaborales((Integer) obj[2]);
             dato.setNoChequeCuenta((String) obj[3]);
             dato.setPercepciones((BigDecimal) obj[4]);
@@ -532,7 +574,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetallePagoNomina;
     }
 
-    public List<DetalleNominaDTO> generarDetalleNomina610(int idEncabezado, int idBitacora) {
+    public List<DetalleNominaDTO> generarDetalleNomina610(int idEncabezado,
+            int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_NOMINA_610);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -549,7 +592,8 @@ public class SIIFLayoutStoredProcedure {
             DetalleNominaDTO dato = new DetalleNominaDTO();
 
             dato.setIdDetalleNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpleadoDatosLaborales((Integer) obj[2]);
             dato.setIdConceptoNomina((String) obj[3]);
             dato.setImporte((BigDecimal) obj[4]);
@@ -561,7 +605,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetalleNomina;
     }
 
-    public List<DetallePagoNominaDTO> generarDetallePagoNomina610(int idEncabezado, int idBitacora) {
+    public List<DetallePagoNominaDTO> generarDetallePagoNomina610(
+            int idEncabezado, int idBitacora) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_PAGO_NOMINA_610);
         query.setParameter(1, idEncabezado);
         query.setParameter(2, idBitacora);
@@ -574,7 +619,8 @@ public class SIIFLayoutStoredProcedure {
             DetallePagoNominaDTO dato = new DetallePagoNominaDTO();
 
             dato.setIdPagoNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpeladoDatosLaborales((Integer) obj[2]);
             dato.setNoChequeCuenta((String) obj[3]);
             dato.setPercepciones((BigDecimal) obj[4]);
@@ -587,9 +633,11 @@ public class SIIFLayoutStoredProcedure {
         return datosDetallePagoNomina;
     }
 
-    public List<DatosPersonalesDTO> obtenerDatosPersonalesRhCont(int idProductoNomina, int idNomina) {
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesRhCont(
+            int idProductoNomina, int idNomina) {
         //LOGGER.debug("idEncabezado:::" + +idEncabezado);
-        Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_RH_CONTRATO);
+        Query query = em
+                .createNativeQuery(OBTENER_DATOS_PERSONALES_RH_CONTRATO);
         query.setParameter(1, idProductoNomina);
         query.setParameter(2, idNomina);
         @SuppressWarnings("unchecked")
@@ -610,11 +658,14 @@ public class SIIFLayoutStoredProcedure {
             dato.setIdLocalidad((String) obj[7]);
             dato.setIdColonia((String) obj[8]);
             dato.setCalle(obj[9] != null ? ((String) obj[9]) : "NULL");
-            dato.setNumeroExterior(obj[10] != null ? ((String) obj[10]) : "NULL");
-            dato.setNumeroInterior(obj[11] != null ? ((String) obj[11]) : "NULL");
+            dato.setNumeroExterior(
+                    obj[10] != null ? ((String) obj[10]) : "NULL");
+            dato.setNumeroInterior(
+                    obj[11] != null ? ((String) obj[11]) : "NULL");
             dato.setCodigoPostal(obj[12] != null ? ((String) obj[12]) : "NULL");
             dato.setTelefono(obj[13] != null ? ((String) obj[13]) : "NULL");
-            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdEstadoEmpleado(
+                    obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
             dato.setIdNomina((Integer) obj[15]);
 
             datosPersonalesDTOs.add(dato);
@@ -623,7 +674,8 @@ public class SIIFLayoutStoredProcedure {
         return datosPersonalesDTOs;
     }
 
-    public List<DatosLaboralesDTO> generarDatosLaboralesRH(int idProductoNomina) {
+    public List<DatosLaboralesDTO> generarDatosLaboralesRH(
+            int idProductoNomina) {
         Query query = em.createNativeQuery(OBTENER_DATOS_LABORALES_RH);
         query.setParameter(1, idProductoNomina);
 
@@ -634,7 +686,11 @@ public class SIIFLayoutStoredProcedure {
         for (Object[] obj : result) {
             DatosLaboralesDTO dato = new DatosLaboralesDTO();
 
-            Integer idEmpleadoDatosLaborales = obj[0] != null ? (obj[0] instanceof BigInteger ? ((BigInteger) obj[0]).intValue() : (Integer) obj[0]) : 0;
+            Integer idEmpleadoDatosLaborales = obj[0] != null
+                    ? (obj[0] instanceof BigInteger
+                            ? ((BigInteger) obj[0]).intValue()
+                            : (Integer) obj[0])
+                    : 0;
 
             dato.setIdEmpleadoDatosLaborales(idEmpleadoDatosLaborales);
             dato.setIdEmpleadoDatosPersonales((Integer) obj[1]);
@@ -682,7 +738,8 @@ public class SIIFLayoutStoredProcedure {
             DetalleNominaDTO dato = new DetalleNominaDTO();
 
             dato.setIdDetalleNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpleadoDatosLaborales((Integer) obj[2]);
             dato.setIdConceptoNomina((String) obj[3]);
             dato.setImporte((BigDecimal) obj[4]);
@@ -694,7 +751,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetalleNomina;
     }
 
-    public List<DetallePagoNominaDTO> generarDetallePagoNominaRH(int idProductoNomina) {
+    public List<DetallePagoNominaDTO> generarDetallePagoNominaRH(
+            int idProductoNomina) {
         Query query = em.createNativeQuery(OBTENER_DETALLE_PAGO_NOMINA_RH);
         query.setParameter(1, idProductoNomina);
 
@@ -706,7 +764,8 @@ public class SIIFLayoutStoredProcedure {
             DetallePagoNominaDTO dato = new DetallePagoNominaDTO();
 
             dato.setIdPagoNomina(((BigInteger) obj[0]).intValue());
-            dato.setIdNomina(obj[1] instanceof BigInteger ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
+            dato.setIdNomina(obj[1] instanceof BigInteger
+                    ? ((BigInteger) obj[1]).intValue() : (Integer) obj[1]);
             dato.setIdEmpeladoDatosLaborales((Integer) obj[2]);
             dato.setNoChequeCuenta((String) obj[3]);
             dato.setPercepciones((BigDecimal) obj[4]);
@@ -719,7 +778,8 @@ public class SIIFLayoutStoredProcedure {
         return datosDetallePagoNomina;
     }
 
-    public List<DatosPersonalesDTO> obtenerDatosPersonalesRH(int idProductoNomina, int idNomina) {
+    public List<DatosPersonalesDTO> obtenerDatosPersonalesRH(
+            int idProductoNomina, int idNomina) {
         //LOGGER.debug("idEncabezado:::" + +idEncabezado);
         Query query = em.createNativeQuery(OBTENER_DATOS_PERSONALES_RH_CONT);
         query.setParameter(1, idProductoNomina);
@@ -742,11 +802,14 @@ public class SIIFLayoutStoredProcedure {
             dato.setIdLocalidad((String) obj[7]);
             dato.setIdColonia((String) obj[8]);
             dato.setCalle(obj[9] != null ? ((String) obj[9]) : "NULL");
-            dato.setNumeroExterior(obj[10] != null ? ((String) obj[10]) : "NULL");
-            dato.setNumeroInterior(obj[11] != null ? ((String) obj[11]) : "NULL");
+            dato.setNumeroExterior(
+                    obj[10] != null ? ((String) obj[10]) : "NULL");
+            dato.setNumeroInterior(
+                    obj[11] != null ? ((String) obj[11]) : "NULL");
             dato.setCodigoPostal(obj[12] != null ? ((String) obj[12]) : "NULL");
             dato.setTelefono(obj[13] != null ? ((String) obj[13]) : "NULL");
-            dato.setIdEstadoEmpleado(obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
+            dato.setIdEstadoEmpleado(
+                    obj[14] != null ? ((String) obj[14]).charAt(0) : 'A');
             dato.setIdNomina((Integer) obj[15]);
 
             datosPersonalesDTOs.add(dato);

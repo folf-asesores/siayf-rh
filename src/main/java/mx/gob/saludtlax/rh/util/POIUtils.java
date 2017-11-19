@@ -19,7 +19,8 @@ public class POIUtils {
      * @param mapa
      *            campos y valores que serÃ¡n remplazados
      */
-    public static void remplazarCamposTablas(Map<String, String> mapa, Iterator<XWPFTable> iterador) {
+    public static void remplazarCamposTablas(Map<String, String> mapa,
+            Iterator<XWPFTable> iterador) {
 
         while (iterador.hasNext()) {
             XWPFTable tabla = iterador.next();
@@ -38,7 +39,8 @@ public class POIUtils {
      * @param parrafo
      * @param remplazo
      */
-    public static void remplazarCampos(XWPFParagraph parrafo, Map<String, String> remplazo) {
+    public static void remplazarCampos(XWPFParagraph parrafo,
+            Map<String, String> remplazo) {
         List<XWPFRun> runs = parrafo.getRuns();
 
         for (XWPFRun run : runs) {
@@ -53,7 +55,8 @@ public class POIUtils {
      * @param remplazo
      * @return
      */
-    public static String remplazarCampos(String origen, Map<String, String> remplazo) {
+    public static String remplazarCampos(String origen,
+            Map<String, String> remplazo) {
         String salida = origen;
 
         for (Map.Entry<String, String> r : remplazo.entrySet()) {

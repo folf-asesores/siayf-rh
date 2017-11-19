@@ -5,7 +5,7 @@
 package mx.gob.saludtlax.rh.expediente.aspirante;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public interface ExpedienteAspirante {

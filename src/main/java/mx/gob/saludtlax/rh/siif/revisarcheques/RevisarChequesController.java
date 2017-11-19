@@ -32,12 +32,14 @@ public class RevisarChequesController implements Serializable {
 
     public void obtenerListaRevisarCheques() {
 
-        List<RevisarChequesDTO> obtenerLista = revisarCheque.obtenerListaRevisarCheques();
+        List<RevisarChequesDTO> obtenerLista = revisarCheque
+                .obtenerListaRevisarCheques();
 
         if (!obtenerLista.isEmpty()) {
             view.setObtenerListaRevisarChequesDTOs(obtenerLista);
         } else {
-            view.setObtenerListaRevisarChequesDTOs(new ArrayList<RevisarChequesDTO>());
+            view.setObtenerListaRevisarChequesDTOs(
+                    new ArrayList<RevisarChequesDTO>());
         }
     }
 
@@ -46,14 +48,19 @@ public class RevisarChequesController implements Serializable {
             view.setMostrarResultadoConsulta(true);
             if (view.getAccionRevisarCheques().equals("Revisar")) {
                 view.setObtenerListaRevisarChequesDTOs(
-                        revisarCheque.obtenerListaRevisarCheques(view.getRevisarChequesDTO().getPeriodo(), view.getRevisarChequesDTO().getAnio()));
-                JSFUtils.infoMessage("Lista de Cheques: ", "Se realizo correctamente");
+                        revisarCheque.obtenerListaRevisarCheques(
+                                view.getRevisarChequesDTO().getPeriodo(),
+                                view.getRevisarChequesDTO().getAnio()));
+                JSFUtils.infoMessage("Lista de Cheques: ",
+                        "Se realizo correctamente");
                 // limpiarVista();
             } else if (view.getAccionRevisarCheques().equals("Avanzada")) {
-                JSFUtils.infoMessage("Busqueda de Cheques: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Busqueda de Cheques: ",
+                        "Se realizo correctamente");
                 // limpiarVista();
             } else if (view.getObtenerListaRevisarChequesDTOs().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontraron registros ");
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontraron registros ");
             }
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());

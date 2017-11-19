@@ -16,7 +16,7 @@ import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgram
 import mx.gob.saludtlax.rh.reporteslaborales.productonomina.ProductoNominaExcel;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -31,42 +31,57 @@ public class ProductoNominaEJB implements ProductoNomina {
     private ProductoNominaService productoNominaService;
 
     @Override
-    public List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto) {
-        return productoNominaService.obtenerListaProductoNominaPorIdProducto(idProducto);
+    public List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(
+            Integer idProducto) {
+        return productoNominaService
+                .obtenerListaProductoNominaPorIdProducto(idProducto);
     }
 
     @Override
-    public List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto) {
-        return productoNominaService.obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
+    public List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(
+            Integer idProducto) {
+        return productoNominaService
+                .obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
     }
 
     //
     @Override
     public List<String> obtenerListaProgramasPorIdProducto(Integer idProducto) {
-        return productoNominaService.obtenerListaProgramasPorIdProducto(idProducto);
+        return productoNominaService
+                .obtenerListaProgramasPorIdProducto(idProducto);
     }
 
     @Override
-    public ProductoNominaDTO obtenerProductoNominaPorIdProducto(Integer idProducto) {
-        return productoNominaService.obtenerProductoNominaPorIdProducto(idProducto);
+    public ProductoNominaDTO obtenerProductoNominaPorIdProducto(
+            Integer idProducto) {
+        return productoNominaService
+                .obtenerProductoNominaPorIdProducto(idProducto);
     }
 
     @Override
-    public byte[] obtenerReporteProductoNominaSuplencia(Integer idProductoNomina) throws ReglaNegocioException {
-        List<ProductosNominaExcelDTO> productoNomina = productoNominaService.obtenerListaProductoNominaSuplenciaPorIdProducto(idProductoNomina);
+    public byte[] obtenerReporteProductoNominaSuplencia(
+            Integer idProductoNomina) throws ReglaNegocioException {
+        List<ProductosNominaExcelDTO> productoNomina = productoNominaService
+                .obtenerListaProductoNominaSuplenciaPorIdProducto(
+                        idProductoNomina);
 
         if (productoNomina != null && !productoNomina.isEmpty()) {
             ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
             return productoNominaExcel.generar(productoNomina);
         } else {
-            throw new ReglaNegocioException("No se encontrarón resultados con el identificador del producto nomina: " + idProductoNomina.toString(),
+            throw new ReglaNegocioException(
+                    "No se encontrarón resultados con el identificador del producto nomina: "
+                            + idProductoNomina.toString(),
                     ReglaNegocioCodigoError.SIN_REGISTRO);
         }
     }
 
     @Override
-    public List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto, Integer estatus) {
-        return productoNominaService.obtenerListaProductoNominaPorIdProductoEstatus(idProducto, estatus);
+    public List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(
+            Integer idProducto, Integer estatus) {
+        return productoNominaService
+                .obtenerListaProductoNominaPorIdProductoEstatus(idProducto,
+                        estatus);
     }
 
 }

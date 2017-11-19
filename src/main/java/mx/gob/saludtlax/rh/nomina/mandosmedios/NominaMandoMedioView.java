@@ -66,7 +66,8 @@ public class NominaMandoMedioView {
      * @param nominaMandoMedioDtos
      *            new value of nominaMandoMedioDtos
      */
-    public void setNominaMandoMedioDtos(List<NominaMandoMedioDTO> nominaMandoMedioDtos) {
+    public void setNominaMandoMedioDtos(
+            List<NominaMandoMedioDTO> nominaMandoMedioDtos) {
         this.nominaMandoMedioDtos = nominaMandoMedioDtos;
     }
 
@@ -123,7 +124,8 @@ public class NominaMandoMedioView {
      * @param nuevaNominaMandoMedio
      *            new value of nuevaNominaMandoMedio
      */
-    public void setNuevaNominaMandoMedio(NominaMandoMedioDTO nuevaNominaMandoMedio) {
+    public void setNuevaNominaMandoMedio(
+            NominaMandoMedioDTO nuevaNominaMandoMedio) {
         this.nuevaNominaMandoMedio = nuevaNominaMandoMedio;
     }
 
@@ -143,7 +145,8 @@ public class NominaMandoMedioView {
      *            new value of
      *            nominaMandoMedioSeleccionada
      */
-    public void setNominaMandoMedioSeleccionada(NominaMandoMedioDTO nominaMandoMedioSeleccionada) {
+    public void setNominaMandoMedioSeleccionada(
+            NominaMandoMedioDTO nominaMandoMedioSeleccionada) {
         this.nominaMandoMedioSeleccionada = nominaMandoMedioSeleccionada;
     }
 

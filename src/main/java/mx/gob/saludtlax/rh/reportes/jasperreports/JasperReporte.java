@@ -12,7 +12,7 @@ import java.util.Map;
 import mx.gob.saludtlax.rh.reportes.Reporte;
 
 /**
- * @author eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class JasperReporte extends Reporte {
@@ -30,7 +30,8 @@ public class JasperReporte extends Reporte {
         return ((subreportes != null) && (!subreportes.isEmpty()));
     }
 
-    public void agregarSubreporte(String nombreParametro, JasperReporte subreporte) {
+    public void agregarSubreporte(String nombreParametro,
+            JasperReporte subreporte) {
         subreportes.put(nombreParametro, subreporte);
     }
 

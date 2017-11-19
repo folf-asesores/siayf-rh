@@ -13,7 +13,9 @@ public class EjercicioFiscalListaDTO {
     public EjercicioFiscalListaDTO() {
     }
 
-    public EjercicioFiscalListaDTO(Integer idEjercicioFiscal, Integer ejercicioFiscal, Date inicio, Date fin, String periodicidad) {
+    public EjercicioFiscalListaDTO(Integer idEjercicioFiscal,
+            Integer ejercicioFiscal, Date inicio, Date fin,
+            String periodicidad) {
         this.idEjercicioFiscal = idEjercicioFiscal;
         this.ejercicioFiscal = ejercicioFiscal;
         this.inicio = inicio;

@@ -40,7 +40,8 @@ public class ConfiguracionUsuarioModuloEntity implements Serializable {
         return idConfiguracionUsuarioModulo;
     }
 
-    public void setIdConfiguracionUsuarioModulo(Integer idConfiguracionUsuarioModulo) {
+    public void setIdConfiguracionUsuarioModulo(
+            Integer idConfiguracionUsuarioModulo) {
         this.idConfiguracionUsuarioModulo = idConfiguracionUsuarioModulo;
     }
 
@@ -56,7 +57,8 @@ public class ConfiguracionUsuarioModuloEntity implements Serializable {
         return configuracionModuloAccion;
     }
 
-    public void setConfiguracionModuloAccion(ConfiguracionModuloAccionEntity configuracionModuloAccion) {
+    public void setConfiguracionModuloAccion(
+            ConfiguracionModuloAccionEntity configuracionModuloAccion) {
         this.configuracionModuloAccion = configuracionModuloAccion;
     }
 

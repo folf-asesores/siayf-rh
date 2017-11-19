@@ -16,17 +16,24 @@ public class ReincorporacionBaseEJB {
     @Inject
     private MovimientoEmpleadoRepository movimientoEmpleadoRepository;
 
-    public ReincorporacionBaseDTO obtenerReincorporacion(Integer idTipoMovimiento) {
+    public ReincorporacionBaseDTO obtenerReincorporacion(
+            Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         ReincorporacionBaseDTO reincorporacionBaseDTO = new ReincorporacionBaseDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().getNombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
-        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al " + movimientoEmpleadoEntity.getFechaFinPermiso();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .getNombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
+        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al "
+                + movimientoEmpleadoEntity.getFechaFinPermiso();
         String fechaNombramiento = "";
 
         reincorporacionBaseDTO.setIdMovimiento(idMovimiento);
@@ -39,20 +46,23 @@ public class ReincorporacionBaseEJB {
         return reincorporacionBaseDTO;
     }
 
-    public List<ReincorporacionBaseDetalleDTO> consultarPorCriterio(String criterio) {
+    public List<ReincorporacionBaseDetalleDTO> consultarPorCriterio(
+            String criterio) {
 
         List<ReincorporacionBaseDetalleDTO> resultado = new ArrayList<>();
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 ReincorporacionBaseDetalleDTO dto = new ReincorporacionBaseDetalleDTO();
 

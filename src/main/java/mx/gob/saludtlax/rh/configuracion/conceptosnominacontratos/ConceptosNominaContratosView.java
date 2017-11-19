@@ -46,7 +46,8 @@ public class ConceptosNominaContratosView implements Serializable {
         return conceptoNominaSelect;
     }
 
-    public void setConceptoNominaSelect(ConceptoNominaContratosDTO conceptoNominaSelect) {
+    public void setConceptoNominaSelect(
+            ConceptoNominaContratosDTO conceptoNominaSelect) {
         this.conceptoNominaSelect = conceptoNominaSelect;
     }
 
@@ -54,7 +55,8 @@ public class ConceptosNominaContratosView implements Serializable {
         return conceptoNominaLista;
     }
 
-    public void setConceptoNominaLista(List<ConceptoNominaContratosDTO> conceptoNominaLista) {
+    public void setConceptoNominaLista(
+            List<ConceptoNominaContratosDTO> conceptoNominaLista) {
         this.conceptoNominaLista = conceptoNominaLista;
     }
 
@@ -110,7 +112,8 @@ public class ConceptosNominaContratosView implements Serializable {
         return estatusConceptoNominaLista;
     }
 
-    public void setEstatusConceptoNominaLista(List<EstatusConceptoNominaDTO> estatusConceptoNominaLista) {
+    public void setEstatusConceptoNominaLista(
+            List<EstatusConceptoNominaDTO> estatusConceptoNominaLista) {
         this.estatusConceptoNominaLista = estatusConceptoNominaLista;
     }
 

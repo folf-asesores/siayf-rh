@@ -101,7 +101,8 @@ public class BitacoraReporteEntity implements Serializable {
         return reporteParametros;
     }
 
-    public void setReporteParametros(Set<ReporteParametroEntity> reporteParametros) {
+    public void setReporteParametros(
+            Set<ReporteParametroEntity> reporteParametros) {
         this.reporteParametros = reporteParametros;
     }
 

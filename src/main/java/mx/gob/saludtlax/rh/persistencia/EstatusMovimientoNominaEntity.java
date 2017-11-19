@@ -31,7 +31,8 @@ public class EstatusMovimientoNominaEntity implements Serializable {
         return idEstatusMovimientoNomina;
     }
 
-    public void setIdEstatusMovimientoNomina(Integer idEstatusMovimientoNomina) {
+    public void setIdEstatusMovimientoNomina(
+            Integer idEstatusMovimientoNomina) {
         this.idEstatusMovimientoNomina = idEstatusMovimientoNomina;
     }
 

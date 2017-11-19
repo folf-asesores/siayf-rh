@@ -17,7 +17,8 @@ import mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalService;
  *
  */
 @Stateless
-public class ReporteCausalGlobalEJB implements ReporteCausalGlobal, Serializable {
+public class ReporteCausalGlobalEJB
+        implements ReporteCausalGlobal, Serializable {
     private static final long serialVersionUID = 4161800114423833582L;
 
     @Inject
@@ -28,10 +29,13 @@ public class ReporteCausalGlobalEJB implements ReporteCausalGlobal, Serializable
     private ReporteCausalGlobalService reporteCausalGlobalService;
 
     @Override
-    public List<ReporteCausalGlobalDTO> obtenerListaCausalGlobal(Integer numeroQuincena, Integer ejercicioFiscal, Integer idCentroResponsabilidad,
-            String lugar) {
+    public List<ReporteCausalGlobalDTO> obtenerListaCausalGlobal(
+            Integer numeroQuincena, Integer ejercicioFiscal,
+            Integer idCentroResponsabilidad, String lugar) {
 
-        return reporteCausalGlobalService.obtenerListaCausalGlobal(numeroQuincena, ejercicioFiscal, idCentroResponsabilidad, lugar);
+        return reporteCausalGlobalService.obtenerListaCausalGlobal(
+                numeroQuincena, ejercicioFiscal, idCentroResponsabilidad,
+                lugar);
     }
 
     @Override

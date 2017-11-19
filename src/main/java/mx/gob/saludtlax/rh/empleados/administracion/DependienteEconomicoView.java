@@ -48,7 +48,8 @@ public class DependienteEconomicoView {
         return dependienteEconomico;
     }
 
-    public void setDependienteEconomico(DependienteEconomicoDTO dependienteEconomico) {
+    public void setDependienteEconomico(
+            DependienteEconomicoDTO dependienteEconomico) {
         this.dependienteEconomico = dependienteEconomico;
     }
 
@@ -64,7 +65,8 @@ public class DependienteEconomicoView {
         return empleadosEncontrados;
     }
 
-    public void setEmpleadosEncontrados(List<InfoEmpleadoDTO> empleadosEncontrados) {
+    public void setEmpleadosEncontrados(
+            List<InfoEmpleadoDTO> empleadosEncontrados) {
         this.empleadosEncontrados = empleadosEncontrados;
     }
 
@@ -72,7 +74,8 @@ public class DependienteEconomicoView {
         return dependientesEconomicos;
     }
 
-    public void setDependientesEconomicos(List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
+    public void setDependientesEconomicos(
+            List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
         this.dependientesEconomicos = dependientesEconomicos;
     }
 
@@ -96,7 +99,8 @@ public class DependienteEconomicoView {
         return panelDependienteEconomico;
     }
 
-    public void setPanelDependienteEconomico(Boolean panelDependienteEconomico) {
+    public void setPanelDependienteEconomico(
+            Boolean panelDependienteEconomico) {
         this.panelDependienteEconomico = panelDependienteEconomico;
     }
 

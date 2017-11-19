@@ -11,7 +11,8 @@ import javax.persistence.NoResultException;
  *
  * @since 15/08/2016 21:49:13
  */
-public class TempContratosEstatalesRepository extends GenericRepository<TempContratosEstatalesEntity, Integer> {
+public class TempContratosEstatalesRepository
+        extends GenericRepository<TempContratosEstatalesEntity, Integer> {
 
     /**
      *
@@ -20,8 +21,10 @@ public class TempContratosEstatalesRepository extends GenericRepository<TempCont
 
     public TempContratosEstatalesEntity contratoEstatalPorRfc(String rfc) {
         try {
-            return em.createQuery("SELECT c FROM TempContratosEstatalesEntity AS c WHERE c.rfc =:rfc", TempContratosEstatalesEntity.class)
-                    .setParameter("rfc", rfc).getSingleResult();
+            return em.createQuery(
+                    "SELECT c FROM TempContratosEstatalesEntity AS c WHERE c.rfc =:rfc",
+                    TempContratosEstatalesEntity.class).setParameter("rfc", rfc)
+                    .getSingleResult();
         } catch (NoResultException exception) {
             return null;
         }

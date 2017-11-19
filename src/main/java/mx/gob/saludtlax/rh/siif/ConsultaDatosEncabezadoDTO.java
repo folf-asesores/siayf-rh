@@ -47,7 +47,8 @@ public class ConsultaDatosEncabezadoDTO {
         return id_empleado_datos_laborales;
     }
 
-    public void setId_empleado_datos_laborales(Integer id_empleado_datos_laborales) {
+    public void setId_empleado_datos_laborales(
+            Integer id_empleado_datos_laborales) {
         this.id_empleado_datos_laborales = id_empleado_datos_laborales;
     }
 
@@ -119,7 +120,8 @@ public class ConsultaDatosEncabezadoDTO {
         return id_empleado_datos_personales;
     }
 
-    public void setId_empleado_datos_personales(Integer id_empleado_datos_personales) {
+    public void setId_empleado_datos_personales(
+            Integer id_empleado_datos_personales) {
         this.id_empleado_datos_personales = id_empleado_datos_personales;
     }
 

@@ -52,7 +52,8 @@ public class MiBuzonView {
         return mostrarDetalleModificacionSueldo;
     }
 
-    public void setMostrarDetalleModificacionSueldo(boolean mostrarDetalleModificacionSueldo) {
+    public void setMostrarDetalleModificacionSueldo(
+            boolean mostrarDetalleModificacionSueldo) {
         this.mostrarDetalleModificacionSueldo = mostrarDetalleModificacionSueldo;
     }
 
@@ -76,7 +77,8 @@ public class MiBuzonView {
         return mostrarDetalleLaboralPrograma;
     }
 
-    public void setMostrarDetalleLaboralPrograma(boolean mostrarDetalleLaboralPrograma) {
+    public void setMostrarDetalleLaboralPrograma(
+            boolean mostrarDetalleLaboralPrograma) {
         this.mostrarDetalleLaboralPrograma = mostrarDetalleLaboralPrograma;
     }
 
@@ -92,7 +94,8 @@ public class MiBuzonView {
         return mostrarDetalleAperturaVacantePrograma;
     }
 
-    public void setMostrarDetalleAperturaVacantePrograma(boolean mostrarDetalleAperturaVacantePrograma) {
+    public void setMostrarDetalleAperturaVacantePrograma(
+            boolean mostrarDetalleAperturaVacantePrograma) {
         this.mostrarDetalleAperturaVacantePrograma = mostrarDetalleAperturaVacantePrograma;
     }
 
@@ -124,7 +127,8 @@ public class MiBuzonView {
         return detalleAutorizacion;
     }
 
-    public void setDetalleAutorizacion(DetalleAutorizacionDTO detalleAutorizacion) {
+    public void setDetalleAutorizacion(
+            DetalleAutorizacionDTO detalleAutorizacion) {
         this.detalleAutorizacion = detalleAutorizacion;
     }
 
@@ -132,7 +136,8 @@ public class MiBuzonView {
         return mostrarDetalleAperturaVacante;
     }
 
-    public void setMostrarDetalleAperturaVacante(boolean mostrarDetalleAperturaVacante) {
+    public void setMostrarDetalleAperturaVacante(
+            boolean mostrarDetalleAperturaVacante) {
         this.mostrarDetalleAperturaVacante = mostrarDetalleAperturaVacante;
     }
 
@@ -140,7 +145,8 @@ public class MiBuzonView {
         return misNotificaciones;
     }
 
-    public void setMisNotificaciones(List<BuzonAutorizacionDTO> misNotificaciones) {
+    public void setMisNotificaciones(
+            List<BuzonAutorizacionDTO> misNotificaciones) {
         this.misNotificaciones = misNotificaciones;
     }
 

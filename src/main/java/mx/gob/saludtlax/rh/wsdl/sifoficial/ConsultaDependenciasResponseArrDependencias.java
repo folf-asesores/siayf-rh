@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_dependenciasResponse_arr_dependencias", propOrder = { "element" })
+@XmlType(name = "consulta_dependenciasResponse_arr_dependencias", propOrder = {
+        "element" })
 public class ConsultaDependenciasResponseArrDependencias {
 
     @XmlElement(required = true, nillable = true)
@@ -103,7 +104,8 @@ public class ConsultaDependenciasResponseArrDependencias {
      *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = { "idDependencia", "idBase36", "descripcion" })
+    @XmlType(name = "", propOrder = { "idDependencia", "idBase36",
+            "descripcion" })
     public static class Element {
 
         @XmlElement(name = "id_dependencia", required = true, type = Integer.class, nillable = true)

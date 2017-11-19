@@ -5,8 +5,8 @@
 package mx.gob.saludtlax.rh.empleados.nombramientos.impresion;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 16:23:56 14/09/2016
  */

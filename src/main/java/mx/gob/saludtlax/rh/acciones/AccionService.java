@@ -51,24 +51,29 @@ public class AccionService {
         accionesEntity.setDescripcion(accionDTO.getDescripcion());
 
         if (!ValidacionUtil.esNumeroPositivoInt(accionDTO.getIdArea())) {
-            throw new ValidacionException(contexto + "Selecione el area.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Selecione el area.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esNumeroPositivoInt(accionDTO.getIdModulo())) {
 
-            accionesEntity.setModulo(moduloRepository.obtenerPorId(accionDTO.getIdModulo()));
+            accionesEntity.setModulo(
+                    moduloRepository.obtenerPorId(accionDTO.getIdModulo()));
 
         }
 
-        accionesEntity.setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
+        accionesEntity
+                .setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
 
         accionesRepository.crear(accionesEntity);
     }
 
     public void editarAccion(AccionDTO accionDTO) {
-        AccionesEntity accionesEntity = accionesRepository.obtenerPorId(accionDTO.getIdAccion());
+        AccionesEntity accionesEntity = accionesRepository
+                .obtenerPorId(accionDTO.getIdAccion());
 
-        accionesEntity.setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
+        accionesEntity
+                .setArea(areasRepository.obtenerPorId(accionDTO.getIdArea()));
         accionesEntity.setClave(accionDTO.getClave());
         accionesEntity.setDescripcion(accionDTO.getDescripcion());
 
@@ -98,7 +103,8 @@ public class AccionService {
     public List<AccionDTO> obtenerAccionesPorArea(Integer idArea) {
         List<AccionDTO> listDto = new ArrayList<>();
         try {
-            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdArea(idArea);
+            List<AccionesEntity> listEntity = accionesRepository
+                    .obtenerListaAccionesPorIdArea(idArea);
 
             for (AccionesEntity a : listEntity) {
                 AccionDTO aDto = new AccionDTO();
@@ -121,7 +127,8 @@ public class AccionService {
     public List<AccionDTO> obtenerAccionesPorModulo(Integer idModulo) {
         List<AccionDTO> listDto = new ArrayList<>();
         try {
-            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdModulo(idModulo);
+            List<AccionesEntity> listEntity = accionesRepository
+                    .obtenerListaAccionesPorIdModulo(idModulo);
 
             for (AccionesEntity a : listEntity) {
                 AccionDTO aDto = new AccionDTO();
@@ -146,7 +153,8 @@ public class AccionService {
     }
 
     public boolean eliminarAccion(Integer idAccion) {
-        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorAccion(idAccion);
+        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion
+                .obtenerListaConfiguracionModuloAccionDTOPorAccion(idAccion);
         if (listConf == null || listConf.isEmpty()) {
             accionesRepository.eliminarPorId(idAccion);
             return true;
@@ -157,18 +165,21 @@ public class AccionService {
 
     public List<AreaDTO> listaArea() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT " + "id_area AS idArea, " + "nombre_area AS nombreArea " + "FROM areas");
+        Query query = session.createSQLQuery("SELECT " + "id_area AS idArea, "
+                + "nombre_area AS nombreArea " + "FROM areas");
         query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
         @SuppressWarnings("unchecked")
         List<AreaDTO> result = query.list();
         return result;
     }
 
-    public List<AccionDTO> obtenerAccionesFiltradas(Integer idModulo, List<Integer> idAccionFiltro) {
+    public List<AccionDTO> obtenerAccionesFiltradas(Integer idModulo,
+            List<Integer> idAccionFiltro) {
 
         List<AccionDTO> listDto = new ArrayList<>();
         try {
-            List<AccionesEntity> listEntity = accionesRepository.obtenerListaAccionesPorIdModulo(idModulo);
+            List<AccionesEntity> listEntity = accionesRepository
+                    .obtenerListaAccionesPorIdModulo(idModulo);
 
             for (Integer idAcc : idAccionFiltro) {
                 for (int i = 0; i < listEntity.size(); i++) {

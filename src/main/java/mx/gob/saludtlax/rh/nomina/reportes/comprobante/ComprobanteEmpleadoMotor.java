@@ -33,7 +33,8 @@ import mx.gob.saludtlax.rh.util.NumeroUtil;
 public class ComprobanteEmpleadoMotor implements Serializable {
 
     private static final long serialVersionUID = -6816011718228601345L;
-    private static final Logger LOGGER = Logger.getLogger(ComprobanteEmpleadoMotor.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ComprobanteEmpleadoMotor.class.getName());
 
     private static final Integer LINEAS_POR_COMPROBANTE = 18;
     private static final short TAMANYO_MAXIMO_COLUMNA_CONCEPTO = 14;
@@ -45,23 +46,28 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
     public byte[] obtenerArchivo(List<ComprobanteEmpleadoDTO> detalles) {
         try {
-            if (!ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS.equals(ArchivoUtil.SEPARADOR_DE_ARCHIVO)) {
-                System.setProperty("line.separator", ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS);
+            if (!ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS
+                    .equals(ArchivoUtil.SEPARADOR_DE_ARCHIVO)) {
+                System.setProperty("line.separator",
+                        ArchivoUtil.SEPARADOR_DE_ARCHIVO_WINDOWS);
             }
 
             Path ruta = Files.createTempFile("comprobante", ".txt");
 
-            try (BufferedWriter out = Files.newBufferedWriter(ruta, ArchivoUtil.WINDOWS_LATIN_CHARSET)) {
+            try (BufferedWriter out = Files.newBufferedWriter(ruta,
+                    ArchivoUtil.WINDOWS_LATIN_CHARSET)) {
                 StringBuilder sb = llenarDetalles(detalles);
                 out.append(sb);
                 out.flush();
             }
 
-            ArchivoUtil.eliminarEspaciosAlFinalLinea(ruta, WINDOWS_LATIN_CHARSET);
+            ArchivoUtil.eliminarEspaciosAlFinalLinea(ruta,
+                    WINDOWS_LATIN_CHARSET);
             byte[] reporte = Files.readAllBytes(ruta);
             Files.deleteIfExists(ruta);
 
-            System.setProperty("line.separator", ArchivoUtil.SEPARADOR_DE_ARCHIVO);
+            System.setProperty("line.separator",
+                    ArchivoUtil.SEPARADOR_DE_ARCHIVO);
             return reporte;
         } catch (IOException ex) {
             LOGGER.error(ex);
@@ -70,69 +76,94 @@ public class ComprobanteEmpleadoMotor implements Serializable {
         return null;
     }
 
-    private StringBuilder llenarDetalles(List<ComprobanteEmpleadoDTO> comprobantes) throws IOException {
+    private StringBuilder llenarDetalles(
+            List<ComprobanteEmpleadoDTO> comprobantes) throws IOException {
         int contadorLineas = 0;
         Iterator<ComprobanteEmpleadoDTO> iterator = comprobantes.iterator();
         StringBuilder sb = new StringBuilder();
 
         while (iterator.hasNext()) {
             ComprobanteEmpleadoDTO comprobante = iterator.next();
-            ComprobanteEmpleadoDTO comprobanteSiguiente = iterator.hasNext() ? iterator.next() : null;
+            ComprobanteEmpleadoDTO comprobanteSiguiente = iterator.hasNext()
+                    ? iterator.next() : null;
 
-            try (Formatter formatter = new Formatter(sb, FechaUtil.LUGAR_MEXICO)) {
+            try (Formatter formatter = new Formatter(sb,
+                    FechaUtil.LUGAR_MEXICO)) {
                 agregarLineas(1, formatter);
                 contadorLineas = contadorLineas + 1;
                 agregarEspacio(4, formatter);
-                formatter.format(PATRON_NOMBRE_Y_RFC, comprobante.getNombre(), comprobante.getFiliacion());
+                formatter.format(PATRON_NOMBRE_Y_RFC, comprobante.getNombre(),
+                        comprobante.getFiliacion());
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(19, formatter);
-                    formatter.format(PATRON_NOMBRE_Y_RFC, comprobanteSiguiente.getNombre(), comprobanteSiguiente.getFiliacion());
+                    formatter.format(PATRON_NOMBRE_Y_RFC,
+                            comprobanteSiguiente.getNombre(),
+                            comprobanteSiguiente.getFiliacion());
                 }
 
                 agregarLineas(2, formatter);
                 contadorLineas = contadorLineas + 2;
 
                 agregarEspacio(40, formatter);
-                formatter.format(PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD, comprobante.getFechaPago(), comprobante.getClaveCentroResponsabilidad());
+                formatter.format(
+                        PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD,
+                        comprobante.getFechaPago(),
+                        comprobante.getClaveCentroResponsabilidad());
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(55, formatter);
-                    formatter.format(PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD, comprobanteSiguiente.getFechaPago(),
-                            comprobanteSiguiente.getClaveCentroResponsabilidad());
+                    formatter.format(
+                            PATRON_FECHA_DE_PAGO_Y_CENTRO_DE_RESPONSABILIDAD,
+                            comprobanteSiguiente.getFechaPago(),
+                            comprobanteSiguiente
+                                    .getClaveCentroResponsabilidad());
                 }
 
                 agregarLineas(2, formatter);
                 contadorLineas = contadorLineas + 2;
 
                 agregarEspacio(16, formatter);
-                formatter.format(PATRON_PERIODOS_Y_PAGOS, comprobante.getInicioPeriodo(), comprobante.getFinPeriodo(),
-                        NumeroUtil.formatoMoneda(comprobante.getPercepciones()), NumeroUtil.formatoMoneda(comprobante.getDeducciones()),
+                formatter.format(PATRON_PERIODOS_Y_PAGOS,
+                        comprobante.getInicioPeriodo(),
+                        comprobante.getFinPeriodo(),
+                        NumeroUtil.formatoMoneda(comprobante.getPercepciones()),
+                        NumeroUtil.formatoMoneda(comprobante.getDeducciones()),
                         NumeroUtil.formatoMoneda(comprobante.getNeto()));
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(18, formatter);
-                    formatter.format(PATRON_PERIODOS_Y_PAGOS, comprobanteSiguiente.getInicioPeriodo(), comprobanteSiguiente.getFinPeriodo(),
-                            NumeroUtil.formatoMoneda(comprobanteSiguiente.getPercepciones()), NumeroUtil.formatoMoneda(comprobanteSiguiente.getDeducciones()),
-                            NumeroUtil.formatoMoneda(comprobanteSiguiente.getNeto()));
+                    formatter.format(PATRON_PERIODOS_Y_PAGOS,
+                            comprobanteSiguiente.getInicioPeriodo(),
+                            comprobanteSiguiente.getFinPeriodo(),
+                            NumeroUtil.formatoMoneda(
+                                    comprobanteSiguiente.getPercepciones()),
+                            NumeroUtil.formatoMoneda(
+                                    comprobanteSiguiente.getDeducciones()),
+                            NumeroUtil.formatoMoneda(
+                                    comprobanteSiguiente.getNeto()));
                 }
 
                 agregarLineas(3, formatter);
                 contadorLineas = contadorLineas + 3;
 
-                contadorLineas = contadorLineas
-                        + llenarConceptos(formatter, comprobante.getConceptos(), comprobanteSiguiente != null ? comprobanteSiguiente.getConceptos() : null);
+                contadorLineas = contadorLineas + llenarConceptos(formatter,
+                        comprobante.getConceptos(), comprobanteSiguiente != null
+                                ? comprobanteSiguiente.getConceptos() : null);
 
-                int diferencia = LINEAS_POR_COMPROBANTE - (contadorLineas % LINEAS_POR_COMPROBANTE);
+                int diferencia = LINEAS_POR_COMPROBANTE
+                        - (contadorLineas % LINEAS_POR_COMPROBANTE);
                 agregarLineas(diferencia - 4, formatter);
                 contadorLineas = contadorLineas + diferencia - 4;
 
                 agregarEspacio(2, formatter);
-                formatter.format(PATRON_FINAL_DE_LINEA, comprobante.getNumeroCheque());
+                formatter.format(PATRON_FINAL_DE_LINEA,
+                        comprobante.getNumeroCheque());
 
                 if (comprobanteSiguiente != null) {
                     agregarEspacio(2, formatter);
-                    formatter.format(PATRON_FINAL_DE_LINEA, comprobanteSiguiente.getNumeroCheque());
+                    formatter.format(PATRON_FINAL_DE_LINEA,
+                            comprobanteSiguiente.getNumeroCheque());
                 }
 
                 agregarLineas(4, formatter);
@@ -143,7 +174,9 @@ public class ComprobanteEmpleadoMotor implements Serializable {
         return sb;
     }
 
-    private int llenarConceptos(Formatter formatter, List<ConceptoComprobanteDTO> conceptosA, List<ConceptoComprobanteDTO> conceptosB) {
+    private int llenarConceptos(Formatter formatter,
+            List<ConceptoComprobanteDTO> conceptosA,
+            List<ConceptoComprobanteDTO> conceptosB) {
         if (conceptosA != null) {
             LOGGER.info("Conceptos A");
             for (ConceptoComprobanteDTO ccdto : conceptosA) {
@@ -165,7 +198,10 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
         if (conceptosA != null) {
             cantidadConceptosA = conceptosA.size();
-            cantidadFilasA = (cantidadConceptosA > 0) && ((cantidadConceptosA % 5) > 0) ? (cantidadConceptosA / 5) + 1 : (cantidadConceptosA / 5);
+            cantidadFilasA = (cantidadConceptosA > 0)
+                    && ((cantidadConceptosA % 5) > 0)
+                            ? (cantidadConceptosA / 5) + 1
+                            : (cantidadConceptosA / 5);
         } else {
             cantidadConceptosA = 0;
             cantidadFilasA = 0;
@@ -173,13 +209,17 @@ public class ComprobanteEmpleadoMotor implements Serializable {
 
         if (conceptosB != null) {
             cantidadConceptosB = conceptosB.size();
-            cantidadFilasB = (cantidadConceptosB > 0) && ((cantidadConceptosB / 5) > 5.0) ? (cantidadConceptosB / 5) + 1 : (cantidadConceptosB / 5);
+            cantidadFilasB = (cantidadConceptosB > 0)
+                    && ((cantidadConceptosB / 5) > 5.0)
+                            ? (cantidadConceptosB / 5) + 1
+                            : (cantidadConceptosB / 5);
         } else {
             cantidadConceptosB = 0;
             cantidadFilasB = 0;
         }
 
-        int total = cantidadFilasB > cantidadFilasA ? cantidadFilasB * 10 : cantidadFilasA * 10;
+        int total = cantidadFilasB > cantidadFilasA ? cantidadFilasB * 10
+                : cantidadFilasA * 10;
         int countA = 0;
         int countB = 0;
         int contadorLineas = 0;
@@ -215,11 +255,13 @@ public class ComprobanteEmpleadoMotor implements Serializable {
         return contadorLineas;
     }
 
-    private void agregarConcepto(ConceptoComprobanteDTO concepto, Formatter formatter) {
+    private void agregarConcepto(ConceptoComprobanteDTO concepto,
+            Formatter formatter) {
         if (concepto != null) {
             agregarEspacio(2, formatter);
             String patronConcepto = "%1$2d %2$9.9s";
-            formatter.format(patronConcepto, concepto.getClave(), NumeroUtil.formatoMoneda(concepto.getImporte()));
+            formatter.format(patronConcepto, concepto.getClave(),
+                    NumeroUtil.formatoMoneda(concepto.getImporte()));
         } else {
             agregarEspacio(TAMANYO_MAXIMO_COLUMNA_CONCEPTO, formatter);
         }

@@ -13,12 +13,14 @@ public class TipoNombramientoEJB {
     private TipoNombramientoService nombramientoService;
 
     public List<TipoNombramientoDTO> obtenerNombramientoLista() {
-        List<TipoNombramientoDTO> nombramientoLista = nombramientoService.listaNombramiento();
+        List<TipoNombramientoDTO> nombramientoLista = nombramientoService
+                .listaNombramiento();
         return nombramientoLista;
     }
 
     public TipoNombramientoDTO obtenerNombramiento(Integer idTipoNombramiento) {
-        TipoNombramientoDTO dto = nombramientoService.obtenerNombramientoPorId(idTipoNombramiento);
+        TipoNombramientoDTO dto = nombramientoService
+                .obtenerNombramientoPorId(idTipoNombramiento);
         return dto;
     }
 

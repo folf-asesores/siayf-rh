@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.persistencia.TerceroInstitucionalEntity;
 import mx.gob.saludtlax.rh.persistencia.TerceroInstitucionalRepository;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 10:58:42
  */
@@ -28,7 +28,8 @@ public class TerceroInstitucionalService implements Serializable {
      *
      */
     private static final long serialVersionUID = -3937185722982814370L;
-    private static final Logger LOGGER = Logger.getLogger(TerceroInstitucionalService.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(TerceroInstitucionalService.class);
 
     @Inject
     private TerceroInstitucionalRepository terceroInstitucionalRepository;
@@ -37,14 +38,19 @@ public class TerceroInstitucionalService implements Serializable {
      *
      * @param terceroInstitucional
      */
-    protected void crearTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional) {
+    protected void crearTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional) {
 
         TerceroInstitucionalEntity registroTerceroInstitucional = new TerceroInstitucionalEntity();
 
-        registroTerceroInstitucional.setNumero(terceroInstitucional.getNumero());
-        registroTerceroInstitucional.setNombreEmpresa(terceroInstitucional.getNombreEmpresa());
-        registroTerceroInstitucional.setConceptoDeduccion(terceroInstitucional.getConceptoDeduccion());
-        registroTerceroInstitucional.setContrapartidaIdentificadora(terceroInstitucional.getContrapartidaIdentificadora());
+        registroTerceroInstitucional
+                .setNumero(terceroInstitucional.getNumero());
+        registroTerceroInstitucional
+                .setNombreEmpresa(terceroInstitucional.getNombreEmpresa());
+        registroTerceroInstitucional.setConceptoDeduccion(
+                terceroInstitucional.getConceptoDeduccion());
+        registroTerceroInstitucional.setContrapartidaIdentificadora(
+                terceroInstitucional.getContrapartidaIdentificadora());
         registroTerceroInstitucional.setGiro(terceroInstitucional.getGiro());
 
         terceroInstitucionalRepository.crear(registroTerceroInstitucional);
@@ -55,7 +61,8 @@ public class TerceroInstitucionalService implements Serializable {
      *
      * @param terceroInstitucional
      */
-    protected void actualizarTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional) {
+    protected void actualizarTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional) {
 
         String contexto = "Tercero Institucional: ";
 
@@ -63,17 +70,25 @@ public class TerceroInstitucionalService implements Serializable {
                 .obtenerPorId(terceroInstitucional.getIdTerceroInstitucional());
 
         if (actualizacionTerceroInstitucional == null) {
-            LOGGER.error(contexto + "No se encontro el registro, seleccione otro registro");
-            throw new BusinessException(contexto + "No se encontro el registro, seleccione otro registro");
+            LOGGER.error(contexto
+                    + "No se encontro el registro, seleccione otro registro");
+            throw new BusinessException(contexto
+                    + "No se encontro el registro, seleccione otro registro");
         }
 
-        actualizacionTerceroInstitucional.setNumero(terceroInstitucional.getNumero());
-        actualizacionTerceroInstitucional.setNombreEmpresa(terceroInstitucional.getNombreEmpresa());
-        actualizacionTerceroInstitucional.setConceptoDeduccion(terceroInstitucional.getConceptoDeduccion());
-        actualizacionTerceroInstitucional.setContrapartidaIdentificadora(terceroInstitucional.getContrapartidaIdentificadora());
-        actualizacionTerceroInstitucional.setGiro(terceroInstitucional.getGiro());
+        actualizacionTerceroInstitucional
+                .setNumero(terceroInstitucional.getNumero());
+        actualizacionTerceroInstitucional
+                .setNombreEmpresa(terceroInstitucional.getNombreEmpresa());
+        actualizacionTerceroInstitucional.setConceptoDeduccion(
+                terceroInstitucional.getConceptoDeduccion());
+        actualizacionTerceroInstitucional.setContrapartidaIdentificadora(
+                terceroInstitucional.getContrapartidaIdentificadora());
+        actualizacionTerceroInstitucional
+                .setGiro(terceroInstitucional.getGiro());
 
-        terceroInstitucionalRepository.actualizar(actualizacionTerceroInstitucional);
+        terceroInstitucionalRepository
+                .actualizar(actualizacionTerceroInstitucional);
 
     }
 
@@ -81,15 +96,19 @@ public class TerceroInstitucionalService implements Serializable {
      *
      * @param idTerceroInstitucional
      */
-    protected void eliminarTerceroInstitucional(Integer idTerceroInstitucional) {
+    protected void eliminarTerceroInstitucional(
+            Integer idTerceroInstitucional) {
 
         String contexto = "Tercero Institucional: ";
 
-        TerceroInstitucionalEntity eliminarTerceroInstitucional = terceroInstitucionalRepository.obtenerPorId(idTerceroInstitucional);
+        TerceroInstitucionalEntity eliminarTerceroInstitucional = terceroInstitucionalRepository
+                .obtenerPorId(idTerceroInstitucional);
 
         if (eliminarTerceroInstitucional == null) {
-            LOGGER.error(contexto + "No se encontro el registro, seleccione otro registro");
-            throw new BusinessException(contexto + "No se encontro el registro, seleccione otro registro");
+            LOGGER.error(contexto
+                    + "No se encontro el registro, seleccione otro registro");
+            throw new BusinessException(contexto
+                    + "No se encontro el registro, seleccione otro registro");
         }
 
         terceroInstitucionalRepository.eliminar(eliminarTerceroInstitucional);
@@ -103,18 +122,26 @@ public class TerceroInstitucionalService implements Serializable {
     protected List<TerceroInstitucionalDTO> obtenerListaTerceroInstitucional() {
 
         List<TerceroInstitucionalDTO> listaTerceroInstitucionalDTO = new ArrayList<>();
-        List<TerceroInstitucionalEntity> listaTerceroInstitucional = terceroInstitucionalRepository.obtenerListaTerceroInstitucional();
+        List<TerceroInstitucionalEntity> listaTerceroInstitucional = terceroInstitucionalRepository
+                .obtenerListaTerceroInstitucional();
 
         if (!listaTerceroInstitucional.isEmpty()) {
             for (TerceroInstitucionalEntity terceroInstitucionalEntity : listaTerceroInstitucional) {
                 TerceroInstitucionalDTO terceroInstitucionalDTO = new TerceroInstitucionalDTO();
 
-                terceroInstitucionalDTO.setIdTerceroInstitucional(terceroInstitucionalEntity.getIdTerceroInstitucional());
-                terceroInstitucionalDTO.setNumero(terceroInstitucionalEntity.getNumero());
-                terceroInstitucionalDTO.setNombreEmpresa(terceroInstitucionalEntity.getNombreEmpresa());
-                terceroInstitucionalDTO.setConceptoDeduccion(terceroInstitucionalEntity.getConceptoDeduccion());
-                terceroInstitucionalDTO.setContrapartidaIdentificadora(terceroInstitucionalEntity.getContrapartidaIdentificadora());
-                terceroInstitucionalDTO.setGiro(terceroInstitucionalEntity.getGiro());
+                terceroInstitucionalDTO.setIdTerceroInstitucional(
+                        terceroInstitucionalEntity.getIdTerceroInstitucional());
+                terceroInstitucionalDTO
+                        .setNumero(terceroInstitucionalEntity.getNumero());
+                terceroInstitucionalDTO.setNombreEmpresa(
+                        terceroInstitucionalEntity.getNombreEmpresa());
+                terceroInstitucionalDTO.setConceptoDeduccion(
+                        terceroInstitucionalEntity.getConceptoDeduccion());
+                terceroInstitucionalDTO.setContrapartidaIdentificadora(
+                        terceroInstitucionalEntity
+                                .getContrapartidaIdentificadora());
+                terceroInstitucionalDTO
+                        .setGiro(terceroInstitucionalEntity.getGiro());
 
                 listaTerceroInstitucionalDTO.add(terceroInstitucionalDTO);
             }
@@ -125,7 +152,9 @@ public class TerceroInstitucionalService implements Serializable {
         return listaTerceroInstitucionalDTO;
     }
 
-    public TerceroInstitucionalDTO obtenerPorClave(String clave, String partida) {
-        return terceroInstitucionalRepository.obtenerTerceroInstitucional(clave, partida).get(0);
+    public TerceroInstitucionalDTO obtenerPorClave(String clave,
+            String partida) {
+        return terceroInstitucionalRepository
+                .obtenerTerceroInstitucional(clave, partida).get(0);
     }
 }

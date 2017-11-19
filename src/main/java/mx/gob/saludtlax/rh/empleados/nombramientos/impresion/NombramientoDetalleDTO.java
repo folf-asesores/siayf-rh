@@ -9,8 +9,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 18:20:00 12/09/2016
  */
@@ -333,7 +333,8 @@ public class NombramientoDetalleDTO implements Serializable {
      * @param vigenciaFechaIngresoEmpleado
      *            the vigenciaFechaIngresoEmpleado to set
      */
-    public void setVigenciaFechaIngresoEmpleado(Date vigenciaFechaIngresoEmpleado) {
+    public void setVigenciaFechaIngresoEmpleado(
+            Date vigenciaFechaIngresoEmpleado) {
         this.vigenciaFechaIngresoEmpleado = vigenciaFechaIngresoEmpleado;
     }
 

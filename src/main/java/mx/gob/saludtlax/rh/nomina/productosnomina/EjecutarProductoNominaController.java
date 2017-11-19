@@ -36,7 +36,8 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 public class EjecutarProductoNominaController implements Serializable {
 
     private static final long serialVersionUID = 4613962158818174277L;
-    private static final Logger LOGGER = Logger.getLogger(EjecutarProductoNominaController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(EjecutarProductoNominaController.class.getName());
 
     @Inject
     private ProductosNominaEJB ejb;
@@ -50,39 +51,56 @@ public class EjecutarProductoNominaController implements Serializable {
     @PostConstruct
     public void init() {
         view = new EjecutarProductoNominaView();
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         Object idBuzonObj = httpSession.getAttribute("idBuzon");
 
         if (idBuzonObj != null) {
             Integer idBuzon = Integer.valueOf(idBuzonObj.toString());
-            Integer idEntidadContexto = autorizaciones.obtenerIdEntidadContexto(idBuzon);
-            view.setProductoNomina(ejb.obtenerProductoNomina(idEntidadContexto));
+            Integer idEntidadContexto = autorizaciones
+                    .obtenerIdEntidadContexto(idBuzon);
+            view.setProductoNomina(
+                    ejb.obtenerProductoNomina(idEntidadContexto));
         } else {
-            Object idProductoNominaObj = httpSession.getAttribute("idProductoNomina");
+            Object idProductoNominaObj = httpSession
+                    .getAttribute("idProductoNomina");
             if (idProductoNominaObj != null) {
-                Integer idProductoNomina = Integer.valueOf(idProductoNominaObj.toString());
-                view.setProductoNomina(ejb.obtenerProductoNomina(idProductoNomina));
+                Integer idProductoNomina = Integer
+                        .valueOf(idProductoNominaObj.toString());
+                view.setProductoNomina(
+                        ejb.obtenerProductoNomina(idProductoNomina));
             }
         }
         if (view.getProductoNomina() != null) {
-            view.setSubfuenteFinanciamientoList(ejb.obtenerSubfuenteFinanciamientoNominaList(view.getProductoNomina()));
-            view.setFuenteFinanciamientoList(ejb.obtenerFuentesFinanciamientoNominaList());
-            view.setEstatusProductoNominaLista(ejb.obtenerEstatusProductoNominaList());
-            view.setCuentaBancariaList(ejb.obtenerCuentaBancariaList(view.getProductoNomina()));
+            view.setSubfuenteFinanciamientoList(
+                    ejb.obtenerSubfuenteFinanciamientoNominaList(
+                            view.getProductoNomina()));
+            view.setFuenteFinanciamientoList(
+                    ejb.obtenerFuentesFinanciamientoNominaList());
+            view.setEstatusProductoNominaLista(
+                    ejb.obtenerEstatusProductoNominaList());
+            view.setCuentaBancariaList(
+                    ejb.obtenerCuentaBancariaList(view.getProductoNomina()));
             view.setBancoList(ejb.obtenerBancoList());
-            view.setPagoNominaList(ejb.obtenerPagosNomina(view.getProductoNomina()));
-            view.setEditar(view.getProductoNomina().getIdEstatusProductoNomina() > 5);
+            view.setPagoNominaList(
+                    ejb.obtenerPagosNomina(view.getProductoNomina()));
+            view.setEditar(
+                    view.getProductoNomina().getIdEstatusProductoNomina() > 5);
             irPrincipal();
         }
     }
 
     public String irPrincipal() {
-        if (view.getProductoNomina().getIdEstatusProductoNomina().equals(EstatusProductoNomina.PREAUTORIZADO)) {
-            view.setUsuarioAutoriza(ejb.esUsuarioAutorizaNomina(view.getProductoNomina()));
+        if (view.getProductoNomina().getIdEstatusProductoNomina()
+                .equals(EstatusProductoNomina.PREAUTORIZADO)) {
+            view.setUsuarioAutoriza(
+                    ejb.esUsuarioAutorizaNomina(view.getProductoNomina()));
         }
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
-        view.setPagoNominaList(ejb.obtenerPagosNomina(view.getProductoNomina()));
+        view.setNominaEmpleadoList(
+                ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
+        view.setPagoNominaList(
+                ejb.obtenerPagosNomina(view.getProductoNomina()));
         view.showPanelPrincipal();
         return null;
     }
@@ -99,8 +117,10 @@ public class EjecutarProductoNominaController implements Serializable {
     public String pedirAutorizacionProductoNomina() {
         System.out.println("pedirAutorizacionProductoNomina");
         ejb.pedirAutorizacionProductoNomina(view.getProductoNomina());
-        JSFUtils.infoMessage("", "La solicitud de autorización ha sido procesada con éxito.");
-        view.setProductoNomina(ejb.obtenerProductoNomina(view.getProductoNomina().getIdProductoNomina()));
+        JSFUtils.infoMessage("",
+                "La solicitud de autorización ha sido procesada con éxito.");
+        view.setProductoNomina(ejb.obtenerProductoNomina(
+                view.getProductoNomina().getIdProductoNomina()));
         view.setEditar(Boolean.FALSE);
         return null;
     }
@@ -108,9 +128,12 @@ public class EjecutarProductoNominaController implements Serializable {
     public String autorizarProductoNomina() {
         System.out.println("autorizarProductoNomina");
         ejb.autorizarProductoNomina(view.getProductoNomina());
-        JSFUtils.infoMessage("", "La autorización ha sido procesada con éxito.");
-        view.setProductoNomina(ejb.obtenerProductoNomina(view.getProductoNomina().getIdProductoNomina()));
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
+        JSFUtils.infoMessage("",
+                "La autorización ha sido procesada con éxito.");
+        view.setProductoNomina(ejb.obtenerProductoNomina(
+                view.getProductoNomina().getIdProductoNomina()));
+        view.setNominaEmpleadoList(
+                ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
         view.setEditar(Boolean.FALSE);
         return null;
     }
@@ -118,9 +141,12 @@ public class EjecutarProductoNominaController implements Serializable {
     public String devolverProductoNomina() {
         System.out.println("devolverProductoNomina");
         ejb.devolverProductoNomina(view.getProductoNomina());
-        JSFUtils.infoMessage("", "La devolvolución ha sido procesada con éxito.");
-        view.setProductoNomina(ejb.obtenerProductoNomina(view.getProductoNomina().getIdProductoNomina()));
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
+        JSFUtils.infoMessage("",
+                "La devolvolución ha sido procesada con éxito.");
+        view.setProductoNomina(ejb.obtenerProductoNomina(
+                view.getProductoNomina().getIdProductoNomina()));
+        view.setNominaEmpleadoList(
+                ejb.obtenerNominaEmpleadoList(view.getProductoNomina()));
         view.setEditar(Boolean.FALSE);
         return null;
     }
@@ -132,11 +158,15 @@ public class EjecutarProductoNominaController implements Serializable {
         return null;
     }
 
-    public String irGestionarConcepto(ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
+    public String irGestionarConcepto(
+            ConceptosNominaEmpleadosDTO conceptoNominaEmpleado) {
         view.setConceptosNominaSelect(conceptoNominaEmpleado);
-        List<FaltaContadaDTO> faltasContadas = (ejb.obtenerFaltasContadas(conceptoNominaEmpleado));
-        List<FaltaContadaDTO> faltasNoContadas = (ejb.obtenerFaltasNoContadas(faltasContadas, conceptoNominaEmpleado));
-        view.setFaltasGestionar(new DualListModel<>(faltasContadas, faltasNoContadas));
+        List<FaltaContadaDTO> faltasContadas = (ejb
+                .obtenerFaltasContadas(conceptoNominaEmpleado));
+        List<FaltaContadaDTO> faltasNoContadas = (ejb.obtenerFaltasNoContadas(
+                faltasContadas, conceptoNominaEmpleado));
+        view.setFaltasGestionar(
+                new DualListModel<>(faltasContadas, faltasNoContadas));
         view.showGestionFaltas();
         return null;
     }
@@ -145,7 +175,9 @@ public class EjecutarProductoNominaController implements Serializable {
         LOGGER.debug("idProductoNomina:: " + idProductoNomina);
         UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] { "ID_USUARIO", usuario.getIdUsuario().toString(), "REPORTE_NOMBRE", "comprobante_nomina", "TIPO_REPORTE", "txt",
+        String[] parametros = new String[] { "ID_USUARIO",
+                usuario.getIdUsuario().toString(), "REPORTE_NOMBRE",
+                "comprobante_nomina", "TIPO_REPORTE", "txt",
                 "ID_PRODUCTO_NOMINA", idProductoNomina.toString() };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.debugv("Referencia: {0}", referencia);
@@ -155,21 +187,25 @@ public class EjecutarProductoNominaController implements Serializable {
     }
 
     public String irPensiones() {
-        view.setPensionesNominaList(ejb.obtenerPensionesNominaList(view.getProductoNomina()));
+        view.setPensionesNominaList(
+                ejb.obtenerPensionesNominaList(view.getProductoNomina()));
         view.showPanelPension();
         return null;
     }
 
     public String irCheques() {
-        view.setUltimoNumeroCheque(ejb.obtenerUltimoNumeroCheque(view.getProductoNomina()));
-        view.getProductoNomina().setNumeroInicioCheques(view.getUltimoNumeroCheque() + 1);
+        view.setUltimoNumeroCheque(
+                ejb.obtenerUltimoNumeroCheque(view.getProductoNomina()));
+        view.getProductoNomina()
+                .setNumeroInicioCheques(view.getUltimoNumeroCheque() + 1);
         view.showPanelCheques();
         return null;
     }
 
     public String generarNumeracionCheques() {
         ejb.generarNumeracionCheques(view.getProductoNomina());
-        JSFUtils.infoMessage("La generación de numeración de cheques ", "Se realizo correctamente.");
+        JSFUtils.infoMessage("La generación de numeración de cheques ",
+                "Se realizo correctamente.");
         return null;
     }
 
@@ -178,8 +214,10 @@ public class EjecutarProductoNominaController implements Serializable {
 
         UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] { "ID_USUARIO", usuario.getIdUsuario().toString(), "REPORTE_NOMBRE", "listado-firmas", "TIPO_REPORTE", "txt",
-                "ID_PRODUCTO_NOMINA", idProductoNomina.toString() };
+        String[] parametros = new String[] { "ID_USUARIO",
+                usuario.getIdUsuario().toString(), "REPORTE_NOMBRE",
+                "listado-firmas", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA",
+                idProductoNomina.toString() };
 
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.debugv("Referencia: {0}", referencia);
@@ -192,8 +230,10 @@ public class EjecutarProductoNominaController implements Serializable {
         UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
 
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] { "ID_USUARIO", usuario.getIdUsuario().toString(), "REPORTE_NOMBRE", "nomina_federales", "TIPO_REPORTE", "txt",
-                "ID_PRODUCTO_NOMINA", view.getProductoNomina().getIdProductoNomina().toString() };
+        String[] parametros = new String[] { "ID_USUARIO",
+                usuario.getIdUsuario().toString(), "REPORTE_NOMBRE",
+                "nomina_federales", "TIPO_REPORTE", "txt", "ID_PRODUCTO_NOMINA",
+                view.getProductoNomina().getIdProductoNomina().toString() };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.debugv("Referencia: {0}", referencia);
         reporteBytes = adm.obtenerReporte(referencia);
@@ -204,8 +244,11 @@ public class EjecutarProductoNominaController implements Serializable {
     public void descargarNominaEventuales() {
         UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] { "ID_USUARIO", usuario.getIdUsuario().toString(), "REPORTE_NOMBRE", "nomina_eventuales", "TIPO_REPORTE", "txt",
-                "ID_PRODUCTO_NOMINA", view.getProductoNomina().getIdProductoNomina().toString() };
+        String[] parametros = new String[] { "ID_USUARIO",
+                usuario.getIdUsuario().toString(), "REPORTE_NOMBRE",
+                "nomina_eventuales", "TIPO_REPORTE", "txt",
+                "ID_PRODUCTO_NOMINA",
+                view.getProductoNomina().getIdProductoNomina().toString() };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.debugv("Referencia: {0}", referencia);
         reporteBytes = adm.obtenerReporte(referencia);
@@ -220,7 +263,9 @@ public class EjecutarProductoNominaController implements Serializable {
         System.out.println("usuario:: " + usuario);
 
         AdministradorReportes adm = new AdministradorReportes();
-        String[] parametros = new String[] { "ID_USUARIO", usuario.getIdUsuario().toString(), "REPORTE_NOMBRE", "nomina_suplencias", "TIPO_REPORTE", "txt",
+        String[] parametros = new String[] { "ID_USUARIO",
+                usuario.getIdUsuario().toString(), "REPORTE_NOMBRE",
+                "nomina_suplencias", "TIPO_REPORTE", "txt",
                 "ID_PRODUCTO_NOMINA", idProductoNomina.toString() };
         String referencia = adm.obtenerReferencia(parametros);
         LOGGER.debugv("Referencia: {0}", referencia);
@@ -231,7 +276,8 @@ public class EjecutarProductoNominaController implements Serializable {
 
     public StreamedContent getReporte() throws IOException {
         ByteArrayInputStream bis = new ByteArrayInputStream(reporteBytes);
-        StreamedContent reporteStreamedContent = new DefaultStreamedContent(bis, reporteMimeType, reporteNombre);
+        StreamedContent reporteStreamedContent = new DefaultStreamedContent(bis,
+                reporteMimeType, reporteNombre);
         return reporteStreamedContent;
     }
 
@@ -241,11 +287,16 @@ public class EjecutarProductoNominaController implements Serializable {
     public void retenerNominaEmpleado() {
         try {
 
-            Integer idNominaEmpleado = view.getNominaEmpleadoSelect().getIdNominaEmpleado();
-            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario();
-            ejb.actualizarEstatusNominaEmpleado(EnumEstatusProductoNomina.RETENIDO, idNominaEmpleado, idUsuario);
+            Integer idNominaEmpleado = view.getNominaEmpleadoSelect()
+                    .getIdNominaEmpleado();
+            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion()
+                    .getIdUsuario();
+            ejb.actualizarEstatusNominaEmpleado(
+                    EnumEstatusProductoNomina.RETENIDO, idNominaEmpleado,
+                    idUsuario);
 
-            JSFUtils.infoMessage("Nomina Empleado Retenido: ", "Se realizo correctamente.");
+            JSFUtils.infoMessage("Nomina Empleado Retenido: ",
+                    "Se realizo correctamente.");
 
             obtenerEstatusProductoNomina();
 
@@ -260,10 +311,15 @@ public class EjecutarProductoNominaController implements Serializable {
     public void cancelarNominaEmpleado() {
         try {
 
-            Integer idNominaEmpleado = view.getNominaEmpleadoSelect().getIdNominaEmpleado();
-            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario();
-            ejb.actualizarEstatusNominaEmpleado(EnumEstatusProductoNomina.CANCELADO, idNominaEmpleado, idUsuario);
-            JSFUtils.infoMessage("Nomina Empleado Cancelado: ", "Se realizo correctamente.");
+            Integer idNominaEmpleado = view.getNominaEmpleadoSelect()
+                    .getIdNominaEmpleado();
+            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion()
+                    .getIdUsuario();
+            ejb.actualizarEstatusNominaEmpleado(
+                    EnumEstatusProductoNomina.CANCELADO, idNominaEmpleado,
+                    idUsuario);
+            JSFUtils.infoMessage("Nomina Empleado Cancelado: ",
+                    "Se realizo correctamente.");
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         }
@@ -274,10 +330,15 @@ public class EjecutarProductoNominaController implements Serializable {
      */
     public void autorizarNominaEmpleado() {
         try {
-            Integer idNominaEmpleado = view.getNominaEmpleadoSelect().getIdNominaEmpleado();
-            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario();
-            ejb.actualizarEstatusNominaEmpleado(EnumEstatusProductoNomina.AUTORIZADO, idNominaEmpleado, idUsuario);
-            JSFUtils.infoMessage("Nomina Empleado Habilitado: ", "Se realizo correctamente.");
+            Integer idNominaEmpleado = view.getNominaEmpleadoSelect()
+                    .getIdNominaEmpleado();
+            Integer idUsuario = AutenticacionUtil.recuperarUsuarioSesion()
+                    .getIdUsuario();
+            ejb.actualizarEstatusNominaEmpleado(
+                    EnumEstatusProductoNomina.AUTORIZADO, idNominaEmpleado,
+                    idUsuario);
+            JSFUtils.infoMessage("Nomina Empleado Habilitado: ",
+                    "Se realizo correctamente.");
             obtenerEstatusProductoNomina();
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -288,8 +349,10 @@ public class EjecutarProductoNominaController implements Serializable {
         try {
             view.setHabilitarOpcionAutorizado(true);
             view.setHabilitarOpcionRetener(true);
-            Integer idNominaEmpleado = view.getNominaEmpleadoSelect().getIdNominaEmpleado();
-            Integer estatus = ejb.obtenerEstatusPorIdProductoNomina(idNominaEmpleado);
+            Integer idNominaEmpleado = view.getNominaEmpleadoSelect()
+                    .getIdNominaEmpleado();
+            Integer estatus = ejb
+                    .obtenerEstatusPorIdProductoNomina(idNominaEmpleado);
             if (estatus == EnumEstatusProductoNomina.RETENIDO) {
                 view.setHabilitarOpcionAutorizado(false);
             } else {
@@ -303,25 +366,31 @@ public class EjecutarProductoNominaController implements Serializable {
 
     public String obtenerPagoNomina() {
         view.setOperacion(Boolean.FALSE);
-        view.setPagoNominaSelect(ejb.obtenerPagoNomina(view.getPagoNominaSelect()));
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoListPorPago(view.getPagoNominaSelect()));
+        view.setPagoNominaSelect(
+                ejb.obtenerPagoNomina(view.getPagoNominaSelect()));
+        view.setNominaEmpleadoList(ejb
+                .obtenerNominaEmpleadoListPorPago(view.getPagoNominaSelect()));
         view.showPanelPagosForm();
         return null;
     }
 
     public String irNuevoPagoNomina() {
         view.setOperacion(Boolean.TRUE);
-        view.setPagoNominaSelect(ejb.obtenerNuevoPagoNomina(view.getProductoNomina()));
-        view.setNominaEmpleadoList(ejb.obtenerNominaEmpleadoListSinPago(view.getProductoNomina()));
+        view.setPagoNominaSelect(
+                ejb.obtenerNuevoPagoNomina(view.getProductoNomina()));
+        view.setNominaEmpleadoList(
+                ejb.obtenerNominaEmpleadoListSinPago(view.getProductoNomina()));
         view.showPanelPagosForm();
         return null;
     }
 
     public String guardarPagoNomina() {
         if (view.getOperacion()) {
-            view.setPagoNominaSelect(ejb.crearPagoNomina(view.getPagoNominaSelect()));
+            view.setPagoNominaSelect(
+                    ejb.crearPagoNomina(view.getPagoNominaSelect()));
         } else {
-            view.setPagoNominaSelect(ejb.actualizarPagoNomina(view.getPagoNominaSelect()));
+            view.setPagoNominaSelect(
+                    ejb.actualizarPagoNomina(view.getPagoNominaSelect()));
         }
         JSFUtils.infoMessage("", "El pago de nómina de guardo con éxito.");
         obtenerPagoNomina();

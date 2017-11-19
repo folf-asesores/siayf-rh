@@ -35,8 +35,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12/05/2016 17:26:18
  */
@@ -48,7 +48,8 @@ public class ActualizacionAspiranteController implements Serializable {
      *
      */
     private static final long serialVersionUID = -6931321375018533928L;
-    private static final Logger LOGGER = Logger.getLogger(ActualizacionAspiranteController.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(ActualizacionAspiranteController.class);
 
     private static final int DATOS_GENERALES = 1;
     private static final int HISTORIAL_ACADEMICO = 2;
@@ -82,7 +83,8 @@ public class ActualizacionAspiranteController implements Serializable {
     public void cargarCatalogo() {
         List<CatalogoDTO> listaPaises = catalogosEJB.listaPaises();
         List<CatalogoDTO> listaPuestos = catalogosEJB.listaPuestos();
-        List<CatalogoDTO> listaDepartamentos = catalogosEJB.listaDepartamentos();
+        List<CatalogoDTO> listaDepartamentos = catalogosEJB
+                .listaDepartamentos();
 
         view.setListaPaises(SelectItemsUtil.listaCatalogos(listaPaises));
         view.setListaEstadosCiviles(SelectItemsUtil.listaEstadosCivil());
@@ -90,7 +92,8 @@ public class ActualizacionAspiranteController implements Serializable {
         view.setListaTiposSangre(SelectItemsUtil.listaTiposSangre());
         view.setListaTiposSexo(SelectItemsUtil.listaTiposSexo());
         view.setListaPuestos(SelectItemsUtil.listaCatalogos(listaPuestos));
-        view.setListaDepartamentos(SelectItemsUtil.listaCatalogos(listaDepartamentos));
+        view.setListaDepartamentos(
+                SelectItemsUtil.listaCatalogos(listaDepartamentos));
         view.setListaViveCon(SelectItemsUtil.listaViveCon());
         view.setListaDependientes(SelectItemsUtil.listaDependientes());
         view.setListaTiposLicencia(SelectItemsUtil.listaTiposLicencia());
@@ -107,7 +110,8 @@ public class ActualizacionAspiranteController implements Serializable {
             query = ".";
         }
 
-        listadoEmpleadoDTO = empleadoEJB.consultarAspirantesDisponiblesPorCriterio(query);
+        listadoEmpleadoDTO = empleadoEJB
+                .consultarAspirantesDisponiblesPorCriterio(query);
 
         return listadoEmpleadoDTO;
 
@@ -117,9 +121,11 @@ public class ActualizacionAspiranteController implements Serializable {
 
         view.setIdAspirante(0);
         view.setMostrarPanelDatosAspirante(false);
-        view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+        view.getFiltro()
+                .setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
 
-        List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajoEJB.consultarPorCriterio(view.getFiltro());
+        List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajoEJB
+                .consultarPorCriterio(view.getFiltro());
 
         if (!listaInfoAspirante.isEmpty()) {
             view.setListaInfoAspirante(listaInfoAspirante);
@@ -133,7 +139,8 @@ public class ActualizacionAspiranteController implements Serializable {
             view.setMostrarResultados(false);
 
             view.setFiltro(new FiltroDTO());
-            JSFUtils.errorMessage("Consulta Aspirante", "No se encontrarón resultados, intentelo de nuevo");
+            JSFUtils.errorMessage("Consulta Aspirante",
+                    "No se encontrarón resultados, intentelo de nuevo");
         }
     }
 
@@ -152,7 +159,8 @@ public class ActualizacionAspiranteController implements Serializable {
         view.setHistorialAcademico(new HistorialAcademicoDTO());
         view.setMostrarPanelHistorialAcedemico(false);
         view.setAccionHistorialAcademico("Registrar");
-        view.setActualizacionExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+        view.setActualizacionExperienciaLaboral(
+                new ExperienciaLaboralAspiranteDTO());
         view.setMostrarRazonNosolicitar(false);
         view.setIdProfesion(0);
         view.setIdProfesionAspirante(0);
@@ -180,16 +188,23 @@ public class ActualizacionAspiranteController implements Serializable {
 
                     view.setMostrarHistorialAcademico(true);
 
-                    view.setListaComprobantesEstudio(SelectItemsUtil.listaCatalogos(catalogosEJB.listaComprobantesEstudios()));
+                    view.setListaComprobantesEstudio(
+                            SelectItemsUtil.listaCatalogos(
+                                    catalogosEJB.listaComprobantesEstudios()));
 
-                    view.setListaEscolaridades(SelectItemsUtil.listaEscolaridad(catalogosEJB.listaEscolaridad()));
+                    view.setListaEscolaridades(SelectItemsUtil
+                            .listaEscolaridad(catalogosEJB.listaEscolaridad()));
 
-                    List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajoEJB.obtenerListaHistorialAcademico(view.getIdAspirante());
+                    List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajoEJB
+                            .obtenerListaHistorialAcademico(
+                                    view.getIdAspirante());
 
                     if (!listaHistorial.isEmpty()) {
-                        view.setListaHistorialAcademicoAspirante(listaHistorial);
+                        view.setListaHistorialAcademicoAspirante(
+                                listaHistorial);
                     } else {
-                        view.setListaHistorialAcademicoAspirante(new ArrayList<HistorialAcademicoDTO>());
+                        view.setListaHistorialAcademicoAspirante(
+                                new ArrayList<HistorialAcademicoDTO>());
                         JSFUtils.warningMessage("Historial Academico: ",
                                 "Se ha detectado que no ha registrado ningún historial academico, se recomienda mantener su información actualizada");
                     }
@@ -199,11 +214,14 @@ public class ActualizacionAspiranteController implements Serializable {
 
                     view.setMostrarProfesion(true);
 
-                    List<ProfesionDTO> profesiones = profesion.obtenerListaProfesionPorIdAspirante(view.getIdAspirante());
+                    List<ProfesionDTO> profesiones = profesion
+                            .obtenerListaProfesionPorIdAspirante(
+                                    view.getIdAspirante());
 
                     view.setListaProfesion(profesiones);
 
-                    view.setListaTipoProfesion(SelectItemsUtil.listaCatalogos(catalogosEJB.obtenerListaProfesion()));
+                    view.setListaTipoProfesion(SelectItemsUtil.listaCatalogos(
+                            catalogosEJB.obtenerListaProfesion()));
 
                     break;
 
@@ -211,11 +229,15 @@ public class ActualizacionAspiranteController implements Serializable {
 
                     view.setMostrarEspecialidad(true);
 
-                    List<EspecialidadDTO> especialidades = especialidad.obtenerListaEspecialidadPorIdAspirante(view.getIdAspirante());
+                    List<EspecialidadDTO> especialidades = especialidad
+                            .obtenerListaEspecialidadPorIdAspirante(
+                                    view.getIdAspirante());
 
                     view.setListaEspecialidad(especialidades);
 
-                    view.setListaTipoEspecialidad(SelectItemsUtil.listaCatalogos(catalogosEJB.obtenerListaEspecialidad()));
+                    view.setListaTipoEspecialidad(
+                            SelectItemsUtil.listaCatalogos(
+                                    catalogosEJB.obtenerListaEspecialidad()));
 
                     break;
 
@@ -224,12 +246,16 @@ public class ActualizacionAspiranteController implements Serializable {
                     view.setMostrarExperienciaLaboral(true);
                     view.setMostrarRazonNosolicitar(true);
 
-                    List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajoEJB.obtenerListaExperienciaLaboral(view.getIdAspirante());
+                    List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajoEJB
+                            .obtenerListaExperienciaLaboral(
+                                    view.getIdAspirante());
 
                     if (!listaExperienciaLaboral.isEmpty()) {
-                        view.setListaExperienciaLaboralAspirante(listaExperienciaLaboral);
+                        view.setListaExperienciaLaboralAspirante(
+                                listaExperienciaLaboral);
                     } else {
-                        view.setListaExperienciaLaboralAspirante(new ArrayList<ExperienciaLaboralAspiranteDTO>());
+                        view.setListaExperienciaLaboralAspirante(
+                                new ArrayList<ExperienciaLaboralAspiranteDTO>());
                         JSFUtils.warningMessage("Experiencia Laboral: ",
                                 "Se ha detectado que no ha registrado ninguna experiencia laboral, se recomienda mantener su información actualizada");
                     }
@@ -237,13 +263,16 @@ public class ActualizacionAspiranteController implements Serializable {
                     break;
                 case HABILIDADES_PERSONALES:
 
-                    HabilidadesPersonalesAspiranteDTO encuesta = bolsaTrabajoEJB.obtenerHabilidadesPersonalesPorIdAspirante(view.getIdAspirante());
+                    HabilidadesPersonalesAspiranteDTO encuesta = bolsaTrabajoEJB
+                            .obtenerHabilidadesPersonalesPorIdAspirante(
+                                    view.getIdAspirante());
 
                     if (encuesta.getIdEncuestaPersonalAspirante() != 0) {
                         view.setHabilidadesPersonales(encuesta);
                         view.setAccionEncuestaPersonal("Actualizar");
                     } else {
-                        view.setHabilidadesPersonales(new HabilidadesPersonalesAspiranteDTO());
+                        view.setHabilidadesPersonales(
+                                new HabilidadesPersonalesAspiranteDTO());
                         view.setAccionEncuestaPersonal("Registrar");
                         JSFUtils.warningMessage("Habilidades Parsonales: ",
                                 "Se ha detectado que no ha registrado habilidades personales, se recomienda mantener su información actualizada");
@@ -295,7 +324,8 @@ public class ActualizacionAspiranteController implements Serializable {
         try {
 
             if (view.getPersonasDependientes() != null) {
-                for (String personaDependiente : view.getPersonasDependientes()) {
+                for (String personaDependiente : view
+                        .getPersonasDependientes()) {
                     if (personaDependiente.equals("CONYUGE")) {
                         view.getActualizacionAspirante().setNumeroConyuges(1);
                         System.out.println("SI TIENE CONYUGE");
@@ -307,9 +337,11 @@ public class ActualizacionAspiranteController implements Serializable {
 
             // this.actualizacionAspirante.setIdAspirante(this.view.getIdAspirante());
 
-            bolsaTrabajoEJB.actualizarAspirante(view.getActualizacionAspirante());
+            bolsaTrabajoEJB
+                    .actualizarAspirante(view.getActualizacionAspirante());
 
-            JSFUtils.infoMessage("", "¡Los datos generales se actualizarón correctamente!");
+            JSFUtils.infoMessage("",
+                    "¡Los datos generales se actualizarón correctamente!");
             // this.mostrarPanelHistorialAcademico();
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -322,11 +354,16 @@ public class ActualizacionAspiranteController implements Serializable {
             view.getHistorialAcademico().setAspirante(view.getIdAspirante());
 
             if (view.getAccionHistorialAcademico().equals("Registrar")) {
-                bolsaTrabajoEJB.crearHistorialAcademicoAspirante(view.getHistorialAcademico());
-                JSFUtils.infoMessage("Registro Historial Académico: ", "Se realizo correctamente");
-            } else if (view.getAccionHistorialAcademico().equals("Actualizar")) {
-                bolsaTrabajoEJB.actualizarHistorialAcademicoAspirante(view.getHistorialAcademico());
-                JSFUtils.infoMessage("Actualización Historial Académico: ", "Se realizo correctamente");
+                bolsaTrabajoEJB.crearHistorialAcademicoAspirante(
+                        view.getHistorialAcademico());
+                JSFUtils.infoMessage("Registro Historial Académico: ",
+                        "Se realizo correctamente");
+            } else if (view.getAccionHistorialAcademico()
+                    .equals("Actualizar")) {
+                bolsaTrabajoEJB.actualizarHistorialAcademicoAspirante(
+                        view.getHistorialAcademico());
+                JSFUtils.infoMessage("Actualización Historial Académico: ",
+                        "Se realizo correctamente");
             }
 
             view.setHistorialAcademico(new HistorialAcademicoDTO());
@@ -343,16 +380,22 @@ public class ActualizacionAspiranteController implements Serializable {
     public void registrarActualizarExperienciaLaboral() {
         try {
 
-            ExperienciaLaboralAspiranteDTO experienciaLaboral = view.getActualizacionExperienciaLaboral();
+            ExperienciaLaboralAspiranteDTO experienciaLaboral = view
+                    .getActualizacionExperienciaLaboral();
 
             experienciaLaboral.setIdAspirante(view.getIdAspirante());
 
             if (view.getAccionExperienciaLaboral().equals("Registrar")) {
-                bolsaTrabajoEJB.crearExperienciaLaboralAspirante(experienciaLaboral);
-                JSFUtils.infoMessage("Registro Experiencia Laboral: ", "Se realizo correctamente");
-            } else if (view.getAccionExperienciaLaboral().equals("Actualizar")) {
-                bolsaTrabajoEJB.actualizarExperienciaLaboralAspirante(experienciaLaboral);
-                JSFUtils.infoMessage("Actualización Experiencia Laboral: ", "Se realizo correctamente");
+                bolsaTrabajoEJB
+                        .crearExperienciaLaboralAspirante(experienciaLaboral);
+                JSFUtils.infoMessage("Registro Experiencia Laboral: ",
+                        "Se realizo correctamente");
+            } else if (view.getAccionExperienciaLaboral()
+                    .equals("Actualizar")) {
+                bolsaTrabajoEJB.actualizarExperienciaLaboralAspirante(
+                        experienciaLaboral);
+                JSFUtils.infoMessage("Actualización Experiencia Laboral: ",
+                        "Se realizo correctamente");
             }
 
             cerrarNuevoRegistroExperiencia();
@@ -367,16 +410,21 @@ public class ActualizacionAspiranteController implements Serializable {
     public void registrarActualizarEncuestaPersonal() {
         try {
 
-            HabilidadesPersonalesAspiranteDTO escuestaPersonal = view.getHabilidadesPersonales();
+            HabilidadesPersonalesAspiranteDTO escuestaPersonal = view
+                    .getHabilidadesPersonales();
             escuestaPersonal.setIdAspirante(view.getIdAspirante());
 
             if (view.getAccionEncuestaPersonal().equals("Registrar")) {
-                bolsaTrabajoEJB.crearHabilidadesPersonalesAspirante(escuestaPersonal);
-                JSFUtils.infoMessage("Registro Habilidades Personales: ", "Se realizo correctamente");
+                bolsaTrabajoEJB
+                        .crearHabilidadesPersonalesAspirante(escuestaPersonal);
+                JSFUtils.infoMessage("Registro Habilidades Personales: ",
+                        "Se realizo correctamente");
             }
             if (view.getAccionEncuestaPersonal().equals("Actualizar")) {
-                bolsaTrabajoEJB.actualizarHabilidadesPersonalesAspirante(escuestaPersonal);
-                JSFUtils.infoMessage("Actualización Habilidades Personales: ", "Se realizo correctamente");
+                bolsaTrabajoEJB.actualizarHabilidadesPersonalesAspirante(
+                        escuestaPersonal);
+                JSFUtils.infoMessage("Actualización Habilidades Personales: ",
+                        "Se realizo correctamente");
             }
 
             menu(HABILIDADES_PERSONALES);
@@ -387,7 +435,8 @@ public class ActualizacionAspiranteController implements Serializable {
 
     }
 
-    public void seleccionarHistorialAcademico(HistorialAcademicoDTO historialAcademicoDTO) {
+    public void seleccionarHistorialAcademico(
+            HistorialAcademicoDTO historialAcademicoDTO) {
         view.setHistorialAcademico(historialAcademicoDTO);
         view.setAccionHistorialAcademico("Actualizar");
         view.setMostrarPanelHistorialAcedemico(true);
@@ -407,7 +456,8 @@ public class ActualizacionAspiranteController implements Serializable {
         view.setMostrarFormularioEspecialidad(true);
     }
 
-    public void seleccionarExperienciaLaboral(ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
+    public void seleccionarExperienciaLaboral(
+            ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
 
         if (experienciaLaboralAspiranteDTO.getSolicitarInformacion()) {
             view.setMostrarRazonNosolicitar(true);
@@ -422,11 +472,13 @@ public class ActualizacionAspiranteController implements Serializable {
     public void eliminarHistorialAcademico() {
 
         try {
-            bolsaTrabajoEJB.eliminarHistorialAcademico(view.getIdHistorialCademico());
+            bolsaTrabajoEJB
+                    .eliminarHistorialAcademico(view.getIdHistorialCademico());
 
             listaHistorialAcademico();
 
-            JSFUtils.infoMessage("Historial academico: ", "Eliminado Correctamente");
+            JSFUtils.infoMessage("Historial academico: ",
+                    "Eliminado Correctamente");
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
         }
@@ -443,9 +495,11 @@ public class ActualizacionAspiranteController implements Serializable {
     public void eliminarProfesion() {
 
         try {
-            profesion.eliminarProfesionAspirante(view.getIdProfesionAspirante());
+            profesion
+                    .eliminarProfesionAspirante(view.getIdProfesionAspirante());
 
-            List<ProfesionDTO> profesiones = profesion.obtenerListaProfesionPorIdAspirante(view.getIdAspirante());
+            List<ProfesionDTO> profesiones = profesion
+                    .obtenerListaProfesionPorIdAspirante(view.getIdAspirante());
 
             view.setListaProfesion(profesiones);
 
@@ -461,10 +515,13 @@ public class ActualizacionAspiranteController implements Serializable {
 
         try {
 
-            especialidad.eliminarEspecialidadAspirante(view.getIdEspecialidadAspirante());
+            especialidad.eliminarEspecialidadAspirante(
+                    view.getIdEspecialidadAspirante());
 
             view.setIdEspecialidadAspirante(0);
-            List<EspecialidadDTO> especialidades = especialidad.obtenerListaEspecialidadPorIdAspirante(view.getIdAspirante());
+            List<EspecialidadDTO> especialidades = especialidad
+                    .obtenerListaEspecialidadPorIdAspirante(
+                            view.getIdAspirante());
 
             view.setListaEspecialidad(especialidades);
 
@@ -476,11 +533,13 @@ public class ActualizacionAspiranteController implements Serializable {
 
     public void eliminarExperienciaLaboral() {
         try {
-            bolsaTrabajoEJB.eliminarExperienciaLaboral(view.getIdExperienciaLaboral());
+            bolsaTrabajoEJB
+                    .eliminarExperienciaLaboral(view.getIdExperienciaLaboral());
 
             listaExperienciaLaboral();
 
-            JSFUtils.infoMessage("Experiencia Laboral: ", "Eliminado Correctamente");
+            JSFUtils.infoMessage("Experiencia Laboral: ",
+                    "Eliminado Correctamente");
 
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -491,12 +550,15 @@ public class ActualizacionAspiranteController implements Serializable {
     public void listaHistorialAcademico() {
         try {
 
-            List<HistorialAcademicoDTO> listaHistorialAcademico = bolsaTrabajoEJB.obtenerListaHistorialAcademico(view.getIdAspirante());
+            List<HistorialAcademicoDTO> listaHistorialAcademico = bolsaTrabajoEJB
+                    .obtenerListaHistorialAcademico(view.getIdAspirante());
 
             if (!listaHistorialAcademico.isEmpty()) {
-                view.setListaHistorialAcademicoAspirante(listaHistorialAcademico);
+                view.setListaHistorialAcademicoAspirante(
+                        listaHistorialAcademico);
             } else {
-                view.setListaHistorialAcademicoAspirante(new ArrayList<HistorialAcademicoDTO>());
+                view.setListaHistorialAcademicoAspirante(
+                        new ArrayList<HistorialAcademicoDTO>());
             }
 
         } catch (ReglaNegocioException exception) {
@@ -507,12 +569,15 @@ public class ActualizacionAspiranteController implements Serializable {
     public void listaExperienciaLaboral() {
         try {
 
-            List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajoEJB.obtenerListaExperienciaLaboral(view.getIdAspirante());
+            List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajoEJB
+                    .obtenerListaExperienciaLaboral(view.getIdAspirante());
 
             if (!listaExperienciaLaboral.isEmpty()) {
-                view.setListaExperienciaLaboralAspirante(listaExperienciaLaboral);
+                view.setListaExperienciaLaboralAspirante(
+                        listaExperienciaLaboral);
             } else {
-                view.setListaExperienciaLaboralAspirante(new ArrayList<ExperienciaLaboralAspiranteDTO>());
+                view.setListaExperienciaLaboralAspirante(
+                        new ArrayList<ExperienciaLaboralAspiranteDTO>());
 
             }
 
@@ -533,7 +598,8 @@ public class ActualizacionAspiranteController implements Serializable {
             view.setMostrarPanelDatosAspirante(true);
             view.setMostrarDatosPersonales(true);
 
-            AspiranteDTO aspirante = empleadoEJB.consultaAspirantePorIdentificador(view.getIdAspirante());
+            AspiranteDTO aspirante = empleadoEJB
+                    .consultaAspirantePorIdentificador(view.getIdAspirante());
 
             List<String> personasDependientes = new ArrayList<>();
 
@@ -561,7 +627,8 @@ public class ActualizacionAspiranteController implements Serializable {
             // Llamar complementos del registro
             // poblacionesPorMunicipio();
 
-            view.setListaEstados(SelectItemsUtil.listaCatalogos(catalogosEJB.listaEstados()));
+            view.setListaEstados(SelectItemsUtil
+                    .listaCatalogos(catalogosEJB.listaEstados()));
             municipiosPorEstado();
             asentamientosPorMunicipio();
 
@@ -610,13 +677,15 @@ public class ActualizacionAspiranteController implements Serializable {
     public void mostrarNuevoRegistroExperiencia() {
         view.setMostrarFormularioExperiencia(true);
         view.setAccionExperienciaLaboral("Registrar");
-        view.setActualizacionExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+        view.setActualizacionExperienciaLaboral(
+                new ExperienciaLaboralAspiranteDTO());
     }
 
     public void cerrarNuevoRegistroExperiencia() {
         view.setMostrarFormularioExperiencia(false);
         view.setAccionExperienciaLaboral("Registrar");
-        view.setActualizacionExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+        view.setActualizacionExperienciaLaboral(
+                new ExperienciaLaboralAspiranteDTO());
 
     }
 
@@ -625,26 +694,32 @@ public class ActualizacionAspiranteController implements Serializable {
     public void municipiosPorEstado() {
         view.setListaMunicipios(new ArrayList<SelectItem>());
         view.setListaAsentamientos(new ArrayList<SelectItem>());
-        Integer idEstado = view.getActualizacionAspirante().getDireccionDTO().getIdEstado();
+        Integer idEstado = view.getActualizacionAspirante().getDireccionDTO()
+                .getIdEstado();
 
         if (ValidacionUtil.esNumeroPositivo(idEstado)) {
-            view.setListaMunicipios(SelectItemsUtil.listaCatalogos(catalogosEJB.consultarMunicipiosPorEstado(idEstado)));
+            view.setListaMunicipios(SelectItemsUtil.listaCatalogos(
+                    catalogosEJB.consultarMunicipiosPorEstado(idEstado)));
         }
 
     }
 
     public void asentamientosPorMunicipio() {
-        Integer idMunicipio = view.getActualizacionAspirante().getDireccionDTO().getIdMunicipio();
+        Integer idMunicipio = view.getActualizacionAspirante().getDireccionDTO()
+                .getIdMunicipio();
 
         if (ValidacionUtil.esNumeroPositivo(idMunicipio)) {
 
-            view.setListaAsentamientos(SelectItemsUtil.listaCatalogos(catalogosEJB.consultarAsantamientosPorMunicipios(idMunicipio)));
+            view.setListaAsentamientos(
+                    SelectItemsUtil.listaCatalogos(catalogosEJB
+                            .consultarAsantamientosPorMunicipios(idMunicipio)));
         }
 
     }
 
     public void mostrarRazonNoSolicitarInformacion() {
-        if (view.getActualizacionExperienciaLaboral().getSolicitarInformacion()) {
+        if (view.getActualizacionExperienciaLaboral()
+                .getSolicitarInformacion()) {
             view.getActualizacionExperienciaLaboral().setRazonNoSolicitar("");
             view.setMostrarRazonNosolicitar(true);
         } else {
@@ -731,7 +806,8 @@ public class ActualizacionAspiranteController implements Serializable {
             view.setMostrarTxtOtrosIngresos(false);
         } else {
             view.getHabilidadesPersonales().setNombreOtroIngreso("");
-            view.getHabilidadesPersonales().setImporteOtroIngreso(new BigDecimal(0));
+            view.getHabilidadesPersonales()
+                    .setImporteOtroIngreso(new BigDecimal(0));
             view.setMostrarTxtOtrosIngresos(true);
         }
     }
@@ -744,7 +820,8 @@ public class ActualizacionAspiranteController implements Serializable {
             view.setMostrarTxtConyugeTrabaja(false);
         } else {
             view.getHabilidadesPersonales().setNombreTrabajoConyuge("");
-            view.getHabilidadesPersonales().setPercepcionMensualConyuge(new BigDecimal(0));
+            view.getHabilidadesPersonales()
+                    .setPercepcionMensualConyuge(new BigDecimal(0));
             view.setMostrarTxtConyugeTrabaja(true);
         }
     }
@@ -755,7 +832,8 @@ public class ActualizacionAspiranteController implements Serializable {
             // BigDecimal(0));
             view.setMostrarTxtCasaPropia(false);
         } else {
-            view.getHabilidadesPersonales().setValorAproximadoCasa(new BigDecimal(0));
+            view.getHabilidadesPersonales()
+                    .setValorAproximadoCasa(new BigDecimal(0));
             view.setMostrarTxtCasaPropia(true);
         }
     }
@@ -794,7 +872,8 @@ public class ActualizacionAspiranteController implements Serializable {
         } else {
             view.getHabilidadesPersonales().setNombreDeuda("");
             view.getHabilidadesPersonales().setImporteDeuda(new BigDecimal(0));
-            view.getHabilidadesPersonales().setAbonoMensualDeuda(new BigDecimal(0));
+            view.getHabilidadesPersonales()
+                    .setAbonoMensualDeuda(new BigDecimal(0));
             view.setMostrarTxtTieneDeudas(true);
         }
     }
@@ -804,8 +883,10 @@ public class ActualizacionAspiranteController implements Serializable {
      *
      * @param historialSeleccionado
      */
-    public void historialAcademicoSeleccionado(HistorialAcademicoDTO historialSeleccionado) {
-        view.setIdHistorialCademico(historialSeleccionado.getIdHistorialAcademico());
+    public void historialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialSeleccionado) {
+        view.setIdHistorialCademico(
+                historialSeleccionado.getIdHistorialAcademico());
     }
 
     /**
@@ -813,8 +894,10 @@ public class ActualizacionAspiranteController implements Serializable {
      *
      * @param experienciaLaboral
      */
-    public void experienciaLaboralSeleccionado(ExperienciaLaboralAspiranteDTO experienciaLaboral) {
-        view.setIdExperienciaLaboral(experienciaLaboral.getIdExperienciaLaboralAspirante());
+    public void experienciaLaboralSeleccionado(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral) {
+        view.setIdExperienciaLaboral(
+                experienciaLaboral.getIdExperienciaLaboralAspirante());
     }
 
     public void mostrarNuevoRegistroHistorialAcademico() {
@@ -827,20 +910,25 @@ public class ActualizacionAspiranteController implements Serializable {
         try {
 
             if (view.getAccionProfesion().equals("Registrar")) {
-                profesion.crearProfesionAspirante(view.getIdProfesion(), view.getIdAspirante());
-                JSFUtils.infoMessage("Registro Profesión: ", "Se finalizo correctamente");
+                profesion.crearProfesionAspirante(view.getIdProfesion(),
+                        view.getIdAspirante());
+                JSFUtils.infoMessage("Registro Profesión: ",
+                        "Se finalizo correctamente");
             }
 
             if (view.getAccionProfesion().equals("Actualizar")) {
 
                 view.getProfesionDTO().setIdProfesion(view.getIdProfesion());
 
-                profesion.actualizarProfesionAspirante(view.getProfesionDTO(), view.getIdAspirante());
-                JSFUtils.infoMessage("Actualización Profesión: ", "Se finalizo correctamente");
+                profesion.actualizarProfesionAspirante(view.getProfesionDTO(),
+                        view.getIdAspirante());
+                JSFUtils.infoMessage("Actualización Profesión: ",
+                        "Se finalizo correctamente");
             }
 
             view.setIdProfesion(0);
-            List<ProfesionDTO> profesiones = profesion.obtenerListaProfesionPorIdAspirante(view.getIdAspirante());
+            List<ProfesionDTO> profesiones = profesion
+                    .obtenerListaProfesionPorIdAspirante(view.getIdAspirante());
 
             view.setListaProfesion(profesiones);
             cerrarNuevoRegistroProfesion();
@@ -854,17 +942,24 @@ public class ActualizacionAspiranteController implements Serializable {
         try {
 
             if (view.getAccionEspecialidad().equals("Registrar")) {
-                especialidad.crearEspecialidadAspirante(view.getIdEspecialidad(), view.getIdAspirante());
-                JSFUtils.infoMessage("Registro Especialidad: ", "Se finalizo correctamente");
+                especialidad.crearEspecialidadAspirante(
+                        view.getIdEspecialidad(), view.getIdAspirante());
+                JSFUtils.infoMessage("Registro Especialidad: ",
+                        "Se finalizo correctamente");
             }
 
             if (view.getAccionEspecialidad().equals("Actualizar")) {
-                view.getEspecialidadDTO().setIdEspecialidad(view.getIdEspecialidad());
-                especialidad.actualizarEspecialidadAspirante(view.getEspecialidadDTO(), view.getIdAspirante());
-                JSFUtils.infoMessage("Actualización Especialidad: ", "Se finalizo correctamente");
+                view.getEspecialidadDTO()
+                        .setIdEspecialidad(view.getIdEspecialidad());
+                especialidad.actualizarEspecialidadAspirante(
+                        view.getEspecialidadDTO(), view.getIdAspirante());
+                JSFUtils.infoMessage("Actualización Especialidad: ",
+                        "Se finalizo correctamente");
             }
 
-            List<EspecialidadDTO> especialidades = especialidad.obtenerListaEspecialidadPorIdAspirante(view.getIdAspirante());
+            List<EspecialidadDTO> especialidades = especialidad
+                    .obtenerListaEspecialidadPorIdAspirante(
+                            view.getIdAspirante());
 
             view.setListaEspecialidad(especialidades);
             view.setIdEspecialidad(0);
@@ -876,9 +971,8 @@ public class ActualizacionAspiranteController implements Serializable {
         }
     }
 
-    
-
-    public void validarConsulta(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarConsulta(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -889,7 +983,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String criterio = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el criterio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el criterio");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -902,7 +998,8 @@ public class ActualizacionAspiranteController implements Serializable {
 
     }
 
-    public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorDatosGenerales(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -911,7 +1008,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un nombre.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -920,7 +1019,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String apellidoPaterno = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(apellidoPaterno)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un apellido paterno.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un apellido paterno.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -929,7 +1030,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String apellidoMaterno = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(apellidoMaterno)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un apellido materno.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un apellido materno.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -939,20 +1042,29 @@ public class ActualizacionAspiranteController implements Serializable {
                 String rfc = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(rfc)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un RFC.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un RFC.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     try {
 
-                        if (!bolsaTrabajoEJB.validarRfcyIdAspirante(view.getIdAspirante(), rfc)) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El RFC ya se encuentra registrado");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                        if (!bolsaTrabajoEJB.validarRfcyIdAspirante(
+                                view.getIdAspirante(), rfc)) {
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "El RFC ya se encuentra registrado");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     } catch (ReglaNegocioException exception) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", exception.getMessage());
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                exception.getMessage());
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
 
@@ -964,21 +1076,30 @@ public class ActualizacionAspiranteController implements Serializable {
                 String curp = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(curp)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una CURP.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una CURP.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
 
                     try {
 
-                        if (!bolsaTrabajoEJB.validarCurpyIdAspirante(view.getIdAspirante(), curp)) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La CURP ya se encuentra registrado");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                        if (!bolsaTrabajoEJB.validarCurpyIdAspirante(
+                                view.getIdAspirante(), curp)) {
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "La CURP ya se encuentra registrado");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     } catch (ReglaNegocioException exception) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", exception.getMessage());
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                exception.getMessage());
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
 
@@ -989,7 +1110,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String sexo = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(sexo)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un sexo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un sexo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -998,7 +1121,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String estadoCivil = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(estadoCivil)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un estado civil.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un estado civil.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1007,14 +1132,18 @@ public class ActualizacionAspiranteController implements Serializable {
                 Date fechaNacimiento = (Date) value;
 
                 if (fechaNacimiento == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de nacimiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de nacimiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (ValidacionUtil.esFechaFutura(fechaNacimiento)) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese una fecha que no sea mayor a la fecha actual.");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -1023,7 +1152,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String lugarNacimiento = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(lugarNacimiento)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un lugar de nacimiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un lugar de nacimiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1066,7 +1197,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer puesto = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(puesto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione el puesto.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione el puesto.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1076,7 +1209,8 @@ public class ActualizacionAspiranteController implements Serializable {
 
     }
 
-    public void validatorDomicilio(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorDomicilio(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
 
@@ -1084,7 +1218,9 @@ public class ActualizacionAspiranteController implements Serializable {
             Integer estado = (Integer) value;
 
             if (!ValidacionUtil.esNumeroPositivo(estado)) {
-                FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un estado.");
+                FacesMessage facesMessage1 = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor seleccione un estado.");
                 context.addMessage(component.getClientId(), facesMessage1);
                 throw new ValidatorException(facesMessage1);
             }
@@ -1094,7 +1230,9 @@ public class ActualizacionAspiranteController implements Serializable {
             Integer municipio = (Integer) value;
 
             if (!ValidacionUtil.esNumeroPositivo(municipio)) {
-                FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un municipio.");
+                FacesMessage facesMessage1 = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor seleccione un municipio.");
                 context.addMessage(component.getClientId(), facesMessage1);
                 throw new ValidatorException(facesMessage1);
             }
@@ -1104,7 +1242,9 @@ public class ActualizacionAspiranteController implements Serializable {
             Integer poblacion = (Integer) value;
 
             if (!ValidacionUtil.esNumeroPositivo(poblacion)) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un asentamiento.");
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor seleccione un asentamiento.");
                 context.addMessage(component.getClientId(), facesMessage);
                 throw new ValidatorException(facesMessage);
             }
@@ -1114,7 +1254,9 @@ public class ActualizacionAspiranteController implements Serializable {
             String calle = (String) value;
 
             if (ValidacionUtil.esCadenaVacia(calle)) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una calle.");
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor ingrese una calle.");
                 context.addMessage(component.getClientId(), facesMessage);
                 throw new ValidatorException(facesMessage);
             }
@@ -1123,7 +1265,9 @@ public class ActualizacionAspiranteController implements Serializable {
             String exterior = (String) value;
 
             if (ValidacionUtil.esCadenaVacia(exterior)) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un número exterior.");
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor ingrese un número exterior.");
                 context.addMessage(component.getClientId(), facesMessage);
                 throw new ValidatorException(facesMessage);
             }
@@ -1133,14 +1277,17 @@ public class ActualizacionAspiranteController implements Serializable {
             Integer codigoPostal = (Integer) value;
 
             if (!ValidacionUtil.esNumeroPositivo(codigoPostal)) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el codigo postal.");
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor ingrese el codigo postal.");
                 context.addMessage(component.getClientId(), facesMessage);
                 throw new ValidatorException(facesMessage);
             }
         }
     }
 
-    public void validatorDatosHistorialAcademico(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorDatosHistorialAcademico(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -1149,7 +1296,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer escolaridad = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(escolaridad)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione la escolaridad.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione la escolaridad.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1159,7 +1308,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String institucion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(institucion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre de la institución.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el nombre de la institución.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1169,7 +1320,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer comprobanteEstudio = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(comprobanteEstudio)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione el comprobante de estudio.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione el comprobante de estudio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1179,14 +1332,18 @@ public class ActualizacionAspiranteController implements Serializable {
                 Date fechaInicial = (Date) value;
 
                 if (fechaInicial == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de inicial.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de inicial.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (ValidacionUtil.esFechaFutura(fechaInicial)) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese una fecha que no sea mayor a la fecha actual.");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -1196,7 +1353,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String nombreCurso = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombreCurso)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre de la escolaridad.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el nombre de la escolaridad.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -1206,7 +1365,8 @@ public class ActualizacionAspiranteController implements Serializable {
 
     }
 
-    public void validarCampoProfesionEspecialidad(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarCampoProfesionEspecialidad(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -1218,7 +1378,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer tipoProfesion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoProfesion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo profesión");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo profesión");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     throw new ValidatorException(facesMessage);
@@ -1231,7 +1393,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer tipoEspecialidad = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoEspecialidad)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo especialidad");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo especialidad");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     throw new ValidatorException(facesMessage);
@@ -1240,20 +1404,24 @@ public class ActualizacionAspiranteController implements Serializable {
                 break;
 
             default:
-                JSFUtils.errorMessage("Registro Aspirante: ", "Error de validación...");
+                JSFUtils.errorMessage("Registro Aspirante: ",
+                        "Error de validación...");
                 break;
         }
 
     }
 
-    public void validatorExperienciaLaboral(FacesContext context, UIComponent component, Object value) {
+    public void validatorExperienciaLaboral(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "nombreEmpresa":
                 String nombreEmpresa = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombreEmpresa)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la empresa o institución donde laboró.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la empresa o institución donde laboró.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1263,7 +1431,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String puestoDesempeniado = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(puestoDesempeniado)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el puesto o labores que desempeñó.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el puesto o labores que desempeñó.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1273,7 +1443,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Date anioInicial = (Date) value;
 
                 if (anioInicial == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la fecha en la que inició sus labores.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la fecha en la que inició sus labores.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1283,7 +1455,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Date anioFinal = (Date) value;
 
                 if (anioFinal == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la fecha en la que finalizó sus labores.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la fecha en la que finalizó sus labores.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1295,14 +1469,17 @@ public class ActualizacionAspiranteController implements Serializable {
 
     }
 
-    public void validatorHabilidadPersonal(FacesContext context, UIComponent component, Object value) {
+    public void validatorHabilidadPersonal(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponente = component.getId();
         switch (nombreComponente) {
             case "idioma":
                 String idioma = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(idioma)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el idioma(s) que domine.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el idioma(s) que domine.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1312,7 +1489,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 Integer nivelIdioma = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(nivelIdioma)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione el nivel idioma(s) que domine.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione el nivel idioma(s) que domine.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1323,7 +1502,8 @@ public class ActualizacionAspiranteController implements Serializable {
                 String maquina = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(maquina)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese la maquina de oficina o de taller que domine.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
@@ -1334,7 +1514,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String funciones = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(funciones)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la funcion(es) de oficina que domine.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la funcion(es) de oficina que domine.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -1344,7 +1526,9 @@ public class ActualizacionAspiranteController implements Serializable {
                 String softwareDomina = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(softwareDomina)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el software(s) que domine.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el software(s) que domine.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

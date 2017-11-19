@@ -36,25 +36,31 @@ public class ConsultaVoluntarioController implements Serializable {
     @PostConstruct
     public void inicio() {
         view = new ConsultaVoluntarioView();
-        view.setListaTiposConsulta(SelectItemsUtil.listaTiposBusquedaVoluntarios());
+        view.setListaTiposConsulta(
+                SelectItemsUtil.listaTiposBusquedaVoluntarios());
     }
 
     public void seleccionarTipoBusqueda() {
         view.setMostrarCriterio(false);
         view.getVoluntarios().clear();
-        if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.NOMBRE) {
+        if (view.getConsulta()
+                .getTipoConsulta() == EnumTipoConsultaVoluntario.NOMBRE) {
             view.getConsulta().setCriterio("");
             view.setMostrarCriterio(true);
-        } else if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaVoluntario.ACTIVOS) {
-            view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
+        } else if (view.getConsulta()
+                .getTipoConsulta() == EnumTipoConsultaVoluntario.ACTIVOS) {
+            view.setVoluntarios(
+                    voluntarios.consultarVoluntarios(view.getConsulta()));
             if (view.getVoluntarios().isEmpty()) {
-                JSFUtils.warningMessage("", "No se encontraron voluntarios activos");
+                JSFUtils.warningMessage("",
+                        "No se encontraron voluntarios activos");
             }
         }
     }
 
     public void consultarVoluntarios() {
-        view.setVoluntarios(voluntarios.consultarVoluntarios(view.getConsulta()));
+        view.setVoluntarios(
+                voluntarios.consultarVoluntarios(view.getConsulta()));
     }
 
     public ConsultaVoluntarioView getView() {

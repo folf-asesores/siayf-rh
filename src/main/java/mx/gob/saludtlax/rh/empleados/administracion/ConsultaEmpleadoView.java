@@ -20,8 +20,8 @@ import mx.gob.saludtlax.rh.historialacademico.HistorialAcademicoDTO;
 import mx.gob.saludtlax.rh.puestosautorizados.PuestoEmpleadoDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 11:15:35 10/08/2016
  */
@@ -117,7 +117,8 @@ public class ConsultaEmpleadoView implements Serializable {
         return bitacorasMovimientos;
     }
 
-    public void setBitacorasMovimientos(List<BitacoraEmpleadoDTO> bitacorasMovimientos) {
+    public void setBitacorasMovimientos(
+            List<BitacoraEmpleadoDTO> bitacorasMovimientos) {
         this.bitacorasMovimientos = bitacorasMovimientos;
     }
 
@@ -194,7 +195,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaTiposParentescos
      *            the listaTiposParentescos to set
      */
-    public void setListaTiposParentescos(List<SelectItem> listaTiposParentescos) {
+    public void setListaTiposParentescos(
+            List<SelectItem> listaTiposParentescos) {
         this.listaTiposParentescos = listaTiposParentescos;
     }
 
@@ -284,7 +286,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaComprobantesEstudios
      *            the listaComprobantesEstudios to set
      */
-    public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
+    public void setListaComprobantesEstudios(
+            List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
     }
 
@@ -299,7 +302,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaTiposDocumentosExpediente
      *            the listaTiposDocumentosExpediente to set
      */
-    public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
+    public void setListaTiposDocumentosExpediente(
+            List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
     }
 
@@ -314,7 +318,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaDocumentosHistorialAcademico
      *            the listaDocumentosHistorialAcademico to set
      */
-    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(
+            List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 
@@ -329,7 +334,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaDocumentosDependientes
      *            the listaDocumentosDependientes to set
      */
-    public void setListaDocumentosDependientes(List<SelectItem> listaDocumentosDependientes) {
+    public void setListaDocumentosDependientes(
+            List<SelectItem> listaDocumentosDependientes) {
         this.listaDocumentosDependientes = listaDocumentosDependientes;
     }
 
@@ -419,7 +425,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarTipoBusquedaHeader
      *            the mostrarTipoBusquedaHeader to set
      */
-    public void setMostrarTipoBusquedaHeader(boolean mostrarTipoBusquedaHeader) {
+    public void setMostrarTipoBusquedaHeader(
+            boolean mostrarTipoBusquedaHeader) {
         this.mostrarTipoBusquedaHeader = mostrarTipoBusquedaHeader;
     }
 
@@ -464,7 +471,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarHistorialAcademico
      *            the mostrarHistorialAcademico to set
      */
-    public void setMostrarHistorialAcademico(boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -509,7 +517,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarExperienciaLaboral
      *            the mostrarExperienciaLaboral to set
      */
-    public void setMostrarExperienciaLaboral(boolean mostrarExperienciaLaboral) {
+    public void setMostrarExperienciaLaboral(
+            boolean mostrarExperienciaLaboral) {
         this.mostrarExperienciaLaboral = mostrarExperienciaLaboral;
     }
 
@@ -524,7 +533,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarDependientesEconomicos
      *            the mostrarDependientesEconomicos to set
      */
-    public void setMostrarDependientesEconomicos(boolean mostrarDependientesEconomicos) {
+    public void setMostrarDependientesEconomicos(
+            boolean mostrarDependientesEconomicos) {
         this.mostrarDependientesEconomicos = mostrarDependientesEconomicos;
     }
 
@@ -554,7 +564,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaHistorialesAcademicos
      *            the listaHistorialesAcademicos to set
      */
-    public void setListaHistorialesAcademicos(List<HistorialAcademicoDTO> listaHistorialesAcademicos) {
+    public void setListaHistorialesAcademicos(
+            List<HistorialAcademicoDTO> listaHistorialesAcademicos) {
         this.listaHistorialesAcademicos = listaHistorialesAcademicos;
     }
 
@@ -569,7 +580,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaExperienciasLaborales
      *            the listaExperienciasLaborales to set
      */
-    public void setListaExperienciasLaborales(List<ExperienciaLaboralDTO> listaExperienciasLaborales) {
+    public void setListaExperienciasLaborales(
+            List<ExperienciaLaboralDTO> listaExperienciasLaborales) {
         this.listaExperienciasLaborales = listaExperienciasLaborales;
     }
 
@@ -584,7 +596,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param listaDocumentosExpedientes
      *            the listaDocumentosExpedientes to set
      */
-    public void setListaDocumentosExpedientes(List<InformacionAdjuntoDTO> listaDocumentosExpedientes) {
+    public void setListaDocumentosExpedientes(
+            List<InformacionAdjuntoDTO> listaDocumentosExpedientes) {
         this.listaDocumentosExpedientes = listaDocumentosExpedientes;
     }
 
@@ -629,7 +642,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param historialAcademico
      *            the historialAcademico to set
      */
-    public void setHistorialAcademico(HistorialAcademicoDTO historialAcademico) {
+    public void setHistorialAcademico(
+            HistorialAcademicoDTO historialAcademico) {
         this.historialAcademico = historialAcademico;
     }
 
@@ -644,7 +658,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param experienciaLaboral
      *            the experienciaLaboral to set
      */
-    public void setExperienciaLaboral(ExperienciaLaboralDTO experienciaLaboral) {
+    public void setExperienciaLaboral(
+            ExperienciaLaboralDTO experienciaLaboral) {
         this.experienciaLaboral = experienciaLaboral;
     }
 
@@ -704,7 +719,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarActualizacionExpediente
      *            the mostrarActualizacionExpediente to set
      */
-    public void setMostrarActualizacionExpediente(boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(
+            boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -749,7 +765,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarAperturaExpediente
      *            the mostrarAperturaExpediente to set
      */
-    public void setMostrarAperturaExpediente(boolean mostrarAperturaExpediente) {
+    public void setMostrarAperturaExpediente(
+            boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
     }
 
@@ -757,7 +774,8 @@ public class ConsultaEmpleadoView implements Serializable {
         return dependientesEconomicos;
     }
 
-    public void setDependientesEconomicos(List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
+    public void setDependientesEconomicos(
+            List<InfoDependienteEconomicoDTO> dependientesEconomicos) {
         this.dependientesEconomicos = dependientesEconomicos;
     }
 
@@ -802,7 +820,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param documentosExpedientes
      *            the documentosExpedientes to set
      */
-    public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
+    public void setDocumentosExpedientes(
+            List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
     }
 
@@ -862,7 +881,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param historialAcademicoSeleccionado
      *            the historialAcademicoSeleccionado to set
      */
-    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 
@@ -877,7 +897,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param mostrarAdjuntoDocumentoHistorial
      *            the mostrarAdjuntoDocumentoHistorial to set
      */
-    public void setMostrarAdjuntoDocumentoHistorial(boolean mostrarAdjuntoDocumentoHistorial) {
+    public void setMostrarAdjuntoDocumentoHistorial(
+            boolean mostrarAdjuntoDocumentoHistorial) {
         this.mostrarAdjuntoDocumentoHistorial = mostrarAdjuntoDocumentoHistorial;
     }
 
@@ -892,7 +913,8 @@ public class ConsultaEmpleadoView implements Serializable {
      * @param documentosAdjuntosGradoAcademico
      *            the documentosAdjuntosGradoAcademico to set
      */
-    public void setDocumentosAdjuntosGradoAcademico(List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico) {
+    public void setDocumentosAdjuntosGradoAcademico(
+            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico) {
         this.documentosAdjuntosGradoAcademico = documentosAdjuntosGradoAcademico;
     }
 

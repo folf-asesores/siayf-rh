@@ -52,7 +52,8 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
      * @return Listado de ClienteBiometricoFormModel
      * @throws RESTClientException
      */
-    public List<ClienteBiometricoFormModel> listadoClientesBiometricos() throws RESTClientException {
+    public List<ClienteBiometricoFormModel> listadoClientesBiometricos()
+            throws RESTClientException {
 
         List<ClienteBiometricoFormModel> listadoClienteBiometrico = new ArrayList<>();
 
@@ -61,11 +62,13 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
         HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultBiometricos = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultBiometricos = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     Gson biometricoGson = new Gson();
                     TypeToken<ArrayList<ClienteBiometricoFormModel>> tokenListadoBiometrico = new TypeToken<ArrayList<ClienteBiometricoFormModel>>() {
@@ -75,12 +78,18 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
                          */
                         private static final long serialVersionUID = -1365297973402098439L;
                     };
-                    listadoClienteBiometrico = biometricoGson.fromJson(resultBiometricos, tokenListadoBiometrico.getType());
+                    listadoClienteBiometrico = biometricoGson.fromJson(
+                            resultBiometricos,
+                            tokenListadoBiometrico.getType());
                     break;
                 case 400:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
             }
 
@@ -92,27 +101,37 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
 
     }
 
-    public ClienteBiometricoFormModel buscarClienteBiometrico(Integer idClienteBiometrico) throws RESTClientException {
+    public ClienteBiometricoFormModel buscarClienteBiometrico(
+            Integer idClienteBiometrico) throws RESTClientException {
 
         ClienteBiometricoFormModel clienteBiometricoForm = new ClienteBiometricoFormModel();
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_BUSCAR + idClienteBiometrico);
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_BUSCAR + idClienteBiometrico);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultBiometricos = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultBiometricos = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     Gson biometricoGson = new Gson();
-                    clienteBiometricoForm = biometricoGson.fromJson(resultBiometricos, ClienteBiometricoFormModel.class);
+                    clienteBiometricoForm = biometricoGson.fromJson(
+                            resultBiometricos,
+                            ClienteBiometricoFormModel.class);
                     break;
                 case 400:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
             }
 
@@ -124,41 +143,56 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
         return clienteBiometricoForm;
     }
 
-    public void guardarBiometrico(ClienteBiometricoFormModel biometricoFormModel) throws RESTClientException {
+    public void guardarBiometrico(
+            ClienteBiometricoFormModel biometricoFormModel)
+            throws RESTClientException {
 
         Gson gson = new Gson();
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_GUARDAR);
         StringEntity nuevoBiometricoJSON;
 
-        System.out.println("datos " + biometricoFormModel.getDireccionIP() + "," + biometricoFormModel.getPuerto() + " , " + biometricoFormModel.getUnidad());
+        System.out.println("datos " + biometricoFormModel.getDireccionIP() + ","
+                + biometricoFormModel.getPuerto() + " , "
+                + biometricoFormModel.getUnidad());
 
         try {
-            nuevoBiometricoJSON = new StringEntity(gson.toJson(biometricoFormModel));
+            nuevoBiometricoJSON = new StringEntity(
+                    gson.toJson(biometricoFormModel));
             nuevoBiometricoJSON.setContentType("application/json");
             httpPost.setEntity(nuevoBiometricoJSON);
             HttpResponse servicioResponse = httpClient.execute(httpPost);
 
             String resultNuevoBiometrico;
-            System.out.println("estaus despues de llamada codigo " + servicioResponse.getStatusLine().getStatusCode());
-            System.out.println("tracer: " + servicioResponse.getStatusLine().getReasonPhrase());
+            System.out.println("estaus despues de llamada codigo "
+                    + servicioResponse.getStatusLine().getStatusCode());
+            System.out.println("tracer: "
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
-                    String response = gson.fromJson(resultNuevoBiometrico, String.class);
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    String response = gson.fromJson(resultNuevoBiometrico,
+                            String.class);
                     //biometricoFormModel = gson.fromJson(resultNuevoBiometrico,ClienteBiometricoFormModel.class);
-                    System.out.println("en el servicio con codigo 200 :" + response);
+                    System.out.println(
+                            "en el servicio con codigo 200 :" + response);
 
                     break;
                 case 400:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     throw new RESTClientException(resultNuevoBiometrico);
                 case 412:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     throw new RESTClientException(resultNuevoBiometrico);
                 default:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
             }
 
         } catch (UnsupportedEncodingException e) {
@@ -180,47 +214,64 @@ public class ClienteBiometricoREST extends ClienteRest implements Serializable {
     /*
      * actualizar
      */
-    public String actualizarBiometrico(ClienteBiometricoFormModel biometricoFormModel) throws RESTClientException {
+    public String actualizarBiometrico(
+            ClienteBiometricoFormModel biometricoFormModel)
+            throws RESTClientException {
         String estatus;
         Gson gson = new Gson();
         HttpClient httpClient = HttpClientBuilder.create().build();
         HttpPut httpPost = new HttpPut(url_serivicio + RESOURCE_ACTUALIZAR);
         StringEntity nuevoBiometricoJSON;
 
-        System.out.println("actualizar  " + biometricoFormModel.getIdClienteBiometricoFormModel() + " , " + biometricoFormModel.getDireccionIP() + "  , "
-                + biometricoFormModel.getPuerto() + " , " + biometricoFormModel.getUnidad());
+        System.out.println("actualizar  "
+                + biometricoFormModel.getIdClienteBiometricoFormModel() + " , "
+                + biometricoFormModel.getDireccionIP() + "  , "
+                + biometricoFormModel.getPuerto() + " , "
+                + biometricoFormModel.getUnidad());
 
         try {
-            nuevoBiometricoJSON = new StringEntity(gson.toJson(biometricoFormModel));
+            nuevoBiometricoJSON = new StringEntity(
+                    gson.toJson(biometricoFormModel));
             nuevoBiometricoJSON.setContentType("application/json");
             httpPost.setEntity(nuevoBiometricoJSON);
             HttpResponse servicioResponse = httpClient.execute(httpPost);
 
             String resultNuevoBiometrico;
-            System.out.println("estaus despues de llamada codigo " + servicioResponse.getStatusLine().getStatusCode());
-            System.out.println("tracer: " + servicioResponse.getStatusLine().getReasonPhrase());
+            System.out.println("estaus despues de llamada codigo "
+                    + servicioResponse.getStatusLine().getStatusCode());
+            System.out.println("tracer: "
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
-                    String response = gson.fromJson(resultNuevoBiometrico, String.class);
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    String response = gson.fromJson(resultNuevoBiometrico,
+                            String.class);
 
                     break;
                 case 400:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     throw new RESTClientException(resultNuevoBiometrico);
                 case 412:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     //	 response = gson.fromJson(resultNuevoBiometrico, String.class);
                     System.out.println("erro:" + resultNuevoBiometrico);
                     throw new RESTClientException(resultNuevoBiometrico);
                 case 405:
-                    resultNuevoBiometrico = EntityUtils.toString(servicioResponse.getEntity());
-                    response = gson.fromJson(resultNuevoBiometrico, String.class);
+                    resultNuevoBiometrico = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    response = gson.fromJson(resultNuevoBiometrico,
+                            String.class);
                     System.out.println("error;: " + response);
                     throw new RESTClientException(resultNuevoBiometrico);
                 default:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
             }
 
             estatus = resultNuevoBiometrico;

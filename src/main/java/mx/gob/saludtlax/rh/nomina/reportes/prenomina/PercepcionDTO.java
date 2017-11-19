@@ -81,6 +81,7 @@ public final class PercepcionDTO {
 
     @Override
     public String toString() {
-        return "PercepcionDTO{" + "clave=" + clave + ", nombre=" + nombre + ", monto=" + monto + '}';
+        return "PercepcionDTO{" + "clave=" + clave + ", nombre=" + nombre
+                + ", monto=" + monto + '}';
     }
 }

@@ -26,8 +26,11 @@ public class ConfiguracionQuinquenioDTO implements Serializable {
         super();
     }
 
-    public ConfiguracionQuinquenioDTO(Integer id_configuracion_quinquenio, Integer id_empleado, String rfc, String clave_concepto, Date fecha_alta,
-            Date fecha_actualizacion, Boolean estatus, Integer idnombramiento, Integer idconfiguracionPresupuestal, String nombreempleado) {
+    public ConfiguracionQuinquenioDTO(Integer id_configuracion_quinquenio,
+            Integer id_empleado, String rfc, String clave_concepto,
+            Date fecha_alta, Date fecha_actualizacion, Boolean estatus,
+            Integer idnombramiento, Integer idconfiguracionPresupuestal,
+            String nombreempleado) {
         super();
         this.id_configuracion_quinquenio = id_configuracion_quinquenio;
         this.id_empleado = id_empleado;
@@ -45,7 +48,8 @@ public class ConfiguracionQuinquenioDTO implements Serializable {
         return id_configuracion_quinquenio;
     }
 
-    public void setId_configuracion_quinquenio(Integer id_configuracion_quinquenio) {
+    public void setId_configuracion_quinquenio(
+            Integer id_configuracion_quinquenio) {
         this.id_configuracion_quinquenio = id_configuracion_quinquenio;
     }
 

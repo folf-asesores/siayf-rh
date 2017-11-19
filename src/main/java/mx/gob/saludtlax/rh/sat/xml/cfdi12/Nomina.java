@@ -270,7 +270,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "percepciones", "deducciones", "incapacidades", "horasExtras" })
+@XmlType(name = "", propOrder = { "percepciones", "deducciones",
+        "incapacidades", "horasExtras" })
 @XmlRootElement(name = "Nomina")
 public class Nomina {
 

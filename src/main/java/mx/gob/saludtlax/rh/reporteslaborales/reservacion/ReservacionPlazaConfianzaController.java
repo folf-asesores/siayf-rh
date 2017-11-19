@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -45,7 +45,8 @@ public class ReservacionPlazaConfianzaController implements Serializable {
         view = new ReservacionView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -54,7 +55,9 @@ public class ReservacionPlazaConfianzaController implements Serializable {
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -70,27 +73,33 @@ public class ReservacionPlazaConfianzaController implements Serializable {
 
         String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = reservacionPlazaConfianzaEJB.consultarPorCriterio(criterio);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaConfianzaEJB
+                .consultarPorCriterio(criterio);
         view.setReservacionDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaConfianza() {
         ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
-        Integer idMovimientoEmpledo = reservacionPlazaConfianzaEJB.guardar(reservacionDTO);
-        ReservacionDTO reservacionDTOPersistida = reservacionPlazaConfianzaEJB.obtenerReservacion(idMovimientoEmpledo);
+        Integer idMovimientoEmpledo = reservacionPlazaConfianzaEJB
+                .guardar(reservacionDTO);
+        ReservacionDTO reservacionDTOPersistida = reservacionPlazaConfianzaEJB
+                .obtenerReservacion(idMovimientoEmpledo);
 
         ReservacionPlazaConfianzaWord wordReservacionPlazaConfianza = new ReservacionPlazaConfianzaWord();
-        byte[] bytesWord = wordReservacionPlazaConfianza.generar(reservacionDTOPersistida);
+        byte[] bytesWord = wordReservacionPlazaConfianza
+                .generar(reservacionDTOPersistida);
         FacesContext fc = FacesContext.getCurrentInstance();
 
         try {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReservacionPlazaConfianza.docx");
+            ec.setResponseHeader("Content-Disposition",
+                    "attachment;filename=" + "ReservacionPlazaConfianza.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -104,7 +113,8 @@ public class ReservacionPlazaConfianzaController implements Serializable {
     }
 
     public void contenidoReservacion(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = reservacionPlazaConfianzaEJB.obtenerReservacion(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaConfianzaEJB
+                .obtenerReservacion(idTipoMovimiento);
 
         view.setReservacionDTO(reservacionDTO);
         view.setMostrarPrincipal(false);

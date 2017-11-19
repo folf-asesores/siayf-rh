@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -43,7 +43,8 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
         view = new ReservacionView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -52,7 +53,9 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -68,7 +71,8 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
 
         String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = reservacionPlazaEleccionPopularEJB.consultarPorCriterio(criterio);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaEleccionPopularEJB
+                .consultarPorCriterio(criterio);
         view.setReservacionDetalleDTO(resultado);
     }
 
@@ -76,16 +80,19 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
         ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
         ReservacionPlazaEleccionPopularWord reservacionPlazaEleccionPopularWord = new ReservacionPlazaEleccionPopularWord();
-        byte[] bytesWord = reservacionPlazaEleccionPopularWord.generar(reservacionDTO);
+        byte[] bytesWord = reservacionPlazaEleccionPopularWord
+                .generar(reservacionDTO);
         FacesContext fc = FacesContext.getCurrentInstance();
 
         try {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReservacionPlazaEleccionPopular.docx");
+            ec.setResponseHeader("Content-Disposition", "attachment;filename="
+                    + "ReservacionPlazaEleccionPopular.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -99,7 +106,8 @@ public class ReservacionPlazaEleccionPopularController implements Serializable {
     }
 
     public void contenidoReservacionOtra(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = reservacionPlazaEleccionPopularEJB.obtenerReservacionOtra(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaEleccionPopularEJB
+                .obtenerReservacionOtra(idTipoMovimiento);
 
         view.setReservacionDTO(reservacionDTO);
         view.setMostrarPrincipal(false);

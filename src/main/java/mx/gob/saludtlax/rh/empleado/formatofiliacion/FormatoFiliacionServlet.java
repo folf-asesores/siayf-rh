@@ -28,8 +28,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 14:38:46 13/10/2016
  */
@@ -40,18 +40,22 @@ public class FormatoFiliacionServlet extends HttpServlet {
     *
     */
     private static final long serialVersionUID = 3946310335496722188L;
-    private static final Logger LOGGER = Logger.getLogger(FormatoFiliacionServlet.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(FormatoFiliacionServlet.class.getName());
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
+        Integer idEmpleado = Integer
+                .parseInt(request.getParameter("idEmpleado"));
 
         byte[] bytes = doReport(idEmpleado);
 
         ServletOutputStream servletOutputStream = response.getOutputStream();
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
-        response.setHeader("Content-Disposition", "inline;filename=" + "Formato_Filiacion.pdf");
+        response.setHeader("Content-Disposition",
+                "inline;filename=" + "Formato_Filiacion.pdf");
         servletOutputStream.write(bytes, 0, bytes.length);
         servletOutputStream.flush();
         servletOutputStream.close();
@@ -60,11 +64,13 @@ public class FormatoFiliacionServlet extends HttpServlet {
     private byte[] doReport(Integer idEmpleado) {
         byte[] bytes = null;
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/FORMATO_FILIACION.jasper");
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("/reportes/FORMATO_FILIACION.jasper");
         Connection conexion = null;
         try {
             Context initcontext = new InitialContext();
-            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+            DataSource ds = (DataSource) initcontext
+                    .lookup("java:jboss/datasources/SIAYFRHDS");
 
             conexion = ds.getConnection();
 
@@ -72,13 +78,18 @@ public class FormatoFiliacionServlet extends HttpServlet {
 
             parameters.put("ID_EMPLEADO", idEmpleado);
 
-            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters,
+                    conexion);
 
         } catch (NamingException ex) {
-            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            System.err.println(
+                    "Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (SQLException ex) {
-            System.err.println("Error al tratar obtener la conexión con la base de datos en " + getClass().getName());
+            System.err.println(
+                    "Error al tratar obtener la conexión con la base de datos en "
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (JRException ex) {
             System.err.println("Error durante la generación del reporte ");
@@ -88,7 +99,9 @@ public class FormatoFiliacionServlet extends HttpServlet {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    LOGGER.error("Error al tratar cerrar la conexión con la base de datos en " + getClass().getName());
+                    LOGGER.error(
+                            "Error al tratar cerrar la conexión con la base de datos en "
+                                    + getClass().getName());
                     e.printStackTrace();
                 }
             }

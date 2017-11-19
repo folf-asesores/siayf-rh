@@ -1,7 +1,8 @@
 
 package mx.gob.saludtlax.rh.persistencia;
 
-public class ProyeccionesPresupuestalesRepository extends GenericRepository<ProyeccionesPresupuestalesEntity, Integer> {
+public class ProyeccionesPresupuestalesRepository
+        extends GenericRepository<ProyeccionesPresupuestalesEntity, Integer> {
     /**
      *
      */

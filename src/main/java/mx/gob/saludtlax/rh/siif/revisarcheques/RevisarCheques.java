@@ -9,7 +9,8 @@ public interface RevisarCheques {
 
     List<RevisarChequesDTO> obtenerListaRevisarCheques();
 
-    List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo, Integer anio);
+    List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo,
+            Integer anio);
 
     List<RevisarChequesDTO> obtenerListaRevisarChequesAvanzada();
 

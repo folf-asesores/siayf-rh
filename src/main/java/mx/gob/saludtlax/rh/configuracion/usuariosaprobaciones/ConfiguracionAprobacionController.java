@@ -26,7 +26,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  * @author Leila Schiaffini Ehuan
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @since 04/11/2016 12:47:58
  */
 @ManagedBean(name = "configuracionAprobacion")
@@ -52,13 +52,15 @@ public class ConfiguracionAprobacionController implements Serializable {
 
         view = new ConfiguracionAprobacionView();
 
-        view.setListaOperaciones(SelectItemsUtil.listaCatalogos(catalogo.consultarOperacionesSistema()));
+        view.setListaOperaciones(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarOperacionesSistema()));
         view.setUsuariosActivos(usuario.consultarInfoUsuariosActivos());
     }
 
     public void consultarUsuariosOperacion() {
         try {
-            view.setUsuarios(configuracionAprobaciones.consultarUsuariosAprobacion(view.getIdOperacion()));
+            view.setUsuarios(configuracionAprobaciones
+                    .consultarUsuariosAprobacion(view.getIdOperacion()));
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
         }
@@ -66,7 +68,8 @@ public class ConfiguracionAprobacionController implements Serializable {
 
     public void obtenerListaUsuarioActivo() {
         try {
-            List<InfoUsuarioDTO> usuariosActivos = usuario.consultarInfoUsuariosActivos();
+            List<InfoUsuarioDTO> usuariosActivos = usuario
+                    .consultarInfoUsuariosActivos();
 
             List<CatalogoDTO> lista = new ArrayList<>();
 
@@ -79,7 +82,8 @@ public class ConfiguracionAprobacionController implements Serializable {
                 }
             }
 
-            view.setListaUsuarioActivoItems(SelectItemsUtil.listaCatalogos(lista));
+            view.setListaUsuarioActivoItems(
+                    SelectItemsUtil.listaCatalogos(lista));
 
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -88,7 +92,8 @@ public class ConfiguracionAprobacionController implements Serializable {
 
     public void obtenerTiposMovimientoEmpleados() {
         try {
-            view.setListaTipoMovimientoEmpleado(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaTipoMovimientoEmpleado()));
+            view.setListaTipoMovimientoEmpleado(SelectItemsUtil.listaCatalogos(
+                    catalogo.obtenerListaTipoMovimientoEmpleado()));
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
         }
@@ -99,9 +104,11 @@ public class ConfiguracionAprobacionController implements Serializable {
             if (ValidacionUtil.esNumeroPositivo(view.getIdOperacion())) {
                 view.setUsuariosSeleccionados(new ArrayList<InfoUsuarioDTO>());
                 view.setMostrarRegistro(true);
-                view.setOperacionSeleccionada(configuracionAprobaciones.obtenerDescripcionOperacion(view.getIdOperacion()));
+                view.setOperacionSeleccionada(configuracionAprobaciones
+                        .obtenerDescripcionOperacion(view.getIdOperacion()));
             } else {
-                throw new ValidacionException("Seleccione una operación", ValidacionCodigoError.VALOR_REQUERIDO);
+                throw new ValidacionException("Seleccione una operación",
+                        ValidacionCodigoError.VALOR_REQUERIDO);
             }
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -110,12 +117,18 @@ public class ConfiguracionAprobacionController implements Serializable {
 
     public void mostrarActualizacion(UsuarioConfiguracionDTO dto) {
 
-        view.getActualizarConfiguracionAprobacion().setIdConfiguracionAprobacion(dto.getIdConfiguracionAprobacion());
-        view.getActualizarConfiguracionAprobacion().setIdAccionUsuario(dto.getIdAccionUsuario());
-        view.getActualizarConfiguracionAprobacion().setIdUsuario(dto.getIdUsuario());
-        view.setAplicaMovimientos(configuracionAprobaciones.aplicaMovimientos(dto.getIdAccionUsuario()));
+        view.getActualizarConfiguracionAprobacion()
+                .setIdConfiguracionAprobacion(
+                        dto.getIdConfiguracionAprobacion());
+        view.getActualizarConfiguracionAprobacion()
+                .setIdAccionUsuario(dto.getIdAccionUsuario());
+        view.getActualizarConfiguracionAprobacion()
+                .setIdUsuario(dto.getIdUsuario());
+        view.setAplicaMovimientos(configuracionAprobaciones
+                .aplicaMovimientos(dto.getIdAccionUsuario()));
         if (view.getAplicaMovimientos()) {
-            view.getActualizarConfiguracionAprobacion().setIdTipoMovimiento(dto.getIdTipoMovimiento());
+            view.getActualizarConfiguracionAprobacion()
+                    .setIdTipoMovimiento(dto.getIdTipoMovimiento());
             ;
         }
         if (dto.getEstatus().equals(EnumEstatusConfiguracion.ACTIVO)) {
@@ -152,7 +165,8 @@ public class ConfiguracionAprobacionController implements Serializable {
             Integer idOperacion = view.getIdOperacion();
             List<Integer> usuarios = new ArrayList<>();
 
-            for (InfoUsuarioDTO usuarioSeleccionado : view.getUsuariosSeleccionados()) {
+            for (InfoUsuarioDTO usuarioSeleccionado : view
+                    .getUsuariosSeleccionados()) {
                 usuarios.add(usuarioSeleccionado.getIdUsuario());
             }
 
@@ -164,7 +178,8 @@ public class ConfiguracionAprobacionController implements Serializable {
             ocultarRegistro();
             consultarUsuariosOperacion();
 
-            JSFUtils.infoMessage("Registro Configuración Aprovación: ", "Se realizo correctamente.");
+            JSFUtils.infoMessage("Registro Configuración Aprovación: ",
+                    "Se realizo correctamente.");
 
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -173,12 +188,15 @@ public class ConfiguracionAprobacionController implements Serializable {
 
     public void actualizarConfiguracionAprovacion() {
         try {
-            configuracionAprobaciones.actualizarConfiguracionAprobacion(view.getActualizarConfiguracionAprobacion());
-            JSFUtils.infoMessage("Actualizar Configuración Aprobación: ", "Se realizo correctamente.");
+            configuracionAprobaciones.actualizarConfiguracionAprobacion(
+                    view.getActualizarConfiguracionAprobacion());
+            JSFUtils.infoMessage("Actualizar Configuración Aprobación: ",
+                    "Se realizo correctamente.");
             view.setPanelPrincipal(true);
             view.setPanelActualizar(false);
             consultarUsuariosOperacion();
-            view.setActualizarConfiguracionAprobacion(new ActualizacionConfiguracionAprobacionDTO());
+            view.setActualizarConfiguracionAprobacion(
+                    new ActualizacionConfiguracionAprobacionDTO());
         } catch (ReglaNegocioException | ValidacionException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
         }
@@ -186,8 +204,10 @@ public class ConfiguracionAprobacionController implements Serializable {
 
     public void eliminarConfiguracionAprobacion() {
         try {
-            configuracionAprobaciones.eliminarConfiguracionAprobacion(view.getIdConfiguracionAprobacion());
-            JSFUtils.infoMessage("Eliminación Configuración Aprobación: ", "Se realizo correctamente.");
+            configuracionAprobaciones.eliminarConfiguracionAprobacion(
+                    view.getIdConfiguracionAprobacion());
+            JSFUtils.infoMessage("Eliminación Configuración Aprobación: ",
+                    "Se realizo correctamente.");
 
             cerrarDialogEliminar();
             consultarUsuariosOperacion();

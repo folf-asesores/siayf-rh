@@ -11,7 +11,8 @@ import java.util.List;
  *
  * @since 13/06/2016 23:45:47
  */
-public class ComprobanteEstudioRepository extends GenericRepository<ComprobanteEstudioEntity, Integer> {
+public class ComprobanteEstudioRepository
+        extends GenericRepository<ComprobanteEstudioEntity, Integer> {
 
     /**
      *
@@ -19,6 +20,7 @@ public class ComprobanteEstudioRepository extends GenericRepository<ComprobanteE
     private static final long serialVersionUID = -2836652155038529608L;
 
     public List<ComprobanteEstudioEntity> consultarComprobantesEstudios() {
-        return em.createQuery("SELECT c FROM ComprobanteEstudioEntity AS c", ComprobanteEstudioEntity.class).getResultList();
+        return em.createQuery("SELECT c FROM ComprobanteEstudioEntity AS c",
+                ComprobanteEstudioEntity.class).getResultList();
     }
 }

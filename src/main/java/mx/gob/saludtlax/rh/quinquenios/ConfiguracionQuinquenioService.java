@@ -9,11 +9,14 @@ public interface ConfiguracionQuinquenioService {
 
     public List<ConfiguracionQuinquenioDTO> obtenerConfiguraciones();
 
-    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorEmpleado(Integer idempleado);
+    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorEmpleado(
+            Integer idempleado);
 
-    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorConfiguracionPresup(Integer idConfiguracion);
+    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorConfiguracionPresup(
+            Integer idConfiguracion);
 
-    public List<InfoEmpleadoVacanteDTO> buscarEmpleadosPorTipoNombramiento(Integer idNombramiento);
+    public List<InfoEmpleadoVacanteDTO> buscarEmpleadosPorTipoNombramiento(
+            Integer idNombramiento);
 
     public void crearConfiguracion(ConfiguracionQuinquenioDTO dto);
 

@@ -127,7 +127,8 @@ public class ProductoNominaListaDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

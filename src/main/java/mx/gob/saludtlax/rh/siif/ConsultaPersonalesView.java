@@ -92,7 +92,8 @@ public class ConsultaPersonalesView {
         return listDatosPersonales;
     }
 
-    public void setListDatosPersonales(List<DatosPersonalesDTO> listDatosPersonales) {
+    public void setListDatosPersonales(
+            List<DatosPersonalesDTO> listDatosPersonales) {
         this.listDatosPersonales = listDatosPersonales;
     }
 
@@ -100,7 +101,8 @@ public class ConsultaPersonalesView {
         return listDatosPersonalesLista;
     }
 
-    public void setListDatosPersonalesLista(List<DatosPersonalesDTO> listDatosPersonalesLista) {
+    public void setListDatosPersonalesLista(
+            List<DatosPersonalesDTO> listDatosPersonalesLista) {
         this.listDatosPersonalesLista = listDatosPersonalesLista;
     }
 
@@ -116,7 +118,8 @@ public class ConsultaPersonalesView {
         return datoPersonalesSelect;
     }
 
-    public void setDatoPersonalesSelect(DatosPersonalesDTO datoPersonalesSelect) {
+    public void setDatoPersonalesSelect(
+            DatosPersonalesDTO datoPersonalesSelect) {
         this.datoPersonalesSelect = datoPersonalesSelect;
     }
 
@@ -168,7 +171,8 @@ public class ConsultaPersonalesView {
         return disabledIrGestionarDatosPersonales;
     }
 
-    public void setDisabledIrGestionarDatosPersonales(Boolean disabledIrGestionarDatosPersonales) {
+    public void setDisabledIrGestionarDatosPersonales(
+            Boolean disabledIrGestionarDatosPersonales) {
         this.disabledIrGestionarDatosPersonales = disabledIrGestionarDatosPersonales;
     }
 
@@ -184,7 +188,8 @@ public class ConsultaPersonalesView {
         return listSiifDatosLaborales;
     }
 
-    public void setListSiifDatosLaborales(List<SiifDatosLaboralesDTO> listSiifDatosLaborales) {
+    public void setListSiifDatosLaborales(
+            List<SiifDatosLaboralesDTO> listSiifDatosLaborales) {
         this.listSiifDatosLaborales = listSiifDatosLaborales;
     }
 
@@ -192,7 +197,8 @@ public class ConsultaPersonalesView {
         return listSiifDatosLaboralesLista;
     }
 
-    public void setListSiifDatosLaboralesLista(List<SiifDatosLaboralesListaDTO> listSiifDatosLaboralesLista) {
+    public void setListSiifDatosLaboralesLista(
+            List<SiifDatosLaboralesListaDTO> listSiifDatosLaboralesLista) {
         this.listSiifDatosLaboralesLista = listSiifDatosLaboralesLista;
     }
 
@@ -200,7 +206,8 @@ public class ConsultaPersonalesView {
         return siifDatosLaborales;
     }
 
-    public void setSiifDatosLaborales(SiifDatosLaboralesDTO siifDatosLaborales) {
+    public void setSiifDatosLaborales(
+            SiifDatosLaboralesDTO siifDatosLaborales) {
         this.siifDatosLaborales = siifDatosLaborales;
     }
 
@@ -208,7 +215,8 @@ public class ConsultaPersonalesView {
         return siifDatosLaboralesSelect;
     }
 
-    public void setSiifDatosLaboralesSelect(SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
+    public void setSiifDatosLaboralesSelect(
+            SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
         this.siifDatosLaboralesSelect = siifDatosLaboralesSelect;
     }
 
@@ -224,7 +232,8 @@ public class ConsultaPersonalesView {
         return disabledIrGestionarDatosLaborales;
     }
 
-    public void setDisabledIrGestionarDatosLaborales(Boolean disabledIrGestionarDatosLaborales) {
+    public void setDisabledIrGestionarDatosLaborales(
+            Boolean disabledIrGestionarDatosLaborales) {
         this.disabledIrGestionarDatosLaborales = disabledIrGestionarDatosLaborales;
     }
 
@@ -248,7 +257,8 @@ public class ConsultaPersonalesView {
         return listNombramiento;
     }
 
-    public void setListNombramiento(List<TipoNombramientoDTO> listNombramiento) {
+    public void setListNombramiento(
+            List<TipoNombramientoDTO> listNombramiento) {
         this.listNombramiento = listNombramiento;
     }
 
@@ -256,7 +266,8 @@ public class ConsultaPersonalesView {
         return listNombramientoID;
     }
 
-    public void setListNombramientoID(List<TipoNombramientoDTO> listNombramientoID) {
+    public void setListNombramientoID(
+            List<TipoNombramientoDTO> listNombramientoID) {
         this.listNombramientoID = listNombramientoID;
     }
 
@@ -304,7 +315,8 @@ public class ConsultaPersonalesView {
         return listSiifLaboralesSubfuentes;
     }
 
-    public void setListSiifLaboralesSubfuentes(List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
+    public void setListSiifLaboralesSubfuentes(
+            List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
         this.listSiifLaboralesSubfuentes = listSiifLaboralesSubfuentes;
     }
 
@@ -312,7 +324,8 @@ public class ConsultaPersonalesView {
         return siifLaboralesSubfuentes;
     }
 
-    public void setSiifLaboralesSubfuentes(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
+    public void setSiifLaboralesSubfuentes(
+            SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
         this.siifLaboralesSubfuentes = siifLaboralesSubfuentes;
     }
 
@@ -320,7 +333,8 @@ public class ConsultaPersonalesView {
         return siifLaboralesSubfuentesSelect;
     }
 
-    public void setSiifLaboralesSubfuentesSelect(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
+    public void setSiifLaboralesSubfuentesSelect(
+            SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
         this.siifLaboralesSubfuentesSelect = siifLaboralesSubfuentesSelect;
     }
 
@@ -336,7 +350,8 @@ public class ConsultaPersonalesView {
         return listSubfuenteF;
     }
 
-    public void setListSubfuenteF(List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
+    public void setListSubfuenteF(
+            List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
         this.listSubfuenteF = listSubfuenteF;
     }
 

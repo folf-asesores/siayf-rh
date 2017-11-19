@@ -17,8 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 10:11:22
  */

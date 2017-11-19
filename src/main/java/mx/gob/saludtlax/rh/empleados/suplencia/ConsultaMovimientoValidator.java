@@ -17,7 +17,8 @@ public class ConsultaMovimientoValidator {
     @AroundInvoke
     public Object validate(InvocationContext context) throws Exception {
 
-        FiltroMovimientoSuplenteDTO dto = (FiltroMovimientoSuplenteDTO) context.getParameters()[0];
+        FiltroMovimientoSuplenteDTO dto = (FiltroMovimientoSuplenteDTO) context
+                .getParameters()[0];
 
         return context.proceed();
     }

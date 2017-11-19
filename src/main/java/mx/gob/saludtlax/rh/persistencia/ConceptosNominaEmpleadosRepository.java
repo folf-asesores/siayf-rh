@@ -10,7 +10,8 @@ import java.util.List;
  *
  */
 
-public class ConceptosNominaEmpleadosRepository extends GenericRepository<ConceptosNominaEmpleadosEntity, Integer> {
+public class ConceptosNominaEmpleadosRepository
+        extends GenericRepository<ConceptosNominaEmpleadosEntity, Integer> {
 
     /**
      *
@@ -19,38 +20,52 @@ public class ConceptosNominaEmpleadosRepository extends GenericRepository<Concep
 
     public List<ConceptosNominaEmpleadosEntity> listaConceptosNomina() {
         List<ConceptosNominaEmpleadosEntity> conceptos_nomina_empleados = em
-                .createQuery("select c from ConceptosNominaEmpleadosEntity as c", ConceptosNominaEmpleadosEntity.class).getResultList();
+                .createQuery(
+                        "select c from ConceptosNominaEmpleadosEntity as c",
+                        ConceptosNominaEmpleadosEntity.class)
+                .getResultList();
         return conceptos_nomina_empleados;
     }
 
-    public List<ConceptosNominaEmpleadosEntity> listaConceptosNominaPorIdNominaEmpleado(int idNominaEmpleado, int tipoConcepto) {
+    public List<ConceptosNominaEmpleadosEntity> listaConceptosNominaPorIdNominaEmpleado(
+            int idNominaEmpleado, int tipoConcepto) {
         List<ConceptosNominaEmpleadosEntity> conceptos_nomina_empleados = em
                 .createQuery(
                         "select c from ConceptosNominaEmpleadosEntity as c WHERE c.nominaEmpleado.idNominaEmpleado=:idNominaEmpleado AND c.tipo=:tipoConcepto",
                         ConceptosNominaEmpleadosEntity.class)
-                .setParameter("idNominaEmpleado", idNominaEmpleado).setParameter("tipoConcepto", tipoConcepto).getResultList();
+                .setParameter("idNominaEmpleado", idNominaEmpleado)
+                .setParameter("tipoConcepto", tipoConcepto).getResultList();
         return conceptos_nomina_empleados;
     }
 
-    public List<BigDecimal> obtenerImportesGravadosPorIdNomina(Integer idNominaEmpleado) {
-        return em
-                .createQuery("SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =1 AND"
-                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado", BigDecimal.class)
-                .setParameter("idNominaEmpleado", idNominaEmpleado).getResultList();
+    public List<BigDecimal> obtenerImportesGravadosPorIdNomina(
+            Integer idNominaEmpleado) {
+        return em.createQuery(
+                "SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =1 AND"
+                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado",
+                BigDecimal.class)
+                .setParameter("idNominaEmpleado", idNominaEmpleado)
+                .getResultList();
     }
 
-    public List<BigDecimal> obtenerImportesISRPorIdNomina(Integer idNominaEmpleado) {
-        return em
-                .createQuery("SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =2 AND"
-                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado AND c.tipoSat =:tipoSat", BigDecimal.class)
-                .setParameter("idNominaEmpleado", idNominaEmpleado).setParameter("tipoSat", "002").getResultList();
+    public List<BigDecimal> obtenerImportesISRPorIdNomina(
+            Integer idNominaEmpleado) {
+        return em.createQuery(
+                "SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =2 AND"
+                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado AND c.tipoSat =:tipoSat",
+                BigDecimal.class)
+                .setParameter("idNominaEmpleado", idNominaEmpleado)
+                .setParameter("tipoSat", "002").getResultList();
     }
 
-    public List<BigDecimal> obtenerImportesSubsidioPorIdNomina(Integer idNominaEmpleado) {
-        return em
-                .createQuery("SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =1 AND"
-                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado AND c.tipoSat =:tipoSat", BigDecimal.class)
-                .setParameter("idNominaEmpleado", idNominaEmpleado).setParameter("tipoSat", "017").getResultList();
+    public List<BigDecimal> obtenerImportesSubsidioPorIdNomina(
+            Integer idNominaEmpleado) {
+        return em.createQuery(
+                "SELECT c.importeGravado FROM ConceptosNominaEmpleadosEntity AS c WHERE c.tipo =1 AND"
+                        + " c.nominaEmpleado.idNominaEmpleado =:idNominaEmpleado AND c.tipoSat =:tipoSat",
+                BigDecimal.class)
+                .setParameter("idNominaEmpleado", idNominaEmpleado)
+                .setParameter("tipoSat", "017").getResultList();
     }
 
     // public MovimientosNominaEmpleadoDTO
@@ -80,11 +95,14 @@ public class ConceptosNominaEmpleadosRepository extends GenericRepository<Concep
     // .setParameter("idEmpleado", movimientosNomina.getIdEmpleado());
     // }
 
-    public List<ConceptosNominaEmpleadosEntity> listaConceptosNominaPorIdNominaEmpleado(int idNominaEmpleado) {
+    public List<ConceptosNominaEmpleadosEntity> listaConceptosNominaPorIdNominaEmpleado(
+            int idNominaEmpleado) {
         List<ConceptosNominaEmpleadosEntity> conceptos_nomina_empleados = em
-                .createQuery("select c from ConceptosNominaEmpleadosEntity as c WHERE c.nominaEmpleado.idNominaEmpleado=:idNominaEmpleado ",
+                .createQuery(
+                        "select c from ConceptosNominaEmpleadosEntity as c WHERE c.nominaEmpleado.idNominaEmpleado=:idNominaEmpleado ",
                         ConceptosNominaEmpleadosEntity.class)
-                .setParameter("idNominaEmpleado", idNominaEmpleado).getResultList();
+                .setParameter("idNominaEmpleado", idNominaEmpleado)
+                .getResultList();
         return conceptos_nomina_empleados;
     }
 

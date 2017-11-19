@@ -18,18 +18,26 @@ public class EjercicioFiscalEJB {
     private TipoPeriodoService tipoPeriodoService;
 
     public List<EjercicioFiscalListaDTO> obtenerEjercicioFiscalLista() {
-        List<EjercicioFiscalListaDTO> ejercicioFiscalLista = ejercicioFiscalService.listaEjercicioFiscal();
+        List<EjercicioFiscalListaDTO> ejercicioFiscalLista = ejercicioFiscalService
+                .listaEjercicioFiscal();
         return ejercicioFiscalLista;
     }
 
-    public List<EjercicioFiscalListaDTO> obtenerEjercicioFiscalListaPorAnio(Integer ejercicioFiscal) {
+    public List<EjercicioFiscalListaDTO> obtenerEjercicioFiscalListaPorAnio(
+            Integer ejercicioFiscal) {
         // Validar el ejercicioFiscal se un número valido.
-        return ejercicioFiscalService.listaEjercicioFiscalPorejercicioFiscal(ejercicioFiscal);
+        return ejercicioFiscalService
+                .listaEjercicioFiscalPorejercicioFiscal(ejercicioFiscal);
     }
 
-    public EjercicioFiscalDTO obtenerEjercicioFiscal(EjercicioFiscalListaDTO ejercicioFiscal) {
-        EjercicioFiscalDTO dto = ejercicioFiscalService.obtenerEjercicioFiscalPorId(ejercicioFiscal.getIdEjercicioFiscal());
-        dto.setListPeriodoCalendario(ejercicioFiscalService.listaPeriodoCalendarioPorIdEjercicioFiscal(ejercicioFiscal.getIdEjercicioFiscal()));
+    public EjercicioFiscalDTO obtenerEjercicioFiscal(
+            EjercicioFiscalListaDTO ejercicioFiscal) {
+        EjercicioFiscalDTO dto = ejercicioFiscalService
+                .obtenerEjercicioFiscalPorId(
+                        ejercicioFiscal.getIdEjercicioFiscal());
+        dto.setListPeriodoCalendario(ejercicioFiscalService
+                .listaPeriodoCalendarioPorIdEjercicioFiscal(
+                        ejercicioFiscal.getIdEjercicioFiscal()));
         return dto;
     }
 
@@ -37,7 +45,8 @@ public class EjercicioFiscalEJB {
         return ejercicioFiscalService.nuevoEjercicioFiscal();
     }
 
-    public EjercicioFiscalDTO crearEjercicioFiscal(EjercicioFiscalDTO ejercicioFiscalDTO) {
+    public EjercicioFiscalDTO crearEjercicioFiscal(
+            EjercicioFiscalDTO ejercicioFiscalDTO) {
         return ejercicioFiscalService.crearEjercicioFiscal(ejercicioFiscalDTO);
     }
 
@@ -45,19 +54,24 @@ public class EjercicioFiscalEJB {
         return tipoPeriodoService.listaTipoPeriodo();
     }
 
-    public EjercicioFiscalDTO actualizarEjercicioFiscal(EjercicioFiscalDTO ejercicioFiscal) {
-        return ejercicioFiscalService.actualizarEjercicioFiscal(ejercicioFiscal);
+    public EjercicioFiscalDTO actualizarEjercicioFiscal(
+            EjercicioFiscalDTO ejercicioFiscal) {
+        return ejercicioFiscalService
+                .actualizarEjercicioFiscal(ejercicioFiscal);
     }
 
-    public void eliminarEjercicioFiscal(EjercicioFiscalListaDTO ejercicioFiscal) {
+    public void eliminarEjercicioFiscal(
+            EjercicioFiscalListaDTO ejercicioFiscal) {
         ejercicioFiscalService.eliminarEjercicioFical(ejercicioFiscal);
     }
 
     // Opciones de Periodos
     //Obtener Periodos
 
-    public PeriodoCalendarioDTO obtenerPeriodoCalendario(PeriodoCalendarioDTO periodoCalendarioSelect) {
-        return ejercicioFiscalService.obtenerPeriodoCalendarioPorId(periodoCalendarioSelect.getIdPeriodoCalendario());
+    public PeriodoCalendarioDTO obtenerPeriodoCalendario(
+            PeriodoCalendarioDTO periodoCalendarioSelect) {
+        return ejercicioFiscalService.obtenerPeriodoCalendarioPorId(
+                periodoCalendarioSelect.getIdPeriodoCalendario());
     }
 
     //	public List<PeriodoCalendarioDTO> obtenerPeriodoCalendarioLista() {
@@ -67,16 +81,20 @@ public class EjercicioFiscalEJB {
 
     //Nuevo Crear Actualizar Eliminar Periodos
 
-    public PeriodoCalendarioDTO nuevoPeriodoCalendario(PeriodoCalendarioDTO dto, Integer ef) {
+    public PeriodoCalendarioDTO nuevoPeriodoCalendario(PeriodoCalendarioDTO dto,
+            Integer ef) {
         return ejercicioFiscalService.nuevoPeriodoCalendario(dto, ef);
     }
 
-    public void actualizaPeriodoCalendario(PeriodoCalendarioDTO periodoCalendario) {
+    public void actualizaPeriodoCalendario(
+            PeriodoCalendarioDTO periodoCalendario) {
         ejercicioFiscalService.actualizaPeriodoCalendario(periodoCalendario);
     }
 
-    public void eliminarPeriodoCalendario(PeriodoCalendarioDTO periodoCalendarioSelect) {
-        ejercicioFiscalService.eliminarPeriodoCalendario(periodoCalendarioSelect);
+    public void eliminarPeriodoCalendario(
+            PeriodoCalendarioDTO periodoCalendarioSelect) {
+        ejercicioFiscalService
+                .eliminarPeriodoCalendario(periodoCalendarioSelect);
     }
 
 }

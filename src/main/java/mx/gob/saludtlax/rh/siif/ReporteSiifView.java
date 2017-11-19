@@ -154,7 +154,8 @@ public class ReporteSiifView implements Serializable {
         return cuentaBancariaList;
     }
 
-    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+    public void setCuentaBancariaList(
+            List<CuentaBancariaDTO> cuentaBancariaList) {
         this.cuentaBancariaList = cuentaBancariaList;
     }
 
@@ -170,7 +171,8 @@ public class ReporteSiifView implements Serializable {
         return siifBitacoraProcesada;
     }
 
-    public void setSiifBitacoraProcesada(SiifBitacoraDTO siifBitacoraProcesada) {
+    public void setSiifBitacoraProcesada(
+            SiifBitacoraDTO siifBitacoraProcesada) {
         this.siifBitacoraProcesada = siifBitacoraProcesada;
     }
 
@@ -186,7 +188,8 @@ public class ReporteSiifView implements Serializable {
         return siifEncabezadoSelect;
     }
 
-    public void setSiifEncabezadoSelect(SIIFEncabezadoDTO siifEncabezadoSelect) {
+    public void setSiifEncabezadoSelect(
+            SIIFEncabezadoDTO siifEncabezadoSelect) {
         this.siifEncabezadoSelect = siifEncabezadoSelect;
     }
 
@@ -210,7 +213,8 @@ public class ReporteSiifView implements Serializable {
         return subfuenteFinanciamientoList;
     }
 
-    public void setSubfuenteFinanciamientoList(List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
+    public void setSubfuenteFinanciamientoList(
+            List<SubfuenteFinanciamiento> subfuenteFinanciamientoList) {
         this.subfuenteFinanciamientoList = subfuenteFinanciamientoList;
     }
 
@@ -234,7 +238,8 @@ public class ReporteSiifView implements Serializable {
         return trailersLista;
     }
 
-    public void setTrailersLista(List<EstructuraNominaTrailersDTO> trailersLista) {
+    public void setTrailersLista(
+            List<EstructuraNominaTrailersDTO> trailersLista) {
         this.trailersLista = trailersLista;
     }
 
@@ -290,7 +295,8 @@ public class ReporteSiifView implements Serializable {
         return encabezadoListSiif;
     }
 
-    public void setEncabezadoListSiif(List<SIIFEncabezadoDTO> encabezadoListSiif) {
+    public void setEncabezadoListSiif(
+            List<SIIFEncabezadoDTO> encabezadoListSiif) {
         this.encabezadoListSiif = encabezadoListSiif;
     }
 

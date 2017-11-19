@@ -35,11 +35,13 @@ public class ServicioWebEditarController implements Serializable {
     @PostConstruct
     public void init() {
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("id");
 
         if (!id.equals(null)) {
-            servicioRSEntity = serviciosWebEJB.getServicioRSEntity(new Integer(id));
+            servicioRSEntity = serviciosWebEJB
+                    .getServicioRSEntity(new Integer(id));
         }
 
     }
@@ -57,7 +59,9 @@ public class ServicioWebEditarController implements Serializable {
             serviciosWebEJB.actualizarInformacionServicio(servicioRSEntity);
         } catch (ServicioWebException e) {
 
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage("info", facesMessage);
             return "";
         }
@@ -69,22 +73,28 @@ public class ServicioWebEditarController implements Serializable {
         return ServicioWebEnum.values();
     }
 
-    public void validarFormulario(FacesContext context, UIComponent component, Object value) {
+    public void validarFormulario(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "url":
-                Pattern pat = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
+                Pattern pat = Pattern.compile(
+                        "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
                 String url = (String) value;
                 if (url == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El campo url es obligatorio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El campo url es obligatorio");
                     context.addMessage(component.getId(), facesMessage);
                     throw new ValidatorException(facesMessage);
 
                 }
                 Matcher mat = pat.matcher(url);
                 if (!mat.matches()) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una url valida http:// o https://.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una url valida http:// o https://.");
                     context.addMessage(component.getId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

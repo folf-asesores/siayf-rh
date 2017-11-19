@@ -51,7 +51,8 @@ public class ConfiguracionAplicacionEntity implements Serializable {
         return idConfiguracionAplicacion;
     }
 
-    public void setIdConfiguracionAplicacion(Integer idConfiguracionAplicacion) {
+    public void setIdConfiguracionAplicacion(
+            Integer idConfiguracionAplicacion) {
         this.idConfiguracionAplicacion = idConfiguracionAplicacion;
     }
 

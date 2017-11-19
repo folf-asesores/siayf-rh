@@ -28,7 +28,8 @@ import org.jboss.logging.Logger;
 public class ReporteVacio implements Serializable {
 
     private static final long serialVersionUID = 7107911995230489541L;
-    private static final Logger LOGGER = Logger.getLogger(ReporteVacio.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ReporteVacio.class.getName());
 
     private ReporteVacio() {
     }
@@ -39,10 +40,12 @@ public class ReporteVacio implements Serializable {
      * @return un arreglo de bytes que contiene un archivo de Excel vacio.
      */
     public static byte[] obtenerBytes() {
-        String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("Hoja 1", '_');
+        String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("Hoja 1",
+                '_');
         byte[] archivo;
 
-        try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); Workbook libro = new XSSFWorkbook()) {
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                Workbook libro = new XSSFWorkbook()) {
             libro.createSheet(nombreHojaSeguro);
             libro.write(baos);
             archivo = baos.toByteArray();

@@ -26,7 +26,8 @@ public class ConfiguracionTipoMovimientoDTO {
         return listConceptoNomina;
     }
 
-    public void setListConceptoNomina(List<ConceptoNominaFederalesDTO> listConceptoNomina) {
+    public void setListConceptoNomina(
+            List<ConceptoNominaFederalesDTO> listConceptoNomina) {
         this.listConceptoNomina = listConceptoNomina;
     }
 

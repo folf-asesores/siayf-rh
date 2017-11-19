@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.FiltroDTO;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class HistorialPagoView implements Serializable {

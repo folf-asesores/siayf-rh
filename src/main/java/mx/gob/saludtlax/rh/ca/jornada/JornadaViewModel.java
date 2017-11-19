@@ -53,7 +53,8 @@ public class JornadaViewModel implements Serializable {
         return reglasAsistencia;
     }
 
-    public void setReglasAsistencia(List<ReglaAsistenciaViewModel> reglasAsistencia) {
+    public void setReglasAsistencia(
+            List<ReglaAsistenciaViewModel> reglasAsistencia) {
         this.reglasAsistencia = reglasAsistencia;
     }
 

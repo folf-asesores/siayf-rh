@@ -21,14 +21,16 @@ public interface MovimientosEmpleados {
      *
      * @param registroMovimientoDTO
      */
-    public void crearMovimientoEmpleado(RegistroMovimientoDTO registroMovimientoDTO);
+    public void crearMovimientoEmpleado(
+            RegistroMovimientoDTO registroMovimientoDTO);
 
     /**
      * Consulta los movimientos de empleados.
      *
      * @param filtroConsultaDTO
      */
-    public List<InfoMovimientoDTO> consultarMovimientos(FiltroConsultaDTO filtroConsultaDTO);
+    public List<InfoMovimientoDTO> consultarMovimientos(
+            FiltroConsultaDTO filtroConsultaDTO);
 
     /**
      * Obtiene el detalle del movimiento del empleado.
@@ -61,6 +63,7 @@ public interface MovimientosEmpleados {
      * @param fechaFinal
      * @return
      */
-    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial, Date fechaFinal);
+    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(
+            Date fechaInicial, Date fechaFinal);
 
 }

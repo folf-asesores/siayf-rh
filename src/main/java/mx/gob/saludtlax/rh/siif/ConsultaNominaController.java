@@ -57,18 +57,24 @@ public class ConsultaNominaController {
     }
 
     public String irPrincipal() {
-        System.out.println("consultaNomina-irPrincipal: this.view.getRfcCriterio():: " + view.getRfcCriterio());
+        System.out.println(
+                "consultaNomina-irPrincipal: this.view.getRfcCriterio():: "
+                        + view.getRfcCriterio());
         //this.view.setListDatosPersonalesLista(datoPersonal.obtenerlistaDatosPersonalesPorCriterio(this.view.getRfcCriterio()));
         //
-        view.setListEstructuraNomina(ejb.obtenerConsultaNominaListaPorCriterios(view.getEstructuraNominaSeleccionada()));
+        view.setListEstructuraNomina(ejb.obtenerConsultaNominaListaPorCriterios(
+                view.getEstructuraNominaSeleccionada()));
         //this.view.setListEstructuraNomina(ejb.obtenerConsultaNominaContratoListaPorCriterios(this.view.getRfcCriterio()));
         view.panelPrincipal();
         return "/contenido/siif/consultaNomina.xhtml?redirect-true";
     }
 
     public String filtrarPorCriterios() {
-        view.setListEstructuraNomina(ejb.obtenerConsultaNominaListaPorCriterios(view.getRfcCriterio()));
-        view.setListEstructuraNominaTrailers(ejb.obtenerConsultaNominaTrailersListaPorCriterios(view.getRfcCriterio()));
+        view.setListEstructuraNomina(ejb
+                .obtenerConsultaNominaListaPorCriterios(view.getRfcCriterio()));
+        view.setListEstructuraNominaTrailers(
+                ejb.obtenerConsultaNominaTrailersListaPorCriterios(
+                        view.getRfcCriterio()));
         view.setTabDat(Boolean.TRUE);
         view.setTabTra(Boolean.TRUE);
         return null;
@@ -95,7 +101,8 @@ public class ConsultaNominaController {
     }
 
     public void modificarTrailers() {
-        ejb.modificarTrailers(view.getEstructuraNomina().getRfc(), view.getEstructuraNominaSelect().getIdEstructurasNominas());
+        ejb.modificarTrailers(view.getEstructuraNomina().getRfc(),
+                view.getEstructuraNominaSelect().getIdEstructurasNominas());
         //		System.out.println("el RFC es....."+view.getEstructuraNomina().getRfc());
         //		System.out.println("el Originales....."+rfcOriginal);
         //		System.out.println("el ID es....."+view.getEstructuraNominaSelect().getIdEstructurasNominas());
@@ -118,7 +125,8 @@ public class ConsultaNominaController {
     }
 
     public String irGestionarDatos() {
-        view.setEstructuraNomina(ejb.obtenerDatos(view.getEstructuraNominaSelect()));
+        view.setEstructuraNomina(
+                ejb.obtenerDatos(view.getEstructuraNominaSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelDatos();
         rfcOriginal = view.getEstructuraNominaSelect().getRfc();
@@ -129,7 +137,8 @@ public class ConsultaNominaController {
         if (view.getOperacionNuevo()) {
             ejb.crearDatos(view.getEstructuraNomina());
         } else {
-            System.out.println("Original..." + rfcOriginal + "Nuevo..." + view.getEstructuraNomina().getRfc());
+            System.out.println("Original..." + rfcOriginal + "Nuevo..."
+                    + view.getEstructuraNomina().getRfc());
             if (rfcOriginal.equals(view.getEstructuraNomina().getRfc())) {
                 ejb.actualizarDatos(view.getEstructuraNomina());
             } else {
@@ -168,7 +177,8 @@ public class ConsultaNominaController {
     }
 
     public String irGestionarTrailers() {
-        view.setEstructuraNominaTrailers(ejb.obtenerTrailers(view.getEstructuraNominaTrailersSelect()));
+        view.setEstructuraNominaTrailers(
+                ejb.obtenerTrailers(view.getEstructuraNominaTrailersSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelTrailers();
         ;
@@ -214,7 +224,8 @@ public class ConsultaNominaController {
         view.setDisabledIrGestionarTrailers(Boolean.TRUE);
     }
 
-    public void validatorConsultaNomina(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsultaNomina(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -222,13 +233,18 @@ public class ConsultaNominaController {
                 String rfcCriterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(rfcCriterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (rfcCriterio.length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese minimo 5 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese minimo 5 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

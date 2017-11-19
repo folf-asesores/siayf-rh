@@ -36,7 +36,8 @@ public class SubfuenteFinanciamientoView {
         return fuenteFinanciamientoCriterio;
     }
 
-    public void setFuenteFinanciamientoCriterio(Integer fuenteFinanciamientoCriterio) {
+    public void setFuenteFinanciamientoCriterio(
+            Integer fuenteFinanciamientoCriterio) {
         this.fuenteFinanciamientoCriterio = fuenteFinanciamientoCriterio;
     }
 
@@ -44,7 +45,8 @@ public class SubfuenteFinanciamientoView {
         return listFuenteFinanciamiento;
     }
 
-    public void setListFuenteFinanciamiento(List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
+    public void setListFuenteFinanciamiento(
+            List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
         this.listFuenteFinanciamiento = listFuenteFinanciamiento;
     }
 
@@ -52,7 +54,8 @@ public class SubfuenteFinanciamientoView {
         return fuenteFinanciamientoOPDCriterio;
     }
 
-    public void setFuenteFinanciamientoOPDCriterio(Integer fuenteFinanciamientoOPDCriterio) {
+    public void setFuenteFinanciamientoOPDCriterio(
+            Integer fuenteFinanciamientoOPDCriterio) {
         this.fuenteFinanciamientoOPDCriterio = fuenteFinanciamientoOPDCriterio;
     }
 
@@ -60,7 +63,8 @@ public class SubfuenteFinanciamientoView {
         return listFuenteFinanciamientoOPD;
     }
 
-    public void setListFuenteFinanciamientoOPD(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
+    public void setListFuenteFinanciamientoOPD(
+            List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
         this.listFuenteFinanciamientoOPD = listFuenteFinanciamientoOPD;
     }
 
@@ -68,7 +72,8 @@ public class SubfuenteFinanciamientoView {
         return subfuenteFinanciamientoCriterio;
     }
 
-    public void setSubfuenteFinanciamientoCriterio(Integer subfuenteFinanciamientoCriterio) {
+    public void setSubfuenteFinanciamientoCriterio(
+            Integer subfuenteFinanciamientoCriterio) {
         this.subfuenteFinanciamientoCriterio = subfuenteFinanciamientoCriterio;
     }
 
@@ -76,7 +81,8 @@ public class SubfuenteFinanciamientoView {
         return listSubfuenteFinanciamiento;
     }
 
-    public void setListSubfuenteFinanciamiento(List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
+    public void setListSubfuenteFinanciamiento(
+            List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
         this.listSubfuenteFinanciamiento = listSubfuenteFinanciamiento;
     }
 
@@ -84,7 +90,8 @@ public class SubfuenteFinanciamientoView {
         return subfuenteFinanciamientoSelect;
     }
 
-    public void setSubfuenteFinanciamientoSelect(SubfuenteFinanciamientoDTO subfuenteFinanciamientoSelect) {
+    public void setSubfuenteFinanciamientoSelect(
+            SubfuenteFinanciamientoDTO subfuenteFinanciamientoSelect) {
         this.subfuenteFinanciamientoSelect = subfuenteFinanciamientoSelect;
     }
 
@@ -92,7 +99,8 @@ public class SubfuenteFinanciamientoView {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubfuenteFinanciamientoDTO subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 

@@ -8,8 +8,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 28/07/2016 13:10:35
  */
@@ -53,10 +53,12 @@ public interface Tabulador {
      */
     InfoTabuladorPuestoDTO obtenerInfoPuesto(Integer idPuestoGeneral);
 
-    InfoSueldoDTO obtenerSueldoPorPuestoTipoTabulador(Integer idPuestoGeneral, Integer tipoContratacion);
+    InfoSueldoDTO obtenerSueldoPorPuestoTipoTabulador(Integer idPuestoGeneral,
+            Integer tipoContratacion);
 
     public BigDecimal obtenerSueldoDiarioPorIdTabulador(Integer idTabulador);
 
-    public TabuladorDTO obtenerTabuladorPorPuesto(Integer idTabulador, Integer anioFiscal);
+    public TabuladorDTO obtenerTabuladorPorPuesto(Integer idTabulador,
+            Integer anioFiscal);
 
 }

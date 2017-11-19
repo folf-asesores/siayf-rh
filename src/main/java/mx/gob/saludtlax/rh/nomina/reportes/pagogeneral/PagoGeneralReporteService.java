@@ -29,9 +29,12 @@ import org.jboss.logging.Logger;
  */
 public class PagoGeneralReporteService {
 
-    private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoGeneralReporteService.class.getName());
     private static final String USP_PAGO_GENERAL = "CALL usp_reporte_pago_general(?)";
-    private static final String CONSULTA_DESCRIPCION = "  SELECT cn.descripcion" + "  FROM conceptos_nominas_contratos AS cn" + " WHERE cn.clave = ?";
+    private static final String CONSULTA_DESCRIPCION = "  SELECT cn.descripcion"
+            + "  FROM conceptos_nominas_contratos AS cn"
+            + " WHERE cn.clave = ?";
     private static final Map<String, String> TITULOS;
 
     @Resource(mappedName = DATASOURCE)
@@ -75,9 +78,11 @@ public class PagoGeneralReporteService {
      * @param datos
      *            los datos de la consulta.
      */
-    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object[]> datos) {
+    public void obtenerInformacion(Integer idProductoNomina,
+            List<String> titulos, List<Object[]> datos) {
         try (Connection connection = ds.getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(USP_PAGO_GENERAL);
+            PreparedStatement pstmt = connection
+                    .prepareStatement(USP_PAGO_GENERAL);
             pstmt.setInt(1, idProductoNomina);
             ResultSet rs = pstmt.executeQuery();
             ResultSetMetaData metaData = rs.getMetaData();
@@ -126,7 +131,8 @@ public class PagoGeneralReporteService {
                             break;
                     }
 
-                    pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1 : pos + 2;
+                    pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1
+                            : pos + 2;
                 }
                 datos.add(objDatos);
             }
@@ -137,7 +143,8 @@ public class PagoGeneralReporteService {
 
     private String obtenerDescripcion(String columnName) {
         try (Connection connection = ds.getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(CONSULTA_DESCRIPCION);
+            PreparedStatement pstmt = connection
+                    .prepareStatement(CONSULTA_DESCRIPCION);
             pstmt.setString(1, columnName);
             ResultSet rs = pstmt.executeQuery();
             String descripcion = null;
@@ -146,7 +153,8 @@ public class PagoGeneralReporteService {
             }
             return descripcion;
         } catch (SQLException ex) {
-            LOGGER.errorv(SQL_ERROR_MESSAGE, ex.getMessage(), ex.getSQLState(), ex.getErrorCode());
+            LOGGER.errorv(SQL_ERROR_MESSAGE, ex.getMessage(), ex.getSQLState(),
+                    ex.getErrorCode());
         }
         return null;
     }

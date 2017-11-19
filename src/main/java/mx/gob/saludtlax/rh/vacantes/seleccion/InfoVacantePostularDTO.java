@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.vacantes.seleccion;
 import java.io.Serializable;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class InfoVacantePostularDTO implements Serializable {
@@ -31,8 +31,6 @@ public class InfoVacantePostularDTO implements Serializable {
 
     private String nombreProfesionEspecialidad;
 
-    
-
     /**
      *
      */
@@ -40,8 +38,9 @@ public class InfoVacantePostularDTO implements Serializable {
         super();
     }
 
-    public InfoVacantePostularDTO(Integer idEmpleadoAspirante, String rfc, String curp, String nombreCompleto, String direccionCompleta, String status,
-            String nombreProfesionEspecialidad) {
+    public InfoVacantePostularDTO(Integer idEmpleadoAspirante, String rfc,
+            String curp, String nombreCompleto, String direccionCompleta,
+            String status, String nombreProfesionEspecialidad) {
 
         this.idEmpleadoAspirante = idEmpleadoAspirante;
         this.rfc = rfc;
@@ -52,7 +51,9 @@ public class InfoVacantePostularDTO implements Serializable {
         this.nombreProfesionEspecialidad = nombreProfesionEspecialidad;
     }
 
-    public InfoVacantePostularDTO(Integer idEmpleadoAspirante, String rfc, String curp, String nombreCompleto, String direccionCompleta, String status) {
+    public InfoVacantePostularDTO(Integer idEmpleadoAspirante, String rfc,
+            String curp, String nombreCompleto, String direccionCompleta,
+            String status) {
 
         this.idEmpleadoAspirante = idEmpleadoAspirante;
         this.rfc = rfc;
@@ -129,7 +130,8 @@ public class InfoVacantePostularDTO implements Serializable {
      * @param nombreProfesionEspecialidad
      *            the nombreProfesionEspecialidad to set
      */
-    public void setNombreProfesionEspecialidad(String nombreProfesionEspecialidad) {
+    public void setNombreProfesionEspecialidad(
+            String nombreProfesionEspecialidad) {
         this.nombreProfesionEspecialidad = nombreProfesionEspecialidad;
     }
 

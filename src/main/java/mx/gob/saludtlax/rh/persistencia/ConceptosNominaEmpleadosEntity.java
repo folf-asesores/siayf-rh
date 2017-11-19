@@ -54,7 +54,8 @@ public class ConceptosNominaEmpleadosEntity implements Serializable {
         return idConceptosNominaEmpleados;
     }
 
-    public void setIdConceptosNominaEmpleados(Integer idConceptosNominaEmpleados) {
+    public void setIdConceptosNominaEmpleados(
+            Integer idConceptosNominaEmpleados) {
         this.idConceptosNominaEmpleados = idConceptosNominaEmpleados;
     }
 

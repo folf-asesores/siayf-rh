@@ -16,14 +16,17 @@ import mx.gob.saludtlax.rh.puestosautorizados.InfoConfiguracionDTO;
  */
 public interface ConfiguracionPresupuestal {
 
-    public DetalleConfiguracionPresupuestoDTO obtenerDetalleConfiguracionId(Integer idConfiguracion);
+    public DetalleConfiguracionPresupuestoDTO obtenerDetalleConfiguracionId(
+            Integer idConfiguracion);
 
     /**
      * Crea la configuración de los datos laborales.
      */
-    public Integer crearDatosLaborales(SolicitudNuevoPuestoDTO solicitudPuestoDTO);
+    public Integer crearDatosLaborales(
+            SolicitudNuevoPuestoDTO solicitudPuestoDTO);
 
-    public List<InfoConfiguracionDTO> consultarConfiguracionesPorCriterio(FiltroConsultaFinanciamientosDTO filtro);
+    public List<InfoConfiguracionDTO> consultarConfiguracionesPorCriterio(
+            FiltroConsultaFinanciamientosDTO filtro);
 
     public DatoLaboralDTO obtenerConfiguracionPorId(Integer idConfiguracion);
 
@@ -44,6 +47,7 @@ public interface ConfiguracionPresupuestal {
      * @param idUsuario
      *            usuario que realiza la modificación
      */
-    public void modificarDatoLaboral(DatoLaboralDTO datoLaboral, Integer idPuesto, Integer idUsuario);
+    public void modificarDatoLaboral(DatoLaboralDTO datoLaboral,
+            Integer idPuesto, Integer idUsuario);
 
 }

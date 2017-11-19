@@ -63,27 +63,55 @@ public class EnumTipoContratacion {
             case PROSPERA:
                 return "PROSPERA";
             default:
-                throw new IllegalArgumentException("El valor indicado no es un tipo de contración correcto:" + tipoContratacion);
+                throw new IllegalArgumentException(
+                        "El valor indicado no es un tipo de contración correcto:"
+                                + tipoContratacion);
         }
     }
 
     public static Map<Integer, String> obtenerTipoContrataciones() {
         Map<Integer, String> tipoContrataciones = new HashMap<>();
 
-        tipoContrataciones.put(EnumTipoContratacion.CONTRATO_ESTATAL, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.CONTRATO_ESTATAL));
-        tipoContrataciones.put(EnumTipoContratacion.CONTRATO_FEDERAL, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.CONTRATO_FEDERAL));
-        tipoContrataciones.put(EnumTipoContratacion.BASE, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.BASE));
-        tipoContrataciones.put(EnumTipoContratacion.CONFIANZA, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.CONFIANZA));
-        tipoContrataciones.put(EnumTipoContratacion.HOMOLOGADOS, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.HOMOLOGADOS));
-        tipoContrataciones.put(EnumTipoContratacion.PASANTES, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.PASANTES));
-        tipoContrataciones.put(EnumTipoContratacion.FORMALIZADOS, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.FORMALIZADOS));
-        tipoContrataciones.put(EnumTipoContratacion.REGULARIZADOS, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.REGULARIZADOS));
-        tipoContrataciones.put(EnumTipoContratacion.INTERINATO, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.INTERINATO));
-        tipoContrataciones.put(EnumTipoContratacion.VOLUNTARIOS, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.VOLUNTARIOS));
-        tipoContrataciones.put(EnumTipoContratacion.HONORARIOS, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.HONORARIOS));
-        tipoContrataciones.put(EnumTipoContratacion.SERVICIO_SOCIAL, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.SERVICIO_SOCIAL));
-        tipoContrataciones.put(EnumTipoContratacion.UNEMES, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.UNEMES));
-        tipoContrataciones.put(EnumTipoContratacion.PROSPERA, EnumTipoContratacion.obtenerDescripcion(EnumTipoContratacion.PROSPERA));
+        tipoContrataciones.put(EnumTipoContratacion.CONTRATO_ESTATAL,
+                EnumTipoContratacion.obtenerDescripcion(
+                        EnumTipoContratacion.CONTRATO_ESTATAL));
+        tipoContrataciones.put(EnumTipoContratacion.CONTRATO_FEDERAL,
+                EnumTipoContratacion.obtenerDescripcion(
+                        EnumTipoContratacion.CONTRATO_FEDERAL));
+        tipoContrataciones.put(EnumTipoContratacion.BASE, EnumTipoContratacion
+                .obtenerDescripcion(EnumTipoContratacion.BASE));
+        tipoContrataciones.put(EnumTipoContratacion.CONFIANZA,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.CONFIANZA));
+        tipoContrataciones.put(EnumTipoContratacion.HOMOLOGADOS,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.HOMOLOGADOS));
+        tipoContrataciones.put(EnumTipoContratacion.PASANTES,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.PASANTES));
+        tipoContrataciones.put(EnumTipoContratacion.FORMALIZADOS,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.FORMALIZADOS));
+        tipoContrataciones.put(EnumTipoContratacion.REGULARIZADOS,
+                EnumTipoContratacion.obtenerDescripcion(
+                        EnumTipoContratacion.REGULARIZADOS));
+        tipoContrataciones.put(EnumTipoContratacion.INTERINATO,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.INTERINATO));
+        tipoContrataciones.put(EnumTipoContratacion.VOLUNTARIOS,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.VOLUNTARIOS));
+        tipoContrataciones.put(EnumTipoContratacion.HONORARIOS,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.HONORARIOS));
+        tipoContrataciones.put(EnumTipoContratacion.SERVICIO_SOCIAL,
+                EnumTipoContratacion.obtenerDescripcion(
+                        EnumTipoContratacion.SERVICIO_SOCIAL));
+        tipoContrataciones.put(EnumTipoContratacion.UNEMES, EnumTipoContratacion
+                .obtenerDescripcion(EnumTipoContratacion.UNEMES));
+        tipoContrataciones.put(EnumTipoContratacion.PROSPERA,
+                EnumTipoContratacion
+                        .obtenerDescripcion(EnumTipoContratacion.PROSPERA));
 
         return Collections.unmodifiableMap(tipoContrataciones);
     }

@@ -18,16 +18,20 @@ public class SiifDatosLaboralesEJB {
     private SiifDatosLaboralesService service;
 
     public List<SiifDatosLaboralesDTO> obtenerDatosLaboralesLista() {
-        List<SiifDatosLaboralesDTO> consultaDatosLaboralesLista = service.listaSiifDatosLaborales();
+        List<SiifDatosLaboralesDTO> consultaDatosLaboralesLista = service
+                .listaSiifDatosLaborales();
         return consultaDatosLaboralesLista;
     }
 
-    public List<SiifDatosLaboralesDTO> obtenerDatosLaboralesListaPorCriterios(String rfc) {
+    public List<SiifDatosLaboralesDTO> obtenerDatosLaboralesListaPorCriterios(
+            String rfc) {
         return service.listaSiifDatosLaboralesPorCriterio(rfc);
     }
 
-    public SiifDatosLaboralesDTO obtenerDatosLaboralesListaPorId(SiifDatosLaboralesDTO DTO) {
-        SiifDatosLaboralesDTO dto = service.obtenerSiifDatosLaboralesPorId(DTO.getIdDatoLaboral());
+    public SiifDatosLaboralesDTO obtenerDatosLaboralesListaPorId(
+            SiifDatosLaboralesDTO DTO) {
+        SiifDatosLaboralesDTO dto = service
+                .obtenerSiifDatosLaboralesPorId(DTO.getIdDatoLaboral());
         return dto;
     }
 
@@ -35,22 +39,27 @@ public class SiifDatosLaboralesEJB {
         return service.nuevosDatosLaborales(rfc);
     }
 
-    public void eliminarDatosLaborales(SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
+    public void eliminarDatosLaborales(
+            SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
         service.eliminarDatosLaborales(siifDatosLaboralesSelect);
 
     }
 
-    public SiifDatosLaboralesDTO obtenerDatosLaborales(SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
-        SiifDatosLaboralesDTO dto = service.obtenerSiifDatosLaboralesPorId(siifDatosLaboralesSelect.getIdDatoLaboral());
+    public SiifDatosLaboralesDTO obtenerDatosLaborales(
+            SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
+        SiifDatosLaboralesDTO dto = service.obtenerSiifDatosLaboralesPorId(
+                siifDatosLaboralesSelect.getIdDatoLaboral());
         return dto;
     }
 
-    public void crearDatosLaborales(SiifDatosLaboralesDTO siifDatosLaborales, String rfc) {
+    public void crearDatosLaborales(SiifDatosLaboralesDTO siifDatosLaborales,
+            String rfc) {
         service.crearDatosLaborales(siifDatosLaborales, rfc);
 
     }
 
-    public void actualizarDatosLaborales(SiifDatosLaboralesDTO siifDatosLaborales) {
+    public void actualizarDatosLaborales(
+            SiifDatosLaboralesDTO siifDatosLaborales) {
         service.actualizarDatosLaborales(siifDatosLaborales);
 
     }
@@ -104,16 +113,22 @@ public class SiifDatosLaboralesEJB {
     //	Listas para Estructura Nomina Datos
 
     public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentes() {
-        List<SiifLaboralesSubfuentesDTO> SiifLaboralesSubfuentesLista = service.listaSiifLaboralesSubfuentes();
+        List<SiifLaboralesSubfuentesDTO> SiifLaboralesSubfuentesLista = service
+                .listaSiifLaboralesSubfuentes();
         return SiifLaboralesSubfuentesLista;
     }
 
-    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIDLaborles(Integer idDatosLaborales) {
-        return service.obtenerSiifLaboralesSubfuentesPorIdDatos(idDatosLaborales);
+    public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentesPorIDLaborles(
+            Integer idDatosLaborales) {
+        return service
+                .obtenerSiifLaboralesSubfuentesPorIdDatos(idDatosLaborales);
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesListaPorId(SiifLaboralesSubfuentesDTO DTO) {
-        SiifLaboralesSubfuentesDTO dto = service.obtenerSiifLaboralesSubfuentesPorId(DTO.getIdSiifDatosLaborales());
+    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesListaPorId(
+            SiifLaboralesSubfuentesDTO DTO) {
+        SiifLaboralesSubfuentesDTO dto = service
+                .obtenerSiifLaboralesSubfuentesPorId(
+                        DTO.getIdSiifDatosLaborales());
         return dto;
     }
 
@@ -123,22 +138,30 @@ public class SiifDatosLaboralesEJB {
         return service.nuevasSubfuentes();
     }
 
-    public List<SiifLaboralesSubfuentesDTO> eliminarDatos(SiifLaboralesSubfuentesDTO dto) {
+    public List<SiifLaboralesSubfuentesDTO> eliminarDatos(
+            SiifLaboralesSubfuentesDTO dto) {
         service.eliminarSiifLAborlaesSubfuente(dto);
-        return service.obtenerSiifLaboralesSubfuentesPorIdDatos(dto.getIdSiifDatosLaborales());
+        return service.obtenerSiifLaboralesSubfuentesPorIdDatos(
+                dto.getIdSiifDatosLaborales());
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerDatos(SiifLaboralesSubfuentesDTO dtoSelect) {
-        SiifLaboralesSubfuentesDTO dto = service.obtenerSiifLaboralesSubfuentesPorId(dtoSelect.getIdSiifLaboralesSubfuentes());
+    public SiifLaboralesSubfuentesDTO obtenerDatos(
+            SiifLaboralesSubfuentesDTO dtoSelect) {
+        SiifLaboralesSubfuentesDTO dto = service
+                .obtenerSiifLaboralesSubfuentesPorId(
+                        dtoSelect.getIdSiifLaboralesSubfuentes());
         return dto;
     }
 
-    public List<SiifLaboralesSubfuentesDTO> crearDatos(Integer idDatosLaborales) {
+    public List<SiifLaboralesSubfuentesDTO> crearDatos(
+            Integer idDatosLaborales) {
         service.crearSubfuentes(idDatosLaborales);
-        return service.obtenerSiifLaboralesSubfuentesPorIdDatos(idDatosLaborales);
+        return service
+                .obtenerSiifLaboralesSubfuentesPorIdDatos(idDatosLaborales);
     }
 
-    public void actualizarDatos(List<SiifLaboralesSubfuentesDTO> list, Integer idDL) {
+    public void actualizarDatos(List<SiifLaboralesSubfuentesDTO> list,
+            Integer idDL) {
         service.actualizarDatos(list, idDL);
     }
 
@@ -152,7 +175,8 @@ public class SiifDatosLaboralesEJB {
         return service.listaSubfuenteFinanciamiento();
     }
 
-    public List<SubfuenteFinanciamientoDTO> obtenerSubfuentesFPorId(Integer dto) {
+    public List<SubfuenteFinanciamientoDTO> obtenerSubfuentesFPorId(
+            Integer dto) {
         return service.listaSubfuenteFinanciamientoPorIdFF(dto);
     }
 

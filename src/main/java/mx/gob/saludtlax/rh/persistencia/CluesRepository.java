@@ -12,7 +12,10 @@ public class CluesRepository extends GenericRepository<CluesEntity, Integer> {
 
     public CluesEntity obtenerCluePorClave(String clues) {
         try {
-            return em.createQuery("SELECT c FROM CluesEntity AS c WHERE c.clues =:clues", CluesEntity.class).setParameter("clues", clues).getSingleResult();
+            return em.createQuery(
+                    "SELECT c FROM CluesEntity AS c WHERE c.clues =:clues",
+                    CluesEntity.class).setParameter("clues", clues)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
             return null;

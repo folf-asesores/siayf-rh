@@ -239,7 +239,8 @@ public class MovimientoContratosDTO {
         return listaDetalles;
     }
 
-    public void setListaDetalles(List<DetalleMovimientoContratoDTO> listaDetalles) {
+    public void setListaDetalles(
+            List<DetalleMovimientoContratoDTO> listaDetalles) {
         this.listaDetalles = listaDetalles;
     }
 

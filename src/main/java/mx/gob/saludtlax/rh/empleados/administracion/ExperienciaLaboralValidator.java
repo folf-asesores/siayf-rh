@@ -20,23 +20,28 @@ public class ExperienciaLaboralValidator {
 
     @AroundInvoke
     public Object validate(InvocationContext context) throws Exception {
-        ExperienciaLaboralDTO dto = (ExperienciaLaboralDTO) context.getParameters()[0];
+        ExperienciaLaboralDTO dto = (ExperienciaLaboralDTO) context
+                .getParameters()[0];
         Integer idEmpleado = (Integer) context.getParameters()[1];
         String contexto = "Registro experiencia laboral: ";
         if (dto == null) {
-            throw new BusinessException(contexto + "La información de la experiencia laboral es requerida.");
+            throw new BusinessException(contexto
+                    + "La información de la experiencia laboral es requerida.");
         }
 
         if (idEmpleado == null) {
-            throw new BusinessException(contexto + "El empleado es requerido, comuniquese con soporte.");
+            throw new BusinessException(contexto
+                    + "El empleado es requerido, comuniquese con soporte.");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombreEmpresa())) {
-            throw new BusinessException(contexto + "El nombre de la empresa es requerido, ingrese un nombre.");
+            throw new BusinessException(contexto
+                    + "El nombre de la empresa es requerido, ingrese un nombre.");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getPuestoAspirante())) {
-            throw new BusinessException(contexto + "El puesto que desempeñaba es requerido, ingrese un puesto.");
+            throw new BusinessException(contexto
+                    + "El puesto que desempeñaba es requerido, ingrese un puesto.");
         }
 
         /*

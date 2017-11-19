@@ -11,11 +11,12 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
-public class PresupuestoCalendarioEJB implements PresupuestoCalendario, Serializable {
+public class PresupuestoCalendarioEJB
+        implements PresupuestoCalendario, Serializable {
 
     /**
      *
@@ -37,7 +38,8 @@ public class PresupuestoCalendarioEJB implements PresupuestoCalendario, Serializ
 
     @Override
     public void eliminarPresupuestoCalendario(Integer idPresupuestoCalendario) {
-        presupuestoCalendarioService.eliminarPresupuestoCalendario(idPresupuestoCalendario);
+        presupuestoCalendarioService
+                .eliminarPresupuestoCalendario(idPresupuestoCalendario);
     }
 
     @Override
@@ -47,8 +49,10 @@ public class PresupuestoCalendarioEJB implements PresupuestoCalendario, Serializ
     }
 
     @Override
-    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(Integer anio) {
-        return presupuestoCalendarioService.obtenerListaPresupuestoCalendarioPorAnio(anio);
+    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(
+            Integer anio) {
+        return presupuestoCalendarioService
+                .obtenerListaPresupuestoCalendarioPorAnio(anio);
     }
 
 }

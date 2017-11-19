@@ -199,7 +199,8 @@ public class MovimientoEmpleadoEntity implements Serializable {
         return inventarioVacante;
     }
 
-    public void setInventarioVacante(InventarioVacanteEntity inventarioVacante) {
+    public void setInventarioVacante(
+            InventarioVacanteEntity inventarioVacante) {
         this.inventarioVacante = inventarioVacante;
     }
 

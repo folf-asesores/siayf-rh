@@ -11,7 +11,8 @@ import java.util.List;
  * @since 02/09/2016 14:48:35
  *
  */
-public class TiposDuracionJornadaRepository extends GenericRepository<TiposDuracionJornadaEntity, Integer> {
+public class TiposDuracionJornadaRepository
+        extends GenericRepository<TiposDuracionJornadaEntity, Integer> {
 
     /**
      *
@@ -19,7 +20,8 @@ public class TiposDuracionJornadaRepository extends GenericRepository<TiposDurac
     private static final long serialVersionUID = -7637314766512124024L;
 
     public List<TiposDuracionJornadaEntity> consultarTiposJornadas() {
-        return em.createQuery("SELECT t FROM TiposDuracionJornadaEntity AS t", TiposDuracionJornadaEntity.class).getResultList();
+        return em.createQuery("SELECT t FROM TiposDuracionJornadaEntity AS t",
+                TiposDuracionJornadaEntity.class).getResultList();
     }
 
 }

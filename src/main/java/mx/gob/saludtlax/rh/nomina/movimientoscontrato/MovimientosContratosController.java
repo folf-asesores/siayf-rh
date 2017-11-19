@@ -53,21 +53,26 @@ public class MovimientosContratosController implements Serializable {
         view.setListaConceptos(ejb.obtenerConceptosLista(true));
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
             case "criterio":
                 String criterio = (String) value;
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -78,48 +83,62 @@ public class MovimientosContratosController implements Serializable {
     }
 
     public void buscarEmpleado() {
-        System.out.println("view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
+        System.out.println(
+                "view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
         try {
             view.panelBusqueda();
-            System.out.println("this.view.getCriterio():: " + view.getCriterio());
+            System.out
+                    .println("this.view.getCriterio():: " + view.getCriterio());
             view.setEmpleados(empleado.consultaPorCriterio(view.getCriterio()));
             if (view.getEmpleados().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros con el criterio " + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros con el criterio "
+                                + view.getCriterio());
             } else {
                 view.setMostrarResultados(true);
             }
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException | ValidacionException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
-            System.out.println("view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
+            System.out.println(
+                    "view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
         }
-        System.out.println("view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
+        System.out.println(
+                "view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
     }
 
     public void seleccionarEmpleado(InfoEmpleadoDTO empleadoSeleccionado) {
         try {
             view.panelMovimientos();
             UsuarioDTO usuario = AutenticacionUtil.recuperarUsuarioSesion();
-            if (usuario.getUserName().equals("veronica") || usuario.getUserName().equals("rosaA")) {
-                view.setEmpleadoDatos(empleado.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado()));
+            if (usuario.getUserName().equals("veronica")
+                    || usuario.getUserName().equals("rosaA")) {
+                view.setEmpleadoDatos(empleado.obtenerInformacionEmpleado(
+                        empleadoSeleccionado.getIdEmpleado()));
                 view.setEmpleadoSelect(empleadoSeleccionado);
-                view.setMovimientoContratosLista(ejb.obtenerMovimientosNominaEmpleadoLista(empleadoSeleccionado.getIdEmpleado()));
+                view.setMovimientoContratosLista(
+                        ejb.obtenerMovimientosNominaEmpleadoLista(
+                                empleadoSeleccionado.getIdEmpleado()));
             }
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
     }
 
-    public void validator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validator(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "numDias":
                 Integer dias = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(dias)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el numero de dias, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -129,7 +148,8 @@ public class MovimientosContratosController implements Serializable {
             case "folio":
                 String folio = (String) value;
                 if (ValidacionUtil.esCadenaVacia(folio)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el folio del documento, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -139,9 +159,12 @@ public class MovimientosContratosController implements Serializable {
             case "anioFinal":
                 Integer anioFinal = (Integer) value;
 
-                if (!ValidacionUtil.esNumeroPositivo(anioFinal) || anioFinal.compareTo(2015) < 0) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-                            "Por favor ingrese el año final, debe ser mayor a" + (FechaUtil.ejercicioActual() - 1) + ".");
+                if (!ValidacionUtil.esNumeroPositivo(anioFinal)
+                        || anioFinal.compareTo(2015) < 0) {
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el año final, debe ser mayor a"
+                                    + (FechaUtil.ejercicioActual() - 1) + ".");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -149,7 +172,9 @@ public class MovimientosContratosController implements Serializable {
             case "importe":
                 BigDecimal importeQuincenal = (BigDecimal) value;
                 if (!ValidacionUtil.esMayorCero(importeQuincenal)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El importe debe ser mayor a 0.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El importe debe ser mayor a 0.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -158,7 +183,9 @@ public class MovimientosContratosController implements Serializable {
                 Integer concepto = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(concepto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Eliga un concepto para el movimiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Eliga un concepto para el movimiento.");
                     System.out.println("concepto::" + concepto);
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -169,9 +196,12 @@ public class MovimientosContratosController implements Serializable {
 
     public String irNuevoMovimiento() {
         view.setMovimientoContratos(new MovimientoContratosDTO());
-        view.setProductoNominaLista(ejb.obtenerProductoNominaLista(view.getEmpleadoSelect().getIdEmpleado()));
+        view.setProductoNominaLista(ejb.obtenerProductoNominaLista(
+                view.getEmpleadoSelect().getIdEmpleado()));
         if (view.getProductoNominaLista().isEmpty()) {
-            JSFUtils.errorMessage("Debe existir un producto de nomina disponible para registrar el movimiento", "");
+            JSFUtils.errorMessage(
+                    "Debe existir un producto de nomina disponible para registrar el movimiento",
+                    "");
         }
         view.setNuevo(Boolean.TRUE);
         view.panelFormulario();
@@ -181,25 +211,38 @@ public class MovimientosContratosController implements Serializable {
     public String agregarMovimiento() {
         if (view.getNuevo()) {
             view.getMovimientoContratos().setAbonado(new BigDecimal(0));
-            view.getMovimientoContratos().setSaldo(view.getMovimientoContratos().getMonto());
-            view.getMovimientoContratos().setAnioInicial(FechaUtil.ejercicioActual());
-            view.getMovimientoContratos().setIdNominaEmpleado(view.getMovimientoContratos().getIdNominaEmpleado());
-            view.getMovimientoContratos().setIdConceptoContratos(view.getMovimientoContratos().getIdConceptoContratos());
+            view.getMovimientoContratos()
+                    .setSaldo(view.getMovimientoContratos().getMonto());
+            view.getMovimientoContratos()
+                    .setAnioInicial(FechaUtil.ejercicioActual());
+            view.getMovimientoContratos().setIdNominaEmpleado(
+                    view.getMovimientoContratos().getIdNominaEmpleado());
+            view.getMovimientoContratos().setIdConceptoContratos(
+                    view.getMovimientoContratos().getIdConceptoContratos());
             // 1:Registrado
             view.getMovimientoContratos().setIdEstatus(1);
+            view.getMovimientoContratos().setNumeroAbonos(
+                    view.getMovimientoContratos().getNumeroAbonos() != null
+                            ? view.getMovimientoContratos().getNumeroAbonos()
+                            : 0);
             view.getMovimientoContratos()
-                    .setNumeroAbonos(view.getMovimientoContratos().getNumeroAbonos() != null ? view.getMovimientoContratos().getNumeroAbonos() : 0);
-            view.getMovimientoContratos().setRfc(view.getEmpleadoDatos().getRfc());
-            view.getMovimientoContratos().setIdEmpleado(view.getEmpleadoSelect().getIdEmpleado());
+                    .setRfc(view.getEmpleadoDatos().getRfc());
+            view.getMovimientoContratos()
+                    .setIdEmpleado(view.getEmpleadoSelect().getIdEmpleado());
             Integer idMovimiento = ejb.crear(view.getMovimientoContratos());
 
             BigDecimal descuento = new BigDecimal(0);
-            if (view.getMovimientoContratos().getNumeroAbonos() != null && view.getMovimientoContratos().getNumeroAbonos() > 0) {
-                descuento = view.getMovimientoContratos().getMonto().divide(new BigDecimal(view.getMovimientoContratos().getNumeroAbonos()), 2,
-                        RoundingMode.HALF_UP);
+            if (view.getMovimientoContratos().getNumeroAbonos() != null
+                    && view.getMovimientoContratos().getNumeroAbonos() > 0) {
+                descuento = view
+                        .getMovimientoContratos().getMonto().divide(
+                                new BigDecimal(view.getMovimientoContratos()
+                                        .getNumeroAbonos()),
+                                2, RoundingMode.HALF_UP);
             }
 
-            for (int i = 1; i <= view.getMovimientoContratos().getNumeroAbonos(); i++) {
+            for (int i = 1; i <= view.getMovimientoContratos()
+                    .getNumeroAbonos(); i++) {
                 DetalleMovimientoContratoDTO detalleDto = new DetalleMovimientoContratoDTO();
                 detalleDto.setAbono(descuento.multiply(new BigDecimal(i)));
                 detalleDto.setDescuento(descuento);
@@ -208,15 +251,22 @@ public class MovimientosContratosController implements Serializable {
                 detalleDto.setMonto(view.getMovimientoContratos().getMonto());
                 detalleDto.setNumeroPago(i);
 
-                BigDecimal saldo = view.getMovimientoContratos().getMonto().subtract(detalleDto.getAbono());
-                System.out.println("saldo." + view.getMovimientoContratos().getMonto().subtract(detalleDto.getAbono()) + " " + saldo);
+                BigDecimal saldo = view.getMovimientoContratos().getMonto()
+                        .subtract(detalleDto.getAbono());
+                System.out
+                        .println("saldo."
+                                + view.getMovimientoContratos().getMonto()
+                                        .subtract(detalleDto.getAbono())
+                                + " " + saldo);
                 detalleDto.setSaldo(saldo);
                 ejb.guardarDetalle(detalleDto);
             }
-            JSFUtils.infoMessage("Correcto:", "El movimiento se registro exitosamente.");
+            JSFUtils.infoMessage("Correcto:",
+                    "El movimiento se registro exitosamente.");
         } else {
             ejb.actualizarMovimientoContratos(view.getMovimientoContratos());
-            JSFUtils.infoMessage("Correcto:", "El movimiento se actualizó exitosamente.");
+            JSFUtils.infoMessage("Correcto:",
+                    "El movimiento se actualizó exitosamente.");
         }
         view.panelFormulario();
         return null;
@@ -294,7 +344,9 @@ public class MovimientosContratosController implements Serializable {
     //    }
 
     public String irMovimientos() {
-        view.setMovimientoContratosLista(ejb.obtenerMovimientosNominaEmpleadoLista(view.getEmpleadoSelect().getIdEmpleado()));
+        view.setMovimientoContratosLista(
+                ejb.obtenerMovimientosNominaEmpleadoLista(
+                        view.getEmpleadoSelect().getIdEmpleado()));
         view.panelMovimientos();
         return null;
     }
@@ -306,10 +358,14 @@ public class MovimientosContratosController implements Serializable {
 
     public String irGestionMovimiento() {
         view.setNuevo(Boolean.FALSE);
-        view.setProductoNominaLista(ejb.obtenerProductoNominaLista(view.getEmpleadoSelect().getIdEmpleado()));
-        view.setMovimientoContratos(ejb.obtenerMovimientoContrato(view.getMovimientoContratos()));
+        view.setProductoNominaLista(ejb.obtenerProductoNominaLista(
+                view.getEmpleadoSelect().getIdEmpleado()));
+        view.setMovimientoContratos(
+                ejb.obtenerMovimientoContrato(view.getMovimientoContratos()));
         if (view.getProductoNominaLista().isEmpty()) {
-            JSFUtils.errorMessage("Debe existir un producto de nomina disponible para registrar el movimiento", "");
+            JSFUtils.errorMessage(
+                    "Debe existir un producto de nomina disponible para registrar el movimiento",
+                    "");
         }
         actualizarFormulario();
         view.panelFormulario();
@@ -317,12 +373,15 @@ public class MovimientosContratosController implements Serializable {
     }
 
     public String actualizarFormulario() {
-        view.setHabilitarFaltas(view.getMovimientoContratos().getIdConceptoContratos().equals(13));
-        if (view.isHabilitarFaltas() && view.getMovimientoContratos().getFaltaContadaList() == null) {
+        view.setHabilitarFaltas(view.getMovimientoContratos()
+                .getIdConceptoContratos().equals(13));
+        if (view.isHabilitarFaltas() && view.getMovimientoContratos()
+                .getFaltaContadaList() == null) {
             List<FaltaContadaDTO> faltaContadaList = new ArrayList<>();
             view.getMovimientoContratos().setFaltaContadaList(faltaContadaList);
         }
-        view.setDesabilitarFijos(ejb.esMovimientoFijo(view.getMovimientoContratos().getIdConceptoContratos()));
+        view.setDesabilitarFijos(ejb.esMovimientoFijo(
+                view.getMovimientoContratos().getIdConceptoContratos()));
         return null;
     }
 
@@ -330,24 +389,31 @@ public class MovimientosContratosController implements Serializable {
         FaltaContadaDTO faltaContada = new FaltaContadaDTO();
         faltaContada.setFechaFalta(new Date(view.getFechaFalta().getTime()));
         Boolean noExiste = Boolean.TRUE;
-        for (FaltaContadaDTO faltaContadaTem : view.getMovimientoContratos().getFaltaContadaList()) {
+        for (FaltaContadaDTO faltaContadaTem : view.getMovimientoContratos()
+                .getFaltaContadaList()) {
             if (faltaContadaTem.getFechaFalta().equals(view.getFechaFalta())) {
                 noExiste = Boolean.FALSE;
                 break;
             }
         }
         if (noExiste) {
-            view.getMovimientoContratos().getFaltaContadaList().add(faltaContada);
-            view.getMovimientoContratos().setMonto(ejb.calcularDescuentoFaltas(view.getMovimientoContratos()));
+            view.getMovimientoContratos().getFaltaContadaList()
+                    .add(faltaContada);
+            view.getMovimientoContratos().setMonto(
+                    ejb.calcularDescuentoFaltas(view.getMovimientoContratos()));
         }
         return null;
     }
 
     public String eliminarFalta() {
-        for (FaltaContadaDTO faltaContada : view.getMovimientoContratos().getFaltaContadaList()) {
+        for (FaltaContadaDTO faltaContada : view.getMovimientoContratos()
+                .getFaltaContadaList()) {
             if (faltaContada.getFechaFalta().equals(view.getFechaFalta())) {
-                view.getMovimientoContratos().getFaltaContadaList().remove(faltaContada);
-                view.getMovimientoContratos().setMonto(ejb.calcularDescuentoFaltas(view.getMovimientoContratos()));
+                view.getMovimientoContratos().getFaltaContadaList()
+                        .remove(faltaContada);
+                view.getMovimientoContratos()
+                        .setMonto(ejb.calcularDescuentoFaltas(
+                                view.getMovimientoContratos()));
                 break;
             }
         }
@@ -357,11 +423,15 @@ public class MovimientosContratosController implements Serializable {
     public String eliminarMovimientoContrato() {
         if (view.getMovimientoContratos().getIdEstatus() == 1) {
             ejb.eliminarMovimientoContrato(view.getMovimientoContratos());
-            view.setMovimientoContratosLista(ejb.obtenerMovimientosNominaEmpleadoLista(view.getEmpleadoSelect().getIdEmpleado()));
+            view.setMovimientoContratosLista(
+                    ejb.obtenerMovimientosNominaEmpleadoLista(
+                            view.getEmpleadoSelect().getIdEmpleado()));
             view.panelMovimientos();
-            JSFUtils.infoMessage("El movimiento se ha eliminado exitosamente", "");
+            JSFUtils.infoMessage("El movimiento se ha eliminado exitosamente",
+                    "");
         } else {
-            JSFUtils.errorMessage("El movimiento ya esta considerado en la nómina", "");
+            JSFUtils.errorMessage(
+                    "El movimiento ya esta considerado en la nómina", "");
         }
         return null;
     }

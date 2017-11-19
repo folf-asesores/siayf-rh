@@ -82,7 +82,8 @@ public class RevisionSuplenciaView {
         return listaCentrosResponsabilidades;
     }
 
-    public void setListaCentrosResponsabilidades(List<SelectItem> listaCentrosResponsabilidades) {
+    public void setListaCentrosResponsabilidades(
+            List<SelectItem> listaCentrosResponsabilidades) {
         this.listaCentrosResponsabilidades = listaCentrosResponsabilidades;
     }
 
@@ -90,7 +91,8 @@ public class RevisionSuplenciaView {
         return mostrarCamposBusquedaCriterio;
     }
 
-    public void setMostrarCamposBusquedaCriterio(boolean mostrarCamposBusquedaCriterio) {
+    public void setMostrarCamposBusquedaCriterio(
+            boolean mostrarCamposBusquedaCriterio) {
         this.mostrarCamposBusquedaCriterio = mostrarCamposBusquedaCriterio;
     }
 
@@ -98,7 +100,8 @@ public class RevisionSuplenciaView {
         return mostrarCamposBusquedaCentro;
     }
 
-    public void setMostrarCamposBusquedaCentro(boolean mostrarCamposBusquedaCentro) {
+    public void setMostrarCamposBusquedaCentro(
+            boolean mostrarCamposBusquedaCentro) {
         this.mostrarCamposBusquedaCentro = mostrarCamposBusquedaCentro;
     }
 
@@ -114,7 +117,8 @@ public class RevisionSuplenciaView {
         return quincenaSeleccionada;
     }
 
-    public void setQuincenaSeleccionada(QuincenaSuplenteDTO quincenaSeleccionada) {
+    public void setQuincenaSeleccionada(
+            QuincenaSuplenteDTO quincenaSeleccionada) {
         this.quincenaSeleccionada = quincenaSeleccionada;
     }
 
@@ -138,7 +142,8 @@ public class RevisionSuplenciaView {
         return detallesPendientes;
     }
 
-    public void setDetallesPendientes(List<DetalleSuplenciaDTO> detallesPendientes) {
+    public void setDetallesPendientes(
+            List<DetalleSuplenciaDTO> detallesPendientes) {
         this.detallesPendientes = detallesPendientes;
     }
 
@@ -194,7 +199,8 @@ public class RevisionSuplenciaView {
         return documentosAdjuntos;
     }
 
-    public void setDocumentosAdjuntos(List<InformacionAdjuntoDTO> documentosAdjuntos) {
+    public void setDocumentosAdjuntos(
+            List<InformacionAdjuntoDTO> documentosAdjuntos) {
         this.documentosAdjuntos = documentosAdjuntos;
     }
 
@@ -218,7 +224,8 @@ public class RevisionSuplenciaView {
         return detalleSeleccionado;
     }
 
-    public void setDetalleSeleccionado(DetalleSuplenciaDTO detalleSeleccionado) {
+    public void setDetalleSeleccionado(
+            DetalleSuplenciaDTO detalleSeleccionado) {
         this.detalleSeleccionado = detalleSeleccionado;
     }
 
@@ -242,7 +249,8 @@ public class RevisionSuplenciaView {
         return desglosesSeleccionados;
     }
 
-    public void setDesglosesSeleccionados(List<DetalleSuplenciaDTO> desglosesSeleccionados) {
+    public void setDesglosesSeleccionados(
+            List<DetalleSuplenciaDTO> desglosesSeleccionados) {
         this.desglosesSeleccionados = desglosesSeleccionados;
     }
 
@@ -258,7 +266,8 @@ public class RevisionSuplenciaView {
         return detallesQuincena;
     }
 
-    public void setDetallesQuincena(List<DetalleSuplenciaDTO> detallesQuincena) {
+    public void setDetallesQuincena(
+            List<DetalleSuplenciaDTO> detallesQuincena) {
         this.detallesQuincena = detallesQuincena;
     }
 

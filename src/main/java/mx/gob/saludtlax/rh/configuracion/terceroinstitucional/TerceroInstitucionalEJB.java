@@ -12,13 +12,14 @@ import javax.inject.Inject;
 import javax.interceptor.Interceptors;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 10:57:26
  */
 @Stateless
-public class TerceroInstitucionalEJB implements TerceroInstitucional, Serializable {
+public class TerceroInstitucionalEJB
+        implements TerceroInstitucional, Serializable {
 
     /**
      *
@@ -30,19 +31,24 @@ public class TerceroInstitucionalEJB implements TerceroInstitucional, Serializab
 
     @Override
     @Interceptors({ TerceroInstitucionalValidator.class })
-    public void crearTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional) {
-        terceroInstitucionalService.crearTerceroInstitucional(terceroInstitucional);
+    public void crearTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional) {
+        terceroInstitucionalService
+                .crearTerceroInstitucional(terceroInstitucional);
     }
 
     @Override
     @Interceptors({ TerceroInstitucionalValidator.class })
-    public void actualizarTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional) {
-        terceroInstitucionalService.actualizarTerceroInstitucional(terceroInstitucional);
+    public void actualizarTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional) {
+        terceroInstitucionalService
+                .actualizarTerceroInstitucional(terceroInstitucional);
     }
 
     @Override
     public void eliminarTerceroInstitucional(Integer idTerceroInstitucional) {
-        terceroInstitucionalService.eliminarTerceroInstitucional(idTerceroInstitucional);
+        terceroInstitucionalService
+                .eliminarTerceroInstitucional(idTerceroInstitucional);
     }
 
     @Override
@@ -51,7 +57,8 @@ public class TerceroInstitucionalEJB implements TerceroInstitucional, Serializab
     }
 
     @Override
-    public TerceroInstitucionalDTO obtenerporClave(String clave, String partida) {
+    public TerceroInstitucionalDTO obtenerporClave(String clave,
+            String partida) {
 
         return terceroInstitucionalService.obtenerPorClave(clave, partida);
     }

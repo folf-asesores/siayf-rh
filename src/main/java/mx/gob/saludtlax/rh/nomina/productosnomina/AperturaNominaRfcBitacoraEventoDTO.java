@@ -25,10 +25,13 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
     private String mensaje;
 
     public AperturaNominaRfcBitacoraEventoDTO() {
-        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION, Calendar.getInstance().getTime(), "");
+        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                Calendar.getInstance().getTime(), "");
     }
 
-    public AperturaNominaRfcBitacoraEventoDTO(Integer idEvento, AperturaNominaRfcBitacoraCategoria categoria, Date fechaHora, String mensaje) {
+    public AperturaNominaRfcBitacoraEventoDTO(Integer idEvento,
+            AperturaNominaRfcBitacoraCategoria categoria, Date fechaHora,
+            String mensaje) {
         this.idEvento = idEvento;
         this.categoria = categoria;
         this.fechaHora = fechaHora;
@@ -113,8 +116,9 @@ public class AperturaNominaRfcBitacoraEventoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AperturaNominaRfcBitacoraEvento{" + "idEvento=" + idEvento + ", categoria=" + categoria + ", fechaHora=" + fechaHora + ", mensaje=" + mensaje
-                + '}';
+        return "AperturaNominaRfcBitacoraEvento{" + "idEvento=" + idEvento
+                + ", categoria=" + categoria + ", fechaHora=" + fechaHora
+                + ", mensaje=" + mensaje + '}';
     }
 
     @Override

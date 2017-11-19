@@ -89,7 +89,8 @@ public class ProgramaDTO {
         return idSubfuentefinanciamiento;
     }
 
-    public void setIdSubfuentefinanciamiento(Integer idSubfuentefinanciamiento) {
+    public void setIdSubfuentefinanciamiento(
+            Integer idSubfuentefinanciamiento) {
         this.idSubfuentefinanciamiento = idSubfuentefinanciamiento;
     }
 

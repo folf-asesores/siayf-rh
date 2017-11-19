@@ -62,7 +62,7 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public class ExcelGenerador implements Generador, Serializable {
 
@@ -95,50 +95,74 @@ public class ExcelGenerador implements Generador, Serializable {
         if (almacenReportesExcel.extisteReporte(nombreReporte)) {
             switch (nombreReporte) {
                 case "acumulados": {
-                    Integer tipoNombramiento = Integer.parseInt(parametros.get("TIPO_NOMBRAMIENTO"));
-                    Integer quincenaInicial = Integer.parseInt(parametros.get("QUINCENA_INICIAL"));
-                    Integer quincenaFinal = Integer.parseInt(parametros.get("QUINCENA_FINAL"));
-                    Integer anio = Integer.parseInt(parametros.get("ANIO_REAL"));
+                    Integer tipoNombramiento = Integer
+                            .parseInt(parametros.get("TIPO_NOMBRAMIENTO"));
+                    Integer quincenaInicial = Integer
+                            .parseInt(parametros.get("QUINCENA_INICIAL"));
+                    Integer quincenaFinal = Integer
+                            .parseInt(parametros.get("QUINCENA_FINAL"));
+                    Integer anio = Integer
+                            .parseInt(parametros.get("ANIO_REAL"));
 
-                    List<AcumuladosDTO> detalles = getConsultaNominaService().listaConsultaNominaPorNombramiento(tipoNombramiento, quincenaInicial,
-                            quincenaFinal, anio);
+                    List<AcumuladosDTO> detalles = getConsultaNominaService()
+                            .listaConsultaNominaPorNombramiento(
+                                    tipoNombramiento, quincenaInicial,
+                                    quincenaFinal, anio);
                     AcumuladoExcel acumuladosExcel = new AcumuladoExcel();
                     bytes = acumuladosExcel.generar(detalles);
                 }
                     break;
 
                 case "comisionado_licencia": {
-                    Date fechaInicial = FechaUtil.getFecha(parametros.get("FECHA_INICIAL"), PATRON_FECHA_BASE_DE_DATOS);
-                    Date fechaFinal = FechaUtil.getFecha(parametros.get("FECHA_FINAL"), PATRON_FECHA_BASE_DE_DATOS);
+                    Date fechaInicial = FechaUtil.getFecha(
+                            parametros.get("FECHA_INICIAL"),
+                            PATRON_FECHA_BASE_DE_DATOS);
+                    Date fechaFinal = FechaUtil.getFecha(
+                            parametros.get("FECHA_FINAL"),
+                            PATRON_FECHA_BASE_DE_DATOS);
 
                     List<ComisionadoLicenciaExcelDTO> comisionadoLicenciaExcelDTOs = getMovimientoEmpleadoReporteService()
-                            .listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial, fechaFinal);
+                            .listaConsultaComisionadoLicenciaPorRangoFecha(
+                                    fechaInicial, fechaFinal);
 
                     if (!comisionadoLicenciaExcelDTOs.isEmpty()) {
                         ComisionadoLicenciaExcel comisionadoLicenciaExcel = new ComisionadoLicenciaExcel();
 
-                        bytes = comisionadoLicenciaExcel.generar(comisionadoLicenciaExcelDTOs);
+                        bytes = comisionadoLicenciaExcel
+                                .generar(comisionadoLicenciaExcelDTOs);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados, intentelo de nuevo.",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
                 }
                     break;
 
                 case "consentrado_alta_baja": {
-                    Integer idTipoContratacionConsentrado = Integer.parseInt(parametros.get("ID_TIPO_CONTRATACION"));
-                    Date fechaInicial = FechaUtil.getFecha(parametros.get("FECHA_INICIAL"), PATRON_FECHA_BASE_DE_DATOS);
-                    Date fechaFinal = FechaUtil.getFecha(parametros.get("FECHA_FINAL"), PATRON_FECHA_BASE_DE_DATOS);
+                    Integer idTipoContratacionConsentrado = Integer
+                            .parseInt(parametros.get("ID_TIPO_CONTRATACION"));
+                    Date fechaInicial = FechaUtil.getFecha(
+                            parametros.get("FECHA_INICIAL"),
+                            PATRON_FECHA_BASE_DE_DATOS);
+                    Date fechaFinal = FechaUtil.getFecha(
+                            parametros.get("FECHA_FINAL"),
+                            PATRON_FECHA_BASE_DE_DATOS);
 
                     List<ConsentradoAltaBajaExcelDTO> consentradoAltaBajaExcelDTOs = getMovimientoEmpleadoReporteService()
-                            .listaConsultaConsentradoAltaBajaPorRangoFecha(idTipoContratacionConsentrado, fechaInicial, fechaFinal);
+                            .listaConsultaConsentradoAltaBajaPorRangoFecha(
+                                    idTipoContratacionConsentrado, fechaInicial,
+                                    fechaFinal);
 
                     if (!consentradoAltaBajaExcelDTOs.isEmpty()) {
                         ConsentradoAltaBajaExcel consentradoAltaBajaExcel = new ConsentradoAltaBajaExcel();
 
-                        bytes = consentradoAltaBajaExcel.generar(consentradoAltaBajaExcelDTOs);
+                        bytes = consentradoAltaBajaExcel
+                                .generar(consentradoAltaBajaExcelDTOs);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados, intentelo de nuevo.",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
                 }
                     break;
@@ -151,17 +175,22 @@ public class ExcelGenerador implements Generador, Serializable {
 
                 case "seguro_popular_reporte": {
                     String anyo = parametros.get("ANYO");
-                    Integer quincena = Integer.parseInt(parametros.get("QUINCENA"));
+                    Integer quincena = Integer
+                            .parseInt(parametros.get("QUINCENA"));
                     SeguroPopularReporte seguroPopularBeanReporte = getSeguroPopularReporteBean();
-                    bytes = seguroPopularBeanReporte.obtenerReporte(anyo, quincena);
+                    bytes = seguroPopularBeanReporte.obtenerReporte(anyo,
+                            quincena);
                 }
                     break;
 
                 case "contrato_estatal_federal": {
-                    Integer anyoPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
-                    Integer idTipoNombramiento = Integer.parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
+                    Integer anyoPresupuesto = Integer
+                            .parseInt(parametros.get("ANYO_PRESUPUESTO"));
+                    Integer idTipoNombramiento = Integer
+                            .parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
                     List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales = getProyeccionesPresupuestalesBean()
-                            .proyeccionesPresupuestales(anyoPresupuesto, idTipoNombramiento);
+                            .proyeccionesPresupuestales(anyoPresupuesto,
+                                    idTipoNombramiento);
 
                     ContratoExcel contratoExcel = new ContratoExcel();
 
@@ -170,11 +199,14 @@ public class ExcelGenerador implements Generador, Serializable {
                     break;
 
                 case "contrato_estatal_federal_proyeccion": {
-                    Integer anioPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
-                    Integer idTipoNombramientos = Integer.parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
+                    Integer anioPresupuesto = Integer
+                            .parseInt(parametros.get("ANYO_PRESUPUESTO"));
+                    Integer idTipoNombramientos = Integer
+                            .parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
 
-                    List<ProyeccionesPresupuestalesDTO> proyecciones = getProyeccionesPresupuestalesBean().proyeccionesPresupuestales(anioPresupuesto,
-                            idTipoNombramientos);
+                    List<ProyeccionesPresupuestalesDTO> proyecciones = getProyeccionesPresupuestalesBean()
+                            .proyeccionesPresupuestales(anioPresupuesto,
+                                    idTipoNombramientos);
 
                     ContratoProyeccionExcel contratoProyeccionExcel = new ContratoProyeccionExcel();
 
@@ -184,9 +216,12 @@ public class ExcelGenerador implements Generador, Serializable {
 
                 case "detalle_empleado": {
 
-                    Integer idTipoContratacion = Integer.parseInt(parametros.get("ID_TIPO_CONTRATACION"));
+                    Integer idTipoContratacion = Integer
+                            .parseInt(parametros.get("ID_TIPO_CONTRATACION"));
 
-                    List<DetalleEmpleadoDTO> detalleEmpleado = getDetalleEmpleadoBean().detalleEmpleadoPorIdTipoContratacion(idTipoContratacion);
+                    List<DetalleEmpleadoDTO> detalleEmpleado = getDetalleEmpleadoBean()
+                            .detalleEmpleadoPorIdTipoContratacion(
+                                    idTipoContratacion);
 
                     DetalleEmpleadoExcel detalleEmpleadoExcel = new DetalleEmpleadoExcel();
 
@@ -196,64 +231,90 @@ public class ExcelGenerador implements Generador, Serializable {
 
                 case "producto_nomina": {
 
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
 
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina().obtenerListaProductoNominaPorIdProducto(idProducto);
+                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                            .obtenerListaProductoNominaPorIdProducto(
+                                    idProducto);
 
                     if (!listaProductoNomina.isEmpty()) {
                         ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
-                        bytes = productoNominaExcel.generar(listaProductoNomina);
+                        bytes = productoNominaExcel
+                                .generar(listaProductoNomina);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados en el producto nomina: ", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados en el producto nomina: ",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
                 }
                     break;
 
                 case "producto_nomina_programas": {
 
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = getProductoNomina()
-                            .obtenerListaProductoNominaProgramasPorIdProducto(idProducto);
-                    List<String> listaProgramas = getProductoNomina().obtenerListaProgramasPorIdProducto(idProducto);
-                    ProductoNominaDTO producto = getProductoNomina().obtenerProductoNominaPorIdProducto(idProducto);
+                            .obtenerListaProductoNominaProgramasPorIdProducto(
+                                    idProducto);
+                    List<String> listaProgramas = getProductoNomina()
+                            .obtenerListaProgramasPorIdProducto(idProducto);
+                    ProductoNominaDTO producto = getProductoNomina()
+                            .obtenerProductoNominaPorIdProducto(idProducto);
 
                     if (!listaProductoNominaProgramas.isEmpty()) {
                         ProductoNominaProgramasExcel productoNominaProgramasExcel = new ProductoNominaProgramasExcel();
-                        bytes = productoNominaProgramasExcel.generar(listaProductoNominaProgramas, listaProgramas, producto);
+                        bytes = productoNominaProgramasExcel.generar(
+                                listaProductoNominaProgramas, listaProgramas,
+                                producto);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados en el producto nomina: ", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados en el producto nomina: ",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
                 }
                     break;
 
                 case "producto_nomina_estatus": {
 
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    Integer idEstatus = Integer.parseInt(parametros.get("ID_ESTATUS"));
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idEstatus = Integer
+                            .parseInt(parametros.get("ID_ESTATUS"));
 
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina().obtenerListaProductoNominaPorIdProductoEstatus(idProducto,
-                            idEstatus);
+                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                            .obtenerListaProductoNominaPorIdProductoEstatus(
+                                    idProducto, idEstatus);
 
                     if (!listaProductoNomina.isEmpty()) {
                         ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
 
-                        bytes = productoNominaExcel.generar(listaProductoNomina);
+                        bytes = productoNominaExcel
+                                .generar(listaProductoNomina);
                     } else {
                         throw new ReglaNegocioException(
-                                "No se encontrarón resultados en el producto nomina con el estatus " + EnumEstatusProductoNomina.obtenerEstatus(idEstatus),
+                                "No se encontrarón resultados en el producto nomina con el estatus "
+                                        + EnumEstatusProductoNomina
+                                                .obtenerEstatus(idEstatus),
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
                 }
                     break;
                 case "producto_nomina_suplencia": {
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina().obtenerListaProductoNominaPorIdProducto(idProducto);
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                            .obtenerListaProductoNominaPorIdProducto(
+                                    idProducto);
 
                     if (!listaProductoNomina.isEmpty()) {
                         ProductoNominaExcel productoNominaExcel = new ProductoNominaExcel();
-                        bytes = productoNominaExcel.generar(listaProductoNomina);
+                        bytes = productoNominaExcel
+                                .generar(listaProductoNomina);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados con el identificador del producto nomina: " + idProducto.toString(),
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados con el identificador del producto nomina: "
+                                        + idProducto.toString(),
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
                 }
@@ -261,16 +322,20 @@ public class ExcelGenerador implements Generador, Serializable {
 
                 case "historial_pago": {
 
-                    Integer idEmpleado = Integer.parseInt(parametros.get("ID_EMPLEADO"));
+                    Integer idEmpleado = Integer
+                            .parseInt(parametros.get("ID_EMPLEADO"));
 
-                    List<HistorialPagoDetalleDTO> listaHistorialPago = getHistorialPago().obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
+                    List<HistorialPagoDetalleDTO> listaHistorialPago = getHistorialPago()
+                            .obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
 
                     if (!listaHistorialPago.isEmpty()) {
                         HistorialPagoExcel historialPagoExcel = new HistorialPagoExcel();
 
                         bytes = historialPagoExcel.generar(listaHistorialPago);
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados con el identificador del empleado: " + idEmpleado.toString(),
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados con el identificador del empleado: "
+                                        + idEmpleado.toString(),
                                 ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
@@ -279,48 +344,66 @@ public class ExcelGenerador implements Generador, Serializable {
 
                 case "relacion_personal_suplente": {
 
-                    Integer numeroQuincena = Integer.parseInt(parametros.get("NUMERO_QUINCENA"));
-                    Integer ejercicioFiscal = Integer.parseInt(parametros.get("EJERCICIO_FISCAL"));
-                    Integer idCentroResponsabilidad = Integer.parseInt(parametros.get("ID_CENTRO_RESPONSABILIDAD"));
+                    Integer numeroQuincena = Integer
+                            .parseInt(parametros.get("NUMERO_QUINCENA"));
+                    Integer ejercicioFiscal = Integer
+                            .parseInt(parametros.get("EJERCICIO_FISCAL"));
+                    Integer idCentroResponsabilidad = Integer.parseInt(
+                            parametros.get("ID_CENTRO_RESPONSABILIDAD"));
 
                     List<RelacionPersonalSuplenteDTO> listaRelacionPersonalSuplenteDTOs = getRelacionPersonalSuplente()
-                            .obtenerListaRelacionPersonalSuplente(numeroQuincena, ejercicioFiscal, idCentroResponsabilidad);
+                            .obtenerListaRelacionPersonalSuplente(
+                                    numeroQuincena, ejercicioFiscal,
+                                    idCentroResponsabilidad);
 
                     if (!listaRelacionPersonalSuplenteDTOs.isEmpty()) {
 
                         RelacionPersonalSuplenteExcel relacionPersonalSuplenteExcel = new RelacionPersonalSuplenteExcel();
 
-                        bytes = relacionPersonalSuplenteExcel.generar(listaRelacionPersonalSuplenteDTOs);
+                        bytes = relacionPersonalSuplenteExcel
+                                .generar(listaRelacionPersonalSuplenteDTOs);
 
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados, intentelo de nuevo.",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
                 }
                     break;
 
                 case "dispersion_nomina": {
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     bytes = getDispersion().generarReporte(idProducto, true);
                 }
                     break;
 
                 case "pago_general": {
-                    Integer idProducto = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    PagoGeneralReporte pagoGeneral = getBean(PagoGeneralReporte.class);
-                    bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes() : pagoGeneral.generarReporte(idProducto);
+                    Integer idProducto = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    PagoGeneralReporte pagoGeneral = getBean(
+                            PagoGeneralReporte.class);
+                    bytes = pagoGeneral == null ? ReporteVacio.obtenerBytes()
+                            : pagoGeneral.generarReporte(idProducto);
                 }
                     break;
 
                 case "reporte_distribucion_presupuestal": {
 
-                    Integer anioPresupuesto = Integer.parseInt(parametros.get("ANYO_PRESUPUESTO"));
-                    Integer idTipoNombramiento = Integer.parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
-                    Integer idDependencia = Integer.parseInt(parametros.get("DEPENDENCIA"));
-                    Integer idSubfuenteFinanciamiento = Integer.parseInt(parametros.get("ID_SUBFUENTE_FINANCIAMIENTO"));
+                    Integer anioPresupuesto = Integer
+                            .parseInt(parametros.get("ANYO_PRESUPUESTO"));
+                    Integer idTipoNombramiento = Integer
+                            .parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
+                    Integer idDependencia = Integer
+                            .parseInt(parametros.get("DEPENDENCIA"));
+                    Integer idSubfuenteFinanciamiento = Integer.parseInt(
+                            parametros.get("ID_SUBFUENTE_FINANCIAMIENTO"));
 
-                    List<DistribucionPresupuestoDTO> listaDistribucionPresupuestoDTOs = getDistribucionPresupuestal().distribucionPresupuesto(anioPresupuesto,
-                            idTipoNombramiento, idDependencia, idSubfuenteFinanciamiento);
+                    List<DistribucionPresupuestoDTO> listaDistribucionPresupuestoDTOs = getDistribucionPresupuestal()
+                            .distribucionPresupuesto(anioPresupuesto,
+                                    idTipoNombramiento, idDependencia,
+                                    idSubfuenteFinanciamiento);
 
                     if (!listaDistribucionPresupuestoDTOs.isEmpty()) {
 
@@ -328,14 +411,19 @@ public class ExcelGenerador implements Generador, Serializable {
 
                         try {
 
-                            bytes = reporteDistribucionPresupuesto.generarArchivoExcel(listaDistribucionPresupuestoDTOs);
+                            bytes = reporteDistribucionPresupuesto
+                                    .generarArchivoExcel(
+                                            listaDistribucionPresupuestoDTOs);
                         } catch (IOException ex) {
                             bytes = ReporteVacio.obtenerBytes();
-                            LOGGER.warn("Se va a generar un archivo excel vacio por error de entrada/salida");
+                            LOGGER.warn(
+                                    "Se va a generar un archivo excel vacio por error de entrada/salida");
                         }
 
                     } else {
-                        throw new ReglaNegocioException("No se encontrarón resultados, intentelo de nuevo.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                        throw new ReglaNegocioException(
+                                "No se encontrarón resultados, intentelo de nuevo.",
+                                ReglaNegocioCodigoError.SIN_REGISTRO);
                     }
 
                 }
@@ -348,11 +436,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            ConsultaNominaService consultaNominaService = (ConsultaNominaService) initContext.lookup(CONSULTA_NOMINA_SERVICE_BEAN);
+            ConsultaNominaService consultaNominaService = (ConsultaNominaService) initContext
+                    .lookup(CONSULTA_NOMINA_SERVICE_BEAN);
 
             return consultaNominaService;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}", CONSULTA_NOMINA_SERVICE_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
+                    CONSULTA_NOMINA_SERVICE_BEAN, ex.getCause());
             return null;
         }
     }
@@ -365,7 +455,8 @@ public class ExcelGenerador implements Generador, Serializable {
                     .lookup(CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN);
             return consultaMovimientosEmpleados;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}", CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
+                    CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN, ex.getCause());
             return null;
         }
     }
@@ -373,10 +464,12 @@ public class ExcelGenerador implements Generador, Serializable {
     private SeguroPopularReporte getSeguroPopularReporteBean() {
         try {
             Context initContext = new InitialContext();
-            SeguroPopularReporte seguroPopularReporteBean = (SeguroPopularReporte) initContext.lookup(SEGURO_POPULAR_REPORTE_BEAN);
+            SeguroPopularReporte seguroPopularReporteBean = (SeguroPopularReporte) initContext
+                    .lookup(SEGURO_POPULAR_REPORTE_BEAN);
             return seguroPopularReporteBean;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", SEGURO_POPULAR_REPORTE_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    SEGURO_POPULAR_REPORTE_BEAN, ex.getCause());
             return null;
         }
     }
@@ -384,10 +477,12 @@ public class ExcelGenerador implements Generador, Serializable {
     private ProyeccionesPresupuestalesEJB getProyeccionesPresupuestalesBean() {
         try {
             Context initContext = new InitialContext();
-            ProyeccionesPresupuestalesEJB proyeccionesPresupuestalesBean = (ProyeccionesPresupuestalesEJB) initContext.lookup(PROYECCIONES_PRESUPUESTALES_BEAN);
+            ProyeccionesPresupuestalesEJB proyeccionesPresupuestalesBean = (ProyeccionesPresupuestalesEJB) initContext
+                    .lookup(PROYECCIONES_PRESUPUESTALES_BEAN);
             return proyeccionesPresupuestalesBean;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", PROYECCIONES_PRESUPUESTALES_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    PROYECCIONES_PRESUPUESTALES_BEAN, ex.getCause());
             return null;
         }
     }
@@ -396,12 +491,14 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            DetalleEmpleado detalleEmpleado = (DetalleEmpleado) initContext.lookup(DETALLE_EMPLEADO_BEAN);
+            DetalleEmpleado detalleEmpleado = (DetalleEmpleado) initContext
+                    .lookup(DETALLE_EMPLEADO_BEAN);
 
             return detalleEmpleado;
 
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DETALLE_EMPLEADO_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    DETALLE_EMPLEADO_BEAN, ex.getCause());
             return null;
         }
 
@@ -411,11 +508,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            ProductoNomina productoNomina = (ProductoNomina) initContext.lookup(PRODUCTO_NOMINA_BEAN);
+            ProductoNomina productoNomina = (ProductoNomina) initContext
+                    .lookup(PRODUCTO_NOMINA_BEAN);
 
             return productoNomina;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", PRODUCTO_NOMINA_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    PRODUCTO_NOMINA_BEAN, ex.getCause());
             return null;
         }
     }
@@ -424,11 +523,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            ProductoNomina productoNomina = (ProductoNomina) initContext.lookup(PRODUCTO_NOMINA_BEAN);
+            ProductoNomina productoNomina = (ProductoNomina) initContext
+                    .lookup(PRODUCTO_NOMINA_BEAN);
 
             return productoNomina;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", PRODUCTO_NOMINA_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    PRODUCTO_NOMINA_BEAN, ex.getCause());
             return null;
         }
     }
@@ -437,11 +538,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            HistorialPago historialPago = (HistorialPago) initContext.lookup(HISTORIAL_PAGO_BEAN);
+            HistorialPago historialPago = (HistorialPago) initContext
+                    .lookup(HISTORIAL_PAGO_BEAN);
 
             return historialPago;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", HISTORIAL_PAGO_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    HISTORIAL_PAGO_BEAN, ex.getCause());
             return null;
         }
     }
@@ -450,11 +553,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            RelacionPersonalSuplente relacionPersonalSuplente = (RelacionPersonalSuplente) initContext.lookup(RELACION_PERSONAL_SUPLENTE_BEAN);
+            RelacionPersonalSuplente relacionPersonalSuplente = (RelacionPersonalSuplente) initContext
+                    .lookup(RELACION_PERSONAL_SUPLENTE_BEAN);
 
             return relacionPersonalSuplente;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", RELACION_PERSONAL_SUPLENTE_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    RELACION_PERSONAL_SUPLENTE_BEAN, ex.getCause());
             return null;
         }
     }
@@ -462,10 +567,12 @@ public class ExcelGenerador implements Generador, Serializable {
     private Dispersion getDispersion() {
         try {
             Context initContext = new InitialContext();
-            Dispersion dispersion = (Dispersion) initContext.lookup(DISPERSION_BEAN);
+            Dispersion dispersion = (Dispersion) initContext
+                    .lookup(DISPERSION_BEAN);
             return dispersion;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISPERSION_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISPERSION_BEAN,
+                    ex.getCause());
             return null;
         }
     }
@@ -484,7 +591,8 @@ public class ExcelGenerador implements Generador, Serializable {
             Context initContext = new InitialContext();
             return (T) initContext.lookup(bean);
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean,
+                    ex.getCause());
             return null;
         }
     }
@@ -493,11 +601,13 @@ public class ExcelGenerador implements Generador, Serializable {
         try {
             Context initContext = new InitialContext();
 
-            DistribucionPresupuestoEJB relacionPersonalSuplente = (DistribucionPresupuestoEJB) initContext.lookup(DISTRIBUCION_PRESUPUESTO_BEAN);
+            DistribucionPresupuestoEJB relacionPersonalSuplente = (DistribucionPresupuestoEJB) initContext
+                    .lookup(DISTRIBUCION_PRESUPUESTO_BEAN);
 
             return relacionPersonalSuplente;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISTRIBUCION_PRESUPUESTO_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
+                    DISTRIBUCION_PRESUPUESTO_BEAN, ex.getCause());
             return null;
         }
     }

@@ -59,8 +59,10 @@ public class AreasService {
 
     protected List<AreaDTO> obtenerAreas() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_area AS idArea, " + "nombre_area AS nombreArea, " + "area_padre As areaPadre, "
-                + "descripcion AS descripcion, " + "titular AS titular " + "FROM areas");
+        Query query = session.createSQLQuery("SELECT id_area AS idArea, "
+                + "nombre_area AS nombreArea, " + "area_padre As areaPadre, "
+                + "descripcion AS descripcion, " + "titular AS titular "
+                + "FROM areas");
         query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
         @SuppressWarnings("unchecked")
         List<AreaDTO> result = query.list();

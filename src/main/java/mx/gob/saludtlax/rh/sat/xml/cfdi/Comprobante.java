@@ -15,7 +15,8 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = { "emisor", "receptor", "conceptos", "impuestos", "complemento", "addenda" })
+@XmlType(name = "", propOrder = { "emisor", "receptor", "conceptos",
+        "impuestos", "complemento", "addenda" })
 @XmlRootElement(name = "Comprobante")
 public class Comprobante {
 
@@ -1196,7 +1197,8 @@ public class Comprobante {
          *
          */
         @XmlAccessorType(XmlAccessType.FIELD)
-        @XmlType(name = "", propOrder = { "informacionAduanera", "cuentaPredial", "complementoConcepto", "parte" })
+        @XmlType(name = "", propOrder = { "informacionAduanera",
+                "cuentaPredial", "complementoConcepto", "parte" })
         public static class Concepto {
 
             @XmlElement(name = "InformacionAduanera")
@@ -1270,7 +1272,8 @@ public class Comprobante {
              *            {@link Comprobante.Conceptos.Concepto.CuentaPredial }
              *
              */
-            public void setCuentaPredial(Comprobante.Conceptos.Concepto.CuentaPredial value) {
+            public void setCuentaPredial(
+                    Comprobante.Conceptos.Concepto.CuentaPredial value) {
                 cuentaPredial = value;
             }
 
@@ -1294,7 +1297,8 @@ public class Comprobante {
              *            {@link Comprobante.Conceptos.Concepto.ComplementoConcepto }
              *
              */
-            public void setComplementoConcepto(Comprobante.Conceptos.Concepto.ComplementoConcepto value) {
+            public void setComplementoConcepto(
+                    Comprobante.Conceptos.Concepto.ComplementoConcepto value) {
                 complementoConcepto = value;
             }
 
@@ -1894,7 +1898,8 @@ public class Comprobante {
      *
      */
     @XmlAccessorType(XmlAccessType.FIELD)
-    @XmlType(name = "", propOrder = { "domicilioFiscal", "expedidoEn", "regimenFiscal" })
+    @XmlType(name = "", propOrder = { "domicilioFiscal", "expedidoEn",
+            "regimenFiscal" })
     public static class Emisor {
 
         @XmlElement(name = "DomicilioFiscal")

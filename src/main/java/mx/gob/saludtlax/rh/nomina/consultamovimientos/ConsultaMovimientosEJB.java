@@ -15,11 +15,13 @@ public class ConsultaMovimientosEJB implements ConsultaMovimientos {
     private ConsultaMovimientosService service;
 
     @Override
-    public EmpleadoDatosDTO obtenerEmpleadoDatos(Integer idEmpleadoSeleccionado) {
+    public EmpleadoDatosDTO obtenerEmpleadoDatos(
+            Integer idEmpleadoSeleccionado) {
         return null; //service.obtenerEmpleadoDatos(idEmpleadoSeleccionado);
     }
 
-    public MovimientosNominaEmpleadoDTO obtenerMovimientos(MovimientosNominaEmpleadoDTO movimientosNomina) {
+    public MovimientosNominaEmpleadoDTO obtenerMovimientos(
+            MovimientosNominaEmpleadoDTO movimientosNomina) {
         return service.obtenerMovimientos(movimientosNomina);
     }
 }

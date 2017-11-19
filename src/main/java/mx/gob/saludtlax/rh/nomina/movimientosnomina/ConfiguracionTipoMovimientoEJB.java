@@ -18,7 +18,9 @@ public class ConfiguracionTipoMovimientoEJB {
         configuracionTipoMovimientoService.editarConfiguracion(dto);
     }
 
-    public ConfiguracionTipoMovimientoDTO configuracionPorTipoMovimiento(Integer idTipoMovimiento) {
-        return configuracionTipoMovimientoService.obtenerConfiguracionesPorTipoMovimiento(idTipoMovimiento);
+    public ConfiguracionTipoMovimientoDTO configuracionPorTipoMovimiento(
+            Integer idTipoMovimiento) {
+        return configuracionTipoMovimientoService
+                .obtenerConfiguracionesPorTipoMovimiento(idTipoMovimiento);
     }
 }

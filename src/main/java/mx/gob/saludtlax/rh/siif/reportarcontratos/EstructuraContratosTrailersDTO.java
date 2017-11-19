@@ -33,8 +33,6 @@ public class EstructuraContratosTrailersDTO implements Serializable {
     private Integer idProductoNomina;
     private Integer idPrograma;
 
-    
-
     public String getIdEstructura() {
         return idEstructura;
     }
@@ -47,7 +45,8 @@ public class EstructuraContratosTrailersDTO implements Serializable {
         return idEstructurasContratosTrailers;
     }
 
-    public void setIdEstructurasContratosTrailers(Integer idEstructurasContratosTrailers) {
+    public void setIdEstructurasContratosTrailers(
+            Integer idEstructurasContratosTrailers) {
         this.idEstructurasContratosTrailers = idEstructurasContratosTrailers;
     }
 
@@ -199,7 +198,8 @@ public class EstructuraContratosTrailersDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -225,11 +225,18 @@ public class EstructuraContratosTrailersDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "EstructuraContratosTrailersDTO [idEstructura=" + idEstructura + ", idEstructurasContratosTrailers=" + idEstructurasContratosTrailers + ", rfc="
-                + rfc + ", numEmp=" + numEmp + ", numCheq=" + numCheq + ", tConcep=" + tConcep + ", concep=" + concep + ", importe=" + importe + ", anio="
-                + anio + ", qna=" + qna + ", ptaAnt=" + ptaAnt + ", totPagos=" + totPagos + ", pagoEfec=" + pagoEfec + ", nomProd=" + nomProd + ", numControl="
-                + numControl + ", idEstructurasContratos=" + idEstructurasContratos + ", idSiifBitacoras=" + idSiifBitacoras + ", idSiifEncabezados="
-                + idSiifEncabezados + ", idConcepto=" + idConcepto + ", conceptosSiif=" + conceptosSiif + "]";
+        return "EstructuraContratosTrailersDTO [idEstructura=" + idEstructura
+                + ", idEstructurasContratosTrailers="
+                + idEstructurasContratosTrailers + ", rfc=" + rfc + ", numEmp="
+                + numEmp + ", numCheq=" + numCheq + ", tConcep=" + tConcep
+                + ", concep=" + concep + ", importe=" + importe + ", anio="
+                + anio + ", qna=" + qna + ", ptaAnt=" + ptaAnt + ", totPagos="
+                + totPagos + ", pagoEfec=" + pagoEfec + ", nomProd=" + nomProd
+                + ", numControl=" + numControl + ", idEstructurasContratos="
+                + idEstructurasContratos + ", idSiifBitacoras="
+                + idSiifBitacoras + ", idSiifEncabezados=" + idSiifEncabezados
+                + ", idConcepto=" + idConcepto + ", conceptosSiif="
+                + conceptosSiif + "]";
     }
 
 }

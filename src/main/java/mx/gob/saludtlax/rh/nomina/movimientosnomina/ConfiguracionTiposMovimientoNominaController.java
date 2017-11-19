@@ -18,7 +18,8 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 
 @ManagedBean
 @ViewScoped
-public class ConfiguracionTiposMovimientoNominaController implements Serializable {
+public class ConfiguracionTiposMovimientoNominaController
+        implements Serializable {
 
     /**
      *
@@ -54,7 +55,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         listaMovimientos = tipoMovimientosNominaEJB.obtenerListaMovimientos();
         itemsTiposMov.clear();
         for (TipoMovimientoNominaDTO dto : listaMovimientos) {
-            itemsTiposMov.add(new SelectItem(dto.getIdTimpoMovimiento(), dto.getClave() + " - " + dto.getDescripcion()));
+            itemsTiposMov.add(new SelectItem(dto.getIdTimpoMovimiento(),
+                    dto.getClave() + " - " + dto.getDescripcion()));
         }
 
         listaConceptos = new ArrayList<>();
@@ -63,12 +65,15 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
 
     public void buscarConfiguracion(TipoMovimientoNominaDTO dto) {
         configuracionNew = new ConfiguracionTipoMovimientoDTO();
-        configuracionNew = configuracionTipoMovimientoEJB.configuracionPorTipoMovimiento(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+        configuracionNew = configuracionTipoMovimientoEJB
+                .configuracionPorTipoMovimiento(
+                        tipoMovimientoSeleccionado.getIdTimpoMovimiento());
         mostrarPanelbusqueda = false;
         mostrarPanelConf = true;
         if (configuracionNew != null) {
             listaConceptosSeleccionados.clear();
-            listaConceptosSeleccionados = configuracionNew.getListConceptoNomina();
+            listaConceptosSeleccionados = configuracionNew
+                    .getListConceptoNomina();
         }
     }
 
@@ -80,7 +85,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
             configuracionTipoMovimientoEJB.crear(configuracionNew);
             JSFUtils.infoMessage("", "Se creo la configuracion correctamente.");
         } catch (PersistenceException e) {
-            JSFUtils.errorMessage("", "Ocurrio un error al intentar guardar la configuracion.");
+            JSFUtils.errorMessage("",
+                    "Ocurrio un error al intentar guardar la configuracion.");
         }
     }
 
@@ -93,7 +99,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return listaDeConfiguraciones;
     }
 
-    public void setListaDeConfiguraciones(List<ConfiguracionTipoMovimientoDTO> listaDeConfiguraciones) {
+    public void setListaDeConfiguraciones(
+            List<ConfiguracionTipoMovimientoDTO> listaDeConfiguraciones) {
         this.listaDeConfiguraciones = listaDeConfiguraciones;
     }
 
@@ -101,7 +108,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return listaMovimientos;
     }
 
-    public void setListaMovimientos(List<TipoMovimientoNominaDTO> listaMovimientos) {
+    public void setListaMovimientos(
+            List<TipoMovimientoNominaDTO> listaMovimientos) {
         this.listaMovimientos = listaMovimientos;
     }
 
@@ -109,7 +117,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return listaConceptos;
     }
 
-    public void setListaConceptos(List<ConceptoNominaFederalesDTO> listaConceptos) {
+    public void setListaConceptos(
+            List<ConceptoNominaFederalesDTO> listaConceptos) {
         this.listaConceptos = listaConceptos;
     }
 
@@ -117,7 +126,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return configuracionNew;
     }
 
-    public void setConfiguracionNew(ConfiguracionTipoMovimientoDTO configuracionNew) {
+    public void setConfiguracionNew(
+            ConfiguracionTipoMovimientoDTO configuracionNew) {
         this.configuracionNew = configuracionNew;
     }
 
@@ -125,7 +135,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return configuracinSeleccionada;
     }
 
-    public void setConfiguracinSeleccionada(ConfiguracionTipoMovimientoDTO configuracinSeleccionada) {
+    public void setConfiguracinSeleccionada(
+            ConfiguracionTipoMovimientoDTO configuracinSeleccionada) {
         this.configuracinSeleccionada = configuracinSeleccionada;
     }
 
@@ -133,7 +144,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return tipoMovimientoSeleccionado;
     }
 
-    public void setTipoMovimientoSeleccionado(TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
+    public void setTipoMovimientoSeleccionado(
+            TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
         this.tipoMovimientoSeleccionado = tipoMovimientoSeleccionado;
     }
 
@@ -173,7 +185,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return listaConceptosSeleccionados;
     }
 
-    public void setListaConceptosSeleccionados(List<ConceptoNominaFederalesDTO> listaConceptosSeleccionados) {
+    public void setListaConceptosSeleccionados(
+            List<ConceptoNominaFederalesDTO> listaConceptosSeleccionados) {
         this.listaConceptosSeleccionados = listaConceptosSeleccionados;
     }
 
@@ -181,7 +194,8 @@ public class ConfiguracionTiposMovimientoNominaController implements Serializabl
         return listaMovimientosfilter;
     }
 
-    public void setListaMovimientosfilter(List<TipoMovimientoNominaDTO> listaMovimientosfilter) {
+    public void setListaMovimientosfilter(
+            List<TipoMovimientoNominaDTO> listaMovimientosfilter) {
         this.listaMovimientosfilter = listaMovimientosfilter;
     }
 

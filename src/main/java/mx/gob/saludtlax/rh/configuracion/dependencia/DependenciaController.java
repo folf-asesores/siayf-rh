@@ -49,7 +49,8 @@ public class DependenciaController {
     }
 
     public String irGestionarDependencia() {
-        view.setDependencia(ejb.obtenerDependencia(view.getDependenciaSelect()));
+        view.setDependencia(
+                ejb.obtenerDependencia(view.getDependenciaSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelGestion();
         return null;
@@ -78,7 +79,8 @@ public class DependenciaController {
         view.setDisabledIrGestionar(Boolean.TRUE);
     }
 
-    public void validatorDependencia(FacesContext context, UIComponent component, Object value) {
+    public void validatorDependencia(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -86,7 +88,9 @@ public class DependenciaController {
                 String Dependencia = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Dependencia)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Dependencia");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Dependencia");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -95,13 +99,18 @@ public class DependenciaController {
                 Integer Sector = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(Sector)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Sector");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Sector");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (Sector > 999) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Sector es de un maximo de 3 digitos");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Sector es de un maximo de 3 digitos");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -110,13 +119,18 @@ public class DependenciaController {
                 String Base36 = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Base36)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Base 36");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Base 36");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (Base36.length() > 3) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Base 36 es de un maximo de 3 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Base 36 es de un maximo de 3 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

@@ -39,11 +39,12 @@ import net.sf.jasperreports.export.SimpleWriterExporterOutput;
  * Esta clase ayuda en la compilación de los archivos de JasperReport.
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public class JasperReportsCompilador {
 
-    private static final Logger LOGGER = Logger.getLogger(JasperReportsCompilador.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(JasperReportsCompilador.class.getName());
 
     /**
      * Este método compila el archivo <code>.jrxml</code> devolviendo el una
@@ -64,7 +65,9 @@ public class JasperReportsCompilador {
             LOGGER.debug("La compilación del archivo .jrxml se ha completado");
             inputStream.close();
         } catch (JRException ex) {
-            LOGGER.errorv("Error durante la compilaci\u00f3n de archivo JRXML. {0} ", ex.getMessage());
+            LOGGER.errorv(
+                    "Error durante la compilaci\u00f3n de archivo JRXML. {0} ",
+                    ex.getMessage());
         } catch (IOException ex) {
             LOGGER.errorv("Error al cerrar el inputStream: {0}", ex);
         }
@@ -83,7 +86,8 @@ public class JasperReportsCompilador {
      *            los parámetros del reporte.
      * @return un arreglo de bytes con el reporte en formato PDF.
      */
-    protected byte[] generarReporte(InputStream inputStream, Map<String, Object> parametros) {
+    protected byte[] generarReporte(InputStream inputStream,
+            Map<String, Object> parametros) {
         return generarReporte(compilar(inputStream), parametros, "pdf");
     }
 
@@ -100,7 +104,8 @@ public class JasperReportsCompilador {
      * @return un arreglo de bytes con el reporte según el tipo de reporte
      *         requerido.
      */
-    protected byte[] generarReporte(JasperReport jasper, Map<String, Object> parametros, String tipoReporte) {
+    protected byte[] generarReporte(JasperReport jasper,
+            Map<String, Object> parametros, String tipoReporte) {
         byte[] bytesReporte = null;
 
         try {
@@ -110,15 +115,20 @@ public class JasperReportsCompilador {
             try (Connection conexion = ds.getConnection()) {
                 if ("pdf".equalsIgnoreCase(tipoReporte)) {
                     LOGGER.info("Iniciando la generación del reporte pdf");
-                    bytesReporte = JasperRunManager.runReportToPdf(jasper, parametros, conexion);
-                    LOGGER.info("La generación del archivo .pdf se ha completado");
+                    bytesReporte = JasperRunManager.runReportToPdf(jasper,
+                            parametros, conexion);
+                    LOGGER.info(
+                            "La generación del archivo .pdf se ha completado");
                 } else if ("txt".equalsIgnoreCase(tipoReporte)) {
                     LOGGER.info("Iniciando la generación del reporte txt");
                     try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
-                        JasperPrint jasperPrint = JasperFillManager.fillReport(jasper, parametros, conexion);
-                        SimpleExporterInput sei = new SimpleExporterInput(jasperPrint);
+                        JasperPrint jasperPrint = JasperFillManager
+                                .fillReport(jasper, parametros, conexion);
+                        SimpleExporterInput sei = new SimpleExporterInput(
+                                jasperPrint);
                         SimpleTextReportConfiguration strc = new SimpleTextReportConfiguration();
-                        SimpleWriterExporterOutput sweo = new SimpleWriterExporterOutput(baos);
+                        SimpleWriterExporterOutput sweo = new SimpleWriterExporterOutput(
+                                baos);
 
                         JRTextExporter exporter = new JRTextExporter();
                         exporter.setExporterInput(sei);
@@ -126,22 +136,28 @@ public class JasperReportsCompilador {
                         exporter.setExporterOutput(sweo);
                         exporter.exportReport();
 
-                        bytesReporte = ArchivoUtil.codificarComoMsDos(baos.toByteArray());
-                        LOGGER.info("La generación del reporte se ha completado.");
+                        bytesReporte = ArchivoUtil
+                                .codificarComoMsDos(baos.toByteArray());
+                        LOGGER.info(
+                                "La generación del reporte se ha completado.");
                     } catch (IOException ex) {
                         LOGGER.error(ex.getCause(), ex);
                     }
-                    LOGGER.info("La generación del archivo .txt se ha completado");
+                    LOGGER.info(
+                            "La generación del archivo .txt se ha completado");
                 }
             }
 
             return bytesReporte;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al tratar de resolver el nombre: {0}", DATASOURCE);
+            LOGGER.errorv("Error al tratar de resolver el nombre: {0}",
+                    DATASOURCE);
         } catch (SQLException ex) {
             LOGGER.errorv("Error de datos.\n{0}", ex.getMessage());
         } catch (JRException ex) {
-            LOGGER.errorv("Error durante la generaci\u00f3n del archivo {0}. Detalle del error:\n{1}", tipoReporte, ex.getMessage());
+            LOGGER.errorv(
+                    "Error durante la generaci\u00f3n del archivo {0}. Detalle del error:\n{1}",
+                    tipoReporte, ex.getMessage());
         }
 
         return bytesReporte;

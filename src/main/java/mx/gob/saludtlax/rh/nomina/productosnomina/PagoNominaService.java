@@ -58,52 +58,70 @@ public class PagoNominaService {
 
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
-    private static final Logger LOGGER = Logger.getLogger(PagoNominaService.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoNominaService.class);
 
-    public List<SubFuenteFinanciamientoTempEntity> obtenerSubfuentesPorProductoNomina(ProductoNominaDTO productoNomina) {
+    public List<SubFuenteFinanciamientoTempEntity> obtenerSubfuentesPorProductoNomina(
+            ProductoNominaDTO productoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("" + " SELECT " + "	id_subfuente_financiamiento " + " FROM nomina_empleado " + " WHERE "
-                        + "	id_producto_nomina = :idProductoNomina " + " GROUP BY " + "	id_subfuente_financiamiento ")
-                .setParameter("idProductoNomina", productoNomina.getIdProductoNomina());
+        Query query = session.createSQLQuery("" + " SELECT "
+                + "	id_subfuente_financiamiento " + " FROM nomina_empleado "
+                + " WHERE " + "	id_producto_nomina = :idProductoNomina "
+                + " GROUP BY " + "	id_subfuente_financiamiento ")
+                .setParameter("idProductoNomina",
+                        productoNomina.getIdProductoNomina());
         @SuppressWarnings("unchecked")
         List<Integer> result = query.list();
         List<SubFuenteFinanciamientoTempEntity> subfuenteFinanciamientoList = new ArrayList<>();
         for (Integer idSubfuenteFinanciamiento : result) {
             if (idSubfuenteFinanciamiento != null) {
-                subfuenteFinanciamientoList.add(subfuenteFinanciamientoRepository.obtenerPorId(idSubfuenteFinanciamiento));
+                subfuenteFinanciamientoList
+                        .add(subfuenteFinanciamientoRepository
+                                .obtenerPorId(idSubfuenteFinanciamiento));
             }
         }
         return subfuenteFinanciamientoList;
     }
 
-    public List<PagoNominaEntity> crearPagosNomina(ProductoNominaDTO productoNomina) {
-        List<SubFuenteFinanciamientoTempEntity> subfuenteFinanciamientoList = obtenerSubfuentesPorProductoNomina(productoNomina);
-        ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(productoNomina.getIdProductoNomina());
+    public List<PagoNominaEntity> crearPagosNomina(
+            ProductoNominaDTO productoNomina) {
+        List<SubFuenteFinanciamientoTempEntity> subfuenteFinanciamientoList = obtenerSubfuentesPorProductoNomina(
+                productoNomina);
+        ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                .obtenerPorId(productoNomina.getIdProductoNomina());
         List<PagoNominaEntity> pagosNominaList = new ArrayList<>();
         PagoNominaEntity pagoNominaEntity = null;
         BancoSatEntity banco = bancoSatRepository.obtenerPorId(7);
-        LOGGER.info("fuenteFinanciamientoRepository:: " + fuenteFinanciamientoRepository);
+        LOGGER.info("fuenteFinanciamientoRepository:: "
+                + fuenteFinanciamientoRepository);
         for (SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento : subfuenteFinanciamientoList) {
             pagoNominaEntity = new PagoNominaEntity();
-            LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: " + subfuenteFinanciamiento);
-            LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: " + subfuenteFinanciamiento.getIdFuenteFinanciamiento());
+            LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: "
+                    + subfuenteFinanciamiento);
+            LOGGER.info("subfuenteFinanciamiento.getIdFuenteFinanciamiento():: "
+                    + subfuenteFinanciamiento.getIdFuenteFinanciamiento());
             FuenteFinanciamientoEntity fuenteFinanciamientoEntity = null;
             try {
-                fuenteFinanciamientoEntity = fuenteFinanciamientoRepository.obtenerPorId(subfuenteFinanciamiento.getIdFuenteFinanciamiento());
+                fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
+                        .obtenerPorId(subfuenteFinanciamiento
+                                .getIdFuenteFinanciamiento());
             } catch (Exception e) {
                 LOGGER.error("LOGGER:: " + e.getMessage());
             }
-            LOGGER.info("fuenteFinanciamientoEntity:: " + fuenteFinanciamientoEntity);
+            LOGGER.info("fuenteFinanciamientoEntity:: "
+                    + fuenteFinanciamientoEntity);
 
-            pagoNominaEntity.setFuenteFinanciamiento(fuenteFinanciamientoEntity);
+            pagoNominaEntity
+                    .setFuenteFinanciamiento(fuenteFinanciamientoEntity);
             pagoNominaEntity.setProductoNomina(productoNominaEntity);
-            pagoNominaEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+            pagoNominaEntity
+                    .setSubfuenteFinanciamiento(subfuenteFinanciamiento);
             pagoNominaEntity.setFechaPago(productoNominaEntity.getFinPeriodo());
             pagoNominaEntity.setBanco(banco);
             pagoNominaRepository.crear(pagoNominaEntity);
-            List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository.obtenerNominaEmpleadoPorSubfuente(productoNominaEntity,
-                    subfuenteFinanciamiento);
+            List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository
+                    .obtenerNominaEmpleadoPorSubfuente(productoNominaEntity,
+                            subfuenteFinanciamiento);
             for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
                 nominaEmpleado.setPagoNomina(pagoNominaEntity);
                 nominaEmpleadoRepository.actualizar(nominaEmpleado);
@@ -113,13 +131,16 @@ public class PagoNominaService {
         return pagosNominaList;
     }
 
-    public List<PagoNominaEntity> obtenerPagosNomina(ProductoNominaDTO productoNomina) {
-        ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(productoNomina.getIdProductoNomina());
+    public List<PagoNominaEntity> obtenerPagosNomina(
+            ProductoNominaDTO productoNomina) {
+        ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                .obtenerPorId(productoNomina.getIdProductoNomina());
         return pagoNominaRepository.obtenerPagosNomina(productoNominaEntity);
     }
 
     public PagoNominaDTO obtenerPagoNomina(PagoNominaDTO pagoNomina) {
-        PagoNominaEntity pagoNominaEntity = pagoNominaRepository.obtenerPorId(pagoNomina.getIdPagoNomina());
+        PagoNominaEntity pagoNominaEntity = pagoNominaRepository
+                .obtenerPorId(pagoNomina.getIdPagoNomina());
         pagoNomina = toPagoNominaDTO(pagoNominaEntity);
         pagoNomina.setListaRfc(obtenerListaRfc(pagoNominaEntity));
         return pagoNomina;
@@ -129,34 +150,43 @@ public class PagoNominaService {
         PagoNominaEntity pagoNominaEntity = new PagoNominaEntity();
         if (pagoNomina.getIdProductoNomina() != null) {
             if (pagoNomina.getIdFuenteFinanciamiento() != null) {
-                FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository.obtenerPorId(pagoNomina.getIdFuenteFinanciamiento());
-                pagoNominaEntity.setFuenteFinanciamiento(fuenteFinanciamientoEntity);
+                FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
+                        .obtenerPorId(pagoNomina.getIdFuenteFinanciamiento());
+                pagoNominaEntity
+                        .setFuenteFinanciamiento(fuenteFinanciamientoEntity);
             }
-            ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(pagoNomina.getIdProductoNomina());
+            ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                    .obtenerPorId(pagoNomina.getIdProductoNomina());
             pagoNominaEntity.setProductoNomina(productoNominaEntity);
 
             if (pagoNomina.getIdSubfuenteFinanciamiento() != null) {
                 SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuenteFinanciamientoRepository
-                        .obtenerPorId(pagoNomina.getIdSubfuenteFinanciamiento());
-                pagoNominaEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+                        .obtenerPorId(
+                                pagoNomina.getIdSubfuenteFinanciamiento());
+                pagoNominaEntity
+                        .setSubfuenteFinanciamiento(subfuenteFinanciamiento);
             }
 
             if (pagoNomina.getIdBanco() != null) {
-                BancoSatEntity bancoSatEntity = bancoSatRepository.obtenerPorId(pagoNomina.getIdBanco());
+                BancoSatEntity bancoSatEntity = bancoSatRepository
+                        .obtenerPorId(pagoNomina.getIdBanco());
                 pagoNominaEntity.setBanco(bancoSatEntity);
             }
 
             if (pagoNomina.getIdCuentaBancaria() != null) {
-                CuentasBancariasEntity cuentasBancariasEntity = cuentasBancariasRepository.obtenerPorId(pagoNomina.getIdCuentaBancaria());
+                CuentasBancariasEntity cuentasBancariasEntity = cuentasBancariasRepository
+                        .obtenerPorId(pagoNomina.getIdCuentaBancaria());
                 pagoNominaEntity.setCuentaBancaria(cuentasBancariasEntity);
             }
 
             pagoNominaEntity.setFechaPago(pagoNomina.getFechaPago());
             pagoNominaRepository.crear(pagoNominaEntity);
 
-            List<String> listaRfc = rfcValidos(pagoNomina.getListaRfc().split("\\r?\\n"));
+            List<String> listaRfc = rfcValidos(
+                    pagoNomina.getListaRfc().split("\\r?\\n"));
 
-            List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(listaRfc, productoNominaEntity);
+            List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(
+                    listaRfc, productoNominaEntity);
             for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
                 nominaEmpleado.setPagoNomina(pagoNominaEntity);
                 nominaEmpleadoRepository.actualizar(nominaEmpleado);
@@ -166,18 +196,24 @@ public class PagoNominaService {
             }
             return toPagoNominaDTO(pagoNominaEntity);
         } else {
-            throw new SistemaException("Ocurrio al crear Pago", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio al crear Pago",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
 
     private void aplicarPadron(PagoNominaEntity pagoNomina) {
-        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository.obtenerNominaEmpleadoPorPagoNominaEntity(pagoNomina);
-        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = pagoNomina.getSubfuenteFinanciamiento();
+        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository
+                .obtenerNominaEmpleadoPorPagoNominaEntity(pagoNomina);
+        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = pagoNomina
+                .getSubfuenteFinanciamiento();
         for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
-            ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = nominaEmpleado.getIdConfiguracionPresupuestal();
-            configuracionPresupuestoEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
-            configuracionPresupuestoRepository.actualizar(configuracionPresupuestoEntity);
+            ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = nominaEmpleado
+                    .getIdConfiguracionPresupuestal();
+            configuracionPresupuestoEntity
+                    .setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+            configuracionPresupuestoRepository
+                    .actualizar(configuracionPresupuestoEntity);
         }
     }
 
@@ -193,30 +229,38 @@ public class PagoNominaService {
     }
 
     public PagoNominaDTO actualizarPagoNomina(PagoNominaDTO pagoNomina) {
-        PagoNominaEntity pagoNominaEntity = pagoNominaRepository.obtenerPorId(pagoNomina.getIdPagoNomina());
-        ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(pagoNomina.getIdProductoNomina());
+        PagoNominaEntity pagoNominaEntity = pagoNominaRepository
+                .obtenerPorId(pagoNomina.getIdPagoNomina());
+        ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                .obtenerPorId(pagoNomina.getIdProductoNomina());
         if (pagoNomina.getIdFuenteFinanciamiento() != null) {
-            FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository.obtenerPorId(pagoNomina.getIdFuenteFinanciamiento());
-            pagoNominaEntity.setFuenteFinanciamiento(fuenteFinanciamientoEntity);
+            FuenteFinanciamientoEntity fuenteFinanciamientoEntity = fuenteFinanciamientoRepository
+                    .obtenerPorId(pagoNomina.getIdFuenteFinanciamiento());
+            pagoNominaEntity
+                    .setFuenteFinanciamiento(fuenteFinanciamientoEntity);
         }
         if (pagoNomina.getIdSubfuenteFinanciamiento() != null) {
             SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuenteFinanciamientoRepository
                     .obtenerPorId(pagoNomina.getIdSubfuenteFinanciamiento());
-            pagoNominaEntity.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+            pagoNominaEntity
+                    .setSubfuenteFinanciamiento(subfuenteFinanciamiento);
         }
         pagoNominaEntity.setFechaPago(pagoNomina.getFechaPago());
         if (pagoNomina.getIdBanco() != null) {
-            BancoSatEntity banco = bancoSatRepository.obtenerPorId(pagoNomina.getIdBanco());
+            BancoSatEntity banco = bancoSatRepository
+                    .obtenerPorId(pagoNomina.getIdBanco());
             pagoNominaEntity.setBanco(banco);
         }
         if (pagoNomina.getIdCuentaBancaria() != null) {
-            CuentasBancariasEntity cuentasBancariasEntity = cuentasBancariasRepository.obtenerPorId(pagoNomina.getIdCuentaBancaria());
+            CuentasBancariasEntity cuentasBancariasEntity = cuentasBancariasRepository
+                    .obtenerPorId(pagoNomina.getIdCuentaBancaria());
             pagoNominaEntity.setCuentaBancaria(cuentasBancariasEntity);
         }
         pagoNominaRepository.actualizar(pagoNominaEntity);
 
         String rfcArrayDto[] = pagoNomina.getListaRfc().split("\\r?\\n");
-        String rfcArrayEntity[] = obtenerListaRfc(pagoNominaEntity).split("\\r?\\n");
+        String rfcArrayEntity[] = obtenerListaRfc(pagoNominaEntity)
+                .split("\\r?\\n");
         List<String> rfcListNuevos = new ArrayList<>();
         List<String> rfcListEliminar = new ArrayList<>();
         List<String> rfcListIgual = new ArrayList<>();
@@ -249,17 +293,20 @@ public class PagoNominaService {
         System.out.println("rfcListIgual:: " + rfcListIgual);
         System.out.println("rfcListNuevos:: " + rfcListNuevosValidos);
         System.out.println("rfcListEliminar:: " + rfcListEliminar);
-        List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(rfcListNuevosValidos, productoNominaEntity);
+        List<NominaEmpleadoEntity> nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(
+                rfcListNuevosValidos, productoNominaEntity);
         for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
             nominaEmpleado.setPagoNomina(pagoNominaEntity);
             nominaEmpleadoRepository.actualizar(nominaEmpleado);
         }
-        nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(rfcListEliminar, productoNominaEntity);
+        nominaEmpleadoList = obtenerNominaEmpleadoPorRfc(rfcListEliminar,
+                productoNominaEntity);
         for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
             nominaEmpleado.setPagoNomina(null);
             nominaEmpleadoRepository.actualizar(nominaEmpleado);
         }
-        System.out.println("pagoNomina.getAplicarPadron():: " + pagoNomina.getAplicarPadron());
+        System.out.println("pagoNomina.getAplicarPadron():: "
+                + pagoNomina.getAplicarPadron());
         if (pagoNomina.getAplicarPadron()) {
             aplicarPadron(pagoNominaEntity);
         }
@@ -273,54 +320,74 @@ public class PagoNominaService {
             pagoNomina.setBanco(pagoNominaEntity.getBanco().getNombreCorto());
         }
         if (pagoNominaEntity.getCuentaBancaria() != null) {
-            pagoNomina.setIdCuentaBancaria(pagoNominaEntity.getCuentaBancaria().getIdCuentaBancaria());
-            pagoNomina.setCuentaBancaria(pagoNominaEntity.getCuentaBancaria().getDescripcion());
+            pagoNomina.setIdCuentaBancaria(
+                    pagoNominaEntity.getCuentaBancaria().getIdCuentaBancaria());
+            pagoNomina.setCuentaBancaria(
+                    pagoNominaEntity.getCuentaBancaria().getDescripcion());
         }
         if (pagoNominaEntity.getFuenteFinanciamiento() != null) {
-            pagoNomina.setIdFuenteFinanciamiento(pagoNominaEntity.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
-            pagoNomina.setFuenteFinanciamiento(pagoNominaEntity.getFuenteFinanciamiento().getDescripcion());
+            pagoNomina.setIdFuenteFinanciamiento(pagoNominaEntity
+                    .getFuenteFinanciamiento().getIdFuenteFinanciamiento());
+            pagoNomina.setFuenteFinanciamiento(pagoNominaEntity
+                    .getFuenteFinanciamiento().getDescripcion());
         }
         if (pagoNominaEntity.getSubfuenteFinanciamiento() != null) {
-            pagoNomina.setIdSubfuenteFinanciamiento(pagoNominaEntity.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
-            pagoNomina.setSubfuenteFinanciamiento(pagoNominaEntity.getSubfuenteFinanciamiento().getDescripcion());
+            pagoNomina.setIdSubfuenteFinanciamiento(
+                    pagoNominaEntity.getSubfuenteFinanciamiento()
+                            .getIdSubfuenteFinanciamiento());
+            pagoNomina.setSubfuenteFinanciamiento(pagoNominaEntity
+                    .getSubfuenteFinanciamiento().getDescripcion());
         }
         pagoNomina.setFechaPago(pagoNominaEntity.getFechaPago());
         pagoNomina.setIdPagoNomina(pagoNominaEntity.getIdPagoNomina());
-        pagoNomina.setIdProductoNomina(pagoNominaEntity.getProductoNomina().getIdProductoNomina());
+        pagoNomina.setIdProductoNomina(
+                pagoNominaEntity.getProductoNomina().getIdProductoNomina());
         return pagoNomina;
     }
 
-    public List<NominaEmpleadoEntity> obtenerNominaEmpleadoPorRfc(List<String> listaRfc, ProductoNominaEntity productoNominaEntity) {
+    public List<NominaEmpleadoEntity> obtenerNominaEmpleadoPorRfc(
+            List<String> listaRfc, ProductoNominaEntity productoNominaEntity) {
         List<NominaEmpleadoEntity> nominaEmpleadoList = new ArrayList<>();
         for (String rfc : listaRfc) {
-            Integer idNominaEmpleado = obtenerIdNominaEmpleado(rfc, productoNominaEntity.getIdProductoNomina());
+            Integer idNominaEmpleado = obtenerIdNominaEmpleado(rfc,
+                    productoNominaEntity.getIdProductoNomina());
             if (idNominaEmpleado != null) {
-                NominaEmpleadoEntity nominaEmpleado = nominaEmpleadoRepository.obtenerPorId(idNominaEmpleado);
+                NominaEmpleadoEntity nominaEmpleado = nominaEmpleadoRepository
+                        .obtenerPorId(idNominaEmpleado);
                 nominaEmpleadoList.add(nominaEmpleado);
             }
         }
         return nominaEmpleadoList;
     }
 
-    private Integer obtenerIdNominaEmpleado(String rfc, Integer idProductoNomina) {
+    private Integer obtenerIdNominaEmpleado(String rfc,
+            Integer idProductoNomina) {
         rfc = rfc.replaceAll("[\n\r]", "");
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("" + " SELECT                                                            "
-                + " n.id_nomina_empleado                                              " + " FROM nomina_empleado AS n                                         "
-                + " INNER JOIN empleados AS e                                         " + " ON e.id_empleado = n.id_empleado                                  "
-                + " WHERE                                                             " + " n.id_producto_nomina = :idProductoNomina                          "
-                + " AND                                                               " + " e.rfc = :rfc                                                      ")
-                .setParameter("idProductoNomina", idProductoNomina).setParameter("rfc", rfc);
+        Query query = session.createSQLQuery(""
+                + " SELECT                                                            "
+                + " n.id_nomina_empleado                                              "
+                + " FROM nomina_empleado AS n                                         "
+                + " INNER JOIN empleados AS e                                         "
+                + " ON e.id_empleado = n.id_empleado                                  "
+                + " WHERE                                                             "
+                + " n.id_producto_nomina = :idProductoNomina                          "
+                + " AND                                                               "
+                + " e.rfc = :rfc                                                      ")
+                .setParameter("idProductoNomina", idProductoNomina)
+                .setParameter("rfc", rfc);
         Integer idNominaEmpleado = (Integer) query.uniqueResult();
         return idNominaEmpleado;
     }
 
     private String obtenerListaRfc(PagoNominaEntity pagoNominaEntity) {
-        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository.obtenerNominaEmpleadoPorPagoNominaEntity(pagoNominaEntity);
+        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository
+                .obtenerNominaEmpleadoPorPagoNominaEntity(pagoNominaEntity);
         return nominaEmpleadoEntityToRfcStr(nominaEmpleadoList);
     }
 
-    private String nominaEmpleadoEntityToRfcStr(List<NominaEmpleadoEntity> nominaEmpleadoList) {
+    private String nominaEmpleadoEntityToRfcStr(
+            List<NominaEmpleadoEntity> nominaEmpleadoList) {
         StringBuilder listaRfc = new StringBuilder();
         for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
             listaRfc.append(nominaEmpleado.getIdEmpleado().getRfc());
@@ -330,8 +397,10 @@ public class PagoNominaService {
     }
 
     public void eliminarPagoNomina(PagoNominaDTO pagoNomina) {
-        PagoNominaEntity pagoNominaEntity = pagoNominaRepository.obtenerPorId(pagoNomina.getIdPagoNomina());
-        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository.obtenerNominaEmpleadoPorPagoNominaEntity(pagoNominaEntity);
+        PagoNominaEntity pagoNominaEntity = pagoNominaRepository
+                .obtenerPorId(pagoNomina.getIdPagoNomina());
+        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository
+                .obtenerNominaEmpleadoPorPagoNominaEntity(pagoNominaEntity);
         for (NominaEmpleadoEntity nominaEmpleado : nominaEmpleadoList) {
             nominaEmpleado.setPagoNomina(null);
             nominaEmpleadoRepository.actualizar(nominaEmpleado);
@@ -339,14 +408,18 @@ public class PagoNominaService {
         pagoNominaRepository.eliminar(pagoNominaEntity);
     }
 
-    public PagoNominaDTO obtenerListaRfcSinPago(ProductoNominaDTO productoNomina) {
-        ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(productoNomina.getIdProductoNomina());
-        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository.obtenerNominaEmpleadoSinPago(productoNominaEntity);
+    public PagoNominaDTO obtenerListaRfcSinPago(
+            ProductoNominaDTO productoNomina) {
+        ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                .obtenerPorId(productoNomina.getIdProductoNomina());
+        List<NominaEmpleadoEntity> nominaEmpleadoList = nominaEmpleadoRepository
+                .obtenerNominaEmpleadoSinPago(productoNominaEntity);
         if (nominaEmpleadoList.isEmpty()) {
             return null;
         }
         PagoNominaDTO pagoNomina = new PagoNominaDTO();
-        pagoNomina.setListaRfc(nominaEmpleadoEntityToRfcStr(nominaEmpleadoList));
+        pagoNomina
+                .setListaRfc(nominaEmpleadoEntityToRfcStr(nominaEmpleadoList));
         return pagoNomina;
     }
 }

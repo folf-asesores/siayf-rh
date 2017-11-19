@@ -9,7 +9,8 @@ package mx.gob.saludtlax.rh.persistencia;
  * @since 2016-10-18
  *
  */
-public class TipoEmpleadoRepository extends GenericRepository<TipoEmpleadoEntity, Integer> {
+public class TipoEmpleadoRepository
+        extends GenericRepository<TipoEmpleadoEntity, Integer> {
 
     /**
      *

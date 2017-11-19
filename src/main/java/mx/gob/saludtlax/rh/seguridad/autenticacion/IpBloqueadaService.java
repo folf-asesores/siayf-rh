@@ -35,9 +35,12 @@ public class IpBloqueadaService implements Serializable {
             Calendar horaExpiraBloqueo = Calendar.getInstance();
             horaExpiraBloqueo.setTime(ipBloqueada.getHoraExpira());
 
-            fechaExpiraBloqueo.set(Calendar.HOUR_OF_DAY, horaExpiraBloqueo.get(Calendar.HOUR_OF_DAY));
-            fechaExpiraBloqueo.set(Calendar.MINUTE, horaExpiraBloqueo.get(Calendar.MINUTE));
-            fechaExpiraBloqueo.set(Calendar.SECOND, horaExpiraBloqueo.get(Calendar.SECOND));
+            fechaExpiraBloqueo.set(Calendar.HOUR_OF_DAY,
+                    horaExpiraBloqueo.get(Calendar.HOUR_OF_DAY));
+            fechaExpiraBloqueo.set(Calendar.MINUTE,
+                    horaExpiraBloqueo.get(Calendar.MINUTE));
+            fechaExpiraBloqueo.set(Calendar.SECOND,
+                    horaExpiraBloqueo.get(Calendar.SECOND));
 
             Calendar fechaActual = Calendar.getInstance();
 

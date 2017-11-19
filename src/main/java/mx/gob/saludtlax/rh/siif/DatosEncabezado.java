@@ -5,10 +5,13 @@ import java.util.List;
 
 public interface DatosEncabezado {
 
-    List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(Integer idEncabezado);
+    List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(
+            Integer idEncabezado);
 
-    ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoSelect(ConsultaDatosEncabezadoDTO DatosEncabezadoSelect);
+    ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoSelect(
+            ConsultaDatosEncabezadoDTO DatosEncabezadoSelect);
 
-    ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(Integer idEmpeladoDatosPersonales);
+    ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(
+            Integer idEmpeladoDatosPersonales);
 
 }

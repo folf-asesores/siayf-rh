@@ -47,7 +47,8 @@ public class NombramientoDTO {
         return idClasificacionNombramiento;
     }
 
-    public void setIdClasificacionNombramiento(int idClasificacionNombramiento) {
+    public void setIdClasificacionNombramiento(
+            int idClasificacionNombramiento) {
         this.idClasificacionNombramiento = idClasificacionNombramiento;
     }
 

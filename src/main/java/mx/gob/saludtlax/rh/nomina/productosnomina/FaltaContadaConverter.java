@@ -17,13 +17,17 @@ public class FaltaContadaConverter implements Converter {
 
     @Override
     @SuppressWarnings("unchecked")
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String value) {
         final DualListModel<FaltaContadaDTO> dualList;
         try {
-            dualList = (DualListModel<FaltaContadaDTO>) ((PickList) component).getValue();
-            FaltaContadaDTO team = getObjectFromList(dualList.getSource(), Integer.valueOf(value));
+            dualList = (DualListModel<FaltaContadaDTO>) ((PickList) component)
+                    .getValue();
+            FaltaContadaDTO team = getObjectFromList(dualList.getSource(),
+                    Integer.valueOf(value));
             if (team == null) {
-                team = getObjectFromList(dualList.getTarget(), Integer.valueOf(value));
+                team = getObjectFromList(dualList.getTarget(),
+                        Integer.valueOf(value));
             }
 
             return team;
@@ -35,13 +39,15 @@ public class FaltaContadaConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object object) {
+    public String getAsString(FacesContext context, UIComponent component,
+            Object object) {
         String string;
         if (object == null) {
             string = "";
         } else {
             try {
-                string = String.valueOf(((FaltaContadaDTO) object).getIdFalta());
+                string = String
+                        .valueOf(((FaltaContadaDTO) object).getIdFalta());
             } catch (ClassCastException cce) {
                 System.out.println(cce.getMessage());
                 cce.printStackTrace();
@@ -51,7 +57,8 @@ public class FaltaContadaConverter implements Converter {
         return string;
     }
 
-    private FaltaContadaDTO getObjectFromList(final List<?> list, final Integer identifier) {
+    private FaltaContadaDTO getObjectFromList(final List<?> list,
+            final Integer identifier) {
         for (final Object object : list) {
             final FaltaContadaDTO team = (FaltaContadaDTO) object;
             if (team.getIdFalta().equals(identifier)) {

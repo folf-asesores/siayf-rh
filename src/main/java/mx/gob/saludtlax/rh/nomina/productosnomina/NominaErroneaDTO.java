@@ -15,7 +15,8 @@ public class NominaErroneaDTO {
     private String empleado;
     private String motivo;
 
-    public NominaErroneaDTO(Integer idNominaEmpleado, String rfc, String empleado, String motivo) {
+    public NominaErroneaDTO(Integer idNominaEmpleado, String rfc,
+            String empleado, String motivo) {
         this.rfc = rfc;
         this.idNominaEmpleado = idNominaEmpleado;
         this.empleado = empleado;

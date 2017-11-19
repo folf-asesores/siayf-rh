@@ -47,7 +47,8 @@ public class NotificadorErroresView implements Serializable {
      * @param correosNotificacion
      *            new value of correosNotificacion
      */
-    public void setCorreosNotificacion(List<CorreoNotificacionDTO> correosNotificacion) {
+    public void setCorreosNotificacion(
+            List<CorreoNotificacionDTO> correosNotificacion) {
         this.correosNotificacion = correosNotificacion;
     }
 
@@ -66,7 +67,8 @@ public class NotificadorErroresView implements Serializable {
      * @param nuevoCorreoNotificacion
      *            new value of nuevoCorreoNotificacion
      */
-    public void setNuevoCorreoNotificacion(CorreoNotificacionDTO nuevoCorreoNotificacion) {
+    public void setNuevoCorreoNotificacion(
+            CorreoNotificacionDTO nuevoCorreoNotificacion) {
         this.nuevoCorreoNotificacion = nuevoCorreoNotificacion;
     }
 
@@ -85,7 +87,8 @@ public class NotificadorErroresView implements Serializable {
      * @param editarCorreoNotificacion
      *            new value of editarCorreoNotificacion
      */
-    public void setEditarCorreoNotificacion(CorreoNotificacionDTO editarCorreoNotificacion) {
+    public void setEditarCorreoNotificacion(
+            CorreoNotificacionDTO editarCorreoNotificacion) {
         this.editarCorreoNotificacion = editarCorreoNotificacion;
     }
 

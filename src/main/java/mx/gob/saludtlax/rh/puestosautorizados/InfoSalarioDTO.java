@@ -17,8 +17,9 @@ public class InfoSalarioDTO {
 
     }
 
-    public InfoSalarioDTO(String contratacion, String rfc, String nombreCompleto, String clavePuesto, String puesto, BigDecimal sueldoMensual,
-            BigDecimal sueldoQuincenal) {
+    public InfoSalarioDTO(String contratacion, String rfc,
+            String nombreCompleto, String clavePuesto, String puesto,
+            BigDecimal sueldoMensual, BigDecimal sueldoQuincenal) {
         super();
         this.contratacion = contratacion;
         this.rfc = rfc;

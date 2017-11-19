@@ -9,7 +9,6 @@ import mx.gob.saludtlax.rh.acciones.AccionDTO;
 
 public class ModuloDTO implements Serializable {
 
-
     private static final long serialVersionUID = -5233436540607958367L;
     private Integer idModulo;
     private String nombre;
@@ -18,8 +17,6 @@ public class ModuloDTO implements Serializable {
     private Integer idArea;
     private String nombreArea;
     private List<AccionDTO> acciones = new ArrayList<>();
-
-    
 
     public Integer getIdModulo() {
         return idModulo;

@@ -27,7 +27,8 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 public class SIIFLayoutController implements Serializable {
 
     private static final long serialVersionUID = -2525785591722344961L;
-    private static final Logger LOGGER = Logger.getLogger(SIIFLayoutController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SIIFLayoutController.class.getName());
 
     @Inject
     private SIIFLayout generarLayout;

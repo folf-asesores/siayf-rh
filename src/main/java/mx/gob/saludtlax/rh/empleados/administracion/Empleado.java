@@ -10,15 +10,18 @@ import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 
 public interface Empleado {
 
-    public List<InfoAspiranteDTO> consultarAspirantesDisponiblesPorCriterio(String criterio);
+    public List<InfoAspiranteDTO> consultarAspirantesDisponiblesPorCriterio(
+            String criterio);
 
     public EmpleadoDTO obtenerAspirantePorId(Integer idAspirante);
 
     public AspiranteDTO consultaAspirantePorIdentificador(Integer IdAspirante);
 
-    public RegistroGeneralesDTO aprobarDatosGeneralesAspirante(DatosGeneralesDTO datosGeneralesDTO, Integer idAspirante);
+    public RegistroGeneralesDTO aprobarDatosGeneralesAspirante(
+            DatosGeneralesDTO datosGeneralesDTO, Integer idAspirante);
 
-    public int aprobarDomicilioAspirante(DomicilioDTO domicilioDTO, Integer idAspirante, Integer idEmpleado);
+    public int aprobarDomicilioAspirante(DomicilioDTO domicilioDTO,
+            Integer idAspirante, Integer idEmpleado);
 
     public int aprobarFaseAspirante(int fase, Integer idAspirante);
 
@@ -53,7 +56,8 @@ public interface Empleado {
      */
     public DomicilioDTO obtenerDomicilio(Integer idEmpleado);
 
-    public void actualizarDomicilio(Integer idEmpleado, Integer idUsuario, DomicilioDTO domicilioDTO);
+    public void actualizarDomicilio(Integer idEmpleado, Integer idUsuario,
+            DomicilioDTO domicilioDTO);
 
     public void actualizarDatosGenerales(DatosGeneralesDTO datosGeneralesDTO);
 
@@ -64,7 +68,8 @@ public interface Empleado {
      *             {@link #crearDependienteEconomico(mx.gob.saludtlax.rh.empleados.administracion.NuevoDependienteEconomicoDTO) }
      */
     @Deprecated
-    public void crearDependienteEconomicoEmpleado(DependienteEconomicoDTO dependienteEconomicoDTO);
+    public void crearDependienteEconomicoEmpleado(
+            DependienteEconomicoDTO dependienteEconomicoDTO);
 
     /**
      * Permite agregar un nuevo dependiente económico de un empleado.
@@ -72,7 +77,8 @@ public interface Empleado {
      * @param dependienteEconomico
      *            La información sobre el dependiente económico.
      */
-    void crearDependienteEconomico(DependienteEconomicoDTO dependienteEconomico);
+    void crearDependienteEconomico(
+            DependienteEconomicoDTO dependienteEconomico);
 
     /**
      * Permite obtener un dependiente economico ṕor medio de su CURP.
@@ -81,7 +87,8 @@ public interface Empleado {
      *            el ID del dependiente econónmico.
      * @return la información que describe al dependiente económico.
      */
-    DependienteEconomicoDTO obtenerDependienteEconimicoPorId(Integer idDependienteEconomico);
+    DependienteEconomicoDTO obtenerDependienteEconimicoPorId(
+            Integer idDependienteEconomico);
 
     /**
      * Permite obtener un dependiente economico ṕor medio de su CURP.
@@ -98,7 +105,8 @@ public interface Empleado {
      * @param dependienteEconomico
      *            la infomación del dependiente económico que será actualizada.
      */
-    void actualizarDependienteEconomico(DependienteEconomicoDTO dependienteEconomico);
+    void actualizarDependienteEconomico(
+            DependienteEconomicoDTO dependienteEconomico);
 
     /**
      * Permite saber si exite un dependiente economico registrado con una CURP
@@ -126,9 +134,11 @@ public interface Empleado {
      *            el identificador del empleado.
      * @return una lista con los dependientes económicos del empleado indicado.
      */
-    public List<InfoDependienteEconomicoDTO> consultarDependientesEmpleado(Integer idEmpleado);
+    public List<InfoDependienteEconomicoDTO> consultarDependientesEmpleado(
+            Integer idEmpleado);
 
-    public List<InfoDependienteEconomicoDTO> consultarDependientesEconomicoPadres(Integer idEmpleado);
+    public List<InfoDependienteEconomicoDTO> consultarDependientesEconomicoPadres(
+            Integer idEmpleado);
 
     public void validarCurpEmpleado(String curp);
 
@@ -145,11 +155,13 @@ public interface Empleado {
      */
     public List<InfoVacantePostularDTO> obtenerListaEmpleadoCandidato();
 
-    public List<InfoEmpleadoDTO> consultarEmpleadosConPuestosActivos(FiltroDTO filtroDTO);
+    public List<InfoEmpleadoDTO> consultarEmpleadosConPuestosActivos(
+            FiltroDTO filtroDTO);
 
     public void crearEmpleado(AltaEmpleadoDTO altaEmpleadoDTO);
 
-    public ValidacionEmpleadoDTO validarDatosObligatoriosEmpleado(Integer idEmpleado);
+    public ValidacionEmpleadoDTO validarDatosObligatoriosEmpleado(
+            Integer idEmpleado);
 
     /**
      * Consulta al empleado con información detallada, si el empleado es activo
@@ -173,11 +185,13 @@ public interface Empleado {
      * @param criterio
      * @return
      */
-    public List<InfoEmpleadoDTO> empleadosPorCriterioConNombramiento(String criterio);
+    public List<InfoEmpleadoDTO> empleadosPorCriterioConNombramiento(
+            String criterio);
 
     /**
      * Consulta la bitacora de movimientos que se le han realizado al empleado
      */
-    public List<BitacoraEmpleadoDTO> consultarBitacorasMovimientos(Integer idEmpleado);
+    public List<BitacoraEmpleadoDTO> consultarBitacorasMovimientos(
+            Integer idEmpleado);
 
 }

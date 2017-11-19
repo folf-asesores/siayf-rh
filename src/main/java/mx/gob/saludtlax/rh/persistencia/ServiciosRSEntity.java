@@ -16,7 +16,8 @@ import javax.persistence.Table;
 
 import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 
-@NamedQueries({ @NamedQuery(name = ServiciosRSEntity.OBTENER_LISTADO, query = "SELECT s FROM ServiciosRSEntity s"),
+@NamedQueries({
+        @NamedQuery(name = ServiciosRSEntity.OBTENER_LISTADO, query = "SELECT s FROM ServiciosRSEntity s"),
         @NamedQuery(name = ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO, query = "SELECT s FROM ServiciosRSEntity s WHERE s.activo = true AND s.servicio =:servicioEnum"),
         @NamedQuery(name = ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO_ID, query = "SELECT s FROM ServiciosRSEntity s WHERE s.activo = true AND s.servicio =:servicioEnum AND s.idServicioRS <> :idServicio"), })
 @Entity

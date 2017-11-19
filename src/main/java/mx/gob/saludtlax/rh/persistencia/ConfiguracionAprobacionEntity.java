@@ -53,7 +53,8 @@ public class ConfiguracionAprobacionEntity implements Serializable {
         return tipoMovimientoEmpleado;
     }
 
-    public void setTipoMovimientoEmpleado(TipoMovimientoEmpleadoEntity tipoMovimientoEmpleado) {
+    public void setTipoMovimientoEmpleado(
+            TipoMovimientoEmpleadoEntity tipoMovimientoEmpleado) {
         this.tipoMovimientoEmpleado = tipoMovimientoEmpleado;
     }
 
@@ -61,7 +62,8 @@ public class ConfiguracionAprobacionEntity implements Serializable {
         return idConfiguracionAprobacion;
     }
 
-    public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+    public void setIdConfiguracionAprobacion(
+            Integer idConfiguracionAprobacion) {
         this.idConfiguracionAprobacion = idConfiguracionAprobacion;
     }
 

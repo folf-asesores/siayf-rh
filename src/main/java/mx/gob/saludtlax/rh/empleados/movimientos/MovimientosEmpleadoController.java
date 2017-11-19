@@ -58,13 +58,17 @@ public class MovimientosEmpleadoController implements Serializable {
     @PostConstruct
     public void inicio() {
         view = new MovimientoEmpleadoView();
-        List<CatalogoDTO> movimientosPadre = catalogo.consultaMovimientosAutorizadosPorPadre(0);
+        List<CatalogoDTO> movimientosPadre = catalogo
+                .consultaMovimientosAutorizadosPorPadre(0);
 
-        view.setListaMovimientosPadre(SelectItemsUtil.listaCatalogos(movimientosPadre));
+        view.setListaMovimientosPadre(
+                SelectItemsUtil.listaCatalogos(movimientosPadre));
         view.setMostrarPanelGroupBusqueda(true);
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.getMovimiento().setIdUsuario(usuario.getIdUsuario());
 
     }
@@ -75,11 +79,14 @@ public class MovimientosEmpleadoController implements Serializable {
         filtroDTO.setCriterio(view.getCriterio());
         filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
 
-        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado.consultarEmpleadosConPuestosActivos(filtroDTO);
+        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado
+                .consultarEmpleadosConPuestosActivos(filtroDTO);
         view.setEmpleados(listaInfoEmpleado);
 
         if (view.getEmpleados().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + filtroDTO.getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontraron empleados con el criterio "
+                            + filtroDTO.getCriterio());
         }
 
     }
@@ -89,21 +96,28 @@ public class MovimientosEmpleadoController implements Serializable {
             view.setMostrarIncapacidad(false);
             view.setMostrarFechas(false);
             int movimiento = view.getMovimiento().getIdMovimiento();
-            int movimientoPadre = movimientosEmpleados.obtenerPadreMovimiento(movimiento);
+            int movimientoPadre = movimientosEmpleados
+                    .obtenerPadreMovimiento(movimiento);
 
-            movimientosEmpleados.validarMovimiento(view.getInfoEmpleado().getIdVacante(), view.getMovimiento().getIdMovimiento());
+            movimientosEmpleados.validarMovimiento(
+                    view.getInfoEmpleado().getIdVacante(),
+                    view.getMovimiento().getIdMovimiento());
 
-            if (movimientoPadre == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_C_S
-                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_S_S || movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_C_S
+            if (movimientoPadre == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA
+                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_C_S
+                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_C_S_S
+                    || movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_C_S
                     || movimientoPadre == EnumTipoMovimiento.LICENCIAS_D_S_S) {
-                if (view.getMovimiento().getIdMovimiento() == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA) {
+                if (view.getMovimiento()
+                        .getIdMovimiento() == EnumTipoMovimiento.LICENCIA_POR_INCAPACIDAD_MEDICA) {
                     view.setMostrarIncapacidad(true);
                 } else {
                     view.setMostrarFechas(true);
                 }
             } else if (movimiento == EnumTipoMovimiento.PROMOCION_PUESTO_AUMENTO_PERCEPCIONES) {
                 view.setMostrarModificacionPuesto(true);
-                view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+                view.setListaPuestos(SelectItemsUtil
+                        .listaCatalogos(catalogo.listaPuestos()));
             }
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -113,7 +127,8 @@ public class MovimientosEmpleadoController implements Serializable {
 
     public void obtenerSalario() {
         try {
-            view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(view.getIdPuesto(), EnumTipoContratacion.BASE));
+            view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(
+                    view.getIdPuesto(), EnumTipoContratacion.BASE));
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
         }
@@ -129,17 +144,22 @@ public class MovimientosEmpleadoController implements Serializable {
     }
 
     public void consultarMovimientosHijos() {
-        List<CatalogoDTO> movimientosHijos = catalogo.consultaMovimientosAutorizadosPorPadre(view.getIdMovimientoPadre());
-        view.setListaMovimientosHijos(SelectItemsUtil.listaCatalogos(movimientosHijos));
+        List<CatalogoDTO> movimientosHijos = catalogo
+                .consultaMovimientosAutorizadosPorPadre(
+                        view.getIdMovimientoPadre());
+        view.setListaMovimientosHijos(
+                SelectItemsUtil.listaCatalogos(movimientosHijos));
     }
 
     public void crearMovimiento() {
         try {
             movimientosEmpleados.crearMovimientoEmpleado(view.getMovimiento());
             inicio();
-            JSFUtils.infoMessage("", "¡El movimiento ha sido registrado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El movimiento ha sido registrado con éxito!");
         } catch (ReglaNegocioException exception) {
-            throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
+            throw new ReglaNegocioException(exception.getMessage(),
+                    exception.getCodigoError());
         }
     }
 

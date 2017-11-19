@@ -14,7 +14,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class DividirNominaDTO implements Serializable, Comparable<DividirNominaDTO> {
+public class DividirNominaDTO
+        implements Serializable, Comparable<DividirNominaDTO> {
 
     private static final long serialVersionUID = -8248467557820073623L;
 
@@ -34,11 +35,15 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
     private BigDecimal neto;
 
     public DividirNominaDTO() {
-        this(0, 0, "", 0, 0, "", "", 0, "", 0, "", BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
+        this(0, 0, "", 0, 0, "", "", 0, "", 0, "", BigDecimal.ZERO,
+                BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
-    public DividirNominaDTO(Integer idNominaEmpleado, Integer idProductoNomina, String nombreProductoNomina, Integer consecutivo, Integer idEmpleado,
-            String rfc, String nombreEmpleado, Integer idUnidadResponsable, String unidadResponsable, Integer idRama, String rama, BigDecimal percepciones,
+    public DividirNominaDTO(Integer idNominaEmpleado, Integer idProductoNomina,
+            String nombreProductoNomina, Integer consecutivo,
+            Integer idEmpleado, String rfc, String nombreEmpleado,
+            Integer idUnidadResponsable, String unidadResponsable,
+            Integer idRama, String rama, BigDecimal percepciones,
             BigDecimal deducciones, BigDecimal neto) {
         this.idNominaEmpleado = idNominaEmpleado;
         this.idProductoNomina = idProductoNomina;
@@ -337,9 +342,13 @@ public class DividirNominaDTO implements Serializable, Comparable<DividirNominaD
 
     @Override
     public String toString() {
-        return "DividirNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", nombreProductoNomina=" + nombreProductoNomina + ", idEmpleado=" + idEmpleado
-                + ", rfc=" + rfc + ", nombre=" + nombreEmpleado + ", idUnidadResponsable=" + idUnidadResponsable + ", unidadResponsable=" + unidadResponsable
-                + ", idRama=" + idRama + ", rama=" + rama + '}';
+        return "DividirNominaDTO{" + "idProductoNomina=" + idProductoNomina
+                + ", nombreProductoNomina=" + nombreProductoNomina
+                + ", idEmpleado=" + idEmpleado + ", rfc=" + rfc + ", nombre="
+                + nombreEmpleado + ", idUnidadResponsable="
+                + idUnidadResponsable + ", unidadResponsable="
+                + unidadResponsable + ", idRama=" + idRama + ", rama=" + rama
+                + '}';
     }
 
     @Override

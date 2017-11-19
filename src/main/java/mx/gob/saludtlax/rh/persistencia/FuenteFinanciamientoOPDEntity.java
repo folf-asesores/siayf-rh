@@ -45,11 +45,13 @@ public class FuenteFinanciamientoOPDEntity implements Serializable {
         return idFuenteFinanciamientoOpdSalud;
     }
 
-    public void setIdFuenteFinanciamientoOpdSalud(int idFuenteFinanciamientoOpdSalud) {
+    public void setIdFuenteFinanciamientoOpdSalud(
+            int idFuenteFinanciamientoOpdSalud) {
         this.idFuenteFinanciamientoOpdSalud = idFuenteFinanciamientoOpdSalud;
     }
 
-    public void setIdFuenteFinanciamientoOPD(Integer idFuenteFinanciamientoOPD) {
+    public void setIdFuenteFinanciamientoOPD(
+            Integer idFuenteFinanciamientoOPD) {
         this.idFuenteFinanciamientoOPD = idFuenteFinanciamientoOPD;
     }
 
@@ -57,7 +59,8 @@ public class FuenteFinanciamientoOPDEntity implements Serializable {
         return idFuenteFinanciamiento;
     }
 
-    public void setIdFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setIdFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         idFuenteFinanciamiento = fuenteFinanciamiento;
     }
 

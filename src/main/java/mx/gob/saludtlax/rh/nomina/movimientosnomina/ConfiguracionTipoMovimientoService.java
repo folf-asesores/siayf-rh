@@ -28,17 +28,22 @@ public class ConfiguracionTipoMovimientoService {
     public void guardarConfiguracion(ConfiguracionTipoMovimientoDTO dto) {
 
         List<ConfiguracionTipoMovimientoEntity> configEntitys = configuracionMovimientoRepository
-                .obenerConceptosPorTipoMovimiento(dto.getTipoMovimiento().getIdTimpoMovimiento());
+                .obenerConceptosPorTipoMovimiento(
+                        dto.getTipoMovimiento().getIdTimpoMovimiento());
         if (configEntitys != null) {
             for (ConfiguracionTipoMovimientoEntity conf : configEntitys) {
                 configuracionMovimientoRepository.eliminarPorId(conf.getId());
             }
         }
 
-        for (ConceptoNominaFederalesDTO concepto : dto.getListConceptoNomina()) {
+        for (ConceptoNominaFederalesDTO concepto : dto
+                .getListConceptoNomina()) {
             ConfiguracionTipoMovimientoEntity entity = new ConfiguracionTipoMovimientoEntity();
-            entity.setTipoMovimiento(tipomovimientosNominaRepository.obtenerPorId(dto.getTipoMovimiento().getIdTimpoMovimiento()));
-            entity.setConceptoNomina(conceptoNominaRepository.obtenerPorId(concepto.getIdConceptoNomina()));
+            entity.setTipoMovimiento(
+                    tipomovimientosNominaRepository.obtenerPorId(
+                            dto.getTipoMovimiento().getIdTimpoMovimiento()));
+            entity.setConceptoNomina(conceptoNominaRepository
+                    .obtenerPorId(concepto.getIdConceptoNomina()));
             configuracionMovimientoRepository.crear(entity);
         }
 
@@ -47,16 +52,21 @@ public class ConfiguracionTipoMovimientoService {
     public void editarConfiguracion(ConfiguracionTipoMovimientoDTO dto) {
         try {
             List<ConfiguracionTipoMovimientoEntity> configEntitys = configuracionMovimientoRepository
-                    .obenerConceptosPorTipoMovimiento(dto.getTipoMovimiento().getIdTimpoMovimiento());
+                    .obenerConceptosPorTipoMovimiento(
+                            dto.getTipoMovimiento().getIdTimpoMovimiento());
 
             for (ConfiguracionTipoMovimientoEntity conf : configEntitys) {
                 conceptoNominaRepository.eliminarPorId(conf.getId());
             }
 
-            for (ConceptoNominaFederalesDTO concepto : dto.getListConceptoNomina()) {
+            for (ConceptoNominaFederalesDTO concepto : dto
+                    .getListConceptoNomina()) {
                 ConfiguracionTipoMovimientoEntity entity = new ConfiguracionTipoMovimientoEntity();
-                entity.setTipoMovimiento(tipomovimientosNominaRepository.obtenerPorId(dto.getTipoMovimiento().getIdTimpoMovimiento()));
-                entity.setConceptoNomina(conceptoNominaRepository.obtenerPorId(concepto.getIdConceptoNomina()));
+                entity.setTipoMovimiento(
+                        tipomovimientosNominaRepository.obtenerPorId(dto
+                                .getTipoMovimiento().getIdTimpoMovimiento()));
+                entity.setConceptoNomina(conceptoNominaRepository
+                        .obtenerPorId(concepto.getIdConceptoNomina()));
                 configuracionMovimientoRepository.crear(entity);
             }
         } catch (PersistenceException e) {
@@ -64,15 +74,20 @@ public class ConfiguracionTipoMovimientoService {
         }
     }
 
-    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(Integer idTipoMovimiento) {
+    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(
+            Integer idTipoMovimiento) {
         List<ConceptoNominaFederalesDTO> listaConcoptos = new ArrayList<>();
         List<ConfiguracionTipoMovimientoEntity> listConfMov = new ArrayList<>();
-        TiposMovimientosNominaEntity tipoMovimientoEntity = tipomovimientosNominaRepository.obtenerPorId(idTipoMovimiento);
-        listConfMov = configuracionMovimientoRepository.obenerConceptosPorTipoMovimiento(idTipoMovimiento);
+        TiposMovimientosNominaEntity tipoMovimientoEntity = tipomovimientosNominaRepository
+                .obtenerPorId(idTipoMovimiento);
+        listConfMov = configuracionMovimientoRepository
+                .obenerConceptosPorTipoMovimiento(idTipoMovimiento);
         if (listaConcoptos != null) {
             for (ConfiguracionTipoMovimientoEntity c : listConfMov) {
                 ConceptoNominaFederalesDTO concepto = new ConceptoNominaFederalesDTO();
-                concepto = ConceptoNominaFactory.crearConceptoNominaFederalesDTO(c.getConceptoNomina(), concepto);
+                concepto = ConceptoNominaFactory
+                        .crearConceptoNominaFederalesDTO(c.getConceptoNomina(),
+                                concepto);
                 listaConcoptos.add(concepto);
             }
         }
@@ -81,7 +96,8 @@ public class ConfiguracionTipoMovimientoService {
         TipoMovimientoNominaDTO tipoMovDto = new TipoMovimientoNominaDTO();
         tipoMovDto.setClave(tipoMovimientoEntity.getClave());
         tipoMovDto.setDescripcion(tipoMovimientoEntity.getDescripcion());
-        tipoMovDto.setIdTimpoMovimiento(tipoMovimientoEntity.getIdMovimientoNomina());
+        tipoMovDto.setIdTimpoMovimiento(
+                tipoMovimientoEntity.getIdMovimientoNomina());
 
         configuracion.setIdConfiguracion(idTipoMovimiento);
         configuracion.setTipoMovimiento(tipoMovDto);

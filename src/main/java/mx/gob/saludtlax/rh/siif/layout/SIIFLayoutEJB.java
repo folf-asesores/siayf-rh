@@ -35,7 +35,8 @@ import com.google.common.io.Files;
 public class SIIFLayoutEJB implements SIIFLayout {
 
     private static final long serialVersionUID = 721701807303054917L;
-    private static final Logger LOGGER = Logger.getLogger(SIIFLayoutEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SIIFLayoutEJB.class.getName());
 
     @Inject
     private CSVService csvService;
@@ -52,7 +53,8 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getLayoutComoZip(String periodo, int anyo) {
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService.generarEncabezado(periodo, anyo);
+        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService
+                .generarEncabezado(periodo, anyo);
         byte[] encabezadoXLSX = encabezadoExcel.generar(listaDetalles);
 
         try {
@@ -68,42 +70,57 @@ public class SIIFLayoutEJB implements SIIFLayout {
                 for (SIIFEncabezadoDTO encabezadoDetalle : listaDetalles) {
                     if (null == encabezadoDetalle.getIdCuentaBancaria()) {
 
-                        int idEncabezado = encabezadoDetalle.getIdSIIFEncabezado();
+                        int idEncabezado = encabezadoDetalle
+                                .getIdSIIFEncabezado();
                         int idBitacora = encabezadoDetalle.getIdSIIFBitacora();
-                        String nombramiento = encabezadoDetalle.getNombramiento();
+                        String nombramiento = encabezadoDetalle
+                                .getNombramiento();
 
                         String carpeta = encabezadoDetalle.getIdNomina() + "/";
                         //System.out.println("idEncabezado:::"+idEncabezado);
                         LOGGER.debug("idEncabezado:::" + +idEncabezado);
 
-                        List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonales(idEncabezado);
-                        byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+                        List<DatosPersonalesDTO> datosPersonales = ls
+                                .generarDatosPersonales(idEncabezado);
+                        byte[] datosPersonalesCSV = csvService.getAsCSV(
+                                datosPersonales, DatosPersonalesDTO.class);
 
-                        List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaborales(idEncabezado);//Pendiente de adecuar
-                        byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
+                        List<DatosLaboralesDTO> datosLaborales = ls
+                                .generarDatosLaborales(idEncabezado);//Pendiente de adecuar
+                        byte[] datosLaboralesCSV = csvService.getAsCSV(
+                                datosLaborales, DatosLaboralesDTO.class);
 
-                        List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNomina(idEncabezado, idBitacora);
-                        byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
+                        List<DetalleNominaDTO> detalleNomina = ls
+                                .generarDetalleNomina(idEncabezado, idBitacora);
+                        byte[] detalleNominaCSV = csvService.getAsCSV(
+                                detalleNomina, DetalleNominaDTO.class);
 
-                        List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNomina(idEncabezado, idBitacora);
-                        byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
+                        List<DetallePagoNominaDTO> detallePagoNomina = ls
+                                .generarDetallePagoNomina(idEncabezado,
+                                        idBitacora);
+                        byte[] detallePagoNominaCSV = csvService.getAsCSV(
+                                detallePagoNomina, DetallePagoNominaDTO.class);
 
-                        ZipEntry zePersonales = new ZipEntry(carpeta + "datos-personales.csv");
+                        ZipEntry zePersonales = new ZipEntry(
+                                carpeta + "datos-personales.csv");
                         zos.putNextEntry(zePersonales);
                         zos.write(datosPersonalesCSV);
                         zos.closeEntry();
 
-                        ZipEntry zeLaborales = new ZipEntry(carpeta + "datos-laborales.csv");
+                        ZipEntry zeLaborales = new ZipEntry(
+                                carpeta + "datos-laborales.csv");
                         zos.putNextEntry(zeLaborales);
                         zos.write(datosLaboralesCSV);
                         zos.closeEntry();
 
-                        ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "detalle-nomina.csv");
+                        ZipEntry zeDetalleNomina = new ZipEntry(
+                                carpeta + "detalle-nomina.csv");
                         zos.putNextEntry(zeDetalleNomina);
                         zos.write(detalleNominaCSV);
                         zos.closeEntry();
 
-                        ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "detalle-pago-nomina.csv");
+                        ZipEntry zeDetallePagoNomina = new ZipEntry(
+                                carpeta + "detalle-pago-nomina.csv");
                         zos.putNextEntry(zeDetallePagoNomina);
                         zos.write(detallePagoNominaCSV);
                         zos.closeEntry();
@@ -112,31 +129,53 @@ public class SIIFLayoutEJB implements SIIFLayout {
                         //if(encabezadoDetalle.getIdCuentaBancaria()==4 || encabezadoDetalle.getIdCuentaBancaria()==7){
                         switch (encabezadoDetalle.getIdCuentaBancaria()) {
                             case 2: {
-                                int idEncabezado = encabezadoDetalle.getIdSIIFEncabezado();
-                                int idBitacora = encabezadoDetalle.getIdSIIFBitacora();
+                                int idEncabezado = encabezadoDetalle
+                                        .getIdSIIFEncabezado();
+                                int idBitacora = encabezadoDetalle
+                                        .getIdSIIFBitacora();
                                 int idNomina = encabezadoDetalle.getIdNomina();
-                                String carpeta = encabezadoDetalle.getIdNomina() + "/";
-                                List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesContrato(idEncabezado);
-                                byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
-                                List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesContrato(idEncabezado);
-                                byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
-                                List<DetalleNominaDTO> detalleNomina = ls.generarDetalleContrato(idEncabezado, idBitacora);
-                                byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
-                                List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoContrato(idEncabezado, idBitacora);
-                                byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
-                                ZipEntry zePersonales = new ZipEntry(carpeta + "pp_" + idNomina + ".csv");
+                                String carpeta = encabezadoDetalle.getIdNomina()
+                                        + "/";
+                                List<DatosPersonalesDTO> datosPersonales = ls
+                                        .generarDatosPersonalesContrato(
+                                                idEncabezado);
+                                byte[] datosPersonalesCSV = csvService.getAsCSV(
+                                        datosPersonales,
+                                        DatosPersonalesDTO.class);
+                                List<DatosLaboralesDTO> datosLaborales = ls
+                                        .generarDatosLaboralesContrato(
+                                                idEncabezado);
+                                byte[] datosLaboralesCSV = csvService.getAsCSV(
+                                        datosLaborales,
+                                        DatosLaboralesDTO.class);
+                                List<DetalleNominaDTO> detalleNomina = ls
+                                        .generarDetalleContrato(idEncabezado,
+                                                idBitacora);
+                                byte[] detalleNominaCSV = csvService.getAsCSV(
+                                        detalleNomina, DetalleNominaDTO.class);
+                                List<DetallePagoNominaDTO> detallePagoNomina = ls
+                                        .generarDetallePagoContrato(
+                                                idEncabezado, idBitacora);
+                                byte[] detallePagoNominaCSV = csvService
+                                        .getAsCSV(detallePagoNomina,
+                                                DetallePagoNominaDTO.class);
+                                ZipEntry zePersonales = new ZipEntry(
+                                        carpeta + "pp_" + idNomina + ".csv");
                                 zos.putNextEntry(zePersonales);
                                 zos.write(datosPersonalesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeLaborales = new ZipEntry(carpeta + "pl_" + idNomina + ".csv");
+                                ZipEntry zeLaborales = new ZipEntry(
+                                        carpeta + "pl_" + idNomina + ".csv");
                                 zos.putNextEntry(zeLaborales);
                                 zos.write(datosLaboralesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "dn_" + idNomina + ".csv");
+                                ZipEntry zeDetalleNomina = new ZipEntry(
+                                        carpeta + "dn_" + idNomina + ".csv");
                                 zos.putNextEntry(zeDetalleNomina);
                                 zos.write(detalleNominaCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "dp_" + idNomina + ".csv");
+                                ZipEntry zeDetallePagoNomina = new ZipEntry(
+                                        carpeta + "dp_" + idNomina + ".csv");
                                 zos.putNextEntry(zeDetallePagoNomina);
                                 zos.write(detallePagoNominaCSV);
                                 zos.closeEntry();
@@ -144,64 +183,104 @@ public class SIIFLayoutEJB implements SIIFLayout {
                             } // Si Nomina 610 - X00
                             case 5:
                             case 6: {
-                                int idEncabezado = encabezadoDetalle.getIdSIIFEncabezado();
-                                int idBitacora = encabezadoDetalle.getIdSIIFBitacora();
+                                int idEncabezado = encabezadoDetalle
+                                        .getIdSIIFEncabezado();
+                                int idBitacora = encabezadoDetalle
+                                        .getIdSIIFBitacora();
                                 // String nombramiento = encabezadoDetalle.getNombramiento();
-                                String carpeta = encabezadoDetalle.getIdNomina() + "/";
-                                List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonales(idEncabezado);
-                                byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+                                String carpeta = encabezadoDetalle.getIdNomina()
+                                        + "/";
+                                List<DatosPersonalesDTO> datosPersonales = ls
+                                        .generarDatosPersonales(idEncabezado);
+                                byte[] datosPersonalesCSV = csvService.getAsCSV(
+                                        datosPersonales,
+                                        DatosPersonalesDTO.class);
                                 //List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaborales(idEncabezado, nombramiento);
-                                List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaborales(idEncabezado);
-                                byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
-                                List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNomina610(idEncabezado, idBitacora);
-                                byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
-                                List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNomina610(idEncabezado, idBitacora);
-                                byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
-                                ZipEntry zePersonales = new ZipEntry(carpeta + "datos-personales.csv");
+                                List<DatosLaboralesDTO> datosLaborales = ls
+                                        .generarDatosLaborales(idEncabezado);
+                                byte[] datosLaboralesCSV = csvService.getAsCSV(
+                                        datosLaborales,
+                                        DatosLaboralesDTO.class);
+                                List<DetalleNominaDTO> detalleNomina = ls
+                                        .generarDetalleNomina610(idEncabezado,
+                                                idBitacora);
+                                byte[] detalleNominaCSV = csvService.getAsCSV(
+                                        detalleNomina, DetalleNominaDTO.class);
+                                List<DetallePagoNominaDTO> detallePagoNomina = ls
+                                        .generarDetallePagoNomina610(
+                                                idEncabezado, idBitacora);
+                                byte[] detallePagoNominaCSV = csvService
+                                        .getAsCSV(detallePagoNomina,
+                                                DetallePagoNominaDTO.class);
+                                ZipEntry zePersonales = new ZipEntry(
+                                        carpeta + "datos-personales.csv");
                                 zos.putNextEntry(zePersonales);
                                 zos.write(datosPersonalesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeLaborales = new ZipEntry(carpeta + "datos-laborales.csv");
+                                ZipEntry zeLaborales = new ZipEntry(
+                                        carpeta + "datos-laborales.csv");
                                 zos.putNextEntry(zeLaborales);
                                 zos.write(datosLaboralesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "detalle-nomina.csv");
+                                ZipEntry zeDetalleNomina = new ZipEntry(
+                                        carpeta + "detalle-nomina.csv");
                                 zos.putNextEntry(zeDetalleNomina);
                                 zos.write(detalleNominaCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "detalle-pago-nomina.csv");
+                                ZipEntry zeDetallePagoNomina = new ZipEntry(
+                                        carpeta + "detalle-pago-nomina.csv");
                                 zos.putNextEntry(zeDetallePagoNomina);
                                 zos.write(detallePagoNominaCSV);
                                 zos.closeEntry();
                                 break;
                             }
                             default: {
-                                int idEncabezado = encabezadoDetalle.getIdSIIFEncabezado();
-                                int idBitacora = encabezadoDetalle.getIdSIIFBitacora();
+                                int idEncabezado = encabezadoDetalle
+                                        .getIdSIIFEncabezado();
+                                int idBitacora = encabezadoDetalle
+                                        .getIdSIIFBitacora();
                                 //String nombramiento = encabezadoDetalle.getNombramiento();
-                                String carpeta = encabezadoDetalle.getIdNomina() + "/";
-                                List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonales(idEncabezado);
-                                byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+                                String carpeta = encabezadoDetalle.getIdNomina()
+                                        + "/";
+                                List<DatosPersonalesDTO> datosPersonales = ls
+                                        .generarDatosPersonales(idEncabezado);
+                                byte[] datosPersonalesCSV = csvService.getAsCSV(
+                                        datosPersonales,
+                                        DatosPersonalesDTO.class);
                                 //List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaborales(idEncabezado, nombramiento);
-                                List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaborales(idEncabezado);
-                                byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
-                                List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNomina(idEncabezado, idBitacora);
-                                byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
-                                List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNomina(idEncabezado, idBitacora);
-                                byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
-                                ZipEntry zePersonales = new ZipEntry(carpeta + "datos-personales.csv");
+                                List<DatosLaboralesDTO> datosLaborales = ls
+                                        .generarDatosLaborales(idEncabezado);
+                                byte[] datosLaboralesCSV = csvService.getAsCSV(
+                                        datosLaborales,
+                                        DatosLaboralesDTO.class);
+                                List<DetalleNominaDTO> detalleNomina = ls
+                                        .generarDetalleNomina(idEncabezado,
+                                                idBitacora);
+                                byte[] detalleNominaCSV = csvService.getAsCSV(
+                                        detalleNomina, DetalleNominaDTO.class);
+                                List<DetallePagoNominaDTO> detallePagoNomina = ls
+                                        .generarDetallePagoNomina(idEncabezado,
+                                                idBitacora);
+                                byte[] detallePagoNominaCSV = csvService
+                                        .getAsCSV(detallePagoNomina,
+                                                DetallePagoNominaDTO.class);
+                                ZipEntry zePersonales = new ZipEntry(
+                                        carpeta + "datos-personales.csv");
                                 zos.putNextEntry(zePersonales);
                                 zos.write(datosPersonalesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeLaborales = new ZipEntry(carpeta + "datos-laborales.csv");
+                                ZipEntry zeLaborales = new ZipEntry(
+                                        carpeta + "datos-laborales.csv");
                                 zos.putNextEntry(zeLaborales);
                                 zos.write(datosLaboralesCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "detalle-nomina.csv");
+                                ZipEntry zeDetalleNomina = new ZipEntry(
+                                        carpeta + "detalle-nomina.csv");
                                 zos.putNextEntry(zeDetalleNomina);
                                 zos.write(detalleNominaCSV);
                                 zos.closeEntry();
-                                ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "detalle-pago-nomina.csv");
+                                ZipEntry zeDetallePagoNomina = new ZipEntry(
+                                        carpeta + "detalle-pago-nomina.csv");
                                 zos.putNextEntry(zeDetallePagoNomina);
                                 zos.write(detallePagoNominaCSV);
                                 zos.closeEntry();
@@ -225,7 +304,8 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getLayoutComoZipRH(Integer idProductoNomina) {
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService.consultarEncabezadoRH(idProductoNomina);
+        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService
+                .consultarEncabezadoRH(idProductoNomina);
         byte[] encabezadoXLSX = encabezadoExcel.generar(listaDetalles);
 
         try {
@@ -244,40 +324,54 @@ public class SIIFLayoutEJB implements SIIFLayout {
                     int idNomina = encabezadoDetalle.getIdNomina();
                     int idPrograma = encabezadoDetalle.getIdNombramiento();
                     //System.out.println("idEncabezado:::"+idEncabezado);
-                    LOGGER.debug("idProductoNomina:::" + idProductoNomina + "idProductoNomina:::" + idNomina);
+                    LOGGER.debug("idProductoNomina:::" + idProductoNomina
+                            + "idProductoNomina:::" + idNomina);
                     List<DatosPersonalesDTO> datosPersonales = null;
                     if (idPrograma == 23 || idPrograma == 27) {
-                        datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina, idPrograma);
+                        datosPersonales = ls.generarDatosPersonalesRH(
+                                idProductoNomina, idPrograma);
                     } else {
-                        datosPersonales = ls.generarDatosPersonalesRhCont(idProductoNomina, idPrograma);
+                        datosPersonales = ls.generarDatosPersonalesRhCont(
+                                idProductoNomina, idPrograma);
                     }
-                    byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+                    byte[] datosPersonalesCSV = csvService.getAsCSV(
+                            datosPersonales, DatosPersonalesDTO.class);
 
-                    List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
-                    byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
+                    List<DatosLaboralesDTO> datosLaborales = ls
+                            .generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
+                    byte[] datosLaboralesCSV = csvService
+                            .getAsCSV(datosLaborales, DatosLaboralesDTO.class);
 
-                    List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNominaRH(idProductoNomina);
-                    byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
+                    List<DetalleNominaDTO> detalleNomina = ls
+                            .generarDetalleNominaRH(idProductoNomina);
+                    byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina,
+                            DetalleNominaDTO.class);
 
-                    List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNominaRH(idProductoNomina);
-                    byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
+                    List<DetallePagoNominaDTO> detallePagoNomina = ls
+                            .generarDetallePagoNominaRH(idProductoNomina);
+                    byte[] detallePagoNominaCSV = csvService.getAsCSV(
+                            detallePagoNomina, DetallePagoNominaDTO.class);
 
-                    ZipEntry zePersonales = new ZipEntry(carpeta + "datos-personales.csv");
+                    ZipEntry zePersonales = new ZipEntry(
+                            carpeta + "datos-personales.csv");
                     zos.putNextEntry(zePersonales);
                     zos.write(datosPersonalesCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeLaborales = new ZipEntry(carpeta + "datos-laborales.csv");
+                    ZipEntry zeLaborales = new ZipEntry(
+                            carpeta + "datos-laborales.csv");
                     zos.putNextEntry(zeLaborales);
                     zos.write(datosLaboralesCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "detalle-nomina.csv");
+                    ZipEntry zeDetalleNomina = new ZipEntry(
+                            carpeta + "detalle-nomina.csv");
                     zos.putNextEntry(zeDetalleNomina);
                     zos.write(detalleNominaCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "detalle-pago-nomina.csv");
+                    ZipEntry zeDetallePagoNomina = new ZipEntry(
+                            carpeta + "detalle-pago-nomina.csv");
                     zos.putNextEntry(zeDetallePagoNomina);
                     zos.write(detallePagoNominaCSV);
                     zos.closeEntry();
@@ -298,7 +392,8 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getLayoutFinalComoZip(String quincena, int anyo) {
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService.consultarEncabezadoFinal(quincena, anyo);
+        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService
+                .consultarEncabezadoFinal(quincena, anyo);
         LOGGER.debug("Encabezado Service:::" + listaDetalles.size());
         byte[] encabezadoXLSX = encabezadoExcel.generarFinal(listaDetalles);
 
@@ -313,40 +408,58 @@ public class SIIFLayoutEJB implements SIIFLayout {
                 zos.closeEntry();
 
                 for (SIIFEncabezadoDTO encabezadoDetalle : listaDetalles) {
-                    int idCuentaBancaria = encabezadoDetalle.getIdCuentaBancaria();
+                    int idCuentaBancaria = encabezadoDetalle
+                            .getIdCuentaBancaria();
                     int idTipoNomina = encabezadoDetalle.getIdTipoNomina();
-                    String idTipoEmisionNomina = encabezadoDetalle.getIdTipoEmisionNomina();
+                    String idTipoEmisionNomina = encabezadoDetalle
+                            .getIdTipoEmisionNomina();
 
                     String carpeta = encabezadoDetalle.getIdNomina() + "/";
 
-                    List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesFinal(idCuentaBancaria, idTipoNomina, idTipoEmisionNomina);
-                    byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+                    List<DatosPersonalesDTO> datosPersonales = ls
+                            .generarDatosPersonalesFinal(idCuentaBancaria,
+                                    idTipoNomina, idTipoEmisionNomina);
+                    byte[] datosPersonalesCSV = csvService.getAsCSV(
+                            datosPersonales, DatosPersonalesDTO.class);
 
-                    List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesFinal(idCuentaBancaria, idTipoNomina, idTipoEmisionNomina);
-                    byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
+                    List<DatosLaboralesDTO> datosLaborales = ls
+                            .generarDatosLaboralesFinal(idCuentaBancaria,
+                                    idTipoNomina, idTipoEmisionNomina);
+                    byte[] datosLaboralesCSV = csvService
+                            .getAsCSV(datosLaborales, DatosLaboralesDTO.class);
 
-                    List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNominaFinal(idCuentaBancaria, idTipoNomina, idTipoEmisionNomina);
-                    byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
+                    List<DetalleNominaDTO> detalleNomina = ls
+                            .generarDetalleNominaFinal(idCuentaBancaria,
+                                    idTipoNomina, idTipoEmisionNomina);
+                    byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina,
+                            DetalleNominaDTO.class);
 
-                    List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNominaFinal(idCuentaBancaria, idTipoNomina, idTipoEmisionNomina);
-                    byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
+                    List<DetallePagoNominaDTO> detallePagoNomina = ls
+                            .generarDetallePagoNominaFinal(idCuentaBancaria,
+                                    idTipoNomina, idTipoEmisionNomina);
+                    byte[] detallePagoNominaCSV = csvService.getAsCSV(
+                            detallePagoNomina, DetallePagoNominaDTO.class);
 
-                    ZipEntry zePersonales = new ZipEntry(carpeta + "datos-personales.csv");
+                    ZipEntry zePersonales = new ZipEntry(
+                            carpeta + "datos-personales.csv");
                     zos.putNextEntry(zePersonales);
                     zos.write(datosPersonalesCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeLaborales = new ZipEntry(carpeta + "datos-laborales.csv");
+                    ZipEntry zeLaborales = new ZipEntry(
+                            carpeta + "datos-laborales.csv");
                     zos.putNextEntry(zeLaborales);
                     zos.write(datosLaboralesCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeDetalleNomina = new ZipEntry(carpeta + "detalle-nomina.csv");
+                    ZipEntry zeDetalleNomina = new ZipEntry(
+                            carpeta + "detalle-nomina.csv");
                     zos.putNextEntry(zeDetalleNomina);
                     zos.write(detalleNominaCSV);
                     zos.closeEntry();
 
-                    ZipEntry zeDetallePagoNomina = new ZipEntry(carpeta + "detalle-pago-nomina.csv");
+                    ZipEntry zeDetallePagoNomina = new ZipEntry(
+                            carpeta + "detalle-pago-nomina.csv");
                     zos.putNextEntry(zeDetallePagoNomina);
                     zos.write(detallePagoNominaCSV);
                     zos.closeEntry();
@@ -366,11 +479,13 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getLayoutComoDatTra(String quincena) {
         //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService.consultarTra(quincena, 2016);
+        List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService
+                .consultarTra(quincena, 2016);
         LOGGER.debug("TRA Service:::" + listaDetallesTra.size());
         byte[] fileTra = traService.generarTra(listaDetallesTra);
 
-        List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService.consultarDat(quincena, 2016);
+        List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService
+                .consultarDat(quincena, 2016);
         LOGGER.debug("TRA Service:::" + listaDetallesDat.size());
         byte[] fileDat = datService.generarDat(listaDetallesDat);
 
@@ -415,13 +530,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
                 for (String producto : productos) {
                     LOGGER.debug("Producto=" + producto);
 
-                    List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService.consultarTraCont(producto);
+                    List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService
+                            .consultarTraCont(producto);
                     LOGGER.debug("TRA Service:::" + listaDetallesTra.size());
-                    byte[] fileTras = encabezadoExcel.generarTraCont(listaDetallesTra, producto);
+                    byte[] fileTras = encabezadoExcel
+                            .generarTraCont(listaDetallesTra, producto);
 
-                    List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService.consultarDatCont(producto);
+                    List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService
+                            .consultarDatCont(producto);
                     LOGGER.debug("DAT Service:::" + listaDetallesDat.size());
-                    byte[] fileDat = encabezadoExcel.generarDatCont(listaDetallesDat, producto);
+                    byte[] fileDat = encabezadoExcel
+                            .generarDatCont(listaDetallesDat, producto);
 
                     ZipEntry zipTra = new ZipEntry(producto + ".tra");
                     zos.putNextEntry(zipTra);
@@ -449,13 +568,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getDatTra(Integer idBitacora) {
         try {
             // Generacion del archivo DAT
-            List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService.consultarDatN(idBitacora);
-            LOGGER.debugv("Cantidad de elementos en el DAT: {0}", listaDetallesDat.size());
+            List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService
+                    .consultarDatN(idBitacora);
+            LOGGER.debugv("Cantidad de elementos en el DAT: {0}",
+                    listaDetallesDat.size());
             byte[] dat = datService.generarDat(listaDetallesDat);
 
             // Generacion del archivo TRA
-            List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService.consultarTraN(idBitacora);
-            LOGGER.debugv("Cantidad de elementos en el TRA: {0}", listaDetallesTra.size());
+            List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService
+                    .consultarTraN(idBitacora);
+            LOGGER.debugv("Cantidad de elementos en el TRA: {0}",
+                    listaDetallesTra.size());
             byte[] tra = traService.generarTra(listaDetallesTra);
 
             // Generación del archivo zip
@@ -489,13 +612,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getDatTraRH(Integer idBitacora) {
         try {
             // Generacion del archivo DAT
-            List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService.consultarDatRH(idBitacora);
-            LOGGER.debugv("Cantidad de elementos en el DAT: {0}", listaDetallesDat.size());
+            List<EstructuraNominaDatDTO> listaDetallesDat = encabezadoService
+                    .consultarDatRH(idBitacora);
+            LOGGER.debugv("Cantidad de elementos en el DAT: {0}",
+                    listaDetallesDat.size());
             byte[] dat = datService.generarDat(listaDetallesDat);
 
             // Generacion del archivo TRA
-            List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService.consultarTraRH(idBitacora);
-            LOGGER.debugv("Cantidad de elementos en el TRA: {0}", listaDetallesTra.size());
+            List<EstructuraNominaTrailersDTO> listaDetallesTra = encabezadoService
+                    .consultarTraRH(idBitacora);
+            LOGGER.debugv("Cantidad de elementos en el TRA: {0}",
+                    listaDetallesTra.size());
             byte[] tra = traService.generarTra(listaDetallesTra);
 
             // Generación del archivo zip
@@ -530,9 +657,11 @@ public class SIIFLayoutEJB implements SIIFLayout {
 
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<EstructuraSeguroPopularDTO> listaDetallesTra = encabezadoService.consultarSeguroPopular(quincena, 2016);
+        List<EstructuraSeguroPopularDTO> listaDetallesTra = encabezadoService
+                .consultarSeguroPopular(quincena, 2016);
         LOGGER.debug("Seguro Popular Service:::" + listaDetallesTra.size());
-        byte[] fileSegPop = encabezadoExcel.generarSeguroPopular(listaDetallesTra);
+        byte[] fileSegPop = encabezadoExcel
+                .generarSeguroPopular(listaDetallesTra);
 
         try {
             File file = File.createTempFile("SeguroPopular", ".zip");
@@ -559,14 +688,20 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getDatTraProdNom(Integer idProductoNomina) {
         try {
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService.consultarDatProdNom(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos en el DAT: {0}", listaDetallesDat.size());
+            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService
+                    .consultarDatProdNom(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos en el DAT: {0}",
+                    listaDetallesDat.size());
             SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat, "prdc");
+            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat,
+                    "prdc");
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService.consultarTraProdNom(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos en el TRA: {0}", listaDetallesTra.size());
-            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService
+                    .consultarTraProdNom(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos en el TRA: {0}",
+                    listaDetallesTra.size());
+            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra,
+                    "prdc");
 
             // Generación del archivo zip
             File file = File.createTempFile("dat-tra", ".zip");
@@ -599,15 +734,21 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getDatTraProdNomRH(Integer idProductoNomina) {
         try {
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService.consultarDatProdNomRH(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDat.size());
+            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService
+                    .consultarDatProdNomRH(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}",
+                    listaDetallesDat.size());
             SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat, "prdc");
+            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat,
+                    "prdc");
 
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService.consultarTraProdNomRH(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTra.size());
-            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService
+                    .consultarTraProdNomRH(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}",
+                    listaDetallesTra.size());
+            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra,
+                    "prdc");
 
             // Generación del archivo zip
             File file = File.createTempFile("dat-tra", ".zip");
@@ -640,48 +781,72 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public byte[] getDatTraProdNomRH_Cont(Integer idProductoNomina) {
         try {
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService.consultarDatProdNomRHCont(idProductoNomina, 23);
-            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDat.size());
+            List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService
+                    .consultarDatProdNomRHCont(idProductoNomina, 23);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}",
+                    listaDetallesDat.size());
             SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat, "prdc");
+            byte[] dat = encabezadoExcel.generarDatCont(listaDetallesDat,
+                    "prdc");
 
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService.consultarTraProdNomRHCont(idProductoNomina, 23);
-            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTra.size());
-            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService
+                    .consultarTraProdNomRHCont(idProductoNomina, 23);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}",
+                    listaDetallesTra.size());
+            byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra,
+                    "prdc");
 
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDatFort = encabezadoService.consultarDatProdNomRHCont(idProductoNomina, 27);
-            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatFort.size());
+            List<EstructuraContratosDatDTO> listaDetallesDatFort = encabezadoService
+                    .consultarDatProdNomRHCont(idProductoNomina, 27);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}",
+                    listaDetallesDatFort.size());
             //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] datFort = encabezadoExcel.generarDatCont(listaDetallesDatFort, "prdc");
+            byte[] datFort = encabezadoExcel
+                    .generarDatCont(listaDetallesDatFort, "prdc");
 
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTraFort = encabezadoService.consultarTraProdNomRHCont(idProductoNomina, 27);
-            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraFort.size());
-            byte[] traFort = encabezadoExcel.generarTraCont(listaDetallesTraFort, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTraFort = encabezadoService
+                    .consultarTraProdNomRHCont(idProductoNomina, 27);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}",
+                    listaDetallesTraFort.size());
+            byte[] traFort = encabezadoExcel
+                    .generarTraCont(listaDetallesTraFort, "prdc");
 
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDatCont = encabezadoService.consultarDatProdNomRHContrato(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatCont.size());
+            List<EstructuraContratosDatDTO> listaDetallesDatCont = encabezadoService
+                    .consultarDatProdNomRHContrato(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}",
+                    listaDetallesDatCont.size());
             //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] datCont = encabezadoExcel.generarDatCont(listaDetallesDatCont, "prdc");
+            byte[] datCont = encabezadoExcel
+                    .generarDatCont(listaDetallesDatCont, "prdc");
 
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTraCont = encabezadoService.consultarTraProdNomRHContrato(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraCont.size());
-            byte[] traCont = encabezadoExcel.generarTraCont(listaDetallesTraCont, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTraCont = encabezadoService
+                    .consultarTraProdNomRHContrato(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}",
+                    listaDetallesTraCont.size());
+            byte[] traCont = encabezadoExcel
+                    .generarTraCont(listaDetallesTraCont, "prdc");
 
             // Generacion del archivo DAT
-            List<EstructuraContratosDatDTO> listaDetallesDatContSP = encabezadoService.consultarDatProdNomRHContSegPop(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}", listaDetallesDatCont.size());
+            List<EstructuraContratosDatDTO> listaDetallesDatContSP = encabezadoService
+                    .consultarDatProdNomRHContSegPop(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el DAT: {0}",
+                    listaDetallesDatCont.size());
             //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-            byte[] datContSP = encabezadoExcel.generarDatCont(listaDetallesDatContSP, "prdc");
+            byte[] datContSP = encabezadoExcel
+                    .generarDatCont(listaDetallesDatContSP, "prdc");
 
             // Generacion del archivo TRA
-            List<EstructuraContratosTrailersDTO> listaDetallesTraContSP = encabezadoService.consultarTraProdNomRHContSegPop(idProductoNomina);
-            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}", listaDetallesTraCont.size());
-            byte[] traContSP = encabezadoExcel.generarTraCont(listaDetallesTraContSP, "prdc");
+            List<EstructuraContratosTrailersDTO> listaDetallesTraContSP = encabezadoService
+                    .consultarTraProdNomRHContSegPop(idProductoNomina);
+            LOGGER.debugv("Cantidad de elementos consultados en el TRA: {0}",
+                    listaDetallesTraCont.size());
+            byte[] traContSP = encabezadoExcel
+                    .generarTraCont(listaDetallesTraContSP, "prdc");
 
             // Generación del archivo zip
             File file = File.createTempFile("dat-tra", ".zip");
@@ -745,13 +910,17 @@ public class SIIFLayoutEJB implements SIIFLayout {
     public void crearDatTraProdNom(Integer idProductoNomina) {
 
         // Creacion del DAT
-        List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService.crearDatProdNom(idProductoNomina);
-        LOGGER.debugv("Cantidad de elementos creados en el DAT: {0}", listaDetallesDat.size());
+        List<EstructuraContratosDatDTO> listaDetallesDat = encabezadoService
+                .crearDatProdNom(idProductoNomina);
+        LOGGER.debugv("Cantidad de elementos creados en el DAT: {0}",
+                listaDetallesDat.size());
         //SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
         encabezadoService.actualizarEstructuraDat(listaDetallesDat);
         // Creacion del TRA
-        List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService.crearTraProdNom(idProductoNomina);
-        LOGGER.debugv("Cantidad de elementos creados en el TRA: {0}", listaDetallesTra.size());
+        List<EstructuraContratosTrailersDTO> listaDetallesTra = encabezadoService
+                .crearTraProdNom(idProductoNomina);
+        LOGGER.debugv("Cantidad de elementos creados en el TRA: {0}",
+                listaDetallesTra.size());
         //byte[] tra = encabezadoExcel.generarTraCont(listaDetallesTra, "prdc");
         encabezadoService.actualizarEstructuraTra(idProductoNomina);
         encabezadoService.actualizarNoTrailer(idProductoNomina);
@@ -761,24 +930,33 @@ public class SIIFLayoutEJB implements SIIFLayout {
     @Override
     public void crearLayoutsRH(Integer idProductoNomina) {
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
-        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService.generarEncabezadoRH(idProductoNomina);
+        List<SIIFEncabezadoDTO> listaDetalles = encabezadoService
+                .generarEncabezadoRH(idProductoNomina);
 
         for (SIIFEncabezadoDTO encabezadoDetalle : listaDetalles) {
 
             LOGGER.debug("idProductoNomina:::" + idProductoNomina);
             int idNomina = encabezadoDetalle.getIdNomina();
 
-            List<DatosPersonalesDTO> datosPersonales = ls.generarDatosPersonalesRH(idProductoNomina, idNomina);
-            byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales, DatosPersonalesDTO.class);
+            List<DatosPersonalesDTO> datosPersonales = ls
+                    .generarDatosPersonalesRH(idProductoNomina, idNomina);
+            byte[] datosPersonalesCSV = csvService.getAsCSV(datosPersonales,
+                    DatosPersonalesDTO.class);
 
-            List<DatosLaboralesDTO> datosLaborales = ls.generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
-            byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales, DatosLaboralesDTO.class);
+            List<DatosLaboralesDTO> datosLaborales = ls
+                    .generarDatosLaboralesRH(idProductoNomina);//Pendiente de adecuar
+            byte[] datosLaboralesCSV = csvService.getAsCSV(datosLaborales,
+                    DatosLaboralesDTO.class);
 
-            List<DetalleNominaDTO> detalleNomina = ls.generarDetalleNominaRH(idProductoNomina);
-            byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina, DetalleNominaDTO.class);
+            List<DetalleNominaDTO> detalleNomina = ls
+                    .generarDetalleNominaRH(idProductoNomina);
+            byte[] detalleNominaCSV = csvService.getAsCSV(detalleNomina,
+                    DetalleNominaDTO.class);
 
-            List<DetallePagoNominaDTO> detallePagoNomina = ls.generarDetallePagoNominaRH(idProductoNomina);
-            byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina, DetallePagoNominaDTO.class);
+            List<DetallePagoNominaDTO> detallePagoNomina = ls
+                    .generarDetallePagoNominaRH(idProductoNomina);
+            byte[] detallePagoNominaCSV = csvService.getAsCSV(detallePagoNomina,
+                    DetallePagoNominaDTO.class);
 
         }
 
@@ -794,9 +972,11 @@ public class SIIFLayoutEJB implements SIIFLayout {
 
         SIIFEncabezadoExcel encabezadoExcel = new SIIFEncabezadoExcel();
 
-        List<EstructuraSeguroPopularDTO> listaDetallesTra = encabezadoService.consultarSeguroPopularRH(idProductoNomina);
+        List<EstructuraSeguroPopularDTO> listaDetallesTra = encabezadoService
+                .consultarSeguroPopularRH(idProductoNomina);
         LOGGER.debug("Seguro Popular Service:::" + listaDetallesTra.size());
-        byte[] fileSegPop = encabezadoExcel.generarSeguroPopular(listaDetallesTra);
+        byte[] fileSegPop = encabezadoExcel
+                .generarSeguroPopular(listaDetallesTra);
 
         try {
             File file = File.createTempFile("SeguroPopular", ".zip");

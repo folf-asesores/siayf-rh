@@ -61,8 +61,10 @@ public class ConceptoNominaFederalesService implements Serializable {
 
     public List<EstatusConceptoNominaDTO> listaEstatusConceptoNomina() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_estatus_concepto_nomina AS idEstatusConceptoNomina, estatus FROM estatus_conceptos_nomina");
-        query.setResultTransformer(Transformers.aliasToBean(EstatusConceptoNominaDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_estatus_concepto_nomina AS idEstatusConceptoNomina, estatus FROM estatus_conceptos_nomina");
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstatusConceptoNominaDTO.class));
         @SuppressWarnings("unchecked")
         List<EstatusConceptoNominaDTO> result = query.list();
         return result;
@@ -70,8 +72,10 @@ public class ConceptoNominaFederalesService implements Serializable {
 
     public List<NivelEmpleadoDTO> listaNivelEmpleado() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_nivel_empleado AS idNivelEmpleado, nivel_empleado AS nivelEmpleado  FROM niveles_empleados");
-        query.setResultTransformer(Transformers.aliasToBean(NivelEmpleadoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_nivel_empleado AS idNivelEmpleado, nivel_empleado AS nivelEmpleado  FROM niveles_empleados");
+        query.setResultTransformer(
+                Transformers.aliasToBean(NivelEmpleadoDTO.class));
         @SuppressWarnings("unchecked")
         List<NivelEmpleadoDTO> result = query.list();
         return result;
@@ -79,8 +83,10 @@ public class ConceptoNominaFederalesService implements Serializable {
 
     public List<TipoNombramientoDTO> listaNombramiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_tipo_nombramiento AS idTipoNombramiento, descripcion AS nombramiento FROM tipos_nombramientos");
-        query.setResultTransformer(Transformers.aliasToBean(TipoNombramientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_tipo_nombramiento AS idTipoNombramiento, descripcion AS nombramiento FROM tipos_nombramientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoNombramientoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoNombramientoDTO> result = query.list();
         return result;
@@ -88,8 +94,12 @@ public class ConceptoNominaFederalesService implements Serializable {
 
     public List<CategoriaSatDTO> listaCategoriaSatPorTipo(Integer tipo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_obtener_categorias_sat(:tipoparametro)").setParameter("tipoparametro", tipo);
-        query.setResultTransformer(Transformers.aliasToBean(CategoriaSatDTO.class));
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_obtener_categorias_sat(:tipoparametro)")
+                .setParameter("tipoparametro", tipo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(CategoriaSatDTO.class));
         @SuppressWarnings("unchecked")
         List<CategoriaSatDTO> result = query.list();
         return result;
@@ -116,14 +126,16 @@ public class ConceptoNominaFederalesService implements Serializable {
         dto.setTipo(null);
         dto.setTratamiento(Boolean.FALSE);
         dto.setDescripcion("");
-        List<TiposNombramientosEntity> tiposNombramientosEntities = tiposNombramientosRepository.nombramientosConSubfuente();
+        List<TiposNombramientosEntity> tiposNombramientosEntities = tiposNombramientosRepository
+                .nombramientosConSubfuente();
         List<ConceptoNominaNombramientoDTO> conceptoNominaNombramientoLista = new ArrayList<>();
 
         for (TiposNombramientosEntity nombramientosEntity : tiposNombramientosEntities) {
             ConceptoNominaNombramientoDTO conceptoNominaNombramientoDTO = new ConceptoNominaNombramientoDTO();
             conceptoNominaNombramientoDTO.setAplica(false);
             conceptoNominaNombramientoDTO.setIdConceptoNomina(null);
-            conceptoNominaNombramientoDTO.setIdTipoNombramiento(nombramientosEntity.getIdTipoNombramiento());
+            conceptoNominaNombramientoDTO.setIdTipoNombramiento(
+                    nombramientosEntity.getIdTipoNombramiento());
             conceptoNominaNombramientoLista.add(conceptoNominaNombramientoDTO);
         }
 
@@ -132,15 +144,18 @@ public class ConceptoNominaFederalesService implements Serializable {
         return dto;
     }
 
-    public ConceptoNominaFederalesDTO actualizarConceptoNomina(ConceptoNominaFederalesDTO dto) {
-        ConceptoNominaFederalesEntity entity = conceptoNominaDAO.obtenerPorId(dto.getIdConceptoNomina());
+    public ConceptoNominaFederalesDTO actualizarConceptoNomina(
+            ConceptoNominaFederalesDTO dto) {
+        ConceptoNominaFederalesEntity entity = conceptoNominaDAO
+                .obtenerPorId(dto.getIdConceptoNomina());
         entity.setAguinaldo(dto.getAguinaldo());
         entity.setAlta(FechaUtil.fechaActualSinHora());
         entity.setBase(dto.getBase());
         entity.setClave(dto.getClave());
         entity.setDescripcion(dto.getDescripcion());
         if (dto.getIdEstatusConceptoNomina() != null) {
-            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO.obtenerPorId(dto.getIdEstatusConceptoNomina()));
+            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO
+                    .obtenerPorId(dto.getIdEstatusConceptoNomina()));
         }
 
         entity.setFormula(dto.getFormula());
@@ -153,19 +168,22 @@ public class ConceptoNominaFederalesService implements Serializable {
         return obtenerConceptoNominaPorId(entity.getIdConceptoNomina());
     }
 
-    public ConceptoNominaFederalesDTO crearConceptoNomina(ConceptoNominaFederalesDTO dto) {
+    public ConceptoNominaFederalesDTO crearConceptoNomina(
+            ConceptoNominaFederalesDTO dto) {
         ConceptoNominaFederalesEntity entity = new ConceptoNominaFederalesEntity();
         entity.setAguinaldo(dto.getAguinaldo());
         entity.setAlta(FechaUtil.fechaActualSinHora());
         entity.setBase(dto.getBase());
 
         if (dto.getCategoriaSAT() != null) {
-            entity.setCategoriaSAT(categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
+            entity.setCategoriaSAT(
+                    categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
         }
         entity.setClave(dto.getClave());
         entity.setDescripcion(dto.getDescripcion());
         if (dto.getIdEstatusConceptoNomina() != null) {
-            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO.obtenerPorId(dto.getIdEstatusConceptoNomina()));
+            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO
+                    .obtenerPorId(dto.getIdEstatusConceptoNomina()));
         }
 
         System.out.println("----" + dto.getFormula());
@@ -179,42 +197,55 @@ public class ConceptoNominaFederalesService implements Serializable {
         return obtenerConceptoNominaPorId(entity.getIdConceptoNomina());
     }
 
-    public List<ConceptoNominaFederalesDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipo) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptoNominasLista(
+            TipoConceptoNominaEnum tipo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_conceptos_nomina_federales(:tipoparametro)").setParameter("tipoparametro",
-                tipo.getIdTipoConceptoNomina());
-        query.setResultTransformer(Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_conceptos_nomina_federales(:tipoparametro)")
+                .setParameter("tipoparametro", tipo.getIdTipoConceptoNomina());
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
         @SuppressWarnings("unchecked")
 
         List<ConceptoNominaFederalesDTO> result = query.list();
 
         for (ConceptoNominaFederalesDTO dto : result) {
             if (dto.getIdNombramiento() != null) {
-                dto.setNombramiento(tiposNombramientosRepository.nombramientoPorId(dto.getIdNombramiento()).getDescripcion());
+                dto.setNombramiento(tiposNombramientosRepository
+                        .nombramientoPorId(dto.getIdNombramiento())
+                        .getDescripcion());
             }
         }
 
         return result;
     }
 
-    public ConceptoNominaFederalesDTO obtenerConceptoNominaPorId(Integer idConceptoNomina) {
+    public ConceptoNominaFederalesDTO obtenerConceptoNominaPorId(
+            Integer idConceptoNomina) {
 
-        ConceptoNominaFederalesEntity entity = entityManager.find(ConceptoNominaFederalesEntity.class, idConceptoNomina);
+        ConceptoNominaFederalesEntity entity = entityManager
+                .find(ConceptoNominaFederalesEntity.class, idConceptoNomina);
 
         ConceptoNominaFederalesDTO dto = new ConceptoNominaFederalesDTO();
 
         dto.setAguinaldo(entity.getAguinaldo());
         dto.setAlta(entity.getAlta());
         dto.setBase(entity.getBase());
-        dto.setCategoriaSAT(entity.getCategoriaSAT() != null ? entity.getCategoriaSAT().getClave() : null);
+        dto.setCategoriaSAT(entity.getCategoriaSAT() != null
+                ? entity.getCategoriaSAT().getClave() : null);
         dto.setClave(entity.getClave());
         // dto.setConceptoNominaNombramientoLista();
         dto.setDescripcion(entity.getDescripcion());
-        dto.setEstatusConceptoNomina(entity.getEstatusConceptoNomina() != null ? entity.getEstatusConceptoNomina().getEstatus() : null);
+        dto.setEstatusConceptoNomina(entity.getEstatusConceptoNomina() != null
+                ? entity.getEstatusConceptoNomina().getEstatus() : null);
         dto.setFormula(entity.getFormula());
-        dto.setIdCategoriaSAT(entity.getCategoriaSAT() != null ? entity.getCategoriaSAT().getIdCategoriaSAT() : null);
+        dto.setIdCategoriaSAT(entity.getCategoriaSAT() != null
+                ? entity.getCategoriaSAT().getIdCategoriaSAT() : null);
         dto.setIdConceptoNomina(entity.getIdConceptoNomina());
-        dto.setIdEstatusConceptoNomina(entity.getEstatusConceptoNomina() != null ? entity.getEstatusConceptoNomina().getIdEstatusConceptoNomina() : null);
+        dto.setIdEstatusConceptoNomina(entity.getEstatusConceptoNomina() != null
+                ? entity.getEstatusConceptoNomina().getIdEstatusConceptoNomina()
+                : null);
 
         dto.setObservacion(entity.getObservacion());
         dto.setRetroactivo(entity.getRetroactivo());
@@ -233,7 +264,9 @@ public class ConceptoNominaFederalesService implements Serializable {
         conceptoNominaEntities = conceptoNominaDAO.consultarTodos();
         List<ConceptoNominaFederalesDTO> listdtos = new ArrayList<>();
         for (ConceptoNominaFederalesEntity ent : conceptoNominaEntities) {
-            ConceptoNominaFederalesDTO dto = ConceptoNominaFactory.crearConceptoNominaFederalesDTO(ent, new ConceptoNominaFederalesDTO());
+            ConceptoNominaFederalesDTO dto = ConceptoNominaFactory
+                    .crearConceptoNominaFederalesDTO(ent,
+                            new ConceptoNominaFederalesDTO());
             listdtos.add(dto);
         }
         return listdtos;
@@ -246,12 +279,16 @@ public class ConceptoNominaFederalesService implements Serializable {
      * @param idConfiguracion
      * @return
      */
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosMovimientosProgramados(Integer idConfiguracion) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosMovimientosProgramados(
+            Integer idConfiguracion) {
         ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = new ConfiguracionPresupuestoEntity();
         try {
-            configuracionPresupuestoEntity = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+            configuracionPresupuestoEntity = configuracionPresupuestoRepository
+                    .obtenerPorId(idConfiguracion);
         } catch (NoResultException e) {
-            throw new ValidacionException("No se encontro la configuracion presupuestal correspondiente", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontro la configuracion presupuestal correspondiente",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         List<ConceptoNominaFederalesDTO> listaConceptosFinal = new ArrayList<>();
@@ -259,12 +296,18 @@ public class ConceptoNominaFederalesService implements Serializable {
 
             Calendar fecha = Calendar.getInstance();
             int dia = fecha.get(Calendar.DAY_OF_MONTH);
-            Integer quincenaActual = nominaEmpleadoService.obtenerNumeroQuincena(FechaUtil.mesActual(), dia);
+            Integer quincenaActual = nominaEmpleadoService
+                    .obtenerNumeroQuincena(FechaUtil.mesActual(), dia);
 
             Session session = entityManager.unwrap(Session.class);
-            Query query = session.createSQLQuery("CALL usp_conceptos_movimientos_programados(:idPuesto,:periodo)")
-                    .setParameter("idPuesto", configuracionPresupuestoEntity.getPuesto().getIdPuestoGeneral()).setParameter("periodo", quincenaActual);
-            query.setResultTransformer(Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
+            Query query = session.createSQLQuery(
+                    "CALL usp_conceptos_movimientos_programados(:idPuesto,:periodo)")
+                    .setParameter("idPuesto",
+                            configuracionPresupuestoEntity.getPuesto()
+                                    .getIdPuestoGeneral())
+                    .setParameter("periodo", quincenaActual);
+            query.setResultTransformer(
+                    Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
             @SuppressWarnings("unchecked")
 
             List<ConceptoNominaFederalesDTO> resultQuery1 = query.list();
@@ -274,7 +317,8 @@ public class ConceptoNominaFederalesService implements Serializable {
             }
 
         }
-        System.out.println("Conceptos movimientos Programados" + listaConceptosFinal.size());
+        System.out.println("Conceptos movimientos Programados"
+                + listaConceptosFinal.size());
         return listaConceptosFinal;
     }
 
@@ -284,21 +328,28 @@ public class ConceptoNominaFederalesService implements Serializable {
      * @param idConfiguracion
      * @return
      */
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosMovimientosFijos(Integer idConfiguracion) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosMovimientosFijos(
+            Integer idConfiguracion) {
         ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = new ConfiguracionPresupuestoEntity();
         try {
-            configuracionPresupuestoEntity = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+            configuracionPresupuestoEntity = configuracionPresupuestoRepository
+                    .obtenerPorId(idConfiguracion);
         } catch (NoResultException e) {
-            throw new ValidacionException("No se encontro la configuracion presupuestal correspondiente", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontro la configuracion presupuestal correspondiente",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         List<ConceptoNominaFederalesDTO> listaConceptosFinal = new ArrayList<>();
         if (configuracionPresupuestoEntity != null) {
 
             Session session2 = entityManager.unwrap(Session.class);
-            Query query2 = session2.createSQLQuery("CALL usp_conceptos_por_movimiento_federal(:idEmpleado)").setParameter("idEmpleado",
-                    configuracionPresupuestoEntity.getEmpleado().getIdEmpleado());
-            query2.setResultTransformer(Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
+            Query query2 = session2.createSQLQuery(
+                    "CALL usp_conceptos_por_movimiento_federal(:idEmpleado)")
+                    .setParameter("idEmpleado", configuracionPresupuestoEntity
+                            .getEmpleado().getIdEmpleado());
+            query2.setResultTransformer(
+                    Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
             @SuppressWarnings("unchecked")
 
             List<ConceptoNominaFederalesDTO> resultQuery2 = query2.list();
@@ -309,18 +360,25 @@ public class ConceptoNominaFederalesService implements Serializable {
 
             for (ConceptoNominaFederalesDTO cpto : listaConceptosFinal) {
                 Session session3 = entityManager.unwrap(Session.class);
-                Query query3 = session3.createSQLQuery("CALL usp_concepto_movimiento_federal(:idEmpleado,:idConcepto)")
-                        .setParameter("idEmpleado", configuracionPresupuestoEntity.getEmpleado().getIdEmpleado())
+                Query query3 = session3.createSQLQuery(
+                        "CALL usp_concepto_movimiento_federal(:idEmpleado,:idConcepto)")
+                        .setParameter("idEmpleado",
+                                configuracionPresupuestoEntity.getEmpleado()
+                                        .getIdEmpleado())
                         .setParameter("idConcepto", cpto.getIdConceptoNomina());
-                query3.setResultTransformer(Transformers.aliasToBean(ConceptoMovimientoFederalDTO.class));
+                query3.setResultTransformer(Transformers
+                        .aliasToBean(ConceptoMovimientoFederalDTO.class));
 
                 @SuppressWarnings("unchecked")
                 List<ConceptoMovimientoFederalDTO> resultQuery3 = query3.list();
-                System.out.println("Concepto Mov:" + resultQuery3.get(0).getClave());
+                System.out.println(
+                        "Concepto Mov:" + resultQuery3.get(0).getClave());
                 for (int i = 0; i < listaConceptosFinal.size(); i++) {
-                    if (listaConceptosFinal.get(i).getClave().contentEquals(resultQuery3.get(0).getClave())) {
+                    if (listaConceptosFinal.get(i).getClave()
+                            .contentEquals(resultQuery3.get(0).getClave())) {
                         if (listaConceptosFinal.get(i).getFormula().isEmpty()) {
-                            listaConceptosFinal.get(i).setFormula(resultQuery3.get(0).getImporte() + "");
+                            listaConceptosFinal.get(i).setFormula(
+                                    resultQuery3.get(0).getImporte() + "");
                         }
                     }
                 }
@@ -337,21 +395,28 @@ public class ConceptoNominaFederalesService implements Serializable {
      * @param idConfiguracion
      * @return
      */
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorPuesto(Integer idConfiguracion) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorPuesto(
+            Integer idConfiguracion) {
         ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = new ConfiguracionPresupuestoEntity();
         try {
-            configuracionPresupuestoEntity = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+            configuracionPresupuestoEntity = configuracionPresupuestoRepository
+                    .obtenerPorId(idConfiguracion);
         } catch (NoResultException e) {
-            throw new ValidacionException("No se encontro la configuracion presupuestal correspondiente", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontro la configuracion presupuestal correspondiente",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         List<ConceptoNominaFederalesDTO> listaConceptosFinal = new ArrayList<>();
         if (configuracionPresupuestoEntity != null) {
 
             Session session3 = entityManager.unwrap(Session.class);
-            Query query3 = session3.createSQLQuery("CALL usp_conceptos_por_puesto(:idPuesto)").setParameter("idPuesto",
-                    configuracionPresupuestoEntity.getPuesto().getIdPuestoGeneral());
-            query3.setResultTransformer(Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
+            Query query3 = session3
+                    .createSQLQuery("CALL usp_conceptos_por_puesto(:idPuesto)")
+                    .setParameter("idPuesto", configuracionPresupuestoEntity
+                            .getPuesto().getIdPuestoGeneral());
+            query3.setResultTransformer(
+                    Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
             @SuppressWarnings("unchecked")
 
             List<ConceptoNominaFederalesDTO> resultQuery3 = query3.list();
@@ -370,24 +435,34 @@ public class ConceptoNominaFederalesService implements Serializable {
      * @param idConfiguracion
      * @return
      */
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorTipoContratacion(Integer idConfiguracion) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorTipoContratacion(
+            Integer idConfiguracion) {
         ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = new ConfiguracionPresupuestoEntity();
         try {
-            configuracionPresupuestoEntity = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+            configuracionPresupuestoEntity = configuracionPresupuestoRepository
+                    .obtenerPorId(idConfiguracion);
         } catch (NoResultException e) {
-            throw new ValidacionException("No se encontro la configuracion presupuestal correspondiente", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontro la configuracion presupuestal correspondiente",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         List<ConceptoNominaFederalesDTO> listaConceptosFinal = new ArrayList<>();
         if (configuracionPresupuestoEntity != null) {
             Calendar fecha = Calendar.getInstance();
             int dia = fecha.get(Calendar.DAY_OF_MONTH);
-            Integer quincenaActual = nominaEmpleadoService.obtenerNumeroQuincena(FechaUtil.mesActual(), dia);
+            Integer quincenaActual = nominaEmpleadoService
+                    .obtenerNumeroQuincena(FechaUtil.mesActual(), dia);
 
             Session session3 = entityManager.unwrap(Session.class);
-            Query query3 = session3.createSQLQuery("CALL usp_conceptos_tipo_contratacion(:idTipoContratacion,:periodo)")
-                    .setParameter("idTipoContratacion", configuracionPresupuestoEntity.getTipoContratacion().getId()).setParameter("periodo", quincenaActual);
-            query3.setResultTransformer(Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
+            Query query3 = session3.createSQLQuery(
+                    "CALL usp_conceptos_tipo_contratacion(:idTipoContratacion,:periodo)")
+                    .setParameter("idTipoContratacion",
+                            configuracionPresupuestoEntity.getTipoContratacion()
+                                    .getId())
+                    .setParameter("periodo", quincenaActual);
+            query3.setResultTransformer(
+                    Transformers.aliasToBean(ConceptoNominaFederalesDTO.class));
             @SuppressWarnings("unchecked")
 
             List<ConceptoNominaFederalesDTO> resultQuery3 = query3.list();
@@ -399,26 +474,35 @@ public class ConceptoNominaFederalesService implements Serializable {
         return listaConceptosFinal;
     }
 
-    public ConceptoNominaFederalesDTO obtenerConceptoQuinquenioPorIdConfiguracion(Integer idConfiguracion) {
-        ConfiguracionQuinquenioDTO configuracionQuinq = configuracionQuinquenio.obtenerConfiguracionPorConfiguracionPresup(idConfiguracion);
+    public ConceptoNominaFederalesDTO obtenerConceptoQuinquenioPorIdConfiguracion(
+            Integer idConfiguracion) {
+        ConfiguracionQuinquenioDTO configuracionQuinq = configuracionQuinquenio
+                .obtenerConfiguracionPorConfiguracionPresup(idConfiguracion);
 
         ConceptoNominaFederalesDTO quinqueniodto = new ConceptoNominaFederalesDTO();
 
         if (configuracionQuinq != null) {
             if (configuracionQuinq.getClave_concepto() != null) {
-                ConceptoNominaFederalesEntity entity = conceptoNominaDAO.obtenerConceptoPorClave(configuracionQuinq.getClave_concepto());
+                ConceptoNominaFederalesEntity entity = conceptoNominaDAO
+                        .obtenerConceptoPorClave(
+                                configuracionQuinq.getClave_concepto());
 
                 quinqueniodto.setAguinaldo(entity.getAguinaldo());
                 quinqueniodto.setAlta(entity.getAlta());
                 quinqueniodto.setBase(entity.getBase());
-                quinqueniodto.setCategoriaSAT(entity.getCategoriaSAT() != null ? entity.getCategoriaSAT().getCategoriaSAT() : null);
+                quinqueniodto.setCategoriaSAT(entity.getCategoriaSAT() != null
+                        ? entity.getCategoriaSAT().getCategoriaSAT() : null);
                 quinqueniodto.setClave(entity.getClave());
                 quinqueniodto.setDescripcion(entity.getDescripcion());
-                quinqueniodto.setEstatusConceptoNomina(entity.getEstatusConceptoNomina().getEstatus());
+                quinqueniodto.setEstatusConceptoNomina(
+                        entity.getEstatusConceptoNomina().getEstatus());
                 quinqueniodto.setFormula(entity.getFormula());
-                quinqueniodto.setIdCategoriaSAT(entity.getCategoriaSAT() != null ? entity.getCategoriaSAT().getIdCategoriaSAT() : null);
+                quinqueniodto.setIdCategoriaSAT(entity.getCategoriaSAT() != null
+                        ? entity.getCategoriaSAT().getIdCategoriaSAT() : null);
                 quinqueniodto.setIdConceptoNomina(entity.getIdConceptoNomina());
-                quinqueniodto.setIdEstatusConceptoNomina(entity.getEstatusConceptoNomina().getIdEstatusConceptoNomina());
+                quinqueniodto.setIdEstatusConceptoNomina(
+                        entity.getEstatusConceptoNomina()
+                                .getIdEstatusConceptoNomina());
                 quinqueniodto.setObservacion(entity.getObservacion());
                 quinqueniodto.setRetroactivo(entity.getRetroactivo());
                 quinqueniodto.setTipo(entity.getTipo());
@@ -436,17 +520,25 @@ public class ConceptoNominaFederalesService implements Serializable {
      * @param idConfiguracion
      * @return
      */
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorConfiguracionPresupuestal(Integer idConfiguracion) {
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorConfiguracionPresupuestal(
+            Integer idConfiguracion) {
         ConfiguracionPresupuestoEntity configuracionPresupuestoEntity = new ConfiguracionPresupuestoEntity();
 
         List<ConceptoNominaFederalesDTO> listaConceptosFinal = new ArrayList<>();
         if (configuracionPresupuestoEntity != null) {
-            listaConceptosFinal.addAll(obtenerConceptosMovimientosFijos(idConfiguracion));
-            listaConceptosFinal.addAll(obtenerConceptosMovimientosProgramados(idConfiguracion));
-            listaConceptosFinal.addAll(obtenerConceptosPorPuesto(idConfiguracion));
-            listaConceptosFinal.addAll(obtenerConceptosPorTipoContratacion(idConfiguracion));
-            if (obtenerConceptoQuinquenioPorIdConfiguracion(idConfiguracion) != null) {
-                listaConceptosFinal.add(obtenerConceptoQuinquenioPorIdConfiguracion(idConfiguracion));
+            listaConceptosFinal
+                    .addAll(obtenerConceptosMovimientosFijos(idConfiguracion));
+            listaConceptosFinal.addAll(
+                    obtenerConceptosMovimientosProgramados(idConfiguracion));
+            listaConceptosFinal
+                    .addAll(obtenerConceptosPorPuesto(idConfiguracion));
+            listaConceptosFinal.addAll(
+                    obtenerConceptosPorTipoContratacion(idConfiguracion));
+            if (obtenerConceptoQuinquenioPorIdConfiguracion(
+                    idConfiguracion) != null) {
+                listaConceptosFinal
+                        .add(obtenerConceptoQuinquenioPorIdConfiguracion(
+                                idConfiguracion));
             }
         }
         return listaConceptosFinal;

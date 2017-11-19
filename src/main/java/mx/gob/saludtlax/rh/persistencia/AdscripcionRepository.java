@@ -13,7 +13,8 @@ import javax.persistence.NoResultException;
  *
  * @since 04/09/2016 21:05:29
  */
-public class AdscripcionRepository extends GenericRepository<AdscripcionEntity, Integer> {
+public class AdscripcionRepository
+        extends GenericRepository<AdscripcionEntity, Integer> {
 
     /**
      *
@@ -21,13 +22,16 @@ public class AdscripcionRepository extends GenericRepository<AdscripcionEntity, 
     private static final long serialVersionUID = -8295680064056255439L;
 
     public List<AdscripcionEntity> consultarAdscripciones() {
-        return em.createQuery("SELECT a FROM AdscripcionEntity AS a", AdscripcionEntity.class).getResultList();
+        return em.createQuery("SELECT a FROM AdscripcionEntity AS a",
+                AdscripcionEntity.class).getResultList();
     }
 
     public String obtenerDescripcionAdscripcionPorId(Integer idAdscripcion) {
         try {
-            return em.createQuery("SELECT a.adscripcion FROM AdscripcionEntity AS a WHERE a.idAdscripcion =:idAdscripcion", String.class)
-                    .setParameter("idAdscripcion", idAdscripcion).getSingleResult();
+            return em.createQuery(
+                    "SELECT a.adscripcion FROM AdscripcionEntity AS a WHERE a.idAdscripcion =:idAdscripcion",
+                    String.class).setParameter("idAdscripcion", idAdscripcion)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return "";
         }
@@ -35,7 +39,9 @@ public class AdscripcionRepository extends GenericRepository<AdscripcionEntity, 
 
     public AdscripcionEntity obtenerAdscripcionPorNombre(String adscripcion) {
         try {
-            return em.createQuery("SELECT a FROM AdscripcionEntity AS a WHERE a.adscripcion =:adscripcion", AdscripcionEntity.class)
+            return em.createQuery(
+                    "SELECT a FROM AdscripcionEntity AS a WHERE a.adscripcion =:adscripcion",
+                    AdscripcionEntity.class)
                     .setParameter("adscripcion", adscripcion).getSingleResult();
         } catch (NoResultException exception) {
             return null;

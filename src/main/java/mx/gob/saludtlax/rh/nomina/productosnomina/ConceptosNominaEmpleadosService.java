@@ -54,6 +54,7 @@ public class ConceptosNominaEmpleadosService {
     }
 
     public void eliminar(ConceptosNominaEmpleadosDTO datos) {
-        conceptosNominaEmpleadosRepository.eliminarPorId(datos.getIdConceptosNominaEmpleado());
+        conceptosNominaEmpleadosRepository
+                .eliminarPorId(datos.getIdConceptosNominaEmpleado());
     }
 }

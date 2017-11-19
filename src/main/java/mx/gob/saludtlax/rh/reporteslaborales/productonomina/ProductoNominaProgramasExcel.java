@@ -27,7 +27,7 @@ import mx.gob.saludtlax.rh.nomina.productosnomina.ProductoNominaDTO;
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ProductoNominaProgramasExcel implements Serializable {
@@ -37,7 +37,9 @@ public class ProductoNominaProgramasExcel implements Serializable {
      */
     private static final long serialVersionUID = -603631720915196921L;
 
-    private final InputStream is = ProductoNominaProgramasExcel.class.getResourceAsStream("/plantillas/nomina/Producto_Nomina_Programas.xlsx");
+    private final InputStream is = ProductoNominaProgramasExcel.class
+            .getResourceAsStream(
+                    "/plantillas/nomina/Producto_Nomina_Programas.xlsx");
     // private final InputStream is =
     // SIIFEncabezadoExcel.class.getResourceAsStream("/encabezado--plantilla.xlsx");
 
@@ -128,17 +130,21 @@ public class ProductoNominaProgramasExcel implements Serializable {
      *            una lista de comisionado o licencia.
      * @return un arreglo de bytes que representa el archivo de excel.
      */
-    public byte[] generar(List<ProductosNominaProgramasExcelDTO> detalles, List<String> programas, ProductoNominaDTO producto) {
+    public byte[] generar(List<ProductosNominaProgramasExcelDTO> detalles,
+            List<String> programas, ProductoNominaDTO producto) {
         try {
             cargarPlantilla();
             llenarDetalles(detalles, programas, producto);
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
-    private void llenarDetalles(List<ProductosNominaProgramasExcelDTO> estructura, List<String> lista, ProductoNominaDTO producto) {
+    private void llenarDetalles(
+            List<ProductosNominaProgramasExcelDTO> estructura,
+            List<String> lista, ProductoNominaDTO producto) {
         int i = FILA_INICIO_PROGRAMAS_DETALLE;
         int filaTotales = FILA_INICIO_PROGRAMAS_DETALLE;
         int contador = 0;
@@ -169,7 +175,8 @@ public class ProductoNominaProgramasExcel implements Serializable {
             Row filaEncabezadoProgramaFecha = hoja.getRow(5);
             Cell cellEncabezadoFecha = filaEncabezadoProgramaFecha.getCell(0);
 
-            SimpleDateFormat month_date = new SimpleDateFormat("MMMM", new Locale("ES"));
+            SimpleDateFormat month_date = new SimpleDateFormat("MMMM",
+                    new Locale("ES"));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             String actualDate = producto.getFinPeriodo().toString();
@@ -183,7 +190,9 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
             String month_name = month_date.format(date);
             String fechaReporte = month_name;
-            cellEncabezadoFecha.setCellValue("CORRESPONDIENTE AL MES DE " + fechaReporte.toUpperCase() + " DEL " + producto.getEjercicioFiscal());
+            cellEncabezadoFecha.setCellValue(
+                    "CORRESPONDIENTE AL MES DE " + fechaReporte.toUpperCase()
+                            + " DEL " + producto.getEjercicioFiscal());
 
             contador = 1;
             i = FILA_INICIO_PROGRAMAS_DETALLE;
@@ -205,14 +214,22 @@ public class ProductoNominaProgramasExcel implements Serializable {
                     contador += 1;
                     Cell celdaRfc = filaDetalle.createCell(RFC);
                     celdaRfc.setCellValue(detalle.getRfc());
-                    Cell celdaNombreEmpleado = filaDetalle.createCell(NOMBRE_EMPLEADO);
-                    celdaNombreEmpleado.setCellValue(detalle.getNombreEmpleado());
+                    Cell celdaNombreEmpleado = filaDetalle
+                            .createCell(NOMBRE_EMPLEADO);
+                    celdaNombreEmpleado
+                            .setCellValue(detalle.getNombreEmpleado());
 
-                    Cell celdaFechaIngreso = filaDetalle.createCell(FECHA_INGRESO);
-                    celdaFechaIngreso.setCellValue(detalle.getFechaIngreso() == null ? "" : simpleDateFormat.format(detalle.getFechaIngreso()));
+                    Cell celdaFechaIngreso = filaDetalle
+                            .createCell(FECHA_INGRESO);
+                    celdaFechaIngreso
+                            .setCellValue(detalle.getFechaIngreso() == null ? ""
+                                    : simpleDateFormat
+                                            .format(detalle.getFechaIngreso()));
 
-                    Cell celdaCentroResponsabilidad = filaDetalle.createCell(CENTRO_RESPONSABILIDAD);
-                    celdaCentroResponsabilidad.setCellValue(detalle.getCentroResponsabilidad());
+                    Cell celdaCentroResponsabilidad = filaDetalle
+                            .createCell(CENTRO_RESPONSABILIDAD);
+                    celdaCentroResponsabilidad
+                            .setCellValue(detalle.getCentroResponsabilidad());
 
                     Cell celdaPrograma = filaDetalle.createCell(PROGRAMA);
                     celdaPrograma.setCellValue(detalle.getPrograma());
@@ -220,18 +237,29 @@ public class ProductoNominaProgramasExcel implements Serializable {
                     Cell celdaFuncion = filaDetalle.createCell(FUNCION);
                     celdaFuncion.setCellValue(detalle.getFuncion());
 
-                    Cell sueldo = filaDetalle.createCell(SUELDO, Cell.CELL_TYPE_NUMERIC);
-                    sueldo.setCellValue(detalle.getSueldo() == null ? 0 : detalle.getSueldo().doubleValue());
-                    TOTAL_SUELDO = TOTAL_SUELDO.add(detalle.getSueldo() == null ? BigDecimal.ZERO : detalle.getSueldo());
+                    Cell sueldo = filaDetalle.createCell(SUELDO,
+                            Cell.CELL_TYPE_NUMERIC);
+                    sueldo.setCellValue(detalle.getSueldo() == null ? 0
+                            : detalle.getSueldo().doubleValue());
+                    TOTAL_SUELDO = TOTAL_SUELDO.add(detalle.getSueldo() == null
+                            ? BigDecimal.ZERO : detalle.getSueldo());
 
                     Cell celdaIsr = filaDetalle.createCell(ISR);
-                    celdaIsr.setCellValue(detalle.getIsr() == null ? 0 : detalle.getIsr().doubleValue());
-                    TOTAL_ISR = TOTAL_ISR.add(detalle.getIsr() == null ? BigDecimal.ZERO : detalle.getIsr());
+                    celdaIsr.setCellValue(detalle.getIsr() == null ? 0
+                            : detalle.getIsr().doubleValue());
+                    TOTAL_ISR = TOTAL_ISR.add(detalle.getIsr() == null
+                            ? BigDecimal.ZERO : detalle.getIsr());
 
-                    Cell celdaPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
-                    celdaPensionAlimenticia.setCellValue(detalle.getPensionAlimenticia() == null ? 0 : detalle.getPensionAlimenticia().doubleValue());
+                    Cell celdaPensionAlimenticia = filaDetalle
+                            .createCell(PENSION_ALIMENTICIA);
+                    celdaPensionAlimenticia.setCellValue(
+                            detalle.getPensionAlimenticia() == null ? 0
+                                    : detalle.getPensionAlimenticia()
+                                            .doubleValue());
                     TOTAL_PENSION_ALIMENTICIA = TOTAL_PENSION_ALIMENTICIA
-                            .add(detalle.getPensionAlimenticia() == null ? BigDecimal.ZERO : detalle.getPensionAlimenticia());
+                            .add(detalle.getPensionAlimenticia() == null
+                                    ? BigDecimal.ZERO
+                                    : detalle.getPensionAlimenticia());
 
                     Cell celdaPrimaVac = filaDetalle.createCell(PRIMA);
                     celdaPrimaVac.setCellValue("");
@@ -240,8 +268,10 @@ public class ProductoNominaProgramasExcel implements Serializable {
                     celdaAguinaldo.setCellValue("");
 
                     Cell celdaTotal = filaDetalle.createCell(COLUMNA_TOTAL);
-                    celdaTotal.setCellValue(detalle.getTotal() == null ? 0 : detalle.getTotal().doubleValue());
-                    TOTALES = TOTALES.add(detalle.getTotal() == null ? BigDecimal.ZERO : detalle.getTotal());
+                    celdaTotal.setCellValue(detalle.getTotal() == null ? 0
+                            : detalle.getTotal().doubleValue());
+                    TOTALES = TOTALES.add(detalle.getTotal() == null
+                            ? BigDecimal.ZERO : detalle.getTotal());
 
                     filaTotales++;
                     i++;
@@ -266,8 +296,10 @@ public class ProductoNominaProgramasExcel implements Serializable {
                 celdaTotalIsr.setCellValue(TOTAL_ISR.doubleValue());
                 ;
 
-                Cell celdaTotalPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
-                celdaTotalPensionAlimenticia.setCellValue(TOTAL_PENSION_ALIMENTICIA.doubleValue());
+                Cell celdaTotalPensionAlimenticia = filaDetalle
+                        .createCell(PENSION_ALIMENTICIA);
+                celdaTotalPensionAlimenticia
+                        .setCellValue(TOTAL_PENSION_ALIMENTICIA.doubleValue());
 
                 Cell celdaTotalTotales = filaDetalle.createCell(COLUMNA_TOTAL);
                 celdaTotalTotales.setCellValue(TOTALES.doubleValue());
@@ -286,7 +318,8 @@ public class ProductoNominaProgramasExcel implements Serializable {
 
                 Row filaFirmas3 = hoja.createRow(filaTotales + 8);
                 Cell celdaPuesto1 = filaFirmas3.createCell(RFC);
-                celdaPuesto1.setCellValue("JEFE DEL OFICINA DE PERSONAL EVENTUAL");
+                celdaPuesto1
+                        .setCellValue("JEFE DEL OFICINA DE PERSONAL EVENTUAL");
 
                 Row filaFirmas4 = hoja.createRow(filaTotales + 9);
                 Cell celdaPuesto11 = filaFirmas4.createCell(RFC);
@@ -299,19 +332,22 @@ public class ProductoNominaProgramasExcel implements Serializable {
                 celdaNombre2.setCellValue("LIC. MARIO HERNANDEZ RAMIREZ");
 
                 Cell celdaPuesto2 = filaFirmas3.createCell(FUNCION);
-                celdaPuesto2.setCellValue("DIRECTOR   DE  ADMINISTRACIÓN DEL O.P.D.");
+                celdaPuesto2.setCellValue(
+                        "DIRECTOR   DE  ADMINISTRACIÓN DEL O.P.D.");
 
                 Cell celdaPuesto21 = filaFirmas4.createCell(FUNCION);
                 celdaPuesto21.setCellValue("SALUD DE TLAXCALA");
 
-                Cell celdaEtiqueta3 = filaFirmas1.createCell(PENSION_ALIMENTICIA);
+                Cell celdaEtiqueta3 = filaFirmas1
+                        .createCell(PENSION_ALIMENTICIA);
                 celdaEtiqueta3.setCellValue("Vo. Bo.");
 
                 Cell celdaNombre3 = filaFirmas2.createCell(PENSION_ALIMENTICIA);
                 celdaNombre3.setCellValue("BIOL. FRANCISCO MENDEZ GARCIA");
 
                 Cell celdaPuesto3 = filaFirmas3.createCell(PENSION_ALIMENTICIA);
-                celdaPuesto3.setCellValue("JEFE DEL DEPARTAMENTO DE RECURSOS HUMANOS");
+                celdaPuesto3.setCellValue(
+                        "JEFE DEL DEPARTAMENTO DE RECURSOS HUMANOS");
 
             }
             cont = +1;

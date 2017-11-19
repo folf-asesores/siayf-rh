@@ -3,7 +3,8 @@ package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.Serializable;
 
-public class TerminoReincorporacionBaseDTO extends TerminoDTO implements Serializable {
+public class TerminoReincorporacionBaseDTO extends TerminoDTO
+        implements Serializable {
 
     private static final long serialVersionUID = -3650089257483024488L;
 

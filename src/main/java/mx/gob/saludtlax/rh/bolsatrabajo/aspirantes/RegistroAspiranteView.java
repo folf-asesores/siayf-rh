@@ -166,7 +166,8 @@ public class RegistroAspiranteView implements Serializable {
         return mostrarHistorialAcademico;
     }
 
-    public void setMostrarHistorialAcademico(boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -174,7 +175,8 @@ public class RegistroAspiranteView implements Serializable {
         return mostrarExperienciaLaboral;
     }
 
-    public void setMostrarExperienciaLaboral(boolean mostrarExperienciaLaboral) {
+    public void setMostrarExperienciaLaboral(
+            boolean mostrarExperienciaLaboral) {
         this.mostrarExperienciaLaboral = mostrarExperienciaLaboral;
     }
 
@@ -292,7 +294,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param altaHistorialAcademico
      *            the altaHistorialAcademico to set
      */
-    public void setAltaHistorialAcademico(HistorialAcademicoDTO altaHistorialAcademico) {
+    public void setAltaHistorialAcademico(
+            HistorialAcademicoDTO altaHistorialAcademico) {
         this.altaHistorialAcademico = altaHistorialAcademico;
     }
 
@@ -322,7 +325,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param altaExperienciaLaboral
      *            the altaExperienciaLaboral to set
      */
-    public void setAltaExperienciaLaboral(ExperienciaLaboralAspiranteDTO altaExperienciaLaboral) {
+    public void setAltaExperienciaLaboral(
+            ExperienciaLaboralAspiranteDTO altaExperienciaLaboral) {
         this.altaExperienciaLaboral = altaExperienciaLaboral;
     }
 
@@ -352,7 +356,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param altaEncuestaPersonal
      *            the altaEncuestaPersonal to set
      */
-    public void setAltaEncuestaPersonal(HabilidadesPersonalesAspiranteDTO altaEncuestaPersonal) {
+    public void setAltaEncuestaPersonal(
+            HabilidadesPersonalesAspiranteDTO altaEncuestaPersonal) {
         this.altaEncuestaPersonal = altaEncuestaPersonal;
     }
 
@@ -397,7 +402,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarTxtNombresParientes
      *            the mostrarTxtNombresParientes to set
      */
-    public void setMostrarTxtNombresParientes(boolean mostrarTxtNombresParientes) {
+    public void setMostrarTxtNombresParientes(
+            boolean mostrarTxtNombresParientes) {
         this.mostrarTxtNombresParientes = mostrarTxtNombresParientes;
     }
 
@@ -427,7 +433,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarTxtNombreSindicato
      *            the mostrarTxtNombreSindicato to set
      */
-    public void setMostrarTxtNombreSindicato(boolean mostrarTxtNombreSindicato) {
+    public void setMostrarTxtNombreSindicato(
+            boolean mostrarTxtNombreSindicato) {
         this.mostrarTxtNombreSindicato = mostrarTxtNombreSindicato;
     }
 
@@ -442,7 +449,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarTxtNombreSegurVida
      *            the mostrarTxtNombreSegurVida to set
      */
-    public void setMostrarTxtNombreSegurVida(boolean mostrarTxtNombreSegurVida) {
+    public void setMostrarTxtNombreSegurVida(
+            boolean mostrarTxtNombreSegurVida) {
         this.mostrarTxtNombreSegurVida = mostrarTxtNombreSegurVida;
     }
 
@@ -472,7 +480,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param motrarTxtRazonNoCambioResidencia
      *            the motrarTxtRazonNoCambioResidencia to set
      */
-    public void setMostrarTxtRazonNoCambioResidencia(boolean mostrarTxtRazonNoCambioResidencia) {
+    public void setMostrarTxtRazonNoCambioResidencia(
+            boolean mostrarTxtRazonNoCambioResidencia) {
         this.mostrarTxtRazonNoCambioResidencia = mostrarTxtRazonNoCambioResidencia;
     }
 
@@ -547,7 +556,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarTxtAutomovilPropio
      *            the mostrarTxtAutomovilPropio to set
      */
-    public void setMostrarTxtAutomovilPropio(boolean mostrarTxtAutomovilPropio) {
+    public void setMostrarTxtAutomovilPropio(
+            boolean mostrarTxtAutomovilPropio) {
         this.mostrarTxtAutomovilPropio = mostrarTxtAutomovilPropio;
     }
 
@@ -577,7 +587,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param descripcionDocumentoAdjunto
      *            the descripcionDocumentoAdjunto to set
      */
-    public void setDescripcionDocumentoAdjunto(String descripcionDocumentoAdjunto) {
+    public void setDescripcionDocumentoAdjunto(
+            String descripcionDocumentoAdjunto) {
         this.descripcionDocumentoAdjunto = descripcionDocumentoAdjunto;
     }
 
@@ -607,7 +618,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param historialAcademicoSeleccionado
      *            the historialAcademicoSeleccionado to set
      */
-    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 
@@ -622,7 +634,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param experienciaLaboralAspiranteSeleccionado
      *            the experienciaLaboralAspiranteSeleccionado to set
      */
-    public void setExperienciaLaboralAspiranteSeleccionado(ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteSeleccionado) {
+    public void setExperienciaLaboralAspiranteSeleccionado(
+            ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteSeleccionado) {
         this.experienciaLaboralAspiranteSeleccionado = experienciaLaboralAspiranteSeleccionado;
     }
 
@@ -637,7 +650,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param listaHistorialAcademicoAspirante
      *            the listaHistorialAcademicoAspirante to set
      */
-    public void setListaHistorialAcademicoAspirante(List<HistorialAcademicoDTO> listaHistorialAcademicoAspirante) {
+    public void setListaHistorialAcademicoAspirante(
+            List<HistorialAcademicoDTO> listaHistorialAcademicoAspirante) {
         this.listaHistorialAcademicoAspirante = listaHistorialAcademicoAspirante;
     }
 
@@ -652,7 +666,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param listaExperienciaLaboralAspirante
      *            the listaExperienciaLaboralAspirante to set
      */
-    public void setListaExperienciaLaboralAspirante(List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboralAspirante) {
+    public void setListaExperienciaLaboralAspirante(
+            List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboralAspirante) {
         this.listaExperienciaLaboralAspirante = listaExperienciaLaboralAspirante;
     }
 
@@ -715,7 +730,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarHistorialAcademicoRegistro
      *            the mostrarHistorialAcademicoRegistro to set
      */
-    public void setMostrarHistorialAcademicoRegistro(boolean mostrarHistorialAcademicoRegistro) {
+    public void setMostrarHistorialAcademicoRegistro(
+            boolean mostrarHistorialAcademicoRegistro) {
         this.mostrarHistorialAcademicoRegistro = mostrarHistorialAcademicoRegistro;
     }
 
@@ -738,7 +754,8 @@ public class RegistroAspiranteView implements Serializable {
         return mostrarAdjuntarDocumentoHistorial;
     }
 
-    public void setMostrarAdjuntarDocumentoHistorial(boolean mostrarAdjuntarDocumentoHistorial) {
+    public void setMostrarAdjuntarDocumentoHistorial(
+            boolean mostrarAdjuntarDocumentoHistorial) {
         this.mostrarAdjuntarDocumentoHistorial = mostrarAdjuntarDocumentoHistorial;
     }
 
@@ -753,7 +770,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarAdjuntarDocumentoExperiencia
      *            the mostrarAdjuntarDocumentoExperiencia to set
      */
-    public void setMostrarAdjuntarDocumentoExperiencia(boolean mostrarAdjuntarDocumentoExperiencia) {
+    public void setMostrarAdjuntarDocumentoExperiencia(
+            boolean mostrarAdjuntarDocumentoExperiencia) {
         this.mostrarAdjuntarDocumentoExperiencia = mostrarAdjuntarDocumentoExperiencia;
     }
 
@@ -768,7 +786,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarAdjuntarDocumentacionEmpleado
      *            the mostrarAdjuntarDocumentacionEmpleado to set
      */
-    public void setMostrarAdjuntarDocumentacionEmpleado(boolean mostrarAdjuntarDocumentacionEmpleado) {
+    public void setMostrarAdjuntarDocumentacionEmpleado(
+            boolean mostrarAdjuntarDocumentacionEmpleado) {
         this.mostrarAdjuntarDocumentacionEmpleado = mostrarAdjuntarDocumentacionEmpleado;
     }
 
@@ -783,7 +802,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param visualizarDocumentacionAdjunta
      *            the visualizarDocumentacionAdjunta to set
      */
-    public void setVisualizarDocumentacionAdjunta(boolean visualizarDocumentacionAdjunta) {
+    public void setVisualizarDocumentacionAdjunta(
+            boolean visualizarDocumentacionAdjunta) {
         this.visualizarDocumentacionAdjunta = visualizarDocumentacionAdjunta;
     }
 
@@ -836,7 +856,8 @@ public class RegistroAspiranteView implements Serializable {
         return mostrarDialogoEliminarHistorial;
     }
 
-    public void setMostrarDialogoEliminarHistorial(boolean mostrarDialogoEliminarHistorial) {
+    public void setMostrarDialogoEliminarHistorial(
+            boolean mostrarDialogoEliminarHistorial) {
         this.mostrarDialogoEliminarHistorial = mostrarDialogoEliminarHistorial;
     }
 
@@ -851,7 +872,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param listaComprobantesEstudio
      *            the listaComprobantesEstudio to set
      */
-    public void setListaComprobantesEstudio(List<SelectItem> listaComprobantesEstudio) {
+    public void setListaComprobantesEstudio(
+            List<SelectItem> listaComprobantesEstudio) {
         this.listaComprobantesEstudio = listaComprobantesEstudio;
     }
 
@@ -881,7 +903,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param listaDocumentosHistorialAcademico
      *            the listaDocumentosHistorialAcademico to set
      */
-    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(
+            List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 
@@ -896,7 +919,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param documentacionActualHistorial
      *            the documentacionActualHistorial to set
      */
-    public void setDocumentacionActualHistorial(List<String> documentacionActualHistorial) {
+    public void setDocumentacionActualHistorial(
+            List<String> documentacionActualHistorial) {
         this.documentacionActualHistorial = documentacionActualHistorial;
     }
 
@@ -956,7 +980,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarAperturaExpediente
      *            the mostrarAperturaExpediente to set
      */
-    public void setMostrarAperturaExpediente(boolean mostrarAperturaExpediente) {
+    public void setMostrarAperturaExpediente(
+            boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
     }
 
@@ -971,7 +996,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param mostrarActualizacionExpediente
      *            the mostrarActualizacionExpediente to set
      */
-    public void setMostrarActualizacionExpediente(boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(
+            boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -986,7 +1012,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param listaTiposDocumentosExpediente
      *            the listaTiposDocumentosExpediente to set
      */
-    public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
+    public void setListaTiposDocumentosExpediente(
+            List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
     }
 
@@ -1016,7 +1043,8 @@ public class RegistroAspiranteView implements Serializable {
      * @param documentosExpedientes
      *            the documentosExpedientes to set
      */
-    public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
+    public void setDocumentosExpedientes(
+            List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
     }
 
@@ -1169,7 +1197,8 @@ public class RegistroAspiranteView implements Serializable {
         return listaTipoEspecialidad;
     }
 
-    public void setListaTipoEspecialidad(List<SelectItem> listaTipoEspecialidad) {
+    public void setListaTipoEspecialidad(
+            List<SelectItem> listaTipoEspecialidad) {
         this.listaTipoEspecialidad = listaTipoEspecialidad;
     }
 

@@ -27,7 +27,8 @@ import mx.gob.saludtlax.rh.reportes.Generador;
  */
 public class TxtGenerador implements Generador {
 
-    private static final Logger LOGGER = Logger.getLogger(TxtGenerador.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(TxtGenerador.class.getName());
 
     private static final String COMPROBANTE_BEAN = "java:module/ComprobanteEmpleadoBean";
     private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
@@ -44,27 +45,35 @@ public class TxtGenerador implements Generador {
         if (almacen.extisteReporte(nombreReporte)) {
             switch (nombreReporte) {
                 case "comprobante_nomina": {
-                    Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    ComprobanteEmpleado comprobanteEmpleadoBean = getBean(ComprobanteEmpleado.class);
-                    bytes = comprobanteEmpleadoBean.generarReporte(idProductoNomina);
+                    Integer idProductoNomina = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    ComprobanteEmpleado comprobanteEmpleadoBean = getBean(
+                            ComprobanteEmpleado.class);
+                    bytes = comprobanteEmpleadoBean
+                            .generarReporte(idProductoNomina);
                 }
                     break;
                 case "dispersion_nomina": {
-                    Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idProductoNomina = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     Dispersion dispersionBean = getBean(Dispersion.class);
                     bytes = dispersionBean.generarReporte(idProductoNomina);
                 }
                     break;
                 case "listado-firmas": {
-                    Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    Integer idProductoNomina = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     Firma firmaBean = getBean(Firma.class);
                     bytes = firmaBean.generarReporte(idProductoNomina);
                 }
                     break;
                 case "prenomina_eventuales": {
-                    Integer idProductoNomina = Integer.parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    PrenominaReporte prenominaReporteBean = getBean(PrenominaReporte.class);
-                    bytes = prenominaReporteBean.generarReporte(idProductoNomina);
+                    Integer idProductoNomina = Integer
+                            .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
+                    PrenominaReporte prenominaReporteBean = getBean(
+                            PrenominaReporte.class);
+                    bytes = prenominaReporteBean
+                            .generarReporte(idProductoNomina);
                 }
             }
         }
@@ -95,7 +104,8 @@ public class TxtGenerador implements Generador {
             Context initContext = new InitialContext();
             return (T) initContext.lookup(bean);
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean,
+                    ex.getCause());
             return null;
         }
     }

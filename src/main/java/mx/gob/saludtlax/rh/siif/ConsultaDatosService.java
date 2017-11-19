@@ -17,17 +17,21 @@ public class ConsultaDatosService implements Serializable {
     private DatosPersonalesRepository datosPersonalesRepository;
 
     protected DatosPersonalesDTO obtenerDatosPersonal(String rfc) {
-        DatosPersonalesDTO datoPersonal = datosPersonalesRepository.obtenerDatoPersonal(rfc);
+        DatosPersonalesDTO datoPersonal = datosPersonalesRepository
+                .obtenerDatoPersonal(rfc);
         return datoPersonal;
     }
 
     protected List<DatosPersonalesDTO> obtenerListaDatosPersonal() {
-        List<DatosPersonalesDTO> datoPersonal = datosPersonalesRepository.obtenerListaDatoPersonal();
+        List<DatosPersonalesDTO> datoPersonal = datosPersonalesRepository
+                .obtenerListaDatoPersonal();
         return datoPersonal;
     }
 
-    protected List<DatosPersonalesDTO> obtenerListaDatosPersonalesPorCriterio(String rfc) {
-        List<DatosPersonalesDTO> datoPersonal = datosPersonalesRepository.obtenerlistaDatosPersonalesPorCriterio(rfc);
+    protected List<DatosPersonalesDTO> obtenerListaDatosPersonalesPorCriterio(
+            String rfc) {
+        List<DatosPersonalesDTO> datoPersonal = datosPersonalesRepository
+                .obtenerlistaDatosPersonalesPorCriterio(rfc);
         return datoPersonal;
     }
 
@@ -71,11 +75,14 @@ public class ConsultaDatosService implements Serializable {
         entity.setTelefono(dto.getTelefono());
         entity.setIdEstadoEmpleado(dto.getIdEstadoEmpleado());
         datosPersonalesRepository.crear(entity);
-        return datosPersonalesRepository.obtenerDatosPersonalesPorId(entity.getIdDatoPersonal());
+        return datosPersonalesRepository
+                .obtenerDatosPersonalesPorId(entity.getIdDatoPersonal());
     }
 
-    public DatosPersonalesDTO actualizarDatosPersonales(DatosPersonalesDTO dto) {
-        DatosPersonalesEntity entity = datosPersonalesRepository.obtenerPorId(dto.getIdDatoPersonal());
+    public DatosPersonalesDTO actualizarDatosPersonales(
+            DatosPersonalesDTO dto) {
+        DatosPersonalesEntity entity = datosPersonalesRepository
+                .obtenerPorId(dto.getIdDatoPersonal());
         entity.setRfc(dto.getRfc());
         entity.setIdEmpleadoDatosPersonales(dto.getIdEmpleadoDatosPersonales());
         entity.setApellidoPaterno(dto.getApellidoPaterno());
@@ -92,21 +99,25 @@ public class ConsultaDatosService implements Serializable {
         entity.setTelefono(dto.getTelefono());
         entity.setIdEstadoEmpleado(dto.getIdEstadoEmpleado());
         datosPersonalesRepository.actualizar(entity);
-        return datosPersonalesRepository.obtenerDatosPersonalesPorId(entity.getIdDatoPersonal());
+        return datosPersonalesRepository
+                .obtenerDatosPersonalesPorId(entity.getIdDatoPersonal());
     }
 
     protected void eliminarDatosPersonales(DatosPersonalesDTO dto) {
 
     }
 
-    public DatosPersonalesDTO obtenerDatosPersonalesPorId(Integer idDatoPersonal) {
+    public DatosPersonalesDTO obtenerDatosPersonalesPorId(
+            Integer idDatoPersonal) {
 
-        return datosPersonalesRepository.obtenerDatosPersonalesPorId(idDatoPersonal);
+        return datosPersonalesRepository
+                .obtenerDatosPersonalesPorId(idDatoPersonal);
     }
 
     public int verificaDatosPersonalesPorId(Integer idDatoPersonal) {
 
-        return datosPersonalesRepository.verificaDatosPersonalesPorId(idDatoPersonal);
+        return datosPersonalesRepository
+                .verificaDatosPersonalesPorId(idDatoPersonal);
     }
 
 }

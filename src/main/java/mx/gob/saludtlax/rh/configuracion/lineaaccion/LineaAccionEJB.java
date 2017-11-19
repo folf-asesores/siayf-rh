@@ -28,12 +28,15 @@ public class LineaAccionEJB implements LineaAccion {
     }
 
     @Override
-    public List<String> consultarDescripcionLineaAccionPorCriterio(String consulta) {
-        return lineaAccionService.consultarDescripcionLineaAccionPorCriterio(consulta);
+    public List<String> consultarDescripcionLineaAccionPorCriterio(
+            String consulta) {
+        return lineaAccionService
+                .consultarDescripcionLineaAccionPorCriterio(consulta);
     }
 
     @Override
     public Integer consultarIdLineaAccionPorDescripcion(String descripcion) {
-        return lineaAccionService.consultarIdLineaAccionPorDescripcion(descripcion);
+        return lineaAccionService
+                .consultarIdLineaAccionPorDescripcion(descripcion);
     }
 }

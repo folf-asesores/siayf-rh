@@ -50,7 +50,8 @@ public class ConsultarPartidaView {
         return listaConsultaPartida;
     }
 
-    public void setListaConsultaPartida(List<ConsultarPartidaDTO> listaConsultaPartida) {
+    public void setListaConsultaPartida(
+            List<ConsultarPartidaDTO> listaConsultaPartida) {
         this.listaConsultaPartida = listaConsultaPartida;
     }
 
@@ -58,7 +59,8 @@ public class ConsultarPartidaView {
         return listaUnidadResponsable;
     }
 
-    public void setListaUnidadResponsable(List<UnidadResponsableDTO> listaUnidadResponsable) {
+    public void setListaUnidadResponsable(
+            List<UnidadResponsableDTO> listaUnidadResponsable) {
         this.listaUnidadResponsable = listaUnidadResponsable;
     }
 
@@ -66,7 +68,8 @@ public class ConsultarPartidaView {
         return listaTipoNombramiento;
     }
 
-    public void setListaTipoNombramiento(List<TipoNombramientoDTO> listaTipoNombramiento) {
+    public void setListaTipoNombramiento(
+            List<TipoNombramientoDTO> listaTipoNombramiento) {
         this.listaTipoNombramiento = listaTipoNombramiento;
     }
 

@@ -14,7 +14,8 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionException;
  *
  * @since 30/10/2016 14:37:46
  */
-public class ConfiguracionQuincenaRepository extends GenericRepository<ConfiguracionQuincenaEntity, Integer> {
+public class ConfiguracionQuincenaRepository
+        extends GenericRepository<ConfiguracionQuincenaEntity, Integer> {
 
     /**
      *
@@ -26,9 +27,12 @@ public class ConfiguracionQuincenaRepository extends GenericRepository<Configura
         try {
             return em.createQuery(
                     "SELECT c.numeroQuincena FROM ConfiguracionQuincenaEntity AS c WHERE c.mes =:mes AND :dia BETWEEN c.limiteInferior AND c.limiteSuperior",
-                    Integer.class).setParameter("mes", mes).setParameter("dia", dia).getSingleResult();
+                    Integer.class).setParameter("mes", mes)
+                    .setParameter("dia", dia).getSingleResult();
         } catch (NoResultException exception) {
-            throw new ValidacionException("No se encontró registro de quincena para el intervalo especificado", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontró registro de quincena para el intervalo especificado",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
     }
@@ -36,23 +40,31 @@ public class ConfiguracionQuincenaRepository extends GenericRepository<Configura
     public Integer obtenerUltimoDiaMes(int mes) {
 
         try {
-            return em.createQuery("SELECT c.limiteSuperior FROM ConfiguracionQuincenaEntity AS c WHERE c.mes =:mes AND c.limiteInferior = 16", Integer.class)
-                    .setParameter("mes", mes).getSingleResult();
+            return em.createQuery(
+                    "SELECT c.limiteSuperior FROM ConfiguracionQuincenaEntity AS c WHERE c.mes =:mes AND c.limiteInferior = 16",
+                    Integer.class).setParameter("mes", mes).getSingleResult();
         } catch (NoResultException exception) {
-            throw new ValidacionException("No se encontró registro de quincena para el intervalo especificado", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontró registro de quincena para el intervalo especificado",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
     }
 
     public Integer mesPorNumQuincena(Integer numQuincena) {
-        return em.createQuery("SELECT c.mes FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna", Integer.class).setParameter("qna", numQuincena)
+        return em.createQuery(
+                "SELECT c.mes FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna",
+                Integer.class).setParameter("qna", numQuincena)
                 .getSingleResult();
 
     }
 
-    public ConfiguracionQuincenaEntity obtenerConfiguracionPorNumero(int numeroQuincena) {
+    public ConfiguracionQuincenaEntity obtenerConfiguracionPorNumero(
+            int numeroQuincena) {
         try {
-            return em.createQuery("SELECT c FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna", ConfiguracionQuincenaEntity.class)
+            return em.createQuery(
+                    "SELECT c FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna",
+                    ConfiguracionQuincenaEntity.class)
                     .setParameter("qna", numeroQuincena).getSingleResult();
         } catch (NoResultException exception) {
             return null;
@@ -61,8 +73,10 @@ public class ConfiguracionQuincenaRepository extends GenericRepository<Configura
 
     public boolean esValidaQuincena(Integer numQuincena) {
         try {
-            em.createQuery("SELECT c.idConfiguracion FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna", Integer.class)
-                    .setParameter("qna", numQuincena).getSingleResult();
+            em.createQuery(
+                    "SELECT c.idConfiguracion FROM ConfiguracionQuincenaEntity AS c WHERE c.numeroQuincena =:qna",
+                    Integer.class).setParameter("qna", numQuincena)
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;

@@ -5,10 +5,11 @@
 package mx.gob.saludtlax.rh.persistencia;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class BeneficiarioRepository extends GenericRepository<BeneficiarioEntity, Integer> {
+public class BeneficiarioRepository
+        extends GenericRepository<BeneficiarioEntity, Integer> {
 
     /**
      *

@@ -28,7 +28,8 @@ public class ConfiguracionPresupuestoNominaDTO {
         return idConfiguracionPresupuesto;
     }
 
-    public void setIdConfiguracionPresupuesto(Integer idConfiguracionPresupuesto) {
+    public void setIdConfiguracionPresupuesto(
+            Integer idConfiguracionPresupuesto) {
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
     }
 

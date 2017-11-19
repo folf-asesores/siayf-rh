@@ -30,12 +30,14 @@ public interface Postulacion {
     /**
      * Consulta los candidatos postulados,
      */
-    public List<InfoCandidatoDTO> consultarCandidatosPostulacion(Integer idPostulacion);
+    public List<InfoCandidatoDTO> consultarCandidatosPostulacion(
+            Integer idPostulacion);
 
     /**
      * Consulta el detalle del candidato postulado a una vacante.
      */
-    public InfoCandidatoDTO obtenerInformacionCandidatoAprobado(Integer idVacante);
+    public InfoCandidatoDTO obtenerInformacionCandidatoAprobado(
+            Integer idVacante);
 
     /**
      * Consulta las postulaciones disponibles para aprobar un candidato.
@@ -52,6 +54,7 @@ public interface Postulacion {
     /**
      * Aprueba al candidato seleccionado para ocupar la vacante
      */
-    public void aprobarCandidatoPostulacion(Integer idPostulacion, Integer idCandidato);
+    public void aprobarCandidatoPostulacion(Integer idPostulacion,
+            Integer idCandidato);
 
 }

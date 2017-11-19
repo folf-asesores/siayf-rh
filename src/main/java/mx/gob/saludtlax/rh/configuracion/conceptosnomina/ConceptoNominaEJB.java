@@ -18,8 +18,10 @@ public class ConceptoNominaEJB implements Serializable {
     @Inject
     private ConceptoNominaService conceptoNominaService;
 
-    public List<ConceptoNominaDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipoConceptoNominaEnum) {
-        List<ConceptoNominaDTO> conceptoNominasLista = conceptoNominaService.obtenerConceptoNominasLista(tipoConceptoNominaEnum);
+    public List<ConceptoNominaDTO> obtenerConceptoNominasLista(
+            TipoConceptoNominaEnum tipoConceptoNominaEnum) {
+        List<ConceptoNominaDTO> conceptoNominasLista = conceptoNominaService
+                .obtenerConceptoNominasLista(tipoConceptoNominaEnum);
         return conceptoNominasLista;
     }
 
@@ -47,8 +49,10 @@ public class ConceptoNominaEJB implements Serializable {
         return conceptoNominaService.crearConceptoNomina(dto);
     }
 
-    public ConceptoNominaDTO obtenerConceptoNominaPorId(Integer idConceptoNomina) {
-        return conceptoNominaService.obtenerConceptoNominaPorId(idConceptoNomina);
+    public ConceptoNominaDTO obtenerConceptoNominaPorId(
+            Integer idConceptoNomina) {
+        return conceptoNominaService
+                .obtenerConceptoNominaPorId(idConceptoNomina);
     }
 
     public List<FormulaDTO> listaFormula() {

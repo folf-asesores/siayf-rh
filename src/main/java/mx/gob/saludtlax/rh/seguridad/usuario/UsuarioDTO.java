@@ -157,7 +157,8 @@ public class UsuarioDTO implements Serializable {
         return lugarAdscripcionDescripcion;
     }
 
-    public void setLugarAdscripcionDescripcion(String lugarAdscripcionDescripcion) {
+    public void setLugarAdscripcionDescripcion(
+            String lugarAdscripcionDescripcion) {
         this.lugarAdscripcionDescripcion = lugarAdscripcionDescripcion;
     }
 
@@ -165,7 +166,8 @@ public class UsuarioDTO implements Serializable {
         return areaAdscripcionDescripcion;
     }
 
-    public void setAreaAdscripcionDescripcion(String areaAdscripcionDescripcion) {
+    public void setAreaAdscripcionDescripcion(
+            String areaAdscripcionDescripcion) {
         this.areaAdscripcionDescripcion = areaAdscripcionDescripcion;
     }
 

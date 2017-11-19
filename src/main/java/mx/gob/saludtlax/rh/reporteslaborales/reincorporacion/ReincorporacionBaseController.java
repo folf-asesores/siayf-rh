@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -45,7 +45,8 @@ public class ReincorporacionBaseController implements Serializable {
         view = new ReincorporacionBaseView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -54,7 +55,9 @@ public class ReincorporacionBaseController implements Serializable {
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -70,24 +73,29 @@ public class ReincorporacionBaseController implements Serializable {
 
         String criterio = view.getCriterio();
 
-        List<ReincorporacionBaseDetalleDTO> resultado = reincorporacionBaseEJB.consultarPorCriterio(criterio);
+        List<ReincorporacionBaseDetalleDTO> resultado = reincorporacionBaseEJB
+                .consultarPorCriterio(criterio);
         view.setReincorporacionBaseDetalleDTO(resultado);
     }
 
     public void descargarReservacionPlazaConfianza() {
-        ReincorporacionBaseDTO reincorporacionBaseDTO = view.getReincorporacionBaseDTO();
+        ReincorporacionBaseDTO reincorporacionBaseDTO = view
+                .getReincorporacionBaseDTO();
 
         ReincorporacionBaseWord reincorporacionBaseWord = new ReincorporacionBaseWord();
-        byte[] bytesWord = reincorporacionBaseWord.generar(reincorporacionBaseDTO);
+        byte[] bytesWord = reincorporacionBaseWord
+                .generar(reincorporacionBaseDTO);
         FacesContext fc = FacesContext.getCurrentInstance();
 
         try {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReincorporacionBase.docx");
+            ec.setResponseHeader("Content-Disposition",
+                    "attachment;filename=" + "ReincorporacionBase.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -101,7 +109,8 @@ public class ReincorporacionBaseController implements Serializable {
     }
 
     public void contenidoReservacion(Integer idTipoMovimiento) {
-        ReincorporacionBaseDTO reincorporacionBaseDTO = reincorporacionBaseEJB.obtenerReincorporacion(idTipoMovimiento);
+        ReincorporacionBaseDTO reincorporacionBaseDTO = reincorporacionBaseEJB
+                .obtenerReincorporacion(idTipoMovimiento);
 
         view.setReincorporacionBaseDTO(reincorporacionBaseDTO);
         view.setMostrarPrincipal(false);

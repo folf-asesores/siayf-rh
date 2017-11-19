@@ -22,7 +22,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "calendarioGlobal")
@@ -47,7 +47,8 @@ public class CalendarioGlobalController implements Serializable {
     }
 
     public void vistaPrincipal() {
-        view.setListaCalendarioGlobal(calendarioGlobal.obtenerListaCalendarioGlobal());
+        view.setListaCalendarioGlobal(
+                calendarioGlobal.obtenerListaCalendarioGlobal());
         view.setActualizarCalendarioGlobal(new CalendarioGlobalDTO());
         view.setCreaCalendarioGlobal(new CalendarioGlobalDTO());
         view.setMostrarVistaPrincipal(true);
@@ -59,11 +60,13 @@ public class CalendarioGlobalController implements Serializable {
     public void crearCalendarioGlobal() {
         try {
 
-            calendarioGlobal.creaCalendarioGlobal(view.getCreaCalendarioGlobal());
+            calendarioGlobal
+                    .creaCalendarioGlobal(view.getCreaCalendarioGlobal());
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Calendario Global: ", "¡Se registro correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ",
+                    "¡Se registro correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -73,11 +76,13 @@ public class CalendarioGlobalController implements Serializable {
     public void actualizarCalendarioGlobal() {
         try {
 
-            calendarioGlobal.actualizarCalendarioGlobal(view.getActualizarCalendarioGlobal());
+            calendarioGlobal.actualizarCalendarioGlobal(
+                    view.getActualizarCalendarioGlobal());
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Calendario Global: ", "¡Se actualizo correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ",
+                    "¡Se actualizo correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -91,7 +96,8 @@ public class CalendarioGlobalController implements Serializable {
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Calendario Global: ", "¡Se elimino correctamente!");
+            JSFUtils.infoMessage("Calendario Global: ",
+                    "¡Se elimino correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -105,7 +111,8 @@ public class CalendarioGlobalController implements Serializable {
         view.setMostrarVistaActualizar(false);
     }
 
-    public void mostrarVistaActualizarCalendarioGlobal(CalendarioGlobalDTO dto) {
+    public void mostrarVistaActualizarCalendarioGlobal(
+            CalendarioGlobalDTO dto) {
         view.setActualizarCalendarioGlobal(dto);
         view.setMostrarVistaPrincipal(false);
         view.setMostrarVistaCrear(false);
@@ -113,7 +120,8 @@ public class CalendarioGlobalController implements Serializable {
     }
 
     // ----Validaciones--//
-    public void validatorRegistro(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorRegistro(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -122,7 +130,9 @@ public class CalendarioGlobalController implements Serializable {
                 Integer partida8000 = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(partida8000)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la partida 8000.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la partida 8000.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -132,7 +142,9 @@ public class CalendarioGlobalController implements Serializable {
                 Integer partida1000 = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(partida1000)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese la partida 1000.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese la partida 1000.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -143,7 +155,9 @@ public class CalendarioGlobalController implements Serializable {
                 String concepto = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(concepto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el concepto.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el concepto.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -153,7 +167,9 @@ public class CalendarioGlobalController implements Serializable {
                 BigDecimal importeAnual = (BigDecimal) value;
 
                 if (importeAnual == BigDecimal.ZERO || importeAnual == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una catidad mayor a 0.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una catidad mayor a 0.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }

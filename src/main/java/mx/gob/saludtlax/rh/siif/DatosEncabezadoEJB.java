@@ -15,26 +15,34 @@ public class DatosEncabezadoEJB implements Serializable {
     @Inject
     private DatosEncabezadoServices datosEncabezadoService;
 
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(Integer idEncabezado) {
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(
+            Integer idEncabezado) {
         return datosEncabezadoService.obtenerListaDatosEncabezado(idEncabezado);
     }
 
-    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoSelect(ConsultaDatosEncabezadoDTO DatosEncabezadoSelect) {
+    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoSelect(
+            ConsultaDatosEncabezadoDTO DatosEncabezadoSelect) {
         return null;
     }
 
-    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(Integer idEmpeladoDatosPersonales) {
-        ConsultaDatosEncabezadoDTO dto = datosEncabezadoService.obtenerDatosEncabezadoPorId(idEmpeladoDatosPersonales);
+    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(
+            Integer idEmpeladoDatosPersonales) {
+        ConsultaDatosEncabezadoDTO dto = datosEncabezadoService
+                .obtenerDatosEncabezadoPorId(idEmpeladoDatosPersonales);
         return dto;
     }
 
     /** PROSPERA Y AFASPE **/
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(Integer idSiifEncabezado) {
-        return datosEncabezadoService.obtenerListaDatosEncabezadoProspera(idSiifEncabezado);
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(
+            Integer idSiifEncabezado) {
+        return datosEncabezadoService
+                .obtenerListaDatosEncabezadoProspera(idSiifEncabezado);
     }
 
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(Integer idSiifEncabezado) {
-        return datosEncabezadoService.obtenerListaDatosEncabezadoContrato(idSiifEncabezado);
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(
+            Integer idSiifEncabezado) {
+        return datosEncabezadoService
+                .obtenerListaDatosEncabezadoContrato(idSiifEncabezado);
     }
 
     public Integer obtenerCuentaBancaria(Integer idSiifEncabezado) {

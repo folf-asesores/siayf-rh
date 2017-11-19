@@ -32,9 +32,12 @@ public class DatosPersonalesDTO {
     public DatosPersonalesDTO() {
     }
 
-    public DatosPersonalesDTO(Integer idEmpleadoDatosPersonales, String rfc, String apellidoPaterno, String apellidoMaterno, String nombre,
-            Date fechaNacimineto, Character sexo, String idLocalidad, String idColonia, String calle, String numeroExterior, String numeroInterior,
-            String codigoPostal, String telefono, Character idEstadoEmpleado, Integer idNomina) {
+    public DatosPersonalesDTO(Integer idEmpleadoDatosPersonales, String rfc,
+            String apellidoPaterno, String apellidoMaterno, String nombre,
+            Date fechaNacimineto, Character sexo, String idLocalidad,
+            String idColonia, String calle, String numeroExterior,
+            String numeroInterior, String codigoPostal, String telefono,
+            Character idEstadoEmpleado, Integer idNomina) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
         this.rfc = rfc;
         this.apellidoPaterno = apellidoPaterno;
@@ -58,7 +61,8 @@ public class DatosPersonalesDTO {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 

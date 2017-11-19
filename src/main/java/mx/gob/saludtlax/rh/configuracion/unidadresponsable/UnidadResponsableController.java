@@ -39,9 +39,11 @@ public class UnidadResponsableController {
     public void initUnidadResponsable() {
         itemsDependencia = new ArrayList<>();
 
-        List<DependenciaDTO> dependencias = dependenciaejb.obtenerDependenciaLista();
+        List<DependenciaDTO> dependencias = dependenciaejb
+                .obtenerDependenciaLista();
         for (DependenciaDTO dep : dependencias) {
-            itemsDependencia.add(new SelectItem(dep.getIdDependencia(), dep.getDescripcion()));
+            itemsDependencia.add(new SelectItem(dep.getIdDependencia(),
+                    dep.getDescripcion()));
         }
 
         view = new UnidadResponsableView();
@@ -68,7 +70,8 @@ public class UnidadResponsableController {
     }
 
     public String irGestionarUnidadResponsable() {
-        view.setUnidadResponsable(ejb.obtenerUnidadResponsable(view.getUnidadResponsableSelect()));
+        view.setUnidadResponsable(ejb
+                .obtenerUnidadResponsable(view.getUnidadResponsableSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelGestion();
         return null;
@@ -105,7 +108,8 @@ public class UnidadResponsableController {
         view.setDisabledIrGestionar(Boolean.TRUE);
     }
 
-    public void validatorUnidad(FacesContext context, UIComponent component, Object value) {
+    public void validatorUnidad(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -113,7 +117,9 @@ public class UnidadResponsableController {
                 String UnidadResponsable = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(UnidadResponsable)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Unidad Responsable");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Unidad Responsable");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -122,13 +128,18 @@ public class UnidadResponsableController {
                 Integer Dependencia = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(Dependencia)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Dependencia");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Dependencia");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (Dependencia > 999) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Dependencia es de un maximo de 3 dígitos");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Dependencia es de un maximo de 3 dígitos");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -137,13 +148,18 @@ public class UnidadResponsableController {
                 Integer UnidadXDependencia = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(UnidadXDependencia)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Unidad por Dependencia");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Unidad por Dependencia");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (UnidadXDependencia > 999) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Unidad por Dependencia es de un maximo de 3 dígitos");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Unidad por Dependencia es de un maximo de 3 dígitos");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -152,13 +168,18 @@ public class UnidadResponsableController {
                 String Base36 = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Base36)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Base 36");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Base 36");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (Base36.length() > 3) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Base 36 es de un maximo de 3 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Base 36 es de un maximo de 3 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

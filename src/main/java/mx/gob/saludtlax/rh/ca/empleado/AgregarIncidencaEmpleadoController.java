@@ -56,19 +56,26 @@ public class AgregarIncidencaEmpleadoController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
         incidenciaEmpleadoFormModel = new IncidenciaEmpleadoFormModel();
@@ -96,9 +103,11 @@ public class AgregarIncidencaEmpleadoController implements Serializable {
         List<IncidenciaModelView> listadoIncidencias = null;
 
         try {
-            listadoIncidencias = incidenciaClienteRest.buscarIncidenciaPorDescripcion(query);
+            listadoIncidencias = incidenciaClienteRest
+                    .buscarIncidenciaPorDescripcion(query);
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
             e.printStackTrace();
         }
         return listadoIncidencias;
@@ -107,13 +116,15 @@ public class AgregarIncidencaEmpleadoController implements Serializable {
     public String guardar() {
 
         try {
-            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
+            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(
+                    incidenciaEmpleadoFormModel);
             return "index.xhtml?faces-redirect=true&exito=1 ";
         } catch (RESTClientException e) {
             JSFUtils.errorMessage(e.getMessage(), e.getMessage());
         } catch (ValidacionIncidenciaException e) {
             mensajeErrorValidacion = e.getMessage();
-            RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgAdevertencia').show()");
 
         }
         return "";
@@ -121,16 +132,19 @@ public class AgregarIncidencaEmpleadoController implements Serializable {
     }
 
     public String guardarSinValidacion() {
-        RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgAdevertencia').hide()");
         incidenciaEmpleadoFormModel.setIgnorarValidacionReglaIncidencia(true);
         try {
-            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(incidenciaEmpleadoFormModel);
+            empleadoClienteRest.agregarNuevaIncidenciaEmpleado(
+                    incidenciaEmpleadoFormModel);
             return "index.xhtml?faces-redirect=true&exito=1 ";
         } catch (RESTClientException e) {
             JSFUtils.errorMessage(e.getMessage(), e.getMessage());
         } catch (ValidacionIncidenciaException e) {
             mensajeErrorValidacion = e.getMessage();
-            RequestContext.getCurrentInstance().execute("PF('dlgAdevertencia').show()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgAdevertencia').show()");
 
         }
         return "";
@@ -140,7 +154,8 @@ public class AgregarIncidencaEmpleadoController implements Serializable {
         return incidenciaEmpleadoFormModel;
     }
 
-    public void setIncidenciaEmpleadoFormModel(IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel) {
+    public void setIncidenciaEmpleadoFormModel(
+            IncidenciaEmpleadoFormModel incidenciaEmpleadoFormModel) {
         this.incidenciaEmpleadoFormModel = incidenciaEmpleadoFormModel;
     }
 

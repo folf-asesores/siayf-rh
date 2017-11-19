@@ -11,7 +11,8 @@ import javax.persistence.NoResultException;
  *
  * @since 12/12/2016 13:12:13
  */
-public class TipoJornadaRepository extends GenericRepository<TipoJornadaEntity, Integer> {
+public class TipoJornadaRepository
+        extends GenericRepository<TipoJornadaEntity, Integer> {
 
     /**
      *
@@ -20,7 +21,9 @@ public class TipoJornadaRepository extends GenericRepository<TipoJornadaEntity, 
 
     public TipoJornadaEntity obtenerJornadaPorDescripcion(String tipoJornada) {
         try {
-            return em.createQuery("SELECT t FROM TipoJornadaEntity AS t WHERE t.tipoJornada =:tipoJornada", TipoJornadaEntity.class)
+            return em.createQuery(
+                    "SELECT t FROM TipoJornadaEntity AS t WHERE t.tipoJornada =:tipoJornada",
+                    TipoJornadaEntity.class)
                     .setParameter("tipoJornada", tipoJornada).getSingleResult();
         } catch (NoResultException exception) {
             return null;

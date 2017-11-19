@@ -9,4 +9,5 @@
  * Este paquete contiene las clases e interfaces necesarias para la seguridad
  * de la aplicación.
  */
+
 package mx.gob.saludtlax.rh.seguridad;

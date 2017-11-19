@@ -9,10 +9,11 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class CalendarioGlobalRepository extends GenericRepository<CalendarioGlobalEntity, Integer> {
+public class CalendarioGlobalRepository
+        extends GenericRepository<CalendarioGlobalEntity, Integer> {
 
     /**
      *
@@ -21,7 +22,8 @@ public class CalendarioGlobalRepository extends GenericRepository<CalendarioGlob
 
     public List<CalendarioGlobalEntity> obtenerListaCalendarioGlobal() {
         try {
-            return em.createQuery("SELECT c FROM CalendarioGlobalEntity AS c", CalendarioGlobalEntity.class).getResultList();
+            return em.createQuery("SELECT c FROM CalendarioGlobalEntity AS c",
+                    CalendarioGlobalEntity.class).getResultList();
         } catch (NoResultException ex) {
             return null;
         }

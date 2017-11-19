@@ -15,7 +15,8 @@ public class SubfuenteFinanciamientoDTO {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -39,7 +40,8 @@ public class SubfuenteFinanciamientoDTO {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoDTO fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoDTO fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -47,7 +49,8 @@ public class SubfuenteFinanciamientoDTO {
         return fuenteFinanciamientoOPD;
     }
 
-    public void setFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
+    public void setFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
         this.fuenteFinanciamientoOPD = fuenteFinanciamientoOPD;
     }
 

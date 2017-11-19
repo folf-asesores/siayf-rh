@@ -65,27 +65,41 @@ public class VoluntariosService {
 
     protected void registrarVoluntario(AltaVoluntarioDTO alta) {
 
-        AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(alta.getIdAspirante());
+        AspiranteEntity aspiranteEntity = aspiranteRepository
+                .obtenerPorId(alta.getIdAspirante());
 
         if (aspiranteEntity == null) {
-            throw new SistemaException("No se encontró aspirante con identificador " + alta.getIdAspirante(), SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró aspirante con identificador "
+                            + alta.getIdAspirante(),
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
-        if (aspiranteEntity.getIdEstatus().equals(EnumEstatusAspirante.EMPLEADO)) {
-            throw new ReglaNegocioException("El aspirante se encuentra activo como empleado", ReglaNegocioCodigoError.YA_REGISTRADO);
+        if (aspiranteEntity.getIdEstatus()
+                .equals(EnumEstatusAspirante.EMPLEADO)) {
+            throw new ReglaNegocioException(
+                    "El aspirante se encuentra activo como empleado",
+                    ReglaNegocioCodigoError.YA_REGISTRADO);
         }
 
         if (empleadoRepository.existeEmpleadoRfc(aspiranteEntity.getRfc())) {
-            throw new ReglaNegocioException("El rfc del aspirante está asignado a un empleado.", ReglaNegocioCodigoError.RFC_REGISTRADO);
+            throw new ReglaNegocioException(
+                    "El rfc del aspirante está asignado a un empleado.",
+                    ReglaNegocioCodigoError.RFC_REGISTRADO);
         }
 
-        if (empleadoRepository.existeEmpleadoConCurp(aspiranteEntity.getCurp())) {
-            throw new ReglaNegocioException("El curp del aspirante está asignado a un empleado", ReglaNegocioCodigoError.CURP_REGISTRADA);
+        if (empleadoRepository
+                .existeEmpleadoConCurp(aspiranteEntity.getCurp())) {
+            throw new ReglaNegocioException(
+                    "El curp del aspirante está asignado a un empleado",
+                    ReglaNegocioCodigoError.CURP_REGISTRADA);
         }
 
         VoluntarioEntity nuevoVoluntario = new VoluntarioEntity();
-        nuevoVoluntario.setApellidoMaterno(aspiranteEntity.getApellidoMaterno());
-        nuevoVoluntario.setApellidoPaterno(aspiranteEntity.getApellidoPaterno());
+        nuevoVoluntario
+                .setApellidoMaterno(aspiranteEntity.getApellidoMaterno());
+        nuevoVoluntario
+                .setApellidoPaterno(aspiranteEntity.getApellidoPaterno());
         nuevoVoluntario.setCurp(aspiranteEntity.getCurp());
         nuevoVoluntario.setFechaFinContratacion(alta.getFechaFinal());
         nuevoVoluntario.setFechaIngreso(alta.getFechaIngreso());
@@ -97,20 +111,24 @@ public class VoluntariosService {
         nuevoVoluntario.setRfc(aspiranteEntity.getRfc());
         voluntarioRepository.crear(nuevoVoluntario);
 
-        EstatusPuestosEntity estatusPuesto = estatusPuestoRepository.obtenerPorId(EnumEstatusPuesto.APERTURA_DESIGNACION);
+        EstatusPuestosEntity estatusPuesto = estatusPuestoRepository
+                .obtenerPorId(EnumEstatusPuesto.APERTURA_DESIGNACION);
 
-        TipoContratacionEntity tipoContratacion = tipoContratacionRepository.obtenerPorId(EnumTipoContratacion.VOLUNTARIOS);
+        TipoContratacionEntity tipoContratacion = tipoContratacionRepository
+                .obtenerPorId(EnumTipoContratacion.VOLUNTARIOS);
 
         aspiranteEntity.setIdEstatus(EnumEstatusAspirante.EMPLEADO);
         aspiranteRepository.actualizar(aspiranteEntity);
 
         // Generar folios
-        Integer ultimoFolio = inventarioVacanteRepository.ultimoFolioVacanteContratacion(tipoContratacion.getId());
+        Integer ultimoFolio = inventarioVacanteRepository
+                .ultimoFolioVacanteContratacion(tipoContratacion.getId());
         Integer siguienteNumeroVacante = 1;
         if (ultimoFolio != null) {
             siguienteNumeroVacante = ultimoFolio + 1;
         }
-        String folioVacante = generarFolioVacante(siguienteNumeroVacante, tipoContratacion.getCodigo());
+        String folioVacante = generarFolioVacante(siguienteNumeroVacante,
+                tipoContratacion.getCodigo());
 
         // Crear puesto
         InventarioVacanteEntity puestoEmpleado = new InventarioVacanteEntity();
@@ -124,25 +142,30 @@ public class VoluntariosService {
         puestoEmpleado.setFechaInicio(alta.getFechaInicial());
         puestoEmpleado.setFechaFin(alta.getFechaFinal());
         if (ValidacionUtil.esNumeroPositivo(alta.getIdPrograma())) {
-            ProgramaEntity programa = programaRepository.obtenerPorId(alta.getIdPrograma());
+            ProgramaEntity programa = programaRepository
+                    .obtenerPorId(alta.getIdPrograma());
             puestoEmpleado.setPrograma(programa);
         }
         if (!ValidacionUtil.esNumeroPositivo(alta.getIdAdscripcion())) {
-            AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(alta.getIdAdscripcion());
+            AdscripcionEntity adscripcion = adscripcionRepository
+                    .obtenerPorId(alta.getIdAdscripcion());
             puestoEmpleado.setAdscripcion(adscripcion);
         }
 
         if (!ValidacionUtil.esNumeroPositivo(alta.getIdSubadscripcion())) {
-            SubadscripcionEntity subadscripcion = subadscripcionRepository.obtenerPorId(alta.getIdSubadscripcion());
+            SubadscripcionEntity subadscripcion = subadscripcionRepository
+                    .obtenerPorId(alta.getIdSubadscripcion());
             puestoEmpleado.setSubadscripcion(subadscripcion);
         }
         if (!ValidacionUtil.esNumeroPositivo(alta.getIdServicio())) {
-            ServicioEntity servicio = servicioRepository.obtenerPorId(alta.getIdServicio());
+            ServicioEntity servicio = servicioRepository
+                    .obtenerPorId(alta.getIdServicio());
             puestoEmpleado.setServicio(servicio);
         }
 
         if (!ValidacionUtil.esNumeroPositivo(alta.getIdFuncion())) {
-            FuncionEntity funcion = funcionRepository.obtenerPorId(alta.getIdFuncion());
+            FuncionEntity funcion = funcionRepository
+                    .obtenerPorId(alta.getIdFuncion());
             puestoEmpleado.setFuncion(funcion);
         }
 
@@ -150,7 +173,8 @@ public class VoluntariosService {
 
     }
 
-    private String generarFolioVacante(Integer siguienteNumeroVacante, String codigoContratacion) {
+    private String generarFolioVacante(Integer siguienteNumeroVacante,
+            String codigoContratacion) {
         String folioVacante = "";
 
         if (siguienteNumeroVacante < 10) {
@@ -164,21 +188,25 @@ public class VoluntariosService {
         return folioVacante;
     }
 
-    protected List<InfoVoluntarioDTO> consultarVoluntarios(ConsultaVoluntarioDTO dto) {
+    protected List<InfoVoluntarioDTO> consultarVoluntarios(
+            ConsultaVoluntarioDTO dto) {
         List<InfoVoluntarioDTO> voluntarios = new ArrayList<>();
         List<InventarioVacanteEntity> puestos = new ArrayList<>();
         if (dto.getTipoConsulta() == EnumTipoConsultaVoluntario.ACTIVOS) {
             puestos = inventarioVacanteRepository.consultarVoluntariosActivos();
         } else if (dto.getTipoConsulta() == EnumTipoConsultaVoluntario.NOMBRE) {
-            puestos = inventarioVacanteRepository.consultarVoluntariosPorCriterio(dto.getCriterio());
+            puestos = inventarioVacanteRepository
+                    .consultarVoluntariosPorCriterio(dto.getCriterio());
         }
         System.out.println("consulta voluntarios" + puestos.size());
         if (!puestos.isEmpty()) {
             for (InventarioVacanteEntity entity : puestos) {
                 InfoVoluntarioDTO info = new InfoVoluntarioDTO();
                 if (entity.getAdscripcion() != null) {
-                    info.setAdscripcion(entity.getAdscripcion().getAdscripcion());
-                    info.setIdAdscripcion(entity.getAdscripcion().getIdAdscripcion());
+                    info.setAdscripcion(
+                            entity.getAdscripcion().getAdscripcion());
+                    info.setIdAdscripcion(
+                            entity.getAdscripcion().getIdAdscripcion());
                 }
                 info.setCurp(entity.getVoluntario().getCurp());
                 info.setFechaFin(entity.getFechaFin());
@@ -198,8 +226,10 @@ public class VoluntariosService {
                     info.setServicio(entity.getServicio().getServicio());
                 }
                 if (entity.getSubadscripcion() != null) {
-                    info.setIdSubadscripcion(entity.getSubadscripcion().getIdSubadscripcion());
-                    info.setSubadscripcion(entity.getSubadscripcion().getSubadscripcion());
+                    info.setIdSubadscripcion(
+                            entity.getSubadscripcion().getIdSubadscripcion());
+                    info.setSubadscripcion(
+                            entity.getSubadscripcion().getSubadscripcion());
                 }
 
                 info.setSueldo(entity.getVoluntario().getSueldo());

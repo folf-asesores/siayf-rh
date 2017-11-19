@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 07/06/2016 18:45:38
  */

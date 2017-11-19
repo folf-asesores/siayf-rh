@@ -282,7 +282,8 @@ public class NominaEntity implements Serializable {
         return percepcionesTotalGravado;
     }
 
-    public void setPercepcionesTotalGravado(BigDecimal percepcionesTotalGravado) {
+    public void setPercepcionesTotalGravado(
+            BigDecimal percepcionesTotalGravado) {
         this.percepcionesTotalGravado = percepcionesTotalGravado;
     }
 
@@ -298,7 +299,8 @@ public class NominaEntity implements Serializable {
         return percepciones;
     }
 
-    public void setPercepciones(List<PercepcionComprobanteEntity> percepciones) {
+    public void setPercepciones(
+            List<PercepcionComprobanteEntity> percepciones) {
         this.percepciones = percepciones;
     }
 
@@ -330,7 +332,8 @@ public class NominaEntity implements Serializable {
         return incapacidades;
     }
 
-    public void setIncapacidades(List<IncapacidadComprobanteEntity> incapacidades) {
+    public void setIncapacidades(
+            List<IncapacidadComprobanteEntity> incapacidades) {
         this.incapacidades = incapacidades;
     }
 

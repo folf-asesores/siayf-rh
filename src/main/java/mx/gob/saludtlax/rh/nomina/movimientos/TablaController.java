@@ -54,7 +54,8 @@ public class TablaController {
         return puestosSeleccion;
     }
 
-    public void setPuestosSeleccion(DualListModel<PuestoGeneralDTO> puestosSeleccion) {
+    public void setPuestosSeleccion(
+            DualListModel<PuestoGeneralDTO> puestosSeleccion) {
         this.puestosSeleccion = puestosSeleccion;
     }
 

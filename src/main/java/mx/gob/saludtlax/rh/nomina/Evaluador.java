@@ -8,7 +8,8 @@ import org.jboss.logging.Logger;
 
 public class Evaluador {
 
-    private static final Logger LOGGER = Logger.getLogger(Evaluador.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(Evaluador.class.getName());
 
     private static final int EOL = 0;
     private static final int VALUE = 1;
@@ -21,7 +22,8 @@ public class Evaluador {
     private static final int MINUS = 8;
 
     // PrecTable matches order of Token enumeration
-    private static Precedence[] precTable = new Precedence[] { new Precedence(0, -1), // EOL
+    private static Precedence[] precTable = new Precedence[] {
+            new Precedence(0, -1), // EOL
             new Precedence(0, 0), // VALUE
             new Precedence(100, 0), // OPAREN
             new Precedence(0, 99), // CPAREN
@@ -113,7 +115,8 @@ public class Evaluador {
                 break;
 
             default: // General operator case
-                while (precTable[lastType].inputSymbol <= precTable[topOp = opStack.peek()].topOfStack) {
+                while (precTable[lastType].inputSymbol <= precTable[topOp = opStack
+                        .peek()].topOfStack) {
                     binaryOp(topOp);
                 }
                 if (lastType != EOL) {

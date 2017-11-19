@@ -42,20 +42,24 @@ public class ReporteSiifEJB {
     @Inject
     private ReporteSiifService reporteSiifService;
 
-    public List<SiifBitacoraDTO> obtenerReporteSiifPorPeriodo(String periodo, Integer anio) {
-        List<SiifBitacoraDTO> reporteSiifList = reporteSiifService.obtenerReporteSiifPorPeriodo(periodo, anio);
+    public List<SiifBitacoraDTO> obtenerReporteSiifPorPeriodo(String periodo,
+            Integer anio) {
+        List<SiifBitacoraDTO> reporteSiifList = reporteSiifService
+                .obtenerReporteSiifPorPeriodo(periodo, anio);
         return reporteSiifList;
     }
 
     //@TransactionTimeout(value = 10, unit = TimeUnit.HOURS)
-    public SiifBitacoraDTO procesarNominaTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) {
+    public SiifBitacoraDTO procesarNominaTheosToSIIF(
+            PaqueteEntradaFederalDTO paqueteEntrada) {
         UploadedFile dat = paqueteEntrada.getDat();
         UploadedFile tra = paqueteEntrada.getTra();
         SiifBitacoraDTO bitacora = null;
         try {
             ut.begin();
             bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
-            bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra, bitacora);
+            bitacora = reporteSiifService.importarNominaTheosToSIIF(dat, tra,
+                    bitacora);
 
             ut.commit();
         } catch (Exception ex) {
@@ -64,7 +68,8 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO procesarNominaTheosToSIIF_2(SiifBitacoraDTO bitacora) {
+    public SiifBitacoraDTO procesarNominaTheosToSIIF_2(
+            SiifBitacoraDTO bitacora) {
         try {
             ut.begin();
             reporteSiifService.clasificarEncabezados2(bitacora);
@@ -76,12 +81,16 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO procesarNominaTheosToSIIF_3(List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora, PaqueteEntradaFederalDTO entrada) {
+    public SiifBitacoraDTO procesarNominaTheosToSIIF_3(
+            List<SIIFEncabezadoDTO> result, SiifBitacoraDTO bitacora,
+            PaqueteEntradaFederalDTO entrada) {
         try {
             ut.begin();
-            bitacora = reporteSiifService.clasificarRegularizadosSiif(result, bitacora, entrada);
+            bitacora = reporteSiifService.clasificarRegularizadosSiif(result,
+                    bitacora, entrada);
             bitacora = reporteSiifService.verificarDatos(bitacora);
-            bitacora = reporteSiifService.asignarEncabezadosTrailersSiif(bitacora);
+            bitacora = reporteSiifService
+                    .asignarEncabezadosTrailersSiif(bitacora);
             ut.commit();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -100,15 +109,19 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaClaveConceptos(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaClaveConceptos(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
-                    " UPDATE estructuras_nominas_trailers AS nt " + "INNER JOIN	siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
-                            + "SET nt.id_concepto = cn.id_siif_concepto_nomina " + "WHERE nt.t_concep = cn.tipo " + "AND nt.id_siif_bitacoras =?");
+                    " UPDATE estructuras_nominas_trailers AS nt "
+                            + "INNER JOIN	siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
+                            + "SET nt.id_concepto = cn.id_siif_concepto_nomina "
+                            + "WHERE nt.t_concep = cn.tipo "
+                            + "AND nt.id_siif_bitacoras =?");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.executeUpdate();
@@ -131,15 +144,19 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaClaveConceptosMod(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaClaveConceptosMod(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
             stmt = con.prepareStatement(
-                    " UPDATE estructuras_nominas_trailers AS nt " + "INNER JOIN    siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
-                            + "SET nt.id_concepto = cn.id_siif_concepto_nomina " + "WHERE nt.t_concep = cn.tipo " + "AND nt.id_siif_bitacoras =?");
+                    " UPDATE estructuras_nominas_trailers AS nt "
+                            + "INNER JOIN    siif_conceptos_nominas AS cn ON nt.concepto_siif = cn.concepto_nomina "
+                            + "SET nt.id_concepto = cn.id_siif_concepto_nomina "
+                            + "WHERE nt.t_concep = cn.tipo "
+                            + "AND nt.id_siif_bitacoras =?");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.executeUpdate();
@@ -161,14 +178,19 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaNominaTarjetas(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaNominaTarjetas(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n " + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc "
-                    + "SET n.tipo_emision_nomina ='T' " + "WHERE  n.id_siif_bitacoras =? " + "AND    t.id_siif_bitacoras =? " + "AND t.sub_cheque = 29");
+            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n "
+                    + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc "
+                    + "SET n.tipo_emision_nomina ='T' "
+                    + "WHERE  n.id_siif_bitacoras =? "
+                    + "AND    t.id_siif_bitacoras =? "
+                    + "AND t.sub_cheque = 29");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.setInt(2, bitacora.getIdSiifBitacora());
@@ -191,14 +213,19 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaNominaCheques(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaNominaCheques(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n " + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc "
-                    + "SET n.tipo_emision_nomina ='C' " + "WHERE  n.id_siif_bitacoras =? " + "AND    t.id_siif_bitacoras =? " + "AND t.sub_cheque != 29 ");
+            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n "
+                    + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc "
+                    + "SET n.tipo_emision_nomina ='C' "
+                    + "WHERE  n.id_siif_bitacoras =? "
+                    + "AND    t.id_siif_bitacoras =? "
+                    + "AND t.sub_cheque != 29 ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.setInt(2, bitacora.getIdSiifBitacora());
@@ -221,15 +248,19 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaNominaTarjetas610(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaNominaTarjetas610(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement(
-                    "UPDATE estructuras_nominas AS n " + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc " + "SET n.tipo_emision_nomina ='T' "
-                            + "WHERE  n.id_siif_bitacoras =? " + "AND t.id_siif_bitacoras =? " + "AND t.sub_cheque != 29 " + "AND n.ur='610' ");
+            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n "
+                    + "INNER JOIN estructuras_nominas_trailers as t on t.rfc=n.rfc "
+                    + "SET n.tipo_emision_nomina ='T' "
+                    + "WHERE  n.id_siif_bitacoras =? "
+                    + "AND t.id_siif_bitacoras =? " + "AND t.sub_cheque != 29 "
+                    + "AND n.ur='610' ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.setInt(2, bitacora.getIdSiifBitacora());
@@ -252,14 +283,17 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO clasificaNominaNombramientoSubfuente(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO clasificaNominaNombramientoSubfuente(
+            SiifBitacoraDTO bitacora) throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n " + "LEFT JOIN tipos_nombramientos_temp AS t ON n.ur = t.clave "
-                    + "SET n.id_nombramiento = t.id_nombramiento, " + "n.id_subfuente_financiamiento	= t.id_subfuente_financiamiento "
+            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n "
+                    + "LEFT JOIN tipos_nombramientos_temp AS t ON n.ur = t.clave "
+                    + "SET n.id_nombramiento = t.id_nombramiento, "
+                    + "n.id_subfuente_financiamiento	= t.id_subfuente_financiamiento "
                     + "WHERE  n.id_siif_bitacoras =? ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
@@ -282,17 +316,21 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO crearEncabezadosSiif(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO crearEncabezadosSiif(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("INSERT INTO siif_encabezados( fecha_fin_quincena, id_tipo_emision_nomina, "
-                    + "percepciones, deducciones, neto, id_siif_bitacora, id_nombramiento) " + "SELECT	cast(n.p_pago_F as date), n.tipo_emision_nomina, "
-                    + "SUM(n.per), SUM(n.ded ), SUM(n.neto ), ?, n.id_nombramiento " + "FROM estructuras_nominas AS n WHERE  n.id_siif_bitacoras = ? "
-                    //+ "AND n.id_nombramiento != 4 "
-                    + "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ");
+            stmt = con.prepareStatement(
+                    "INSERT INTO siif_encabezados( fecha_fin_quincena, id_tipo_emision_nomina, "
+                            + "percepciones, deducciones, neto, id_siif_bitacora, id_nombramiento) "
+                            + "SELECT	cast(n.p_pago_F as date), n.tipo_emision_nomina, "
+                            + "SUM(n.per), SUM(n.ded ), SUM(n.neto ), ?, n.id_nombramiento "
+                            + "FROM estructuras_nominas AS n WHERE  n.id_siif_bitacoras = ? "
+                            //+ "AND n.id_nombramiento != 4 "
+                            + "GROUP BY n.id_nombramiento, n.tipo_emision_nomina ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             stmt.setInt(2, bitacora.getIdSiifBitacora());
@@ -315,14 +353,18 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public SiifBitacoraDTO asignarEncabezadosDats(SiifBitacoraDTO bitacora) throws SQLException {
+    public SiifBitacoraDTO asignarEncabezadosDats(SiifBitacoraDTO bitacora)
+            throws SQLException {
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n " + "INNER JOIN siif_encabezados AS e on e.id_siif_bitacora = n.id_siif_bitacoras "
-                    + "SET n.id_siif_encabezados = e.id_siif_encabezado " + "WHERE n.id_siif_bitacoras = ? " + "AND n.id_nombramiento = e.id_nombramiento "
+            stmt = con.prepareStatement("UPDATE estructuras_nominas AS n "
+                    + "INNER JOIN siif_encabezados AS e on e.id_siif_bitacora = n.id_siif_bitacoras "
+                    + "SET n.id_siif_encabezados = e.id_siif_encabezado "
+                    + "WHERE n.id_siif_bitacoras = ? "
+                    + "AND n.id_nombramiento = e.id_nombramiento "
                     + "AND n.tipo_emision_nomina = e.id_tipo_emision_nomina ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
@@ -345,19 +387,29 @@ public class ReporteSiifEJB {
         return bitacora;
     }
 
-    public List<SIIFEncabezadoDTO> obtenerEncabezadosSiif(SiifBitacoraDTO bitacora) throws SQLException {
+    public List<SIIFEncabezadoDTO> obtenerEncabezadosSiif(
+            SiifBitacoraDTO bitacora) throws SQLException {
         List<SIIFEncabezadoDTO> result = new ArrayList<>();
         Connection con = null;
         PreparedStatement stmt = null;
         try {
             con = ds.getConnection();
             con.setAutoCommit(false);
-            stmt = con.prepareStatement("SELECT " + " e.id_siif_encabezado AS idSIIFEncabezado, " + " e.id_nomina AS idNomina, " + " e.id_poder AS idPoder, "
-                    + " e.id_tipo_nomina AS idTipoNomina, " + " e.fecha_fin_quincena AS fechaFinQuincena, "
-                    + " e.id_tipo_emision_nomina AS idTipoEmisionNomina, " + " e.id_cuenta_bancaria AS idCuentaBancaria, " + " e.percepciones AS percepciones, "
-                    + " e.deducciones AS deducciones, " + " e.neto AS neto, " + " e.id_estado_nomina AS idEstadoNomina, "
-                    + " e.id_siif_bitacora AS idSIIFBitacora, " + " e.id_nombramiento AS idNombramiento, " + " e.sub_programa AS subPrograma "
-                    + "FROM siif_encabezados AS e " + "WHERE e.id_siif_bitacora =? ");
+            stmt = con.prepareStatement("SELECT "
+                    + " e.id_siif_encabezado AS idSIIFEncabezado, "
+                    + " e.id_nomina AS idNomina, " + " e.id_poder AS idPoder, "
+                    + " e.id_tipo_nomina AS idTipoNomina, "
+                    + " e.fecha_fin_quincena AS fechaFinQuincena, "
+                    + " e.id_tipo_emision_nomina AS idTipoEmisionNomina, "
+                    + " e.id_cuenta_bancaria AS idCuentaBancaria, "
+                    + " e.percepciones AS percepciones, "
+                    + " e.deducciones AS deducciones, " + " e.neto AS neto, "
+                    + " e.id_estado_nomina AS idEstadoNomina, "
+                    + " e.id_siif_bitacora AS idSIIFBitacora, "
+                    + " e.id_nombramiento AS idNombramiento, "
+                    + " e.sub_programa AS subPrograma "
+                    + "FROM siif_encabezados AS e "
+                    + "WHERE e.id_siif_bitacora =? ");
 
             stmt.setInt(1, bitacora.getIdSiifBitacora());
             ResultSet rs = stmt.executeQuery();
@@ -403,16 +455,20 @@ public class ReporteSiifEJB {
         return result;
     }
 
-    public SiifBitacoraDTO procesarNominaContTheosToSIIF(PaqueteEntradaFederalDTO paqueteEntrada) {
+    public SiifBitacoraDTO procesarNominaContTheosToSIIF(
+            PaqueteEntradaFederalDTO paqueteEntrada) {
         UploadedFile cont = paqueteEntrada.getCont();
 
-        SiifBitacoraDTO bitacora = reporteSiifService.crearSiifBitacora(paqueteEntrada);
+        SiifBitacoraDTO bitacora = reporteSiifService
+                .crearSiifBitacora(paqueteEntrada);
 
-        bitacora = reporteSiifService.importarNominaContSIIF(cont, bitacora, paqueteEntrada);
+        bitacora = reporteSiifService.importarNominaContSIIF(cont, bitacora,
+                paqueteEntrada);
         //		bitacora = reporteSiifService.cambiarClaveConceptosTra(bitacora);
         bitacora = reporteSiifService.clasificarEncabezadosContratos(bitacora);
         //		bitacora = reporteSiifService.verificarDatos(bitacora);
-        bitacora = reporteSiifService.calcularTotalesEncabezadosContrato(bitacora);
+        bitacora = reporteSiifService
+                .calcularTotalesEncabezadosContrato(bitacora);
         return bitacora;
     }
 
@@ -425,48 +481,60 @@ public class ReporteSiifEJB {
     }
 
     public SiifBitacoraDTO obtenerSiifBitacora(SiifBitacoraDTO bitacoraDTO) {
-        return reporteSiifService.obtenerSiiifBitacoraById(bitacoraDTO.getIdSiifBitacora());
+        return reporteSiifService
+                .obtenerSiiifBitacoraById(bitacoraDTO.getIdSiifBitacora());
     }
 
-    public void deudores(Integer idSiifBitacora, Integer TipoNomina, String periodo) {
+    public void deudores(Integer idSiifBitacora, Integer TipoNomina,
+            String periodo) {
         reporteSiifService.deudores(idSiifBitacora, TipoNomina, periodo);
     }
 
-    public void bitacora(Integer idSiifBitacora, Integer TipoNomina, String periodo) {
+    public void bitacora(Integer idSiifBitacora, Integer TipoNomina,
+            String periodo) {
         reporteSiifService.eliminaBitacoraPorId(idSiifBitacora);
 
     }
 
-    public List<EstructuraNominaTrailersDTO> listaDeudores(Integer idSiifBitacora) {
+    public List<EstructuraNominaTrailersDTO> listaDeudores(
+            Integer idSiifBitacora) {
         return reporteSiifService.listaDeudores(idSiifBitacora);
     }
 
-    public List<EstructuraNominaTrailersDTO> listaDispersion(Integer idSiifBitacora) {
+    public List<EstructuraNominaTrailersDTO> listaDispersion(
+            Integer idSiifBitacora) {
         return reporteSiifService.listaDispersion(idSiifBitacora);
     }
 
-    public List<SIIFEncabezadoDTO> generarEncabezadoSiif(Integer anio, String periodo) {
+    public List<SIIFEncabezadoDTO> generarEncabezadoSiif(Integer anio,
+            String periodo) {
         return reporteSiifService.generarEncabezadoSiif(anio, periodo);
     }
 
-    public SIIFEncabezadoDTO obtenerEncabezado(SIIFEncabezadoDTO encabezadoDTO) {
-        return reporteSiifService.obtenerEncabezadoPorId(encabezadoDTO.getIdSIIFEncabezado());
+    public SIIFEncabezadoDTO obtenerEncabezado(
+            SIIFEncabezadoDTO encabezadoDTO) {
+        return reporteSiifService
+                .obtenerEncabezadoPorId(encabezadoDTO.getIdSIIFEncabezado());
     }
 
-    public SIIFEncabezadoDTO actualizarEncabezado(SIIFEncabezadoDTO encabezadoDTO) {
+    public SIIFEncabezadoDTO actualizarEncabezado(
+            SIIFEncabezadoDTO encabezadoDTO) {
         return reporteSiifService.actualizarEncabezado(encabezadoDTO);
 
     }
 
-    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO, String periodo) {
+    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO,
+            String periodo) {
         reporteSiifService.estatusEncabezado(encabezadoDTO, periodo);
         Integer qna = Integer.parseInt(periodo);
         return reporteSiifService.actualizarCheques(encabezadoDTO, 20);
 
     }
 
-    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO, Integer idBitacora) {
-        SiifBitacoraDTO dtoBitacora = reporteSiifService.obtenerSiiifBitacoraById(idBitacora);
+    public SIIFEncabezadoDTO actualizarCheques(SIIFEncabezadoDTO encabezadoDTO,
+            Integer idBitacora) {
+        SiifBitacoraDTO dtoBitacora = reporteSiifService
+                .obtenerSiiifBitacoraById(idBitacora);
         Integer qna = Integer.parseInt(dtoBitacora.getPeriodoAfectacion());
         return reporteSiifService.actualizarCheques(encabezadoDTO, qna);
 

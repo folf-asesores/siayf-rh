@@ -31,7 +31,8 @@ public class UnidadResponsableView {
         return unidadResponsableCriterio;
     }
 
-    public void setUnidadResponsableCriterio(Integer unidadResponsableCriterio) {
+    public void setUnidadResponsableCriterio(
+            Integer unidadResponsableCriterio) {
         this.unidadResponsableCriterio = unidadResponsableCriterio;
     }
 
@@ -39,7 +40,8 @@ public class UnidadResponsableView {
         return listUnidadResponsable;
     }
 
-    public void setListUnidadResponsable(List<UnidadResponsableDTO> listUnidadResponsable) {
+    public void setListUnidadResponsable(
+            List<UnidadResponsableDTO> listUnidadResponsable) {
         this.listUnidadResponsable = listUnidadResponsable;
     }
 
@@ -47,7 +49,8 @@ public class UnidadResponsableView {
         return unidadResponsableSelect;
     }
 
-    public void setUnidadResponsableSelect(UnidadResponsableDTO unidadResponsableSelect) {
+    public void setUnidadResponsableSelect(
+            UnidadResponsableDTO unidadResponsableSelect) {
         this.unidadResponsableSelect = unidadResponsableSelect;
     }
 

@@ -23,16 +23,22 @@ import mx.gob.saludtlax.rh.excepciones.ValidacionException;
  * formateo como conversión.
  *
  * @author Leila Schiaffini Ehuan
- * @since 07/03/2016-15:12:52
+ * @since 07/03/2016 15:12:52
  */
 public class FechaUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(FechaUtil.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(FechaUtil.class.getName());
     public static final Locale LUGAR_MEXICO = new Locale("es", "MX");
     public static final int FECHAS_POR_MES = 0;
     public static final int FECHAS_POR_QUINCENA = 1;
     public static final int FECHAS_POR_SEMANA = 2;
+    /** Define el patrón de fecha corta para formataear un date en día, mes y año separado por diagonales (dd/MM/yyyy). */
     public static final String PATRON_FECHA_CORTA = "dd/MM/yyyy";
+    /**
+     * Define el patrón de fecha corta con hora para formataear un date en día, mes y año separado por diagonales (dd/MM/yyyy) usando la el formato de 24 horas
+     * (HH:mm:ss).
+     */
     public static final String PATRON_FECHA_HORA_CORTA = "dd/MM/yyyy HH:mm:ss";
     public static final String PATRON_FECHA_BASE_DE_DATOS = "yyyy-MM-dd";
 
@@ -206,11 +212,14 @@ public class FechaUtil {
         }
 
         if (patronFecha == null || patronFecha.trim().isEmpty()) {
-            LOGGER.warnv("No se ha recibido un patrón por tanto se usar el patrón: \"{0}\" para transformar la fecha.", PATRON_FECHA_CORTA);
+            LOGGER.warnv(
+                    "No se ha recibido un patrón por tanto se usar el patrón: \"{0}\" para transformar la fecha.",
+                    PATRON_FECHA_CORTA);
             patronFecha = PATRON_FECHA_CORTA;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR_MEXICO);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha,
+                LUGAR_MEXICO);
         return dateFormat.format(fecha);
     }
 
@@ -226,15 +235,19 @@ public class FechaUtil {
      *         contrario retorna null.
      */
     public static Date getFecha(String fecha, String patronFecha) {
-        if (fecha == null || patronFecha == null || fecha.trim().isEmpty() || patronFecha.trim().isEmpty()) {
+        if (fecha == null || patronFecha == null || fecha.trim().isEmpty()
+                || patronFecha.trim().isEmpty()) {
             return null;
         }
 
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha, LUGAR_MEXICO);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(patronFecha,
+                    LUGAR_MEXICO);
             return dateFormat.parse(fecha);
         } catch (ParseException ex) {
-            LOGGER.warnv("Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}", fecha, patronFecha, ex.getCause());
+            LOGGER.warnv(
+                    "Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}",
+                    fecha, patronFecha, ex.getCause());
             return null;
         }
     }
@@ -296,7 +309,8 @@ public class FechaUtil {
             if (fechaActual.getMonthOfYear() < fechaNac.getMonthOfYear()) {
                 edad = edad - 1;
             } // Si son el mismo mes
-            else if (fechaActual.getMonthOfYear() == fechaNac.getMonthOfYear()) {
+            else if (fechaActual.getMonthOfYear() == fechaNac
+                    .getMonthOfYear()) {
                 // Si aun no cumple años
                 if (fechaActual.getDayOfMonth() > fechaNac.getDayOfMonth()) {
                     edad = edad - 1;
@@ -320,7 +334,9 @@ public class FechaUtil {
      */
     public static Date[] obtenerFechasInicioFinal(Date fecha, int tipoFechas) {
         if (fecha == null) {
-            throw new ValidacionException("No se puede obtener las de inicio y fin sin una fecha origen", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "No se puede obtener las de inicio y fin sin una fecha origen",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         Date[] fechas = new Date[2];
@@ -369,23 +385,28 @@ public class FechaUtil {
                 switch (diaSemana) {
                     case Calendar.MONDAY:
                         fechas[0] = calendarInicio.getTime();
-                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
+                        calendarInicio.set(Calendar.DAY_OF_MONTH,
+                                calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
                         fechas[1] = calendarInicio.getTime();
                         break;
                     case Calendar.TUESDAY:
                     case Calendar.WEDNESDAY:
                     case Calendar.THURSDAY:
                     case Calendar.FRIDAY:
-                        calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                        calendarInicio.set(Calendar.DAY_OF_WEEK,
+                                Calendar.MONDAY);
                     case Calendar.SATURDAY:
-                        calendarInicio.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+                        calendarInicio.set(Calendar.DAY_OF_WEEK,
+                                Calendar.MONDAY);
                         fechas[0] = calendarInicio.getTime();
-                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
+                        calendarInicio.set(Calendar.DAY_OF_MONTH,
+                                calendarInicio.get(Calendar.DAY_OF_MONTH) + 6);
                         fechas[1] = calendarInicio.getTime();
                         break;
                     case Calendar.SUNDAY:
                         fechas[1] = calendarInicio.getTime();
-                        calendarInicio.set(Calendar.DAY_OF_MONTH, calendarInicio.get(Calendar.DAY_OF_MONTH) - 6);
+                        calendarInicio.set(Calendar.DAY_OF_MONTH,
+                                calendarInicio.get(Calendar.DAY_OF_MONTH) - 6);
                         fechas[0] = calendarInicio.getTime();
                         break;
                 }
@@ -410,7 +431,9 @@ public class FechaUtil {
         LOGGER.debugv("Fecha inicio: {0}", fechaInicio.toString());
         LOGGER.debugv("Fecha fin: {0}", fechaFin.toString());
 
-        int dias = Days.daysBetween(fechaInicio.toLocalDate(), fechaFin.toLocalDate()).plus(1).getDays();
+        int dias = Days
+                .daysBetween(fechaInicio.toLocalDate(), fechaFin.toLocalDate())
+                .plus(1).getDays();
 
         return dias;
 
@@ -423,7 +446,8 @@ public class FechaUtil {
         return fechaInicio.isAfter(fechaFin);
     }
 
-    public static Integer calcularNumeroPeriodos(Date inicio, Date fin, Integer tipoPeriodo) {
+    public static Integer calcularNumeroPeriodos(Date inicio, Date fin,
+            Integer tipoPeriodo) {
         Integer numeroPeriodos = 0;
         Calendar calendarInicio = Calendar.getInstance();
         calendarInicio.setTime(inicio);
@@ -456,7 +480,8 @@ public class FechaUtil {
                 }
             }
         } else {
-            numeroPeriodos = +(1 + (mesFin + (mesInicio - Calendar.DECEMBER))) * 2;
+            numeroPeriodos = +(1 + (mesFin + (mesInicio - Calendar.DECEMBER)))
+                    * 2;
             if (diaInicio == 16) {
                 numeroPeriodos--;
             }
@@ -476,10 +501,13 @@ public class FechaUtil {
 
     public static Date stringToDate(String fecha) {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(PATRON_FECHA_CORTA, LUGAR_MEXICO);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(
+                    PATRON_FECHA_CORTA, LUGAR_MEXICO);
             return dateFormat.parse(fecha);
         } catch (ParseException ex) {
-            LOGGER.warnv("Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}", fecha, PATRON_FECHA_CORTA, ex.getCause());
+            LOGGER.warnv(
+                    "Problemas al transformar la fecha \"{0}\" usando el patrón \"{1}\": {2}",
+                    fecha, PATRON_FECHA_CORTA, ex.getCause());
             return null;
         }
     }

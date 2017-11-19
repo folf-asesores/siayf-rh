@@ -16,40 +16,54 @@ public class ConsultaNominaEJB {
     //	Listas para Estructura Nomina Datos
 
     public List<EstructuraNominaDatDTO> obtenerConsultaNominaLista() {
-        List<EstructuraNominaDatDTO> consultaNominaLista = consultaNominaService.listaEstructuraNomina();
+        List<EstructuraNominaDatDTO> consultaNominaLista = consultaNominaService
+                .listaEstructuraNomina();
         return consultaNominaLista;
     }
 
-    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(String rfc) {
+    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(
+            String rfc) {
         return consultaNominaService.listaConsultaNominaPorCriterios(rfc);
     }
 
-    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(ConsultaDatosEncabezadoDTO nominaSeleccionado) {
-        return consultaNominaService.listaConsultaNominaPorIds(nominaSeleccionado);
+    public List<EstructuraNominaDatDTO> obtenerConsultaNominaListaPorCriterios(
+            ConsultaDatosEncabezadoDTO nominaSeleccionado) {
+        return consultaNominaService
+                .listaConsultaNominaPorIds(nominaSeleccionado);
     }
 
-    public List<EstructuraContratosPlantillaExcelDTO> obtenerConsultaNominaContratoListaPorCriterios(String rfc) {
-        return consultaNominaService.listaConsultaNominaContratoPorCriterios(rfc);
+    public List<EstructuraContratosPlantillaExcelDTO> obtenerConsultaNominaContratoListaPorCriterios(
+            String rfc) {
+        return consultaNominaService
+                .listaConsultaNominaContratoPorCriterios(rfc);
     }
 
-    public EstructuraNominaDatDTO obtenerConsultaNominaListaPorId(EstructuraNominaDatDTO DTO) {
-        EstructuraNominaDatDTO dto = consultaNominaService.obtenerEstructuraNominaDatPorId(DTO.getIdEstructurasNominas());
+    public EstructuraNominaDatDTO obtenerConsultaNominaListaPorId(
+            EstructuraNominaDatDTO DTO) {
+        EstructuraNominaDatDTO dto = consultaNominaService
+                .obtenerEstructuraNominaDatPorId(DTO.getIdEstructurasNominas());
         return dto;
     }
 
     //	Listas para Estructura Nomina Datos
 
     public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersLista() {
-        List<EstructuraNominaTrailersDTO> consultaNominaTrailersLista = consultaNominaService.listaEstructuraNominaTrailers();
+        List<EstructuraNominaTrailersDTO> consultaNominaTrailersLista = consultaNominaService
+                .listaEstructuraNominaTrailers();
         return consultaNominaTrailersLista;
     }
 
-    public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersListaPorCriterios(String rfc) {
-        return consultaNominaService.listaConsultaNominaTrailersPorCriterios(rfc);
+    public List<EstructuraNominaTrailersDTO> obtenerConsultaNominaTrailersListaPorCriterios(
+            String rfc) {
+        return consultaNominaService
+                .listaConsultaNominaTrailersPorCriterios(rfc);
     }
 
-    public EstructuraNominaTrailersDTO obtenerConsultaNominaTrailersListaPorId(EstructuraNominaTrailersDTO DTO) {
-        EstructuraNominaTrailersDTO dto = consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
+    public EstructuraNominaTrailersDTO obtenerConsultaNominaTrailersListaPorId(
+            EstructuraNominaTrailersDTO DTO) {
+        EstructuraNominaTrailersDTO dto = consultaNominaService
+                .obtenerEstructuraNominaTrailersDatPorId(
+                        DTO.getIdEstructurasNominasTrailers());
         return dto;
     }
 
@@ -63,8 +77,11 @@ public class ConsultaNominaEJB {
 
     }
 
-    public EstructuraNominaDatDTO obtenerDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
-        EstructuraNominaDatDTO dto = consultaNominaService.obtenerEstructuraNominaDatPorId(estructuraNominaSelect.getIdEstructurasNominas());
+    public EstructuraNominaDatDTO obtenerDatos(
+            EstructuraNominaDatDTO estructuraNominaSelect) {
+        EstructuraNominaDatDTO dto = consultaNominaService
+                .obtenerEstructuraNominaDatPorId(
+                        estructuraNominaSelect.getIdEstructurasNominas());
         return dto;
     }
 
@@ -82,12 +99,16 @@ public class ConsultaNominaEJB {
         return consultaNominaService.nuevosTrailers();
     }
 
-    public void eliminarTrailers(EstructuraNominaTrailersDTO estructuraNominaSelect) {
+    public void eliminarTrailers(
+            EstructuraNominaTrailersDTO estructuraNominaSelect) {
 
     }
 
-    public EstructuraNominaTrailersDTO obtenerTrailers(EstructuraNominaTrailersDTO DTO) {
-        EstructuraNominaTrailersDTO dto = consultaNominaService.obtenerEstructuraNominaTrailersDatPorId(DTO.getIdEstructurasNominasTrailers());
+    public EstructuraNominaTrailersDTO obtenerTrailers(
+            EstructuraNominaTrailersDTO DTO) {
+        EstructuraNominaTrailersDTO dto = consultaNominaService
+                .obtenerEstructuraNominaTrailersDatPorId(
+                        DTO.getIdEstructurasNominasTrailers());
         return dto;
     }
 
@@ -95,7 +116,8 @@ public class ConsultaNominaEJB {
         consultaNominaService.crearTrailers(dto);
     }
 
-    public void actualizarTrailers(EstructuraNominaTrailersDTO estructuraNomina) {
+    public void actualizarTrailers(
+            EstructuraNominaTrailersDTO estructuraNomina) {
         consultaNominaService.actualizarTrailers(estructuraNomina);
     }
 

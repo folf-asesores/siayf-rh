@@ -19,13 +19,15 @@ public interface PuestosAutorizadosEmpleados {
 
     public List<InventarioVacanteDTO> consultarInventariosVacantes();
 
-    public List<InfoPuestoDTO> consultaVacantesPorCriterio(FiltroVacanteDTO filtroVacanteDTO);
+    public List<InfoPuestoDTO> consultaVacantesPorCriterio(
+            FiltroVacanteDTO filtroVacanteDTO);
 
     public PuestoEmpleadoDTO obtenerInformacionPuesto(Integer idIventario);
 
     public void ubicarEmpleado(UbicacionEmpleadoDTO ubicacionEmpleadoDTO);
 
-    public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(Integer idEmpleado);
+    public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(
+            Integer idEmpleado);
 
     public PuestoEmpleadoDTO obtenerInformacionIdPuesto(Integer idPuesto);
 
@@ -34,21 +36,26 @@ public interface PuestosAutorizadosEmpleados {
     /**
      * Consulta el resumen de codigos por contratación activos.
      */
-    public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(Integer tipoContratacion);
+    public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(
+            Integer tipoContratacion);
 
     /**
      * Consulta el listado de empleados asignados a los puestos autorizados.
      */
-    public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus);
+    public List<DetallePuestoDTO> porContratacionYEstatus(
+            Integer tipoContratacion, Integer idEstatus);
 
-    public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO);
+    public void modificarEstructuraNominaContratos(
+            EstructuraContratoDTO estructuraContratoDTO);
 
-    public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto);
+    public EstructuraContratoDTO obtenerEstructuraContratoPuesto(
+            Integer idPuesto);
 
     /**
      * Actualiza la estructura nómina de puestos federales.
      */
-    public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO);
+    public void actualizarEstructuraNomina(
+            EstructuraNominaDTO estructuraNominaDTO);
 
     /**
      * Obtiene la estructura nómina de un puesto federal.

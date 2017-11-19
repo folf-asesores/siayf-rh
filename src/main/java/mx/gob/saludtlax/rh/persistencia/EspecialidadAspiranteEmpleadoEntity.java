@@ -18,8 +18,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 14:04:40 05/08/2016
  */
@@ -54,7 +54,8 @@ public class EspecialidadAspiranteEmpleadoEntity implements Serializable {
         return idEspecialidadAspiranteEmpleado;
     }
 
-    public void setIdEspecialidadAspiranteEmpleado(Integer idEspecialidadAspiranteEmpleado) {
+    public void setIdEspecialidadAspiranteEmpleado(
+            Integer idEspecialidadAspiranteEmpleado) {
         this.idEspecialidadAspiranteEmpleado = idEspecialidadAspiranteEmpleado;
     }
 

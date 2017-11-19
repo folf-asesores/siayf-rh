@@ -37,7 +37,8 @@ public class CentroResponsabilidadView {
         return centroResponsabilidadCriterio;
     }
 
-    public void setCentroResponsabilidadCriterio(Integer centroResponsabilidadCriterio) {
+    public void setCentroResponsabilidadCriterio(
+            Integer centroResponsabilidadCriterio) {
         this.centroResponsabilidadCriterio = centroResponsabilidadCriterio;
     }
 
@@ -45,7 +46,8 @@ public class CentroResponsabilidadView {
         return listCentroResponsabilidad;
     }
 
-    public void setListCentroResponsabilidad(List<CentroResponsabilidadDTO> listCentroResponsabilidad) {
+    public void setListCentroResponsabilidad(
+            List<CentroResponsabilidadDTO> listCentroResponsabilidad) {
         this.listCentroResponsabilidad = listCentroResponsabilidad;
     }
 
@@ -53,7 +55,8 @@ public class CentroResponsabilidadView {
         return centroResponsabilidad;
     }
 
-    public void setCentroResponsabilidad(CentroResponsabilidadDTO centroResponsabilidad) {
+    public void setCentroResponsabilidad(
+            CentroResponsabilidadDTO centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 

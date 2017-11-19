@@ -95,8 +95,6 @@ public class EstructuraContratosDatDTO implements Serializable {
     private Integer idProductoNomina;
     private Integer idPrograma;
 
-    
-
     public String getIdEstructura() {
         return idEstructura;
     }
@@ -765,7 +763,8 @@ public class EstructuraContratosDatDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

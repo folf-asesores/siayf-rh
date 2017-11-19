@@ -17,7 +17,7 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class DetalleEmpleadoService implements Serializable {
@@ -30,13 +30,18 @@ public class DetalleEmpleadoService implements Serializable {
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
-    protected List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion) {
+    protected List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(
+            Integer idTipoContratacion) {
 
         Session session = entityManager.unwrap(Session.class);
 
-        Query query = session.createSQLQuery("CALL usp_detalles_empleados(:idTipoContratacion) ").setParameter("idTipoContratacion", idTipoContratacion);
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_detalles_empleados(:idTipoContratacion) ")
+                .setParameter("idTipoContratacion", idTipoContratacion);
 
-        query.setResultTransformer(Transformers.aliasToBean(DetalleEmpleadoDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(DetalleEmpleadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<DetalleEmpleadoDTO> list = query.list();

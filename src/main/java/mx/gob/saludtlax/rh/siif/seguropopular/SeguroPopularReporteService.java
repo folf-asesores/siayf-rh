@@ -37,14 +37,17 @@ public class SeguroPopularReporteService implements Serializable {
      */
     protected List<SeguroPopularReporteDTO> obtenerInformacion() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_seguro_popular_rh_dev()");
-        query.setResultTransformer(Transformers.aliasToBean(SeguroPopularReporteDTO.class));
+        Query query = session
+                .createSQLQuery("CALL usp_generar_seguro_popular_rh_dev()");
+        query.setResultTransformer(
+                Transformers.aliasToBean(SeguroPopularReporteDTO.class));
 
         List<SeguroPopularReporteDTO> resultado = query.list();
         return resultado == null ? Collections.EMPTY_LIST : resultado;
     }
 
-    protected List<SeguroPopularReporteDTO> obtenerInformacion(String anyo, Integer quincena) {
+    protected List<SeguroPopularReporteDTO> obtenerInformacion(String anyo,
+            Integer quincena) {
         //TODO: verificar método
         throw new UnsupportedOperationException("Not supported yet.");
     }

@@ -41,7 +41,8 @@ public class PerfilService {
 
     public List<PerfilDTO> listaPerfil() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_perfil AS idPerfil, " + "nombre, descripcion FROM perfiles");
+        Query query = session.createSQLQuery("SELECT id_perfil AS idPerfil, "
+                + "nombre, descripcion FROM perfiles");
         query.setResultTransformer(Transformers.aliasToBean(PerfilDTO.class));
         @SuppressWarnings("unchecked")
         List<PerfilDTO> result = query.list();
@@ -60,7 +61,8 @@ public class PerfilService {
     }
 
     public void eliminarPerfil(Integer idPerfil) {
-        List<ConfiguracionPerfilModuloEntity> perfilModuloEntity = configuracionPerfilModuloDAO.obtenerListaPorIdPerfil(idPerfil);
+        List<ConfiguracionPerfilModuloEntity> perfilModuloEntity = configuracionPerfilModuloDAO
+                .obtenerListaPorIdPerfil(idPerfil);
 
         if (perfilModuloEntity != null && perfilModuloEntity.size() > 0) {
             for (ConfiguracionPerfilModuloEntity cpm : perfilModuloEntity) {

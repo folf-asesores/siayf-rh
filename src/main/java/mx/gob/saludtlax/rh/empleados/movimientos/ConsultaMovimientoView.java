@@ -99,7 +99,8 @@ public class ConsultaMovimientoView {
         return listaMovimientosHijos;
     }
 
-    public void setListaMovimientosHijos(List<SelectItem> listaMovimientosHijos) {
+    public void setListaMovimientosHijos(
+            List<SelectItem> listaMovimientosHijos) {
         this.listaMovimientosHijos = listaMovimientosHijos;
     }
 

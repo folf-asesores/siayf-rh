@@ -67,25 +67,35 @@ public class DireccionEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "DireccionEntity [idDireccionEmpleado=" + idDireccionEmpleado + ", calle=" + calle + ", numeroInterior=" + numeroInterior + ", numeroExterior="
-                + numeroExterior + ", codigoPostal=" + codigoPostal + ", estado=" + estado + ", municipio=" + municipio + ", asentamiento=" + asentamiento
-                + ", idEmpleado=" + idEmpleado + ", idAspirante=" + idAspirante + "]";
+        return "DireccionEntity [idDireccionEmpleado=" + idDireccionEmpleado
+                + ", calle=" + calle + ", numeroInterior=" + numeroInterior
+                + ", numeroExterior=" + numeroExterior + ", codigoPostal="
+                + codigoPostal + ", estado=" + estado + ", municipio="
+                + municipio + ", asentamiento=" + asentamiento + ", idEmpleado="
+                + idEmpleado + ", idAspirante=" + idAspirante + "]";
     }
 
     public String lccDomicilio() {
-        String lccDomicilio = "DomicilioDTO[calle=" + calle + ", numeroExterior=" + numeroExterior + ", numeroInterior=" + numeroInterior + ", codigoPostal="
-                + codigoPostal + ", idMunicipio=" + municipio.getIdMunicipio() + ", idAsentamiento=" + asentamiento.getIdAsentamiento() + "]";
+        String lccDomicilio = "DomicilioDTO[calle=" + calle
+                + ", numeroExterior=" + numeroExterior + ", numeroInterior="
+                + numeroInterior + ", codigoPostal=" + codigoPostal
+                + ", idMunicipio=" + municipio.getIdMunicipio()
+                + ", idAsentamiento=" + asentamiento.getIdAsentamiento() + "]";
         return lccDomicilio;
     }
 
     public String direccionCompleta() {
-        String direccionCompleta = "CALLE " + calle + " NO. EXT. " + numeroExterior;
+        String direccionCompleta = "CALLE " + calle + " NO. EXT. "
+                + numeroExterior;
         if (numeroInterior != null) {
-            direccionCompleta = direccionCompleta + " NO. INT. " + numeroInterior;
+            direccionCompleta = direccionCompleta + " NO. INT. "
+                    + numeroInterior;
         }
-        direccionCompleta = direccionCompleta + " " + asentamiento.getNombre().toUpperCase();
+        direccionCompleta = direccionCompleta + " "
+                + asentamiento.getNombre().toUpperCase();
         direccionCompleta = direccionCompleta + " C.P. " + codigoPostal;
-        direccionCompleta = direccionCompleta + ", " + municipio.getNombre().toUpperCase();
+        direccionCompleta = direccionCompleta + ", "
+                + municipio.getNombre().toUpperCase();
 
         return direccionCompleta;
     }

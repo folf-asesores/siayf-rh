@@ -65,18 +65,23 @@ public class EstrategiaController implements Serializable {
             estrategiaEJB.crear(view.getEstrategia());
             view.setEstrategia(new EstrategiaDTO());
             RequestContext.getCurrentInstance().update("dlgNuevaEstrategiaWV");
-            RequestContext.getCurrentInstance().execute("PF('dlgNuevaEstrategiaWV').hide()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgNuevaEstrategiaWV').hide()");
         } catch (ReglaNegocioException ex) {
-            if (ex.getCodigoError().equals(ReglaNegocioCodigoError.CODIGO_ESTRATEGIA_DUPLICADO)) {
+            if (ex.getCodigoError().equals(
+                    ReglaNegocioCodigoError.CODIGO_ESTRATEGIA_DUPLICADO)) {
                 FacesContext context = FacesContext.getCurrentInstance();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
                 context.addMessage("txtCodigo", facesMessage);
                 throw new ValidatorException(facesMessage);
             }
         } catch (ValidationException ex) {
-            if (ex.getCodigoError().equals(ValidacionCodigoError.NUMERO_NEGATIVO)) {
+            if (ex.getCodigoError()
+                    .equals(ValidacionCodigoError.NUMERO_NEGATIVO)) {
                 FacesContext context = FacesContext.getCurrentInstance();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
                 context.addMessage("txtCodigo", facesMessage);
                 throw new ValidatorException(facesMessage);
             }
@@ -86,7 +91,8 @@ public class EstrategiaController implements Serializable {
     public void actualizar() {
         estrategiaEJB.actualizar(view.getEstrategia());
         view.setEstrategia(new EstrategiaDTO());
-        RequestContext.getCurrentInstance().execute("PF('dlgEditarEstrategiaWV').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgEditarEstrategiaWV').hide()");
     }
 
     public void eliminar(int idCodigoEstrategia) {
@@ -95,31 +101,39 @@ public class EstrategiaController implements Serializable {
 
     public void cancelar() {
         view.setEstrategia(new EstrategiaDTO());
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevaEstrategiaWV').hide()");
-        RequestContext.getCurrentInstance().execute("PF('dlgEditarEstrategiaWV').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevaEstrategiaWV').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgEditarEstrategiaWV').hide()");
     }
 
-    public void validatorGuardar(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorGuardar(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
             case "txtCodigo":
 
                 if (value == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Valor invalido.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "", "Valor invalido.");
                     context.addMessage(nombreComponete, facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     Integer codigo = (Integer) value;
 
                     if (codigo < 1) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El código de la estrategia no puede ser negativo.");
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El código de la estrategia no puede ser negativo.");
                         context.addMessage(component.getId(), facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
 
                     if (estrategiaEJB.existeCodigoEstrategia(codigo)) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ya existe una estrategia con ese código.");
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Ya existe una estrategia con ese código.");
                         context.addMessage(nombreComponete, facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
@@ -129,14 +143,17 @@ public class EstrategiaController implements Serializable {
             case "txtDescripcion":
             case "txtDescripcionEditar":
                 if (value == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Valor invalido.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "", "Valor invalido.");
                     context.addMessage(nombreComponete, facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     String descripcion = (String) value;
 
                     if (ValidacionUtil.esCadenaVacia(descripcion)) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El campo no puede estar vacio.");
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El campo no puede estar vacio.");
                         context.addMessage(nombreComponete, facesMessage);
                         throw new ValidatorException(facesMessage);
                     }

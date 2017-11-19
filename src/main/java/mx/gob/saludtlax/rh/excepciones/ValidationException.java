@@ -26,7 +26,6 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback = true)
 public class ValidationException extends RuntimeException {
 
-    
     private static final long serialVersionUID = 4927904283939010719L;
 
     private CodigoError codigoError;
@@ -50,7 +49,8 @@ public class ValidationException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidationException(String message, ValidacionCodigoError codigoError) {
+    public ValidationException(String message,
+            ValidacionCodigoError codigoError) {
         super(message);
         this.codigoError = codigoError;
     }
@@ -65,7 +65,8 @@ public class ValidationException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidationException(String message, Throwable cause, ValidacionCodigoError codigoError) {
+    public ValidationException(String message, Throwable cause,
+            ValidacionCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -78,7 +79,8 @@ public class ValidationException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidationException(Throwable cause, ValidacionCodigoError codigoError) {
+    public ValidationException(Throwable cause,
+            ValidacionCodigoError codigoError) {
         super(cause);
         this.codigoError = codigoError;
     }
@@ -152,7 +154,8 @@ public class ValidationException extends RuntimeException {
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero()
+                        + ":" + codigoError.getClass().getName());
             }
 
             for (String key : propiedades.keySet()) {

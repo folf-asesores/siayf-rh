@@ -45,8 +45,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 09/05/2016 16:54:38
  */
@@ -131,7 +131,8 @@ public class MovimientosFijosController implements Serializable {
     public void init() {
         //		listaMovimientosNomina = new ArrayList<>();
         //		listaMovimientosNomina = tipoMovimientosNominaEJB.obtenerListaMovimientos();
-        listaConceptos = SelectItemsUtil.listaCatalogos(catalogosEJB.tercerosInstitucionales());
+        listaConceptos = SelectItemsUtil
+                .listaCatalogos(catalogosEJB.tercerosInstitucionales());
         //itemsTiposMov.clear();
         //		for (TipoMovimientoNominaDTO dto : listaMovimientosNomina) {
         //			itemsTiposMov
@@ -141,11 +142,16 @@ public class MovimientosFijosController implements Serializable {
         for (int i = 1; i <= 24; i++) {
             quincenas.add(new SelectItem(i, "Quincena-" + i));
         }
-        MovimientosController beanMovimientos = (MovimientosController) JSFUtils.getManagedBean("movimientos");
-        tipoMovimientoDTOSeleccionado = tipoMovimientosNominaEJB.obtenerTipoMovimientoPorClave(beanMovimientos.getView().getClaveMovimiento());
-        empleadoSeleccionado = beanMovimientos.getView().getEmpleadoSeleccionado();
+        MovimientosController beanMovimientos = (MovimientosController) JSFUtils
+                .getManagedBean("movimientos");
+        tipoMovimientoDTOSeleccionado = tipoMovimientosNominaEJB
+                .obtenerTipoMovimientoPorClave(
+                        beanMovimientos.getView().getClaveMovimiento());
+        empleadoSeleccionado = beanMovimientos.getView()
+                .getEmpleadoSeleccionado();
         if (empleadoSeleccionado != null) {
-            newMovimientoFijoDTO.setIdEmpleado(empleadoSeleccionado.getIdEmpleado());
+            newMovimientoFijoDTO
+                    .setIdEmpleado(empleadoSeleccionado.getIdEmpleado());
         }
     }
 
@@ -163,21 +169,26 @@ public class MovimientosFijosController implements Serializable {
     public String iraFormulario() {
 
         Integer valTipoMovimientoSeleccionado = 2;
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(true);
 
-        TipoMovimientoNominaDTO tipoMovimientoNominaDTO = tipoMovimientosNominaEJB.obtenerTipoMovimientoPorId(valTipoMovimientoSeleccionado);
+        TipoMovimientoNominaDTO tipoMovimientoNominaDTO = tipoMovimientosNominaEJB
+                .obtenerTipoMovimientoPorId(valTipoMovimientoSeleccionado);
         session.setAttribute("idTipoMovimientoNomina", tipoMovimientoNominaDTO);
         String url = "";
         if (tipoMovimientoNominaDTO.getFormaRegistro().compareTo(1) == 0) {
             // redirecciona a movimientos fijos
             url = "/contenido/nomina/movimientos/movimientosfijos.xhtml";
-        } else if (tipoMovimientoNominaDTO.getFormaRegistro().compareTo(2) == 0) {
+        } else if (tipoMovimientoNominaDTO.getFormaRegistro()
+                .compareTo(2) == 0) {
             // redireccion a movimientos importe
             url = "/contenido/nomina/movimientos/movimientoImporte.xhtml";
-        } else if (tipoMovimientoNominaDTO.getFormaRegistro().compareTo(3) == 0) {
+        } else if (tipoMovimientoNominaDTO.getFormaRegistro()
+                .compareTo(3) == 0) {
             // redireccion a movimientos dias
             url = "/contenido/nomina/movimientos/movimientosDias.xhtml";
-        } else if (tipoMovimientoNominaDTO.getFormaRegistro().compareTo(4) == 0) {
+        } else if (tipoMovimientoNominaDTO.getFormaRegistro()
+                .compareTo(4) == 0) {
             // redireccion a movimientos permanentes
             url = "/contenido/nomina/movimientos/movimientoPermanente.xhtml";
         }
@@ -188,9 +199,11 @@ public class MovimientosFijosController implements Serializable {
 
     public void cargarCatalogo() {
         //this.listaNombramientos = SelectItemsUtil.listaCatalogos(catalogosEJB.nombramientos());
-        listaConceptos = SelectItemsUtil.listaCatalogos(catalogosEJB.tercerosInstitucionales());
+        listaConceptos = SelectItemsUtil
+                .listaCatalogos(catalogosEJB.tercerosInstitucionales());
         List<MovimientoNominaDTO> movimientosList = new ArrayList<>();
-        movimientosList = movimientoFijoService.obtenerMovimientosPorEmpleado(empleadoSeleccionado.getIdEmpleado());
+        movimientosList = movimientoFijoService.obtenerMovimientosPorEmpleado(
+                empleadoSeleccionado.getIdEmpleado());
         listaMovimientos.clear();
         listaMovimientos.addAll(movimientosList);
     }
@@ -198,11 +211,13 @@ public class MovimientosFijosController implements Serializable {
     public void procesarArchivo() {
 
         if (file.getSize() == 0) {
-            JSFUtils.errorMessage("", "Debe seleccionar el archivo antes de intentar cargarlo.");
+            JSFUtils.errorMessage("",
+                    "Debe seleccionar el archivo antes de intentar cargarlo.");
         } else {
             try {
 
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(file.getInputstream()));
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(file.getInputstream()));
 
                 String lineaTemporal;
                 lineaTemporal = bufferedReader.readLine();
@@ -212,13 +227,18 @@ public class MovimientosFijosController implements Serializable {
                 while (lineaTemporal != null) {
                     ArchivoDTO datosArchivo = new ArchivoDTO();
 
-                    datosArchivo.setAnio(new Integer(lineaTemporal.substring(32, 36)));
+                    datosArchivo.setAnio(
+                            new Integer(lineaTemporal.substring(32, 36)));
                     datosArchivo.setCapitulo(lineaTemporal.substring(21, 24));
-                    datosArchivo.setClave_partida(lineaTemporal.substring(38, 40));
-                    datosArchivo.setMonto(new BigDecimal(lineaTemporal.substring(24, 32)));
-                    datosArchivo.setNumero_quincena(new Integer(lineaTemporal.substring(36, 38)));
+                    datosArchivo
+                            .setClave_partida(lineaTemporal.substring(38, 40));
+                    datosArchivo.setMonto(
+                            new BigDecimal(lineaTemporal.substring(24, 32)));
+                    datosArchivo.setNumero_quincena(
+                            new Integer(lineaTemporal.substring(36, 38)));
                     datosArchivo.setRfc(lineaTemporal.substring(0, 13));
-                    datosArchivo.setTipo_movimiento(lineaTemporal.substring(42, 43));
+                    datosArchivo.setTipo_movimiento(
+                            lineaTemporal.substring(42, 43));
 
                     numeroLineaActual++;
                     lineaTemporal = bufferedReader.readLine();
@@ -230,34 +250,48 @@ public class MovimientosFijosController implements Serializable {
                     newMovimientoFijoDTO = new MovimientoNominaDTO();
                     empleadoSeleccionado = null;
                     try {
-                        List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(dto.getRfc());
+                        List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB
+                                .consultaPorCriterio(dto.getRfc());
 
                         if (!listaEmpleados.isEmpty()) {
                             setEmpleadoLista(listaEmpleados);
                             empleadoSeleccionado = listaEmpleados.get(0);
                         } else {
-                            newMovimientoFijoDTO.setStatusRegistro("No se encontro a ningun empleado relasionado al RFC, este registro no se guardará");
+                            newMovimientoFijoDTO.setStatusRegistro(
+                                    "No se encontro a ningun empleado relasionado al RFC, este registro no se guardará");
                         }
 
                     } catch (NoResultException e) {
 
-                        System.out.println("No se encontro el empleado: " + dto.getRfc());
+                        System.out.println(
+                                "No se encontro el empleado: " + dto.getRfc());
                     }
 
                     TerceroInstitucionalDTO teroInsDto = new TerceroInstitucionalDTO();
-                    System.out.println("terceros: " + dto.getCapitulo() + " - " + dto.getClave_partida());
-                    teroInsDto = terceroInstitucional.obtenerporClave(dto.getCapitulo(), dto.getClave_partida());
+                    System.out.println("terceros: " + dto.getCapitulo() + " - "
+                            + dto.getClave_partida());
+                    teroInsDto = terceroInstitucional.obtenerporClave(
+                            dto.getCapitulo(), dto.getClave_partida());
                     newMovimientoFijoDTO.setAnioFinal(dto.getAnio());
-                    newMovimientoFijoDTO.setAnyoOperacion(FechaUtil.ejercicioActual());
-                    newMovimientoFijoDTO.setIdTerceroInstitucional(teroInsDto.getIdTerceroInstitucional());
-                    newMovimientoFijoDTO.setTerceroInstitucional(teroInsDto.getConceptoDeduccion());
+                    newMovimientoFijoDTO
+                            .setAnyoOperacion(FechaUtil.ejercicioActual());
+                    newMovimientoFijoDTO.setIdTerceroInstitucional(
+                            teroInsDto.getIdTerceroInstitucional());
+                    newMovimientoFijoDTO.setTerceroInstitucional(
+                            teroInsDto.getConceptoDeduccion());
                     newMovimientoFijoDTO.setImporteDescontado(dto.getMonto());
                     newMovimientoFijoDTO.setQuincenaInicial(0);
-                    newMovimientoFijoDTO.setAnioInicial(FechaUtil.ejercicioActual());
+                    newMovimientoFijoDTO
+                            .setAnioInicial(FechaUtil.ejercicioActual());
                     newMovimientoFijoDTO.setRfc(dto.getRfc());
-                    newMovimientoFijoDTO.setQuincenaFinal(dto.getNumero_quincena());
-                    newMovimientoFijoDTO.setIdEmpleado(empleadoSeleccionado != null ? empleadoSeleccionado.getIdEmpleado() : null);
-                    newMovimientoFijoDTO.setIdTipoMovimiento(tipoMovNominaSeleccionado);
+                    newMovimientoFijoDTO
+                            .setQuincenaFinal(dto.getNumero_quincena());
+                    newMovimientoFijoDTO
+                            .setIdEmpleado(empleadoSeleccionado != null
+                                    ? empleadoSeleccionado.getIdEmpleado()
+                                    : null);
+                    newMovimientoFijoDTO
+                            .setIdTipoMovimiento(tipoMovNominaSeleccionado);
                     newMovimientoFijoDTO.setEstatus(true);
                     if (dto.getTipo_movimiento().contains("A")) {
                         newMovimientoFijoDTO.setTipoMovimiento("alta");
@@ -290,9 +324,13 @@ public class MovimientosFijosController implements Serializable {
                 agregarMovimiento();
             }
             if (dto.getTipoMovimiento().contains("edicion")) {
-                MovimientoNominaDTO movEdicion = movimientoFijoService.obtenerMovimientoPorDatosArchivo(dto);
+                MovimientoNominaDTO movEdicion = movimientoFijoService
+                        .obtenerMovimientoPorDatosArchivo(dto);
                 if (movEdicion == null) {
-                    JSFUtils.errorMessage("El movimiento no se encuentra en bd para ser editado" + dto.getRfc(), null);
+                    JSFUtils.errorMessage(
+                            "El movimiento no se encuentra en bd para ser editado"
+                                    + dto.getRfc(),
+                            null);
                     continue;
                 }
             }
@@ -303,7 +341,8 @@ public class MovimientosFijosController implements Serializable {
     }
 
     public void handleFileUpload(FileUploadEvent event) {
-        FacesMessage message = new FacesMessage("Succesful", event.getFile().getFileName() + " is uploaded.");
+        FacesMessage message = new FacesMessage("Succesful",
+                event.getFile().getFileName() + " is uploaded.");
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
@@ -312,29 +351,34 @@ public class MovimientosFijosController implements Serializable {
 
         if (quincenaInicial.compareTo(25) == 0) {
             newMovimientoFijoDTO.setQuincenaInicial(1);
-            newMovimientoFijoDTO.setAnioInicial(FechaUtil.ejercicioActual() + 1);
+            newMovimientoFijoDTO
+                    .setAnioInicial(FechaUtil.ejercicioActual() + 1);
         } else {
             newMovimientoFijoDTO.setQuincenaInicial(quincenaInicial);
             newMovimientoFijoDTO.setAnioInicial(FechaUtil.ejercicioActual());
         }
         if (!quincenaCerrada) {
-            newMovimientoFijoDTO.setStatusRegistro("Registro creado correctamente.");
+            newMovimientoFijoDTO
+                    .setStatusRegistro("Registro creado correctamente.");
 
             if (newMovimientoFijoDTO.getIdEmpleado() != null) {
                 newMovimientoFijoDTO.setEstatus(true);
                 movimientoFijoService.crear(newMovimientoFijoDTO);
-                JSFUtils.infoMessage("Exito:", "El movimiento se registro correctamente.");
+                JSFUtils.infoMessage("Exito:",
+                        "El movimiento se registro correctamente.");
                 movimientosProcesados.add(newMovimientoFijoDTO);
             }
         } else {
-            newMovimientoFijoDTO.setStatusRegistro("La quincnea para este empleado se encuentra cerrada, el registro no se guardo.");
+            newMovimientoFijoDTO.setStatusRegistro(
+                    "La quincnea para este empleado se encuentra cerrada, el registro no se guardo.");
             movimientosProcesados.add(newMovimientoFijoDTO);
         }
         newMovimientoFijoDTO = new MovimientoNominaDTO();
         //cargarCatalogo();
     }
 
-    public void validator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validator(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -343,7 +387,8 @@ public class MovimientosFijosController implements Serializable {
                 Integer dias = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(dias)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el numero de dias, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -355,7 +400,8 @@ public class MovimientosFijosController implements Serializable {
                 String folio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(folio)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el folio del documento, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -365,9 +411,12 @@ public class MovimientosFijosController implements Serializable {
             case "anioFinal":
                 Integer anioFinal = (Integer) value;
 
-                if (!ValidacionUtil.esNumeroPositivo(anioFinal) || anioFinal.compareTo(2015) < 0) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-                            "Por favor ingrese el año final, debe ser mayor a" + (FechaUtil.ejercicioActual() - 1) + ".");
+                if (!ValidacionUtil.esNumeroPositivo(anioFinal)
+                        || anioFinal.compareTo(2015) < 0) {
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el año final, debe ser mayor a"
+                                    + (FechaUtil.ejercicioActual() - 1) + ".");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -375,7 +424,9 @@ public class MovimientosFijosController implements Serializable {
             case "importeQuincenal":
                 BigDecimal importeQuincenal = (BigDecimal) value;
                 if (!ValidacionUtil.esNumeroPositivo(importeQuincenal)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El importe debe ser mayor a 0.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El importe debe ser mayor a 0.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -384,7 +435,9 @@ public class MovimientosFijosController implements Serializable {
                 Integer concepto = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(concepto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Eliga un concepto para el movimiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Eliga un concepto para el movimiento.");
                     System.out.println("concepto::" + concepto);
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -401,11 +454,13 @@ public class MovimientosFijosController implements Serializable {
     public void editarRegistro() {
         try {
             movimientoFijoService.editar(movimientoSeleccionado);
-            newMovimientoFijoDTO.setStatusRegistro("El registro se edito correctamente.");
+            newMovimientoFijoDTO
+                    .setStatusRegistro("El registro se edito correctamente.");
             movimientosProcesados.add(newMovimientoFijoDTO);
             movimientoSeleccionado = newMovimientoFijoDTO;
             //	cargarCatalogo();
-            FacesMessage msg = new FacesMessage("Actualizado:", "Registro Actualizado correctamentee");
+            FacesMessage msg = new FacesMessage("Actualizado:",
+                    "Registro Actualizado correctamentee");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -421,7 +476,9 @@ public class MovimientosFijosController implements Serializable {
             MovimientoNominaDTO mov = ((MovimientoNominaDTO) event.getObject());
             movimientoFijoService.editar(mov);
 
-            FacesMessage msg = new FacesMessage("Actualizado:", ((MovimientoNominaDTO) event.getObject()).getTerceroInstitucional());
+            FacesMessage msg = new FacesMessage("Actualizado:",
+                    ((MovimientoNominaDTO) event.getObject())
+                            .getTerceroInstitucional());
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -431,17 +488,21 @@ public class MovimientosFijosController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion Cancelada:", ((MovimientoNominaDTO) event.getObject()).getTerceroInstitucional());
+        FacesMessage msg = new FacesMessage("Edicion Cancelada:",
+                ((MovimientoNominaDTO) event.getObject())
+                        .getTerceroInstitucional());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void buscarEmpleados() {
 
         if (criterio == null) {
-            JSFUtils.errorMessage("Movimientos Fijos: ", "El criterio es necesario");
+            JSFUtils.errorMessage("Movimientos Fijos: ",
+                    "El criterio es necesario");
         } else {
 
-            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(criterio);
+            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB
+                    .consultaPorCriterio(criterio);
 
             mostrarTablaEmpleados = true;
 
@@ -459,7 +520,8 @@ public class MovimientosFijosController implements Serializable {
         panelMovimientosFijos = Boolean.TRUE;
 
         this.empleadoSeleccionado = empleadoSeleccionado;
-        empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado());
+        empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(
+                empleadoSeleccionado.getIdEmpleado());
         //cargarCatalogo();
         buscarPeriodosInicio(empleadoSeleccionado.getIdEmpleado());
 
@@ -468,11 +530,15 @@ public class MovimientosFijosController implements Serializable {
     public void buscarPeriodosInicio(Integer idEmpleado) {
         quincenaCerrada = false;
         permitirAltaMovimiento = false;
-        idNominaEmpleado = nominaEmpleadoService.obntenerNominaActivaPorEmpleado(idEmpleado);
-        quincenaInicial = movimientoFijoService.numeroQuincena(4, FechaUtil.ejercicioActual(), FechaUtil.fechaActualSinHora());
+        idNominaEmpleado = nominaEmpleadoService
+                .obntenerNominaActivaPorEmpleado(idEmpleado);
+        quincenaInicial = movimientoFijoService.numeroQuincena(4,
+                FechaUtil.ejercicioActual(), FechaUtil.fechaActualSinHora());
         if (idNominaEmpleado == null) {
             JSFUtils.errorMessage("Atencion:",
-                    "La nomina ya no se encuentra activa, " + "por lo que no se podra dar de alta el movimiento del empleado " + empleadoSeleccionado.getRfc());
+                    "La nomina ya no se encuentra activa, "
+                            + "por lo que no se podra dar de alta el movimiento del empleado "
+                            + empleadoSeleccionado.getRfc());
             quincenaInicial = quincenaInicial + 1;
             // habilita el boton
             permitirAltaMovimiento = true;
@@ -481,13 +547,15 @@ public class MovimientosFijosController implements Serializable {
         } else {
             if (quincenaInicial.compareTo(0) == 0) {
                 quincenaCerrada = true;
-                JSFUtils.warningMessage("", "No se encuentra registrado el periodo para los datos enviados.");
+                JSFUtils.warningMessage("",
+                        "No se encuentra registrado el periodo para los datos enviados.");
             }
         }
     }
 
     public String irInicio() {
-        MovimientosController beanMovimientos = (MovimientosController) JSFUtils.getManagedBean("movimientos");
+        MovimientosController beanMovimientos = (MovimientosController) JSFUtils
+                .getManagedBean("movimientos");
         beanMovimientos.cargarMivimientosPorEmpleado();
         return "/contenido/nomina/movimientos/index.xhtml?faces-config=true";
     }
@@ -633,7 +701,8 @@ public class MovimientosFijosController implements Serializable {
         return listaMovimientos;
     }
 
-    public void setListaMovimientos(List<MovimientoNominaDTO> listaMovimientos) {
+    public void setListaMovimientos(
+            List<MovimientoNominaDTO> listaMovimientos) {
         this.listaMovimientos = listaMovimientos;
     }
 
@@ -641,7 +710,8 @@ public class MovimientosFijosController implements Serializable {
         return newMovimientoFijoDTO;
     }
 
-    public void setNewMovimientoFijoDTO(MovimientoNominaDTO newMovimientoFijoDTO) {
+    public void setNewMovimientoFijoDTO(
+            MovimientoNominaDTO newMovimientoFijoDTO) {
         this.newMovimientoFijoDTO = newMovimientoFijoDTO;
     }
 
@@ -649,7 +719,8 @@ public class MovimientosFijosController implements Serializable {
         return movimientoSeleccionado;
     }
 
-    public void setMovimientoSeleccionado(MovimientoNominaDTO movimientoSeleccionado) {
+    public void setMovimientoSeleccionado(
+            MovimientoNominaDTO movimientoSeleccionado) {
         this.movimientoSeleccionado = movimientoSeleccionado;
     }
 
@@ -705,7 +776,8 @@ public class MovimientosFijosController implements Serializable {
         return listaMovimientosNomina;
     }
 
-    public void setListaMovimientosNomina(List<TipoMovimientoNominaDTO> listaMovimientosNomina) {
+    public void setListaMovimientosNomina(
+            List<TipoMovimientoNominaDTO> listaMovimientosNomina) {
         this.listaMovimientosNomina = listaMovimientosNomina;
     }
 
@@ -721,7 +793,8 @@ public class MovimientosFijosController implements Serializable {
         return tipoMovNominaSeleccionado;
     }
 
-    public void setTipoMovNominaSeleccionado(Integer tipoMovNominaSeleccionado) {
+    public void setTipoMovNominaSeleccionado(
+            Integer tipoMovNominaSeleccionado) {
         this.tipoMovNominaSeleccionado = tipoMovNominaSeleccionado;
     }
 
@@ -761,7 +834,8 @@ public class MovimientosFijosController implements Serializable {
         return tipoMovimientoDTOSeleccionado;
     }
 
-    public void setTipoMovimientoDTOSeleccionado(TipoMovimientoNominaDTO tipoMovimientoDTOSeleccionado) {
+    public void setTipoMovimientoDTOSeleccionado(
+            TipoMovimientoNominaDTO tipoMovimientoDTOSeleccionado) {
         this.tipoMovimientoDTOSeleccionado = tipoMovimientoDTOSeleccionado;
     }
 
@@ -769,7 +843,8 @@ public class MovimientosFijosController implements Serializable {
         return mostrarPanelImportacionMasiva;
     }
 
-    public void setMostrarPanelImportacionMasiva(Boolean mostrarPanelImportacionMasiva) {
+    public void setMostrarPanelImportacionMasiva(
+            Boolean mostrarPanelImportacionMasiva) {
         this.mostrarPanelImportacionMasiva = mostrarPanelImportacionMasiva;
     }
 
@@ -777,7 +852,8 @@ public class MovimientosFijosController implements Serializable {
         return listaMovimientoArchivo;
     }
 
-    public void setListaMovimientoArchivo(List<MovimientoNominaDTO> listaMovimientoArchivo) {
+    public void setListaMovimientoArchivo(
+            List<MovimientoNominaDTO> listaMovimientoArchivo) {
         this.listaMovimientoArchivo = listaMovimientoArchivo;
     }
 
@@ -785,7 +861,8 @@ public class MovimientosFijosController implements Serializable {
         return movimientosProcesados;
     }
 
-    public void setMovimientosProcesados(List<MovimientoNominaDTO> movimientosProcesados) {
+    public void setMovimientosProcesados(
+            List<MovimientoNominaDTO> movimientosProcesados) {
         this.movimientosProcesados = movimientosProcesados;
     }
 
@@ -801,7 +878,8 @@ public class MovimientosFijosController implements Serializable {
         return mostrarTablaResultCargaInfo;
     }
 
-    public void setMostrarTablaResultCargaInfo(Boolean mostrarTablaResultCargaInfo) {
+    public void setMostrarTablaResultCargaInfo(
+            Boolean mostrarTablaResultCargaInfo) {
         this.mostrarTablaResultCargaInfo = mostrarTablaResultCargaInfo;
     }
 

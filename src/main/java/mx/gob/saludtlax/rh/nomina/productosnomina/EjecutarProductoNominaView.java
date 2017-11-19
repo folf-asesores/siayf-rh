@@ -111,7 +111,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return fuenteFinanciamientoList;
     }
 
-    public void setFuenteFinanciamientoList(List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoList) {
+    public void setFuenteFinanciamientoList(
+            List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoList) {
         this.fuenteFinanciamientoList = fuenteFinanciamientoList;
     }
 
@@ -119,7 +120,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return subfuenteFinanciamientoList;
     }
 
-    public void setSubfuenteFinanciamientoList(List<SubfuenteFinanciamientoDTO> subfuenteFinanciamientoList) {
+    public void setSubfuenteFinanciamientoList(
+            List<SubfuenteFinanciamientoDTO> subfuenteFinanciamientoList) {
         this.subfuenteFinanciamientoList = subfuenteFinanciamientoList;
     }
 
@@ -127,7 +129,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return nominaEmpleadoList;
     }
 
-    public void setNominaEmpleadoList(List<NominaEmpleadoDTO> nominaEmpleadoList) {
+    public void setNominaEmpleadoList(
+            List<NominaEmpleadoDTO> nominaEmpleadoList) {
         this.nominaEmpleadoList = nominaEmpleadoList;
     }
 
@@ -135,7 +138,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return estatusProductoNominaLista;
     }
 
-    public void setEstatusProductoNominaLista(List<EstatusProductoNominaDTO> estatusProductoNominaLista) {
+    public void setEstatusProductoNominaLista(
+            List<EstatusProductoNominaDTO> estatusProductoNominaLista) {
         this.estatusProductoNominaLista = estatusProductoNominaLista;
     }
 
@@ -151,7 +155,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return cuentaBancariaList;
     }
 
-    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+    public void setCuentaBancariaList(
+            List<CuentaBancariaDTO> cuentaBancariaList) {
         this.cuentaBancariaList = cuentaBancariaList;
     }
 
@@ -167,7 +172,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return pensionesNominaList;
     }
 
-    public void setPensionesNominaList(List<PensionesNominaDTO> pensionesNominaList) {
+    public void setPensionesNominaList(
+            List<PensionesNominaDTO> pensionesNominaList) {
         this.pensionesNominaList = pensionesNominaList;
     }
 
@@ -191,7 +197,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return nominaEmpleadoSelect;
     }
 
-    public void setNominaEmpleadoSelect(NominaEmpleadoDTO nominaEmpleadoSelect) {
+    public void setNominaEmpleadoSelect(
+            NominaEmpleadoDTO nominaEmpleadoSelect) {
         this.nominaEmpleadoSelect = nominaEmpleadoSelect;
     }
 
@@ -199,7 +206,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return conceptosNominaSelect;
     }
 
-    public void setConceptosNominaSelect(ConceptosNominaEmpleadosDTO conceptosNominaSelect) {
+    public void setConceptosNominaSelect(
+            ConceptosNominaEmpleadosDTO conceptosNominaSelect) {
         this.conceptosNominaSelect = conceptosNominaSelect;
     }
 
@@ -223,7 +231,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return panelDetalleGestionFaltas;
     }
 
-    public void setPanelDetalleGestionFaltas(Boolean panelDetalleGestionFaltas) {
+    public void setPanelDetalleGestionFaltas(
+            Boolean panelDetalleGestionFaltas) {
         this.panelDetalleGestionFaltas = panelDetalleGestionFaltas;
     }
 
@@ -239,7 +248,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return faltasGestionar;
     }
 
-    public void setFaltasGestionar(DualListModel<FaltaContadaDTO> faltasGestionar) {
+    public void setFaltasGestionar(
+            DualListModel<FaltaContadaDTO> faltasGestionar) {
         this.faltasGestionar = faltasGestionar;
     }
 
@@ -271,7 +281,8 @@ public class EjecutarProductoNominaView implements Serializable {
         return habilitarOpcionAutorizado;
     }
 
-    public void setHabilitarOpcionAutorizado(boolean habilitarOpcionAutorizado) {
+    public void setHabilitarOpcionAutorizado(
+            boolean habilitarOpcionAutorizado) {
         this.habilitarOpcionAutorizado = habilitarOpcionAutorizado;
     }
 

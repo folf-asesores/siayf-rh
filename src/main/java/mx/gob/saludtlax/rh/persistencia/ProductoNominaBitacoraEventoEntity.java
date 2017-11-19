@@ -79,10 +79,14 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
     }
 
     public ProductoNominaBitacoraEventoEntity(Integer idEvento) {
-        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION, Calendar.getInstance().getTime(), Calendar.getInstance().getTime());
+        this(0, AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                Calendar.getInstance().getTime(),
+                Calendar.getInstance().getTime());
     }
 
-    public ProductoNominaBitacoraEventoEntity(Integer idEvento, AperturaNominaRfcBitacoraCategoria categoria, Date fecha, Date hora) {
+    public ProductoNominaBitacoraEventoEntity(Integer idEvento,
+            AperturaNominaRfcBitacoraCategoria categoria, Date fecha,
+            Date hora) {
         this.idEvento = idEvento;
         this.categoria = categoria;
         this.fecha = fecha;
@@ -139,8 +143,10 @@ public class ProductoNominaBitacoraEventoEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductosNominaBitacorasEventosEntity{" + "idEvento=" + idEvento + ", categoria=" + categoria + ", fecha=" + fecha + ", hora=" + hora
-                + ", mensaje=" + mensaje + ", idBitacora=" + bitacora + '}';
+        return "ProductosNominaBitacorasEventosEntity{" + "idEvento=" + idEvento
+                + ", categoria=" + categoria + ", fecha=" + fecha + ", hora="
+                + hora + ", mensaje=" + mensaje + ", idBitacora=" + bitacora
+                + '}';
     }
 
     @Override

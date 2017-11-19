@@ -20,7 +20,8 @@ public class ProgramaDTOBuilder {
     private Date finPeriodo;
     private Map<String, UnidadResponsableDTO> unidadesResponsables;
 
-    public ProgramaDTOBuilder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
+    public ProgramaDTOBuilder(Integer idPrograma, String programa,
+            Date inicioPeriodo, Date finPeriodo) {
         this.idPrograma = idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
@@ -48,12 +49,14 @@ public class ProgramaDTOBuilder {
         return this;
     }
 
-    public ProgramaDTOBuilder setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
+    public ProgramaDTOBuilder setUnidadesResponsables(
+            Map<String, UnidadResponsableDTO> unidadesResponsables) {
         this.unidadesResponsables = unidadesResponsables;
         return this;
     }
 
     public ProgramaDTO createProgramaDTO() {
-        return new ProgramaDTO(idPrograma, programa, inicioPeriodo, finPeriodo, unidadesResponsables);
+        return new ProgramaDTO(idPrograma, programa, inicioPeriodo, finPeriodo,
+                unidadesResponsables);
     }
 }

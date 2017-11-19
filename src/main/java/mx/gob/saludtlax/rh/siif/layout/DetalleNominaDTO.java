@@ -14,8 +14,9 @@ public class DetalleNominaDTO {
     public DetalleNominaDTO() {
     }
 
-    public DetalleNominaDTO(Integer idDetalleNomina, Integer idNomina, Integer idEmpleadoDatosLaborales, String idConceptoNomina, BigDecimal importe,
-            Character idOrigenCalculo) {
+    public DetalleNominaDTO(Integer idDetalleNomina, Integer idNomina,
+            Integer idEmpleadoDatosLaborales, String idConceptoNomina,
+            BigDecimal importe, Character idOrigenCalculo) {
         this.idDetalleNomina = idDetalleNomina;
         this.idNomina = idNomina;
         this.idEmpleadoDatosLaborales = idEmpleadoDatosLaborales;

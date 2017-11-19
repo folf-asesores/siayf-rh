@@ -12,7 +12,7 @@ import java.util.Map;
  * Esta interfaz describe el mecanismo para generar el reporte.
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public interface Generador {
 

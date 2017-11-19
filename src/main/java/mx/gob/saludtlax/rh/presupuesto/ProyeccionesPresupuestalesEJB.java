@@ -21,9 +21,11 @@ public class ProyeccionesPresupuestalesEJB {
         return tipoNombramientoService.listaNombramiento();
     }
 
-    public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(Integer anio) throws ReglaNegocioException {
+    public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(
+            Integer anio) throws ReglaNegocioException {
 
-        return proyeccionesPresupuestalesService.proyeccionesPresupuestales(anio);
+        return proyeccionesPresupuestalesService
+                .proyeccionesPresupuestales(anio);
     }
 
     //    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento)
@@ -32,12 +34,17 @@ public class ProyeccionesPresupuestalesEJB {
     //        return proyeccionesPresupuestalesService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
     //    }
 
-    public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(Integer anioPresupuesto, Integer idTipoNombramiento) {
-        return proyeccionesPresupuestalesService.obtenerProyeccionesMensuales(anioPresupuesto, idTipoNombramiento);
+    public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(
+            Integer anioPresupuesto, Integer idTipoNombramiento) {
+        return proyeccionesPresupuestalesService.obtenerProyeccionesMensuales(
+                anioPresupuesto, idTipoNombramiento);
     }
 
-    public void guardarProyeccion(ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
-        proyeccionPresupuestal = proyeccionesPresupuestalesService.proyectar(proyeccionPresupuestal);
-        proyeccionesPresupuestalesService.guardarProyeccion(proyeccionPresupuestal);
+    public void guardarProyeccion(
+            ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
+        proyeccionPresupuestal = proyeccionesPresupuestalesService
+                .proyectar(proyeccionPresupuestal);
+        proyeccionesPresupuestalesService
+                .guardarProyeccion(proyeccionPresupuestal);
     }
 }

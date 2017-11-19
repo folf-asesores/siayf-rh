@@ -284,11 +284,18 @@ public class FirmaPojo {
 
     @Override
     public String toString() {
-        return "FirmaPojo{" + "idProductoNomina : " + idProductoNomina + ", idPrograma : " + idPrograma + ", programa : " + programa + ", clave : " + clave
-                + ", descripcion : " + descripcion + ", fechaPago : " + fechaPago + ", filiacion : " + filiacion + ", nombre : " + nombre + ", inicioPeriodo : "
-                + inicioPeriodo + ", finPeriodo : " + finPeriodo + ", numeroCheque : " + numeroCheque + ", neto : " + neto + ", consecutivo : " + consecutivo
-                + ", jefe1Nombre : " + jefe1Nombre + ", jefe1Cargo : " + jefe1Cargo + ", jefe2Nombre : " + jefe2Nombre + ", jefe2Cargo : " + jefe2Cargo
-                + ", jefe3Nombre : " + jefe3Nombre + ", jefe3Cargo : " + jefe3Cargo + '}';
+        return "FirmaPojo{" + "idProductoNomina : " + idProductoNomina
+                + ", idPrograma : " + idPrograma + ", programa : " + programa
+                + ", clave : " + clave + ", descripcion : " + descripcion
+                + ", fechaPago : " + fechaPago + ", filiacion : " + filiacion
+                + ", nombre : " + nombre + ", inicioPeriodo : " + inicioPeriodo
+                + ", finPeriodo : " + finPeriodo + ", numeroCheque : "
+                + numeroCheque + ", neto : " + neto + ", consecutivo : "
+                + consecutivo + ", jefe1Nombre : " + jefe1Nombre
+                + ", jefe1Cargo : " + jefe1Cargo + ", jefe2Nombre : "
+                + jefe2Nombre + ", jefe2Cargo : " + jefe2Cargo
+                + ", jefe3Nombre : " + jefe3Nombre + ", jefe3Cargo : "
+                + jefe3Cargo + '}';
     }
 
 }

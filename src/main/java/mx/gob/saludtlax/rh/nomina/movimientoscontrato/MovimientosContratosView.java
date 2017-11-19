@@ -137,7 +137,8 @@ public class MovimientosContratosView {
         return movimientoContratos;
     }
 
-    public void setMovimientoContratos(MovimientoContratosDTO movimientoContratos) {
+    public void setMovimientoContratos(
+            MovimientoContratosDTO movimientoContratos) {
         this.movimientoContratos = movimientoContratos;
     }
 
@@ -145,7 +146,8 @@ public class MovimientosContratosView {
         return movimientoContratosLista;
     }
 
-    public void setMovimientoContratosLista(List<MovimientoContratosDTO> movimientoContratosLista) {
+    public void setMovimientoContratosLista(
+            List<MovimientoContratosDTO> movimientoContratosLista) {
         this.movimientoContratosLista = movimientoContratosLista;
     }
 
@@ -161,7 +163,8 @@ public class MovimientosContratosView {
         return listaConceptos;
     }
 
-    public void setListaConceptos(List<ConceptoNominaContratosDTO> listaConceptos) {
+    public void setListaConceptos(
+            List<ConceptoNominaContratosDTO> listaConceptos) {
         this.listaConceptos = listaConceptos;
     }
 
@@ -193,7 +196,8 @@ public class MovimientosContratosView {
         return productoNominaLista;
     }
 
-    public void setProductoNominaLista(List<ProductoNominaDTO> productoNominaLista) {
+    public void setProductoNominaLista(
+            List<ProductoNominaDTO> productoNominaLista) {
         this.productoNominaLista = productoNominaLista;
     }
 

@@ -10,12 +10,13 @@ import javax.persistence.NonUniqueResultException;
 import mx.gob.saludtlax.rh.excepciones.BusinessException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @since 27/06/2016 18:13:56
  * @version 1.0
-
+ * 
  */
-public class ExpedienteAspiranteRepository extends GenericRepository<ExpedienteAspiranteEntity, Integer> {
+public class ExpedienteAspiranteRepository
+        extends GenericRepository<ExpedienteAspiranteEntity, Integer> {
 
     private static final long serialVersionUID = 1984137744161408097L;
 
@@ -26,13 +27,16 @@ public class ExpedienteAspiranteRepository extends GenericRepository<ExpedienteA
      */
     public boolean existeExpedienteAsignadoAspirante(Integer idAspirante) {
         try {
-            em.createQuery("SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante", Integer.class)
-                    .setParameter("idAspirante", idAspirante).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante",
+                    Integer.class).setParameter("idAspirante", idAspirante)
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
         } catch (NonUniqueResultException exception) {
-            throw new BusinessException("Se ha encontrado mas de un expediente asignado al aspirante.");
+            throw new BusinessException(
+                    "Se ha encontrado mas de un expediente asignado al aspirante.");
         }
     }
 
@@ -43,8 +47,11 @@ public class ExpedienteAspiranteRepository extends GenericRepository<ExpedienteA
      */
     public boolean existeNumeroExpediente(String numeroExpediente) {
         try {
-            em.createQuery("SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.numeroExpediente =:numeroExpediente", Integer.class)
-                    .setParameter("numeroExpediente", numeroExpediente.trim()).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.numeroExpediente =:numeroExpediente",
+                    Integer.class)
+                    .setParameter("numeroExpediente", numeroExpediente.trim())
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -59,22 +66,28 @@ public class ExpedienteAspiranteRepository extends GenericRepository<ExpedienteA
     public String numeroExpedienteAspirante(Integer idAspirante) {
 
         try {
-            return em.createQuery("SELECT e.numeroExpediente FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante", String.class)
-                    .setParameter("idAspirante", idAspirante).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.numeroExpediente FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante",
+                    String.class).setParameter("idAspirante", idAspirante)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
-            throw new BusinessException("El aspirante no tiene un expediente aperturado.");
+            throw new BusinessException(
+                    "El aspirante no tiene un expediente aperturado.");
         }
     }
 
     public Integer obtenerIdExpedienteAspirante(Integer idAspirante) {
 
         try {
-            return em.createQuery("SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante", Integer.class)
-                    .setParameter("idAspirante", idAspirante).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.idExpedienteAspirante FROM ExpedienteAspiranteEntity AS e WHERE e.idAspirante =:idAspirante",
+                    Integer.class).setParameter("idAspirante", idAspirante)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
-            throw new BusinessException("El aspirante no tiene un expediente aperturado.");
+            throw new BusinessException(
+                    "El aspirante no tiene un expediente aperturado.");
         }
     }
 

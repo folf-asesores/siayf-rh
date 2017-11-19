@@ -17,12 +17,16 @@ public class SiifLaboralesSubfuentesEJB {
     //	Listas para Estructura Nomina Datos
 
     public List<SiifLaboralesSubfuentesDTO> obtenerSiifLaboralesSubfuentes() {
-        List<SiifLaboralesSubfuentesDTO> SiifLaboralesSubfuentesLista = service.listaSiifLaboralesSubfuentes();
+        List<SiifLaboralesSubfuentesDTO> SiifLaboralesSubfuentesLista = service
+                .listaSiifLaboralesSubfuentes();
         return SiifLaboralesSubfuentesLista;
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesListaPorId(SiifLaboralesSubfuentesDTO DTO) {
-        SiifLaboralesSubfuentesDTO dto = service.obtenerSiifLaboralesSubfuentesPorId(DTO.getIdSiifDatosLaborales());
+    public SiifLaboralesSubfuentesDTO obtenerSiifLaboralesSubfuentesListaPorId(
+            SiifLaboralesSubfuentesDTO DTO) {
+        SiifLaboralesSubfuentesDTO dto = service
+                .obtenerSiifLaboralesSubfuentesPorId(
+                        DTO.getIdSiifDatosLaborales());
         return dto;
     }
 
@@ -36,8 +40,11 @@ public class SiifLaboralesSubfuentesEJB {
         service.eliminarSiifLAborlaesSubfuente(dto);
     }
 
-    public SiifLaboralesSubfuentesDTO obtenerDatos(SiifLaboralesSubfuentesDTO dtoSelect) {
-        SiifLaboralesSubfuentesDTO dto = service.obtenerSiifLaboralesSubfuentesPorId(dtoSelect.getIdSiifLaboralesSubfuentes());
+    public SiifLaboralesSubfuentesDTO obtenerDatos(
+            SiifLaboralesSubfuentesDTO dtoSelect) {
+        SiifLaboralesSubfuentesDTO dto = service
+                .obtenerSiifLaboralesSubfuentesPorId(
+                        dtoSelect.getIdSiifLaboralesSubfuentes());
         return dto;
     }
 
@@ -45,7 +52,8 @@ public class SiifLaboralesSubfuentesEJB {
         service.crearSubfuentes(dto);
     }
 
-    public void actualizarDatos(SiifLaboralesSubfuentesDTO estructuraNomina, Integer idDL) {
+    public void actualizarDatos(SiifLaboralesSubfuentesDTO estructuraNomina,
+            Integer idDL) {
         service.actualizarDatos(estructuraNomina, idDL);
     }
 
@@ -59,7 +67,8 @@ public class SiifLaboralesSubfuentesEJB {
         return service.listaSubfuenteFinanciamiento();
     }
 
-    public List<SubfuenteFinanciamientoDTO> obtenerSubfuentesFPorId(Integer dto) {
+    public List<SubfuenteFinanciamientoDTO> obtenerSubfuentesFPorId(
+            Integer dto) {
         return service.listaSubfuenteFinanciamientoPorIdFF(dto);
     }
 }

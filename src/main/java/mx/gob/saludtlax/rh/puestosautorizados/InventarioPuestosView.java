@@ -74,7 +74,8 @@ public class InventarioPuestosView {
         return detalleConfiguracion;
     }
 
-    public void setDetalleConfiguracion(DetalleConfiguracionPresupuestoDTO detalleConfiguracion) {
+    public void setDetalleConfiguracion(
+            DetalleConfiguracionPresupuestoDTO detalleConfiguracion) {
         this.detalleConfiguracion = detalleConfiguracion;
     }
 
@@ -82,7 +83,8 @@ public class InventarioPuestosView {
         return detallesInventarios;
     }
 
-    public void setDetallesInventarios(List<InfoPuestoDTO> detallesInventarios) {
+    public void setDetallesInventarios(
+            List<InfoPuestoDTO> detallesInventarios) {
         this.detallesInventarios = detallesInventarios;
     }
 

@@ -28,66 +28,99 @@ public class ConsultarPartidaService implements Serializable {
 
     public List<ConsultarPartidaDTO> consultarPartidasPorRfc(String rfc) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_obtener_partidas_por_rfc(:rfc) ").setParameter("rfc", rfc);
-        query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
+        Query query = session
+                .createSQLQuery("CALL usp_obtener_partidas_por_rfc(:rfc) ")
+                .setParameter("rfc", rfc);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConsultarPartidaDTO.class));
         @SuppressWarnings("unchecked")
         List<ConsultarPartidaDTO> list = query.list();
         return list;
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorUnidadResponsable(Integer unidadResponsable) {
+    public List<ConsultarPartidaDTO> consultarPartidasPorUnidadResponsable(
+            Integer unidadResponsable) {
         Session session = entityManager.unwrap(Session.class);
 
         Query query = session
-                .createSQLQuery("" + " SELECT " + " COUNT(id_unidad_responsable) " + " FROM acumulado_partida " + " WHERE "
-                        + " id_unidad_responsable = :unidadResponsable " + " GROUP BY id_unidad_responsable")
+                .createSQLQuery(
+                        "" + " SELECT " + " COUNT(id_unidad_responsable) "
+                                + " FROM acumulado_partida " + " WHERE "
+                                + " id_unidad_responsable = :unidadResponsable "
+                                + " GROUP BY id_unidad_responsable")
                 .setParameter("unidadResponsable", unidadResponsable);
         BigInteger numeroUnidades = (BigInteger) query.uniqueResult();
-        if (numeroUnidades != null && numeroUnidades.compareTo(BigInteger.ZERO) == 1) {
-            query = session.createSQLQuery("CALL usp_obtener_partidas_por_unidad_responsable(:unidadResponsable) ").setParameter("unidadResponsable",
-                    unidadResponsable);
-            query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
+        if (numeroUnidades != null
+                && numeroUnidades.compareTo(BigInteger.ZERO) == 1) {
+            query = session.createSQLQuery(
+                    "CALL usp_obtener_partidas_por_unidad_responsable(:unidadResponsable) ")
+                    .setParameter("unidadResponsable", unidadResponsable);
+            query.setResultTransformer(
+                    Transformers.aliasToBean(ConsultarPartidaDTO.class));
             @SuppressWarnings("unchecked")
             List<ConsultarPartidaDTO> list = query.list();
             return list;
         } else {
-            throw new ReglaNegocioException("No hay registros en el historico de acumulados", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "No hay registros en el historico de acumulados",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento) {
+    public List<ConsultarPartidaDTO> consultarPartidasPorTipoNombramiento(
+            Integer tipoNombramiento) {
         Session session = entityManager.unwrap(Session.class);
 
-        Query query = session.createSQLQuery("" + " SELECT " + " COUNT(id_nombramiento) " + " FROM acumulado_partida " + " WHERE "
-                + " id_nombramiento = :tipoNombramiento " + " GROUP BY id_nombramiento").setParameter("tipoNombramiento", tipoNombramiento);
+        Query query = session
+                .createSQLQuery("" + " SELECT " + " COUNT(id_nombramiento) "
+                        + " FROM acumulado_partida " + " WHERE "
+                        + " id_nombramiento = :tipoNombramiento "
+                        + " GROUP BY id_nombramiento")
+                .setParameter("tipoNombramiento", tipoNombramiento);
         BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
-        if (numeroNombramientos != null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
-            query = session.createSQLQuery("CALL usp_obtener_partidas_por_tipo_nombramiento(:tipoNombramiento) ").setParameter("tipoNombramiento",
-                    tipoNombramiento);
-            query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
+        if (numeroNombramientos != null
+                && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
+            query = session.createSQLQuery(
+                    "CALL usp_obtener_partidas_por_tipo_nombramiento(:tipoNombramiento) ")
+                    .setParameter("tipoNombramiento", tipoNombramiento);
+            query.setResultTransformer(
+                    Transformers.aliasToBean(ConsultarPartidaDTO.class));
             @SuppressWarnings("unchecked")
             List<ConsultarPartidaDTO> list = query.list();
             return list;
         } else {
-            throw new ReglaNegocioException("No hay registros en el historico de acumulados", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "No hay registros en el historico de acumulados",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(Integer dependencia) {
+    public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(
+            Integer dependencia) {
         Session session = entityManager.unwrap(Session.class);
 
-        Query query = session.createSQLQuery("" + " SELECT " + " COUNT(id_dependencia) " + " FROM acumulado_partida " + " WHERE "
-                + " id_dependencia = :dependencia " + " GROUP BY id_dependencia").setParameter("dependencia", dependencia);
+        Query query = session
+                .createSQLQuery("" + " SELECT " + " COUNT(id_dependencia) "
+                        + " FROM acumulado_partida " + " WHERE "
+                        + " id_dependencia = :dependencia "
+                        + " GROUP BY id_dependencia")
+                .setParameter("dependencia", dependencia);
         BigInteger numeroNombramientos = (BigInteger) query.uniqueResult();
-        if (numeroNombramientos != null && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
-            query = session.createSQLQuery("CALL usp_obtener_partidas_por_dependencia(:dependencia) ").setParameter("dependencia", dependencia);
-            query.setResultTransformer(Transformers.aliasToBean(ConsultarPartidaDTO.class));
+        if (numeroNombramientos != null
+                && numeroNombramientos.compareTo(BigInteger.ZERO) == 1) {
+            query = session.createSQLQuery(
+                    "CALL usp_obtener_partidas_por_dependencia(:dependencia) ")
+                    .setParameter("dependencia", dependencia);
+            query.setResultTransformer(
+                    Transformers.aliasToBean(ConsultarPartidaDTO.class));
             @SuppressWarnings("unchecked")
             List<ConsultarPartidaDTO> list = query.list();
             return list;
         } else {
-            throw new ReglaNegocioException("No hay registros en el historico de acumulados", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "No hay registros en el historico de acumulados",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
     }
 }

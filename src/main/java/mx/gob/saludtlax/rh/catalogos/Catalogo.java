@@ -13,7 +13,8 @@ public interface Catalogo {
 
     public List<CatalogoDTO> consultarMunicipiosPorEstado(Integer idEstado);
 
-    public List<CatalogoDTO> consultarAsantamientosPorMunicipios(Integer idMunicipio);
+    public List<CatalogoDTO> consultarAsantamientosPorMunicipios(
+            Integer idMunicipio);
 
     public List<CatalogoDTO> listaPuestos();
 
@@ -29,11 +30,13 @@ public interface Catalogo {
 
     public List<EscolaridadDTO> listaEscolaridad();
 
-    public List<CatalogoDTO> plazasDisponibles(String idNombramiento, Integer idNivel);
+    public List<CatalogoDTO> plazasDisponibles(String idNombramiento,
+            Integer idNivel);
 
     public List<CatalogoDTO> nombramientos();
 
-    public List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(Integer idPadre);
+    public List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(
+            Integer idPadre);
 
     public List<CatalogoDTO> tercerosInstitucionales();
 
@@ -44,7 +47,8 @@ public interface Catalogo {
      * expediente.
      *
      */
-    public List<CatalogoDTO> consultarDocumentosExpedientesClasificacion(String clasificacion);
+    public List<CatalogoDTO> consultarDocumentosExpedientesClasificacion(
+            String clasificacion);
 
     /**
      * Agrupa la lista de documentos adjuntables dependiendo del contexto de la
@@ -91,17 +95,20 @@ public interface Catalogo {
 
     public List<CatalogoDTO> listaDependencias();
 
-    public List<CatalogoDTO> listaUnidadesResponsablesPorDependencia(Integer idDependencia);
+    public List<CatalogoDTO> listaUnidadesResponsablesPorDependencia(
+            Integer idDependencia);
 
     public List<CatalogoDTO> listaFuentesFinanciamientos();
 
-    public List<CatalogoDTO> listaSubfuentesFinanciamientosPorFinanciamiento(Integer idFuenteFinanciamiento);
+    public List<CatalogoDTO> listaSubfuentesFinanciamientosPorFinanciamiento(
+            Integer idFuenteFinanciamiento);
 
     public List<CatalogoDTO> listaSubfuentesFinanciamientos();
 
     public List<CatalogoDTO> listaTiposRecursos();
 
-    public List<CatalogoDTO> consultarNombramientosPorContratacion(Integer tipoContratacion);
+    public List<CatalogoDTO> consultarNombramientosPorContratacion(
+            Integer tipoContratacion);
 
     public List<CatalogoDTO> consultarCuentasBancariasActuales();
 

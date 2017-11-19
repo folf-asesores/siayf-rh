@@ -277,13 +277,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlEnum
 public enum CPais {
 
-    AF, AL, DE, AD, AO, AI, AQ, AG, AN, SA, DZ, AR, AM, AW, AU, AT, AZ, BS, BH, BD, BB, BE, BZ, BJ, BM, BY, BO, BA, BW, BR, BN, BG, BF, BI, BT, CV, TD, KY, KH,
-    CM, CA, CL, CN, CY, VA, CC, CO, KM, CG, CK, KP, KR, CI, CR, HR, CU, DK, DJ, DM, EC, EG, SV, AE, ER, SI, ES, FM, US, EE, ET, FJ, PH, FI, FR, GA, GM, GE, GH,
-    GI, GD, GR, GL, GP, GU, GT, GG, GW, GQ, GN, GF, GY, HT, HN, HK, HU, IN, ID, IQ, IR, IE, IS, BV, IM, AX, FO, GS, HM, FK, MP, MH, UM, SB, SJ, TK, WF, IL, IT,
-    JM, JP, JE, JO, KZ, KE, KI, KW, KG, LS, LV, LB, LR, LY, LI, LT, LU, MO, MK, MG, MY, MW, MV, ML, MT, MA, MQ, MU, MR, YT, MX, MD, MC, MN, MS, ME, MZ, MM, NA,
-    NR, CX, NP, NI, NE, NG, NU, NF, NO, NC, NZ, OM, PIK, NL, PK, PW, PS, PA, PG, PY, PE, PN, PF, PL, PT, PR, QA, GB, CZ, CF, LA, RS, DO, SK, CD, RW, RE, RO, RU,
-    EH, WS, AS, BL, KN, SM, MF, PM, VC, SH, LC, ST, SN, SC, SL, SG, SY, SO, LK, ZA, SD, SE, CH, SR, SZ, TJ, TH, TW, TZ, IO, TF, TL, TG, TO, TT, TN, TC, TM, TR,
-    TV, UA, UG, UY, UZ, VU, VE, VN, VG, VI, YE, ZM, ZW;
+    AF, AL, DE, AD, AO, AI, AQ, AG, AN, SA, DZ, AR, AM, AW, AU, AT, AZ, BS, BH,
+    BD, BB, BE, BZ, BJ, BM, BY, BO, BA, BW, BR, BN, BG, BF, BI, BT, CV, TD, KY,
+    KH, CM, CA, CL, CN, CY, VA, CC, CO, KM, CG, CK, KP, KR, CI, CR, HR, CU, DK,
+    DJ, DM, EC, EG, SV, AE, ER, SI, ES, FM, US, EE, ET, FJ, PH, FI, FR, GA, GM,
+    GE, GH, GI, GD, GR, GL, GP, GU, GT, GG, GW, GQ, GN, GF, GY, HT, HN, HK, HU,
+    IN, ID, IQ, IR, IE, IS, BV, IM, AX, FO, GS, HM, FK, MP, MH, UM, SB, SJ, TK,
+    WF, IL, IT, JM, JP, JE, JO, KZ, KE, KI, KW, KG, LS, LV, LB, LR, LY, LI, LT,
+    LU, MO, MK, MG, MY, MW, MV, ML, MT, MA, MQ, MU, MR, YT, MX, MD, MC, MN, MS,
+    ME, MZ, MM, NA, NR, CX, NP, NI, NE, NG, NU, NF, NO, NC, NZ, OM, PIK, NL, PK,
+    PW, PS, PA, PG, PY, PE, PN, PF, PL, PT, PR, QA, GB, CZ, CF, LA, RS, DO, SK,
+    CD, RW, RE, RO, RU, EH, WS, AS, BL, KN, SM, MF, PM, VC, SH, LC, ST, SN, SC,
+    SL, SG, SY, SO, LK, ZA, SD, SE, CH, SR, SZ, TJ, TH, TW, TZ, IO, TF, TL, TG,
+    TO, TT, TN, TC, TM, TR, TV, UA, UG, UY, UZ, VU, VE, VN, VG, VI, YE, ZM, ZW;
 
     public String value() {
         return name();

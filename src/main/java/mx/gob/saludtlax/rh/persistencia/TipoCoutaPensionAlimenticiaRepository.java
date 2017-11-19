@@ -3,7 +3,8 @@ package mx.gob.saludtlax.rh.persistencia;
 
 import java.util.List;
 
-public class TipoCoutaPensionAlimenticiaRepository extends GenericRepository<TipoCoutaPensionAlimenticiaEntity, Integer> {
+public class TipoCoutaPensionAlimenticiaRepository
+        extends GenericRepository<TipoCoutaPensionAlimenticiaEntity, Integer> {
 
     /**
      *
@@ -13,7 +14,10 @@ public class TipoCoutaPensionAlimenticiaRepository extends GenericRepository<Tip
     public List<TipoCoutaPensionAlimenticiaEntity> obtenerListadoTipoCoutas() {
 
         List<TipoCoutaPensionAlimenticiaEntity> listado = em
-                .createQuery("SELECT l FROM TipoCoutaPensionAlimenticiaEntity l", TipoCoutaPensionAlimenticiaEntity.class).getResultList();
+                .createQuery(
+                        "SELECT l FROM TipoCoutaPensionAlimenticiaEntity l",
+                        TipoCoutaPensionAlimenticiaEntity.class)
+                .getResultList();
         return listado;
     }
 

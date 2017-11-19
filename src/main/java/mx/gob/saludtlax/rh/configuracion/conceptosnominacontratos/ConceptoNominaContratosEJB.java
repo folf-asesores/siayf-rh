@@ -19,8 +19,10 @@ public class ConceptoNominaContratosEJB implements Serializable {
     @Inject
     private ConceptoNominaContratosService conceptoNominaContratosService;
 
-    public List<ConceptoNominaContratosDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipoConceptoNominaEnum) {
-        List<ConceptoNominaContratosDTO> conceptoNominasLista = conceptoNominaContratosService.obtenerConceptoNominasLista(tipoConceptoNominaEnum);
+    public List<ConceptoNominaContratosDTO> obtenerConceptoNominasLista(
+            TipoConceptoNominaEnum tipoConceptoNominaEnum) {
+        List<ConceptoNominaContratosDTO> conceptoNominasLista = conceptoNominaContratosService
+                .obtenerConceptoNominasLista(tipoConceptoNominaEnum);
         return conceptoNominasLista;
     }
 
@@ -36,7 +38,8 @@ public class ConceptoNominaContratosEJB implements Serializable {
         return conceptoNominaContratosService.nuevoConceptoNomina();
     }
 
-    public ConceptoNominaContratosDTO crearConceptoNomina(ConceptoNominaContratosDTO dto) {
+    public ConceptoNominaContratosDTO crearConceptoNomina(
+            ConceptoNominaContratosDTO dto) {
         return conceptoNominaContratosService.crearConceptoNomina(dto);
     }
 
@@ -45,7 +48,9 @@ public class ConceptoNominaContratosEJB implements Serializable {
         return String.valueOf(evaluador.getResult());
     }
 
-    public ConceptoNominaContratosDTO actualizarConceptoNomina(ConceptoNominaContratosDTO conceptoNomina) {
-        return conceptoNominaContratosService.actualizarConceptoNomina(conceptoNomina);
+    public ConceptoNominaContratosDTO actualizarConceptoNomina(
+            ConceptoNominaContratosDTO conceptoNomina) {
+        return conceptoNominaContratosService
+                .actualizarConceptoNomina(conceptoNomina);
     }
 }

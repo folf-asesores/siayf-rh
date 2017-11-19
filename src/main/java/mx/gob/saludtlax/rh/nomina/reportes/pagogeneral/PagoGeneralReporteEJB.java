@@ -27,7 +27,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class PagoGeneralReporteEJB implements PagoGeneralReporte {
 
     private static final long serialVersionUID = 3687555233714779856L;
-    private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoGeneralReporteEJB.class.getName());
 
     @Inject
     private PagoGeneralReporteService pagoGeneralService;
@@ -37,14 +38,17 @@ public class PagoGeneralReporteEJB implements PagoGeneralReporte {
     @Override
     public byte[] generarReporte(Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o menor que uno", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o menor que uno",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         List<String> titulos = new ArrayList<>();
         List<Object[]> datos = new ArrayList<>();
 
         try {
-            pagoGeneralService.obtenerInformacion(idProductoNomina, titulos, datos);
+            pagoGeneralService.obtenerInformacion(idProductoNomina, titulos,
+                    datos);
             return pagoGeneralExcelService.obtenerBytes(titulos, datos);
         } catch (IOException ex) {
             LOGGER.error(ex.getMessage(), ex);

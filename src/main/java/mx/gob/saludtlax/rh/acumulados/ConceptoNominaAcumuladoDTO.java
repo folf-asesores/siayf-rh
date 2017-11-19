@@ -14,7 +14,8 @@ public class ConceptoNominaAcumuladoDTO {
     public ConceptoNominaAcumuladoDTO() {
     }
 
-    public ConceptoNominaAcumuladoDTO(Integer idCoceptoNomina, String clave, Integer tipo, String descripcion, BigDecimal importe) {
+    public ConceptoNominaAcumuladoDTO(Integer idCoceptoNomina, String clave,
+            Integer tipo, String descripcion, BigDecimal importe) {
         super();
         this.idCoceptoNomina = idCoceptoNomina;
         this.clave = clave;

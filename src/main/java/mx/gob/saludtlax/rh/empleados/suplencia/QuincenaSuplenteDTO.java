@@ -17,7 +17,9 @@ public class QuincenaSuplenteDTO {
     private int ejercicioFiscal;
     private String estatus;
 
-    public QuincenaSuplenteDTO(Integer idQuincena, String suplente, int numeroQuincena, int ejercicioFiscal, Integer idSuplente, String estatus) {
+    public QuincenaSuplenteDTO(Integer idQuincena, String suplente,
+            int numeroQuincena, int ejercicioFiscal, Integer idSuplente,
+            String estatus) {
 
         this.idQuincena = idQuincena;
         this.suplente = suplente;

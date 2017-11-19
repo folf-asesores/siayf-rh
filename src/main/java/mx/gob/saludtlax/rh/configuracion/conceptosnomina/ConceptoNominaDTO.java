@@ -189,7 +189,8 @@ public class ConceptoNominaDTO implements Serializable {
         return conceptoNominaNombramientoLista;
     }
 
-    public void setConceptoNominaNombramientoLista(List<ConceptoNominaNombramientoDTO> conceptoNominaNombramientoLista) {
+    public void setConceptoNominaNombramientoLista(
+            List<ConceptoNominaNombramientoDTO> conceptoNominaNombramientoLista) {
         this.conceptoNominaNombramientoLista = conceptoNominaNombramientoLista;
     }
 }

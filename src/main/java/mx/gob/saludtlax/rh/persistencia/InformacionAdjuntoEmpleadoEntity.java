@@ -74,7 +74,8 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
         return expedienteEmpleado;
     }
 
-    public void setExpedienteEmpleado(ExpedienteEmpleadoEntity expedienteEmpleado) {
+    public void setExpedienteEmpleado(
+            ExpedienteEmpleadoEntity expedienteEmpleado) {
         this.expedienteEmpleado = expedienteEmpleado;
     }
 
@@ -90,7 +91,8 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
      *            the idInformacionAdjuntoEmpleado to
      *            set
      */
-    public void setIdInformacionAdjuntoEmpleado(Integer idInformacionAdjuntoEmpleado) {
+    public void setIdInformacionAdjuntoEmpleado(
+            Integer idInformacionAdjuntoEmpleado) {
         this.idInformacionAdjuntoEmpleado = idInformacionAdjuntoEmpleado;
     }
 
@@ -158,7 +160,8 @@ public class InformacionAdjuntoEmpleadoEntity implements Serializable {
      * @param documentoAdjuntable
      *            the documentoAdjuntable to set
      */
-    public void setDocumentoAdjuntable(DocumentoAdjuntableEntity documentoAdjuntable) {
+    public void setDocumentoAdjuntable(
+            DocumentoAdjuntableEntity documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 }

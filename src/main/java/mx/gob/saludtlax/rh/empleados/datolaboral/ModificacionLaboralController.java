@@ -62,41 +62,57 @@ public class ModificacionLaboralController implements Serializable {
     @PostConstruct
     public void inicio() {
         view = new ModificacionLaboralView();
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuarioLogeado(usuario.getIdUsuario());
-        view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
-        view.setListaFuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.listaFuentesFinanciamientos()));
-        view.setListaTiposRecursos(SelectItemsUtil.listaCatalogos(catalogo.listaTiposRecursos()));
-        view.setListaProyectos(SelectItemsUtil.listaCatalogos(catalogo.consultarProyectos()));
-        view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
-        view.setListaProgramas(SelectItemsUtil.listaCatalogos(catalogo.consultarProgramas()));
+        view.setListaDependencias(
+                SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
+        view.setListaFuentesFinanciamiento(SelectItemsUtil
+                .listaCatalogos(catalogo.listaFuentesFinanciamientos()));
+        view.setListaTiposRecursos(
+                SelectItemsUtil.listaCatalogos(catalogo.listaTiposRecursos()));
+        view.setListaProyectos(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarProyectos()));
+        view.setListaPuestos(
+                SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+        view.setListaProgramas(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarProgramas()));
     }
 
     public void seleccionarEmpleado(InfoEmpleadoDTO empleado) {
         try {
-            view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(empleado.getIdVacante()));
-            view.setDatoLaboral(datoLaboral.obtenerDatosLaboralesPuesto(empleado.getIdVacante()));
-            view.getDatoLaboral().setSeguroPopular(view.getPuesto().getSeguroPopular());
+            view.setPuesto(puestosAutorizados
+                    .obtenerInformacionIdPuesto(empleado.getIdVacante()));
+            view.setDatoLaboral(datoLaboral
+                    .obtenerDatosLaboralesPuesto(empleado.getIdVacante()));
+            view.getDatoLaboral()
+                    .setSeguroPopular(view.getPuesto().getSeguroPopular());
             view.setMostrarLaboral(true);
 
             int tipoContratacion = view.getDatoLaboral().getTipoContratacion();
             if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
                 view.setMostrarSalarioEstatal(true);
             }
-            if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.CONFIANZA
-                    || tipoContratacion == EnumTipoContratacion.INTERINATO || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
+            if (tipoContratacion == EnumTipoContratacion.BASE
+                    || tipoContratacion == EnumTipoContratacion.CONFIANZA
+                    || tipoContratacion == EnumTipoContratacion.INTERINATO
+                    || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
                     || tipoContratacion == EnumTipoContratacion.REGULARIZADOS) {
                 view.setMostrarSalarioFederal(true);
             }
 
             try {
-                view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(view.getDatoLaboral().getIdPuesto(), tipoContratacion));
-                view.getDatoLaboral().setIdTabulador(view.getSalario().getIdTabulador());
+                view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(
+                        view.getDatoLaboral().getIdPuesto(), tipoContratacion));
+                view.getDatoLaboral()
+                        .setIdTabulador(view.getSalario().getIdTabulador());
 
             } catch (ReglaNegocioException exception) {
-                JSFUtils.warningMessageEspecifico("error", "", exception.getMessage());
+                JSFUtils.warningMessageEspecifico("error", "",
+                        exception.getMessage());
 
             }
 
@@ -111,29 +127,36 @@ public class ModificacionLaboralController implements Serializable {
 
     public void consultarEmpleado() {
         view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP);
-        view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
+        view.setEmpleados(
+                empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
         if (view.getEmpleados().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + view.getFiltro().getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontraron empleados con el criterio "
+                            + view.getFiltro().getCriterio());
         }
     }
 
     public void editarDatosLaborales() {
         try {
-            datoLaboral.modificarDatoLaboral(view.getDatoLaboral(), view.getPuesto().getIdPuesto(), view.getIdUsuarioLogeado());
+            datoLaboral.modificarDatoLaboral(view.getDatoLaboral(),
+                    view.getPuesto().getIdPuesto(), view.getIdUsuarioLogeado());
             view.setMostrarLaboral(false);
-            JSFUtils.infoMessage("", "Los datos laborales han sido moficados con éxito.");
+            JSFUtils.infoMessage("",
+                    "Los datos laborales han sido moficados con éxito.");
 
         } catch (ReglaNegocioException exception) {
 
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
     }
 
     public void obtenerUnidadesResponsables() {
         view.getListaUnidadesResponsables().clear();
         if (view.getDatoLaboral().getIdDependencia() != null) {
-            view.setListaUnidadesResponsables(
-                    SelectItemsUtil.listaCatalogos(catalogo.listaUnidadesResponsablesPorDependencia(view.getDatoLaboral().getIdDependencia())));
+            view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
+                    catalogo.listaUnidadesResponsablesPorDependencia(
+                            view.getDatoLaboral().getIdDependencia())));
         }
 
     }
@@ -141,8 +164,11 @@ public class ModificacionLaboralController implements Serializable {
     public void obtenerSubfuentesFinanciamiento() {
         view.getListaSubfuentesFinanciamiento().clear();
         if (view.getDatoLaboral().getIdFuenteFinanciamiento() != null) {
-            view.setListaSubfuentesFinanciamiento(SelectItemsUtil
-                    .listaCatalogos(catalogo.listaSubfuentesFinanciamientosPorFinanciamiento(view.getDatoLaboral().getIdFuenteFinanciamiento())));
+            view.setListaSubfuentesFinanciamiento(
+                    SelectItemsUtil.listaCatalogos(catalogo
+                            .listaSubfuentesFinanciamientosPorFinanciamiento(
+                                    view.getDatoLaboral()
+                                            .getIdFuenteFinanciamiento())));
         }
     }
 
@@ -153,27 +179,35 @@ public class ModificacionLaboralController implements Serializable {
         try {
             int tipoContratacion = view.getDatoLaboral().getTipoContratacion();
             if (ValidacionUtil.esNumeroPositivo(tipoContratacion)) {
-                view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(view.getDatoLaboral().getIdPuesto(), tipoContratacion));
-                view.getDatoLaboral().setIdTabulador(view.getSalario().getIdTabulador());
+                view.setSalario(tabulador.obtenerSueldoPorPuestoTipoTabulador(
+                        view.getDatoLaboral().getIdPuesto(), tipoContratacion));
+                view.getDatoLaboral()
+                        .setIdTabulador(view.getSalario().getIdTabulador());
 
-                if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.CONFIANZA
-                        || tipoContratacion == EnumTipoContratacion.INTERINATO || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
+                if (tipoContratacion == EnumTipoContratacion.BASE
+                        || tipoContratacion == EnumTipoContratacion.CONFIANZA
+                        || tipoContratacion == EnumTipoContratacion.INTERINATO
+                        || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
                         || tipoContratacion == EnumTipoContratacion.REGULARIZADOS) {
                     view.setMostrarSalarioFederal(true);
                 } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
                     view.setMostrarSalarioEstatal(true);
-                    view.getDatoLaboral().setSueldo(view.getSalario().getSueldoBaseMensualMinimo());
+                    view.getDatoLaboral().setSueldo(
+                            view.getSalario().getSueldoBaseMensualMinimo());
                     view.getDatoLaboral().setSueldo01(BigDecimal.ZERO);
                     view.getDatoLaboral().setSueldo14(BigDecimal.ZERO);
                 }
             }
 
         } catch (ReglaNegocioException exception) {
-            if (exception.getCodigoError() == ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO) {
-                JSFUtils.warningMessageEspecifico("advertencia", "", exception.getMessage());
+            if (exception
+                    .getCodigoError() == ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO) {
+                JSFUtils.warningMessageEspecifico("advertencia", "",
+                        exception.getMessage());
             }
 
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
 
     }
@@ -200,12 +234,15 @@ public class ModificacionLaboralController implements Serializable {
     public void editarPrograma() {
 
         try {
-            puestosAutorizados.modificacionPrograma(view.getIdPuesto(), view.getIdPrograma());
+            puestosAutorizados.modificacionPrograma(view.getIdPuesto(),
+                    view.getIdPrograma());
             view.setMostrarPrograma(false);
-            JSFUtils.infoMessage("", "¡El programa ha sido modificado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El programa ha sido modificado con éxito!");
 
         } catch (NoResultException exception) {
-            JSFUtils.errorMessageEspecifico("errorPrograma", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorPrograma", "",
+                    exception.getMessage());
         }
 
     }

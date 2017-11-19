@@ -30,17 +30,22 @@ public class EditarClienteBiometricoController implements Serializable {
     public void init() {
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("id");
 
         if (id != null) {
 
             Integer idBiometrico = new Integer(id);
             try {
-                clienteBiometricoFormModel = clienteBiometricoREST.buscarClienteBiometrico(idBiometrico);
+                clienteBiometricoFormModel = clienteBiometricoREST
+                        .buscarClienteBiometrico(idBiometrico);
             } catch (RESTClientException e) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                        e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
 
         }
@@ -48,7 +53,8 @@ public class EditarClienteBiometricoController implements Serializable {
 
     public String guardar() {
         try {
-            clienteBiometricoREST.actualizarBiometrico(clienteBiometricoFormModel);
+            clienteBiometricoREST
+                    .actualizarBiometrico(clienteBiometricoFormModel);
 
             /*
              * if (!biometricoClienteRestResponse.isExitoso()) {
@@ -60,7 +66,9 @@ public class EditarClienteBiometricoController implements Serializable {
             return "clientesBiometricos.xhml?faces-redirect=true";
 
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -72,7 +80,8 @@ public class EditarClienteBiometricoController implements Serializable {
         return clienteBiometricoFormModel;
     }
 
-    public void setClienteBiometricoFormModel(ClienteBiometricoFormModel clienteBiometricoFormModel) {
+    public void setClienteBiometricoFormModel(
+            ClienteBiometricoFormModel clienteBiometricoFormModel) {
         this.clienteBiometricoFormModel = clienteBiometricoFormModel;
     }
 

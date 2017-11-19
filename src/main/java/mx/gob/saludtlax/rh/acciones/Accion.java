@@ -17,6 +17,7 @@ public interface Accion {
 
     List<AccionDTO> obtenerListaAccionesPorModulo(Integer idModulo);
 
-    List<AccionDTO> obtenerAccionesFiltradas(Integer idmodulo, List<Integer> idAccionFiltro);
+    List<AccionDTO> obtenerAccionesFiltradas(Integer idmodulo,
+            List<Integer> idAccionFiltro);
 
 }

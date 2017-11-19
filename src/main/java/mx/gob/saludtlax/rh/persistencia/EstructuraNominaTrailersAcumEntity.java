@@ -15,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 17:54:48 24/09/2016
  */
@@ -78,7 +78,8 @@ public class EstructuraNominaTrailersAcumEntity implements Serializable {
         return idEstructurasNominasTrailers;
     }
 
-    public void setIdEstructurasNominasTrailers(Integer idEstructurasNominasTrailers) {
+    public void setIdEstructurasNominasTrailers(
+            Integer idEstructurasNominasTrailers) {
         this.idEstructurasNominasTrailers = idEstructurasNominasTrailers;
     }
 

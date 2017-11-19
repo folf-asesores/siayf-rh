@@ -22,7 +22,7 @@ import org.junit.Test;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 
 /**
- * @author Daniela Hernandez
+ * @author Daniela Hernández
  *
  */
 

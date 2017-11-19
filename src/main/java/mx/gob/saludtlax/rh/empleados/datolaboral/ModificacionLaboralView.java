@@ -167,7 +167,8 @@ public class ModificacionLaboralView {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 
@@ -183,7 +184,8 @@ public class ModificacionLaboralView {
         return listaFuentesFinanciamiento;
     }
 
-    public void setListaFuentesFinanciamiento(List<SelectItem> listaFuentesFinanciamiento) {
+    public void setListaFuentesFinanciamiento(
+            List<SelectItem> listaFuentesFinanciamiento) {
         this.listaFuentesFinanciamiento = listaFuentesFinanciamiento;
     }
 
@@ -191,7 +193,8 @@ public class ModificacionLaboralView {
         return listaSubfuentesFinanciamiento;
     }
 
-    public void setListaSubfuentesFinanciamiento(List<SelectItem> listaSubfuentesFinanciamiento) {
+    public void setListaSubfuentesFinanciamiento(
+            List<SelectItem> listaSubfuentesFinanciamiento) {
         this.listaSubfuentesFinanciamiento = listaSubfuentesFinanciamiento;
     }
 
@@ -207,7 +210,8 @@ public class ModificacionLaboralView {
         return listaTiposNombramiento;
     }
 
-    public void setListaTiposNombramiento(List<SelectItem> listaTiposNombramiento) {
+    public void setListaTiposNombramiento(
+            List<SelectItem> listaTiposNombramiento) {
         this.listaTiposNombramiento = listaTiposNombramiento;
     }
 

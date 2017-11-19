@@ -29,8 +29,10 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public ProductoNominaDTO(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas, String nombreElaboro, String cargoElaboro,
-            String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public ProductoNominaDTO(Integer idProductoNomina, Date fechaPago,
+            Map<Integer, ProgramaDTO> programas, String nombreElaboro,
+            String cargoElaboro, String nombreReviso, String cargoReviso,
+            String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
@@ -152,9 +154,13 @@ public final class ProductoNominaDTO implements Iterable<ProgramaDTO> {
 
     @Override
     public String toString() {
-        return "ProductoNomina{" + "idProductoNomina=" + idProductoNomina + ", quincena=" + getQuincena() + ", fechaPago=" + fechaPago + ", programas="
-                + programas + ", nombreElaboro=" + nombreElaboro + ", cargoElaboro=" + cargoElaboro + ", nombreReviso=" + nombreReviso + ", cargoReviso="
-                + cargoReviso + ", nombreAutorizo=" + nombreAutorizo + ", cargoAutorizo=" + cargoAutorizo + '}';
+        return "ProductoNomina{" + "idProductoNomina=" + idProductoNomina
+                + ", quincena=" + getQuincena() + ", fechaPago=" + fechaPago
+                + ", programas=" + programas + ", nombreElaboro="
+                + nombreElaboro + ", cargoElaboro=" + cargoElaboro
+                + ", nombreReviso=" + nombreReviso + ", cargoReviso="
+                + cargoReviso + ", nombreAutorizo=" + nombreAutorizo
+                + ", cargoAutorizo=" + cargoAutorizo + '}';
     }
 
 }

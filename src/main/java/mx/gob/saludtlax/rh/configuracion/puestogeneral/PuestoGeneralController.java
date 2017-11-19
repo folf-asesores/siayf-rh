@@ -24,8 +24,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 13:42:48
  */
@@ -53,13 +53,15 @@ public class PuestoGeneralController implements Serializable {
         List<CatalogoDTO> listaTipoPuesto = catalogo.consultarTipoPuesto();
         List<CatalogoDTO> listaRamas = catalogo.consultarRamas();
 
-        view.setListaTipoPuesto(SelectItemsUtil.listaCatalogos(listaTipoPuesto));
+        view.setListaTipoPuesto(
+                SelectItemsUtil.listaCatalogos(listaTipoPuesto));
         view.setListaRama(SelectItemsUtil.listaCatalogos(listaRamas));
 
     }
 
     public void obtenerListaPuestoGeneral() {
-        List<PuestoGeneralDTO> listaPuestoGeneralDTOs = puestoGeneral.consultarListaPuestoGeneral();
+        List<PuestoGeneralDTO> listaPuestoGeneralDTOs = puestoGeneral
+                .consultarListaPuestoGeneral();
         view.setListaPuestoGeneral(listaPuestoGeneralDTOs);
     }
 
@@ -69,7 +71,8 @@ public class PuestoGeneralController implements Serializable {
             puestoGeneral.crearPuestoGeneral(view.getPuestoGeneralDTO());
             cerrarPanelesSecundarios();
             obtenerListaPuestoGeneral();
-            JSFUtils.infoMessage("Registro Puesto General: ", "Se realizo correctamente...");
+            JSFUtils.infoMessage("Registro Puesto General: ",
+                    "Se realizo correctamente...");
 
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -79,10 +82,12 @@ public class PuestoGeneralController implements Serializable {
     public void accionActualizar() {
         try {
 
-            puestoGeneral.actualizarPuestoGeneral(view.getPuestoGeneralDTOSeleccionado());
+            puestoGeneral.actualizarPuestoGeneral(
+                    view.getPuestoGeneralDTOSeleccionado());
             cerrarPanelesSecundarios();
             obtenerListaPuestoGeneral();
-            JSFUtils.infoMessage("Actualización Puesto General: ", "Se realizo correctamente...");
+            JSFUtils.infoMessage("Actualización Puesto General: ",
+                    "Se realizo correctamente...");
 
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -94,7 +99,8 @@ public class PuestoGeneralController implements Serializable {
             puestoGeneral.eliminarPuestoGeneral(view.getIdPuestoGeneral());
             cerrarDialogoAccionEliminar();
             obtenerListaPuestoGeneral();
-            JSFUtils.infoMessage("Eliminación Puesto General: ", "Se realizo correctamente...");
+            JSFUtils.infoMessage("Eliminación Puesto General: ",
+                    "Se realizo correctamente...");
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
         }
@@ -106,7 +112,8 @@ public class PuestoGeneralController implements Serializable {
         view.setPanelActualizar(false);
     }
 
-    public void mostrarDialogoActualizarRegistro(PuestoGeneralDTO puestoGeneralDTO) {
+    public void mostrarDialogoActualizarRegistro(
+            PuestoGeneralDTO puestoGeneralDTO) {
         view.setPuestoGeneralDTOSeleccionado(puestoGeneralDTO);
         view.setPanelRegistro(false);
         view.setPanelActualizar(true);
@@ -134,7 +141,8 @@ public class PuestoGeneralController implements Serializable {
         view.setPanelActualizar(false);
     }
 
-    public void validarCampoNuevo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarCampoNuevo(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -146,7 +154,9 @@ public class PuestoGeneralController implements Serializable {
                 String codigo = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(codigo)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese la codigo");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese la codigo");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -156,8 +166,11 @@ public class PuestoGeneralController implements Serializable {
                     claveValido = puestoGeneral.existeCodigo(codigo.trim());
 
                     if (claveValido) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "el codigo ya existe");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, contexto,
+                                "el codigo ya existe");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -169,7 +182,9 @@ public class PuestoGeneralController implements Serializable {
                 String puesto = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(puesto)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el nombre del puesto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el nombre del puesto");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -182,7 +197,9 @@ public class PuestoGeneralController implements Serializable {
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
                     view.getPuestoGeneralDTO().setIdTipoPuesto(0);
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo de puesto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo de puesto");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
 
@@ -196,7 +213,9 @@ public class PuestoGeneralController implements Serializable {
 
                 if (!ValidacionUtil.esNumeroPositivo(rama)) {
                     view.getPuestoGeneralDTO().setIdRama(0);
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione la rama");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione la rama");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -209,7 +228,8 @@ public class PuestoGeneralController implements Serializable {
 
     }
 
-    public void validarCampoActualizar(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarCampoActualizar(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -221,21 +241,30 @@ public class PuestoGeneralController implements Serializable {
                 String codigo = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(codigo)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese la codigo");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese la codigo");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
                 if (!ValidacionUtil.esCadenaVacia(codigo)) {
                     Boolean claveValido = false;
 
-                    claveValido = puestoGeneral.existeCodigoIdPuesto(view.getPuestoGeneralDTOSeleccionado().getIdPuestoGeneral(), codigo.trim());
+                    claveValido = puestoGeneral
+                            .existeCodigoIdPuesto(
+                                    view.getPuestoGeneralDTOSeleccionado()
+                                            .getIdPuestoGeneral(),
+                                    codigo.trim());
 
                     if (!claveValido) {
                         claveValido = puestoGeneral.existeCodigo(codigo.trim());
 
                         if (claveValido) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "el codigo ya existe");
-                            context.addMessage(component.getClientId(), facesMessage);
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, contexto,
+                                    "el codigo ya existe");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
@@ -248,7 +277,9 @@ public class PuestoGeneralController implements Serializable {
                 String puesto = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(puesto)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el nombre del puesto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el nombre del puesto");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -260,7 +291,9 @@ public class PuestoGeneralController implements Serializable {
                 Integer tipoTabulador = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo de puesto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo de puesto");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     throw new ValidatorException(facesMessage);
@@ -273,7 +306,9 @@ public class PuestoGeneralController implements Serializable {
                 Integer rama = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(rama)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione la rama");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione la rama");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

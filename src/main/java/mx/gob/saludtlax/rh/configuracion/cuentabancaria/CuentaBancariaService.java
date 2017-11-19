@@ -26,10 +26,16 @@ public class CuentaBancariaService {
 
     public List<CuentaBancariaDTO> listaCuentaBancaria() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_cuenta_bancaria AS idCuentaBancaria, " + "banco AS banco, " + "numero_cuenta AS numeroCuenta, "
-                + "descripcion AS descripcion, " + "fuente_financiamiento AS fuenteFinanciamiento, " + "ejercicio_fiscal AS ejercicioFiscal, "
-                + "clave_cuenta AS claveCuenta " + "FROM cuentas_bancarias");
-        query.setResultTransformer(Transformers.aliasToBean(CuentaBancariaDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_cuenta_bancaria AS idCuentaBancaria, "
+                        + "banco AS banco, " + "numero_cuenta AS numeroCuenta, "
+                        + "descripcion AS descripcion, "
+                        + "fuente_financiamiento AS fuenteFinanciamiento, "
+                        + "ejercicio_fiscal AS ejercicioFiscal, "
+                        + "clave_cuenta AS claveCuenta "
+                        + "FROM cuentas_bancarias");
+        query.setResultTransformer(
+                Transformers.aliasToBean(CuentaBancariaDTO.class));
         @SuppressWarnings("unchecked")
         List<CuentaBancariaDTO> result = query.list();
         return result;
@@ -58,20 +64,27 @@ public class CuentaBancariaService {
         return obtenerCuentaBancariaPorId(entity.getIdCuentaBancaria());
     }
 
-    public CuentaBancariaDTO obtenerCuentaBancariaPorId(Integer idCuentaBancaria) {
+    public CuentaBancariaDTO obtenerCuentaBancariaPorId(
+            Integer idCuentaBancaria) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_cuenta_bancaria AS idCuentaBancaria, " + "banco AS banco, " + "numero_cuenta AS numeroCuenta, "
-                        + "descripcion AS descripcion, " + "fuente_financiamiento AS fuenteFinanciamiento, " + "ejercicio_fiscal AS ejercicioFiscal, "
-                        + "clave_cuenta AS claveCuenta " + "FROM cuentas_bancarias WHERE id_cuenta_bancaria = :idCuentaBancaria")
+        Query query = session.createSQLQuery(
+                "SELECT id_cuenta_bancaria AS idCuentaBancaria, "
+                        + "banco AS banco, " + "numero_cuenta AS numeroCuenta, "
+                        + "descripcion AS descripcion, "
+                        + "fuente_financiamiento AS fuenteFinanciamiento, "
+                        + "ejercicio_fiscal AS ejercicioFiscal, "
+                        + "clave_cuenta AS claveCuenta "
+                        + "FROM cuentas_bancarias WHERE id_cuenta_bancaria = :idCuentaBancaria")
                 .setParameter("idCuentaBancaria", idCuentaBancaria);
-        query.setResultTransformer(Transformers.aliasToBean(CuentaBancariaDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(CuentaBancariaDTO.class));
         CuentaBancariaDTO result = (CuentaBancariaDTO) query.list().get(0);
         return result;
     }
 
     public CuentaBancariaDTO actualizarCuentaBancaria(CuentaBancariaDTO dto) {
-        CuentasBancariasEntity entity = cuentaBancariaDAO.obtenerPorId(dto.getIdCuentaBancaria());
+        CuentasBancariasEntity entity = cuentaBancariaDAO
+                .obtenerPorId(dto.getIdCuentaBancaria());
         entity.setClaveCuenta(dto.getClaveCuenta());
         entity.setDescripcion(dto.getDescripcion());
         entity.setBanco(dto.getBanco());
@@ -83,7 +96,8 @@ public class CuentaBancariaService {
     }
 
     public void eliminarCuentaBancaria(CuentaBancariaDTO dto) {
-        CuentasBancariasEntity entity = entityManager.find(CuentasBancariasEntity.class, dto.getIdCuentaBancaria());
+        CuentasBancariasEntity entity = entityManager
+                .find(CuentasBancariasEntity.class, dto.getIdCuentaBancaria());
         entityManager.remove(entity);
     }
 

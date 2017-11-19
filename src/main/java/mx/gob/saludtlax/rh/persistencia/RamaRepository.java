@@ -10,12 +10,13 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @since 27/07/2016 10:57:29
  * @version 1.0
-
+ * 
  */
-public class RamaRepository extends GenericRepository<RamaEntity, Integer> implements Serializable {
+public class RamaRepository extends GenericRepository<RamaEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -24,7 +25,8 @@ public class RamaRepository extends GenericRepository<RamaEntity, Integer> imple
 
     public List<RamaEntity> obtenerListaRama() {
         try {
-            return em.createQuery("SELECT r FROM RamaEntity AS r", RamaEntity.class).getResultList();
+            return em.createQuery("SELECT r FROM RamaEntity AS r",
+                    RamaEntity.class).getResultList();
         } catch (NoResultException exception) {
             return null;
         }

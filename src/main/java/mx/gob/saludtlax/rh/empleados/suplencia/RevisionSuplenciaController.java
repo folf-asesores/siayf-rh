@@ -58,15 +58,20 @@ public class RevisionSuplenciaController implements Serializable {
         view.setMostrarBusqueda(true);
 
         view.setListaEstatus(SelectItemsUtil.listaEstatusSuplencias());
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuario(usuarioLogeado.getIdUsuario());
-        view.setListaCentrosResponsabilidades(SelectItemsUtil.listaCatalogos(catalogos.consultarCentrosResponsabilidades()));
+        view.setListaCentrosResponsabilidades(SelectItemsUtil
+                .listaCatalogos(catalogos.consultarCentrosResponsabilidades()));
         QuincenaActivaDTO quincenaActivaDTO = suplencia.obtenerQuincenaActiva();
-        view.getConsulta().setQuincena(quincenaActivaDTO.getNumeroQuincenaActiva());
+        view.getConsulta()
+                .setQuincena(quincenaActivaDTO.getNumeroQuincenaActiva());
         view.getConsulta().setEjercicio(quincenaActivaDTO.getEjercicioFiscal());
-        view.setListaTiposBusqueda(SelectItemsUtil.listaBusquedasRevisionSuplencias());
+        view.setListaTiposBusqueda(
+                SelectItemsUtil.listaBusquedasRevisionSuplencias());
 
     }
 
@@ -77,10 +82,12 @@ public class RevisionSuplenciaController implements Serializable {
         view.getConsulta().setIdCentroResponsabilidad(0);
         view.getConsulta().setCriterio("");
 
-        if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaSuplencia.QUINCENA_POR_CRITERIO) {
+        if (view.getConsulta()
+                .getTipoConsulta() == EnumTipoConsultaSuplencia.QUINCENA_POR_CRITERIO) {
             view.setMostrarCamposBusquedaCriterio(true);
 
-        } else if (view.getConsulta().getTipoConsulta() == EnumTipoConsultaSuplencia.QUINCENAS_CENTROS_ESTATUS) {
+        } else if (view.getConsulta()
+                .getTipoConsulta() == EnumTipoConsultaSuplencia.QUINCENAS_CENTROS_ESTATUS) {
             view.setMostrarCamposBusquedaCentro(true);
         }
 
@@ -90,9 +97,11 @@ public class RevisionSuplenciaController implements Serializable {
 
         try {
             view.getConsulta().setEstatus(EnumEstatusSuplencia.REVISION);
-            view.setQuincenas(suplencia.consultarQuincenasSuplente(view.getConsulta()));
+            view.setQuincenas(
+                    suplencia.consultarQuincenasSuplente(view.getConsulta()));
             if (view.getQuincenas().isEmpty()) {
-                JSFUtils.warningMessage("", "El suplente no tiene quincenas en revisión con los criterios ingresados.");
+                JSFUtils.warningMessage("",
+                        "El suplente no tiene quincenas en revisión con los criterios ingresados.");
             }
         } catch (ValidacionException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -116,15 +125,20 @@ public class RevisionSuplenciaController implements Serializable {
         ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
         dto.setConDetalleMovimieto(true);
         dto.setIdQuincena(quincena.getIdQuincena());
-        view.setDetallesQuincena(suplencia.consultarDetallesSuplenteQuincena(dto));
+        view.setDetallesQuincena(
+                suplencia.consultarDetallesSuplenteQuincena(dto));
         if (!view.getDetallesQuincena().isEmpty()) {
             List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado
-                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto.SUPLENCIA, quincena.getIdQuincena());
+                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                            EntidadContexto.SUPLENCIA,
+                            quincena.getIdQuincena());
             view.setDocumentosAdjuntos(documentosAdjuntosGradoAcademico);
         } else {
-            JSFUtils.warningMessage("", "La quincena seleccionada no tiene detalles asignados.");
+            JSFUtils.warningMessage("",
+                    "La quincena seleccionada no tiene detalles asignados.");
         }
-        view.setDetallesPendientes(suplencia.consultarSuplenciasPendientes(quincena.getIdSuplente(), quincena.getIdQuincena()));
+        view.setDetallesPendientes(suplencia.consultarSuplenciasPendientes(
+                quincena.getIdSuplente(), quincena.getIdQuincena()));
         if (!view.getDetallesPendientes().isEmpty()) {
             view.setMostrarPendientes(true);
         }
@@ -166,15 +180,21 @@ public class RevisionSuplenciaController implements Serializable {
         String estatusQuincena = view.getQuincenaSeleccionada().getEstatus();
 
         if (estatusQuincena.equals(EnumEstatusSuplencia.APROBADO)) {
-            JSFUtils.errorMessage("", "La quincena se ha enviado a cierre no puede ser modificada.");
+            JSFUtils.errorMessage("",
+                    "La quincena se ha enviado a cierre no puede ser modificada.");
 
         } else {
             view.setMostrarMovimiento(false);
             view.setDetalleSeleccionado(detalle);
             view.setMostrarDetalle(true);
             view.setIdDetalleQuincena(detalle.getIdDetalleSuplencia());
-            if (detalle.getIdTipoSuplencia() == EnumTipoSuplencia.INCAPACIDADES || detalle.getIdTipoSuplencia() == EnumTipoSuplencia.LICENCIA_CON_SUELDO
-                    || detalle.getIdTipoSuplencia() == EnumTipoSuplencia.LICENCIA_SIN_SUELDO || detalle.getIdTipoSuplencia() == EnumTipoSuplencia.COMISION) {
+            if (detalle.getIdTipoSuplencia() == EnumTipoSuplencia.INCAPACIDADES
+                    || detalle
+                            .getIdTipoSuplencia() == EnumTipoSuplencia.LICENCIA_CON_SUELDO
+                    || detalle
+                            .getIdTipoSuplencia() == EnumTipoSuplencia.LICENCIA_SIN_SUELDO
+                    || detalle
+                            .getIdTipoSuplencia() == EnumTipoSuplencia.COMISION) {
                 view.setMostrarMovimiento(true);
             }
         }
@@ -187,16 +207,19 @@ public class RevisionSuplenciaController implements Serializable {
 
     public void actualizarDetalleSuplencia() {
         try {
-            suplencia.actualizarEstatusDetalleQuincena(view.getIdDetalleQuincena(), view.getEstatus());
+            suplencia.actualizarEstatusDetalleQuincena(
+                    view.getIdDetalleQuincena(), view.getEstatus());
             view.setMostrarDetalle(false);
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
             dto.setConDetalleMovimieto(true);
             dto.setIdQuincena(view.getQuincenaSeleccionada().getIdQuincena());
-            view.setDetallesQuincena(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesQuincena(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             calcularTotal();
 
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
     }
 
@@ -205,7 +228,8 @@ public class RevisionSuplenciaController implements Serializable {
         view.setMostrarDescuento(true);
         DescuentoSuplenciaDTO descuento = new DescuentoSuplenciaDTO();
         view.setDescuento(descuento);
-        view.getDescuento().setIdDetalleSuplencia(detalle.getIdDetalleSuplencia());
+        view.getDescuento()
+                .setIdDetalleSuplencia(detalle.getIdDetalleSuplencia());
         view.getDescuento().setIdUsuarioLogeado(view.getIdUsuario());
     }
 
@@ -222,23 +246,29 @@ public class RevisionSuplenciaController implements Serializable {
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
             dto.setConDetalleMovimieto(true);
             dto.setIdQuincena(view.getQuincenaSeleccionada().getIdQuincena());
-            view.setDetallesQuincena(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesQuincena(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             calcularTotal();
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("errorEdicion", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorEdicion", "",
+                    exception.getMessage());
         }
     }
 
     public void descargarAdjunto(InformacionAdjuntoDTO adjunto) {
         try {
 
-            byte[] bytes = adjuntoEmpleado.obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
+            byte[] bytes = adjuntoEmpleado
+                    .obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
 
-            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(), adjunto.getExtension().getMIMEType());
-            JSFUtils.infoMessage("Descarga iniciada", "La descarga del archivo ha iniciado.");
+            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(),
+                    adjunto.getExtension().getMIMEType());
+            JSFUtils.infoMessage("Descarga iniciada",
+                    "La descarga del archivo ha iniciado.");
 
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         } catch (IOException ioException) {
@@ -251,14 +281,18 @@ public class RevisionSuplenciaController implements Serializable {
 
             adjuntoEmpleado.elimnar(idAdjunto);
 
-            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado.consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
-                    EntidadContexto.SUPLENCIA, view.getDetallesQuincena().get(0).getIdQuincena());
+            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado
+                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                            EntidadContexto.SUPLENCIA,
+                            view.getDetallesQuincena().get(0).getIdQuincena());
             view.setDocumentosAdjuntos(documentosAdjuntosGradoAcademico);
 
-            JSFUtils.infoMessageEspecifico("info", "", "El documento se ha eliminado correctamente.");
+            JSFUtils.infoMessageEspecifico("info", "",
+                    "El documento se ha eliminado correctamente.");
 
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
@@ -267,9 +301,15 @@ public class RevisionSuplenciaController implements Serializable {
     public String imprimirReporte() {
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyyMMdd");
 
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                "reporte-lista-asistencia-empleado?idEmpleado=" + view.getDetalleSeleccionado().getIdEmpleadoSuplente() + "&fechaInicio="
-                        + dt1.format(view.getDetalleSeleccionado().getFechaInicio()) + "&fechaFin=" + dt1.format(view.getDetalleSeleccionado().getFechaFin())
+        FacesContext.getCurrentInstance().getExternalContext().getFlash()
+                .put("url", "reporte-lista-asistencia-empleado?idEmpleado="
+                        + view.getDetalleSeleccionado().getIdEmpleadoSuplente()
+                        + "&fechaInicio="
+                        + dt1.format(
+                                view.getDetalleSeleccionado().getFechaInicio())
+                        + "&fechaFin="
+                        + dt1.format(
+                                view.getDetalleSeleccionado().getFechaFin())
                         + "&ida=" + -1 + "&idt=" + -1 + "&idd=" + -1);
 
         return "imprimirreporte.xhtml?faces-redirect=true";
@@ -278,7 +318,9 @@ public class RevisionSuplenciaController implements Serializable {
 
     public void actualizarEstatusQuincenaSuplencia() {
         try {
-            suplencia.actualizarEstatusQuincena(view.getQuincenaSeleccionada().getIdQuincena(), EnumEstatusSuplencia.APROBADO);
+            suplencia.actualizarEstatusQuincena(
+                    view.getQuincenaSeleccionada().getIdQuincena(),
+                    EnumEstatusSuplencia.APROBADO);
             JSFUtils.infoMessage("", "La quincena se ha mandado a cierre");
             view.setMostrarBusqueda(true);
             view.setMostrarDesglose(false);
@@ -294,16 +336,20 @@ public class RevisionSuplenciaController implements Serializable {
     public void aprobarDetalles() {
         if (!view.getDetallesQuincena().isEmpty()) {
             for (DetalleSuplenciaDTO d : view.getDetallesQuincena()) {
-                suplencia.actualizarEstatusDetalleQuincena(d.getIdDetalleSuplencia(), EnumEstatusSuplencia.APROBADO);
+                suplencia.actualizarEstatusDetalleQuincena(
+                        d.getIdDetalleSuplencia(),
+                        EnumEstatusSuplencia.APROBADO);
                 view.setMostrarDetalle(false);
             }
 
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
             dto.setConDetalleMovimieto(true);
             dto.setIdQuincena(view.getQuincenaSeleccionada().getIdQuincena());
-            view.setDetallesQuincena(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesQuincena(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             calcularTotal();
-            JSFUtils.infoMessage("", "¡Se han aprobado todos los detalles con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡Se han aprobado todos los detalles con éxito!");
 
         }
 
@@ -311,8 +357,11 @@ public class RevisionSuplenciaController implements Serializable {
 
     public void regresarACaptura() {
         try {
-            suplencia.actualizarEstatusQuincena(view.getQuincenaSeleccionada().getIdQuincena(), EnumEstatusSuplencia.CAPTURA);
-            JSFUtils.infoMessage("", "La quincena se ha regresado a captura con éxito.");
+            suplencia.actualizarEstatusQuincena(
+                    view.getQuincenaSeleccionada().getIdQuincena(),
+                    EnumEstatusSuplencia.CAPTURA);
+            JSFUtils.infoMessage("",
+                    "La quincena se ha regresado a captura con éxito.");
             view.setMostrarBusqueda(true);
             view.setMostrarDesglose(false);
 
@@ -321,18 +370,25 @@ public class RevisionSuplenciaController implements Serializable {
         }
     }
 
-    public void agregarSuplenciaPendiente(Integer idDetalleSuplencia, Integer idSuplente) {
+    public void agregarSuplenciaPendiente(Integer idDetalleSuplencia,
+            Integer idSuplente) {
         try {
-            suplencia.agregarSuplenciaPendiente(view.getQuincenaSeleccionada().getIdQuincena(), idDetalleSuplencia);
-            view.setDetallesPendientes(suplencia.consultarSuplenciasPendientes(idSuplente, view.getQuincenaSeleccionada().getIdQuincena()));
+            suplencia.agregarSuplenciaPendiente(
+                    view.getQuincenaSeleccionada().getIdQuincena(),
+                    idDetalleSuplencia);
+            view.setDetallesPendientes(
+                    suplencia.consultarSuplenciasPendientes(idSuplente,
+                            view.getQuincenaSeleccionada().getIdQuincena()));
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
             dto.setConDetalleMovimieto(true);
             dto.setIdQuincena(view.getQuincenaSeleccionada().getIdQuincena());
-            view.setDetallesQuincena(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesQuincena(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             if (!view.getDetallesQuincena().isEmpty()) {
                 calcularTotal();
             } else {
-                JSFUtils.warningMessage("", "La quincena seleccionada no tiene detalles asignados.");
+                JSFUtils.warningMessage("",
+                        "La quincena seleccionada no tiene detalles asignados.");
             }
             JSFUtils.infoMessage("", "El detalle ha sido agregado con éxito");
 
@@ -345,7 +401,9 @@ public class RevisionSuplenciaController implements Serializable {
 
         if (view.getQuincenaSeleccionada().getIdQuincena() != null) {
             List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado
-                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto.SUPLENCIA, view.getQuincenaSeleccionada().getIdQuincena());
+                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                            EntidadContexto.SUPLENCIA,
+                            view.getQuincenaSeleccionada().getIdQuincena());
             view.setDocumentosAdjuntos(documentosAdjuntosGradoAcademico);
             if (!view.getDocumentosAdjuntos().isEmpty()) {
                 view.setMostrarDocumentacion(true);
@@ -354,7 +412,8 @@ public class RevisionSuplenciaController implements Serializable {
             }
 
         } else {
-            JSFUtils.errorMessage("", "La quincena no tiene asignado ningun detalle");
+            JSFUtils.errorMessage("",
+                    "La quincena no tiene asignado ningun detalle");
         }
 
     }

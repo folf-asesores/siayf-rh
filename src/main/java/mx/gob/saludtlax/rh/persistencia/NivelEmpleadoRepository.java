@@ -8,12 +8,14 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 16/06/2016 14:15:47
  */
-public class NivelEmpleadoRepository extends GenericRepository<NivelEmpleadoEntity, Integer> implements Serializable {
+public class NivelEmpleadoRepository
+        extends GenericRepository<NivelEmpleadoEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -21,7 +23,8 @@ public class NivelEmpleadoRepository extends GenericRepository<NivelEmpleadoEnti
     private static final long serialVersionUID = 1510529362213993951L;
 
     public List<NivelEmpleadoEntity> obtenerListaNivelEmpleado() {
-        return em.createQuery("SELECT n FROM NivelEmpleadoEntity AS n", NivelEmpleadoEntity.class).getResultList();
+        return em.createQuery("SELECT n FROM NivelEmpleadoEntity AS n",
+                NivelEmpleadoEntity.class).getResultList();
     }
 
 }

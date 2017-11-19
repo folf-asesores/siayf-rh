@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class SalarioMinimoView implements Serializable {
@@ -36,7 +36,8 @@ public class SalarioMinimoView implements Serializable {
         return listaSalariosMinimos;
     }
 
-    public void setListaSalariosMinimos(List<SalarioMinimoDTO> listaSalariosMinimos) {
+    public void setListaSalariosMinimos(
+            List<SalarioMinimoDTO> listaSalariosMinimos) {
         this.listaSalariosMinimos = listaSalariosMinimos;
     }
 
@@ -52,7 +53,8 @@ public class SalarioMinimoView implements Serializable {
         return actualizarSalarioMinimo;
     }
 
-    public void setActualizarSalarioMinimo(SalarioMinimoDTO actualizarSalarioMinimo) {
+    public void setActualizarSalarioMinimo(
+            SalarioMinimoDTO actualizarSalarioMinimo) {
         this.actualizarSalarioMinimo = actualizarSalarioMinimo;
     }
 
@@ -60,7 +62,8 @@ public class SalarioMinimoView implements Serializable {
         return idSalarioMinimoSeleccionado;
     }
 
-    public void setIdSalarioMinimoSeleccionado(Integer idSalarioMinimoSeleccionado) {
+    public void setIdSalarioMinimoSeleccionado(
+            Integer idSalarioMinimoSeleccionado) {
         this.idSalarioMinimoSeleccionado = idSalarioMinimoSeleccionado;
     }
 

@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.persistencia.ExperienciaLaboralEntity;
 import mx.gob.saludtlax.rh.persistencia.ExperienciaLaboralRepository;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 06/04/2016 21:10:11
  */
 public class ExperienciaLaboralService {
@@ -32,33 +32,49 @@ public class ExperienciaLaboralService {
      *
      * @param registroExperienciaLaboral
      */
-    protected void crearExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral) {
+    protected void crearExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral) {
         String contexto = "Registro Experiencia Laboral: ";
 
-        AspiranteEntity aspirante = aspiranteRepository.obtenerPorId(experienciaLaboral.getIdAspirante());
+        AspiranteEntity aspirante = aspiranteRepository
+                .obtenerPorId(experienciaLaboral.getIdAspirante());
 
         if (aspirante == null) {
-            throw new BusinessException(contexto + "El identificador del aspirante no existe, registre los datos generales");
+            throw new BusinessException(contexto
+                    + "El identificador del aspirante no existe, registre los datos generales");
         }
 
         ExperienciaLaboralEntity registroExperienciaLaboral = new ExperienciaLaboralEntity();
 
-        registroExperienciaLaboral.setNombreEmpresa(experienciaLaboral.getNombreEmpresa());
-        registroExperienciaLaboral.setTelefono(experienciaLaboral.getTelefono());
-        registroExperienciaLaboral.setCorreoContacto(experienciaLaboral.getCorreoContacto());
+        registroExperienciaLaboral
+                .setNombreEmpresa(experienciaLaboral.getNombreEmpresa());
+        registroExperienciaLaboral
+                .setTelefono(experienciaLaboral.getTelefono());
+        registroExperienciaLaboral
+                .setCorreoContacto(experienciaLaboral.getCorreoContacto());
         registroExperienciaLaboral.setPuesto(experienciaLaboral.getPuesto());
-        registroExperienciaLaboral.setFechaInicial(experienciaLaboral.getFechaInicial());
-        registroExperienciaLaboral.setFechaFinal(experienciaLaboral.getFechaFinal());
-        registroExperienciaLaboral.setDireccionEmpresa(experienciaLaboral.getDireccionEmpresa());
-        registroExperienciaLaboral.setMotivoSeparacion(experienciaLaboral.getMotivoSeparacion());
-        registroExperienciaLaboral.setSueldoMensual(experienciaLaboral.getSueldoMensual());
+        registroExperienciaLaboral
+                .setFechaInicial(experienciaLaboral.getFechaInicial());
+        registroExperienciaLaboral
+                .setFechaFinal(experienciaLaboral.getFechaFinal());
+        registroExperienciaLaboral
+                .setDireccionEmpresa(experienciaLaboral.getDireccionEmpresa());
+        registroExperienciaLaboral
+                .setMotivoSeparacion(experienciaLaboral.getMotivoSeparacion());
+        registroExperienciaLaboral
+                .setSueldoMensual(experienciaLaboral.getSueldoMensual());
 
         registroExperienciaLaboral.setAspirante(aspirante);
-        registroExperienciaLaboral.setNombreJefe(experienciaLaboral.getNombreJefe());
-        registroExperienciaLaboral.setPuestoJefe(experienciaLaboral.getPuestoJefe());
-        registroExperienciaLaboral.setSolicitarInformacion(experienciaLaboral.getSolicitarInformacion());
-        registroExperienciaLaboral.setRazonNoSolicitar(experienciaLaboral.getRazonNoSolicitar());
-        registroExperienciaLaboral.setComentarios(experienciaLaboral.getComentarios());
+        registroExperienciaLaboral
+                .setNombreJefe(experienciaLaboral.getNombreJefe());
+        registroExperienciaLaboral
+                .setPuestoJefe(experienciaLaboral.getPuestoJefe());
+        registroExperienciaLaboral.setSolicitarInformacion(
+                experienciaLaboral.getSolicitarInformacion());
+        registroExperienciaLaboral
+                .setRazonNoSolicitar(experienciaLaboral.getRazonNoSolicitar());
+        registroExperienciaLaboral
+                .setComentarios(experienciaLaboral.getComentarios());
 
         // registrando experiencia personal
         experienciaLaboralRepository.crear(registroExperienciaLaboral);
@@ -70,38 +86,56 @@ public class ExperienciaLaboralService {
      *
      * @param experienciaLaboral
      */
-    protected void actualizarExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral) {
+    protected void actualizarExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral) {
 
         String contexto = "Actualización Experiencia Laboral: ";
 
-        AspiranteEntity aspirante = aspiranteRepository.obtenerPorId(experienciaLaboral.getIdAspirante());
+        AspiranteEntity aspirante = aspiranteRepository
+                .obtenerPorId(experienciaLaboral.getIdAspirante());
 
         if (aspirante == null) {
-            throw new BusinessException(contexto + "El identificador del aspirante no existe, registre los datos generales");
+            throw new BusinessException(contexto
+                    + "El identificador del aspirante no existe, registre los datos generales");
         }
         // Obteniendo la experiencia laboral por identificador unico
-        ExperienciaLaboralEntity registroExperienciaLaboral = experienciaLaboralRepository.obtenerPorId(experienciaLaboral.getIdExperienciaLaboralAspirante());
+        ExperienciaLaboralEntity registroExperienciaLaboral = experienciaLaboralRepository
+                .obtenerPorId(
+                        experienciaLaboral.getIdExperienciaLaboralAspirante());
 
-        registroExperienciaLaboral.setNombreEmpresa(experienciaLaboral.getNombreEmpresa());
-        registroExperienciaLaboral.setTelefono(experienciaLaboral.getTelefono());
-        registroExperienciaLaboral.setCorreoContacto(experienciaLaboral.getCorreoContacto());
+        registroExperienciaLaboral
+                .setNombreEmpresa(experienciaLaboral.getNombreEmpresa());
+        registroExperienciaLaboral
+                .setTelefono(experienciaLaboral.getTelefono());
+        registroExperienciaLaboral
+                .setCorreoContacto(experienciaLaboral.getCorreoContacto());
         registroExperienciaLaboral.setPuesto(experienciaLaboral.getPuesto());
-        registroExperienciaLaboral.setFechaInicial(experienciaLaboral.getFechaInicial());
-        registroExperienciaLaboral.setFechaFinal(experienciaLaboral.getFechaFinal());
+        registroExperienciaLaboral
+                .setFechaInicial(experienciaLaboral.getFechaInicial());
+        registroExperienciaLaboral
+                .setFechaFinal(experienciaLaboral.getFechaFinal());
 
         registroExperienciaLaboral.setDireccionEmpresa("");
 
-        registroExperienciaLaboral.setDireccionEmpresa(experienciaLaboral.getDireccionEmpresa());
+        registroExperienciaLaboral
+                .setDireccionEmpresa(experienciaLaboral.getDireccionEmpresa());
 
-        registroExperienciaLaboral.setMotivoSeparacion(experienciaLaboral.getMotivoSeparacion());
-        registroExperienciaLaboral.setSueldoMensual(experienciaLaboral.getSueldoMensual());
+        registroExperienciaLaboral
+                .setMotivoSeparacion(experienciaLaboral.getMotivoSeparacion());
+        registroExperienciaLaboral
+                .setSueldoMensual(experienciaLaboral.getSueldoMensual());
 
         registroExperienciaLaboral.setAspirante(aspirante);
-        registroExperienciaLaboral.setNombreJefe(experienciaLaboral.getNombreJefe());
-        registroExperienciaLaboral.setPuestoJefe(experienciaLaboral.getPuestoJefe());
-        registroExperienciaLaboral.setSolicitarInformacion(experienciaLaboral.getSolicitarInformacion());
-        registroExperienciaLaboral.setRazonNoSolicitar(experienciaLaboral.getRazonNoSolicitar());
-        registroExperienciaLaboral.setComentarios(experienciaLaboral.getComentarios());
+        registroExperienciaLaboral
+                .setNombreJefe(experienciaLaboral.getNombreJefe());
+        registroExperienciaLaboral
+                .setPuestoJefe(experienciaLaboral.getPuestoJefe());
+        registroExperienciaLaboral.setSolicitarInformacion(
+                experienciaLaboral.getSolicitarInformacion());
+        registroExperienciaLaboral
+                .setRazonNoSolicitar(experienciaLaboral.getRazonNoSolicitar());
+        registroExperienciaLaboral
+                .setComentarios(experienciaLaboral.getComentarios());
 
         // actualizando experiencia personal
         experienciaLaboralRepository.actualizar(registroExperienciaLaboral);
@@ -116,7 +150,8 @@ public class ExperienciaLaboralService {
     protected void eliminarExperienciaLaboral(Integer idExperienciaLaboral) {
 
         // Obteniendo la experiencia laboral por identificador unico
-        ExperienciaLaboralEntity registroExperienciaLaboral = experienciaLaboralRepository.obtenerPorId(idExperienciaLaboral);
+        ExperienciaLaboralEntity registroExperienciaLaboral = experienciaLaboralRepository
+                .obtenerPorId(idExperienciaLaboral);
         // Eliminando Experiencia Laboral
         experienciaLaboralRepository.eliminar(registroExperienciaLaboral);
     }
@@ -128,16 +163,19 @@ public class ExperienciaLaboralService {
      * @return
      * @throws ParseException
      */
-    protected List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboralPorIdAspirante(Integer idAspirante) {
+    protected List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboralPorIdAspirante(
+            Integer idAspirante) {
         List<ExperienciaLaboralAspiranteDTO> experienciasLaboralesDTO = new ArrayList<>();
 
-        List<ExperienciaLaboralEntity> experienciasLaboralesEntities = experienciaLaboralRepository.consultarExperienciasLaboralesAspirante(idAspirante);
+        List<ExperienciaLaboralEntity> experienciasLaboralesEntities = experienciaLaboralRepository
+                .consultarExperienciasLaboralesAspirante(idAspirante);
 
         if (!experienciasLaboralesEntities.isEmpty()) {
             for (ExperienciaLaboralEntity entity : experienciasLaboralesEntities) {
                 ExperienciaLaboralAspiranteDTO dto = new ExperienciaLaboralAspiranteDTO();
 
-                dto.setIdExperienciaLaboralAspirante(entity.getIdExperienciaLaboral());
+                dto.setIdExperienciaLaboralAspirante(
+                        entity.getIdExperienciaLaboral());
 
                 dto.setIdAspirante(entity.getAspirante().getIdAspirante());
 

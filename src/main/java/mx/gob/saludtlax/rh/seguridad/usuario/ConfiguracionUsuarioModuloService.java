@@ -32,19 +32,24 @@ public class ConfiguracionUsuarioModuloService {
     public void crearConfiguracion(ConfiguracionUsuarioModuloDTO dto) {
         ConfiguracionUsuarioModuloEntity entity = new ConfiguracionUsuarioModuloEntity();
         entity.setFechaCreacion(new Date());
-        entity.setConfiguracionModuloAccion(configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
-        entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
+        entity.setConfiguracionModuloAccion(configuracionModuloDao.obtenerPorId(
+                dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
+        entity.setUsuario(
+                usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
         dao.crear(entity);
 
     }
 
     public void editarConfiguracion(ConfiguracionUsuarioModuloDTO dto) {
-        ConfiguracionUsuarioModuloEntity entity = dao.obtenerPorId(dto.getIdConfiguracionUsuarioModulo());
+        ConfiguracionUsuarioModuloEntity entity = dao
+                .obtenerPorId(dto.getIdConfiguracionUsuarioModulo());
 
         entity.setFechaCreacion(new Date());
-        entity.setConfiguracionModuloAccion(configuracionModuloDao.obtenerPorId(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
-        entity.setUsuario(usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
+        entity.setConfiguracionModuloAccion(configuracionModuloDao.obtenerPorId(
+                dto.getConfiguracionModulo().getIdConfiguracionModuloAccion()));
+        entity.setUsuario(
+                usuarioDao.obtenerPorId(dto.getUsuario().getIdUsuario()));
 
         dao.actualizar(entity);
 
@@ -56,7 +61,8 @@ public class ConfiguracionUsuarioModuloService {
     }
 
     public List<ConfiguracionUsuarioModuloDTO> obtenerLista() {
-        List<ConfiguracionUsuarioModuloEntity> listEntity = dao.obtenerRegistros();
+        List<ConfiguracionUsuarioModuloEntity> listEntity = dao
+                .obtenerRegistros();
 
         if (listEntity == null) {
             listEntity = new ArrayList<>();
@@ -66,7 +72,8 @@ public class ConfiguracionUsuarioModuloService {
         for (ConfiguracionUsuarioModuloEntity cE : listEntity) {
             ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
 
-            dto.setIdConfiguracionUsuarioModulo((cE.getIdConfiguracionUsuarioModulo()));
+            dto.setIdConfiguracionUsuarioModulo(
+                    (cE.getIdConfiguracionUsuarioModulo()));
 
             dto.setFechaCreacion(new Date());
 
@@ -86,7 +93,9 @@ public class ConfiguracionUsuarioModuloService {
             dto.setUsuario(usuarioDto);
 
             ConfiguracionModuloAccionDTO confModuloAccion = new ConfiguracionModuloAccionDTO();
-            confModuloAccion.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            confModuloAccion.setIdConfiguracionModuloAccion(
+                    cE.getConfiguracionModuloAccion()
+                            .getIdConfiguracionModuloAccion());
 
             dto.setConfiguracionModulo(confModuloAccion);
 
@@ -96,8 +105,10 @@ public class ConfiguracionUsuarioModuloService {
         return listDto;
     }
 
-    public List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(Integer idUsuario) {
-        List<ConfiguracionUsuarioModuloEntity> listEntity = dao.obtenerRegistrosPorUsuario(idUsuario);
+    public List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(
+            Integer idUsuario) {
+        List<ConfiguracionUsuarioModuloEntity> listEntity = dao
+                .obtenerRegistrosPorUsuario(idUsuario);
 
         if (listEntity == null) {
             listEntity = new ArrayList<>();
@@ -107,7 +118,8 @@ public class ConfiguracionUsuarioModuloService {
         for (ConfiguracionUsuarioModuloEntity cE : listEntity) {
             ConfiguracionUsuarioModuloDTO dto = new ConfiguracionUsuarioModuloDTO();
 
-            dto.setIdConfiguracionUsuarioModulo((cE.getIdConfiguracionUsuarioModulo()));
+            dto.setIdConfiguracionUsuarioModulo(
+                    (cE.getIdConfiguracionUsuarioModulo()));
 
             dto.setFechaCreacion(new Date());
 
@@ -127,7 +139,9 @@ public class ConfiguracionUsuarioModuloService {
             dto.setUsuario(usuarioDto);
 
             ConfiguracionModuloAccionDTO confModuloAccion = new ConfiguracionModuloAccionDTO();
-            confModuloAccion.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            confModuloAccion.setIdConfiguracionModuloAccion(
+                    cE.getConfiguracionModuloAccion()
+                            .getIdConfiguracionModuloAccion());
 
             dto.setConfiguracionModulo(confModuloAccion);
             listDto.add(dto);
@@ -138,13 +152,16 @@ public class ConfiguracionUsuarioModuloService {
 
     // obtiene la lista de claves de acciones que tiene asignadas un usuario
     public List<String> obtenerAccionesdeUsuario(Integer idUsuario) {
-        List<ConfiguracionUsuarioModuloDTO> confDtos = obtenerListaPorUsuario(idUsuario);
+        List<ConfiguracionUsuarioModuloDTO> confDtos = obtenerListaPorUsuario(
+                idUsuario);
 
         List<String> accionesDeUsuario = new ArrayList<>();
         for (ConfiguracionUsuarioModuloDTO dto : confDtos) {
 
             List<DetalleConfiguracionModuloAccionEntity> detalles = configuracionModuloAccionRepository
-                    .obtenerDetallesPorIdConfiguracion(dto.getConfiguracionModulo().getIdConfiguracionModuloAccion());
+                    .obtenerDetallesPorIdConfiguracion(
+                            dto.getConfiguracionModulo()
+                                    .getIdConfiguracionModuloAccion());
             for (DetalleConfiguracionModuloAccionEntity detalle : detalles) {
                 accionesDeUsuario.add(detalle.getAccion().getClave());
             }

@@ -22,7 +22,8 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 @ManagedBean(name = "importarXMLPaqueteNomina")
 @ViewScoped
 public class ImportarPaqueteCFDIController {
-    private static final Logger LOGGER = Logger.getLogger(ImportarPaqueteCFDIController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ImportarPaqueteCFDIController.class.getName());
 
     @Inject
     ProcesarPaqueteNominaService procesarPaqueteNominaService;
@@ -70,7 +71,8 @@ public class ImportarPaqueteCFDIController {
 
     public void procesarXML() throws IOException, InterruptedException {
 
-        listadoNominasProcesando = procesarPaqueteNominaService.procesar(uploadFile.getInputstream());
+        listadoNominasProcesando = procesarPaqueteNominaService
+                .procesar(uploadFile.getInputstream());
         totalProcesos = listadoNominasProcesando.size();
         // listadoComprobanteNominaView = paquete.getComprobanteNominaView();
         mostrarTabla = true;
@@ -130,7 +132,8 @@ public class ImportarPaqueteCFDIController {
             if (comprobanteNominaViewFuture.isDone()) {
 
                 try {
-                    listadoComprobanteNominaView.add(comprobanteNominaViewFuture.get());
+                    listadoComprobanteNominaView
+                            .add(comprobanteNominaViewFuture.get());
                     completados++;
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
@@ -158,8 +161,10 @@ public class ImportarPaqueteCFDIController {
             mostrarSubirArchivo = false;
             mostrarTabla = false;
             procesarXML();
-            JSFUtils.infoMessage("Se ha empezado a importar los CFDI", "Se ha empezado a importar los CFDI");
-            RequestContext.getCurrentInstance().execute("PF('pbLeerXML').start()");
+            JSFUtils.infoMessage("Se ha empezado a importar los CFDI",
+                    "Se ha empezado a importar los CFDI");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('pbLeerXML').start()");
 
         } catch (IOException e) {
 
@@ -223,7 +228,8 @@ public class ImportarPaqueteCFDIController {
         return listadoComprobanteNominaView;
     }
 
-    public void setListadoComprobanteNominaView(List<ComprobanteNominaView> listadoComprobanteNominaView) {
+    public void setListadoComprobanteNominaView(
+            List<ComprobanteNominaView> listadoComprobanteNominaView) {
         this.listadoComprobanteNominaView = listadoComprobanteNominaView;
     }
 

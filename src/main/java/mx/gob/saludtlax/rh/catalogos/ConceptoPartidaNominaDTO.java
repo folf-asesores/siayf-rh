@@ -13,10 +13,12 @@ public class ConceptoPartidaNominaDTO {
     private String id_partida;
     private String descripcion_partida;
 
-    public ConceptoPartidaNominaEntity toEntity(ConceptoPartidaNominaEntity entity, ConceptoPartidaNominaDTO dto) {
+    public ConceptoPartidaNominaEntity toEntity(
+            ConceptoPartidaNominaEntity entity, ConceptoPartidaNominaDTO dto) {
         entity.setIdCconceptoPartidaNomina(dto.getId_concepto_partida_nomina());
         entity.setIdConceptoNomina(dto.getId_concepto_nomina());
-        entity.setDescripcionConceptoNomina(dto.getDescripcion_concepto_nomina());
+        entity.setDescripcionConceptoNomina(
+                dto.getDescripcion_concepto_nomina());
         entity.setIdNombramiento(dto.getId_nombramiento());
         entity.setDescripcionNombramiento(dto.getDescripcion_nombramiento());
         entity.setIdPartida(dto.getId_partida());
@@ -29,7 +31,8 @@ public class ConceptoPartidaNominaDTO {
         return id_concepto_partida_nomina;
     }
 
-    public void setId_concepto_partida_nomina(Integer id_concepto_partida_nomina) {
+    public void setId_concepto_partida_nomina(
+            Integer id_concepto_partida_nomina) {
         this.id_concepto_partida_nomina = id_concepto_partida_nomina;
     }
 
@@ -45,7 +48,8 @@ public class ConceptoPartidaNominaDTO {
         return descripcion_concepto_nomina;
     }
 
-    public void setDescripcion_concepto_nomina(String descripcion_concepto_nomina) {
+    public void setDescripcion_concepto_nomina(
+            String descripcion_concepto_nomina) {
         this.descripcion_concepto_nomina = descripcion_concepto_nomina;
     }
 

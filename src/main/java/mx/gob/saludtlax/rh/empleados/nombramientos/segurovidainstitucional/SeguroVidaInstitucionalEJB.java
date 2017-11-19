@@ -8,7 +8,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -18,15 +18,18 @@ public class SeguroVidaInstitucionalEJB implements SeguroVidaInstitucional {
     private SeguroVidaInstitucionalService seguroVidaInstitucionalService;
 
     @Override
-    public Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
+    public Integer crearSeguroVida(
+            SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
 
-        return seguroVidaInstitucionalService.crearSeguroVida(seguroVidaInstitucionalDTO);
+        return seguroVidaInstitucionalService
+                .crearSeguroVida(seguroVidaInstitucionalDTO);
     }
 
     @Override
     public boolean existeNumeroExpediente(String numeroExpediente) {
 
-        return seguroVidaInstitucionalService.existeNumeroExpediente(numeroExpediente);
+        return seguroVidaInstitucionalService
+                .existeNumeroExpediente(numeroExpediente);
     }
 
     @Override

@@ -13,12 +13,16 @@ public class CuentaBancariaEJB {
     private CuentaBancariaService cuentaBancariaService;
 
     public List<CuentaBancariaDTO> obtenerCuentaBancariaLista() {
-        List<CuentaBancariaDTO> cuentaBancariaLista = cuentaBancariaService.listaCuentaBancaria();
+        List<CuentaBancariaDTO> cuentaBancariaLista = cuentaBancariaService
+                .listaCuentaBancaria();
         return cuentaBancariaLista;
     }
 
-    public CuentaBancariaDTO obtenerCuentaBancaria(CuentaBancariaDTO cuentaBancaria) {
-        CuentaBancariaDTO dto = cuentaBancariaService.obtenerCuentaBancariaPorId(cuentaBancaria.getIdCuentaBancaria());
+    public CuentaBancariaDTO obtenerCuentaBancaria(
+            CuentaBancariaDTO cuentaBancaria) {
+        CuentaBancariaDTO dto = cuentaBancariaService
+                .obtenerCuentaBancariaPorId(
+                        cuentaBancaria.getIdCuentaBancaria());
         return dto;
     }
 

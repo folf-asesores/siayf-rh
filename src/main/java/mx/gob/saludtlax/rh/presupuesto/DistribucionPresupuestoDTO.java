@@ -42,7 +42,8 @@ public class DistribucionPresupuestoDTO implements Serializable {
         return idDistribucionPresupuestal;
     }
 
-    public void setIdDistribucionPresupuestal(Integer idDistribucionPresupuestal) {
+    public void setIdDistribucionPresupuestal(
+            Integer idDistribucionPresupuestal) {
         this.idDistribucionPresupuestal = idDistribucionPresupuestal;
     }
 
@@ -210,7 +211,8 @@ public class DistribucionPresupuestoDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

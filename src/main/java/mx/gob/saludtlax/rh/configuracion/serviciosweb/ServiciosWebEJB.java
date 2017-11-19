@@ -33,10 +33,12 @@ public class ServiciosWebEJB implements Serializable {
         return serviciosRSRepository.obtenerListadoServicios();
     }
 
-    public void guardarInformacionServicio(ServiciosRSEntity servicioRSEntity) throws ServicioWebException {
+    public void guardarInformacionServicio(ServiciosRSEntity servicioRSEntity)
+            throws ServicioWebException {
 
         if (servicioRSEntity.isActivo()) {
-            if (serviciosRSRepository.existeServicioActivo(servicioRSEntity.getServicio())) {
+            if (serviciosRSRepository
+                    .existeServicioActivo(servicioRSEntity.getServicio())) {
                 throw new ServicioWebException("Ya existe un servicio activo");
             }
 
@@ -45,12 +47,16 @@ public class ServiciosWebEJB implements Serializable {
 
     }
 
-    public void actualizarInformacionServicio(ServiciosRSEntity servicioRSEntity) throws ServicioWebException {
+    public void actualizarInformacionServicio(
+            ServiciosRSEntity servicioRSEntity) throws ServicioWebException {
 
-        ServiciosRSEntity servicioRSEntityDB = getServicioRSEntity(servicioRSEntity.getIdServicioRS());
+        ServiciosRSEntity servicioRSEntityDB = getServicioRSEntity(
+                servicioRSEntity.getIdServicioRS());
 
         if (servicioRSEntity.isActivo()) {
-            if (serviciosRSRepository.existeServicioActivo(servicioRSEntity.getServicio(), servicioRSEntity.getIdServicioRS())) {
+            if (serviciosRSRepository.existeServicioActivo(
+                    servicioRSEntity.getServicio(),
+                    servicioRSEntity.getIdServicioRS())) {
                 throw new ServicioWebException("Ya existe un servicio activo");
             }
 
@@ -81,9 +87,11 @@ public class ServiciosWebEJB implements Serializable {
      * @return
      * @throws ServicioWebException
      */
-    public ServiciosRSEntity getServicioActivo(ServicioWebEnum servicio) throws ServicioWebException {
+    public ServiciosRSEntity getServicioActivo(ServicioWebEnum servicio)
+            throws ServicioWebException {
 
-        ServiciosRSEntity servicioRSEntity = serviciosRSRepository.getDatosServicioActivo(servicio);
+        ServiciosRSEntity servicioRSEntity = serviciosRSRepository
+                .getDatosServicioActivo(servicio);
 
         if (servicioRSEntity == null) {
             throw new ServicioWebException(

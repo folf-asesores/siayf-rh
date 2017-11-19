@@ -18,33 +18,45 @@ public class ConsultaProsperaEJB {
     //	Listas para Estructura Nomina Datos
 
     public List<EstructuraContratosDatDTO> obtenerConsultaProsperaLista() {
-        List<EstructuraContratosDatDTO> consultaNominaLista = consultaProsperaService.listaEstructuraProspera();
+        List<EstructuraContratosDatDTO> consultaNominaLista = consultaProsperaService
+                .listaEstructuraProspera();
         return consultaNominaLista;
     }
 
-    public EstructuraContratosDatDTO obtenerConsultaProsperaListaPorId(EstructuraContratosDatDTO DTO) {
-        EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(DTO.getIdEstructurasContratos());
+    public EstructuraContratosDatDTO obtenerConsultaProsperaListaPorId(
+            EstructuraContratosDatDTO DTO) {
+        EstructuraContratosDatDTO dto = consultaProsperaService
+                .obtenerEstructuraProsperaDatPorId(
+                        DTO.getIdEstructurasContratos());
         return dto;
     }
 
-    public List<EstructuraContratosDatDTO> obtenerConsultaProsperaListaPorCriterios(String rfcCriterio) {
-        List<EstructuraContratosDatDTO> consultaProsperaLista = consultaProsperaService.listaEstructuraProsperaPorCriterios(rfcCriterio);
+    public List<EstructuraContratosDatDTO> obtenerConsultaProsperaListaPorCriterios(
+            String rfcCriterio) {
+        List<EstructuraContratosDatDTO> consultaProsperaLista = consultaProsperaService
+                .listaEstructuraProsperaPorCriterios(rfcCriterio);
         return consultaProsperaLista;
     }
 
     //	Listas para Estructura Nomina Datos
 
     public List<EstructuraContratosTrailersDTO> obtenerConsultaNominaTrailersLista() {
-        List<EstructuraContratosTrailersDTO> consultaProsperaTrailersLista = consultaProsperaService.listaEstructuraProsperaTrailers();
+        List<EstructuraContratosTrailersDTO> consultaProsperaTrailersLista = consultaProsperaService
+                .listaEstructuraProsperaTrailers();
         return consultaProsperaTrailersLista;
     }
 
-    public List<EstructuraContratosTrailersDTO> obtenerConsultaProsperaTrailersListaPorCriterios(String rfc) {
-        return consultaProsperaService.listaConsultaProsperaTrailersPorCriterios(rfc);
+    public List<EstructuraContratosTrailersDTO> obtenerConsultaProsperaTrailersListaPorCriterios(
+            String rfc) {
+        return consultaProsperaService
+                .listaConsultaProsperaTrailersPorCriterios(rfc);
     }
 
-    public EstructuraContratosTrailersDTO obtenerConsultaProsperaTrailersListaPorId(EstructuraContratosTrailersDTO DTO) {
-        EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
+    public EstructuraContratosTrailersDTO obtenerConsultaProsperaTrailersListaPorId(
+            EstructuraContratosTrailersDTO DTO) {
+        EstructuraContratosTrailersDTO dto = consultaProsperaService
+                .obtenerEstructuraProsperaTrailersDatPorId(
+                        DTO.getIdEstructurasContratos());
         return dto;
     }
 
@@ -54,12 +66,16 @@ public class ConsultaProsperaEJB {
         return consultaProsperaService.nuevosDatos();
     }
 
-    public void eliminarDatos(EstructuraContratosDatDTO estructuraNominaSelect) {
+    public void eliminarDatos(
+            EstructuraContratosDatDTO estructuraNominaSelect) {
 
     }
 
-    public EstructuraContratosDatDTO obtenerDatos(EstructuraContratosDatDTO estructuraProsperaSelect) {
-        EstructuraContratosDatDTO dto = consultaProsperaService.obtenerEstructuraProsperaDatPorId(estructuraProsperaSelect.getIdEstructurasContratos());
+    public EstructuraContratosDatDTO obtenerDatos(
+            EstructuraContratosDatDTO estructuraProsperaSelect) {
+        EstructuraContratosDatDTO dto = consultaProsperaService
+                .obtenerEstructuraProsperaDatPorId(
+                        estructuraProsperaSelect.getIdEstructurasContratos());
         return dto;
     }
 
@@ -77,12 +93,16 @@ public class ConsultaProsperaEJB {
         return consultaProsperaService.nuevosTrailersProspera();
     }
 
-    public void eliminarTrailers(EstructuraContratosTrailersDTO estructuraNominaSelect) {
+    public void eliminarTrailers(
+            EstructuraContratosTrailersDTO estructuraNominaSelect) {
 
     }
 
-    public EstructuraContratosTrailersDTO obtenerTrailers(EstructuraContratosTrailersDTO DTO) {
-        EstructuraContratosTrailersDTO dto = consultaProsperaService.obtenerEstructuraProsperaTrailersDatPorId(DTO.getIdEstructurasContratos());
+    public EstructuraContratosTrailersDTO obtenerTrailers(
+            EstructuraContratosTrailersDTO DTO) {
+        EstructuraContratosTrailersDTO dto = consultaProsperaService
+                .obtenerEstructuraProsperaTrailersDatPorId(
+                        DTO.getIdEstructurasContratos());
         return dto;
     }
 
@@ -90,7 +110,8 @@ public class ConsultaProsperaEJB {
         consultaProsperaService.crearTrailersProspera(dto);
     }
 
-    public void actualizarTrailers(EstructuraContratosTrailersDTO estructuraProspera) {
+    public void actualizarTrailers(
+            EstructuraContratosTrailersDTO estructuraProspera) {
         consultaProsperaService.actualizarTrailersProspera(estructuraProspera);
     }
 

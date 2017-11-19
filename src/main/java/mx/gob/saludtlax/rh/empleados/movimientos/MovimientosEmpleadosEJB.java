@@ -18,15 +18,18 @@ public class MovimientosEmpleadosEJB implements MovimientosEmpleados {
     private MovimientosEmpleadosService movimientosEmpleadosService;
 
     @Override
-    public void crearMovimientoEmpleado(RegistroMovimientoDTO registroMovimientoDTO) {
+    public void crearMovimientoEmpleado(
+            RegistroMovimientoDTO registroMovimientoDTO) {
         movimientosEmpleadosService.crearMovimiento(registroMovimientoDTO);
 
     }
 
     @Override
-    public List<InfoMovimientoDTO> consultarMovimientos(FiltroConsultaDTO filtroConsultaDTO) {
+    public List<InfoMovimientoDTO> consultarMovimientos(
+            FiltroConsultaDTO filtroConsultaDTO) {
 
-        return consultaMovimientoService.consultarMovimientos(filtroConsultaDTO);
+        return consultaMovimientoService
+                .consultarMovimientos(filtroConsultaDTO);
     }
 
     @Override
@@ -48,9 +51,12 @@ public class MovimientosEmpleadosEJB implements MovimientosEmpleados {
     }
 
     @Override
-    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial, Date fechaFinal) {
+    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(
+            Date fechaInicial, Date fechaFinal) {
 
-        return consultaMovimientoService.listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial, fechaFinal);
+        return consultaMovimientoService
+                .listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial,
+                        fechaFinal);
     }
 
 }

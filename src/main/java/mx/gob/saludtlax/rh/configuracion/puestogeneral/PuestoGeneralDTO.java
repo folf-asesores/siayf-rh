@@ -7,8 +7,8 @@ package mx.gob.saludtlax.rh.configuracion.puestogeneral;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 13:36:58
  */
@@ -32,8 +32,6 @@ public class PuestoGeneralDTO implements Serializable {
     private Integer idRama = 0;
 
     private String descripcionRama;
-
-    
 
     /**
      * @return the idPuestoGeneral

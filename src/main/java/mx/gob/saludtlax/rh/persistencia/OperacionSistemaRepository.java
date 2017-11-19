@@ -11,7 +11,8 @@ import java.util.List;
  *
  * @since 10/08/2016 22:47:02
  */
-public class OperacionSistemaRepository extends GenericRepository<OperacionSistemaEntity, Integer> {
+public class OperacionSistemaRepository
+        extends GenericRepository<OperacionSistemaEntity, Integer> {
 
     /**
      *
@@ -19,13 +20,18 @@ public class OperacionSistemaRepository extends GenericRepository<OperacionSiste
     private static final long serialVersionUID = -6819079619931387392L;
 
     public List<OperacionSistemaEntity> consultarOperaciones() {
-        List<OperacionSistemaEntity> lista = em.createQuery(" SELECT o FROM OperacionSistemaEntity AS o", OperacionSistemaEntity.class).getResultList();
+        List<OperacionSistemaEntity> lista = em
+                .createQuery(" SELECT o FROM OperacionSistemaEntity AS o",
+                        OperacionSistemaEntity.class)
+                .getResultList();
         return lista;
     }
 
     public String obtenerDescripcionOperacion(Integer idOperacion) {
-        return em.createQuery("SELECT o.operacion FROM OperacionSistemaEntity AS o WHERE o.idOperacion =:idOperacion", String.class)
-                .setParameter("idOperacion", idOperacion).getSingleResult();
+        return em.createQuery(
+                "SELECT o.operacion FROM OperacionSistemaEntity AS o WHERE o.idOperacion =:idOperacion",
+                String.class).setParameter("idOperacion", idOperacion)
+                .getSingleResult();
     }
 
 }

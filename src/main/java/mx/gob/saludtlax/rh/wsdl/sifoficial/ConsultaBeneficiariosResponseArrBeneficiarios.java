@@ -43,7 +43,8 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "consulta_beneficiariosResponse_arr_beneficiarios", propOrder = { "element" })
+@XmlType(name = "consulta_beneficiariosResponse_arr_beneficiarios", propOrder = {
+        "element" })
 public class ConsultaBeneficiariosResponseArrBeneficiarios {
 
     @XmlElement(required = true, nillable = true)

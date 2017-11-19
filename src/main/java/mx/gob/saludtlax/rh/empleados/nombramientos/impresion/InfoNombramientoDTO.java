@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12:56:16 13/09/2016
  */
@@ -40,8 +40,10 @@ public class InfoNombramientoDTO implements Serializable {
         super();
     }
 
-    public InfoNombramientoDTO(Integer idNombramiento, String tipoNombramiento, String nombreEmpleado, String clavePresupuestal, String funcion,
-            BigDecimal sueldo, String domicilioNombramiento, Integer idClasificacionNombramiento) {
+    public InfoNombramientoDTO(Integer idNombramiento, String tipoNombramiento,
+            String nombreEmpleado, String clavePresupuestal, String funcion,
+            BigDecimal sueldo, String domicilioNombramiento,
+            Integer idClasificacionNombramiento) {
 
         this.idNombramiento = idNombramiento;
         this.tipoNombramiento = tipoNombramiento;
@@ -163,7 +165,8 @@ public class InfoNombramientoDTO implements Serializable {
         return idClasificacionNombramiento;
     }
 
-    public void setIdClasificacionNombramiento(Integer idClasificacionNombramiento) {
+    public void setIdClasificacionNombramiento(
+            Integer idClasificacionNombramiento) {
         this.idClasificacionNombramiento = idClasificacionNombramiento;
     }
 

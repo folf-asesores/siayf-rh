@@ -17,15 +17,20 @@ public class TerminoConfianzaReincorporacionEJB {
 
     public TerminoDTO obtenerTermino(Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         TerminoDTO terminoDTO = new TerminoDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
         String asunto = "Se comunica término de nombramiento de confianza y reincorporación a su plaza de base.";
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().nombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .nombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
         String fechaTermino = "partir del 22 de febrero del año en curso, se da por terminado su nombramiento de confianza";
         String clavePresupuestal = "0024161103 CF41013 29004 0012";
         String fechaPlaza = "on fecha 23 del mismo mes y año, se le reincorpora a su plaza de base con función de Médico General “C”";
@@ -55,14 +60,16 @@ public class TerminoConfianzaReincorporacionEJB {
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 TerminoDetalleDTO dto = new TerminoDetalleDTO();
 

@@ -24,9 +24,9 @@ import javax.ejb.ApplicationException;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @ApplicationException(rollback = true)
-public class ReglaNegocioException extends RuntimeException implements Serializable {
+public class ReglaNegocioException extends RuntimeException
+        implements Serializable {
 
-    
     private static final long serialVersionUID = 4423246025732842148L;
 
     private ReglaNegocioCodigoError codigoError;
@@ -40,7 +40,8 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ReglaNegocioException(String message, ReglaNegocioCodigoError codigoError) {
+    public ReglaNegocioException(String message,
+            ReglaNegocioCodigoError codigoError) {
         super(message);
         this.codigoError = codigoError;
     }
@@ -53,7 +54,8 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ReglaNegocioException(Throwable cause, ReglaNegocioCodigoError codigoError) {
+    public ReglaNegocioException(Throwable cause,
+            ReglaNegocioCodigoError codigoError) {
         super(cause);
         this.codigoError = codigoError;
     }
@@ -68,7 +70,8 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ReglaNegocioException(String message, Throwable cause, ReglaNegocioCodigoError codigoError) {
+    public ReglaNegocioException(String message, Throwable cause,
+            ReglaNegocioCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -142,7 +145,8 @@ public class ReglaNegocioException extends RuntimeException implements Serializa
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero()
+                        + ":" + codigoError.getClass().getName());
             }
 
             for (String key : propiedades.keySet()) {

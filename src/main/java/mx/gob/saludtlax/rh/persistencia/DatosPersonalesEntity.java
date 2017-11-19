@@ -93,7 +93,8 @@ public class DatosPersonalesEntity implements Serializable {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 

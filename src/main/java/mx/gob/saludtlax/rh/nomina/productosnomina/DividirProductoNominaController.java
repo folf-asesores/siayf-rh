@@ -42,7 +42,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class DividirProductoNominaController implements Serializable {
 
     private static final long serialVersionUID = -5983498898625094712L;
-    private static final Logger LOGGER = Logger.getLogger(DividirProductoNominaController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DividirProductoNominaController.class.getName());
 
     @Inject
     private DividirNomina dividirNominaEjb;
@@ -60,12 +61,17 @@ public class DividirProductoNominaController implements Serializable {
     public void init() {
         //        Map<String, String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         //        final Integer idProductoNomina = parameters.get("idProductoNomina") != null ? Integer.parseInt(parameters.get("idProductoNomina")) : 0;
-        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        final Integer idProductoNomina = session.getAttribute("idProductoNomina") != null ? (Integer) session.getAttribute("idProductoNomina") : 0;
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance()
+                .getExternalContext().getSession(true);
+        final Integer idProductoNomina = session
+                .getAttribute("idProductoNomina") != null
+                        ? (Integer) session.getAttribute("idProductoNomina")
+                        : 0;
         session.removeAttribute("idProductoNomina");
         view.setIdProductoNomina(idProductoNomina);
         LOGGER.debugv("idProductoNomina :: {0}", view.getIdProductoNomina());
-        List<DividirNominaDTO> productoNomina = dividirNominaEjb.obtenerProductoNomina(view.getIdProductoNomina());
+        List<DividirNominaDTO> productoNomina = dividirNominaEjb
+                .obtenerProductoNomina(view.getIdProductoNomina());
         view.setProductoNomina(productoNomina);
     }
 
@@ -75,12 +81,15 @@ public class DividirProductoNominaController implements Serializable {
         filtro.setNombreProductoNomina(view.getNombreProductoNominaNuevo());
         List<String> rfc = new ArrayList<>();
 
-        for (DividirNominaDTO dividirNominaDTO : view.getProductoNominaSeleccionado()) {
+        for (DividirNominaDTO dividirNominaDTO : view
+                .getProductoNominaSeleccionado()) {
             rfc.add(dividirNominaDTO.getRfc());
         }
 
         filtro.setRfc(rfc);
-        List<DividirNominaDTO> nuevoProductoNomina = dividirNominaEjb.dividirProductoNomina(filtro, AutenticacionUtil.recuperarUsuarioSesion().getIdUsuario());
+        List<DividirNominaDTO> nuevoProductoNomina = dividirNominaEjb
+                .dividirProductoNomina(filtro, AutenticacionUtil
+                        .recuperarUsuarioSesion().getIdUsuario());
         view.setProductoNomina(nuevoProductoNomina);
     }
 
@@ -91,20 +100,24 @@ public class DividirProductoNominaController implements Serializable {
             List<String> listaRfc = obtenerListaRfc(archivo.getInputstream());
             Map<String, Integer> mapa = new HashMap<>();
 
-            for (int indice = 0; indice < view.getProductoNomina().size(); indice++) {
-                DividirNominaDTO dividirNominaDTO = view.getProductoNomina().get(indice);
+            for (int indice = 0; indice < view.getProductoNomina()
+                    .size(); indice++) {
+                DividirNominaDTO dividirNominaDTO = view.getProductoNomina()
+                        .get(indice);
                 mapa.put(dividirNominaDTO.getRfc(), indice);
             }
 
             if (view.getProductoNominaSeleccionado().isEmpty()) {
-                view.setProductoNominaSeleccionado(new ArrayList<DividirNominaDTO>());
+                view.setProductoNominaSeleccionado(
+                        new ArrayList<DividirNominaDTO>());
             }
 
             for (String rfc : listaRfc) {
                 if (mapa.containsKey(rfc)) {
                     LOGGER.debug(rfc);
                     Integer indice = mapa.get(rfc);
-                    DividirNominaDTO dividirNominaDTO = view.getProductoNomina().get(indice);
+                    DividirNominaDTO dividirNominaDTO = view.getProductoNomina()
+                            .get(indice);
                     view.getProductoNominaSeleccionado().add(dividirNominaDTO);
                 }
             }
@@ -117,13 +130,16 @@ public class DividirProductoNominaController implements Serializable {
         List<String> listaRfc = new ArrayList<>();
         int linea = 1;
 
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
+        try (BufferedReader br = new BufferedReader(
+                new InputStreamReader(is))) {
             String rfc;
             while ((rfc = br.readLine()) != null) {
                 if (ValidacionUtil.validarRfc(rfc)) {
                     listaRfc.add(rfc);
                 } else {
-                    LOGGER.warnv("El formato del RFC \"{0}\" no es valido, en la línea {1}.", rfc, linea);
+                    LOGGER.warnv(
+                            "El formato del RFC \"{0}\" no es valido, en la línea {1}.",
+                            rfc, linea);
                 }
                 linea++;
             }

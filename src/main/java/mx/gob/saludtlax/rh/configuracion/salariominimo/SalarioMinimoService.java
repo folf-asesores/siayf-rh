@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.persistencia.SalarioMinimoEntity;
 import mx.gob.saludtlax.rh.persistencia.SalarioMinimoRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class SalarioMinimoService implements Serializable {
@@ -40,7 +40,8 @@ public class SalarioMinimoService implements Serializable {
 
     public void actualizarSalarioMinimo(SalarioMinimoDTO dto) {
 
-        SalarioMinimoEntity entity = salarioMinimoRepository.obtenerPorId(dto.getIdSalarioMinimo());
+        SalarioMinimoEntity entity = salarioMinimoRepository
+                .obtenerPorId(dto.getIdSalarioMinimo());
 
         entity.setFecha(dto.getFecha());
         entity.setSalarioMinimo(dto.getSalarioMinimo());
@@ -59,13 +60,15 @@ public class SalarioMinimoService implements Serializable {
 
         List<SalarioMinimoDTO> dtos = new ArrayList<>();
 
-        List<SalarioMinimoEntity> entities = salarioMinimoRepository.obtenerListaSalarioMinimo();
+        List<SalarioMinimoEntity> entities = salarioMinimoRepository
+                .obtenerListaSalarioMinimo();
 
         if (!entities.isEmpty() || entities != null) {
             for (SalarioMinimoEntity salarioMinimoEntity : entities) {
                 SalarioMinimoDTO dto = new SalarioMinimoDTO();
 
-                dto.setIdSalarioMinimo(salarioMinimoEntity.getIdSalarioMinimo());
+                dto.setIdSalarioMinimo(
+                        salarioMinimoEntity.getIdSalarioMinimo());
                 dto.setFecha(salarioMinimoEntity.getFecha());
                 dto.setSalarioMinimo(salarioMinimoEntity.getSalarioMinimo());
 

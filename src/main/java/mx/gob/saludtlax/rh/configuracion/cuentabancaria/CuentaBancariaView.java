@@ -41,7 +41,8 @@ public class CuentaBancariaView {
         return listCuentaBancaria;
     }
 
-    public void setListCuentaBancaria(List<CuentaBancariaDTO> listCuentaBancaria) {
+    public void setListCuentaBancaria(
+            List<CuentaBancariaDTO> listCuentaBancaria) {
         this.listCuentaBancaria = listCuentaBancaria;
     }
 
@@ -49,7 +50,8 @@ public class CuentaBancariaView {
         return cuentaBancariaSelect;
     }
 
-    public void setCuentaBancariaSelect(CuentaBancariaDTO cuentaBancariaSelect) {
+    public void setCuentaBancariaSelect(
+            CuentaBancariaDTO cuentaBancariaSelect) {
         this.cuentaBancariaSelect = cuentaBancariaSelect;
     }
 

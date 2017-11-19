@@ -67,7 +67,8 @@ public class InformacionEmpleadoDTO implements Serializable {
         return BeneficiarioRegistrados;
     }
 
-    public void setBeneficiarioRegistrados(List<BeneficiarioPensionAlimienticiaDTO> beneficiarioRegistrados) {
+    public void setBeneficiarioRegistrados(
+            List<BeneficiarioPensionAlimienticiaDTO> beneficiarioRegistrados) {
         BeneficiarioRegistrados = beneficiarioRegistrados;
     }
 

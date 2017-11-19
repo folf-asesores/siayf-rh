@@ -9,7 +9,8 @@ package mx.gob.saludtlax.rh.persistencia;
  * @since 05/10/2016 13:31:25
  *
  */
-public class EstatusPuestosRepository extends GenericRepository<EstatusPuestosEntity, Integer> {
+public class EstatusPuestosRepository
+        extends GenericRepository<EstatusPuestosEntity, Integer> {
 
     /**
      *

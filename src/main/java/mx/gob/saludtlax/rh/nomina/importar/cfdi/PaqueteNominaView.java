@@ -42,7 +42,8 @@ public class PaqueteNominaView implements Serializable {
         return comprobanteNominaView;
     }
 
-    public void setComprobanteNominaView(List<ComprobanteNominaView> comprobanteNominaView) {
+    public void setComprobanteNominaView(
+            List<ComprobanteNominaView> comprobanteNominaView) {
         this.comprobanteNominaView = comprobanteNominaView;
     }
 

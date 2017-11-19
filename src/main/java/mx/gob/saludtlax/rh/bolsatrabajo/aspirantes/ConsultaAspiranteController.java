@@ -61,7 +61,8 @@ public class ConsultaAspiranteController implements Serializable {
         view = new ConsultaAspiranteView();
 
         view.setListaFiltros(SelectItemsUtil.listaFiltrosConsultaAspirantes());
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         Integer idAspirante = (Integer) httpSession.getAttribute("idAspirante");
         if (idAspirante != null) {
@@ -82,7 +83,8 @@ public class ConsultaAspiranteController implements Serializable {
         view.setListaTiposSangre(SelectItemsUtil.listaTiposSangre());
         view.setListaTiposSexo(SelectItemsUtil.listaTiposSexo());
         view.setListaPuestos(SelectItemsUtil.listaCatalogos(listaPuestos));
-        view.setListaDepartamentos(SelectItemsUtil.listaCatalogos(listaDepartamentos));
+        view.setListaDepartamentos(
+                SelectItemsUtil.listaCatalogos(listaDepartamentos));
         view.setListaViveCon(SelectItemsUtil.listaViveCon());
         view.setListaDependientes(SelectItemsUtil.listaDependientes());
         view.setListaTiposLicencia(SelectItemsUtil.listaTiposLicencia());
@@ -101,8 +103,10 @@ public class ConsultaAspiranteController implements Serializable {
 
         cerrarMenu();
 
-        view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
-        List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajo.consultarPorCriterio(view.getFiltro());
+        view.getFiltro()
+                .setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+        List<InfoAspiranteDTO> listaInfoAspirante = bolsaTrabajo
+                .consultarPorCriterio(view.getFiltro());
 
         if (!listaInfoAspirante.isEmpty()) {
             view.setListaInfoAspirante(listaInfoAspirante);
@@ -115,7 +119,8 @@ public class ConsultaAspiranteController implements Serializable {
             view.setListaInfoAspirante(new ArrayList<InfoAspiranteDTO>());
             view.setMostrarResultados(false);
             view.setFiltro(new FiltroDTO());
-            JSFUtils.errorMessage("Consulta Aspirante", "No se encontrarón resultados, intentelo de nuevo");
+            JSFUtils.errorMessage("Consulta Aspirante",
+                    "No se encontrarón resultados, intentelo de nuevo");
         }
     }
 
@@ -139,15 +144,21 @@ public class ConsultaAspiranteController implements Serializable {
 
                     view.setHistorialAcademicoDTO(new HistorialAcademicoDTO());
 
-                    view.setListaEscolaridades(SelectItemsUtil.listaEscolaridad(catalogo.listaEscolaridad()));
-                    view.setListaComprobantesEstudio(SelectItemsUtil.listaCatalogos(catalogo.listaComprobantesEstudios()));
+                    view.setListaEscolaridades(SelectItemsUtil
+                            .listaEscolaridad(catalogo.listaEscolaridad()));
+                    view.setListaComprobantesEstudio(
+                            SelectItemsUtil.listaCatalogos(
+                                    catalogo.listaComprobantesEstudios()));
 
-                    List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspirante());
+                    List<HistorialAcademicoDTO> listaHistorial = bolsaTrabajo
+                            .obtenerListaHistorialAcademico(
+                                    view.getIdAspirante());
 
                     if (!listaHistorial.isEmpty()) {
                         view.setListaHistorialAcademico(listaHistorial);
                     } else {
-                        view.setListaHistorialAcademico(new ArrayList<HistorialAcademicoDTO>());
+                        view.setListaHistorialAcademico(
+                                new ArrayList<HistorialAcademicoDTO>());
                         JSFUtils.warningMessage("Historial Academico: ",
                                 "Se ha detectado que no ha registrado ningún historial academico, se recomienda mantener su información actualizada");
                     }
@@ -158,14 +169,19 @@ public class ConsultaAspiranteController implements Serializable {
 
                     view.setMostrarExperienciaLaboral(true);
 
-                    view.setExperienciaLaboral(new ExperienciaLaboralAspiranteDTO());
+                    view.setExperienciaLaboral(
+                            new ExperienciaLaboralAspiranteDTO());
 
-                    List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajo.obtenerListaExperienciaLaboral(view.getIdAspirante());
+                    List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = bolsaTrabajo
+                            .obtenerListaExperienciaLaboral(
+                                    view.getIdAspirante());
 
                     if (!listaExperienciaLaboral.isEmpty()) {
-                        view.setListaExperienciaLaboral(listaExperienciaLaboral);
+                        view.setListaExperienciaLaboral(
+                                listaExperienciaLaboral);
                     } else {
-                        view.setListaExperienciaLaboral(new ArrayList<ExperienciaLaboralAspiranteDTO>());
+                        view.setListaExperienciaLaboral(
+                                new ArrayList<ExperienciaLaboralAspiranteDTO>());
                         JSFUtils.warningMessage("Experiencia Laboral: ",
                                 "Se ha detectado que no ha registrado ninguna experiencia laboral, se recomienda mantener su información actualizada");
                     }
@@ -175,14 +191,17 @@ public class ConsultaAspiranteController implements Serializable {
 
                     view.setMostrarHabilidadPersonal(true);
 
-                    HabilidadesPersonalesAspiranteDTO habilidad = bolsaTrabajo.obtenerHabilidadesPersonalesPorIdAspirante(view.getIdAspirante());
+                    HabilidadesPersonalesAspiranteDTO habilidad = bolsaTrabajo
+                            .obtenerHabilidadesPersonalesPorIdAspirante(
+                                    view.getIdAspirante());
 
                     if (habilidad.getIdEncuestaPersonalAspirante() != 0) {
 
                         view.setEncuestaPersonal(habilidad);
 
                     } else {
-                        view.setEncuestaPersonal(new HabilidadesPersonalesAspiranteDTO());
+                        view.setEncuestaPersonal(
+                                new HabilidadesPersonalesAspiranteDTO());
 
                         JSFUtils.warningMessage("Habilidades Parsonales: ",
                                 "Se ha detectado que no ha registrado ningún habilidad personal, se recomienda mantener su información actualizada");
@@ -227,7 +246,8 @@ public class ConsultaAspiranteController implements Serializable {
             view.setMostrarExperienciaLaboral(false);
             view.setMostrarHabilidadPersonal(false);
 
-            AspiranteDTO aspirante = bolsaTrabajo.obtenerAspirantePorIdentificador(idAspirante);
+            AspiranteDTO aspirante = bolsaTrabajo
+                    .obtenerAspirantePorIdentificador(idAspirante);
 
             List<String> personasDependientes = new ArrayList<>();
 
@@ -272,7 +292,8 @@ public class ConsultaAspiranteController implements Serializable {
         }
     }
 
-    public void verDetalleHistorialAcademico(HistorialAcademicoDTO historialAcademicoDTO) {
+    public void verDetalleHistorialAcademico(
+            HistorialAcademicoDTO historialAcademicoDTO) {
         view.setHistorialAcademicoDTO(historialAcademicoDTO);
 
         view.setMostrarHistorialAcademico(false);
@@ -286,7 +307,8 @@ public class ConsultaAspiranteController implements Serializable {
         view.setMostrarHistorialAcedemicoSeleccionado(false);
     }
 
-    public void verDetalleExperienciaLaboral(ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
+    public void verDetalleExperienciaLaboral(
+            ExperienciaLaboralAspiranteDTO experienciaLaboralAspiranteDTO) {
         view.setExperienciaLaboral(experienciaLaboralAspiranteDTO);
 
         view.setMostrarExperienciaLaboral(false);
@@ -300,7 +322,8 @@ public class ConsultaAspiranteController implements Serializable {
         view.setMostrarExperienciaLaboralSeleccionado(false);
     }
 
-    public void validarConsulta(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarConsulta(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -312,7 +335,9 @@ public class ConsultaAspiranteController implements Serializable {
                 String criterio = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el criterio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el criterio");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -326,7 +351,8 @@ public class ConsultaAspiranteController implements Serializable {
     }
 
     public void regresarModulo() throws IOException {
-        JSFUtils.redireccionar("/siayf-rh/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true");
+        JSFUtils.redireccionar(
+                "/siayf-rh/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true");
     }
 
     public ConsultaAspiranteView getView() {

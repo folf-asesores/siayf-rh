@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/07/2016 14:20:07
  */
@@ -36,7 +36,9 @@ public class TipoRecursoTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "TipoRecursoEntity [id tipo recurso=" + idTipoRecurso + ", id base 36=" + idBase36 + ", descripcion=" + descripcion + "]";
+        return "TipoRecursoEntity [id tipo recurso=" + idTipoRecurso
+                + ", id base 36=" + idBase36 + ", descripcion=" + descripcion
+                + "]";
     }
 
     /**

@@ -24,11 +24,16 @@ public class DatosPersonalesDTO {
 
     @Override
     public String toString() {
-        return "DatosPersonalesDTO [idDatoPersonal=" + idDatoPersonal + ", idEmpleadoDatosPersonales=" + idEmpleadoDatosPersonales + ", rfc=" + rfc
-                + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", nombre=" + nombre + ", fechaNacimiento="
-                + fechaNacimiento + ", sexo=" + sexo + ", idLocalidad=" + idLocalidad + ", idColonia=" + idColonia + ", calle=" + calle + ", numeroExterior="
-                + numeroExterior + ", numeroInterior=" + numeroInterior + ", codigoPostal=" + codigoPostal + ", telefono=" + telefono + ", idEstadoEmpleado="
-                + idEstadoEmpleado + "]";
+        return "DatosPersonalesDTO [idDatoPersonal=" + idDatoPersonal
+                + ", idEmpleadoDatosPersonales=" + idEmpleadoDatosPersonales
+                + ", rfc=" + rfc + ", apellidoPaterno=" + apellidoPaterno
+                + ", apellidoMaterno=" + apellidoMaterno + ", nombre=" + nombre
+                + ", fechaNacimiento=" + fechaNacimiento + ", sexo=" + sexo
+                + ", idLocalidad=" + idLocalidad + ", idColonia=" + idColonia
+                + ", calle=" + calle + ", numeroExterior=" + numeroExterior
+                + ", numeroInterior=" + numeroInterior + ", codigoPostal="
+                + codigoPostal + ", telefono=" + telefono
+                + ", idEstadoEmpleado=" + idEstadoEmpleado + "]";
     }
 
     public Integer getIdDatoPersonal() {
@@ -43,7 +48,8 @@ public class DatosPersonalesDTO {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 

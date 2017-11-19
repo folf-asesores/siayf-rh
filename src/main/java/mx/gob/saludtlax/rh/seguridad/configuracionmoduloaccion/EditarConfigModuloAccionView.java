@@ -15,7 +15,7 @@ import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
 import mx.gob.saludtlax.rh.modulos.ModuloDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class EditarConfigModuloAccionView implements Serializable {
@@ -56,7 +56,8 @@ public class EditarConfigModuloAccionView implements Serializable {
         return configModuloAccionEditar;
     }
 
-    public void setConfigModuloAccionEditar(ConfiguracionModuloAccionDTO configModuloAccionEditar) {
+    public void setConfigModuloAccionEditar(
+            ConfiguracionModuloAccionDTO configModuloAccionEditar) {
         this.configModuloAccionEditar = configModuloAccionEditar;
     }
 

@@ -13,7 +13,10 @@ package mx.gob.saludtlax.rh.notificacion;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public enum Modulo {
-    MI_BUZON("/contenido/notificaciones/miBuzon.xhtml"), AUTORIZAR_NOMINA("/contenido/nomina/productos/ejecutarProductoNomina.xhtml"), SIN_MODULO("");
+    MI_BUZON("/contenido/notificaciones/miBuzon.xhtml"),
+    AUTORIZAR_NOMINA(
+            "/contenido/nomina/productos/ejecutarProductoNomina.xhtml"),
+    SIN_MODULO("");
 
     public String getUrl() {
         return url;

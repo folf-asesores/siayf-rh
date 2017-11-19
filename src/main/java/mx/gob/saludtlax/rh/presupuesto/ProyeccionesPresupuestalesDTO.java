@@ -72,7 +72,8 @@ public class ProyeccionesPresupuestalesDTO implements Serializable {
         return idProyeccionPartidaMensual;
     }
 
-    public void setIdProyeccionPartidaMensual(Integer idProyeccionPartidaMensual) {
+    public void setIdProyeccionPartidaMensual(
+            Integer idProyeccionPartidaMensual) {
         this.idProyeccionPartidaMensual = idProyeccionPartidaMensual;
     }
 

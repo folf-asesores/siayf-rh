@@ -19,7 +19,8 @@ public class InventarioVacanteDTO {
     private String tipoContratacion;
     private Integer idTipoContratacion;
 
-    public InventarioVacanteDTO(long total, String tipoContratacion, Integer idTipoContratacion) {
+    public InventarioVacanteDTO(long total, String tipoContratacion,
+            Integer idTipoContratacion) {
 
         this.total = total;
         this.tipoContratacion = tipoContratacion;

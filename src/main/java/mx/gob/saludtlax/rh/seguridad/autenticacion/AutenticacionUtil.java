@@ -23,9 +23,11 @@ public class AutenticacionUtil {
      * @return un DTO con la informacion del usario en sesión.
      */
     public static UsuarioDTO recuperarUsuarioSesion() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         return usuario;
     }
 }

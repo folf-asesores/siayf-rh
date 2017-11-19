@@ -27,7 +27,8 @@ public class ReporteDistribucionPresupuesto implements Serializable {
      */
     private static final long serialVersionUID = -8421387223843989645L;
 
-    private static final Logger LOGGER = Logger.getLogger(ReporteDistribucionPresupuesto.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(ReporteDistribucionPresupuesto.class);
     //Nombre de las columnas
     private static final int FILA_ENCABEZADOS = 0;
     private static final int FILA_INICIO_DETALLE = 1;
@@ -86,7 +87,8 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         ENCABEZADOS.add("DICIEMBRE");
     }
 
-    public byte[] generarArchivoExcel(List<DistribucionPresupuestoDTO> listaReporte) throws IOException {
+    public byte[] generarArchivoExcel(
+            List<DistribucionPresupuestoDTO> listaReporte) throws IOException {
 
         byte[] archivoExcel = null;
 
@@ -120,75 +122,103 @@ public class ReporteDistribucionPresupuesto implements Serializable {
 
             //Celdas Detalle
             Cell celdaPartida = dataRow.createCell(COLUMNA_PARTIDA);
-            celdaPartida.setCellValue((partida.getPartida() != null) ? partida.getPartida() : "");
+            celdaPartida.setCellValue(
+                    (partida.getPartida() != null) ? partida.getPartida() : "");
             estiloCelda(celdaPartida);
 
             Cell celdaTotal = dataRow.createCell(COLUMNA_TOTAL);
-            celdaTotal.setCellValue((partida.getTotal() != null) ? partida.getTotal().doubleValue() : 0);
+            celdaTotal.setCellValue((partida.getTotal() != null)
+                    ? partida.getTotal().doubleValue() : 0);
             estiloCeldaImporte(celdaTotal);
 
             Cell celdaEnero = dataRow.createCell(COLUMNA_ENERO);
-            celdaEnero.setCellValue((partida.getEnero() != null) ? partida.getEnero().doubleValue() : 0);
+            celdaEnero.setCellValue((partida.getEnero() != null)
+                    ? partida.getEnero().doubleValue() : 0);
             estiloCeldaImporte(celdaEnero);
 
             Cell celdaFebrero = dataRow.createCell(COLUMNA_FEBRERO);
-            celdaFebrero.setCellValue((partida.getFebrero() != null) ? partida.getFebrero().doubleValue() : 0);
+            celdaFebrero.setCellValue((partida.getFebrero() != null)
+                    ? partida.getFebrero().doubleValue() : 0);
             estiloCeldaImporte(celdaFebrero);
 
             Cell celdaMarzo = dataRow.createCell(COLUMNA_MARZO);
-            celdaMarzo.setCellValue((partida.getMarzo() != null) ? partida.getMarzo().doubleValue() : 0);
+            celdaMarzo.setCellValue((partida.getMarzo() != null)
+                    ? partida.getMarzo().doubleValue() : 0);
             estiloCeldaImporte(celdaMarzo);
 
             Cell celdaAbril = dataRow.createCell(COLUMNA_ABRIL);
-            celdaAbril.setCellValue((partida.getAbril() != null) ? partida.getAbril().doubleValue() : 0);
+            celdaAbril.setCellValue((partida.getAbril() != null)
+                    ? partida.getAbril().doubleValue() : 0);
             estiloCeldaImporte(celdaAbril);
 
             Cell celdaMayo = dataRow.createCell(COLUMNA_MAYO);
-            celdaMayo.setCellValue((partida.getMayo() != null) ? partida.getMayo().doubleValue() : 0);
+            celdaMayo.setCellValue((partida.getMayo() != null)
+                    ? partida.getMayo().doubleValue() : 0);
             estiloCeldaImporte(celdaMayo);
 
             Cell celdaJunio = dataRow.createCell(COLUMNA_JUNIO);
-            celdaJunio.setCellValue((partida.getJunio() != null) ? partida.getJunio().doubleValue() : 0);
+            celdaJunio.setCellValue((partida.getJunio() != null)
+                    ? partida.getJunio().doubleValue() : 0);
             estiloCeldaImporte(celdaJunio);
 
             Cell celdaJulio = dataRow.createCell(COLUMNA_JULIO);
-            celdaJulio.setCellValue((partida.getJulio() != null) ? partida.getJulio().doubleValue() : 0);
+            celdaJulio.setCellValue((partida.getJulio() != null)
+                    ? partida.getJulio().doubleValue() : 0);
             estiloCeldaImporte(celdaJulio);
 
             Cell celdaAgosto = dataRow.createCell(COLUMNA_AGOSTO);
-            celdaAgosto.setCellValue((partida.getAgosto() != null) ? partida.getAgosto().doubleValue() : 0);
+            celdaAgosto.setCellValue((partida.getAgosto() != null)
+                    ? partida.getAgosto().doubleValue() : 0);
             estiloCeldaImporte(celdaAgosto);
 
             Cell celdaSeptiembre = dataRow.createCell(COLUMNA_SEPTIEMBRE);
-            celdaSeptiembre.setCellValue((partida.getSeptiembre() != null) ? partida.getSeptiembre().doubleValue() : 0);
+            celdaSeptiembre.setCellValue((partida.getSeptiembre() != null)
+                    ? partida.getSeptiembre().doubleValue() : 0);
             estiloCeldaImporte(celdaSeptiembre);
 
             Cell celdaOctubre = dataRow.createCell(COLUMNA_OCTUBRE);
-            celdaOctubre.setCellValue((partida.getOctubre() != null) ? partida.getOctubre().doubleValue() : 0);
+            celdaOctubre.setCellValue((partida.getOctubre() != null)
+                    ? partida.getOctubre().doubleValue() : 0);
             estiloCeldaImporte(celdaOctubre);
 
             Cell celdaNoviembre = dataRow.createCell(COLUMNA_NOVIEMBRE);
-            celdaNoviembre.setCellValue((partida.getNoviembre() != null) ? partida.getNoviembre().doubleValue() : 0);
+            celdaNoviembre.setCellValue((partida.getNoviembre() != null)
+                    ? partida.getNoviembre().doubleValue() : 0);
             estiloCeldaImporte(celdaNoviembre);
 
             Cell celdaDiciembre = dataRow.createCell(COLUMNA_DICIEMBRE);
-            celdaDiciembre.setCellValue((partida.getDiciembre() != null) ? partida.getDiciembre().doubleValue() : 0);
+            celdaDiciembre.setCellValue((partida.getDiciembre() != null)
+                    ? partida.getDiciembre().doubleValue() : 0);
             estiloCeldaImporte(celdaDiciembre);
 
             //Celdas totales
-            TOTAL_ENERO = TOTAL_ENERO.add(partida.getEnero() == null ? BigDecimal.ZERO : partida.getEnero());
-            TOTAL_FEBRERO = TOTAL_FEBRERO.add(partida.getFebrero() == null ? BigDecimal.ZERO : partida.getFebrero());
-            TOTAL_MARZO = TOTAL_MARZO.add(partida.getMarzo() == null ? BigDecimal.ZERO : partida.getMarzo());
-            TOTAL_ABRIL = TOTAL_ABRIL.add(partida.getAbril() == null ? BigDecimal.ZERO : partida.getAbril());
-            TOTAL_MAYO = TOTAL_MAYO.add(partida.getMayo() == null ? BigDecimal.ZERO : partida.getMayo());
-            TOTAL_JUNIO = TOTAL_JUNIO.add(partida.getJunio() == null ? BigDecimal.ZERO : partida.getJunio());
-            TOTAL_JULIO = TOTAL_JULIO.add(partida.getJulio() == null ? BigDecimal.ZERO : partida.getJulio());
-            TOTAL_AGOSTO = TOTAL_AGOSTO.add(partida.getAgosto() == null ? BigDecimal.ZERO : partida.getAgosto());
-            TOTAL_SEPTIEMBRE = TOTAL_SEPTIEMBRE.add(partida.getSeptiembre() == null ? BigDecimal.ZERO : partida.getSeptiembre());
-            TOTAL_OCTUBRE = TOTAL_OCTUBRE.add(partida.getOctubre() == null ? BigDecimal.ZERO : partida.getOctubre());
-            TOTAL_NOVIEMBRE = TOTAL_NOVIEMBRE.add(partida.getNoviembre() == null ? BigDecimal.ZERO : partida.getNoviembre());
-            TOTAL_DICIEMBRE = TOTAL_DICIEMBRE.add(partida.getDiciembre() == null ? BigDecimal.ZERO : partida.getDiciembre());
-            TOTAL_TOTAL = TOTAL_TOTAL.add(partida.getTotal() == null ? BigDecimal.ZERO : partida.getTotal());
+            TOTAL_ENERO = TOTAL_ENERO.add(partida.getEnero() == null
+                    ? BigDecimal.ZERO : partida.getEnero());
+            TOTAL_FEBRERO = TOTAL_FEBRERO.add(partida.getFebrero() == null
+                    ? BigDecimal.ZERO : partida.getFebrero());
+            TOTAL_MARZO = TOTAL_MARZO.add(partida.getMarzo() == null
+                    ? BigDecimal.ZERO : partida.getMarzo());
+            TOTAL_ABRIL = TOTAL_ABRIL.add(partida.getAbril() == null
+                    ? BigDecimal.ZERO : partida.getAbril());
+            TOTAL_MAYO = TOTAL_MAYO.add(partida.getMayo() == null
+                    ? BigDecimal.ZERO : partida.getMayo());
+            TOTAL_JUNIO = TOTAL_JUNIO.add(partida.getJunio() == null
+                    ? BigDecimal.ZERO : partida.getJunio());
+            TOTAL_JULIO = TOTAL_JULIO.add(partida.getJulio() == null
+                    ? BigDecimal.ZERO : partida.getJulio());
+            TOTAL_AGOSTO = TOTAL_AGOSTO.add(partida.getAgosto() == null
+                    ? BigDecimal.ZERO : partida.getAgosto());
+            TOTAL_SEPTIEMBRE = TOTAL_SEPTIEMBRE
+                    .add(partida.getSeptiembre() == null ? BigDecimal.ZERO
+                            : partida.getSeptiembre());
+            TOTAL_OCTUBRE = TOTAL_OCTUBRE.add(partida.getOctubre() == null
+                    ? BigDecimal.ZERO : partida.getOctubre());
+            TOTAL_NOVIEMBRE = TOTAL_NOVIEMBRE.add(partida.getNoviembre() == null
+                    ? BigDecimal.ZERO : partida.getNoviembre());
+            TOTAL_DICIEMBRE = TOTAL_DICIEMBRE.add(partida.getDiciembre() == null
+                    ? BigDecimal.ZERO : partida.getDiciembre());
+            TOTAL_TOTAL = TOTAL_TOTAL.add(partida.getTotal() == null
+                    ? BigDecimal.ZERO : partida.getTotal());
 
             inicio_detalle++;
             sheet.shiftRows(inicio_detalle, inicio_detalle + 1, 1);
@@ -197,7 +227,8 @@ public class ReporteDistribucionPresupuesto implements Serializable {
         totales(inicio_detalle, listaReporte);
     }
 
-    public void totales(int ultimaFila, List<DistribucionPresupuestoDTO> listaReporte) {
+    public void totales(int ultimaFila,
+            List<DistribucionPresupuestoDTO> listaReporte) {
 
         for (DistribucionPresupuestoDTO partida : listaReporte) {
 

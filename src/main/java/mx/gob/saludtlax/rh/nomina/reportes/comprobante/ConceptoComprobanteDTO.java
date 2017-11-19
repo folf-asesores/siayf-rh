@@ -15,7 +15,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO>, Serializable {
+public class ConceptoComprobanteDTO
+        implements Comparable<ConceptoComprobanteDTO>, Serializable {
 
     private static final long serialVersionUID = 1805453295202528057L;
 
@@ -144,7 +145,8 @@ public class ConceptoComprobanteDTO implements Comparable<ConceptoComprobanteDTO
 
     @Override
     public String toString() {
-        return "ConceptoComprobanteDTO{" + "clave : " + clave + ", importe : " + importe + '}';
+        return "ConceptoComprobanteDTO{" + "clave : " + clave + ", importe : "
+                + importe + '}';
     }
 
 }

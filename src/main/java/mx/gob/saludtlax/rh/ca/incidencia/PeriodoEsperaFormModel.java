@@ -69,7 +69,8 @@ public class PeriodoEsperaFormModel implements Serializable {
         return idPeriodosEsperaIncidencia;
     }
 
-    public void setIdPeriodosEsperaIncidencia(Integer idPeriodosEsperaIncidencia) {
+    public void setIdPeriodosEsperaIncidencia(
+            Integer idPeriodosEsperaIncidencia) {
         this.idPeriodosEsperaIncidencia = idPeriodosEsperaIncidencia;
     }
 

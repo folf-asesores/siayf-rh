@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * @author Leila
  * @modify Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  * @version 1.0
  * @since 13/05/2016 10:59:26
  */
@@ -328,7 +328,8 @@ public class AspiranteDTO implements Serializable {
      * @param tienePersonasDependientes
      *            the tienePersonasDependientes to set
      */
-    public void setTienePersonasDependientes(boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

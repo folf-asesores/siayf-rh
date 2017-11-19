@@ -19,7 +19,7 @@ import org.jboss.logging.Logger;
 import org.junit.Test;
 
 /**
- * @author Daniela Hernandez
+ * @author Daniela Hernández
  *
  */
 

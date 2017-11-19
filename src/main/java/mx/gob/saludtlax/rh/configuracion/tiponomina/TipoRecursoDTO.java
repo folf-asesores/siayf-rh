@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.configuracion.tiponomina;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class TipoRecursoDTO implements Serializable {

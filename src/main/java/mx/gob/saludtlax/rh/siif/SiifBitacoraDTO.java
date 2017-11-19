@@ -164,7 +164,8 @@ public class SiifBitacoraDTO {
         return siifEncabezadoList;
     }
 
-    public void setSiifEncabezadoList(List<SIIFEncabezadoDTO> siifEncabezadoList) {
+    public void setSiifEncabezadoList(
+            List<SIIFEncabezadoDTO> siifEncabezadoList) {
         this.siifEncabezadoList = siifEncabezadoList;
     }
 

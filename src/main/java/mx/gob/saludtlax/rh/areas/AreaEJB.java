@@ -35,8 +35,10 @@ public class AreaEJB implements Areas {
 
     @Override
     public Boolean eliminarArea(Integer idArea) {
-        List<ModuloDTO> listModulos = modulosService.listaModulosPorArea(idArea);
-        List<AccionDTO> listaAcciones = accionServ.obtenerAccionesPorArea(idArea);
+        List<ModuloDTO> listModulos = modulosService
+                .listaModulosPorArea(idArea);
+        List<AccionDTO> listaAcciones = accionServ
+                .obtenerAccionesPorArea(idArea);
         Boolean res = true;
         if (listaAcciones.isEmpty() && listModulos.isEmpty()) {
             areasService.eliminar(idArea);

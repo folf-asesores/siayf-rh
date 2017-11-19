@@ -90,7 +90,8 @@ public class DatosSuplentesEntity implements Serializable {
         return nombreCentroResponsabilidad;
     }
 
-    public void setNombreCentroResponsabilidad(String nombreCentroResponsabilidad) {
+    public void setNombreCentroResponsabilidad(
+            String nombreCentroResponsabilidad) {
         this.nombreCentroResponsabilidad = nombreCentroResponsabilidad;
     }
 
@@ -98,7 +99,8 @@ public class DatosSuplentesEntity implements Serializable {
         return centroResponsabilidad;
     }
 
-    public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
+    public void setCentroResponsabilidad(
+            CentroResponsabilidadEntity centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 

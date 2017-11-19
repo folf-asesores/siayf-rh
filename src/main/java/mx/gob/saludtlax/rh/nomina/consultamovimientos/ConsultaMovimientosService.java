@@ -40,21 +40,27 @@ public class ConsultaMovimientosService {
     public EmpleadoDetalladoDTO obtenerEmpleadoDatos(Integer idEmpleado) {
 
         if (idEmpleado == null) {
-            throw new ValidacionException("Es requerido el identificador del empleado para obtener su información", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Es requerido el identificador del empleado para obtener su información",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
 
         }
 
-        String estatusEmpleado = empleadoRepository.obtenerEstatusEmpleado(idEmpleado);
+        String estatusEmpleado = empleadoRepository
+                .obtenerEstatusEmpleado(idEmpleado);
         EmpleadoDetalladoDTO dto = new EmpleadoDetalladoDTO();
         if (estatusEmpleado.equals(EnumEstatusEmpleado.INACTIVO)) {
-            EmpleadoEntity empleadoInactivo = empleadoRepository.obtenerPorId(idEmpleado);
+            EmpleadoEntity empleadoInactivo = empleadoRepository
+                    .obtenerPorId(idEmpleado);
             dto.setCurp(empleadoInactivo.getCurp());
             dto.setDomicilio(empleadoInactivo.getDireccionCompleta());
-            dto.setEdad(FechaUtil.calcularEdad(empleadoInactivo.getFechaNacimiento()));
+            dto.setEdad(FechaUtil
+                    .calcularEdad(empleadoInactivo.getFechaNacimiento()));
             dto.setEstadoCivil(empleadoInactivo.getEstadoCivil());
 
             String estudios = "";
-            List<String> listaEstudios = historialAcademicoRepository.consultaEstudiosProfesionistasEmpleado(idEmpleado);
+            List<String> listaEstudios = historialAcademicoRepository
+                    .consultaEstudiosProfesionistasEmpleado(idEmpleado);
             if (!listaEstudios.isEmpty()) {
                 for (String estudio : listaEstudios) {
                     estudios = estudio + "/";
@@ -68,10 +74,12 @@ public class ConsultaMovimientosService {
 
         } else {
 
-            InventarioVacanteEntity puesto = inventarioVacanteRepository.obtenerPuestoPorIdEmpleado(idEmpleado);
+            InventarioVacanteEntity puesto = inventarioVacanteRepository
+                    .obtenerPuestoPorIdEmpleado(idEmpleado);
 
             if (puesto == null) {
-                throw new ReglaNegocioException("", ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
+                throw new ReglaNegocioException("",
+                        ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
             }
 
             if (puesto.getAdscripcion() != null) {
@@ -82,18 +90,24 @@ public class ConsultaMovimientosService {
             }
 
             if (puesto.getSubadscripcion() != null) {
-                dto.setAreaAdscripcion(puesto.getSubadscripcion().getSubadscripcion());
+                dto.setAreaAdscripcion(
+                        puesto.getSubadscripcion().getSubadscripcion());
             } else {
                 dto.setAreaAdscripcion("SIN ASIGNAR");
             }
 
-            dto.setCodigoPuesto(puesto.getConfiguracion().getPuesto().getCodigo());
+            dto.setCodigoPuesto(
+                    puesto.getConfiguracion().getPuesto().getCodigo());
             dto.setCurp(puesto.getConfiguracion().getEmpleado().getCurp());
-            dto.setDomicilio(puesto.getConfiguracion().getEmpleado().getDireccionCompleta());
-            dto.setEdad(FechaUtil.calcularEdad(puesto.getConfiguracion().getEmpleado().getFechaNacimiento()));
-            dto.setEstadoCivil(puesto.getConfiguracion().getEmpleado().getEstadoCivil());
+            dto.setDomicilio(puesto.getConfiguracion().getEmpleado()
+                    .getDireccionCompleta());
+            dto.setEdad(FechaUtil.calcularEdad(puesto.getConfiguracion()
+                    .getEmpleado().getFechaNacimiento()));
+            dto.setEstadoCivil(
+                    puesto.getConfiguracion().getEmpleado().getEstadoCivil());
             String estudios = "";
-            List<String> listaEstudios = historialAcademicoRepository.consultaEstudiosProfesionistasEmpleado(idEmpleado);
+            List<String> listaEstudios = historialAcademicoRepository
+                    .consultaEstudiosProfesionistasEmpleado(idEmpleado);
             if (!listaEstudios.isEmpty()) {
                 for (String estudio : listaEstudios) {
                     estudios = estudio + "/";
@@ -104,14 +118,19 @@ public class ConsultaMovimientosService {
             dto.setEstudios(estudios);
             dto.setIdTipoContratacion(puesto.getTipoContratacion().getId());
 
-            dto.setNacionalidad(puesto.getConfiguracion().getEmpleado().getNacionalidad());
-            dto.setNombramiento(puesto.getConfiguracion().getNombramiento().getNombramiento());
-            dto.setNombre(puesto.getConfiguracion().getEmpleado().getNombreCompleto());
+            dto.setNacionalidad(
+                    puesto.getConfiguracion().getEmpleado().getNacionalidad());
+            dto.setNombramiento(puesto.getConfiguracion().getNombramiento()
+                    .getNombramiento());
+            dto.setNombre(puesto.getConfiguracion().getEmpleado()
+                    .getNombreCompleto());
             dto.setPuesto(puesto.getConfiguracion().getPuesto().getPuesto());
             dto.setRfc(puesto.getConfiguracion().getEmpleado().getRfc());
             dto.setSexo(puesto.getConfiguracion().getEmpleado().getIdSexo());
-            dto.setTipoContratacion(puesto.getTipoContratacion().getTipoContratacion());
-            dto.setUnidadResponsable(puesto.getConfiguracion().getUnidadResponsable().getDescripcion());
+            dto.setTipoContratacion(
+                    puesto.getTipoContratacion().getTipoContratacion());
+            dto.setUnidadResponsable(puesto.getConfiguracion()
+                    .getUnidadResponsable().getDescripcion());
 
             /*
              * MovimientoEmpleadoEntity ultimaLicencia =
@@ -129,7 +148,8 @@ public class ConsultaMovimientosService {
         return dto;
     }
 
-    public MovimientosNominaEmpleadoDTO obtenerMovimientos(MovimientosNominaEmpleadoDTO movimientosNomina) {
+    public MovimientosNominaEmpleadoDTO obtenerMovimientos(
+            MovimientosNominaEmpleadoDTO movimientosNomina) {
 
         return null;
     }

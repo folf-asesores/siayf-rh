@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class DetalleEmpleadoDTO implements Serializable {
@@ -281,7 +281,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return numeroIdentificadorBiometrico;
     }
 
-    public void setNumeroIdentificadorBiometrico(Integer numeroIdentificadorBiometrico) {
+    public void setNumeroIdentificadorBiometrico(
+            Integer numeroIdentificadorBiometrico) {
         this.numeroIdentificadorBiometrico = numeroIdentificadorBiometrico;
     }
 
@@ -321,7 +322,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return inventarioVacanteDisponible;
     }
 
-    public void setInventarioVacanteDisponible(String inventarioVacanteDisponible) {
+    public void setInventarioVacanteDisponible(
+            String inventarioVacanteDisponible) {
         this.inventarioVacanteDisponible = inventarioVacanteDisponible;
     }
 
@@ -425,7 +427,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return unidadResponsableDescripcion;
     }
 
-    public void setUnidadResponsableDescripcion(String unidadResponsableDescripcion) {
+    public void setUnidadResponsableDescripcion(
+            String unidadResponsableDescripcion) {
         this.unidadResponsableDescripcion = unidadResponsableDescripcion;
     }
 
@@ -449,7 +452,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return subfuenteFinanciamientoDescripcion;
     }
 
-    public void setSubfuenteFinanciamientoDescripcion(String subfuenteFinanciamientoDescripcion) {
+    public void setSubfuenteFinanciamientoDescripcion(
+            String subfuenteFinanciamientoDescripcion) {
         this.subfuenteFinanciamientoDescripcion = subfuenteFinanciamientoDescripcion;
     }
 
@@ -473,7 +477,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return centroResponsabilidadDescripcion;
     }
 
-    public void setCentroResponsabilidadDescripcion(String centroResponsabilidadDescripcion) {
+    public void setCentroResponsabilidadDescripcion(
+            String centroResponsabilidadDescripcion) {
         this.centroResponsabilidadDescripcion = centroResponsabilidadDescripcion;
     }
 
@@ -481,7 +486,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return centroResponsabilidadClave;
     }
 
-    public void setCentroResponsabilidadClave(String centroResponsabilidadClave) {
+    public void setCentroResponsabilidadClave(
+            String centroResponsabilidadClave) {
         this.centroResponsabilidadClave = centroResponsabilidadClave;
     }
 
@@ -489,7 +495,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return cuentaBancariaClaveCuenta;
     }
 
-    public void setCuentaBancariaClaveCuenta(Integer cuentaBancariaClaveCuenta) {
+    public void setCuentaBancariaClaveCuenta(
+            Integer cuentaBancariaClaveCuenta) {
         this.cuentaBancariaClaveCuenta = cuentaBancariaClaveCuenta;
     }
 
@@ -513,7 +520,8 @@ public class DetalleEmpleadoDTO implements Serializable {
         return configuracionPresupuestalEstado;
     }
 
-    public void setConfiguracionPresupuestalEstado(String configuracionPresupuestalEstado) {
+    public void setConfiguracionPresupuestalEstado(
+            String configuracionPresupuestalEstado) {
         this.configuracionPresupuestalEstado = configuracionPresupuestalEstado;
     }
 
@@ -600,7 +608,8 @@ public class DetalleEmpleadoDTO implements Serializable {
      * @param fuenteFinanciamientoDescripcion
      *            the fuenteFinanciamientoDescripcion to set
      */
-    public void setFuenteFinanciamientoDescripcion(String fuenteFinanciamientoDescripcion) {
+    public void setFuenteFinanciamientoDescripcion(
+            String fuenteFinanciamientoDescripcion) {
         this.fuenteFinanciamientoDescripcion = fuenteFinanciamientoDescripcion;
     }
 

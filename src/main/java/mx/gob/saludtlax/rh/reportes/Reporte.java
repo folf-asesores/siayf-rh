@@ -18,14 +18,15 @@ import org.jboss.logging.Logger;
  * </p>
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public class Reporte {
 
     private final String nombreArchivo;
     private final String ruta;
 
-    private static final Logger LOGGER = Logger.getLogger(Reporte.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(Reporte.class.getName());
 
     /**
      * Crea una nueva instancia de un reporte.
@@ -48,13 +49,15 @@ public class Reporte {
      */
     public InputStream getInputStream() {
         LOGGER.debugv("Cargando archivo: {0}", nombreArchivo);
-        InputStream is = getClass().getClassLoader().getResourceAsStream(ruta + nombreArchivo);
+        InputStream is = getClass().getClassLoader()
+                .getResourceAsStream(ruta + nombreArchivo);
 
         if (is == null) {
             LOGGER.errorv("El archivo \"{0}\" no se encontro.", nombreArchivo);
         }
 
-        LOGGER.debugv("El archivo \"{0}\" se ha cargado correctamente.", nombreArchivo);
+        LOGGER.debugv("El archivo \"{0}\" se ha cargado correctamente.",
+                nombreArchivo);
 
         return is;
     }

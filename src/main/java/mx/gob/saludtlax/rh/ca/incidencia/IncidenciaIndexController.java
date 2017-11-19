@@ -51,19 +51,26 @@ public class IncidenciaIndexController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -72,7 +79,8 @@ public class IncidenciaIndexController implements Serializable {
         } catch (RESTClientException e) {
 
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -82,7 +90,8 @@ public class IncidenciaIndexController implements Serializable {
         incidenciaFormModel = new IncidenciaFormModel();
         incidenciaFormModel.setEsImagen(1);
         imagen = null;
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').show()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevaIncidencia').show()");
 
     }
 
@@ -95,14 +104,16 @@ public class IncidenciaIndexController implements Serializable {
         try {
 
             if (incidenciaFormModel.getDescripcion().length() == 0) {
-                JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
+                JSFUtils.errorMessage("Descripción",
+                        ListadoMensajesSistema.CAIV001.getMensaje());
                 return;
             }
 
             if (incidenciaFormModel.getEsImagen() == 1) {
                 if (imagen == null) {
 
-                    JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV002.getMensaje());
+                    JSFUtils.errorMessage("Imagen",
+                            ListadoMensajesSistema.CAIV002.getMensaje());
                     return;
 
                 } else {
@@ -112,7 +123,8 @@ public class IncidenciaIndexController implements Serializable {
                     }
 
                     if (imagen.getSize() > 254000) {
-                        JSFUtils.errorMessage("Imagen", ListadoMensajesSistema.CAIV005.getMensaje());
+                        JSFUtils.errorMessage("Imagen",
+                                ListadoMensajesSistema.CAIV005.getMensaje());
                         return;
                     }
                 }
@@ -120,7 +132,8 @@ public class IncidenciaIndexController implements Serializable {
                 incidenciaFormModel.setImagenMarca(imagen.getInputstream());
             } else {
                 if (incidenciaFormModel.getMarcaReporte().length() == 0) {
-                    JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
+                    JSFUtils.errorMessage("Descripción",
+                            ListadoMensajesSistema.CAIV003.getMensaje());
                     return;
                 }
             }
@@ -129,8 +142,10 @@ public class IncidenciaIndexController implements Serializable {
             listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
             incidenciaFormModel = new IncidenciaFormModel();
             imagen = null;
-            RequestContext.getCurrentInstance().execute("PF('dlgNuevaIncidencia').hide()");
-            JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgNuevaIncidencia').hide()");
+            JSFUtils.infoMessage("Incidencia",
+                    ListadoMensajesSistema.CA001.getMensaje());
         } catch (RESTClientException e) {
             e.printStackTrace();
             JSFUtils.errorMessage("Guardar Incidencia", e.getMessage());
@@ -141,15 +156,20 @@ public class IncidenciaIndexController implements Serializable {
 
         incidenciaFormModel = new IncidenciaFormModel();
 
-        incidenciaFormModel.setDescripcion(incidenciaSelecionada.getDescripcion());
+        incidenciaFormModel
+                .setDescripcion(incidenciaSelecionada.getDescripcion());
         incidenciaFormModel.setEsImagen(incidenciaSelecionada.getEsImagen());
-        incidenciaFormModel.setIdIncidencia(incidenciaSelecionada.getIdIncidencia());
-        incidenciaFormModel.setMarcaReporte(incidenciaSelecionada.getMarcaReporte());
-        incidenciaFormModel.setTipoRegistro(incidenciaSelecionada.getIdTipoRegistro());
+        incidenciaFormModel
+                .setIdIncidencia(incidenciaSelecionada.getIdIncidencia());
+        incidenciaFormModel
+                .setMarcaReporte(incidenciaSelecionada.getMarcaReporte());
+        incidenciaFormModel
+                .setTipoRegistro(incidenciaSelecionada.getIdTipoRegistro());
         try {
 
             if (incidenciaFormModel.getDescripcion().length() == 0) {
-                JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV001.getMensaje());
+                JSFUtils.errorMessage("Descripción",
+                        ListadoMensajesSistema.CAIV001.getMensaje());
                 return;
             }
 
@@ -162,7 +182,8 @@ public class IncidenciaIndexController implements Serializable {
 
             } else {
                 if (incidenciaFormModel.getMarcaReporte().length() == 0) {
-                    JSFUtils.errorMessage("Descripción", ListadoMensajesSistema.CAIV003.getMensaje());
+                    JSFUtils.errorMessage("Descripción",
+                            ListadoMensajesSistema.CAIV003.getMensaje());
                     return;
                 }
             }
@@ -171,8 +192,10 @@ public class IncidenciaIndexController implements Serializable {
             listadoIncidencias = incidenciaClienteRest.listadoIncidencias();
             incidenciaFormModel = new IncidenciaFormModel();
             imagen = null;
-            RequestContext.getCurrentInstance().execute("PF('dlgEditarIncidencia').hide()");
-            JSFUtils.infoMessage("Incidencia", ListadoMensajesSistema.CA001.getMensaje());
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgEditarIncidencia').hide()");
+            JSFUtils.infoMessage("Incidencia",
+                    ListadoMensajesSistema.CA001.getMensaje());
         } catch (
 
         RESTClientException e) {
@@ -185,7 +208,8 @@ public class IncidenciaIndexController implements Serializable {
         return listadoIncidencias;
     }
 
-    public void setListadoIncidencias(List<IncidenciaModelView> listadoIncidencias) {
+    public void setListadoIncidencias(
+            List<IncidenciaModelView> listadoIncidencias) {
         this.listadoIncidencias = listadoIncidencias;
     }
 
@@ -197,7 +221,8 @@ public class IncidenciaIndexController implements Serializable {
         return incidenciaFormModel;
     }
 
-    public void setIncidenciaFormModel(IncidenciaFormModel incidenciaFormModel) {
+    public void setIncidenciaFormModel(
+            IncidenciaFormModel incidenciaFormModel) {
         this.incidenciaFormModel = incidenciaFormModel;
     }
 
@@ -212,7 +237,8 @@ public class IncidenciaIndexController implements Serializable {
     public void handleFileUpload(FileUploadEvent event) {
 
         try {
-            incidenciaFormModel.setImagenMarca(event.getFile().getInputstream());
+            incidenciaFormModel
+                    .setImagenMarca(event.getFile().getInputstream());
             incidenciaFormModel.setMarcaReporte(event.getFile().getFileName());
             imagen = event.getFile();
         } catch (IOException e) {
@@ -226,7 +252,8 @@ public class IncidenciaIndexController implements Serializable {
         return listadoIncidenciasFiltrado;
     }
 
-    public void setListadoIncidenciasFiltrado(List<IncidenciaModelView> listadoIncidenciasFiltrado) {
+    public void setListadoIncidenciasFiltrado(
+            List<IncidenciaModelView> listadoIncidenciasFiltrado) {
         this.listadoIncidenciasFiltrado = listadoIncidenciasFiltrado;
     }
 
@@ -234,7 +261,8 @@ public class IncidenciaIndexController implements Serializable {
         return incidenciaSelecionada;
     }
 
-    public void setIncidenciaSelecionada(IncidenciaModelView incidenciaSelecionada) {
+    public void setIncidenciaSelecionada(
+            IncidenciaModelView incidenciaSelecionada) {
         this.incidenciaSelecionada = incidenciaSelecionada;
     }
 

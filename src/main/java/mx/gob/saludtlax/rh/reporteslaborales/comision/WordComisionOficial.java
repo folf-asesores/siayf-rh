@@ -22,18 +22,27 @@ public class WordComisionOficial {
     public byte[] generar(ComisionOficialDTO comisionOficialDTO) {
 
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(RUTA);
+            InputStream inputStream = getClass().getClassLoader()
+                    .getResourceAsStream(RUTA);
             XWPFDocument plantilla = new XWPFDocument(inputStream);
 
             Map<String, String> camposReporte = new HashMap<>();
 
-            camposReporte.put(SIGNO_APERTURA + "nombreCompleto" + SIGNO_CIERRE, comisionOficialDTO.getNombreCompleto());
-            camposReporte.put(SIGNO_APERTURA + "rfc" + SIGNO_CIERRE, comisionOficialDTO.getRfc());
-            camposReporte.put(SIGNO_APERTURA + "curp" + SIGNO_CIERRE, comisionOficialDTO.getCurp());
-            camposReporte.put(SIGNO_APERTURA + "lugar" + SIGNO_CIERRE, comisionOficialDTO.getLugar());
-            camposReporte.put(SIGNO_APERTURA + "adscripcion" + SIGNO_CIERRE, comisionOficialDTO.getAdscripcion());
-            camposReporte.put(SIGNO_APERTURA + "fecha" + SIGNO_CIERRE, comisionOficialDTO.getFecha());
-            camposReporte.put(SIGNO_APERTURA + "directorAdministracion" + SIGNO_CIERRE, comisionOficialDTO.getDirectorAdministracion());
+            camposReporte.put(SIGNO_APERTURA + "nombreCompleto" + SIGNO_CIERRE,
+                    comisionOficialDTO.getNombreCompleto());
+            camposReporte.put(SIGNO_APERTURA + "rfc" + SIGNO_CIERRE,
+                    comisionOficialDTO.getRfc());
+            camposReporte.put(SIGNO_APERTURA + "curp" + SIGNO_CIERRE,
+                    comisionOficialDTO.getCurp());
+            camposReporte.put(SIGNO_APERTURA + "lugar" + SIGNO_CIERRE,
+                    comisionOficialDTO.getLugar());
+            camposReporte.put(SIGNO_APERTURA + "adscripcion" + SIGNO_CIERRE,
+                    comisionOficialDTO.getAdscripcion());
+            camposReporte.put(SIGNO_APERTURA + "fecha" + SIGNO_CIERRE,
+                    comisionOficialDTO.getFecha());
+            camposReporte.put(
+                    SIGNO_APERTURA + "directorAdministracion" + SIGNO_CIERRE,
+                    comisionOficialDTO.getDirectorAdministracion());
 
             for (XWPFParagraph parrafo : plantilla.getParagraphs()) {
                 remplazarCampos(parrafo, camposReporte);

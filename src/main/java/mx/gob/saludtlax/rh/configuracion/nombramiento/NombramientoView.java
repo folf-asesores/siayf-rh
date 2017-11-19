@@ -39,7 +39,8 @@ public class NombramientoView {
         return listNombramiento;
     }
 
-    public void setListNombramiento(List<TipoNombramientoDTO> listNombramiento) {
+    public void setListNombramiento(
+            List<TipoNombramientoDTO> listNombramiento) {
         this.listNombramiento = listNombramiento;
     }
 

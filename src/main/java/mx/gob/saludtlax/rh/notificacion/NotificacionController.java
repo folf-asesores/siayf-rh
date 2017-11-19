@@ -47,7 +47,8 @@ public class NotificacionController {
         FacesContext fc = FacesContext.getCurrentInstance();
         ExternalContext externalContext = fc.getExternalContext();
         HttpSession sesion = (HttpSession) externalContext.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) sesion.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) sesion
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         contextPath = externalContext.getRequestContextPath();
 
         if (usuario != null) {
@@ -66,9 +67,12 @@ public class NotificacionController {
             addScriptCantidadNotificaciones(script, notificaciones.size());
             addScriptNotificaciones(script, notificaciones);
         } else {
-            script.append("$(\'#boton-notificaciones-vinculo > .boton-notificaciones-numero\').css(\'display\',\'none\');\n");
-            script.append("$(\'#notificaciones-menu > section > .notificacion-item\').remove();\n");
-            script.append("$(\'#notificaciones-menu > section\').append(\'<div class=\"notificacion-item\"><p>No hay notificaciones nuevas</p></div>');\n");
+            script.append(
+                    "$(\'#boton-notificaciones-vinculo > .boton-notificaciones-numero\').css(\'display\',\'none\');\n");
+            script.append(
+                    "$(\'#notificaciones-menu > section > .notificacion-item\').remove();\n");
+            script.append(
+                    "$(\'#notificaciones-menu > section\').append(\'<div class=\"notificacion-item\"><p>No hay notificaciones nuevas</p></div>');\n");
         }
 
         contextPrimeFaces.execute(script.toString());
@@ -78,7 +82,8 @@ public class NotificacionController {
         List<NotificacionDTO> notificaciones;
 
         if (idUsuario != null && idUsuario > 0) {
-            notificaciones = notificacionEJB.consultarNotificacionesPorIdUsuarioNoVistas(idUsuario);
+            notificaciones = notificacionEJB
+                    .consultarNotificacionesPorIdUsuarioNoVistas(idUsuario);
         } else {
             notificaciones = new ArrayList<>();
         }
@@ -86,8 +91,10 @@ public class NotificacionController {
         return notificaciones;
     }
 
-    private String addScriptCantidadNotificaciones(StringBuilder sb, int cantidadNotificaciones) {
-        sb.append("$(\'#boton-notificaciones-vinculo > .boton-notificaciones-numero\').css(\'display\',\'inline-block\');\n");
+    private String addScriptCantidadNotificaciones(StringBuilder sb,
+            int cantidadNotificaciones) {
+        sb.append(
+                "$(\'#boton-notificaciones-vinculo > .boton-notificaciones-numero\').css(\'display\',\'inline-block\');\n");
         sb.append("$(\'#boton-notificaciones-vinculo >");
         sb.append(" .boton-notificaciones-numero\').text(");
         sb.append(cantidadNotificaciones);
@@ -96,17 +103,23 @@ public class NotificacionController {
         return sb.toString();
     }
 
-    private void addScriptNotificaciones(StringBuilder sb, List<NotificacionDTO> notificaciones) {
-        sb.append("$(\'#notificaciones-menu > section > .notificacion-item\').remove();\n");
+    private void addScriptNotificaciones(StringBuilder sb,
+            List<NotificacionDTO> notificaciones) {
+        sb.append(
+                "$(\'#notificaciones-menu > section > .notificacion-item\').remove();\n");
 
         for (NotificacionDTO notificacion : notificaciones) {
-            sb.append("$(\'#notificaciones-menu > section\').append(\'<div class=\"notificacion-item\">");
+            sb.append(
+                    "$(\'#notificaciones-menu > section\').append(\'<div class=\"notificacion-item\">");
             //TODO: Hacer que en lugar de que salga la fecha mostrar el tiempo que lleva desde que se dio la notificación.
             sb.append(MessageFormat.format(
                     "<h4>{0}</h4><p>{1}</p><div class=\"notificacion-item-pie\"><span style=\"padding-right: 5px;\"><a href=\"{2}\" title=\"Ir a notificación\">Ver</a></span><span><a href=\"{4}\" title=\"Marcar notificación como visto\">Visto</a></span><span class=\"fecha-publicacion\">{3}</span></div>",
-                    notificacion.getAsunto(), notificacion.getCuerpo(), obtenerUrlIr(notificacion.getIdsDestinatarios()),
-                    FechaUtil.formatearFecha("dd MMMM yyyy", notificacion.getFechaPublicacion()),
-                    obtenerUrlMarcarComoVisto(notificacion.getIdsDestinatarios())));
+                    notificacion.getAsunto(), notificacion.getCuerpo(),
+                    obtenerUrlIr(notificacion.getIdsDestinatarios()),
+                    FechaUtil.formatearFecha("dd MMMM yyyy",
+                            notificacion.getFechaPublicacion()),
+                    obtenerUrlMarcarComoVisto(
+                            notificacion.getIdsDestinatarios())));
             sb.append("</div>\');\n");
         }
 
@@ -126,7 +139,8 @@ public class NotificacionController {
         return sb.toString();
     }
 
-    private String obtenerUrlMarcarComoVisto(Map<Integer, String> idsDestinatarios) {
+    private String obtenerUrlMarcarComoVisto(
+            Map<Integer, String> idsDestinatarios) {
         String token = idsDestinatarios.get(idUsuario);
         StringBuilder sb = new StringBuilder(contextPath);
 
@@ -142,7 +156,8 @@ public class NotificacionController {
         String url;
 
         try {
-            url = URLEncoder.encode(fc.getExternalContext().getRequestServletPath(), "UTF-8");
+            url = URLEncoder.encode(
+                    fc.getExternalContext().getRequestServletPath(), "UTF-8");
         } catch (UnsupportedEncodingException ex) {
             url = fc.getExternalContext().getRequestServletPath();
         }

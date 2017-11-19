@@ -34,7 +34,8 @@ public class PaqueteNomina implements Serializable {
         return controlComprobanteNomina;
     }
 
-    public void setControlComprobanteNomina(List<PaqueteNomina.ControlComprobante> controlComprobanteNomina) {
+    public void setControlComprobanteNomina(
+            List<PaqueteNomina.ControlComprobante> controlComprobanteNomina) {
         this.controlComprobanteNomina = controlComprobanteNomina;
     }
 

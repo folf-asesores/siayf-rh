@@ -60,9 +60,12 @@ public class NotificadorExcepcionService implements Serializable {
      * @param fechaHora
      *            la fecha y hora en la que ocurrio la excepción.
      */
-    protected void persistirExcepcion(String nombreUsuario, String tipo, String mensaje, String pilaSeguimiento, Date fechaHora) {
-        UsuarioEntity usuarioEntity = usuarioRepository.obtenerUsuarioPorNombreUsuario(nombreUsuario);
-        BitacoraExcepcionEntity bitacoraExcepcionEntity = new BitacoraExcepcionEntity(null, usuarioEntity, tipo, mensaje, pilaSeguimiento, fechaHora,
+    protected void persistirExcepcion(String nombreUsuario, String tipo,
+            String mensaje, String pilaSeguimiento, Date fechaHora) {
+        UsuarioEntity usuarioEntity = usuarioRepository
+                .obtenerUsuarioPorNombreUsuario(nombreUsuario);
+        BitacoraExcepcionEntity bitacoraExcepcionEntity = new BitacoraExcepcionEntity(
+                null, usuarioEntity, tipo, mensaje, pilaSeguimiento, fechaHora,
                 fechaHora);
         bitacoraExcepcionRepository.crear(bitacoraExcepcionEntity);
     }

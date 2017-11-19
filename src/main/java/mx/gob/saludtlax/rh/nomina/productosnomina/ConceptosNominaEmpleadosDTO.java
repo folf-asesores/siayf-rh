@@ -26,7 +26,8 @@ public class ConceptosNominaEmpleadosDTO {
         return idConceptosNominaEmpleado;
     }
 
-    public void setIdConceptosNominaEmpleado(Integer idConceptosNominaEmpleado) {
+    public void setIdConceptosNominaEmpleado(
+            Integer idConceptosNominaEmpleado) {
         this.idConceptosNominaEmpleado = idConceptosNominaEmpleado;
     }
 
@@ -90,7 +91,8 @@ public class ConceptosNominaEmpleadosDTO {
         return idConceptoNominaEventuales;
     }
 
-    public void setIdConceptoNominaEventuales(Integer idConceptoNominaEventuales) {
+    public void setIdConceptoNominaEventuales(
+            Integer idConceptoNominaEventuales) {
         this.idConceptoNominaEventuales = idConceptoNominaEventuales;
     }
 
@@ -98,7 +100,8 @@ public class ConceptosNominaEmpleadosDTO {
         return idConceptoNominaFederales;
     }
 
-    public void setIdConceptoNominaFederales(Integer idConceptoNominaFederales) {
+    public void setIdConceptoNominaFederales(
+            Integer idConceptoNominaFederales) {
         this.idConceptoNominaFederales = idConceptoNominaFederales;
     }
 }

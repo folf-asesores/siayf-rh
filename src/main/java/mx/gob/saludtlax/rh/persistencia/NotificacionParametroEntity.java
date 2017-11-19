@@ -49,7 +49,8 @@ public class NotificacionParametroEntity implements Serializable {
         this.idNotificacionParametro = idNotificacionParametro;
     }
 
-    public NotificacionParametroEntity(Integer idNotificacionParametro, String nombre, String valor, NotificacionEntity notificacion) {
+    public NotificacionParametroEntity(Integer idNotificacionParametro,
+            String nombre, String valor, NotificacionEntity notificacion) {
         this.idNotificacionParametro = idNotificacionParametro;
         this.nombre = nombre;
         this.valor = valor;

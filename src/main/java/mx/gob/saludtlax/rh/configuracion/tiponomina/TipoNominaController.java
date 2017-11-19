@@ -62,7 +62,8 @@ public class TipoNominaController {
 
         view.panelPrincipal();
         irPrincipal();
-        JSFUtils.infoMessage("Eliminación Tipo Nomina: ", "Se realizo correctamente.");
+        JSFUtils.infoMessage("Eliminación Tipo Nomina: ",
+                "Se realizo correctamente.");
     }
 
     public String irGestionarTipoNomina() {
@@ -84,10 +85,12 @@ public class TipoNominaController {
     public void guardarTipoNomina() {
         if (view.getOperacionNuevo()) {
             ejb.crearTipoNomina(view.getTipoNomina());
-            JSFUtils.infoMessage("Registro Tipo Nomina: ", "Se realizo correctamente.");
+            JSFUtils.infoMessage("Registro Tipo Nomina: ",
+                    "Se realizo correctamente.");
         } else {
             ejb.actualizarTipoNomina(view.getTipoNomina());
-            JSFUtils.infoMessage("Actualización Tipo Nomina: ", "Se realizo correctamente.");
+            JSFUtils.infoMessage("Actualización Tipo Nomina: ",
+                    "Se realizo correctamente.");
         }
         view.panelGestion();
         irPrincipal();
@@ -120,7 +123,8 @@ public class TipoNominaController {
 
     // <<<<<<Validator>>>>>>
 
-    public void validatorTipo(FacesContext context, UIComponent component, Object value) {
+    public void validatorTipo(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -128,7 +132,9 @@ public class TipoNominaController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una descripcion.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una descripcion.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -137,7 +143,9 @@ public class TipoNominaController {
                 String Idta = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Idta)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un tipo de afectación.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un tipo de afectación.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -146,7 +154,9 @@ public class TipoNominaController {
                 String idc = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(idc)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una clasificación.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una clasificación.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

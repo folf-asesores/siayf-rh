@@ -2,12 +2,14 @@
 package mx.gob.saludtlax.rh.configuracion.conceptosnomina;
 
 public enum TipoConceptoNominaEnum {
-    TODOS(0, "Todos"), PERCEPCION(1, "Percepción"), DEDUCCION(2, "Deducción"), DEDUCCION_PRESAMO(3, "Deducción Prestamo");
+    TODOS(0, "Todos"), PERCEPCION(1, "Percepción"), DEDUCCION(2, "Deducción"),
+    DEDUCCION_PRESAMO(3, "Deducción Prestamo");
 
     private Integer idTipoConceptoNomina;
     private String tipoConceptoNomina;
 
-    private TipoConceptoNominaEnum(Integer idTipoConceptoNomina, String tipoConceptoNomina) {
+    private TipoConceptoNominaEnum(Integer idTipoConceptoNomina,
+            String tipoConceptoNomina) {
         this.idTipoConceptoNomina = idTipoConceptoNomina;
         this.tipoConceptoNomina = tipoConceptoNomina;
     }

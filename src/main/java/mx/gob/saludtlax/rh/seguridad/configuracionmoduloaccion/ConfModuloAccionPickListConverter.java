@@ -19,22 +19,25 @@ import org.primefaces.model.DualListModel;
 import mx.gob.saludtlax.rh.acciones.AccionDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @FacesConverter("configModuloAccionPickListConverter")
 public class ConfModuloAccionPickListConverter implements Converter {
 
-    private static final Logger LOGGER = Logger.getLogger(ConfModuloAccionPickListConverter.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(ConfModuloAccionPickListConverter.class);
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String value) {
         LOGGER.debugv("String value: {0}", value);
         return getObjectFromUIPickListComponent(component, value);
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object object) {
+    public String getAsString(FacesContext context, UIComponent component,
+            Object object) {
         String string;
         LOGGER.debugv("Object value: {0}", object);
         if (object == null) {
@@ -50,13 +53,17 @@ public class ConfModuloAccionPickListConverter implements Converter {
     }
 
     @SuppressWarnings("unchecked")
-    private AccionDTO getObjectFromUIPickListComponent(UIComponent component, String value) {
+    private AccionDTO getObjectFromUIPickListComponent(UIComponent component,
+            String value) {
         final DualListModel<AccionDTO> dualList;
         try {
-            dualList = (DualListModel<AccionDTO>) ((PickList) component).getValue();
-            AccionDTO team = getObjectFromList(dualList.getSource(), Integer.valueOf(value));
+            dualList = (DualListModel<AccionDTO>) ((PickList) component)
+                    .getValue();
+            AccionDTO team = getObjectFromList(dualList.getSource(),
+                    Integer.valueOf(value));
             if (team == null) {
-                team = getObjectFromList(dualList.getTarget(), Integer.valueOf(value));
+                team = getObjectFromList(dualList.getTarget(),
+                        Integer.valueOf(value));
             }
 
             return team;
@@ -65,7 +72,8 @@ public class ConfModuloAccionPickListConverter implements Converter {
         }
     }
 
-    private AccionDTO getObjectFromList(final List<?> list, final Integer identifier) {
+    private AccionDTO getObjectFromList(final List<?> list,
+            final Integer identifier) {
         for (final Object object : list) {
             final AccionDTO team = (AccionDTO) object;
             if (team.getIdAccion().equals(identifier)) {

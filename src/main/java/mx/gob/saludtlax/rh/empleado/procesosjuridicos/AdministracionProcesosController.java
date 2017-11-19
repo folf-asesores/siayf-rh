@@ -53,7 +53,8 @@ public class AdministracionProcesosController implements Serializable {
 
     public void cargarCatalogo() {
         view.setListaFiltros(SelectItemsUtil.listaFiltrosConsultaAspirantes());
-        view.setListaProceso(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaProcesoJuridico()));
+        view.setListaProceso(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaProcesoJuridico()));
     }
 
     public String irPrincipal() {
@@ -99,7 +100,8 @@ public class AdministracionProcesosController implements Serializable {
 
     public void obtenerConsultaEmpleado() {
 
-        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado.consultaEmpleado(view.getFiltro());
+        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado
+                .consultaEmpleado(view.getFiltro());
 
         view.setMostrarMenuDetalles(false);
 
@@ -116,7 +118,8 @@ public class AdministracionProcesosController implements Serializable {
             view.setMostrarResultadoConsulta(false);
 
             view.setFiltro(new FiltroDTO());
-            JSFUtils.errorMessage("Consulta de Empleados", "No se encontrarón resultados, vuelve a intentar");
+            JSFUtils.errorMessage("Consulta de Empleados",
+                    "No se encontrarón resultados, vuelve a intentar");
         }
     }
 
@@ -128,7 +131,8 @@ public class AdministracionProcesosController implements Serializable {
         view.setDialogoEliminar(false);
     }
 
-    public void validarConsulta(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarConsulta(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -140,7 +144,9 @@ public class AdministracionProcesosController implements Serializable {
                 Integer tipoBusqueda = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoBusqueda)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo de busqueda");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo de busqueda");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -152,13 +158,16 @@ public class AdministracionProcesosController implements Serializable {
                 String criterio = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el criterio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el criterio");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
 
                 if (criterio.trim().length() < 4) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
                             "El criterio de la busqueda debe contener minimo 4 letras");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
@@ -172,7 +181,8 @@ public class AdministracionProcesosController implements Serializable {
 
     }
 
-    public void validatorProceso(FacesContext context, UIComponent component, Object value) {
+    public void validatorProceso(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -180,7 +190,9 @@ public class AdministracionProcesosController implements Serializable {
                 Integer proceso = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(proceso)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Selecciona un Proceso");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Selecciona un Proceso");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

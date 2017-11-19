@@ -80,7 +80,8 @@ public class ProgramarMovimientoDTO implements Serializable {
         return listaDetalles;
     }
 
-    public void setListaDetalles(List<DetalleProgramacionMovimientoDTO> listaDetalles) {
+    public void setListaDetalles(
+            List<DetalleProgramacionMovimientoDTO> listaDetalles) {
         this.listaDetalles = listaDetalles;
     }
 

@@ -32,7 +32,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "editarConfigModuloAccion")
@@ -64,7 +64,8 @@ public class EditaConfigModuloAccionController implements Serializable {
         view = new EditarConfigModuloAccionView();
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String idConfigModuloAccion = params.get("i");
 
         if (!ValidacionUtil.esCadenaVacia(idConfigModuloAccion)) {
@@ -86,35 +87,43 @@ public class EditaConfigModuloAccionController implements Serializable {
             List<ModuloDTO> listaModulos = moduloEJB.listaModulos();
             view.setListaModulos(listaModulos);
 
-            ConfiguracionModuloAccionDTO dto = configuracionModuloAccion.obtenerConfAccModPorId(view.getIdConfigModuloAccion());
+            ConfiguracionModuloAccionDTO dto = configuracionModuloAccion
+                    .obtenerConfAccModPorId(view.getIdConfigModuloAccion());
 
             view.setConfigModuloAccionEditar(dto);
 
             ModuloDTO modulo = new ModuloDTO();
 
             for (ModuloDTO mod : view.getListaModulos()) {
-                if (mod.getIdModulo().compareTo(view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+                if (mod.getIdModulo()
+                        .compareTo(view.getConfigModuloAccionEditar()
+                                .getModulo().getIdModulo()) == 0) {
                     modulo = mod;
                 }
             }
 
             // Setea el id del modulo para luego compararlo
-            view.setIdModuloConparator(view.getConfigModuloAccionEditar().getModulo().getIdModulo());
+            view.setIdModuloConparator(view.getConfigModuloAccionEditar()
+                    .getModulo().getIdModulo());
 
             //Identificadores para realizar la busqueda de acciones filtradas
             Integer idModulo = modulo.getIdModulo();
             List<Integer> idAccionFiltro = new ArrayList<>();
 
-            for (AccionDTO ac : view.getConfigModuloAccionEditar().getAcciones()) {
+            for (AccionDTO ac : view.getConfigModuloAccionEditar()
+                    .getAcciones()) {
                 idAccionFiltro.add(ac.getIdAccion());
             }
 
-            List<AccionDTO> accionSource = accionEJB.obtenerAccionesFiltradas(idModulo, idAccionFiltro);
+            List<AccionDTO> accionSource = accionEJB
+                    .obtenerAccionesFiltradas(idModulo, idAccionFiltro);
 
-            List<AccionDTO> accionTarget = view.getConfigModuloAccionEditar().getAcciones();
+            List<AccionDTO> accionTarget = view.getConfigModuloAccionEditar()
+                    .getAcciones();
 
             // Construye el piklist
-            view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+            view.setPikListAcciones(
+                    new DualListModel<>(accionSource, accionTarget));
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             view.setPanelPrincipal(false);
@@ -129,22 +138,27 @@ public class EditaConfigModuloAccionController implements Serializable {
      */
     public void accionesPorModuloSeleccionado() {
         // si la configuracion es la misma refresca la vista al principal
-        if (view.getConfigModuloAccionEditar().getModulo().getIdModulo().equals(view.getIdModuloConparator())) {
+        if (view.getConfigModuloAccionEditar().getModulo().getIdModulo()
+                .equals(view.getIdModuloConparator())) {
             vistaPrincipal();
         } else {
 
             ModuloDTO modulo = new ModuloDTO();
 
             for (ModuloDTO mod : view.getListaModulos()) {
-                if (mod.getIdModulo().compareTo(view.getConfigModuloAccionEditar().getModulo().getIdModulo()) == 0) {
+                if (mod.getIdModulo()
+                        .compareTo(view.getConfigModuloAccionEditar()
+                                .getModulo().getIdModulo()) == 0) {
                     modulo = mod;
                 }
             }
 
-            List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo(modulo.getIdModulo());
+            List<AccionDTO> accionSource = accionEJB
+                    .obtenerListaAccionesPorModulo(modulo.getIdModulo());
             List<AccionDTO> accionTarget = new ArrayList<>();
 
-            view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+            view.setPikListAcciones(
+                    new DualListModel<>(accionSource, accionTarget));
 
         }
 
@@ -167,7 +181,8 @@ public class EditaConfigModuloAccionController implements Serializable {
 
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -176,7 +191,9 @@ public class EditaConfigModuloAccionController implements Serializable {
                 Integer modulo = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un modulo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -185,7 +202,6 @@ public class EditaConfigModuloAccionController implements Serializable {
         }
     }
 
-    
     /**
      * @return the view
      */

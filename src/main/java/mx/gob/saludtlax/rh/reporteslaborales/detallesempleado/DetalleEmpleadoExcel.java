@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class DetalleEmpleadoExcel implements Serializable {
@@ -34,7 +34,8 @@ public class DetalleEmpleadoExcel implements Serializable {
      */
     private static final long serialVersionUID = -467008949119374655L;
 
-    private final InputStream is = ContratoExcel.class.getResourceAsStream("/plantillas/empleado/Detalle_Empleado.xlsx");
+    private final InputStream is = ContratoExcel.class
+            .getResourceAsStream("/plantillas/empleado/Detalle_Empleado.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -169,7 +170,8 @@ public class DetalleEmpleadoExcel implements Serializable {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
@@ -194,13 +196,15 @@ public class DetalleEmpleadoExcel implements Serializable {
             celdaConcepto.setCellValue(detalle.getCurp());
 
             Cell celdaEnero = filaDetalle.createCell(FECHA_NACIMIENTO);
-            celdaEnero.setCellValue(detalle.getFechaNacimiento() == null ? "" : format.format(detalle.getFechaNacimiento()));
+            celdaEnero.setCellValue(detalle.getFechaNacimiento() == null ? ""
+                    : format.format(detalle.getFechaNacimiento()));
 
             Cell celdaFebrero = filaDetalle.createCell(TELEFONO);
             celdaFebrero.setCellValue(detalle.getTelefono());
 
             Cell celdaMarzo = filaDetalle.createCell(FECHA_ALTA);
-            celdaMarzo.setCellValue(detalle.getFechaAlta() == null ? "" : format.format(detalle.getFechaAlta()));
+            celdaMarzo.setCellValue(detalle.getFechaAlta() == null ? ""
+                    : format.format(detalle.getFechaAlta()));
 
             Cell celdaAbril = filaDetalle.createCell(DIRECCION_COMPLETA);
             celdaAbril.setCellValue(detalle.getDireccionCompleta());
@@ -230,10 +234,13 @@ public class DetalleEmpleadoExcel implements Serializable {
             celdaDiciembre.setCellValue(detalle.getCorreoElectronico());
 
             Cell celdaTotal = filaDetalle.createCell(FECHA_INGRESO);
-            celdaTotal.setCellValue(detalle.getFechaIngreso() == null ? "" : format.format(detalle.getFechaIngreso()));
+            celdaTotal.setCellValue(detalle.getFechaIngreso() == null ? ""
+                    : format.format(detalle.getFechaIngreso()));
 
-            Cell celdaPersonaDependiente = filaDetalle.createCell(PERSONA_DEPENDIENTE);
-            celdaPersonaDependiente.setCellValue(detalle.getTienePersonaDependiente());
+            Cell celdaPersonaDependiente = filaDetalle
+                    .createCell(PERSONA_DEPENDIENTE);
+            celdaPersonaDependiente
+                    .setCellValue(detalle.getTienePersonaDependiente());
 
             Cell celdaIdDatoPersonal = filaDetalle.createCell(ID_DATO_PERSONAL);
             celdaIdDatoPersonal.setCellValue(detalle.getIdDatoPersonal());
@@ -242,13 +249,17 @@ public class DetalleEmpleadoExcel implements Serializable {
             celdaConyuge.setCellValue(detalle.getNumeroConyuge());
 
             Cell celdaNumeroPadres = filaDetalle.createCell(NUMERO_PADRES);
-            celdaNumeroPadres.setCellValue(detalle.getNumeroPadre() == null ? "0" : detalle.getNumeroPadre().toString());
+            celdaNumeroPadres.setCellValue(detalle.getNumeroPadre() == null
+                    ? "0" : detalle.getNumeroPadre().toString());
 
             Cell celdaNumeroHijos = filaDetalle.createCell(NUMERO_HIJOS);
-            celdaNumeroHijos.setCellValue(detalle.getNumeroHijo() == null ? "0" : detalle.getNumeroHijo().toString());
+            celdaNumeroHijos.setCellValue(detalle.getNumeroHijo() == null ? "0"
+                    : detalle.getNumeroHijo().toString());
 
             Cell celdaOtroParentesco = filaDetalle.createCell(OTRO_PARENTESCO);
-            celdaOtroParentesco.setCellValue(detalle.getNumeroOtroParentesco() == null ? "0" : detalle.getNumeroOtroParentesco().toString());
+            celdaOtroParentesco.setCellValue(
+                    detalle.getNumeroOtroParentesco() == null ? "0"
+                            : detalle.getNumeroOtroParentesco().toString());
 
             Cell celdaNumeroCuenta = filaDetalle.createCell(NUMERO_CUENTA);
             celdaNumeroCuenta.setCellValue(detalle.getNumeroCuenta());
@@ -256,9 +267,12 @@ public class DetalleEmpleadoExcel implements Serializable {
             Cell celdaBanco = filaDetalle.createCell(BANCO);
             celdaBanco.setCellValue(detalle.getBanco());
 
-            Cell celdaNumeroIdentificadorBiometrico = filaDetalle.createCell(NUMERO_IDENTIFICADOR_BIOMETRICO);
-            celdaNumeroIdentificadorBiometrico
-                    .setCellValue(detalle.getNumeroIdentificadorBiometrico() == null ? "" : detalle.getNumeroIdentificadorBiometrico().toString());
+            Cell celdaNumeroIdentificadorBiometrico = filaDetalle
+                    .createCell(NUMERO_IDENTIFICADOR_BIOMETRICO);
+            celdaNumeroIdentificadorBiometrico.setCellValue(
+                    detalle.getNumeroIdentificadorBiometrico() == null ? ""
+                            : detalle.getNumeroIdentificadorBiometrico()
+                                    .toString());
 
             Cell celdaTipoEmpleado = filaDetalle.createCell(TIPO_EMPLEADO);
             celdaTipoEmpleado.setCellValue(detalle.getTipoEmpleado());
@@ -270,10 +284,13 @@ public class DetalleEmpleadoExcel implements Serializable {
             celdaMetodoPago.setCellValue(detalle.getMetodoPago());
 
             Cell celdaNumeroVacante = filaDetalle.createCell(NUMERO_VACANTE);
-            celdaNumeroVacante.setCellValue(detalle.getNumeroVacante() == null ? "" : detalle.getNumeroVacante().toString());
+            celdaNumeroVacante.setCellValue(detalle.getNumeroVacante() == null
+                    ? "" : detalle.getNumeroVacante().toString());
 
-            Cell celdaInventarioVacante = filaDetalle.createCell(INVENTARIO_VACANTE_DISPONIBLE);
-            celdaInventarioVacante.setCellValue(detalle.getInventarioVacanteDisponible());
+            Cell celdaInventarioVacante = filaDetalle
+                    .createCell(INVENTARIO_VACANTE_DISPONIBLE);
+            celdaInventarioVacante
+                    .setCellValue(detalle.getInventarioVacanteDisponible());
 
             Cell celdaCodigoVacante = filaDetalle.createCell(CODIGO_VACANTE);
             celdaCodigoVacante.setCellValue(detalle.getCodigoVacante());
@@ -287,10 +304,12 @@ public class DetalleEmpleadoExcel implements Serializable {
             Cell celdaAdscripcion = filaDetalle.createCell(ADSCRIPCION);
             celdaAdscripcion.setCellValue(detalle.getAdscripcion());
 
-            Cell celdaAreaAdscripcion = filaDetalle.createCell(AREA_ADSCRIPCION);
+            Cell celdaAreaAdscripcion = filaDetalle
+                    .createCell(AREA_ADSCRIPCION);
             celdaAreaAdscripcion.setCellValue(detalle.getAreaAdscripcion());
 
-            Cell celdaLugarAdscripcion = filaDetalle.createCell(LUGAR_ADSCRIPCION);
+            Cell celdaLugarAdscripcion = filaDetalle
+                    .createCell(LUGAR_ADSCRIPCION);
             celdaLugarAdscripcion.setCellValue(detalle.getLugarAdscripcion());
 
             Cell celdaActividad = filaDetalle.createCell(ACTIVIDAD);
@@ -308,50 +327,80 @@ public class DetalleEmpleadoExcel implements Serializable {
             Cell celdaTipoJornada = filaDetalle.createCell(TIPO_JORNADA);
             celdaTipoJornada.setCellValue(detalle.getTipoJornada());
 
-            Cell celdaProyectoDescripcion = filaDetalle.createCell(PROYECTO_DESCRIPCION);
-            celdaProyectoDescripcion.setCellValue(detalle.getProyectoDescripcion());
+            Cell celdaProyectoDescripcion = filaDetalle
+                    .createCell(PROYECTO_DESCRIPCION);
+            celdaProyectoDescripcion
+                    .setCellValue(detalle.getProyectoDescripcion());
 
-            Cell celdaDependenciaDescripcion = filaDetalle.createCell(DEPENDENCIA_DESCRIPCION);
-            celdaDependenciaDescripcion.setCellValue(detalle.getDependenciaDescripccion());
+            Cell celdaDependenciaDescripcion = filaDetalle
+                    .createCell(DEPENDENCIA_DESCRIPCION);
+            celdaDependenciaDescripcion
+                    .setCellValue(detalle.getDependenciaDescripccion());
 
-            Cell celdaUnidadResponsableDescripcion = filaDetalle.createCell(UNIDAD_RESPONSABLE_DESCRIPCION);
-            celdaUnidadResponsableDescripcion.setCellValue(detalle.getUnidadResponsableDescripcion());
+            Cell celdaUnidadResponsableDescripcion = filaDetalle
+                    .createCell(UNIDAD_RESPONSABLE_DESCRIPCION);
+            celdaUnidadResponsableDescripcion
+                    .setCellValue(detalle.getUnidadResponsableDescripcion());
 
-            Cell celdaTipoContratacion = filaDetalle.createCell(TIPO_CONTRATACION_CODIGO);
-            celdaTipoContratacion.setCellValue(detalle.getTipoContratacionCodigo());
+            Cell celdaTipoContratacion = filaDetalle
+                    .createCell(TIPO_CONTRATACION_CODIGO);
+            celdaTipoContratacion
+                    .setCellValue(detalle.getTipoContratacionCodigo());
 
-            Cell celdaPuestoGeneralCodigo = filaDetalle.createCell(PUESTO_GENERAL_CODIGO);
-            celdaPuestoGeneralCodigo.setCellValue(detalle.getPuestoGeneralCodigo());
+            Cell celdaPuestoGeneralCodigo = filaDetalle
+                    .createCell(PUESTO_GENERAL_CODIGO);
+            celdaPuestoGeneralCodigo
+                    .setCellValue(detalle.getPuestoGeneralCodigo());
 
-            Cell celdaFuenteFinanciamiento = filaDetalle.createCell(FUENTE_FINANCIAMIENTO_DESCRIPCION);
-            celdaFuenteFinanciamiento.setCellValue(detalle.getFuenteFinanciamientoDescripcion());
+            Cell celdaFuenteFinanciamiento = filaDetalle
+                    .createCell(FUENTE_FINANCIAMIENTO_DESCRIPCION);
+            celdaFuenteFinanciamiento
+                    .setCellValue(detalle.getFuenteFinanciamientoDescripcion());
 
-            Cell celdaSubfuenteFinanciamiento = filaDetalle.createCell(SUBFUENTE_FINANCIAMIENTO_DESCRIPCION);
-            celdaSubfuenteFinanciamiento.setCellValue(detalle.getSubfuenteFinanciamientoDescripcion());
+            Cell celdaSubfuenteFinanciamiento = filaDetalle
+                    .createCell(SUBFUENTE_FINANCIAMIENTO_DESCRIPCION);
+            celdaSubfuenteFinanciamiento.setCellValue(
+                    detalle.getSubfuenteFinanciamientoDescripcion());
 
-            Cell celdaTipoRecurso = filaDetalle.createCell(TIPO_RECURSO_DESCRIPCION);
+            Cell celdaTipoRecurso = filaDetalle
+                    .createCell(TIPO_RECURSO_DESCRIPCION);
             celdaTipoRecurso.setCellValue(detalle.getTipoRecursoDescripcion());
 
             Cell celdaIdDatoLaboral = filaDetalle.createCell(ID_DATO_LABORAL);
-            celdaIdDatoLaboral.setCellValue(detalle.getIdDatoLaboral() == null ? "" : detalle.getIdDatoLaboral().toString());
+            celdaIdDatoLaboral.setCellValue(detalle.getIdDatoLaboral() == null
+                    ? "" : detalle.getIdDatoLaboral().toString());
 
-            Cell celdaCentroResponsabilidadDescripcion = filaDetalle.createCell(CENTRO_RESPOSABILIDAD_DESCRIPCION);
-            celdaCentroResponsabilidadDescripcion.setCellValue(detalle.getCentroResponsabilidadDescripcion());
+            Cell celdaCentroResponsabilidadDescripcion = filaDetalle
+                    .createCell(CENTRO_RESPOSABILIDAD_DESCRIPCION);
+            celdaCentroResponsabilidadDescripcion.setCellValue(
+                    detalle.getCentroResponsabilidadDescripcion());
 
-            Cell celdaCentroResponsabilidadClave = filaDetalle.createCell(CENTRO_RESPONSABILIDAD_CLAVE);
-            celdaCentroResponsabilidadClave.setCellValue(detalle.getCentroResponsabilidadClave());
+            Cell celdaCentroResponsabilidadClave = filaDetalle
+                    .createCell(CENTRO_RESPONSABILIDAD_CLAVE);
+            celdaCentroResponsabilidadClave
+                    .setCellValue(detalle.getCentroResponsabilidadClave());
 
-            Cell celdaCuentaBancariaClave = filaDetalle.createCell(CUENTA_BANCARIA_CLAVE_CUENTA);
-            celdaCuentaBancariaClave.setCellValue(detalle.getCuentaBancariaClaveCuenta() == null ? "" : detalle.getCuentaBancariaClaveCuenta().toString());
+            Cell celdaCuentaBancariaClave = filaDetalle
+                    .createCell(CUENTA_BANCARIA_CLAVE_CUENTA);
+            celdaCuentaBancariaClave
+                    .setCellValue(detalle.getCuentaBancariaClaveCuenta() == null
+                            ? "" : detalle.getCuentaBancariaClaveCuenta()
+                                    .toString());
 
-            Cell celdaCuentaBancariaBanco = filaDetalle.createCell(CUENTA_BANCARIA_BANCO);
-            celdaCuentaBancariaBanco.setCellValue(detalle.getCuentaBancariaBanco());
+            Cell celdaCuentaBancariaBanco = filaDetalle
+                    .createCell(CUENTA_BANCARIA_BANCO);
+            celdaCuentaBancariaBanco
+                    .setCellValue(detalle.getCuentaBancariaBanco());
 
-            Cell celdaBancariaDescripcion = filaDetalle.createCell(CUENTA_BANCARIA_DESCRIPCION);
-            celdaBancariaDescripcion.setCellValue(detalle.getCuentaBancariaDescripcion());
+            Cell celdaBancariaDescripcion = filaDetalle
+                    .createCell(CUENTA_BANCARIA_DESCRIPCION);
+            celdaBancariaDescripcion
+                    .setCellValue(detalle.getCuentaBancariaDescripcion());
 
-            Cell celdaConfiguracionPresupuestal = filaDetalle.createCell(CONFIGURACION_PRESUPUESTAL_ESTADO);
-            celdaConfiguracionPresupuestal.setCellValue(detalle.getConfiguracionPresupuestalEstado());
+            Cell celdaConfiguracionPresupuestal = filaDetalle
+                    .createCell(CONFIGURACION_PRESUPUESTAL_ESTADO);
+            celdaConfiguracionPresupuestal
+                    .setCellValue(detalle.getConfiguracionPresupuestalEstado());
 
             Cell celdaJornada = filaDetalle.createCell(JORNADA_DESCRIPCION);
             celdaJornada.setCellValue(detalle.getJornadaDescripcion());
@@ -363,19 +412,28 @@ public class DetalleEmpleadoExcel implements Serializable {
             celdaPlazaNombre.setCellValue(detalle.getPlazaNombre());
 
             Cell celdaSueldo = filaDetalle.createCell(SUELDO);
-            celdaSueldo.setCellValue(detalle.getSueldo() == null ? "0" : "$ " + new DecimalFormat(pattern).format(detalle.getSueldo()));
+            celdaSueldo.setCellValue(detalle.getSueldo() == null ? "0" : "$ "
+                    + new DecimalFormat(pattern).format(detalle.getSueldo()));
 
             Cell celdaSueldo01 = filaDetalle.createCell(SUELDO_01);
-            celdaSueldo01.setCellValue(detalle.getSueldo01() == null ? "0" : "$ " + new DecimalFormat(pattern).format(detalle.getSueldo01()));
+            celdaSueldo01.setCellValue(detalle.getSueldo01() == null ? "0"
+                    : "$ " + new DecimalFormat(pattern)
+                            .format(detalle.getSueldo01()));
 
             Cell celdaSueldo14 = filaDetalle.createCell(SUELDO_14);
-            celdaSueldo14.setCellValue(detalle.getSueldo14() == null ? "0" : "$ " + new DecimalFormat(pattern).format(detalle.getSueldo14()));
+            celdaSueldo14.setCellValue(detalle.getSueldo14() == null ? "0"
+                    : "$ " + new DecimalFormat(pattern)
+                            .format(detalle.getSueldo14()));
 
-            Cell celdaRiesgoPuesto = filaDetalle.createCell(RIESGO_PUESTO_DESCRIPCION);
-            celdaRiesgoPuesto.setCellValue(detalle.getRiesgoPuestoDescripcion());
+            Cell celdaRiesgoPuesto = filaDetalle
+                    .createCell(RIESGO_PUESTO_DESCRIPCION);
+            celdaRiesgoPuesto
+                    .setCellValue(detalle.getRiesgoPuestoDescripcion());
 
-            Cell celdaTipoTabulador = filaDetalle.createCell(TIPO_TABULADOR_DESCRIPCION);
-            celdaTipoTabulador.setCellValue(detalle.getTipoTabuladorDescripcion());
+            Cell celdaTipoTabulador = filaDetalle
+                    .createCell(TIPO_TABULADOR_DESCRIPCION);
+            celdaTipoTabulador
+                    .setCellValue(detalle.getTipoTabuladorDescripcion());
 
             Cell celdaTipoPeriodo = filaDetalle.createCell(TIPO_PERIODO);
             celdaTipoPeriodo.setCellValue(detalle.getTipoPeriodo());

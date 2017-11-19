@@ -113,7 +113,8 @@ public class ProgramaFederealView {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 
@@ -129,7 +130,8 @@ public class ProgramaFederealView {
         return listaFuentesFinanciamiento;
     }
 
-    public void setListaFuentesFinanciamiento(List<SelectItem> listaFuentesFinanciamiento) {
+    public void setListaFuentesFinanciamiento(
+            List<SelectItem> listaFuentesFinanciamiento) {
         this.listaFuentesFinanciamiento = listaFuentesFinanciamiento;
     }
 
@@ -137,7 +139,8 @@ public class ProgramaFederealView {
         return listaSubfuentesFinanciamiento;
     }
 
-    public void setListaSubfuentesFinanciamiento(List<SelectItem> listaSubfuentesFinanciamiento) {
+    public void setListaSubfuentesFinanciamiento(
+            List<SelectItem> listaSubfuentesFinanciamiento) {
         this.listaSubfuentesFinanciamiento = listaSubfuentesFinanciamiento;
     }
 
@@ -153,7 +156,8 @@ public class ProgramaFederealView {
         return listaCuentaFinanciamiento;
     }
 
-    public void setListaCuentaFinanciamiento(List<SelectItem> listaCuentaFinanciamiento) {
+    public void setListaCuentaFinanciamiento(
+            List<SelectItem> listaCuentaFinanciamiento) {
         this.listaCuentaFinanciamiento = listaCuentaFinanciamiento;
     }
 

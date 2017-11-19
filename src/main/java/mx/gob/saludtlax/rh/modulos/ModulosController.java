@@ -52,7 +52,8 @@ public class ModulosController implements Serializable {
         listaAreas.addAll(list);
     }
 
-    public void validatorModulo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorModulo(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -61,7 +62,9 @@ public class ModulosController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un nombre.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -70,7 +73,9 @@ public class ModulosController implements Serializable {
                 String descripcionArea = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese url.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese url.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -78,7 +83,9 @@ public class ModulosController implements Serializable {
             case "idArea":
                 Integer idPeriodoCalendario = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una area.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una area.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -111,7 +118,8 @@ public class ModulosController implements Serializable {
             ModuloDTO modulo = ((ModuloDTO) event.getObject());
             modulos.editarModulo(modulo);
 
-            FacesMessage msg = new FacesMessage("Actualizado:", ((ModuloDTO) event.getObject()).getNombre());
+            FacesMessage msg = new FacesMessage("Actualizado:",
+                    ((ModuloDTO) event.getObject()).getNombre());
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -121,14 +129,16 @@ public class ModulosController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion Cancelada:", ((ModuloDTO) event.getObject()).getNombre());
+        FacesMessage msg = new FacesMessage("Edicion Cancelada:",
+                ((ModuloDTO) event.getObject()).getNombre());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void eliminarModulo() {
         Boolean res = modulos.eliminarModulo(moduloSeleccionado.getIdModulo());
         if (!res) {
-            JSFUtils.warningMessage("", "EL registro de Modulo no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
+            JSFUtils.warningMessage("",
+                    "EL registro de Modulo no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
         }
         inicio();
     }

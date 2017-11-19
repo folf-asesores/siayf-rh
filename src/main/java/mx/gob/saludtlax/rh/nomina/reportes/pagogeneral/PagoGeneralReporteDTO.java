@@ -21,7 +21,8 @@ import org.jboss.logging.Logger;
 public class PagoGeneralReporteDTO implements Serializable {
 
     private static final long serialVersionUID = -7771614443915548225L;
-    private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteDTO.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoGeneralReporteDTO.class.getName());
 
     private String programa;
     private Integer numeroConsecutivoRegistro;
@@ -92,11 +93,18 @@ public class PagoGeneralReporteDTO implements Serializable {
         );
     }
 
-    public PagoGeneralReporteDTO(String programa, Integer numeroConsecutivoRegistro, String mes, String entidad, String tipoCentroSalud, String claveClues,
-            String nombreUnidad, String areaAdscripcion, String puesto, String clavePuesto, String servicio, String rama, String nombre, String rfc,
-            String turno, Date fechaIngreso, String centroResponsabilidad, String funcion, BigDecimal _01Sueldo, BigDecimal _14pComp, BigDecimal _26Subsidio,
-            BigDecimal _29rFaltas, BigDecimal _30Retroa, BigDecimal _52Ispt, BigDecimal _56EmbargoSalario, BigDecimal percepcionTotal,
-            BigDecimal percepcionNeta, BigDecimal isr, BigDecimal faltas, BigDecimal pensionAlimenticia, BigDecimal deduccionTotal, BigDecimal total) {
+    public PagoGeneralReporteDTO(String programa,
+            Integer numeroConsecutivoRegistro, String mes, String entidad,
+            String tipoCentroSalud, String claveClues, String nombreUnidad,
+            String areaAdscripcion, String puesto, String clavePuesto,
+            String servicio, String rama, String nombre, String rfc,
+            String turno, Date fechaIngreso, String centroResponsabilidad,
+            String funcion, BigDecimal _01Sueldo, BigDecimal _14pComp,
+            BigDecimal _26Subsidio, BigDecimal _29rFaltas, BigDecimal _30Retroa,
+            BigDecimal _52Ispt, BigDecimal _56EmbargoSalario,
+            BigDecimal percepcionTotal, BigDecimal percepcionNeta,
+            BigDecimal isr, BigDecimal faltas, BigDecimal pensionAlimenticia,
+            BigDecimal deduccionTotal, BigDecimal total) {
         this.programa = programa;
         this.numeroConsecutivoRegistro = numeroConsecutivoRegistro;
         this.mes = mes;
@@ -165,7 +173,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      * @param numeroConsecutivoRegistro
      *            new value of numeroConsecutivoRegistro
      */
-    public void setNumeroConsecutivoRegistro(Integer numeroConsecutivoRegistro) {
+    public void setNumeroConsecutivoRegistro(
+            Integer numeroConsecutivoRegistro) {
         this.numeroConsecutivoRegistro = numeroConsecutivoRegistro;
     }
 
@@ -603,7 +612,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      *            new value of _56EmbargoSalario
      */
     public void set56EmbargoSalario(BigDecimal _56EmbargoSalario) {
-        this._56EmbargoSalario = _56EmbargoSalario == null ? BigDecimal.ZERO : _56EmbargoSalario;
+        this._56EmbargoSalario = _56EmbargoSalario == null ? BigDecimal.ZERO
+                : _56EmbargoSalario;
     }
 
     /**
@@ -622,7 +632,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      *            new value of percepcionTotal
      */
     public void setPercepcionTotal(BigDecimal percepcionTotal) {
-        this.percepcionTotal = percepcionTotal == null ? BigDecimal.ZERO : percepcionTotal;
+        this.percepcionTotal = percepcionTotal == null ? BigDecimal.ZERO
+                : percepcionTotal;
     }
 
     /**
@@ -641,7 +652,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      *            new value of percepcionNeta
      */
     public void setPercepcionNeta(BigDecimal percepcionNeta) {
-        this.percepcionNeta = percepcionNeta == null ? BigDecimal.ZERO : percepcionNeta;
+        this.percepcionNeta = percepcionNeta == null ? BigDecimal.ZERO
+                : percepcionNeta;
     }
 
     /**
@@ -698,7 +710,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      *            new value of pensionAlimenticia
      */
     public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
-        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia;
+        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO
+                : pensionAlimenticia;
     }
 
     /**
@@ -717,7 +730,8 @@ public class PagoGeneralReporteDTO implements Serializable {
      *            new value of deduccionTotal
      */
     public void setDeduccionTotal(BigDecimal deduccionTotal) {
-        this.deduccionTotal = deduccionTotal == null ? BigDecimal.ZERO : deduccionTotal;
+        this.deduccionTotal = deduccionTotal == null ? BigDecimal.ZERO
+                : deduccionTotal;
     }
 
     /**
@@ -831,13 +845,15 @@ public class PagoGeneralReporteDTO implements Serializable {
         if (!Objects.equals(turno, other.turno)) {
             return false;
         }
-        if (!Objects.equals(centroResponsabilidad, other.centroResponsabilidad)) {
+        if (!Objects.equals(centroResponsabilidad,
+                other.centroResponsabilidad)) {
             return false;
         }
         if (!Objects.equals(funcion, other.funcion)) {
             return false;
         }
-        if (!Objects.equals(numeroConsecutivoRegistro, other.numeroConsecutivoRegistro)) {
+        if (!Objects.equals(numeroConsecutivoRegistro,
+                other.numeroConsecutivoRegistro)) {
             return false;
         }
         if (!Objects.equals(fechaIngreso, other.fechaIngreso)) {
@@ -887,14 +903,25 @@ public class PagoGeneralReporteDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "PagoQuincenaDTO{" + "programa=" + programa + ", numeroConsecutivoRegistro=" + numeroConsecutivoRegistro + ", mes=" + mes + ", entidad="
-                + entidad + ", tipoCentroSalud=" + tipoCentroSalud + ", claveClues=" + claveClues + ", nombreUnidad=" + nombreUnidad + ", areaAdscripcion="
-                + areaAdscripcion + ", puesto=" + puesto + ", clavePuesto=" + clavePuesto + ", servicio=" + servicio + ", rama=" + rama + ", nombre=" + nombre
-                + ", rfc=" + rfc + ", turno=" + turno + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad=" + centroResponsabilidad + ", funcion="
-                + funcion + ", _01Sueldo=" + _01Sueldo + ", _14pComp=" + _14pComp + ", _26Subsidio=" + _26Subsidio + ", _29rFaltas=" + _29rFaltas
-                + ", _30Retroa=" + _30Retroa + ", _52Ispt=" + _52Ispt + ", _56EmbargoSalario=" + _56EmbargoSalario + ", percepcionTotal=" + percepcionTotal
-                + ", percepcionNeta=" + percepcionNeta + ", isr=" + isr + ", faltas=" + faltas + ", pensionAlimenticia=" + pensionAlimenticia
-                + ", deduccionTotal=" + deduccionTotal + ", total=" + total + '}';
+        return "PagoQuincenaDTO{" + "programa=" + programa
+                + ", numeroConsecutivoRegistro=" + numeroConsecutivoRegistro
+                + ", mes=" + mes + ", entidad=" + entidad + ", tipoCentroSalud="
+                + tipoCentroSalud + ", claveClues=" + claveClues
+                + ", nombreUnidad=" + nombreUnidad + ", areaAdscripcion="
+                + areaAdscripcion + ", puesto=" + puesto + ", clavePuesto="
+                + clavePuesto + ", servicio=" + servicio + ", rama=" + rama
+                + ", nombre=" + nombre + ", rfc=" + rfc + ", turno=" + turno
+                + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
+                + centroResponsabilidad + ", funcion=" + funcion
+                + ", _01Sueldo=" + _01Sueldo + ", _14pComp=" + _14pComp
+                + ", _26Subsidio=" + _26Subsidio + ", _29rFaltas=" + _29rFaltas
+                + ", _30Retroa=" + _30Retroa + ", _52Ispt=" + _52Ispt
+                + ", _56EmbargoSalario=" + _56EmbargoSalario
+                + ", percepcionTotal=" + percepcionTotal + ", percepcionNeta="
+                + percepcionNeta + ", isr=" + isr + ", faltas=" + faltas
+                + ", pensionAlimenticia=" + pensionAlimenticia
+                + ", deduccionTotal=" + deduccionTotal + ", total=" + total
+                + '}';
     }
 
 }

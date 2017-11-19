@@ -59,10 +59,16 @@ public class PlazaRepository implements Serializable {
         final Predicate disjunction = cb.disjunction();
 
         if (!StringUtils.isBlank(criterio)) {
-            disjunction.getExpressions().add(cb.like(root.get("clave").as(String.class), "%" + criterio + "%"));
-            disjunction.getExpressions().add(cb.like(root.get("nombrePlaza").as(String.class), "%" + criterio + "%"));
-            disjunction.getExpressions().add(cb.like(root.get("adscripcion").as(String.class), "%" + criterio + "%"));
-            disjunction.getExpressions().add(cb.like(root.get("tipo").as(String.class), "%" + criterio + "%"));
+            disjunction.getExpressions().add(cb.like(
+                    root.get("clave").as(String.class), "%" + criterio + "%"));
+            disjunction.getExpressions()
+                    .add(cb.like(root.get("nombrePlaza").as(String.class),
+                            "%" + criterio + "%"));
+            disjunction.getExpressions()
+                    .add(cb.like(root.get("adscripcion").as(String.class),
+                            "%" + criterio + "%"));
+            disjunction.getExpressions().add(cb.like(
+                    root.get("tipo").as(String.class), "%" + criterio + "%"));
         }
         q.select(root).where(disjunction);
         List<PlazaEntity> plaza = entityManager.createQuery(q).getResultList();
@@ -78,7 +84,10 @@ public class PlazaRepository implements Serializable {
     }
 
     public String buscarClave(String clave) {
-        List<PlazaEntity> resultado = entityManager.createQuery("SELECT a FROM PlazaEntity AS a WHERE a.clave=:clave", PlazaEntity.class)
+        List<PlazaEntity> resultado = entityManager
+                .createQuery(
+                        "SELECT a FROM PlazaEntity AS a WHERE a.clave=:clave",
+                        PlazaEntity.class)
                 .setParameter("clave", clave).getResultList();
         PlazaEntity plazaEntity = null;
         if (!resultado.isEmpty()) {
@@ -94,12 +103,14 @@ public class PlazaRepository implements Serializable {
      * @param idNivel
      *
      */
-    public List<PlazaEntity> plazasDisponiblesPorNombramientoNivel(String idNombramiento, Integer idNivel) {
-        List<PlazaEntity> plazas = entityManager
-                .createQuery(
-                        "SELECT p FROM PlazaEntity AS p WHERE p.nombramiento.nombramiento =:idNombramiento AND p.idNivel =:idNivel AND p.estatus =:estatus",
-                        PlazaEntity.class)
-                .setParameter("idNombramiento", idNombramiento).setParameter("idNivel", idNivel).setParameter("estatus", EnumEstatusPlaza.VACANTE)
+    public List<PlazaEntity> plazasDisponiblesPorNombramientoNivel(
+            String idNombramiento, Integer idNivel) {
+        List<PlazaEntity> plazas = entityManager.createQuery(
+                "SELECT p FROM PlazaEntity AS p WHERE p.nombramiento.nombramiento =:idNombramiento AND p.idNivel =:idNivel AND p.estatus =:estatus",
+                PlazaEntity.class)
+                .setParameter("idNombramiento", idNombramiento)
+                .setParameter("idNivel", idNivel)
+                .setParameter("estatus", EnumEstatusPlaza.VACANTE)
                 .getResultList();
         return plazas;
     }

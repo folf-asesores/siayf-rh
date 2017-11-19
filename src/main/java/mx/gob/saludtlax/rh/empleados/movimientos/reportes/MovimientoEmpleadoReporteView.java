@@ -13,7 +13,7 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class MovimientoEmpleadoReporteView implements Serializable {
@@ -26,7 +26,8 @@ public class MovimientoEmpleadoReporteView implements Serializable {
     private List<SelectItem> listaTipoReporte = new ArrayList<>();
     private Date fechaInicialComisionadoLicencia = null;
     private Date fechaFinalComisionadoLicencia = null;
-    private SimpleDateFormat formatoDelTexto = new SimpleDateFormat("yyyy-MM-dd");
+    private SimpleDateFormat formatoDelTexto = new SimpleDateFormat(
+            "yyyy-MM-dd");
     private byte[] bytes = null;
     private String tipoReporte = "";
     private boolean mostrarPanelDescargaReporte = false;
@@ -44,7 +45,8 @@ public class MovimientoEmpleadoReporteView implements Serializable {
      * @param fechaInicialComisionadoLicencia
      *            the fechaInicialComisionadoLicencia to set
      */
-    public void setFechaInicialComisionadoLicencia(Date fechaInicialComisionadoLicencia) {
+    public void setFechaInicialComisionadoLicencia(
+            Date fechaInicialComisionadoLicencia) {
         this.fechaInicialComisionadoLicencia = fechaInicialComisionadoLicencia;
     }
 
@@ -59,7 +61,8 @@ public class MovimientoEmpleadoReporteView implements Serializable {
      * @param fechaFinalComisionadoLicencia
      *            the fechaFinalComisionadoLicencia to set
      */
-    public void setFechaFinalComisionadoLicencia(Date fechaFinalComisionadoLicencia) {
+    public void setFechaFinalComisionadoLicencia(
+            Date fechaFinalComisionadoLicencia) {
         this.fechaFinalComisionadoLicencia = fechaFinalComisionadoLicencia;
     }
 
@@ -134,7 +137,8 @@ public class MovimientoEmpleadoReporteView implements Serializable {
      * @param mostrarPanelDescargaReporte
      *            the mostrarPanelDescargaReporte to set
      */
-    public void setMostrarPanelDescargaReporte(boolean mostrarPanelDescargaReporte) {
+    public void setMostrarPanelDescargaReporte(
+            boolean mostrarPanelDescargaReporte) {
         this.mostrarPanelDescargaReporte = mostrarPanelDescargaReporte;
     }
 
@@ -164,7 +168,8 @@ public class MovimientoEmpleadoReporteView implements Serializable {
      * @param mostrarSelectTipoContratacion
      *            the mostrarSelectTipoContratacion to set
      */
-    public void setMostrarSelectTipoContratacion(boolean mostrarSelectTipoContratacion) {
+    public void setMostrarSelectTipoContratacion(
+            boolean mostrarSelectTipoContratacion) {
         this.mostrarSelectTipoContratacion = mostrarSelectTipoContratacion;
     }
 

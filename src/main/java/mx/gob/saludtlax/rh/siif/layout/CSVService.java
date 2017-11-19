@@ -41,7 +41,8 @@ import mx.gob.saludtlax.rh.util.NumeroUtil;
  */
 public class CSVService {
 
-    private static final Logger LOGGER = Logger.getLogger(CSVService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(CSVService.class.getName());
 
     /**
      * Este método se encarga de convertir una lista de DTOs a un archivo de
@@ -95,7 +96,9 @@ public class CSVService {
         Arrays.sort(methods, new MethodComparator());
 
         for (Method method : methods) {
-            if ((method.getName().startsWith("get") || method.getName().startsWith("is")) && !method.getName().equals("getClass")) {
+            if ((method.getName().startsWith("get")
+                    || method.getName().startsWith("is"))
+                    && !method.getName().equals("getClass")) {
                 getters.add(method);
             }
         }
@@ -112,14 +115,16 @@ public class CSVService {
      *            los metodos getter.
      * @throws IOException
      */
-    private void llenarEncabezado(FileWriter fileWriter, List<Method> getters) throws IOException {
+    private void llenarEncabezado(FileWriter fileWriter, List<Method> getters)
+            throws IOException {
         Iterator<Method> iterator = getters.iterator();
 
         while (iterator.hasNext()) {
             Method getter = iterator.next();
             String methodName = getter.getName();
             String columnName;
-            columnName = methodName.contains("get") ? methodName.substring(3) : methodName.substring(2);
+            columnName = methodName.contains("get") ? methodName.substring(3)
+                    : methodName.substring(2);
             fileWriter.append(columnName);
             fileWriter.append(iterator.hasNext() ? ',' : '\n');
         }
@@ -137,7 +142,8 @@ public class CSVService {
      * @param listItems
      *            los detalles.
      */
-    private <E> void llenarDetalles(final FileWriter fileWriter, final List<Method> getters, final List<E> listItems) {
+    private <E> void llenarDetalles(final FileWriter fileWriter,
+            final List<Method> getters, final List<E> listItems) {
         AccessController.doPrivileged(new PrivilegedAction() {
             @Override
             public Object run() {
@@ -159,24 +165,30 @@ public class CSVService {
                                 fileWriter.append("");
                             } else if (invoke instanceof Date) {
                                 Date fecha = (Date) invoke;
-                                String fechaFormateada = FechaUtil.formatoFecha(fecha);
+                                String fechaFormateada = FechaUtil
+                                        .formatoFecha(fecha);
                                 fileWriter.append(fechaFormateada);
                             } else if (invoke instanceof BigDecimal) {
                                 BigDecimal decimal = (BigDecimal) invoke;
-                                String decimalFormateado = NumeroUtil.formatoDecimal(decimal);
+                                String decimalFormateado = NumeroUtil
+                                        .formatoDecimal(decimal);
                                 fileWriter.append(decimalFormateado);
                             } else {
-                                fileWriter.append(invoke != null ? invoke.toString() : "");
+                                fileWriter.append(invoke != null
+                                        ? invoke.toString() : "");
                             }
 
                             fileWriter.append(iterator.hasNext() ? ',' : '\n');
                         }
                     }
 
-                } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                } catch (IllegalAccessException | IllegalArgumentException
+                        | InvocationTargetException ex) {
                     LOGGER.error("Error al cargar el método.", ex);
                 } catch (IOException ex) {
-                    LOGGER.error("Error de escritura al guardar la información.", ex);
+                    LOGGER.error(
+                            "Error de escritura al guardar la información.",
+                            ex);
                 }
 
                 return null;

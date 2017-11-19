@@ -32,22 +32,32 @@ public class ConfiguracionPerfilModuloService {
     @Inject
     private ConfiguracionModuloAccionRepository configuracionModuloAccionRepository;
 
-    public void crearConfiguracion(ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
+    public void crearConfiguracion(
+            ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
         ConfiguracionPerfilModuloEntity entity = new ConfiguracionPerfilModuloEntity();
         entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository
-                .obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getIdConfiguracionModuloAccion()));
+                .obtenerPorId(configuracionPerfilModuloDTO
+                        .getConfiguracionModuloAccionDTO()
+                        .getIdConfiguracionModuloAccion()));
         entity.setFechaCreacion(new Date());
-        entity.setPerfil(perfilDAO.obtenerPorId(configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
+        entity.setPerfil(perfilDAO.obtenerPorId(
+                configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
 
         configuracionPerfilModuloRepository.crear(entity);
     }
 
-    public void editarConfiguracion(ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
-        ConfiguracionPerfilModuloEntity entity = configuracionPerfilModuloRepository.obtenerPorId(configuracionPerfilModuloDTO.getId_perfil_modulo());
+    public void editarConfiguracion(
+            ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
+        ConfiguracionPerfilModuloEntity entity = configuracionPerfilModuloRepository
+                .obtenerPorId(
+                        configuracionPerfilModuloDTO.getId_perfil_modulo());
         entity.setConfiguracionModuloAccion(configuracionModuloAccionRepository
-                .obtenerPorId(configuracionPerfilModuloDTO.getConfiguracionModuloAccionDTO().getIdConfiguracionModuloAccion()));
+                .obtenerPorId(configuracionPerfilModuloDTO
+                        .getConfiguracionModuloAccionDTO()
+                        .getIdConfiguracionModuloAccion()));
         entity.setFechaCreacion(new Date());
-        entity.setPerfil(perfilDAO.obtenerPorId(configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
+        entity.setPerfil(perfilDAO.obtenerPorId(
+                configuracionPerfilModuloDTO.getPerfil().getIdPerfil()));
 
         configuracionPerfilModuloRepository.crear(entity);
     }
@@ -58,7 +68,8 @@ public class ConfiguracionPerfilModuloService {
 
     public List<ConfiguracionPerfilModuloDTO> obtenerRegistros() {
         List<ConfiguracionPerfilModuloDTO> listDto = new ArrayList<>();
-        List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository.consultarTodos();
+        List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository
+                .consultarTodos();
 
         for (ConfiguracionPerfilModuloEntity cE : listEntity) {
             ConfiguracionPerfilModuloDTO dto = new ConfiguracionPerfilModuloDTO();
@@ -67,7 +78,9 @@ public class ConfiguracionPerfilModuloService {
             dto.setFechaCreacion(new Date());
 
             ConfiguracionModuloAccionDTO configuracionModuloAccionDTO = new ConfiguracionModuloAccionDTO();
-            configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(
+                    cE.getConfiguracionModuloAccion()
+                            .getIdConfiguracionModuloAccion());
             AccionDTO accion = new AccionDTO();
             //			accion.setClave(cE.getConfiguracionModuloAccion().getId_accion().getClave());
             //			accion.setDescripcion(cE.getConfiguracionModuloAccion().getId_accion().getDescripcion());
@@ -77,12 +90,18 @@ public class ConfiguracionPerfilModuloService {
             //			configuracionModuloAccionDTO.setAccion(accion);
 
             ModuloDTO modulo = new ModuloDTO();
-            modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo().getHabilitado());
-            modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo().getIdModulo());
-            modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getIdArea());
-            modulo.setNombre(cE.getConfiguracionModuloAccion().getModulo().getNombre());
-            modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getNombreArea());
-            modulo.setUrl(cE.getConfiguracionModuloAccion().getModulo().getUrl());
+            modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo()
+                    .getHabilitado());
+            modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo()
+                    .getIdModulo());
+            modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo()
+                    .getArea().getIdArea());
+            modulo.setNombre(
+                    cE.getConfiguracionModuloAccion().getModulo().getNombre());
+            modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo()
+                    .getArea().getNombreArea());
+            modulo.setUrl(
+                    cE.getConfiguracionModuloAccion().getModulo().getUrl());
 
             configuracionModuloAccionDTO.setModulo(modulo);
 
@@ -95,9 +114,11 @@ public class ConfiguracionPerfilModuloService {
 
     }
 
-    public List<ConfiguracionPerfilModuloDTO> obtenerRegistrosPorIdPerfil(Integer idPerfil) {
+    public List<ConfiguracionPerfilModuloDTO> obtenerRegistrosPorIdPerfil(
+            Integer idPerfil) {
         List<ConfiguracionPerfilModuloDTO> listDto = new ArrayList<>();
-        List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository.obtenerListaPorIdPerfil(idPerfil);
+        List<ConfiguracionPerfilModuloEntity> listEntity = configuracionPerfilModuloRepository
+                .obtenerListaPorIdPerfil(idPerfil);
 
         for (ConfiguracionPerfilModuloEntity cE : listEntity) {
             ConfiguracionPerfilModuloDTO dto = new ConfiguracionPerfilModuloDTO();
@@ -106,7 +127,9 @@ public class ConfiguracionPerfilModuloService {
             dto.setFechaCreacion(new Date());
 
             ConfiguracionModuloAccionDTO configuracionModuloAccionDTO = new ConfiguracionModuloAccionDTO();
-            configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(cE.getConfiguracionModuloAccion().getIdConfiguracionModuloAccion());
+            configuracionModuloAccionDTO.setIdConfiguracionModuloAccion(
+                    cE.getConfiguracionModuloAccion()
+                            .getIdConfiguracionModuloAccion());
             AccionDTO accion = new AccionDTO();
             //			accion.setClave(cE.getConfiguracionModuloAccion().getId_accion().getClave());
             //			accion.setDescripcion(cE.getConfiguracionModuloAccion().getId_accion().getDescripcion());
@@ -116,12 +139,18 @@ public class ConfiguracionPerfilModuloService {
             //			configuracionModuloAccionDTO.setAccion(accion);
 
             ModuloDTO modulo = new ModuloDTO();
-            modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo().getHabilitado());
-            modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo().getIdModulo());
-            modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getIdArea());
-            modulo.setNombre(cE.getConfiguracionModuloAccion().getModulo().getNombre());
-            modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo().getArea().getNombreArea());
-            modulo.setUrl(cE.getConfiguracionModuloAccion().getModulo().getUrl());
+            modulo.setHabilitado(cE.getConfiguracionModuloAccion().getModulo()
+                    .getHabilitado());
+            modulo.setIdModulo(cE.getConfiguracionModuloAccion().getModulo()
+                    .getIdModulo());
+            modulo.setIdArea(cE.getConfiguracionModuloAccion().getModulo()
+                    .getArea().getIdArea());
+            modulo.setNombre(
+                    cE.getConfiguracionModuloAccion().getModulo().getNombre());
+            modulo.setNombreArea(cE.getConfiguracionModuloAccion().getModulo()
+                    .getArea().getNombreArea());
+            modulo.setUrl(
+                    cE.getConfiguracionModuloAccion().getModulo().getUrl());
 
             configuracionModuloAccionDTO.setModulo(modulo);
 

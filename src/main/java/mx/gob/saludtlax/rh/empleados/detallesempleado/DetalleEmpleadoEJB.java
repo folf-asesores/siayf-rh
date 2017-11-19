@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -26,9 +26,11 @@ public class DetalleEmpleadoEJB implements DetalleEmpleado, Serializable {
     private DetalleEmpleadoService detalleEmpleadoService;
 
     @Override
-    public List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(Integer idTipoContratacion) {
+    public List<DetalleEmpleadoDTO> detalleEmpleadoPorIdTipoContratacion(
+            Integer idTipoContratacion) {
 
-        return detalleEmpleadoService.detalleEmpleadoPorIdTipoContratacion(idTipoContratacion);
+        return detalleEmpleadoService
+                .detalleEmpleadoPorIdTipoContratacion(idTipoContratacion);
     }
 
 }

@@ -38,7 +38,8 @@ public class ProgramaBean implements Programa {
     }
 
     @Override
-    public List<InfoDetallePrograma> consultarDetallesProgramas(Integer idPrograma) {
+    public List<InfoDetallePrograma> consultarDetallesProgramas(
+            Integer idPrograma) {
         return programaService.consultarDetallesProgramas(idPrograma);
     }
 
@@ -49,7 +50,8 @@ public class ProgramaBean implements Programa {
     }
 
     @Override
-    public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(Integer idDetallePrograma) {
+    public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(
+            Integer idDetallePrograma) {
         return programaService.obtenerDetallePrograma(idDetallePrograma);
     }
 

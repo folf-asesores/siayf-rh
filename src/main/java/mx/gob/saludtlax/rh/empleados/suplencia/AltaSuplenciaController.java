@@ -72,25 +72,34 @@ public class AltaSuplenciaController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuario(usuarioLogeado.getIdUsuario());
-        view.getAltaSuplencia().setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
-        view.setListaDocumentos(
-                SelectItemsUtil.listaCatalogos(catalogo.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_SUPLENCIAS)));
+        view.getAltaSuplencia()
+                .setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
+        view.setListaDocumentos(SelectItemsUtil.listaCatalogos(
+                catalogo.consultarDocumentosExpedientesClasificacion(
+                        EnumClasificacionExpediente.DOCUMENTOS_SUPLENCIAS)));
 
         QuincenaActivaDTO quincenaActivaDTO = suplencia.obtenerQuincenaActiva();
-        view.setNumeroQuincenaActual(quincenaActivaDTO.getNumeroQuincenaActiva());
+        view.setNumeroQuincenaActual(
+                quincenaActivaDTO.getNumeroQuincenaActiva());
         view.setEjercicioActivo(quincenaActivaDTO.getEjercicioFiscal());
         view.setMostrarBusqueda(true);
-        view.setTiposSuplencias(SelectItemsUtil.listaCatalogos(catalogo.consultarTiposSuplencias()));
-        view.setListaTabuladores(SelectItemsUtil.listaCatalogos(catalogo.consultarTabuladorSuplencias()));
-        view.setListaJornadas(SelectItemsUtil.listaCatalogos(catalogo.consultarTiposJornadasSuplencias()));
+        view.setTiposSuplencias(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarTiposSuplencias()));
+        view.setListaTabuladores(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarTabuladorSuplencias()));
+        view.setListaJornadas(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarTiposJornadasSuplencias()));
 
         DateTime fechaActual = FechaUtil.fechaActualSinTiempo();
         int ejercicioFiscal = fechaActual.getYear() - 2000;
-        view.setFechaMaxima(fechaActual.getDayOfMonth() + "/" + fechaActual.getMonthOfYear() + "/" + ejercicioFiscal);
+        view.setFechaMaxima(fechaActual.getDayOfMonth() + "/"
+                + fechaActual.getMonthOfYear() + "/" + ejercicioFiscal);
         view.setBloquearAdjunto(true);
 
     }
@@ -98,14 +107,17 @@ public class AltaSuplenciaController implements Serializable {
     public void buscarEmpleadoAutoComplete() {
         view.getListadoEmpleadoDTO().clear();
         if (view.getCriterioEmpleado().trim().length() > 4) {
-            List<InfoEmpleadoDTO> listadoEmpleadoDTO = empleado.consultaPorCriterio(view.getCriterioEmpleado());
+            List<InfoEmpleadoDTO> listadoEmpleadoDTO = empleado
+                    .consultaPorCriterio(view.getCriterioEmpleado());
             for (InfoEmpleadoDTO dto : listadoEmpleadoDTO) {
-                SelectItem item = new SelectItem(dto.getIdEmpleado(), dto.getNombre());
+                SelectItem item = new SelectItem(dto.getIdEmpleado(),
+                        dto.getNombre());
                 view.getListadoEmpleadoDTO().add(item);
             }
 
             if (view.getListadoEmpleadoDTO().isEmpty()) {
-                JSFUtils.warningMessageEspecifico("error", "", "No se encontraron empleados con el criterio especificado.");
+                JSFUtils.warningMessageEspecifico("error", "",
+                        "No se encontraron empleados con el criterio especificado.");
             }
 
         }
@@ -113,16 +125,20 @@ public class AltaSuplenciaController implements Serializable {
 
     public void buscarSuplente() {
         view.getFiltro().setTipoConsulta(EnumTipoConsultaSuplencia.NOMBRE);
-        view.setSuplentesAutorizados(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        view.setSuplentesAutorizados(
+                suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
 
         if (view.getSuplentesAutorizados().isEmpty()) {
-            JSFUtils.errorMessage("", "No se encontraron resultado con el criterio ingresado.");
+            JSFUtils.errorMessage("",
+                    "No se encontraron resultado con el criterio ingresado.");
         }
 
     }
 
     public void seleccionarSuplente(SuplenteDTO suplente) {
-        Integer idQuincena = suplencia.obtenerIdQuincenaSuplente(view.getNumeroQuincenaActual(), view.getEjercicioActivo(), suplente.getIdSuplente());
+        Integer idQuincena = suplencia.obtenerIdQuincenaSuplente(
+                view.getNumeroQuincenaActual(), view.getEjercicioActivo(),
+                suplente.getIdSuplente());
         view.setIdQuincena(idQuincena);
         view.setBloquearAdjunto(true);
         view.setSuplenteSeleccionado(suplente);
@@ -132,13 +148,15 @@ public class AltaSuplenciaController implements Serializable {
             ConsultaSuplenciaDTO consulta = new ConsultaSuplenciaDTO();
             consulta.setConDetalleMovimieto(false);
             consulta.setIdQuincena(view.getIdQuincena());
-            view.setDetallesSuplencias(suplencia.consultarDetallesSuplenteQuincena(consulta));
+            view.setDetallesSuplencias(
+                    suplencia.consultarDetallesSuplenteQuincena(consulta));
         }
         view.setMostrarDetalleSuplente(true);
         view.setMostrarBusqueda(false);
 
         if (!view.getDetallesSuplencias().isEmpty()) {
-            view.setIdQuincena(view.getDetallesSuplencias().get(0).getIdQuincena());
+            view.setIdQuincena(
+                    view.getDetallesSuplencias().get(0).getIdQuincena());
             view.setBloquearAdjunto(false);
         }
 
@@ -153,29 +171,43 @@ public class AltaSuplenciaController implements Serializable {
 
     public void calcular() {
 
-        if (!ValidacionUtil.esNumeroPositivo(view.getAltaSuplencia().getIdTabulador())) {
+        if (!ValidacionUtil
+                .esNumeroPositivo(view.getAltaSuplencia().getIdTabulador())) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Ingrese la cantidad diaria.");
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Ingrese la cantidad diaria.");
         } else if (view.getAltaSuplencia().getFechaInicio() == null) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Seleccione fecha inicio.");
-        } else if (!ValidacionUtil.esNumeroPositivo(view.getAltaSuplencia().getIdJornada())) {
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Seleccione fecha inicio.");
+        } else if (!ValidacionUtil
+                .esNumeroPositivo(view.getAltaSuplencia().getIdJornada())) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Seleccione una jornada.");
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Seleccione una jornada.");
         } else {
 
-            if (FechaUtil.esFechaInicialMayorQueFinal(view.getAltaSuplencia().getFechaInicio(), view.getAltaSuplencia().getFechaFin())) {
-                JSFUtils.errorMessageEspecifico("error", "", "La fecha de inicio no puede ser mayor a la fecha fin");
+            if (FechaUtil.esFechaInicialMayorQueFinal(
+                    view.getAltaSuplencia().getFechaInicio(),
+                    view.getAltaSuplencia().getFechaFin())) {
+                JSFUtils.errorMessageEspecifico("error", "",
+                        "La fecha de inicio no puede ser mayor a la fecha fin");
             } else {
 
-                BigDecimal sueldoDiario = tabulador.obtenerSueldoDiarioPorIdTabulador(view.getAltaSuplencia().getIdTabulador());
+                BigDecimal sueldoDiario = tabulador
+                        .obtenerSueldoDiarioPorIdTabulador(
+                                view.getAltaSuplencia().getIdTabulador());
                 view.getAltaSuplencia().setCantidadDiaria(sueldoDiario);
-                int dias = FechaUtil.calcularDias(view.getAltaSuplencia().getFechaInicio(), view.getAltaSuplencia().getFechaFin());
-                boolean sePagaDoble = suplencia.sePagaDoble(view.getAltaSuplencia().getIdJornada());
+                int dias = FechaUtil.calcularDias(
+                        view.getAltaSuplencia().getFechaInicio(),
+                        view.getAltaSuplencia().getFechaFin());
+                boolean sePagaDoble = suplencia
+                        .sePagaDoble(view.getAltaSuplencia().getIdJornada());
 
                 BigDecimal numeroDias = new BigDecimal(dias);
 
-                BigDecimal total = numeroDias.multiply(view.getAltaSuplencia().getCantidadDiaria());
+                BigDecimal total = numeroDias
+                        .multiply(view.getAltaSuplencia().getCantidadDiaria());
 
                 if (sePagaDoble) {
                     total = total.multiply(new BigDecimal(2));
@@ -192,32 +224,46 @@ public class AltaSuplenciaController implements Serializable {
 
     public void calcularTotalesEditados() {
 
-        if (!ValidacionUtil.esNumeroPositivo(view.getEdicion().getIdTabulador())) {
+        if (!ValidacionUtil
+                .esNumeroPositivo(view.getEdicion().getIdTabulador())) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Ingrese la cantidad diaria.");
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Ingrese la cantidad diaria.");
         } else if (view.getEdicion().getFechaInicio() == null) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Seleccione fecha inicio.");
-        } else if (!ValidacionUtil.esNumeroPositivo(view.getEdicion().getIdJornada())) {
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Seleccione fecha inicio.");
+        } else if (!ValidacionUtil
+                .esNumeroPositivo(view.getEdicion().getIdJornada())) {
 
-            JSFUtils.errorMessageEspecifico("error", "", "Seleccione una jornada.");
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Seleccione una jornada.");
         } else {
 
-            DateTime fechaInicio = FechaUtil.fechaSinTiempo(view.getEdicion().getFechaInicio());
-            DateTime fechaFin = FechaUtil.fechaSinTiempo(view.getEdicion().getFechaFin());
+            DateTime fechaInicio = FechaUtil
+                    .fechaSinTiempo(view.getEdicion().getFechaInicio());
+            DateTime fechaFin = FechaUtil
+                    .fechaSinTiempo(view.getEdicion().getFechaFin());
 
             if (fechaInicio.compareTo(fechaFin) == 1) {
-                JSFUtils.errorMessageEspecifico("error", "", "La fecha de inicio no puede ser mayor a la fecha fin");
+                JSFUtils.errorMessageEspecifico("error", "",
+                        "La fecha de inicio no puede ser mayor a la fecha fin");
             } else {
 
-                BigDecimal sueldoDiario = tabulador.obtenerSueldoDiarioPorIdTabulador(view.getEdicion().getIdTabulador());
+                BigDecimal sueldoDiario = tabulador
+                        .obtenerSueldoDiarioPorIdTabulador(
+                                view.getEdicion().getIdTabulador());
                 view.getEdicion().setCantidadDiaria(sueldoDiario);
-                int dias = FechaUtil.calcularDias(view.getEdicion().getFechaInicio(), view.getEdicion().getFechaFin());
-                boolean sePagaDoble = suplencia.sePagaDoble(view.getEdicion().getIdJornada());
+                int dias = FechaUtil.calcularDias(
+                        view.getEdicion().getFechaInicio(),
+                        view.getEdicion().getFechaFin());
+                boolean sePagaDoble = suplencia
+                        .sePagaDoble(view.getEdicion().getIdJornada());
 
                 BigDecimal numeroDias = new BigDecimal(dias);
 
-                BigDecimal total = numeroDias.multiply(view.getEdicion().getCantidadDiaria());
+                BigDecimal total = numeroDias
+                        .multiply(view.getEdicion().getCantidadDiaria());
 
                 if (sePagaDoble) {
                     total = total.multiply(new BigDecimal(2));
@@ -233,13 +279,17 @@ public class AltaSuplenciaController implements Serializable {
     }
 
     public void mostrarAltaSuplenciaRango() {
-        String estatusQuincena = suplencia.obtenerEstatusQuincenaSuplencia(view.getNumeroQuincenaActual(), FechaUtil.ejercicioActual(),
+        String estatusQuincena = suplencia.obtenerEstatusQuincenaSuplencia(
+                view.getNumeroQuincenaActual(), FechaUtil.ejercicioActual(),
                 view.getSuplenteSeleccionado().getIdSuplente());
         if (estatusQuincena == null) {
             view.setMostrarAltaSuplenciaRango(true);
         } else if (!estatusQuincena.equals(EnumEstatusSuplencia.CAPTURA)) {
-            JSFUtils.errorMessage("", "La quincena " + view.getNumeroQuincenaActual() + " del suplente " + view.getSuplenteSeleccionado().getNombre()
-                    + " no puede ser modificada por que cuenta con un estatus de " + estatusQuincena.toLowerCase());
+            JSFUtils.errorMessage("", "La quincena "
+                    + view.getNumeroQuincenaActual() + " del suplente "
+                    + view.getSuplenteSeleccionado().getNombre()
+                    + " no puede ser modificada por que cuenta con un estatus de "
+                    + estatusQuincena.toLowerCase());
         } else {
             view.setMostrarAltaSuplenciaRango(true);
         }
@@ -253,13 +303,17 @@ public class AltaSuplenciaController implements Serializable {
     }
 
     public void mostrarAltaSuplenciaDias() {
-        String estatusQuincena = suplencia.obtenerEstatusQuincenaSuplencia(view.getNumeroQuincenaActual(), FechaUtil.ejercicioActual(),
+        String estatusQuincena = suplencia.obtenerEstatusQuincenaSuplencia(
+                view.getNumeroQuincenaActual(), FechaUtil.ejercicioActual(),
                 view.getSuplenteSeleccionado().getIdSuplente());
         if (estatusQuincena == null) {
             view.setMostrarAltaSuplenciaDias(true);
         } else if (!estatusQuincena.equals(EnumEstatusSuplencia.CAPTURA)) {
-            JSFUtils.errorMessage("", "La quincena " + view.getNumeroQuincenaActual() + " del suplente " + view.getSuplenteSeleccionado().getNombre()
-                    + " no puede ser modificada por que cuenta con un estatus de " + estatusQuincena.toLowerCase());
+            JSFUtils.errorMessage("", "La quincena "
+                    + view.getNumeroQuincenaActual() + " del suplente "
+                    + view.getSuplenteSeleccionado().getNombre()
+                    + " no puede ser modificada por que cuenta con un estatus de "
+                    + estatusQuincena.toLowerCase());
         } else {
             view.setMostrarAltaSuplenciaDias(true);
         }
@@ -275,7 +329,8 @@ public class AltaSuplenciaController implements Serializable {
             ConsultaSuplenciaDTO consulta = new ConsultaSuplenciaDTO();
             consulta.setConDetalleMovimieto(false);
             consulta.setIdQuincena(view.getIdQuincena());
-            view.setDetallesSuplencias(suplencia.consultarDetallesSuplenteQuincena(consulta));
+            view.setDetallesSuplencias(
+                    suplencia.consultarDetallesSuplenteQuincena(consulta));
         }
     }
 
@@ -284,29 +339,41 @@ public class AltaSuplenciaController implements Serializable {
         view.getAltaSuplencia().setFechaInicio(view.getFechaSuplencia());
         view.getAltaSuplencia().setFechaFin(view.getFechaSuplencia());
 
-        if (!ValidacionUtil.esNumeroPositivo(view.getAltaSuplencia().getIdTabulador())) {
+        if (!ValidacionUtil
+                .esNumeroPositivo(view.getAltaSuplencia().getIdTabulador())) {
 
-            JSFUtils.errorMessageEspecifico("errorDias", "", "Ingrese la cantidad diaria.");
+            JSFUtils.errorMessageEspecifico("errorDias", "",
+                    "Ingrese la cantidad diaria.");
         } else if (view.getAltaSuplencia().getFechaInicio() == null) {
 
-            JSFUtils.errorMessageEspecifico("errorDias", "", "Seleccione fecha inicio.");
+            JSFUtils.errorMessageEspecifico("errorDias", "",
+                    "Seleccione fecha inicio.");
 
         } else if (view.getAltaSuplencia().getFechaFin() == null) {
-            JSFUtils.errorMessageEspecifico("errorDias", "", "Seleccione fecha fin.");
+            JSFUtils.errorMessageEspecifico("errorDias", "",
+                    "Seleccione fecha fin.");
         }
 
-        else if (!ValidacionUtil.esNumeroPositivo(view.getAltaSuplencia().getIdJornada())) {
-            JSFUtils.errorMessageEspecifico("errorDias", "", "Seleccione una jornada.");
+        else if (!ValidacionUtil
+                .esNumeroPositivo(view.getAltaSuplencia().getIdJornada())) {
+            JSFUtils.errorMessageEspecifico("errorDias", "",
+                    "Seleccione una jornada.");
         } else {
 
-            BigDecimal sueldoDiario = tabulador.obtenerSueldoDiarioPorIdTabulador(view.getAltaSuplencia().getIdTabulador());
+            BigDecimal sueldoDiario = tabulador
+                    .obtenerSueldoDiarioPorIdTabulador(
+                            view.getAltaSuplencia().getIdTabulador());
             view.getAltaSuplencia().setCantidadDiaria(sueldoDiario);
-            int dias = FechaUtil.calcularDias(view.getAltaSuplencia().getFechaInicio(), view.getAltaSuplencia().getFechaFin());
-            boolean sePagaDoble = suplencia.sePagaDoble(view.getAltaSuplencia().getIdJornada());
+            int dias = FechaUtil.calcularDias(
+                    view.getAltaSuplencia().getFechaInicio(),
+                    view.getAltaSuplencia().getFechaFin());
+            boolean sePagaDoble = suplencia
+                    .sePagaDoble(view.getAltaSuplencia().getIdJornada());
 
             BigDecimal numeroDias = new BigDecimal(dias);
 
-            BigDecimal total = numeroDias.multiply(view.getAltaSuplencia().getCantidadDiaria());
+            BigDecimal total = numeroDias
+                    .multiply(view.getAltaSuplencia().getCantidadDiaria());
 
             if (sePagaDoble) {
                 total = total.multiply(new BigDecimal(2));
@@ -319,11 +386,16 @@ public class AltaSuplenciaController implements Serializable {
 
             try {
 
-                view.getAltaSuplencia().setNumeroQuincena(view.getNumeroQuincenaActual());
-                view.getAltaSuplencia().setEjercicioFiscal(view.getEjercicioActivo());
-                view.getAltaSuplencia().setIdSuplenteAutorizado(view.getIdSuplente());
-                view.getAltaSuplencia().setIdUsuarioLogeado(view.getIdUsuario());
-                Integer idQuincena = suplencia.crearDetalleSuplencia(view.getAltaSuplencia());
+                view.getAltaSuplencia()
+                        .setNumeroQuincena(view.getNumeroQuincenaActual());
+                view.getAltaSuplencia()
+                        .setEjercicioFiscal(view.getEjercicioActivo());
+                view.getAltaSuplencia()
+                        .setIdSuplenteAutorizado(view.getIdSuplente());
+                view.getAltaSuplencia()
+                        .setIdUsuarioLogeado(view.getIdUsuario());
+                Integer idQuincena = suplencia
+                        .crearDetalleSuplencia(view.getAltaSuplencia());
 
                 view.setIdQuincena(idQuincena);
                 view.setBloquearAdjunto(false);
@@ -331,27 +403,35 @@ public class AltaSuplenciaController implements Serializable {
                 view.getAltasSuplencias().add(view.getAltaSuplencia());
 
                 AltaSuplenciaDTO nueva = new AltaSuplenciaDTO();
-                nueva.setCantidadDiaria(view.getAltaSuplencia().getCantidadDiaria());
+                nueva.setCantidadDiaria(
+                        view.getAltaSuplencia().getCantidadDiaria());
                 nueva.setDias(view.getAltaSuplencia().getDias());
                 nueva.setFechaFin(null);
                 nueva.setFechaInicio(null);
-                nueva.setIdCausaSuplencia(view.getAltaSuplencia().getIdCausaSuplencia());
+                nueva.setIdCausaSuplencia(
+                        view.getAltaSuplencia().getIdCausaSuplencia());
                 nueva.setIdEmpleado(view.getAltaSuplencia().getIdEmpleado());
                 nueva.setIdJornada(view.getAltaSuplencia().getIdJornada());
-                nueva.setIdMovimiento(view.getAltaSuplencia().getIdMovimiento());
-                nueva.setIdSuplenteAutorizado(view.getAltaSuplencia().getIdSuplenteAutorizado());
+                nueva.setIdMovimiento(
+                        view.getAltaSuplencia().getIdMovimiento());
+                nueva.setIdSuplenteAutorizado(
+                        view.getAltaSuplencia().getIdSuplenteAutorizado());
                 nueva.setIdTabulador(view.getAltaSuplencia().getIdTabulador());
-                nueva.setIdUsuarioLogeado(view.getAltaSuplencia().getIdUsuarioLogeado());
+                nueva.setIdUsuarioLogeado(
+                        view.getAltaSuplencia().getIdUsuarioLogeado());
                 nueva.setNumeroQuincena(view.getNumeroQuincenaActual());
-                nueva.setObservaciones(view.getAltaSuplencia().getObservaciones());
+                nueva.setObservaciones(
+                        view.getAltaSuplencia().getObservaciones());
                 nueva.setTotal(view.getAltaSuplencia().getTotal());
 
                 view.setAltaSuplencia(nueva);
                 view.setFechaSuplencia(null);
 
-                JSFUtils.infoMessageEspecifico("errorDias", "", "El detalle ha sido registrado con éxito.");
+                JSFUtils.infoMessageEspecifico("errorDias", "",
+                        "El detalle ha sido registrado con éxito.");
             } catch (ValidacionException | ReglaNegocioException exception) {
-                JSFUtils.errorMessageEspecifico("errorDias", "", exception.getMessage());
+                JSFUtils.errorMessageEspecifico("errorDias", "",
+                        exception.getMessage());
             }
 
         }
@@ -361,10 +441,14 @@ public class AltaSuplenciaController implements Serializable {
     public void registrarDetalleRango() {
 
         try {
-            view.getAltaSuplencia().setNumeroQuincena(view.getNumeroQuincenaActual());
-            view.getAltaSuplencia().setEjercicioFiscal(view.getEjercicioActivo());
-            view.getAltaSuplencia().setIdSuplenteAutorizado(view.getIdSuplente());
-            Integer idQuincena = suplencia.crearDetalleSuplencia(view.getAltaSuplencia());
+            view.getAltaSuplencia()
+                    .setNumeroQuincena(view.getNumeroQuincenaActual());
+            view.getAltaSuplencia()
+                    .setEjercicioFiscal(view.getEjercicioActivo());
+            view.getAltaSuplencia()
+                    .setIdSuplenteAutorizado(view.getIdSuplente());
+            Integer idQuincena = suplencia
+                    .crearDetalleSuplencia(view.getAltaSuplencia());
 
             view.setIdQuincena(idQuincena);
             view.setBloquearAdjunto(false);
@@ -374,23 +458,28 @@ public class AltaSuplenciaController implements Serializable {
             consulta.setConDetalleMovimieto(false);
             consulta.setIdQuincena(idQuincena);
             consulta.setTipoConsulta(3);
-            view.setDetallesSuplencias(suplencia.consultarDetallesSuplenteQuincena(consulta));
+            view.setDetallesSuplencias(
+                    suplencia.consultarDetallesSuplenteQuincena(consulta));
 
-            Integer idSuplente = view.getAltaSuplencia().getIdSuplenteAutorizado();
+            Integer idSuplente = view.getAltaSuplencia()
+                    .getIdSuplenteAutorizado();
             AltaSuplenciaDTO dto = new AltaSuplenciaDTO();
             view.setAltaSuplencia(dto);
             view.getAltaSuplencia().setIdSuplenteAutorizado(idSuplente);
             view.getAltaSuplencia().setIdUsuarioLogeado(view.getIdUsuario());
-            JSFUtils.infoMessage("", "¡El detalle ha sido registrado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El detalle ha sido registrado con éxito!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
     }
 
     public void enviaraRevision() {
         try {
-            suplencia.actualizarEstatusQuincena(view.getIdQuincena(), EnumEstatusSuplencia.REVISION);
+            suplencia.actualizarEstatusQuincena(view.getIdQuincena(),
+                    EnumEstatusSuplencia.REVISION);
             JSFUtils.infoMessage("", "La quincena se ha mandado a revisión");
             view.setMostrarDetalleSuplente(false);
             view.setMostrarBusqueda(true);
@@ -405,11 +494,13 @@ public class AltaSuplenciaController implements Serializable {
         String nombreAdjunto = archivo.getFileName();
         byte[] adjunto = archivo.getContents();
 
-        TipoArchivo extension = TipoArchivo.getTipoArchivoPorMIMEType(archivo.getContentType());
+        TipoArchivo extension = TipoArchivo
+                .getTipoArchivoPorMIMEType(archivo.getContentType());
 
         // Integer idEmpleado = (Integer)
         // evento.getComponent().getAttributes().get("idEmpleado");
-        Integer idDocAdj = (Integer) evento.getComponent().getAttributes().get("idDocAdj");
+        Integer idDocAdj = (Integer) evento.getComponent().getAttributes()
+                .get("idDocAdj");
 
         InformacionAdjuntoDTO info = new InformacionAdjuntoDTO();
 
@@ -425,7 +516,8 @@ public class AltaSuplenciaController implements Serializable {
         info.setIdExpediente(12);
 
         adjuntoEmpleado.crear(info, adjunto);
-        JSFUtils.infoMessage("", "¡El documento soporte se ha adjuntado con éxito!");
+        JSFUtils.infoMessage("",
+                "¡El documento soporte se ha adjuntado con éxito!");
         view.setIdDocumentoAdjuntable(0);
         // view.getDocumentosExpedientes().clear();
         // List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoEmpleado
@@ -440,7 +532,8 @@ public class AltaSuplenciaController implements Serializable {
         view.getEdicion().setCantidadDiaria(detalle.getCantidadDiaria());
         view.getEdicion().setTotal(detalle.getTotal());
         view.getEdicion().setIdJornada(detalle.getIdJornada());
-        view.getEdicion().setIdDetalleSuplencia(detalle.getIdDetalleSuplencia());
+        view.getEdicion()
+                .setIdDetalleSuplencia(detalle.getIdDetalleSuplencia());
         view.getEdicion().setIdTabulador(detalle.getIdTabulador());
         view.getEdicion().setDias(detalle.getDias());
         view.setMostrarEdicion(true);
@@ -458,15 +551,18 @@ public class AltaSuplenciaController implements Serializable {
             suplencia.editarSuplencia(view.getEdicion());
             view.setMostrarEdicion(false);
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
-            dto.setIdSuplenteAutorizado(view.getSuplenteSeleccionado().getIdSuplente());
+            dto.setIdSuplenteAutorizado(
+                    view.getSuplenteSeleccionado().getIdSuplente());
             dto.setConDetalleMovimieto(false);
             dto.setQuincena(view.getNumeroQuincenaActual());
             dto.setTipoConsulta(1);
-            view.setDetallesSuplencias(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesSuplencias(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             calcularTotales();
             JSFUtils.infoMessage("", "El detalle ha sido editado con éxito");
         } catch (ReglaNegocioException | ValidacionException exception) {
-            JSFUtils.errorMessageEspecifico("errorEdicion", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorEdicion", "",
+                    exception.getMessage());
         }
     }
 
@@ -476,7 +572,8 @@ public class AltaSuplenciaController implements Serializable {
             ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
             dto.setConDetalleMovimieto(false);
             dto.setIdQuincena(view.getIdQuincena());
-            view.setDetallesSuplencias(suplencia.consultarDetallesSuplenteQuincena(dto));
+            view.setDetallesSuplencias(
+                    suplencia.consultarDetallesSuplenteQuincena(dto));
             calcularTotales();
             JSFUtils.infoMessage("", "El detalle ha sido eliminado con éxito");
 
@@ -518,7 +615,8 @@ public class AltaSuplenciaController implements Serializable {
 
         if (view.getIdQuincena() != null) {
             List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado
-                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto.SUPLENCIA, view.getIdQuincena());
+                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                            EntidadContexto.SUPLENCIA, view.getIdQuincena());
             view.setDocumentosAdjuntos(documentosAdjuntosGradoAcademico);
             if (!view.getDocumentosAdjuntos().isEmpty()) {
                 view.setMostrarDocumentacion(true);
@@ -527,7 +625,8 @@ public class AltaSuplenciaController implements Serializable {
             }
 
         } else {
-            JSFUtils.errorMessage("", "La quincena no tiene asignado ningun detalle");
+            JSFUtils.errorMessage("",
+                    "La quincena no tiene asignado ningun detalle");
         }
 
     }
@@ -542,12 +641,16 @@ public class AltaSuplenciaController implements Serializable {
 
     }
 
-    public void descargarAdjunto(InformacionAdjuntoDTO adjunto) throws IOException {
+    public void descargarAdjunto(InformacionAdjuntoDTO adjunto)
+            throws IOException {
 
-        byte[] bytes = adjuntoEmpleado.obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
+        byte[] bytes = adjuntoEmpleado
+                .obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
 
-        JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(), adjunto.getExtension().getMIMEType());
-        JSFUtils.infoMessage("Descarga iniciada", "La descarga del archivo ha iniciado.");
+        JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(),
+                adjunto.getExtension().getMIMEType());
+        JSFUtils.infoMessage("Descarga iniciada",
+                "La descarga del archivo ha iniciado.");
 
     }
 

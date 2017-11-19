@@ -158,7 +158,8 @@ public class FirmaEntity implements Serializable {
             return false;
         }
         FirmaEntity other = (FirmaEntity) object;
-        if ((idFirma == null && other.idFirma != null) || (idFirma != null && !idFirma.equals(other.idFirma))) {
+        if ((idFirma == null && other.idFirma != null)
+                || (idFirma != null && !idFirma.equals(other.idFirma))) {
             return false;
         }
         return true;
@@ -166,7 +167,8 @@ public class FirmaEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "mx.gob.saludtlax.rh.persistencia.Firmas[ idFirma=" + idFirma + " ]";
+        return "mx.gob.saludtlax.rh.persistencia.Firmas[ idFirma=" + idFirma
+                + " ]";
     }
 
 }

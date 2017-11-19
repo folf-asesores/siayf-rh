@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "presupuestoCalendario")
@@ -43,7 +43,8 @@ public class PresupuestoCalendarioController implements Serializable {
     }
 
     public void vistaPrincipal() {
-        view.setListaPresupuestoCalendario(presupuestoCalendario.obtenerListaPresupuestoCalendario());
+        view.setListaPresupuestoCalendario(
+                presupuestoCalendario.obtenerListaPresupuestoCalendario());
         view.setActualizarPresupuestoCalendario(new PresupuestoCalendarioDTO());
         view.setCreaPresupuestoCalendario(new PresupuestoCalendarioDTO());
         view.setMostrarVistaPrincipal(true);
@@ -61,20 +62,26 @@ public class PresupuestoCalendarioController implements Serializable {
         try {
 
             if (ValidacionUtil.esNumeroPositivoInt(view.getAnioCriterio())) {
-                List<PresupuestoCalendarioDTO> lista = presupuestoCalendario.obtenerListaPresupuestoCalendarioPorAnio(view.getAnioCriterio());
+                List<PresupuestoCalendarioDTO> lista = presupuestoCalendario
+                        .obtenerListaPresupuestoCalendarioPorAnio(
+                                view.getAnioCriterio());
 
                 if (!lista.isEmpty()) {
                     view.setListaPresupuestoCalendario(lista);
                 } else {
                     vistaPrincipal();
                     throw new ValidacionException(
-                            "No se encontrarón resultados con el año " + view.getAnioCriterio().toString() + ", por favor ingrese el año correctamente.",
+                            "No se encontrarón resultados con el año "
+                                    + view.getAnioCriterio().toString()
+                                    + ", por favor ingrese el año correctamente.",
                             ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
                 }
 
             } else {
                 vistaPrincipal();
-                throw new ValidacionException("El año es requerido, por favor ingrese el año correctamente.", ValidacionCodigoError.VALOR_REQUERIDO);
+                throw new ValidacionException(
+                        "El año es requerido, por favor ingrese el año correctamente.",
+                        ValidacionCodigoError.VALOR_REQUERIDO);
             }
 
         } catch (ReglaNegocioException | ValidacionException exception) {
@@ -85,11 +92,13 @@ public class PresupuestoCalendarioController implements Serializable {
     public void crearPresupuestoCalendario() {
         try {
 
-            presupuestoCalendario.crearPresupuestoCalendario(view.getCreaPresupuestoCalendario());
+            presupuestoCalendario.crearPresupuestoCalendario(
+                    view.getCreaPresupuestoCalendario());
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Presupuesto Calendario: ", "¡Se registro correctamente!");
+            JSFUtils.infoMessage("Presupuesto Calendario: ",
+                    "¡Se registro correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -99,11 +108,13 @@ public class PresupuestoCalendarioController implements Serializable {
     public void actualizarPresupuestoCalendario() {
         try {
 
-            presupuestoCalendario.actualizarPresupuestoCalendario(view.getActualizarPresupuestoCalendario());
+            presupuestoCalendario.actualizarPresupuestoCalendario(
+                    view.getActualizarPresupuestoCalendario());
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Presupuesto Calendario: ", "¡Se actualizo correctamente!");
+            JSFUtils.infoMessage("Presupuesto Calendario: ",
+                    "¡Se actualizo correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -113,11 +124,13 @@ public class PresupuestoCalendarioController implements Serializable {
     public void eliminarPresupuestoCalensario(Integer idPresupuestoCalendario) {
         try {
 
-            presupuestoCalendario.eliminarPresupuestoCalendario(idPresupuestoCalendario);
+            presupuestoCalendario
+                    .eliminarPresupuestoCalendario(idPresupuestoCalendario);
 
             vistaPrincipal();
 
-            JSFUtils.infoMessage("Presupuesto Calendario: ", "¡Se elimino correctamente!");
+            JSFUtils.infoMessage("Presupuesto Calendario: ",
+                    "¡Se elimino correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException exception) {
             JSFUtils.errorMessage("Error: ", exception.getMessage());
@@ -131,7 +144,8 @@ public class PresupuestoCalendarioController implements Serializable {
         view.setMostrarVistaActualizar(false);
     }
 
-    public void mostrarVistaActualizarPresupuestoCalendario(PresupuestoCalendarioDTO dto) {
+    public void mostrarVistaActualizarPresupuestoCalendario(
+            PresupuestoCalendarioDTO dto) {
         view.setActualizarPresupuestoCalendario(dto);
         view.setMostrarVistaPrincipal(false);
         view.setMostrarVistaCrear(false);

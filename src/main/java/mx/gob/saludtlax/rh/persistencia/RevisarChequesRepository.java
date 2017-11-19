@@ -21,12 +21,16 @@ public class RevisarChequesRepository {
     private EntityManager entityManager;
 
     private static final String CONSULTAR_CHEQHES = " select numeroCuenta, rfc, numCheq, nombramientoDescripcion from cheques ";
-    private static final String CONSULTAR_CHEQHES_P_A = " select numeroCuenta, rfc, " + "numCheq, nombramientoDescripcion from cheques where periodo=:periodo "
+    private static final String CONSULTAR_CHEQHES_P_A = " select numeroCuenta, rfc, "
+            + "numCheq, nombramientoDescripcion from cheques where periodo=:periodo "
             + "and anio=:anio ";
 
-    public List<RevisarChequesEntity> obtenerListaRevisarCheques(String periodo) {
+    public List<RevisarChequesEntity> obtenerListaRevisarCheques(
+            String periodo) {
 
-        return entityManager.createQuery(CONSULTAR_CHEQHES, RevisarChequesEntity.class).setParameter("periodo", periodo)
+        return entityManager
+                .createQuery(CONSULTAR_CHEQHES, RevisarChequesEntity.class)
+                .setParameter("periodo", periodo)
                 //                .setParameter("anyo", String.valueOf(anyo))
                 .getResultList();
     }
@@ -36,17 +40,23 @@ public class RevisarChequesRepository {
         //Query query = entityManager.createQuery(CONSULTAR_CHEQHES, RevisarChequesEntity.class);
         SQLQuery query = session.createSQLQuery(CONSULTAR_CHEQHES);
         //query.addEntity(RevisarChequesEntity.class);
-        query.setResultTransformer(Transformers.aliasToBean(RevisarChequesDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(RevisarChequesDTO.class));
 
         List<RevisarChequesDTO> listaRevisarChequesDTOs = query.list();
 
         return listaRevisarChequesDTOs;
     }
 
-    public List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo, int anio) {
+    public List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo,
+            int anio) {
         Session session = entityManager.unwrap(Session.class);
-        SQLQuery query = (SQLQuery) session.createSQLQuery(CONSULTAR_CHEQHES_P_A).setParameter("periodo", periodo).setParameter("anio", String.valueOf(anio));
-        query.setResultTransformer(Transformers.aliasToBean(RevisarChequesDTO.class));
+        SQLQuery query = (SQLQuery) session
+                .createSQLQuery(CONSULTAR_CHEQHES_P_A)
+                .setParameter("periodo", periodo)
+                .setParameter("anio", String.valueOf(anio));
+        query.setResultTransformer(
+                Transformers.aliasToBean(RevisarChequesDTO.class));
 
         List<RevisarChequesDTO> listaRevisarChequesDTOs = query.list();
 
@@ -56,7 +66,8 @@ public class RevisarChequesRepository {
     public List<RevisarChequesDTO> obtenerListaRevisarChequesAvanzada() {
         Session session = entityManager.unwrap(Session.class);
         SQLQuery query = session.createSQLQuery(CONSULTAR_CHEQHES);
-        query.setResultTransformer(Transformers.aliasToBean(RevisarChequesDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(RevisarChequesDTO.class));
 
         List<RevisarChequesDTO> listaRevisarChequesDTOs = query.list();
         return listaRevisarChequesDTOs;

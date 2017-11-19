@@ -23,7 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -84,7 +84,8 @@ public class MovimientoIsssteEmpleadoEntity implements Serializable {
         return idMovimientoIsssteEmpleado;
     }
 
-    public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
+    public void setIdMovimientoIsssteEmpleado(
+            Integer idMovimientoIsssteEmpleado) {
         this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
     }
 
@@ -164,7 +165,8 @@ public class MovimientoIsssteEmpleadoEntity implements Serializable {
         return tipoMovimientoIssste;
     }
 
-    public void setTipoMovimientoIssste(TipoMovimientoIsssteEntity tipoMovimientoIssste) {
+    public void setTipoMovimientoIssste(
+            TipoMovimientoIsssteEntity tipoMovimientoIssste) {
         this.tipoMovimientoIssste = tipoMovimientoIssste;
     }
 

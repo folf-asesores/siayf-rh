@@ -39,22 +39,29 @@ public class CancelarCFDIController implements Serializable {
     private String uuid;
 
     public void init() {
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest req = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         String url = req.getContextPath().toString();
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CANCELACION_CFDI);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CANCELACION_CFDI);
             if (!servicioRSEntity.isProduccion()) {
 
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Servicio Web",
-                    e1.getMessage() + ". Consulte la <a href='" + url + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error Servicio Web",
+                    e1.getMessage() + ". Consulte la <a href='" + url
+                            + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
         }
@@ -66,11 +73,15 @@ public class CancelarCFDIController implements Serializable {
         comprobante = cancelarCFDIService.buscarCFDICancelarPorUIID(uuid);
 
         if (comprobante == null) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Buscar CFDI", "No se encontro informacion del folio ingresado");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Buscar CFDI",
+                    "No se encontro informacion del folio ingresado");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             mostrarInformacion = false;
         } else if (comprobante.isCancelado()) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Buscar CFDI", "El comprobante ya se encuentra cancelado");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Buscar CFDI",
+                    "El comprobante ya se encuentra cancelado");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             mostrarInformacion = false;
 
@@ -84,12 +95,15 @@ public class CancelarCFDIController implements Serializable {
 
         try {
             cancelarCFDIService.cancelar(uuid);
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cancelar", "Se cancelo comprobante CFDI  con folio fiscal:" + uuid);
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Cancelar",
+                    "Se cancelo comprobante CFDI  con folio fiscal:" + uuid);
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             uuid = "";
             mostrarInformacion = false;
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cancelar", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Cancelar", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -109,14 +123,18 @@ public class CancelarCFDIController implements Serializable {
                 files = listOfFiles[i].getName();
                 String[] partesUUID = files.split("-");
 
-                String uuidCancelar = partesUUID[1] + "-" + partesUUID[2] + "-" + partesUUID[3] + "-" + partesUUID[4] + "-" + partesUUID[5];
+                String uuidCancelar = partesUUID[1] + "-" + partesUUID[2] + "-"
+                        + partesUUID[3] + "-" + partesUUID[4] + "-"
+                        + partesUUID[5];
 
                 System.out.println(uuidCancelar.subSequence(0, 36));
-                String uuidParaCancelar = (String) uuidCancelar.subSequence(0, 36);
+                String uuidParaCancelar = (String) uuidCancelar.subSequence(0,
+                        36);
                 try {
                     cancelarCFDIService.cancelar(uuidParaCancelar);
                 } catch (Exception e) {
-                    System.out.println("No se cancelo" + uuidCancelar.subSequence(0, 36));
+                    System.out.println(
+                            "No se cancelo" + uuidCancelar.subSequence(0, 36));
                 }
             }
         }

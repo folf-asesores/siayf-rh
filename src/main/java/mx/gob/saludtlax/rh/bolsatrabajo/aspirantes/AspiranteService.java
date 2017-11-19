@@ -37,7 +37,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  */
 public class AspiranteService {
 
-    private static final Logger LOGGER = Logger.getLogger(AspiranteService.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(AspiranteService.class);
 
     @Inject
     private AspiranteRepository aspiranteRepository;
@@ -62,21 +63,29 @@ public class AspiranteService {
 
         AspiranteEntity aspiranteEntity = new AspiranteEntity();
 
-        PuestoGeneralEntity puestoEntity = puestoRepository.obtenerPorId(dto.getIdPuesto());
-        EstadoEntity estadoEntity = estadoRepository.estadoPorId(dto.getDireccionDTO().getIdEstado());
+        PuestoGeneralEntity puestoEntity = puestoRepository
+                .obtenerPorId(dto.getIdPuesto());
+        EstadoEntity estadoEntity = estadoRepository
+                .estadoPorId(dto.getDireccionDTO().getIdEstado());
 
         if (aspiranteRepository.consultarAspiranteRFC(dto.getRfc())) {
-            LOGGER.error(contexto + "Existe un aspirante registrada con el rfc, ingrese una nueva.");
-            throw new BusinessException(contexto + "Existe un aspirante registrada con el rfc, ingrese una nueva.");
+            LOGGER.error(contexto
+                    + "Existe un aspirante registrada con el rfc, ingrese una nueva.");
+            throw new BusinessException(contexto
+                    + "Existe un aspirante registrada con el rfc, ingrese una nueva.");
         }
 
         if (aspiranteRepository.existeAspiranteCurp(dto.getCurp())) {
-            LOGGER.error(contexto + "Existe un aspirante registrada con la curp, ingrese una nueva.");
-            throw new BusinessException(contexto + "Existe un aspirante registrada con la curp, ingrese una nueva.");
+            LOGGER.error(contexto
+                    + "Existe un aspirante registrada con la curp, ingrese una nueva.");
+            throw new BusinessException(contexto
+                    + "Existe un aspirante registrada con la curp, ingrese una nueva.");
         }
 
-        MunicipiosEntity municipiosEntity = municipioRepository.obtenerPorId(dto.getDireccionDTO().getIdMunicipio());
-        AsentamientoEntity poblacionEntity = poblacionRepository.obtenerPorId(dto.getDireccionDTO().getIdAsentamiento());
+        MunicipiosEntity municipiosEntity = municipioRepository
+                .obtenerPorId(dto.getDireccionDTO().getIdMunicipio());
+        AsentamientoEntity poblacionEntity = poblacionRepository
+                .obtenerPorId(dto.getDireccionDTO().getIdAsentamiento());
 
         aspiranteEntity.setNombre(dto.getNombre());
         aspiranteEntity.setApellidoPaterno(dto.getApellidoPaterno());
@@ -96,7 +105,8 @@ public class AspiranteService {
                                                                // por
                                                                // default es mexicana
         if (dto.getNacionalidad().equals(EnumNacionalidad.EXTRANJERA)) {
-            PaisEntity paisNacionalidad = paisRepository.paisPorId(dto.getIdPaisNacionalidad());
+            PaisEntity paisNacionalidad = paisRepository
+                    .paisPorId(dto.getIdPaisNacionalidad());
             aspiranteEntity.setPaisNacionalidad(paisNacionalidad);
         }
         aspiranteEntity.setEstadoCivil(dto.getEstadoCivil());
@@ -112,7 +122,8 @@ public class AspiranteService {
         aspiranteEntity.setViveCon(dto.getViveCon());
 
         // Validar Si Tiene Personas Dependientes
-        if (dto.getNumeroHijos() != 0 || dto.getNumeroConyuges() != 0 || dto.getNumeroPadres() != 0 || dto.getNumeroOtros() != 0) {
+        if (dto.getNumeroHijos() != 0 || dto.getNumeroConyuges() != 0
+                || dto.getNumeroPadres() != 0 || dto.getNumeroOtros() != 0) {
             aspiranteEntity.setTienePersonasDependientes(true);
         } else {
             aspiranteEntity.setTienePersonasDependientes(false);
@@ -130,7 +141,8 @@ public class AspiranteService {
 
         // Concatenando nombre completo
         String nombreCompleto = dto.getNombre() + " ";
-        if (dto.getApellidoPaterno() != null || dto.getApellidoPaterno().trim().isEmpty()) {
+        if (dto.getApellidoPaterno() != null
+                || dto.getApellidoPaterno().trim().isEmpty()) {
             nombreCompleto = nombreCompleto + dto.getApellidoPaterno() + " ";
         }
         nombreCompleto = nombreCompleto + dto.getApellidoMaterno();
@@ -141,20 +153,29 @@ public class AspiranteService {
 
         // Registrar documentación
         if (!ValidacionUtil.esCadenaVacia(dto.getAfore())) {
-            registrarDocumentacion(EnumTipoDocumento.AFORE, dto.getAfore(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.AFORE, dto.getAfore(),
+                    aspiranteEntity.getIdAspirante(), " ");
 
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroSeguroSocial())) {
-            registrarDocumentacion(EnumTipoDocumento.SEGURO_SOCIAL, dto.getNumeroSeguroSocial(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.SEGURO_SOCIAL,
+                    dto.getNumeroSeguroSocial(),
+                    aspiranteEntity.getIdAspirante(), " ");
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroCartillaMilitar())) {
-            registrarDocumentacion(EnumTipoDocumento.CARTILLA_MILITAR, dto.getNumeroCartillaMilitar(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.CARTILLA_MILITAR,
+                    dto.getNumeroCartillaMilitar(),
+                    aspiranteEntity.getIdAspirante(), " ");
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroPasaporte())) {
-            registrarDocumentacion(EnumTipoDocumento.PASAPORTE, dto.getNumeroPasaporte(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.PASAPORTE,
+                    dto.getNumeroPasaporte(), aspiranteEntity.getIdAspirante(),
+                    " ");
         }
         if (dto.isTieneLicencia()) {
-            registrarDocumentacion(EnumTipoDocumento.LICENCIA, dto.getNumeroLicencia(), aspiranteEntity.getIdAspirante(), dto.getTipoLicencia());
+            registrarDocumentacion(EnumTipoDocumento.LICENCIA,
+                    dto.getNumeroLicencia(), aspiranteEntity.getIdAspirante(),
+                    dto.getTipoLicencia());
 
         }
         DireccionEntity direccion = new DireccionEntity();
@@ -180,17 +201,23 @@ public class AspiranteService {
     protected Integer actualizarAspirante(AspiranteDTO dto) {
         String contexto = "Actualización Aspirante: ";
 
-        AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(dto.getIdAspirante());
+        AspiranteEntity aspiranteEntity = aspiranteRepository
+                .obtenerPorId(dto.getIdAspirante());
 
         if (aspiranteEntity == null) {
-            throw new BusinessException(contexto + "No se encontro el aspirante, realice la actualización nuevamente");
+            throw new BusinessException(contexto
+                    + "No se encontro el aspirante, realice la actualización nuevamente");
         }
 
-        PuestoGeneralEntity puestoEntity = puestoRepository.obtenerPorId(dto.getIdPuesto());
-        EstadoEntity estadoEntity = estadoRepository.estadoPorId(dto.getDireccionDTO().getIdEstado());
+        PuestoGeneralEntity puestoEntity = puestoRepository
+                .obtenerPorId(dto.getIdPuesto());
+        EstadoEntity estadoEntity = estadoRepository
+                .estadoPorId(dto.getDireccionDTO().getIdEstado());
 
-        MunicipiosEntity municipiosEntity = municipioRepository.obtenerPorId(dto.getDireccionDTO().getIdMunicipio());
-        AsentamientoEntity poblacionEntity = poblacionRepository.obtenerPorId(dto.getDireccionDTO().getIdAsentamiento());
+        MunicipiosEntity municipiosEntity = municipioRepository
+                .obtenerPorId(dto.getDireccionDTO().getIdMunicipio());
+        AsentamientoEntity poblacionEntity = poblacionRepository
+                .obtenerPorId(dto.getDireccionDTO().getIdAsentamiento());
 
         aspiranteEntity.setNombre(dto.getNombre());
         aspiranteEntity.setApellidoPaterno(dto.getApellidoPaterno());
@@ -209,7 +236,8 @@ public class AspiranteService {
                                                                // por
                                                                // default es mexicana
         if (dto.getNacionalidad().equals(EnumNacionalidad.EXTRANJERA)) {
-            PaisEntity paisNacionalidad = paisRepository.paisPorId(dto.getIdPaisNacionalidad());
+            PaisEntity paisNacionalidad = paisRepository
+                    .paisPorId(dto.getIdPaisNacionalidad());
             aspiranteEntity.setPaisNacionalidad(paisNacionalidad);
         }
         aspiranteEntity.setEstadoCivil(dto.getEstadoCivil());
@@ -225,7 +253,8 @@ public class AspiranteService {
         aspiranteEntity.setViveCon(dto.getViveCon());
 
         // Validar Si Tiene Personas Dependientes
-        if (dto.getNumeroHijos() != 0 || dto.getNumeroConyuges() != 0 || dto.getNumeroPadres() != 0 || dto.getNumeroOtros() != 0) {
+        if (dto.getNumeroHijos() != 0 || dto.getNumeroConyuges() != 0
+                || dto.getNumeroPadres() != 0 || dto.getNumeroOtros() != 0) {
             aspiranteEntity.setTienePersonasDependientes(true);
         }
 
@@ -241,7 +270,8 @@ public class AspiranteService {
 
         // Concatenando nombre completo
         String nombreCompleto = dto.getNombre() + " ";
-        if (dto.getApellidoPaterno() != null || dto.getApellidoPaterno().trim().isEmpty()) {
+        if (dto.getApellidoPaterno() != null
+                || dto.getApellidoPaterno().trim().isEmpty()) {
             nombreCompleto = nombreCompleto + dto.getApellidoPaterno() + " ";
         }
         nombreCompleto = nombreCompleto + dto.getApellidoMaterno();
@@ -252,28 +282,41 @@ public class AspiranteService {
 
         // Registrar documentación
         if (!ValidacionUtil.esCadenaVacia(dto.getAfore())) {
-            registrarDocumentacion(EnumTipoDocumento.AFORE, dto.getAfore(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.AFORE, dto.getAfore(),
+                    aspiranteEntity.getIdAspirante(), " ");
 
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroSeguroSocial())) {
-            registrarDocumentacion(EnumTipoDocumento.SEGURO_SOCIAL, dto.getNumeroSeguroSocial(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.SEGURO_SOCIAL,
+                    dto.getNumeroSeguroSocial(),
+                    aspiranteEntity.getIdAspirante(), " ");
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroCartillaMilitar())) {
-            registrarDocumentacion(EnumTipoDocumento.CARTILLA_MILITAR, dto.getNumeroCartillaMilitar(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.CARTILLA_MILITAR,
+                    dto.getNumeroCartillaMilitar(),
+                    aspiranteEntity.getIdAspirante(), " ");
         }
         if (!ValidacionUtil.esCadenaVacia(dto.getNumeroPasaporte())) {
-            registrarDocumentacion(EnumTipoDocumento.PASAPORTE, dto.getNumeroPasaporte(), aspiranteEntity.getIdAspirante(), " ");
+            registrarDocumentacion(EnumTipoDocumento.PASAPORTE,
+                    dto.getNumeroPasaporte(), aspiranteEntity.getIdAspirante(),
+                    " ");
         }
         if (dto.isTieneLicencia()) {
-            registrarDocumentacion(EnumTipoDocumento.LICENCIA, dto.getNumeroLicencia(), aspiranteEntity.getIdAspirante(), dto.getTipoLicencia());
+            registrarDocumentacion(EnumTipoDocumento.LICENCIA,
+                    dto.getNumeroLicencia(), aspiranteEntity.getIdAspirante(),
+                    dto.getTipoLicencia());
 
         }
-        DireccionEntity direccion = direccionAspiranteRepository.consultarDireccionAspirantePorId(aspiranteEntity.getIdAspirante());
+        DireccionEntity direccion = direccionAspiranteRepository
+                .consultarDireccionAspirantePorId(
+                        aspiranteEntity.getIdAspirante());
         // Actualizando Dirección
         if (direccion != null) {
             direccion.setCalle(dto.getDireccionDTO().getCalle());
-            direccion.setNumeroExterior(dto.getDireccionDTO().getNumeroExterior());
-            direccion.setNumeroInterior(dto.getDireccionDTO().getNumeroInterior());
+            direccion.setNumeroExterior(
+                    dto.getDireccionDTO().getNumeroExterior());
+            direccion.setNumeroInterior(
+                    dto.getDireccionDTO().getNumeroInterior());
             direccion.setCodigoPostal(dto.getDireccionDTO().getCodigoPostal());
             direccion.setEstado(estadoEntity);
             direccion.setMunicipio(municipiosEntity);
@@ -292,9 +335,11 @@ public class AspiranteService {
         return aspiranteEntity.getIdAspirante();
     }
 
-    protected void registrarDocumentacion(String tipoDocumento, String documento, Integer idAspirante, String tipoLicencia) {
+    protected void registrarDocumentacion(String tipoDocumento,
+            String documento, Integer idAspirante, String tipoLicencia) {
 
-        AspiranteEntity aspirante = aspiranteRepository.obtenerPorId(idAspirante);
+        AspiranteEntity aspirante = aspiranteRepository
+                .obtenerPorId(idAspirante);
 
         DocumentacionEntity documentacionEntity = new DocumentacionEntity();
         documentacionEntity.setDocumento(documento);
@@ -315,24 +360,28 @@ public class AspiranteService {
         }
         if (rfc.length() == 13) {
             if (!rfc.trim().matches("([A-Z]{4})([0-9]{6})([A-Z0-9]{3})")) {
-                throw new BusinessException("El formato del rfc  es invalido, por favor ingrese un rfc valida.");
+                throw new BusinessException(
+                        "El formato del rfc  es invalido, por favor ingrese un rfc valida.");
 
             }
         }
 
         if (rfc.length() == 12) {
             if (!rfc.trim().matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}")) {
-                throw new BusinessException("El formato del rfc es invalido, por favor ingrese un rfc valida.");
+                throw new BusinessException(
+                        "El formato del rfc es invalido, por favor ingrese un rfc valida.");
 
             }
         }
 
         if (rfc.length() < 12) {
-            throw new BusinessException("El tamaño del rfc es invalido, por favor ingrese un rfc valida.");
+            throw new BusinessException(
+                    "El tamaño del rfc es invalido, por favor ingrese un rfc valida.");
         }
 
         if (aspiranteRepository.consultarAspiranteRFC(rfc)) {
-            throw new BusinessException("El rfc que ha ingresado ya ha sido asignada, ingrese una nueva.");
+            throw new BusinessException(
+                    "El rfc que ha ingresado ya ha sido asignada, ingrese una nueva.");
         }
 
     }
@@ -344,10 +393,13 @@ public class AspiranteService {
             throw new BusinessException("Por favor envie una curp.");
         }
         if (!curp.matches("[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}")) {
-            throw new BusinessException("El formato de la curp  es invalido, por favor ingrese una curp valida.");
+            throw new BusinessException(
+                    "El formato de la curp  es invalido, por favor ingrese una curp valida.");
         }
-        if (aspiranteRepository.existeAspiranteCurp(curp.trim().toUpperCase())) {
-            throw new BusinessException("La curp que ha ingresado ya ha sido asignada, ingrese una nueva.");
+        if (aspiranteRepository
+                .existeAspiranteCurp(curp.trim().toUpperCase())) {
+            throw new BusinessException(
+                    "La curp que ha ingresado ya ha sido asignada, ingrese una nueva.");
         }
 
     }
@@ -357,38 +409,49 @@ public class AspiranteService {
 
         if (ValidacionUtil.esCadenaVacia(rfc)) {
 
-            throw new ReglaNegocioException("Por favor envie una rfc.", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException("Por favor envie una rfc.",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
         if (rfc.length() == 13) {
             if (!rfc.trim().matches("([A-Z]{4})([0-9]{6})([A-Z0-9]{3})")) {
-                throw new ReglaNegocioException("El formato del rfc  es invalido, por favor ingrese un rfc valida.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                throw new ReglaNegocioException(
+                        "El formato del rfc  es invalido, por favor ingrese un rfc valida.",
+                        ReglaNegocioCodigoError.SIN_REGISTRO);
 
             }
         }
 
         if (rfc.length() == 12) {
             if (!rfc.trim().matches("[A-Z]{3}[0-9]{6}[A-Z0-9]{3}")) {
-                throw new ReglaNegocioException("El formato del rfc es invalido, por favor ingrese un rfc valida.", ReglaNegocioCodigoError.SIN_REGISTRO);
+                throw new ReglaNegocioException(
+                        "El formato del rfc es invalido, por favor ingrese un rfc valida.",
+                        ReglaNegocioCodigoError.SIN_REGISTRO);
 
             }
         }
 
         if (rfc.length() < 12) {
-            throw new ReglaNegocioException("El tamaño del rfc es invalido, por favor ingrese un rfc valida.", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "El tamaño del rfc es invalido, por favor ingrese un rfc valida.",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
         return aspiranteRepository.consultarAspiranteRFCyId(idAspirante, rfc);
 
     }
 
-    protected boolean validarCurpyIdAspirante(Integer idAspirante, String curp) {
+    protected boolean validarCurpyIdAspirante(Integer idAspirante,
+            String curp) {
         curp = curp.toUpperCase().trim();
 
         if (ValidacionUtil.esCadenaVacia(curp)) {
-            throw new ReglaNegocioException("Por favor envie una curp.", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException("Por favor envie una curp.",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
         if (!curp.matches("[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}")) {
-            throw new ReglaNegocioException("El formato de la curp  es invalido, por favor ingrese una curp valida.", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "El formato de la curp  es invalido, por favor ingrese una curp valida.",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
         return aspiranteRepository.existeAspiranteCurpyId(idAspirante, curp);

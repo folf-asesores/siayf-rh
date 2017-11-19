@@ -18,24 +18,31 @@ public class ComisionEJB {
 
     public ComisionOficialDTO obtenerComisionOficial(Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         ComisionOficialDTO comisionOficialDTO = new ComisionOficialDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
         String inventarioVacante = "";
 
         if (movimientoEmpleadoEntity.getInventarioVacante() != null) {
-            if (movimientoEmpleadoEntity.getInventarioVacante().getAdscripcion() != null) {
-                inventarioVacante = movimientoEmpleadoEntity.getInventarioVacante().getAdscripcion().getAdscripcion();
+            if (movimientoEmpleadoEntity.getInventarioVacante()
+                    .getAdscripcion() != null) {
+                inventarioVacante = movimientoEmpleadoEntity
+                        .getInventarioVacante().getAdscripcion()
+                        .getAdscripcion();
             }
         }
 
-        String nombreCompleto = movimientoEmpleadoEntity.getEmpleado().getNombreCompleto();
+        String nombreCompleto = movimientoEmpleadoEntity.getEmpleado()
+                .getNombreCompleto();
         String rfc = movimientoEmpleadoEntity.getEmpleado().getRfc();
         String curp = movimientoEmpleadoEntity.getEmpleado().getCurp();
         String lugar = inventarioVacante;
         String adscripcion = movimientoEmpleadoEntity.getMotivoPermiso();
-        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al " + movimientoEmpleadoEntity.getFechaFinPermiso();
+        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al "
+                + movimientoEmpleadoEntity.getFechaFinPermiso();
         String directorAdministracion = "C.P. Luz Maria Portillo Garcia";
 
         comisionOficialDTO.setIdMovimiento(idMovimiento);
@@ -56,14 +63,16 @@ public class ComisionEJB {
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 ComisionDetalleDTO dto = new ComisionDetalleDTO();
 

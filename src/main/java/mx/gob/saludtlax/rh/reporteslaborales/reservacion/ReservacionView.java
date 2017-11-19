@@ -8,7 +8,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -42,7 +42,8 @@ public class ReservacionView implements Serializable {
         return reservacionListaDTO;
     }
 
-    public void setReservacionListaDTO(List<ReservacionDTO> reservacionListaDTO) {
+    public void setReservacionListaDTO(
+            List<ReservacionDTO> reservacionListaDTO) {
         this.reservacionListaDTO = reservacionListaDTO;
     }
 
@@ -114,7 +115,8 @@ public class ReservacionView implements Serializable {
         return reservacionDetalleDTO;
     }
 
-    public void setReservacionDetalleDTO(List<ReservacionDetalleDTO> reservacionDetalleDTO) {
+    public void setReservacionDetalleDTO(
+            List<ReservacionDetalleDTO> reservacionDetalleDTO) {
         this.reservacionDetalleDTO = reservacionDetalleDTO;
     }
 

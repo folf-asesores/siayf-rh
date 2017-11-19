@@ -268,10 +268,14 @@ public class ComprobanteEmpleadoPojo implements Serializable {
 
     @Override
     public String toString() {
-        return "ComprobanteEmpleadoPOJO{" + "nombre : " + nombre + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
-                + ", claveCentroResposabilidad : " + claveCentroResposabilidad + ", numeroCheque : " + numeroCheque + ", inicioPeriodo : " + inicioPeriodo
-                + ", finPeriodo : " + finPeriodo + ", percepciones : " + percepciones + ", deducciones : " + deducciones + ", neto : " + neto + ", clave : "
-                + clave + ", importe : " + importe + '}';
+        return "ComprobanteEmpleadoPOJO{" + "nombre : " + nombre
+                + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
+                + ", claveCentroResposabilidad : " + claveCentroResposabilidad
+                + ", numeroCheque : " + numeroCheque + ", inicioPeriodo : "
+                + inicioPeriodo + ", finPeriodo : " + finPeriodo
+                + ", percepciones : " + percepciones + ", deducciones : "
+                + deducciones + ", neto : " + neto + ", clave : " + clave
+                + ", importe : " + importe + '}';
     }
 
     @Override
@@ -310,7 +314,8 @@ public class ComprobanteEmpleadoPojo implements Serializable {
         if (!Objects.equals(filiacion, other.filiacion)) {
             return false;
         }
-        if (!Objects.equals(claveCentroResposabilidad, other.claveCentroResposabilidad)) {
+        if (!Objects.equals(claveCentroResposabilidad,
+                other.claveCentroResposabilidad)) {
             return false;
         }
         if (!Objects.equals(clave, other.clave)) {

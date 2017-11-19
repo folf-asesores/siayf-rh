@@ -11,8 +11,8 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 28/07/2016 13:12:07
  */
@@ -245,7 +245,8 @@ public class TabuladorView implements Serializable {
      * @param mostrarInputUnicoPersonalSuplente
      *            the mostrarInputUnicoPersonalSuplente to set
      */
-    public void setMostrarInputUnicoPersonalSuplente(boolean mostrarInputUnicoPersonalSuplente) {
+    public void setMostrarInputUnicoPersonalSuplente(
+            boolean mostrarInputUnicoPersonalSuplente) {
         this.mostrarInputUnicoPersonalSuplente = mostrarInputUnicoPersonalSuplente;
     }
 
@@ -275,7 +276,8 @@ public class TabuladorView implements Serializable {
      * @param mostrarUnicoPersonalSuplente
      *            the mostrarUnicoPersonalSuplente to set
      */
-    public void setMostrarUnicoPersonalSuplente(boolean mostrarUnicoPersonalSuplente) {
+    public void setMostrarUnicoPersonalSuplente(
+            boolean mostrarUnicoPersonalSuplente) {
         this.mostrarUnicoPersonalSuplente = mostrarUnicoPersonalSuplente;
     }
 
@@ -290,7 +292,8 @@ public class TabuladorView implements Serializable {
      * @param listaSubClasificacionTabulador
      *            the listaSubClasificacionTabulador to set
      */
-    public void setListaSubClasificacionTabulador(List<SelectItem> listaSubClasificacionTabulador) {
+    public void setListaSubClasificacionTabulador(
+            List<SelectItem> listaSubClasificacionTabulador) {
         this.listaSubClasificacionTabulador = listaSubClasificacionTabulador;
     }
 

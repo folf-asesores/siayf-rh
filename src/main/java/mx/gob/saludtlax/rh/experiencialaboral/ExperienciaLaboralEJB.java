@@ -24,14 +24,18 @@ public class ExperienciaLaboralEJB implements ExperienciaLaboral {
     private ExperienciaLaboralService experienciaLaboralService;
 
     @Override
-    public List<ExperienciaLaboralDTO> consultaExperienciaLaboralEmpleado(Integer idEmpleado) {
-        return experienciaLaboralService.consultaExperienciaLaboralEmpleado(idEmpleado);
+    public List<ExperienciaLaboralDTO> consultaExperienciaLaboralEmpleado(
+            Integer idEmpleado) {
+        return experienciaLaboralService
+                .consultaExperienciaLaboralEmpleado(idEmpleado);
     }
 
     @Interceptors({ ExperienciaLaboralValidator.class })
     @Override
-    public void crearExperienciaLaboralEmpleado(ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
-        experienciaLaboralService.crearExperienciaLaboralEmpleado(experienciaLaboral, idEmpleado);
+    public void crearExperienciaLaboralEmpleado(
+            ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
+        experienciaLaboralService.crearExperienciaLaboralEmpleado(
+                experienciaLaboral, idEmpleado);
 
     }
 
@@ -42,8 +46,10 @@ public class ExperienciaLaboralEJB implements ExperienciaLaboral {
      * ExperienciaLaboralDTO, java.lang.Integer)
      */
     @Override
-    public void actualizarExperienciaLaboralEmpleado(ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
-        experienciaLaboralService.actualizarExperienciaLaboralEmpleado(experienciaLaboral, idEmpleado);
+    public void actualizarExperienciaLaboralEmpleado(
+            ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado) {
+        experienciaLaboralService.actualizarExperienciaLaboralEmpleado(
+                experienciaLaboral, idEmpleado);
 
     }
 

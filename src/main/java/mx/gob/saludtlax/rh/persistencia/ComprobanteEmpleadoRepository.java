@@ -32,12 +32,15 @@ public class ComprobanteEmpleadoRepository implements Serializable {
     protected EntityManager em;
 
     @SuppressWarnings("unchecked")
-    public List<ComprobanteEmpleadoPojo> obtenerDatos(Integer idProductoNomina) {
+    public List<ComprobanteEmpleadoPojo> obtenerDatos(
+            Integer idProductoNomina) {
         try {
             Session session = em.unwrap(Session.class);
-            Query query = session.createSQLQuery("CALL usp_nomina_comprobante_empleado(:idProductoNomina)");
+            Query query = session.createSQLQuery(
+                    "CALL usp_nomina_comprobante_empleado(:idProductoNomina)");
             query.setParameter("idProductoNomina", idProductoNomina);
-            query.setResultTransformer(Transformers.aliasToBean(ComprobanteEmpleadoPojo.class));
+            query.setResultTransformer(
+                    Transformers.aliasToBean(ComprobanteEmpleadoPojo.class));
             List<ComprobanteEmpleadoPojo> resultado = query.list();
 
             return resultado;

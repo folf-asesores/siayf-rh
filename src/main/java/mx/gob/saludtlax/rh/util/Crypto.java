@@ -25,7 +25,8 @@ public class Crypto {
             Key key = new SecretKeySpec(salt, "HmacSHA512");
             magic.init(key);
             return Base64.encodeBase64String(magic.doFinal(valueBytes));
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException | InvalidKeyException | IllegalStateException ex) {
+        } catch (NoSuchAlgorithmException | UnsupportedEncodingException
+                | InvalidKeyException | IllegalStateException ex) {
             throw new RuntimeException(ex);
         }
     }

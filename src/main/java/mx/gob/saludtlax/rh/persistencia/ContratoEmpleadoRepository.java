@@ -14,7 +14,9 @@ import mx.gob.saludtlax.rh.empleados.administracion.EnumTipoContratoEmpleado;
  * @since 05/09/2016 12:58:04
  *
  */
-public class ContratoEmpleadoRepository extends GenericRepository<ContratoEmpleadoEntity, Integer> implements Serializable {
+public class ContratoEmpleadoRepository
+        extends GenericRepository<ContratoEmpleadoEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -23,16 +25,21 @@ public class ContratoEmpleadoRepository extends GenericRepository<ContratoEmplea
 
     public List<ContratoEmpleadoEntity> obtenerlistaContrato() {
 
-        return em.createQuery("SELECT c FROM ContratoEmpleadoEntity AS c WHERE c.tipoContrato =:tipoContrato", ContratoEmpleadoEntity.class)
-                .setParameter("tipoContrato", EnumTipoContratoEmpleado.ESTATAL).getResultList();
+        return em.createQuery(
+                "SELECT c FROM ContratoEmpleadoEntity AS c WHERE c.tipoContrato =:tipoContrato",
+                ContratoEmpleadoEntity.class)
+                .setParameter("tipoContrato", EnumTipoContratoEmpleado.ESTATAL)
+                .getResultList();
 
     }
 
-    public List<ContratoEmpleadoEntity> obtenerlistaContratoPorTipo(Integer tipoContrato) {
+    public List<ContratoEmpleadoEntity> obtenerlistaContratoPorTipo(
+            Integer tipoContrato) {
         try {
             String query = "SELECT c FROM ContratoEmpleadoEntity AS c WHERE c.tipoContrato =:tipoContrato";
 
-            return em.createQuery(query, ContratoEmpleadoEntity.class).setParameter("tipoContrato", tipoContrato).getResultList();
+            return em.createQuery(query, ContratoEmpleadoEntity.class)
+                    .setParameter("tipoContrato", tipoContrato).getResultList();
         } catch (NullPointerException e) {
             return null;
         }

@@ -43,7 +43,8 @@ public class ServiciosWebController implements Serializable {
         return listadoServiciosRSEntity;
     }
 
-    public void setListadoServiciosRSEntity(List<ServiciosRSEntity> listadoServiciosRSEntity) {
+    public void setListadoServiciosRSEntity(
+            List<ServiciosRSEntity> listadoServiciosRSEntity) {
         this.listadoServiciosRSEntity = listadoServiciosRSEntity;
     }
 
@@ -55,7 +56,9 @@ public class ServiciosWebController implements Serializable {
         try {
             serviciosWebEJB.guardarInformacionServicio(servicioRSEntity);
         } catch (ServicioWebException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage("info", facesMessage);
             return "";
         }
@@ -65,7 +68,8 @@ public class ServiciosWebController implements Serializable {
 
     public String editar(Integer id) {
 
-        return "editar.xhtml?faces-redirect=true&includeViewParams=true&id=" + id;
+        return "editar.xhtml?faces-redirect=true&includeViewParams=true&id="
+                + id;
     }
 
     public void setServicioRSEntity(ServiciosRSEntity servicioRSEntity) {
@@ -76,15 +80,19 @@ public class ServiciosWebController implements Serializable {
         return ServicioWebEnum.values();
     }
 
-    public void validarFormulario(FacesContext context, UIComponent component, Object value) {
+    public void validarFormulario(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "url":
-                Pattern pat = Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
+                Pattern pat = Pattern.compile(
+                        "^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
                 String url = (String) value;
                 if (url == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El campo url es obligatorio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El campo url es obligatorio");
 
                     throw new ValidatorException(facesMessage);
 
@@ -92,7 +100,9 @@ public class ServiciosWebController implements Serializable {
 
                 Matcher mat = pat.matcher(url);
                 if (!mat.matches()) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una url valida http:// o https://.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una url valida http:// o https://.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

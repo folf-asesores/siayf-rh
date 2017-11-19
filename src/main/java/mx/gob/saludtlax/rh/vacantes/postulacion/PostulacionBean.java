@@ -26,12 +26,15 @@ public class PostulacionBean implements Postulacion {
     }
 
     @Override
-    public List<InfoCandidatoDTO> consultarCandidatosPostulacion(Integer idPostulacion) {
-        return postulacionVacanteService.consultarCandidatosPostulacion(idPostulacion);
+    public List<InfoCandidatoDTO> consultarCandidatosPostulacion(
+            Integer idPostulacion) {
+        return postulacionVacanteService
+                .consultarCandidatosPostulacion(idPostulacion);
     }
 
     @Override
-    public InfoCandidatoDTO obtenerInformacionCandidatoAprobado(Integer idVacante) {
+    public InfoCandidatoDTO obtenerInformacionCandidatoAprobado(
+            Integer idVacante) {
         return postulacionVacanteService.obtenerInformacionCandidato(idVacante);
     }
 
@@ -47,8 +50,10 @@ public class PostulacionBean implements Postulacion {
     }
 
     @Override
-    public void aprobarCandidatoPostulacion(Integer idPostulacion, Integer idCandidato) {
-        postulacionVacanteService.aprobarCandidatoPostulacion(idPostulacion, idCandidato);
+    public void aprobarCandidatoPostulacion(Integer idPostulacion,
+            Integer idCandidato) {
+        postulacionVacanteService.aprobarCandidatoPostulacion(idPostulacion,
+                idCandidato);
 
     }
 

@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.siif.DatosPersonalesDTO;
 import mx.gob.saludtlax.rh.siif.SiifDatosLaboralesDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -39,14 +39,16 @@ public class DatoPersonalLaboralEJB implements Serializable {
         try {
 
             if (data.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (DatosPersonalesDTO dto : data) {
 
                 DatosPersonalesEntity entity = new DatosPersonalesEntity();
 
-                entity.setIdEmpleadoDatosPersonales(dto.getIdEmpleadoDatosPersonales());
+                entity.setIdEmpleadoDatosPersonales(
+                        dto.getIdEmpleadoDatosPersonales());
                 entity.setRfc(dto.getRfc());
                 entity.setApellidoPaterno(dto.getApellidoPaterno());
                 entity.setApellidoMaterno(dto.getApellidoMaterno());
@@ -76,15 +78,18 @@ public class DatoPersonalLaboralEJB implements Serializable {
         try {
 
             if (data.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             }
 
             for (SiifDatosLaboralesDTO dto : data) {
 
                 SIIFDatosLaboralesEntity entity = new SIIFDatosLaboralesEntity();
 
-                entity.setIdEmpleadoDatosLaborales(dto.getIdEmpleadoDatosLaborales());
-                entity.setIdEmpleadoDatosPersonales(dto.getIdEmpleadoDatosPersonales());
+                entity.setIdEmpleadoDatosLaborales(
+                        dto.getIdEmpleadoDatosLaborales());
+                entity.setIdEmpleadoDatosPersonales(
+                        dto.getIdEmpleadoDatosPersonales());
                 entity.setRfc(dto.getRfc());
                 entity.setIdRfc(dto.getIdRfc());
                 entity.setIdPlaza(dto.getIdPlaza());
@@ -98,15 +103,18 @@ public class DatoPersonalLaboralEJB implements Serializable {
                 entity.setFechaIngreso(dto.getFechaIngreso());
                 entity.setNoQuinquenios(dto.getNoQuinquenios());
                 entity.setSueldoMensual(dto.getSueldoMensual());
-                entity.setPercepcionComplementaria(dto.getPercepcionComplementaria());
+                entity.setPercepcionComplementaria(
+                        dto.getPercepcionComplementaria());
                 entity.setDespensa(dto.getDespensa());
                 entity.setIncentivoAhorro(dto.getIncentivoAhorro());
                 entity.setCompensacion(dto.getCompensacion());
                 entity.setQuinquenio(dto.getQuinquenio());
                 entity.setNoCuenta(dto.getNoCuenta());
                 entity.setPolicia(dto.getPolicia());
-                entity.setIdFuenteFinanciamiento(dto.getIdFuenteFinanciamiento());
-                entity.setIdSubfuenteFinanciamiento(dto.getIdSubfuenteFinanciamiento());
+                entity.setIdFuenteFinanciamiento(
+                        dto.getIdFuenteFinanciamiento());
+                entity.setIdSubfuenteFinanciamiento(
+                        dto.getIdSubfuenteFinanciamiento());
                 entity.setIdTipoRecurso(dto.getIdTipoRecurso());
                 entity.setIdEstadoEmpleado(dto.getIdEstadoEmpleado());
                 entity.setIdNomina(dto.getIdNomina());

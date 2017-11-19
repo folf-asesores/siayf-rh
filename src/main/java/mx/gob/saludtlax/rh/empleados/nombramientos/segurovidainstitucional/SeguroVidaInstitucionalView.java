@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoDependienteEconomicoDTO;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class SeguroVidaInstitucionalView implements Serializable {
@@ -99,7 +99,8 @@ public class SeguroVidaInstitucionalView implements Serializable {
         return seguroVidaInstitucionalDTONuevo;
     }
 
-    public void setSeguroVidaInstitucionalDTONuevo(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo) {
+    public void setSeguroVidaInstitucionalDTONuevo(
+            SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTONuevo) {
         this.seguroVidaInstitucionalDTONuevo = seguroVidaInstitucionalDTONuevo;
     }
 
@@ -107,7 +108,8 @@ public class SeguroVidaInstitucionalView implements Serializable {
         return beneficiariosDTOsNuevos;
     }
 
-    public void setBeneficiariosDTOsNuevos(List<BeneficiariosDTO> beneficiariosDTOsNuevos) {
+    public void setBeneficiariosDTOsNuevos(
+            List<BeneficiariosDTO> beneficiariosDTOsNuevos) {
         this.beneficiariosDTOsNuevos = beneficiariosDTOsNuevos;
     }
 
@@ -115,7 +117,8 @@ public class SeguroVidaInstitucionalView implements Serializable {
         return infoDependienteEconomicoDTOSeleccionado;
     }
 
-    public void setInfoDependienteEconomicoDTOSeleccionado(InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado) {
+    public void setInfoDependienteEconomicoDTOSeleccionado(
+            InfoDependienteEconomicoDTO infoDependienteEconomicoDTOSeleccionado) {
         this.infoDependienteEconomicoDTOSeleccionado = infoDependienteEconomicoDTOSeleccionado;
     }
 
@@ -123,7 +126,8 @@ public class SeguroVidaInstitucionalView implements Serializable {
         return listaDependientesEconomicos;
     }
 
-    public void setListaDependientesEconomicos(List<InfoDependienteEconomicoDTO> listaDependientesEconomicos) {
+    public void setListaDependientesEconomicos(
+            List<InfoDependienteEconomicoDTO> listaDependientesEconomicos) {
         this.listaDependientesEconomicos = listaDependientesEconomicos;
     }
 
@@ -195,7 +199,8 @@ public class SeguroVidaInstitucionalView implements Serializable {
         return datosEmpleadoSeleccionado;
     }
 
-    public void setDatosEmpleadoSeleccionado(boolean datosEmpleadoSeleccionado) {
+    public void setDatosEmpleadoSeleccionado(
+            boolean datosEmpleadoSeleccionado) {
         this.datosEmpleadoSeleccionado = datosEmpleadoSeleccionado;
     }
 

@@ -28,7 +28,8 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 public class DispersionReporteService implements Serializable {
 
     private static final long serialVersionUID = -4661079055687311613L;
-    private static final Logger LOGGER = Logger.getLogger(DispersionReporteService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DispersionReporteService.class.getName());
 
     private File archivoDispersion;
 
@@ -40,7 +41,9 @@ public class DispersionReporteService implements Serializable {
             return obternerBytes();
         } catch (IOException ex) {
             LOGGER.error(ex);
-            throw new SistemaException("No fue posible generar el archivo temporal", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException(
+                    "No fue posible generar el archivo temporal",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
@@ -60,12 +63,15 @@ public class DispersionReporteService implements Serializable {
             }
         } catch (IOException ex) {
             LOGGER.error(ex);
-            throw new SistemaException("No fue posible escribir/leer el archivo temporal", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException(
+                    "No fue posible escribir/leer el archivo temporal",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
     private byte[] obternerBytes() {
-        try (FileInputStream fis = new FileInputStream(archivoDispersion); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(archivoDispersion);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buffer = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buffer)) != -1;) {
@@ -77,7 +83,8 @@ public class DispersionReporteService implements Serializable {
             return bytes;
         } catch (IOException ex) {
             LOGGER.error(ex);
-            throw new SistemaException("Error escribir/leer archivo final", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Error escribir/leer archivo final",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 

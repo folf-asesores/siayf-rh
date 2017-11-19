@@ -43,13 +43,16 @@ public class EstrategiaEJB implements Estrategia {
     }
 
     @Override
-    public List<String> consultarDescripcionEstrategiaPorCriterio(String criterio) {
-        return estrategiaService.consultarDescripcionEstrategiaPorCriterio(criterio);
+    public List<String> consultarDescripcionEstrategiaPorCriterio(
+            String criterio) {
+        return estrategiaService
+                .consultarDescripcionEstrategiaPorCriterio(criterio);
     }
 
     @Override
     public Integer consultarIdEstrategiaPorDescripcion(String descripcion) {
-        return estrategiaService.consultarIdEstrategiaPorDescripcion(descripcion);
+        return estrategiaService
+                .consultarIdEstrategiaPorDescripcion(descripcion);
     }
 
     @Override

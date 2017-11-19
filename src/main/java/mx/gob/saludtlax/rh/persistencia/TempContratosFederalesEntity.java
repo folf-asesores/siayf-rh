@@ -82,7 +82,8 @@ public class TempContratosFederalesEntity implements Serializable {
         return idTemporalConfiguracionEmpleado;
     }
 
-    public void setIdTemporalConfiguracionEmpleado(Integer idTemporalConfiguracionEmpleado) {
+    public void setIdTemporalConfiguracionEmpleado(
+            Integer idTemporalConfiguracionEmpleado) {
         this.idTemporalConfiguracionEmpleado = idTemporalConfiguracionEmpleado;
     }
 

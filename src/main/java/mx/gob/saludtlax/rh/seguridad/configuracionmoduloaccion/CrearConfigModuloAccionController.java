@@ -30,7 +30,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "crearConfigModuloAccion")
@@ -42,7 +42,8 @@ public class CrearConfigModuloAccionController implements Serializable {
      */
     private static final long serialVersionUID = -6478581873009415107L;
 
-    private static final Logger LOGGER = Logger.getLogger(CrearConfigModuloAccionController.class);
+    private static final Logger LOGGER = Logger
+            .getLogger(CrearConfigModuloAccionController.class);
 
     @Inject
     private Modulos moduloEJB;
@@ -70,16 +71,21 @@ public class CrearConfigModuloAccionController implements Serializable {
         ModuloDTO modulo = new ModuloDTO();
 
         for (ModuloDTO mod : view.getListaModulos()) {
-            if (mod.getIdModulo().compareTo(view.getConfiguracionModuloAccionDTONew().getModulo().getIdModulo()) == 0) {
+            if (mod.getIdModulo()
+                    .compareTo(view.getConfiguracionModuloAccionDTONew()
+                            .getModulo().getIdModulo()) == 0) {
                 modulo = mod;
             }
         }
-        view.setListaAcciones(accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo())));
+        view.setListaAcciones(accionEJB
+                .obtenerListaAccionesPorModulo((modulo.getIdModulo())));
 
-        List<AccionDTO> accionSource = accionEJB.obtenerListaAccionesPorModulo((modulo.getIdModulo()));
+        List<AccionDTO> accionSource = accionEJB
+                .obtenerListaAccionesPorModulo((modulo.getIdModulo()));
         List<AccionDTO> accionTarget = new ArrayList<>();
 
-        view.setPikListAcciones(new DualListModel<>(accionSource, accionTarget));
+        view.setPikListAcciones(
+                new DualListModel<>(accionSource, accionTarget));
 
     }
 
@@ -89,7 +95,8 @@ public class CrearConfigModuloAccionController implements Serializable {
 
         view.getConfiguracionModuloAccionDTONew().setAcciones(acciones);
 
-        configuracionModuloAccion.crear(view.getConfiguracionModuloAccionDTONew());
+        configuracionModuloAccion
+                .crear(view.getConfiguracionModuloAccionDTONew());
 
         JSFUtils.infoMessage("Configuración: ", "¡Se registro correctamente!");
         init();
@@ -99,7 +106,8 @@ public class CrearConfigModuloAccionController implements Serializable {
     public void onTransfer(TransferEvent event) {
         StringBuilder builder = new StringBuilder();
         for (Object item : event.getItems()) {
-            builder.append(((AccionDTO) item).getDescripcion()).append("<br />");
+            builder.append(((AccionDTO) item).getDescripcion())
+                    .append("<br />");
         }
 
         LOGGER.debug("Acciones agregadas: " + builder.toString());
@@ -118,7 +126,8 @@ public class CrearConfigModuloAccionController implements Serializable {
 
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -127,7 +136,9 @@ public class CrearConfigModuloAccionController implements Serializable {
                 Integer modulo = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un modulo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -137,15 +148,15 @@ public class CrearConfigModuloAccionController implements Serializable {
                 Integer accion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(accion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una acción.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una acción.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
                 break;
         }
     }
-
-    
 
     /**
      * @return the view

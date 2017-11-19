@@ -20,7 +20,8 @@ public class FuenteFinanciamientoController {
     @PostConstruct
     public void initFuenteFinanciamiento() {
         view = new FuenteFinanciamientoView();
-        view.setListFuenteFinanciamiento(ejb.obtenerFuenteFinanciamientoLista());
+        view.setListFuenteFinanciamiento(
+                ejb.obtenerFuenteFinanciamientoLista());
 
     }
 
@@ -36,11 +37,14 @@ public class FuenteFinanciamientoController {
         view.setNuevaFuenteFinanciamiento(dto);
     }
 
-    public void eliminarFuenteFinanciamiento(Integer idFuenteFinanciamiento, String fuente) {
+    public void eliminarFuenteFinanciamiento(Integer idFuenteFinanciamiento,
+            String fuente) {
         try {
             ejb.eliminarFuenteFinanciamiento(idFuenteFinanciamiento);
-            JSFUtils.infoMessage("", "La fuente de financiamiento " + fuente.toLowerCase() + "ha sido eliminada con éxito.");
-            view.setListFuenteFinanciamiento(ejb.obtenerFuenteFinanciamientoLista());
+            JSFUtils.infoMessage("", "La fuente de financiamiento "
+                    + fuente.toLowerCase() + "ha sido eliminada con éxito.");
+            view.setListFuenteFinanciamiento(
+                    ejb.obtenerFuenteFinanciamientoLista());
 
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -53,13 +57,17 @@ public class FuenteFinanciamientoController {
             ejb.crearFuenteFinanciamiento(view.getNuevaFuenteFinanciamiento());
             view.setMostrarRegistroFuenteFinanciamiento(false);
             JSFUtils.infoMessage("",
-                    "Se ha registrado con éxito la fuente de financiamiento " + view.getNuevaFuenteFinanciamiento().getDescripcion().toLowerCase());
+                    "Se ha registrado con éxito la fuente de financiamiento "
+                            + view.getNuevaFuenteFinanciamiento()
+                                    .getDescripcion().toLowerCase());
             FuenteFinanciamientoDTO dto = new FuenteFinanciamientoDTO();
             view.setNuevaFuenteFinanciamiento(dto);
-            view.setListFuenteFinanciamiento(ejb.obtenerFuenteFinanciamientoLista());
+            view.setListFuenteFinanciamiento(
+                    ejb.obtenerFuenteFinanciamientoLista());
 
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
 
     }

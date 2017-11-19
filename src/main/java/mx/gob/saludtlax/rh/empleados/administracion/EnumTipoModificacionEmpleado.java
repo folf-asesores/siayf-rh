@@ -5,8 +5,8 @@
 package mx.gob.saludtlax.rh.empleados.administracion;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 18:56:32 29/09/2016
  */

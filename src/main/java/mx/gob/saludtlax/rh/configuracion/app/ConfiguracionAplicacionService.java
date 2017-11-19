@@ -29,7 +29,8 @@ public class ConfiguracionAplicacionService {
     private ConfiguracionAplicacionRepository configuracionAplicacionRepository;
 
     protected void setConfiguracion(String clave, String valor) {
-        ConfiguracionAplicacionEntity entity = new ConfiguracionAplicacionEntity(clave, valor);
+        ConfiguracionAplicacionEntity entity = new ConfiguracionAplicacionEntity(
+                clave, valor);
         configuracionAplicacionRepository.crear(entity);
     }
 
@@ -37,15 +38,18 @@ public class ConfiguracionAplicacionService {
         try {
             return configuracionAplicacionRepository.getConfiguracion(clave);
         } catch (NoResultException ex) {
-            throw new SistemaException("La clave no existe", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException("La clave no existe",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
     }
 
     protected Map<String, String> getTodasConfiguraciones() {
         Map<String, String> configuraciones = new HashMap<>();
 
-        for (ConfiguracionAplicacionEntity configuracionEntidad : configuracionAplicacionRepository.getTodasConfiguraciones()) {
-            configuraciones.put(configuracionEntidad.getClave(), configuracionEntidad.getValor());
+        for (ConfiguracionAplicacionEntity configuracionEntidad : configuracionAplicacionRepository
+                .getTodasConfiguraciones()) {
+            configuraciones.put(configuracionEntidad.getClave(),
+                    configuracionEntidad.getValor());
         }
 
         return configuraciones;
@@ -54,8 +58,10 @@ public class ConfiguracionAplicacionService {
     protected Map<String, String> getConfiguraciones(List<String> claves) {
         Map<String, String> configuraciones = new HashMap<>();
 
-        for (ConfiguracionAplicacionEntity configuracionEntidad : configuracionAplicacionRepository.getConfiguraciones(claves)) {
-            configuraciones.put(configuracionEntidad.getClave(), configuracionEntidad.getValor());
+        for (ConfiguracionAplicacionEntity configuracionEntidad : configuracionAplicacionRepository
+                .getConfiguraciones(claves)) {
+            configuraciones.put(configuracionEntidad.getClave(),
+                    configuracionEntidad.getValor());
         }
 
         return configuraciones;

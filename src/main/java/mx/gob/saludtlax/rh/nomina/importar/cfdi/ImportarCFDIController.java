@@ -26,7 +26,8 @@ public class ImportarCFDIController implements Serializable {
      */
     private static final long serialVersionUID = 8832526481251622355L;
 
-    private static final Logger LOGGER = Logger.getLogger(ImportarPaqueteCFDIController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ImportarPaqueteCFDIController.class.getName());
 
     private boolean mostrarTabla = false;
 
@@ -40,8 +41,10 @@ public class ImportarCFDIController implements Serializable {
         try {
             {
 
-                String comprobante = IOUtils.toString(event.getFile().getInputstream(), "UTF-8");
-                listadoComprobanteNominaFuture.add(comprobanteNominaService.tranformComprobanteToNominaTimbrado(comprobante));
+                String comprobante = IOUtils
+                        .toString(event.getFile().getInputstream(), "UTF-8");
+                listadoComprobanteNominaFuture.add(comprobanteNominaService
+                        .tranformComprobanteToNominaTimbrado(comprobante));
                 event.getFile().getInputstream().close();
                 mostrarTabla = true;
 
@@ -78,7 +81,8 @@ public class ImportarCFDIController implements Serializable {
         return listadoComprobanteNomina;
     }
 
-    public void setListadoComprobanteNomina(List<ComprobanteNominaView> listadoComprobanteNomina) {
+    public void setListadoComprobanteNomina(
+            List<ComprobanteNominaView> listadoComprobanteNomina) {
         this.listadoComprobanteNomina = listadoComprobanteNomina;
     }
 

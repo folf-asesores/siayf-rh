@@ -1,7 +1,8 @@
 
 package mx.gob.saludtlax.rh.persistencia;
 
-public class MovimientosNominaRepository extends GenericRepository<MovimientosNominaEntity, Integer> {
+public class MovimientosNominaRepository
+        extends GenericRepository<MovimientosNominaEntity, Integer> {
 
     /**
      *

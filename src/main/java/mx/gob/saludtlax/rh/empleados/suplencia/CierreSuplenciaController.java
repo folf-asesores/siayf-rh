@@ -48,24 +48,33 @@ public class CierreSuplenciaController implements Serializable {
             view.getListaQuincenas().add(new SelectItem(i, "Quincena-" + i));
         }
         view.setListaEstatus(SelectItemsUtil.listaEstatusSuplenciasCierre());
-        view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
-        view.setListaFuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.listaFuentesFinanciamientos()));
-        view.setListaTiposRecursos(SelectItemsUtil.listaCatalogos(catalogo.listaTiposRecursos()));
-        view.setListaCuentaFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.consultarCuentasBancariasActuales()));
-        view.setListaProyectos(SelectItemsUtil.listaCatalogos(catalogo.consultarProyectos()));
-        view.setListaSubfuentesFinanciamiento(SelectItemsUtil.listaCatalogos(catalogo.listaSubfuentesFinanciamientos()));
+        view.setListaDependencias(
+                SelectItemsUtil.listaCatalogos(catalogo.listaDependencias()));
+        view.setListaFuentesFinanciamiento(SelectItemsUtil
+                .listaCatalogos(catalogo.listaFuentesFinanciamientos()));
+        view.setListaTiposRecursos(
+                SelectItemsUtil.listaCatalogos(catalogo.listaTiposRecursos()));
+        view.setListaCuentaFinanciamiento(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarCuentasBancariasActuales()));
+        view.setListaProyectos(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarProyectos()));
+        view.setListaSubfuentesFinanciamiento(SelectItemsUtil
+                .listaCatalogos(catalogo.listaSubfuentesFinanciamientos()));
     }
 
     public void consultarDetallesQuincena() {
         view.setMostrarColumnasCierre(false);
         view.getListaDetalles().clear();
-        view.setListaDetalles(suplencia.consultarQuincenasSuplente(view.getNumeroQuincena(), FechaUtil.ejercicioActual(), view.getEstatus()));
+        view.setListaDetalles(
+                suplencia.consultarQuincenasSuplente(view.getNumeroQuincena(),
+                        FechaUtil.ejercicioActual(), view.getEstatus()));
         if (view.getEstatus().equals(EnumEstatusSuplencia.CERRADA)) {
             view.setMostrarColumnasCierre(true);
         }
     }
 
-    public void mostrarDesglose(Integer idSuplenteAutorizado, String suplente, Integer idQuincena, String estatus) {
+    public void mostrarDesglose(Integer idSuplenteAutorizado, String suplente,
+            Integer idQuincena, String estatus) {
         view.getDesglose().clear();
         view.getCierre().setIdQuincena(idQuincena);
         ConsultaSuplenciaDTO dto = new ConsultaSuplenciaDTO();
@@ -88,8 +97,10 @@ public class CierreSuplenciaController implements Serializable {
             view.getCierre().setIdDependencia(c.getIdDependencia());
             obtenerUnidadesResponsables();
             view.getCierre().setIdUnidadResponsable(c.getIdUnidadResponsable());
-            view.getCierre().setIdFuenteFinanciamiento(c.getIdFuenteFinanciamiento());
-            view.getCierre().setIdSubfuenteFinanciamiento(c.getIdSubfuenteFinanciamiento());
+            view.getCierre()
+                    .setIdFuenteFinanciamiento(c.getIdFuenteFinanciamiento());
+            view.getCierre().setIdSubfuenteFinanciamiento(
+                    c.getIdSubfuenteFinanciamiento());
             view.getCierre().setIdTipoRecurso(c.getIdTipoRecurso());
 
         }
@@ -101,9 +112,11 @@ public class CierreSuplenciaController implements Serializable {
             suplencia.regresarARevision(view.getCierre().getIdQuincena());
             view.setMostrarDesglose(false);
             view.setMostrarBusqueda(true);
-            JSFUtils.infoMessage("", "La suplencia ha sido enviada a revisión con éxito.");
+            JSFUtils.infoMessage("",
+                    "La suplencia ha sido enviada a revisión con éxito.");
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("errorCierre", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorCierre", "",
+                    exception.getMessage());
         }
     }
 
@@ -126,8 +139,9 @@ public class CierreSuplenciaController implements Serializable {
     public void obtenerUnidadesResponsables() {
         view.getListaUnidadesResponsables().clear();
         if (view.getCierre().getIdDependencia() != 0) {
-            view.setListaUnidadesResponsables(
-                    SelectItemsUtil.listaCatalogos(catalogo.listaUnidadesResponsablesPorDependencia(view.getCierre().getIdDependencia())));
+            view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
+                    catalogo.listaUnidadesResponsablesPorDependencia(
+                            view.getCierre().getIdDependencia())));
         }
 
     }
@@ -141,7 +155,8 @@ public class CierreSuplenciaController implements Serializable {
             view.setMostrarBusqueda(true);
             consultarDetallesQuincena();
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
 
     }

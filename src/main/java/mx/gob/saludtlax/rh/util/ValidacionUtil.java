@@ -12,8 +12,8 @@ import java.util.regex.Pattern;
 import org.joda.time.DateTime;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 18/03/2016 11:43:25
  */
 public class ValidacionUtil {
@@ -121,7 +121,8 @@ public class ValidacionUtil {
 
     }
 
-    public static boolean sonIguales(BigDecimal primerImporte, BigDecimal segundoImporte) {
+    public static boolean sonIguales(BigDecimal primerImporte,
+            BigDecimal segundoImporte) {
         boolean sonIguales = false;
         if (primerImporte.compareTo(segundoImporte) == 0) {
             sonIguales = true;
@@ -219,7 +220,8 @@ public class ValidacionUtil {
      */
     public static boolean validarCurp(String curp) {
         curp = curp.toUpperCase().trim();
-        return curp.toUpperCase().matches("[A-Z]{4}[0-9]{6}[A-Z]{3}[A-Z0-9]{5}");
+        return curp.toUpperCase()
+                .matches("[A-Z]{4}[0-9]{6}[A-Z]{3}[A-Z0-9]{5}");
     }
 
     /**

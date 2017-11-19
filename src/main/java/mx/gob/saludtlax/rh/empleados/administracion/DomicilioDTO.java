@@ -34,22 +34,30 @@ public class DomicilioDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "DomicilioDTO [calle=" + calle + ", numeroExterior=" + numeroExterior + ", numeroInterior=" + numeroInterior + ", codigoPostal=" + codigoPostal
-                + ", idEstado=" + idEstado + ", idMunicipio=" + idMunicipio + ", idAsentamiento=" + idAsentamiento + ", tieneDireccion=" + tieneDireccion + "]";
+        return "DomicilioDTO [calle=" + calle + ", numeroExterior="
+                + numeroExterior + ", numeroInterior=" + numeroInterior
+                + ", codigoPostal=" + codigoPostal + ", idEstado=" + idEstado
+                + ", idMunicipio=" + idMunicipio + ", idAsentamiento="
+                + idAsentamiento + ", tieneDireccion=" + tieneDireccion + "]";
     }
 
     public String lccDireccion() {
-        return "DomicilioDTO [calle=" + calle + ", numeroExterior=" + numeroExterior + ", numeroInterior=" + numeroInterior + ", codigoPostal=" + codigoPostal
-                + ", idEstado=" + idEstado + ", idMunicipio=" + idMunicipio + ", idAsentamiento=" + idAsentamiento + "]";
+        return "DomicilioDTO [calle=" + calle + ", numeroExterior="
+                + numeroExterior + ", numeroInterior=" + numeroInterior
+                + ", codigoPostal=" + codigoPostal + ", idEstado=" + idEstado
+                + ", idMunicipio=" + idMunicipio + ", idAsentamiento="
+                + idAsentamiento + "]";
     }
 
     public boolean tieneDatosObligatorios() {
         boolean tieneDatosObligatorios = true;
-        if (ValidacionUtil.esCadenaVacia(calle) || ValidacionUtil.esCadenaVacia(numeroExterior)) {
+        if (ValidacionUtil.esCadenaVacia(calle)
+                || ValidacionUtil.esCadenaVacia(numeroExterior)) {
             tieneDatosObligatorios = false;
         }
 
-        if (!ValidacionUtil.esNumeroPositivo(codigoPostal) || !ValidacionUtil.esNumeroPositivo(idMunicipio)
+        if (!ValidacionUtil.esNumeroPositivo(codigoPostal)
+                || !ValidacionUtil.esNumeroPositivo(idMunicipio)
                 || !ValidacionUtil.esNumeroPositivo(idAsentamiento)) {
             tieneDatosObligatorios = false;
         }

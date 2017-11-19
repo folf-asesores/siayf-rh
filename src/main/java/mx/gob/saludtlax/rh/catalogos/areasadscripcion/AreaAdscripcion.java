@@ -17,7 +17,8 @@ public interface AreaAdscripcion {
      */
     AreaAdscripcionDTO obtenerPorId(int idAreaAdscripcion);
 
-    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(TipoFiltro filtro, Integer idFiltro);
+    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(
+            TipoFiltro filtro, Integer idFiltro);
 
     /**
      * Permite consultar las descripciones de las áreas de adscripción que

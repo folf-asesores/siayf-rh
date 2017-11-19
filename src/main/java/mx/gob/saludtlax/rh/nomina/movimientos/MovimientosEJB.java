@@ -38,7 +38,8 @@ public class MovimientosEJB implements Movimientos {
         movimiento.setIdMovimientoNomina(0);
         movimiento.setClave("tr");
         movimiento.setDescripcion("Terceros");
-        movimiento.setFormaRegistro(FormasRegistroMovimientos.MOVIMIENTOS_FIJOS.getId());
+        movimiento.setFormaRegistro(
+                FormasRegistroMovimientos.MOVIMIENTOS_FIJOS.getId());
         movimiento.setEsMovimiento(true);
         movimientosLista.add(movimiento);
         movimientosLista.addAll(service.getMovimientosLista());
@@ -57,13 +58,18 @@ public class MovimientosEJB implements Movimientos {
     }
 
     @Override
-    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado, String movimientoSeleccionado) {
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            InfoEmpleadoDTO empleadoSeleccionado,
+            String movimientoSeleccionado) {
 
         if (movimientoSeleccionado.contentEquals("tr")) {
-            return service.obtenerMovimientosTercerosPorEmpleado(empleadoSeleccionado);
+            return service.obtenerMovimientosTercerosPorEmpleado(
+                    empleadoSeleccionado);
         }
-        TipoMovimientoNominaDTO movDto = tipoMovimientoRepository.obtenerMovimientoPorClave(movimientoSeleccionado);
-        return service.obtenerMovimientosPorEmpleado(empleadoSeleccionado, movDto);
+        TipoMovimientoNominaDTO movDto = tipoMovimientoRepository
+                .obtenerMovimientoPorClave(movimientoSeleccionado);
+        return service.obtenerMovimientosPorEmpleado(empleadoSeleccionado,
+                movDto);
     }
 
     @Override

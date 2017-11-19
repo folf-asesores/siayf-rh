@@ -110,7 +110,8 @@ public class HabilitacionSuplenteView {
         return listaCentrosResponsabilidades;
     }
 
-    public void setListaCentrosResponsabilidades(List<SelectItem> listaCentrosResponsabilidades) {
+    public void setListaCentrosResponsabilidades(
+            List<SelectItem> listaCentrosResponsabilidades) {
         this.listaCentrosResponsabilidades = listaCentrosResponsabilidades;
     }
 
@@ -134,7 +135,8 @@ public class HabilitacionSuplenteView {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 
@@ -198,7 +200,8 @@ public class HabilitacionSuplenteView {
         return mostrarHabilitacionSuplente;
     }
 
-    public void setMostrarHabilitacionSuplente(boolean mostrarHabilitacionSuplente) {
+    public void setMostrarHabilitacionSuplente(
+            boolean mostrarHabilitacionSuplente) {
         this.mostrarHabilitacionSuplente = mostrarHabilitacionSuplente;
     }
 

@@ -49,12 +49,14 @@ public class InterinatoService {
     @Inject
     private AutorizacionesService autorizacionesService;
 
-    protected List<DisponiblesInterinatoDTO> consultarDisponiblesInterinato(Integer tipoBusqueda) {
+    protected List<DisponiblesInterinatoDTO> consultarDisponiblesInterinato(
+            Integer tipoBusqueda) {
 
         List<InventarioVacanteEntity> puestosDisponibles = null;
 
         if (tipoBusqueda == EnumTipoBusquedaInterinato.POR_PERMISO) {
-            puestosDisponibles = inventarioVacanteRepository.consultarDisponiblesInterinatoPorPermiso();
+            puestosDisponibles = inventarioVacanteRepository
+                    .consultarDisponiblesInterinatoPorPermiso();
         } else {
             List<Integer> tiposContratacion = new ArrayList<>();
             tiposContratacion.add(EnumTipoContratacion.BASE);
@@ -73,10 +75,13 @@ public class InterinatoService {
                     dto.setAdscripcion("SIN ADSCRIPCION ASIGNADA");
                 }
 
-                dto.setContratacion(e.getTipoContratacion().getTipoContratacion());
+                dto.setContratacion(
+                        e.getTipoContratacion().getTipoContratacion());
                 dto.setFechaFin(e.getMovimientoPermiso().getFechaFinPermiso());
-                dto.setFechaInicio(e.getMovimientoPermiso().getFechaInicioPermiso());
-                dto.setIdMovimiento(e.getMovimientoPermiso().getIdMovimientoEmpleado());
+                dto.setFechaInicio(
+                        e.getMovimientoPermiso().getFechaInicioPermiso());
+                dto.setIdMovimiento(
+                        e.getMovimientoPermiso().getIdMovimientoEmpleado());
                 if (e.getFuncion() != null) {
                     dto.setFuncion(e.getFuncion().getFuncion());
                 } else {
@@ -89,12 +94,14 @@ public class InterinatoService {
                     dto.setServicio("SIN SERVICIO ASIGNADO");
                 }
                 if (e.getSubadscripcion() != null) {
-                    dto.setSubadscripcion(e.getSubadscripcion().getSubadscripcion());
+                    dto.setSubadscripcion(
+                            e.getSubadscripcion().getSubadscripcion());
                 } else {
                     dto.setSubadscripcion("SIN SUBADSCRIPCION ASIGNADA.");
                 }
 
-                dto.setMotivoPermiso(e.getMovimientoPermiso().getMovimiento().getMovimiento());
+                dto.setMotivoPermiso(e.getMovimientoPermiso().getMovimiento()
+                        .getMovimiento());
                 dto.setEmpleado(e.getEmpleadoActivo().getNombre());
 
                 candidatos.add(dto);
@@ -109,48 +116,71 @@ public class InterinatoService {
 
     protected void crearSolicitudInterinato(InterinatoDTO interinato) {
 
-        UsuarioEntity usuarioEntity = usuarioRepository.obtenerPorId(interinato.getIdUsuario());
+        UsuarioEntity usuarioEntity = usuarioRepository
+                .obtenerPorId(interinato.getIdUsuario());
         if (usuarioEntity == null) {
-            throw new ReglaNegocioException("Usuario no encontrado", ReglaNegocioCodigoError.USUARIO_NO_ENCONTRADO);
+            throw new ReglaNegocioException("Usuario no encontrado",
+                    ReglaNegocioCodigoError.USUARIO_NO_ENCONTRADO);
         }
-        InventarioVacanteEntity puestoPropietario = inventarioVacanteRepository.obtenerPorId(interinato.getIdPuesto());
+        InventarioVacanteEntity puestoPropietario = inventarioVacanteRepository
+                .obtenerPorId(interinato.getIdPuesto());
 
         if (puestoPropietario == null) {
-            throw new ValidacionException("No se encontró registro del puesto solicitado.", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontró registro del puesto solicitado.",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         if (puestoPropietario.getDisponible().equals("SI")) {
-            throw new ReglaNegocioException("El puesto " + puestoPropietario.getFolioVacante() + " no tiene asignado un empleado.",
+            throw new ReglaNegocioException(
+                    "El puesto " + puestoPropietario.getFolioVacante()
+                            + " no tiene asignado un empleado.",
                     ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
         }
 
         if (puestoPropietario.getInterino()) {
-            throw new ReglaNegocioException("El puesto ya tiene asignado un interino.", ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
+            throw new ReglaNegocioException(
+                    "El puesto ya tiene asignado un interino.",
+                    ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
         }
         String candidato = "";
 
         if (interinato.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
 
-            String estatusAspirante = aspiranteRepository.obtenerEstatusAspirantePorId(interinato.getIdContexto());
+            String estatusAspirante = aspiranteRepository
+                    .obtenerEstatusAspirantePorId(interinato.getIdContexto());
             if (estatusAspirante.equals(EnumEstatusAspirante.EMPLEADO)) {
-                throw new ReglaNegocioException("El aspirante se encuentra activo como empleado", ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
+                throw new ReglaNegocioException(
+                        "El aspirante se encuentra activo como empleado",
+                        ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
             }
 
-            candidato = aspiranteRepository.obtenerNombreAspirante(interinato.getIdContexto());
-        } else if (interinato.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-            if (!empleadoRepository.existeIdEmpleado(interinato.getIdContexto())) {
-                throw new ValidacionException("No se encontró al empleado con identificador " + interinato.getIdContexto(),
+            candidato = aspiranteRepository
+                    .obtenerNombreAspirante(interinato.getIdContexto());
+        } else if (interinato
+                .getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+            if (!empleadoRepository
+                    .existeIdEmpleado(interinato.getIdContexto())) {
+                throw new ValidacionException(
+                        "No se encontró al empleado con identificador "
+                                + interinato.getIdContexto(),
                         ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
             }
 
-            String tipoContratacion = inventarioVacanteRepository.obtenerTipoContratacionEmpleadoActivo(interinato.getIdContexto());
+            String tipoContratacion = inventarioVacanteRepository
+                    .obtenerTipoContratacionEmpleadoActivo(
+                            interinato.getIdContexto());
 
             if (tipoContratacion != null) {
-                throw new ReglaNegocioException("El empleado cuenta con un puesto activo en " + tipoContratacion.toLowerCase()
-                        + " es requerido darle de baja para poder asignarlo a un interinato.", ReglaNegocioCodigoError.EMPLEADO_CON_PUESTO_ACTIVO);
+                throw new ReglaNegocioException(
+                        "El empleado cuenta con un puesto activo en "
+                                + tipoContratacion.toLowerCase()
+                                + " es requerido darle de baja para poder asignarlo a un interinato.",
+                        ReglaNegocioCodigoError.EMPLEADO_CON_PUESTO_ACTIVO);
             }
 
-            candidato = empleadoRepository.obtenerNombreEmpleadoId(interinato.getIdContexto());
+            candidato = empleadoRepository
+                    .obtenerNombreEmpleadoId(interinato.getIdContexto());
 
         }
 
@@ -162,12 +192,16 @@ public class InterinatoService {
         nuevoInterinato.setIdContexto(interinato.getIdContexto());
         interinatoRepository.crear(nuevoInterinato);
 
-        String mensaje = " interinato para el candidato " + candidato.toLowerCase() + " para cubrir la "
-                + puestoPropietario.getMovimientoPermiso().getMovimiento().getMovimiento() + " del empleado "
-                + puestoPropietario.getEmpleadoActivo().getNombreCompleto().toLowerCase();
+        String mensaje = " interinato para el candidato "
+                + candidato.toLowerCase() + " para cubrir la "
+                + puestoPropietario.getMovimientoPermiso().getMovimiento()
+                        .getMovimiento()
+                + " del empleado " + puestoPropietario.getEmpleadoActivo()
+                        .getNombreCompleto().toLowerCase();
         // Iniciar proceso de autorizacion
         NuevaAutorizacionDTO autorizacion = new NuevaAutorizacionDTO();
-        autorizacion.setIdAccion(EnumTiposAccionesAutorizacion.APERTURA_INTERINATO);
+        autorizacion
+                .setIdAccion(EnumTiposAccionesAutorizacion.APERTURA_INTERINATO);
         autorizacion.setIdEntidadContexto(nuevoInterinato.getIdInterinato());
         autorizacion.setIdUsuarioLogeado(usuarioEntity.getIdUsuario());
         autorizacion.setMensajeNotificacion(mensaje);

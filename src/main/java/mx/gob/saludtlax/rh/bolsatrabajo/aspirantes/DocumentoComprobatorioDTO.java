@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.bolsatrabajo.aspirantes;
 import java.io.Serializable;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class DocumentoComprobatorioDTO implements Serializable {

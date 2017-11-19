@@ -64,7 +64,8 @@ public interface Notificacion {
      * @return una lista con las notificaciones del usuario, en caso de no tener
      *         notificaciones se retorna una lista vacia.
      */
-    List<NotificacionDTO> consultarNotificacionesPorIdUsuario(Integer idUsuario);
+    List<NotificacionDTO> consultarNotificacionesPorIdUsuario(
+            Integer idUsuario);
 
     /**
      * Permite obtener la notificaciones que el usuario no ha visto por medio
@@ -76,6 +77,7 @@ public interface Notificacion {
      * @return una lista con las notificaciones del usuario, en caso de no tener
      *         notificaciones se retorna una lista vacia.
      */
-    List<NotificacionDTO> consultarNotificacionesPorIdUsuarioNoVistas(Integer idUsuario);
+    List<NotificacionDTO> consultarNotificacionesPorIdUsuarioNoVistas(
+            Integer idUsuario);
 
 }

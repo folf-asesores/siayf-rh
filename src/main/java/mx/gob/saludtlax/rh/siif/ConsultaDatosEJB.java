@@ -23,19 +23,24 @@ public class ConsultaDatosEJB implements DatosPersonales, Serializable {
 
     @Override
     public List<DatosPersonalesDTO> obtenerListaConsultaPorRfc() {
-        List<DatosPersonalesDTO> dto = consultaDatosService.obtenerListaDatosPersonal();
+        List<DatosPersonalesDTO> dto = consultaDatosService
+                .obtenerListaDatosPersonal();
         return dto;
     }
 
     @Override
-    public void eliminarDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect) {
+    public void eliminarDatosPersonales(
+            DatosPersonalesDTO DatosPersonalesSelect) {
         consultaDatosService.eliminarDatosPersonales(DatosPersonalesSelect);
 
     }
 
     @Override
-    public DatosPersonalesDTO obtenerDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect) {
-        DatosPersonalesDTO dto = consultaDatosService.obtenerDatosPersonalesPorId(DatosPersonalesSelect.getIdDatoPersonal());
+    public DatosPersonalesDTO obtenerDatosPersonales(
+            DatosPersonalesDTO DatosPersonalesSelect) {
+        DatosPersonalesDTO dto = consultaDatosService
+                .obtenerDatosPersonalesPorId(
+                        DatosPersonalesSelect.getIdDatoPersonal());
         return dto;
     }
 
@@ -57,8 +62,10 @@ public class ConsultaDatosEJB implements DatosPersonales, Serializable {
     }
 
     @Override
-    public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(String rfc) {
-        List<DatosPersonalesDTO> list = consultaDatosService.obtenerListaDatosPersonalesPorCriterio(rfc);
+    public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(
+            String rfc) {
+        List<DatosPersonalesDTO> list = consultaDatosService
+                .obtenerListaDatosPersonalesPorCriterio(rfc);
         return list;
 
     }
@@ -66,7 +73,8 @@ public class ConsultaDatosEJB implements DatosPersonales, Serializable {
     @Override
     public Boolean verificaIdDatoPersonal(int idDatoPersonal) {
         int existe = 0;
-        existe = consultaDatosService.verificaDatosPersonalesPorId(idDatoPersonal);
+        existe = consultaDatosService
+                .verificaDatosPersonalesPorId(idDatoPersonal);
         if (existe == 1) {
             return true;
         } else {

@@ -55,7 +55,8 @@ public class ConceptosNominaView implements Serializable {
         return conceptoNominaSelect;
     }
 
-    public void setConceptoNominaSelect(ConceptoNominaDTO conceptoNominaSelect) {
+    public void setConceptoNominaSelect(
+            ConceptoNominaDTO conceptoNominaSelect) {
         this.conceptoNominaSelect = conceptoNominaSelect;
     }
 
@@ -63,7 +64,8 @@ public class ConceptosNominaView implements Serializable {
         return conceptoNominaLista;
     }
 
-    public void setConceptoNominaLista(List<ConceptoNominaDTO> conceptoNominaLista) {
+    public void setConceptoNominaLista(
+            List<ConceptoNominaDTO> conceptoNominaLista) {
         this.conceptoNominaLista = conceptoNominaLista;
     }
 
@@ -119,7 +121,8 @@ public class ConceptosNominaView implements Serializable {
         return estatusConceptoNominaLista;
     }
 
-    public void setEstatusConceptoNominaLista(List<EstatusConceptoNominaDTO> estatusConceptoNominaLista) {
+    public void setEstatusConceptoNominaLista(
+            List<EstatusConceptoNominaDTO> estatusConceptoNominaLista) {
         this.estatusConceptoNominaLista = estatusConceptoNominaLista;
     }
 
@@ -127,7 +130,8 @@ public class ConceptosNominaView implements Serializable {
         return nivelEmpleadoLista;
     }
 
-    public void setNivelEmpleadoLista(List<NivelEmpleadoDTO> nivelEmpleadoLista) {
+    public void setNivelEmpleadoLista(
+            List<NivelEmpleadoDTO> nivelEmpleadoLista) {
         this.nivelEmpleadoLista = nivelEmpleadoLista;
     }
 
@@ -135,7 +139,8 @@ public class ConceptosNominaView implements Serializable {
         return nombramientoLista;
     }
 
-    public void setNombramientoLista(List<TipoNombramientoDTO> nombramientoLista) {
+    public void setNombramientoLista(
+            List<TipoNombramientoDTO> nombramientoLista) {
         this.nombramientoLista = nombramientoLista;
     }
 
@@ -183,7 +188,8 @@ public class ConceptosNominaView implements Serializable {
         return puestosSeleccion;
     }
 
-    public void setPuestosSeleccion(DualListModel<PuestoGeneralDTO> puestosSeleccion) {
+    public void setPuestosSeleccion(
+            DualListModel<PuestoGeneralDTO> puestosSeleccion) {
         this.puestosSeleccion = puestosSeleccion;
     }
 
@@ -191,7 +197,8 @@ public class ConceptosNominaView implements Serializable {
         return configPuesto;
     }
 
-    public void setConfigPuesto(List<ConfiguracionConceptoPuestoDTO> configPuesto) {
+    public void setConfigPuesto(
+            List<ConfiguracionConceptoPuestoDTO> configPuesto) {
         this.configPuesto = configPuesto;
     }
 }

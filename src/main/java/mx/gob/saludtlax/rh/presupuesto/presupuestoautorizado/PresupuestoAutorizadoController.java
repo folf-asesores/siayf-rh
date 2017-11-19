@@ -39,7 +39,8 @@ public class PresupuestoAutorizadoController implements Serializable {
     }
 
     public void vistaPrincipal() {
-        view.setListaPresupuestoAutorizado(presupuestoAutorizado.obtenerListaPresupuestoAutorizado());
+        view.setListaPresupuestoAutorizado(
+                presupuestoAutorizado.obtenerListaPresupuestoAutorizado());
         view.setActualizarPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
         view.setCreaPresupuestoAutorizado(new PresupuestoAutorizadoDTO());
         view.setPanelPrincipal(true);
@@ -48,7 +49,8 @@ public class PresupuestoAutorizadoController implements Serializable {
     }
 
     public void obtenerListaPresupuestoAutorizado() {
-        List<PresupuestoAutorizadoDTO> lista = presupuestoAutorizado.obtenerListaPresupuestoAutorizado();
+        List<PresupuestoAutorizadoDTO> lista = presupuestoAutorizado
+                .obtenerListaPresupuestoAutorizado();
 
         view.setListaPresupuestoAutorizado(lista);
     }
@@ -56,11 +58,13 @@ public class PresupuestoAutorizadoController implements Serializable {
     public void crearPresupuestoAutorizado() {
         try {
 
-            presupuestoAutorizado.crearPresupuestoAutorizado(view.getCreaPresupuestoAutorizado());
+            presupuestoAutorizado.crearPresupuestoAutorizado(
+                    view.getCreaPresupuestoAutorizado());
 
             mostrarPrincipal();
 
-            JSFUtils.infoMessage("Registro Correcto", "¡Se registro correctamente!");
+            JSFUtils.infoMessage("Registro Correcto",
+                    "¡Se registro correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException e) {
             JSFUtils.errorMessage("Error: ", e.getMessage());
@@ -70,11 +74,13 @@ public class PresupuestoAutorizadoController implements Serializable {
     public void actualizarPresupuestoAutorizado() {
         try {
 
-            presupuestoAutorizado.actualizarPresupuestoAutorizado(view.getActualizarPresupuestoAutorizado());
+            presupuestoAutorizado.actualizarPresupuestoAutorizado(
+                    view.getActualizarPresupuestoAutorizado());
 
             mostrarPrincipal();
 
-            JSFUtils.infoMessage("Actualización Correcta", "¡Se actualizo correctamente!");
+            JSFUtils.infoMessage("Actualización Correcta",
+                    "¡Se actualizo correctamente!");
 
         } catch (ReglaNegocioException | ValidacionException e) {
             JSFUtils.errorMessage("Error: ", e.getMessage());
@@ -96,8 +102,10 @@ public class PresupuestoAutorizadoController implements Serializable {
     }
 
     public void eliminarPresupuestoAutorizado(Integer idPresupuestoAutorizado) {
-        presupuestoAutorizado.eliminarPresupuestoAutorizado(idPresupuestoAutorizado);
-        JSFUtils.infoMessage("Eliminación Correcta", "¡Se elimino correctamente!");
+        presupuestoAutorizado
+                .eliminarPresupuestoAutorizado(idPresupuestoAutorizado);
+        JSFUtils.infoMessage("Eliminación Correcta",
+                "¡Se elimino correctamente!");
         mostrarPrincipal();
     }
 
@@ -111,7 +119,8 @@ public class PresupuestoAutorizadoController implements Serializable {
     }
 
     public void regresarModulo() throws IOException {
-        JSFUtils.redireccionar("/siayf-rh/contenido/presupuesto/presupuestoAutorizado.xhtml?faces-redirect=true");
+        JSFUtils.redireccionar(
+                "/siayf-rh/contenido/presupuesto/presupuestoAutorizado.xhtml?faces-redirect=true");
     }
 
     public PresupuestoAutorizadoView getView() {

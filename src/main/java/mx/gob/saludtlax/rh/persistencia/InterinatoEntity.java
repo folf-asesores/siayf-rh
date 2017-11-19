@@ -109,7 +109,8 @@ public class InterinatoEntity implements Serializable {
         return puestoPropietario;
     }
 
-    public void setPuestoPropietario(InventarioVacanteEntity puestoPropietario) {
+    public void setPuestoPropietario(
+            InventarioVacanteEntity puestoPropietario) {
         this.puestoPropietario = puestoPropietario;
     }
 

@@ -20,7 +20,6 @@ import javax.persistence.Table;
 @Table(name = "documentos_adjuntables")
 public class DocumentoAdjuntableEntity implements Serializable {
 
-    
     private static final long serialVersionUID = 6589084464076232301L;
 
     @Id

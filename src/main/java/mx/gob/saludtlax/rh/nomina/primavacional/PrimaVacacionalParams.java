@@ -16,7 +16,8 @@ public class PrimaVacacionalParams {
         return configuracionPresupuesto;
     }
 
-    public void setConfiguracionPresupuesto(ConfiguracionPresupuestoEntity configuracionPresupuesto) {
+    public void setConfiguracionPresupuesto(
+            ConfiguracionPresupuestoEntity configuracionPresupuesto) {
         this.configuracionPresupuesto = configuracionPresupuesto;
     }
 

@@ -21,8 +21,10 @@ public class UnidadResponsableService {
     private DependenciaTempRepository dependenciaTempRepository;
 
     public List<UnidadResponsableDTO> listaUnidadResponsable() {
-        List<UnidadResponsableEntity> unidadesResponsables = unidadResponsableRepository.consultarUnidadesResponsables();
-        List<UnidadResponsableDTO> result = convertirEntidadesADTOs(unidadesResponsables);
+        List<UnidadResponsableEntity> unidadesResponsables = unidadResponsableRepository
+                .consultarUnidadesResponsables();
+        List<UnidadResponsableDTO> result = convertirEntidadesADTOs(
+                unidadesResponsables);
 
         return result;
     }
@@ -36,7 +38,8 @@ public class UnidadResponsableService {
         return dto;
     }
 
-    protected UnidadResponsableDTO crearUnidadResponsable(UnidadResponsableDTO dto) {
+    protected UnidadResponsableDTO crearUnidadResponsable(
+            UnidadResponsableDTO dto) {
         UnidadResponsableEntity entity = new UnidadResponsableEntity();
         entity.setIdDependencia(dto.getDependencia().getIdDependencia());
         entity.setIdUnidadXDependencia(dto.getIdUnidadXDependencia());
@@ -46,22 +49,30 @@ public class UnidadResponsableService {
         return obtenerUnidadResponsablePorId(entity.getIdUnidadResponsable());
     }
 
-    protected UnidadResponsableDTO obtenerUnidadResponsablePorId(Integer idUnidadResponsable) {
-        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository.obtenerPorId(idUnidadResponsable);
+    protected UnidadResponsableDTO obtenerUnidadResponsablePorId(
+            Integer idUnidadResponsable) {
+        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository
+                .obtenerPorId(idUnidadResponsable);
 
         return convertirEntidadADTO(unidadResponsable);
     }
 
-    protected List<String> consultarDescripcionUnidadesResponsablesPorCriterio(String consulta) {
-        return unidadResponsableRepository.consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
+    protected List<String> consultarDescripcionUnidadesResponsablesPorCriterio(
+            String consulta) {
+        return unidadResponsableRepository
+                .consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
     }
 
-    protected Integer consultarIdUnidadResponsablePorDescripcion(String descripcion) {
-        return unidadResponsableRepository.consultarIdUnidadResponsablePorDescripcion(descripcion);
+    protected Integer consultarIdUnidadResponsablePorDescripcion(
+            String descripcion) {
+        return unidadResponsableRepository
+                .consultarIdUnidadResponsablePorDescripcion(descripcion);
     }
 
-    protected UnidadResponsableDTO actualizarUnidadResponsable(UnidadResponsableDTO dto) {
-        UnidadResponsableEntity entity = unidadResponsableRepository.obtenerPorId(dto.getIdUnidadResponsable());
+    protected UnidadResponsableDTO actualizarUnidadResponsable(
+            UnidadResponsableDTO dto) {
+        UnidadResponsableEntity entity = unidadResponsableRepository
+                .obtenerPorId(dto.getIdUnidadResponsable());
         entity.setIdDependencia(dto.getDependencia().getIdDependencia());
         entity.setIdUnidadXDependencia(dto.getIdUnidadXDependencia());
         entity.setIdBase36(dto.getIdBase36());
@@ -74,7 +85,8 @@ public class UnidadResponsableService {
         unidadResponsableRepository.eliminarPorId(dto.getIdUnidadResponsable());
     }
 
-    private List<UnidadResponsableDTO> convertirEntidadesADTOs(List<UnidadResponsableEntity> entidades) {
+    private List<UnidadResponsableDTO> convertirEntidadesADTOs(
+            List<UnidadResponsableEntity> entidades) {
         List<UnidadResponsableDTO> dtos = new ArrayList<>();
 
         for (UnidadResponsableEntity entidad : entidades) {
@@ -86,17 +98,20 @@ public class UnidadResponsableService {
         return dtos;
     }
 
-    private UnidadResponsableDTO convertirEntidadADTO(UnidadResponsableEntity entidad) {
+    private UnidadResponsableDTO convertirEntidadADTO(
+            UnidadResponsableEntity entidad) {
         UnidadResponsableDTO dto = new UnidadResponsableDTO();
 
         dto.setIdUnidadResponsable(entidad.getIdUnidadResponsable());
 
-        DependenciaTempEntity depEntity = dependenciaTempRepository.obtenerPorId(entidad.getIdDependencia());
+        DependenciaTempEntity depEntity = dependenciaTempRepository
+                .obtenerPorId(entidad.getIdDependencia());
 
         DependenciaDTO dependenciaDto = new DependenciaDTO();
         dependenciaDto.setDescripcion(depEntity.getDescripcion());
         dependenciaDto.setIdBase(depEntity.getIdBase36());
-        dependenciaDto.setIdClasificacionOrganismo(depEntity.getIdClasificacionOrganismo());
+        dependenciaDto.setIdClasificacionOrganismo(
+                depEntity.getIdClasificacionOrganismo());
         dependenciaDto.setIdDependencia(depEntity.getIdDependencia());
         dependenciaDto.setIdEntePublico(depEntity.getIdEntePublico());
         dependenciaDto.setIdRamo(depEntity.getIdRamo());

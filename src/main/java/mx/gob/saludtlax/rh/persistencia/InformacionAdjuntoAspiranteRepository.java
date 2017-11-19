@@ -15,22 +15,29 @@ import mx.gob.saludtlax.rh.expediente.EntidadContexto;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class InformacionAdjuntoAspiranteRepository extends GenericRepository<InformacionAdjuntoAspiranteEntity, Integer> {
+public class InformacionAdjuntoAspiranteRepository
+        extends GenericRepository<InformacionAdjuntoAspiranteEntity, Integer> {
 
     private static final long serialVersionUID = 2034132595376058794L;
 
     private static final String OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO = "from  InformacionAdjuntoAspiranteEntity as informacionAdjunto"
-            + " where informacionAdjunto.entidadContexto = :entidadContexto" + " and informacionAdjunto.idEntidadContexto = :idEntidadContexto";
+            + " where informacionAdjunto.entidadContexto = :entidadContexto"
+            + " and informacionAdjunto.idEntidadContexto = :idEntidadContexto";
 
     private static final String OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO_ID_DOCUMENTO_ADJUNTABLE = "from  InformacionAdjuntoAspiranteEntity as informacionAdjunto"
-            + " where informacionAdjunto.entidadContexto = :entidadContexto" + " and informacionAdjunto.idEntidadContexto = :idEntidadContexto"
+            + " where informacionAdjunto.entidadContexto = :entidadContexto"
+            + " and informacionAdjunto.idEntidadContexto = :idEntidadContexto"
             + " and informacionAdjunto.documentoAdjuntable.idDocumentoAdjuntable = :idDocumentoAdjuntable";
 
     private static final String OBTENER_INFORMACION_ADJUNTOS_DEL_ASPIRANTE = "from  InformacionAdjuntoAspiranteEntity as informacionAdjunto"
-            + " where informacionAdjunto.expedienteAspirante.idAspirante = :idAspirante" + " order by informacionAdjunto.entidadContexto";
+            + " where informacionAdjunto.expedienteAspirante.idAspirante = :idAspirante"
+            + " order by informacionAdjunto.entidadContexto";
 
-    private static final String TIENE_ADJUNTO_UNICO = "select" + " case count(info.idInformacionAdjuntoAspirante)" + " when 0 then false" + " else true"
-            + " end" + " from InformacionAdjuntoAspiranteEntity as info" + " where info.expedienteAspirante.idAspirante = :idAspirante"
+    private static final String TIENE_ADJUNTO_UNICO = "select"
+            + " case count(info.idInformacionAdjuntoAspirante)"
+            + " when 0 then false" + " else true" + " end"
+            + " from InformacionAdjuntoAspiranteEntity as info"
+            + " where info.expedienteAspirante.idAspirante = :idAspirante"
             + " and info.documentoAdjuntable.idDocumentoAdjuntable = :idDocumentoAdjuntable";
 
     /**
@@ -39,9 +46,13 @@ public class InformacionAdjuntoAspiranteRepository extends GenericRepository<Inf
      * @param idDocumentoAdjuntable
      * @return
      */
-    public boolean tieneAdjuntoUnico(Integer idAspirante, Integer idDocumentoAdjuntable) {
-        Boolean tieneAdjunto = em.createQuery(TIENE_ADJUNTO_UNICO, Boolean.class).setParameter("idAspirante", idAspirante)
-                .setParameter("idDocumentoAdjuntable", idDocumentoAdjuntable).getSingleResult();
+    public boolean tieneAdjuntoUnico(Integer idAspirante,
+            Integer idDocumentoAdjuntable) {
+        Boolean tieneAdjunto = em
+                .createQuery(TIENE_ADJUNTO_UNICO, Boolean.class)
+                .setParameter("idAspirante", idAspirante)
+                .setParameter("idDocumentoAdjuntable", idDocumentoAdjuntable)
+                .getSingleResult();
         return tieneAdjunto;
     }
 
@@ -50,10 +61,12 @@ public class InformacionAdjuntoAspiranteRepository extends GenericRepository<Inf
      * @param idAspirante
      * @return
      */
-    public List<InformacionAdjuntoAspiranteEntity> consultarInformacionAdjuntosDelAspirante(int idAspirante) {
+    public List<InformacionAdjuntoAspiranteEntity> consultarInformacionAdjuntosDelAspirante(
+            int idAspirante) {
         List<InformacionAdjuntoAspiranteEntity> listaInformacionAdjuntos = em
-                .createQuery(OBTENER_INFORMACION_ADJUNTOS_DEL_ASPIRANTE, InformacionAdjuntoAspiranteEntity.class).setParameter("idAspirante", idAspirante)
-                .getResultList();
+                .createQuery(OBTENER_INFORMACION_ADJUNTOS_DEL_ASPIRANTE,
+                        InformacionAdjuntoAspiranteEntity.class)
+                .setParameter("idAspirante", idAspirante).getResultList();
 
         return listaInformacionAdjuntos;
     }
@@ -66,11 +79,16 @@ public class InformacionAdjuntoAspiranteRepository extends GenericRepository<Inf
      * @return
      */
     public List<InformacionAdjuntoAspiranteEntity> consultarInformacionAduntosPorEntidadContextoIdEntidadContextoIdDocumentoAdjuntable(
-            EntidadContexto entidadContexto, int idEntidadContexto, int idDocumentoAdjuntable) {
+            EntidadContexto entidadContexto, int idEntidadContexto,
+            int idDocumentoAdjuntable) {
         List<InformacionAdjuntoAspiranteEntity> listaInformacionAdjuntos = em
-                .createQuery(OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO_ID_DOCUMENTO_ADJUNTABLE, InformacionAdjuntoAspiranteEntity.class)
-                .setParameter("entidadContexto", entidadContexto).setParameter("idEntidadContexto", idEntidadContexto)
-                .setParameter("idDocumentoAdjuntable", idDocumentoAdjuntable).getResultList();
+                .createQuery(
+                        OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO_ID_DOCUMENTO_ADJUNTABLE,
+                        InformacionAdjuntoAspiranteEntity.class)
+                .setParameter("entidadContexto", entidadContexto)
+                .setParameter("idEntidadContexto", idEntidadContexto)
+                .setParameter("idDocumentoAdjuntable", idDocumentoAdjuntable)
+                .getResultList();
 
         return listaInformacionAdjuntos;
     }
@@ -81,11 +99,15 @@ public class InformacionAdjuntoAspiranteRepository extends GenericRepository<Inf
      * @param idEntidadContexto
      * @return
      */
-    public List<InformacionAdjuntoAspiranteEntity> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto entidadContexto,
-            int idEntidadContexto) {
+    public List<InformacionAdjuntoAspiranteEntity> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+            EntidadContexto entidadContexto, int idEntidadContexto) {
         List<InformacionAdjuntoAspiranteEntity> listaInformacionAdjuntos = em
-                .createQuery(OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO, InformacionAdjuntoAspiranteEntity.class)
-                .setParameter("entidadContexto", entidadContexto).setParameter("idEntidadContexto", idEntidadContexto).getResultList();
+                .createQuery(
+                        OBTENER_INFORMACION_ADJUNTO_POR_TIPO_DOCUMENTO_ID_TIPO_DOCUMENTO,
+                        InformacionAdjuntoAspiranteEntity.class)
+                .setParameter("entidadContexto", entidadContexto)
+                .setParameter("idEntidadContexto", idEntidadContexto)
+                .getResultList();
         return listaInformacionAdjuntos;
     }
 }

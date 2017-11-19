@@ -35,22 +35,26 @@ public class ConfiguracionNominaEmpleadoController implements Serializable {
         view.panelBusqueda();
     }
 
-    
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
             case "criterio":
                 String criterio = (String) value;
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -61,31 +65,39 @@ public class ConfiguracionNominaEmpleadoController implements Serializable {
     }
 
     public void buscarEmpleado() {
-        System.out.println("view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
+        System.out.println(
+                "view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
         try {
             view.panelBusqueda();
-            System.out.println("this.view.getCriterio():: " + view.getCriterio());
+            System.out
+                    .println("this.view.getCriterio():: " + view.getCriterio());
             view.panelBusqueda();
             view.setEmpleados(empleado.consultaPorCriterio(view.getCriterio()));
             if (view.getEmpleados().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros con el criterio " + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros con el criterio "
+                                + view.getCriterio());
             } else {
                 view.setMostrarResultados(true);
             }
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
-        System.out.println("view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
+        System.out.println(
+                "view.isMostrarBusqueda():: " + view.isMostrarBusqueda());
     }
 
     public void seleccionarEmpleado(Integer idEmpleadoSeleccionado) {
         try {
             view.panelFormulario();
-            view.setEmpleadoDatos(empleado.obtenerInformacionEmpleado(idEmpleadoSeleccionado));
+            view.setEmpleadoDatos(empleado
+                    .obtenerInformacionEmpleado(idEmpleadoSeleccionado));
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }

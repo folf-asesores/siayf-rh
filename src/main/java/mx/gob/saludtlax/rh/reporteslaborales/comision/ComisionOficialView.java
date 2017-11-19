@@ -8,7 +8,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 

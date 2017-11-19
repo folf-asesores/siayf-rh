@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 11:30:11
  */
@@ -134,7 +134,8 @@ public class TerceroInstitucionalEntity implements Serializable {
      * @param contrapartidaIdentificadora
      *            the contrapartidaIdentificadora to set
      */
-    public void setContrapartidaIdentificadora(String contrapartidaIdentificadora) {
+    public void setContrapartidaIdentificadora(
+            String contrapartidaIdentificadora) {
         this.contrapartidaIdentificadora = contrapartidaIdentificadora;
     }
 

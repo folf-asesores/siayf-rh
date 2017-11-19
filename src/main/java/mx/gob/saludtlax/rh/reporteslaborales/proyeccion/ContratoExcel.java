@@ -21,12 +21,13 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ContratoExcel {
 
-    private final InputStream is = ContratoExcel.class.getResourceAsStream("/plantillas/contrato/Contrato_Estatal_Federal.xlsx");
+    private final InputStream is = ContratoExcel.class.getResourceAsStream(
+            "/plantillas/contrato/Contrato_Estatal_Federal.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -113,12 +114,14 @@ public class ContratoExcel {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
 
-    private void llenarDetalles(List<ProyeccionesPresupuestalesDTO> estructura) {
+    private void llenarDetalles(
+            List<ProyeccionesPresupuestalesDTO> estructura) {
         int i = FILA_INICIO_DETALLE;
         int numeroConsecutivo = 1;
 
@@ -130,53 +133,68 @@ public class ContratoExcel {
             Cell celdaCapitulo = filaDetalle.createCell(CAPITULO_8000);
             celdaCapitulo.setCellValue("");
 
-            Cell celdaPartidaEspecifica = filaDetalle.createCell(PARTIDA_ESPECIFICA);
+            Cell celdaPartidaEspecifica = filaDetalle
+                    .createCell(PARTIDA_ESPECIFICA);
             celdaPartidaEspecifica.setCellValue(detalle.getIdPartida());
 
             Cell celdaConcepto = filaDetalle.createCell(CONCEPTO);
             celdaConcepto.setCellValue(detalle.getPartida());
 
             Cell celdaEnero = filaDetalle.createCell(ENERO);
-            celdaEnero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getEnero()));
+            celdaEnero.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getEnero()));
 
             Cell celdaFebrero = filaDetalle.createCell(FEBRERO);
-            celdaFebrero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getFebrero()));
+            celdaFebrero.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getFebrero()));
 
             Cell celdaMarzo = filaDetalle.createCell(MARZO);
-            celdaMarzo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getMarzo()));
+            celdaMarzo.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getMarzo()));
 
             Cell celdaAbril = filaDetalle.createCell(ABRIL);
-            celdaAbril.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getAbril()));
+            celdaAbril.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getAbril()));
 
             Cell celdaMayo = filaDetalle.createCell(MAYO);
-            celdaMayo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getMayo()));
+            celdaMayo.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getMayo()));
 
             Cell celdaJunio = filaDetalle.createCell(JUNIO);
-            celdaJunio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getJunio()));
+            celdaJunio.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getJunio()));
 
             Cell celdaJulio = filaDetalle.createCell(JULIO);
-            celdaJulio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getJulio()));
+            celdaJulio.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getJulio()));
 
             Cell celdaAgosto = filaDetalle.createCell(AGOSTO);
-            celdaAgosto.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getAgosto()));
+            celdaAgosto.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getAgosto()));
 
             Cell celdaSeptiembre = filaDetalle.createCell(SEPTIEMBRE);
-            celdaSeptiembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getSeptiembre()));
+            celdaSeptiembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getSeptiembre()));
 
             Cell celdaOctubre = filaDetalle.createCell(OCTUBRE);
-            celdaOctubre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getOctubre()));
+            celdaOctubre.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getOctubre()));
 
             Cell celdaNoviembre = filaDetalle.createCell(NOVIEMBRE);
-            celdaNoviembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getNoviembre()));
+            celdaNoviembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getNoviembre()));
 
             Cell celdaDiciembre = filaDetalle.createCell(DICIEMBRE);
-            celdaDiciembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getDiciembre()));
+            celdaDiciembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getDiciembre()));
 
             Cell celdaTotal = filaDetalle.createCell(TOTAL);
-            celdaTotal.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getTotal()));
+            celdaTotal.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getTotal()));
 
             Cell celdaDisponibilidad = filaDetalle.createCell(DISPONIBILIDAD);
-            celdaDisponibilidad.setCellValue("$ - " + new DecimalFormat(pattern).format(detalle.getTotal()));
+            celdaDisponibilidad.setCellValue("$ - "
+                    + new DecimalFormat(pattern).format(detalle.getTotal()));
 
             numeroConsecutivo++;
             i++;

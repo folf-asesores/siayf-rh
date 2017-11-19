@@ -10,7 +10,8 @@ package mx.gob.saludtlax.rh.persistencia;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
-public class AdjuntoEmpleadoRepository extends GenericRepository<AdjuntoEmpleadoEntity, Integer> {
+public class AdjuntoEmpleadoRepository
+        extends GenericRepository<AdjuntoEmpleadoEntity, Integer> {
 
     private static final long serialVersionUID = 6759689749999696343L;
 

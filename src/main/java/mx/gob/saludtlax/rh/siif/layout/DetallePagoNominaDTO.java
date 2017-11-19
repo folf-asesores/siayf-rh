@@ -15,8 +15,9 @@ public class DetallePagoNominaDTO {
     public DetallePagoNominaDTO() {
     }
 
-    public DetallePagoNominaDTO(Integer idPAgoNomina, Integer idNomina, Integer idEmpeladoDatosLaborales, String noChequeCuenta, BigDecimal percepciones,
-            BigDecimal deducciones, BigDecimal neto) {
+    public DetallePagoNominaDTO(Integer idPAgoNomina, Integer idNomina,
+            Integer idEmpeladoDatosLaborales, String noChequeCuenta,
+            BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto) {
         idPagoNomina = idPAgoNomina;
         this.idNomina = idNomina;
         this.idEmpeladoDatosLaborales = idEmpeladoDatosLaborales;

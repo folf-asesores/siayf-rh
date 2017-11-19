@@ -13,7 +13,7 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -26,23 +26,41 @@ public class CambioAdscripcionWord {
     public byte[] generar(CambioAdscripcionDTO cambioAdscripcionDTO) {
 
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(RUTA);
+            InputStream inputStream = getClass().getClassLoader()
+                    .getResourceAsStream(RUTA);
             XWPFDocument plantilla = new XWPFDocument(inputStream);
 
             Map<String, String> camposReporte = new HashMap<>();
 
-            camposReporte.put(SIGNO_APERTURA + "asunto" + SIGNO_CIERRE, cambioAdscripcionDTO.getAsunto());
-            camposReporte.put(SIGNO_APERTURA + "presenteNombre" + SIGNO_CIERRE, cambioAdscripcionDTO.getPresenteNombre());
-            camposReporte.put(SIGNO_APERTURA + "presenteClaveUno" + SIGNO_CIERRE, cambioAdscripcionDTO.getPresenteClaveUno());
-            camposReporte.put(SIGNO_APERTURA + "presenteClaveDos" + SIGNO_CIERRE, cambioAdscripcionDTO.getPresenteClaveDos());
-            camposReporte.put(SIGNO_APERTURA + "fecha" + SIGNO_CIERRE, cambioAdscripcionDTO.getFecha());
-            camposReporte.put(SIGNO_APERTURA + "fechaCambio" + SIGNO_CIERRE, cambioAdscripcionDTO.getFechaCambio());
-            camposReporte.put(SIGNO_APERTURA + "cambioAdscripcion" + SIGNO_CIERRE, cambioAdscripcionDTO.getCambioAdscripcion());
-            camposReporte.put(SIGNO_APERTURA + "funcion" + SIGNO_CIERRE, cambioAdscripcionDTO.getPresenteNombre());
-            camposReporte.put(SIGNO_APERTURA + "clavePresupuestal" + SIGNO_CIERRE, cambioAdscripcionDTO.getFuncion());
-            camposReporte.put(SIGNO_APERTURA + "turno" + SIGNO_CIERRE, cambioAdscripcionDTO.getPresenteNombre());
-            camposReporte.put(SIGNO_APERTURA + "encargadoLabores" + SIGNO_CIERRE, cambioAdscripcionDTO.getTurno());
-            camposReporte.put(SIGNO_APERTURA + "secretarioSalud" + SIGNO_CIERRE, cambioAdscripcionDTO.getSecretarioSalud());
+            camposReporte.put(SIGNO_APERTURA + "asunto" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getAsunto());
+            camposReporte.put(SIGNO_APERTURA + "presenteNombre" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getPresenteNombre());
+            camposReporte.put(
+                    SIGNO_APERTURA + "presenteClaveUno" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getPresenteClaveUno());
+            camposReporte.put(
+                    SIGNO_APERTURA + "presenteClaveDos" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getPresenteClaveDos());
+            camposReporte.put(SIGNO_APERTURA + "fecha" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getFecha());
+            camposReporte.put(SIGNO_APERTURA + "fechaCambio" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getFechaCambio());
+            camposReporte.put(
+                    SIGNO_APERTURA + "cambioAdscripcion" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getCambioAdscripcion());
+            camposReporte.put(SIGNO_APERTURA + "funcion" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getPresenteNombre());
+            camposReporte.put(
+                    SIGNO_APERTURA + "clavePresupuestal" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getFuncion());
+            camposReporte.put(SIGNO_APERTURA + "turno" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getPresenteNombre());
+            camposReporte.put(
+                    SIGNO_APERTURA + "encargadoLabores" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getTurno());
+            camposReporte.put(SIGNO_APERTURA + "secretarioSalud" + SIGNO_CIERRE,
+                    cambioAdscripcionDTO.getSecretarioSalud());
 
             for (XWPFParagraph parrafo : plantilla.getParagraphs()) {
                 remplazarCampos(parrafo, camposReporte);

@@ -22,18 +22,30 @@ public class TerminoConfianzaWord {
     public byte[] generar(TerminoDTO terminoDTO) {
 
         try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(RUTA);
+            InputStream inputStream = getClass().getClassLoader()
+                    .getResourceAsStream(RUTA);
             XWPFDocument plantilla = new XWPFDocument(inputStream);
             Map<String, String> camposReporte = new HashMap<>();
 
-            camposReporte.put(SIGNO_APERTURA + "asunto" + SIGNO_CIERRE, terminoDTO.getAsunto());
-            camposReporte.put(SIGNO_APERTURA + "presenteNombre" + SIGNO_CIERRE, terminoDTO.getPresenteNombre());
-            camposReporte.put(SIGNO_APERTURA + "presenteClaveUno" + SIGNO_CIERRE, terminoDTO.getPresenteClaveUno());
-            camposReporte.put(SIGNO_APERTURA + "presenteClaveDos" + SIGNO_CIERRE, terminoDTO.getPresenteClaveDos());
-            camposReporte.put(SIGNO_APERTURA + "fechaTermino" + SIGNO_CIERRE, terminoDTO.getFechaTermino());
-            camposReporte.put(SIGNO_APERTURA + "funcion" + SIGNO_CIERRE, terminoDTO.getFuncion());
-            camposReporte.put(SIGNO_APERTURA + "clavePresupuestal" + SIGNO_CIERRE, terminoDTO.getClavePresupuestal());
-            camposReporte.put(SIGNO_APERTURA + "secretarioSalud" + SIGNO_CIERRE, terminoDTO.getSecretarioSalud());
+            camposReporte.put(SIGNO_APERTURA + "asunto" + SIGNO_CIERRE,
+                    terminoDTO.getAsunto());
+            camposReporte.put(SIGNO_APERTURA + "presenteNombre" + SIGNO_CIERRE,
+                    terminoDTO.getPresenteNombre());
+            camposReporte.put(
+                    SIGNO_APERTURA + "presenteClaveUno" + SIGNO_CIERRE,
+                    terminoDTO.getPresenteClaveUno());
+            camposReporte.put(
+                    SIGNO_APERTURA + "presenteClaveDos" + SIGNO_CIERRE,
+                    terminoDTO.getPresenteClaveDos());
+            camposReporte.put(SIGNO_APERTURA + "fechaTermino" + SIGNO_CIERRE,
+                    terminoDTO.getFechaTermino());
+            camposReporte.put(SIGNO_APERTURA + "funcion" + SIGNO_CIERRE,
+                    terminoDTO.getFuncion());
+            camposReporte.put(
+                    SIGNO_APERTURA + "clavePresupuestal" + SIGNO_CIERRE,
+                    terminoDTO.getClavePresupuestal());
+            camposReporte.put(SIGNO_APERTURA + "secretarioSalud" + SIGNO_CIERRE,
+                    terminoDTO.getSecretarioSalud());
 
             for (XWPFParagraph parrafo : plantilla.getParagraphs()) {
                 remplazarCampos(parrafo, camposReporte);

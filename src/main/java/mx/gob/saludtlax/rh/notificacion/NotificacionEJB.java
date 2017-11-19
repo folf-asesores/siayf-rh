@@ -37,23 +37,30 @@ public class NotificacionEJB implements Notificacion {
     @Asynchronous
     public void enviar(NotificacionDTO notificacion) {
         if (notificacion == null) {
-            throw new ValidationException("No se puede enviar una notifición nula.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidationException(
+                    "No se puede enviar una notifición nula.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         notificacionService.crear(notificacion);
     }
 
     @Override
-    public NotificacionDTO obtenerPorToken(String token) throws ReglaNegocioException {
+    public NotificacionDTO obtenerPorToken(String token)
+            throws ReglaNegocioException {
         if (ValidacionUtil.esCadenaVacia(token)) {
-            throw new ValidationException("El token no debe estar vacio.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidationException("El token no debe estar vacio.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         try {
             return notificacionService.obtenerPorToken(token);
         } catch (SistemaException se) {
-            if (SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS.equals(se.getCodigoError())) {
-                throw new ReglaNegocioException("No se ha encontrado ninguna notificación", se, ReglaNegocioCodigoError.NOTIFICACION_NO_ENCONTRADA);
+            if (SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS
+                    .equals(se.getCodigoError())) {
+                throw new ReglaNegocioException(
+                        "No se ha encontrado ninguna notificación", se,
+                        ReglaNegocioCodigoError.NOTIFICACION_NO_ENCONTRADA);
             } else {
                 throw se;
             }
@@ -63,27 +70,36 @@ public class NotificacionEJB implements Notificacion {
     @Override
     public void marcarComoVista(String token) {
         if (ValidacionUtil.esCadenaVacia(token)) {
-            throw new ValidationException("El token no debe estar vacio.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidationException("El token no debe estar vacio.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         notificacionService.marcarComoVista(token);
     }
 
     @Override
-    public List<NotificacionDTO> consultarNotificacionesPorIdUsuario(Integer idUsuario) {
+    public List<NotificacionDTO> consultarNotificacionesPorIdUsuario(
+            Integer idUsuario) {
         if (ValidacionUtil.esMenorQueUno(idUsuario)) {
-            throw new ValidationException("El ID de un usuario no puede ser cero o un número negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidationException(
+                    "El ID de un usuario no puede ser cero o un número negativo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        return notificacionService.consultarNotificacionesPorIdUsuario(idUsuario);
+        return notificacionService
+                .consultarNotificacionesPorIdUsuario(idUsuario);
     }
 
     @Override
-    public List<NotificacionDTO> consultarNotificacionesPorIdUsuarioNoVistas(Integer idUsuario) {
+    public List<NotificacionDTO> consultarNotificacionesPorIdUsuarioNoVistas(
+            Integer idUsuario) {
         if (ValidacionUtil.esMenorQueUno(idUsuario)) {
-            throw new ValidationException("El ID de un usuario no puede ser cero o un número negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidationException(
+                    "El ID de un usuario no puede ser cero o un número negativo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        return notificacionService.consultarNotificacionesPorIdUsuarioVisto(idUsuario, false);
+        return notificacionService
+                .consultarNotificacionesPorIdUsuarioVisto(idUsuario, false);
     }
 }

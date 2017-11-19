@@ -14,24 +14,29 @@ public class DependenciaEJB implements Dependencia {
 
     @Override
     public List<DependenciaDTO> obtenerDependenciaLista() {
-        List<DependenciaDTO> dependenciaLista = dependenciaService.listaDependencia();
+        List<DependenciaDTO> dependenciaLista = dependenciaService
+                .listaDependencia();
         return dependenciaLista;
     }
 
     @Override
     public DependenciaDTO obtenerDependencia(DependenciaDTO dependencia) {
-        DependenciaDTO dto = dependenciaService.obtenerDependenciaPorId(dependencia.getIdDependencia());
+        DependenciaDTO dto = dependenciaService
+                .obtenerDependenciaPorId(dependencia.getIdDependencia());
         return dto;
     }
 
     @Override
-    public List<String> consultarDescripcionDependenciasPorCriterio(String consulta) {
-        return dependenciaService.consultarDescripcionDependenciasPorCriterio(consulta);
+    public List<String> consultarDescripcionDependenciasPorCriterio(
+            String consulta) {
+        return dependenciaService
+                .consultarDescripcionDependenciasPorCriterio(consulta);
     }
 
     @Override
     public Integer consultarIdDependenciaPorDescripcion(String descripcion) {
-        return dependenciaService.consultarIdDependenciaPorDescripcion(descripcion);
+        return dependenciaService
+                .consultarIdDependenciaPorDescripcion(descripcion);
     }
 
     @Override

@@ -13,8 +13,8 @@ import javax.faces.model.SelectItem;
 import mx.gob.saludtlax.rh.contrato.ContratoDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 14:25:22 09/09/2016
  */
@@ -74,7 +74,8 @@ public class ImpresionContratoView implements Serializable {
      * @param mostrarConfirmacionImpresion
      *            the mostrarConfirmacionImpresion to set
      */
-    public void setMostrarConfirmacionImpresion(boolean mostrarConfirmacionImpresion) {
+    public void setMostrarConfirmacionImpresion(
+            boolean mostrarConfirmacionImpresion) {
         this.mostrarConfirmacionImpresion = mostrarConfirmacionImpresion;
     }
 

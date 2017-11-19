@@ -17,12 +17,16 @@ public class CentroResponsabilidadEJB {
     private CentroResponsabilidadService centroResponsabilidadService;
 
     public List<CentroResponsabilidadDTO> obtenerCentroresponsabilidadLista() {
-        List<CentroResponsabilidadDTO> centroResponsabilidadLista = centroResponsabilidadService.listaCentroResponsabilidad();
+        List<CentroResponsabilidadDTO> centroResponsabilidadLista = centroResponsabilidadService
+                .listaCentroResponsabilidad();
         return centroResponsabilidadLista;
     }
 
-    public CentroResponsabilidadDTO obtenerCuentaBancaria(CentroResponsabilidadDTO centroResponsabilidad) {
-        CentroResponsabilidadDTO dto = centroResponsabilidadService.obtenerCentroResponsabilidadPorId(centroResponsabilidad.getIdCentroResponsabilidad());
+    public CentroResponsabilidadDTO obtenerCuentaBancaria(
+            CentroResponsabilidadDTO centroResponsabilidad) {
+        CentroResponsabilidadDTO dto = centroResponsabilidadService
+                .obtenerCentroResponsabilidadPorId(
+                        centroResponsabilidad.getIdCentroResponsabilidad());
         return dto;
     }
 
@@ -30,15 +34,19 @@ public class CentroResponsabilidadEJB {
         return centroResponsabilidadService.nuevoCentroresponsabilidad();
     }
 
-    public CentroResponsabilidadDTO crearCentroResponsabilidad(CentroResponsabilidadDTO dto) {
+    public CentroResponsabilidadDTO crearCentroResponsabilidad(
+            CentroResponsabilidadDTO dto) {
         return centroResponsabilidadService.crearCentroResponsabilidad(dto);
     }
 
-    public CentroResponsabilidadDTO actualizarCentroResponsabilidad(CentroResponsabilidadDTO dto) {
-        return centroResponsabilidadService.actualizarCentroResponsabilidad(dto);
+    public CentroResponsabilidadDTO actualizarCentroResponsabilidad(
+            CentroResponsabilidadDTO dto) {
+        return centroResponsabilidadService
+                .actualizarCentroResponsabilidad(dto);
     }
 
     public void eliminarCentroresponsabilidad(Integer idCentroResponsabilidad) {
-        centroResponsabilidadService.eliminarCentroResponsabilidad(idCentroResponsabilidad);
+        centroResponsabilidadService
+                .eliminarCentroResponsabilidad(idCentroResponsabilidad);
     }
 }

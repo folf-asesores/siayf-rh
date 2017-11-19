@@ -9,10 +9,11 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class SubClasificacionTabuladorRepository extends GenericRepository<SubclasificacionTabuladorEntity, Integer> {
+public class SubClasificacionTabuladorRepository
+        extends GenericRepository<SubclasificacionTabuladorEntity, Integer> {
 
     /**
      *
@@ -21,7 +22,9 @@ public class SubClasificacionTabuladorRepository extends GenericRepository<Subcl
 
     public List<SubclasificacionTabuladorEntity> obtenerListaSubClasificaionTabulador() {
         try {
-            return em.createQuery("Select s from SubclasificacionTabuladorEntity As s", SubclasificacionTabuladorEntity.class).getResultList();
+            return em.createQuery(
+                    "Select s from SubclasificacionTabuladorEntity As s",
+                    SubclasificacionTabuladorEntity.class).getResultList();
         } catch (NoResultException exception) {
             return null;
         }

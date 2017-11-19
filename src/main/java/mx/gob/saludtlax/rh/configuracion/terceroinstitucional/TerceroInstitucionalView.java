@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 12:28:38
  */
@@ -38,7 +38,8 @@ public class TerceroInstitucionalView implements Serializable {
      * @param terceroInstitucional
      *            the terceroInstitucional to set
      */
-    public void setTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional) {
+    public void setTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional) {
         this.terceroInstitucional = terceroInstitucional;
     }
 
@@ -53,7 +54,8 @@ public class TerceroInstitucionalView implements Serializable {
      * @param listaTerceroInstitucional
      *            the listaTerceroInstitucional to set
      */
-    public void setListaTerceroInstitucional(List<TerceroInstitucionalDTO> listaTerceroInstitucional) {
+    public void setListaTerceroInstitucional(
+            List<TerceroInstitucionalDTO> listaTerceroInstitucional) {
         this.listaTerceroInstitucional = listaTerceroInstitucional;
     }
 

@@ -121,66 +121,97 @@ public class ConfiguracionPresupuestalService {
         int iDTipoContratacion = dto.getDatosLaborales().getTipoContratacion();
         Integer idDatoLaboral = null;
 
-        EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository.obtenerPorId(EnumEstatusConfiguracion.EN_ESPERA_AUTORIZACION);
+        EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository
+                .obtenerPorId(EnumEstatusConfiguracion.EN_ESPERA_AUTORIZACION);
 
         ConfiguracionPresupuestoEntity nuevoDatoLaboral = new ConfiguracionPresupuestoEntity();
         nuevoDatoLaboral.setFechaAltaConfiguracion(FechaUtil.fechaActual());
 
         if (iDTipoContratacion == EnumTipoContratacion.INTERINATO) {
-            InventarioVacanteEntity puestoDisponible = inventarioVacanteRepository.obtenerPorId(dto.getIdPuestoDisponible());
+            InventarioVacanteEntity puestoDisponible = inventarioVacanteRepository
+                    .obtenerPorId(dto.getIdPuestoDisponible());
             if (puestoDisponible == null) {
-                throw new ValidacionException("No se encontró puesto disponible con identificador " + dto.getIdPuestoDisponible(),
+                throw new ValidacionException(
+                        "No se encontró puesto disponible con identificador "
+                                + dto.getIdPuestoDisponible(),
                         ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
             }
-            ConfiguracionPresupuestoEntity laboralesPuestoACubrir = puestoDisponible.getConfiguracion();
-            TipoContratacionEntity tipoContratacion = tipoContratacionRepository.obtenerPorId(EnumTipoContratacion.INTERINATO);
+            ConfiguracionPresupuestoEntity laboralesPuestoACubrir = puestoDisponible
+                    .getConfiguracion();
+            TipoContratacionEntity tipoContratacion = tipoContratacionRepository
+                    .obtenerPorId(EnumTipoContratacion.INTERINATO);
 
             if (laboralesPuestoACubrir == null) {
-                throw new ValidacionException("No se encontró registro del dato laboral con identificador " + idDatoLaboral,
+                throw new ValidacionException(
+                        "No se encontró registro del dato laboral con identificador "
+                                + idDatoLaboral,
                         ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
             }
 
             nuevoDatoLaboral.setCuenta(laboralesPuestoACubrir.getCuenta());
-            nuevoDatoLaboral.setDependencia(laboralesPuestoACubrir.getDependencia());
+            nuevoDatoLaboral
+                    .setDependencia(laboralesPuestoACubrir.getDependencia());
             // c.setEmpleado(empleado);
             nuevoDatoLaboral.setEstatus(estatus);
-            nuevoDatoLaboral.setFuenteFinanciamiento(laboralesPuestoACubrir.getFuenteFinanciamiento());
-            nuevoDatoLaboral.setNombramiento(laboralesPuestoACubrir.getNombramiento());
+            nuevoDatoLaboral.setFuenteFinanciamiento(
+                    laboralesPuestoACubrir.getFuenteFinanciamiento());
+            nuevoDatoLaboral
+                    .setNombramiento(laboralesPuestoACubrir.getNombramiento());
             // c.setNumeroEmpleado(numeroEmpleado);
             nuevoDatoLaboral.setProyecto(laboralesPuestoACubrir.getProyecto());
             nuevoDatoLaboral.setPuesto(laboralesPuestoACubrir.getPuesto());
-            nuevoDatoLaboral.setSubfuenteFinanciamiento(laboralesPuestoACubrir.getSubfuenteFinanciamiento());
+            nuevoDatoLaboral.setSubfuenteFinanciamiento(
+                    laboralesPuestoACubrir.getSubfuenteFinanciamiento());
             nuevoDatoLaboral.setSueldo(laboralesPuestoACubrir.getSueldo());
-            nuevoDatoLaboral.setTabulador(laboralesPuestoACubrir.getTabulador());
+            nuevoDatoLaboral
+                    .setTabulador(laboralesPuestoACubrir.getTabulador());
             nuevoDatoLaboral.setTipoContratacion(tipoContratacion);
-            nuevoDatoLaboral.setTipoRecurso(laboralesPuestoACubrir.getTipoRecurso());
-            nuevoDatoLaboral.setUnidadResponsable(laboralesPuestoACubrir.getUnidadResponsable());
+            nuevoDatoLaboral
+                    .setTipoRecurso(laboralesPuestoACubrir.getTipoRecurso());
+            nuevoDatoLaboral.setUnidadResponsable(
+                    laboralesPuestoACubrir.getUnidadResponsable());
 
         } else {
 
-            DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(dto.getDatosLaborales().getIdDependencia());
-            FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository.obtenerPorId(dto.getDatosLaborales().getIdFuenteFinanciamiento());
+            DependenciaTempEntity dependencia = dependenciasRepository
+                    .obtenerPorId(dto.getDatosLaborales().getIdDependencia());
+            FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository
+                    .obtenerPorId(dto.getDatosLaborales()
+                            .getIdFuenteFinanciamiento());
 
-            Integer idNombramiento = generarNombramiento(dto.getDatosLaborales().getTipoContratacion());
-            Integer idTipoContratacion = dto.getDatosLaborales().getTipoContratacion();
+            Integer idNombramiento = generarNombramiento(
+                    dto.getDatosLaborales().getTipoContratacion());
+            Integer idTipoContratacion = dto.getDatosLaborales()
+                    .getTipoContratacion();
 
             if (idNombramiento == null) {
-                TiposNombramientosEntity nombramiento = nombramientoRepository.nombramientoPorId(dto.getDatosLaborales().getIdNombramiento());
+                TiposNombramientosEntity nombramiento = nombramientoRepository
+                        .nombramientoPorId(
+                                dto.getDatosLaborales().getIdNombramiento());
                 nuevoDatoLaboral.setNombramiento(nombramiento);
             } else {
-                TiposNombramientosEntity nombramiento = nombramientoRepository.nombramientoPorId(idNombramiento);
+                TiposNombramientosEntity nombramiento = nombramientoRepository
+                        .nombramientoPorId(idNombramiento);
                 nuevoDatoLaboral.setNombramiento(nombramiento);
             }
 
-            ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(dto.getDatosLaborales().getIdProyecto());
-            PuestoGeneralEntity puesto = puestoGeneralRepository.obtenerPorId(dto.getDatosLaborales().getIdPuesto());
+            ProyectoTempEntity proyecto = proyectoRepository
+                    .obtenerPorId(dto.getDatosLaborales().getIdProyecto());
+            PuestoGeneralEntity puesto = puestoGeneralRepository
+                    .obtenerPorId(dto.getDatosLaborales().getIdPuesto());
             SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository
-                    .obtenerPorId(dto.getDatosLaborales().getIdSubfuenteFinanciamiento());
-            TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository.obtenerPorId(dto.getDatosLaborales().getIdTipoRecurso());
-            UnidadResponsableEntity unidadResponsable = unidadResponsableRepository.obtenerPorId(dto.getDatosLaborales().getIdUnidadResponsable());
+                    .obtenerPorId(dto.getDatosLaborales()
+                            .getIdSubfuenteFinanciamiento());
+            TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository
+                    .obtenerPorId(dto.getDatosLaborales().getIdTipoRecurso());
+            UnidadResponsableEntity unidadResponsable = unidadResponsableRepository
+                    .obtenerPorId(
+                            dto.getDatosLaborales().getIdUnidadResponsable());
 
-            TabuladorEntity tabulador = tabuladorRepository.obtenerPorId(dto.getDatosLaborales().getIdTabulador());
-            TipoContratacionEntity tipoContratacion = tipoContratacionRepository.obtenerPorId(idTipoContratacion);
+            TabuladorEntity tabulador = tabuladorRepository
+                    .obtenerPorId(dto.getDatosLaborales().getIdTabulador());
+            TipoContratacionEntity tipoContratacion = tipoContratacionRepository
+                    .obtenerPorId(idTipoContratacion);
 
             nuevoDatoLaboral.setDependencia(dependencia);
             // c.setEmpleado(empleado);
@@ -191,23 +222,34 @@ public class ConfiguracionPresupuestalService {
             // c.setNumeroEmpleado(numeroEmpleado);
             nuevoDatoLaboral.setProyecto(proyecto);
             nuevoDatoLaboral.setPuesto(puesto);
-            nuevoDatoLaboral.setSubfuenteFinanciamiento(subfuenteFinanciamiento);
+            nuevoDatoLaboral
+                    .setSubfuenteFinanciamiento(subfuenteFinanciamiento);
 
-            if (idTipoContratacion == EnumTipoContratacion.CONFIANZA || idTipoContratacion == EnumTipoContratacion.BASE) {
+            if (idTipoContratacion == EnumTipoContratacion.CONFIANZA
+                    || idTipoContratacion == EnumTipoContratacion.BASE) {
                 nuevoDatoLaboral.setSueldo(tabulador.getSueldoBrutoMensual());
             } else if (idTipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
-                if (dto.getDatosLaborales().getSueldo().compareTo(tabulador.getSueldoBaseMensualMinimo()) == -1) {
-                    throw new ReglaNegocioException("El sueldo no puede ser menor a " + tabulador.getSueldoBaseMensualMinimo(),
+                if (dto.getDatosLaborales().getSueldo().compareTo(
+                        tabulador.getSueldoBaseMensualMinimo()) == -1) {
+                    throw new ReglaNegocioException(
+                            "El sueldo no puede ser menor a "
+                                    + tabulador.getSueldoBaseMensualMinimo(),
                             ReglaNegocioCodigoError.SUELDO_INCORRECTO);
-                } else if (dto.getDatosLaborales().getSueldo().compareTo(tabulador.getSueldoBaseMensualMaximo()) == 1) {
-                    throw new ReglaNegocioException("El sueldo no puede ser mayor a " + tabulador.getSueldoBaseMensualMaximo(),
+                } else if (dto.getDatosLaborales().getSueldo().compareTo(
+                        tabulador.getSueldoBaseMensualMaximo()) == 1) {
+                    throw new ReglaNegocioException(
+                            "El sueldo no puede ser mayor a "
+                                    + tabulador.getSueldoBaseMensualMaximo(),
                             ReglaNegocioCodigoError.SUELDO_INCORRECTO);
                 }
 
                 nuevoDatoLaboral.setSueldo(dto.getDatosLaborales().getSueldo());
             } else if (idTipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
-                if (!ValidacionUtil.esNumeroPositivo(dto.getDatosLaborales().getSueldo())) {
-                    throw new ReglaNegocioException("El sueldo debe ser un número mayor a cero.", ReglaNegocioCodigoError.SUELDO_INCORRECTO);
+                if (!ValidacionUtil.esNumeroPositivo(
+                        dto.getDatosLaborales().getSueldo())) {
+                    throw new ReglaNegocioException(
+                            "El sueldo debe ser un número mayor a cero.",
+                            ReglaNegocioCodigoError.SUELDO_INCORRECTO);
                 }
                 nuevoDatoLaboral.setSueldo(dto.getDatosLaborales().getSueldo());
 
@@ -227,20 +269,29 @@ public class ConfiguracionPresupuestalService {
         return idDatoLaboral;
     }
 
-    protected void modificarDatoLaboral(DatoLaboralDTO datoLaboral, Integer idPuesto, Integer idUsuario) {
+    protected void modificarDatoLaboral(DatoLaboralDTO datoLaboral,
+            Integer idPuesto, Integer idUsuario) {
 
-        InventarioVacanteEntity puesto = inventarioVacanteRepository.obtenerPorId(idPuesto);
+        InventarioVacanteEntity puesto = inventarioVacanteRepository
+                .obtenerPorId(idPuesto);
         if (puesto == null) {
-            throw new SistemaException("No existe el puesto con identificador " + idPuesto, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No existe el puesto con identificador " + idPuesto,
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
         if (puesto.getConfiguracion() == null) {
-            throw new ValidacionException("El puesto no tiene dato laboral asignado.", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "El puesto no tiene dato laboral asignado.",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
-        ConfiguracionPresupuestoEntity datoLaboralEmpleado = configuracionPresupuestoRepository.obtenerPorId(puesto.getConfiguracion().getId());
+        ConfiguracionPresupuestoEntity datoLaboralEmpleado = configuracionPresupuestoRepository
+                .obtenerPorId(puesto.getConfiguracion().getId());
         if (datoLaboralEmpleado == null) {
-            throw new ValidacionException("La configuración laboral asignada al puesto es incorrecta.", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "La configuración laboral asignada al puesto es incorrecta.",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         puesto.setSeguroPopular(datoLaboral.isSeguroPopular());
@@ -248,14 +299,21 @@ public class ConfiguracionPresupuestalService {
         String lccActual = datoLaboralEmpleado.lccDatosLaborales();
         String lccActualSueldo = datoLaboralEmpleado.lccSueldo();
 
-        ProyectoTempEntity proyecto = proyectoRepository.obtenerPorId(datoLaboral.getIdProyecto());
-        DependenciaTempEntity dependencia = dependenciasRepository.obtenerPorId(datoLaboral.getIdDependencia());
-        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository.obtenerPorId(datoLaboral.getIdUnidadResponsable());
-        FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository.obtenerPorId(datoLaboral.getIdFuenteFinanciamiento());
-        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository.obtenerPorId(datoLaboral.getIdSubfuenteFinanciamiento());
-        TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository.obtenerPorId(datoLaboral.getIdTipoRecurso());
+        ProyectoTempEntity proyecto = proyectoRepository
+                .obtenerPorId(datoLaboral.getIdProyecto());
+        DependenciaTempEntity dependencia = dependenciasRepository
+                .obtenerPorId(datoLaboral.getIdDependencia());
+        UnidadResponsableEntity unidadResponsable = unidadResponsableRepository
+                .obtenerPorId(datoLaboral.getIdUnidadResponsable());
+        FuenteFinanciamientoEntity fuenteFinanciamiento = fuenteFinanciamientoRepository
+                .obtenerPorId(datoLaboral.getIdFuenteFinanciamiento());
+        SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento = subfuentefinanciamientoRepository
+                .obtenerPorId(datoLaboral.getIdSubfuenteFinanciamiento());
+        TipoRecursoTempEntity tipoRecursoTempEntity = tipoRecursoTempRepository
+                .obtenerPorId(datoLaboral.getIdTipoRecurso());
 
-        PuestoGeneralEntity puestoGeneral = puestoGeneralRepository.obtenerPorId(datoLaboral.getIdPuesto());
+        PuestoGeneralEntity puestoGeneral = puestoGeneralRepository
+                .obtenerPorId(datoLaboral.getIdPuesto());
 
         datoLaboralEmpleado.setDependencia(dependencia);
         datoLaboralEmpleado.setFuenteFinanciamiento(fuenteFinanciamiento);
@@ -266,11 +324,14 @@ public class ConfiguracionPresupuestalService {
 
         TabuladorEntity tabulador = null;
         if (datoLaboral.getIdTabulador() != null) {
-            tabulador = tabuladorRepository.obtenerPorId(datoLaboral.getIdTabulador());
+            tabulador = tabuladorRepository
+                    .obtenerPorId(datoLaboral.getIdTabulador());
         }
 
-        Integer idTipoContratacion = datoLaboralEmpleado.getTipoContratacion().getId();
-        if (tabulador == null && datoLaboralEmpleado.getTipoContratacion().getAreaResponsable() != 2) {
+        Integer idTipoContratacion = datoLaboralEmpleado.getTipoContratacion()
+                .getId();
+        if (tabulador == null && datoLaboralEmpleado.getTipoContratacion()
+                .getAreaResponsable() != 2) {
             // para el caso de los puestos federales siempre es requerido un
             // tabulador configurado.
             throw new ReglaNegocioException(
@@ -279,7 +340,8 @@ public class ConfiguracionPresupuestalService {
         }
         String observacionModificacion = "";
 
-        if (idTipoContratacion == EnumTipoContratacion.CONFIANZA || idTipoContratacion == EnumTipoContratacion.BASE) {
+        if (idTipoContratacion == EnumTipoContratacion.CONFIANZA
+                || idTipoContratacion == EnumTipoContratacion.BASE) {
             datoLaboralEmpleado.setSueldo(tabulador.getSueldoBrutoMensual());
 
         } else if (idTipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL) {
@@ -289,15 +351,19 @@ public class ConfiguracionPresupuestalService {
                 // Por solicitud de las areas si el sueldo estuviera fuera de
                 // rango, los dejaría realizar el movimiento lanzando solo una
                 // advertencia
-                if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMinimo()) == -1) {
-                    observacionModificacion = "El sueldo es menor al mínimo de " + tabulador.getSueldoBaseMensualMinimo();
+                if (datoLaboral.getSueldo().compareTo(
+                        tabulador.getSueldoBaseMensualMinimo()) == -1) {
+                    observacionModificacion = "El sueldo es menor al mínimo de "
+                            + tabulador.getSueldoBaseMensualMinimo();
 
                     // throw new ReglaNegocioException(observacionModificacion,
                     // ReglaNegocioCodigoError.SUELDO_FUERA_RANGO);
                 }
 
-                if (datoLaboral.getSueldo().compareTo(tabulador.getSueldoBaseMensualMaximo()) == 1) {
-                    observacionModificacion = "El sueldo es mayor al maximo de " + tabulador.getSueldoBaseMensualMaximo();
+                if (datoLaboral.getSueldo().compareTo(
+                        tabulador.getSueldoBaseMensualMaximo()) == 1) {
+                    observacionModificacion = "El sueldo es mayor al maximo de "
+                            + tabulador.getSueldoBaseMensualMaximo();
                     // throw new ReglaNegocioException(observacionModificacion,
                     // ReglaNegocioCodigoError.SUELDO_FUERA_RANGO);
 
@@ -305,16 +371,21 @@ public class ConfiguracionPresupuestalService {
 
             }
 
-            BigDecimal sumatoriaSueldo = datoLaboral.getSueldo01().add(datoLaboral.getSueldo14());
+            BigDecimal sumatoriaSueldo = datoLaboral.getSueldo01()
+                    .add(datoLaboral.getSueldo14());
             if (datoLaboral.getSueldo().compareTo(sumatoriaSueldo) != 0) {
-                throw new ReglaNegocioException("La sumatoria del 01 y 14 debe ser igual al sueldo.", ReglaNegocioCodigoError.SUELDO_INCORRECTO);
+                throw new ReglaNegocioException(
+                        "La sumatoria del 01 y 14 debe ser igual al sueldo.",
+                        ReglaNegocioCodigoError.SUELDO_INCORRECTO);
             }
             datoLaboralEmpleado.setSueldo(datoLaboral.getSueldo());
             datoLaboralEmpleado.setSueldo01(datoLaboral.getSueldo01());
             datoLaboralEmpleado.setSueldo14(datoLaboral.getSueldo14());
         } else if (idTipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
             if (!ValidacionUtil.esNumeroPositivo(datoLaboral.getSueldo())) {
-                throw new ReglaNegocioException("El sueldo debe ser un número mayor a cero.", ReglaNegocioCodigoError.SUELDO_INCORRECTO);
+                throw new ReglaNegocioException(
+                        "El sueldo debe ser un número mayor a cero.",
+                        ReglaNegocioCodigoError.SUELDO_INCORRECTO);
             }
             datoLaboralEmpleado.setSueldo(datoLaboral.getSueldo());
 
@@ -333,17 +404,23 @@ public class ConfiguracionPresupuestalService {
         if (!lccActual.equals(lccNueva)) {
             BitacoraEmpleadoDTO bitacora = new BitacoraEmpleadoDTO();
             bitacora.setComentarios(observacionModificacion);
-            bitacora.setEmpleado(datoLaboralEmpleado.getEmpleado().getIdEmpleado());
+            bitacora.setEmpleado(
+                    datoLaboralEmpleado.getEmpleado().getIdEmpleado());
             bitacora.setIdUsuario(idUsuario);
             bitacora.setLccActual(lccNueva);
             bitacora.setLccAnterior(lccActual);
-            bitacora.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.ACTUALIZACION_DATOS_LABORALES);
-            Integer idBitacora = bitacoraModificacionService.registrarBitacora(bitacora);
+            bitacora.setTipoMovimientoEmpleado(
+                    EnumTipoModificacionEmpleado.ACTUALIZACION_DATOS_LABORALES);
+            Integer idBitacora = bitacoraModificacionService
+                    .registrarBitacora(bitacora);
 
             if (!lccActualSueldo.equals(lccNuevoSueldo)) {
-                String mensajeNotificacion = datoLaboralEmpleado.getEmpleado().getNombreCompleto() + " de " + lccActualSueldo + " por " + lccNuevoSueldo;
+                String mensajeNotificacion = datoLaboralEmpleado.getEmpleado()
+                        .getNombreCompleto() + " de " + lccActualSueldo
+                        + " por " + lccNuevoSueldo;
                 NuevaAutorizacionDTO dto = new NuevaAutorizacionDTO();
-                dto.setIdAccion(EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO);
+                dto.setIdAccion(
+                        EnumTiposAccionesAutorizacion.MODIFICACION_SUELDO);
                 dto.setIdEntidadContexto(idBitacora);
                 dto.setIdUsuarioLogeado(idUsuario);
                 dto.setMensajeNotificacion(mensajeNotificacion);
@@ -354,26 +431,36 @@ public class ConfiguracionPresupuestalService {
 
     }
 
-    protected DatoLaboralDTO obtenerConfiguracionPorId(Integer idConfiguracion) {
+    protected DatoLaboralDTO obtenerConfiguracionPorId(
+            Integer idConfiguracion) {
         if (!ValidacionUtil.esNumeroPositivo(idConfiguracion)) {
-            throw new ValidacionException("Es requerido el identificador del puesto", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Es requerido el identificador del puesto",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        ConfiguracionPresupuestoEntity datoLaboral = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+        ConfiguracionPresupuestoEntity datoLaboral = configuracionPresupuestoRepository
+                .obtenerPorId(idConfiguracion);
         if (datoLaboral == null) {
-            throw new ValidacionException("No se encontró dato laboral con el identificador solicitado", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "No se encontró dato laboral con el identificador solicitado",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         DatoLaboralDTO dto = new DatoLaboralDTO();
 
         dto.setIdDependencia(datoLaboral.getDependencia().getIdDependencia());
-        dto.setIdFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
-        dto.setIdNombramiento(datoLaboral.getNombramiento().getIdTipoNombramiento());
+        dto.setIdFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento()
+                .getIdFuenteFinanciamiento());
+        dto.setIdNombramiento(
+                datoLaboral.getNombramiento().getIdTipoNombramiento());
         dto.setIdProyecto(datoLaboral.getProyecto().getIdProyecto());
         dto.setIdPuesto(datoLaboral.getPuesto().getIdPuestoGeneral());
-        dto.setIdSubfuenteFinanciamiento(datoLaboral.getSubfuenteFinanciamiento().getIdFuenteFinanciamiento());
+        dto.setIdSubfuenteFinanciamiento(datoLaboral
+                .getSubfuenteFinanciamiento().getIdFuenteFinanciamiento());
         dto.setIdTabulador(datoLaboral.getTabulador().getIdTabulador());
         dto.setIdTipoRecurso(datoLaboral.getTipoRecurso().getIdTipoRecurso());
-        dto.setIdUnidadResponsable(datoLaboral.getUnidadResponsable().getIdUnidadResponsable());
+        dto.setIdUnidadResponsable(
+                datoLaboral.getUnidadResponsable().getIdUnidadResponsable());
         dto.setSueldo(datoLaboral.getSueldo());
         dto.setTipoContratacion(datoLaboral.getTipoContratacion().getId());
         return dto;
@@ -381,31 +468,42 @@ public class ConfiguracionPresupuestalService {
 
     protected DatoLaboralDTO obtenerDatosLaboralesPuesto(Integer idPuesto) {
         if (!ValidacionUtil.esNumeroPositivo(idPuesto)) {
-            throw new ValidacionException("Es requerido el identificador del puesto", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Es requerido el identificador del puesto",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        Integer idConfiguracion = inventarioVacanteRepository.obtenerIdDatoLaboralPorPuesto(idPuesto);
+        Integer idConfiguracion = inventarioVacanteRepository
+                .obtenerIdDatoLaboralPorPuesto(idPuesto);
         if (!ValidacionUtil.esNumeroPositivo(idConfiguracion)) {
-            throw new ValidacionException("El puesto no tiene dato laboral asignado.", ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
+            throw new ValidacionException(
+                    "El puesto no tiene dato laboral asignado.",
+                    ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
-        ConfiguracionPresupuestoEntity datoLaboral = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+        ConfiguracionPresupuestoEntity datoLaboral = configuracionPresupuestoRepository
+                .obtenerPorId(idConfiguracion);
         if (datoLaboral == null) {
-            throw new ReglaNegocioException("El puesto no tiene asignada su configuración laboral.", ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
+            throw new ReglaNegocioException(
+                    "El puesto no tiene asignada su configuración laboral.",
+                    ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
         }
 
         DatoLaboralDTO dto = new DatoLaboralDTO();
 
         if (datoLaboral.getDependencia() != null) {
-            dto.setIdDependencia(datoLaboral.getDependencia().getIdDependencia());
+            dto.setIdDependencia(
+                    datoLaboral.getDependencia().getIdDependencia());
         }
 
         if (datoLaboral.getFuenteFinanciamiento() != null) {
-            dto.setIdFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento().getIdFuenteFinanciamiento());
+            dto.setIdFuenteFinanciamiento(datoLaboral.getFuenteFinanciamiento()
+                    .getIdFuenteFinanciamiento());
         }
 
         if (datoLaboral.getNombramiento() != null) {
-            dto.setIdNombramiento(datoLaboral.getNombramiento().getIdTipoNombramiento());
+            dto.setIdNombramiento(
+                    datoLaboral.getNombramiento().getIdTipoNombramiento());
         }
 
         if (datoLaboral.getProyecto() != null) {
@@ -417,17 +515,21 @@ public class ConfiguracionPresupuestalService {
         }
 
         if (datoLaboral.getSubfuenteFinanciamiento() != null) {
-            dto.setIdSubfuenteFinanciamiento(datoLaboral.getSubfuenteFinanciamiento().getIdSubfuenteFinanciamiento());
+            dto.setIdSubfuenteFinanciamiento(
+                    datoLaboral.getSubfuenteFinanciamiento()
+                            .getIdSubfuenteFinanciamiento());
         }
         if (datoLaboral.getTabulador() != null) {
             dto.setIdTabulador(datoLaboral.getTabulador().getIdTabulador());
         }
 
         if (datoLaboral.getTipoRecurso() != null) {
-            dto.setIdTipoRecurso(datoLaboral.getTipoRecurso().getIdTipoRecurso());
+            dto.setIdTipoRecurso(
+                    datoLaboral.getTipoRecurso().getIdTipoRecurso());
         }
         if (datoLaboral.getUnidadResponsable() != null) {
-            dto.setIdUnidadResponsable(datoLaboral.getUnidadResponsable().getIdUnidadResponsable());
+            dto.setIdUnidadResponsable(datoLaboral.getUnidadResponsable()
+                    .getIdUnidadResponsable());
         }
         dto.setSueldo(datoLaboral.getSueldo());
         if (datoLaboral.getTipoContratacion() != null) {
@@ -462,26 +564,32 @@ public class ConfiguracionPresupuestalService {
         return idNombramiento;
     }
 
-    protected DetalleConfiguracionPresupuestoDTO obtenerDetallePorIdConfiguracion(Integer idConfiguracionPresupuesto) {
+    protected DetalleConfiguracionPresupuestoDTO obtenerDetallePorIdConfiguracion(
+            Integer idConfiguracionPresupuesto) {
 
-        ConfiguracionPresupuestoEntity configuracion = configuracionPresupuestoRepository.obtenerPorId(idConfiguracionPresupuesto);
+        ConfiguracionPresupuestoEntity configuracion = configuracionPresupuestoRepository
+                .obtenerPorId(idConfiguracionPresupuesto);
         DetalleConfiguracionPresupuestoDTO detalle = new DetalleConfiguracionPresupuestoDTO();
         detalle.setCodigoPuesto(configuracion.getPuesto().getCodigo());
         if (configuracion.getCuenta() != null) {
-            detalle.setCuentaFinanciamiento(configuracion.getCuenta().getDescripcion());
+            detalle.setCuentaFinanciamiento(
+                    configuracion.getCuenta().getDescripcion());
         } else {
             detalle.setCuentaFinanciamiento("SIN CUENTA");
         }
 
         System.out.println("id configuracion :" + configuracion.getId());
         if (configuracion.getDependencia() != null) {
-            detalle.setDependencia(configuracion.getDependencia().getDescripcion());
+            detalle.setDependencia(
+                    configuracion.getDependencia().getDescripcion());
         }
         detalle.setEstatus(configuracion.getEstatus().getEstatus());
         if (configuracion.getFuenteFinanciamiento() != null) {
-            detalle.setFuenteFinanciamiento(configuracion.getFuenteFinanciamiento().getDescripcion());
+            detalle.setFuenteFinanciamiento(
+                    configuracion.getFuenteFinanciamiento().getDescripcion());
         }
-        detalle.setNombramiento(configuracion.getNombramiento().getDescripcion());
+        detalle.setNombramiento(
+                configuracion.getNombramiento().getDescripcion());
         if (configuracion.getEmpleado() != null) {
             detalle.setNombreEmpleado(configuracion.getEmpleado().getNombre());
         }
@@ -495,46 +603,59 @@ public class ConfiguracionPresupuestalService {
             detalle.setPuesto(configuracion.getPuesto().getPuesto());
         }
         if (configuracion.getSubfuenteFinanciamiento() != null) {
-            detalle.setSubfuenteFinanciamiento(configuracion.getSubfuenteFinanciamiento().getDescripcion());
+            detalle.setSubfuenteFinanciamiento(configuracion
+                    .getSubfuenteFinanciamiento().getDescripcion());
         }
         detalle.setSueldoAutorizado(configuracion.getSueldo());
         if (configuracion.getTabulador() != null) {
-            detalle.setSueldoTabulador(configuracion.getTabulador().getSueldoBrutoMensual());
-            detalle.setTabulador(configuracion.getTabulador().getTipoTabulador().getDescripcion());
+            detalle.setSueldoTabulador(
+                    configuracion.getTabulador().getSueldoBrutoMensual());
+            detalle.setTabulador(configuracion.getTabulador().getTipoTabulador()
+                    .getDescripcion());
         }
         if (configuracion.getTipoRecurso() != null) {
-            detalle.setTipoRecurso(configuracion.getTipoRecurso().getDescripcion());
+            detalle.setTipoRecurso(
+                    configuracion.getTipoRecurso().getDescripcion());
         } else {
             detalle.setTipoRecurso("SIN TIPO RECURSO ASIGNADO");
         }
 
         if (configuracion.getUnidadResponsable() != null) {
-            detalle.setUnidadResponsable(configuracion.getUnidadResponsable().getDescripcion());
+            detalle.setUnidadResponsable(
+                    configuracion.getUnidadResponsable().getDescripcion());
         }
         detalle.setIdDetalle(configuracion.getId());
         if (configuracion.getTipoContratacion() != null) {
-            detalle.setTipoContratacion(configuracion.getTipoContratacion().getTipoContratacion());
-            detalle.setIdTipoContratacion(configuracion.getTipoContratacion().getId());
+            detalle.setTipoContratacion(
+                    configuracion.getTipoContratacion().getTipoContratacion());
+            detalle.setIdTipoContratacion(
+                    configuracion.getTipoContratacion().getId());
         }
         if (configuracion.getNombramiento() != null) {
-            detalle.setIdTipoNombramiento(configuracion.getNombramiento().getIdTipoNombramiento());
+            detalle.setIdTipoNombramiento(
+                    configuracion.getNombramiento().getIdTipoNombramiento());
         }
         return detalle;
 
     }
 
-    protected List<InfoConfiguracionDTO> consultarConfiguracionesPorCriterio(FiltroConsultaFinanciamientosDTO filtro) {
+    protected List<InfoConfiguracionDTO> consultarConfiguracionesPorCriterio(
+            FiltroConsultaFinanciamientosDTO filtro) {
         List<InfoConfiguracionDTO> lista = new ArrayList<>();
 
-        lista = configuracionPresupuestoRepository.configuracionesPorTipoContratacion(filtro.getTipoContratacion());
+        lista = configuracionPresupuestoRepository
+                .configuracionesPorTipoContratacion(
+                        filtro.getTipoContratacion());
 
         return lista;
     }
 
-    protected List<InfoConfiguracionDTO> consultarConfiguracionesPorEmpleado(Integer idEmpleado) {
+    protected List<InfoConfiguracionDTO> consultarConfiguracionesPorEmpleado(
+            Integer idEmpleado) {
         List<InfoConfiguracionDTO> lista = new ArrayList<>();
         try {
-            lista = configuracionPresupuestoRepository.configuracionesPorIdEmpleado(idEmpleado);
+            lista = configuracionPresupuestoRepository
+                    .configuracionesPorIdEmpleado(idEmpleado);
             return lista;
         } catch (NoResultException e) {
             return null;
@@ -544,19 +665,26 @@ public class ConfiguracionPresupuestalService {
 
     protected void procesarPadron(int padron) {
         if (padron == EnumTipoContratacion.CONTRATO_ESTATAL) {
-            List<TemporalConfEmpleadoEntity> temporales = temporalConfEmpleadoRepository.temporalesPorNombramientoSinClasificar("V");
+            List<TemporalConfEmpleadoEntity> temporales = temporalConfEmpleadoRepository
+                    .temporalesPorNombramientoSinClasificar("V");
             if (!temporales.isEmpty()) {
                 int contador = 1;
                 for (TemporalConfEmpleadoEntity t : temporales) {
                     System.out.println("procesados" + contador);
-                    TempContratosEstatalesEntity contratoEstatal = tempContratosEstatalesRepository.contratoEstatalPorRfc(t.getRfc());
+                    TempContratosEstatalesEntity contratoEstatal = tempContratosEstatalesRepository
+                            .contratoEstatalPorRfc(t.getRfc());
                     if (contratoEstatal != null) {
-                        t.setTipoContratacion(EnumTipoContratacion.CONTRATO_ESTATAL);
-                        BigDecimal sueldoMensual = contratoEstatal.getSueldo().multiply(new BigDecimal(2)).setScale(2, RoundingMode.DOWN);
+                        t.setTipoContratacion(
+                                EnumTipoContratacion.CONTRATO_ESTATAL);
+                        BigDecimal sueldoMensual = contratoEstatal.getSueldo()
+                                .multiply(new BigDecimal(2))
+                                .setScale(2, RoundingMode.DOWN);
                         t.setSueldoMensual(sueldoMensual);
                         temporalConfEmpleadoRepository.actualizar(t);
-                        contratoEstatal.setIdTemporalConfiguracionEmpleado(t.getId());
-                        tempContratosEstatalesRepository.actualizar(contratoEstatal);
+                        contratoEstatal
+                                .setIdTemporalConfiguracionEmpleado(t.getId());
+                        tempContratosEstatalesRepository
+                                .actualizar(contratoEstatal);
                     }
 
                     contador++;
@@ -564,29 +692,39 @@ public class ConfiguracionPresupuestalService {
             }
 
         } else if (padron == EnumTipoContratacion.CONTRATO_FEDERAL) {
-            List<TemporalConfEmpleadoEntity> temporales = temporalConfEmpleadoRepository.temporalesPorNombramientoSinClasificar("V");
+            List<TemporalConfEmpleadoEntity> temporales = temporalConfEmpleadoRepository
+                    .temporalesPorNombramientoSinClasificar("V");
             if (!temporales.isEmpty()) {
                 int contador = 1;
                 for (TemporalConfEmpleadoEntity t : temporales) {
                     System.out.println("procesados" + contador);
-                    TempContratosFederalesEntity contratosFederales = tempContratosFederalesRepository.obtenerContratoFederalPorRfc(t.getRfc());
+                    TempContratosFederalesEntity contratosFederales = tempContratosFederalesRepository
+                            .obtenerContratoFederalPorRfc(t.getRfc());
 
                     if (contratosFederales != null) {
-                        ProgramaEntity programa = programaRepository.programaPorDescripcion(contratosFederales.getPrograma());
+                        ProgramaEntity programa = programaRepository
+                                .programaPorDescripcion(
+                                        contratosFederales.getPrograma());
                         if (programa != null) {
                             if (programa.getIdPrograma() == 5) {
-                                t.setTipoContratacion(EnumTipoContratacion.CONTRATO_ESTATAL);
+                                t.setTipoContratacion(
+                                        EnumTipoContratacion.CONTRATO_ESTATAL);
                             } else {
-                                t.setTipoContratacion(EnumTipoContratacion.CONTRATO_FEDERAL);
+                                t.setTipoContratacion(
+                                        EnumTipoContratacion.CONTRATO_FEDERAL);
 
                             }
 
-                            t.setSueldoMensual(contratosFederales.getSueldoMensual());
+                            t.setSueldoMensual(
+                                    contratosFederales.getSueldoMensual());
                             t.setIdPrograma(programa.getIdPrograma());
                             temporalConfEmpleadoRepository.actualizar(t);
 
-                            contratosFederales.setIdTemporalConfiguracionEmpleado(t.getId());
-                            tempContratosFederalesRepository.actualizar(contratosFederales);
+                            contratosFederales
+                                    .setIdTemporalConfiguracionEmpleado(
+                                            t.getId());
+                            tempContratosFederalesRepository
+                                    .actualizar(contratosFederales);
                             contador++;
 
                         }
@@ -600,43 +738,57 @@ public class ConfiguracionPresupuestalService {
 
     }
 
-    protected InfoDatosLaboralesDTO obtenerDatosLaboralesIdPuesto(Integer idPuesto) {
+    protected InfoDatosLaboralesDTO obtenerDatosLaboralesIdPuesto(
+            Integer idPuesto) {
         if (!ValidacionUtil.esNumeroPositivo(idPuesto)) {
-            throw new ValidacionException("El puesto es requerido, comuniquese con sistemas.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El puesto es requerido, comuniquese con sistemas.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        Integer idConfiguracion = inventarioVacanteRepository.obtenerIdDatoLaboralPorPuesto(idPuesto);
+        Integer idConfiguracion = inventarioVacanteRepository
+                .obtenerIdDatoLaboralPorPuesto(idPuesto);
         if (idConfiguracion == null) {
-            throw new ReglaNegocioException("El puesto no tiene configurado datos laborales, es requerido asignarle los datos correspondientes.",
+            throw new ReglaNegocioException(
+                    "El puesto no tiene configurado datos laborales, es requerido asignarle los datos correspondientes.",
                     ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
         }
 
         InfoDatosLaboralesDTO dto = new InfoDatosLaboralesDTO();
-        ConfiguracionPresupuestoEntity datosLaborales = configuracionPresupuestoRepository.obtenerPorId(idConfiguracion);
+        ConfiguracionPresupuestoEntity datosLaborales = configuracionPresupuestoRepository
+                .obtenerPorId(idConfiguracion);
         if (datosLaborales == null) {
-            throw new ReglaNegocioException("La configuración con identificador " + idConfiguracion + " no es valida, comuniquese con sistemas.",
+            throw new ReglaNegocioException(
+                    "La configuración con identificador " + idConfiguracion
+                            + " no es valida, comuniquese con sistemas.",
                     ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
         }
 
         dto.setNumeroEmpleado(datosLaborales.getNumeroEmpleado());
         dto.setProyecto(datosLaborales.getProyecto().getDescripcion());
         dto.setDependencia(datosLaborales.getDependencia().getDescripcion());
-        dto.setUnidadResponsable(datosLaborales.getUnidadResponsable().getDescripcion());
+        dto.setUnidadResponsable(
+                datosLaborales.getUnidadResponsable().getDescripcion());
         dto.setNombramiento(datosLaborales.getNombramiento().getDescripcion());
         if (datosLaborales.getPuesto() != null) {
-            dto.setPuesto(datosLaborales.getPuesto().getCodigo() + "-" + datosLaborales.getPuesto().getPuesto());
+            dto.setPuesto(datosLaborales.getPuesto().getCodigo() + "-"
+                    + datosLaborales.getPuesto().getPuesto());
         } else {
             dto.setPuesto("SIN PUESTO ASIGNADO.");
         }
-        dto.setFuenteFinanciamiento(datosLaborales.getFuenteFinanciamiento().getDescripcion());
-        dto.setSubfuenteFinanciamiento(datosLaborales.getSubfuenteFinanciamiento().getDescripcion());
+        dto.setFuenteFinanciamiento(
+                datosLaborales.getFuenteFinanciamiento().getDescripcion());
+        dto.setSubfuenteFinanciamiento(
+                datosLaborales.getSubfuenteFinanciamiento().getDescripcion());
         dto.setTipoRecurso(datosLaborales.getTipoRecurso().getDescripcion());
 
         if (datosLaborales.getTabulador() == null) {
-            throw new ReglaNegocioException("El empleado no tiene asignado un tabulador, es requerido asignarle uno.",
+            throw new ReglaNegocioException(
+                    "El empleado no tiene asignado un tabulador, es requerido asignarle uno.",
                     ReglaNegocioCodigoError.TABULADOR_NO_CONFIGURADO);
         }
 
-        dto.setSueldo(tabuladorService.obtenerInfoSueldoIdTabulador(datosLaborales.getTabulador()));
+        dto.setSueldo(tabuladorService
+                .obtenerInfoSueldoIdTabulador(datosLaborales.getTabulador()));
 
         return dto;
     }

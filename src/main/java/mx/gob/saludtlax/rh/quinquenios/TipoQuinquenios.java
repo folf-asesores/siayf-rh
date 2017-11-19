@@ -41,7 +41,8 @@ public enum TipoQuinquenios {
                 clave = A500.clave;
                 break;
             default:
-                throw new IllegalArgumentException("error al generar la clave de quinquenio");
+                throw new IllegalArgumentException(
+                        "error al generar la clave de quinquenio");
         }
 
         return clave;

@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class PresupuestoCalendarioDTO implements Serializable {
@@ -133,10 +133,14 @@ public class PresupuestoCalendarioDTO implements Serializable {
      * @param noviembre
      * @param diciembre
      */
-    public PresupuestoCalendarioDTO(Integer idPresupuestoCalendario, Integer ur, Integer fin, Integer fn, Integer sf, Integer rg, Integer ai, String mpp,
-            Integer pp, Integer ptda, Integer tg, Integer ff, Integer ef, Integer ppii, Integer anio, BigDecimal proyectoAnual, BigDecimal enero,
-            BigDecimal febrero, BigDecimal marzo, BigDecimal abril, BigDecimal mayo, BigDecimal junio, BigDecimal julio, BigDecimal agosto,
-            BigDecimal septimbre, BigDecimal octubre, BigDecimal noviembre, BigDecimal diciembre) {
+    public PresupuestoCalendarioDTO(Integer idPresupuestoCalendario, Integer ur,
+            Integer fin, Integer fn, Integer sf, Integer rg, Integer ai,
+            String mpp, Integer pp, Integer ptda, Integer tg, Integer ff,
+            Integer ef, Integer ppii, Integer anio, BigDecimal proyectoAnual,
+            BigDecimal enero, BigDecimal febrero, BigDecimal marzo,
+            BigDecimal abril, BigDecimal mayo, BigDecimal junio,
+            BigDecimal julio, BigDecimal agosto, BigDecimal septimbre,
+            BigDecimal octubre, BigDecimal noviembre, BigDecimal diciembre) {
 
         this.idPresupuestoCalendario = idPresupuestoCalendario;
         this.ur = ur;

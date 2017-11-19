@@ -44,26 +44,33 @@ public class MovimientosSuplentesController implements Serializable {
         view = new MovimientosSuplentesView();
         FiltroSuplenciaDTO filtro = new FiltroSuplenciaDTO();
         view.setFiltro(filtro);
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.getMovimiento().setIdUsuario(usuario.getIdUsuario());
 
     }
 
     public void buscarSuplente() {
         view.getFiltro().setTipoConsulta(EnumTipoConsultaSuplencia.NOMBRE);
-        view.setSuplentes(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        view.setSuplentes(
+                suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
         if (view.getSuplentes().isEmpty()) {
-            JSFUtils.errorMessage("", "No se encontraron resultado con el criterio " + view.getFiltro().getCriterio());
+            JSFUtils.errorMessage("",
+                    "No se encontraron resultado con el criterio "
+                            + view.getFiltro().getCriterio());
         }
 
     }
 
     public void mostrarRegistroMovimiento(Integer idSuplente) {
         view.setMostrarRegistroMovimiento(true);
-        view.setSuplenteSeleccionado(suplencia.obtenerSuplentePorId(idSuplente));
-        view.getMovimiento().setIdSuplente(view.getSuplenteSeleccionado().getIdSuplente());
+        view.setSuplenteSeleccionado(
+                suplencia.obtenerSuplentePorId(idSuplente));
+        view.getMovimiento()
+                .setIdSuplente(view.getSuplenteSeleccionado().getIdSuplente());
 
     }
 
@@ -81,9 +88,11 @@ public class MovimientosSuplentesController implements Serializable {
         try {
             suplencia.crearMovimientoSuplente(view.getMovimiento());
             view.setMostrarRegistroMovimiento(false);
-            JSFUtils.infoMessage("", "¡El movimiento se ha registrado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El movimiento se ha registrado con éxito!");
         } catch (ReglaNegocioException | ValidacionException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
     }
 

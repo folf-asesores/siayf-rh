@@ -19,7 +19,8 @@ public class ConfiguracionUsuarioModuloDTO implements Serializable {
         return idConfiguracionUsuarioModulo;
     }
 
-    public void setIdConfiguracionUsuarioModulo(Integer idConfiguracionUsuarioModulo) {
+    public void setIdConfiguracionUsuarioModulo(
+            Integer idConfiguracionUsuarioModulo) {
         this.idConfiguracionUsuarioModulo = idConfiguracionUsuarioModulo;
     }
 
@@ -35,7 +36,8 @@ public class ConfiguracionUsuarioModuloDTO implements Serializable {
         return configuracionModulo;
     }
 
-    public void setConfiguracionModulo(ConfiguracionModuloAccionDTO configuracionModulo) {
+    public void setConfiguracionModulo(
+            ConfiguracionModuloAccionDTO configuracionModulo) {
         this.configuracionModulo = configuracionModulo;
     }
 

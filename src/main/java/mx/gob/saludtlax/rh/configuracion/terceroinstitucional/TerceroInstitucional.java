@@ -7,8 +7,8 @@ package mx.gob.saludtlax.rh.configuracion.terceroinstitucional;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 10:56:36
  */
@@ -19,14 +19,16 @@ public interface TerceroInstitucional {
      *
      * @param terceroInstitucional
      */
-    void crearTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional);
+    void crearTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional);
 
     /**
      * Actualiza el tercero institucional de operaciones y pagos
      *
      * @param terceroInstitucional
      */
-    void actualizarTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucional);
+    void actualizarTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucional);
 
     /**
      * Elimina el tercero institucional de operaciones y pagos

@@ -43,14 +43,15 @@ import mx.gob.saludtlax.rh.reportes.word.WordGenerador;
  * </ol>
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public class AdministradorReportes {
 
     private static final String ETAPA_PERSISTENCIA_DE_DATOS = "A guardar en la base de datos";
     private static final String ETAPA_RECUPERACION_DE_DATOS = "Almacenados en la base de datos";
     private static final String BITACORA_REPORTES_BEAN = "java:module/BitacoraReporteEJB";
-    private static final Logger LOGGER = Logger.getLogger(AdministradorReportes.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AdministradorReportes.class.getName());
 
     private final BitacoraReporte bitacoraReporte;
 
@@ -85,7 +86,8 @@ public class AdministradorReportes {
      * @throws NullPointerException
      *             Si los paramtros están nulos o vacios.
      */
-    public String obtenerReferencia(String[] parametros) throws NullPointerException, IllegalArgumentException {
+    public String obtenerReferencia(String[] parametros)
+            throws NullPointerException, IllegalArgumentException {
         Map<String, String> mapaParametros = separarClaveValor(parametros);
         imprimirParametros(mapaParametros, ETAPA_PERSISTENCIA_DE_DATOS);
 
@@ -105,16 +107,19 @@ public class AdministradorReportes {
      * @throws IllegalArgumentException
      *             si la cadena no tiene los 36 cáracteres.
      */
-    public byte[] obtenerReporte(String referencia) throws NullPointerException, IllegalArgumentException {
+    public byte[] obtenerReporte(String referencia)
+            throws NullPointerException, IllegalArgumentException {
         if (referencia == null || referencia.trim().isEmpty()) {
             throw new NullPointerException("La referencia está vacia.");
         }
 
         if ((referencia.length() < 36) || (referencia.length() > 36)) {
-            throw new IllegalArgumentException("La referencia debe ser de 36 cárcteres.");
+            throw new IllegalArgumentException(
+                    "La referencia debe ser de 36 cárcteres.");
         }
 
-        Map<String, String> parametros = bitacoraReporte.obtenerParametros(referencia);
+        Map<String, String> parametros = bitacoraReporte
+                .obtenerParametros(referencia);
         imprimirParametros(parametros, ETAPA_RECUPERACION_DE_DATOS);
 
         String nombreReporte = parametros.get("REPORTE_NOMBRE");
@@ -128,12 +133,14 @@ public class AdministradorReportes {
                 }
                 break;
             case "pdf":
-                if (new AlmacenReportesJasperReports().extisteReporte(nombreReporte)) {
+                if (new AlmacenReportesJasperReports()
+                        .extisteReporte(nombreReporte)) {
                     generador = new JasperReportsGenerador();
                 }
                 break;
             case "txt":
-                if (new AlmacenReportesJasperReports().extisteReporte(nombreReporte)) {
+                if (new AlmacenReportesJasperReports()
+                        .extisteReporte(nombreReporte)) {
                     generador = new JasperReportsGenerador();
                 }
 
@@ -151,7 +158,8 @@ public class AdministradorReportes {
         if (generador != null) {
             return generador.obtenerReporte(parametros);
         } else {
-            LOGGER.warnv("El reporte {0} de tipo {1} no se ha encontrado.", nombreReporte, tipoReporte);
+            LOGGER.warnv("El reporte {0} de tipo {1} no se ha encontrado.",
+                    nombreReporte, tipoReporte);
             return null;
         }
     }
@@ -204,20 +212,24 @@ public class AdministradorReportes {
      *            los parametrso del reporte a separar.
      * @return los paramtrso separados.
      */
-    private Map<String, String> separarClaveValor(String[] parametros) throws NullPointerException, IllegalArgumentException {
+    private Map<String, String> separarClaveValor(String[] parametros)
+            throws NullPointerException, IllegalArgumentException {
 
         if (parametros == null) {
-            throw new NullPointerException("No se ha encontrado ningún parametro.");
+            throw new NullPointerException(
+                    "No se ha encontrado ningún parametro.");
         }
 
         int tamanyo = parametros.length;
 
         if (tamanyo == 0) {
-            throw new IllegalArgumentException("Los parámetros no pueden estar vacios.");
+            throw new IllegalArgumentException(
+                    "Los parámetros no pueden estar vacios.");
         }
 
         if ((tamanyo % 2) != 0) {
-            throw new IllegalArgumentException("Los parámetros deben tener un valor para que siempre haya una clave y valor");
+            throw new IllegalArgumentException(
+                    "Los parámetros deben tener un valor para que siempre haya una clave y valor");
         }
 
         Map<String, String> map = new HashMap<>();
@@ -247,7 +259,8 @@ public class AdministradorReportes {
      *            representa la etapa en la que está la generación del
      *            reporte.
      */
-    private void imprimirParametros(Map<String, String> parametros, String etapa) {
+    private void imprimirParametros(Map<String, String> parametros,
+            String etapa) {
         StringBuilder sb = new StringBuilder();
         sb.append("\n========================================");
         sb.append("========================================\n");
@@ -282,10 +295,12 @@ public class AdministradorReportes {
     private BitacoraReporte getBitacoraReportes() {
         try {
             Context initContext = new InitialContext();
-            BitacoraReporte bitacoraReportes = (BitacoraReporte) initContext.lookup(BITACORA_REPORTES_BEAN);
+            BitacoraReporte bitacoraReportes = (BitacoraReporte) initContext
+                    .lookup(BITACORA_REPORTES_BEAN);
             return bitacoraReportes;
         } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}", BITACORA_REPORTES_BEAN, ex.getCause());
+            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
+                    BITACORA_REPORTES_BEAN, ex.getCause());
         }
 
         return null;

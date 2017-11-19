@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.util;
 import java.util.UUID;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  * @version 15/01/2016 17:39:22
  */

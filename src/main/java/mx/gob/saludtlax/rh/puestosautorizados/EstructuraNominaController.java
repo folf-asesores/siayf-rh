@@ -44,17 +44,22 @@ public class EstructuraNominaController implements Serializable {
     @PostConstruct
     public void inicio() {
         view = new EstructuraNominaView();
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuarioLogeado(usuario.getIdUsuario());
     }
 
     public void consultarEmpleado() {
         view.getFiltro().setTipoFiltro(EnumTipoFiltro.CRITERIO_FEDERALES);
-        view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
+        view.setEmpleados(
+                empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
         if (view.getEmpleados().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + view.getFiltro().getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontraron empleados con el criterio "
+                            + view.getFiltro().getCriterio());
         }
     }
 
@@ -65,13 +70,16 @@ public class EstructuraNominaController implements Serializable {
     public void actualizarEstructuras() {
         try {
             view.getEstructuraNomina().setIdUsuario(view.getIdUsuarioLogeado());
-            puestosAutorizados.actualizarEstructuraNomina(view.getEstructuraNomina());
+            puestosAutorizados
+                    .actualizarEstructuraNomina(view.getEstructuraNomina());
             view.setMostrarInformacionPuesto(false);
 
-            JSFUtils.infoMessage("", "¡La información ha sido actualizada con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡La información ha sido actualizada con éxito!");
 
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("error", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("error", "",
+                    exception.getMessage());
         }
 
     }
@@ -79,7 +87,8 @@ public class EstructuraNominaController implements Serializable {
     public void seleccionarEmpleado(Integer idPuesto) {
         view.setMostrarInformacionPuesto(true);
         view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(idPuesto));
-        view.setEstructuraNomina(puestosAutorizados.obtenerEstructuraNominaPuesto(idPuesto));
+        view.setEstructuraNomina(
+                puestosAutorizados.obtenerEstructuraNominaPuesto(idPuesto));
         view.getEstructuraNomina().setIdPuesto(idPuesto);
     }
 

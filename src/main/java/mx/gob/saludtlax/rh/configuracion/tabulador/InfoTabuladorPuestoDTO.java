@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.configuracion.tabulador;
 import java.io.Serializable;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class InfoTabuladorPuestoDTO implements Serializable {

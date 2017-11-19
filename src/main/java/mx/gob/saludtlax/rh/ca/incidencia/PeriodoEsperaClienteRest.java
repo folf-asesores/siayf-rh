@@ -28,7 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Stateless
-public class PeriodoEsperaClienteRest extends ClienteRest implements Serializable {
+public class PeriodoEsperaClienteRest extends ClienteRest
+        implements Serializable {
 
     public PeriodoEsperaClienteRest() {
         super(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
@@ -41,31 +42,42 @@ public class PeriodoEsperaClienteRest extends ClienteRest implements Serializabl
     private final String RESOURCE_NUEVO_PERIODO_ESPERA_ASISTENCIA = "/incidencia/periodo/espera/nuevo";
     private final String RESOURCE_ELIMINA_PERIODO_ESPERA_INCIDENCIA = "/incidencia/periodo/espera/eliminar/";
 
-    public List<PeriodoEsperaViewModel> listadoPeriodoEsperaIncidencia(Integer idIncidencia, Integer idTipoContraacion) throws RESTClientException {
+    public List<PeriodoEsperaViewModel> listadoPeriodoEsperaIncidencia(
+            Integer idIncidencia, Integer idTipoContraacion)
+            throws RESTClientException {
 
         List<PeriodoEsperaViewModel> listadoPeriodoEsperaViewModel = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO_PERIODO_ESPERA_INCIDENCIAS + idIncidencia + "/" + idTipoContraacion);
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_LISTADO_PERIODO_ESPERA_INCIDENCIAS
+                        + idIncidencia + "/" + idTipoContraacion);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String result = EntityUtils.toString(servicioResponse.getEntity());
+                    String result = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<PeriodoEsperaViewModel>> tokenListado = new TypeToken<ArrayList<PeriodoEsperaViewModel>>() {
                     };
-                    listadoPeriodoEsperaViewModel = incidenciaGson.fromJson(result, tokenListado.getType());
+                    listadoPeriodoEsperaViewModel = incidenciaGson
+                            .fromJson(result, tokenListado.getType());
 
                     break;
                 case 400:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -79,36 +91,48 @@ public class PeriodoEsperaClienteRest extends ClienteRest implements Serializabl
 
     }
 
-    public void crearNuevoPeriodoEsperaIncidencia(PeriodoEsperaFormModel periodoEsperaFormModel) throws RESTClientException {
+    public void crearNuevoPeriodoEsperaIncidencia(
+            PeriodoEsperaFormModel periodoEsperaFormModel)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_NUEVO_PERIODO_ESPERA_ASISTENCIA);
+        HttpPost httpPost = new HttpPost(
+                url_serivicio + RESOURCE_NUEVO_PERIODO_ESPERA_ASISTENCIA);
 
         Gson gson = new Gson();
         StringEntity nuevoPeriodoEsperaIncidenciaFormModelJSON;
         try {
-            nuevoPeriodoEsperaIncidenciaFormModelJSON = new StringEntity(gson.toJson(periodoEsperaFormModel));
+            nuevoPeriodoEsperaIncidenciaFormModelJSON = new StringEntity(
+                    gson.toJson(periodoEsperaFormModel));
 
-            nuevoPeriodoEsperaIncidenciaFormModelJSON.setContentType("application/json");
+            nuevoPeriodoEsperaIncidenciaFormModelJSON
+                    .setContentType("application/json");
 
             httpPost.setEntity(nuevoPeriodoEsperaIncidenciaFormModelJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultNuevoPeriodEsperaIncidencia;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevoPeriodEsperaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevoPeriodEsperaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     break;
                 case 400:
-                    resultNuevoPeriodEsperaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
-                    throw new RESTClientException(resultNuevoPeriodEsperaIncidencia);
+                    resultNuevoPeriodEsperaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    throw new RESTClientException(
+                            resultNuevoPeriodEsperaIncidencia);
 
                 default:
 
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 
@@ -125,25 +149,35 @@ public class PeriodoEsperaClienteRest extends ClienteRest implements Serializabl
 
     }
 
-    public void elminarPeriodoEsperaIncidencia(Integer idPeriodoEsperaIncidenciaElminar) throws RESTClientException {
+    public void elminarPeriodoEsperaIncidencia(
+            Integer idPeriodoEsperaIncidenciaElminar)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpDelete httpDelete = new HttpDelete(url_serivicio + RESOURCE_ELIMINA_PERIODO_ESPERA_INCIDENCIA + idPeriodoEsperaIncidenciaElminar);
+        HttpDelete httpDelete = new HttpDelete(
+                url_serivicio + RESOURCE_ELIMINA_PERIODO_ESPERA_INCIDENCIA
+                        + idPeriodoEsperaIncidenciaElminar);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpDelete);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultPeriodoEspera = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultPeriodoEspera = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     break;
                 case 400:
 
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }

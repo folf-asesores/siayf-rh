@@ -9,10 +9,11 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class MovimientoIsssteEmpleadoRepository extends GenericRepository<MovimientoIsssteEmpleadoEntity, Integer> {
+public class MovimientoIsssteEmpleadoRepository
+        extends GenericRepository<MovimientoIsssteEmpleadoEntity, Integer> {
 
     /**
      *
@@ -22,10 +23,10 @@ public class MovimientoIsssteEmpleadoRepository extends GenericRepository<Movimi
     public boolean existeEmpleado(Integer idEmpleado) {
         boolean resultado = false;
         try {
-            Integer idEmpleadoConfirmado = em
-                    .createQuery("SELECT m.empleado.idEmpleado FROM MovimientoIsssteEmpleadoEntity AS m WHERE m.empleado.idEmpleado =:idEmpleado",
-                            Integer.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            Integer idEmpleadoConfirmado = em.createQuery(
+                    "SELECT m.empleado.idEmpleado FROM MovimientoIsssteEmpleadoEntity AS m WHERE m.empleado.idEmpleado =:idEmpleado",
+                    Integer.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
             resultado = true;
         } catch (NoResultException e) {
             resultado = false;
@@ -33,11 +34,14 @@ public class MovimientoIsssteEmpleadoRepository extends GenericRepository<Movimi
         return resultado;
     }
 
-    public List<MovimientoIsssteEmpleadoEntity> obtenerListaMovimientoPorCriterio(String criterio) {
+    public List<MovimientoIsssteEmpleadoEntity> obtenerListaMovimientoPorCriterio(
+            String criterio) {
         try {
             List<MovimientoIsssteEmpleadoEntity> lista = em.createQuery(
                     "SELECT m FROM MovimientoIsssteEmpleadoEntity AS m WHERE (m.empleado.nombreCompleto LIKE :criterio OR m.empleado.rfc LIKE :criterio OR m.empleado LIKE :criterio)",
-                    MovimientoIsssteEmpleadoEntity.class).setParameter("criterio", "%" + criterio + "%").getResultList();
+                    MovimientoIsssteEmpleadoEntity.class)
+                    .setParameter("criterio", "%" + criterio + "%")
+                    .getResultList();
 
             return lista;
         } catch (NoResultException e) {

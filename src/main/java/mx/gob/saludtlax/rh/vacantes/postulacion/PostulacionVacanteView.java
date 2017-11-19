@@ -104,7 +104,8 @@ public class PostulacionVacanteView implements Serializable {
         return candidatosPostulados;
     }
 
-    public void setCandidatosPostulados(List<InfoCandidatoDTO> candidatosPostulados) {
+    public void setCandidatosPostulados(
+            List<InfoCandidatoDTO> candidatosPostulados) {
         this.candidatosPostulados = candidatosPostulados;
     }
 
@@ -112,7 +113,8 @@ public class PostulacionVacanteView implements Serializable {
         return mostrarDetallePuestoActivo;
     }
 
-    public void setMostrarDetallePuestoActivo(boolean mostrarDetallePuestoActivo) {
+    public void setMostrarDetallePuestoActivo(
+            boolean mostrarDetallePuestoActivo) {
         this.mostrarDetallePuestoActivo = mostrarDetallePuestoActivo;
     }
 
@@ -234,7 +236,8 @@ public class PostulacionVacanteView implements Serializable {
         return puestosDisponibles;
     }
 
-    public void setPuestosDisponibles(List<PuestoDisponibleDTO> puestosDisponibles) {
+    public void setPuestosDisponibles(
+            List<PuestoDisponibleDTO> puestosDisponibles) {
         this.puestosDisponibles = puestosDisponibles;
     }
 

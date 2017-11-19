@@ -23,7 +23,7 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.presupuesto.ProyeccionesPresupuestalesDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ContratoProyeccionExcel implements Serializable {
@@ -33,7 +33,8 @@ public class ContratoProyeccionExcel implements Serializable {
      */
     private static final long serialVersionUID = -5446860642409906926L;
 
-    private final InputStream is = ContratoExcel.class.getResourceAsStream("/plantillas/contrato/Contrato_Estatal_Federal_Proyectado.xlsx");
+    private final InputStream is = ContratoExcel.class.getResourceAsStream(
+            "/plantillas/contrato/Contrato_Estatal_Federal_Proyectado.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -165,12 +166,14 @@ public class ContratoProyeccionExcel implements Serializable {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
 
-    private void llenarDetalles(List<ProyeccionesPresupuestalesDTO> estructura) {
+    private void llenarDetalles(
+            List<ProyeccionesPresupuestalesDTO> estructura) {
         int i = FILA_INICIO_DETALLE;
         int filaTotales = FILA_INICIO_DETALLE;
 
@@ -182,114 +185,169 @@ public class ContratoProyeccionExcel implements Serializable {
             Cell celdaCapitulo = filaDetalle.createCell(CAPITULO_8000);
             celdaCapitulo.setCellValue("");
 
-            Cell celdaPartidaEspecifica = filaDetalle.createCell(PARTIDA_ESPECIFICA);
+            Cell celdaPartidaEspecifica = filaDetalle
+                    .createCell(PARTIDA_ESPECIFICA);
             celdaPartidaEspecifica.setCellValue(detalle.getIdPartida());
 
             Cell celdaConcepto = filaDetalle.createCell(CONCEPTO);
             celdaConcepto.setCellValue(detalle.getPartida());
 
             Cell celdaEnero = filaDetalle.createCell(ENERO);
-            celdaEnero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getEnero()));
+            celdaEnero.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getEnero()));
             TOTAL_ENERO = TOTAL_ENERO.add(detalle.getEnero());
 
-            Cell celdaProyeccionEnero = filaDetalle.createCell(PROYECCION_ENERO);
-            celdaProyeccionEnero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionEnero()));
-            TOTAL_PROYECCION_ENERO = TOTAL_PROYECCION_ENERO.add(detalle.getProyeccionEnero());
+            Cell celdaProyeccionEnero = filaDetalle
+                    .createCell(PROYECCION_ENERO);
+            celdaProyeccionEnero.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionEnero()));
+            TOTAL_PROYECCION_ENERO = TOTAL_PROYECCION_ENERO
+                    .add(detalle.getProyeccionEnero());
 
             Cell celdaFebrero = filaDetalle.createCell(FEBRERO);
-            celdaFebrero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getFebrero()));
+            celdaFebrero.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getFebrero()));
             TOTAL_FEBRERO = TOTAL_FEBRERO.add(detalle.getFebrero());
 
-            Cell celdaProyeccionFebrero = filaDetalle.createCell(PROYECCION_FEBRERO);
-            celdaProyeccionFebrero.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionFebrero()));
-            TOTAL_PROYECCION_FEBRERO = TOTAL_PROYECCION_FEBRERO.add(detalle.getProyeccionFebrero());
+            Cell celdaProyeccionFebrero = filaDetalle
+                    .createCell(PROYECCION_FEBRERO);
+            celdaProyeccionFebrero
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(detalle.getProyeccionFebrero()));
+            TOTAL_PROYECCION_FEBRERO = TOTAL_PROYECCION_FEBRERO
+                    .add(detalle.getProyeccionFebrero());
 
             Cell celdaMarzo = filaDetalle.createCell(MARZO);
-            celdaMarzo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getMarzo()));
+            celdaMarzo.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getMarzo()));
             TOTAL_MARZO = TOTAL_MARZO.add(detalle.getMarzo());
 
-            Cell celdaProyeccionMarzo = filaDetalle.createCell(PROYECCION_MARZO);
-            celdaProyeccionMarzo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionMarzo()));
-            TOTAL_PROYECCION_MARZO = TOTAL_PROYECCION_MARZO.add(detalle.getProyeccionMarzo());
+            Cell celdaProyeccionMarzo = filaDetalle
+                    .createCell(PROYECCION_MARZO);
+            celdaProyeccionMarzo.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionMarzo()));
+            TOTAL_PROYECCION_MARZO = TOTAL_PROYECCION_MARZO
+                    .add(detalle.getProyeccionMarzo());
 
             Cell celdaAbril = filaDetalle.createCell(ABRIL);
-            celdaAbril.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getAbril()));
+            celdaAbril.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getAbril()));
             TOTAL_ABRIL = TOTAL_ABRIL.add(detalle.getAbril());
 
-            Cell celdaProyeccionAbril = filaDetalle.createCell(PROYECCION_ABRIL);
-            celdaProyeccionAbril.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionAbril()));
-            TOTAL_PROYECCION_ABRIL = TOTAL_PROYECCION_ABRIL.add(detalle.getProyeccionAbril());
+            Cell celdaProyeccionAbril = filaDetalle
+                    .createCell(PROYECCION_ABRIL);
+            celdaProyeccionAbril.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionAbril()));
+            TOTAL_PROYECCION_ABRIL = TOTAL_PROYECCION_ABRIL
+                    .add(detalle.getProyeccionAbril());
 
             Cell celdaMayo = filaDetalle.createCell(MAYO);
-            celdaMayo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getMayo()));
+            celdaMayo.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getMayo()));
             TOTAL_MAYO = TOTAL_MAYO.add(detalle.getMayo());
 
             Cell celdaProyeccionMayo = filaDetalle.createCell(PROYECCION_MAYO);
-            celdaProyeccionMayo.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionMayo()));
-            TOTAL_PROYECCION_MAYO = TOTAL_PROYECCION_MAYO.add(detalle.getProyeccionMayo());
+            celdaProyeccionMayo.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionMayo()));
+            TOTAL_PROYECCION_MAYO = TOTAL_PROYECCION_MAYO
+                    .add(detalle.getProyeccionMayo());
 
             Cell celdaJunio = filaDetalle.createCell(JUNIO);
-            celdaJunio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getJunio()));
+            celdaJunio.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getJunio()));
             TOTAL_JUNIO = TOTAL_JUNIO.add(detalle.getJunio());
 
-            Cell celdaProyeccionJunio = filaDetalle.createCell(PROYECCION_JUNIO);
-            celdaProyeccionJunio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionJunio()));
-            TOTAL_PROYECCION_JUNIO = TOTAL_PROYECCION_JUNIO.add(detalle.getProyeccionJunio());
+            Cell celdaProyeccionJunio = filaDetalle
+                    .createCell(PROYECCION_JUNIO);
+            celdaProyeccionJunio.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionJunio()));
+            TOTAL_PROYECCION_JUNIO = TOTAL_PROYECCION_JUNIO
+                    .add(detalle.getProyeccionJunio());
 
             Cell celdaJulio = filaDetalle.createCell(JULIO);
-            celdaJulio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getJulio()));
+            celdaJulio.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getJulio()));
             TOTAL_JULIO = TOTAL_JULIO.add(detalle.getJulio());
 
-            Cell celdaProyeccionJulio = filaDetalle.createCell(PROYECCION_JULIO);
-            celdaProyeccionJulio.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionJulio()));
-            TOTAL_PROYECCION_JULIO = TOTAL_PROYECCION_JULIO.add(detalle.getProyeccionJulio());
+            Cell celdaProyeccionJulio = filaDetalle
+                    .createCell(PROYECCION_JULIO);
+            celdaProyeccionJulio.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionJulio()));
+            TOTAL_PROYECCION_JULIO = TOTAL_PROYECCION_JULIO
+                    .add(detalle.getProyeccionJulio());
 
             Cell celdaAgosto = filaDetalle.createCell(AGOSTO);
-            celdaAgosto.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getAgosto()));
+            celdaAgosto.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getAgosto()));
             TOTAL_AGOSTO = TOTAL_AGOSTO.add(detalle.getAgosto());
 
-            Cell celdaProyeccionAgosto = filaDetalle.createCell(PROYECCION_AGOSTO);
-            celdaProyeccionAgosto.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionAgosto()));
-            TOTAL_PROYECCION_AGOSTO = TOTAL_PROYECCION_AGOSTO.add(detalle.getProyeccionAgosto());
+            Cell celdaProyeccionAgosto = filaDetalle
+                    .createCell(PROYECCION_AGOSTO);
+            celdaProyeccionAgosto.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getProyeccionAgosto()));
+            TOTAL_PROYECCION_AGOSTO = TOTAL_PROYECCION_AGOSTO
+                    .add(detalle.getProyeccionAgosto());
 
             Cell celdaSeptiembre = filaDetalle.createCell(SEPTIEMBRE);
-            celdaSeptiembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getSeptiembre()));
+            celdaSeptiembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getSeptiembre()));
             TOTAL_SEPTIEMBRE = TOTAL_SEPTIEMBRE.add(detalle.getSeptiembre());
 
-            Cell celdaProyeccionSeptiembre = filaDetalle.createCell(PROYECCION_SEPTIEMBRE);
-            celdaProyeccionSeptiembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionSeptiembre()));
-            TOTAL_PROYECCION_SEPTIEMBRE = TOTAL_PROYECCION_SEPTIEMBRE.add(detalle.getProyeccionSeptiembre());
+            Cell celdaProyeccionSeptiembre = filaDetalle
+                    .createCell(PROYECCION_SEPTIEMBRE);
+            celdaProyeccionSeptiembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(detalle.getProyeccionSeptiembre()));
+            TOTAL_PROYECCION_SEPTIEMBRE = TOTAL_PROYECCION_SEPTIEMBRE
+                    .add(detalle.getProyeccionSeptiembre());
 
             Cell celdaOctubre = filaDetalle.createCell(OCTUBRE);
-            celdaOctubre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getOctubre()));
+            celdaOctubre.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getOctubre()));
             TOTAL_OCTUBRE = TOTAL_OCTUBRE.add(detalle.getOctubre());
 
-            Cell celdaProyeccionOctubre = filaDetalle.createCell(PROYECCION_OCTUBRE);
-            celdaProyeccionOctubre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionOctubre()));
-            TOTAL_PROYECCION_OCTUBRE = TOTAL_PROYECCION_OCTUBRE.add(detalle.getProyeccionOctubre());
+            Cell celdaProyeccionOctubre = filaDetalle
+                    .createCell(PROYECCION_OCTUBRE);
+            celdaProyeccionOctubre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(detalle.getProyeccionOctubre()));
+            TOTAL_PROYECCION_OCTUBRE = TOTAL_PROYECCION_OCTUBRE
+                    .add(detalle.getProyeccionOctubre());
 
             Cell celdaNoviembre = filaDetalle.createCell(NOVIEMBRE);
-            celdaNoviembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getNoviembre()));
+            celdaNoviembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getNoviembre()));
             TOTAL_NOVIEMBRE = TOTAL_NOVIEMBRE.add(detalle.getNoviembre());
 
-            Cell celdaProyeccionNoviembre = filaDetalle.createCell(PROYECCION_NOVIEMBRE);
-            celdaProyeccionNoviembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionNoviembre()));
-            TOTAL_PROYECCION_NOVIEMBRE = TOTAL_PROYECCION_NOVIEMBRE.add(detalle.getProyeccionNoviembre());
+            Cell celdaProyeccionNoviembre = filaDetalle
+                    .createCell(PROYECCION_NOVIEMBRE);
+            celdaProyeccionNoviembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(detalle.getProyeccionNoviembre()));
+            TOTAL_PROYECCION_NOVIEMBRE = TOTAL_PROYECCION_NOVIEMBRE
+                    .add(detalle.getProyeccionNoviembre());
 
             Cell celdaDiciembre = filaDetalle.createCell(DICIEMBRE);
-            celdaDiciembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getDiciembre()));
+            celdaDiciembre.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(detalle.getDiciembre()));
             TOTAL_DICIEMBRE = TOTAL_DICIEMBRE.add(detalle.getDiciembre());
 
-            Cell celdaProyeccionDiciembre = filaDetalle.createCell(PROYECCION_DICIEMBRE);
-            celdaProyeccionDiciembre.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getProyeccionDiciembre()));
-            TOTAL_PROYECCION_DICIEMBRE = TOTAL_PROYECCION_DICIEMBRE.add(detalle.getProyeccionDiciembre());
+            Cell celdaProyeccionDiciembre = filaDetalle
+                    .createCell(PROYECCION_DICIEMBRE);
+            celdaProyeccionDiciembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(detalle.getProyeccionDiciembre()));
+            TOTAL_PROYECCION_DICIEMBRE = TOTAL_PROYECCION_DICIEMBRE
+                    .add(detalle.getProyeccionDiciembre());
 
             Cell celdaTotal = filaDetalle.createCell(TOTAL);
-            celdaTotal.setCellValue("$ " + new DecimalFormat(pattern).format(detalle.getTotal()));
+            celdaTotal.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(detalle.getTotal()));
             TOTAL_TOTAL = TOTAL_TOTAL.add(detalle.getTotal());
 
             Cell celdaDisponibilidad = filaDetalle.createCell(DISPONIBILIDAD);
-            celdaDisponibilidad.setCellValue("$ - " + new DecimalFormat(pattern).format(detalle.getTotal()));
+            celdaDisponibilidad.setCellValue("$ - "
+                    + new DecimalFormat(pattern).format(detalle.getTotal()));
             TOTAL_DISPONIBILIDAD = TOTAL_DISPONIBILIDAD.add(detalle.getTotal());
 
             filaTotales++;
@@ -309,82 +367,124 @@ public class ContratoProyeccionExcel implements Serializable {
             celdaConcepto.setCellValue(totales);
 
             Cell celdaEnero = filaDetalle.createCell(ENERO);
-            celdaEnero.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_ENERO));
+            celdaEnero.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_ENERO));
 
-            Cell celdaProyeccionEnero = filaDetalle.createCell(PROYECCION_ENERO);
-            celdaProyeccionEnero.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_ENERO));
+            Cell celdaProyeccionEnero = filaDetalle
+                    .createCell(PROYECCION_ENERO);
+            celdaProyeccionEnero.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_ENERO));
 
             Cell celdaFebrero = filaDetalle.createCell(FEBRERO);
-            celdaFebrero.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_FEBRERO));
+            celdaFebrero.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_FEBRERO));
 
-            Cell celdaProyeccionFebrero = filaDetalle.createCell(PROYECCION_FEBRERO);
-            celdaProyeccionFebrero.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_FEBRERO));
+            Cell celdaProyeccionFebrero = filaDetalle
+                    .createCell(PROYECCION_FEBRERO);
+            celdaProyeccionFebrero
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(TOTAL_PROYECCION_FEBRERO));
 
             Cell celdaMarzo = filaDetalle.createCell(MARZO);
-            celdaMarzo.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_MARZO));
+            celdaMarzo.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_MARZO));
 
-            Cell celdaProyeccionMarzo = filaDetalle.createCell(PROYECCION_MARZO);
-            celdaProyeccionMarzo.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_MARZO));
+            Cell celdaProyeccionMarzo = filaDetalle
+                    .createCell(PROYECCION_MARZO);
+            celdaProyeccionMarzo.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_MARZO));
 
             Cell celdaAbril = filaDetalle.createCell(ABRIL);
-            celdaAbril.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_ABRIL));
+            celdaAbril.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_ABRIL));
 
-            Cell celdaProyeccionAbril = filaDetalle.createCell(PROYECCION_ABRIL);
-            celdaProyeccionAbril.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_ABRIL));
+            Cell celdaProyeccionAbril = filaDetalle
+                    .createCell(PROYECCION_ABRIL);
+            celdaProyeccionAbril.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_ABRIL));
 
             Cell celdaMayo = filaDetalle.createCell(MAYO);
-            celdaMayo.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_MAYO));
+            celdaMayo.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_MAYO));
 
             Cell celdaProyeccionMayo = filaDetalle.createCell(PROYECCION_MAYO);
-            celdaProyeccionMayo.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_MAYO));
+            celdaProyeccionMayo.setCellValue("$ "
+                    + new DecimalFormat(pattern).format(TOTAL_PROYECCION_MAYO));
 
             Cell celdaJunio = filaDetalle.createCell(JUNIO);
-            celdaJunio.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_JUNIO));
+            celdaJunio.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_JUNIO));
 
-            Cell celdaProyeccionJunio = filaDetalle.createCell(PROYECCION_JUNIO);
-            celdaProyeccionJunio.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_JUNIO));
+            Cell celdaProyeccionJunio = filaDetalle
+                    .createCell(PROYECCION_JUNIO);
+            celdaProyeccionJunio.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_JUNIO));
 
             Cell celdaJulio = filaDetalle.createCell(JULIO);
-            celdaJulio.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_JULIO));
+            celdaJulio.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_JULIO));
 
-            Cell celdaProyeccionJulio = filaDetalle.createCell(PROYECCION_JULIO);
-            celdaProyeccionJulio.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_JULIO));
+            Cell celdaProyeccionJulio = filaDetalle
+                    .createCell(PROYECCION_JULIO);
+            celdaProyeccionJulio.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_JULIO));
 
             Cell celdaAgosto = filaDetalle.createCell(AGOSTO);
-            celdaAgosto.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_AGOSTO));
+            celdaAgosto.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_AGOSTO));
 
-            Cell celdaProyeccionAgosto = filaDetalle.createCell(PROYECCION_AGOSTO);
-            celdaProyeccionAgosto.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_AGOSTO));
+            Cell celdaProyeccionAgosto = filaDetalle
+                    .createCell(PROYECCION_AGOSTO);
+            celdaProyeccionAgosto.setCellValue("$ " + new DecimalFormat(pattern)
+                    .format(TOTAL_PROYECCION_AGOSTO));
 
             Cell celdaSeptiembre = filaDetalle.createCell(SEPTIEMBRE);
-            celdaSeptiembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_SEPTIEMBRE));
+            celdaSeptiembre.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_SEPTIEMBRE));
 
-            Cell celdaProyeccionSeptiembre = filaDetalle.createCell(PROYECCION_SEPTIEMBRE);
-            celdaProyeccionSeptiembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_SEPTIEMBRE));
+            Cell celdaProyeccionSeptiembre = filaDetalle
+                    .createCell(PROYECCION_SEPTIEMBRE);
+            celdaProyeccionSeptiembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(TOTAL_PROYECCION_SEPTIEMBRE));
 
             Cell celdaOctubre = filaDetalle.createCell(OCTUBRE);
-            celdaOctubre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_OCTUBRE));
+            celdaOctubre.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_OCTUBRE));
 
-            Cell celdaProyeccionOctubre = filaDetalle.createCell(PROYECCION_OCTUBRE);
-            celdaProyeccionOctubre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_OCTUBRE));
+            Cell celdaProyeccionOctubre = filaDetalle
+                    .createCell(PROYECCION_OCTUBRE);
+            celdaProyeccionOctubre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(TOTAL_PROYECCION_OCTUBRE));
 
             Cell celdaNoviembre = filaDetalle.createCell(NOVIEMBRE);
-            celdaNoviembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_NOVIEMBRE));
+            celdaNoviembre.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_NOVIEMBRE));
 
-            Cell celdaProyeccionNoviembre = filaDetalle.createCell(PROYECCION_NOVIEMBRE);
-            celdaProyeccionNoviembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_NOVIEMBRE));
+            Cell celdaProyeccionNoviembre = filaDetalle
+                    .createCell(PROYECCION_NOVIEMBRE);
+            celdaProyeccionNoviembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(TOTAL_PROYECCION_NOVIEMBRE));
 
             Cell celdaDiciembre = filaDetalle.createCell(DICIEMBRE);
-            celdaDiciembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_DICIEMBRE));
+            celdaDiciembre.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_DICIEMBRE));
 
-            Cell celdaProyeccionDiciembre = filaDetalle.createCell(PROYECCION_DICIEMBRE);
-            celdaProyeccionDiciembre.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_PROYECCION_DICIEMBRE));
+            Cell celdaProyeccionDiciembre = filaDetalle
+                    .createCell(PROYECCION_DICIEMBRE);
+            celdaProyeccionDiciembre
+                    .setCellValue("$ " + new DecimalFormat(pattern)
+                            .format(TOTAL_PROYECCION_DICIEMBRE));
 
             Cell celdaTotal = filaDetalle.createCell(TOTAL);
-            celdaTotal.setCellValue("$ " + new DecimalFormat(pattern).format(TOTAL_TOTAL));
+            celdaTotal.setCellValue(
+                    "$ " + new DecimalFormat(pattern).format(TOTAL_TOTAL));
 
             Cell celdaDisponibilidad = filaDetalle.createCell(DISPONIBILIDAD);
-            celdaDisponibilidad.setCellValue("$ - " + new DecimalFormat(pattern).format(TOTAL_DISPONIBILIDAD));
+            celdaDisponibilidad.setCellValue("$ - "
+                    + new DecimalFormat(pattern).format(TOTAL_DISPONIBILIDAD));
 
         }
 

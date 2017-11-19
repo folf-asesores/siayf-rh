@@ -51,7 +51,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
      * @param nombreProducto
      *            el nombre del producto de nómina.
      */
-    public DispersionDTO(String numeroCuenta, BigDecimal monto, String nombreEmpleado, String numeroCheque, String nombreProducto) {
+    public DispersionDTO(String numeroCuenta, BigDecimal monto,
+            String nombreEmpleado, String numeroCheque, String nombreProducto) {
         this.numeroCuenta = numeroCuenta;
         this.monto = monto;
         fechaPago = Calendar.getInstance().getTime();
@@ -76,7 +77,8 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
      * @param fechaPago
      *            la fecha de pago.
      */
-    public DispersionDTO(String nombreEmpleado, String numeroCuenta, BigDecimal monto, String fuenteFinanciamiento, Date fechaPago) {
+    public DispersionDTO(String nombreEmpleado, String numeroCuenta,
+            BigDecimal monto, String fuenteFinanciamiento, Date fechaPago) {
         this.numeroCuenta = numeroCuenta;
         this.monto = monto;
         this.fechaPago = fechaPago;
@@ -229,9 +231,11 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
 
         if (fuenteFinanciamiento == null && o.fuenteFinanciamiento == null) {
             compare = 0;
-        } else if (fuenteFinanciamiento == null && o.fuenteFinanciamiento != null) {
+        } else if (fuenteFinanciamiento == null
+                && o.fuenteFinanciamiento != null) {
             compare = -1;
-        } else if (fuenteFinanciamiento != null && o.fuenteFinanciamiento == null) {
+        } else if (fuenteFinanciamiento != null
+                && o.fuenteFinanciamiento == null) {
             compare = 1;
         } else {
             compare = fuenteFinanciamiento.compareTo(o.fuenteFinanciamiento);
@@ -254,8 +258,11 @@ public class DispersionDTO implements Serializable, Comparable<DispersionDTO> {
 
     @Override
     public String toString() {
-        return "DispersionDTO{" + "numeroCuenta=" + numeroCuenta + ", monto=" + monto + ", fechaPago=" + fechaPago + ", nombreEmpleado=" + nombreEmpleado
-                + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", numeroCheque=" + numeroCheque + ", nombreProducto=" + nombreProducto + '}';
+        return "DispersionDTO{" + "numeroCuenta=" + numeroCuenta + ", monto="
+                + monto + ", fechaPago=" + fechaPago + ", nombreEmpleado="
+                + nombreEmpleado + ", fuenteFinanciamiento="
+                + fuenteFinanciamiento + ", numeroCheque=" + numeroCheque
+                + ", nombreProducto=" + nombreProducto + '}';
     }
 
     @Override

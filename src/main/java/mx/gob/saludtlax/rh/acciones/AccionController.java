@@ -51,7 +51,8 @@ public class AccionController implements Serializable {
 
     }
 
-    public void validatorAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorAccion(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -60,7 +61,9 @@ public class AccionController implements Serializable {
                 String claveAccion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(claveAccion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una clave.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una clave.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -69,7 +72,9 @@ public class AccionController implements Serializable {
                 String descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(descripcion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese descripcion.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese descripcion.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -77,7 +82,9 @@ public class AccionController implements Serializable {
             case "idArea":
                 Integer idPeriodoCalendario = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idPeriodoCalendario)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una area.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una area.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -98,7 +105,8 @@ public class AccionController implements Serializable {
             AccionDTO accion = ((AccionDTO) event.getObject());
             acciones.editarAccion(accion);
 
-            FacesMessage msg = new FacesMessage("Actualizado:", ((AccionDTO) event.getObject()).getClave());
+            FacesMessage msg = new FacesMessage("Actualizado:",
+                    ((AccionDTO) event.getObject()).getClave());
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -108,15 +116,18 @@ public class AccionController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion Cancelada:", ((AccionDTO) event.getObject()).getClave());
+        FacesMessage msg = new FacesMessage("Edicion Cancelada:",
+                ((AccionDTO) event.getObject()).getClave());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void eliminarAccion() {
-        System.out.println("elimando accion: " + accionSeleccionada.getIdAccion());
+        System.out.println(
+                "elimando accion: " + accionSeleccionada.getIdAccion());
         Boolean res = acciones.eliminarAccion(accionSeleccionada.getIdAccion());
         if (!res) {
-            JSFUtils.warningMessage("", "EL registro de accion no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
+            JSFUtils.warningMessage("",
+                    "EL registro de accion no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
         }
 
         inicio();

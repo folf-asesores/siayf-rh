@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class PresupuestoCalendarioView implements Serializable {
@@ -32,13 +32,12 @@ public class PresupuestoCalendarioView implements Serializable {
 
     private Integer anioCriterio;
 
-    
-
     public List<PresupuestoCalendarioDTO> getListaPresupuestoCalendario() {
         return listaPresupuestoCalendario;
     }
 
-    public void setListaPresupuestoCalendario(List<PresupuestoCalendarioDTO> listaPresupuestoCalendario) {
+    public void setListaPresupuestoCalendario(
+            List<PresupuestoCalendarioDTO> listaPresupuestoCalendario) {
         this.listaPresupuestoCalendario = listaPresupuestoCalendario;
     }
 
@@ -46,7 +45,8 @@ public class PresupuestoCalendarioView implements Serializable {
         return creaPresupuestoCalendario;
     }
 
-    public void setCreaPresupuestoCalendario(PresupuestoCalendarioDTO creaPresupuestoCalendario) {
+    public void setCreaPresupuestoCalendario(
+            PresupuestoCalendarioDTO creaPresupuestoCalendario) {
         this.creaPresupuestoCalendario = creaPresupuestoCalendario;
     }
 
@@ -54,7 +54,8 @@ public class PresupuestoCalendarioView implements Serializable {
         return actualizarPresupuestoCalendario;
     }
 
-    public void setActualizarPresupuestoCalendario(PresupuestoCalendarioDTO actualizarPresupuestoCalendario) {
+    public void setActualizarPresupuestoCalendario(
+            PresupuestoCalendarioDTO actualizarPresupuestoCalendario) {
         this.actualizarPresupuestoCalendario = actualizarPresupuestoCalendario;
     }
 

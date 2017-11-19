@@ -46,30 +46,39 @@ public class ReporteAusentismoController implements Serializable {
 
     @PostConstruct
     public void init() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
-        boolean tieneRestriccionAdscripcion = configuracionUsuarioModulo.tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario());
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        boolean tieneRestriccionAdscripcion = configuracionUsuarioModulo
+                .tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario());
 
         if (tieneRestriccionAdscripcion) {
             if (usuario.getIdAdscripcion() == null) {
-                SelectItem a = new SelectItem(0, "El usuario no tiene adscripción asignada.");
+                SelectItem a = new SelectItem(0,
+                        "El usuario no tiene adscripción asignada.");
                 catalogoAdscripciones.add(a);
             } else {
-                CatalogoDTO adscripcion = catalogo.obtenerAdscripcionPorId(usuario.getIdAdscripcion());
-                SelectItem a = new SelectItem(adscripcion.getId(), adscripcion.getNombre());
+                CatalogoDTO adscripcion = catalogo
+                        .obtenerAdscripcionPorId(usuario.getIdAdscripcion());
+                SelectItem a = new SelectItem(adscripcion.getId(),
+                        adscripcion.getNombre());
                 catalogoAdscripciones.add(a);
             }
         } else {
-            setCatalogoAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+            setCatalogoAdscripciones(SelectItemsUtil
+                    .listaCatalogos(catalogo.consultarAdscripciones()));
         }
 
     }
 
     public String imprimirReporte() {
         SimpleDateFormat dt1 = new SimpleDateFormat("yyyyMMdd");
-        FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                "reporte-ausentismo_empleado?fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin=" + dt1.format(fechaFin) + "&ida=" + idAdscripcion);
+        FacesContext.getCurrentInstance().getExternalContext().getFlash()
+                .put("url", "reporte-ausentismo_empleado?fechaInicio="
+                        + dt1.format(fechaInicio) + "&fechaFin="
+                        + dt1.format(fechaFin) + "&ida=" + idAdscripcion);
         return "imprimirreporte.xhtml?faces-redirect=true";
     }
 
@@ -93,7 +102,8 @@ public class ReporteAusentismoController implements Serializable {
         return catalogoTipoContratacionDTO;
     }
 
-    public void setCatalogoTipoContratacionDTO(List<CatalogoDTO> catalogoTipoContratacionDTO) {
+    public void setCatalogoTipoContratacionDTO(
+            List<CatalogoDTO> catalogoTipoContratacionDTO) {
         this.catalogoTipoContratacionDTO = catalogoTipoContratacionDTO;
     }
 
@@ -117,7 +127,8 @@ public class ReporteAusentismoController implements Serializable {
         return catalogoAdscripciones;
     }
 
-    public void setCatalogoAdscripciones(List<SelectItem> catalogoAdscripciones) {
+    public void setCatalogoAdscripciones(
+            List<SelectItem> catalogoAdscripciones) {
         this.catalogoAdscripciones = catalogoAdscripciones;
     }
 

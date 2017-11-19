@@ -19,7 +19,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO>, Serializable {
+public class ComprobanteEmpleadoDTO
+        implements Comparable<ComprobanteEmpleadoDTO>, Serializable {
 
     private static final long serialVersionUID = -7098331436352872300L;
 
@@ -54,8 +55,11 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         conceptos = new ArrayList<>();
     }
 
-    public ComprobanteEmpleadoDTO(String nombre, String filiacion, Date fechaPago, String claveCentroResponsabilidad, String numeroCheque, Date inicioPeriodo,
-            Date finPeriodo, BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto, List<ConceptoComprobanteDTO> conceptos) {
+    public ComprobanteEmpleadoDTO(String nombre, String filiacion,
+            Date fechaPago, String claveCentroResponsabilidad,
+            String numeroCheque, Date inicioPeriodo, Date finPeriodo,
+            BigDecimal percepciones, BigDecimal deducciones, BigDecimal neto,
+            List<ConceptoComprobanteDTO> conceptos) {
         this.nombre = nombre;
         this.filiacion = filiacion;
         this.fechaPago = fechaPago;
@@ -141,7 +145,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
      * @param claveCentroResponsabilidad
      *            new value of claveCentroResponsabilidad
      */
-    public void setClaveCentroResponsabilidad(String claveCentroResponsabilidad) {
+    public void setClaveCentroResponsabilidad(
+            String claveCentroResponsabilidad) {
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
     }
 
@@ -280,7 +285,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
 
     @Override
     public int compareTo(ComprobanteEmpleadoDTO o) {
-        if (claveCentroResponsabilidad == null && o.claveCentroResponsabilidad == null) {
+        if (claveCentroResponsabilidad == null
+                && o.claveCentroResponsabilidad == null) {
             return 0;
         }
         if (claveCentroResponsabilidad == null) {
@@ -289,15 +295,20 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         if (o.claveCentroResponsabilidad == null) {
             return 1;
         }
-        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad) ? filiacion.compareTo(o.filiacion)
-                : claveCentroResponsabilidad.compareTo(o.claveCentroResponsabilidad);
+        return claveCentroResponsabilidad.equals(o.claveCentroResponsabilidad)
+                ? filiacion.compareTo(o.filiacion) : claveCentroResponsabilidad
+                        .compareTo(o.claveCentroResponsabilidad);
     }
 
     @Override
     public String toString() {
-        return "ComprobanteEmpleadoDTO{" + "nombre : " + nombre + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
-                + ", claveCentroResponsabilidad : " + claveCentroResponsabilidad + ", inicioPeriodo : " + inicioPeriodo + ", finPeriodo : " + finPeriodo
-                + ", percepciones : " + percepciones + ", deducciones : " + deducciones + ", neto : " + neto + ", conceptos : " + conceptos + '}';
+        return "ComprobanteEmpleadoDTO{" + "nombre : " + nombre
+                + ", filiacion : " + filiacion + ", fechaPago : " + fechaPago
+                + ", claveCentroResponsabilidad : " + claveCentroResponsabilidad
+                + ", inicioPeriodo : " + inicioPeriodo + ", finPeriodo : "
+                + finPeriodo + ", percepciones : " + percepciones
+                + ", deducciones : " + deducciones + ", neto : " + neto
+                + ", conceptos : " + conceptos + '}';
     }
 
     @Override
@@ -334,7 +345,8 @@ public class ComprobanteEmpleadoDTO implements Comparable<ComprobanteEmpleadoDTO
         if (!Objects.equals(filiacion, other.filiacion)) {
             return false;
         }
-        if (!Objects.equals(claveCentroResponsabilidad, other.claveCentroResponsabilidad)) {
+        if (!Objects.equals(claveCentroResponsabilidad,
+                other.claveCentroResponsabilidad)) {
             return false;
         }
         if (!Objects.equals(fechaPago, other.fechaPago)) {

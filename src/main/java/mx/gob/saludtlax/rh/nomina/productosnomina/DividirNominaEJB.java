@@ -28,32 +28,45 @@ public class DividirNominaEJB implements DividirNomina {
     private DividirNominaService dividirNominaService;
 
     @Override
-    public List<DividirNominaDTO> obtenerProductoNomina(Integer idProductoNomina) {
+    public List<DividirNominaDTO> obtenerProductoNomina(
+            Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        List<DividirNominaDTO> productoNomina = dividirNominaService.obtenerProductoNomina(true, null, null, idProductoNomina);
+        List<DividirNominaDTO> productoNomina = dividirNominaService
+                .obtenerProductoNomina(true, null, null, idProductoNomina);
         Collections.sort(productoNomina);
 
         return productoNomina;
     }
 
     @Override
-    public List<DividirNominaDTO> obtenerProductoNomina(Integer primerResultado, Integer cantidadResultados, Integer idProductoNomina) {
+    public List<DividirNominaDTO> obtenerProductoNomina(Integer primerResultado,
+            Integer cantidadResultados, Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esMenorQueUno(primerResultado)) {
-            throw new ValidacionException("El primer resultado no puede ser cero o negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El primer resultado no puede ser cero o negativo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esMenorQueUno(cantidadResultados)) {
-            throw new ValidacionException("La cantidad de resultados no puede ser cero o negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "La cantidad de resultados no puede ser cero o negativo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        List<DividirNominaDTO> productoNomina = dividirNominaService.obtenerProductoNomina(false, primerResultado, cantidadResultados, idProductoNomina);
+        List<DividirNominaDTO> productoNomina = dividirNominaService
+                .obtenerProductoNomina(false, primerResultado,
+                        cantidadResultados, idProductoNomina);
         Collections.sort(productoNomina);
 
         return productoNomina;
@@ -62,29 +75,41 @@ public class DividirNominaEJB implements DividirNomina {
     @Override
     public Integer obtenerTotalProductosNomina(Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        return dividirNominaService.obtenerTotalProductosNomina(idProductoNomina).intValue();
+        return dividirNominaService
+                .obtenerTotalProductosNomina(idProductoNomina).intValue();
     }
 
     @Override
-    public List<DividirNominaDTO> dividirProductoNomina(DividirNominaFiltro filtro, Integer idUsuario) {
+    public List<DividirNominaDTO> dividirProductoNomina(
+            DividirNominaFiltro filtro, Integer idUsuario) {
         if (filtro == null) {
-            throw new ValidacionException("El filtro no puede estar vacio.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("El filtro no puede estar vacio.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esMenorQueUno(filtro.getIdProductoNomina())) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esCadenaVacia(filtro.getNombreProductoNomina())) {
-            throw new ValidacionException("Debe indicar el nombre del nuevo producto de nómina.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Debe indicar el nombre del nuevo producto de nómina.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        if ((filtro.getRfc() == null || filtro.getRfc().isEmpty()) && ValidacionUtil.esCadenaVacia(filtro.getUnidadResponsable())
+        if ((filtro.getRfc() == null || filtro.getRfc().isEmpty())
+                && ValidacionUtil.esCadenaVacia(filtro.getUnidadResponsable())
                 && ValidacionUtil.esCadenaVacia(filtro.getRamaPuesto())) {
-            throw new ValidacionException("Por lo menos debe filtrar por un campo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Por lo menos debe filtrar por un campo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         return dividirNominaService.dividirProductoNomina(filtro, idUsuario);

@@ -37,8 +37,10 @@ public class ProyectoEJB implements Proyecto {
     }
 
     @Override
-    public List<ProyectoDTO> consultarProyectosPorEjercicioFiscal(int ejercicioFiscal) {
-        return proyectoService.consultarProyectosPorEjercicioFiscal(ejercicioFiscal);
+    public List<ProyectoDTO> consultarProyectosPorEjercicioFiscal(
+            int ejercicioFiscal) {
+        return proyectoService
+                .consultarProyectosPorEjercicioFiscal(ejercicioFiscal);
     }
 
     @Override

@@ -12,16 +12,19 @@ import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDT
 import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaProgramasExcelDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public interface ProductoNomina extends Serializable {
 
-    List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(Integer idProducto, Integer estatus);
+    List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProductoEstatus(
+            Integer idProducto, Integer estatus);
 
-    List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(Integer idProducto);
+    List<ProductosNominaExcelDTO> obtenerListaProductoNominaPorIdProducto(
+            Integer idProducto);
 
-    List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(Integer idProducto);
+    List<ProductosNominaProgramasExcelDTO> obtenerListaProductoNominaProgramasPorIdProducto(
+            Integer idProducto);
 
     List<String> obtenerListaProgramasPorIdProducto(Integer idProducto);
 
@@ -35,5 +38,6 @@ public interface ProductoNomina extends Serializable {
      * @return un arreglo de bytes que representa el archivo con la información
      *         del reporte del producto de nomina para las suplencias.
      */
-    byte[] obtenerReporteProductoNominaSuplencia(Integer idProductoNomina) throws ReglaNegocioException;
+    byte[] obtenerReporteProductoNominaSuplencia(Integer idProductoNomina)
+            throws ReglaNegocioException;
 }

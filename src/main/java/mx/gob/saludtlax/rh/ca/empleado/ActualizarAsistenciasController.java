@@ -46,15 +46,18 @@ public class ActualizarAsistenciasController {
         calendar.add(Calendar.DAY_OF_YEAR, -30);  // numero de días a añadir, o restar en caso de días<0
         fechaIni = calendar.getTime();
 
-        setCatalogoAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+        setCatalogoAdscripciones(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarAdscripciones()));
 
     }
 
     public List<SelectItem> getTipoContrataciones() {
         List<SelectItem> items = new ArrayList<>();
 
-        for (Map.Entry<Integer, String> tipoContrataciones : EnumTipoContratacion.obtenerTipoContrataciones().entrySet()) {
-            SelectItem item = new SelectItem(tipoContrataciones.getKey(), tipoContrataciones.getValue());
+        for (Map.Entry<Integer, String> tipoContrataciones : EnumTipoContratacion
+                .obtenerTipoContrataciones().entrySet()) {
+            SelectItem item = new SelectItem(tipoContrataciones.getKey(),
+                    tipoContrataciones.getValue());
             items.add(item);
         }
 
@@ -62,12 +65,14 @@ public class ActualizarAsistenciasController {
     }
 
     public void actualizarAsistencias() {
-        resultado = ejb.actualizarAsistencias(fechaInicial, fechaFin, tipoContratacion, adscripcion);
+        resultado = ejb.actualizarAsistencias(fechaInicial, fechaFin,
+                tipoContratacion, adscripcion);
         if (resultado == null) {
             resultado = 0;
         }
 
-        JSFUtils.infoMessage("Actualizacion concluida", "registros afectados " + resultado);
+        JSFUtils.infoMessage("Actualizacion concluida",
+                "registros afectados " + resultado);
 
     }
 
@@ -99,7 +104,8 @@ public class ActualizarAsistenciasController {
         return catalogoAdscripciones;
     }
 
-    public void setCatalogoAdscripciones(List<SelectItem> catalogoAdscripciones) {
+    public void setCatalogoAdscripciones(
+            List<SelectItem> catalogoAdscripciones) {
         this.catalogoAdscripciones = catalogoAdscripciones;
     }
 

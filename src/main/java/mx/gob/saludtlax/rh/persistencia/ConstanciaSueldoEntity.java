@@ -457,7 +457,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return TarifaUtilizadaActualizada;
     }
 
-    public void setTarifaUtilizadaActualizada(BigDecimal tarifaUtilizadaActualizada) {
+    public void setTarifaUtilizadaActualizada(
+            BigDecimal tarifaUtilizadaActualizada) {
         TarifaUtilizadaActualizada = tarifaUtilizadaActualizada;
     }
 
@@ -585,7 +586,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AplicoAportacionesVoluntarias;
     }
 
-    public void setAplicoAportacionesVoluntarias(Integer aplicoAportacionesVoluntarias) {
+    public void setAplicoAportacionesVoluntarias(
+            Integer aplicoAportacionesVoluntarias) {
         AplicoAportacionesVoluntarias = aplicoAportacionesVoluntarias;
     }
 
@@ -593,7 +595,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AportacionesVoluntariasDeducibles;
     }
 
-    public void setAportacionesVoluntariasDeducibles(Integer aportacionesVoluntariasDeducibles) {
+    public void setAportacionesVoluntariasDeducibles(
+            Integer aportacionesVoluntariasDeducibles) {
         AportacionesVoluntariasDeducibles = aportacionesVoluntariasDeducibles;
     }
 
@@ -617,7 +620,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return PagosEfectuadosTrabajadores;
     }
 
-    public void setPagosEfectuadosTrabajadores(Integer pagosEfectuadosTrabajadores) {
+    public void setPagosEfectuadosTrabajadores(
+            Integer pagosEfectuadosTrabajadores) {
         PagosEfectuadosTrabajadores = pagosEfectuadosTrabajadores;
     }
 
@@ -641,7 +645,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return GratificacionAnualGravado;
     }
 
-    public void setGratificacionAnualGravado(BigDecimal gratificacionAnualGravado) {
+    public void setGratificacionAnualGravado(
+            BigDecimal gratificacionAnualGravado) {
         GratificacionAnualGravado = gratificacionAnualGravado;
     }
 
@@ -649,7 +654,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return GratificacionAnualExento;
     }
 
-    public void setGratificacionAnualExento(BigDecimal gratificacionAnualExento) {
+    public void setGratificacionAnualExento(
+            BigDecimal gratificacionAnualExento) {
         GratificacionAnualExento = gratificacionAnualExento;
     }
 
@@ -673,7 +679,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return TiempoExtraordinarioGravado;
     }
 
-    public void setTiempoExtraordinarioGravado(BigDecimal tiempoExtraordinarioGravado) {
+    public void setTiempoExtraordinarioGravado(
+            BigDecimal tiempoExtraordinarioGravado) {
         TiempoExtraordinarioGravado = tiempoExtraordinarioGravado;
     }
 
@@ -681,7 +688,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return TiempoExtraordinarioExento;
     }
 
-    public void setTiempoExtraordinarioExento(BigDecimal tiempoExtraordinarioExento) {
+    public void setTiempoExtraordinarioExento(
+            BigDecimal tiempoExtraordinarioExento) {
         TiempoExtraordinarioExento = tiempoExtraordinarioExento;
     }
 
@@ -721,7 +729,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ParticipacionTrabajadoresUtilidades;
     }
 
-    public void setParticipacionTrabajadoresUtilidades(Integer participacionTrabajadoresUtilidades) {
+    public void setParticipacionTrabajadoresUtilidades(
+            Integer participacionTrabajadoresUtilidades) {
         ParticipacionTrabajadoresUtilidades = participacionTrabajadoresUtilidades;
     }
 
@@ -729,7 +738,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SegundaParticipacionTrabajadoresUtilidades;
     }
 
-    public void setSegundaParticipacionTrabajadoresUtilidades(Integer segundaParticipacionTrabajadoresUtilidades) {
+    public void setSegundaParticipacionTrabajadoresUtilidades(
+            Integer segundaParticipacionTrabajadoresUtilidades) {
         SegundaParticipacionTrabajadoresUtilidades = segundaParticipacionTrabajadoresUtilidades;
     }
 
@@ -801,7 +811,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AyudaGastosFuneralGravado;
     }
 
-    public void setAyudaGastosFuneralGravado(BigDecimal ayudaGastosFuneralGravado) {
+    public void setAyudaGastosFuneralGravado(
+            BigDecimal ayudaGastosFuneralGravado) {
         AyudaGastosFuneralGravado = ayudaGastosFuneralGravado;
     }
 
@@ -809,7 +820,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AyudaGastosFuneralExento;
     }
 
-    public void setAyudaGastosFuneralExento(BigDecimal ayudaGastosFuneralExento) {
+    public void setAyudaGastosFuneralExento(
+            BigDecimal ayudaGastosFuneralExento) {
         AyudaGastosFuneralExento = ayudaGastosFuneralExento;
     }
 
@@ -817,7 +829,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ContribucionTrabajadorGravado;
     }
 
-    public void setContribucionTrabajadorGravado(BigDecimal contribucionTrabajadorGravado) {
+    public void setContribucionTrabajadorGravado(
+            BigDecimal contribucionTrabajadorGravado) {
         ContribucionTrabajadorGravado = contribucionTrabajadorGravado;
     }
 
@@ -825,7 +838,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ContribucionTrabajadorExento;
     }
 
-    public void setContribucionTrabajadorExento(BigDecimal contribucionTrabajadorExento) {
+    public void setContribucionTrabajadorExento(
+            BigDecimal contribucionTrabajadorExento) {
         ContribucionTrabajadorExento = contribucionTrabajadorExento;
     }
 
@@ -833,7 +847,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return PremiosPuntualidadGravado;
     }
 
-    public void setPremiosPuntualidadGravado(BigDecimal premiosPuntualidadGravado) {
+    public void setPremiosPuntualidadGravado(
+            BigDecimal premiosPuntualidadGravado) {
         PremiosPuntualidadGravado = premiosPuntualidadGravado;
     }
 
@@ -841,7 +856,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return PremiosPuntualidadExento;
     }
 
-    public void setPremiosPuntualidadExento(BigDecimal premiosPuntualidadExento) {
+    public void setPremiosPuntualidadExento(
+            BigDecimal premiosPuntualidadExento) {
         PremiosPuntualidadExento = premiosPuntualidadExento;
     }
 
@@ -865,7 +881,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SeguroGastosMedicosMayoresGravado;
     }
 
-    public void setSeguroGastosMedicosMayoresGravado(BigDecimal seguroGastosMedicosMayoresGravado) {
+    public void setSeguroGastosMedicosMayoresGravado(
+            BigDecimal seguroGastosMedicosMayoresGravado) {
         SeguroGastosMedicosMayoresGravado = seguroGastosMedicosMayoresGravado;
     }
 
@@ -873,7 +890,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SeguroGastosMedicosMayoresExento;
     }
 
-    public void setSeguroGastosMedicosMayoresExento(BigDecimal seguroGastosMedicosMayoresExento) {
+    public void setSeguroGastosMedicosMayoresExento(
+            BigDecimal seguroGastosMedicosMayoresExento) {
         SeguroGastosMedicosMayoresExento = seguroGastosMedicosMayoresExento;
     }
 
@@ -945,7 +963,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AyudaArticulosEscolaresGravado;
     }
 
-    public void setAyudaArticulosEscolaresGravado(BigDecimal ayudaArticulosEscolaresGravado) {
+    public void setAyudaArticulosEscolaresGravado(
+            BigDecimal ayudaArticulosEscolaresGravado) {
         AyudaArticulosEscolaresGravado = ayudaArticulosEscolaresGravado;
     }
 
@@ -953,7 +972,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return AyudaArticulosEscolaresExento;
     }
 
-    public void setAyudaArticulosEscolaresExento(BigDecimal ayudaArticulosEscolaresExento) {
+    public void setAyudaArticulosEscolaresExento(
+            BigDecimal ayudaArticulosEscolaresExento) {
         AyudaArticulosEscolaresExento = ayudaArticulosEscolaresExento;
     }
 
@@ -1009,7 +1029,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SubsidioIncapacidadGravado;
     }
 
-    public void setSubsidioIncapacidadGravado(BigDecimal subsidioIncapacidadGravado) {
+    public void setSubsidioIncapacidadGravado(
+            BigDecimal subsidioIncapacidadGravado) {
         SubsidioIncapacidadGravado = subsidioIncapacidadGravado;
     }
 
@@ -1017,7 +1038,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SubsidioIncapacidadExento;
     }
 
-    public void setSubsidioIncapacidadExento(BigDecimal subsidioIncapacidadExento) {
+    public void setSubsidioIncapacidadExento(
+            BigDecimal subsidioIncapacidadExento) {
         SubsidioIncapacidadExento = subsidioIncapacidadExento;
     }
 
@@ -1073,7 +1095,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SumaIngresoPorSueldoGravado;
     }
 
-    public void setSumaIngresoPorSueldoGravado(BigDecimal sumaIngresoPorSueldoGravado) {
+    public void setSumaIngresoPorSueldoGravado(
+            BigDecimal sumaIngresoPorSueldoGravado) {
         SumaIngresoPorSueldoGravado = sumaIngresoPorSueldoGravado;
     }
 
@@ -1081,7 +1104,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SumaIngresoPorSueldoExento;
     }
 
-    public void setSumaIngresoPorSueldoExento(BigDecimal sumaIngresoPorSueldoExento) {
+    public void setSumaIngresoPorSueldoExento(
+            BigDecimal sumaIngresoPorSueldoExento) {
         SumaIngresoPorSueldoExento = sumaIngresoPorSueldoExento;
     }
 
@@ -1089,7 +1113,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoRetenidoEjercicioDeclara;
     }
 
-    public void setImpuestoRetenidoEjercicioDeclara(BigDecimal impuestoRetenidoEjercicioDeclara) {
+    public void setImpuestoRetenidoEjercicioDeclara(
+            BigDecimal impuestoRetenidoEjercicioDeclara) {
         ImpuestoRetenidoEjercicioDeclara = impuestoRetenidoEjercicioDeclara;
     }
 
@@ -1097,7 +1122,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoRetenidoPorOtros;
     }
 
-    public void setImpuestoRetenidoPorOtros(BigDecimal impuestoRetenidoPorOtros) {
+    public void setImpuestoRetenidoPorOtros(
+            BigDecimal impuestoRetenidoPorOtros) {
         ImpuestoRetenidoPorOtros = impuestoRetenidoPorOtros;
     }
 
@@ -1137,7 +1163,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return TotalConceptoPrevisionSocial;
     }
 
-    public void setTotalConceptoPrevisionSocial(BigDecimal totalConceptoPrevisionSocial) {
+    public void setTotalConceptoPrevisionSocial(
+            BigDecimal totalConceptoPrevisionSocial) {
         TotalConceptoPrevisionSocial = totalConceptoPrevisionSocial;
     }
 
@@ -1145,7 +1172,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return SumaExentosPorPrevisionSocial;
     }
 
-    public void setSumaExentosPorPrevisionSocial(BigDecimal sumaExentosPorPrevisionSocial) {
+    public void setSumaExentosPorPrevisionSocial(
+            BigDecimal sumaExentosPorPrevisionSocial) {
         SumaExentosPorPrevisionSocial = sumaExentosPorPrevisionSocial;
     }
 
@@ -1161,7 +1189,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoLocalIngresosPorSueldo;
     }
 
-    public void setImpuestoLocalIngresosPorSueldo(BigDecimal impuestoLocalIngresosPorSueldo) {
+    public void setImpuestoLocalIngresosPorSueldo(
+            BigDecimal impuestoLocalIngresosPorSueldo) {
         ImpuestoLocalIngresosPorSueldo = impuestoLocalIngresosPorSueldo;
     }
 
@@ -1177,7 +1206,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return TotalAportacionesVoluntariasDeducibles;
     }
 
-    public void setTotalAportacionesVoluntariasDeducibles(BigDecimal totalAportacionesVoluntariasDeducibles) {
+    public void setTotalAportacionesVoluntariasDeducibles(
+            BigDecimal totalAportacionesVoluntariasDeducibles) {
         TotalAportacionesVoluntariasDeducibles = totalAportacionesVoluntariasDeducibles;
     }
 
@@ -1209,7 +1239,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoIngresosAcumulables;
     }
 
-    public void setImpuestoIngresosAcumulables(BigDecimal impuestoIngresosAcumulables) {
+    public void setImpuestoIngresosAcumulables(
+            BigDecimal impuestoIngresosAcumulables) {
         ImpuestoIngresosAcumulables = impuestoIngresosAcumulables;
     }
 
@@ -1217,7 +1248,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoIngresosNoAcumulables;
     }
 
-    public void setImpuestoIngresosNoAcumulables(BigDecimal impuestoIngresosNoAcumulables) {
+    public void setImpuestoIngresosNoAcumulables(
+            BigDecimal impuestoIngresosNoAcumulables) {
         ImpuestoIngresosNoAcumulables = impuestoIngresosNoAcumulables;
     }
 
@@ -1225,7 +1257,8 @@ public class ConstanciaSueldoEntity implements Serializable {
         return ImpuestoLocalPrestacionServicioSubordinado;
     }
 
-    public void setImpuestoLocalPrestacionServicioSubordinado(BigDecimal impuestoLocalPrestacionServicioSubordinado) {
+    public void setImpuestoLocalPrestacionServicioSubordinado(
+            BigDecimal impuestoLocalPrestacionServicioSubordinado) {
         ImpuestoLocalPrestacionServicioSubordinado = impuestoLocalPrestacionServicioSubordinado;
     }
 

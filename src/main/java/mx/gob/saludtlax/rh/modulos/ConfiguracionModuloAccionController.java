@@ -48,7 +48,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
+        List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = configuracionModuloAccion
+                .obtenerListaConfiguracionModuloAccionDTO();
         listaConfiguracionModuloAccion.clear();
         listaConfiguracionModuloAccion.addAll(configuracionModuloAccionTemp);
 
@@ -61,15 +62,18 @@ public class ConfiguracionModuloAccionController implements Serializable {
         listaAcciones = new ArrayList<>();
         ModuloDTO modulo = new ModuloDTO();
         for (ModuloDTO mod : listaModulos) {
-            if (mod.getIdModulo().compareTo(configuracionModuloAccionDTONew.getModulo().getIdModulo()) == 0) {
+            if (mod.getIdModulo().compareTo(configuracionModuloAccionDTONew
+                    .getModulo().getIdModulo()) == 0) {
                 modulo = mod;
             }
         }
-        listaAcciones = accionEJB.obtenerListaAccionesPorArea(modulo.getIdArea());
+        listaAcciones = accionEJB
+                .obtenerListaAccionesPorArea(modulo.getIdArea());
         System.out.println("acciones::" + listaAcciones);
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -80,7 +84,9 @@ public class ConfiguracionModuloAccionController implements Serializable {
                 System.out.println("value:: " + modulo);
 
                 if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un modulo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -90,7 +96,9 @@ public class ConfiguracionModuloAccionController implements Serializable {
                 Integer accion = (Integer) value;
                 System.out.println("value2:: " + accion);
                 if (!ValidacionUtil.esNumeroPositivo(accion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una accioó.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una accioó.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -119,7 +127,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
     public void agregarConfiguracionModuloAccion() {
         configuracionModuloAccionDTONew.setAcciones(listaAccionesSeleccionadas);
         configuracionModuloAccion.crear(configuracionModuloAccionDTONew);
-        JSFUtils.warningMessage("", "Configuracion Modulo accion guardada correctamente");
+        JSFUtils.warningMessage("",
+                "Configuracion Modulo accion guardada correctamente");
         inicio();
         configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
         listaAccionesSeleccionadas = new ArrayList<>();
@@ -129,10 +138,12 @@ public class ConfiguracionModuloAccionController implements Serializable {
 
         try {
 
-            ConfiguracionModuloAccionDTO configuracionModulo = ((ConfiguracionModuloAccionDTO) event.getObject());
+            ConfiguracionModuloAccionDTO configuracionModulo = ((ConfiguracionModuloAccionDTO) event
+                    .getObject());
             configuracionModuloAccion.editar(configuracionModulo);
 
-            FacesMessage msg = new FacesMessage("", "Actualizado Correctamente.");
+            FacesMessage msg = new FacesMessage("",
+                    "Actualizado Correctamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -142,12 +153,14 @@ public class ConfiguracionModuloAccionController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edición Cancelada:", "Actualizado Correctamente.");
+        FacesMessage msg = new FacesMessage("Edición Cancelada:",
+                "Actualizado Correctamente.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void eliminarConfiguracion() {
-        configuracionModuloAccion.eliminar(configuracionModuloAccionSelect.getIdConfiguracionModuloAccion());
+        configuracionModuloAccion.eliminar(configuracionModuloAccionSelect
+                .getIdConfiguracionModuloAccion());
         inicio();
     }
 
@@ -155,7 +168,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
         return listaConfiguracionModuloAccion;
     }
 
-    public void setListaConfiguracionModuloAccion(List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccion) {
+    public void setListaConfiguracionModuloAccion(
+            List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccion) {
         this.listaConfiguracionModuloAccion = listaConfiguracionModuloAccion;
     }
 
@@ -163,7 +177,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
         return configuracionModuloAccionSelect;
     }
 
-    public void setConfiguracionModuloAccionSelect(ConfiguracionModuloAccionDTO configuracionModuloAccionSelect) {
+    public void setConfiguracionModuloAccionSelect(
+            ConfiguracionModuloAccionDTO configuracionModuloAccionSelect) {
         this.configuracionModuloAccionSelect = configuracionModuloAccionSelect;
     }
 
@@ -171,7 +186,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
         return configuracionModuloAccionDTONew;
     }
 
-    public void setConfiguracionModuloAccionDTONew(ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew) {
+    public void setConfiguracionModuloAccionDTONew(
+            ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew) {
         this.configuracionModuloAccionDTONew = configuracionModuloAccionDTONew;
     }
 
@@ -219,7 +235,8 @@ public class ConfiguracionModuloAccionController implements Serializable {
         return listaAccionesSeleccionadas;
     }
 
-    public void setListaAccionesSeleccionadas(List<AccionDTO> listaAccionesSeleccionadas) {
+    public void setListaAccionesSeleccionadas(
+            List<AccionDTO> listaAccionesSeleccionadas) {
         this.listaAccionesSeleccionadas = listaAccionesSeleccionadas;
     }
 

@@ -29,26 +29,36 @@ public class ProyectoService {
     private ProyectoTempRepository proyectoRepository;
 
     protected ProyectoDTO obtenerPorId(int idProyecto) {
-        ProyectoTempEntity entidad = proyectoRepository.obtenerPorId(idProyecto);
+        ProyectoTempEntity entidad = proyectoRepository
+                .obtenerPorId(idProyecto);
 
         return convertirEntidadADTO(entidad);
     }
 
     protected int crear(ProyectoDTO dto) {
         if (dto == null) {
-            throw new ValidacionException("Proyecto no debe ser nulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Proyecto no debe ser nulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-            throw new ValidacionException("Proyecto no debe ser nulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Proyecto no debe ser nulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esMenorQueUno(dto.getEjercicioFiscal())) {
-            throw new ValidacionException("El ejercicio fiscal no puede ser" + " nulo, cero o negativo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ejercicio fiscal no puede ser"
+                            + " nulo, cero o negativo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        if (proyectoRepository.existeProyectoEnEjercicioFiscal(dto.getNombre(), dto.getEjercicioFiscal())) {
-            throw new ReglaNegocioException("Ya existe un proyecto con el mismo" + " nombre en el ejercicio fiscal (" + dto.getEjercicioFiscal() + ").",
+        if (proyectoRepository.existeProyectoEnEjercicioFiscal(dto.getNombre(),
+                dto.getEjercicioFiscal())) {
+            throw new ReglaNegocioException(
+                    "Ya existe un proyecto con el mismo"
+                            + " nombre en el ejercicio fiscal ("
+                            + dto.getEjercicioFiscal() + ").",
                     ReglaNegocioCodigoError.PROYECTO_DUPLICADO);
         }
 
@@ -64,8 +74,10 @@ public class ProyectoService {
         proyectoRepository.actualizar(entidad);
     }
 
-    protected List<ProyectoDTO> consultarProyectosPorEjercicioFiscal(int ejercicioFiscal) {
-        List<ProyectoTempEntity> entidades = proyectoRepository.consultarProyectosPorEjercicioFiscal(ejercicioFiscal);
+    protected List<ProyectoDTO> consultarProyectosPorEjercicioFiscal(
+            int ejercicioFiscal) {
+        List<ProyectoTempEntity> entidades = proyectoRepository
+                .consultarProyectosPorEjercicioFiscal(ejercicioFiscal);
 
         return convertirEntidadesADTOs(entidades);
     }
@@ -74,7 +86,8 @@ public class ProyectoService {
         proyectoRepository.eliminarPorId(idProyecto);
     }
 
-    private static ProyectoDTO convertirEntidadADTO(ProyectoTempEntity entidad) {
+    private static ProyectoDTO convertirEntidadADTO(
+            ProyectoTempEntity entidad) {
         ProyectoDTO dto = new ProyectoDTO();
 
         dto.setIdProyecto(entidad.getIdProyecto());
@@ -94,7 +107,8 @@ public class ProyectoService {
         return entidad;
     }
 
-    private List<ProyectoDTO> convertirEntidadesADTOs(List<ProyectoTempEntity> entidades) {
+    private List<ProyectoDTO> convertirEntidadesADTOs(
+            List<ProyectoTempEntity> entidades) {
         List<ProyectoDTO> dtos = new ArrayList<>();
 
         for (ProyectoTempEntity entidad : entidades) {

@@ -48,7 +48,8 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 public class DescuentosController implements Serializable {
 
     private static final long serialVersionUID = -7963420549132356803L;
-    private static final Logger LOGGER = Logger.getLogger(DescuentosController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DescuentosController.class.getName());
 
     @Inject
     private Catalogo catalogo;
@@ -85,23 +86,30 @@ public class DescuentosController implements Serializable {
      */
     @PostConstruct
     public void init() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-        boolean tieneRestriccionAdscripcion = configuracionUsuarioModulo.tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario());
+        boolean tieneRestriccionAdscripcion = configuracionUsuarioModulo
+                .tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario());
 
         if (tieneRestriccionAdscripcion) {
             if (usuario.getIdAdscripcion() == null) {
-                SelectItem a = new SelectItem(0, "El usuario no tiene adscripción asignada.");
+                SelectItem a = new SelectItem(0,
+                        "El usuario no tiene adscripción asignada.");
                 catalogoAdscripciones.add(a);
             } else {
-                CatalogoDTO adscripcion = catalogo.obtenerAdscripcionPorId(usuario.getIdAdscripcion());
-                SelectItem a = new SelectItem(adscripcion.getId(), adscripcion.getNombre());
+                CatalogoDTO adscripcion = catalogo
+                        .obtenerAdscripcionPorId(usuario.getIdAdscripcion());
+                SelectItem a = new SelectItem(adscripcion.getId(),
+                        adscripcion.getNombre());
                 catalogoAdscripciones.add(a);
             }
         } else {
-            setCatalogoAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+            setCatalogoAdscripciones(SelectItemsUtil
+                    .listaCatalogos(catalogo.consultarAdscripciones()));
         }
     }
 
@@ -131,20 +139,30 @@ public class DescuentosController implements Serializable {
             }
         }
 
-        String[] parametros = new String[] { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", nombreReporte, "TIPO_REPORTE", "pdf",
-                "ID_ADSCRIPCION", String.valueOf(idAdscripcion), "TIPO_CONTRATACION", String.valueOf(tipoContratacion), "FECHA_INICIO",
-                FechaUtil.formatearFecha("yyyyMMdd", fechaInicio), "FECHA_FIN", FechaUtil.formatearFecha("yyyyMMdd", fechaFin),
-                "QUINCENA_APLICACION_MOVIMIENTO", String.valueOf(quincenaAplicacionMovimiento), "ANYO_APLICACION_MOVIMIENTO",
+        String[] parametros = new String[] { "ID_USUARIO",
+                String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                nombreReporte, "TIPO_REPORTE", "pdf", "ID_ADSCRIPCION",
+                String.valueOf(idAdscripcion), "TIPO_CONTRATACION",
+                String.valueOf(tipoContratacion), "FECHA_INICIO",
+                FechaUtil.formatearFecha("yyyyMMdd", fechaInicio), "FECHA_FIN",
+                FechaUtil.formatearFecha("yyyyMMdd", fechaFin),
+                "QUINCENA_APLICACION_MOVIMIENTO",
+                String.valueOf(quincenaAplicacionMovimiento),
+                "ANYO_APLICACION_MOVIMIENTO",
                 String.valueOf(anyoAplicacionMovimiento) };
 
         if (nombreReporte != null && parametros != null) {
             try {
                 System.out.println("Parametros::" + parametros);
-                referencia = administradorReportes.obtenerReferencia(parametros);
+                referencia = administradorReportes
+                        .obtenerReferencia(parametros);
                 System.out.println("Referemcia: " + referencia);
-                byte[] reporte = administradorReportes.obtenerReporte(referencia);
-                System.out.println("Reporte**t: " + reporte + "--" + nombreReporte + "--" + TipoArchivo.PDF);
-                JSFUtils.descargarArchivo(reporte, nombreReporte, TipoArchivo.PDF);
+                byte[] reporte = administradorReportes
+                        .obtenerReporte(referencia);
+                System.out.println("Reporte**t: " + reporte + "--"
+                        + nombreReporte + "--" + TipoArchivo.PDF);
+                JSFUtils.descargarArchivo(reporte, nombreReporte,
+                        TipoArchivo.PDF);
             } catch (IOException ex) {
                 LOGGER.error(ex);
             }
@@ -183,10 +201,16 @@ public class DescuentosController implements Serializable {
             }
         }
 
-        String[] parametros = new String[] { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", nombreReporte, "TIPO_REPORTE", "pdf",
-                "ID_ADSCRIPCION", String.valueOf(idAdscripcion), "TIPO_CONTRATACION", String.valueOf(tipoContratacion), "FECHA_INICIO",
-                FechaUtil.formatearFecha("yyyyMMdd", fechaInicio), "FECHA_FIN", FechaUtil.formatearFecha("yyyyMMdd", fechaFin),
-                "QUINCENA_APLICACION_MOVIMIENTO", String.valueOf(quincenaAplicacionMovimiento), "ANYO_APLICACION_MOVIMIENTO",
+        String[] parametros = new String[] { "ID_USUARIO",
+                String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                nombreReporte, "TIPO_REPORTE", "pdf", "ID_ADSCRIPCION",
+                String.valueOf(idAdscripcion), "TIPO_CONTRATACION",
+                String.valueOf(tipoContratacion), "FECHA_INICIO",
+                FechaUtil.formatearFecha("yyyyMMdd", fechaInicio), "FECHA_FIN",
+                FechaUtil.formatearFecha("yyyyMMdd", fechaFin),
+                "QUINCENA_APLICACION_MOVIMIENTO",
+                String.valueOf(quincenaAplicacionMovimiento),
+                "ANYO_APLICACION_MOVIMIENTO",
                 String.valueOf(anyoAplicacionMovimiento) };
 
         if (nombreReporte != null && parametros != null) {
@@ -254,8 +278,10 @@ public class DescuentosController implements Serializable {
     public List<SelectItem> getTipoContrataciones() {
         List<SelectItem> items = new ArrayList<>();
 
-        for (Map.Entry<Integer, String> tipoContrataciones : EnumTipoContratacion.obtenerTipoContrataciones().entrySet()) {
-            SelectItem item = new SelectItem(tipoContrataciones.getKey(), tipoContrataciones.getValue());
+        for (Map.Entry<Integer, String> tipoContrataciones : EnumTipoContratacion
+                .obtenerTipoContrataciones().entrySet()) {
+            SelectItem item = new SelectItem(tipoContrataciones.getKey(),
+                    tipoContrataciones.getValue());
             items.add(item);
         }
 
@@ -315,7 +341,8 @@ public class DescuentosController implements Serializable {
      * @param quincenaAplicacionMovimiento
      *            new value of quincenaAplicacionMovimiento
      */
-    public void setQuincenaAplicacionMovimiento(Integer quincenaAplicacionMovimiento) {
+    public void setQuincenaAplicacionMovimiento(
+            Integer quincenaAplicacionMovimiento) {
         this.quincenaAplicacionMovimiento = quincenaAplicacionMovimiento;
     }
 
@@ -361,7 +388,8 @@ public class DescuentosController implements Serializable {
         return catalogoAdscripciones;
     }
 
-    public void setCatalogoAdscripciones(List<SelectItem> catalogoAdscripciones) {
+    public void setCatalogoAdscripciones(
+            List<SelectItem> catalogoAdscripciones) {
         this.catalogoAdscripciones = catalogoAdscripciones;
     }
 

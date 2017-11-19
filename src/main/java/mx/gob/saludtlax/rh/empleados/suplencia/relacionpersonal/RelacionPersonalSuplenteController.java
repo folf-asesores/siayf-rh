@@ -28,7 +28,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.TipoArchivo;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "relacionPersonalSuplente")
@@ -54,41 +54,54 @@ public class RelacionPersonalSuplenteController implements Serializable {
     public void init() {
 
         listaEjercicioFiscal = relacionPersonalSuplente.listaEjercicioFiscal();
-        listaCentroResponsabilidad = relacionPersonalSuplente.listaCentroResponsabilidad();
+        listaCentroResponsabilidad = relacionPersonalSuplente
+                .listaCentroResponsabilidad();
 
     }
 
     public void descargarRelacionPersonalSuplente() {
         try {
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "relacion_personal_suplente", "TIPO_REPORTE",
-                    "xlsx", "NUMERO_QUINCENA", String.valueOf(numeroQuincena), "EJERCICIO_FISCAL", String.valueOf(ejercicioFiscal), "ID_CENTRO_RESPONSABILIDAD",
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "relacion_personal_suplente", "TIPO_REPORTE", "xlsx",
+                    "NUMERO_QUINCENA", String.valueOf(numeroQuincena),
+                    "EJERCICIO_FISCAL", String.valueOf(ejercicioFiscal),
+                    "ID_CENTRO_RESPONSABILIDAD",
                     String.valueOf(idCentroResponsabilidad) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             byte[] bytes = null;
 
             bytes = admintradorReportes.obtenerReporte(referencia);
 
             if (bytes != null) {
-                JSFUtils.descargarArchivo(bytes, CadenaUtil.converterSpace("Relacion_Personal_Suplente"), TipoArchivo.getMIMEType("xlsx"));
+                JSFUtils.descargarArchivo(bytes,
+                        CadenaUtil.converterSpace("Relacion_Personal_Suplente"),
+                        TipoArchivo.getMIMEType("xlsx"));
 
             }
 
-            JSFUtils.infoMessage("Descarga Relacion Personal Suplente: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descarga Relacion Personal Suplente: ",
+                    "Se descargo correctamente...");
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             exception.printStackTrace();
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
             reglaNegocioException.printStackTrace();
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidacionException validacionException) {
             validacionException.printStackTrace();
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
@@ -97,8 +110,6 @@ public class RelacionPersonalSuplenteController implements Serializable {
             JSFUtils.errorMessage("Error: ", sistemaException.getMessage());
         }
     }
-
-    
 
     public List<SelectItem> getListaEjercicioFiscal() {
         return listaEjercicioFiscal;
@@ -112,7 +123,8 @@ public class RelacionPersonalSuplenteController implements Serializable {
         return listaCentroResponsabilidad;
     }
 
-    public void setListaCentroResponsabilidad(List<SelectItem> listaCentroResponsabilidad) {
+    public void setListaCentroResponsabilidad(
+            List<SelectItem> listaCentroResponsabilidad) {
         this.listaCentroResponsabilidad = listaCentroResponsabilidad;
     }
 

@@ -30,7 +30,8 @@ import org.jboss.logging.Logger;
 public class ProductoNominaFederalReporteService implements Serializable {
 
     private static final long serialVersionUID = -3622224990346218269L;
-    private static final Logger LOGGER = Logger.getLogger(ProductoNominaFederalReporteService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ProductoNominaFederalReporteService.class.getName());
     private static final String USP_PRODUCTO_NOMINA_FEDERAL = "CALL usp_reporte_producto_nomina_federales(?)";
 
     @Resource(mappedName = DATASOURCE)
@@ -68,9 +69,11 @@ public class ProductoNominaFederalReporteService implements Serializable {
      * @param datos
      *            los datos de la consulta.
      */
-    public void obtenerInformacion(Integer idProductoNomina, List<String> titulos, List<Object[]> datos) {
+    public void obtenerInformacion(Integer idProductoNomina,
+            List<String> titulos, List<Object[]> datos) {
         try (Connection connection = ds.getConnection()) {
-            PreparedStatement pstmt = connection.prepareStatement(USP_PRODUCTO_NOMINA_FEDERAL);
+            PreparedStatement pstmt = connection
+                    .prepareStatement(USP_PRODUCTO_NOMINA_FEDERAL);
             pstmt.setInt(1, idProductoNomina);
             ResultSet rs = pstmt.executeQuery();
             ResultSetMetaData metaData = rs.getMetaData();
@@ -118,7 +121,8 @@ public class ProductoNominaFederalReporteService implements Serializable {
                             break;
                     }
 
-                    pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1 : pos + 2;
+                    pos = pos + 1 != posicionIdNominaEmpleado ? pos + 1
+                            : pos + 2;
                 }
                 datos.add(objDatos);
             }

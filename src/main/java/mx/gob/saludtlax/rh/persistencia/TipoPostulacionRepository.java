@@ -9,7 +9,8 @@ package mx.gob.saludtlax.rh.persistencia;
  *
  * @since 24/10/2016 11:34:16
  */
-public class TipoPostulacionRepository extends GenericRepository<TipoPostulacionEntity, Integer> {
+public class TipoPostulacionRepository
+        extends GenericRepository<TipoPostulacionEntity, Integer> {
 
     /**
      *

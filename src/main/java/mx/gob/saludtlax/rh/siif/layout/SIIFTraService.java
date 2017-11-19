@@ -29,10 +29,12 @@ import mx.gob.saludtlax.rh.siif.EstructuraNominaTrailersDTO;
  */
 public class SIIFTraService {
 
-    private static final Logger LOGGER = Logger.getLogger(SIIFTraService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SIIFTraService.class.getName());
     private File archivoTra;
 
-    protected byte[] generarTra(List<EstructuraNominaTrailersDTO> listaDetalles) {
+    protected byte[] generarTra(
+            List<EstructuraNominaTrailersDTO> listaDetalles) {
         try {
             Path path = Files.createTempFile("prdo", ".tra");
             archivoTra = path.toFile();
@@ -40,52 +42,72 @@ public class SIIFTraService {
             return obtenerBytesTra();
         } catch (IOException e) {
             LOGGER.error(e);
-            throw new SistemaException("No fue posible escribir/leer el archivo temporal", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException(
+                    "No fue posible escribir/leer el archivo temporal",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
-    private void llenarDetallesTra(List<EstructuraNominaTrailersDTO> listaDetallesAnexo) throws IOException {
+    private void llenarDetallesTra(
+            List<EstructuraNominaTrailersDTO> listaDetallesAnexo)
+            throws IOException {
         try (FileWriter writer = new FileWriter(archivoTra)) {
             for (EstructuraNominaTrailersDTO detalle : listaDetallesAnexo) {
                 writer.append(detalle.getRfc() == null ? "" : detalle.getRfc());
                 writer.append('|');
-                writer.append(detalle.getNumEmp() == null ? "" : detalle.getNumEmp());
+                writer.append(
+                        detalle.getNumEmp() == null ? "" : detalle.getNumEmp());
                 writer.append('|');
-                writer.append(detalle.getNumCheq() == null ? "" : detalle.getNumCheq());
+                writer.append(detalle.getNumCheq() == null ? ""
+                        : detalle.getNumCheq());
                 writer.append('|');
-                writer.append(detalle.gettConcep() == null ? "0" : detalle.gettConcep().toString());
+                writer.append(detalle.gettConcep() == null ? "0"
+                        : detalle.gettConcep().toString());
                 writer.append('|');
-                writer.append(detalle.getConcep() == null ? "" : detalle.getConcep());
+                writer.append(
+                        detalle.getConcep() == null ? "" : detalle.getConcep());
                 writer.append('|');
-                writer.append(detalle.getImporte() == null ? "" : detalle.getImporte().toString());
+                writer.append(detalle.getImporte() == null ? ""
+                        : detalle.getImporte().toString());
                 writer.append('|');
-                writer.append(detalle.getAnio() == null ? "" : detalle.getAnio());
+                writer.append(
+                        detalle.getAnio() == null ? "" : detalle.getAnio());
                 writer.append('|');
                 writer.append(detalle.getQna() == null ? "" : detalle.getQna());
                 writer.append('|');
-                writer.append(detalle.getPtaAnt() == null ? "" : detalle.getPtaAnt());
+                writer.append(
+                        detalle.getPtaAnt() == null ? "" : detalle.getPtaAnt());
                 writer.append('|');
-                writer.append(detalle.getNumCheq() == null ? "" : detalle.getNumCheq());
+                writer.append(detalle.getNumCheq() == null ? ""
+                        : detalle.getNumCheq());
                 writer.append('|');
-                writer.append(detalle.getTotPagos() == null ? "" : detalle.getTotPagos());
+                writer.append(detalle.getTotPagos() == null ? ""
+                        : detalle.getTotPagos());
                 writer.append('|');
-                writer.append(detalle.getPagoEfec() == null ? "" : detalle.getPagoEfec());
+                writer.append(detalle.getPagoEfec() == null ? ""
+                        : detalle.getPagoEfec());
                 writer.append('|');
-                writer.append(detalle.getNumCheq() == null ? "" : detalle.getNumCheq());
+                writer.append(detalle.getNumCheq() == null ? ""
+                        : detalle.getNumCheq());
                 writer.append('|');
-                writer.append(detalle.getNomProd() == null ? "" : detalle.getNomProd());
+                writer.append(detalle.getNomProd() == null ? ""
+                        : detalle.getNomProd());
                 writer.append('|');
-                writer.append(detalle.getNumCtrol() == null ? "0" : detalle.getNumCtrol().toString());
+                writer.append(detalle.getNumCtrol() == null ? "0"
+                        : detalle.getNumCtrol().toString());
                 writer.append('\n');
             }
         } catch (IOException e) {
             LOGGER.error(e);
-            throw new SistemaException("No fue posible escribir/leer el archivo temporal", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException(
+                    "No fue posible escribir/leer el archivo temporal",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
     private byte[] obtenerBytesTra() throws IOException {
-        try (FileInputStream fis = new FileInputStream(archivoTra); ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+        try (FileInputStream fis = new FileInputStream(archivoTra);
+                ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
             byte[] buf = new byte[1024];
 
             for (int readNum; (readNum = fis.read(buf)) != -1;) {

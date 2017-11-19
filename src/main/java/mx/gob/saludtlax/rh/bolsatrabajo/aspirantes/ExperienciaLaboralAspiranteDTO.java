@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 21/03/2016 14:49:38
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
 public class ExperienciaLaboralAspiranteDTO implements Serializable {
 
@@ -65,7 +65,8 @@ public class ExperienciaLaboralAspiranteDTO implements Serializable {
      * @param idExperienciaLaboralAspirante
      *            the idExperienciaLaboralAspirante to set
      */
-    public void setIdExperienciaLaboralAspirante(Integer idExperienciaLaboralAspirante) {
+    public void setIdExperienciaLaboralAspirante(
+            Integer idExperienciaLaboralAspirante) {
         this.idExperienciaLaboralAspirante = idExperienciaLaboralAspirante;
     }
 

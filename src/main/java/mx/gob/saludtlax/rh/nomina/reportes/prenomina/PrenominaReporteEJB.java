@@ -26,10 +26,13 @@ public class PrenominaReporteEJB implements PrenominaReporte {
     @Override
     public byte[] generarReporte(Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto no debe ser nulo o menor que uno", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El ID del producto no debe ser nulo o menor que uno",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        ProductoNominaDTO productoNomina = prenominaReporteService.obtenerProductoNomina(idProductoNomina);
+        ProductoNominaDTO productoNomina = prenominaReporteService
+                .obtenerProductoNomina(idProductoNomina);
         PrenominaReporteTextoPlano prenominaReporteTextoPlano = new PrenominaReporteTextoPlano();
         return prenominaReporteTextoPlano.generar(productoNomina);
     }

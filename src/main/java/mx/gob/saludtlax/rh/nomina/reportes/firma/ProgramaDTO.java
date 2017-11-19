@@ -16,7 +16,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>, Iterable<FirmaEmpleadoDTO> {
+public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
+        Iterable<FirmaEmpleadoDTO> {
 
     private static final long serialVersionUID = 3213100192452199926L;
 
@@ -26,7 +27,8 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
     private final Date finPeriodo;
     private final Map<String, FirmaEmpleadoDTO> firmasEmpleados;
 
-    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo, Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
+    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo,
+            Date finPeriodo, Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
         this.idPrograma = idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
@@ -114,8 +116,10 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
 
     @Override
     public String toString() {
-        return "ProgramaDTO{" + "idPrograma : " + idPrograma + ", programa : " + programa + ", inicioPeriodo : " + inicioPeriodo + ", finPeriodo : "
-                + finPeriodo + ", firmasEmpleados : [" + firmasEmpleados + "]}";
+        return "ProgramaDTO{" + "idPrograma : " + idPrograma + ", programa : "
+                + programa + ", inicioPeriodo : " + inicioPeriodo
+                + ", finPeriodo : " + finPeriodo + ", firmasEmpleados : ["
+                + firmasEmpleados + "]}";
     }
 
     public static final class Builder {
@@ -126,7 +130,8 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
         private Date finPeriodo;
         private Map<String, FirmaEmpleadoDTO> firmasEmpleados;
 
-        public Builder(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo) {
+        public Builder(Integer idPrograma, String programa, Date inicioPeriodo,
+                Date finPeriodo) {
             this.idPrograma = idPrograma;
             this.programa = programa;
             this.inicioPeriodo = inicioPeriodo;
@@ -154,13 +159,15 @@ public final class ProgramaDTO implements Serializable, Comparable<ProgramaDTO>,
             return this;
         }
 
-        public Builder setFirmasEmpleados(Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
+        public Builder setFirmasEmpleados(
+                Map<String, FirmaEmpleadoDTO> firmasEmpleados) {
             this.firmasEmpleados = firmasEmpleados;
             return this;
         }
 
         public ProgramaDTO construirProgramaDTO() {
-            return new ProgramaDTO(idPrograma, programa, inicioPeriodo, finPeriodo, firmasEmpleados);
+            return new ProgramaDTO(idPrograma, programa, inicioPeriodo,
+                    finPeriodo, firmasEmpleados);
         }
     }
 

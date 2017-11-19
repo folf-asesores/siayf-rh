@@ -22,11 +22,16 @@ public enum TipoArchivo {
 
     CSV("text/csv", "csv"),
     //DAT("text/plain", "dat"),
-    JPEG("image/jpeg", "jpeg"), JPG("image/jpg", "jpg"), PDF("application/pdf", "pdf"), PNG("image/png", "png"), TIF("image/tiff", "tif"),
-    TIFF("image/tiff", "tiff"),
+    JPEG("image/jpeg", "jpeg"), JPG("image/jpg", "jpg"),
+    PDF("application/pdf", "pdf"), PNG("image/png", "png"),
+    TIF("image/tiff", "tif"), TIFF("image/tiff", "tiff"),
     //TRA("text/plain", "tra"),
-    TXT("text/plain", "txt"), XLS("application/xls", "xls"), XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "xlsx"),
-    DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document", "docx"), XML("application/xml", "xml"), ZIP("application/zip", "zip");
+    TXT("text/plain", "txt"), XLS("application/xls", "xls"),
+    XLSX("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "xlsx"),
+    DOCX("application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "docx"),
+    XML("application/xml", "xml"), ZIP("application/zip", "zip");
 
     /**
      * Constructor del enumerable.
@@ -122,7 +127,8 @@ public enum TipoArchivo {
                 extension = ZIP.extension;
                 break;
             default:
-                throw new IllegalArgumentException("Ha indicado un MIME Type incorrecto " + mimeType);
+                throw new IllegalArgumentException(
+                        "Ha indicado un MIME Type incorrecto " + mimeType);
         }
 
         return incluirPunto ? '.' + extension : extension;
@@ -156,7 +162,8 @@ public enum TipoArchivo {
      *            la extensión del archivo que se requiere.
      * @return una instancia del <code>TipoArchivo</code>.
      */
-    public static TipoArchivo getTipoArchivoPorExtension(final String extension) {
+    public static TipoArchivo getTipoArchivoPorExtension(
+            final String extension) {
 
         System.out.println(extension);
 
@@ -206,7 +213,8 @@ public enum TipoArchivo {
             case "zip":
                 return ZIP;
             default:
-                throw new IllegalArgumentException("Ha indicado una extensión incorrecto " + extension);
+                throw new IllegalArgumentException(
+                        "Ha indicado una extensión incorrecto " + extension);
         }
     }
 
@@ -246,7 +254,8 @@ public enum TipoArchivo {
                 return ZIP;
 
             default:
-                throw new IllegalArgumentException("Ha indicado un MIME Type incorrecto " + MIMEType);
+                throw new IllegalArgumentException(
+                        "Ha indicado un MIME Type incorrecto " + MIMEType);
         }
     }
 
@@ -282,7 +291,8 @@ public enum TipoArchivo {
                 return true;
 
             default:
-                throw new IllegalArgumentException("Ha indicado un MIME Type incorrecto " + mimeType);
+                throw new IllegalArgumentException(
+                        "Ha indicado un MIME Type incorrecto " + mimeType);
         }
     }
 

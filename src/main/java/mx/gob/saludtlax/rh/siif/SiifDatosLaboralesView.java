@@ -58,7 +58,8 @@ public class SiifDatosLaboralesView {
         return listSiifDatosLaborales;
     }
 
-    public void setListSiifDatosLaborales(List<SiifDatosLaboralesDTO> listSiifDatosLaborales) {
+    public void setListSiifDatosLaborales(
+            List<SiifDatosLaboralesDTO> listSiifDatosLaborales) {
         this.listSiifDatosLaborales = listSiifDatosLaborales;
     }
 
@@ -66,7 +67,8 @@ public class SiifDatosLaboralesView {
         return siifDatosLaborales;
     }
 
-    public void setSiifDatosLaborales(SiifDatosLaboralesDTO siifDatosLaborales) {
+    public void setSiifDatosLaborales(
+            SiifDatosLaboralesDTO siifDatosLaborales) {
         this.siifDatosLaborales = siifDatosLaborales;
     }
 
@@ -74,7 +76,8 @@ public class SiifDatosLaboralesView {
         return siifDatosLaboralesSelect;
     }
 
-    public void setSiifDatosLaboralesSelect(SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
+    public void setSiifDatosLaboralesSelect(
+            SiifDatosLaboralesDTO siifDatosLaboralesSelect) {
         this.siifDatosLaboralesSelect = siifDatosLaboralesSelect;
     }
 
@@ -114,7 +117,8 @@ public class SiifDatosLaboralesView {
         return disabledIrGestionarDatosLaborales;
     }
 
-    public void setDisabledIrGestionarDatosLaborales(Boolean disabledIrGestionarDatosLaborales) {
+    public void setDisabledIrGestionarDatosLaborales(
+            Boolean disabledIrGestionarDatosLaborales) {
         this.disabledIrGestionarDatosLaborales = disabledIrGestionarDatosLaborales;
     }
 
@@ -122,7 +126,8 @@ public class SiifDatosLaboralesView {
         return listSiifDatosLaboralesLista;
     }
 
-    public void setListSiifDatosLaboralesLista(List<SiifDatosLaboralesListaDTO> listSiifDatosLaboralesLista) {
+    public void setListSiifDatosLaboralesLista(
+            List<SiifDatosLaboralesListaDTO> listSiifDatosLaboralesLista) {
         this.listSiifDatosLaboralesLista = listSiifDatosLaboralesLista;
     }
 
@@ -146,7 +151,8 @@ public class SiifDatosLaboralesView {
         return listNombramiento;
     }
 
-    public void setListNombramiento(List<TipoNombramientoDTO> listNombramiento) {
+    public void setListNombramiento(
+            List<TipoNombramientoDTO> listNombramiento) {
         this.listNombramiento = listNombramiento;
     }
 

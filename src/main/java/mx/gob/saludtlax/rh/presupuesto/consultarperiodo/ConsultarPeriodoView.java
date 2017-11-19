@@ -38,7 +38,8 @@ public class ConsultarPeriodoView {
         return consultaPeriodoList;
     }
 
-    public void setConsultaPeriodoList(List<ConsultaPeriodo> consultaPeriodoList) {
+    public void setConsultaPeriodoList(
+            List<ConsultaPeriodo> consultaPeriodoList) {
         this.consultaPeriodoList = consultaPeriodoList;
     }
 

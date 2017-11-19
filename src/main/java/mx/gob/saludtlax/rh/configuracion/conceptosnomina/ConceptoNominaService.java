@@ -43,8 +43,10 @@ public class ConceptoNominaService implements Serializable {
 
     public List<EstatusConceptoNominaDTO> listaEstatusConceptoNomina() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_estatus_concepto_nomina AS idEstatusConceptoNomina, estatus FROM estatus_conceptos_nomina");
-        query.setResultTransformer(Transformers.aliasToBean(EstatusConceptoNominaDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_estatus_concepto_nomina AS idEstatusConceptoNomina, estatus FROM estatus_conceptos_nomina");
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstatusConceptoNominaDTO.class));
         @SuppressWarnings("unchecked")
         List<EstatusConceptoNominaDTO> result = query.list();
         return result;
@@ -52,8 +54,10 @@ public class ConceptoNominaService implements Serializable {
 
     public List<NivelEmpleadoDTO> listaNivelEmpleado() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_nivel_empleado AS idNivelEmpleado, nivel_empleado AS nivelEmpleado  FROM niveles_empleados");
-        query.setResultTransformer(Transformers.aliasToBean(NivelEmpleadoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_nivel_empleado AS idNivelEmpleado, nivel_empleado AS nivelEmpleado  FROM niveles_empleados");
+        query.setResultTransformer(
+                Transformers.aliasToBean(NivelEmpleadoDTO.class));
         @SuppressWarnings("unchecked")
         List<NivelEmpleadoDTO> result = query.list();
         return result;
@@ -61,8 +65,10 @@ public class ConceptoNominaService implements Serializable {
 
     public List<TipoNombramientoDTO> listaNombramiento() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_tipo_nombramiento AS idTipoNombramiento, descripcion AS nombramiento FROM tipos_nombramientos");
-        query.setResultTransformer(Transformers.aliasToBean(TipoNombramientoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_tipo_nombramiento AS idTipoNombramiento, descripcion AS nombramiento FROM tipos_nombramientos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoNombramientoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoNombramientoDTO> result = query.list();
         return result;
@@ -70,8 +76,12 @@ public class ConceptoNominaService implements Serializable {
 
     public List<CategoriaSatDTO> listaCategoriaSatPorTipo(Integer tipo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_obtener_categorias_sat(:tipoparametro)").setParameter("tipoparametro", tipo);
-        query.setResultTransformer(Transformers.aliasToBean(CategoriaSatDTO.class));
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_obtener_categorias_sat(:tipoparametro)")
+                .setParameter("tipoparametro", tipo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(CategoriaSatDTO.class));
         @SuppressWarnings("unchecked")
         List<CategoriaSatDTO> result = query.list();
         return result;
@@ -98,13 +108,15 @@ public class ConceptoNominaService implements Serializable {
         dto.setTipo(null);
         dto.setTratamiento(Boolean.FALSE);
         dto.setDescripcion("");
-        List<TiposNombramientosEntity> tiposNombramientosEntities = tiposNombramientosRepository.nombramientosConSubfuente();
+        List<TiposNombramientosEntity> tiposNombramientosEntities = tiposNombramientosRepository
+                .nombramientosConSubfuente();
         List<ConceptoNominaNombramientoDTO> conceptoNominaNombramientoLista = new ArrayList<>();
         for (TiposNombramientosEntity nombramientosEntity : tiposNombramientosEntities) {
             ConceptoNominaNombramientoDTO conceptoNominaNombramientoDTO = new ConceptoNominaNombramientoDTO();
             conceptoNominaNombramientoDTO.setAplica(false);
             conceptoNominaNombramientoDTO.setIdConceptoNomina(null);
-            conceptoNominaNombramientoDTO.setIdTipoNombramiento(nombramientosEntity.getIdTipoNombramiento());
+            conceptoNominaNombramientoDTO.setIdTipoNombramiento(
+                    nombramientosEntity.getIdTipoNombramiento());
             conceptoNominaNombramientoLista.add(conceptoNominaNombramientoDTO);
         }
         dto.setConceptoNominaNombramientoLista(conceptoNominaNombramientoLista);
@@ -116,11 +128,13 @@ public class ConceptoNominaService implements Serializable {
         entity.setAguinaldo(dto.getAguinaldo());
         entity.setAlta(FechaUtil.fechaActualSinHora());
         entity.setBase(dto.getBase());
-        entity.setCategoriaSAT(categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
+        entity.setCategoriaSAT(
+                categoriaSatDAO.obtenerPorId(dto.getIdCategoriaSAT()));
         entity.setClave(dto.getClave());
         entity.setDescripcion(dto.getDescripcion());
         if (dto.getIdEstatusConceptoNomina() != null) {
-            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO.obtenerPorId(dto.getIdEstatusConceptoNomina()));
+            entity.setEstatusConceptoNomina(estatusConceptoNominaDAO
+                    .obtenerPorId(dto.getIdEstatusConceptoNomina()));
         }
 
         System.out.println("----" + dto.getFormula());
@@ -134,18 +148,24 @@ public class ConceptoNominaService implements Serializable {
         return obtenerConceptoNominaPorId(entity.getIdConceptoNomina());
     }
 
-    public List<ConceptoNominaDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipo) {
+    public List<ConceptoNominaDTO> obtenerConceptoNominasLista(
+            TipoConceptoNominaEnum tipo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_conceptos_nomina(:tipoparametro)").setParameter("tipoparametro", tipo.getIdTipoConceptoNomina());
-        query.setResultTransformer(Transformers.aliasToBean(ConceptoNominaDTO.class));
+        Query query = session
+                .createSQLQuery("CALL usp_conceptos_nomina(:tipoparametro)")
+                .setParameter("tipoparametro", tipo.getIdTipoConceptoNomina());
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConceptoNominaDTO.class));
         @SuppressWarnings("unchecked")
         List<ConceptoNominaDTO> result = query.list();
         return result;
     }
 
-    public ConceptoNominaDTO obtenerConceptoNominaPorId(Integer idConceptoNomina) {
+    public ConceptoNominaDTO obtenerConceptoNominaPorId(
+            Integer idConceptoNomina) {
 
-        ConceptoNominaEntity entity = entityManager.find(ConceptoNominaEntity.class, idConceptoNomina);
+        ConceptoNominaEntity entity = entityManager
+                .find(ConceptoNominaEntity.class, idConceptoNomina);
 
         ConceptoNominaDTO dto = new ConceptoNominaDTO();
 
@@ -156,11 +176,13 @@ public class ConceptoNominaService implements Serializable {
         dto.setClave(entity.getClave());
         //dto.setConceptoNominaNombramientoLista();
         dto.setDescripcion(entity.getDescripcion());
-        dto.setEstatusConceptoNomina(entity.getEstatusConceptoNomina().getEstatus());
+        dto.setEstatusConceptoNomina(
+                entity.getEstatusConceptoNomina().getEstatus());
         dto.setFormula(entity.getFormula());
         dto.setIdCategoriaSAT(entity.getCategoriaSAT().getIdCategoriaSAT());
         dto.setIdConceptoNomina(entity.getIdConceptoNomina());
-        dto.setIdEstatusConceptoNomina(entity.getEstatusConceptoNomina().getIdEstatusConceptoNomina());
+        dto.setIdEstatusConceptoNomina(
+                entity.getEstatusConceptoNomina().getIdEstatusConceptoNomina());
 
         dto.setObservacion(entity.getObservacion());
         dto.setRetroactivo(entity.getRetroactivo());
@@ -179,7 +201,8 @@ public class ConceptoNominaService implements Serializable {
         conceptoNominaEntities = conceptoNominaDAO.consultarTodos();
         List<ConceptoNominaDTO> listdtos = new ArrayList<>();
         for (ConceptoNominaEntity ent : conceptoNominaEntities) {
-            ConceptoNominaDTO dto = ConceptoNominaFactory.crearConceptoNominaDTO(ent, new ConceptoNominaDTO());
+            ConceptoNominaDTO dto = ConceptoNominaFactory
+                    .crearConceptoNominaDTO(ent, new ConceptoNominaDTO());
             listdtos.add(dto);
         }
         return listdtos;

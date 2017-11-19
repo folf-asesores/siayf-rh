@@ -7,7 +7,9 @@ public class NominaEmpleadoToActualizarDTO {
     private NominaEmpleadoEntity nominaEmpleadoEntity;
     private ActualizarNominaEmpleadoDTO actualizarNominaEmpleado;
 
-    public NominaEmpleadoToActualizarDTO(NominaEmpleadoEntity nominaEmpleadoEntity, ActualizarNominaEmpleadoDTO actualizarNominaEmpleado) {
+    public NominaEmpleadoToActualizarDTO(
+            NominaEmpleadoEntity nominaEmpleadoEntity,
+            ActualizarNominaEmpleadoDTO actualizarNominaEmpleado) {
         this.nominaEmpleadoEntity = nominaEmpleadoEntity;
         this.actualizarNominaEmpleado = actualizarNominaEmpleado;
     }
@@ -16,7 +18,8 @@ public class NominaEmpleadoToActualizarDTO {
         return nominaEmpleadoEntity;
     }
 
-    public void setNominaEmpleadoEntity(NominaEmpleadoEntity nominaEmpleadoEntity) {
+    public void setNominaEmpleadoEntity(
+            NominaEmpleadoEntity nominaEmpleadoEntity) {
         this.nominaEmpleadoEntity = nominaEmpleadoEntity;
     }
 
@@ -24,7 +27,8 @@ public class NominaEmpleadoToActualizarDTO {
         return actualizarNominaEmpleado;
     }
 
-    public void setActualizarNominaEmpleado(ActualizarNominaEmpleadoDTO actualizarNominaEmpleado) {
+    public void setActualizarNominaEmpleado(
+            ActualizarNominaEmpleadoDTO actualizarNominaEmpleado) {
         this.actualizarNominaEmpleado = actualizarNominaEmpleado;
     }
 }

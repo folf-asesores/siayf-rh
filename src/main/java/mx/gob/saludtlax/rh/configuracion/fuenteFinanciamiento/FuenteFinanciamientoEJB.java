@@ -15,12 +15,16 @@ public class FuenteFinanciamientoEJB {
     // Inicia para operaciones Fuente de Financiamiento
 
     public List<FuenteFinanciamientoDTO> obtenerFuenteFinanciamientoLista() {
-        List<FuenteFinanciamientoDTO> fuenteFinanciamientoLista = fuenteFinanciamientoService.listaFuenteFinanciamiento();
+        List<FuenteFinanciamientoDTO> fuenteFinanciamientoLista = fuenteFinanciamientoService
+                .listaFuenteFinanciamiento();
         return fuenteFinanciamientoLista;
     }
 
-    public FuenteFinanciamientoDTO obtenerFuenteFinanciamiento(FuenteFinanciamientoDTO fuenteFinanciamiento) {
-        FuenteFinanciamientoDTO dto = fuenteFinanciamientoService.obtenerFuenteFinanciamientoPorId(fuenteFinanciamiento.getIdFuenteFinanciamiento());
+    public FuenteFinanciamientoDTO obtenerFuenteFinanciamiento(
+            FuenteFinanciamientoDTO fuenteFinanciamiento) {
+        FuenteFinanciamientoDTO dto = fuenteFinanciamientoService
+                .obtenerFuenteFinanciamientoPorId(
+                        fuenteFinanciamiento.getIdFuenteFinanciamiento());
         return dto;
     }
 
@@ -29,18 +33,23 @@ public class FuenteFinanciamientoEJB {
     }
 
     public void eliminarFuenteFinanciamiento(Integer idFuenteFinanciamiento) {
-        fuenteFinanciamientoService.eliminarFuenteFinanciamiento(idFuenteFinanciamiento);
+        fuenteFinanciamientoService
+                .eliminarFuenteFinanciamiento(idFuenteFinanciamiento);
     }
 
     // Inicia para operaciones Fuente de Financiamiento OPD
 
     public List<FuenteFinanciamientoOPDDTO> obtenerFuenteFinanciamientoOPDLista() {
-        List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoOPDLista = fuenteFinanciamientoService.listaFuenteFinanciamientoOPD();
+        List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoOPDLista = fuenteFinanciamientoService
+                .listaFuenteFinanciamientoOPD();
         return fuenteFinanciamientoOPDLista;
     }
 
-    public FuenteFinanciamientoOPDDTO obtenerFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamiento) {
-        FuenteFinanciamientoOPDDTO dto = fuenteFinanciamientoService.obtenerFuenteFinanciamientoOPDPorId(fuenteFinanciamiento.getIdFuenteFinanciamientoOPD());
+    public FuenteFinanciamientoOPDDTO obtenerFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO fuenteFinanciamiento) {
+        FuenteFinanciamientoOPDDTO dto = fuenteFinanciamientoService
+                .obtenerFuenteFinanciamientoOPDPorId(
+                        fuenteFinanciamiento.getIdFuenteFinanciamientoOPD());
         return dto;
     }
 
@@ -48,22 +57,29 @@ public class FuenteFinanciamientoEJB {
         return fuenteFinanciamientoService.nuevoFuenteFinanciamientoOPD();
     }
 
-    public FuenteFinanciamientoOPDDTO crearFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO dto) {
+    public FuenteFinanciamientoOPDDTO crearFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO dto) {
         return fuenteFinanciamientoService.crearFuenteFinanciamientoOPD(dto);
     }
 
-    public FuenteFinanciamientoOPDDTO actualizarFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO dto) {
-        return fuenteFinanciamientoService.actualizarFuenteFinanciamientoOPD(dto);
+    public FuenteFinanciamientoOPDDTO actualizarFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO dto) {
+        return fuenteFinanciamientoService
+                .actualizarFuenteFinanciamientoOPD(dto);
     }
 
-    public void eliminarFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO dto) {
+    public void eliminarFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO dto) {
         fuenteFinanciamientoService.eliminarFuenteFinanciamientoOPD(dto);
     }
 
     // Inicia para operaciones Subfuente de Financiamiento
 
-    public SubfuenteFinanciamientoDTO obtenerSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO fuenteFinanciamiento) {
-        SubfuenteFinanciamientoDTO dto = fuenteFinanciamientoService.obtenerSubfuenteFinanciamientoPorId(fuenteFinanciamiento.getIdSubfuenteFinanciamiento());
+    public SubfuenteFinanciamientoDTO obtenerSubfuenteFinanciamiento(
+            SubfuenteFinanciamientoDTO fuenteFinanciamiento) {
+        SubfuenteFinanciamientoDTO dto = fuenteFinanciamientoService
+                .obtenerSubfuenteFinanciamientoPorId(
+                        fuenteFinanciamiento.getIdSubfuenteFinanciamiento());
         return dto;
     }
 
@@ -71,15 +87,19 @@ public class FuenteFinanciamientoEJB {
         return fuenteFinanciamientoService.nuevoSubfuenteFinanciamiento();
     }
 
-    public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
+    public SubfuenteFinanciamientoDTO crearSubfuenteFinanciamiento(
+            SubfuenteFinanciamientoDTO dto) {
         return fuenteFinanciamientoService.crearSubfuenteFinanciamiento(dto);
     }
 
-    public SubfuenteFinanciamientoDTO actualizarSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
-        return fuenteFinanciamientoService.actualizarSubfuenteFinanciamiento(dto);
+    public SubfuenteFinanciamientoDTO actualizarSubfuenteFinanciamiento(
+            SubfuenteFinanciamientoDTO dto) {
+        return fuenteFinanciamientoService
+                .actualizarSubfuenteFinanciamiento(dto);
     }
 
-    public void eliminarSubfuenteFinanciamiento(SubfuenteFinanciamientoDTO dto) {
+    public void eliminarSubfuenteFinanciamiento(
+            SubfuenteFinanciamientoDTO dto) {
         fuenteFinanciamientoService.eliminarSubfuenteFinanciamiento(dto);
     }
 

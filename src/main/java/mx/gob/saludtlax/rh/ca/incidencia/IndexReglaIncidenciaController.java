@@ -59,32 +59,43 @@ public class IndexReglaIncidenciaController implements Serializable {
         }
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return;
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("i");
 
         if (id == null) {
-            HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest req = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             String url = req.getContextPath().toString();
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Error Acceso",
-                    "Ocurrio un error al intentar buscar la incidencia seleccionada por favor regresa al  <a href='" + url
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_WARN, "Error Acceso",
+                    "Ocurrio un error al intentar buscar la incidencia seleccionada por favor regresa al  <a href='"
+                            + url
                             + "/contenido/controlasistencia/catalogo/incidencia/index.xhtml'>catalogo de incidencias</a>");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return;
@@ -94,10 +105,12 @@ public class IndexReglaIncidenciaController implements Serializable {
         llenarTiposContratacion();
         try {
             llenarReglasIncidencias();
-            incidenciaViewModel = incidenciaClientRest.buscarIncidenciaPorId(idIncidencia);
+            incidenciaViewModel = incidenciaClientRest
+                    .buscarIncidenciaPorId(idIncidencia);
         } catch (RESTClientException e) {
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -107,7 +120,8 @@ public class IndexReglaIncidenciaController implements Serializable {
             llenarReglasIncidencias();
         } catch (RESTClientException e) {
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -116,14 +130,17 @@ public class IndexReglaIncidenciaController implements Serializable {
 
         reglaIncidenciaFormModel = new ReglaIncidenciaFormModel();
 
-        RequestContext.getCurrentInstance().execute("PF('dglNuevaReglaIncidencia').show()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dglNuevaReglaIncidencia').show()");
 
     }
 
-    public void eliminarReglaIncidencia(ReglaIncidenciaViewModel reglaIncidenciaElminar) {
+    public void eliminarReglaIncidencia(
+            ReglaIncidenciaViewModel reglaIncidenciaElminar) {
 
         try {
-            reglaIncidenciaClienteRest.elminarReglaIncidencia(reglaIncidenciaElminar.getIdReglaIncidencia());
+            reglaIncidenciaClienteRest.elminarReglaIncidencia(
+                    reglaIncidenciaElminar.getIdReglaIncidencia());
             llenarReglasIncidencias();
         } catch (RESTClientException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
@@ -135,8 +152,10 @@ public class IndexReglaIncidenciaController implements Serializable {
     public void crearNuevaReglaIncidencia() {
         reglaIncidenciaFormModel.setIdIncidencia(idIncidencia);
         try {
-            reglaIncidenciaClienteRest.crearNuevaReglaIncidencia(reglaIncidenciaFormModel);
-            RequestContext.getCurrentInstance().execute("PF('dglNuevaReglaIncidencia').hide()");
+            reglaIncidenciaClienteRest
+                    .crearNuevaReglaIncidencia(reglaIncidenciaFormModel);
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dglNuevaReglaIncidencia').hide()");
             llenarReglasIncidencias();
         } catch (RESTClientException e) {
             JSFUtils.errorMessage("Error", e.getMessage());
@@ -147,20 +166,24 @@ public class IndexReglaIncidenciaController implements Serializable {
 
     private void llenarReglasIncidencias() throws RESTClientException {
 
-        listadoReglaIncidenciaViewModel = reglaIncidenciaClienteRest.listadoReglasIncidencia(idIncidencia, tipoContratacionSeleccionada);
+        listadoReglaIncidenciaViewModel = reglaIncidenciaClienteRest
+                .listadoReglasIncidencia(idIncidencia,
+                        tipoContratacionSeleccionada);
 
     }
 
     private void llenarTiposContratacion() {
 
-        List<TipoContratacionEntity> listadoTipoContratacionEntity = tipoContratacionRepository.consultarTodos();
+        List<TipoContratacionEntity> listadoTipoContratacionEntity = tipoContratacionRepository
+                .consultarTodos();
         listadoTiposContrataciones = new ArrayList<>();
         SelectItem selectItemTipoContratacion = new SelectItem();
         for (TipoContratacionEntity tipoContratacionEntity : listadoTipoContratacionEntity) {
 
             selectItemTipoContratacion = new SelectItem();
 
-            selectItemTipoContratacion.setLabel(tipoContratacionEntity.getTipoContratacion());
+            selectItemTipoContratacion
+                    .setLabel(tipoContratacionEntity.getTipoContratacion());
             selectItemTipoContratacion.setValue(tipoContratacionEntity.getId());
             listadoTiposContrataciones.add(selectItemTipoContratacion);
 
@@ -172,7 +195,8 @@ public class IndexReglaIncidenciaController implements Serializable {
         return listadoTiposContrataciones;
     }
 
-    public void setListadoTiposContrataciones(List<SelectItem> listadoTiposContrataciones) {
+    public void setListadoTiposContrataciones(
+            List<SelectItem> listadoTiposContrataciones) {
         this.listadoTiposContrataciones = listadoTiposContrataciones;
     }
 
@@ -180,7 +204,8 @@ public class IndexReglaIncidenciaController implements Serializable {
         return tipoContratacionSeleccionada;
     }
 
-    public void setTipoContratacionSeleccionada(Integer tipoContratacionSeleccionada) {
+    public void setTipoContratacionSeleccionada(
+            Integer tipoContratacionSeleccionada) {
         this.tipoContratacionSeleccionada = tipoContratacionSeleccionada;
     }
 
@@ -188,7 +213,8 @@ public class IndexReglaIncidenciaController implements Serializable {
         return listadoReglaIncidenciaViewModel;
     }
 
-    public void setListadoReglaIncidenciaViewModel(List<ReglaIncidenciaViewModel> listadoReglaIncidenciaViewModel) {
+    public void setListadoReglaIncidenciaViewModel(
+            List<ReglaIncidenciaViewModel> listadoReglaIncidenciaViewModel) {
         this.listadoReglaIncidenciaViewModel = listadoReglaIncidenciaViewModel;
     }
 
@@ -196,7 +222,8 @@ public class IndexReglaIncidenciaController implements Serializable {
         return incidenciaViewModel;
     }
 
-    public void setIncidenciaViewModel(IncidenciaModelView incidenciaViewModel) {
+    public void setIncidenciaViewModel(
+            IncidenciaModelView incidenciaViewModel) {
         this.incidenciaViewModel = incidenciaViewModel;
     }
 
@@ -204,7 +231,8 @@ public class IndexReglaIncidenciaController implements Serializable {
         return reglaIncidenciaFormModel;
     }
 
-    public void setReglaIncidenciaFormModel(ReglaIncidenciaFormModel reglaIncidenciaFormModel) {
+    public void setReglaIncidenciaFormModel(
+            ReglaIncidenciaFormModel reglaIncidenciaFormModel) {
         this.reglaIncidenciaFormModel = reglaIncidenciaFormModel;
     }
 

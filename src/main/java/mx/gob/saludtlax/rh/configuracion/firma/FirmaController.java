@@ -48,7 +48,8 @@ public class FirmaController implements Serializable {
      */
     @PostConstruct
     public void init() {
-        view.setAdscripciones(SelectItemsUtil.listaCatalogos(catalogoBean.consultarAdscripciones()));
+        view.setAdscripciones(SelectItemsUtil
+                .listaCatalogos(catalogoBean.consultarAdscripciones()));
         view.setFirmas(firmaBean.consultarTodas());
     }
 

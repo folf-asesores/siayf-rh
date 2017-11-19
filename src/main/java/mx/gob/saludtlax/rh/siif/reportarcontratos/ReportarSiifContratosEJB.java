@@ -45,16 +45,21 @@ public class ReportarSiifContratosEJB implements Serializable {
         return reportarSiifContratosService.obtenerTipoNominaList();
     }
 
-    public SiifBitacoraDTO obtenerSiifBitacora(SiifBitacoraDTO siifBitacoraProcesada) {
-        return reportarSiifContratosService.obtenerSiiifBitacoraById(siifBitacoraProcesada.getIdSiifBitacora());
+    public SiifBitacoraDTO obtenerSiifBitacora(
+            SiifBitacoraDTO siifBitacoraProcesada) {
+        return reportarSiifContratosService.obtenerSiiifBitacoraById(
+                siifBitacoraProcesada.getIdSiifBitacora());
 
     }
 
-    public SiifBitacoraDTO procesarContratosTheosToSIIF(PaqueteEntradaContratoDTO paqueteEntrada) {
+    public SiifBitacoraDTO procesarContratosTheosToSIIF(
+            PaqueteEntradaContratoDTO paqueteEntrada) {
         System.out.println(1);
-        SiifBitacoraDTO bitacora = reportarSiifContratosService.crearSiifBitacoraContratos(paqueteEntrada);//revisar y crear bitacora con insercion correcta de datos
+        SiifBitacoraDTO bitacora = reportarSiifContratosService
+                .crearSiifBitacoraContratos(paqueteEntrada);//revisar y crear bitacora con insercion correcta de datos
         System.out.println(2);
-        bitacora = reportarSiifContratosService.importarDatosToSIIF(paqueteEntrada, bitacora);//Cambiar el proceso de insercion de datos a como lo uso
+        bitacora = reportarSiifContratosService
+                .importarDatosToSIIF(paqueteEntrada, bitacora);//Cambiar el proceso de insercion de datos a como lo uso
         //		System.out.println(3);
         //		bitacora = reportarSiifContratosService.cambiarClaveConceptosTraContratos(bitacora);// revisar
         //		System.out.println(4);

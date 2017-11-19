@@ -57,23 +57,33 @@ public class ModulosService implements Serializable {
         String contexto = "Registrar Modulo: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores requeridos", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Ingrese los valores requeridos",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor Ingrese en nombre del modulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese la url.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor Ingrese la url.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-            throw new ValidacionException(contexto + "Por favor seleccione el area", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor seleccione el area",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (dto.getAcciones().isEmpty()) {
-            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor ingrese una acción como minimo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         ModuloEntity entity = new ModuloEntity();
@@ -87,7 +97,8 @@ public class ModulosService implements Serializable {
 
             AccionesEntity accionesEntity = new AccionesEntity();
 
-            accionesEntity.setArea(areasRepository.obtenerPorId(entity.getArea().getIdArea()));
+            accionesEntity.setArea(
+                    areasRepository.obtenerPorId(entity.getArea().getIdArea()));
             accionesEntity.setClave(accion.getClave());
             accionesEntity.setDescripcion(accion.getDescripcion());
             accionesEntity.setModulo(entity);
@@ -102,23 +113,33 @@ public class ModulosService implements Serializable {
         String contexto = "Actualizar Modulo: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores requeridos", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Ingrese los valores requeridos",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese en nombre del modulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor Ingrese en nombre del modulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getUrl())) {
-            throw new ValidacionException(contexto + "Por favor Ingrese la url.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor Ingrese la url.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivoInt(dto.getIdArea())) {
-            throw new ValidacionException(contexto + "Por favor seleccione el area", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor seleccione el area",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (dto.getAcciones().isEmpty()) {
-            throw new ValidacionException(contexto + "Por favor ingrese una acción como minimo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    contexto + "Por favor ingrese una acción como minimo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         ModuloEntity entity = moduloRepository.obtenerPorId(dto.getIdModulo());
@@ -131,12 +152,14 @@ public class ModulosService implements Serializable {
 
         for (AccionDTO accion : dto.getAcciones()) {
 
-            AccionesEntity accionesEntity = accionesRepository.obtenerPorId(accion.getIdAccion());
+            AccionesEntity accionesEntity = accionesRepository
+                    .obtenerPorId(accion.getIdAccion());
             // registra las acciones nuevas.
             if (accionesEntity == null) {
                 accionesEntity = new AccionesEntity();
 
-                accionesEntity.setArea(areasRepository.obtenerPorId(entity.getArea().getIdArea()));
+                accionesEntity.setArea(areasRepository
+                        .obtenerPorId(entity.getArea().getIdArea()));
                 accionesEntity.setClave(accion.getClave());
                 accionesEntity.setDescripcion(accion.getDescripcion());
                 accionesEntity.setModulo(entity);
@@ -149,7 +172,8 @@ public class ModulosService implements Serializable {
     }
 
     public Boolean eliminar(Integer id) {
-        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTOPorModulo(id);
+        List<ConfiguracionModuloAccionDTO> listConf = configuracionModuloAccion
+                .obtenerListaConfiguracionModuloAccionDTOPorModulo(id);
         if (listConf == null || listConf.isEmpty()) {
             moduloRepository.eliminarPorId(id);
             return true;
@@ -180,7 +204,8 @@ public class ModulosService implements Serializable {
 
     public List<ModuloDTO> listaModulosPorArea(Integer idArea) {
         try {
-            List<ModuloEntity> listEntity = moduloRepository.obtenerModulosPorIdArea(idArea);
+            List<ModuloEntity> listEntity = moduloRepository
+                    .obtenerModulosPorIdArea(idArea);
             List<ModuloDTO> listDTO = new ArrayList<>();
 
             for (ModuloEntity entity : listEntity) {
@@ -203,7 +228,8 @@ public class ModulosService implements Serializable {
 
     public List<AreaDTO> listaArea() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT " + "id_area AS id, " + "nombre_area AS nombre " + "FROM areas");
+        Query query = session.createSQLQuery("SELECT " + "id_area AS id, "
+                + "nombre_area AS nombre " + "FROM areas");
         query.setResultTransformer(Transformers.aliasToBean(AreaDTO.class));
         @SuppressWarnings("unchecked")
         List<AreaDTO> result = query.list();
@@ -223,7 +249,8 @@ public class ModulosService implements Serializable {
         dto.setNombreArea(entity.getArea().getNombreArea());
         dto.setUrl(entity.getUrl());
 
-        List<AccionDTO> listaAccion = accionesService.obtenerAccionesPorModulo(idModulo);
+        List<AccionDTO> listaAccion = accionesService
+                .obtenerAccionesPorModulo(idModulo);
 
         if (!listaAccion.isEmpty()) {
             dto.setAcciones(listaAccion);

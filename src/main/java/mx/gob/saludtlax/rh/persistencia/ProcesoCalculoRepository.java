@@ -11,7 +11,8 @@ import javax.persistence.NoResultException;
  *
  * @since 01/12/2016 16:59:25
  */
-public class ProcesoCalculoRepository extends GenericRepository<ProcesoCalculoEntity, Integer> {
+public class ProcesoCalculoRepository
+        extends GenericRepository<ProcesoCalculoEntity, Integer> {
 
     /**
      *
@@ -20,7 +21,9 @@ public class ProcesoCalculoRepository extends GenericRepository<ProcesoCalculoEn
 
     public ProcesoCalculoEntity obtenerProcesoPorTipo(Integer tipoProceso) {
         try {
-            return em.createQuery("SELECT p FROM ProcesoCalculoEntity AS p WHERE p.tipoProceso =:tipoProceso", ProcesoCalculoEntity.class)
+            return em.createQuery(
+                    "SELECT p FROM ProcesoCalculoEntity AS p WHERE p.tipoProceso =:tipoProceso",
+                    ProcesoCalculoEntity.class)
                     .setParameter("tipoProceso", tipoProceso).getSingleResult();
         } catch (NoResultException exception) {
             return null;

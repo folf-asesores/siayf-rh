@@ -56,7 +56,8 @@ public class ConstaciaSueldoController {
         constancia.setEjercicioFiscal(null);
         constancia.setFechaDeclaracion(null);
         updatePage();
-        JSFUtils.infoMessage("En este momento ha terminado de subir el archivo y se empieza a procesar",
+        JSFUtils.infoMessage(
+                "En este momento ha terminado de subir el archivo y se empieza a procesar",
                 "En este momento ha terminado de subir el archivo y se empieza a procesar");
     }
 
@@ -95,10 +96,13 @@ public class ConstaciaSueldoController {
     public void updatePage() throws IOException {
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+        HttpServletRequest request = (HttpServletRequest) facesContext
+                .getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) facesContext
+                .getExternalContext().getResponse();
 
-        response.sendRedirect(request.getContextPath() + "/contenido/nomina/importarConstancia.xhtml");
+        response.sendRedirect(request.getContextPath()
+                + "/contenido/nomina/importarConstancia.xhtml");
     }
 
     public UploadedFile getUploadFile() {
@@ -121,7 +125,8 @@ public class ConstaciaSueldoController {
         return constanciaSueldoView;
     }
 
-    public void setConstanciaSueldoView(ConstanciaSueldoView constanciaSueldoView) {
+    public void setConstanciaSueldoView(
+            ConstanciaSueldoView constanciaSueldoView) {
         this.constanciaSueldoView = constanciaSueldoView;
     }
 

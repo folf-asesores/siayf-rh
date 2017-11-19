@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class CalendarioGlobalDTO implements Serializable {
@@ -30,15 +30,18 @@ public class CalendarioGlobalDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "CalendarioGlobalDTO [idCalendarioGlobal=" + idCalendarioGlobal + ", partida8000=" + partida8000 + ", partida1000=" + partida1000 + ", concepto="
-                + concepto + ", importeAnual=" + importeAnual + "]";
+        return "CalendarioGlobalDTO [idCalendarioGlobal=" + idCalendarioGlobal
+                + ", partida8000=" + partida8000 + ", partida1000="
+                + partida1000 + ", concepto=" + concepto + ", importeAnual="
+                + importeAnual + "]";
     }
 
     public CalendarioGlobalDTO() {
         super();
     }
 
-    public CalendarioGlobalDTO(Integer idCalendarioGlobal, Integer partida8000, Integer partida1000, String concepto, BigDecimal importeAnual) {
+    public CalendarioGlobalDTO(Integer idCalendarioGlobal, Integer partida8000,
+            Integer partida1000, String concepto, BigDecimal importeAnual) {
 
         this.idCalendarioGlobal = idCalendarioGlobal;
         this.partida8000 = partida8000;

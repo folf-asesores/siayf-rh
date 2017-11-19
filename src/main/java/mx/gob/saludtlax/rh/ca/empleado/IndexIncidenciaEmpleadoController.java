@@ -49,29 +49,39 @@ public class IndexIncidenciaEmpleadoController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("exito");
 
         if (id != null) {
 
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Agregar", "Se agrego la incidencia con exito");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Agregar",
+                    "Se agrego la incidencia con exito");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
 
         }
@@ -81,13 +91,16 @@ public class IndexIncidenciaEmpleadoController implements Serializable {
     public void eliminarIncidencia(IncidenciaEmpleadoView incidenciaViewModel) {
 
         try {
-            empleadoClienteRest.elminarIncidenciaEmpleado(incidenciaViewModel.getIdIncidenciaEmpleado());
-            listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
+            empleadoClienteRest.elminarIncidenciaEmpleado(
+                    incidenciaViewModel.getIdIncidenciaEmpleado());
+            listadoIncidenciaEmpleado = empleadoClienteRest
+                    .buscarIncidenciaEmpleado(model);
         } catch (RESTClientException e) {
 
             e.printStackTrace();
 
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Eliminar", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Eliminar", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -111,11 +124,13 @@ public class IndexIncidenciaEmpleadoController implements Serializable {
     public void buscarIncidenciaEmpleado() {
 
         try {
-            listadoIncidenciaEmpleado = empleadoClienteRest.buscarIncidenciaEmpleado(model);
+            listadoIncidenciaEmpleado = empleadoClienteRest
+                    .buscarIncidenciaEmpleado(model);
             mostrarDetalle = true;
         } catch (RESTClientException e) {
             mostrarDetalle = false;
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Buscar", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Buscar", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -132,7 +147,8 @@ public class IndexIncidenciaEmpleadoController implements Serializable {
         return listadoIncidenciaEmpleado;
     }
 
-    public void setListadoIncidenciaEmpleado(List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado) {
+    public void setListadoIncidenciaEmpleado(
+            List<IncidenciaEmpleadoView> listadoIncidenciaEmpleado) {
         this.listadoIncidenciaEmpleado = listadoIncidenciaEmpleado;
     }
 

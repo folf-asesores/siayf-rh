@@ -157,8 +157,9 @@ public class InventarioVacanteEntity implements Serializable {
     private String jornada;
 
     public String lccEstructuraContrato() {
-        return "InventarioVacanteEntity [funcionEspecifica=" + funcionEspecifica + ", subfuncion=" + subfuncion + ", financiamiento=" + financiamiento
-                + ", jornada=" + jornada + "]";
+        return "InventarioVacanteEntity [funcionEspecifica=" + funcionEspecifica
+                + ", subfuncion=" + subfuncion + ", financiamiento="
+                + financiamiento + ", jornada=" + jornada + "]";
     }
 
     public String getFuncionEspecifica() {
@@ -293,7 +294,8 @@ public class InventarioVacanteEntity implements Serializable {
         return movimientoPermiso;
     }
 
-    public void setMovimientoPermiso(MovimientoEmpleadoEntity movimientoPermiso) {
+    public void setMovimientoPermiso(
+            MovimientoEmpleadoEntity movimientoPermiso) {
         this.movimientoPermiso = movimientoPermiso;
     }
 

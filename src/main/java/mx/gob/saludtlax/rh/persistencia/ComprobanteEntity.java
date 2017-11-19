@@ -430,7 +430,8 @@ public class ComprobanteEntity implements Serializable {
         return totalImpuestoTrasladados;
     }
 
-    public void setTotalImpuestoTrasladados(BigDecimal totalImpuestoTrasladados) {
+    public void setTotalImpuestoTrasladados(
+            BigDecimal totalImpuestoTrasladados) {
         this.totalImpuestoTrasladados = totalImpuestoTrasladados;
     }
 
@@ -614,7 +615,8 @@ public class ComprobanteEntity implements Serializable {
         return salarioBaseCotizacionAport;
     }
 
-    public void setSalarioBaseCotizacionAport(BigDecimal salarioBaseCotizacionAport) {
+    public void setSalarioBaseCotizacionAport(
+            BigDecimal salarioBaseCotizacionAport) {
         this.salarioBaseCotizacionAport = salarioBaseCotizacionAport;
     }
 

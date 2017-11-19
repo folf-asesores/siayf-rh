@@ -75,7 +75,8 @@ public class UsuarioEntity implements Serializable {
     private Integer id_adscripcion;
 
     public String nombreCompleto() {
-        String nombreCompleto = nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+        String nombreCompleto = nombre + " " + apellidoPaterno + " "
+                + apellidoMaterno;
         return nombreCompleto;
     }
 

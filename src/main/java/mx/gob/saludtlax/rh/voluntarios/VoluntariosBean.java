@@ -20,7 +20,8 @@ public class VoluntariosBean implements Voluntarios {
     }
 
     @Override
-    public List<InfoVoluntarioDTO> consultarVoluntarios(ConsultaVoluntarioDTO consulta) {
+    public List<InfoVoluntarioDTO> consultarVoluntarios(
+            ConsultaVoluntarioDTO consulta) {
         return voluntariosService.consultarVoluntarios(consulta);
     }
 

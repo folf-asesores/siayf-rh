@@ -25,7 +25,8 @@ public interface AdjuntoEmpleado extends Adjunto {
      *            el ID del empleado.
      * @return todos los adjuntos del empleado.
      */
-    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorIdEmpleado(int idEmpleado);
+    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorIdEmpleado(
+            int idEmpleado);
 
     /**
      * Retorna la lista de documentos que tiene adjunto el empleado por tipo de
@@ -40,7 +41,8 @@ public interface AdjuntoEmpleado extends Adjunto {
      *         empleado.
      * @author Leila Schiaffini Ehuan
      */
-    List<String> consultarDocumentosAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto entidadContexto, Integer idEntidadContexto);
+    List<String> consultarDocumentosAdjuntosPorEntidadContextoIdEntidadContexto(
+            EntidadContexto entidadContexto, Integer idEntidadContexto);
 
     /**
      * Permite importar el expediente de un aspirante, para que sea empleado.
@@ -50,5 +52,6 @@ public interface AdjuntoEmpleado extends Adjunto {
      * @param idEmpleado
      *            el ID del empleado.
      */
-    void importarExpedienteAspirante(Integer idAspirantente, Integer idEmpleado);
+    void importarExpedienteAspirante(Integer idAspirantente,
+            Integer idEmpleado);
 }

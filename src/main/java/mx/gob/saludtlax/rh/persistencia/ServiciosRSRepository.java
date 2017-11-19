@@ -33,7 +33,9 @@ public class ServiciosRSRepository implements Serializable {
      */
     public List<ServiciosRSEntity> obtenerListadoServicios() {
 
-        List<ServiciosRSEntity> listadoServiciosRSEntity = entityManager.createNamedQuery(ServiciosRSEntity.OBTENER_LISTADO, ServiciosRSEntity.class)
+        List<ServiciosRSEntity> listadoServiciosRSEntity = entityManager
+                .createNamedQuery(ServiciosRSEntity.OBTENER_LISTADO,
+                        ServiciosRSEntity.class)
                 .getResultList();
         return listadoServiciosRSEntity;
     }
@@ -47,8 +49,10 @@ public class ServiciosRSRepository implements Serializable {
 
         try {
 
-            entityManager.createNamedQuery(ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO, ServiciosRSEntity.class).setParameter("servicioEnum", servicio)
-                    .getSingleResult();
+            entityManager
+                    .createNamedQuery(ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO,
+                            ServiciosRSEntity.class)
+                    .setParameter("servicioEnum", servicio).getSingleResult();
 
             return true;
         } catch (NoResultException ex) {
@@ -67,8 +71,10 @@ public class ServiciosRSRepository implements Serializable {
      */
     public ServiciosRSEntity getDatosServicioActivo(ServicioWebEnum servicio) {
         try {
-            return entityManager.createNamedQuery(ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO, ServiciosRSEntity.class).setParameter("servicioEnum", servicio)
-                    .getSingleResult();
+            return entityManager
+                    .createNamedQuery(ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO,
+                            ServiciosRSEntity.class)
+                    .setParameter("servicioEnum", servicio).getSingleResult();
         } catch (NoResultException e) {
             return null;
         }
@@ -81,11 +87,16 @@ public class ServiciosRSRepository implements Serializable {
      *
      * @return verdadero si existe un servicio activo
      */
-    public boolean existeServicioActivo(ServicioWebEnum servicio, Integer idServicio) {
+    public boolean existeServicioActivo(ServicioWebEnum servicio,
+            Integer idServicio) {
 
         try {
 
-            entityManager.createNamedQuery(ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO_ID, ServiciosRSEntity.class).setParameter("servicioEnum", servicio)
+            entityManager
+                    .createNamedQuery(
+                            ServiciosRSEntity.BUSCAR_SERVICIO_ACTIVO_ID,
+                            ServiciosRSEntity.class)
+                    .setParameter("servicioEnum", servicio)
                     .setParameter("idServicio", idServicio).getSingleResult();
 
             return true;

@@ -16,8 +16,8 @@ import mx.gob.saludtlax.rh.empleados.nombramientos.impresion.InfoNombramientoDTO
 import mx.gob.saludtlax.rh.empleados.nombramientos.impresion.NombramientoDetalleDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 18:08:57 12/09/2016
  */
@@ -41,9 +41,11 @@ public class NombramientoEJB implements Nombramiento, Serializable {
      * obtenerNombramientoReportePorId(java.lang.Integer)
      */
     @Override
-    public NombramientoDetalleDTO obtenerNombramientoReportePorId(Integer idNombramiento, Integer idEstructura) {
+    public NombramientoDetalleDTO obtenerNombramientoReportePorId(
+            Integer idNombramiento, Integer idEstructura) {
 
-        return consultaNombramientoService.obtenerNombramientoReportePorId(idNombramiento, idEstructura);
+        return consultaNombramientoService
+                .obtenerNombramientoReportePorId(idNombramiento, idEstructura);
     }
 
     /*
@@ -65,9 +67,11 @@ public class NombramientoEJB implements Nombramiento, Serializable {
      * obtenerListaInfoNombramientoPorTipo(java.lang.Integer)
      */
     @Override
-    public List<InfoNombramientoDTO> obtenerListaInfoNombramientoPorTipo(Integer tipoNombramiento) {
+    public List<InfoNombramientoDTO> obtenerListaInfoNombramientoPorTipo(
+            Integer tipoNombramiento) {
 
-        return consultaNombramientoService.obtenerListaInfoNombramientoPorTipo(tipoNombramiento);
+        return consultaNombramientoService
+                .obtenerListaInfoNombramientoPorTipo(tipoNombramiento);
     }
 
     /*
@@ -77,9 +81,11 @@ public class NombramientoEJB implements Nombramiento, Serializable {
      * obtenerInventarioVacantePorIdNombramiento(java.lang.Integer)
      */
     @Override
-    public Integer obtenerInventarioVacantePorIdNombramiento(Integer idNombramiento) {
+    public Integer obtenerInventarioVacantePorIdNombramiento(
+            Integer idNombramiento) {
 
-        return consultaNombramientoService.obtenerInventarioVacantePorIdNombramiento(idNombramiento);
+        return consultaNombramientoService
+                .obtenerInventarioVacantePorIdNombramiento(idNombramiento);
     }
 
     /*
@@ -90,9 +96,12 @@ public class NombramientoEJB implements Nombramiento, Serializable {
      * java.lang.Integer)
      */
     @Override
-    public InfoLugarAdscripcionNombramientoDTO obtenerInfoLugarAdscripcion(Integer adscripcion, Integer areaAdscripcion, Integer lugarAdscripcion) {
+    public InfoLugarAdscripcionNombramientoDTO obtenerInfoLugarAdscripcion(
+            Integer adscripcion, Integer areaAdscripcion,
+            Integer lugarAdscripcion) {
 
-        return consultaNombramientoService.obtenerInfoLugarAdscripcion(adscripcion, areaAdscripcion, lugarAdscripcion);
+        return consultaNombramientoService.obtenerInfoLugarAdscripcion(
+                adscripcion, areaAdscripcion, lugarAdscripcion);
     }
 
     /*
@@ -102,27 +111,36 @@ public class NombramientoEJB implements Nombramiento, Serializable {
      * actualizarNombramientoPorImpresion(java.lang.String, boolean)
      */
     @Override
-    public void actualizarNombramientoImpreso(Integer idNombramiento, String tipoAdscripcion, boolean impreso) {
-        nombramientoService.actualizarNombramientoImpreso(idNombramiento, tipoAdscripcion, impreso);
+    public void actualizarNombramientoImpreso(Integer idNombramiento,
+            String tipoAdscripcion, boolean impreso) {
+        nombramientoService.actualizarNombramientoImpreso(idNombramiento,
+                tipoAdscripcion, impreso);
 
     }
 
     @Override
-    public Integer actualizarEstructuraNombramiento(ClasificacionReporteDTO clasificacionReporteDTO) {
+    public Integer actualizarEstructuraNombramiento(
+            ClasificacionReporteDTO clasificacionReporteDTO) {
 
-        return nombramientoService.actualizarEstructuraNombramiento(clasificacionReporteDTO);
+        return nombramientoService
+                .actualizarEstructuraNombramiento(clasificacionReporteDTO);
     }
 
     @Override
-    public NombramientoDetalleDTO obtenerNombramientoReporteFormalizaFaseIIPorId(Integer idNombramiento, Integer idClasificacion) {
+    public NombramientoDetalleDTO obtenerNombramientoReporteFormalizaFaseIIPorId(
+            Integer idNombramiento, Integer idClasificacion) {
 
-        return consultaNombramientoService.obtenerNombramientoReporteFormalizaFaseIIPorId(idNombramiento, idClasificacion);
+        return consultaNombramientoService
+                .obtenerNombramientoReporteFormalizaFaseIIPorId(idNombramiento,
+                        idClasificacion);
     }
 
     @Override
-    public NombramientoInterinatoDTO obtenerNombramientoReporteInterinato(Integer idNombramiento, Integer idClasificacion) {
+    public NombramientoInterinatoDTO obtenerNombramientoReporteInterinato(
+            Integer idNombramiento, Integer idClasificacion) {
 
-        return consultaNombramientoService.obtenerNombramientoReporteInterinato(idNombramiento, idClasificacion);
+        return consultaNombramientoService.obtenerNombramientoReporteInterinato(
+                idNombramiento, idClasificacion);
     }
 
 }

@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.reportes;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ReporteParamDTO implements Serializable {

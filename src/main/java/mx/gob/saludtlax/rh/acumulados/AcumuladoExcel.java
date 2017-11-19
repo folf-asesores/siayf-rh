@@ -38,18 +38,19 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 
 public class AcumuladoExcel {
 
-    private final InputStream is = AcumuladoExcel.class.getResourceAsStream("/plantillas/acumulados/acumulados--plantilla.xlsx");
+    private final InputStream is = AcumuladoExcel.class.getResourceAsStream(
+            "/plantillas/acumulados/acumulados--plantilla.xlsx");
 
     /**
-     * El nombre de la hoja donde se encuentra el detalle
+     * El nombre de la hoja donde se encuentra el detalle.
      */
     private static final String NOMBRE_HOJA = "Acumulados";
     /**
-     * Instancia de la plantilla de Excel en memoria
+     * Instancia de la plantilla de Excel en memoria.
      */
     private Workbook libro;
     /**
-     * Instancia que representa la hoja de Excel en la que se esta trabajando
+     * Instancia que representa la hoja de Excel en la que se esta trabajando.
      */
     private Sheet hoja;
     /**
@@ -81,8 +82,8 @@ public class AcumuladoExcel {
      *             dañado lanzara esta excepción.
      */
     private void cargarPlantilla() throws IOException {
-        libro = new XSSFWorkbook(is);
-        hoja = libro.getSheet(NOMBRE_HOJA);
+        this.libro = new XSSFWorkbook(this.is);
+        this.hoja = this.libro.getSheet(NOMBRE_HOJA);
     }
 
     /**
@@ -97,10 +98,10 @@ public class AcumuladoExcel {
         byte[] bytes;
 
         try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
-            libro.write(byteArrayOutputStream);
+            this.libro.write(byteArrayOutputStream);
             bytes = byteArrayOutputStream.toByteArray();
-            libro.close();
-            is.close();
+            this.libro.close();
+            this.is.close();
         }
 
         return bytes;
@@ -110,7 +111,7 @@ public class AcumuladoExcel {
         int i = FILA_INICIO_DETALLE;
 
         for (AcumuladoExcelDTO detalle : estructura) {
-            Row filaDetalle = hoja.createRow(i);
+            Row filaDetalle = this.hoja.createRow(i);
 
             Cell celdaNumEmp = filaDetalle.createCell(COLUMNA_NUM_EMP);
             celdaNumEmp.setCellValue(detalle.numEmpleado);
@@ -163,7 +164,7 @@ public class AcumuladoExcel {
             }
 
             i++;
-            hoja.shiftRows(i, i + 1, 1);
+            this.hoja.shiftRows(i, i + 1, 1);
         }
     }
 
@@ -176,11 +177,12 @@ public class AcumuladoExcel {
 
         for (AcumuladoExcelDTO detalle : detalles) {
             for (int i = 0; i < 144; i++) {
-                totalesConceptosNomina[i] = totalesConceptosNomina[i].add(detalle.conceptoNomina[i]);
+                totalesConceptosNomina[i] = totalesConceptosNomina[i]
+                        .add(detalle.conceptoNomina[i]);
             }
         }
 
-        Row filaTotales = hoja.createRow(hoja.getLastRowNum() + 1);
+        Row filaTotales = this.hoja.createRow(this.hoja.getLastRowNum() + 1);
 
         for (int i = 0; i < 144; i++) {
             Integer columna = i + COLUMNA_ANIO_REAL + 1;
@@ -190,21 +192,22 @@ public class AcumuladoExcel {
     }
 
     private void sumatoriaEspecial(List<AcumuladoExcelDTO> detalles) {
-        int[] ids = { 1, 60, 61, 63, 64, 65, 66, 67, 69, 70, 71, 72, 122, 133, 142 };
-        int cursor = hoja.getLastRowNum() + 2;
+        int[] ids = { 1, 60, 61, 63, 64, 65, 66, 67, 69, 70, 71, 72, 122, 133,
+                142 };
+        int cursor = this.hoja.getLastRowNum() + 2;
 
-        Font fuenteTitulo = libro.createFont();
+        Font fuenteTitulo = this.libro.createFont();
         fuenteTitulo.setBold(true);
         fuenteTitulo.setFontHeightInPoints((short) 10);
 
-        CellStyle tituloCellStyle = libro.createCellStyle();
+        CellStyle tituloCellStyle = this.libro.createCellStyle();
         tituloCellStyle.setFont(fuenteTitulo);
         tituloCellStyle.setBorderBottom(BorderStyle.MEDIUM);
         tituloCellStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
         tituloCellStyle.setAlignment(HorizontalAlignment.CENTER);
         tituloCellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
 
-        Row filaTitulo = hoja.createRow(cursor);
+        Row filaTitulo = this.hoja.createRow(cursor);
 
         Cell celdaTitutloRfc = filaTitulo.createCell(0);
         celdaTitutloRfc.setCellStyle(tituloCellStyle);
@@ -225,7 +228,7 @@ public class AcumuladoExcel {
 
             cursor += 1;
 
-            Row filaTotales = hoja.createRow(cursor);
+            Row filaTotales = this.hoja.createRow(cursor);
             Cell celdaRfc = filaTotales.createCell(0);
             celdaRfc.setCellValue(detalle.rfc);
             Cell celdaTotal = filaTotales.createCell(1);
@@ -251,12 +254,14 @@ public class AcumuladoExcel {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
 
-    private List<AcumuladoExcelDTO> generarEstructura(List<AcumuladosDTO> detalles) {
+    private List<AcumuladoExcelDTO> generarEstructura(
+            List<AcumuladosDTO> detalles) {
         Map<String, List<Integer>> iteradores = new HashMap<>();
 
         for (int i = 0; i < detalles.size(); i++) {
@@ -274,7 +279,8 @@ public class AcumuladoExcel {
 
         List<AcumuladoExcelDTO> dtos = new ArrayList<>();
 
-        for (Map.Entry<String, List<Integer>> iterador : iteradores.entrySet()) {
+        for (Map.Entry<String, List<Integer>> iterador : iteradores
+                .entrySet()) {
             AcumuladoExcelDTO dto = new AcumuladoExcelDTO();
             List<Integer> indices = iterador.getValue();
 
@@ -298,14 +304,16 @@ public class AcumuladoExcel {
                     dto.qnaReal = acumulado.getQna_real();
                     dto.anioReal = acumulado.getAnio_real();
 
-                    Integer idConceptoNomina = acumulado.getId_concepto_nomina();
-                    //   System.out.println("importe::"+acumulado.getIdAcumulado()+"--"+acumulado.getImporte()+"--"+acumulado.getId_concepto_nomina());
-                    dto.conceptoNomina[idConceptoNomina - 1] = acumulado.getImporte();
+                    Integer idConceptoNomina = acumulado
+                            .getId_concepto_nomina();
+                    dto.conceptoNomina[idConceptoNomina - 1] = acumulado
+                            .getImporte();
 
                 } else {
-                    Integer idConceptoNomina = acumulado.getId_concepto_nomina();
-                    // System.out.println("importe2::"+acumulado.getIdAcumulado()+"--"+acumulado.getImporte()+"--"+acumulado.getId_concepto_nomina());
-                    dto.conceptoNomina[idConceptoNomina - 1] = acumulado.getImporte();
+                    Integer idConceptoNomina = acumulado
+                            .getId_concepto_nomina();
+                    dto.conceptoNomina[idConceptoNomina - 1] = acumulado
+                            .getImporte();
                 }
             }
 
@@ -338,13 +346,13 @@ public class AcumuladoExcel {
 
         public AcumuladoExcelDTO() {
             for (int i = 0; i < 144; i++) {
-                conceptoNomina[i] = BigDecimal.ZERO;
+                this.conceptoNomina[i] = BigDecimal.ZERO;
             }
         }
 
         @Override
         public int compareTo(AcumuladoExcelDTO o) {
-            return rfc.compareTo(o.rfc);
+            return this.rfc.compareTo(o.rfc);
         }
     }
 }

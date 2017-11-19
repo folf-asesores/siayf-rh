@@ -57,8 +57,10 @@ public class NominaMandoMedioController implements Serializable {
     @PostConstruct
     public void init() {
         view.setNominaMandoMedioDtos(nominaMandoMedioBean.consultarTodos());
-        view.setPuestos(SelectItemsUtil.listaCatalogos(catalogoBean.listaPuestos()));
-        view.setAdscripciones(SelectItemsUtil.listaCatalogos(catalogoBean.consultarAdscripciones()));
+        view.setPuestos(
+                SelectItemsUtil.listaCatalogos(catalogoBean.listaPuestos()));
+        view.setAdscripciones(SelectItemsUtil
+                .listaCatalogos(catalogoBean.consultarAdscripciones()));
     }
 
     /**
@@ -134,8 +136,10 @@ public class NominaMandoMedioController implements Serializable {
 
     public void obtenerEmpleados() {
         view.setMostrarDialogoEmpleado(true);
-        FiltroDTO filtroDTO = new FiltroDTO(EnumTipoFiltro.NOMBRE_RFC_CURP, view.getConsultaEmpleado());
-        List<InfoEmpleadoDTO> empleados = empleadoBean.consultaEmpleado(filtroDTO);
+        FiltroDTO filtroDTO = new FiltroDTO(EnumTipoFiltro.NOMBRE_RFC_CURP,
+                view.getConsultaEmpleado());
+        List<InfoEmpleadoDTO> empleados = empleadoBean
+                .consultaEmpleado(filtroDTO);
         view.setEmpleados(empleados);
     }
 

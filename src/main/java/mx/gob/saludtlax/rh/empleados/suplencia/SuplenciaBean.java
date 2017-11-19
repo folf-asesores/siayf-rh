@@ -31,7 +31,8 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<SuplenteDTO> consultarSuplentesPorCriterio(FiltroSuplenciaDTO filtro) {
+    public List<SuplenteDTO> consultarSuplentesPorCriterio(
+            FiltroSuplenciaDTO filtro) {
         return suplenciaService.consultarSuplentesPorCriterio(filtro);
     }
 
@@ -41,7 +42,8 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<DetalleSuplenciaDTO> consultarDetallesSuplenteQuincena(ConsultaSuplenciaDTO consulta) {
+    public List<DetalleSuplenciaDTO> consultarDetallesSuplenteQuincena(
+            ConsultaSuplenciaDTO consulta) {
         return suplenciaService.consultarDetallesSuplenteQuincena(consulta);
     }
 
@@ -58,24 +60,30 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<DetalleSuplenciaDTO> consultarQuincenasSuplente(int numeroQuincena, int ejercicio, String estatus) {
-        return suplenciaService.consultarQuincenasSuplente(numeroQuincena, ejercicio, estatus);
+    public List<DetalleSuplenciaDTO> consultarQuincenasSuplente(
+            int numeroQuincena, int ejercicio, String estatus) {
+        return suplenciaService.consultarQuincenasSuplente(numeroQuincena,
+                ejercicio, estatus);
     }
 
     @Override
-    public void actualizarEstatusDetalleQuincena(Integer idDetalleQuincena, String estatus) {
+    public void actualizarEstatusDetalleQuincena(Integer idDetalleQuincena,
+            String estatus) {
         suplenciaService.actualizarDetalleSuplencia(idDetalleQuincena, estatus);
 
     }
 
     @Override
-    public String obtenerEstatusQuincenaSuplencia(int quincena, int ejercicio, Integer idSuplente) {
-        return suplenciaService.obtenerEstatusQuincenaSuplencia(quincena, ejercicio, idSuplente);
+    public String obtenerEstatusQuincenaSuplencia(int quincena, int ejercicio,
+            Integer idSuplente) {
+        return suplenciaService.obtenerEstatusQuincenaSuplencia(quincena,
+                ejercicio, idSuplente);
     }
 
     @Override
     public void actualizarEstatusQuincena(Integer idQuincena, String estatus) {
-        suplenciaService.actualizarEstatusQuincenaSuplencia(idQuincena, estatus);
+        suplenciaService.actualizarEstatusQuincenaSuplencia(idQuincena,
+                estatus);
 
     }
 
@@ -91,8 +99,10 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public Integer obtenerIdQuincenaSuplente(int quincena, int ejercicio, Integer idSuplente) {
-        return suplenciaService.obtenerIdQuincenaSuplente(quincena, ejercicio, idSuplente);
+    public Integer obtenerIdQuincenaSuplente(int quincena, int ejercicio,
+            Integer idSuplente) {
+        return suplenciaService.obtenerIdQuincenaSuplente(quincena, ejercicio,
+                idSuplente);
     }
 
     @Override
@@ -107,7 +117,8 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<SuplenciasQuincenaDTO> consultarSuplenciasQuincena(int numeroQuincena, int ejercicioFiscal) {
+    public List<SuplenciasQuincenaDTO> consultarSuplenciasQuincena(
+            int numeroQuincena, int ejercicioFiscal) {
 
         return null;
     }
@@ -130,8 +141,10 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public void activarQuincenaSuplencia(int numeroQuincena, int ejercicioFiscal, Integer idUsuario) {
-        suplenciaService.activarQuincenaSuplencia(numeroQuincena, ejercicioFiscal, idUsuario);
+    public void activarQuincenaSuplencia(int numeroQuincena,
+            int ejercicioFiscal, Integer idUsuario) {
+        suplenciaService.activarQuincenaSuplencia(numeroQuincena,
+                ejercicioFiscal, idUsuario);
 
     }
 
@@ -141,13 +154,17 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<DetalleSuplenciaDTO> consultarSuplenciasPendientes(Integer idSuplente, Integer idQuincena) {
-        return suplenciaService.consultarSuplenciasPendientes(idSuplente, idQuincena);
+    public List<DetalleSuplenciaDTO> consultarSuplenciasPendientes(
+            Integer idSuplente, Integer idQuincena) {
+        return suplenciaService.consultarSuplenciasPendientes(idSuplente,
+                idQuincena);
     }
 
     @Override
-    public void agregarSuplenciaPendiente(Integer idQuincena, Integer idDetalleSuplencia) {
-        suplenciaService.agregarSuplenciaPendiente(idQuincena, idDetalleSuplencia);
+    public void agregarSuplenciaPendiente(Integer idQuincena,
+            Integer idDetalleSuplencia) {
+        suplenciaService.agregarSuplenciaPendiente(idQuincena,
+                idDetalleSuplencia);
 
     }
 
@@ -163,7 +180,8 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<QuincenaSuplenteDTO> consultarQuincenasSuplente(ConsultaSuplenciaDTO consulta) {
+    public List<QuincenaSuplenteDTO> consultarQuincenasSuplente(
+            ConsultaSuplenciaDTO consulta) {
         return suplenciaService.consultarQuincenasSuplente(consulta);
     }
 
@@ -181,7 +199,8 @@ public class SuplenciaBean implements Suplencia {
     }
 
     @Override
-    public List<MovimientoSuplenteDTO> consultarMovimientosSuplente(FiltroMovimientoSuplenteDTO filtro) {
+    public List<MovimientoSuplenteDTO> consultarMovimientosSuplente(
+            FiltroMovimientoSuplenteDTO filtro) {
         return suplenciaService.consultarMovimientosSuplente(filtro);
     }
 

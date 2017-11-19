@@ -29,6 +29,7 @@ public interface NotificadorExcepcion extends Serializable {
      * @param fechaHoraException
      *            La fecha y hora en la que ocurrio la excepción.
      */
-    void notificar(String nombreUsuario, String tipo, String mensaje, String pilaSeguimiento, String fechaHoraException);
+    void notificar(String nombreUsuario, String tipo, String mensaje,
+            String pilaSeguimiento, String fechaHoraException);
 
 }

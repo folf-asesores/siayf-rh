@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -28,19 +28,22 @@ public class IsssteEJB implements Issste, Serializable {
     private IsssteConsultaService isssteConsultaService;
 
     @Override
-    public Integer altaIsssteMovimiento(MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
+    public Integer altaIsssteMovimiento(
+            MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
 
         return isssteService.altaIsssteMovimiento(movimientoIsssteEmpleadoDTO);
     }
 
     @Override
-    public void modificacionIsssteMovimiento(MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
+    public void modificacionIsssteMovimiento(
+            MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
 
         isssteService.modificacionIsssteMovimiento(movimientoIsssteEmpleadoDTO);
     }
 
     @Override
-    public void bajaIsssteMovimiento(MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
+    public void bajaIsssteMovimiento(
+            MovimientoIsssteEmpleadoDTO movimientoIsssteEmpleadoDTO) {
 
         isssteService.bajaIsssteMovimiento(movimientoIsssteEmpleadoDTO);
     }
@@ -52,9 +55,11 @@ public class IsssteEJB implements Issste, Serializable {
     }
 
     @Override
-    public List<InfoMovimientoIsssteDTO> obtenerListaMovimientoPorCriterio(String criterio) {
+    public List<InfoMovimientoIsssteDTO> obtenerListaMovimientoPorCriterio(
+            String criterio) {
 
-        return isssteConsultaService.obtenerListaMovimientoPorCriterio(criterio);
+        return isssteConsultaService
+                .obtenerListaMovimientoPorCriterio(criterio);
     }
 
 }

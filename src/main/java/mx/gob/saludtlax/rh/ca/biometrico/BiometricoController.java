@@ -40,29 +40,38 @@ public class BiometricoController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = servicioWebEJB.getServicioActivo(ServicioWebEnum.RELOJ_CHECADOR);
+            ServiciosRSEntity servicioRSEntity = servicioWebEJB
+                    .getServicioActivo(ServicioWebEnum.RELOJ_CHECADOR);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
         try {
-            listadoEquiposBiometricos = biometricoClientRest.listadoEquiposBiometricos();
+            listadoEquiposBiometricos = biometricoClientRest
+                    .listadoEquiposBiometricos();
 
         } catch (RESTClientException e) {
 
             e.printStackTrace();
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
 
     }
@@ -71,7 +80,8 @@ public class BiometricoController implements Serializable {
         return listadoEquiposBiometricos;
     }
 
-    public void setListadoEquiposBiometricos(List<BiometricoFormModel> listadoEquiposBiometricos) {
+    public void setListadoEquiposBiometricos(
+            List<BiometricoFormModel> listadoEquiposBiometricos) {
         this.listadoEquiposBiometricos = listadoEquiposBiometricos;
     }
 
@@ -79,7 +89,8 @@ public class BiometricoController implements Serializable {
         return equipoBiometricoSeleccionado;
     }
 
-    public void setEquipoBiometricoSeleccionado(BiometricoFormModel equipoBiometricoSeleccionado) {
+    public void setEquipoBiometricoSeleccionado(
+            BiometricoFormModel equipoBiometricoSeleccionado) {
         this.equipoBiometricoSeleccionado = equipoBiometricoSeleccionado;
     }
 

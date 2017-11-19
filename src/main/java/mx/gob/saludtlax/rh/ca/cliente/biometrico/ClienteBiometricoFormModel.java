@@ -22,7 +22,8 @@ public class ClienteBiometricoFormModel implements Serializable {
         return idClienteBiometricoFormModel;
     }
 
-    public void setIdClienteBiometricoFormModel(int idClienteBiometricoFormModel) {
+    public void setIdClienteBiometricoFormModel(
+            int idClienteBiometricoFormModel) {
         this.idClienteBiometricoFormModel = idClienteBiometricoFormModel;
     }
 

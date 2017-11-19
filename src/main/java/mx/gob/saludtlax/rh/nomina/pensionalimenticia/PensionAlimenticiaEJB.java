@@ -35,16 +35,20 @@ public class PensionAlimenticiaEJB implements Serializable {
     @Inject
     private BancoSatRepository bancoSatRepository;
 
-    public void guardar(BeneficiarioPensionAlimenticiaForm beneficiarioPension) {
+    public void guardar(
+            BeneficiarioPensionAlimenticiaForm beneficiarioPension) {
 
         PensionAlimenticiaEntity pensionAlimenticiaEntity = new PensionAlimenticiaEntity();
 
-        pensionAlimenticiaEntity.setBeneficiario(beneficiarioPension.beneficiario);
-        pensionAlimenticiaEntity.setNumeroCuentaBancaria(beneficiarioPension.getNumeroCuentaBancaria());
+        pensionAlimenticiaEntity
+                .setBeneficiario(beneficiarioPension.beneficiario);
+        pensionAlimenticiaEntity.setNumeroCuentaBancaria(
+                beneficiarioPension.getNumeroCuentaBancaria());
 
         if (beneficiarioPension.idBanco > 0) {
 
-            BancoSatEntity bancoSatEntity = bancoSatRepository.obtenerPorId(beneficiarioPension.idBanco);
+            BancoSatEntity bancoSatEntity = bancoSatRepository
+                    .obtenerPorId(beneficiarioPension.idBanco);
 
             if (bancoSatEntity != null) {
                 pensionAlimenticiaEntity.setBanco(bancoSatEntity);
@@ -53,12 +57,16 @@ public class PensionAlimenticiaEJB implements Serializable {
 
         pensionAlimenticiaEntity.setEstatus(1);
         pensionAlimenticiaEntity.setFechaAlta(new Date());
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(beneficiarioPension.getIdEmpleado());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(beneficiarioPension.getIdEmpleado());
         pensionAlimenticiaEntity.setEmpleado(empleado);
-        TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia = tipoCoutaRepository.obtenerPorId(beneficiarioPension.getIdTipoCoutaPension());
+        TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia = tipoCoutaRepository
+                .obtenerPorId(beneficiarioPension.getIdTipoCoutaPension());
         pensionAlimenticiaEntity.setTipoCoutaAlimenticia(tipoCoutaAlimenticia);
-        pensionAlimenticiaEntity.setNumeroExpediente(beneficiarioPension.getNumeroExpediente());
-        pensionAlimenticiaEntity.setNumeroJuzgado(beneficiarioPension.getNumeroJuzgado());
+        pensionAlimenticiaEntity
+                .setNumeroExpediente(beneficiarioPension.getNumeroExpediente());
+        pensionAlimenticiaEntity
+                .setNumeroJuzgado(beneficiarioPension.getNumeroJuzgado());
         pensionAlimenticiaEntity.setOficio(beneficiarioPension.getOficio());
         pensionAlimenticiaEntity.setRfc(beneficiarioPension.getRfc());
         pensionAlimenticiaEntity.setValor(beneficiarioPension.valor);
@@ -69,14 +77,18 @@ public class PensionAlimenticiaEJB implements Serializable {
 
     public void editar(BeneficiarioPensionAlimenticiaForm beneficiarioPension) {
 
-        PensionAlimenticiaEntity pensionAlimenticiaEntity = pensionAlimenticiaRepository.obtenerPorId(beneficiarioPension.idPensionAlimenticia);
+        PensionAlimenticiaEntity pensionAlimenticiaEntity = pensionAlimenticiaRepository
+                .obtenerPorId(beneficiarioPension.idPensionAlimenticia);
 
-        pensionAlimenticiaEntity.setBeneficiario(beneficiarioPension.beneficiario);
-        pensionAlimenticiaEntity.setNumeroCuentaBancaria(beneficiarioPension.getNumeroCuentaBancaria());
+        pensionAlimenticiaEntity
+                .setBeneficiario(beneficiarioPension.beneficiario);
+        pensionAlimenticiaEntity.setNumeroCuentaBancaria(
+                beneficiarioPension.getNumeroCuentaBancaria());
 
         if (beneficiarioPension.idBanco > 0) {
 
-            BancoSatEntity bancoSatEntity = bancoSatRepository.obtenerPorId(beneficiarioPension.idBanco);
+            BancoSatEntity bancoSatEntity = bancoSatRepository
+                    .obtenerPorId(beneficiarioPension.idBanco);
 
             if (bancoSatEntity != null) {
                 pensionAlimenticiaEntity.setBanco(bancoSatEntity);
@@ -91,12 +103,16 @@ public class PensionAlimenticiaEJB implements Serializable {
             pensionAlimenticiaEntity.setFechaBaja(null);
         }
 
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(beneficiarioPension.getIdEmpleado());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(beneficiarioPension.getIdEmpleado());
         pensionAlimenticiaEntity.setEmpleado(empleado);
-        TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia = tipoCoutaRepository.obtenerPorId(beneficiarioPension.getIdTipoCoutaPension());
+        TipoCoutaPensionAlimenticiaEntity tipoCoutaAlimenticia = tipoCoutaRepository
+                .obtenerPorId(beneficiarioPension.getIdTipoCoutaPension());
         pensionAlimenticiaEntity.setTipoCoutaAlimenticia(tipoCoutaAlimenticia);
-        pensionAlimenticiaEntity.setNumeroExpediente(beneficiarioPension.getNumeroExpediente());
-        pensionAlimenticiaEntity.setNumeroJuzgado(beneficiarioPension.getNumeroJuzgado());
+        pensionAlimenticiaEntity
+                .setNumeroExpediente(beneficiarioPension.getNumeroExpediente());
+        pensionAlimenticiaEntity
+                .setNumeroJuzgado(beneficiarioPension.getNumeroJuzgado());
         pensionAlimenticiaEntity.setOficio(beneficiarioPension.getOficio());
         pensionAlimenticiaEntity.setRfc(beneficiarioPension.getRfc());
         pensionAlimenticiaEntity.setValor(beneficiarioPension.valor);
@@ -112,7 +128,8 @@ public class PensionAlimenticiaEJB implements Serializable {
     }
 
     public InformacionEmpleadoDTO buscarEmpleado(int idEmpleado) {
-        EmpleadoEntity empleadoEntity = empleadoRepository.obtenerPorId(idEmpleado);
+        EmpleadoEntity empleadoEntity = empleadoRepository
+                .obtenerPorId(idEmpleado);
 
         if (empleadoEntity == null) {
             return null;
@@ -124,22 +141,27 @@ public class PensionAlimenticiaEJB implements Serializable {
         informacionEmpleadoDTO.setNombre(empleadoEntity.getNombreCompleto());
         informacionEmpleadoDTO.setRfc(empleadoEntity.getRfc());
 
-        informacionEmpleadoDTO.setBeneficiarioRegistrados(llenarPensionesRegistradas(empleadoEntity.getIdEmpleado()));
+        informacionEmpleadoDTO.setBeneficiarioRegistrados(
+                llenarPensionesRegistradas(empleadoEntity.getIdEmpleado()));
 
         return informacionEmpleadoDTO;
     }
 
     public List<SelectItem> listadoTipoCoutas() {
 
-        List<TipoCoutaPensionAlimenticiaEntity> listadoTipoCoutasPensionAlimenticiaEntity = tipoCoutaRepository.obtenerListadoTipoCoutas();
+        List<TipoCoutaPensionAlimenticiaEntity> listadoTipoCoutasPensionAlimenticiaEntity = tipoCoutaRepository
+                .obtenerListadoTipoCoutas();
 
         List<SelectItem> listadoTipoCoutasSelectItem = new ArrayList<>();
         for (TipoCoutaPensionAlimenticiaEntity tipoCoutaPensionAlimenticiaEntity : listadoTipoCoutasPensionAlimenticiaEntity) {
 
             if (tipoCoutaPensionAlimenticiaEntity != null) {
-                SelectItem tipoCoutas = new SelectItem(tipoCoutaPensionAlimenticiaEntity.getIdTipoCoutaPensionAlimenticia(),
+                SelectItem tipoCoutas = new SelectItem(
+                        tipoCoutaPensionAlimenticiaEntity
+                                .getIdTipoCoutaPensionAlimenticia(),
                         tipoCoutaPensionAlimenticiaEntity.getNombre());
-                tipoCoutas.setDescription(tipoCoutaPensionAlimenticiaEntity.getDescripcion());
+                tipoCoutas.setDescription(
+                        tipoCoutaPensionAlimenticiaEntity.getDescripcion());
                 listadoTipoCoutasSelectItem.add(tipoCoutas);
             }
 
@@ -150,12 +172,14 @@ public class PensionAlimenticiaEJB implements Serializable {
     }
 
     public List<SelectItem> listadoBanco() {
-        List<BancoSatEntity> listadoBancos = bancoSatRepository.obtenerListaBanco();
+        List<BancoSatEntity> listadoBancos = bancoSatRepository
+                .obtenerListaBanco();
 
         List<SelectItem> listadoBancoSelectItem = new ArrayList<>();
 
         for (BancoSatEntity banco : listadoBancos) {
-            SelectItem item = new SelectItem(banco.getIdBanco(), banco.getNombreCorto());
+            SelectItem item = new SelectItem(banco.getIdBanco(),
+                    banco.getNombreCorto());
 
             listadoBancoSelectItem.add(item);
         }
@@ -165,7 +189,8 @@ public class PensionAlimenticiaEJB implements Serializable {
 
     public InformacionEmpleadoDTO buscarEmpleado(String rfc) {
 
-        EmpleadoEntity empleadoEntity = empleadoRepository.obtenerEmpleadoRfc(rfc);
+        EmpleadoEntity empleadoEntity = empleadoRepository
+                .obtenerEmpleadoRfc(rfc);
 
         if (empleadoEntity == null) {
             return null;
@@ -177,13 +202,16 @@ public class PensionAlimenticiaEJB implements Serializable {
         informacionEmpleadoDTO.setNombre(empleadoEntity.getNombreCompleto());
         informacionEmpleadoDTO.setRfc(empleadoEntity.getRfc());
 
-        informacionEmpleadoDTO.setBeneficiarioRegistrados(llenarPensionesRegistradas(empleadoEntity.getIdEmpleado()));
+        informacionEmpleadoDTO.setBeneficiarioRegistrados(
+                llenarPensionesRegistradas(empleadoEntity.getIdEmpleado()));
         return informacionEmpleadoDTO;
     }
 
-    public BeneficiarioPensionAlimenticiaForm obtenerPensionAlimenticiaPorId(Integer idPensionAlimenticia) {
+    public BeneficiarioPensionAlimenticiaForm obtenerPensionAlimenticiaPorId(
+            Integer idPensionAlimenticia) {
         BeneficiarioPensionAlimenticiaForm dto = new BeneficiarioPensionAlimenticiaForm();
-        PensionAlimenticiaEntity entity = pensionAlimenticiaRepository.obtenerPorId(idPensionAlimenticia);
+        PensionAlimenticiaEntity entity = pensionAlimenticiaRepository
+                .obtenerPorId(idPensionAlimenticia);
 
         dto.setIdPensionAlimenticia(entity.getIdPensionAlimenticia());
         dto.setIdEmpleado(entity.getEmpleado().getIdEmpleado());
@@ -193,7 +221,8 @@ public class PensionAlimenticiaEJB implements Serializable {
         dto.setNumeroExpediente(entity.getNumeroExpediente());
         dto.setNumeroJuzgado(entity.getNumeroJuzgado());
         dto.setFechaAlta(entity.getFechaAlta());
-        dto.setIdTipoCoutaPension(entity.getTipoCoutaAlimenticia().getIdTipoCoutaPensionAlimenticia());
+        dto.setIdTipoCoutaPension(entity.getTipoCoutaAlimenticia()
+                .getIdTipoCoutaPensionAlimenticia());
         dto.setEstatus(entity.getEstatus());
         dto.setNumeroCuentaBancaria(entity.getNumeroCuentaBancaria());
 
@@ -206,9 +235,11 @@ public class PensionAlimenticiaEJB implements Serializable {
         return dto;
     }
 
-    private List<BeneficiarioPensionAlimienticiaDTO> llenarPensionesRegistradas(int idEmpleado) {
+    private List<BeneficiarioPensionAlimienticiaDTO> llenarPensionesRegistradas(
+            int idEmpleado) {
 
-        List<PensionAlimenticiaEntity> listadoPensionAlimenticiaEntity = pensionAlimenticiaRepository.obtenerListadoPensionesPorIdEmpleado(idEmpleado);
+        List<PensionAlimenticiaEntity> listadoPensionAlimenticiaEntity = pensionAlimenticiaRepository
+                .obtenerListadoPensionesPorIdEmpleado(idEmpleado);
 
         List<BeneficiarioPensionAlimienticiaDTO> listadoBeneficiariosDTO = new ArrayList<>();
         for (PensionAlimenticiaEntity pensionAlimenticiaEntity : listadoPensionAlimenticiaEntity) {
@@ -221,16 +252,22 @@ public class PensionAlimenticiaEJB implements Serializable {
                 pension.setEstatus("Inactivo");
             }
 
-            pension.setClaveCouta(pensionAlimenticiaEntity.getTipoCoutaAlimenticia().getClave());
+            pension.setClaveCouta(pensionAlimenticiaEntity
+                    .getTipoCoutaAlimenticia().getClave());
             pension.setFechaAlta(pensionAlimenticiaEntity.getFechaAlta());
             pension.setFechaBaja(pensionAlimenticiaEntity.getFechaBaja());
-            pension.setIdPensionAlimenticia(pensionAlimenticiaEntity.getIdPensionAlimenticia());
-            pension.setNumeroExpediente(pensionAlimenticiaEntity.getNumeroExpediente());
-            pension.setNumeroJuzgado(pensionAlimenticiaEntity.getNumeroJuzgado());
+            pension.setIdPensionAlimenticia(
+                    pensionAlimenticiaEntity.getIdPensionAlimenticia());
+            pension.setNumeroExpediente(
+                    pensionAlimenticiaEntity.getNumeroExpediente());
+            pension.setNumeroJuzgado(
+                    pensionAlimenticiaEntity.getNumeroJuzgado());
             pension.setOficio(pensionAlimenticiaEntity.getOficio());
             pension.setRfc(pensionAlimenticiaEntity.getRfc());
             pension.setValor(pensionAlimenticiaEntity.getValor());
-            pension.setIdTipoCoutasPension(pensionAlimenticiaEntity.getTipoCoutaAlimenticia().getIdTipoCoutaPensionAlimenticia());
+            pension.setIdTipoCoutasPension(
+                    pensionAlimenticiaEntity.getTipoCoutaAlimenticia()
+                            .getIdTipoCoutaPensionAlimenticia());
             listadoBeneficiariosDTO.add(pension);
 
         }

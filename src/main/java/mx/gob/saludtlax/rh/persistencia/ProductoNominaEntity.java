@@ -159,7 +159,8 @@ public class ProductoNominaEntity implements Serializable {
         return periodoCalendario;
     }
 
-    public void setPeriodoCalendario(PeriodoCalendariosEntity periodoCalendario) {
+    public void setPeriodoCalendario(
+            PeriodoCalendariosEntity periodoCalendario) {
         this.periodoCalendario = periodoCalendario;
     }
 
@@ -183,7 +184,8 @@ public class ProductoNominaEntity implements Serializable {
         return estatusProductoNomina;
     }
 
-    public void setEstatusProductoNomina(EstatusProductoNominaEntity estatusProductoNomina) {
+    public void setEstatusProductoNomina(
+            EstatusProductoNominaEntity estatusProductoNomina) {
         this.estatusProductoNomina = estatusProductoNomina;
     }
 
@@ -215,7 +217,8 @@ public class ProductoNominaEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -223,7 +226,8 @@ public class ProductoNominaEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 
@@ -239,7 +243,8 @@ public class ProductoNominaEntity implements Serializable {
         return cambiarSubfuenteFinanciamiento;
     }
 
-    public void setCambiarSubfuenteFinanciamiento(Boolean cambiarSubfuenteFinanciamiento) {
+    public void setCambiarSubfuenteFinanciamiento(
+            Boolean cambiarSubfuenteFinanciamiento) {
         this.cambiarSubfuenteFinanciamiento = cambiarSubfuenteFinanciamiento;
     }
 
@@ -383,7 +388,8 @@ public class ProductoNominaEntity implements Serializable {
         return diasExentoPrimaVacasional;
     }
 
-    public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
+    public void setDiasExentoPrimaVacasional(
+            BigDecimal diasExentoPrimaVacasional) {
         this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
     }
 

@@ -22,7 +22,8 @@ public class HistorialAcademicoValidator {
         NuevoHistorialDTO dto = (NuevoHistorialDTO) context.getParameters()[0];
 
         if (dto == null) {
-            throw new BusinessException(contexto + " La informacion para registrar el historial academico es requerido.");
+            throw new BusinessException(contexto
+                    + " La informacion para registrar el historial academico es requerido.");
         }
 
         if (dto.getIdEmpleado() == null) {
@@ -30,22 +31,25 @@ public class HistorialAcademicoValidator {
         }
 
         if (!ValidacionUtil.esNumeroPositivo(dto.getIdEscolaridad())) {
-            throw new BusinessException(contexto + "La escolaridad es requerida, seleccione una opcion.");
+            throw new BusinessException(contexto
+                    + "La escolaridad es requerida, seleccione una opcion.");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombreInstitucion())) {
-            throw new BusinessException(contexto + "El nombre de la institucion es requerida, seleccione una opcion. ");
+            throw new BusinessException(contexto
+                    + "El nombre de la institucion es requerida, seleccione una opcion. ");
         }
 
         if (!ValidacionUtil.esNumeroPositivo(dto.getIdComprobanteEstudio())) {
-            throw new BusinessException(contexto + "El comprobante de estudio, seleccione una opcion.");
+            throw new BusinessException(contexto
+                    + "El comprobante de estudio, seleccione una opcion.");
         }
 
         if (dto.getIdEscolaridad() > 10) {
 
             if (ValidacionUtil.esCadenaVacia(dto.getDuracion())) {
-                throw new BusinessException(
-                        contexto + "Es requerida la duracion de la escolariad complementaria, ingrese la duracion del curso, diplomado etc..");
+                throw new BusinessException(contexto
+                        + "Es requerida la duracion de la escolariad complementaria, ingrese la duracion del curso, diplomado etc..");
             }
         }
 

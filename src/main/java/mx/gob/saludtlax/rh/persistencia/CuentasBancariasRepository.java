@@ -5,7 +5,8 @@ import java.util.List;
 
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
-public class CuentasBancariasRepository extends GenericRepository<CuentasBancariasEntity, Integer> {
+public class CuentasBancariasRepository
+        extends GenericRepository<CuentasBancariasEntity, Integer> {
 
     /**
      *
@@ -14,9 +15,11 @@ public class CuentasBancariasRepository extends GenericRepository<CuentasBancari
 
     public List<CuentasBancariasEntity> cuentasBancariasEjercicioActual() {
 
-        List<CuentasBancariasEntity> cuentas = em
-                .createQuery("SELECT c FROM CuentasBancariasEntity AS c WHERE c.ejercicioFiscal =:ejercicioActual", CuentasBancariasEntity.class)
-                .setParameter("ejercicioActual", FechaUtil.ejercicioActual()).getResultList();
+        List<CuentasBancariasEntity> cuentas = em.createQuery(
+                "SELECT c FROM CuentasBancariasEntity AS c WHERE c.ejercicioFiscal =:ejercicioActual",
+                CuentasBancariasEntity.class)
+                .setParameter("ejercicioActual", FechaUtil.ejercicioActual())
+                .getResultList();
         return cuentas;
 
     }

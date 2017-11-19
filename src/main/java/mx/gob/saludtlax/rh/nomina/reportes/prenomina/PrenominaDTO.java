@@ -138,7 +138,8 @@ public class PrenominaDTO {
         return claveCentroResponsabilidad;
     }
 
-    public void setClaveCentroResponsabilidad(String claveCentroResponsabilidad) {
+    public void setClaveCentroResponsabilidad(
+            String claveCentroResponsabilidad) {
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
     }
 
@@ -146,7 +147,8 @@ public class PrenominaDTO {
         return descripcionCentroResponsabilidad;
     }
 
-    public void setDescripcionCentroResponsabilidad(String descripcionCentroResponsabilidad) {
+    public void setDescripcionCentroResponsabilidad(
+            String descripcionCentroResponsabilidad) {
         this.descripcionCentroResponsabilidad = descripcionCentroResponsabilidad;
     }
 
@@ -266,10 +268,12 @@ public class PrenominaDTO {
         if (!Objects.equals(programa, other.programa)) {
             return false;
         }
-        if (!Objects.equals(claveCentroResponsabilidad, other.claveCentroResponsabilidad)) {
+        if (!Objects.equals(claveCentroResponsabilidad,
+                other.claveCentroResponsabilidad)) {
             return false;
         }
-        if (!Objects.equals(descripcionCentroResponsabilidad, other.descripcionCentroResponsabilidad)) {
+        if (!Objects.equals(descripcionCentroResponsabilidad,
+                other.descripcionCentroResponsabilidad)) {
             return false;
         }
         if (!Objects.equals(rfc, other.rfc)) {
@@ -310,11 +314,19 @@ public class PrenominaDTO {
 
     @Override
     public String toString() {
-        return "PrenominaDTO{" + "elaboroNombre=" + elaboroNombre + ", elaboroCargo=" + elaboroCargo + ", revisoNombre=" + revisoNombre + ", revisoCargo="
-                + revisoCargo + ", autorizoNombre=" + autorizoNombre + ", autorizoCargo=" + autorizoCargo + ", fechaPago=" + fechaPago + ", idProductoNomina="
-                + idProductoNomina + ", idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo
-                + ", claveCentroResponsabilidad=" + claveCentroResponsabilidad + ", descripcionCentroResponsabilidad=" + descripcionCentroResponsabilidad
-                + ", rfc=" + rfc + ", nombre=" + nombre + ", claveConcepto=" + claveConcepto + ", descripcionConcepto=" + descripcionConcepto + ", importe="
+        return "PrenominaDTO{" + "elaboroNombre=" + elaboroNombre
+                + ", elaboroCargo=" + elaboroCargo + ", revisoNombre="
+                + revisoNombre + ", revisoCargo=" + revisoCargo
+                + ", autorizoNombre=" + autorizoNombre + ", autorizoCargo="
+                + autorizoCargo + ", fechaPago=" + fechaPago
+                + ", idProductoNomina=" + idProductoNomina + ", idPrograma="
+                + idPrograma + ", programa=" + programa + ", inicioPeriodo="
+                + inicioPeriodo + ", finPeriodo=" + finPeriodo
+                + ", claveCentroResponsabilidad=" + claveCentroResponsabilidad
+                + ", descripcionCentroResponsabilidad="
+                + descripcionCentroResponsabilidad + ", rfc=" + rfc
+                + ", nombre=" + nombre + ", claveConcepto=" + claveConcepto
+                + ", descripcionConcepto=" + descripcionConcepto + ", importe="
                 + importe + ", total=" + total + ", tipo=" + tipo + '}';
     }
 }

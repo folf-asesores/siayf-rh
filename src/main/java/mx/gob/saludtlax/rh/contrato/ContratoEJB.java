@@ -10,7 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -20,7 +20,8 @@ public class ContratoEJB implements Contrato {
     private ContratoService contratoService;
 
     @Override
-    public ContratoDTO obtenerContratoEmpleadoPorIdContrato(Integer idContrato) {
+    public ContratoDTO obtenerContratoEmpleadoPorIdContrato(
+            Integer idContrato) {
 
         return contratoService.obtenerContratoEmpleadoPorIdContrato(idContrato);
     }
@@ -42,8 +43,10 @@ public class ContratoEJB implements Contrato {
      * @see mx.gob.saludtlax.rh.contrato.Contrato#actualizarContratoPorImpresion(java.lang.Integer, java.lang.String)
      */
     @Override
-    public void actualizarContratoPorImpresion(Integer idContrato, String numeroContrato) {
-        contratoService.actualizarContratoPorImpresion(idContrato, numeroContrato);
+    public void actualizarContratoPorImpresion(Integer idContrato,
+            String numeroContrato) {
+        contratoService.actualizarContratoPorImpresion(idContrato,
+                numeroContrato);
 
     }
 

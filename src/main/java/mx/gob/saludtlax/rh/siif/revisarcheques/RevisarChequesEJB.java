@@ -31,7 +31,8 @@ public class RevisarChequesEJB implements RevisarCheques, Serializable {
     }
 
     @Override
-    public List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo, Integer anio) {
+    public List<RevisarChequesDTO> obtenerListaRevisarCheques(String periodo,
+            Integer anio) {
         return revisarChequesService.obtenerListaRevisarCheques(periodo, anio);
     }
 

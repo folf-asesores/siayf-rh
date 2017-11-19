@@ -20,13 +20,14 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
 @ManagedBean(name = "reservacionPlazaResidenciaMedica")
 @SessionScoped
-public class ReservacionPlazaResidenciaMedicaController implements Serializable {
+public class ReservacionPlazaResidenciaMedicaController
+        implements Serializable {
 
     /**
      *
@@ -43,7 +44,8 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
         view = new ReservacionView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -52,7 +54,9 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -68,7 +72,8 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
 
         String criterio = view.getCriterio();
 
-        List<ReservacionDetalleDTO> resultado = reservacionPlazaResidenciaMedicaEJB.consultarPorCriterio(criterio);
+        List<ReservacionDetalleDTO> resultado = reservacionPlazaResidenciaMedicaEJB
+                .consultarPorCriterio(criterio);
         view.setReservacionDetalleDTO(resultado);
     }
 
@@ -76,16 +81,19 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
         ReservacionDTO reservacionDTO = view.getReservacionDTO();
 
         ReservacionPlazaResidenciaMedicaWord reservacionPlazaResidenciaMedicaWord = new ReservacionPlazaResidenciaMedicaWord();
-        byte[] bytesWord = reservacionPlazaResidenciaMedicaWord.generar(reservacionDTO);
+        byte[] bytesWord = reservacionPlazaResidenciaMedicaWord
+                .generar(reservacionDTO);
         FacesContext fc = FacesContext.getCurrentInstance();
 
         try {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReservacionPlazaResidenciaMedica.docx");
+            ec.setResponseHeader("Content-Disposition", "attachment;filename="
+                    + "ReservacionPlazaResidenciaMedica.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -99,7 +107,8 @@ public class ReservacionPlazaResidenciaMedicaController implements Serializable 
     }
 
     public void contenidoReservacionMedica(Integer idTipoMovimiento) {
-        ReservacionDTO reservacionDTO = reservacionPlazaResidenciaMedicaEJB.obtenerReservacion(idTipoMovimiento);
+        ReservacionDTO reservacionDTO = reservacionPlazaResidenciaMedicaEJB
+                .obtenerReservacion(idTipoMovimiento);
 
         view.setReservacionDTO(reservacionDTO);
         view.setMostrarPrincipal(false);

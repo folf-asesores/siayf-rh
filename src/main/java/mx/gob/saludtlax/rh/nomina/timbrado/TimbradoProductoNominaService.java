@@ -47,22 +47,32 @@ public class TimbradoProductoNominaService implements Serializable {
 
     public List<ProductoNominaDTO> listadoNominasPendientesPorTimbrar() {
 
-        List<ProductoNominaEntity> listadoProductosNominaEntity = productoNominaRepository.listadoProductosNominasPorTimbrar();
+        List<ProductoNominaEntity> listadoProductosNominaEntity = productoNominaRepository
+                .listadoProductosNominasPorTimbrar();
 
         List<ProductoNominaDTO> listadoProductoNominaDTO = new ArrayList<>();
 
         for (ProductoNominaEntity productoNominaEntity : listadoProductosNominaEntity) {
             ProductoNominaDTO productoNominaDTO = new ProductoNominaDTO();
 
-            productoNominaDTO.setEjercicioFiscal(productoNominaEntity.getAnyoEjercicioFiscal().toString());
-            productoNominaDTO.setFinPeriodo(productoNominaEntity.getFinPeriodo());
-            productoNominaDTO.setIdProductoNomina(productoNominaEntity.getIdProductoNomina());
-            productoNominaDTO.setInicioPeriodo(productoNominaEntity.getInicioPeriodo());
-            productoNominaDTO.setNumeroPeriodo(productoNominaEntity.getNumeroPeriodo());
-            productoNominaDTO.setTipoContrato(productoNominaEntity.getTipoContratacion().getTipoContratacion());
-            productoNominaDTO.setTipoNomina(productoNominaEntity.getTipoNomina().getDescripcion());
-            productoNominaDTO.setTipoPeriodo(productoNominaEntity.getTipoPeriodo().getTipoPeriodo());
-            productoNominaDTO.setNombreProducto(productoNominaEntity.getNombreProducto());
+            productoNominaDTO.setEjercicioFiscal(
+                    productoNominaEntity.getAnyoEjercicioFiscal().toString());
+            productoNominaDTO
+                    .setFinPeriodo(productoNominaEntity.getFinPeriodo());
+            productoNominaDTO.setIdProductoNomina(
+                    productoNominaEntity.getIdProductoNomina());
+            productoNominaDTO
+                    .setInicioPeriodo(productoNominaEntity.getInicioPeriodo());
+            productoNominaDTO
+                    .setNumeroPeriodo(productoNominaEntity.getNumeroPeriodo());
+            productoNominaDTO.setTipoContrato(productoNominaEntity
+                    .getTipoContratacion().getTipoContratacion());
+            productoNominaDTO.setTipoNomina(
+                    productoNominaEntity.getTipoNomina().getDescripcion());
+            productoNominaDTO.setTipoPeriodo(
+                    productoNominaEntity.getTipoPeriodo().getTipoPeriodo());
+            productoNominaDTO.setNombreProducto(
+                    productoNominaEntity.getNombreProducto());
 
             listadoProductoNominaDTO.add(productoNominaDTO);
 
@@ -76,11 +86,14 @@ public class TimbradoProductoNominaService implements Serializable {
 
         TimbradoResult timbradoResult = new TimbradoResult();
 
-        ProductoNominaEntity productoNominaEntity = productoNominaRepository.obtenerPorId(idProductoNomina);
+        ProductoNominaEntity productoNominaEntity = productoNominaRepository
+                .obtenerPorId(idProductoNomina);
 
-        List<NominaEmpleadoEntity> listadoNominaEmpleadoEntity = nominaEmpleadoRepository.obtenerNominaEmpleadoPorIdProductoNomina(idProductoNomina);
+        List<NominaEmpleadoEntity> listadoNominaEmpleadoEntity = nominaEmpleadoRepository
+                .obtenerNominaEmpleadoPorIdProductoNomina(idProductoNomina);
 
-        timbradoResult.setTotalNominasEncontradas(listadoNominaEmpleadoEntity.size());
+        timbradoResult
+                .setTotalNominasEncontradas(listadoNominaEmpleadoEntity.size());
         timbradoResult.setTotalFallos(0);
         timbradoResult.setTotalTimbradas(0);
 
@@ -89,84 +102,124 @@ public class TimbradoProductoNominaService implements Serializable {
         for (NominaEmpleadoEntity nominaEmpleadoEntity : listadoNominaEmpleadoEntity) {
             DatosCFDINomina datosCFDINomina = new DatosCFDINomina();
 
-            datosCFDINomina.setAntiguedad(calcularAnyosAntiguedad(nominaEmpleadoEntity.getIdEmpleado().getFechaIngreso()));
-            datosCFDINomina.setBanco(productoNominaEntity.getBanco().getClave());
-            datosCFDINomina.setCurp(nominaEmpleadoEntity.getIdEmpleado().getCurp());
-            datosCFDINomina.setFechaFinalPago(productoNominaEntity.getFinPeriodo());
-            datosCFDINomina.setFechaInicalPago(productoNominaEntity.getInicioPeriodo());
-            datosCFDINomina.setFechaInicioRelLaboral(nominaEmpleadoEntity.getIdEmpleado().getFechaIngreso());
+            datosCFDINomina.setAntiguedad(calcularAnyosAntiguedad(
+                    nominaEmpleadoEntity.getIdEmpleado().getFechaIngreso()));
+            datosCFDINomina
+                    .setBanco(productoNominaEntity.getBanco().getClave());
+            datosCFDINomina
+                    .setCurp(nominaEmpleadoEntity.getIdEmpleado().getCurp());
+            datosCFDINomina
+                    .setFechaFinalPago(productoNominaEntity.getFinPeriodo());
+            datosCFDINomina.setFechaInicalPago(
+                    productoNominaEntity.getInicioPeriodo());
+            datosCFDINomina.setFechaInicioRelLaboral(
+                    nominaEmpleadoEntity.getIdEmpleado().getFechaIngreso());
             datosCFDINomina.setFechaPago(productoNominaEntity.getFechaPago());
-            datosCFDINomina.setFolio(nominaEmpleadoEntity.getIdNominaEmpleado().toString());
-            datosCFDINomina.setNombre(nominaEmpleadoEntity.getIdEmpleado().getNombreCompleto());
-            datosCFDINomina.setNumeroDiasPagados(new BigDecimal(nominaEmpleadoEntity.getNumeroDiasPagados()));
+            datosCFDINomina.setFolio(
+                    nominaEmpleadoEntity.getIdNominaEmpleado().toString());
+            datosCFDINomina.setNombre(
+                    nominaEmpleadoEntity.getIdEmpleado().getNombreCompleto());
+            datosCFDINomina.setNumeroDiasPagados(new BigDecimal(
+                    nominaEmpleadoEntity.getNumeroDiasPagados()));
             if (nominaEmpleadoEntity.getNumeroEmpleado() != null) {
-                datosCFDINomina.setNumeroEmpleado(nominaEmpleadoEntity.getNumeroEmpleado().toString());
+                datosCFDINomina.setNumeroEmpleado(
+                        nominaEmpleadoEntity.getNumeroEmpleado().toString());
             } else {
                 datosCFDINomina.setNumeroEmpleado("");
             }
-            datosCFDINomina.setNumeroSeguroSocial(nominaEmpleadoEntity.getIdEmpleado().getNumeroSeguroSocial());
+            datosCFDINomina.setNumeroSeguroSocial(nominaEmpleadoEntity
+                    .getIdEmpleado().getNumeroSeguroSocial());
             datosCFDINomina.setPais("MEXICO");
-            datosCFDINomina.setPeriocidadPago(productoNominaEntity.getTipoPeriodo().getTipoPeriodo());
+            datosCFDINomina.setPeriocidadPago(
+                    productoNominaEntity.getTipoPeriodo().getTipoPeriodo());
             if (productoNominaEntity.getTipoRecursoSat() != null) {
-                datosCFDINomina.setTipoFuente(productoNominaEntity.getTipoRecursoSat().getIdTipoRecurso());
+                datosCFDINomina.setTipoFuente(productoNominaEntity
+                        .getTipoRecursoSat().getIdTipoRecurso());
             }
             // Falta de donde saco el riesgo de trabajo
             // Falta salario base
             // Falta salario base integrado
-            if (nominaEmpleadoEntity.getIdConfiguracionPresupuestal().getPuesto().getPuestoTimbre() != null) {
-                datosCFDINomina.setPuesto(nominaEmpleadoEntity.getIdConfiguracionPresupuestal().getPuesto().getPuestoTimbre());
+            if (nominaEmpleadoEntity.getIdConfiguracionPresupuestal()
+                    .getPuesto().getPuestoTimbre() != null) {
+                datosCFDINomina.setPuesto(
+                        nominaEmpleadoEntity.getIdConfiguracionPresupuestal()
+                                .getPuesto().getPuestoTimbre());
 
             } else {
-                datosCFDINomina.setPuesto(nominaEmpleadoEntity.getIdConfiguracionPresupuestal().getPuesto().getPuesto());
+                datosCFDINomina.setPuesto(
+                        nominaEmpleadoEntity.getIdConfiguracionPresupuestal()
+                                .getPuesto().getPuesto());
             }
 
-            datosCFDINomina.setTipoContrato(nominaEmpleadoEntity.getIdConfiguracionPresupuestal().getTipoContratacion().getTipoContratacion());
+            datosCFDINomina.setTipoContrato(
+                    nominaEmpleadoEntity.getIdConfiguracionPresupuestal()
+                            .getTipoContratacion().getTipoContratacion());
             // Falta Jornada
             datosCFDINomina.setTipoJornada("MIXTA");
             datosCFDINomina.setTipoRegimen(1);
-            datosCFDINomina.setRfc(nominaEmpleadoEntity.getIdEmpleado().getRfc());
+            datosCFDINomina
+                    .setRfc(nominaEmpleadoEntity.getIdEmpleado().getRfc());
 
-            DireccionEntity direccionEmpleadoEntity = direccionRepository.consultarDireccionEmpleadoPorId(nominaEmpleadoEntity.getIdEmpleado().getIdEmpleado());
+            DireccionEntity direccionEmpleadoEntity = direccionRepository
+                    .consultarDireccionEmpleadoPorId(nominaEmpleadoEntity
+                            .getIdEmpleado().getIdEmpleado());
 
             if (direccionEmpleadoEntity != null) {
                 datosCFDINomina.setCalle(direccionEmpleadoEntity.getCalle());
-                datosCFDINomina.setCodigoPostal(String.valueOf(direccionEmpleadoEntity.getCodigoPostal()));
+                datosCFDINomina.setCodigoPostal(String
+                        .valueOf(direccionEmpleadoEntity.getCodigoPostal()));
                 // datosCFDINomina.setColonia(direccionEmpleadoEntity.getAsentamiento().getNombre());
-                datosCFDINomina.setEstado(direccionEmpleadoEntity.getEstado().getNombre());
-                datosCFDINomina.setMunicipio(direccionEmpleadoEntity.getMunicipio().getNombre());
-                datosCFDINomina.setNoExterio(direccionEmpleadoEntity.getNumeroExterior());
-                datosCFDINomina.setNoInterior(direccionEmpleadoEntity.getNumeroInterior());
+                datosCFDINomina.setEstado(
+                        direccionEmpleadoEntity.getEstado().getNombre());
+                datosCFDINomina.setMunicipio(
+                        direccionEmpleadoEntity.getMunicipio().getNombre());
+                datosCFDINomina.setNoExterio(
+                        direccionEmpleadoEntity.getNumeroExterior());
+                datosCFDINomina.setNoInterior(
+                        direccionEmpleadoEntity.getNumeroInterior());
             }
 
             List<ConceptosNominaEmpleadosEntity> listadoDeduccionesEntity = conceptosNominaEmpleadoRepository
-                    .listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado(), 2);
+                    .listaConceptosNominaPorIdNominaEmpleado(
+                            nominaEmpleadoEntity.getIdNominaEmpleado(), 2);
 
             List<DeduccionCFDI> listadoDeducionesCFDI = new ArrayList<>();
 
             for (ConceptosNominaEmpleadosEntity conceptosNominaEmpleadosEntity : listadoDeduccionesEntity) {
 
                 DeduccionCFDI deduccionCFDI = new DeduccionCFDI();
-                deduccionCFDI.setClave(validarMinimoClave(conceptosNominaEmpleadosEntity.getClave()));
-                deduccionCFDI.setConcepto(conceptosNominaEmpleadosEntity.getConcepto());
-                deduccionCFDI.setImporteGravado(conceptosNominaEmpleadosEntity.getImporteGravado());
-                deduccionCFDI.setImporteExcento(conceptosNominaEmpleadosEntity.getImporteExcento());
-                deduccionCFDI.setTipoPercepcion(conceptosNominaEmpleadosEntity.getTipoSat());
+                deduccionCFDI.setClave(validarMinimoClave(
+                        conceptosNominaEmpleadosEntity.getClave()));
+                deduccionCFDI.setConcepto(
+                        conceptosNominaEmpleadosEntity.getConcepto());
+                deduccionCFDI.setImporteGravado(
+                        conceptosNominaEmpleadosEntity.getImporteGravado());
+                deduccionCFDI.setImporteExcento(
+                        conceptosNominaEmpleadosEntity.getImporteExcento());
+                deduccionCFDI.setTipoPercepcion(
+                        conceptosNominaEmpleadosEntity.getTipoSat());
                 listadoDeducionesCFDI.add(deduccionCFDI);
 
             }
 
             List<ConceptosNominaEmpleadosEntity> listadoPercepcionesEntity = conceptosNominaEmpleadoRepository
-                    .listaConceptosNominaPorIdNominaEmpleado(nominaEmpleadoEntity.getIdNominaEmpleado(), 1);
+                    .listaConceptosNominaPorIdNominaEmpleado(
+                            nominaEmpleadoEntity.getIdNominaEmpleado(), 1);
 
             List<PercepcionCFDI> listadoPercepcionesCFDI = new ArrayList<>();
 
             for (ConceptosNominaEmpleadosEntity conceptosNominaEmpleadosEntity : listadoPercepcionesEntity) {
                 PercepcionCFDI percepcionCFDI = new PercepcionCFDI();
-                percepcionCFDI.setClave(validarMinimoClave(conceptosNominaEmpleadosEntity.getClave()));
-                percepcionCFDI.setConcepto(conceptosNominaEmpleadosEntity.getConcepto());
-                percepcionCFDI.setImporteExcento(conceptosNominaEmpleadosEntity.getImporteExcento());
-                percepcionCFDI.setImporteGravado(conceptosNominaEmpleadosEntity.getImporteGravado());
-                percepcionCFDI.setTipoPercepcion(conceptosNominaEmpleadosEntity.getTipoSat());
+                percepcionCFDI.setClave(validarMinimoClave(
+                        conceptosNominaEmpleadosEntity.getClave()));
+                percepcionCFDI.setConcepto(
+                        conceptosNominaEmpleadosEntity.getConcepto());
+                percepcionCFDI.setImporteExcento(
+                        conceptosNominaEmpleadosEntity.getImporteExcento());
+                percepcionCFDI.setImporteGravado(
+                        conceptosNominaEmpleadosEntity.getImporteGravado());
+                percepcionCFDI.setTipoPercepcion(
+                        conceptosNominaEmpleadosEntity.getTipoSat());
                 listadoPercepcionesCFDI.add(percepcionCFDI);
 
             }
@@ -191,29 +244,39 @@ public class TimbradoProductoNominaService implements Serializable {
         for (DatosCFDINomina datosCFDINominaTimbrar : listadoDatosCFDINomina) {
 
             if (datosCFDINominaTimbrar.getCurp().length() > 0) {
-                DatosCFDITimbrado datosCFDITimbrado = timbradoService.generarProductoNominaCFDI(datosCFDINominaTimbrar);
+                DatosCFDITimbrado datosCFDITimbrado = timbradoService
+                        .generarProductoNominaCFDI(datosCFDINominaTimbrar);
                 if (datosCFDITimbrado.getIdComprobante() != null) {
-                    timbradoResult.setTotalFallos(timbradoResult.getTotalFallos() + 1);
+                    timbradoResult.setTotalFallos(
+                            timbradoResult.getTotalFallos() + 1);
                 } else {
-                    timbradoResult.setTotalTimbradas(timbradoResult.getTotalTimbradas() + 1);
+                    timbradoResult.setTotalTimbradas(
+                            timbradoResult.getTotalTimbradas() + 1);
 
-                    NominaEmpleadoEntity nominaEmpleado = nominaEmpleadoRepository.obtenerPorId(new Integer(datosCFDINominaTimbrar.getFolio()));
-                    nominaEmpleado.setIdComprobante(datosCFDITimbrado.getIdComprobante());
+                    NominaEmpleadoEntity nominaEmpleado = nominaEmpleadoRepository
+                            .obtenerPorId(new Integer(
+                                    datosCFDINominaTimbrar.getFolio()));
+                    nominaEmpleado.setIdComprobante(
+                            datosCFDITimbrado.getIdComprobante());
                     nominaEmpleadoRepository.actualizar(nominaEmpleado);
 
                 }
             } else {
-                timbradoResult.setTotalFallos(timbradoResult.getTotalFallos() + 1);
+                timbradoResult
+                        .setTotalFallos(timbradoResult.getTotalFallos() + 1);
             }
 
         }
 
-        if (timbradoResult.getTotalTimbradas().equals(timbradoResult.getTotalNominasEncontradas())) {
+        if (timbradoResult.getTotalTimbradas()
+                .equals(timbradoResult.getTotalNominasEncontradas())) {
 
-            JSFUtils.infoMessage("Timbrado", "Se realizo el timbrado de  la nomina completa");
+            JSFUtils.infoMessage("Timbrado",
+                    "Se realizo el timbrado de  la nomina completa");
 
         } else {
-            JSFUtils.errorMessage("Timbrado", "Se realizo el timbrado de  la nomina de manera parcial se encontraron registros con errores");
+            JSFUtils.errorMessage("Timbrado",
+                    "Se realizo el timbrado de  la nomina de manera parcial se encontraron registros con errores");
         }
 
         return timbradoResult;

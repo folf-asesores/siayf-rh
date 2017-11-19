@@ -11,7 +11,8 @@ import javax.ejb.ApplicationException;
  */
 @Deprecated
 @ApplicationException(rollback = true)
-public class ReglaNegocioException extends RuntimeException implements Serializable {
+public class ReglaNegocioException extends RuntimeException
+        implements Serializable {
 
     /**
      *

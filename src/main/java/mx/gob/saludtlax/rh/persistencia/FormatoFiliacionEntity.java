@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -353,7 +353,8 @@ public class FormatoFiliacionEntity implements Serializable {
         return domicilioPersonaConocidoUno;
     }
 
-    public void setDomicilioPersonaConocidoUno(String domicilioPersonaConocidoUno) {
+    public void setDomicilioPersonaConocidoUno(
+            String domicilioPersonaConocidoUno) {
         this.domicilioPersonaConocidoUno = domicilioPersonaConocidoUno;
     }
 
@@ -377,7 +378,8 @@ public class FormatoFiliacionEntity implements Serializable {
         return domicilioPersonaConocidoDos;
     }
 
-    public void setDomicilioPersonaConocidoDos(String domicilioPersonaConocidoDos) {
+    public void setDomicilioPersonaConocidoDos(
+            String domicilioPersonaConocidoDos) {
         this.domicilioPersonaConocidoDos = domicilioPersonaConocidoDos;
     }
 

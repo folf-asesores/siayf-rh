@@ -44,19 +44,25 @@ public class ConsultarPartidaEJB {
         return consultarPartidaService.consultarPartidasPorRfc(rfc);
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorUnidadResponsable(Integer unidadResponsable) throws ReglaNegocioException {
+    public List<ConsultarPartidaDTO> consultarPartidasPorUnidadResponsable(
+            Integer unidadResponsable) throws ReglaNegocioException {
 
-        return consultarPartidaService.consultarPartidasPorUnidadResponsable(unidadResponsable);
+        return consultarPartidaService
+                .consultarPartidasPorUnidadResponsable(unidadResponsable);
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento) throws ReglaNegocioException {
+    public List<ConsultarPartidaDTO> consultarPartidasPorTipoNombramiento(
+            Integer tipoNombramiento) throws ReglaNegocioException {
 
-        return consultarPartidaService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
+        return consultarPartidaService
+                .consultarPartidasPorTipoNombramiento(tipoNombramiento);
     }
 
-    public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(Integer dependencia) throws ReglaNegocioException {
+    public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(
+            Integer dependencia) throws ReglaNegocioException {
 
-        return consultarPartidaService.consultarPartidasPorDependencia(dependencia);
+        return consultarPartidaService
+                .consultarPartidasPorDependencia(dependencia);
     }
 
     public static List<SelectItem> listaQuincena() {

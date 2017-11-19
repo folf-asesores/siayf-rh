@@ -88,7 +88,9 @@ public class NominaEmpleadoDTO {
 
     @Override
     public String toString() {
-        return "NominaEmpleadoDTO{" + "rfc=" + rfc + ", nombre=" + nombre + ", percepciones=" + percepciones + ", deducciones=" + deducciones + '}';
+        return "NominaEmpleadoDTO{" + "rfc=" + rfc + ", nombre=" + nombre
+                + ", percepciones=" + percepciones + ", deducciones="
+                + deducciones + '}';
     }
 
 }

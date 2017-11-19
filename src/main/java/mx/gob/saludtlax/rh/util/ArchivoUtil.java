@@ -37,17 +37,21 @@ import org.jboss.logging.Logger;
  */
 public class ArchivoUtil {
 
-    private static final Logger LOGGER = Logger.getLogger(ArchivoUtil.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ArchivoUtil.class.getName());
 
     private static final int PDF_PRIMERA_PAGINA = 0;
     private static final float PDF_ESCALA = 0.5f;
     private static final int IMAGEN_ANCHO = 256;
     private static final int IMAGEN_ALTO = 256;
-    private static final String CARPETA_USUARIO = System.getProperty("user.home");
-    public static final String SEPARADOR_DE_ARCHIVO = System.getProperty("file.separator");
+    private static final String CARPETA_USUARIO = System
+            .getProperty("user.home");
+    public static final String SEPARADOR_DE_ARCHIVO = System
+            .getProperty("file.separator");
     public static final String SEPARADOR_DE_ARCHIVO_UNIX = "\n";
     public static final String SEPARADOR_DE_ARCHIVO_WINDOWS = "\r\n";
-    public static final Charset WINDOWS_LATIN_CHARSET = Charset.forName("windows-1252");
+    public static final Charset WINDOWS_LATIN_CHARSET = Charset
+            .forName("windows-1252");
     public static final Charset MS_DOS_LATIN_CHARSET = Charset.forName("Cp850");
     public static final Charset UTF8_CHARSET = Charset.forName("UTF-8");
     private static final String PATRON_ESPACIOS_EN_BLANCO_AL_FINAL = "(\\s+)$";
@@ -65,16 +69,23 @@ public class ArchivoUtil {
      *            los datos del archivo.
      * @return
      */
-    public static Map<String, Object> validarArchivo(String nombreArchivo, TipoArchivo ext, byte[] bytes) {
+    public static Map<String, Object> validarArchivo(String nombreArchivo,
+            TipoArchivo ext, byte[] bytes) {
         Map<String, Object> mapa = new HashMap<>();
 
         try {
-            String nombreSinExtension = obtenerNombreSinExtension(nombreArchivo);
-            Path archivoTemporal = Files.createTempFile(nombreSinExtension + '_', ".tmp");
+            String nombreSinExtension = obtenerNombreSinExtension(
+                    nombreArchivo);
+            Path archivoTemporal = Files
+                    .createTempFile(nombreSinExtension + '_', ".tmp");
             Files.write(archivoTemporal, bytes);
-            String contentType = (Files.probeContentType(archivoTemporal) == null) ? ext.getMIMEType() : Files.probeContentType(archivoTemporal);
+            String contentType = (Files
+                    .probeContentType(archivoTemporal) == null)
+                            ? ext.getMIMEType()
+                            : Files.probeContentType(archivoTemporal);
             LOGGER.debugv("contentType: {0}", contentType);
-            TipoArchivo tipoReal = TipoArchivo.getTipoArchivoPorMIMEType(contentType);
+            TipoArchivo tipoReal = TipoArchivo
+                    .getTipoArchivoPorMIMEType(contentType);
             Files.delete(archivoTemporal);
 
             mapa.put("NOMBRE_DE_ARCHIVO", nombreSinExtension);
@@ -95,11 +106,15 @@ public class ArchivoUtil {
      * @param extensionDeseada
      * @return
      */
-    public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, String contentTypeDeseado, String extensionDeseada) {
+    public static boolean validarTipoArchivo(String nombreArchivo,
+            String contentType, byte[] contenido, String contentTypeDeseado,
+            String extensionDeseada) {
         String contentTypeReal = obtenerMIMEType(contenido);
 
-        LOGGER.debugv("Nombre del archivo: {0} Content Type del archivo: {1} Content Type deseado: {2} Extensi\u00f3n deseada: {3} Content Type real: {4}",
-                new Object[] { nombreArchivo, contentType, contentTypeDeseado, extensionDeseada, contentTypeReal });
+        LOGGER.debugv(
+                "Nombre del archivo: {0} Content Type del archivo: {1} Content Type deseado: {2} Extensi\u00f3n deseada: {3} Content Type real: {4}",
+                new Object[] { nombreArchivo, contentType, contentTypeDeseado,
+                        extensionDeseada, contentTypeReal });
 
         if (!contentTypeDeseado.equals(contentTypeReal)) {
             return false;
@@ -121,14 +136,16 @@ public class ArchivoUtil {
      * @param tipoDeseado
      * @return
      */
-    public static boolean validarTipoArchivo(String nombreArchivo, String contentType, byte[] contenido, TipoArchivo tipoDeseado) {
+    public static boolean validarTipoArchivo(String nombreArchivo,
+            String contentType, byte[] contenido, TipoArchivo tipoDeseado) {
         String contentTypeReal = obtenerMIMEType(contenido);
 
         if (!tipoDeseado.getMIMEType().equals(contentTypeReal)) {
             return false;
         }
 
-        if (contentType != null && !contentType.equals(tipoDeseado.getMIMEType())) {
+        if (contentType != null
+                && !contentType.equals(tipoDeseado.getMIMEType())) {
             return false;
         }
 
@@ -148,10 +165,12 @@ public class ArchivoUtil {
     private static String obtenerMIMEType(byte[] contenido) {
         try {
             if (contenido == null) {
-                throw new NullPointerException("No se puede obtener el MIMEType de un null");
+                throw new NullPointerException(
+                        "No se puede obtener el MIMEType de un null");
             }
 
-            Path archivoTemporal = Files.createTempFile(GenerateUtil.generarId(), ".tmp");
+            Path archivoTemporal = Files
+                    .createTempFile(GenerateUtil.generarId(), ".tmp");
             Files.write(archivoTemporal, contenido);
 
             String contentType = Files.probeContentType(archivoTemporal);
@@ -176,7 +195,8 @@ public class ArchivoUtil {
      *             si ocurre de lectura o escritura al guardar
      *             el archivo.
      */
-    public static byte[] leerArchivo(String ruta, String nombreArchivo) throws IOException {
+    public static byte[] leerArchivo(String ruta, String nombreArchivo)
+            throws IOException {
         return leerArchivo(ruta, nombreArchivo, false);
     }
 
@@ -195,12 +215,14 @@ public class ArchivoUtil {
      *             si ocurre de lectura o escritura al guardar el
      *             archivo.
      */
-    public static byte[] leerArchivo(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
+    public static byte[] leerArchivo(String ruta, String nombreArchivo,
+            boolean usarCarpetaUsuario) throws IOException {
         if (ruta == null) {
             ruta = "";
         }
 
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta)
+                : Paths.get(ruta);
         Path rutaArchivo = Paths.get(rutaReal.toString(), nombreArchivo);
 
         return Files.readAllBytes(rutaArchivo);
@@ -217,7 +239,8 @@ public class ArchivoUtil {
      * @throws IOException
      *             si ocurre alguna excepción de escritura o lectura.
      */
-    public static void guardarEnCarpetaUsuario(byte[] file, String fileName) throws IOException {
+    public static void guardarEnCarpetaUsuario(byte[] file, String fileName)
+            throws IOException {
         if (file == null) {
             LOGGER.error("No se puede guardar un archivo nulo");
         } else if (ValidacionUtil.esCadenaVacia(fileName)) {
@@ -248,7 +271,8 @@ public class ArchivoUtil {
      *             si ocurre de lectura o escritura al guardar
      *             el archivo.
      */
-    public static void guardarArchivo(String ruta, String nombreArchivo, byte[] archivo, boolean usarCarpetaUsuario) throws IOException {
+    public static void guardarArchivo(String ruta, String nombreArchivo,
+            byte[] archivo, boolean usarCarpetaUsuario) throws IOException {
         guardarArchivo(ruta, nombreArchivo, archivo, true, usarCarpetaUsuario);
     }
 
@@ -270,9 +294,12 @@ public class ArchivoUtil {
      *             si ocurre de lectura o escritura al guardar
      *             el archivo.
      */
-    public static void guardarArchivo(String ruta, String nombreArchivo, byte[] archivo, boolean sobreescribir, boolean usarCarpetaUsuario) throws IOException {
+    public static void guardarArchivo(String ruta, String nombreArchivo,
+            byte[] archivo, boolean sobreescribir, boolean usarCarpetaUsuario)
+            throws IOException {
 
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta)
+                : Paths.get(ruta);
         Path rutaArchivo = Paths.get(rutaReal.toString(), nombreArchivo);
 
         if (Files.notExists(rutaReal)) {
@@ -299,10 +326,13 @@ public class ArchivoUtil {
      * @param usarCarpetaUsuario
      *            si se usará la carpeta personal del usuario.
      */
-    public static void moverArchivo(String origen, String destino, boolean usarCarpetaUsuario) {
+    public static void moverArchivo(String origen, String destino,
+            boolean usarCarpetaUsuario) {
         try {
-            Path rutaOrigen = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, origen) : Paths.get(origen);
-            Path rutaDestino = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, destino) : Paths.get(destino);
+            Path rutaOrigen = usarCarpetaUsuario
+                    ? Paths.get(CARPETA_USUARIO, origen) : Paths.get(origen);
+            Path rutaDestino = usarCarpetaUsuario
+                    ? Paths.get(CARPETA_USUARIO, destino) : Paths.get(destino);
 
             Files.move(rutaOrigen, rutaDestino);
         } catch (IOException ex) {
@@ -321,7 +351,8 @@ public class ArchivoUtil {
      *             si ocurre un error de lectura o escritura al eliminar
      *             el archivo.
      */
-    public static void eliminarArchivo(String ruta, String nombreArchivo) throws IOException {
+    public static void eliminarArchivo(String ruta, String nombreArchivo)
+            throws IOException {
         Path path = Paths.get(ruta, nombreArchivo);
         Files.deleteIfExists(path);
     }
@@ -340,14 +371,21 @@ public class ArchivoUtil {
      *            usuario.
      * @throws IOException
      */
-    public static void eliminarArchivoSoloConNombre(String ruta, String nombreArchivo, boolean usarCarpetaUsuario) throws IOException {
+    public static void eliminarArchivoSoloConNombre(String ruta,
+            String nombreArchivo, boolean usarCarpetaUsuario)
+            throws IOException {
         List<Path> archivosPorEliminar = new ArrayList<>();
 
-        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta) : Paths.get(ruta);
+        Path rutaReal = usarCarpetaUsuario ? Paths.get(CARPETA_USUARIO, ruta)
+                : Paths.get(ruta);
 
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(rutaReal)) {
+        try (DirectoryStream<Path> directoryStream = Files
+                .newDirectoryStream(rutaReal)) {
             for (Path path : directoryStream) {
-                String archivoSinExtension = obtenerNombreSinExtension(path.toString().replace(rutaReal.toString() + SEPARADOR_DE_ARCHIVO, ""));
+                String archivoSinExtension = obtenerNombreSinExtension(
+                        path.toString().replace(
+                                rutaReal.toString() + SEPARADOR_DE_ARCHIVO,
+                                ""));
 
                 if (nombreArchivo.equals(archivoSinExtension)) {
                     archivosPorEliminar.add(path);
@@ -373,7 +411,8 @@ public class ArchivoUtil {
      * @return un areglo de bytes con la vista previa en un archivo en formato
      *         png.
      */
-    public static byte[] crearVistaPrevia(TipoArchivo extension, byte[] archivo) {
+    public static byte[] crearVistaPrevia(TipoArchivo extension,
+            byte[] archivo) {
         switch (extension) {
             case PDF:
                 try {
@@ -381,7 +420,8 @@ public class ArchivoUtil {
 
                     try (PDDocument document = PDDocument.load(archivo)) {
                         PDFRenderer pdfRenderer = new PDFRenderer(document);
-                        BufferedImage bim = pdfRenderer.renderImage(PDF_PRIMERA_PAGINA, PDF_ESCALA, ImageType.RGB);
+                        BufferedImage bim = pdfRenderer.renderImage(
+                                PDF_PRIMERA_PAGINA, PDF_ESCALA, ImageType.RGB);
 
                         try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
                             ImageIOUtil.writeImage(bim, "png", bos);
@@ -406,7 +446,9 @@ public class ArchivoUtil {
                      */
                     InputStream is = new ByteArrayInputStream(archivo);
                     BufferedImage img = ImageIO.read(is);
-                    BufferedImage vistaPrevia = Scalr.resize(img, Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC, IMAGEN_ANCHO, IMAGEN_ALTO, Scalr.OP_ANTIALIAS);
+                    BufferedImage vistaPrevia = Scalr.resize(img,
+                            Scalr.Method.QUALITY, Scalr.Mode.AUTOMATIC,
+                            IMAGEN_ANCHO, IMAGEN_ALTO, Scalr.OP_ANTIALIAS);
 
                     byte[] vistaPreviaBytes;
 
@@ -422,7 +464,8 @@ public class ArchivoUtil {
                 break;
             case TIFF:
                 try {
-                    InputStream is = ArchivoUtil.class.getClassLoader().getResourceAsStream("imagenes/tif-icon.png");
+                    InputStream is = ArchivoUtil.class.getClassLoader()
+                            .getResourceAsStream("imagenes/tif-icon.png");
 
                     byte[] vistaPreviaBytes;
 
@@ -462,9 +505,11 @@ public class ArchivoUtil {
      *             en caso de que haya error de lectura o escritura al
      *             crear los archivos temporales.
      */
-    public static byte[] codificarComoWindows(final byte[] archivo) throws IOException {
+    public static byte[] codificarComoWindows(final byte[] archivo)
+            throws IOException {
         if (archivo == null) {
-            throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
+            throw new NullPointerException(
+                    "El archivo no debe se nulo para poder realizar conversión.");
         }
 
         LOGGER.info("Iniciando la conversión a formato de Windows.");
@@ -478,7 +523,8 @@ public class ArchivoUtil {
         List<String> lineas = Files.readAllLines(archivoTemporal, UTF8_CHARSET);
         List<String> lineasNuevas = new ArrayList<>();
         for (String linea : lineas) {
-            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            String nuevaLinea = linea
+                    .replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
             lineasNuevas.add(nuevaLinea);
         }
 
@@ -487,7 +533,8 @@ public class ArchivoUtil {
         System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO);
 
         byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
-        LOGGER.info("La conversión en formato de Windows se ha completado correctamente.");
+        LOGGER.info(
+                "La conversión en formato de Windows se ha completado correctamente.");
         Files.delete(archivoTemporal);
         Files.delete(archivoTemporalWin);
         return archivoWindows;
@@ -506,9 +553,11 @@ public class ArchivoUtil {
      *             en caso de que haya error de lectura o escritura al
      *             crear los archivos temporales.
      */
-    public static byte[] codificarComoMsDos(final byte[] archivo) throws IOException {
+    public static byte[] codificarComoMsDos(final byte[] archivo)
+            throws IOException {
         if (archivo == null) {
-            throw new NullPointerException("El archivo no debe se nulo para poder realizar conversión.");
+            throw new NullPointerException(
+                    "El archivo no debe se nulo para poder realizar conversión.");
         }
 
         LOGGER.info("Iniciando la conversión a formato de MS-DOS.");
@@ -524,52 +573,65 @@ public class ArchivoUtil {
         int lineasEliminadas = 0;
         for (int i = 0; i < lineas.size(); i++) {
             String lineaAnterior = lineas.get(i);
-            String nuevaLineaAnterior = lineaAnterior.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            String nuevaLineaAnterior = lineaAnterior
+                    .replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
             int j = i + 1;
             boolean agregar = true;
             int lineaHoja = i % 66;
             //            LOGGER.debugv("lineaHoja: {0}",lineaHoja);
             if (j < lineas.size()) {
                 String lineaSiguiente = lineas.get(j);
-                String nuevaLineaSiguiente = lineaSiguiente.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+                String nuevaLineaSiguiente = lineaSiguiente
+                        .replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("05   SUPLENCIAS")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("05   SUPLENCIAS")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("08   D")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("08   D")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("14   PERCEPCI")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("14   PERCEPCI")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("17   BONO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("17   BONO")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("24   AGUINALDO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("24   AGUINALDO")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("26   SUBSIDIO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("26   SUBSIDIO")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("27   PRIMA VACACIONAL")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente
+                                .contains("27   PRIMA VACACIONAL")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("29   BONIFICACI")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("29   BONIFICACI")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("30   RETROACTIVO")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("30   RETROACTIVO")) {
                     agregar = false;
                 }
 
-                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior) && nuevaLineaSiguiente.contains("32   OTROS")) {
+                if (ValidacionUtil.esCadenaVacia(nuevaLineaAnterior)
+                        && nuevaLineaSiguiente.contains("32   OTROS")) {
                     agregar = false;
                 }
             }
@@ -592,7 +654,8 @@ public class ArchivoUtil {
         System.setProperty("line.separator", SEPARADOR_DE_ARCHIVO);
 
         byte[] archivoWindows = Files.readAllBytes(archivoTemporalWin);
-        LOGGER.info("La conversión en formato de MS-DOS se ha completado correctamente.");
+        LOGGER.info(
+                "La conversión en formato de MS-DOS se ha completado correctamente.");
         //        Files.delete(archivoTemporal);
         Files.delete(archivoTemporalWin);
         return archivoWindows;
@@ -608,7 +671,8 @@ public class ArchivoUtil {
      * @return el nombre del archivo sin extensión.
      */
     public static String obtenerNombreSinExtension(String nombreArchivo) {
-        String nombreSinExtension = FilenameUtils.removeExtension(nombreArchivo);
+        String nombreSinExtension = FilenameUtils
+                .removeExtension(nombreArchivo);
 
         nombreSinExtension = nombreSinExtension.toLowerCase();
         nombreSinExtension = nombreSinExtension.replace('\u00e0', 'a'); // a con acento agudo
@@ -638,12 +702,14 @@ public class ArchivoUtil {
      * @throws IOException
      *             en caso de ocurrir un error de lectura o escritura.
      */
-    public static void eliminarEspaciosAlFinalLinea(Path ruta, Charset charset) throws IOException {
+    public static void eliminarEspaciosAlFinalLinea(Path ruta, Charset charset)
+            throws IOException {
         List<String> lineas = Files.readAllLines(ruta, charset);
         List<String> lineasNuevas = new ArrayList<>();
 
         for (String linea : lineas) {
-            String nuevaLinea = linea.replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
+            String nuevaLinea = linea
+                    .replaceAll(PATRON_ESPACIOS_EN_BLANCO_AL_FINAL, "");
             lineasNuevas.add(nuevaLinea);
         }
 

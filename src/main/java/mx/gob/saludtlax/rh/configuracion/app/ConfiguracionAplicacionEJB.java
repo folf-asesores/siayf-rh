@@ -39,11 +39,14 @@ public class ConfiguracionAplicacionEJB implements ConfiguracionAplicacion {
     @Override
     public void setConfiguracion(String clave, String valor) {
         if (ValidacionUtil.esCadenaVacia(clave)) {
-            throw new ValidacionException("La clave no puede ser nula o vacia.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("La clave no puede ser nula o vacia.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!esClaveValida(clave)) {
-            throw new ValidacionException("La clave no tiene un formato valido.", ValidacionCodigoError.FORMATO_INVALIDO);
+            throw new ValidacionException(
+                    "La clave no tiene un formato valido.",
+                    ValidacionCodigoError.FORMATO_INVALIDO);
         }
 
         configuracionAplicacionService.setConfiguracion(clave, valor);
@@ -61,14 +64,18 @@ public class ConfiguracionAplicacionEJB implements ConfiguracionAplicacion {
     @Override
     public String getConfiguracion(String clave) {
         if (ValidacionUtil.esCadenaVacia(clave)) {
-            throw new ValidacionException("La clave no puede ser nula o vacia.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("La clave no puede ser nula o vacia.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         try {
             return configuracionAplicacionService.getConfiguracion(clave);
         } catch (SistemaException ex) {
-            if (SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS.equals(ex.getCodigoError())) {
-                throw new ReglaNegocioException("La clave no existe como una configuración.", ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
+            if (SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS
+                    .equals(ex.getCodigoError())) {
+                throw new ReglaNegocioException(
+                        "La clave no existe como una configuración.",
+                        ReglaNegocioCodigoError.CONFIGURACION_NO_EXISTE);
             } else {
                 throw ex;
             }
@@ -77,8 +84,10 @@ public class ConfiguracionAplicacionEJB implements ConfiguracionAplicacion {
 
     @Override
     public Map<String, String> getConfiguraciones(String... claves) {
-        return claves == null || claves.length == 0 ? configuracionAplicacionService.getTodasConfiguraciones()
-                : configuracionAplicacionService.getConfiguraciones(Arrays.asList(claves));
+        return claves == null || claves.length == 0
+                ? configuracionAplicacionService.getTodasConfiguraciones()
+                : configuracionAplicacionService
+                        .getConfiguraciones(Arrays.asList(claves));
     }
 
     private boolean esClaveValida(String clave) {

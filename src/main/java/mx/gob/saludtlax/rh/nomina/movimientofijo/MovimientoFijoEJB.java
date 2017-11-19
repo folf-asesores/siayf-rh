@@ -31,8 +31,8 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.BusinessException;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/05/2016 13:48:31
  */
@@ -73,8 +73,12 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
         newMovimiento.setAnyoOperacion(FechaUtil.ejercicioActual());
         newMovimiento.setAnioInicial(dto.getAnioInicial());
         newMovimiento.setRfc(newMovimiento.getEmpleado().getRfc());
-        newMovimiento.setTerceroInstitucional(
-                dto.getIdTerceroInstitucional() != null ? terceroInstitucionalRepository.obtenerPorId(dto.getIdTerceroInstitucional()) : null);
+        newMovimiento
+                .setTerceroInstitucional(
+                        dto.getIdTerceroInstitucional() != null
+                                ? terceroInstitucionalRepository.obtenerPorId(
+                                        dto.getIdTerceroInstitucional())
+                                : null);
         newMovimiento.setFechaRegistro(FechaUtil.fechaActual());
         newMovimiento.setFolioDocumento(dto.getFolio());
         newMovimiento.setFechaDocumento(dto.getFechaDocumento());
@@ -91,8 +95,10 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
     public void editar(MovimientoNominaDTO dto) {
         try {
 
-            MovimientoFijoEntity newMovimiento = movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo());
-            newMovimiento.setEmpleado(emmpleado.obtenerPorId(dto.getIdEmpleado()));
+            MovimientoFijoEntity newMovimiento = movimientoFijoRepository
+                    .obtenerPorId(dto.getIdMovimientoFijo());
+            newMovimiento
+                    .setEmpleado(emmpleado.obtenerPorId(dto.getIdEmpleado()));
             newMovimiento.setImporteDescontado(dto.getImporteDescontado());
             newMovimiento.setQuincenaFinal(dto.getQuincenaFinal());
             newMovimiento.setAnioFinal(dto.getAnioFinal());
@@ -106,7 +112,10 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
             newMovimiento.setDias(dto.getDias());
             newMovimiento.setFechaModificacion(FechaUtil.fechaActual());
             newMovimiento.setTerceroInstitucional(
-                    dto.getIdTerceroInstitucional() != null ? terceroInstitucionalRepository.obtenerPorId(dto.getIdTerceroInstitucional()) : null);
+                    dto.getIdTerceroInstitucional() != null
+                            ? terceroInstitucionalRepository.obtenerPorId(
+                                    dto.getIdTerceroInstitucional())
+                            : null);
             newMovimiento.setIdTipoMovimiento(dto.getIdTipoMovimiento());
             newMovimiento.setClave(dto.getClave());
             newMovimiento.setEstatus(dto.getEstatus());
@@ -117,9 +126,11 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
     }
 
     @Override
-    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer idEmpleado) {
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            Integer idEmpleado) {
         try {
-            return movimientoFijoRepository.obtenerMovimientosFijosPorEmpleado(idEmpleado);
+            return movimientoFijoRepository
+                    .obtenerMovimientosFijosPorEmpleado(idEmpleado);
         } catch (NoResultException e) {
             return null;
         }
@@ -132,40 +143,55 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
 
     @Override
     public void eliminar(MovimientoNominaDTO dto) {
-        movimientoFijoRepository.eliminar(movimientoFijoRepository.obtenerPorId(dto.getIdMovimientoFijo()));
+        movimientoFijoRepository.eliminar(movimientoFijoRepository
+                .obtenerPorId(dto.getIdMovimientoFijo()));
     }
 
     @Override
-    public Integer numeroQuincena(Integer tipoPeriodo, Integer ejercicioFiscal, Date fechaActual) {
-        return movimientoFijoRepository.periodoActual(tipoPeriodo, ejercicioFiscal, fechaActual);
+    public Integer numeroQuincena(Integer tipoPeriodo, Integer ejercicioFiscal,
+            Date fechaActual) {
+        return movimientoFijoRepository.periodoActual(tipoPeriodo,
+                ejercicioFiscal, fechaActual);
     }
 
     @Override
-    public MovimientoNominaDTO obtenerMovimientoPorDatosArchivo(MovimientoNominaDTO archivoDto) {
-        return movimientoFijoRepository.obtenerMovimientoPorDatosArchivo(archivoDto);
+    public MovimientoNominaDTO obtenerMovimientoPorDatosArchivo(
+            MovimientoNominaDTO archivoDto) {
+        return movimientoFijoRepository
+                .obtenerMovimientoPorDatosArchivo(archivoDto);
     }
 
-    public List<DetalleConfiguracionPresupuestoDTO> detallesConfiguracionPresupuestalPorEmpleado(Integer idEmpleado) {
+    public List<DetalleConfiguracionPresupuestoDTO> detallesConfiguracionPresupuestalPorEmpleado(
+            Integer idEmpleado) {
         return null;
     }
 
     @Override
-    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer idempleadoSeleccionado, String movimientoSeleccionado) {
-        TipoMovimientoNominaDTO movDto = tipoMovimientoRepository.obtenerMovimientoPorClave(movimientoSeleccionado);
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            Integer idempleadoSeleccionado, String movimientoSeleccionado) {
+        TipoMovimientoNominaDTO movDto = tipoMovimientoRepository
+                .obtenerMovimientoPorClave(movimientoSeleccionado);
 
-        return movimientoFijoRepository.obtenerMovimientosFijosPorEmpleadoytipoMov(idempleadoSeleccionado, movDto);
+        return movimientoFijoRepository
+                .obtenerMovimientosFijosPorEmpleadoytipoMov(
+                        idempleadoSeleccionado, movDto);
     }
 
     @Override
-    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(Integer idTipoMovimiento) {
+    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(
+            Integer idTipoMovimiento) {
         List<ConceptoNominaFederalesDTO> listaConcoptos = new ArrayList<>();
         List<ConfiguracionTipoMovimientoEntity> listConfMov = new ArrayList<>();
-        TiposMovimientosNominaEntity tipoMovimientoEntity = tipomovimientosNominaRepository.obtenerPorId(idTipoMovimiento);
-        listConfMov = configuracionMovimientoRepository.obenerConceptosPorTipoMovimiento(idTipoMovimiento);
+        TiposMovimientosNominaEntity tipoMovimientoEntity = tipomovimientosNominaRepository
+                .obtenerPorId(idTipoMovimiento);
+        listConfMov = configuracionMovimientoRepository
+                .obenerConceptosPorTipoMovimiento(idTipoMovimiento);
         if (listaConcoptos != null) {
             for (ConfiguracionTipoMovimientoEntity c : listConfMov) {
                 ConceptoNominaFederalesDTO concepto = new ConceptoNominaFederalesDTO();
-                concepto = ConceptoNominaFactory.crearConceptoNominaFederalesDTO(c.getConceptoNomina(), concepto);
+                concepto = ConceptoNominaFactory
+                        .crearConceptoNominaFederalesDTO(c.getConceptoNomina(),
+                                concepto);
                 listaConcoptos.add(concepto);
             }
         }
@@ -174,7 +200,8 @@ public class MovimientoFijoEJB implements MovimientoFijoService, Serializable {
         TipoMovimientoNominaDTO tipoMovDto = new TipoMovimientoNominaDTO();
         tipoMovDto.setClave(tipoMovimientoEntity.getClave());
         tipoMovDto.setDescripcion(tipoMovimientoEntity.getDescripcion());
-        tipoMovDto.setIdTimpoMovimiento(tipoMovimientoEntity.getIdMovimientoNomina());
+        tipoMovDto.setIdTimpoMovimiento(
+                tipoMovimientoEntity.getIdMovimientoNomina());
 
         configuracion.setIdConfiguracion(idTipoMovimiento);
         configuracion.setTipoMovimiento(tipoMovDto);

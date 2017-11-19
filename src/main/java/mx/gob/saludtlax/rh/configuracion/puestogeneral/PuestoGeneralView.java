@@ -11,8 +11,8 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 13:43:44
  */
@@ -52,7 +52,8 @@ public class PuestoGeneralView implements Serializable {
      * @param listaPuestoGeneral
      *            the listaPuestoGeneral to set
      */
-    public void setListaPuestoGeneral(List<PuestoGeneralDTO> listaPuestoGeneral) {
+    public void setListaPuestoGeneral(
+            List<PuestoGeneralDTO> listaPuestoGeneral) {
         this.listaPuestoGeneral = listaPuestoGeneral;
     }
 
@@ -165,7 +166,8 @@ public class PuestoGeneralView implements Serializable {
      * @param puestoGeneralDTOSeleccionado
      *            the puestoGeneralDTOSeleccionado to set
      */
-    public void setPuestoGeneralDTOSeleccionado(PuestoGeneralDTO puestoGeneralDTOSeleccionado) {
+    public void setPuestoGeneralDTOSeleccionado(
+            PuestoGeneralDTO puestoGeneralDTOSeleccionado) {
         this.puestoGeneralDTOSeleccionado = puestoGeneralDTOSeleccionado;
     }
 

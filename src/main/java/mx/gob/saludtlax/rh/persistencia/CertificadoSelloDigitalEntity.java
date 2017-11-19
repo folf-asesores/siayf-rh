@@ -51,7 +51,8 @@ public class CertificadoSelloDigitalEntity implements Serializable {
         return idCertificadoSelloDigital;
     }
 
-    public void setIdCertificadoSelloDigital(Integer idCertificadoSelloDigital) {
+    public void setIdCertificadoSelloDigital(
+            Integer idCertificadoSelloDigital) {
         this.idCertificadoSelloDigital = idCertificadoSelloDigital;
     }
 

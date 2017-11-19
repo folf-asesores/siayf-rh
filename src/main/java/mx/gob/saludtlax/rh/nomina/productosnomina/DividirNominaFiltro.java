@@ -29,7 +29,9 @@ public class DividirNominaFiltro implements Serializable {
         this(0, "", Collections.EMPTY_LIST, "", "");
     }
 
-    public DividirNominaFiltro(Integer idProductoNomina, String nombreProductoNomina, List<String> rfc, String unidadResponsable, String ramaPuesto) {
+    public DividirNominaFiltro(Integer idProductoNomina,
+            String nombreProductoNomina, List<String> rfc,
+            String unidadResponsable, String ramaPuesto) {
         this.idProductoNomina = idProductoNomina;
         this.nombreProductoNomina = nombreProductoNomina;
         this.rfc = rfc;
@@ -134,8 +136,10 @@ public class DividirNominaFiltro implements Serializable {
 
     @Override
     public String toString() {
-        return "DividirNominaFiltro{" + "idProductoNomina=" + idProductoNomina + ", nombreProductoNomina=" + nombreProductoNomina + ", rfc=" + rfc
-                + ", unidadResponsable=" + unidadResponsable + ", ramaPuesto=" + ramaPuesto + '}';
+        return "DividirNominaFiltro{" + "idProductoNomina=" + idProductoNomina
+                + ", nombreProductoNomina=" + nombreProductoNomina + ", rfc="
+                + rfc + ", unidadResponsable=" + unidadResponsable
+                + ", ramaPuesto=" + ramaPuesto + '}';
     }
 
     @Override

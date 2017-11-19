@@ -41,8 +41,10 @@ public class InfoEmpleadoDTO {
         this.nombre = nombre;
     }
 
-    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp, String rfc, String direccion, Integer numeroEmpleado, String estatus,
-            String tipoContratacion, String folio, Integer idVacante) {
+    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp,
+            String rfc, String direccion, Integer numeroEmpleado,
+            String estatus, String tipoContratacion, String folio,
+            Integer idVacante) {
 
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
@@ -56,8 +58,9 @@ public class InfoEmpleadoDTO {
         this.idVacante = idVacante;
     }
 
-    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp, String rfc, String direccion, Integer numeroEmpleado, String estatus,
-            String tipoEmpleado) {
+    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp,
+            String rfc, String direccion, Integer numeroEmpleado,
+            String estatus, String tipoEmpleado) {
 
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
@@ -70,8 +73,11 @@ public class InfoEmpleadoDTO {
 
     }
 
-    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp, String rfc, String direccion, Integer numeroEmpleado, String estatus,
-            String tipoContratacion, String folio, Integer idVacante, String codigoPuesto, String puesto, String nombramiento, BigDecimal sueldoActualEmpleado,
+    public InfoEmpleadoDTO(Integer idEmpleado, String nombre, String curp,
+            String rfc, String direccion, Integer numeroEmpleado,
+            String estatus, String tipoContratacion, String folio,
+            Integer idVacante, String codigoPuesto, String puesto,
+            String nombramiento, BigDecimal sueldoActualEmpleado,
             String claveCobro) {
 
         this.idEmpleado = idEmpleado;
@@ -94,8 +100,10 @@ public class InfoEmpleadoDTO {
 
     @Override
     public String toString() {
-        return "InfoEmpleadoDTO [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", curp=" + curp + ", rfc=" + rfc + ", direccion=" + direccion
-                + ", numeroEmpleado=" + numeroEmpleado + ", estatus=" + estatus + "]";
+        return "InfoEmpleadoDTO [idEmpleado=" + idEmpleado + ", nombre="
+                + nombre + ", curp=" + curp + ", rfc=" + rfc + ", direccion="
+                + direccion + ", numeroEmpleado=" + numeroEmpleado
+                + ", estatus=" + estatus + "]";
     }
 
     public String getTipoEmpleado() {

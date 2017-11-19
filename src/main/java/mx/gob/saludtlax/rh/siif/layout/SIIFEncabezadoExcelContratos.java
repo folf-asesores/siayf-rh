@@ -31,10 +31,12 @@ import mx.gob.saludtlax.rh.siif.reportarcontratos.ReglaNegocioException;
  */
 public class SIIFEncabezadoExcelContratos implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(SIIFEncabezadoExcelContratos.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SIIFEncabezadoExcelContratos.class.getName());
     private static final long serialVersionUID = 8812952705270662057L;
 
-    private final InputStream is = SIIFEncabezadoExcelContratos.class.getResourceAsStream("/encabezado--plantilla.xlsx");
+    private final InputStream is = SIIFEncabezadoExcelContratos.class
+            .getResourceAsStream("/encabezado--plantilla.xlsx");
 
     /** El nombre de la hoja donde se encuentra el detalle */
     private static final String NOMBRE_HOJA = "Encabezado";
@@ -197,7 +199,8 @@ public class SIIFEncabezadoExcelContratos implements Serializable {
                 }
             }
 
-            celdaIdNomina.setCellValue(detalle.getIdNomina() == null ? 0 : detalle.getIdNomina());
+            celdaIdNomina.setCellValue(
+                    detalle.getIdNomina() == null ? 0 : detalle.getIdNomina());
 
             Cell celdaIdPoder = filaDetalle.createCell(COLUMNA_RFC);
             celdaIdPoder.setCellValue(detalle.getIdPoder().toString());
@@ -224,22 +227,27 @@ public class SIIFEncabezadoExcelContratos implements Serializable {
             //celdaFechaFinQuincena.setCellValue(detalle.getFechaFinQuincena());
 
             Cell celdaIdTipoEmisionNomina = filaDetalle.createCell(COLUMNA_SAR);
-            celdaIdTipoEmisionNomina.setCellValue(detalle.getIdTipoEmisionNomina());
+            celdaIdTipoEmisionNomina
+                    .setCellValue(detalle.getIdTipoEmisionNomina());
 
-            Cell celdaIdCuentaBancaria = filaDetalle.createCell(COLUMNA_BANCO_A);
+            Cell celdaIdCuentaBancaria = filaDetalle
+                    .createCell(COLUMNA_BANCO_A);
             celdaIdCuentaBancaria.setCellValue(detalle.getIdCuentaBancaria());
 
             Cell celdaPercepciones = filaDetalle.createCell(COLUMNA_BANCO_N);
-            celdaPercepciones.setCellValue(detalle.getPercepciones().doubleValue());
+            celdaPercepciones
+                    .setCellValue(detalle.getPercepciones().doubleValue());
 
             Cell celdaDeducciones = filaDetalle.createCell(COLUMNA_NUM_CTA);
-            celdaDeducciones.setCellValue(detalle.getDeducciones().doubleValue());
+            celdaDeducciones
+                    .setCellValue(detalle.getDeducciones().doubleValue());
 
             Cell celdaNeto = filaDetalle.createCell(COLUMNA_CLABE);
             celdaNeto.setCellValue(detalle.getNeto().doubleValue());
 
             Cell celdaIdEstadoNomina = filaDetalle.createCell(COLUMNA_FUNCION);
-            celdaIdEstadoNomina.setCellValue(detalle.getIdEstadoNomina().toString());
+            celdaIdEstadoNomina
+                    .setCellValue(detalle.getIdEstadoNomina().toString());
 
             i++;
             hoja.shiftRows(i, i + 1, 1);
@@ -262,7 +270,8 @@ public class SIIFEncabezadoExcelContratos implements Serializable {
             llenarDetalles(listaDetalles);
             return obtenerBytes();
         } catch (IOException e) {
-            throw new ReglaNegocioException("Ocurrio un error al leer la platilla");
+            throw new ReglaNegocioException(
+                    "Ocurrio un error al leer la platilla");
         }
     }
 }

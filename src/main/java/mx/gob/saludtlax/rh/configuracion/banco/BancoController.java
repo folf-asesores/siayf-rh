@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.excepciones.ReglaNegocioException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 03/06/2016 14:29:17
  */
@@ -63,10 +63,12 @@ public class BancoController implements Serializable {
         try {
             if (view.getAccionBanco().equals("Registrar")) {
                 banco.crearBanco(view.getBancoDTO());
-                JSFUtils.infoMessage("Registro Banco: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Registro Banco: ",
+                        "Se realizo correctamente");
             } else if (view.getAccionBanco().equals("Actualizar")) {
                 banco.actualizarBanco(view.getBancoDTO());
-                JSFUtils.infoMessage("Actualización Banco: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Actualización Banco: ",
+                        "Se realizo correctamente");
             }
             limpiarVista();
         } catch (ReglaNegocioException ex) {
@@ -77,7 +79,8 @@ public class BancoController implements Serializable {
     public void eliminarBanco() {
         try {
             banco.eliminarBanco(view.getIdBanco());
-            JSFUtils.infoMessage("Eliminación Banco: ", "Se realizo correctamente");
+            JSFUtils.infoMessage("Eliminación Banco: ",
+                    "Se realizo correctamente");
             cerrarDialogoEliminar();
             limpiarVista();
         } catch (ReglaNegocioException ex) {

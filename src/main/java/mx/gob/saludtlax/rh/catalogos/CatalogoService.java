@@ -171,10 +171,13 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> consultarMunicipiosPorEstado(Integer idEstado) {
         if (!ValidacionUtil.esNumeroPositivo(idEstado)) {
-            throw new ValidacionException("consultarMunicipiosPorEstado: El identificador del estado es requerido.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "consultarMunicipiosPorEstado: El identificador del estado es requerido.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<MunicipiosEntity> municipios = municipioRepository.consultarMunicipiosPorEstado(idEstado);
+        List<MunicipiosEntity> municipios = municipioRepository
+                .consultarMunicipiosPorEstado(idEstado);
         if (!municipios.isEmpty()) {
             for (MunicipiosEntity entity : municipios) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -191,12 +194,14 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> consultarAsentamientos(Integer idMunicipio) {
         if (!ValidacionUtil.esNumeroPositivo(idMunicipio)) {
-            throw new ValidacionException("consultarAsentamientoPorMunicipio: El identificador del municipio es requerido.",
+            throw new ValidacionException(
+                    "consultarAsentamientoPorMunicipio: El identificador del municipio es requerido.",
                     ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<AsentamientoEntity> asentamientos = poblacionRepository.consultarAsentamientos();
+        List<AsentamientoEntity> asentamientos = poblacionRepository
+                .consultarAsentamientos();
         if (!asentamientos.isEmpty()) {
             for (AsentamientoEntity entity : asentamientos) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -213,20 +218,24 @@ public class CatalogoService {
      *
      * @param idMunicipio
      */
-    protected List<CatalogoDTO> consultarAsentamientosPorMunicipio(Integer idMunicipio) {
+    protected List<CatalogoDTO> consultarAsentamientosPorMunicipio(
+            Integer idMunicipio) {
 
         if (!ValidacionUtil.esNumeroPositivo(idMunicipio)) {
-            throw new ValidacionException("consultarAsentamientoPorMunicipio: El identificador del municipio es requerido.",
+            throw new ValidacionException(
+                    "consultarAsentamientoPorMunicipio: El identificador del municipio es requerido.",
                     ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<AsentamientoEntity> asentamientos = poblacionRepository.consultarAsentamientosPorIdMunicipio(idMunicipio);
+        List<AsentamientoEntity> asentamientos = poblacionRepository
+                .consultarAsentamientosPorIdMunicipio(idMunicipio);
         if (!asentamientos.isEmpty()) {
             for (AsentamientoEntity entity : asentamientos) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdAsentamiento());
-                dto.setNombre(entity.getNombre() + " C.P.-" + entity.getCodigoPostal());
+                dto.setNombre(entity.getNombre() + " C.P.-"
+                        + entity.getCodigoPostal());
                 lista.add(dto);
             }
         }
@@ -253,7 +262,8 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> listaPuestos() {
-        List<PuestoGeneralEntity> puestos = puestoRepository.obtenerListaPuestoGeneral();
+        List<PuestoGeneralEntity> puestos = puestoRepository
+                .obtenerListaPuestoGeneral();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!puestos.isEmpty()) {
             for (PuestoGeneralEntity entity : puestos) {
@@ -272,7 +282,8 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> listaPuestosPorIdRama(Integer idRamaPuesto) {
-        List<PuestoGeneralEntity> puestos = puestoRepository.consultarPuestosPorRama(idRamaPuesto);
+        List<PuestoGeneralEntity> puestos = puestoRepository
+                .consultarPuestosPorRama(idRamaPuesto);
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!puestos.isEmpty()) {
@@ -287,7 +298,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> listaDepartamentos() {
-        List<DepartamentoEntity> departamentos = departamentoRepository.departamentos();
+        List<DepartamentoEntity> departamentos = departamentoRepository
+                .departamentos();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!departamentos.isEmpty()) {
             for (DepartamentoEntity entity : departamentos) {
@@ -308,14 +320,18 @@ public class CatalogoService {
     protected List<EscolaridadDTO> listaEscolaridad() {
         List<EscolaridadDTO> listaEscolaridadDTO = new ArrayList<>();
 
-        List<EscolaridadEntity> listaEscolaridadEntity = escolaridadRepository.listaEscolaridades();
+        List<EscolaridadEntity> listaEscolaridadEntity = escolaridadRepository
+                .listaEscolaridades();
 
         if (!listaEscolaridadEntity.isEmpty()) {
             for (EscolaridadEntity escolaridadEntity : listaEscolaridadEntity) {
                 EscolaridadDTO escolaridadDTO = new EscolaridadDTO();
-                escolaridadDTO.setIdEscolaridad(escolaridadEntity.getIdEscolaridad());
-                escolaridadDTO.setEscolaridad(escolaridadEntity.getEscolaridad());
-                escolaridadDTO.setGrupoAcademico(escolaridadEntity.getGrupoAcademico());
+                escolaridadDTO
+                        .setIdEscolaridad(escolaridadEntity.getIdEscolaridad());
+                escolaridadDTO
+                        .setEscolaridad(escolaridadEntity.getEscolaridad());
+                escolaridadDTO.setGrupoAcademico(
+                        escolaridadEntity.getGrupoAcademico());
 
                 listaEscolaridadDTO.add(escolaridadDTO);
             }
@@ -325,14 +341,18 @@ public class CatalogoService {
         return listaEscolaridadDTO;
     }
 
-    protected List<CatalogoDTO> plazasDisponibles(String idNombramiento, Integer idNivel) {
+    protected List<CatalogoDTO> plazasDisponibles(String idNombramiento,
+            Integer idNivel) {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<PlazaEntity> plazas = plazaRepository.plazasDisponiblesPorNombramientoNivel(idNombramiento, idNivel);
+        List<PlazaEntity> plazas = plazaRepository
+                .plazasDisponiblesPorNombramientoNivel(idNombramiento, idNivel);
         if (!plazas.isEmpty()) {
             for (PlazaEntity entity : plazas) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdPlaza());
-                String nombre = "CLAVE: " + entity.getClave() + " PLAZA: " + entity.getNombrePlaza() + " SUELDO MENSUAL: " + entity.getImporteMensual();
+                String nombre = "CLAVE: " + entity.getClave() + " PLAZA: "
+                        + entity.getNombrePlaza() + " SUELDO MENSUAL: "
+                        + entity.getImporteMensual();
                 dto.setNombre(nombre);
                 lista.add(dto);
             }
@@ -342,7 +362,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> nombramientos() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TiposNombramientosEntity> nombramientos = nombramientoRepository.nombramientos();
+        List<TiposNombramientosEntity> nombramientos = nombramientoRepository
+                .nombramientos();
         if (!nombramientos.isEmpty()) {
             for (TiposNombramientosEntity entity : nombramientos) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -354,8 +375,10 @@ public class CatalogoService {
         return lista;
     }
 
-    protected List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(Integer idPadre) {
-        List<TipoMovimientoEmpleadoEntity> movimientos = movimientosAutorizadosRepository.consultaMovimientosPorPadre(idPadre);
+    protected List<CatalogoDTO> consultaMovimientosAutorizadosPorPadre(
+            Integer idPadre) {
+        List<TipoMovimientoEmpleadoEntity> movimientos = movimientosAutorizadosRepository
+                .consultaMovimientosPorPadre(idPadre);
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!movimientos.isEmpty()) {
             for (TipoMovimientoEmpleadoEntity entity : movimientos) {
@@ -370,13 +393,17 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> terceroInstitucional() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TerceroInstitucionalEntity> terceros = terceroInstitucionalRepository.obtenerListaTerceroInstitucional();
+        List<TerceroInstitucionalEntity> terceros = terceroInstitucionalRepository
+                .obtenerListaTerceroInstitucional();
         if (!terceros.isEmpty()) {
             for (TerceroInstitucionalEntity terceroInstitucionalEntity : terceros) {
                 CatalogoDTO dto = new CatalogoDTO();
-                dto.setId(terceroInstitucionalEntity.getIdTerceroInstitucional());
-                dto.setNombre(terceroInstitucionalEntity.getContrapartidaIdentificadora() + " - " + terceroInstitucionalEntity.getConceptoDeduccion() + " - "
-                        + terceroInstitucionalEntity.getNumero());
+                dto.setId(
+                        terceroInstitucionalEntity.getIdTerceroInstitucional());
+                dto.setNombre(terceroInstitucionalEntity
+                        .getContrapartidaIdentificadora() + " - "
+                        + terceroInstitucionalEntity.getConceptoDeduccion()
+                        + " - " + terceroInstitucionalEntity.getNumero());
 
                 lista.add(dto);
             }
@@ -391,7 +418,8 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> obtenerListaRamaPuesto() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<RamaPuestoEntity> listaRama = ramaPuestoRepository.obtenerListaRamaPuesto();
+        List<RamaPuestoEntity> listaRama = ramaPuestoRepository
+                .obtenerListaRamaPuesto();
         if (!listaRama.isEmpty()) {
             for (RamaPuestoEntity ramaPuestoEntity : listaRama) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -404,14 +432,17 @@ public class CatalogoService {
         return lista;
     }
 
-    protected List<CatalogoDTO> consultarTiposDocumentosExpedienteCapturistas(String clasificacion) {
+    protected List<CatalogoDTO> consultarTiposDocumentosExpedienteCapturistas(
+            String clasificacion) {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<ConfiguracionExpedienteEntity> documentos = configuracionExpedienteRepository.consultaDocumentosPorClasificacionExpediente(clasificacion);
+        List<ConfiguracionExpedienteEntity> documentos = configuracionExpedienteRepository
+                .consultaDocumentosPorClasificacionExpediente(clasificacion);
 
         if (!documentos.isEmpty()) {
             for (ConfiguracionExpedienteEntity entity : documentos) {
                 CatalogoDTO dto = new CatalogoDTO();
-                dto.setId(entity.getDocumentoAdjuntable().getIdDocumentoAdjuntable());
+                dto.setId(entity.getDocumentoAdjuntable()
+                        .getIdDocumentoAdjuntable());
                 dto.setNombre(entity.getDocumentoAdjuntable().getDescripcion());
 
                 lista.add(dto);
@@ -422,7 +453,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> listaEscolaridades() {
-        List<EscolaridadEntity> escolaridades = escolaridadRepository.listaEscolaridades();
+        List<EscolaridadEntity> escolaridades = escolaridadRepository
+                .listaEscolaridades();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!escolaridades.isEmpty()) {
             for (EscolaridadEntity entity : escolaridades) {
@@ -437,7 +469,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> listaComprobantesEstudios() {
-        List<ComprobanteEstudioEntity> documentos = comprobanteEstudioRepository.consultarComprobantesEstudios();
+        List<ComprobanteEstudioEntity> documentos = comprobanteEstudioRepository
+                .consultarComprobantesEstudios();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!documentos.isEmpty()) {
             for (ComprobanteEstudioEntity entity : documentos) {
@@ -451,8 +484,10 @@ public class CatalogoService {
 
     }
 
-    protected List<CatalogoDTO> consultatTiposDocumentosPorContexto(int contexto) {
-        List<DocumentoAdjuntableEntity> documentos = documentoAdjuntableRepositoy.consultarDocumentosPorContexto(contexto);
+    protected List<CatalogoDTO> consultatTiposDocumentosPorContexto(
+            int contexto) {
+        List<DocumentoAdjuntableEntity> documentos = documentoAdjuntableRepositoy
+                .consultarDocumentosPorContexto(contexto);
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!documentos.isEmpty()) {
             for (DocumentoAdjuntableEntity entity : documentos) {
@@ -467,7 +502,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> listaNivelEmpleado() {
-        List<NivelEmpleadoEntity> obtenerListaNivelEmpleado = nivelEmpleadoRepository.obtenerListaNivelEmpleado();
+        List<NivelEmpleadoEntity> obtenerListaNivelEmpleado = nivelEmpleadoRepository
+                .obtenerListaNivelEmpleado();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!obtenerListaNivelEmpleado.isEmpty()) {
             for (NivelEmpleadoEntity entity : obtenerListaNivelEmpleado) {
@@ -481,7 +517,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> listaTipoPuesto() {
-        List<TipoPuestoEntity> obtenerListaTipoPuesto = tipoPuestoRepository.obtenerListaTipoTabulador();
+        List<TipoPuestoEntity> obtenerListaTipoPuesto = tipoPuestoRepository
+                .obtenerListaTipoTabulador();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!obtenerListaTipoPuesto.isEmpty()) {
             for (TipoPuestoEntity entity : obtenerListaTipoPuesto) {
@@ -519,7 +556,8 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarCentrosPago() {
-        List<CentroPagoEntity> centros_pago = CentroPagoRepository.consultarCentrosPago();
+        List<CentroPagoEntity> centros_pago = CentroPagoRepository
+                .consultarCentrosPago();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!centros_pago.isEmpty()) {
             for (CentroPagoEntity entity : centros_pago) {
@@ -533,7 +571,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarEstrategias() {
-        List<EstrategiaEntity> estrategias = estrategiaRepository.consultarEstrategias();
+        List<EstrategiaEntity> estrategias = estrategiaRepository
+                .consultarEstrategias();
         List<CatalogoDTO> catalogoDTOs = new ArrayList<>();
 
         if (estrategias != null && !estrategias.isEmpty()) {
@@ -577,7 +616,8 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> obtenerlistaTipoTabulador() {
 
-        List<TipoTabuladorEntity> tabuladores = tipoTabuladorRepository.obtenerListaTipoTabulador();
+        List<TipoTabuladorEntity> tabuladores = tipoTabuladorRepository
+                .obtenerListaTipoTabulador();
 
         List<CatalogoDTO> catalogoDTOs = new ArrayList<>();
 
@@ -600,7 +640,8 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> obtenerListaEjercicioFiscal() {
 
-        List<EjercicioFiscalEntity> ejercicios = ejercicioFiscalRepository.obtenerListaEjercicioFiscal();
+        List<EjercicioFiscalEntity> ejercicios = ejercicioFiscalRepository
+                .obtenerListaEjercicioFiscal();
 
         List<CatalogoDTO> catalogoDTOs = new ArrayList<>();
 
@@ -609,7 +650,8 @@ public class CatalogoService {
                 CatalogoDTO dto = new CatalogoDTO();
 
                 dto.setId(ejercicioFiscalEntity.getIdEjercicioFiscal());
-                dto.setNombre(ejercicioFiscalEntity.getEjercicioFiscal().toString());
+                dto.setNombre(
+                        ejercicioFiscalEntity.getEjercicioFiscal().toString());
                 catalogoDTOs.add(dto);
             }
         }
@@ -624,13 +666,15 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarProyectos() {
-        List<ProyectoTempEntity> proyectos = proyectoRepository.consultarProyectos();
+        List<ProyectoTempEntity> proyectos = proyectoRepository
+                .consultarProyectos();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!proyectos.isEmpty()) {
             for (ProyectoTempEntity entity : proyectos) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdProyecto());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -643,13 +687,15 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarDependencias() {
-        List<DependenciaTempEntity> dependencias = dependenciasRepository.consultarDependencias();
+        List<DependenciaTempEntity> dependencias = dependenciasRepository
+                .consultarDependencias();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!dependencias.isEmpty()) {
             for (DependenciaTempEntity entity : dependencias) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdDependencia());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -661,14 +707,17 @@ public class CatalogoService {
      *
      * @return
      */
-    protected List<CatalogoDTO> consultarUnidadesRepondablesPorDependencia(Integer idDependencia) {
-        List<UnidadResponsableEntity> unidades_responsables = unidadResponsableRepository.consultarUnidadResponsablePorDependencia(idDependencia);
+    protected List<CatalogoDTO> consultarUnidadesRepondablesPorDependencia(
+            Integer idDependencia) {
+        List<UnidadResponsableEntity> unidades_responsables = unidadResponsableRepository
+                .consultarUnidadResponsablePorDependencia(idDependencia);
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!unidades_responsables.isEmpty()) {
             for (UnidadResponsableEntity entity : unidades_responsables) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdUnidadResponsable());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -681,13 +730,15 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarFuentesFinanciamiento() {
-        List<FuenteFinanciamientoEntity> fuentes_financiamientos = fuenteFinanciamientoRepository.consultarFuenteFinanciamiento();
+        List<FuenteFinanciamientoEntity> fuentes_financiamientos = fuenteFinanciamientoRepository
+                .consultarFuenteFinanciamiento();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!fuentes_financiamientos.isEmpty()) {
             for (FuenteFinanciamientoEntity entity : fuentes_financiamientos) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdFuenteFinanciamiento());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -699,7 +750,8 @@ public class CatalogoService {
      *
      * @param idFuenteFinanciamiento
      */
-    protected List<CatalogoDTO> consultarSubfuentesFinanciamientosPorFinanciamiento(Integer idFuenteFinanciamiento) {
+    protected List<CatalogoDTO> consultarSubfuentesFinanciamientosPorFinanciamiento(
+            Integer idFuenteFinanciamiento) {
         List<CatalogoDTO> lista = new ArrayList<>();
         List<SubFuenteFinanciamientoTempEntity> subfuentes_financiamientos_temp = subfuentefinanciamientoRepository
                 .consultarSubfuentesFinanciamientos(idFuenteFinanciamiento);
@@ -707,7 +759,8 @@ public class CatalogoService {
             for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdSubfuenteFinanciamiento());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -719,7 +772,8 @@ public class CatalogoService {
      *
      * @param idFuenteFinanciamiento
      */
-    protected List<CatalogoDTO> consultarSubfuentesFinanciamientos(Integer idFuenteFinanciamiento) {
+    protected List<CatalogoDTO> consultarSubfuentesFinanciamientos(
+            Integer idFuenteFinanciamiento) {
         List<CatalogoDTO> lista = new ArrayList<>();
         List<SubFuenteFinanciamientoTempEntity> subfuentes_financiamientos_temp = subfuentefinanciamientoRepository
                 .consultarSubfuentesFinanciamientos(idFuenteFinanciamiento);
@@ -727,7 +781,8 @@ public class CatalogoService {
             for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdSubfuenteFinanciamiento());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -741,12 +796,14 @@ public class CatalogoService {
      */
     protected List<CatalogoDTO> consultarSubfuentes() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<SubFuenteFinanciamientoTempEntity> subfuentes_financiamientos_temp = subfuentefinanciamientoRepository.consultarSubfuentes();
+        List<SubFuenteFinanciamientoTempEntity> subfuentes_financiamientos_temp = subfuentefinanciamientoRepository
+                .consultarSubfuentes();
         if (!subfuentes_financiamientos_temp.isEmpty()) {
             for (SubFuenteFinanciamientoTempEntity entity : subfuentes_financiamientos_temp) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdSubfuenteFinanciamiento());
-                dto.setNombre(entity.getIdBase36() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getIdBase36() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -759,7 +816,8 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarTiposRecursos() {
-        List<TipoRecursoTempEntity> tipos_recursos_temp = tipoRecursoTempRepository.consultarTipoRecurso();
+        List<TipoRecursoTempEntity> tipos_recursos_temp = tipoRecursoTempRepository
+                .consultarTipoRecurso();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!tipos_recursos_temp.isEmpty()) {
             for (TipoRecursoTempEntity entity : tipos_recursos_temp) {
@@ -787,7 +845,8 @@ public class CatalogoService {
         return lista;
     }
 
-    protected List<CatalogoDTO> consultarNombramientosPorContratacion(Integer tipoContratacion) {
+    protected List<CatalogoDTO> consultarNombramientosPorContratacion(
+            Integer tipoContratacion) {
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (tipoContratacion == EnumTipoContratacion.FORMALIZADOS) {
@@ -816,7 +875,8 @@ public class CatalogoService {
             rs.setId(4);
             rs.setNombre("REGULARIZADO SEGURO POPULAR");
             lista.add(rs);
-        } else if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
+        } else if (tipoContratacion == EnumTipoContratacion.BASE
+                || tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
 
             CatalogoDTO bh = new CatalogoDTO();
             bh.setId(2);
@@ -834,13 +894,15 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarCuentasBancariasActuales() {
-        List<CuentasBancariasEntity> cuentas = cuentaBancariaRepository.cuentasBancariasEjercicioActual();
+        List<CuentasBancariasEntity> cuentas = cuentaBancariaRepository
+                .cuentasBancariasEjercicioActual();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!cuentas.isEmpty()) {
             for (CuentasBancariasEntity entity : cuentas) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdCuentaBancaria());
-                dto.setNombre(entity.getDescripcion() + "-" + entity.getNumeroCuenta());
+                dto.setNombre(entity.getDescripcion() + "-"
+                        + entity.getNumeroCuenta());
                 lista.add(dto);
             }
         }
@@ -849,7 +911,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarProgramas() {
-        List<ProgramaEntity> programas = programaRepository.consultarProgramas();
+        List<ProgramaEntity> programas = programaRepository
+                .consultarProgramas();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!programas.isEmpty()) {
             for (ProgramaEntity entity : programas) {
@@ -865,7 +928,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarPerfilesVoluntarios() {
-        List<PerfilesVoluntariosEntity> perfiles = perfilesVoluntariosRepository.consultarVoluntarios();
+        List<PerfilesVoluntariosEntity> perfiles = perfilesVoluntariosRepository
+                .consultarVoluntarios();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!perfiles.isEmpty()) {
             for (PerfilesVoluntariosEntity entity : perfiles) {
@@ -881,7 +945,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaProfesion() {
 
-        List<ProfesionEntity> listaProfesion = profesionRepository.obtenerListaProfesion();
+        List<ProfesionEntity> listaProfesion = profesionRepository
+                .obtenerListaProfesion();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaProfesion.isEmpty()) {
             for (ProfesionEntity entity : listaProfesion) {
@@ -893,7 +958,8 @@ public class CatalogoService {
 
             // Agregando un catalogo
             CatalogoDTO catalogoDTO = new CatalogoDTO();
-            catalogoDTO.setId(listaProfesion.get(listaProfesion.size() - 1).getIdProfesion() + 1);
+            catalogoDTO.setId(listaProfesion.get(listaProfesion.size() - 1)
+                    .getIdProfesion() + 1);
             catalogoDTO.setNombre("TODAS LAS PROFESIONES");
             lista.add(catalogoDTO);
         }
@@ -902,7 +968,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaEspecialidad() {
 
-        List<EspecialidadEntity> listaEspecialidad = especialidadRepository.obtenerListaEspecialidad();
+        List<EspecialidadEntity> listaEspecialidad = especialidadRepository
+                .obtenerListaEspecialidad();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaEspecialidad.isEmpty()) {
             for (EspecialidadEntity entity : listaEspecialidad) {
@@ -913,7 +980,8 @@ public class CatalogoService {
             }
             // Agregando un catalogo mas
             CatalogoDTO catalogoDTO = new CatalogoDTO();
-            catalogoDTO.setId(listaEspecialidad.get(listaEspecialidad.size() - 1).getIdEspecialidad() + 1);
+            catalogoDTO.setId(listaEspecialidad
+                    .get(listaEspecialidad.size() - 1).getIdEspecialidad() + 1);
             catalogoDTO.setNombre("TODAS LAS ESPECIALIDADES");
             lista.add(catalogoDTO);
         }
@@ -921,7 +989,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarOperacionesSistema() {
-        List<OperacionSistemaEntity> autorizacion = accionAutorizacionRepository.consultarOperaciones();
+        List<OperacionSistemaEntity> autorizacion = accionAutorizacionRepository
+                .consultarOperaciones();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!autorizacion.isEmpty()) {
             for (OperacionSistemaEntity entity : autorizacion) {
@@ -935,13 +1004,15 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarDetallesPrograma(Integer idPrograma) {
-        List<DetalleProgramaEntity> autorizacion = detalleProgramaRepository.consultarDetallesPrograma(idPrograma);
+        List<DetalleProgramaEntity> autorizacion = detalleProgramaRepository
+                .consultarDetallesPrograma(idPrograma);
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!autorizacion.isEmpty()) {
             for (DetalleProgramaEntity entity : autorizacion) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getId());
-                dto.setNombre(entity.getClave() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getClave() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -954,7 +1025,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarTiposJornadas() {
-        List<TiposDuracionJornadaEntity> listaJornadas = tiposJornadasRepository.consultarTiposJornadas();
+        List<TiposDuracionJornadaEntity> listaJornadas = tiposJornadasRepository
+                .consultarTiposJornadas();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaJornadas.isEmpty()) {
             for (TiposDuracionJornadaEntity entity : listaJornadas) {
@@ -970,7 +1042,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarAdscripciones() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<AdscripcionEntity> areas = adscripcionRepository.consultarAdscripciones();
+        List<AdscripcionEntity> areas = adscripcionRepository
+                .consultarAdscripciones();
         if (!areas.isEmpty()) {
             for (AdscripcionEntity entity : areas) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -984,7 +1057,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarSubadscripciones() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<SubadscripcionEntity> areas = subadscripcionRepository.consultarAreasAdscripcion();
+        List<SubadscripcionEntity> areas = subadscripcionRepository
+                .consultarAreasAdscripcion();
         if (!areas.isEmpty()) {
             for (SubadscripcionEntity entity : areas) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -998,7 +1072,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> listaTiposJornadas() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TiposDuracionJornadaEntity> areas = tipoJornadaRepository.consultarTiposJornadas();
+        List<TiposDuracionJornadaEntity> areas = tipoJornadaRepository
+                .consultarTiposJornadas();
         if (!areas.isEmpty()) {
             for (TiposDuracionJornadaEntity entity : areas) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1025,7 +1100,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> obtenerListaProcesoJuridico() {
-        List<ProcesoJuridicosEntity> proceso = procesosJuridicosRepository.obternerListaProceso();
+        List<ProcesoJuridicosEntity> proceso = procesosJuridicosRepository
+                .obternerListaProceso();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!proceso.isEmpty()) {
             for (ProcesoJuridicosEntity entity : proceso) {
@@ -1039,7 +1115,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> consultarServicios() {
-        List<ServicioEntity> servicios = servicioRepository.consultarActividades();
+        List<ServicioEntity> servicios = servicioRepository
+                .consultarActividades();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!servicios.isEmpty()) {
             for (ServicioEntity entity : servicios) {
@@ -1067,7 +1144,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> obtenerTipoNombramiento() {
-        List<ClasificacionNombramientoEntity> clasificaciones = clasificacionNombramientoRepository.listaClasificacionNombramiento();
+        List<ClasificacionNombramientoEntity> clasificaciones = clasificacionNombramientoRepository
+                .listaClasificacionNombramiento();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!clasificaciones.isEmpty()) {
             for (ClasificacionNombramientoEntity entity : clasificaciones) {
@@ -1086,7 +1164,8 @@ public class CatalogoService {
      * @return
      */
     protected List<CatalogoDTO> consultarUnidadesResponsables() {
-        List<UnidadResponsableEntity> unidades_responsables = unidadResponsableRepository.consultarUnidadesResponsables();
+        List<UnidadResponsableEntity> unidades_responsables = unidadResponsableRepository
+                .consultarUnidadesResponsables();
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!unidades_responsables.isEmpty()) {
             for (UnidadResponsableEntity entity : unidades_responsables) {
@@ -1100,7 +1179,8 @@ public class CatalogoService {
     }
 
     protected List<CatalogoDTO> obtenerListaSubClasificacionTabulador() {
-        List<SubclasificacionTabuladorEntity> listaSub = subClasificacionTabuladorRepository.obtenerListaSubClasificaionTabulador();
+        List<SubclasificacionTabuladorEntity> listaSub = subClasificacionTabuladorRepository
+                .obtenerListaSubClasificaionTabulador();
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaSub.isEmpty()) {
@@ -1116,7 +1196,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaCausaBajaIssste() {
 
-        List<CausaBajaIsssteEntity> listaCausa = causaBajaIsssteRepository.listaCausaBajaIssste();
+        List<CausaBajaIsssteEntity> listaCausa = causaBajaIsssteRepository
+                .listaCausaBajaIssste();
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaCausa.isEmpty()) {
@@ -1133,7 +1214,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaTipoNombramiento() {
 
-        List<TiposNombramientosEntity> listaTipo = tiposNombramientosRepository.nombramientos();
+        List<TiposNombramientosEntity> listaTipo = tiposNombramientosRepository
+                .nombramientos();
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaTipo.isEmpty()) {
@@ -1150,7 +1232,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaNivelSalarial() {
 
-        List<NivelSalarialEntity> listaNivelSalarial = nivelSalarialRepository.listaNivelSalarial();
+        List<NivelSalarialEntity> listaNivelSalarial = nivelSalarialRepository
+                .listaNivelSalarial();
 
         List<CatalogoDTO> lista = new ArrayList<>();
         if (!listaNivelSalarial.isEmpty()) {
@@ -1171,7 +1254,9 @@ public class CatalogoService {
             for (CluesEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdClues());
-                dto.setNombre("CLUE: " + entity.getClues() + " TIPOLOGIA: " + entity.getNombreTipologia() + "-NOMBRRE UNIDAD: " + entity.getNombreUnidad());
+                dto.setNombre("CLUE: " + entity.getClues() + " TIPOLOGIA: "
+                        + entity.getNombreTipologia() + "-NOMBRRE UNIDAD: "
+                        + entity.getNombreUnidad());
                 lista.add(dto);
             }
         }
@@ -1182,7 +1267,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarTiposSuplencias() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TipoSuplenciaEntity> consulta = tiposSuplenciasRepository.consultarTiposSuplencias();
+        List<TipoSuplenciaEntity> consulta = tiposSuplenciasRepository
+                .consultarTiposSuplencias();
         if (!consulta.isEmpty()) {
             for (TipoSuplenciaEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1196,7 +1282,9 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarTabuladorSuplencias() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TabuladorEntity> consulta = tabuladorRepository.consultarTabuladoresPorTipo(EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE);
+        List<TabuladorEntity> consulta = tabuladorRepository
+                .consultarTabuladoresPorTipo(
+                        EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE);
         if (!consulta.isEmpty()) {
             for (TabuladorEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1210,12 +1298,14 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarCentrosResponsabilidad() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<CentroResponsabilidadEntity> consulta = centroResponsabilidadRepository.consultarTodos();
+        List<CentroResponsabilidadEntity> consulta = centroResponsabilidadRepository
+                .consultarTodos();
         if (!consulta.isEmpty()) {
             for (CentroResponsabilidadEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
                 dto.setId(entity.getIdCentroResponsabilidad());
-                dto.setNombre(entity.getClave() + "-" + entity.getDescripcion());
+                dto.setNombre(
+                        entity.getClave() + "-" + entity.getDescripcion());
                 lista.add(dto);
             }
         }
@@ -1224,7 +1314,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarTiposJornadasSuplencias() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TipoJornadaSuplenciaEntity> consulta = tipoJornadaSuplenciaRepository.consultarTodos();
+        List<TipoJornadaSuplenciaEntity> consulta = tipoJornadaSuplenciaRepository
+                .consultarTodos();
         if (!consulta.isEmpty()) {
             for (TipoJornadaSuplenciaEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1238,7 +1329,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> obtenerListaTipoMovimientoEmpleado() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<TipoMovimientoEmpleadoEntity> consulta = movimientosAutorizadosRepository.consultaMovimientos();
+        List<TipoMovimientoEmpleadoEntity> consulta = movimientosAutorizadosRepository
+                .consultaMovimientos();
         if (!consulta.isEmpty()) {
             for (TipoMovimientoEmpleadoEntity entity : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1252,7 +1344,8 @@ public class CatalogoService {
 
     protected List<CatalogoDTO> consultarRiesgos() {
         List<CatalogoDTO> lista = new ArrayList<>();
-        List<RiesgoPuestoEntity> consulta = riesgoPuestoRepository.consultarTodos();
+        List<RiesgoPuestoEntity> consulta = riesgoPuestoRepository
+                .consultarTodos();
         if (!consulta.isEmpty()) {
             for (RiesgoPuestoEntity r : consulta) {
                 CatalogoDTO dto = new CatalogoDTO();
@@ -1281,7 +1374,8 @@ public class CatalogoService {
     }
 
     protected CatalogoDTO obtenerAdscripcionPorId(Integer idAdscripcion) {
-        AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(idAdscripcion);
+        AdscripcionEntity adscripcion = adscripcionRepository
+                .obtenerPorId(idAdscripcion);
 
         CatalogoDTO dto = new CatalogoDTO();
         if (adscripcion != null) {

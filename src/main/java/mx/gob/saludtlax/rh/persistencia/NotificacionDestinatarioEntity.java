@@ -57,7 +57,8 @@ public class NotificacionDestinatarioEntity implements Serializable {
         return idNotificacionDestinatario;
     }
 
-    public void setIdNotificacionDestinatario(Integer idNotificacionDestinatario) {
+    public void setIdNotificacionDestinatario(
+            Integer idNotificacionDestinatario) {
         this.idNotificacionDestinatario = idNotificacionDestinatario;
     }
 

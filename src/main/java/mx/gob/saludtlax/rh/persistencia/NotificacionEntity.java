@@ -76,7 +76,8 @@ public class NotificacionEntity implements Serializable {
         this.idNotificacion = idNotificacion;
     }
 
-    public NotificacionEntity(Integer idNotificacion, Date fechaPublicacion, Date horaPublicacion, Modulo modulo) {
+    public NotificacionEntity(Integer idNotificacion, Date fechaPublicacion,
+            Date horaPublicacion, Modulo modulo) {
         this.idNotificacion = idNotificacion;
         this.fechaPublicacion = fechaPublicacion;
         this.horaPublicacion = horaPublicacion;
@@ -143,7 +144,8 @@ public class NotificacionEntity implements Serializable {
         return destinatarios;
     }
 
-    public void setDestinatarios(Collection<NotificacionDestinatarioEntity> destinatarios) {
+    public void setDestinatarios(
+            Collection<NotificacionDestinatarioEntity> destinatarios) {
         this.destinatarios = destinatarios;
     }
 
@@ -151,7 +153,8 @@ public class NotificacionEntity implements Serializable {
         return parametros;
     }
 
-    public void setParametros(Collection<NotificacionParametroEntity> parametros) {
+    public void setParametros(
+            Collection<NotificacionParametroEntity> parametros) {
         this.parametros = parametros;
     }
 

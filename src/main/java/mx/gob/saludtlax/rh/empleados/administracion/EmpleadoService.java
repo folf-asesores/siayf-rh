@@ -48,22 +48,30 @@ public class EmpleadoService {
     private MunicipioRepository municipioRepository;
 
     @Interceptors({ ActualizarDomicilioValidator.class })
-    public void actualizarDomicilio(Integer idEmpleado, Integer idUsuario, DomicilioDTO domicilioDTO) {
+    public void actualizarDomicilio(Integer idEmpleado, Integer idUsuario,
+            DomicilioDTO domicilioDTO) {
 
         // Valida datos los para la bitacora
-        if (ValidacionUtil.esCadenaVacia(domicilioDTO.getComentarioMovimiento()) | ValidacionUtil.esNumeroPositivo(domicilioDTO.getIdUsuarioEnSesion())) {
+        if (ValidacionUtil.esCadenaVacia(domicilioDTO.getComentarioMovimiento())
+                | ValidacionUtil.esNumeroPositivo(
+                        domicilioDTO.getIdUsuarioEnSesion())) {
 
-            bitacoraModificacionService.registrarBitacoraModificacionDomicilio(domicilioDTO, idEmpleado);
+            bitacoraModificacionService.registrarBitacoraModificacionDomicilio(
+                    domicilioDTO, idEmpleado);
         }
 
         // String contexto = "Actualización domicilio: ";
         EmpleadoEntity empleado = validarEmpleado(idEmpleado);
-        DireccionEntity direccion = direccionRepository.consultarDireccionEmpleadoPorId(idEmpleado);
+        DireccionEntity direccion = direccionRepository
+                .consultarDireccionEmpleadoPorId(idEmpleado);
         String direccionCompleta = "";
-        EstadoEntity estado = estadoRepository.estadoPorId(domicilioDTO.getIdEstado());
-        MunicipiosEntity municipio = municipioRepository.obtenerPorId(domicilioDTO.getIdMunicipio());
+        EstadoEntity estado = estadoRepository
+                .estadoPorId(domicilioDTO.getIdEstado());
+        MunicipiosEntity municipio = municipioRepository
+                .obtenerPorId(domicilioDTO.getIdMunicipio());
 
-        AsentamientoEntity asentamiento = asentamientoRepository.obtenerPorId(domicilioDTO.getIdAsentamiento());
+        AsentamientoEntity asentamiento = asentamientoRepository
+                .obtenerPorId(domicilioDTO.getIdAsentamiento());
         if (direccion == null) {
 
             DireccionEntity direccionEntity = new DireccionEntity();
@@ -105,17 +113,23 @@ public class EmpleadoService {
          */
     }
 
-    public void actualizarDatosGenerales(Integer idUsuario, DatosGeneralesDTO datosGeneralesDTO) {
+    public void actualizarDatosGenerales(Integer idUsuario,
+            DatosGeneralesDTO datosGeneralesDTO) {
 
         // Valida datos los para la bitacora
-        if (ValidacionUtil.esCadenaVacia(datosGeneralesDTO.getComentarioMovimiento())
-                | ValidacionUtil.esNumeroPositivo(datosGeneralesDTO.getIdUsuarioEnSesion())) {
+        if (ValidacionUtil
+                .esCadenaVacia(datosGeneralesDTO.getComentarioMovimiento())
+                | ValidacionUtil.esNumeroPositivo(
+                        datosGeneralesDTO.getIdUsuarioEnSesion())) {
 
-            bitacoraModificacionService.registrarBitacoraModificacionDatoGeneral(datosGeneralesDTO);
+            bitacoraModificacionService
+                    .registrarBitacoraModificacionDatoGeneral(
+                            datosGeneralesDTO);
 
         }
 
-        EmpleadoEntity empleado = validarEmpleado(datosGeneralesDTO.getIdEmpleado());
+        EmpleadoEntity empleado = validarEmpleado(
+                datosGeneralesDTO.getIdEmpleado());
         /*
          * RegistrarMovimientoDTO dto = new RegistrarMovimientoDTO();
          * dto.setComentarios("ACTUALIZACION PORTAL");
@@ -127,12 +141,14 @@ public class EmpleadoService {
          * bitacoraMovimientoService.registrarBitacoraMovimiento(dto);
          */
 
-        if (empleado.getRfc().compareTo(datosGeneralesDTO.getRfc().trim()) != 0) {
+        if (empleado.getRfc()
+                .compareTo(datosGeneralesDTO.getRfc().trim()) != 0) {
             validarRfcEmpleado(datosGeneralesDTO.getRfc());
             empleado.setRfc(datosGeneralesDTO.getRfc());
         }
 
-        if (empleado.getCurp().compareToIgnoreCase(datosGeneralesDTO.getCurp().trim()) != 0) {
+        if (empleado.getCurp()
+                .compareToIgnoreCase(datosGeneralesDTO.getCurp().trim()) != 0) {
             validarCurpEmpleado(datosGeneralesDTO.getCurp());
             empleado.setCurp(datosGeneralesDTO.getCurp());
         }
@@ -149,7 +165,8 @@ public class EmpleadoService {
         empleado.setTipoSangre(datosGeneralesDTO.getIdTipoSangre());
         empleado.setPeso(datosGeneralesDTO.getPeso());
         empleado.setEstatura(datosGeneralesDTO.getEstatura());
-        empleado.setTienePersonasDependientes(datosGeneralesDTO.getTienePersonasDependientes());
+        empleado.setTienePersonasDependientes(
+                datosGeneralesDTO.getTienePersonasDependientes());
         empleado.setNumeroHijos(datosGeneralesDTO.getNumeroHijos());
         empleado.setNumeroPadres(datosGeneralesDTO.getNumeroPadres());
         empleado.setNumeroConyuges(datosGeneralesDTO.getNumeroConyuges());
@@ -168,11 +185,14 @@ public class EmpleadoService {
             throw new BusinessException("Por favor envie una curp.");
         }
         if (!curp.matches("[A-Z]{4}[0-9]{6}[H,M][A-Z]{5}[0-9]{2}")) {
-            throw new BusinessException("El formato de la curp  es invalido, por favor ingrese una curp valida.");
+            throw new BusinessException(
+                    "El formato de la curp  es invalido, por favor ingrese una curp valida.");
         }
 
-        if (empleadoRepository.existeEmpleadoConCurp(curp.trim().toUpperCase())) {
-            throw new BusinessException("La curp que ha ingresado ya ha sido asignada, ingrese una nueva.");
+        if (empleadoRepository
+                .existeEmpleadoConCurp(curp.trim().toUpperCase())) {
+            throw new BusinessException(
+                    "La curp que ha ingresado ya ha sido asignada, ingrese una nueva.");
         }
 
     }
@@ -181,11 +201,14 @@ public class EmpleadoService {
         String contexto = "Actualizacion datos: ";
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            throw new BusinessException(contexto + "El empleado con identificador " + idEmpleado + " no esta registrado en el sistema");
+            throw new BusinessException(
+                    contexto + "El empleado con identificador " + idEmpleado
+                            + " no esta registrado en el sistema");
         }
 
         if (empleado.getIdEstatus().equals("INACTIVO")) {
-            throw new BusinessException(contexto + " El empleado no esta activo.");
+            throw new BusinessException(
+                    contexto + " El empleado no esta activo.");
         }
 
         return empleado;
@@ -193,7 +216,9 @@ public class EmpleadoService {
 
     protected String obtenerCurpEmpleado(Integer idEmpleado) {
         if (!ValidacionUtil.esNumeroPositivo(idEmpleado)) {
-            throw new ValidacionException("obtenerCurpEmpleado: El identificador del empleado es requerido.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "obtenerCurpEmpleado: El identificador del empleado es requerido.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
         return empleadoRepository.obtenerCurpEmpleado(idEmpleado);
     }
@@ -201,16 +226,19 @@ public class EmpleadoService {
     protected void validarRfcEmpleado(String rfc) {
         String contexto = "validarRfcEmpleado: ";
         if (ValidacionUtil.esCadenaVacia(rfc)) {
-            throw new ValidacionException(contexto + "Por favor envie un rfc.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Por favor envie un rfc.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.validarRfc(rfc)) {
-            throw new ValidacionException(contexto + "El formato del rfc  es invalido, por favor ingrese el rfc valida.",
+            throw new ValidacionException(contexto
+                    + "El formato del rfc  es invalido, por favor ingrese el rfc valida.",
                     ValidacionCodigoError.FORMATO_INVALIDO);
         }
 
         if (empleadoRepository.existeEmpleadoConRfc(rfc.trim().toUpperCase())) {
-            throw new ReglaNegocioException(contexto + "El rfc que ha ingresado ya ha sido asignada, ingrese una nueva.",
+            throw new ReglaNegocioException(contexto
+                    + "El rfc que ha ingresado ya ha sido asignada, ingrese una nueva.",
                     ReglaNegocioCodigoError.RFC_REGISTRADO);
         }
     }
@@ -218,17 +246,23 @@ public class EmpleadoService {
     protected String obtenerRfcEmpleado(Integer idEmpleado) {
 
         if (!ValidacionUtil.esNumeroPositivo(idEmpleado)) {
-            throw new ValidacionException("obtenerRfcEmpleado: El identificador del empleado es requerido.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "obtenerRfcEmpleado: El identificador del empleado es requerido.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         return empleadoRepository.obtenerRfcEmpleado(idEmpleado);
     }
 
-    protected ValidacionEmpleadoDTO validarDatosObligatorios(Integer idEmpleado) {
+    protected ValidacionEmpleadoDTO validarDatosObligatorios(
+            Integer idEmpleado) {
         ValidacionEmpleadoDTO validacion = new ValidacionEmpleadoDTO();
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            throw new ReglaNegocioException("El empleado con identificador " + idEmpleado + "no está registrado", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "El empleado con identificador " + idEmpleado
+                            + "no está registrado",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
         validacion.setEsValido(true);
         validacion.setMensaje("");
@@ -265,7 +299,8 @@ public class EmpleadoService {
             validacion.setEsValido(false);
             campos = campos + "domicilio, ";
         }
-        if (!historialAcademicoRepository.tieneHistorialAcademicoEmpleado(empleado.getIdEmpleado())) {
+        if (!historialAcademicoRepository
+                .tieneHistorialAcademicoEmpleado(empleado.getIdEmpleado())) {
             validacion.setEsValido(false);
             campos = campos + "historial academico, ";
         }

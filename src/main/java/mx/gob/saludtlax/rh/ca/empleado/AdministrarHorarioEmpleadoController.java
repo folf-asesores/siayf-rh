@@ -59,24 +59,38 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
             horarioEmpleadoFormModel = new HorarioEmpleadoFormModel();
 
             try {
-                ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+                ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                        .getServicioActivo(
+                                ServicioWebEnum.CONTROL_ASISTENCIA_RS);
                 if (!servicioRSEntity.isProduccion()) {
-                    HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                    HttpServletRequest req = (HttpServletRequest) FacesContext
+                            .getCurrentInstance().getExternalContext()
+                            .getRequest();
                     String url = req.getContextPath().toString();
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                            "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_WARN,
+                            "Servicio en Modo Prueba",
+                            "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                    + url
                                     + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                    FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                    FacesContext.getCurrentInstance().addMessage(null,
+                            facesMessage);
 
                 }
                 listadoJornada = jornadaClienteRest.listadoJornada();
 
             } catch (ServicioWebException e1) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                        e1.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             } catch (RESTClientException e) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                        e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
         }
 
@@ -99,7 +113,8 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
     }
 
     public void onItemSelect(SelectEvent event) {
-        horarioEmpleadoFormModel.setIdEmpleado(new Integer(event.getObject().toString()));
+        horarioEmpleadoFormModel
+                .setIdEmpleado(new Integer(event.getObject().toString()));
 
         try {
             llenarTablaJornada();
@@ -111,15 +126,20 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
     public void nuevaJornadaEmpleado() {
 
         if (horarioEmpleadoFormModel.getIdEmpleado() == null) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregar Jornada", "Debes Selecionar primero a un empleado");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Agregar Jornada",
+                    "Debes Selecionar primero a un empleado");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return;
         }
         if (horarioEmpleadoFormModel.getIdEmpleado() != 0) {
 
-            RequestContext.getCurrentInstance().execute("PF('dlgNuevoHorario').show()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgNuevoHorario').show()");
         } else {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregar Jornada", "Debes Selecionar primero a un empleado");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Agregar Jornada",
+                    "Debes Selecionar primero a un empleado");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -127,18 +147,23 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
 
     private void llenarTablaJornada() throws RESTClientException {
 
-        listadoHorarioEmpleadoViewModel = empleadoClienteRest.buscarHorarioPorEmpleado(horarioEmpleadoFormModel.getIdEmpleado());
+        listadoHorarioEmpleadoViewModel = empleadoClienteRest
+                .buscarHorarioPorEmpleado(
+                        horarioEmpleadoFormModel.getIdEmpleado());
 
     }
 
     public void eliminarJornada(HorarioEmpleadoViewModel horarioEmpleado) {
         try {
 
-            empleadoClienteRest.eliminarJornadaEmpleado(horarioEmpleado.getIdHorarioEmpleado());
+            empleadoClienteRest.eliminarJornadaEmpleado(
+                    horarioEmpleado.getIdHorarioEmpleado());
             llenarTablaJornada();
         } catch (RESTClientException e) {
 
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregar Jornada", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Agregar Jornada",
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -147,13 +172,17 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
     public void guardarJordana() {
 
         try {
-            empleadoClienteRest.agregarHorarioEmpleado(horarioEmpleadoFormModel);
+            empleadoClienteRest
+                    .agregarHorarioEmpleado(horarioEmpleadoFormModel);
 
             llenarTablaJornada();
 
-            RequestContext.getCurrentInstance().execute("PF('dlgNuevoHorario').hide()");
+            RequestContext.getCurrentInstance()
+                    .execute("PF('dlgNuevoHorario').hide()");
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Agregar Jornada", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Agregar Jornada",
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -170,7 +199,8 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
         return horarioEmpleadoFormModel;
     }
 
-    public void setHorarioEmpleadoFormModel(HorarioEmpleadoFormModel horarioEmpleadoFormModel) {
+    public void setHorarioEmpleadoFormModel(
+            HorarioEmpleadoFormModel horarioEmpleadoFormModel) {
         this.horarioEmpleadoFormModel = horarioEmpleadoFormModel;
     }
 
@@ -178,7 +208,8 @@ public class AdministrarHorarioEmpleadoController implements Serializable {
         return listadoHorarioEmpleadoViewModel;
     }
 
-    public void setListadoHorarioEmpleadoViewModel(List<HorarioEmpleadoViewModel> listadoHorarioEmpleadoViewModel) {
+    public void setListadoHorarioEmpleadoViewModel(
+            List<HorarioEmpleadoViewModel> listadoHorarioEmpleadoViewModel) {
         this.listadoHorarioEmpleadoViewModel = listadoHorarioEmpleadoViewModel;
     }
 

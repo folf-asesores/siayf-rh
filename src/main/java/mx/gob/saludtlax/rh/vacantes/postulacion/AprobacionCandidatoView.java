@@ -36,7 +36,8 @@ public class AprobacionCandidatoView {
         return candidatoSeleccionado;
     }
 
-    public void setCandidatoSeleccionado(InfoCandidatoDTO candidatoSeleccionado) {
+    public void setCandidatoSeleccionado(
+            InfoCandidatoDTO candidatoSeleccionado) {
         this.candidatoSeleccionado = candidatoSeleccionado;
     }
 
@@ -44,7 +45,8 @@ public class AprobacionCandidatoView {
         return mostrarDetalleSeleccionado;
     }
 
-    public void setMostrarDetalleSeleccionado(boolean mostrarDetalleSeleccionado) {
+    public void setMostrarDetalleSeleccionado(
+            boolean mostrarDetalleSeleccionado) {
         this.mostrarDetalleSeleccionado = mostrarDetalleSeleccionado;
     }
 
@@ -52,7 +54,8 @@ public class AprobacionCandidatoView {
         return mostrarPostulacionesDisponibles;
     }
 
-    public void setMostrarPostulacionesDisponibles(boolean mostrarPostulacionesDisponibles) {
+    public void setMostrarPostulacionesDisponibles(
+            boolean mostrarPostulacionesDisponibles) {
         this.mostrarPostulacionesDisponibles = mostrarPostulacionesDisponibles;
     }
 
@@ -60,7 +63,8 @@ public class AprobacionCandidatoView {
         return postulacionSeleccionada;
     }
 
-    public void setPostulacionSeleccionada(InfoPostulacionDTO postulacionSeleccionada) {
+    public void setPostulacionSeleccionada(
+            InfoPostulacionDTO postulacionSeleccionada) {
         this.postulacionSeleccionada = postulacionSeleccionada;
     }
 
@@ -68,7 +72,8 @@ public class AprobacionCandidatoView {
         return postulacionesDisponibles;
     }
 
-    public void setPostulacionesDisponibles(List<InfoPostulacionDTO> postulacionesDisponibles) {
+    public void setPostulacionesDisponibles(
+            List<InfoPostulacionDTO> postulacionesDisponibles) {
         this.postulacionesDisponibles = postulacionesDisponibles;
     }
 
@@ -76,7 +81,8 @@ public class AprobacionCandidatoView {
         return candidatosPostulados;
     }
 
-    public void setCandidatosPostulados(List<InfoCandidatoDTO> candidatosPostulados) {
+    public void setCandidatosPostulados(
+            List<InfoCandidatoDTO> candidatosPostulados) {
         this.candidatosPostulados = candidatosPostulados;
     }
 
@@ -84,7 +90,8 @@ public class AprobacionCandidatoView {
         return mostrarCandidatosPostulados;
     }
 
-    public void setMostrarCandidatosPostulados(boolean mostrarCandidatosPostulados) {
+    public void setMostrarCandidatosPostulados(
+            boolean mostrarCandidatosPostulados) {
         this.mostrarCandidatosPostulados = mostrarCandidatosPostulados;
     }
 

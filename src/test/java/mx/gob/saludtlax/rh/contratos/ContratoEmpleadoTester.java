@@ -39,7 +39,7 @@ import mx.gob.saludtlax.rh.util.NumeroALetra;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 
 /**
- * @author eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @RunWith(Arquillian.class)

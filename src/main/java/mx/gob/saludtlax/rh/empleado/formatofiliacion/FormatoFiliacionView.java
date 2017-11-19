@@ -13,7 +13,7 @@ import javax.faces.model.SelectItem;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class FormatoFiliacionView implements Serializable {
@@ -58,7 +58,8 @@ public class FormatoFiliacionView implements Serializable {
         return formatoFiliacionDTO;
     }
 
-    public void setFormatoFiliacionDTO(FormatoFiliacionDTO formatoFiliacionDTO) {
+    public void setFormatoFiliacionDTO(
+            FormatoFiliacionDTO formatoFiliacionDTO) {
         this.formatoFiliacionDTO = formatoFiliacionDTO;
     }
 
@@ -233,7 +234,8 @@ public class FormatoFiliacionView implements Serializable {
      * @param mostrarReporteNuevaVentana
      *            the mostrarReporteNuevaVentana to set
      */
-    public void setMostrarReporteNuevaVentana(boolean mostrarReporteNuevaVentana) {
+    public void setMostrarReporteNuevaVentana(
+            boolean mostrarReporteNuevaVentana) {
         this.mostrarReporteNuevaVentana = mostrarReporteNuevaVentana;
     }
 

@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -46,8 +46,10 @@ public class CalendarioGlobalEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "CalendarioGlobalEntity [idCalendarioGlobal=" + idCalendarioGlobal + ", partida8000=" + partida8000 + ", partida1000=" + partida1000
-                + ", concepto=" + concepto + ", importeAnual=" + importeAnual + "]";
+        return "CalendarioGlobalEntity [idCalendarioGlobal="
+                + idCalendarioGlobal + ", partida8000=" + partida8000
+                + ", partida1000=" + partida1000 + ", concepto=" + concepto
+                + ", importeAnual=" + importeAnual + "]";
     }
 
     public Integer getIdCalendarioGlobal() {

@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13/06/2016 13:55:03
  */
@@ -40,8 +40,6 @@ public class RamaPuestoEntity implements Serializable {
 
     @Column(name = "nombre_rama_puesto")
     private String nombreRamaPuesto;
-
-    
 
     /**
      * @return the nombreRamaPuesto

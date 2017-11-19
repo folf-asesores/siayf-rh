@@ -9,7 +9,8 @@ package mx.gob.saludtlax.rh.persistencia;
  *
  * @since 24/11/2016 22:24:53
  */
-public class VoluntariosPadronRepository extends GenericRepository<VoluntarioTemporalEntity, Integer> {
+public class VoluntariosPadronRepository
+        extends GenericRepository<VoluntarioTemporalEntity, Integer> {
 
     /**
      *

@@ -20,7 +20,8 @@ public class AreaAdscripcionService {
     @Inject
     private AreasAdscripcionRepository areasAdscripcionRepository;
 
-    private static final Logger LOGGER = Logger.getLogger(AreaAdscripcionService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AreaAdscripcionService.class.getName());
 
     //Comentado porque genera un error de NullPointerException (porque el
     //arreglo de chars no tiene nada).
@@ -35,17 +36,21 @@ public class AreaAdscripcionService {
 
         // Si existe lanzar una excepcion (consulta con freddy la implementacion de las excepciones)
         if (existe) {
-            throw new ReglaNegocioException("Ya existe una clave registrada.", ReglaNegocioCodigoError.CLAVE_AREA_DUPLICADA);
+            throw new ReglaNegocioException("Ya existe una clave registrada.",
+                    ReglaNegocioCodigoError.CLAVE_AREA_DUPLICADA);
         }
     }
 
     protected AreaAdscripcionDTO obtenerPorId(int idAreaAdscripcion) {
         if (ValidacionUtil.esMenorQueUno(idAreaAdscripcion)) {
-            throw new ValidationException("El ID del área de adscripción a " + "buscar no puede ser nulo o menor que uno.",
+            throw new ValidationException(
+                    "El ID del área de adscripción a "
+                            + "buscar no puede ser nulo o menor que uno.",
                     ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        AreaAdscripcionEntity entidad = areasAdscripcionRepository.obtenerPorId(idAreaAdscripcion);
+        AreaAdscripcionEntity entidad = areasAdscripcionRepository
+                .obtenerPorId(idAreaAdscripcion);
 
         if (entidad != null) {
             return convertirEntidadADTO(entidad);
@@ -55,14 +60,18 @@ public class AreaAdscripcionService {
     }
 
     // En base al filtro especificado crear la consulta correspondiente
-    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(TipoFiltro filtro, Integer idFiltro) {
+    public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(
+            TipoFiltro filtro, Integer idFiltro) {
         return null;
     }
 
-    private static AreaAdscripcionDTO convertirEntidadADTO(AreaAdscripcionEntity entidad) {
+    private static AreaAdscripcionDTO convertirEntidadADTO(
+            AreaAdscripcionEntity entidad) {
         AreaAdscripcionDTO dto = new AreaAdscripcionDTO();
-        String centrosPago = entidad.getCentros_pago() == null ? "" : entidad.getCentros_pago().getCentro_pago();
-        String clues = entidad.getClues() == null ? "" : entidad.getClues().getClues();
+        String centrosPago = entidad.getCentros_pago() == null ? ""
+                : entidad.getCentros_pago().getCentro_pago();
+        String clues = entidad.getClues() == null ? ""
+                : entidad.getClues().getClues();
 
         dto.setIdAreaAdscripcion(entidad.getIdAreaAdscripcion());
         dto.setClave(entidad.getClave());
@@ -77,11 +86,14 @@ public class AreaAdscripcionService {
         return areasAdscripcionRepository.listaAreas();
     }
 
-    protected List<String> consultarAreaAdscripcionPorCriterio(String consulta) {
-        return areasAdscripcionRepository.consultarAreaAdscripcionPorCriterio(consulta);
+    protected List<String> consultarAreaAdscripcionPorCriterio(
+            String consulta) {
+        return areasAdscripcionRepository
+                .consultarAreaAdscripcionPorCriterio(consulta);
     }
 
     Integer consultarIdAreaAdscripcionPorDescripcion(String descripcion) {
-        return areasAdscripcionRepository.consultarIdAreaAdscripcionPorDescripcion(descripcion);
+        return areasAdscripcionRepository
+                .consultarIdAreaAdscripcionPorDescripcion(descripcion);
     }
 }

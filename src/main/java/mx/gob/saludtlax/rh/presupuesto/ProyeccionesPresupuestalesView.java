@@ -21,7 +21,8 @@ public class ProyeccionesPresupuestalesView {
         return listaProyecciones;
     }
 
-    public void setListaProyecciones(List<ProyeccionesPresupuestalesDTO> listaProyecciones) {
+    public void setListaProyecciones(
+            List<ProyeccionesPresupuestalesDTO> listaProyecciones) {
         this.listaProyecciones = listaProyecciones;
     }
 
@@ -29,7 +30,8 @@ public class ProyeccionesPresupuestalesView {
         return listaTipoNombramiento;
     }
 
-    public void setListaTipoNombramiento(List<TipoNombramientoDTO> listaTipoNombramiento) {
+    public void setListaTipoNombramiento(
+            List<TipoNombramientoDTO> listaTipoNombramiento) {
         this.listaTipoNombramiento = listaTipoNombramiento;
     }
 
@@ -37,7 +39,8 @@ public class ProyeccionesPresupuestalesView {
         return proyeccionPresupuestal;
     }
 
-    public void setProyeccionPresupuestal(ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
+    public void setProyeccionPresupuestal(
+            ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
         this.proyeccionPresupuestal = proyeccionPresupuestal;
     }
 

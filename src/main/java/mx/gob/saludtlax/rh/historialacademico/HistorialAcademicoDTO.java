@@ -30,14 +30,17 @@ public class HistorialAcademicoDTO {
     private Integer idUsuarioEnSesion;
 
     public String lccHistorial() {
-        return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico + ", escolaridad=" + escolaridad + ", idEmpleado=" + idEmpleado
-                + ", comprobanteEstudio=" + nombreDocumentoComprobatorio + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial=" + fechaInicial
-                + ", FechaFinal=" + FechaFinal + ", duracion=" + duracion + ", cursando=" + cursando + ", nombreCurso=" + nombreCurso + ", tieneDocumentacion="
-                + tieneDocumentacion + ", maximoEstudio=" + esMaximoEstudio + ", fechaExpedicionCedula=" + fechaExpedicionCedula + ", numeroCedula="
-                + numeroCedula + "]";
+        return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico
+                + ", escolaridad=" + escolaridad + ", idEmpleado=" + idEmpleado
+                + ", comprobanteEstudio=" + nombreDocumentoComprobatorio
+                + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial="
+                + fechaInicial + ", FechaFinal=" + FechaFinal + ", duracion="
+                + duracion + ", cursando=" + cursando + ", nombreCurso="
+                + nombreCurso + ", tieneDocumentacion=" + tieneDocumentacion
+                + ", maximoEstudio=" + esMaximoEstudio
+                + ", fechaExpedicionCedula=" + fechaExpedicionCedula
+                + ", numeroCedula=" + numeroCedula + "]";
     }
-
-    
 
     public Integer getIdHistorialAcademico() {
         return idHistorialAcademico;
@@ -63,7 +66,8 @@ public class HistorialAcademicoDTO {
         return nombreDocumentoComprobatorio;
     }
 
-    public void setNombreDocumentoComprobatorio(String nombreDocumentoComprobatorio) {
+    public void setNombreDocumentoComprobatorio(
+            String nombreDocumentoComprobatorio) {
         this.nombreDocumentoComprobatorio = nombreDocumentoComprobatorio;
     }
 

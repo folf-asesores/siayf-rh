@@ -3,7 +3,8 @@ package mx.gob.saludtlax.rh.reporteslaborales.reservacion;
 
 import java.io.Serializable;
 
-public class ReservacionPlazaConfianzaDTO extends ReservacionDTO implements Serializable {
+public class ReservacionPlazaConfianzaDTO extends ReservacionDTO
+        implements Serializable {
 
     private static final long serialVersionUID = 6673215180543100441L;
 

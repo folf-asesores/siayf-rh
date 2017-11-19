@@ -46,11 +46,14 @@ public final class PrenominaReporteTextoPlanoTools {
     protected static final short TOTAL_NOMINA_POR_PROGRAMA = 2;
     protected static final short TOTAL_NOMINA_GENERAL = 3;
 
-    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago) {
-        return getEncabezado(numeroPagina, programa, quincena, fechaPago, null, null);
+    protected String getEncabezado(int numeroPagina, String programa,
+            String quincena, Date fechaPago) {
+        return getEncabezado(numeroPagina, programa, quincena, fechaPago, null,
+                null);
     }
 
-    protected String getEncabezado(int numeroPagina, String programa, String quincena, Date fechaPago, String unidadResponsable,
+    protected String getEncabezado(int numeroPagina, String programa,
+            String quincena, Date fechaPago, String unidadResponsable,
             String numeroUnidadResponsable) {
         String encabezado;
 
@@ -67,14 +70,17 @@ public final class PrenominaReporteTextoPlanoTools {
             formatter.format(ENCABEZADO_SISTEMA);
             formatter.format("\n");
             formatter.format(agregarEspacios(76));
-            formatter.format(FechaUtil.LUGAR_MEXICO, PATRON_ENCABEZADO_DEL_PROGRAMA, programa, quincena, fechaPago);
+            formatter.format(FechaUtil.LUGAR_MEXICO,
+                    PATRON_ENCABEZADO_DEL_PROGRAMA, programa, quincena,
+                    fechaPago);
             formatter.format(getLineaDivision());
             formatter.format(ENCABEZADO_TITULOS_DE_LAS_COLUMNAS);
             formatter.format(getLineaDivision());
 
             if (unidadResponsable != null && numeroUnidadResponsable != null) {
                 formatter.format("\n");
-                formatter.format(PATRON_UNIDAD_RESPONSABLE, unidadResponsable, numeroUnidadResponsable);
+                formatter.format(PATRON_UNIDAD_RESPONSABLE, unidadResponsable,
+                        numeroUnidadResponsable);
             }
 
             formatter.format("\n");
@@ -86,65 +92,100 @@ public final class PrenominaReporteTextoPlanoTools {
         return encabezado;
     }
 
-    protected String getDetalle(int ordinal, String rfc, String nombre, Date inicioPeriodoPago, Date finPeriodoPago, List<PercepcionDTO> percepciones,
-            List<DeduccionDTO> deducciones) {
+    protected String getDetalle(int ordinal, String rfc, String nombre,
+            Date inicioPeriodoPago, Date finPeriodoPago,
+            List<PercepcionDTO> percepciones, List<DeduccionDTO> deducciones) {
         String detalle;
 
         try (Formatter formatter = new Formatter()) {
-            formatter.format(FechaUtil.LUGAR_MEXICO, PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre, inicioPeriodoPago, finPeriodoPago);
+            formatter.format(FechaUtil.LUGAR_MEXICO,
+                    PATRON_DETALLE_PRIMERA_PARTE, ordinal, rfc, nombre,
+                    inicioPeriodoPago, finPeriodoPago);
 
-            if (percepciones != null && !percepciones.isEmpty() && deducciones != null && !deducciones.isEmpty()) {
+            if (percepciones != null && !percepciones.isEmpty()
+                    && deducciones != null && !deducciones.isEmpty()) {
                 BigDecimal totalPercepciones = BigDecimal.ZERO;
                 BigDecimal totalDeducciones = BigDecimal.ZERO;
-                int limiteContador = percepciones.size() > deducciones.size() ? percepciones.size() : deducciones.size();
+                int limiteContador = percepciones.size() > deducciones.size()
+                        ? percepciones.size() : deducciones.size();
 
                 for (int i = 0; i < limiteContador; i++) {
-                    PercepcionDTO percepcion = i < percepciones.size() ? percepciones.get(i) : null;
+                    PercepcionDTO percepcion = i < percepciones.size()
+                            ? percepciones.get(i) : null;
 
                     if (percepcion != null && i == 0) {
-                        formatter.format(PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
-                        totalPercepciones = totalPercepciones.add(percepcion.getMonto());
+                        formatter.format(
+                                PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA,
+                                percepcion.getClave(), percepcion.getNombre(),
+                                percepcion.getMonto());
+                        totalPercepciones = totalPercepciones
+                                .add(percepcion.getMonto());
                     } else if (percepcion != null) {
-                        formatter.format(PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
-                        totalPercepciones = totalPercepciones.add(percepcion.getMonto());
+                        formatter.format(
+                                PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA,
+                                percepcion.getClave(), percepcion.getNombre(),
+                                percepcion.getMonto());
+                        totalPercepciones = totalPercepciones
+                                .add(percepcion.getMonto());
                     }
 
-                    DeduccionDTO deduccion = i < deducciones.size() ? deducciones.get(i) : null;
+                    DeduccionDTO deduccion = i < deducciones.size()
+                            ? deducciones.get(i) : null;
 
                     if (deduccion != null && i == 0) {
-                        formatter.format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto());
-                        totalDeducciones = totalDeducciones.add(deduccion.getMonto());
+                        formatter.format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA,
+                                deduccion.getClave(), deduccion.getNombre(),
+                                deduccion.getMonto());
+                        totalDeducciones = totalDeducciones
+                                .add(deduccion.getMonto());
                     } else if (deduccion != null) {
-                        if (percepciones.size() < deducciones.size() && i >= percepciones.size()) {
+                        if (percepciones.size() < deducciones.size()
+                                && i >= percepciones.size()) {
                             formatter.format("\n");
                             formatter.format(agregarEspacios(160));
                         }
 
-                        formatter.format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto());
-                        totalDeducciones = totalDeducciones.add(deduccion.getMonto());
+                        formatter.format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA,
+                                deduccion.getClave(), deduccion.getNombre(),
+                                deduccion.getMonto());
+                        totalDeducciones = totalDeducciones
+                                .add(deduccion.getMonto());
                     }
                 }
 
-                formatter.format(PATRON_DETALLE_TOTALES, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones));
+                formatter.format(PATRON_DETALLE_TOTALES, totalPercepciones,
+                        totalDeducciones,
+                        totalPercepciones.subtract(totalDeducciones));
                 formatter.format("\n");
-            } else if (percepciones != null && !percepciones.isEmpty() && deducciones == null) {
+            } else if (percepciones != null && !percepciones.isEmpty()
+                    && deducciones == null) {
                 BigDecimal totalPercepciones = BigDecimal.ZERO;
 
                 for (int i = 0; i < percepciones.size(); i++) {
                     PercepcionDTO percepcion = percepciones.get(i);
 
                     if (percepcion != null && i == 0) {
-                        formatter.format(PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
-                        totalPercepciones = totalPercepciones.add(percepcion.getMonto());
+                        formatter.format(
+                                PATRON_DETALLE_PERCEPCIONES_MISMA_LINEA,
+                                percepcion.getClave(), percepcion.getNombre(),
+                                percepcion.getMonto());
+                        totalPercepciones = totalPercepciones
+                                .add(percepcion.getMonto());
                     } else if (percepcion != null) {
-                        formatter.format(PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA, percepcion.getClave(), percepcion.getNombre(), percepcion.getMonto());
-                        totalPercepciones = totalPercepciones.add(percepcion.getMonto());
+                        formatter.format(
+                                PATRON_DETALLE_PERCEPCIONES_NUEVA_LINEA,
+                                percepcion.getClave(), percepcion.getNombre(),
+                                percepcion.getMonto());
+                        totalPercepciones = totalPercepciones
+                                .add(percepcion.getMonto());
                     }
                 }
 
-                formatter.format(PATRON_DETALLE_TOTALES, totalPercepciones, BigDecimal.ZERO, totalPercepciones);
+                formatter.format(PATRON_DETALLE_TOTALES, totalPercepciones,
+                        BigDecimal.ZERO, totalPercepciones);
                 formatter.format("\n");
-            } else if (deducciones != null && !deducciones.isEmpty() && percepciones == null) {
+            } else if (deducciones != null && !deducciones.isEmpty()
+                    && percepciones == null) {
                 BigDecimal totalDeducciones = BigDecimal.ZERO;
 
                 for (int i = 0; i < deducciones.size(); i++) {
@@ -152,17 +193,25 @@ public final class PrenominaReporteTextoPlanoTools {
 
                     if (deduccion != null && i == 0) {
                         formatter.format(agregarEspacios(64));
-                        formatter.format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto());
-                        totalDeducciones = totalDeducciones.add(deduccion.getMonto());
+                        formatter.format(PATRON_DETALLE_DEDUCCIONES_MISMA_LINEA,
+                                deduccion.getClave(), deduccion.getNombre(),
+                                deduccion.getMonto());
+                        totalDeducciones = totalDeducciones
+                                .add(deduccion.getMonto());
                     } else if (deduccion != null) {
                         formatter.format(agregarEspacios(163));
                         formatter.format("\n");
-                        formatter.format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA, deduccion.getClave(), deduccion.getNombre(), deduccion.getMonto());
-                        totalDeducciones = totalDeducciones.add(deduccion.getMonto());
+                        formatter.format(PATRON_DETALLE_DEDUCCIONES_NUEVA_LINEA,
+                                deduccion.getClave(), deduccion.getNombre(),
+                                deduccion.getMonto());
+                        totalDeducciones = totalDeducciones
+                                .add(deduccion.getMonto());
                     }
                 }
 
-                formatter.format(PATRON_DETALLE_TOTALES, BigDecimal.ZERO, totalDeducciones, BigDecimal.ZERO.subtract(totalDeducciones));
+                formatter.format(PATRON_DETALLE_TOTALES, BigDecimal.ZERO,
+                        totalDeducciones,
+                        BigDecimal.ZERO.subtract(totalDeducciones));
                 formatter.format("\n");
             } else {
                 formatter.format("\n");
@@ -175,7 +224,9 @@ public final class PrenominaReporteTextoPlanoTools {
         return detalle;
     }
 
-    protected String getTotales(short tipoNomina, Map<String, BigDecimal> percepciones, Map<String, BigDecimal> deducciones, int totalEmpleados,
+    protected String getTotales(short tipoNomina,
+            Map<String, BigDecimal> percepciones,
+            Map<String, BigDecimal> deducciones, int totalEmpleados,
             boolean pension) {
         // Percepciones
         BigDecimal honorariosAsimilares = BigDecimal.ZERO;
@@ -192,7 +243,8 @@ public final class PrenominaReporteTextoPlanoTools {
         BigDecimal otros = BigDecimal.ZERO;
         BigDecimal totalPercepciones = BigDecimal.ZERO;
 
-        for (Map.Entry<String, BigDecimal> percepcion : percepciones.entrySet()) {
+        for (Map.Entry<String, BigDecimal> percepcion : percepciones
+                .entrySet()) {
             String clave = percepcion.getKey();
             BigDecimal monto = percepcion.getValue();
 
@@ -279,37 +331,60 @@ public final class PrenominaReporteTextoPlanoTools {
 
         try (Formatter totalesFormatter = new Formatter()) {
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "01", !pension ? "HONORARIOS ASIMILARES A S" : "PENSIÓN ALIMENTICIA", honorariosAsimilares);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "51", "FALTAS Y RETARDOS", faltasRetardos);
+            totalesFormatter
+                    .format(PATRON_TOTALES_PERCEPCIONES, "01",
+                            !pension ? "HONORARIOS ASIMILARES A S"
+                                    : "PENSIÓN ALIMENTICIA",
+                            honorariosAsimilares);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "51",
+                    "FALTAS Y RETARDOS", faltasRetardos);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "02", "HONORARIOS", honorarios);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "52", "I.S.R.", isr);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "02",
+                    "HONORARIOS", honorarios);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "52", "I.S.R.",
+                    isr);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "05", "SUPLENCIAS", suplencias);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "53", "RESPONSABILIDADES", responsabilidades);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "05",
+                    "SUPLENCIAS", suplencias);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "53",
+                    "RESPONSABILIDADES", responsabilidades);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "08", "DÍAS ECONÓMICOS", diasEconomicos);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "55", "PRESTAMOS", prestamos);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "08",
+                    "DÍAS ECONÓMICOS", diasEconomicos);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "55",
+                    "PRESTAMOS", prestamos);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "14", "PERCEPCIÓN COMPLEMENTARIA", percepcionComplementaria);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "56", "EMBARGO DE SALARIO", embargoSalario);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "14",
+                    "PERCEPCIÓN COMPLEMENTARIA", percepcionComplementaria);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "56",
+                    "EMBARGO DE SALARIO", embargoSalario);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "17", "VALES FIN DE AÑO", valesFinAnyo);
-            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "62", "PENSIÓN ALIMENTICIA", pensionAlimenticia);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "17",
+                    "VALES FIN DE AÑO", valesFinAnyo);
+            totalesFormatter.format(PATRON_TOTALES_DEDUCCIONES, "62",
+                    "PENSIÓN ALIMENTICIA", pensionAlimenticia);
 
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "24", "AGUINALDO", aguinaldo);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "24",
+                    "AGUINALDO", aguinaldo);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "26", "SUBSIDIO", subsiodio);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "26",
+                    "SUBSIDIO", subsiodio);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "27", "P. VACACIONAL", primaVacacional);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "27",
+                    "P. VACACIONAL", primaVacacional);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "29", "B. DE FALTAS", bonoFaltas);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "29",
+                    "B. DE FALTAS", bonoFaltas);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "30", "RETROACTIVO", retroactivo);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "30",
+                    "RETROACTIVO", retroactivo);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "32", "OTROS", otros);
+            totalesFormatter.format(PATRON_TOTALES_PERCEPCIONES, "32", "OTROS",
+                    otros);
             totalesFormatter.format("\n");
-            totalesFormatter.format(PATRON_GRAN_TOTAL, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones));
+            totalesFormatter.format(PATRON_GRAN_TOTAL, totalPercepciones,
+                    totalDeducciones,
+                    totalPercepciones.subtract(totalDeducciones));
             totalesFormatter.format("\n");
 
             String totalPor;
@@ -333,8 +408,11 @@ public final class PrenominaReporteTextoPlanoTools {
                     break;
             }
 
-            totalesFormatter.format(PATRON_RESUMEN_DE_TOTALES, totalPor, totalPercepciones, totalDeducciones, totalPercepciones.subtract(totalDeducciones));
-            totalesFormatter.format(PATRON_RESUMEN_EMPLEADOS_PROCESADOS, totalEmpleadosProcesados, totalEmpleados);
+            totalesFormatter.format(PATRON_RESUMEN_DE_TOTALES, totalPor,
+                    totalPercepciones, totalDeducciones,
+                    totalPercepciones.subtract(totalDeducciones));
+            totalesFormatter.format(PATRON_RESUMEN_EMPLEADOS_PROCESADOS,
+                    totalEmpleadosProcesados, totalEmpleados);
 
             totales = totalesFormatter.toString();
         }
@@ -342,15 +420,19 @@ public final class PrenominaReporteTextoPlanoTools {
         return totales;
     }
 
-    protected String getFirmas(BigDecimal total, String nombreElaboro, String cargoElaboro, String nombreReviso, String cargoReviso, String nombreAutorizo,
-            String cargoAutorizo) {
+    protected String getFirmas(BigDecimal total, String nombreElaboro,
+            String cargoElaboro, String nombreReviso, String cargoReviso,
+            String nombreAutorizo, String cargoAutorizo) {
         String firmas;
 
         try (Formatter firmasFormatter = new Formatter()) {
-            String numeroConLetras = NumeroALetra.convertNumberToLetter(total, true);
+            String numeroConLetras = NumeroALetra.convertNumberToLetter(total,
+                    true);
             firmasFormatter.format("\n");
             firmasFormatter.format(agregarEspacios(6));
-            firmasFormatter.format("EL IMPORTE TOTAL DE LA NOMINA ES DE (%1$s)\n", numeroConLetras);
+            firmasFormatter.format(
+                    "EL IMPORTE TOTAL DE LA NOMINA ES DE (%1$s)\n",
+                    numeroConLetras);
             firmasFormatter.format(agregarEspacios(37));
             firmasFormatter.format("E  L  A  B  O  R  O");
             firmasFormatter.format(agregarEspacios(38));

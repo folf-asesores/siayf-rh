@@ -110,7 +110,8 @@ public class PresupuestoAutorizadoEntity implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSunfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSunfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

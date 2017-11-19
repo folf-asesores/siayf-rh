@@ -217,7 +217,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idUnidadResponsable;
     }
 
-    public void setIdUnidadResponsable(UnidadResponsableEntity idUnidadResponsable) {
+    public void setIdUnidadResponsable(
+            UnidadResponsableEntity idUnidadResponsable) {
         this.idUnidadResponsable = idUnidadResponsable;
     }
 
@@ -225,7 +226,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idTipoContratacion;
     }
 
-    public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
+    public void setIdTipoContratacion(
+            TipoContratacionEntity idTipoContratacion) {
         this.idTipoContratacion = idTipoContratacion;
     }
 
@@ -233,7 +235,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idTipoNombramiento;
     }
 
-    public void setIdTipoNombramiento(TiposNombramientosEntity idTipoNombramiento) {
+    public void setIdTipoNombramiento(
+            TiposNombramientosEntity idTipoNombramiento) {
         this.idTipoNombramiento = idTipoNombramiento;
     }
 
@@ -249,7 +252,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idFuenteFinanciamiento;
     }
 
-    public void setIdFuenteFinanciamiento(FuenteFinanciamientoEntity idFuenteFinanciamiento) {
+    public void setIdFuenteFinanciamiento(
+            FuenteFinanciamientoEntity idFuenteFinanciamiento) {
         this.idFuenteFinanciamiento = idFuenteFinanciamiento;
     }
 
@@ -257,7 +261,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -305,7 +310,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idConfiguracionPresupuestal;
     }
 
-    public void setIdConfiguracionPresupuestal(ConfiguracionPresupuestoEntity idConfiguracionPresupuestal) {
+    public void setIdConfiguracionPresupuestal(
+            ConfiguracionPresupuestoEntity idConfiguracionPresupuestal) {
         this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
     }
 
@@ -369,7 +375,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idCentroResponsabilidad;
     }
 
-    public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
+    public void setIdCentroResponsabilidad(
+            CentroResponsabilidadEntity idCentroResponsabilidad) {
         this.idCentroResponsabilidad = idCentroResponsabilidad;
     }
 
@@ -393,7 +400,8 @@ public class NominaEmpleadoEntity implements Serializable {
         return idEstatusNominaEmpleado;
     }
 
-    public void setIdEstatusNominaEmpleado(EstatusNominasEmpleadoEntity idEstatusNominaEmpleado) {
+    public void setIdEstatusNominaEmpleado(
+            EstatusNominasEmpleadoEntity idEstatusNominaEmpleado) {
         this.idEstatusNominaEmpleado = idEstatusNominaEmpleado;
     }
 

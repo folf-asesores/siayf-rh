@@ -13,12 +13,13 @@ import javax.persistence.PersistenceContext;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 31/05/2016 10:55:40
  */
-public class RamaPuestoRepository extends GenericRepository<RamaPuestoEntity, Integer> implements Serializable {
+public class RamaPuestoRepository extends
+        GenericRepository<RamaPuestoEntity, Integer> implements Serializable {
 
     /**
      *
@@ -38,7 +39,9 @@ public class RamaPuestoRepository extends GenericRepository<RamaPuestoEntity, In
      * @return
      */
     public List<RamaPuestoEntity> obtenerListaRamaPuesto() {
-        return entityManager.createQuery("SELECT r FROM RamaPuestoEntity AS r ORDER BY r.idRamaPuesto", RamaPuestoEntity.class).getResultList();
+        return entityManager.createQuery(
+                "SELECT r FROM RamaPuestoEntity AS r ORDER BY r.idRamaPuesto",
+                RamaPuestoEntity.class).getResultList();
     }
 
 }

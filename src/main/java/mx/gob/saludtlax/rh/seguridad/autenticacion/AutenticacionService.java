@@ -33,30 +33,38 @@ public class AutenticacionService {
     private TokenRepository tokenRepository;
     @Inject
     private UsuarioRepository usuarioRepository;
-    private static final Logger LOGGER = Logger.getLogger(AutenticacionService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AutenticacionService.class.getName());
 
-    protected String iniciarSesion(String nombreUsuario, String contrasenya, boolean mantenerSesion) {
+    protected String iniciarSesion(String nombreUsuario, String contrasenya,
+            boolean mantenerSesion) {
 
         if (!usuarioRepository.existeUsuario(nombreUsuario)) {
-            throw new SeguridadException("El usuario indicado no existe.", SeguridadCodigoError.NOMBRE_DE_USUARIO_NO_EXISTE);
+            throw new SeguridadException("El usuario indicado no existe.",
+                    SeguridadCodigoError.NOMBRE_DE_USUARIO_NO_EXISTE);
         }
 
-        UsuarioEntity usuario = usuarioRepository.obtenerUsuarioPorNombreUsuario(nombreUsuario);
+        UsuarioEntity usuario = usuarioRepository
+                .obtenerUsuarioPorNombreUsuario(nombreUsuario);
 
         String hashPassword = Crypto.hmac(contrasenya);
 
         if (!usuario.getPassword().equals(hashPassword)) {
-            throw new SeguridadException("Las credenciales son incorrectas", SeguridadCodigoError.CONTRASENYA_INVALIDA);
+            throw new SeguridadException("Las credenciales son incorrectas",
+                    SeguridadCodigoError.CONTRASENYA_INVALIDA);
         }
 
         if (!usuario.isActivo()) {
-            throw new SeguridadException("El usuario no se encuentra activo", SeguridadCodigoError.USUARIO_INACTIVO);
+            throw new SeguridadException("El usuario no se encuentra activo",
+                    SeguridadCodigoError.USUARIO_INACTIVO);
         }
 
         String token = RandomStringUtils.randomAlphabetic(20);
         String hashToken = Crypto.hmac(token);
 
-        int duracionEnSegundos = mantenerSesion ? ConfiguracionConst.DURACION_MAXIMA_SESION : ConfiguracionConst.DURACION_MINIMA_SESION;
+        int duracionEnSegundos = mantenerSesion
+                ? ConfiguracionConst.DURACION_MAXIMA_SESION
+                : ConfiguracionConst.DURACION_MINIMA_SESION;
 
         Calendar fechaCreacion = Calendar.getInstance();
         Calendar fechaExpira = (Calendar) fechaCreacion.clone();
@@ -85,7 +93,8 @@ public class AutenticacionService {
 
     protected boolean expiroToken(String token) {
         String hashToken = Crypto.hmac(token);
-        TokenEntity tokenEntity = tokenRepository.obtenerPorHashToken(hashToken);
+        TokenEntity tokenEntity = tokenRepository
+                .obtenerPorHashToken(hashToken);
 
         if (tokenEntity == null) {
             return true;

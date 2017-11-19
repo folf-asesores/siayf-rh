@@ -24,11 +24,16 @@ public class ProgramacionMovimientosEJB {
         programacionMovimientosService.eliminar(dto);
     }
 
-    public List<ProgramarMovimientoDTO> obtenerMovimientosProgramados(Integer idTipoMovimiento) {
-        return programacionMovimientosService.obtenerListaRegistros(idTipoMovimiento);
+    public List<ProgramarMovimientoDTO> obtenerMovimientosProgramados(
+            Integer idTipoMovimiento) {
+        return programacionMovimientosService
+                .obtenerListaRegistros(idTipoMovimiento);
     }
 
-    public List<DetalleProgramacionMovimientoDTO> obtenerDetallesPorMovimiento(Integer idProgramacionMovimiento) {
-        return programacionMovimientosService.listaDetallesPorProgramacionMovimiento(idProgramacionMovimiento);
+    public List<DetalleProgramacionMovimientoDTO> obtenerDetallesPorMovimiento(
+            Integer idProgramacionMovimiento) {
+        return programacionMovimientosService
+                .listaDetallesPorProgramacionMovimiento(
+                        idProgramacionMovimiento);
     }
 }

@@ -68,11 +68,13 @@ public class ConceptosNominaFederalesController implements Serializable {
 
     public void cargarListaPuestos() {
         view.setPuestos(puestoGeneral.consultarListaPuestoGeneral());
-        view.setPuestosSeleccion(new DualListModel<>(view.getPuestos(), puestosTarget));
+        view.setPuestosSeleccion(
+                new DualListModel<>(view.getPuestos(), puestosTarget));
     }
 
     public Boolean esMandoMedio(ConfiguracionConceptoPuestoDTO configPuesto) {
-        PuestoGeneralDTO puesto = puestoGeneral.puestoPorId(configPuesto.getIdPuestoGeneral());
+        PuestoGeneralDTO puesto = puestoGeneral
+                .puestoPorId(configPuesto.getIdPuestoGeneral());
         Boolean res = false;
         if (puesto.getIdTipoPuesto().compareTo(1) == 0) {
             res = true;
@@ -82,19 +84,22 @@ public class ConceptosNominaFederalesController implements Serializable {
 
     public void obtenerConfiguraciones() {
         List<ConfiguracionConceptoPuestoDTO> listaConf = new ArrayList<>();
-        listaConf = configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
+        listaConf = configuracionConceptoEjb.obtenerListaPorConcepto(
+                view.getConceptoNominaSelect().getIdConceptoNomina());
         List<PuestoGeneralDTO> listaNewPuestos = new ArrayList<>();
         listaNewPuestos = puestoGeneral.consultarListaPuestoGeneral();
 
         for (ConfiguracionConceptoPuestoDTO confDto : listaConf) {
             for (int i = 0; i < listaNewPuestos.size(); i++) {
-                if (listaNewPuestos.get(i).getIdPuestoGeneral().compareTo(confDto.getIdPuestoGeneral()) == 0) {
+                if (listaNewPuestos.get(i).getIdPuestoGeneral()
+                        .compareTo(confDto.getIdPuestoGeneral()) == 0) {
                     listaNewPuestos.remove(listaNewPuestos.get(i));
                 }
             }
 
         }
-        view.setPuestosSeleccion(new DualListModel<>(listaNewPuestos, puestosTarget));
+        view.setPuestosSeleccion(
+                new DualListModel<>(listaNewPuestos, puestosTarget));
         view.setConfigPuesto(listaConf);
         view.setPuestos(listaNewPuestos);
     }
@@ -193,42 +198,59 @@ public class ConceptosNominaFederalesController implements Serializable {
         if (!view.getPuestosSeleccionados().isEmpty()) {
             for (PuestoGeneralDTO puesto : view.getPuestosSeleccionados()) {
                 ConfiguracionConceptoPuestoDTO newConfigConcepto = new ConfiguracionConceptoPuestoDTO();
-                newConfigConcepto.setClaveConcepto(view.getConceptoNominaSelect().getClave());
+                newConfigConcepto.setClaveConcepto(
+                        view.getConceptoNominaSelect().getClave());
                 newConfigConcepto.setCodigoPuesto(puesto.getCodigo());
-                newConfigConcepto.setDecripcionConcepto(view.getConceptoNominaSelect().getDescripcion());
+                newConfigConcepto.setDecripcionConcepto(
+                        view.getConceptoNominaSelect().getDescripcion());
                 newConfigConcepto.setDescripcionPuesto(puesto.getPuesto());
                 if (view.getResult() != null) {
 
-                    BigDecimal newImport = new BigDecimal(view.getResult().trim());
+                    BigDecimal newImport = new BigDecimal(
+                            view.getResult().trim());
                     newConfigConcepto.setImporteConcepto(newImport);
                 }
 
                 TabuladorDTO tabulador = new TabuladorDTO();
                 System.out.println("puesto " + puesto.getIdPuestoGeneral());
                 // validar el año del tabulador
-                
+
                 try {
-                    tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
-                    System.out.println("tabulador " + tabulador.getIdTabulador() + "--- " + view.getConceptoNominaSelect().getClave());
+                    tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(
+                            puesto.getIdPuestoGeneral(),
+                            FechaUtil.ejercicioActual());
+                    System.out.println("tabulador " + tabulador.getIdTabulador()
+                            + "--- "
+                            + view.getConceptoNominaSelect().getClave());
 
                 } catch (NullPointerException ex) {
-                    JSFUtils.errorMessage("Error", "No se encontro el tabulador para el puesto " + puesto.getCodigo());
+                    JSFUtils.errorMessage("Error",
+                            "No se encontro el tabulador para el puesto "
+                                    + puesto.getCodigo());
                 }
-                newConfigConcepto.setIdConceptoNomina(view.getConceptoNominaSelect().getIdConceptoNomina());
-                newConfigConcepto.setIdPuestoGeneral(puesto.getIdPuestoGeneral());
+                newConfigConcepto.setIdConceptoNomina(
+                        view.getConceptoNominaSelect().getIdConceptoNomina());
+                newConfigConcepto
+                        .setIdPuestoGeneral(puesto.getIdPuestoGeneral());
                 newConfigConcepto.setTipoPuesto(puesto.getIdTipoPuesto());
 
                 if (view.getConceptoNominaSelect().getFormula() != null) {
 
-                    newConfigConcepto.setFormula(view.getConceptoNominaSelect().getFormula());
-                    String formulanueva = newConfigConcepto.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual() + "");
+                    newConfigConcepto.setFormula(
+                            view.getConceptoNominaSelect().getFormula());
+                    String formulanueva = newConfigConcepto.getFormula()
+                            .replace("EX0700",
+                                    tabulador.getSueldoBrutoMensual() + "");
                     formulanueva = formulanueva.replace("C30", "0");
                     formulanueva = formulanueva.replace("CA1", "0");
-                    formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual() + "");
-                    formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual() + "");
+                    formulanueva = formulanueva.replace("EX4200",
+                            tabulador.getAsignacionBrutaMensual() + "");
+                    formulanueva = formulanueva.replace("EX55AG",
+                            tabulador.getAgaBrutaMensual() + "");
                     String resFormula = ejb.evaluarFormula(formulanueva);
 
-                    BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
+                    BigDecimal valorFormula = new BigDecimal(resFormula)
+                            .setScale(2, RoundingMode.HALF_UP);
 
                     newConfigConcepto.setImporteConcepto(valorFormula);
                 }
@@ -246,7 +268,8 @@ public class ConceptosNominaFederalesController implements Serializable {
                 configuracionConceptoEjb.crear(dto);
             }
             List<ConfiguracionConceptoPuestoDTO> listaConfignew = new ArrayList<>();
-            listaConfignew = configuracionConceptoEjb.obtenerListaPorConcepto(view.getConceptoNominaSelect().getIdConceptoNomina());
+            listaConfignew = configuracionConceptoEjb.obtenerListaPorConcepto(
+                    view.getConceptoNominaSelect().getIdConceptoNomina());
             System.out.println("lista" + listaConfignew.size());
             view.getConfigPuesto().addAll(listaConfignew);
 
@@ -256,7 +279,8 @@ public class ConceptosNominaFederalesController implements Serializable {
     }
 
     public void eliminarConfiguracionPuesto() {
-        configuracionConceptoEjb.borrar(view.getConfiguracionConceptoPuestoDTOSeleccionado());
+        configuracionConceptoEjb
+                .borrar(view.getConfiguracionConceptoPuestoDTOSeleccionado());
         obtenerConfiguraciones();
     }
 
@@ -280,7 +304,8 @@ public class ConceptosNominaFederalesController implements Serializable {
     }
 
     public String updateCategoriaSAT() {
-        view.setCategoriaSatLista(ejb.listaCategoriaSatPorTipo(view.getConceptoNominaSelect().getTipo()));
+        view.setCategoriaSatLista(ejb.listaCategoriaSatPorTipo(
+                view.getConceptoNominaSelect().getTipo()));
         return null;
     }
 
@@ -298,7 +323,8 @@ public class ConceptosNominaFederalesController implements Serializable {
         if (view.getConceptoNominaLista() != null) {
             view.getConceptoNominaLista().clear();
         }
-        view.setConceptoNominaLista(ejb.obtenerConceptoNominasLista(TipoConceptoNominaEnum.get(view.getTipoSelect())));
+        view.setConceptoNominaLista(ejb.obtenerConceptoNominasLista(
+                TipoConceptoNominaEnum.get(view.getTipoSelect())));
         view.panelPrincipal();
         return null;
     }
@@ -384,7 +410,8 @@ public class ConceptosNominaFederalesController implements Serializable {
         return ayudagastosactualiazacion;
     }
 
-    public void setAyudagastosactualiazacion(BigDecimal ayudagastosactualiazacion) {
+    public void setAyudagastosactualiazacion(
+            BigDecimal ayudagastosactualiazacion) {
         this.ayudagastosactualiazacion = ayudagastosactualiazacion;
     }
 

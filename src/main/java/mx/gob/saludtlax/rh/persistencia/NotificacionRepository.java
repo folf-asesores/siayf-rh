@@ -16,26 +16,37 @@ import javax.persistence.TypedQuery;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class NotificacionRepository extends GenericRepository<NotificacionEntity, Integer> {
+public class NotificacionRepository
+        extends GenericRepository<NotificacionEntity, Integer> {
 
     /**
      *
      */
     private static final long serialVersionUID = -7825546346781275883L;
-    private static final String OBTENER_POR_TOKEN = "select nde.notificacion" + " from NotificacionDestinatarioEntity as nde" + " where nde.token = :token";
-    private static final String EXISTE_TOKEN = "select" + "   case count(notificacion.idNotificacionDestinatario)" + "      when 0 then false"
-            + "      else true" + "   end" + " from NotificacionDestinatarioEntity as notificacion" + "    where notificacion.token = :token";
-    private static final String CONSULTAR_NOTIFICACIONES_DEL_USUARIO = "select destinatario.notificacion"
-            + " from NotificacionDestinatarioEntity as destinatario" + " where destinatario.destinatario.idUsuario = :idUsuario"
-            + " order by destinatario.notificacion.fechaPublicacion desc," + " destinatario.notificacion.horaPublicacion desc";
-    private static final String CONSULTAR_NOTIFICACIONES_DEL_USUARIO_VISTO = "select destinatario.notificacion"
-            + " from NotificacionDestinatarioEntity as destinatario" + " where destinatario.destinatario.idUsuario = :idUsuario and destinatario.visto = :visto"
-            + " order by destinatario.notificacion.fechaPublicacion desc," + " destinatario.notificacion.horaPublicacion desc";
-    private static final String MARCAR_NOTIFICACION_COMO_VISTA = "update NotificacionDestinatarioEntity as nde" + " set nde.visto = true"
+    private static final String OBTENER_POR_TOKEN = "select nde.notificacion"
+            + " from NotificacionDestinatarioEntity as nde"
             + " where nde.token = :token";
+    private static final String EXISTE_TOKEN = "select"
+            + "   case count(notificacion.idNotificacionDestinatario)"
+            + "      when 0 then false" + "      else true" + "   end"
+            + " from NotificacionDestinatarioEntity as notificacion"
+            + "    where notificacion.token = :token";
+    private static final String CONSULTAR_NOTIFICACIONES_DEL_USUARIO = "select destinatario.notificacion"
+            + " from NotificacionDestinatarioEntity as destinatario"
+            + " where destinatario.destinatario.idUsuario = :idUsuario"
+            + " order by destinatario.notificacion.fechaPublicacion desc,"
+            + " destinatario.notificacion.horaPublicacion desc";
+    private static final String CONSULTAR_NOTIFICACIONES_DEL_USUARIO_VISTO = "select destinatario.notificacion"
+            + " from NotificacionDestinatarioEntity as destinatario"
+            + " where destinatario.destinatario.idUsuario = :idUsuario and destinatario.visto = :visto"
+            + " order by destinatario.notificacion.fechaPublicacion desc,"
+            + " destinatario.notificacion.horaPublicacion desc";
+    private static final String MARCAR_NOTIFICACION_COMO_VISTA = "update NotificacionDestinatarioEntity as nde"
+            + " set nde.visto = true" + " where nde.token = :token";
 
     public NotificacionEntity obtenerPorToken(String token) {
-        TypedQuery<NotificacionEntity> query = em.createQuery(OBTENER_POR_TOKEN, classType);
+        TypedQuery<NotificacionEntity> query = em.createQuery(OBTENER_POR_TOKEN,
+                classType);
         query.setParameter("token", token);
 
         return query.getSingleResult();
@@ -47,15 +58,19 @@ public class NotificacionRepository extends GenericRepository<NotificacionEntity
         return query.getSingleResult();
     }
 
-    public List<NotificacionEntity> consutarNotificacionesPorIdUsuario(Integer idUsuario) {
-        TypedQuery<NotificacionEntity> query = em.createQuery(CONSULTAR_NOTIFICACIONES_DEL_USUARIO, classType);
+    public List<NotificacionEntity> consutarNotificacionesPorIdUsuario(
+            Integer idUsuario) {
+        TypedQuery<NotificacionEntity> query = em
+                .createQuery(CONSULTAR_NOTIFICACIONES_DEL_USUARIO, classType);
         query.setParameter("idUsuario", idUsuario);
 
         return query.getResultList();
     }
 
-    public List<NotificacionEntity> consutarNotificacionesPorIdUsuarioVisto(Integer idUsuario, Boolean visto) {
-        TypedQuery<NotificacionEntity> query = em.createQuery(CONSULTAR_NOTIFICACIONES_DEL_USUARIO_VISTO, classType);
+    public List<NotificacionEntity> consutarNotificacionesPorIdUsuarioVisto(
+            Integer idUsuario, Boolean visto) {
+        TypedQuery<NotificacionEntity> query = em.createQuery(
+                CONSULTAR_NOTIFICACIONES_DEL_USUARIO_VISTO, classType);
 
         query.setParameter("idUsuario", idUsuario);
         query.setParameter("visto", visto);

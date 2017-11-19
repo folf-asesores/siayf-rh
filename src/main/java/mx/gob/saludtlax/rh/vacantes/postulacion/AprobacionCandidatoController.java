@@ -40,12 +40,15 @@ public class AprobacionCandidatoController implements Serializable {
     @PostConstruct
     public void inicio() {
         view.setMostrarPostulacionesDisponibles(true);
-        view.setPostulacionesDisponibles(postulacion.consultarPostulacionesDisponibles());
+        view.setPostulacionesDisponibles(
+                postulacion.consultarPostulacionesDisponibles());
     }
 
-    public void mostrarCandidatosPostulados(InfoPostulacionDTO postulacionInfo) {
+    public void mostrarCandidatosPostulados(
+            InfoPostulacionDTO postulacionInfo) {
 
-        view.setCandidatosPostulados(postulacion.consultarCandidatosPostulacion(postulacionInfo.getIdPostulacion()));
+        view.setCandidatosPostulados(postulacion.consultarCandidatosPostulacion(
+                postulacionInfo.getIdPostulacion()));
         view.setPostulacionSeleccionada(postulacionInfo);
         view.setMostrarCandidatosPostulados(true);
         view.setMostrarPostulacionesDisponibles(false);
@@ -62,12 +65,15 @@ public class AprobacionCandidatoController implements Serializable {
         view.setMostrarDetalleSeleccionado(true);
 
         if (candidato.getIdTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
             httpSession.setAttribute("idAspirante", candidato.getIdContexto());
             view.setConsulta("consultaAspirante.xhtml");
-        } else if (candidato.getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        } else if (candidato
+                .getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
             httpSession.setAttribute("idEmpleado", candidato.getIdContexto());
             view.setConsulta("consultaEmpleado.xhtml");
@@ -77,16 +83,19 @@ public class AprobacionCandidatoController implements Serializable {
 
     public void aprobarCandidato() {
         try {
-            postulacion.aprobarCandidatoPostulacion(view.getPostulacionSeleccionada().getIdPostulacion(),
+            postulacion.aprobarCandidatoPostulacion(
+                    view.getPostulacionSeleccionada().getIdPostulacion(),
                     view.getCandidatoSeleccionado().getIdCandidatoPostulado());
             view.setMostrarDetalleSeleccionado(false);
             view.setMostrarPostulacionesDisponibles(true);
             view.setMostrarCandidatosPostulados(false);
-            view.setPostulacionesDisponibles(postulacion.consultarPostulacionesDisponibles());
+            view.setPostulacionesDisponibles(
+                    postulacion.consultarPostulacionesDisponibles());
 
             JSFUtils.infoMessage("", "El candidato ha sido aprobado con éxito");
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("errorAprobacion", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorAprobacion", "",
+                    exception.getMessage());
         }
     }
 

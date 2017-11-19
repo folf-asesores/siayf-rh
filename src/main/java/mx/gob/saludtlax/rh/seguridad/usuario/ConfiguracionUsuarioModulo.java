@@ -13,10 +13,12 @@ public interface ConfiguracionUsuarioModulo {
 
     List<ConfiguracionUsuarioModuloDTO> obtenerLista();
 
-    List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(Integer idUsuario);
+    List<ConfiguracionUsuarioModuloDTO> obtenerListaPorUsuario(
+            Integer idUsuario);
 
     Boolean tienePermiso(String permiso, Integer idUsuario);
 
-    List<ConfiguracionUsuarioModuloDTO> obtenerListaRestantePorUsuario(Integer idUsuario);
+    List<ConfiguracionUsuarioModuloDTO> obtenerListaRestantePorUsuario(
+            Integer idUsuario);
 
 }

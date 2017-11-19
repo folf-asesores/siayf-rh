@@ -7,8 +7,8 @@ package mx.gob.saludtlax.rh.configuracion.especialidad;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12:33:43 09/08/2016
  */
@@ -25,7 +25,6 @@ public class EspecialidadDTO implements Serializable {
 
     private String especialidad;
 
-    
     /**
      *
      */
@@ -40,15 +39,14 @@ public class EspecialidadDTO implements Serializable {
 
     }
 
-    public EspecialidadDTO(Integer idEspecialidadAspiranteEmpleado, Integer idEspecialidad, String especialidad) {
+    public EspecialidadDTO(Integer idEspecialidadAspiranteEmpleado,
+            Integer idEspecialidad, String especialidad) {
 
         this.idEspecialidadAspiranteEmpleado = idEspecialidadAspiranteEmpleado;
         this.idEspecialidad = idEspecialidad;
         this.especialidad = especialidad;
 
     }
-
-    
 
     /**
      * @return the idEspecialidad
@@ -91,7 +89,8 @@ public class EspecialidadDTO implements Serializable {
      * @param idEspecialidadAspiranteEmpleado
      *            the idEspecialidadAspiranteEmpleado to set
      */
-    public void setIdEspecialidadAspiranteEmpleado(Integer idEspecialidadAspiranteEmpleado) {
+    public void setIdEspecialidadAspiranteEmpleado(
+            Integer idEspecialidadAspiranteEmpleado) {
         this.idEspecialidadAspiranteEmpleado = idEspecialidadAspiranteEmpleado;
     }
 

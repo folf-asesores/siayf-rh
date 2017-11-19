@@ -8,7 +8,8 @@ package mx.gob.saludtlax.rh.util;
  *
  */
 public enum ServicioWebEnum {
-    CONTROL_ASISTENCIA_RS(1), FACTURACION_ELECTRONICA(2), CANCELACION_CFDI(3), RELOJ_CHECADOR(4);
+    CONTROL_ASISTENCIA_RS(1), FACTURACION_ELECTRONICA(2), CANCELACION_CFDI(3),
+    RELOJ_CHECADOR(4);
 
     private final int id;
 

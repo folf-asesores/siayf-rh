@@ -20,7 +20,9 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
     private final String unidadResponsable;
     private final Map<String, NominaEmpleadoDTO> nominasEmpleados;
 
-    public UnidadResponsableDTO(String numeroUnidadResponsable, String unidadResponsable, Map<String, NominaEmpleadoDTO> nominasEmpleados) {
+    public UnidadResponsableDTO(String numeroUnidadResponsable,
+            String unidadResponsable,
+            Map<String, NominaEmpleadoDTO> nominasEmpleados) {
         this.unidadResponsable = unidadResponsable;
         this.numeroUnidadResponsable = numeroUnidadResponsable;
         this.nominasEmpleados = nominasEmpleados;
@@ -67,7 +69,8 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
         if (!Objects.equals(unidadResponsable, other.unidadResponsable)) {
             return false;
         }
-        if (!Objects.equals(numeroUnidadResponsable, other.numeroUnidadResponsable)) {
+        if (!Objects.equals(numeroUnidadResponsable,
+                other.numeroUnidadResponsable)) {
             return false;
         }
         return Objects.equals(nominasEmpleados, other.nominasEmpleados);
@@ -75,7 +78,9 @@ public final class UnidadResponsableDTO implements Iterable<NominaEmpleadoDTO> {
 
     @Override
     public String toString() {
-        return "UnidadResponsableDTO{" + "numeroUnidadResponsable=" + numeroUnidadResponsable + ", unidadResponsable=" + unidadResponsable
-                + ", nominasEmpleados=" + nominasEmpleados + '}';
+        return "UnidadResponsableDTO{" + "numeroUnidadResponsable="
+                + numeroUnidadResponsable + ", unidadResponsable="
+                + unidadResponsable + ", nominasEmpleados=" + nominasEmpleados
+                + '}';
     }
 }

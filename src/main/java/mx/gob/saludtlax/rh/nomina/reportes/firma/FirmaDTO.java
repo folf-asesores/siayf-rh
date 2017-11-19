@@ -17,7 +17,8 @@ import java.util.Objects;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableDTO> {
+public final class FirmaDTO
+        implements Serializable, Iterable<UnidadResponsableDTO> {
 
     private static final long serialVersionUID = 7690585164049594702L;
 
@@ -32,8 +33,10 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
     private final String nombreAutorizo;
     private final String cargoAutorizo;
 
-    public FirmaDTO(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables, String nombreElaboro, String cargoElaboro,
-            String nombreReviso, String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
+    public FirmaDTO(Integer idProductoNomina, Date fechaPago,
+            Map<String, UnidadResponsableDTO> unidadesResponsables,
+            String nombreElaboro, String cargoElaboro, String nombreReviso,
+            String cargoReviso, String nombreAutorizo, String cargoAutorizo) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.unidadesResponsables = unidadesResponsables;
@@ -155,9 +158,13 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
 
     @Override
     public String toString() {
-        return "FirmaDTO {" + "idProductoNomina : " + idProductoNomina + ", quincena : " + quincena + ", fechaPago : " + fechaPago + ", programas : ["
-                + unidadesResponsables + "], nombreElaboro : " + nombreElaboro + ", cargoElaboro : " + cargoElaboro + ", nombreReviso : " + nombreReviso
-                + ", cargoReviso : " + cargoReviso + ", nombreAutorizo : " + nombreAutorizo + ", cargoAutorizo : " + cargoAutorizo + '}';
+        return "FirmaDTO {" + "idProductoNomina : " + idProductoNomina
+                + ", quincena : " + quincena + ", fechaPago : " + fechaPago
+                + ", programas : [" + unidadesResponsables
+                + "], nombreElaboro : " + nombreElaboro + ", cargoElaboro : "
+                + cargoElaboro + ", nombreReviso : " + nombreReviso
+                + ", cargoReviso : " + cargoReviso + ", nombreAutorizo : "
+                + nombreAutorizo + ", cargoAutorizo : " + cargoAutorizo + '}';
     }
 
     public static final class Builder {
@@ -172,7 +179,8 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
         private String nombreAutorizo;
         private String cargoAutorizo;
 
-        public Builder(Integer idProductoNomina, Date fechaPago, Map<String, UnidadResponsableDTO> unidadesResponsables) {
+        public Builder(Integer idProductoNomina, Date fechaPago,
+                Map<String, UnidadResponsableDTO> unidadesResponsables) {
             this.idProductoNomina = idProductoNomina;
             this.fechaPago = fechaPago;
             this.unidadesResponsables = unidadesResponsables;
@@ -194,7 +202,8 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
             return this;
         }
 
-        public Builder setUnidadesResponsables(Map<String, UnidadResponsableDTO> unidadesResponsables) {
+        public Builder setUnidadesResponsables(
+                Map<String, UnidadResponsableDTO> unidadesResponsables) {
             this.unidadesResponsables = unidadesResponsables;
             return this;
         }
@@ -230,8 +239,9 @@ public final class FirmaDTO implements Serializable, Iterable<UnidadResponsableD
         }
 
         public FirmaDTO construirFirmaDTO() {
-            return new FirmaDTO(idProductoNomina, fechaPago, unidadesResponsables, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo,
-                    cargoAutorizo);
+            return new FirmaDTO(idProductoNomina, fechaPago,
+                    unidadesResponsables, nombreElaboro, cargoElaboro,
+                    nombreReviso, cargoReviso, nombreAutorizo, cargoAutorizo);
         }
     }
 

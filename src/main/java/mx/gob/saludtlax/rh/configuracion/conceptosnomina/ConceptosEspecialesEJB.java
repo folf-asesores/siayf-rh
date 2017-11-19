@@ -32,18 +32,32 @@ public class ConceptosEspecialesEJB implements ConceptoEspecialesService {
             for (ConceptosNominaEspecialEntity entity : listEntitys) {
                 ConceptoNominaFederalEspecialDTO dto = new ConceptoNominaFederalEspecialDTO();
                 dto.setClaveConceptoBase(entity.getIdConceptobase().getClave());
-                dto.setClaveConceptoCompensacion(entity.getIdConceptoCompensacion() != null ? entity.getIdConceptoCompensacion().getClave() : null);
+                dto.setClaveConceptoCompensacion(
+                        entity.getIdConceptoCompensacion() != null
+                                ? entity.getIdConceptoCompensacion().getClave()
+                                : null);
                 dto.setClaveConceptoIsr(entity.getIdConceptoISR().getClave());
 
-                dto.setDescripcionConceptoBase(entity.getIdConceptobase().getDescripcion());
-                dto.setDescripcionConceptoCompensacion(entity.getIdConceptoCompensacion() != null ? entity.getIdConceptoCompensacion().getDescripcion() : null);
-                dto.setDescripcionConceptoIsr(entity.getIdConceptoISR().getDescripcion());
+                dto.setDescripcionConceptoBase(
+                        entity.getIdConceptobase().getDescripcion());
+                dto.setDescripcionConceptoCompensacion(
+                        entity.getIdConceptoCompensacion() != null ? entity
+                                .getIdConceptoCompensacion().getDescripcion()
+                                : null);
+                dto.setDescripcionConceptoIsr(
+                        entity.getIdConceptoISR().getDescripcion());
 
                 dto.setId(entity.getIdConceptoEspecial());
 
-                dto.setIdConceptoBase(entity.getIdConceptobase().getIdConceptoNomina());
-                dto.setIdConceptoCompensacion(entity.getIdConceptoCompensacion() != null ? entity.getIdConceptoCompensacion().getIdConceptoNomina() : null);
-                dto.setIdConceptoIsr(entity.getIdConceptoISR().getIdConceptoNomina());
+                dto.setIdConceptoBase(
+                        entity.getIdConceptobase().getIdConceptoNomina());
+                dto.setIdConceptoCompensacion(
+                        entity.getIdConceptoCompensacion() != null
+                                ? entity.getIdConceptoCompensacion()
+                                        .getIdConceptoNomina()
+                                : null);
+                dto.setIdConceptoIsr(
+                        entity.getIdConceptoISR().getIdConceptoNomina());
 
                 listDtos.add(dto);
             }
@@ -56,9 +70,12 @@ public class ConceptosEspecialesEJB implements ConceptoEspecialesService {
     public void agregarConcepto(ConceptoNominaFederalEspecialDTO dto) {
         try {
             ConceptosNominaEspecialEntity entity = new ConceptosNominaEspecialEntity();
-            entity.setIdConceptobase(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoBase()));
-            entity.setIdConceptoCompensacion(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoCompensacion()));
-            entity.setIdConceptoISR(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoIsr()));
+            entity.setIdConceptobase(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoBase()));
+            entity.setIdConceptoCompensacion(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoCompensacion()));
+            entity.setIdConceptoISR(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoIsr()));
 
             conceptosEspecialesRepository.crear(entity);
         } catch (PersistenceException e) {
@@ -74,10 +91,14 @@ public class ConceptosEspecialesEJB implements ConceptoEspecialesService {
     @Override
     public void actualizarConcepto(ConceptoNominaFederalEspecialDTO dto) {
         try {
-            ConceptosNominaEspecialEntity entity = conceptosEspecialesRepository.obtenerPorId(dto.getId());
-            entity.setIdConceptobase(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoBase()));
-            entity.setIdConceptoCompensacion(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoCompensacion()));
-            entity.setIdConceptoISR(conceptosFederalesRepository.obtenerPorId(dto.getIdConceptoIsr()));
+            ConceptosNominaEspecialEntity entity = conceptosEspecialesRepository
+                    .obtenerPorId(dto.getId());
+            entity.setIdConceptobase(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoBase()));
+            entity.setIdConceptoCompensacion(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoCompensacion()));
+            entity.setIdConceptoISR(conceptosFederalesRepository
+                    .obtenerPorId(dto.getIdConceptoIsr()));
 
             conceptosEspecialesRepository.actualizar(entity);
         } catch (PersistenceException e) {

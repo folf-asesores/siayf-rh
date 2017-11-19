@@ -47,7 +47,8 @@ public class PresupuestoAutorizadoService implements Serializable {
     }
 
     public void actualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO dto) {
-        PresupuestoAutorizadoEntity entity = presupuestoAutorizadoRepository.obtenerPorId(dto.getIdPresupuestoAutorizado());
+        PresupuestoAutorizadoEntity entity = presupuestoAutorizadoRepository
+                .obtenerPorId(dto.getIdPresupuestoAutorizado());
 
         entity.setIdUnidadResponsable(dto.getIdUnidadResponsable());
         entity.setFin(dto.getFin());
@@ -79,17 +80,21 @@ public class PresupuestoAutorizadoService implements Serializable {
 
         List<PresupuestoAutorizadoDTO> dtos = new ArrayList<>();
 
-        List<PresupuestoAutorizadoEntity> entities = presupuestoAutorizadoRepository.obtenerListaPresupuestoAutorizado();
+        List<PresupuestoAutorizadoEntity> entities = presupuestoAutorizadoRepository
+                .obtenerListaPresupuestoAutorizado();
 
         // || entities != null
         if (!entities.isEmpty()) {
             for (PresupuestoAutorizadoEntity presupuestoAutorizadoEntity : entities) {
                 PresupuestoAutorizadoDTO dto = new PresupuestoAutorizadoDTO();
-                dto.setIdPresupuestoAutorizado(presupuestoAutorizadoEntity.getIdPresupuestoAutorizado());
-                dto.setIdUnidadResponsable(presupuestoAutorizadoEntity.getIdUnidadResponsable());
+                dto.setIdPresupuestoAutorizado(presupuestoAutorizadoEntity
+                        .getIdPresupuestoAutorizado());
+                dto.setIdUnidadResponsable(
+                        presupuestoAutorizadoEntity.getIdUnidadResponsable());
                 dto.setFin(presupuestoAutorizadoEntity.getFin());
                 dto.setFn(presupuestoAutorizadoEntity.getFn());
-                dto.setIdSubfuenteFinanciamiento(presupuestoAutorizadoEntity.getIdSubfuenteFinanciamiento());
+                dto.setIdSubfuenteFinanciamiento(presupuestoAutorizadoEntity
+                        .getIdSubfuenteFinanciamiento());
                 dto.setRg(presupuestoAutorizadoEntity.getRg());
                 dto.setAi(presupuestoAutorizadoEntity.getAi());
                 dto.setMpp(presupuestoAutorizadoEntity.getMpp());
@@ -100,7 +105,8 @@ public class PresupuestoAutorizadoService implements Serializable {
                 dto.setEf(presupuestoAutorizadoEntity.getEf());
                 dto.setPpii(presupuestoAutorizadoEntity.getPpii());
                 dto.setConcepto(presupuestoAutorizadoEntity.getConcepto());
-                dto.setImporteAnual(presupuestoAutorizadoEntity.getImporteAnual());
+                dto.setImporteAnual(
+                        presupuestoAutorizadoEntity.getImporteAnual());
                 dto.setAnio(presupuestoAutorizadoEntity.getAnio());
 
                 dtos.add(dto);

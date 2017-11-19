@@ -43,14 +43,17 @@ public class ConsultarPartidaController {
     }
 
     public String consultarPartidasPorRfc() {
-        view.setListaConsultaPartida(ejb.consultarPartidasPorRfc(view.getRfc()));
+        view.setListaConsultaPartida(
+                ejb.consultarPartidasPorRfc(view.getRfc()));
         view.setMostrarOpcionDescarga(true);
         return null;
     }
 
     public String consultarPartidasPorUnidadResponsable() {
         try {
-            view.setListaConsultaPartida(ejb.consultarPartidasPorUnidadResponsable(view.getIdUnidadResponsable()));
+            view.setListaConsultaPartida(
+                    ejb.consultarPartidasPorUnidadResponsable(
+                            view.getIdUnidadResponsable()));
             view.setMostrarOpcionDescarga(true);
         } catch (ReglaNegocioException e) {
 
@@ -64,7 +67,9 @@ public class ConsultarPartidaController {
 
     public String consultarPartidasPorTipoNombramiento() {
         try {
-            view.setListaConsultaPartida(ejb.consultarPartidasPorTipoNombramiento(view.getIdTipoNombramiento()));
+            view.setListaConsultaPartida(
+                    ejb.consultarPartidasPorTipoNombramiento(
+                            view.getIdTipoNombramiento()));
             view.setMostrarOpcionDescarga(true);
         } catch (ReglaNegocioException e) {
             if (view.getListaConsultaPartida() != null) {
@@ -78,7 +83,8 @@ public class ConsultarPartidaController {
 
     public String consultarPartidasPorDependencia() {
         try {
-            view.setListaConsultaPartida(ejb.consultarPartidasPorDependencia(view.getIdDependencia()));
+            view.setListaConsultaPartida(ejb
+                    .consultarPartidasPorDependencia(view.getIdDependencia()));
             view.setMostrarOpcionDescarga(true);
         } catch (ReglaNegocioException e) {
             if (view.getListaConsultaPartida() != null) {
@@ -90,13 +96,18 @@ public class ConsultarPartidaController {
         return null;
     }
 
-    public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value) throws ValidatorException, BusinessException {
+    public void validatorDatosGenerales(FacesContext context,
+            UIComponent component, Object value)
+            throws ValidatorException, BusinessException {
 
         String rfc = (String) value;
 
-        if (view.getListaConsultaPartida() == null || view.getListaConsultaPartida().isEmpty()) {
+        if (view.getListaConsultaPartida() == null
+                || view.getListaConsultaPartida().isEmpty()) {
             if (ValidacionUtil.esCadenaVacia(rfc)) {
-                FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un rfc.");
+                FacesMessage facesMessage1 = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "",
+                        "Por favor ingrese un rfc.");
                 context.addMessage(component.getClientId(), facesMessage1);
                 throw new ValidatorException(facesMessage1);
             } else {
@@ -104,7 +115,8 @@ public class ConsultarPartidaController {
 
                     bolsaTrabajo.validarRfcAspirante(rfc);
                 } catch (BusinessException ex) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "", ex.getMessage());
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -124,19 +136,23 @@ public class ConsultarPartidaController {
             bytes = reporte.generarArchivoExcel(view.getListaConsultaPartida());
 
             if (bytes != null) {
-                JSFUtils.descargarArchivo(bytes, "Consultar Partida", TipoArchivo.getMIMEType("xlsx"));
+                JSFUtils.descargarArchivo(bytes, "Consultar Partida",
+                        TipoArchivo.getMIMEType("xlsx"));
 
             }
 
-            JSFUtils.infoMessage("Descargar Reporte: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descargar Reporte: ",
+                    "Se descargo correctamente...");
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
 
             exception.printStackTrace();
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
             reglaNegocioException.printStackTrace();
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidacionException validacionException) {
 
             validacionException.printStackTrace();

@@ -28,7 +28,8 @@ public class NuevoClienteBiometricoController implements Serializable {
 
     // @PostConstruct
     public void init() throws RESTClientException {
-        List<ClienteBiometricoFormModel> listadecliente = clienteBiometricoREST.listadoClientesBiometricos();
+        List<ClienteBiometricoFormModel> listadecliente = clienteBiometricoREST
+                .listadoClientesBiometricos();
 
         for (ClienteBiometricoFormModel ite : listadecliente) {
             System.out.println(ite.getDireccionIP() + " -- " + ite.getUnidad());
@@ -45,7 +46,8 @@ public class NuevoClienteBiometricoController implements Serializable {
             return "clientesBiometricos.xhml?faces-redirect=true";
 
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Guardar", e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             return "";
         }
@@ -56,7 +58,8 @@ public class NuevoClienteBiometricoController implements Serializable {
         return clienteBiometricoFormModel;
     }
 
-    public void setClienteBiometricoFormModel(ClienteBiometricoFormModel clienteBiometricoFormModel) {
+    public void setClienteBiometricoFormModel(
+            ClienteBiometricoFormModel clienteBiometricoFormModel) {
         this.clienteBiometricoFormModel = clienteBiometricoFormModel;
     }
 

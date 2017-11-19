@@ -16,7 +16,7 @@ import mx.gob.saludtlax.rh.vacantes.postulacion.InfoCandidatoDTO;
 
 /**
  * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
-
+ * 
  * @version 1.0
  * @since 16/08/2016 10:42:51
  */
@@ -83,7 +83,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param mostrarDetalleCandidatoSeleccionado
      *            the mostrarDetalleCandidatoSeleccionado to set
      */
-    public void setMostrarDetalleCandidatoSeleccionado(boolean mostrarDetalleCandidatoSeleccionado) {
+    public void setMostrarDetalleCandidatoSeleccionado(
+            boolean mostrarDetalleCandidatoSeleccionado) {
         this.mostrarDetalleCandidatoSeleccionado = mostrarDetalleCandidatoSeleccionado;
     }
 
@@ -98,7 +99,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param listaPostuladoVacante
      *            the listaPostuladoVacante to set
      */
-    public void setListaPostuladoVacante(List<InfoPostuladoVacanteDTO> listaPostuladoVacante) {
+    public void setListaPostuladoVacante(
+            List<InfoPostuladoVacanteDTO> listaPostuladoVacante) {
         this.listaPostuladoVacante = listaPostuladoVacante;
     }
 
@@ -113,7 +115,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param filtroPostuladoVacante
      *            the filtroPostuladoVacante to set
      */
-    public void setFiltroPostuladoVacante(List<InfoPostuladoVacanteDTO> filtroPostuladoVacante) {
+    public void setFiltroPostuladoVacante(
+            List<InfoPostuladoVacanteDTO> filtroPostuladoVacante) {
         this.filtroPostuladoVacante = filtroPostuladoVacante;
     }
 
@@ -121,7 +124,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
         return infoPostuladoVacanteDTO;
     }
 
-    public void setInfoPostuladoVacanteDTO(InfoPostuladoVacanteDTO infoPostuladoVacanteDTO) {
+    public void setInfoPostuladoVacanteDTO(
+            InfoPostuladoVacanteDTO infoPostuladoVacanteDTO) {
         this.infoPostuladoVacanteDTO = infoPostuladoVacanteDTO;
     }
 
@@ -129,7 +133,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
         return infoCandidatoVacanteDTO;
     }
 
-    public void setInfoCandidatoVacanteDTO(InfoCandidatoDTO infoCandidatoVacanteDTO) {
+    public void setInfoCandidatoVacanteDTO(
+            InfoCandidatoDTO infoCandidatoVacanteDTO) {
         this.infoCandidatoVacanteDTO = infoCandidatoVacanteDTO;
     }
 
@@ -159,7 +164,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param mostrarDetalleGeneralCandidato
      *            the mostrarDetalleGeneralCandidato to set
      */
-    public void setMostrarDetalleGeneralCandidato(boolean mostrarDetalleGeneralCandidato) {
+    public void setMostrarDetalleGeneralCandidato(
+            boolean mostrarDetalleGeneralCandidato) {
         this.mostrarDetalleGeneralCandidato = mostrarDetalleGeneralCandidato;
     }
 
@@ -174,7 +180,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param mostrarDetalleHistorialAcademico
      *            the mostrarDetalleHistorialAcademico to set
      */
-    public void setMostrarDetalleHistorialAcademico(boolean mostrarDetalleHistorialAcademico) {
+    public void setMostrarDetalleHistorialAcademico(
+            boolean mostrarDetalleHistorialAcademico) {
         this.mostrarDetalleHistorialAcademico = mostrarDetalleHistorialAcademico;
     }
 
@@ -189,7 +196,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param mostrarDetalleExperienciaLaboral
      *            the mostrarDetalleExperienciaLaboral to set
      */
-    public void setMostrarDetalleExperienciaLaboral(boolean mostrarDetalleExperienciaLaboral) {
+    public void setMostrarDetalleExperienciaLaboral(
+            boolean mostrarDetalleExperienciaLaboral) {
         this.mostrarDetalleExperienciaLaboral = mostrarDetalleExperienciaLaboral;
     }
 
@@ -264,7 +272,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param listaHistorialAcademico
      *            the listaHistorialAcademico to set
      */
-    public void setListaHistorialAcademico(List<HistorialAcademicoDTO> listaHistorialAcademico) {
+    public void setListaHistorialAcademico(
+            List<HistorialAcademicoDTO> listaHistorialAcademico) {
         this.listaHistorialAcademico = listaHistorialAcademico;
     }
 
@@ -279,7 +288,8 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
      * @param listaExperienciaLaboral
      *            the listaExperienciaLaboral to set
      */
-    public void setListaExperienciaLaboral(List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral) {
+    public void setListaExperienciaLaboral(
+            List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral) {
         this.listaExperienciaLaboral = listaExperienciaLaboral;
     }
 

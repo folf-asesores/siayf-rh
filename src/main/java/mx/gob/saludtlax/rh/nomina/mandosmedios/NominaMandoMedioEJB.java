@@ -32,19 +32,28 @@ public class NominaMandoMedioEJB implements NominaMandoMedio {
     @Override
     public void crear(NominaMandoMedioDTO nominaMandoMedio) {
         if (nominaMandoMedio == null) {
-            throw new ValidacionException("La información de la nomina de mando medio no debe estar vacia.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "La información de la nomina de mando medio no debe estar vacia.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdEmpleado())) {
-            throw new ValidacionException("El ID del empleado debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del empleado debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdAdscripcion())) {
-            throw new ValidacionException("El ID de la adscripcion debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID de la adscripcion debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdPuestoGeneral())) {
-            throw new ValidacionException("El ID del puesto debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+        if (ValidacionUtil
+                .esMenorQueUno(nominaMandoMedio.getIdPuestoGeneral())) {
+            throw new ValidacionException(
+                    "El ID del puesto debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         mandoMedioService.crear(nominaMandoMedio);
@@ -53,7 +62,9 @@ public class NominaMandoMedioEJB implements NominaMandoMedio {
     @Override
     public NominaMandoMedioDTO obtenerPorId(Integer id) {
         if (ValidacionUtil.esMenorQueUno(id)) {
-            throw new ValidacionException("El ID de la nomina del mando medio debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID de la nomina del mando medio debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         return mandoMedioService.obtenerPorId(id);
@@ -67,23 +78,35 @@ public class NominaMandoMedioEJB implements NominaMandoMedio {
     @Override
     public void actualizar(NominaMandoMedioDTO nominaMandoMedio) {
         if (nominaMandoMedio == null) {
-            throw new ValidacionException("La información de la nomina de mando medio no debe estar vacia.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "La información de la nomina de mando medio no debe estar vacia.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdNominaMandoMedio())) {
-            throw new ValidacionException("El ID de la nomina de mando menio debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+        if (ValidacionUtil
+                .esMenorQueUno(nominaMandoMedio.getIdNominaMandoMedio())) {
+            throw new ValidacionException(
+                    "El ID de la nomina de mando menio debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdEmpleado())) {
-            throw new ValidacionException("El ID del empleado debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del empleado debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdAdscripcion())) {
-            throw new ValidacionException("El ID de la adscripcion debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID de la adscripcion debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        if (ValidacionUtil.esMenorQueUno(nominaMandoMedio.getIdPuestoGeneral())) {
-            throw new ValidacionException("El ID del puesto debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+        if (ValidacionUtil
+                .esMenorQueUno(nominaMandoMedio.getIdPuestoGeneral())) {
+            throw new ValidacionException(
+                    "El ID del puesto debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         mandoMedioService.actualizar(nominaMandoMedio);
@@ -92,7 +115,9 @@ public class NominaMandoMedioEJB implements NominaMandoMedio {
     @Override
     public void eliminar(Integer id) {
         if (ValidacionUtil.esMenorQueUno(id)) {
-            throw new ValidacionException("El ID de la nomina del mando medio debe ser mayor que cero o no nulo.", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID de la nomina del mando medio debe ser mayor que cero o no nulo.",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         mandoMedioService.eliminar(id);

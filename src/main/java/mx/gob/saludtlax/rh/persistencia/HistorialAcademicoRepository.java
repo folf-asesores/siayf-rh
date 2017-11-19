@@ -18,11 +18,12 @@ import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
  *
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 21/03/2016 12:55:06
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
-public class HistorialAcademicoRepository extends GenericRepository<HistorialAcademicoEntity, Integer> {
+public class HistorialAcademicoRepository
+        extends GenericRepository<HistorialAcademicoEntity, Integer> {
 
     private static final long serialVersionUID = -4518251232465263301L;
 
@@ -39,50 +40,67 @@ public class HistorialAcademicoRepository extends GenericRepository<HistorialAca
         Boolean resultado = Boolean.FALSE;
         String contexto = "Registro de historial académico: ";
         try {
-            entityManager
-                    .createQuery("SELECT h.idHistorialAcademico FROM HistorialAcademicoEntity AS h.empleado.idEmpleado WHERE  =:idAspirante", Integer.class)
-                    .setParameter("idAspirante", idAspirante).getSingleResult();
+            entityManager.createQuery(
+                    "SELECT h.idHistorialAcademico FROM HistorialAcademicoEntity AS h.empleado.idEmpleado WHERE  =:idAspirante",
+                    Integer.class).setParameter("idAspirante", idAspirante)
+                    .getSingleResult();
             resultado = true;
         } catch (NoResultException ex) {
             resultado = false;
         } catch (NonUniqueResultException ex) {
-            throw new ReglaNegocioException(
-                    contexto + "El historial academico del aspirante ya se encuentra registrado mas de una vez, proceda con el siguiente registro",
+            throw new ReglaNegocioException(contexto
+                    + "El historial academico del aspirante ya se encuentra registrado mas de una vez, proceda con el siguiente registro",
                     ReglaNegocioCodigoError.YA_AUTORIZADO);
         }
 
         return resultado;
     }
 
-    public List<HistorialAcademicoEntity> consultarHistorialAcademicoAspirante(Integer idAspirante) {
-        return entityManager.createQuery("SELECT h FROM HistorialAcademicoEntity AS h WHERE h.idAspirante =:idAspirante", HistorialAcademicoEntity.class)
+    public List<HistorialAcademicoEntity> consultarHistorialAcademicoAspirante(
+            Integer idAspirante) {
+        return entityManager.createQuery(
+                "SELECT h FROM HistorialAcademicoEntity AS h WHERE h.idAspirante =:idAspirante",
+                HistorialAcademicoEntity.class)
                 .setParameter("idAspirante", idAspirante).getResultList();
     }
 
-    public List<HistorialAcademicoEntity> consultarHistorialAcademicoEmpleado(Integer idEmpleado) {
+    public List<HistorialAcademicoEntity> consultarHistorialAcademicoEmpleado(
+            Integer idEmpleado) {
 
-        return entityManager.createQuery("SELECT h FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado", HistorialAcademicoEntity.class)
+        return entityManager.createQuery(
+                "SELECT h FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado",
+                HistorialAcademicoEntity.class)
                 .setParameter("idEmpleado", idEmpleado).getResultList();
     }
 
     public String nombreEscolaridadCursadaPorIdHistorial(Integer idHistorial) {
         try {
-            return em.createQuery("SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idHistorialAcademico =:idHistorial", String.class)
-                    .setParameter("idHistorial", idHistorial).getSingleResult();
+            return em.createQuery(
+                    "SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idHistorialAcademico =:idHistorial",
+                    String.class).setParameter("idHistorial", idHistorial)
+                    .getSingleResult();
         } catch (NoResultException exception) {
-            throw new ReglaNegocioException("Consulta nombre escolaridad: No existe el id de historial " + idHistorial, ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "Consulta nombre escolaridad: No existe el id de historial "
+                            + idHistorial,
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
     }
 
-    public List<String> consultaEstudiosProfesionistasEmpleado(Integer idEmpleado) {
-        return em.createQuery("SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.escolaridad BETWEEN 6 AND 10 AND h.idEmpleado =:idEmpleado",
-                String.class).setParameter("idEmpleado", idEmpleado).getResultList();
+    public List<String> consultaEstudiosProfesionistasEmpleado(
+            Integer idEmpleado) {
+        return em.createQuery(
+                "SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.escolaridad BETWEEN 6 AND 10 AND h.idEmpleado =:idEmpleado",
+                String.class).setParameter("idEmpleado", idEmpleado)
+                .getResultList();
     }
 
     public boolean tieneHistorialAcademicoEmpleado(Integer idEmpleado) {
         try {
-            em.createQuery("SELECT MAX(h.idHistorialAcademico) FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado", Integer.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            em.createQuery(
+                    "SELECT MAX(h.idHistorialAcademico) FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado",
+                    Integer.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -93,19 +111,24 @@ public class HistorialAcademicoRepository extends GenericRepository<HistorialAca
      * Consulta la lista de profesiones y especialidades del aspirante.
      */
     public List<String> consultarProfesionesAspirante(Integer idAspirante) {
-        return em.createQuery("SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idAspirante =:idAspirante AND h.escolaridad.perfil = true",
-                String.class).setParameter("idAspirante", idAspirante).getResultList();
+        return em.createQuery(
+                "SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idAspirante =:idAspirante AND h.escolaridad.perfil = true",
+                String.class).setParameter("idAspirante", idAspirante)
+                .getResultList();
     }
 
     /**
      * Consulta la lista de profesiones y especialidades del empleado.
      */
     public List<String> consultarProfesionesEmpleado(Integer idEmpleado) {
-        return em.createQuery("SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado AND h.escolaridad.perfil = true",
-                String.class).setParameter("idEmpleado", idEmpleado).getResultList();
+        return em.createQuery(
+                "SELECT h.nombreCurso FROM HistorialAcademicoEntity AS h WHERE h.idEmpleado =:idEmpleado AND h.escolaridad.perfil = true",
+                String.class).setParameter("idEmpleado", idEmpleado)
+                .getResultList();
     }
 
-    public void actualizarTieneDocumentos(int idHistorialAcademico, boolean tieneDocumentacion) {
+    public void actualizarTieneDocumentos(int idHistorialAcademico,
+            boolean tieneDocumentacion) {
         Query query = em.createQuery(
                 "update HistorialAcademicoEntity as historial set historial.tieneDocumentacion = :tieneDocumentacion where historial.idHistorialAcademico = :idHistorialAcademico");
         query.setParameter("idHistorialAcademico", idHistorialAcademico);

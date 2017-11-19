@@ -42,7 +42,8 @@ public class SeguroVidaInstitucionalServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         Integer idSeguro = Integer.parseInt(request.getParameter("idSeguro"));
 
         byte[] bytes = doReport(idSeguro);
@@ -50,7 +51,8 @@ public class SeguroVidaInstitucionalServlet extends HttpServlet {
         ServletOutputStream servletOutputStream = response.getOutputStream();
         response.setContentType("application/pdf");
         response.setContentLength(bytes.length);
-        response.setHeader("Content-Disposition", "inline;filename=" + "Formato_Seguro_Vida_Institucional.pdf");
+        response.setHeader("Content-Disposition",
+                "inline;filename=" + "Formato_Seguro_Vida_Institucional.pdf");
         servletOutputStream.write(bytes, 0, bytes.length);
         servletOutputStream.flush();
         servletOutputStream.close();
@@ -59,11 +61,13 @@ public class SeguroVidaInstitucionalServlet extends HttpServlet {
     private byte[] doReport(Integer idSeguro) {
         byte[] bytes = null;
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/FORMATO_SEGURO_VIDA.jasper");
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("/reportes/FORMATO_SEGURO_VIDA.jasper");
         Connection conexion = null;
         try {
             Context initcontext = new InitialContext();
-            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+            DataSource ds = (DataSource) initcontext
+                    .lookup("java:jboss/datasources/SIAYFRHDS");
 
             conexion = ds.getConnection();
 
@@ -71,13 +75,18 @@ public class SeguroVidaInstitucionalServlet extends HttpServlet {
 
             parameters.put("ID_SEGURO", idSeguro);
 
-            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters,
+                    conexion);
 
         } catch (NamingException ex) {
-            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            System.err.println(
+                    "Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (SQLException ex) {
-            System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
+            System.err.println(
+                    "Error al tratar obtener la conexiÃ³n con la base de datos en "
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (JRException ex) {
             System.err.println("Error durante la generación del reporte ");
@@ -87,7 +96,9 @@ public class SeguroVidaInstitucionalServlet extends HttpServlet {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    System.err.println("Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
+                    System.err.println(
+                            "Error al tratar cerrar la conexiÃ³n con la base de datos en "
+                                    + getClass().getName());
                     e.printStackTrace();
                 }
             }

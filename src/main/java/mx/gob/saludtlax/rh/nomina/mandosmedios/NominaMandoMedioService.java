@@ -43,18 +43,21 @@ public class NominaMandoMedioService {
     }
 
     protected NominaMandoMedioDTO obtenerPorId(Integer id) {
-        NominaMandoMedioDTO dto = convertirEntidadADto(mandoMedioRepository.obtenerPorId(id));
+        NominaMandoMedioDTO dto = convertirEntidadADto(
+                mandoMedioRepository.obtenerPorId(id));
         return dto;
     }
 
     protected List<NominaMandoMedioDTO> consultarTodos() {
-        List<NominaMandoMedioEntity> entidades = mandoMedioRepository.consultarTodos();
+        List<NominaMandoMedioEntity> entidades = mandoMedioRepository
+                .consultarTodos();
 
         return convertirEntidadesADtos(entidades);
     }
 
     protected void actualizar(NominaMandoMedioDTO dto) {
-        NominaMandoMedioEntity entidad = mandoMedioRepository.obtenerPorId(dto.getIdNominaMandoMedio());
+        NominaMandoMedioEntity entidad = mandoMedioRepository
+                .obtenerPorId(dto.getIdNominaMandoMedio());
         entidad = convertirDtoAEntidad(dto, entidad);
         mandoMedioRepository.actualizar(entidad);
     }
@@ -63,18 +66,23 @@ public class NominaMandoMedioService {
         mandoMedioRepository.eliminarPorId(id);
     }
 
-    private NominaMandoMedioEntity convertirDtoAEntidad(NominaMandoMedioDTO dto) {
+    private NominaMandoMedioEntity convertirDtoAEntidad(
+            NominaMandoMedioDTO dto) {
         return convertirDtoAEntidad(dto, null);
     }
 
-    private NominaMandoMedioEntity convertirDtoAEntidad(NominaMandoMedioDTO dto, NominaMandoMedioEntity entidad) {
+    private NominaMandoMedioEntity convertirDtoAEntidad(NominaMandoMedioDTO dto,
+            NominaMandoMedioEntity entidad) {
         if (entidad == null) {
             entidad = new NominaMandoMedioEntity();
         }
 
-        AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(dto.getIdAdscripcion());
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(dto.getIdEmpleado());
-        PuestoGeneralEntity puestoGeneral = puestoGeneralRepository.obtenerPorId(dto.getIdPuestoGeneral());
+        AdscripcionEntity adscripcion = adscripcionRepository
+                .obtenerPorId(dto.getIdAdscripcion());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(dto.getIdEmpleado());
+        PuestoGeneralEntity puestoGeneral = puestoGeneralRepository
+                .obtenerPorId(dto.getIdPuestoGeneral());
 
         entidad.setAdscripcion(adscripcion);
         entidad.setEmpleado(empleado);
@@ -89,7 +97,8 @@ public class NominaMandoMedioService {
         return entidad;
     }
 
-    private NominaMandoMedioDTO convertirEntidadADto(NominaMandoMedioEntity entidad) {
+    private NominaMandoMedioDTO convertirEntidadADto(
+            NominaMandoMedioEntity entidad) {
         if (entidad == null) {
             return null;
         }
@@ -113,7 +122,8 @@ public class NominaMandoMedioService {
         return dto;
     }
 
-    private List<NominaMandoMedioDTO> convertirEntidadesADtos(List<NominaMandoMedioEntity> entidades) {
+    private List<NominaMandoMedioDTO> convertirEntidadesADtos(
+            List<NominaMandoMedioEntity> entidades) {
         List<NominaMandoMedioDTO> dtos = new ArrayList<>();
 
         for (NominaMandoMedioEntity entidad : entidades) {

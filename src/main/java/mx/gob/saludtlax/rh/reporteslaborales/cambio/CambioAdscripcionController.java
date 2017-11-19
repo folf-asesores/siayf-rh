@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -43,7 +43,8 @@ public class CambioAdscripcionController implements Serializable {
         view = new CambioAdscripcionView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -52,7 +53,9 @@ public class CambioAdscripcionController implements Serializable {
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -68,14 +71,16 @@ public class CambioAdscripcionController implements Serializable {
 
         String criterio = view.getCriterio();
 
-        List<CambioAdscripcionDetalleDTO> resultado = cambioAdscripcionEJB.consultarPorCriterio(criterio);
+        List<CambioAdscripcionDetalleDTO> resultado = cambioAdscripcionEJB
+                .consultarPorCriterio(criterio);
         view.setCambioDetalle(resultado);
 
     }
 
     public void descargarComision() {
 
-        CambioAdscripcionDTO cambioAdscripcionDTO = view.getCambioAdscripcionDTO();
+        CambioAdscripcionDTO cambioAdscripcionDTO = view
+                .getCambioAdscripcionDTO();
 
         CambioAdscripcionWord cambioAdscripcionWord = new CambioAdscripcionWord();
         byte[] bytesWord = cambioAdscripcionWord.generar(cambioAdscripcionDTO);
@@ -86,9 +91,11 @@ public class CambioAdscripcionController implements Serializable {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "CambioAdscripcion.docx");
+            ec.setResponseHeader("Content-Disposition",
+                    "attachment;filename=" + "CambioAdscripcion.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -102,7 +109,8 @@ public class CambioAdscripcionController implements Serializable {
     }
 
     public void contenidoComision(Integer idTipoMovimiento) {
-        CambioAdscripcionDTO cambioAdscripcionDTO = cambioAdscripcionEJB.obtenerComisionOficial(idTipoMovimiento);
+        CambioAdscripcionDTO cambioAdscripcionDTO = cambioAdscripcionEJB
+                .obtenerComisionOficial(idTipoMovimiento);
         view.setCambioAdscripcionDTO(cambioAdscripcionDTO);
         view.setMostrarPrincipal(false);
         view.setMostrarCambio(true);

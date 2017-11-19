@@ -14,7 +14,7 @@ package mx.gob.saludtlax.rh.reportes;
  * identificar los reportes del sistema.
  * </p>
  *
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @param <T>
  *            el tipo del reportes que llevará el almacen.
  *

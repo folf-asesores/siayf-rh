@@ -10,8 +10,8 @@ import java.util.List;
 import mx.gob.saludtlax.rh.nomina.movimientosnomina.ConfiguracionTipoMovimientoDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/05/2016 13:49:26
  */
@@ -21,18 +21,23 @@ public interface MovimientoFijoService {
 
     public void editar(MovimientoNominaDTO dto);
 
-    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer idEmpleado);
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            Integer idEmpleado);
 
-    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(Integer empleadoSeleccionado, String movimientoSeleccionado);
+    public List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            Integer empleadoSeleccionado, String movimientoSeleccionado);
 
     public List<MovimientoNominaDTO> obtenerMovimientos();
 
     public void eliminar(MovimientoNominaDTO dto);
 
-    public Integer numeroQuincena(Integer tipoPeriodo, Integer ejercicioFiscal, Date fechaActual);
+    public Integer numeroQuincena(Integer tipoPeriodo, Integer ejercicioFiscal,
+            Date fechaActual);
 
-    public MovimientoNominaDTO obtenerMovimientoPorDatosArchivo(MovimientoNominaDTO archivoDto);
+    public MovimientoNominaDTO obtenerMovimientoPorDatosArchivo(
+            MovimientoNominaDTO archivoDto);
 
-    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(Integer idTipoMovimiento);
+    public ConfiguracionTipoMovimientoDTO obtenerConfiguracionesPorTipoMovimiento(
+            Integer idTipoMovimiento);
 
 }

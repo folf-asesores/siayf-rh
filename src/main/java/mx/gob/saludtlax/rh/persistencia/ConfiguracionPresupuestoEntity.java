@@ -139,16 +139,23 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
         }
         String ta = " SIN TABULADOR ";
         if (tabulador != null) {
-            ta = tabulador.getPuestoGeneral().getCodigo() + " " + tabulador.getPuestoGeneral().getPuesto();
+            ta = tabulador.getPuestoGeneral().getCodigo() + " "
+                    + tabulador.getPuestoGeneral().getPuesto();
         }
-        return "Datos Laborales [numeroEmpleado=" + numeroEmpleado + ", tipoContratacion=" + tipoContratacion.getTipoContratacion() + ", proyecto=" + p
-                + ", dependencia=" + d + ", unidadResponsable=" + u + ", puesto=" + puesto.getCodigo() + "-" + puesto.getPuesto() + ", fuenteFinanciamiento="
-                + f + ", subfuenteFinanciamiento=" + sub + ", sueldo=" + sueldo + ", sueldo01=" + sueldo01 + ", sueldo14=" + sueldo14 + ", tabulador=" + ta
-                + ", fechaInicioLabores=" + fechaInicioLabores + "]";
+        return "Datos Laborales [numeroEmpleado=" + numeroEmpleado
+                + ", tipoContratacion=" + tipoContratacion.getTipoContratacion()
+                + ", proyecto=" + p + ", dependencia=" + d
+                + ", unidadResponsable=" + u + ", puesto=" + puesto.getCodigo()
+                + "-" + puesto.getPuesto() + ", fuenteFinanciamiento=" + f
+                + ", subfuenteFinanciamiento=" + sub + ", sueldo=" + sueldo
+                + ", sueldo01=" + sueldo01 + ", sueldo14=" + sueldo14
+                + ", tabulador=" + ta + ", fechaInicioLabores="
+                + fechaInicioLabores + "]";
     }
 
     public String lccSueldo() {
-        return "Sueldo [sueldo=" + sueldo + ", sueldo01=" + sueldo01 + ", sueldo14=" + sueldo14 + "]";
+        return "Sueldo [sueldo=" + sueldo + ", sueldo01=" + sueldo01
+                + ", sueldo14=" + sueldo14 + "]";
     }
 
     public Integer getIdJornada() {
@@ -203,7 +210,8 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
         return unidadResponsable;
     }
 
-    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+    public void setUnidadResponsable(
+            UnidadResponsableEntity unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
     }
 
@@ -235,7 +243,8 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -243,7 +252,8 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 
@@ -331,7 +341,8 @@ public class ConfiguracionPresupuestoEntity implements Serializable {
         return centroResponsabilidad;
     }
 
-    public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
+    public void setCentroResponsabilidad(
+            CentroResponsabilidadEntity centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 

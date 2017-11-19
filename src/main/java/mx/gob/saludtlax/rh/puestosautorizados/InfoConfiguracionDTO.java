@@ -22,8 +22,11 @@ public class InfoConfiguracionDTO {
 
     }
 
-    public InfoConfiguracionDTO(Integer idConfiguracionPresupuesto, String rfc, String nombreCompleto, Integer numeroEmpleado, String contratacion,
-            String nombramiento, String financiamiento, String subfuenteFinanciamiento, String programa, Date inicio, Date fin) {
+    public InfoConfiguracionDTO(Integer idConfiguracionPresupuesto, String rfc,
+            String nombreCompleto, Integer numeroEmpleado, String contratacion,
+            String nombramiento, String financiamiento,
+            String subfuenteFinanciamiento, String programa, Date inicio,
+            Date fin) {
 
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
         this.rfc = rfc;
@@ -42,7 +45,8 @@ public class InfoConfiguracionDTO {
         return idConfiguracionPresupuesto;
     }
 
-    public void setIdConfiguracionPresupuesto(Integer idConfiguracionPresupuesto) {
+    public void setIdConfiguracionPresupuesto(
+            Integer idConfiguracionPresupuesto) {
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
     }
 

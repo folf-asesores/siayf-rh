@@ -55,22 +55,29 @@ public class AdministracionMovimientoIsssteController implements Serializable {
     public void inicio() {
         view = new AdministracionMovimientsIsssteView();
 
-        view.setListaCausaBaja(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaCausaBajaIssste()));
-        view.setListaNombramiento(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaTipoNombramiento()));
-        view.setListaNivelSalario(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaNivelSalarial()));
+        view.setListaCausaBaja(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaCausaBajaIssste()));
+        view.setListaNombramiento(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaTipoNombramiento()));
+        view.setListaNivelSalario(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaNivelSalarial()));
     }
 
     public void consultarEmpleados() {
         try {
 
-            view.setListaEmpleados(empleado.empleadosPorCriterioConNombramiento(view.getCriterio()));
+            view.setListaEmpleados(empleado
+                    .empleadosPorCriterioConNombramiento(view.getCriterio()));
 
             if (view.getListaEmpleados().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros en el criterio"
+                                + view.getCriterio());
             }
             view.setVentanaNuevoReporte(false);
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
@@ -78,15 +85,19 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
     public void consultarMovimiento() {
         try {
-            view.setListaMovimiento(issste.obtenerListaMovimientoPorCriterio(view.getCriterio()));
+            view.setListaMovimiento(issste
+                    .obtenerListaMovimientoPorCriterio(view.getCriterio()));
 
             if (view.getListaMovimiento().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros en el criterio"
+                                + view.getCriterio());
             }
 
             view.setVentanaNuevoReporte(false);
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
@@ -96,12 +107,14 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
         if (issste.existeEmpleado(empleadoSeleccionar.getIdEmpleado())) {
             view.setVentanaNuevoReporte(false);
-            JSFUtils.errorMessage("Seleccionar Empleado: ", "El empleado ya se encuentra registrado");
+            JSFUtils.errorMessage("Seleccionar Empleado: ",
+                    "El empleado ya se encuentra registrado");
         } else {
             view.setIdEmpleado(empleadoSeleccionar.getIdEmpleado());
             view.setEmpleadoSeleccionado(empleadoSeleccionar);
             view.setFormularioAltaTrabajador(true);
-            view.getAltaTrabajadorDTO().setSueldoIssste(empleadoSeleccionar.getSueldoActualEmpleado());
+            view.getAltaTrabajadorDTO().setSueldoIssste(
+                    empleadoSeleccionar.getSueldoActualEmpleado());
             view.setVentanaNuevoReporte(false);
         }
     }
@@ -120,7 +133,8 @@ public class AdministracionMovimientoIsssteController implements Serializable {
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
@@ -136,12 +150,17 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
             if (ValidacionUtil.esNumeroPositivoInt(idMovimiento)) {
 
-                view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + idMovimiento + "&idAccionMovimientoIssste="
-                        + EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.ALTA_TRABAJADOR);
+                view.setUrlReporte("AdministracionMovimientoIsssteServlet?"
+                        + "idMovimientoIssste=" + idMovimiento
+                        + "&idAccionMovimientoIssste="
+                        + EnumAccionMovimientoIssste.VISUALIZAR
+                        + "&idTipoMovimientoIssste="
+                        + EnumTipoMovimientoIssste.ALTA_TRABAJADOR);
 
                 view.setVentanaNuevoReporte(true);
 
-                JSFUtils.infoMessage("Alta Trabajador: ", "¡Se registro correctamente!");
+                JSFUtils.infoMessage("Alta Trabajador: ",
+                        "¡Se registro correctamente!");
                 mostrarPrincipal();
 
             }
@@ -149,28 +168,37 @@ public class AdministracionMovimientoIsssteController implements Serializable {
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
     public void modificarSueldo() {
         try {
 
-            issste.modificacionIsssteMovimiento(view.getModificacionTrabajadorDTO());
+            issste.modificacionIsssteMovimiento(
+                    view.getModificacionTrabajadorDTO());
 
-            view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
-                    + view.getModificacionTrabajadorDTO().getIdMovimientoIsssteEmpleado() + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR
-                    + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO);
+            view.setUrlReporte("AdministracionMovimientoIsssteServlet?"
+                    + "idMovimientoIssste="
+                    + view.getModificacionTrabajadorDTO()
+                            .getIdMovimientoIsssteEmpleado()
+                    + "&idAccionMovimientoIssste="
+                    + EnumAccionMovimientoIssste.VISUALIZAR
+                    + "&idTipoMovimientoIssste="
+                    + EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO);
 
             view.setVentanaNuevoReporte(true);
 
-            JSFUtils.infoMessage("Modificación Sueldo Trabajador: ", "¡Se modifico correctamente!");
+            JSFUtils.infoMessage("Modificación Sueldo Trabajador: ",
+                    "¡Se modifico correctamente!");
             mostrarPrincipal();
 
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
@@ -178,24 +206,38 @@ public class AdministracionMovimientoIsssteController implements Serializable {
         try {
             issste.bajaIsssteMovimiento(view.getBajaTrabajadorDTO());
 
-            view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + view.getBajaTrabajadorDTO().getIdMovimientoIsssteEmpleado()
-                    + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.VISUALIZAR + "&idTipoMovimientoIssste=" + EnumTipoMovimientoIssste.BAJA_ISSSTE);
+            view.setUrlReporte("AdministracionMovimientoIsssteServlet?"
+                    + "idMovimientoIssste="
+                    + view.getBajaTrabajadorDTO()
+                            .getIdMovimientoIsssteEmpleado()
+                    + "&idAccionMovimientoIssste="
+                    + EnumAccionMovimientoIssste.VISUALIZAR
+                    + "&idTipoMovimientoIssste="
+                    + EnumTipoMovimientoIssste.BAJA_ISSSTE);
             view.setVentanaNuevoReporte(true);
 
-            JSFUtils.infoMessage("Baja Trabajador: ", "¡Se dio de baja correctamente!");
+            JSFUtils.infoMessage("Baja Trabajador: ",
+                    "¡Se dio de baja correctamente!");
             mostrarPrincipal();
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
-    public void descargarMovimientoIssste(InfoMovimientoIsssteDTO infoMovimientoIsssteDTO) {
+    public void descargarMovimientoIssste(
+            InfoMovimientoIsssteDTO infoMovimientoIsssteDTO) {
 
-        view.setUrlReporte("AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste=" + infoMovimientoIsssteDTO.getIdMovimientoIsssteEmpleado()
-                + "&idAccionMovimientoIssste=" + EnumAccionMovimientoIssste.DESCARGAR + "&idTipoMovimientoIssste="
-                + infoMovimientoIsssteDTO.getIdTipoMovimientoIssste());
+        view.setUrlReporte(
+                "AdministracionMovimientoIsssteServlet?" + "idMovimientoIssste="
+                        + infoMovimientoIsssteDTO
+                                .getIdMovimientoIsssteEmpleado()
+                        + "&idAccionMovimientoIssste="
+                        + EnumAccionMovimientoIssste.DESCARGAR
+                        + "&idTipoMovimientoIssste="
+                        + infoMovimientoIsssteDTO.getIdTipoMovimientoIssste());
         view.setVentanaNuevoReporte(true);
 
     }
@@ -232,10 +274,14 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
     public void mostrarPanelModificacion() {
 
-        view.getModificacionTrabajadorDTO().setIdMovimientoIsssteEmpleado(view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
-        view.getModificacionTrabajadorDTO().setSueldoIssste(view.getMovimientoSeleccinado().getSueldoIssste());
-        view.getModificacionTrabajadorDTO().setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
-        view.getModificacionTrabajadorDTO().setTotalRemuneracion(view.getMovimientoSeleccinado().getTotalRemuneracion());
+        view.getModificacionTrabajadorDTO().setIdMovimientoIsssteEmpleado(view
+                .getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
+        view.getModificacionTrabajadorDTO().setSueldoIssste(
+                view.getMovimientoSeleccinado().getSueldoIssste());
+        view.getModificacionTrabajadorDTO()
+                .setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
+        view.getModificacionTrabajadorDTO().setTotalRemuneracion(
+                view.getMovimientoSeleccinado().getTotalRemuneracion());
 
         view.setCriterio("");
         view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
@@ -252,11 +298,16 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
     public void mostrarPanelBaja() {
 
-        view.getBajaTrabajadorDTO().setIdMovimientoIsssteEmpleado(view.getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
-        view.getBajaTrabajadorDTO().setSueldoIssste(view.getMovimientoSeleccinado().getSueldoIssste());
-        view.getBajaTrabajadorDTO().setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
-        view.getBajaTrabajadorDTO().setTotalRemuneracion(view.getMovimientoSeleccinado().getTotalRemuneracion());
-        view.getBajaTrabajadorDTO().setIdCausaBaja(view.getMovimientoSeleccinado().getIdCausaBaja());
+        view.getBajaTrabajadorDTO().setIdMovimientoIsssteEmpleado(view
+                .getMovimientoSeleccinado().getIdMovimientoIsssteEmpleado());
+        view.getBajaTrabajadorDTO().setSueldoIssste(
+                view.getMovimientoSeleccinado().getSueldoIssste());
+        view.getBajaTrabajadorDTO()
+                .setSueldoSar(view.getMovimientoSeleccinado().getSueldoSar());
+        view.getBajaTrabajadorDTO().setTotalRemuneracion(
+                view.getMovimientoSeleccinado().getTotalRemuneracion());
+        view.getBajaTrabajadorDTO().setIdCausaBaja(
+                view.getMovimientoSeleccinado().getIdCausaBaja());
 
         view.setCriterio("");
         view.setEmpleadoSeleccionado(new InfoEmpleadoDTO());
@@ -292,7 +343,8 @@ public class AdministracionMovimientoIsssteController implements Serializable {
         view.setVentanaNuevoReporte(false);
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -300,14 +352,18 @@ public class AdministracionMovimientoIsssteController implements Serializable {
                 String criterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -318,14 +374,18 @@ public class AdministracionMovimientoIsssteController implements Serializable {
                 String criterios = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterios)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterios.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -339,16 +399,19 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 
     public Integer obtenerIdUsuarioSession() {
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
         return usuario.getIdUsuario();
     }
 
     public void regresar() {
         try {
-            JSFUtils.redireccionar("/siayf-rh/contenido/reportesLaborales/administracionMovimientoIssste.xhtml?faces-redirect=true");
+            JSFUtils.redireccionar(
+                    "/siayf-rh/contenido/reportesLaborales/administracionMovimientoIssste.xhtml?faces-redirect=true");
         } catch (IOException e) {
 
             e.printStackTrace();

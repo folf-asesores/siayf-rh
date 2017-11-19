@@ -46,7 +46,8 @@ public class SiifDatosLaboralesController {
 
     public void datosLaboralesChangeListener(AjaxBehaviorEvent event) {
         view.setRfcCriterio(datosPersonalesView.getRfcCriterio());
-        view.setListSiifDatosLaborales(ejb.obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
+        view.setListSiifDatosLaborales(ejb
+                .obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
         view.setOculto(Boolean.TRUE);
     }
 
@@ -57,17 +58,20 @@ public class SiifDatosLaboralesController {
     }
 
     public String filtrarPorCriterios() {
-        view.setListSiifDatosLaborales(ejb.obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
+        view.setListSiifDatosLaborales(ejb
+                .obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
         view.setOculto(Boolean.TRUE);
         return null;
     }
 
     public String filtrarPorRFC() {
         view.setRfcCriterio(datosPersonalesView.getRfcCriterio());
-        view.setListSiifDatosLaborales(ejb.obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
+        view.setListSiifDatosLaborales(ejb
+                .obtenerDatosLaboralesListaPorCriterios(view.getRfcCriterio()));
         view.setOculto(Boolean.TRUE);
 
-        datosPersonalesView.setListDatosPersonalesLista(datoPersonal.obtenerlistaDatosPersonalesPorCriterio(view.getRfcCriterio()));
+        datosPersonalesView.setListDatosPersonalesLista(datoPersonal
+                .obtenerlistaDatosPersonalesPorCriterio(view.getRfcCriterio()));
         //		this.datosPersonalesView.setOculto(Boolean.TRUE);
         return null;
     }
@@ -99,7 +103,8 @@ public class SiifDatosLaboralesController {
     }
 
     public String irGestionarDatosLaborales() {
-        view.setSiifDatosLaborales(ejb.obtenerDatosLaborales(view.getSiifDatosLaboralesSelect()));
+        view.setSiifDatosLaborales(
+                ejb.obtenerDatosLaborales(view.getSiifDatosLaboralesSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.setListDependencia(ejb.obtenerDependenciaLista());
         view.setListUnidad(ejb.obtenerUnidadLista());
@@ -139,24 +144,31 @@ public class SiifDatosLaboralesController {
         return datosPersonalesView;
     }
 
-    public void setDatosPersonalesView(ConsultaPersonalesView datosPersonalesView) {
+    public void setDatosPersonalesView(
+            ConsultaPersonalesView datosPersonalesView) {
         this.datosPersonalesView = datosPersonalesView;
     }
 
-    public void validatorBusqueda(FacesContext context, UIComponent component, Object value) {
+    public void validatorBusqueda(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "rfcCr":
                 String rfcCr = (String) value;
                 if (ValidacionUtil.esCadenaVacia(rfcCr)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (rfcCr.length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese más de 4 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese más de 4 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -166,19 +178,25 @@ public class SiifDatosLaboralesController {
         }
     }
 
-    public void validatorDatosLaborales(FacesContext context, UIComponent component, Object value) {
+    public void validatorDatosLaborales(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "rfc2":
                 String rfc2 = (String) value;
                 if (ValidacionUtil.esCadenaVacia(rfc2)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un RFC.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un RFC.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (!ValidacionUtil.validarRfc(rfc2)) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El formato de RFC que introdujo es incorrecto");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El formato de RFC que introdujo es incorrecto");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -186,7 +204,9 @@ public class SiifDatosLaboralesController {
             case "plaza":
                 String plaza = (String) value;
                 if (ValidacionUtil.esCadenaVacia(plaza)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una plaza");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una plaza");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -194,7 +214,9 @@ public class SiifDatosLaboralesController {
             case "proyecto":
                 Integer proyecto = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(proyecto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un proyecto");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un proyecto");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -202,7 +224,9 @@ public class SiifDatosLaboralesController {
             case "dependencia":
                 Integer dependencia = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(dependencia)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona una dependencia");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona una dependencia");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -210,7 +234,9 @@ public class SiifDatosLaboralesController {
             case "unidad":
                 Integer unidad = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(unidad)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona una unidad responsable");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona una unidad responsable");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -218,7 +244,9 @@ public class SiifDatosLaboralesController {
             case "nombramiento":
                 String nombramiento = (String) value;
                 if (ValidacionUtil.esCadenaVacia(nombramiento)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona un nombramiento");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona un nombramiento");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -226,7 +254,9 @@ public class SiifDatosLaboralesController {
             case "puesto":
                 String puesto = (String) value;
                 if (ValidacionUtil.esCadenaVacia(puesto)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona un puesto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona un puesto");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -234,7 +264,9 @@ public class SiifDatosLaboralesController {
             case "sindicato":
                 Integer sindicato = (Integer) value;
                 if (sindicato == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona si es de sindicato");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona si es de sindicato");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -243,7 +275,9 @@ public class SiifDatosLaboralesController {
                 Integer habilitado = (Integer) value;
 
                 if (habilitado == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor selecciona si esta habilitado");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor selecciona si esta habilitado");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -251,7 +285,9 @@ public class SiifDatosLaboralesController {
             case "fingreso":
                 Date fingreso = (Date) value;
                 if (fingreso == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de ingreso");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de ingreso");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -259,7 +295,9 @@ public class SiifDatosLaboralesController {
             case "noQ":
                 Integer noQ = (Integer) value;
                 if (noQ == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Numero de Quinquenio");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Numero de Quinquenio");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -268,7 +306,9 @@ public class SiifDatosLaboralesController {
                 BigDecimal sdoM = (BigDecimal) value;
 
                 if (sdoM == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Sueldo Mensual");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Sueldo Mensual");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -276,7 +316,9 @@ public class SiifDatosLaboralesController {
             case "percepcion":
                 BigDecimal percepcion = (BigDecimal) value;
                 if (percepcion == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Percepcion Complementaria");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Percepcion Complementaria");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -284,7 +326,9 @@ public class SiifDatosLaboralesController {
             case "despensa":
                 BigDecimal despensa = (BigDecimal) value;
                 if (despensa == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Despensa");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Despensa");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -292,7 +336,9 @@ public class SiifDatosLaboralesController {
             case "incA":
                 BigDecimal incA = (BigDecimal) value;
                 if (incA == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Incentivo de Ahorro");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Incentivo de Ahorro");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -300,7 +346,9 @@ public class SiifDatosLaboralesController {
             case "compensacion":
                 BigDecimal compensacion = (BigDecimal) value;
                 if (compensacion == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Compensacion");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Compensacion");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -308,7 +356,9 @@ public class SiifDatosLaboralesController {
             case "quin":
                 BigDecimal quin = (BigDecimal) value;
                 if (quin == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Quinquenio");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Quinquenio");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -316,7 +366,9 @@ public class SiifDatosLaboralesController {
             case "cuenta":
                 String cuenta = (String) value;
                 if (ValidacionUtil.esCadenaVacia(cuenta)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingresa un No. de Cuenta");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingresa un No. de Cuenta");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -325,7 +377,9 @@ public class SiifDatosLaboralesController {
                 Integer trecurso = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(trecurso)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingresa un tipo de recurso");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingresa un tipo de recurso");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -333,7 +387,9 @@ public class SiifDatosLaboralesController {
             case "policia":
                 Integer policia = (Integer) value;
                 if (policia == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione si es Policia o no");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione si es Policia o no");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -341,7 +397,9 @@ public class SiifDatosLaboralesController {
             case "idFF":
                 Integer idFF = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idFF)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione una Fuente de Financiamiento");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione una Fuente de Financiamiento");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -349,7 +407,9 @@ public class SiifDatosLaboralesController {
             case "idSF":
                 Integer idSF = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idSF)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione una Subfuente de Financiamiento");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione una Subfuente de Financiamiento");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -357,7 +417,9 @@ public class SiifDatosLaboralesController {
             case "idEE":
                 String idEE = (String) value;
                 if (ValidacionUtil.esCadenaVacia(idEE)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Estado de Empleado");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Estado de Empleado");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }

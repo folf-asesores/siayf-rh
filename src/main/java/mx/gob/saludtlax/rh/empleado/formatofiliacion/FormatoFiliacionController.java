@@ -32,7 +32,7 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "formatoFiliacion")
@@ -64,13 +64,15 @@ public class FormatoFiliacionController implements Serializable {
         view.setListaOjos(SelectItemsUtil.listaOjos());
     }
 
-    
     public void consultarEmpleados() {
         try {
-            view.setListaEmpleados(empleado.consultaEmpleadosFederales(view.getCriterio()));
+            view.setListaEmpleados(
+                    empleado.consultaEmpleadosFederales(view.getCriterio()));
 
             if (view.getListaEmpleados().isEmpty()) {
-                JSFUtils.warningMessage("", "No se encontrarón registros con el criterio " + view.getCriterio());
+                JSFUtils.warningMessage("",
+                        "No se encontrarón registros con el criterio "
+                                + view.getCriterio());
             }
 
         } catch (ReglaNegocioException reglaNegocioException) {
@@ -80,20 +82,21 @@ public class FormatoFiliacionController implements Serializable {
         }
     }
 
-    
-
     public void verFormatoFiliacion() throws IOException {
         try {
 
             view.getFormatoFiliacionDTO().setIdEmpleado(view.getIdEmpleado());
 
-            formatoFiliacion.crearFormatoFiliacion(view.getFormatoFiliacionDTO());
+            formatoFiliacion
+                    .crearFormatoFiliacion(view.getFormatoFiliacionDTO());
 
-            urlReporte = "FormatoFiliacionServlet?" + "idEmpleado=" + view.getIdEmpleado();
+            urlReporte = "FormatoFiliacionServlet?" + "idEmpleado="
+                    + view.getIdEmpleado();
             view.setFormulario(false);
             view.setMostrarReporteNuevaVentana(true);
             view.setMostrarExitoReporte(true);
-            JSFUtils.infoMessage("Formato Filiación: ", "El proceso de realizo correctamente");
+            JSFUtils.infoMessage("Formato Filiación: ",
+                    "El proceso de realizo correctamente");
 
         } catch (NullPointerException | IllegalArgumentException exception) {
 
@@ -102,7 +105,8 @@ public class FormatoFiliacionController implements Serializable {
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
@@ -112,18 +116,24 @@ public class FormatoFiliacionController implements Serializable {
 
             view.getFormatoFiliacionDTO().setIdEmpleado(view.getIdEmpleado());
 
-            view.setIdFormato(formatoFiliacion.crearFormatoFiliacion(view.getFormatoFiliacionDTO()));
+            view.setIdFormato(formatoFiliacion
+                    .crearFormatoFiliacion(view.getFormatoFiliacionDTO()));
 
             byte[] bytes = null;
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "formato-filiacion", "TIPO_REPORTE", "pdf",
-                    "ID_EMPLEADO", String.valueOf(view.getIdEmpleado()) };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "formato-filiacion", "TIPO_REPORTE", "pdf", "ID_EMPLEADO",
+                    String.valueOf(view.getIdEmpleado()) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             bytes = admintradorReportes.obtenerReporte(referencia);
 
@@ -138,10 +148,13 @@ public class FormatoFiliacionController implements Serializable {
                 reporteParamDTO.setParametros(parametros);
                 reporteParamDTO.setNombreReporte("Formato_Filiacion.pdf");
                 reporteParamDTO.setTituloReporte("Reporte Formato Filiación");
-                reporteParamDTO.setSubtituloReporte("Reporte Formato Filiación");
+                reporteParamDTO
+                        .setSubtituloReporte("Reporte Formato Filiación");
                 reporteParamDTO.setBytes(bytes);
 
-                HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+                HttpSession session = (HttpSession) FacesContext
+                        .getCurrentInstance().getExternalContext()
+                        .getSession(true);
                 session.setAttribute("reporteParam", reporteParamDTO);
 
                 urlReporte = "contenido/reportesLaborales/administradorReporte.xhtml?faces-redirect=true";
@@ -158,11 +171,11 @@ public class FormatoFiliacionController implements Serializable {
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
-    
     public void mostrarFormulario(Integer idEmpleado, String nombreEmpleado) {
 
         view.setPrincipal(false);
@@ -172,24 +185,35 @@ public class FormatoFiliacionController implements Serializable {
         JSFUtils.infoMessage("",
                 "En caso de ser necesaria la información de los padres y conyuge, es requerido que previamente sean registrados en el módulo de dependientes economicos.");
 
-        List<InfoDependienteEconomicoDTO> dependienteEconomicoDTOs = empleado.consultarDependientesEconomicoPadres(idEmpleado);
+        List<InfoDependienteEconomicoDTO> dependienteEconomicoDTOs = empleado
+                .consultarDependientesEconomicoPadres(idEmpleado);
 
         if (!dependienteEconomicoDTOs.isEmpty()) {
 
             for (InfoDependienteEconomicoDTO infoDependienteEconomicoDTO : dependienteEconomicoDTOs) {
 
-                if (infoDependienteEconomicoDTO.getParentesco().equals("PADRES")) {
+                if (infoDependienteEconomicoDTO.getParentesco()
+                        .equals("PADRES")) {
 
-                    if (infoDependienteEconomicoDTO.getParentesco().equals("CONYUGE")) {
-                        view.getFormatoFiliacionDTO().setNombreConyuge(infoDependienteEconomicoDTO.getNombreCompleto());
+                    if (infoDependienteEconomicoDTO.getParentesco()
+                            .equals("CONYUGE")) {
+                        view.getFormatoFiliacionDTO()
+                                .setNombreConyuge(infoDependienteEconomicoDTO
+                                        .getNombreCompleto());
                     }
 
-                    if (infoDependienteEconomicoDTO.getSexo().equals("MASCULINO")) {
-                        view.getFormatoFiliacionDTO().setNombrePadre(infoDependienteEconomicoDTO.getNombreCompleto());
+                    if (infoDependienteEconomicoDTO.getSexo()
+                            .equals("MASCULINO")) {
+                        view.getFormatoFiliacionDTO()
+                                .setNombrePadre(infoDependienteEconomicoDTO
+                                        .getNombreCompleto());
                     }
 
-                    if (infoDependienteEconomicoDTO.getSexo().equals("FEMENINO")) {
-                        view.getFormatoFiliacionDTO().setNombreMadre(infoDependienteEconomicoDTO.getNombreCompleto());
+                    if (infoDependienteEconomicoDTO.getSexo()
+                            .equals("FEMENINO")) {
+                        view.getFormatoFiliacionDTO()
+                                .setNombreMadre(infoDependienteEconomicoDTO
+                                        .getNombreCompleto());
                     }
 
                 }
@@ -198,8 +222,6 @@ public class FormatoFiliacionController implements Serializable {
         }
 
     }
-
-    
 
     public void ajaxColorPiel() {
         view.getFormatoFiliacionDTO().setColorBlanco(false);
@@ -357,7 +379,8 @@ public class FormatoFiliacionController implements Serializable {
         }
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -365,14 +388,18 @@ public class FormatoFiliacionController implements Serializable {
                 String criterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -386,7 +413,8 @@ public class FormatoFiliacionController implements Serializable {
 
     public void regresar() {
         try {
-            JSFUtils.redireccionar("/siayf-rh/contenido/empleado/formatoFiliacion.xhtml?faces-redirect=true");
+            JSFUtils.redireccionar(
+                    "/siayf-rh/contenido/empleado/formatoFiliacion.xhtml?faces-redirect=true");
         } catch (IOException e) {
 
             e.printStackTrace();

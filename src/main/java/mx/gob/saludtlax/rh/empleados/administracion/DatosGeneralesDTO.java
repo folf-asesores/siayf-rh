@@ -48,26 +48,42 @@ public class DatosGeneralesDTO {
     private Integer idUsuarioEnSesion;
 
     public String lccDatosGenerales() {
-        String lcc = "DatosGenerales[nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", rfc=" + rfc
-                + ", curp=" + curp + ", idSexo=" + idSexo + ", idEstadoCivil=" + idEstadoCivil + ", fechaNacimiento=" + fechaNacimiento + ", lugarNacimiento="
-                + lugarNacimiento + ", telefonos=" + telefonos + ", correo=" + correo + ", idTipoSangre=" + idTipoSangre + ", peso=" + peso + ", estatura="
-                + estatura + ", tienePersonasDependientes=" + tienePersonasDependientes + ", numeroHijos=" + numeroHijos + ", numeroPadres=" + numeroPadres
-                + ", numeroConyuges=" + numeroConyuges + ", numeroOtros=" + numeroOtros + ", otroParentesco=" + otroParentesco + "]";
+        String lcc = "DatosGenerales[nombre=" + nombre + ", apellidoPaterno="
+                + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno
+                + ", rfc=" + rfc + ", curp=" + curp + ", idSexo=" + idSexo
+                + ", idEstadoCivil=" + idEstadoCivil + ", fechaNacimiento="
+                + fechaNacimiento + ", lugarNacimiento=" + lugarNacimiento
+                + ", telefonos=" + telefonos + ", correo=" + correo
+                + ", idTipoSangre=" + idTipoSangre + ", peso=" + peso
+                + ", estatura=" + estatura + ", tienePersonasDependientes="
+                + tienePersonasDependientes + ", numeroHijos=" + numeroHijos
+                + ", numeroPadres=" + numeroPadres + ", numeroConyuges="
+                + numeroConyuges + ", numeroOtros=" + numeroOtros
+                + ", otroParentesco=" + otroParentesco + "]";
         return lcc.toUpperCase();
     }
 
     public String lccDatoGeneral() {
-        String lcc = "DatosGenerales[idSexo=" + idSexo + ", idEstadoCivil=" + idEstadoCivil + ", fechaNacimiento=" + fechaNacimiento + ", lugarNacimiento="
-                + lugarNacimiento + ", telefonos=" + telefonos + ", correo=" + correo + ", idTipoSangre=" + idTipoSangre + ", peso=" + peso + ", estatura="
-                + estatura + ", tienePersonasDependientes=" + tienePersonasDependientes + ", numeroHijos=" + numeroHijos + ", numeroPadres=" + numeroPadres
-                + ", numeroConyuges=" + numeroConyuges + ", numeroOtros=" + numeroOtros + ", otroParentesco=" + otroParentesco + "]";
+        String lcc = "DatosGenerales[idSexo=" + idSexo + ", idEstadoCivil="
+                + idEstadoCivil + ", fechaNacimiento=" + fechaNacimiento
+                + ", lugarNacimiento=" + lugarNacimiento + ", telefonos="
+                + telefonos + ", correo=" + correo + ", idTipoSangre="
+                + idTipoSangre + ", peso=" + peso + ", estatura=" + estatura
+                + ", tienePersonasDependientes=" + tienePersonasDependientes
+                + ", numeroHijos=" + numeroHijos + ", numeroPadres="
+                + numeroPadres + ", numeroConyuges=" + numeroConyuges
+                + ", numeroOtros=" + numeroOtros + ", otroParentesco="
+                + otroParentesco + "]";
         return lcc.toUpperCase();
     }
 
     public boolean tieneInformacionObligatoriaCompleta() {
         boolean tieneInformacionCompleta = true;
-        if (ValidacionUtil.esCadenaVacia(nombre) || ValidacionUtil.esCadenaVacia(apellidoMaterno) || ValidacionUtil.esCadenaVacia(idSexo)
-                || ValidacionUtil.esCadenaVacia(idEstadoCivil) || ValidacionUtil.esCadenaVacia(correo)) {
+        if (ValidacionUtil.esCadenaVacia(nombre)
+                || ValidacionUtil.esCadenaVacia(apellidoMaterno)
+                || ValidacionUtil.esCadenaVacia(idSexo)
+                || ValidacionUtil.esCadenaVacia(idEstadoCivil)
+                || ValidacionUtil.esCadenaVacia(correo)) {
             tieneInformacionCompleta = false;
         }
 
@@ -80,13 +96,22 @@ public class DatosGeneralesDTO {
 
     @Override
     public String toString() {
-        return "DatosGeneralesDTO [idEmpleado=" + idEmpleado + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno="
-                + apellidoMaterno + ", rfc=" + rfc + ", curp=" + curp + ", idSexo=" + idSexo + ", idEstadoCivil=" + idEstadoCivil + ", fechaNacimiento="
-                + fechaNacimiento + ", lugarNacimiento=" + lugarNacimiento + ", telefonos=" + telefonos + ", correo=" + correo + ", idTipoSangre="
-                + idTipoSangre + ", peso=" + peso + ", estatura=" + estatura + ", tienePersonasDependientes=" + tienePersonasDependientes + ", parentescos="
-                + parentescos + ", numeroHijos=" + numeroHijos + ", numeroPadres=" + numeroPadres + ", numeroConyuges=" + numeroConyuges + ", numeroOtros="
-                + numeroOtros + ", otroParentesco=" + otroParentesco + ", nacionalidad=" + nacionalidad + ", nombreCompleto=" + nombreCompleto
-                + ", direccionCompleta=" + direccionCompleta + ", idFoto=" + idFoto + "]";
+        return "DatosGeneralesDTO [idEmpleado=" + idEmpleado + ", nombre="
+                + nombre + ", apellidoPaterno=" + apellidoPaterno
+                + ", apellidoMaterno=" + apellidoMaterno + ", rfc=" + rfc
+                + ", curp=" + curp + ", idSexo=" + idSexo + ", idEstadoCivil="
+                + idEstadoCivil + ", fechaNacimiento=" + fechaNacimiento
+                + ", lugarNacimiento=" + lugarNacimiento + ", telefonos="
+                + telefonos + ", correo=" + correo + ", idTipoSangre="
+                + idTipoSangre + ", peso=" + peso + ", estatura=" + estatura
+                + ", tienePersonasDependientes=" + tienePersonasDependientes
+                + ", parentescos=" + parentescos + ", numeroHijos="
+                + numeroHijos + ", numeroPadres=" + numeroPadres
+                + ", numeroConyuges=" + numeroConyuges + ", numeroOtros="
+                + numeroOtros + ", otroParentesco=" + otroParentesco
+                + ", nacionalidad=" + nacionalidad + ", nombreCompleto="
+                + nombreCompleto + ", direccionCompleta=" + direccionCompleta
+                + ", idFoto=" + idFoto + "]";
     }
 
     public String getTipoEmpleado() {
@@ -197,7 +222,8 @@ public class DatosGeneralesDTO {
         return tienePersonasDependientes;
     }
 
-    public void setTienePersonasDependientes(Boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            Boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

@@ -58,9 +58,11 @@ public class AltaInterinatoController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setListaTipoCandidato(SelectItemsUtil.listaTipoCandidato());
         view.setTiposBusqueda(SelectItemsUtil.listaTiposBusquedaInterinato());
         view.setMostrarBusqueda(true);
@@ -69,9 +71,11 @@ public class AltaInterinatoController implements Serializable {
     }
 
     public void consultarCandidatosInterinato() {
-        view.setPuestosDisponibles(interinatos.consultarCandidatosInterinato(view.getTipoBusqueda()));
+        view.setPuestosDisponibles(interinatos
+                .consultarCandidatosInterinato(view.getTipoBusqueda()));
         if (view.getPuestosDisponibles().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron puestos disponibles para interinato.");
+            JSFUtils.warningMessage("",
+                    "No se encontraron puestos disponibles para interinato.");
         }
     }
 
@@ -83,8 +87,10 @@ public class AltaInterinatoController implements Serializable {
     public void seleccionarPuesto(DisponiblesInterinatoDTO dto) {
         view.getRegistro().setIdPuesto(dto.getIdPuesto());
         view.setPuestoSeleccionado(dto);
-        view.setDetalle(datosLaborales.obtenerDatosLaboralesId(dto.getIdPuesto()));
-        view.setDetalleMovimiento(movimientosEmpleados.obtenerDetalleMovimiento(dto.getIdMovimiento()));
+        view.setDetalle(
+                datosLaborales.obtenerDatosLaboralesId(dto.getIdPuesto()));
+        view.setDetalleMovimiento(movimientosEmpleados
+                .obtenerDetalleMovimiento(dto.getIdMovimiento()));
 
         view.setMostrarBusqueda(false);
         view.setMostrarRegistro(true);
@@ -96,30 +102,41 @@ public class AltaInterinatoController implements Serializable {
 
         view.setMostrarConsultaAspirante(false);
         view.setMostrarConsultaEmpleado(false);
-        if (!ValidacionUtil.esNumeroPositivo(view.getRegistro().getTipoCandidato())) {
-            JSFUtils.warningMessage("", "Es requerido seleccionar el tipo de candidato para realizar la búsqueda.");
+        if (!ValidacionUtil
+                .esNumeroPositivo(view.getRegistro().getTipoCandidato())) {
+            JSFUtils.warningMessage("",
+                    "Es requerido seleccionar el tipo de candidato para realizar la búsqueda.");
         } else {
-            if (view.getRegistro().getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
+            if (view.getRegistro()
+                    .getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
 
                 FiltroDTO filtroDTO = new FiltroDTO();
                 filtroDTO.setCriterio(view.getCriterioBusqueda());
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
-                view.setAspirantes(bolsaTrabajo.consultarPorCriterio(filtroDTO));
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+                view.setAspirantes(
+                        bolsaTrabajo.consultarPorCriterio(filtroDTO));
                 view.setMostrarConsultaAspirante(true);
                 if (view.getAspirantes().isEmpty()) {
-                    JSFUtils.warningMessage("", "No se encontró registro con el criterio" + view.getCriterioBusqueda());
+                    JSFUtils.warningMessage("",
+                            "No se encontró registro con el criterio"
+                                    + view.getCriterioBusqueda());
                 }
 
-            } else if (view.getRegistro().getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+            } else if (view.getRegistro()
+                    .getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
 
                 FiltroDTO filtroDTO = new FiltroDTO();
                 filtroDTO.setCriterio(view.getCriterioBusqueda());
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
                 view.setEmpleados(empleado.consultaEmpleado(filtroDTO));
                 view.setMostrarConsultaEmpleado(true);
 
                 if (view.getEmpleados().isEmpty()) {
-                    JSFUtils.warningMessage("", "No se encontró registro con el criterio " + view.getCriterioBusqueda());
+                    JSFUtils.warningMessage("",
+                            "No se encontró registro con el criterio "
+                                    + view.getCriterioBusqueda());
                 }
 
             }
@@ -130,10 +147,12 @@ public class AltaInterinatoController implements Serializable {
         view.setEmpleado(empleado.obtenerInformacionEmpleado(idEmpleado));
         view.getRegistro().setIdContexto(idEmpleado);
         view.getRegistro().setTipoCandidato(EnumTipoCandidato.EMPLEADO);
-        if (view.getEmpleado().getEstatus().equals(EnumEstatusEmpleado.ACTIVO)) {
+        if (view.getEmpleado().getEstatus()
+                .equals(EnumEstatusEmpleado.ACTIVO)) {
             view.setMostrarDetallePuestoActivo(true);
         }
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("idEmpleado", idEmpleado);
         view.setConsulta("consultaEmpleado.xhtml");
@@ -142,11 +161,13 @@ public class AltaInterinatoController implements Serializable {
     }
 
     public void seleccionarAspirante(Integer idAspirante) {
-        view.setAspirante(bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
+        view.setAspirante(
+                bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
         view.getRegistro().setIdContexto(idAspirante);
         view.getRegistro().setTipoCandidato(EnumTipoCandidato.ASPIRANTE);
         view.setMostrarConfirmacionAspirante(true);
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         httpSession.setAttribute("idAspirante", idAspirante);
         view.setConsulta("consultaAspirante.xhtml");
@@ -163,10 +184,13 @@ public class AltaInterinatoController implements Serializable {
             view.getPuestosDisponibles().clear();
 
         } catch (ReglaNegocioException exception) {
-            if (view.getRegistro().getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-                JSFUtils.errorMessageEspecifico("errorEmpleado", "", exception.getMessage());
+            if (view.getRegistro()
+                    .getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+                JSFUtils.errorMessageEspecifico("errorEmpleado", "",
+                        exception.getMessage());
             } else {
-                JSFUtils.errorMessageEspecifico("errorAspirante", "", exception.getMessage());
+                JSFUtils.errorMessageEspecifico("errorAspirante", "",
+                        exception.getMessage());
             }
 
         }

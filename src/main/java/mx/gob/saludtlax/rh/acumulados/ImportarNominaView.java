@@ -9,8 +9,8 @@ import java.io.Serializable;
 import mx.gob.saludtlax.rh.siif.PaqueteEntradaFederalDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 18:25:33 24/09/2016
  */

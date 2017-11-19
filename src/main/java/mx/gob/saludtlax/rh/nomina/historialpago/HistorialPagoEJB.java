@@ -11,7 +11,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -26,9 +26,11 @@ public class HistorialPagoEJB implements HistorialPago, Serializable {
     private HistorialPagoService historialPagoService;
 
     @Override
-    public List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(Integer idEmpleado) {
+    public List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(
+            Integer idEmpleado) {
 
-        return historialPagoService.obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
+        return historialPagoService
+                .obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
     }
 
 }

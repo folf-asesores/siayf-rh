@@ -187,19 +187,32 @@ public class EmpleadoEntity implements Serializable {
     }
 
     public String lccDatosGenerales() {
-        String lcc = "DatosGenerales[nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", rfc=" + rfc
-                + ", curp=" + curp + ", idSexo=" + idSexo + ", idEstadoCivil=" + estadoCivil + ", fechaNacimiento=" + fechaNacimiento + ", lugarNacimiento="
-                + lugarNacimiento + ", telefonos=" + telefono + ", correo=" + correoElectronico + ", idTipoSangre=" + tipoSangre + ", peso=" + peso
-                + ", estatura=" + estatura + ", tienePersonasDependientes=" + tienePersonasDependientes + ", numeroHijos=" + numeroHijos + ", numeroPadres="
-                + numeroPadres + ", numeroConyuges=" + numeroConyuges + ", numeroOtros=" + numeroOtros + ", otroParentesco=" + otroParentesco + "]";
+        String lcc = "DatosGenerales[nombre=" + nombre + ", apellidoPaterno="
+                + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno
+                + ", rfc=" + rfc + ", curp=" + curp + ", idSexo=" + idSexo
+                + ", idEstadoCivil=" + estadoCivil + ", fechaNacimiento="
+                + fechaNacimiento + ", lugarNacimiento=" + lugarNacimiento
+                + ", telefonos=" + telefono + ", correo=" + correoElectronico
+                + ", idTipoSangre=" + tipoSangre + ", peso=" + peso
+                + ", estatura=" + estatura + ", tienePersonasDependientes="
+                + tienePersonasDependientes + ", numeroHijos=" + numeroHijos
+                + ", numeroPadres=" + numeroPadres + ", numeroConyuges="
+                + numeroConyuges + ", numeroOtros=" + numeroOtros
+                + ", otroParentesco=" + otroParentesco + "]";
         return lcc.toUpperCase();
     }
 
     public String lccDatoGeneral() {
-        String lcc = "DatosGenerales[idSexo=" + idSexo + ", idEstadoCivil=" + estadoCivil + ", fechaNacimiento=" + fechaNacimiento + ", lugarNacimiento="
-                + lugarNacimiento + ", telefonos=" + telefono + ", correo=" + correoElectronico + ", idTipoSangre=" + tipoSangre + ", peso=" + peso
-                + ", estatura=" + estatura + ", tienePersonasDependientes=" + tienePersonasDependientes + ", numeroHijos=" + numeroHijos + ", numeroPadres="
-                + numeroPadres + ", numeroConyuges=" + numeroConyuges + ", numeroOtros=" + numeroOtros + ", otroParentesco=" + otroParentesco + "]";
+        String lcc = "DatosGenerales[idSexo=" + idSexo + ", idEstadoCivil="
+                + estadoCivil + ", fechaNacimiento=" + fechaNacimiento
+                + ", lugarNacimiento=" + lugarNacimiento + ", telefonos="
+                + telefono + ", correo=" + correoElectronico + ", idTipoSangre="
+                + tipoSangre + ", peso=" + peso + ", estatura=" + estatura
+                + ", tienePersonasDependientes=" + tienePersonasDependientes
+                + ", numeroHijos=" + numeroHijos + ", numeroPadres="
+                + numeroPadres + ", numeroConyuges=" + numeroConyuges
+                + ", numeroOtros=" + numeroOtros + ", otroParentesco="
+                + otroParentesco + "]";
         return lcc.toUpperCase();
     }
 
@@ -339,7 +352,8 @@ public class EmpleadoEntity implements Serializable {
         return tienePersonasDependientes;
     }
 
-    public void setTienePersonasDependientes(Boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            Boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

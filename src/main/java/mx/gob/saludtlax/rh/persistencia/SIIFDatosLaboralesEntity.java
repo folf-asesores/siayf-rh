@@ -127,7 +127,8 @@ public class SIIFDatosLaboralesEntity implements Serializable {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 
@@ -239,7 +240,8 @@ public class SIIFDatosLaboralesEntity implements Serializable {
         return percepcionComplementaria;
     }
 
-    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
+    public void setPercepcionComplementaria(
+            BigDecimal percepcionComplementaria) {
         this.percepcionComplementaria = percepcionComplementaria;
     }
 
@@ -303,7 +305,8 @@ public class SIIFDatosLaboralesEntity implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

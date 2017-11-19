@@ -12,7 +12,9 @@ public interface Movimientos {
 
     String getUrlFormPorClave(Integer idFormaRegistro);
 
-    List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(InfoEmpleadoDTO empleadoSeleccionado, String movimientoSeleccionado);
+    List<MovimientoNominaDTO> obtenerMovimientosPorEmpleado(
+            InfoEmpleadoDTO empleadoSeleccionado,
+            String movimientoSeleccionado);
 
     void eliminar(MovimientoNominaDTO movdto);
 

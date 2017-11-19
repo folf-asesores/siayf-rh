@@ -84,7 +84,8 @@ public class InformacionAdjuntoAspiranteEntity implements Serializable {
      *
      * @param idInformacionAdjuntoAspirante
      */
-    public void setIdInformacionAdjuntoAspirante(Integer idInformacionAdjuntoAspirante) {
+    public void setIdInformacionAdjuntoAspirante(
+            Integer idInformacionAdjuntoAspirante) {
         this.idInformacionAdjuntoAspirante = idInformacionAdjuntoAspirante;
     }
 
@@ -164,7 +165,8 @@ public class InformacionAdjuntoAspiranteEntity implements Serializable {
      *
      * @param documentoAdjuntable
      */
-    public void setDocumentoAdjuntable(DocumentoAdjuntableEntity documentoAdjuntable) {
+    public void setDocumentoAdjuntable(
+            DocumentoAdjuntableEntity documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 
@@ -180,7 +182,8 @@ public class InformacionAdjuntoAspiranteEntity implements Serializable {
      *
      * @param expedienteAspirante
      */
-    public void setExpedienteAspirante(ExpedienteAspiranteEntity expedienteAspirante) {
+    public void setExpedienteAspirante(
+            ExpedienteAspiranteEntity expedienteAspirante) {
         this.expedienteAspirante = expedienteAspirante;
     }
 }

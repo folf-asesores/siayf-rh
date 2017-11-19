@@ -40,19 +40,29 @@ public class EjercicioFiscalService {
 
     public List<EjercicioFiscalListaDTO> listaEjercicioFiscal() {
         TypedQuery<EjercicioFiscalListaDTO> query = entityManager.createQuery(
-                "SELECT new mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalListaDTO(" + " ef.idEjercicioFiscal," + " ef.ejercicioFiscal,"
-                        + " ef.inicio," + " ef.fin," + " ef.tipoPeriodo.tipoPeriodo)" + " FROM EjercicioFiscalEntity AS ef" + " ORDER BY ef.ejercicioFiscal",
+                "SELECT new mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalListaDTO("
+                        + " ef.idEjercicioFiscal," + " ef.ejercicioFiscal,"
+                        + " ef.inicio," + " ef.fin,"
+                        + " ef.tipoPeriodo.tipoPeriodo)"
+                        + " FROM EjercicioFiscalEntity AS ef"
+                        + " ORDER BY ef.ejercicioFiscal",
                 EjercicioFiscalListaDTO.class);
 
         List<EjercicioFiscalListaDTO> result = query.getResultList();
         return result;
     }
 
-    public List<EjercicioFiscalListaDTO> listaEjercicioFiscalPorejercicioFiscal(Integer ejercicioFiscal) {
-        TypedQuery<EjercicioFiscalListaDTO> query = entityManager
-                .createQuery("SELECT new mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalListaDTO(" + " ef.idEjercicioFiscal,"
-                        + " ef.ejercicioFiscal," + " ef.inicio," + " ef.fin," + " ef.tipoPeriodo.tipoPeriodo)" + " FROM EjercicioFiscalEntity AS ef" + " WHERE "
-                        + " ef.ejercicioFiscal = :ejercicioFiscal" + " ORDER BY ef.ejercicioFiscal", EjercicioFiscalListaDTO.class)
+    public List<EjercicioFiscalListaDTO> listaEjercicioFiscalPorejercicioFiscal(
+            Integer ejercicioFiscal) {
+        TypedQuery<EjercicioFiscalListaDTO> query = entityManager.createQuery(
+                "SELECT new mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalListaDTO("
+                        + " ef.idEjercicioFiscal," + " ef.ejercicioFiscal,"
+                        + " ef.inicio," + " ef.fin,"
+                        + " ef.tipoPeriodo.tipoPeriodo)"
+                        + " FROM EjercicioFiscalEntity AS ef" + " WHERE "
+                        + " ef.ejercicioFiscal = :ejercicioFiscal"
+                        + " ORDER BY ef.ejercicioFiscal",
+                EjercicioFiscalListaDTO.class)
                 .setParameter("ejercicioFiscal", ejercicioFiscal);
         return query.getResultList();
     }
@@ -72,37 +82,48 @@ public class EjercicioFiscalService {
         entity.setEjercicioFiscal(dto.getEjercicioFiscal());
         entity.setInicio(dto.getInicio());
         entity.setFin(dto.getFin());
-        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO.obtenerPorId(dto.getIdPeriodicidad());
+        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO
+                .obtenerPorId(dto.getIdPeriodicidad());
         entity.setTipoPeriodo(tipoPeriodoEntity);
         ejercicioFiscalDAO.crear(entity);
         return obtenerEjercicioFiscalPorId(entity.getIdEjercicioFiscal());
     }
 
-    public EjercicioFiscalDTO obtenerEjercicioFiscalPorId(Integer idEjercicioFiscal) {
+    public EjercicioFiscalDTO obtenerEjercicioFiscalPorId(
+            Integer idEjercicioFiscal) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_ejercicio_fiscal AS idEjercicioFiscal, " + "ejercicio_fiscal AS ejercicioFiscal, " + "inicio As inicio, "
-                        + "fin AS fin, " + "id_tipo_periodo as idPeriodicidad " + "FROM ejercicios_fiscales WHERE id_ejercicio_fiscal = :idEjercicioFiscal")
+        Query query = session.createSQLQuery(
+                "SELECT id_ejercicio_fiscal AS idEjercicioFiscal, "
+                        + "ejercicio_fiscal AS ejercicioFiscal, "
+                        + "inicio As inicio, " + "fin AS fin, "
+                        + "id_tipo_periodo as idPeriodicidad "
+                        + "FROM ejercicios_fiscales WHERE id_ejercicio_fiscal = :idEjercicioFiscal")
                 .setParameter("idEjercicioFiscal", idEjercicioFiscal);
-        query.setResultTransformer(Transformers.aliasToBean(EjercicioFiscalDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EjercicioFiscalDTO.class));
         EjercicioFiscalDTO result = (EjercicioFiscalDTO) query.list().get(0);
         return result;
     }
 
     public Integer obtenerAnioPorId(Integer idEjercicioFiscal) {
         Integer an = entityManager
-                .createQuery("SELECT ejercicio_fiscal AS ejercicioFiscal " + "FROM ejercicios_fiscales WHERE id_ejercicio_fiscal = :idEjercicioFiscal",
+                .createQuery("SELECT ejercicio_fiscal AS ejercicioFiscal "
+                        + "FROM ejercicios_fiscales WHERE id_ejercicio_fiscal = :idEjercicioFiscal",
                         Integer.class)
-                .setParameter("idEjercicioFiscal", idEjercicioFiscal).getSingleResult();
+                .setParameter("idEjercicioFiscal", idEjercicioFiscal)
+                .getSingleResult();
         return an;
     }
 
-    public EjercicioFiscalDTO actualizarEjercicioFiscal(EjercicioFiscalDTO dto) {
-        EjercicioFiscalEntity ejercicioFiscalEntity = ejercicioFiscalDAO.obtenerPorId(dto.getIdEjercicioFiscal());
+    public EjercicioFiscalDTO actualizarEjercicioFiscal(
+            EjercicioFiscalDTO dto) {
+        EjercicioFiscalEntity ejercicioFiscalEntity = ejercicioFiscalDAO
+                .obtenerPorId(dto.getIdEjercicioFiscal());
         ejercicioFiscalEntity.setEjercicioFiscal(dto.getEjercicioFiscal());
         ejercicioFiscalEntity.setInicio(dto.getInicio());
         ejercicioFiscalEntity.setFin(dto.getFin());
-        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO.obtenerPorId(dto.getIdPeriodicidad());
+        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO
+                .obtenerPorId(dto.getIdPeriodicidad());
         ejercicioFiscalEntity.setTipoPeriodo(tipoPeriodoEntity);
         ejercicioFiscalDAO.actualizar(ejercicioFiscalEntity);
 
@@ -112,32 +133,43 @@ public class EjercicioFiscalService {
             entity.setInicioPeriodo(periodo.getInicioPeriodo());
             entity.setFinPeriodo(periodo.getFinPeriodo());
 
-            TipoPeriodoEntity tipoPeriodoEntityTem = tipoPeriodoDAO.obtenerPorId(periodo.getIdTipoPeriodo());
+            TipoPeriodoEntity tipoPeriodoEntityTem = tipoPeriodoDAO
+                    .obtenerPorId(periodo.getIdTipoPeriodo());
             entity.setTipoPeriodo(tipoPeriodoEntityTem);
             entity.setNumeroPeriodo(periodo.getNumeroPeriodo());
-            entity.setIdEjercicioFiscal(ejercicioFiscalEntity.getIdEjercicioFiscal());
+            entity.setIdEjercicioFiscal(
+                    ejercicioFiscalEntity.getIdEjercicioFiscal());
             periodoCalendariosDAO.actualizar(entity);
         }
-        return obtenerEjercicioFiscalPorId(ejercicioFiscalEntity.getIdEjercicioFiscal());
+        return obtenerEjercicioFiscalPorId(
+                ejercicioFiscalEntity.getIdEjercicioFiscal());
     }
 
     public void eliminarEjercicioFical(EjercicioFiscalListaDTO dto) {
-        EjercicioFiscalEntity entity = entityManager.find(EjercicioFiscalEntity.class, dto.getIdEjercicioFiscal());
+        EjercicioFiscalEntity entity = entityManager
+                .find(EjercicioFiscalEntity.class, dto.getIdEjercicioFiscal());
         entityManager.remove(entity);
     }
 
     // Opciones para Periodos
     // Obtener
 
-    public PeriodoCalendarioDTO obtenerPeriodoCalendarioPorId(Integer idPeriodoCalendario) {
+    public PeriodoCalendarioDTO obtenerPeriodoCalendarioPorId(
+            Integer idPeriodoCalendario) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT " + " id_periodo_calendario AS idPeriodoCalendario, " + " inicio_periodo AS inicioPeriodo, "
-                        + " fin_periodo AS finPeriodo, " + " tipo_periodo As idTipoPeriodo, " + " numero_periodo AS numeroPeriodo, "
-                        + " id_ejercicio_fiscal AS idEjercicioFiscal" + " FROM periodos_calendarios WHERE id_periodo_calendario = :idPeriodoCalendario")
+        Query query = session.createSQLQuery("SELECT "
+                + " id_periodo_calendario AS idPeriodoCalendario, "
+                + " inicio_periodo AS inicioPeriodo, "
+                + " fin_periodo AS finPeriodo, "
+                + " tipo_periodo As idTipoPeriodo, "
+                + " numero_periodo AS numeroPeriodo, "
+                + " id_ejercicio_fiscal AS idEjercicioFiscal"
+                + " FROM periodos_calendarios WHERE id_periodo_calendario = :idPeriodoCalendario")
                 .setParameter("idPeriodoCalendario", idPeriodoCalendario);
-        query.setResultTransformer(Transformers.aliasToBean(PeriodoCalendarioDTO.class));
-        PeriodoCalendarioDTO result = (PeriodoCalendarioDTO) query.list().get(0);
+        query.setResultTransformer(
+                Transformers.aliasToBean(PeriodoCalendarioDTO.class));
+        PeriodoCalendarioDTO result = (PeriodoCalendarioDTO) query.list()
+                .get(0);
         return result;
     }
 
@@ -152,22 +184,26 @@ public class EjercicioFiscalService {
     // return result;
     // }
 
-    public List<PeriodoCalendarioDTO> listaPeriodoCalendarioPorIdEjercicioFiscal(Integer idEjercicioFiscal) {
+    public List<PeriodoCalendarioDTO> listaPeriodoCalendarioPorIdEjercicioFiscal(
+            Integer idEjercicioFiscal) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT                                                                 "
-                + "	pc.id_periodo_calendario 		AS idPeriodoCalendario,                     "
-                + "	pc.inicio_periodo 				AS inicioPeriodo,                      		"
-                + "	pc.fin_periodo 					AS finPeriodo,                      		"
-                + "	pc.numero_periodo 				AS numeroPeriodo,                      		"
-                + "	pc.id_ejercicio_fiscal 			AS idEjercicioFiscal,                       "
-                + "	tp.id_tipo_periodo 				AS idTipoPeriodo                            "
-                + "	FROM periodos_calendarios AS pc                                             "
-                + "	INNER JOIN tipos_periodos AS tp                                             "
-                + "	ON tp.id_tipo_periodo = pc.tipo_periodo                                     "
-                + "	WHERE                                                                  		"
-                + "	pc.id_ejercicio_fiscal = :idEjercicioFiscal                                 "
-                + "	ORDER BY pc.inicio_periodo                                            		").setParameter("idEjercicioFiscal", idEjercicioFiscal);
-        query.setResultTransformer(Transformers.aliasToBean(PeriodoCalendarioDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT                                                                 "
+                        + "	pc.id_periodo_calendario 		AS idPeriodoCalendario,                     "
+                        + "	pc.inicio_periodo 				AS inicioPeriodo,                      		"
+                        + "	pc.fin_periodo 					AS finPeriodo,                      		"
+                        + "	pc.numero_periodo 				AS numeroPeriodo,                      		"
+                        + "	pc.id_ejercicio_fiscal 			AS idEjercicioFiscal,                       "
+                        + "	tp.id_tipo_periodo 				AS idTipoPeriodo                            "
+                        + "	FROM periodos_calendarios AS pc                                             "
+                        + "	INNER JOIN tipos_periodos AS tp                                             "
+                        + "	ON tp.id_tipo_periodo = pc.tipo_periodo                                     "
+                        + "	WHERE                                                                  		"
+                        + "	pc.id_ejercicio_fiscal = :idEjercicioFiscal                                 "
+                        + "	ORDER BY pc.inicio_periodo                                            		")
+                .setParameter("idEjercicioFiscal", idEjercicioFiscal);
+        query.setResultTransformer(
+                Transformers.aliasToBean(PeriodoCalendarioDTO.class));
         @SuppressWarnings("unchecked")
         List<PeriodoCalendarioDTO> result = query.list();
         return result;
@@ -175,16 +211,21 @@ public class EjercicioFiscalService {
 
     public Integer siguienteNumero(Integer idEjercicioFiscal) {
         Integer p = entityManager
-                .createQuery("SELECT MAX(a.numeroPeriodo) " + "FROM PeriodoCalendariosEntity a " + "WHERE a.idEjercicioFiscal = :idEjercicioFiscal",
+                .createQuery("SELECT MAX(a.numeroPeriodo) "
+                        + "FROM PeriodoCalendariosEntity a "
+                        + "WHERE a.idEjercicioFiscal = :idEjercicioFiscal",
                         Integer.class)
-                .setParameter("idEjercicioFiscal", idEjercicioFiscal).getSingleResult();
+                .setParameter("idEjercicioFiscal", idEjercicioFiscal)
+                .getSingleResult();
         return (p == null) ? 1 : p + 1;
     }
 
     public Date siguienteFecha(Integer idEjercicioFiscal) {
-        Date dt = entityManager
-                .createQuery("SELECT MAX(a.finPeriodo) " + "FROM PeriodoCalendariosEntity a " + "WHERE a.idEjercicioFiscal = :idEjercicioFiscal", Date.class)
-                .setParameter("idEjercicioFiscal", idEjercicioFiscal).getSingleResult();
+        Date dt = entityManager.createQuery(
+                "SELECT MAX(a.finPeriodo) " + "FROM PeriodoCalendariosEntity a "
+                        + "WHERE a.idEjercicioFiscal = :idEjercicioFiscal",
+                Date.class).setParameter("idEjercicioFiscal", idEjercicioFiscal)
+                .getSingleResult();
         Integer anio = ejercicioEnviado(dt);
         if (dt == null) {
             return dt = FechaUtil.primerDiaEjercicioFiscal(anio);
@@ -273,7 +314,8 @@ public class EjercicioFiscalService {
 
     // Nuevo Crear Actualizar Eliminar Periodos
 
-    public PeriodoCalendarioDTO nuevoPeriodoCalendario(PeriodoCalendarioDTO dto, Integer ef) {
+    public PeriodoCalendarioDTO nuevoPeriodoCalendario(PeriodoCalendarioDTO dto,
+            Integer ef) {
         PeriodoCalendariosEntity entity = new PeriodoCalendariosEntity();
         r = siguienteNumero(ef);
         d = siguienteFecha(ef);
@@ -289,48 +331,71 @@ public class EjercicioFiscalService {
     }
 
     public void actualizaPeriodoCalendario(PeriodoCalendarioDTO dto) {
-        PeriodoCalendariosEntity entity = periodoCalendariosDAO.obtenerPorId(dto.getIdPeriodoCalendario());
+        PeriodoCalendariosEntity entity = periodoCalendariosDAO
+                .obtenerPorId(dto.getIdPeriodoCalendario());
         entity.setInicioPeriodo(dto.getInicioPeriodo());
         entity.setFinPeriodo(dto.getFinPeriodo());
-        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO.obtenerPorId(dto.getIdTipoPeriodo());
+        TipoPeriodoEntity tipoPeriodoEntity = tipoPeriodoDAO
+                .obtenerPorId(dto.getIdTipoPeriodo());
         entity.setTipoPeriodo(tipoPeriodoEntity);
         entity.setNumeroPeriodo(dto.getNumeroPeriodo());
         periodoCalendariosDAO.actualizar(entity);
     }
 
     public void eliminarPeriodoCalendario(PeriodoCalendarioDTO dto) {
-        PeriodoCalendariosEntity entity = entityManager.find(PeriodoCalendariosEntity.class, dto.getIdPeriodoCalendario());
+        PeriodoCalendariosEntity entity = entityManager.find(
+                PeriodoCalendariosEntity.class, dto.getIdPeriodoCalendario());
         entityManager.remove(entity);
     }
 
-    public Integer obtenerIdEjercicioFiscal(Integer ejercicioFiscal, Integer idTipoPeriodo) {
+    public Integer obtenerIdEjercicioFiscal(Integer ejercicioFiscal,
+            Integer idTipoPeriodo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery(" SELECT id_ejercicio_fiscal " + " FROM ejercicios_fiscales " + " WHERE " + " ejercicio_fiscal = :ejercicioFiscal "
-                + " AND " + " id_tipo_periodo = :idTipoPeriodo ").setParameter("ejercicioFiscal", ejercicioFiscal).setParameter("idTipoPeriodo", idTipoPeriodo);
+        Query query = session
+                .createSQLQuery(" SELECT id_ejercicio_fiscal "
+                        + " FROM ejercicios_fiscales " + " WHERE "
+                        + " ejercicio_fiscal = :ejercicioFiscal " + " AND "
+                        + " id_tipo_periodo = :idTipoPeriodo ")
+                .setParameter("ejercicioFiscal", ejercicioFiscal)
+                .setParameter("idTipoPeriodo", idTipoPeriodo);
         return (Integer) query.uniqueResult();
     }
 
-    public List<PeriodoCalendarioDTO> listaPeriodoCalendario(Integer idEjercicioFiscal) {
+    public List<PeriodoCalendarioDTO> listaPeriodoCalendario(
+            Integer idEjercicioFiscal) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT * FROM periodos p WHERE p.idEjercicioFiscal = :idEjercicioFiscal ORDER BY inicioPeriodo")
+        Query query = session.createSQLQuery(
+                "SELECT * FROM periodos p WHERE p.idEjercicioFiscal = :idEjercicioFiscal ORDER BY inicioPeriodo")
                 .setParameter("idEjercicioFiscal", idEjercicioFiscal);
-        query.setResultTransformer(Transformers.aliasToBean(PeriodoCalendarioDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(PeriodoCalendarioDTO.class));
         @SuppressWarnings("unchecked")
         List<PeriodoCalendarioDTO> result = query.list();
         return result;
     }
 
-    public PeriodoCalendarioDTO obtenerPeriodoCalendario(Integer idEjercicioFiscal, Integer numeroPeriodo) {
-        System.out.println("obtenerPeriodoCalendario:: idEjercicioFiscal:: " + idEjercicioFiscal);
-        System.out.println("obtenerPeriodoCalendario:: numeroPeriodo:: " + numeroPeriodo);
+    public PeriodoCalendarioDTO obtenerPeriodoCalendario(
+            Integer idEjercicioFiscal, Integer numeroPeriodo) {
+        System.out.println("obtenerPeriodoCalendario:: idEjercicioFiscal:: "
+                + idEjercicioFiscal);
+        System.out.println(
+                "obtenerPeriodoCalendario:: numeroPeriodo:: " + numeroPeriodo);
         Session session = entityManager.unwrap(Session.class);
         Query query = session
-                .createSQLQuery("SELECT " + " id_periodo_calendario AS idPeriodoCalendario, " + " inicio_periodo AS inicioPeriodo, "
-                        + " fin_periodo AS finPeriodo, " + " tipo_periodo As idTipoPeriodo, " + " numero_periodo AS numeroPeriodo, "
-                        + " id_ejercicio_fiscal AS idEjercicioFiscal" + " FROM periodos_calendarios " + " WHERE " + " id_ejercicio_fiscal = :idEjercicioFiscal "
-                        + " AND " + " numero_periodo = :numeroPeriodo ")
-                .setParameter("idEjercicioFiscal", idEjercicioFiscal).setParameter("numeroPeriodo", numeroPeriodo);
-        query.setResultTransformer(Transformers.aliasToBean(PeriodoCalendarioDTO.class));
+                .createSQLQuery("SELECT "
+                        + " id_periodo_calendario AS idPeriodoCalendario, "
+                        + " inicio_periodo AS inicioPeriodo, "
+                        + " fin_periodo AS finPeriodo, "
+                        + " tipo_periodo As idTipoPeriodo, "
+                        + " numero_periodo AS numeroPeriodo, "
+                        + " id_ejercicio_fiscal AS idEjercicioFiscal"
+                        + " FROM periodos_calendarios " + " WHERE "
+                        + " id_ejercicio_fiscal = :idEjercicioFiscal " + " AND "
+                        + " numero_periodo = :numeroPeriodo ")
+                .setParameter("idEjercicioFiscal", idEjercicioFiscal)
+                .setParameter("numeroPeriodo", numeroPeriodo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(PeriodoCalendarioDTO.class));
         @SuppressWarnings("unchecked")
         List<PeriodoCalendarioDTO> result = query.list();
         PeriodoCalendarioDTO periodoCalendarioDTO = null;
@@ -344,9 +409,12 @@ public class EjercicioFiscalService {
 
     public List<SelectItem> listaEjercicioFiscalItems() {
         List<SelectItem> selectItems = new ArrayList<>();
-        List<EjercicioFiscalEntity> listaEjercicioFiscal = ejercicioFiscalDAO.obtenerListaEjercicioFiscal();
+        List<EjercicioFiscalEntity> listaEjercicioFiscal = ejercicioFiscalDAO
+                .obtenerListaEjercicioFiscal();
         for (EjercicioFiscalEntity ejercicioFiscalEntity : listaEjercicioFiscal) {
-            SelectItem item = new SelectItem(ejercicioFiscalEntity.getEjercicioFiscal(), ejercicioFiscalEntity.getEjercicioFiscal().toString());
+            SelectItem item = new SelectItem(
+                    ejercicioFiscalEntity.getEjercicioFiscal(),
+                    ejercicioFiscalEntity.getEjercicioFiscal().toString());
 
             selectItems.add(item);
 

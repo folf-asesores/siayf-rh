@@ -44,27 +44,32 @@ public class ConsultaMovimientoController implements Serializable {
     public void inicio() {
         view = new ConsultaMovimientoView();
         view.setListaFiltros(SelectItemsUtil.listaFiltrosConsultaMovimientos());
-        view.setListaMovimientos(SelectItemsUtil.listaCatalogos(catalogo.consultaMovimientosAutorizadosPorPadre(0)));
+        view.setListaMovimientos(SelectItemsUtil.listaCatalogos(
+                catalogo.consultaMovimientosAutorizadosPorPadre(0)));
         view.setMostrarBusqueda(true);
 
     }
 
     public void consultarMovimientosHijos() {
-        List<CatalogoDTO> movimientosHijos = catalogo.consultaMovimientosAutorizadosPorPadre(view.getIdPadre());
-        view.setListaMovimientosHijos(SelectItemsUtil.listaCatalogos(movimientosHijos));
+        List<CatalogoDTO> movimientosHijos = catalogo
+                .consultaMovimientosAutorizadosPorPadre(view.getIdPadre());
+        view.setListaMovimientosHijos(
+                SelectItemsUtil.listaCatalogos(movimientosHijos));
     }
 
     public void seleccionarPadre() {
         if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTOS) {
             consultarMovimientos();
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
 
             consultarMovimientosHijos();
         }
     }
 
     public void asignarFecha() {
-        System.out.println("datos " + formateador.format(view.getFechaInicial()));
+        System.out
+                .println("datos " + formateador.format(view.getFechaInicial()));
     }
 
     public void consultarMovimientos() {
@@ -74,18 +79,22 @@ public class ConsultaMovimientoController implements Serializable {
         FiltroConsultaDTO filtroConsultaDTO = new FiltroConsultaDTO();
         if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTOS) {
             filtroConsultaDTO.setIdentificador(view.getIdPadre());
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
             filtroConsultaDTO.setIdentificador(view.getIdHijo());
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
             filtroConsultaDTO.setFechaInicial(view.getFechaInicial());
             filtroConsultaDTO.setFechaFinal(view.getFechaFinal());
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
             filtroConsultaDTO.setCriterio(view.getParametro());
         }
 
         filtroConsultaDTO.setTipoBusqueda(view.getIdFiltro());
 
-        view.setMovimientos(movimientosEmpleados.consultarMovimientos(filtroConsultaDTO));
+        view.setMovimientos(
+                movimientosEmpleados.consultarMovimientos(filtroConsultaDTO));
         if (view.getMovimientos().isEmpty()) {
             JSFUtils.warningMessage("", "No se encontraron movimientos.");
         }
@@ -103,13 +112,16 @@ public class ConsultaMovimientoController implements Serializable {
         if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
             view.setMostrarHijos(true);
             view.setMostrarPadres(true);
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTOS) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTOS) {
             view.setMostrarPadres(true);
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
             view.setMostrarPadres(false);
             view.setFechas(Boolean.TRUE);
             view.setRfc(Boolean.FALSE);
-        } else if (view.getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
+        } else if (view
+                .getIdFiltro() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
             view.setMostrarPadres(false);
             view.setFechas(Boolean.FALSE);
             view.setRfc(Boolean.TRUE);
@@ -118,7 +130,8 @@ public class ConsultaMovimientoController implements Serializable {
     }
 
     public void obtenerDetalleMovimiento(Integer idMovimiento) {
-        DetalleMovimientoDTO detalle = movimientosEmpleados.obtenerDetalleMovimiento(idMovimiento);
+        DetalleMovimientoDTO detalle = movimientosEmpleados
+                .obtenerDetalleMovimiento(idMovimiento);
         if (detalle.getIdMovimiento() != null) {
             view.setMostrarBusqueda(false);
             view.setMostrarDetalle(true);

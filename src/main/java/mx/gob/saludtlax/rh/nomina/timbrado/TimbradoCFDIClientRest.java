@@ -29,7 +29,8 @@ import com.google.gson.Gson;
  *
  */
 @Stateless
-public class TimbradoCFDIClientRest extends ClienteRest implements Serializable {
+public class TimbradoCFDIClientRest extends ClienteRest
+        implements Serializable {
 
     public TimbradoCFDIClientRest() {
         super(ServicioWebEnum.FACTURACION_ELECTRONICA);
@@ -50,7 +51,8 @@ public class TimbradoCFDIClientRest extends ClienteRest implements Serializable 
      * @throws RESTClientException
      *             en caso que ocurra un error en la comunicacion
      */
-    public CFDIRespuesta timbrarCFDI(String comprobante) throws RESTClientException {
+    public CFDIRespuesta timbrarCFDI(String comprobante)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
         // String urlTimbrado = Config.DFACURA_RS_HOST_TEST;
@@ -76,30 +78,39 @@ public class TimbradoCFDIClientRest extends ClienteRest implements Serializable 
             log.debug(cfdiPeticionJSON);
             httpPost.setEntity(cfdiPeticionJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultTimbradoCFDI;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultTimbradoCFDI = EntityUtils.toString(servicioResponse.getEntity());
+                    resultTimbradoCFDI = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultTimbradoCFDI);
                     Gson timbradoCFDIGson = new Gson();
-                    cfdiRespuesta = timbradoCFDIGson.fromJson(resultTimbradoCFDI, CFDIRespuesta.class);
+                    cfdiRespuesta = timbradoCFDIGson
+                            .fromJson(resultTimbradoCFDI, CFDIRespuesta.class);
 
                     break;
                 case 400:
-                    resultTimbradoCFDI = EntityUtils.toString(servicioResponse.getEntity());
+                    resultTimbradoCFDI = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.error(resultTimbradoCFDI);
                     throw new RESTClientException(resultTimbradoCFDI);
                 case 502:
-                    System.out.println("Error 502 al Timbrar Intentando de Nuevo");
+                    System.out.println(
+                            "Error 502 al Timbrar Intentando de Nuevo");
                     cfdiRespuesta = timbrarCFDI(comprobante);
                     break;
                 default:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                     log.error(servicioResponse.getStatusLine().getStatusCode());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 

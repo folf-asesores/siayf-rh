@@ -139,7 +139,8 @@ public class CluesEntity implements Serializable {
         return claveCortaInstitucionSalud;
     }
 
-    public void setClaveCortaInstitucionSalud(String claveCortaInstitucionSalud) {
+    public void setClaveCortaInstitucionSalud(
+            String claveCortaInstitucionSalud) {
         this.claveCortaInstitucionSalud = claveCortaInstitucionSalud;
     }
 

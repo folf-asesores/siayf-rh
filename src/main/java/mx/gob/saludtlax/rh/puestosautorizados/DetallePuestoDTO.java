@@ -63,7 +63,8 @@ public class DetallePuestoDTO {
         return descripcionCodigoAutorizado;
     }
 
-    public void setDescripcionCodigoAutorizado(String descripcionCodigoAutorizado) {
+    public void setDescripcionCodigoAutorizado(
+            String descripcionCodigoAutorizado) {
         this.descripcionCodigoAutorizado = descripcionCodigoAutorizado;
     }
 

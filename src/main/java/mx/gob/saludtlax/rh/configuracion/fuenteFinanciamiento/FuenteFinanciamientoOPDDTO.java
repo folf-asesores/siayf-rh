@@ -10,7 +10,8 @@ public class FuenteFinanciamientoOPDDTO {
         return idFuenteFinanciamientoOPD;
     }
 
-    public void setIdFuenteFinanciamientoOPD(Integer idFuenteFinanciamientoOPD) {
+    public void setIdFuenteFinanciamientoOPD(
+            Integer idFuenteFinanciamientoOPD) {
         this.idFuenteFinanciamientoOPD = idFuenteFinanciamientoOPD;
     }
 

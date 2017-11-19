@@ -23,7 +23,9 @@ public final class ProgramaDTO implements Iterable<UnidadResponsableDTO> {
     private final Date finPeriodo;
     private final Map<String, UnidadResponsableDTO> unidadesResponsables;
 
-    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo, Date finPeriodo, Map<String, UnidadResponsableDTO> unidadesResponsables) {
+    public ProgramaDTO(Integer idPrograma, String programa, Date inicioPeriodo,
+            Date finPeriodo,
+            Map<String, UnidadResponsableDTO> unidadesResponsables) {
         this.idPrograma = idPrograma;
         this.programa = programa;
         this.inicioPeriodo = inicioPeriodo;
@@ -96,7 +98,9 @@ public final class ProgramaDTO implements Iterable<UnidadResponsableDTO> {
 
     @Override
     public String toString() {
-        return "Programa{" + "idPrograma=" + idPrograma + ", programa=" + programa + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo
-                + ", unidadesResponsables=" + unidadesResponsables + '}';
+        return "Programa{" + "idPrograma=" + idPrograma + ", programa="
+                + programa + ", inicioPeriodo=" + inicioPeriodo
+                + ", finPeriodo=" + finPeriodo + ", unidadesResponsables="
+                + unidadesResponsables + '}';
     }
 }

@@ -19,7 +19,7 @@ import mx.gob.saludtlax.rh.empleados.movimientos.reportes.ConsentradoAltaBajaExc
 import mx.gob.saludtlax.rh.util.ArchivoUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ConcentradoAltaBajaTest {

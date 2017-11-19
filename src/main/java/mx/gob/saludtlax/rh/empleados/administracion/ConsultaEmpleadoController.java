@@ -40,8 +40,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 11:14:02 10/08/2016
  */
@@ -86,7 +86,8 @@ public class ConsultaEmpleadoController implements Serializable {
         // adjuntoEmpleado.obtenerAdjuntoPorIdAdjunto(idAdjunto)
         cargarCatalogo();
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
         Integer idEmpleado = (Integer) httpSession.getAttribute("idEmpleado");
         if (idEmpleado != null) {
@@ -100,17 +101,22 @@ public class ConsultaEmpleadoController implements Serializable {
         view.setListaFiltros(SelectItemsUtil.listaFiltrosConsultaAspirantes());
         view.setListaTiposSexos(SelectItemsUtil.listaTiposSexo());
         view.setListaEstadosCiviles(SelectItemsUtil.listaEstadosCivil());
-        view.setListaEscolaridades(SelectItemsUtil.listaCatalogos(catalogo.listaEscolaridades()));
-        view.setListaComprobantesEstudios(SelectItemsUtil.listaCatalogos(catalogo.listaComprobantesEstudios()));
+        view.setListaEscolaridades(
+                SelectItemsUtil.listaCatalogos(catalogo.listaEscolaridades()));
+        view.setListaComprobantesEstudios(SelectItemsUtil
+                .listaCatalogos(catalogo.listaComprobantesEstudios()));
         view.setListaTiposParentescos(SelectItemsUtil.listaParentescos());
-        view.setListaEstados(SelectItemsUtil.listaCatalogos(catalogo.listaEstados()));
+        view.setListaEstados(
+                SelectItemsUtil.listaCatalogos(catalogo.listaEstados()));
         view.setListaTiposSangre(SelectItemsUtil.listaTiposSangre());
     }
 
     public void obtenerConsultaEmpleado() {
 
-        view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
-        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado.consultaEmpleado(view.getFiltro());
+        view.getFiltro()
+                .setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+        List<InfoEmpleadoDTO> listaInfoEmpleado = empleado
+                .consultaEmpleado(view.getFiltro());
 
         view.setMostrarMenuDetalles(false);
 
@@ -127,7 +133,8 @@ public class ConsultaEmpleadoController implements Serializable {
             view.setMostrarResultadoConsulta(false);
 
             view.setFiltro(new FiltroDTO());
-            JSFUtils.errorMessage("Consulta Empleado", "No se encontrarón resultados, intentelo de nuevo");
+            JSFUtils.errorMessage("Consulta Empleado",
+                    "No se encontrarón resultados, intentelo de nuevo");
         }
     }
 
@@ -149,17 +156,24 @@ public class ConsultaEmpleadoController implements Serializable {
 
                     view.setMostrarDomicilio(true);
 
-                    DomicilioDTO domicilioDTO = empleado.obtenerDomicilio(view.getIdEmpleado());
+                    DomicilioDTO domicilioDTO = empleado
+                            .obtenerDomicilio(view.getIdEmpleado());
 
                     view.setDomicilio(domicilioDTO);
                     if (view.getDomicilio().isTieneDireccion()) {
-                        List<CatalogoDTO> municipios = catalogo.consultarMunicipiosPorEstado(view.getDomicilio().getIdEstado());
+                        List<CatalogoDTO> municipios = catalogo
+                                .consultarMunicipiosPorEstado(
+                                        view.getDomicilio().getIdEstado());
                         view.getListaMuncipios().clear();
-                        view.setListaMuncipios(SelectItemsUtil.listaCatalogos(municipios));
+                        view.setListaMuncipios(
+                                SelectItemsUtil.listaCatalogos(municipios));
 
-                        List<CatalogoDTO> asentamientos = catalogo.consultarAsantamientosPorMunicipios(view.getDomicilio().getIdMunicipio());
+                        List<CatalogoDTO> asentamientos = catalogo
+                                .consultarAsantamientosPorMunicipios(
+                                        view.getDomicilio().getIdMunicipio());
                         view.getListaPoblaciones().clear();
-                        view.setListaPoblaciones(SelectItemsUtil.listaCatalogos(asentamientos));
+                        view.setListaPoblaciones(
+                                SelectItemsUtil.listaCatalogos(asentamientos));
 
                     }
 
@@ -169,7 +183,9 @@ public class ConsultaEmpleadoController implements Serializable {
 
                     view.setMostrarHistorialAcademico(true);
 
-                    List<HistorialAcademicoDTO> historial = historialAcademico.consultarHistorialAcademicoEmpleado(view.getIdEmpleado());
+                    List<HistorialAcademicoDTO> historial = historialAcademico
+                            .consultarHistorialAcademicoEmpleado(
+                                    view.getIdEmpleado());
 
                     view.setListaHistorialesAcademicos(historial);
 
@@ -179,7 +195,9 @@ public class ConsultaEmpleadoController implements Serializable {
 
                     view.setMostrarExperienciaLaboral(true);
 
-                    List<ExperienciaLaboralDTO> experiencias = experienciaLaboral.consultaExperienciaLaboralEmpleado(view.getIdEmpleado());
+                    List<ExperienciaLaboralDTO> experiencias = experienciaLaboral
+                            .consultaExperienciaLaboralEmpleado(
+                                    view.getIdEmpleado());
                     view.setListaExperienciasLaborales(experiencias);
 
                     break;
@@ -188,10 +206,15 @@ public class ConsultaEmpleadoController implements Serializable {
 
                     view.setMostrarDependientesEconomicos(true);
 
-                    List<CatalogoDTO> lista = catalogo.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_DEPENDIENTES);
-                    view.setListaDocumentosDependientes(SelectItemsUtil.listaCatalogos(lista));
+                    List<CatalogoDTO> lista = catalogo
+                            .consultarDocumentosExpedientesClasificacion(
+                                    EnumClasificacionExpediente.DOCUMENTOS_DEPENDIENTES);
+                    view.setListaDocumentosDependientes(
+                            SelectItemsUtil.listaCatalogos(lista));
                     view.setMostrarDependientesEconomicos(true);
-                    List<InfoDependienteEconomicoDTO> dependientes = empleado.consultarDependientesEmpleado(view.getIdEmpleado());
+                    List<InfoDependienteEconomicoDTO> dependientes = empleado
+                            .consultarDependientesEmpleado(
+                                    view.getIdEmpleado());
                     view.setDependientesEconomicos(dependientes);
 
                     break;
@@ -200,33 +223,43 @@ public class ConsultaEmpleadoController implements Serializable {
 
                     view.setMostrarExpediente(true);
 
-                    List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoEmpleado.consultarInformacionAdjuntosPorIdEmpleado(view.getIdEmpleado());
+                    List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoEmpleado
+                            .consultarInformacionAdjuntosPorIdEmpleado(
+                                    view.getIdEmpleado());
 
                     if (!documentosExpedientes.isEmpty()) {
                         view.setDocumentosExpedientes(documentosExpedientes);
                     } else {
-                        view.setDocumentosExpedientes(new ArrayList<InformacionAdjuntoDTO>());
-                        JSFUtils.warningMessage("Documento Expediente: ", "No tiene registrado ningún documento");
+                        view.setDocumentosExpedientes(
+                                new ArrayList<InformacionAdjuntoDTO>());
+                        JSFUtils.warningMessage("Documento Expediente: ",
+                                "No tiene registrado ningún documento");
                     }
 
                     break;
                 case PRESUPUESTAL:
                     view.setMostrarPuesto(true);
-                    view.setPuesto(puestosAutorizados.obtenerInformacionPuestoIdEmpleado(view.getIdEmpleado()));
+                    view.setPuesto(puestosAutorizados
+                            .obtenerInformacionPuestoIdEmpleado(
+                                    view.getIdEmpleado()));
 
                     break;
 
                 case BITACORA:
                     view.setMostrarBitacora(true);
-                    view.setBitacorasMovimientos(empleado.consultarBitacorasMovimientos(view.getIdEmpleado()));
+                    view.setBitacorasMovimientos(
+                            empleado.consultarBitacorasMovimientos(
+                                    view.getIdEmpleado()));
 
                 default:
-                    JSFUtils.errorMessage("Consulta Empleado: ", "Seleccione en menu correcto");
+                    JSFUtils.errorMessage("Consulta Empleado: ",
+                            "Seleccione en menu correcto");
                     break;
             }
 
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         }
 
     }
@@ -254,15 +287,20 @@ public class ConsultaEmpleadoController implements Serializable {
             view.setMostrarResultadoConsulta(false);
 
             // this.view.setVisualizarBotonDependientes(false);
-            DatosGeneralesDTO datosGeneralesDTO = empleado.obtenerDatosGenerales(view.getIdEmpleado());
+            DatosGeneralesDTO datosGeneralesDTO = empleado
+                    .obtenerDatosGenerales(view.getIdEmpleado());
             view.setDatoGeneral(datosGeneralesDTO);
 
-            if (view.getDatoGeneral().getTienePersonasDependientes() != null || view.getDatoGeneral().getTienePersonasDependientes()) {
+            if (view.getDatoGeneral().getTienePersonasDependientes() != null
+                    || view.getDatoGeneral().getTienePersonasDependientes()) {
                 // this.view.setVisualizarBotonDependientes(true);
             }
-            if (expedienteEmpleado.tieneExpedienteAperturado(view.getIdEmpleado())) {
-                String numeroExpediente = expedienteEmpleado.numeroExpedienteEmpleado(view.getIdEmpleado());
-                Integer idExpediente = expedienteEmpleado.obtenerIdExpedienteEmpleado(view.getIdEmpleado());
+            if (expedienteEmpleado
+                    .tieneExpedienteAperturado(view.getIdEmpleado())) {
+                String numeroExpediente = expedienteEmpleado
+                        .numeroExpedienteEmpleado(view.getIdEmpleado());
+                Integer idExpediente = expedienteEmpleado
+                        .obtenerIdExpedienteEmpleado(view.getIdEmpleado());
                 view.setImagenExpediente("expediente_aperturado.png");
                 view.setMostrarActualizacionExpediente(true);
                 view.setNumeroExpediente(numeroExpediente);
@@ -278,30 +316,40 @@ public class ConsultaEmpleadoController implements Serializable {
         }
     }
 
-    public void visualizarAdjuntoDocumentoHistorial(HistorialAcademicoDTO historialAcademicoDTO) {
+    public void visualizarAdjuntoDocumentoHistorial(
+            HistorialAcademicoDTO historialAcademicoDTO) {
         try {
             view.setHistorialAcademicoSeleccionado(historialAcademicoDTO);
 
-            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado.consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
-                    EntidadContexto.HISTORIAL_ACADEMICO, view.getHistorialAcademicoSeleccionado().getIdHistorialAcademico());
-            view.setDocumentosAdjuntosGradoAcademico(documentosAdjuntosGradoAcademico);
+            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico = adjuntoEmpleado
+                    .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                            EntidadContexto.HISTORIAL_ACADEMICO,
+                            view.getHistorialAcademicoSeleccionado()
+                                    .getIdHistorialAcademico());
+            view.setDocumentosAdjuntosGradoAcademico(
+                    documentosAdjuntosGradoAcademico);
 
             view.setMostrarAdjuntoDocumentoHistorial(true);
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
     public void descargarAdjunto(InformacionAdjuntoDTO adjunto) {
 
         try {
-            byte[] bytes = adjuntoEmpleado.obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
+            byte[] bytes = adjuntoEmpleado
+                    .obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
 
-            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(), adjunto.getExtension().getMIMEType());
-            JSFUtils.infoMessage("Descarga iniciada", "La descarga del archivo ha iniciado.");
+            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(),
+                    adjunto.getExtension().getMIMEType());
+            JSFUtils.infoMessage("Descarga iniciada",
+                    "La descarga del archivo ha iniciado.");
 
         } catch (ReglaNegocioException | IOException reglaNegocioException) {
-            JSFUtils.errorMessage("Error al iniciar la descarga", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error al iniciar la descarga",
+                    reglaNegocioException.getMessage());
             reglaNegocioException.printStackTrace();
         }
     }
@@ -311,7 +359,8 @@ public class ConsultaEmpleadoController implements Serializable {
         view.setMostrarImagenExpediente(true);
     }
 
-    public void validarConsulta(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarConsulta(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -323,13 +372,16 @@ public class ConsultaEmpleadoController implements Serializable {
                 String criterio = String.valueOf(value);
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Ingrese el criterio");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Ingrese el criterio");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
 
                 if (criterio.trim().length() < 4) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto,
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
                             "El criterio de la busqueda debe contener minimo 4 letras");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);

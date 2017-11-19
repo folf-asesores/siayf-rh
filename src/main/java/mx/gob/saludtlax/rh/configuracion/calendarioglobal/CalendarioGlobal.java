@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.configuracion.calendarioglobal;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public interface CalendarioGlobal {

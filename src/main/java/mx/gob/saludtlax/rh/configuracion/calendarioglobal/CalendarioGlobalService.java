@@ -16,7 +16,7 @@ import mx.gob.saludtlax.rh.persistencia.CalendarioGlobalEntity;
 import mx.gob.saludtlax.rh.persistencia.CalendarioGlobalRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class CalendarioGlobalService implements Serializable {
@@ -34,7 +34,8 @@ public class CalendarioGlobalService implements Serializable {
         String contexto = "creaCalendarioGlobal: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Ingrese los valores.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         CalendarioGlobalEntity entity = new CalendarioGlobalEntity();
@@ -51,10 +52,12 @@ public class CalendarioGlobalService implements Serializable {
         String contexto = "actualizarCalendarioGlobal: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los valores.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Ingrese los valores.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        CalendarioGlobalEntity entity = repository.obtenerPorId(dto.getIdCalendarioGlobal());
+        CalendarioGlobalEntity entity = repository
+                .obtenerPorId(dto.getIdCalendarioGlobal());
 
         entity.setPartida8000(dto.getPartida8000());
         entity.setPartida1000(dto.getPartida1000());
@@ -68,7 +71,8 @@ public class CalendarioGlobalService implements Serializable {
         String contexto = "eliminarCalendarioGlobal: ";
 
         if (idCalendarioGlobal == null) {
-            throw new ValidacionException(contexto + "Seleccione el registro.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Seleccione el registro.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         repository.eliminarPorId(idCalendarioGlobal);
@@ -78,12 +82,15 @@ public class CalendarioGlobalService implements Serializable {
 
         List<CalendarioGlobalDTO> lista = new ArrayList<>();
 
-        List<CalendarioGlobalEntity> listaEntities = repository.obtenerListaCalendarioGlobal();
+        List<CalendarioGlobalEntity> listaEntities = repository
+                .obtenerListaCalendarioGlobal();
 
         if (!listaEntities.isEmpty()) {
             for (CalendarioGlobalEntity entity : listaEntities) {
-                CalendarioGlobalDTO dto = new CalendarioGlobalDTO(entity.getIdCalendarioGlobal(), entity.getPartida8000(), entity.getPartida1000(),
-                        entity.getConcepto(), entity.getImporteAnual());
+                CalendarioGlobalDTO dto = new CalendarioGlobalDTO(
+                        entity.getIdCalendarioGlobal(), entity.getPartida8000(),
+                        entity.getPartida1000(), entity.getConcepto(),
+                        entity.getImporteAnual());
 
                 lista.add(dto);
 

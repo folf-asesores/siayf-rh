@@ -28,7 +28,8 @@ public class PresupuestoAutorizadoView implements Serializable {
         return listaPresupuestoAutorizado;
     }
 
-    public void setListaPresupuestoAutorizado(List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado) {
+    public void setListaPresupuestoAutorizado(
+            List<PresupuestoAutorizadoDTO> listaPresupuestoAutorizado) {
         this.listaPresupuestoAutorizado = listaPresupuestoAutorizado;
     }
 
@@ -36,7 +37,8 @@ public class PresupuestoAutorizadoView implements Serializable {
         return creaPresupuestoAutorizado;
     }
 
-    public void setCreaPresupuestoAutorizado(PresupuestoAutorizadoDTO creaPresupuestoAutorizado) {
+    public void setCreaPresupuestoAutorizado(
+            PresupuestoAutorizadoDTO creaPresupuestoAutorizado) {
         this.creaPresupuestoAutorizado = creaPresupuestoAutorizado;
     }
 
@@ -44,7 +46,8 @@ public class PresupuestoAutorizadoView implements Serializable {
         return actualizarPresupuestoAutorizado;
     }
 
-    public void setActualizarPresupuestoAutorizado(PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado) {
+    public void setActualizarPresupuestoAutorizado(
+            PresupuestoAutorizadoDTO actualizarPresupuestoAutorizado) {
         this.actualizarPresupuestoAutorizado = actualizarPresupuestoAutorizado;
     }
 

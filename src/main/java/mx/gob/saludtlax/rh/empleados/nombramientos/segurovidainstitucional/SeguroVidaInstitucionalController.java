@@ -28,7 +28,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "seguroVidaInstitucional")
@@ -52,12 +52,12 @@ public class SeguroVidaInstitucionalController implements Serializable {
         view = new SeguroVidaInstitucionalView();
     }
 
-    
     public void consultarEmpleados() {
 
         try {
 
-            view.setListaDependientesEconomicos(new ArrayList<InfoDependienteEconomicoDTO>());
+            view.setListaDependientesEconomicos(
+                    new ArrayList<InfoDependienteEconomicoDTO>());
             view.setFormularioAltaSeguro(false);
             view.setGenerarReporte(false);
             view.setDatosEmpleadoSeleccionado(false);
@@ -66,25 +66,29 @@ public class SeguroVidaInstitucionalController implements Serializable {
             view.setVentanaNuevoReporte(false);
             view.setReporteExitoso(false);
 
-            view.setListaEmpleados(empleado.consultaEmpleadosFederales(view.getCriterio()));
+            view.setListaEmpleados(
+                    empleado.consultaEmpleadosFederales(view.getCriterio()));
 
             if (view.getListaEmpleados().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros con el criterio " + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros con el criterio "
+                                + view.getCriterio());
             }
 
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
     }
 
-    
     public void seleccionarEmpleado(InfoEmpleadoDTO infoEmpleadoDTO) {
 
         view.setInfoEmpleadoDTO(infoEmpleadoDTO);
 
-        Integer idSeguroVida = seguroVidaInstitucional.existeEmpleado(infoEmpleadoDTO.getIdEmpleado());
+        Integer idSeguroVida = seguroVidaInstitucional
+                .existeEmpleado(infoEmpleadoDTO.getIdEmpleado());
 
         if (ValidacionUtil.esNumeroPositivoInt(idSeguroVida)) {
             view.setIdSeguroVida(idSeguroVida);
@@ -97,7 +101,9 @@ public class SeguroVidaInstitucionalController implements Serializable {
             view.setReporteExitoso(false);
         } else {
 
-            List<InfoDependienteEconomicoDTO> dependienteEconomicoDTOs = empleado.consultarDependientesEmpleado(infoEmpleadoDTO.getIdEmpleado());
+            List<InfoDependienteEconomicoDTO> dependienteEconomicoDTOs = empleado
+                    .consultarDependientesEmpleado(
+                            infoEmpleadoDTO.getIdEmpleado());
 
             if (!dependienteEconomicoDTOs.isEmpty()) {
 
@@ -110,14 +116,16 @@ public class SeguroVidaInstitucionalController implements Serializable {
                 view.setFormularioAltaSeguro(false);
                 view.setDatosEmpleadoSeleccionado(false);
 
-                JSFUtils.warningMessage("", "Para el registro del seguro de vida, previamente deben registrarse los dependientes economicos del empleado."
-                        + infoEmpleadoDTO.getNombre());
+                JSFUtils.warningMessage("",
+                        "Para el registro del seguro de vida, previamente deben registrarse los dependientes economicos del empleado."
+                                + infoEmpleadoDTO.getNombre());
             }
         }
 
     }
 
-    public void seleccionarBeneficiario(InfoDependienteEconomicoDTO dependienteEconomicoDTO) {
+    public void seleccionarBeneficiario(
+            InfoDependienteEconomicoDTO dependienteEconomicoDTO) {
 
         boolean existeDependienteEconomico = false;
 
@@ -126,41 +134,50 @@ public class SeguroVidaInstitucionalController implements Serializable {
         if (!view.getBeneficiariosDTOsNuevos().isEmpty()) {
 
             if (view.getTotalPorcentaje() == total) {
-                JSFUtils.errorMessage("Error: ", "limite maximo de porcentaje.");
+                JSFUtils.errorMessage("Error: ",
+                        "limite maximo de porcentaje.");
                 view.setDialogPorcentaje(false);
-                view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+                view.setInfoDependienteEconomicoDTOSeleccionado(
+                        new InfoDependienteEconomicoDTO());
             } else {
                 view.setDialogPorcentaje(false);
-                for (BeneficiariosDTO beneficiariosDTO : view.getBeneficiariosDTOsNuevos()) {
+                for (BeneficiariosDTO beneficiariosDTO : view
+                        .getBeneficiariosDTOsNuevos()) {
 
-                    if (beneficiariosDTO.getIdDependienteEconomico() == dependienteEconomicoDTO.getIdDependiente()) {
+                    if (beneficiariosDTO
+                            .getIdDependienteEconomico() == dependienteEconomicoDTO
+                                    .getIdDependiente()) {
                         existeDependienteEconomico = true;
                     }
                 }
 
                 if (existeDependienteEconomico) {
-                    JSFUtils.errorMessage("Error: ", "El dependiente economico ya se encuentra seleccionado.");
-                    view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+                    JSFUtils.errorMessage("Error: ",
+                            "El dependiente economico ya se encuentra seleccionado.");
+                    view.setInfoDependienteEconomicoDTOSeleccionado(
+                            new InfoDependienteEconomicoDTO());
                     view.setDialogPorcentaje(false);
                 } else {
-                    view.setInfoDependienteEconomicoDTOSeleccionado(dependienteEconomicoDTO);
+                    view.setInfoDependienteEconomicoDTOSeleccionado(
+                            dependienteEconomicoDTO);
                     view.setDialogPorcentaje(true);
                 }
             }
         } else {
             if (view.getTotalPorcentaje() == total) {
-                JSFUtils.errorMessage("Error: ", "limite maximo de porcentaje.");
+                JSFUtils.errorMessage("Error: ",
+                        "limite maximo de porcentaje.");
                 view.setDialogPorcentaje(false);
-                view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+                view.setInfoDependienteEconomicoDTOSeleccionado(
+                        new InfoDependienteEconomicoDTO());
             } else {
-                view.setInfoDependienteEconomicoDTOSeleccionado(dependienteEconomicoDTO);
+                view.setInfoDependienteEconomicoDTOSeleccionado(
+                        dependienteEconomicoDTO);
                 view.setDialogPorcentaje(true);
             }
         }
 
     }
-
-    
 
     public void registrarSeguro() {
 
@@ -168,11 +185,14 @@ public class SeguroVidaInstitucionalController implements Serializable {
 
             try {
 
-                view.getSeguroVidaInstitucionalDTONuevo().setBeneficiariosDTOs(view.getBeneficiariosDTOsNuevos());
+                view.getSeguroVidaInstitucionalDTONuevo().setBeneficiariosDTOs(
+                        view.getBeneficiariosDTOsNuevos());
 
-                view.getSeguroVidaInstitucionalDTONuevo().setIdEmpleado(view.getInfoEmpleadoDTO().getIdEmpleado());
+                view.getSeguroVidaInstitucionalDTONuevo().setIdEmpleado(
+                        view.getInfoEmpleadoDTO().getIdEmpleado());
 
-                Integer idSeguroVida = seguroVidaInstitucional.crearSeguroVida(view.getSeguroVidaInstitucionalDTONuevo());
+                Integer idSeguroVida = seguroVidaInstitucional.crearSeguroVida(
+                        view.getSeguroVidaInstitucionalDTONuevo());
 
                 view.setPrincipal(false);
                 view.setDialogPorcentaje(false);
@@ -182,18 +202,23 @@ public class SeguroVidaInstitucionalController implements Serializable {
                 view.setGenerarReporte(false);
                 view.setDatosEmpleadoSeleccionado(false);
 
-                view.setUrlReporte("SeguroVidaInstitucionalServlet?" + "idSeguro=" + idSeguroVida);
+                view.setUrlReporte("SeguroVidaInstitucionalServlet?"
+                        + "idSeguro=" + idSeguroVida);
 
-                JSFUtils.infoMessage("Registro Seguro de Vida Institucional: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Registro Seguro de Vida Institucional: ",
+                        "Se realizo correctamente");
 
             } catch (ValidacionException validacionException) {
-                JSFUtils.errorMessage("Error: ", validacionException.getMessage());
+                JSFUtils.errorMessage("Error: ",
+                        validacionException.getMessage());
             } catch (ReglaNegocioException reglaNegocioException) {
-                JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+                JSFUtils.errorMessage("Error: ",
+                        reglaNegocioException.getMessage());
             }
 
         } else {
-            JSFUtils.errorMessageEspecifico("error", "", "Agregue un Beneficiario.");
+            JSFUtils.errorMessageEspecifico("error", "",
+                    "Agregue un Beneficiario.");
         }
 
     }
@@ -208,13 +233,16 @@ public class SeguroVidaInstitucionalController implements Serializable {
             view.setGenerarReporte(false);
             view.setDatosEmpleadoSeleccionado(false);
 
-            view.setUrlReporte("SeguroVidaInstitucionalServlet?" + "idSeguro=" + view.getIdSeguroVida());
+            view.setUrlReporte("SeguroVidaInstitucionalServlet?" + "idSeguro="
+                    + view.getIdSeguroVida());
 
-            JSFUtils.infoMessage("Reporte Seguro de Vida Institucional: ", "Se genero correctamente");
+            JSFUtils.infoMessage("Reporte Seguro de Vida Institucional: ",
+                    "Se genero correctamente");
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
 
     }
@@ -229,64 +257,104 @@ public class SeguroVidaInstitucionalController implements Serializable {
         if (!view.getBeneficiariosDTOsNuevos().isEmpty()) {
 
             if (view.getTotalPorcentaje() == total) {
-                JSFUtils.errorMessage("Error: ", "limite maximo de porcentaje.");
+                JSFUtils.errorMessage("Error: ",
+                        "limite maximo de porcentaje.");
                 view.setDialogPorcentaje(false);
             } else {
 
-                for (BeneficiariosDTO beneficiariosDTO : view.getBeneficiariosDTOsNuevos()) {
+                for (BeneficiariosDTO beneficiariosDTO : view
+                        .getBeneficiariosDTOsNuevos()) {
 
-                    porcentajeTotal = porcentajeTotal.add(new BigDecimal(String.valueOf(beneficiariosDTO.getPorcetaje())));
+                    porcentajeTotal = porcentajeTotal.add(new BigDecimal(
+                            String.valueOf(beneficiariosDTO.getPorcetaje())));
                 }
 
-                porcentajeTotal = porcentajeTotal.add(new BigDecimal(String.valueOf(view.getPorcentajeBeneficiario())));
+                porcentajeTotal = porcentajeTotal.add(new BigDecimal(
+                        String.valueOf(view.getPorcentajeBeneficiario())));
 
                 if (porcentajeTotal.compareTo(porcentajeLimite) > 0) {
-                    JSFUtils.errorMessage("Error: ", "limite maximo de porcentaje.");
+                    JSFUtils.errorMessage("Error: ",
+                            "limite maximo de porcentaje.");
                     view.setDialogPorcentaje(true);
                 } else {
 
-                    beneficiariosDTONuevo.setIdDependienteEconomico(view.getInfoDependienteEconomicoDTOSeleccionado().getIdDependiente());
-                    beneficiariosDTONuevo.setCurp(view.getInfoDependienteEconomicoDTOSeleccionado().getCurp());
-                    beneficiariosDTONuevo.setFechaNacimiento(view.getInfoDependienteEconomicoDTOSeleccionado().getFechaNacimiento());
-                    beneficiariosDTONuevo.setNombreCompleto(view.getInfoDependienteEconomicoDTOSeleccionado().getNombreCompleto());
-                    beneficiariosDTONuevo.setOtroParentesco(view.getInfoDependienteEconomicoDTOSeleccionado().getOtroParentesco());
-                    beneficiariosDTONuevo.setParentesco(view.getInfoDependienteEconomicoDTOSeleccionado().getParentesco());
-                    beneficiariosDTONuevo.setSexo(view.getInfoDependienteEconomicoDTOSeleccionado().getSexo());
-                    beneficiariosDTONuevo.setPorcetaje(view.getPorcentajeBeneficiario());
+                    beneficiariosDTONuevo.setIdDependienteEconomico(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getIdDependiente());
+                    beneficiariosDTONuevo.setCurp(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getCurp());
+                    beneficiariosDTONuevo.setFechaNacimiento(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getFechaNacimiento());
+                    beneficiariosDTONuevo.setNombreCompleto(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getNombreCompleto());
+                    beneficiariosDTONuevo.setOtroParentesco(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getOtroParentesco());
+                    beneficiariosDTONuevo.setParentesco(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getParentesco());
+                    beneficiariosDTONuevo.setSexo(
+                            view.getInfoDependienteEconomicoDTOSeleccionado()
+                                    .getSexo());
+                    beneficiariosDTONuevo
+                            .setPorcetaje(view.getPorcentajeBeneficiario());
 
                     view.setTotalPorcentaje(porcentajeTotal.intValue());
 
-                    view.getBeneficiariosDTOsNuevos().add(beneficiariosDTONuevo);
+                    view.getBeneficiariosDTOsNuevos()
+                            .add(beneficiariosDTONuevo);
                     view.setDialogPorcentaje(false);
                     view.setPorcentajeBeneficiario(0);
-                    view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+                    view.setInfoDependienteEconomicoDTOSeleccionado(
+                            new InfoDependienteEconomicoDTO());
 
                 }
             }
         } else {
 
-            porcentajeTotal = porcentajeTotal.add(new BigDecimal(String.valueOf(view.getPorcentajeBeneficiario())));
+            porcentajeTotal = porcentajeTotal.add(new BigDecimal(
+                    String.valueOf(view.getPorcentajeBeneficiario())));
 
             if (porcentajeTotal.compareTo(porcentajeLimite) > 0) {
-                JSFUtils.errorMessage("Error: ", "limite maximo de porcentaje.");
+                JSFUtils.errorMessage("Error: ",
+                        "limite maximo de porcentaje.");
                 view.setDialogPorcentaje(true);
             } else {
 
-                beneficiariosDTONuevo.setIdDependienteEconomico(view.getInfoDependienteEconomicoDTOSeleccionado().getIdDependiente());
-                beneficiariosDTONuevo.setCurp(view.getInfoDependienteEconomicoDTOSeleccionado().getCurp());
-                beneficiariosDTONuevo.setFechaNacimiento(view.getInfoDependienteEconomicoDTOSeleccionado().getFechaNacimiento());
-                beneficiariosDTONuevo.setNombreCompleto(view.getInfoDependienteEconomicoDTOSeleccionado().getNombreCompleto());
-                beneficiariosDTONuevo.setOtroParentesco(view.getInfoDependienteEconomicoDTOSeleccionado().getOtroParentesco());
-                beneficiariosDTONuevo.setParentesco(view.getInfoDependienteEconomicoDTOSeleccionado().getParentesco());
-                beneficiariosDTONuevo.setSexo(view.getInfoDependienteEconomicoDTOSeleccionado().getSexo());
-                beneficiariosDTONuevo.setPorcetaje(view.getPorcentajeBeneficiario());
+                beneficiariosDTONuevo.setIdDependienteEconomico(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getIdDependiente());
+                beneficiariosDTONuevo.setCurp(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getCurp());
+                beneficiariosDTONuevo.setFechaNacimiento(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getFechaNacimiento());
+                beneficiariosDTONuevo.setNombreCompleto(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getNombreCompleto());
+                beneficiariosDTONuevo.setOtroParentesco(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getOtroParentesco());
+                beneficiariosDTONuevo.setParentesco(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getParentesco());
+                beneficiariosDTONuevo.setSexo(
+                        view.getInfoDependienteEconomicoDTOSeleccionado()
+                                .getSexo());
+                beneficiariosDTONuevo
+                        .setPorcetaje(view.getPorcentajeBeneficiario());
 
                 view.setTotalPorcentaje(porcentajeTotal.intValue());
 
                 view.getBeneficiariosDTOsNuevos().add(beneficiariosDTONuevo);
                 view.setDialogPorcentaje(false);
                 view.setPorcentajeBeneficiario(0);
-                view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+                view.setInfoDependienteEconomicoDTOSeleccionado(
+                        new InfoDependienteEconomicoDTO());
 
             }
 
@@ -309,10 +377,12 @@ public class SeguroVidaInstitucionalController implements Serializable {
     public void cerrarDialogo() {
         view.setDialogPorcentaje(false);
         view.setPorcentajeBeneficiario(0);
-        view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
+        view.setInfoDependienteEconomicoDTOSeleccionado(
+                new InfoDependienteEconomicoDTO());
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -320,14 +390,18 @@ public class SeguroVidaInstitucionalController implements Serializable {
                 String criterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -339,7 +413,8 @@ public class SeguroVidaInstitucionalController implements Serializable {
         }
     }
 
-    public void validatorCampos(FacesContext context, UIComponent component, Object value) {
+    public void validatorCampos(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -347,13 +422,19 @@ public class SeguroVidaInstitucionalController implements Serializable {
                 String numeroExpediente = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(numeroExpediente)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de expediente.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el numero de expediente.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
-                    if (seguroVidaInstitucional.existeNumeroExpediente(numeroExpediente)) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El número de expediente ya se encuentra registrado.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                    if (seguroVidaInstitucional
+                            .existeNumeroExpediente(numeroExpediente)) {
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El número de expediente ya se encuentra registrado.");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -365,7 +446,9 @@ public class SeguroVidaInstitucionalController implements Serializable {
                 Integer porcentaje = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivoInt(porcentaje)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el porcentaje.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el porcentaje.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -378,7 +461,8 @@ public class SeguroVidaInstitucionalController implements Serializable {
 
     public void regresar() {
         try {
-            JSFUtils.redireccionar("/siayf-rh/contenido/reportesLaborales/reporteSeguroVida.xhtml?faces-redirect=true");
+            JSFUtils.redireccionar(
+                    "/siayf-rh/contenido/reportesLaborales/reporteSeguroVida.xhtml?faces-redirect=true");
         } catch (IOException e) {
 
             e.printStackTrace();

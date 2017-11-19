@@ -37,7 +37,8 @@ public class FuenteFinanciamientoOPDView {
         return fuenteFinanciamientoCriterio;
     }
 
-    public void setFuenteFinanciamientoCriterio(Integer fuenteFinanciamientoCriterio) {
+    public void setFuenteFinanciamientoCriterio(
+            Integer fuenteFinanciamientoCriterio) {
         this.fuenteFinanciamientoCriterio = fuenteFinanciamientoCriterio;
     }
 
@@ -45,7 +46,8 @@ public class FuenteFinanciamientoOPDView {
         return listFuenteFinanciamiento;
     }
 
-    public void setListFuenteFinanciamiento(List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
+    public void setListFuenteFinanciamiento(
+            List<FuenteFinanciamientoDTO> listFuenteFinanciamiento) {
         this.listFuenteFinanciamiento = listFuenteFinanciamiento;
     }
 
@@ -53,7 +55,8 @@ public class FuenteFinanciamientoOPDView {
         return fuenteFinanciamientoOPDCriterio;
     }
 
-    public void setFuenteFinanciamientoOPDCriterio(Integer fuenteFinanciamientoOPDCriterio) {
+    public void setFuenteFinanciamientoOPDCriterio(
+            Integer fuenteFinanciamientoOPDCriterio) {
         this.fuenteFinanciamientoOPDCriterio = fuenteFinanciamientoOPDCriterio;
     }
 
@@ -61,7 +64,8 @@ public class FuenteFinanciamientoOPDView {
         return listFuenteFinanciamientoOPD;
     }
 
-    public void setListFuenteFinanciamientoOPD(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
+    public void setListFuenteFinanciamientoOPD(
+            List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPD) {
         this.listFuenteFinanciamientoOPD = listFuenteFinanciamientoOPD;
     }
 
@@ -69,7 +73,8 @@ public class FuenteFinanciamientoOPDView {
         return listFuenteFinanciamientoOPDLista;
     }
 
-    public void setListFuenteFinanciamientoOPDLista(List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista) {
+    public void setListFuenteFinanciamientoOPDLista(
+            List<FuenteFinanciamientoOPDDTO> listFuenteFinanciamientoOPDLista) {
         this.listFuenteFinanciamientoOPDLista = listFuenteFinanciamientoOPDLista;
     }
 
@@ -77,7 +82,8 @@ public class FuenteFinanciamientoOPDView {
         return fuenteFinanciamientoOPDSelect;
     }
 
-    public void setFuenteFinanciamientoOPDSelect(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect) {
+    public void setFuenteFinanciamientoOPDSelect(
+            FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPDSelect) {
         this.fuenteFinanciamientoOPDSelect = fuenteFinanciamientoOPDSelect;
     }
 
@@ -85,7 +91,8 @@ public class FuenteFinanciamientoOPDView {
         return fuenteFinanciamientoOPD;
     }
 
-    public void setFuenteFinanciamientoOPD(FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
+    public void setFuenteFinanciamientoOPD(
+            FuenteFinanciamientoOPDDTO fuenteFinanciamientoOPD) {
         this.fuenteFinanciamientoOPD = fuenteFinanciamientoOPD;
     }
 
@@ -93,7 +100,8 @@ public class FuenteFinanciamientoOPDView {
         return subfuenteFinanciamientoCriterio;
     }
 
-    public void setSubfuenteFinanciamientoCriterio(Integer subfuenteFinanciamientoCriterio) {
+    public void setSubfuenteFinanciamientoCriterio(
+            Integer subfuenteFinanciamientoCriterio) {
         this.subfuenteFinanciamientoCriterio = subfuenteFinanciamientoCriterio;
     }
 
@@ -101,7 +109,8 @@ public class FuenteFinanciamientoOPDView {
         return listSubfuenteFinanciamiento;
     }
 
-    public void setListSubfuenteFinanciamiento(List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
+    public void setListSubfuenteFinanciamiento(
+            List<SubfuenteFinanciamientoDTO> listSubfuenteFinanciamiento) {
         this.listSubfuenteFinanciamiento = listSubfuenteFinanciamiento;
     }
 

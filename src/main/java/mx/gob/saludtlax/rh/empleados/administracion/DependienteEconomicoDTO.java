@@ -106,8 +106,12 @@ public class DependienteEconomicoDTO {
 
     @Override
     public String toString() {
-        return "DependienteEconomicoDTO{" + "idDependienteEconomico=" + idDependienteEconomico + ", idEmpleado=" + idEmpleado + ", nombre=" + nombre
-                + ", apellidoPaterno=" + apellidoPaterno + ", apellidoMaterno=" + apellidoMaterno + ", curp=" + curp + ", fechaNacimiento=" + fechaNacimiento
-                + ", sexo=" + sexo + ", parentesco=" + parentesco + ", otroParentesco=" + otroParentesco + '}';
+        return "DependienteEconomicoDTO{" + "idDependienteEconomico="
+                + idDependienteEconomico + ", idEmpleado=" + idEmpleado
+                + ", nombre=" + nombre + ", apellidoPaterno=" + apellidoPaterno
+                + ", apellidoMaterno=" + apellidoMaterno + ", curp=" + curp
+                + ", fechaNacimiento=" + fechaNacimiento + ", sexo=" + sexo
+                + ", parentesco=" + parentesco + ", otroParentesco="
+                + otroParentesco + '}';
     }
 }

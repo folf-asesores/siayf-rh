@@ -43,24 +43,33 @@ public class CancelarCFDIService implements Serializable {
 
     public void cancelar(String uuid) throws RESTClientException {
 
-        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository.obtenerCertificadoSelloDigitalActivo();
-        InputStream certificadoDigital = new ByteArrayInputStream(certificadoSelloDigitalEntity.getCertificado());
-        InputStream llaveCertificado = new ByteArrayInputStream(certificadoSelloDigitalEntity.getArchivoKey());
+        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository
+                .obtenerCertificadoSelloDigitalActivo();
+        InputStream certificadoDigital = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getCertificado());
+        InputStream llaveCertificado = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getArchivoKey());
         try {
             byte[] llaveCertificadoByte = IOUtils.toByteArray(llaveCertificado);
-            byte[] certificadoDigitalByte = IOUtils.toByteArray(certificadoDigital);
-            byte[] laveBase64Byte = org.apache.commons.codec.binary.Base64.encodeBase64(llaveCertificadoByte);
-            byte[] certificadoDigital64Byte = org.apache.commons.codec.binary.Base64.encodeBase64(certificadoDigitalByte);
+            byte[] certificadoDigitalByte = IOUtils
+                    .toByteArray(certificadoDigital);
+            byte[] laveBase64Byte = org.apache.commons.codec.binary.Base64
+                    .encodeBase64(llaveCertificadoByte);
+            byte[] certificadoDigital64Byte = org.apache.commons.codec.binary.Base64
+                    .encodeBase64(certificadoDigitalByte);
 
             String llaveBase64 = new String(laveBase64Byte);
             String CertificadoBase64 = new String(certificadoDigital64Byte);
 
-            String codigo = cancelarCFDIRest.cancelarCFDI(CertificadoBase64, llaveBase64, "STL961105HT8", uuid, certificadoSelloDigitalEntity.getClave());
+            String codigo = cancelarCFDIRest.cancelarCFDI(CertificadoBase64,
+                    llaveBase64, "STL961105HT8", uuid,
+                    certificadoSelloDigitalEntity.getClave());
 
             System.out.println(codigo);
 
             if (codigo.equals("100") || codigo.equals("201")) {
-                ComprobanteEntity comprobante = comprobanteDAO.obtenerUUID(uuid);
+                ComprobanteEntity comprobante = comprobanteDAO
+                        .obtenerUUID(uuid);
                 if (comprobante != null) {
                     comprobante.setCancelado(true);
                     comprobanteDAO.actualizar(comprobante);

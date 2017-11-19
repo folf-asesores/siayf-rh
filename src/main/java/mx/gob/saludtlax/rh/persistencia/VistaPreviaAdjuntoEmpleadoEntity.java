@@ -48,7 +48,8 @@ public class VistaPreviaAdjuntoEmpleadoEntity implements Serializable {
         return idVistaPreviaAdjuntoEmpleado;
     }
 
-    public void setIdVistaPreviaAdjuntoEmpleado(Integer idVistaPreviaAdjuntoEmpleado) {
+    public void setIdVistaPreviaAdjuntoEmpleado(
+            Integer idVistaPreviaAdjuntoEmpleado) {
         this.idVistaPreviaAdjuntoEmpleado = idVistaPreviaAdjuntoEmpleado;
     }
 
@@ -64,7 +65,8 @@ public class VistaPreviaAdjuntoEmpleadoEntity implements Serializable {
         return informacionAdjuntoEmpleado;
     }
 
-    public void setInformacionAdjuntoEmpleado(InformacionAdjuntoEmpleadoEntity informacionAdjuntoEmpleado) {
+    public void setInformacionAdjuntoEmpleado(
+            InformacionAdjuntoEmpleadoEntity informacionAdjuntoEmpleado) {
         this.informacionAdjuntoEmpleado = informacionAdjuntoEmpleado;
     }
 }

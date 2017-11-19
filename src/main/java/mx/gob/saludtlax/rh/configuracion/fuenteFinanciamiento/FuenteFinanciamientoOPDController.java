@@ -36,15 +36,19 @@ public class FuenteFinanciamientoOPDController {
     //	Los diferentes Regresos
 
     public String irPrincipal() {
-        view.setListFuenteFinanciamientoOPDLista(ejb.obtenerFuenteFinanciamientoOPDLista());
-        view.setListFuenteFinanciamiento(ejb.obtenerFuenteFinanciamientoLista());
+        view.setListFuenteFinanciamientoOPDLista(
+                ejb.obtenerFuenteFinanciamientoOPDLista());
+        view.setListFuenteFinanciamiento(
+                ejb.obtenerFuenteFinanciamientoLista());
         view.panelPrincipal();
         return null;
     }
 
     public String irGestionarFuenteFinanciamientoOPD() {
-        view.setFuenteFinanciamientoOPD(ejb.obtenerFuenteFinanciamientoOPD(view.getFuenteFinanciamientoOPDSelect()));
-        view.setListFuenteFinanciamiento(ejb.obtenerFuenteFinanciamientoLista());
+        view.setFuenteFinanciamientoOPD(ejb.obtenerFuenteFinanciamientoOPD(
+                view.getFuenteFinanciamientoOPDSelect()));
+        view.setListFuenteFinanciamiento(
+                ejb.obtenerFuenteFinanciamientoLista());
         view.setOperacionNuevoOPD(Boolean.FALSE);
         view.panelGestion();
         return null;
@@ -72,7 +76,8 @@ public class FuenteFinanciamientoOPDController {
     }
 
     public void eliminarFuenteFinanciamientoOPD() {
-        ejb.eliminarFuenteFinanciamientoOPD(view.getFuenteFinanciamientoOPDSelect());
+        ejb.eliminarFuenteFinanciamientoOPD(
+                view.getFuenteFinanciamientoOPDSelect());
         view.panelPrincipal();
         irPrincipal();
     }
@@ -81,7 +86,8 @@ public class FuenteFinanciamientoOPDController {
         if (view.getOperacionNuevoOPD()) {
             ejb.crearFuenteFinanciamientoOPD(view.getFuenteFinanciamientoOPD());
         } else {
-            ejb.actualizarFuenteFinanciamientoOPD(view.getFuenteFinanciamientoOPD());
+            ejb.actualizarFuenteFinanciamientoOPD(
+                    view.getFuenteFinanciamientoOPD());
         }
         view.panelGestion();
         irPrincipal();
@@ -100,7 +106,8 @@ public class FuenteFinanciamientoOPDController {
 
     //	>>>>>Validadores<<<<<
 
-    public void validatorFuenteOPD(FacesContext context, UIComponent component, Object value) {
+    public void validatorFuenteOPD(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -108,7 +115,9 @@ public class FuenteFinanciamientoOPDController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Descripción");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Descripción");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -117,7 +126,9 @@ public class FuenteFinanciamientoOPDController {
                 Integer idFF = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(idFF)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione una Fuente de Financiamiento");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione una Fuente de Financiamiento");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }

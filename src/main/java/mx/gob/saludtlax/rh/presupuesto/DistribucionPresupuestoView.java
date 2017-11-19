@@ -31,7 +31,8 @@ public class DistribucionPresupuestoView {
         return listaDistribucion;
     }
 
-    public void setListaDistribucion(List<DistribucionPresupuestoDTO> listaDistribucion) {
+    public void setListaDistribucion(
+            List<DistribucionPresupuestoDTO> listaDistribucion) {
         this.listaDistribucion = listaDistribucion;
     }
 
@@ -39,7 +40,8 @@ public class DistribucionPresupuestoView {
         return listaTipoNombramiento;
     }
 
-    public void setListaTipoNombramiento(List<TipoNombramientoDTO> listaTipoNombramiento) {
+    public void setListaTipoNombramiento(
+            List<TipoNombramientoDTO> listaTipoNombramiento) {
         this.listaTipoNombramiento = listaTipoNombramiento;
     }
 
@@ -47,7 +49,8 @@ public class DistribucionPresupuestoView {
         return distribucionPresupuesto;
     }
 
-    public void setDistribucionPresupuesto(DistribucionPresupuestoDTO distribucionPresupuesto) {
+    public void setDistribucionPresupuesto(
+            DistribucionPresupuestoDTO distribucionPresupuesto) {
         this.distribucionPresupuesto = distribucionPresupuesto;
     }
 
@@ -95,7 +98,8 @@ public class DistribucionPresupuestoView {
         return proyeccionPresupuestal;
     }
 
-    public void setProyeccionPresupuestal(ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
+    public void setProyeccionPresupuestal(
+            ProyeccionesPresupuestalesDTO proyeccionPresupuestal) {
         this.proyeccionPresupuestal = proyeccionPresupuestal;
     }
 
@@ -119,7 +123,8 @@ public class DistribucionPresupuestoView {
         return listaSubfuente;
     }
 
-    public void setListaSubfuente(List<SubfuenteFinanciamientoDTO> listaSubfuente) {
+    public void setListaSubfuente(
+            List<SubfuenteFinanciamientoDTO> listaSubfuente) {
         this.listaSubfuente = listaSubfuente;
     }
 
@@ -127,7 +132,8 @@ public class DistribucionPresupuestoView {
         return listaUnidadResponsable;
     }
 
-    public void setListaUnidadResponsable(List<UnidadResponsableDTO> listaUnidadResponsable) {
+    public void setListaUnidadResponsable(
+            List<UnidadResponsableDTO> listaUnidadResponsable) {
         this.listaUnidadResponsable = listaUnidadResponsable;
     }
 
@@ -135,7 +141,8 @@ public class DistribucionPresupuestoView {
         return listaDistribucionPresupuesto;
     }
 
-    public void setListaDistribucionPresupuesto(List<DistribucionPresupuestoDTO> listaDistribucionPresupuesto) {
+    public void setListaDistribucionPresupuesto(
+            List<DistribucionPresupuestoDTO> listaDistribucionPresupuesto) {
         this.listaDistribucionPresupuesto = listaDistribucionPresupuesto;
     }
 

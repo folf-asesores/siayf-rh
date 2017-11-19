@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:49:05 12/08/2016
  */
@@ -40,8 +40,6 @@ public class InfoPuestoDTO implements Serializable {
 
     private String unidadResponsable;
 
-    
-
     /**
      *
      */
@@ -49,8 +47,10 @@ public class InfoPuestoDTO implements Serializable {
         super();
     }
 
-    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion, String nombramiento, String folioVacante, String codigoPuesto, String puesto,
-            String nombreEmpleado, Integer idConfiguracionPresupuesto, String unidadResponsable) {
+    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion,
+            String nombramiento, String folioVacante, String codigoPuesto,
+            String puesto, String nombreEmpleado,
+            Integer idConfiguracionPresupuesto, String unidadResponsable) {
         this.idInventarioVacante = idInventarioVacante;
         this.tipoContratacion = tipoContratacion;
         this.nombramiento = nombramiento;
@@ -62,8 +62,10 @@ public class InfoPuestoDTO implements Serializable {
         this.unidadResponsable = unidadResponsable;
     }
 
-    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion, String nombramiento, String folioVacante, String codigoPuesto, String puesto,
-            BigDecimal sueldo, String nombreEmpleado, Integer idConfiguracionPresupuesto) {
+    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion,
+            String nombramiento, String folioVacante, String codigoPuesto,
+            String puesto, BigDecimal sueldo, String nombreEmpleado,
+            Integer idConfiguracionPresupuesto) {
 
         this.idInventarioVacante = idInventarioVacante;
         this.tipoContratacion = tipoContratacion;
@@ -76,8 +78,10 @@ public class InfoPuestoDTO implements Serializable {
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
     }
 
-    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion, String nombramiento, String folioVacante, String codigoPuesto, String puesto,
-            BigDecimal sueldo, Integer idConfiguracionPresupuesto) {
+    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion,
+            String nombramiento, String folioVacante, String codigoPuesto,
+            String puesto, BigDecimal sueldo,
+            Integer idConfiguracionPresupuesto) {
 
         this.idInventarioVacante = idInventarioVacante;
         this.tipoContratacion = tipoContratacion;
@@ -89,8 +93,9 @@ public class InfoPuestoDTO implements Serializable {
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
     }
 
-    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion, String nombramiento, String folioVacante, String codigoPuesto, String puesto,
-            BigDecimal sueldo) {
+    public InfoPuestoDTO(Integer idInventarioVacante, String tipoContratacion,
+            String nombramiento, String folioVacante, String codigoPuesto,
+            String puesto, BigDecimal sueldo) {
 
         this.idInventarioVacante = idInventarioVacante;
         this.tipoContratacion = tipoContratacion;
@@ -114,7 +119,8 @@ public class InfoPuestoDTO implements Serializable {
         return idConfiguracionPresupuesto;
     }
 
-    public void setIdConfiguracionPresupuesto(Integer idConfiguracionPresupuesto) {
+    public void setIdConfiguracionPresupuesto(
+            Integer idConfiguracionPresupuesto) {
         this.idConfiguracionPresupuesto = idConfiguracionPresupuesto;
     }
 

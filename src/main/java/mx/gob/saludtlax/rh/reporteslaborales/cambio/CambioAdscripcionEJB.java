@@ -11,7 +11,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoRepository;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -21,18 +21,25 @@ public class CambioAdscripcionEJB {
     @Inject
     private MovimientoEmpleadoRepository movimientoEmpleadoRepository;
 
-    public CambioAdscripcionDTO obtenerComisionOficial(Integer idTipoMovimiento) {
+    public CambioAdscripcionDTO obtenerComisionOficial(
+            Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         CambioAdscripcionDTO cambioAdscripcionDTO = new CambioAdscripcionDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
         String asunto = "";
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().nombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
-        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al " + movimientoEmpleadoEntity.getFechaFinPermiso();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .nombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
+        String fecha = movimientoEmpleadoEntity.getFechaInicioPermiso() + " al "
+                + movimientoEmpleadoEntity.getFechaFinPermiso();
         String fechaCambio = "";
         String cambioAdscripcion = "";
         String funcion = "";
@@ -58,20 +65,23 @@ public class CambioAdscripcionEJB {
         return cambioAdscripcionDTO;
     }
 
-    public List<CambioAdscripcionDetalleDTO> consultarPorCriterio(String criterio) {
+    public List<CambioAdscripcionDetalleDTO> consultarPorCriterio(
+            String criterio) {
 
         List<CambioAdscripcionDetalleDTO> resultado = new ArrayList<>();
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 CambioAdscripcionDetalleDTO dto = new CambioAdscripcionDetalleDTO();
 

@@ -34,8 +34,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:31:53 12/08/2016
  */
@@ -103,34 +103,43 @@ public class SeleccionVacanteController implements Serializable {
     public void obtenerListaVacantePostular() {
 
         if (view.getTipoPerfil() == EnumFiltroPerfil.PROFESION) {
-            List<InfoVacantePostularDTO> listaVacantePostular = profesion.obtenerListaProfesionPorTipoCandidato(view.getTipoProfesion(),
-                    view.getTipoCandidato());
+            List<InfoVacantePostularDTO> listaVacantePostular = profesion
+                    .obtenerListaProfesionPorTipoCandidato(
+                            view.getTipoProfesion(), view.getTipoCandidato());
             // bolsaTrabajo.obtenerListaAspiranteCandidato();
 
             if (!listaVacantePostular.isEmpty()) {
                 view.setListaVacantePostular(listaVacantePostular);
             } else {
-                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-                JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos con la profesión seleccionada, intentelo con otro...");
+                view.setListaVacantePostular(
+                        new ArrayList<InfoVacantePostularDTO>());
+                JSFUtils.errorMessage("Selección Candidato: ",
+                        "No se encontrarón candidatos con la profesión seleccionada, intentelo con otro...");
             }
 
         }
 
         if (view.getTipoPerfil() == EnumFiltroPerfil.ESPECIALIDAD) {
-            List<InfoVacantePostularDTO> listaVacantePostular = especialidad.obtenerListaEspecialidadPorTipoCandidato(view.getTipoEspecialidad(),
-                    view.getTipoCandidato());
+            List<InfoVacantePostularDTO> listaVacantePostular = especialidad
+                    .obtenerListaEspecialidadPorTipoCandidato(
+                            view.getTipoEspecialidad(),
+                            view.getTipoCandidato());
             // empleado.obtenerListaEmpleadoCandidato();
 
             if (!listaVacantePostular.isEmpty()) {
                 view.setListaVacantePostular(listaVacantePostular);
             } else {
-                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-                JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos con la especialidad seleccionada, intentelo con otro...");
+                view.setListaVacantePostular(
+                        new ArrayList<InfoVacantePostularDTO>());
+                JSFUtils.errorMessage("Selección Candidato: ",
+                        "No se encontrarón candidatos con la especialidad seleccionada, intentelo con otro...");
             }
         }
 
-        if (view.getTipoPerfil() != EnumFiltroPerfil.PROFESION && view.getTipoPerfil() != EnumFiltroPerfil.ESPECIALIDAD) {
-            view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        if (view.getTipoPerfil() != EnumFiltroPerfil.PROFESION
+                && view.getTipoPerfil() != EnumFiltroPerfil.ESPECIALIDAD) {
+            view.setListaVacantePostular(
+                    new ArrayList<InfoVacantePostularDTO>());
         }
 
     }
@@ -143,13 +152,15 @@ public class SeleccionVacanteController implements Serializable {
         } else if (view.getListaSeleccionadaVacantePostular().isEmpty()) {
 
             view.setMostrarConfirmacionPostular(false);
-            JSFUtils.errorMessage("Selección Candidato: ", "Seleccione uno o mas candidatos para postular...");
+            JSFUtils.errorMessage("Selección Candidato: ",
+                    "Seleccione uno o mas candidatos para postular...");
         }
 
     }
 
     public void cerrarConfirmacionPostular() {
-        view.setListaSeleccionadaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+        view.setListaSeleccionadaVacantePostular(
+                new ArrayList<InfoVacantePostularDTO>());
         view.setMostrarConfirmacionPostular(false);
     }
 
@@ -189,7 +200,8 @@ public class SeleccionVacanteController implements Serializable {
             view.setMostrarFiltroProfesion(true);
             view.setHeaderPerfil("Profesión");
             view.setMostrarColumnaHeaderPerfil(true);
-            view.setListaTipoProfesion(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaProfesion()));
+            view.setListaTipoProfesion(SelectItemsUtil
+                    .listaCatalogos(catalogo.obtenerListaProfesion()));
 
         }
 
@@ -197,35 +209,44 @@ public class SeleccionVacanteController implements Serializable {
             view.setHeaderPerfil("Especialidad");
             view.setMostrarColumnaHeaderPerfil(true);
             view.setMostrarFiltroEspecialidad(true);
-            view.setListaTipoEspecialidad(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaEspecialidad()));
+            view.setListaTipoEspecialidad(SelectItemsUtil
+                    .listaCatalogos(catalogo.obtenerListaEspecialidad()));
         }
 
         if (view.getTipoPerfil() == EnumFiltroPerfil.TODOS) {
 
             if (view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-                List<InfoVacantePostularDTO> listaVacantePostular = bolsaTrabajo.obtenerListaAspiranteCandidato();
+                List<InfoVacantePostularDTO> listaVacantePostular = bolsaTrabajo
+                        .obtenerListaAspiranteCandidato();
 
                 if (!listaVacantePostular.isEmpty()) {
                     view.setListaVacantePostular(listaVacantePostular);
                 } else {
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-                    JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos, intentelo con otro...");
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
+                    JSFUtils.errorMessage("Selección Candidato: ",
+                            "No se encontrarón candidatos, intentelo con otro...");
                 }
             }
 
             if (view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-                List<InfoVacantePostularDTO> listaVacantePostular = empleado.obtenerListaEmpleadoCandidato();
+                List<InfoVacantePostularDTO> listaVacantePostular = empleado
+                        .obtenerListaEmpleadoCandidato();
 
                 if (!listaVacantePostular.isEmpty()) {
                     view.setListaVacantePostular(listaVacantePostular);
                 } else {
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
-                    JSFUtils.errorMessage("Selección Candidato: ", "No se encontrarón candidatos, intentelo con otro...");
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
+                    JSFUtils.errorMessage("Selección Candidato: ",
+                            "No se encontrarón candidatos, intentelo con otro...");
                 }
             }
 
-            if (view.getTipoCandidato() != EnumTipoCandidato.ASPIRANTE && view.getTipoCandidato() != EnumTipoCandidato.EMPLEADO) {
-                view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+            if (view.getTipoCandidato() != EnumTipoCandidato.ASPIRANTE
+                    && view.getTipoCandidato() != EnumTipoCandidato.EMPLEADO) {
+                view.setListaVacantePostular(
+                        new ArrayList<InfoVacantePostularDTO>());
             }
 
         }
@@ -237,33 +258,41 @@ public class SeleccionVacanteController implements Serializable {
 
                 List<CandidatoVacanteDTO> listaCandidatoVacante = new ArrayList<>();
 
-                HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest request = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 HttpSession httpSession = request.getSession(false);
-                UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+                UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                        ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
                 view.getPostuladoVacante().setUsuario(usuario.getUserName());
-                view.getPostuladoVacante().setIdInventarioVacante(view.getSeleccionVacante().getIdInventarioVacante());
+                view.getPostuladoVacante().setIdInventarioVacante(
+                        view.getSeleccionVacante().getIdInventarioVacante());
 
-                for (InfoVacantePostularDTO infoVacantePostularDTO : view.getListaSeleccionadaVacantePostular()) {
+                for (InfoVacantePostularDTO infoVacantePostularDTO : view
+                        .getListaSeleccionadaVacantePostular()) {
 
                     CandidatoVacanteDTO candidatoVacanteDTO = new CandidatoVacanteDTO();
 
-                    candidatoVacanteDTO.setTipoCandidato(view.getTipoCandidato());
+                    candidatoVacanteDTO
+                            .setTipoCandidato(view.getTipoCandidato());
 
                     if (view.getTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
-                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO.getIdEmpleadoAspirante());
+                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO
+                                .getIdEmpleadoAspirante());
 
                     }
 
                     if (view.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO.getIdEmpleadoAspirante());
+                        candidatoVacanteDTO.setIdContexto(infoVacantePostularDTO
+                                .getIdEmpleadoAspirante());
 
                     }
 
                     listaCandidatoVacante.add(candidatoVacanteDTO);
                 }
 
-                view.getPostuladoVacante().setListaCandidatoVacante(listaCandidatoVacante);
+                view.getPostuladoVacante()
+                        .setListaCandidatoVacante(listaCandidatoVacante);
 
                 /*
                  * vacantes.postularCandidatoVacante(
@@ -271,19 +300,22 @@ public class SeleccionVacanteController implements Serializable {
                  * this.view.getTipoCandidato());
                  */
 
-                JSFUtils.infoMessage("Selección Candidato: ", "Se postulo correctamente...");
+                JSFUtils.infoMessage("Selección Candidato: ",
+                        "Se postulo correctamente...");
 
                 cerrarConfirmacionPostular();
 
             } catch (ReglaNegocioException exception) {
 
-                if (ReglaNegocioCodigoError.EMPLEADO_REPETIDO.equals(exception.getCodigoError())) {
+                if (ReglaNegocioCodigoError.EMPLEADO_REPETIDO
+                        .equals(exception.getCodigoError())) {
                     JSFUtils.errorMessage("", exception.getMessage());
                 }
 
             }
         } else {
-            JSFUtils.errorMessage("Selección Candidato: ", "Seleccione uno o mas candidatos para postular...");
+            JSFUtils.errorMessage("Selección Candidato: ",
+                    "Seleccione uno o mas candidatos para postular...");
         }
 
     }
@@ -292,7 +324,8 @@ public class SeleccionVacanteController implements Serializable {
         return "/contenido/vacantes/postularCandidato.xhtml?faces-redirect=true";
     }
 
-    public void validarCampo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarCampo(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -304,7 +337,9 @@ public class SeleccionVacanteController implements Serializable {
                 Integer tipoCandidato = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoCandidato)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo candidato");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo candidato");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     view.setMostrarFiltroPerfil(false);
@@ -313,7 +348,8 @@ public class SeleccionVacanteController implements Serializable {
                     view.setTipoEspecialidad(0);
                     view.setMostrarFiltroProfesion(false);
                     view.setTipoProfesion(0);
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
                     view.setHeaderPerfil("Profesión/Especialidad");
                     view.setMostrarColumnaHeaderPerfil(false);
 
@@ -327,14 +363,17 @@ public class SeleccionVacanteController implements Serializable {
                 Integer tipoPerfil = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoPerfil)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo perfil");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo perfil");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     view.setMostrarFiltroProfesion(false);
                     view.setTipoProfesion(0);
                     view.setMostrarFiltroEspecialidad(false);
                     view.setTipoEspecialidad(0);
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
                     view.setHeaderPerfil("Profesión/Especialidad");
                     view.setMostrarColumnaHeaderPerfil(false);
 
@@ -348,10 +387,13 @@ public class SeleccionVacanteController implements Serializable {
                 Integer tipoProfesion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoProfesion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo profesión");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo profesión");
                     context.addMessage(component.getClientId(), facesMessage);
 
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
 
                     throw new ValidatorException(facesMessage);
                 }
@@ -363,10 +405,13 @@ public class SeleccionVacanteController implements Serializable {
                 Integer tipoEspecialidad = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoEspecialidad)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo especialidad");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo especialidad");
                     context.addMessage(component.getClientId(), facesMessage);
 
-                    view.setListaVacantePostular(new ArrayList<InfoVacantePostularDTO>());
+                    view.setListaVacantePostular(
+                            new ArrayList<InfoVacantePostularDTO>());
 
                     throw new ValidatorException(facesMessage);
                 }
@@ -374,7 +419,8 @@ public class SeleccionVacanteController implements Serializable {
                 break;
 
             default:
-                JSFUtils.errorMessage("Selección Candidato: ", "Error de validación...");
+                JSFUtils.errorMessage("Selección Candidato: ",
+                        "Error de validación...");
                 break;
         }
 

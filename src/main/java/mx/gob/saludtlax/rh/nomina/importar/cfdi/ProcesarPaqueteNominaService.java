@@ -42,7 +42,8 @@ public class ProcesarPaqueteNominaService implements Serializable {
 
     private String pathXstl;
 
-    public List<Future<ComprobanteNominaView>> procesar(InputStream paqueteNominaIn) throws InterruptedException {
+    public List<Future<ComprobanteNominaView>> procesar(
+            InputStream paqueteNominaIn) throws InterruptedException {
 
         try {
 
@@ -59,27 +60,35 @@ public class ProcesarPaqueteNominaService implements Serializable {
 
     }
 
-    public List<Future<ComprobanteNominaView>> importar(InputStream paqueteNomina) throws ImportarPaqueteNominaException {
+    public List<Future<ComprobanteNominaView>> importar(
+            InputStream paqueteNomina) throws ImportarPaqueteNominaException {
 
         List<Future<ComprobanteNominaView>> listadoComprobanteNominaFuture = new ArrayList<>();
 
         try {
-            JAXBContext jaxbContext = JAXBContext.newInstance(PaqueteNomina.class);
+            JAXBContext jaxbContext = JAXBContext
+                    .newInstance(PaqueteNomina.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            PaqueteNomina paqueteNominaDTO = (PaqueteNomina) jaxbUnmarshaller.unmarshal(paqueteNomina);
+            PaqueteNomina paqueteNominaDTO = (PaqueteNomina) jaxbUnmarshaller
+                    .unmarshal(paqueteNomina);
 
             PaqueteNominaView paqueteNominaView = new PaqueteNominaView();
             paqueteNominaView.setId(paqueteNominaDTO.getId());
-            paqueteNominaView.setTotalRegistros(paqueteNominaDTO.getTotalRegistros());
+            paqueteNominaView
+                    .setTotalRegistros(paqueteNominaDTO.getTotalRegistros());
 
             List<ComprobanteNominaView> listadoComprobanteNominaView = new ArrayList<>();
 
             avanceImportarPaquete = 0;
 
-            for (PaqueteNomina.ControlComprobante comprobanteNomina : paqueteNominaDTO.getControlComprobanteNomina()) {
+            for (PaqueteNomina.ControlComprobante comprobanteNomina : paqueteNominaDTO
+                    .getControlComprobanteNomina()) {
                 procesando = true;
-                listadoComprobanteNominaFuture.add(comprobanteNominaFactory.tranformComprobanteToNomina(comprobanteNomina.getXmlComp(),
-                        comprobanteNomina.getId(), comprobanteNomina.getNum()));
+                listadoComprobanteNominaFuture.add(
+                        comprobanteNominaFactory.tranformComprobanteToNomina(
+                                comprobanteNomina.getXmlComp(),
+                                comprobanteNomina.getId(),
+                                comprobanteNomina.getNum()));
 
             }
             Integer totalHilo = listadoComprobanteNominaFuture.size();
@@ -106,7 +115,8 @@ public class ProcesarPaqueteNominaService implements Serializable {
 
             procesando = false;
 
-            paqueteNominaView.setComprobanteNominaView(listadoComprobanteNominaView);
+            paqueteNominaView
+                    .setComprobanteNominaView(listadoComprobanteNominaView);
 
             //return paqueteNominaView;
             return listadoComprobanteNominaFuture;

@@ -57,10 +57,12 @@ public class ConsultaConceptosEmpleadoController implements Serializable {
 
     public String buscarEmpleados() {
         if (criterioEmpleado == null) {
-            JSFUtils.errorMessage("Conceptos empleado: ", "El criterio es necesario");
+            JSFUtils.errorMessage("Conceptos empleado: ",
+                    "El criterio es necesario");
         } else {
 
-            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB.consultaPorCriterio(criterioEmpleado);
+            List<InfoEmpleadoDTO> listaEmpleados = empleadoEJB
+                    .consultaPorCriterio(criterioEmpleado);
             mostrarTablaEmpleados = (true);
             if (!listaEmpleados.isEmpty()) {
                 empleadoLista.clear();
@@ -71,28 +73,41 @@ public class ConsultaConceptosEmpleadoController implements Serializable {
     }
 
     public void buscarConceptos() {
-        InfoConfiguracionDTO infoConfiguracionDTO = configuracionPresupuestal.obtenerPorIdEmpleado(empleadoSeleccionado.getIdEmpleado());
+        InfoConfiguracionDTO infoConfiguracionDTO = configuracionPresupuestal
+                .obtenerPorIdEmpleado(empleadoSeleccionado.getIdEmpleado());
         try {
-            conceptos = conceptoNominaFederalesEJB.obtenerConceptosPorConfiguracionPresupuestal(infoConfiguracionDTO.getIdConfiguracionPresupuesto());
+            conceptos = conceptoNominaFederalesEJB
+                    .obtenerConceptosPorConfiguracionPresupuestal(
+                            infoConfiguracionDTO
+                                    .getIdConfiguracionPresupuesto());
         } catch (NullPointerException e) {
-            JSFUtils.errorMessage("Validacion:", "El empleado no tiene una configuracion presupuestal.");
+            JSFUtils.errorMessage("Validacion:",
+                    "El empleado no tiene una configuracion presupuestal.");
         }
 
-        PuestoGeneralDTO puesto = puestoGeneral.puestoPorClave(empleadoDatos.getCodigoPuesto());
-        TabuladorDTO tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
+        PuestoGeneralDTO puesto = puestoGeneral
+                .puestoPorClave(empleadoDatos.getCodigoPuesto());
+        TabuladorDTO tabulador = tabuladorEJB.obtenerTabuladorPorPuesto(
+                puesto.getIdPuestoGeneral(), FechaUtil.ejercicioActual());
         if (tabulador.getIdTabulador() == null) {
-            JSFUtils.errorMessage("Tabulador:", "No se encontro configuración de tabulador para el empleado seleccionado");
+            JSFUtils.errorMessage("Tabulador:",
+                    "No se encontro configuración de tabulador para el empleado seleccionado");
         }
         BigDecimal subtotal = BigDecimal.ZERO;
         for (ConceptoNominaFederalesDTO conceptoFederal : conceptos) {
             if (conceptoFederal.getFormula() != null) {
 
-                String formulanueva = conceptoFederal.getFormula().replace("EX0700", tabulador.getSueldoBrutoMensual() + "");
-                formulanueva = formulanueva.replace("EX4200", tabulador.getAsignacionBrutaMensual() + "");
-                formulanueva = formulanueva.replace("EX55AG", tabulador.getAgaBrutaMensual() + "");
-                String resFormula = conceptoNominaFederalesEJB.evaluarFormula(formulanueva);
+                String formulanueva = conceptoFederal.getFormula().replace(
+                        "EX0700", tabulador.getSueldoBrutoMensual() + "");
+                formulanueva = formulanueva.replace("EX4200",
+                        tabulador.getAsignacionBrutaMensual() + "");
+                formulanueva = formulanueva.replace("EX55AG",
+                        tabulador.getAgaBrutaMensual() + "");
+                String resFormula = conceptoNominaFederalesEJB
+                        .evaluarFormula(formulanueva);
 
-                BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2, RoundingMode.HALF_UP);
+                BigDecimal valorFormula = new BigDecimal(resFormula).setScale(2,
+                        RoundingMode.HALF_UP);
                 conceptoFederal.setImporte(valorFormula);
 
                 if (conceptoFederal.getTipo().compareTo(1) == 0) {
@@ -112,7 +127,8 @@ public class ConsultaConceptosEmpleadoController implements Serializable {
 
         empleadoSeleccionado = empleado;
         try {
-            empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(empleadoSeleccionado.getIdEmpleado());
+            empleadoDatos = empleadoEJB.obtenerInformacionEmpleado(
+                    empleadoSeleccionado.getIdEmpleado());
             if (empleadoDatos.getPuesto() != null) {
 
                 buscarConceptos();

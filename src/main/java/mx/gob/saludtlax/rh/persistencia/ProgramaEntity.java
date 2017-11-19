@@ -117,7 +117,8 @@ public class ProgramaEntity implements Serializable {
         return unidadResponsable;
     }
 
-    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+    public void setUnidadResponsable(
+            UnidadResponsableEntity unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
     }
 
@@ -125,7 +126,8 @@ public class ProgramaEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -133,7 +135,8 @@ public class ProgramaEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 

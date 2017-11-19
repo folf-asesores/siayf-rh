@@ -47,7 +47,8 @@ public class AdjuntosEmpleadosOldEntity implements Serializable {
         this.idAdjuntoEmpleado = idAdjuntoEmpleado;
     }
 
-    public AdjuntosEmpleadosOldEntity(Integer idAdjuntoEmpleado, byte[] archivo) {
+    public AdjuntosEmpleadosOldEntity(Integer idAdjuntoEmpleado,
+            byte[] archivo) {
         this.idAdjuntoEmpleado = idAdjuntoEmpleado;
         this.archivo = archivo;
     }

@@ -67,7 +67,8 @@ public class MovimientoEmpleadoView {
         return mostrarModificacionPuesto;
     }
 
-    public void setMostrarModificacionPuesto(boolean mostrarModificacionPuesto) {
+    public void setMostrarModificacionPuesto(
+            boolean mostrarModificacionPuesto) {
         this.mostrarModificacionPuesto = mostrarModificacionPuesto;
     }
 
@@ -107,7 +108,8 @@ public class MovimientoEmpleadoView {
         return mostrarPanelGroupMovimiento;
     }
 
-    public void setMostrarPanelGroupMovimiento(boolean mostrarPanelGroupMovimiento) {
+    public void setMostrarPanelGroupMovimiento(
+            boolean mostrarPanelGroupMovimiento) {
         this.mostrarPanelGroupMovimiento = mostrarPanelGroupMovimiento;
     }
 
@@ -123,7 +125,8 @@ public class MovimientoEmpleadoView {
         return mostrarPanelGroupBusqueda;
     }
 
-    public void setMostrarPanelGroupBusqueda(boolean mostrarPanelGroupBusqueda) {
+    public void setMostrarPanelGroupBusqueda(
+            boolean mostrarPanelGroupBusqueda) {
         this.mostrarPanelGroupBusqueda = mostrarPanelGroupBusqueda;
     }
 
@@ -147,7 +150,8 @@ public class MovimientoEmpleadoView {
         return listaMovimientosHijos;
     }
 
-    public void setListaMovimientosHijos(List<SelectItem> listaMovimientosHijos) {
+    public void setListaMovimientosHijos(
+            List<SelectItem> listaMovimientosHijos) {
         this.listaMovimientosHijos = listaMovimientosHijos;
     }
 
@@ -155,7 +159,8 @@ public class MovimientoEmpleadoView {
         return listaMovimientosPadre;
     }
 
-    public void setListaMovimientosPadre(List<SelectItem> listaMovimientosPadre) {
+    public void setListaMovimientosPadre(
+            List<SelectItem> listaMovimientosPadre) {
         this.listaMovimientosPadre = listaMovimientosPadre;
     }
 

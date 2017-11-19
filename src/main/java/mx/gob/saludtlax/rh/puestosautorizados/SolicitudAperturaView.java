@@ -62,7 +62,8 @@ public class SolicitudAperturaView {
         return bloquearFinanciamientoInterinato;
     }
 
-    public void setBloquearFinanciamientoInterinato(boolean bloquearFinanciamientoInterinato) {
+    public void setBloquearFinanciamientoInterinato(
+            boolean bloquearFinanciamientoInterinato) {
         this.bloquearFinanciamientoInterinato = bloquearFinanciamientoInterinato;
     }
 
@@ -78,7 +79,8 @@ public class SolicitudAperturaView {
         return listaContratacionEventual;
     }
 
-    public void setListaContratacionEventual(List<SelectItem> listaContratacionEventual) {
+    public void setListaContratacionEventual(
+            List<SelectItem> listaContratacionEventual) {
         this.listaContratacionEventual = listaContratacionEventual;
     }
 
@@ -86,7 +88,8 @@ public class SolicitudAperturaView {
         return listaContratacionLaboral;
     }
 
-    public void setListaContratacionLaboral(List<SelectItem> listaContratacionLaboral) {
+    public void setListaContratacionLaboral(
+            List<SelectItem> listaContratacionLaboral) {
         this.listaContratacionLaboral = listaContratacionLaboral;
     }
 
@@ -110,7 +113,8 @@ public class SolicitudAperturaView {
         return puestosDisponibles;
     }
 
-    public void setPuestosDisponibles(List<DisponiblesInterinatoDTO> puestosDisponibles) {
+    public void setPuestosDisponibles(
+            List<DisponiblesInterinatoDTO> puestosDisponibles) {
         this.puestosDisponibles = puestosDisponibles;
     }
 
@@ -126,7 +130,8 @@ public class SolicitudAperturaView {
         return listaDetallesPrograma;
     }
 
-    public void setListaDetallesPrograma(List<SelectItem> listaDetallesPrograma) {
+    public void setListaDetallesPrograma(
+            List<SelectItem> listaDetallesPrograma) {
         this.listaDetallesPrograma = listaDetallesPrograma;
     }
 
@@ -182,7 +187,8 @@ public class SolicitudAperturaView {
         return listaTiposNombramiento;
     }
 
-    public void setListaTiposNombramiento(List<SelectItem> listaTiposNombramiento) {
+    public void setListaTiposNombramiento(
+            List<SelectItem> listaTiposNombramiento) {
         this.listaTiposNombramiento = listaTiposNombramiento;
     }
 
@@ -222,7 +228,8 @@ public class SolicitudAperturaView {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 
@@ -238,7 +245,8 @@ public class SolicitudAperturaView {
         return listaFuentesFinanciamiento;
     }
 
-    public void setListaFuentesFinanciamiento(List<SelectItem> listaFuentesFinanciamiento) {
+    public void setListaFuentesFinanciamiento(
+            List<SelectItem> listaFuentesFinanciamiento) {
         this.listaFuentesFinanciamiento = listaFuentesFinanciamiento;
     }
 
@@ -246,7 +254,8 @@ public class SolicitudAperturaView {
         return listaSubfuentesFinanciamiento;
     }
 
-    public void setListaSubfuentesFinanciamiento(List<SelectItem> listaSubfuentesFinanciamiento) {
+    public void setListaSubfuentesFinanciamiento(
+            List<SelectItem> listaSubfuentesFinanciamiento) {
         this.listaSubfuentesFinanciamiento = listaSubfuentesFinanciamiento;
     }
 

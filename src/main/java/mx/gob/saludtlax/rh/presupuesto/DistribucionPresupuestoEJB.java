@@ -37,9 +37,12 @@ public class DistribucionPresupuestoEJB {
         return subfuentesService.listaSubfuenteFinanciamiento();
     }
 
-    public List<DistribucionPresupuestoDTO> distribucionPresupuesto(Integer anioPresupuesto, Integer idTipoNombramiento, Integer idDependencia,
-            Integer idSubfuenteFinanciamiento) {
-        return distribucionPresupuestoService.obtenerProyeccionesMensuales(anioPresupuesto, idTipoNombramiento, idDependencia, idSubfuenteFinanciamiento);
+    public List<DistribucionPresupuestoDTO> distribucionPresupuesto(
+            Integer anioPresupuesto, Integer idTipoNombramiento,
+            Integer idDependencia, Integer idSubfuenteFinanciamiento) {
+        return distribucionPresupuestoService.obtenerProyeccionesMensuales(
+                anioPresupuesto, idTipoNombramiento, idDependencia,
+                idSubfuenteFinanciamiento);
     }
 
     //    public class reporteExcel{

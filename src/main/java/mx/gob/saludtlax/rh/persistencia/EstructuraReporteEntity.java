@@ -18,7 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -106,7 +106,8 @@ public class EstructuraReporteEntity implements Serializable {
         return clasificacionReporte;
     }
 
-    public void setClasificacionReporte(ClasificacionReporteEntity clasificacionReporte) {
+    public void setClasificacionReporte(
+            ClasificacionReporteEntity clasificacionReporte) {
         this.clasificacionReporte = clasificacionReporte;
     }
 

@@ -16,7 +16,8 @@ import mx.gob.saludtlax.rh.siif.layout.SIIFLayout;
 @SessionScoped
 public class ReportarSiifContratosControlller {
 
-    private static final Logger LOGGER = Logger.getLogger(ReportarSiifContratosControlller.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ReportarSiifContratosControlller.class.getName());
 
     @Inject
     private SIIFLayout generarLayout;

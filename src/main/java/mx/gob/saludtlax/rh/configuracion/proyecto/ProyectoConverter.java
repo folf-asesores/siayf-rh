@@ -37,7 +37,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  */
 @FacesConverter(value = "proyectoConverter")
 public class ProyectoConverter implements Converter {
-    private static final Logger LOGGER = Logger.getLogger(ProyectoConverter.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ProyectoConverter.class.getName());
     private static final String AREA_ADSCRIPCION_BEAN = "java:module/AreaAdscripcionEJB";
     private static final String DEPENDENCIA_BEAN = "java:module/DependenciaEJB";
     private static final String UNIDAD_RESPONSABLE_BEAN = "java:module/UnidadResponsableEJB";
@@ -46,7 +47,8 @@ public class ProyectoConverter implements Converter {
     private static final String LINEA_ACCION_BEAN = "java:module/LineaAccionEJB";
 
     @Override
-    public Object getAsObject(FacesContext fc, UIComponent component, String value) {
+    public Object getAsObject(FacesContext fc, UIComponent component,
+            String value) {
 
         if (value != null && !ValidacionUtil.esCadenaVacia(value)) {
 
@@ -72,7 +74,8 @@ public class ProyectoConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext fc, UIComponent component, Object object) {
+    public String getAsString(FacesContext fc, UIComponent component,
+            Object object) {
         if (object != null && object instanceof Integer) {
             Integer id = (Integer) object;
             switch (component.getId()) {
@@ -100,7 +103,8 @@ public class ProyectoConverter implements Converter {
         AreaAdscripcion areaAdscripcionEJB = getAreaAdscripcionEJB();
 
         if (areaAdscripcionEJB != null) {
-            return areaAdscripcionEJB.consultarIdAreaAdscripcionPorDescripcion(value);
+            return areaAdscripcionEJB
+                    .consultarIdAreaAdscripcionPorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
@@ -109,9 +113,11 @@ public class ProyectoConverter implements Converter {
 
     private String getDescripcionAreaAdscripcion(Integer id) {
         AreaAdscripcion areaAdscripcionEJB = getAreaAdscripcionEJB();
-        AreaAdscripcionDTO areaAdscripcionDTO = areaAdscripcionEJB.obtenerPorId(id);
+        AreaAdscripcionDTO areaAdscripcionDTO = areaAdscripcionEJB
+                .obtenerPorId(id);
 
-        return areaAdscripcionDTO == null ? "" : areaAdscripcionDTO.getAreaAdscripcion();
+        return areaAdscripcionDTO == null ? ""
+                : areaAdscripcionDTO.getAreaAdscripcion();
     }
 
     private Integer getIdDependencia(String value) {
@@ -196,7 +202,8 @@ public class ProyectoConverter implements Converter {
         UnidadResponsable unidadResponsableEJB = getUnidadResponsableEJB();
 
         if (unidadResponsableEJB != null) {
-            return unidadResponsableEJB.consultarIdUnidadResponsablePorDescripcion(value);
+            return unidadResponsableEJB
+                    .consultarIdUnidadResponsablePorDescripcion(value);
         } else {
             LOGGER.warn("El EJB no está instanciado.");
             return null;
@@ -207,15 +214,18 @@ public class ProyectoConverter implements Converter {
         UnidadResponsable unidadResponsableEJB = getUnidadResponsableEJB();
         UnidadResponsableDTO unidadResponsableDTO = new UnidadResponsableDTO();
         unidadResponsableDTO.setIdUnidadResponsable(id);
-        unidadResponsableDTO = unidadResponsableEJB.obtenerUnidadResponsable(unidadResponsableDTO);
+        unidadResponsableDTO = unidadResponsableEJB
+                .obtenerUnidadResponsable(unidadResponsableDTO);
 
-        return unidadResponsableDTO == null ? "" : unidadResponsableDTO.getDescripcion();
+        return unidadResponsableDTO == null ? ""
+                : unidadResponsableDTO.getDescripcion();
     }
 
     private AreaAdscripcion getAreaAdscripcionEJB() {
         try {
             Context initContext = new InitialContext();
-            AreaAdscripcion areaAdscripcionEJB = (AreaAdscripcion) initContext.lookup(AREA_ADSCRIPCION_BEAN);
+            AreaAdscripcion areaAdscripcionEJB = (AreaAdscripcion) initContext
+                    .lookup(AREA_ADSCRIPCION_BEAN);
 
             return areaAdscripcionEJB;
         } catch (NamingException ex) {
@@ -227,7 +237,8 @@ public class ProyectoConverter implements Converter {
     private Dependencia getDependenciaEJB() {
         try {
             Context initContext = new InitialContext();
-            Dependencia dependenciaEJB = (Dependencia) initContext.lookup(DEPENDENCIA_BEAN);
+            Dependencia dependenciaEJB = (Dependencia) initContext
+                    .lookup(DEPENDENCIA_BEAN);
 
             return dependenciaEJB;
         } catch (NamingException ex) {
@@ -239,7 +250,8 @@ public class ProyectoConverter implements Converter {
     private Estrategia getEstrategiaEJB() {
         try {
             Context initContext = new InitialContext();
-            Estrategia estrategiaEJB = (Estrategia) initContext.lookup(ESTRATEGIA_BEAN);
+            Estrategia estrategiaEJB = (Estrategia) initContext
+                    .lookup(ESTRATEGIA_BEAN);
 
             return estrategiaEJB;
         } catch (NamingException ex) {
@@ -251,7 +263,8 @@ public class ProyectoConverter implements Converter {
     private LineaAccion getLineaAccionEJB() {
         try {
             Context initContext = new InitialContext();
-            LineaAccion lineaAccionEJB = (LineaAccion) initContext.lookup(LINEA_ACCION_BEAN);
+            LineaAccion lineaAccionEJB = (LineaAccion) initContext
+                    .lookup(LINEA_ACCION_BEAN);
 
             return lineaAccionEJB;
         } catch (NamingException ex) {
@@ -275,7 +288,8 @@ public class ProyectoConverter implements Converter {
     private UnidadResponsable getUnidadResponsableEJB() {
         try {
             Context initContext = new InitialContext();
-            UnidadResponsable unidadResponsableEJB = (UnidadResponsable) initContext.lookup(UNIDAD_RESPONSABLE_BEAN);
+            UnidadResponsable unidadResponsableEJB = (UnidadResponsable) initContext
+                    .lookup(UNIDAD_RESPONSABLE_BEAN);
 
             return unidadResponsableEJB;
         } catch (NamingException ex) {

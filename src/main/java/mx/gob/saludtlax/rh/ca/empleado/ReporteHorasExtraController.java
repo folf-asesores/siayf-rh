@@ -69,7 +69,8 @@ public class ReporteHorasExtraController implements Serializable {
     @PostConstruct
     public void init() {
 
-        List<TipoContratacionEntity> listadoTiposContrataciones = tipoContratacionRepository.consultarTodos();
+        List<TipoContratacionEntity> listadoTiposContrataciones = tipoContratacionRepository
+                .consultarTodos();
         catalogoTipoContratacionDTO = new ArrayList<>();
         for (TipoContratacionEntity tipoContratacionEntity : listadoTiposContrataciones) {
             CatalogoDTO catalogoDTO = new CatalogoDTO();
@@ -78,7 +79,8 @@ public class ReporteHorasExtraController implements Serializable {
             catalogoTipoContratacionDTO.add(catalogoDTO);
         }
 
-        List<ServicioEntity> listadoServiciosEntity = serviciosRepository.consultarTodos();
+        List<ServicioEntity> listadoServiciosEntity = serviciosRepository
+                .consultarTodos();
         catalogoDepartamentosDTO = new ArrayList<>();
         for (ServicioEntity serviciosEntity : listadoServiciosEntity) {
             CatalogoDTO catalogoServicio = new CatalogoDTO();
@@ -87,26 +89,34 @@ public class ReporteHorasExtraController implements Serializable {
             catalogoDepartamentosDTO.add(catalogoServicio);
         }
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
         setIdAdscripcionUsuario(usuario.getIdAdscripcion());
-        setTieneRestriccionAdscripcion(configuracionUsuarioModulo.tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario()));
+        setTieneRestriccionAdscripcion(configuracionUsuarioModulo
+                .tienePermiso("Jurisdiccion_asiganda", usuario.getIdUsuario()));
 
         if (isTieneRestriccionAdscripcion()) {
             if (getIdAdscripcionUsuario() == null) {
-                setMensaje("El usuario no tiene asignada adscripción por lo cual no podrá visualizar a sus empleados. ");
+                setMensaje(
+                        "El usuario no tiene asignada adscripción por lo cual no podrá visualizar a sus empleados. ");
             } else {
 
                 catalogoAdscripciones = new ArrayList<>();
-                CatalogoDTO adscripcion = catalogo.obtenerAdscripcionPorId(getIdAdscripcionUsuario());
-                SelectItem a = new SelectItem(adscripcion.getId(), adscripcion.getNombre());
+                CatalogoDTO adscripcion = catalogo
+                        .obtenerAdscripcionPorId(getIdAdscripcionUsuario());
+                SelectItem a = new SelectItem(adscripcion.getId(),
+                        adscripcion.getNombre());
                 catalogoAdscripciones.add(a);
-                setMensaje("El usuario solo podrá visualizar empleados que pertenezcan a su adscripción");
+                setMensaje(
+                        "El usuario solo podrá visualizar empleados que pertenezcan a su adscripción");
             }
         } else {
-            setCatalogoAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
+            setCatalogoAdscripciones(SelectItemsUtil
+                    .listaCatalogos(catalogo.consultarAdscripciones()));
             setMensaje("El usuario podrá visualizar a todos los empleados.");
         }
     }
@@ -123,11 +133,14 @@ public class ReporteHorasExtraController implements Serializable {
             filtroDTO.setCriterio(query);
             filtroDTO.setId(getIdAdscripcionUsuario());
             if (isTieneRestriccionAdscripcion()) {
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.CRITERIO_COMBO_ADSCRIPCION_ASIGNADA);
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.CRITERIO_COMBO_ADSCRIPCION_ASIGNADA);
             } else {
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.CRITERIO_COMBO_TODAS_ADSCRIPCIONES);
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.CRITERIO_COMBO_TODAS_ADSCRIPCIONES);
             }
-            listadoEmpleadoDTO = empleadoService.consultarEmpleadosConPuestosActivos(filtroDTO);
+            listadoEmpleadoDTO = empleadoService
+                    .consultarEmpleadosConPuestosActivos(filtroDTO);
         }
         return listadoEmpleadoDTO;
 
@@ -146,29 +159,57 @@ public class ReporteHorasExtraController implements Serializable {
 
         switch (tipoReporte) {
             case 1:
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                        "reporte-lista-asistencia-empleado?idEmpleado=" + idEmpleadoR + "&fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin="
-                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion + "&idt=" + idTipoContratacion + "&idd=" + idDepartamentos);
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .getFlash().put("url",
+                                "reporte-lista-asistencia-empleado?idEmpleado="
+                                        + idEmpleadoR + "&fechaInicio="
+                                        + dt1.format(fechaInicio) + "&fechaFin="
+                                        + dt1.format(fechaFin) + "&ida="
+                                        + idAdscripcion + "&idt="
+                                        + idTipoContratacion + "&idd="
+                                        + idDepartamentos);
                 break;
             case 2:
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                        "reporte-tarjeta-empleado?idEmpleado=" + idEmpleadoR + "&fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin=" + dt1.format(fechaFin)
-                                + "&ida=" + idAdscripcion + "&idt=" + idTipoContratacion + "&idd=" + idDepartamentos);
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .getFlash()
+                        .put("url", "reporte-tarjeta-empleado?idEmpleado="
+                                + idEmpleadoR + "&fechaInicio="
+                                + dt1.format(fechaInicio) + "&fechaFin="
+                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion
+                                + "&idt=" + idTipoContratacion + "&idd="
+                                + idDepartamentos);
                 break;
             case 3:
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                        "reporte-horas-extra-empleado?idEmpleado=" + idEmpleadoR + "&fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin="
-                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion + "&idt=" + idTipoContratacion + "&idd=" + idDepartamentos);
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .getFlash()
+                        .put("url", "reporte-horas-extra-empleado?idEmpleado="
+                                + idEmpleadoR + "&fechaInicio="
+                                + dt1.format(fechaInicio) + "&fechaFin="
+                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion
+                                + "&idt=" + idTipoContratacion + "&idd="
+                                + idDepartamentos);
                 break;
             case 4:
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                        "reporte-lista-incidencias-acumulado?idEmpleado=" + idEmpleadoR + "&fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin="
-                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion + "&idt=" + idTipoContratacion + "&idd=" + idDepartamentos);
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .getFlash().put("url",
+                                "reporte-lista-incidencias-acumulado?idEmpleado="
+                                        + idEmpleadoR + "&fechaInicio="
+                                        + dt1.format(fechaInicio) + "&fechaFin="
+                                        + dt1.format(fechaFin) + "&ida="
+                                        + idAdscripcion + "&idt="
+                                        + idTipoContratacion + "&idd="
+                                        + idDepartamentos);
                 break;
             case 5:
-                FacesContext.getCurrentInstance().getExternalContext().getFlash().put("url",
-                        "reporte-lista-incidencias-empleados?idEmpleado=" + idEmpleadoR + "&fechaInicio=" + dt1.format(fechaInicio) + "&fechaFin="
-                                + dt1.format(fechaFin) + "&ida=" + idAdscripcion + "&idt=" + idTipoContratacion + "&idd=" + idDepartamentos);
+                FacesContext.getCurrentInstance().getExternalContext()
+                        .getFlash().put("url",
+                                "reporte-lista-incidencias-empleados?idEmpleado="
+                                        + idEmpleadoR + "&fechaInicio="
+                                        + dt1.format(fechaInicio) + "&fechaFin="
+                                        + dt1.format(fechaFin) + "&ida="
+                                        + idAdscripcion + "&idt="
+                                        + idTipoContratacion + "&idd="
+                                        + idDepartamentos);
                 break;
 
             default:
@@ -191,7 +232,8 @@ public class ReporteHorasExtraController implements Serializable {
         return tieneRestriccionAdscripcion;
     }
 
-    public void setTieneRestriccionAdscripcion(boolean tieneRestriccionAdscripcion) {
+    public void setTieneRestriccionAdscripcion(
+            boolean tieneRestriccionAdscripcion) {
         this.tieneRestriccionAdscripcion = tieneRestriccionAdscripcion;
     }
 
@@ -207,7 +249,8 @@ public class ReporteHorasExtraController implements Serializable {
         return catalogoAdscripciones;
     }
 
-    public void setCatalogoAdscripciones(List<SelectItem> catalogoAdscripciones) {
+    public void setCatalogoAdscripciones(
+            List<SelectItem> catalogoAdscripciones) {
         this.catalogoAdscripciones = catalogoAdscripciones;
     }
 

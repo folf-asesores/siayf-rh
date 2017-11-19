@@ -53,18 +53,21 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        List<ConfiguracionUsuarioModuloDTO> configuracionModuloUsuarioTemp = configuracionUsuarioModulo.obtenerLista();
+        List<ConfiguracionUsuarioModuloDTO> configuracionModuloUsuarioTemp = configuracionUsuarioModulo
+                .obtenerLista();
         listaConfigruacion.clear();
         listaConfigruacion.addAll(configuracionModuloUsuarioTemp);
         List<UsuarioDTO> list = usuarioEjb.consultarTodosUsuarios();
         listUsuarios.clear();
         listUsuarios.addAll(list);
-        List<ConfiguracionModuloAccionDTO> lista = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
+        List<ConfiguracionModuloAccionDTO> lista = configuracionModuloAccion
+                .obtenerListaConfiguracionModuloAccionDTO();
         listaModulos.clear();
         listaModulos.addAll(lista);
     }
 
-    public void validatorConfiguracionModuloAccion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorConfiguracionModuloAccion(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -73,7 +76,9 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
                 Integer modulo = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(modulo)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione un modulo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione un modulo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -83,7 +88,9 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
                 Integer accion = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(accion)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una acción.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una acción.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -100,10 +107,12 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
     public void onRowEdit(RowEditEvent event) {
         try {
 
-            ConfiguracionUsuarioModuloDTO configuracionModuloUsuario = ((ConfiguracionUsuarioModuloDTO) event.getObject());
+            ConfiguracionUsuarioModuloDTO configuracionModuloUsuario = ((ConfiguracionUsuarioModuloDTO) event
+                    .getObject());
             configuracionUsuarioModulo.editar(configuracionModuloUsuario);
 
-            FacesMessage msg = new FacesMessage("", "Actualizado Correctamente.");
+            FacesMessage msg = new FacesMessage("",
+                    "Actualizado Correctamente.");
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -113,12 +122,15 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edición Cancelada:", "Actualizado Correctamente.");
+        FacesMessage msg = new FacesMessage("Edición Cancelada:",
+                "Actualizado Correctamente.");
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
     public void eliminarConfiguracion() {
-        configuracionUsuarioModulo.eliminar(configuracionUsuarioModuloSelecciondo.getIdConfiguracionUsuarioModulo());
+        configuracionUsuarioModulo
+                .eliminar(configuracionUsuarioModuloSelecciondo
+                        .getIdConfiguracionUsuarioModulo());
         inicio();
     }
 
@@ -126,7 +138,8 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
         return listaConfigruacion;
     }
 
-    public void setListaConfigruacion(List<ConfiguracionUsuarioModuloDTO> listaConfigruacion) {
+    public void setListaConfigruacion(
+            List<ConfiguracionUsuarioModuloDTO> listaConfigruacion) {
         this.listaConfigruacion = listaConfigruacion;
     }
 
@@ -134,7 +147,8 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
         return listaModulos;
     }
 
-    public void setListaModulos(List<ConfiguracionModuloAccionDTO> listaModulos) {
+    public void setListaModulos(
+            List<ConfiguracionModuloAccionDTO> listaModulos) {
         this.listaModulos = listaModulos;
     }
 
@@ -150,7 +164,8 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
         return configuracionUsuarioModuloSelecciondo;
     }
 
-    public void setConfiguracionUsuarioModuloSelecciondo(ConfiguracionUsuarioModuloDTO configuracionUsuarioModuloSelecciondo) {
+    public void setConfiguracionUsuarioModuloSelecciondo(
+            ConfiguracionUsuarioModuloDTO configuracionUsuarioModuloSelecciondo) {
         this.configuracionUsuarioModuloSelecciondo = configuracionUsuarioModuloSelecciondo;
     }
 
@@ -158,7 +173,8 @@ public class ConfiguracionUsuarioModuloController implements Serializable {
         return configuracionUsuarioModuloNew;
     }
 
-    public void setConfiguracionUsuarioModuloNew(ConfiguracionUsuarioModuloDTO configuracionUsuarioModuloNew) {
+    public void setConfiguracionUsuarioModuloNew(
+            ConfiguracionUsuarioModuloDTO configuracionUsuarioModuloNew) {
         this.configuracionUsuarioModuloNew = configuracionUsuarioModuloNew;
     }
 

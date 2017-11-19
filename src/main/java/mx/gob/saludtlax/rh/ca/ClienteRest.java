@@ -31,11 +31,13 @@ public class ClienteRest {
             servicioRS = servicioWebEJB.getServicioActivo(servicioEnum);
             url_serivicio = servicioRS.getUrl();
 
-            if (servicioRS.getPuerto() != null && servicioRS.getPuerto().length() > 0) {
+            if (servicioRS.getPuerto() != null
+                    && servicioRS.getPuerto().length() > 0) {
                 url_serivicio += ":" + servicioRS.getPuerto();
             }
 
-            if (servicioRS.getContexto() != null && servicioRS.getContexto().length() > 0) {
+            if (servicioRS.getContexto() != null
+                    && servicioRS.getContexto().length() > 0) {
                 url_serivicio += "/" + servicioRS.getContexto();
             }
 

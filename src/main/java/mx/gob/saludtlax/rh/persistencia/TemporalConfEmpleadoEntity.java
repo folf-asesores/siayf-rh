@@ -99,7 +99,8 @@ public class TemporalConfEmpleadoEntity implements Serializable {
         return idConfiguracionPresupuestal;
     }
 
-    public void setIdConfiguracionPresupuestal(Integer idConfiguracionPresupuestal) {
+    public void setIdConfiguracionPresupuestal(
+            Integer idConfiguracionPresupuestal) {
         this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
     }
 

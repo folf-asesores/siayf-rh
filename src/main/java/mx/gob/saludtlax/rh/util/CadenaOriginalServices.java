@@ -37,13 +37,17 @@ public class CadenaOriginalServices implements Serializable {
      * @throws TransformerConfigurationException
      * @throws TransformerException
      */
-    public String generar(ByteArrayOutputStream retencionesXMLStream) throws IOException, TransformerConfigurationException, TransformerException {
+    public String generar(ByteArrayOutputStream retencionesXMLStream)
+            throws IOException, TransformerConfigurationException,
+            TransformerException {
 
-        File xstlFile = new File(this.getClass().getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
+        File xstlFile = new File(this.getClass()
+                .getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
 
         StreamSource sourceXSL = new StreamSource(xstlFile);
 
-        InputStream inDatosXML = new ByteArrayInputStream(retencionesXMLStream.toByteArray());
+        InputStream inDatosXML = new ByteArrayInputStream(
+                retencionesXMLStream.toByteArray());
 
         TransformerFactory factory = TransformerFactory.newInstance();
         //factory.setAttribute("enable-inlining", Boolean.TRUE);
@@ -67,13 +71,17 @@ public class CadenaOriginalServices implements Serializable {
      * @throws TransformerConfigurationException
      * @throws TransformerException
      */
-    public String generarNomina12(ByteArrayOutputStream retencionesXMLStream) throws IOException, TransformerConfigurationException, TransformerException {
+    public String generarNomina12(ByteArrayOutputStream retencionesXMLStream)
+            throws IOException, TransformerConfigurationException,
+            TransformerException {
 
-        File xstlFile = new File(this.getClass().getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
+        File xstlFile = new File(this.getClass()
+                .getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
 
         StreamSource sourceXSL = new StreamSource(xstlFile);
 
-        InputStream inDatosXML = new ByteArrayInputStream(retencionesXMLStream.toByteArray());
+        InputStream inDatosXML = new ByteArrayInputStream(
+                retencionesXMLStream.toByteArray());
 
         TransformerFactory factory = TransformerFactory.newInstance();
         //factory.setAttribute("enable-inlining", Boolean.TRUE);
@@ -92,7 +100,8 @@ public class CadenaOriginalServices implements Serializable {
 
         // cargar el archivo XSLT
 
-        File xstlFile = new File(this.getClass().getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
+        File xstlFile = new File(this.getClass()
+                .getResource("/xstl/cadenaoriginal_3_2.xslt").getPath());
 
         StreamSource sourceXSL = new StreamSource(xstlFile);
 

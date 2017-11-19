@@ -11,7 +11,8 @@ import java.util.List;
  *
  * @since 07/03/2016-21:09:47
  */
-public class MunicipioRepository extends GenericRepository<MunicipiosEntity, Integer> {
+public class MunicipioRepository
+        extends GenericRepository<MunicipiosEntity, Integer> {
 
     /**
      *
@@ -19,13 +20,19 @@ public class MunicipioRepository extends GenericRepository<MunicipiosEntity, Int
     private static final long serialVersionUID = -8125116359166310459L;
 
     public List<MunicipiosEntity> municipios() {
-        List<MunicipiosEntity> municipios = em.createQuery("SELECT m FROM MunicipiosEntity AS m", MunicipiosEntity.class).getResultList();
+        List<MunicipiosEntity> municipios = em
+                .createQuery("SELECT m FROM MunicipiosEntity AS m",
+                        MunicipiosEntity.class)
+                .getResultList();
         return municipios;
     }
 
-    public List<MunicipiosEntity> consultarMunicipiosPorEstado(Integer idEstado) {
-        List<MunicipiosEntity> municipios = em.createQuery("SELECT m FROM MunicipiosEntity AS m WHERE m.idEstado =:idEstado", MunicipiosEntity.class)
-                .setParameter("idEstado", idEstado).getResultList();
+    public List<MunicipiosEntity> consultarMunicipiosPorEstado(
+            Integer idEstado) {
+        List<MunicipiosEntity> municipios = em.createQuery(
+                "SELECT m FROM MunicipiosEntity AS m WHERE m.idEstado =:idEstado",
+                MunicipiosEntity.class).setParameter("idEstado", idEstado)
+                .getResultList();
         return municipios;
     }
 }

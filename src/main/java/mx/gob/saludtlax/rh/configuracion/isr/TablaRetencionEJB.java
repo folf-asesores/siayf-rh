@@ -18,17 +18,22 @@ public class TablaRetencionEJB {
     private TipoPeriodoService periodoService;
 
     public List<TablaRetencionListaDTO> obtenerTablaRetencionLista() {
-        List<TablaRetencionListaDTO> tablaRetencionLista = tablaRetencionService.listaTablaRetencion();
+        List<TablaRetencionListaDTO> tablaRetencionLista = tablaRetencionService
+                .listaTablaRetencion();
         return tablaRetencionLista;
     }
 
     public List<TablaSubsidioListaDTO> obtenerTablaSubsidioLista() {
-        List<TablaSubsidioListaDTO> tablaSubsidioLista = tablaRetencionService.listaTablaSubsidio();
+        List<TablaSubsidioListaDTO> tablaSubsidioLista = tablaRetencionService
+                .listaTablaSubsidio();
         return tablaSubsidioLista;
     }
 
-    public List<TablaRetencionListaDTO> obtenerTablaRetencionListaPorAnio(Integer ejercicioFiscal, String periodicidad) {
-        List<TablaRetencionListaDTO> tablaRetencionListaPorAnio = tablaRetencionService.listaTablaRetencionPorejercicioFiscal(ejercicioFiscal, periodicidad);
+    public List<TablaRetencionListaDTO> obtenerTablaRetencionListaPorAnio(
+            Integer ejercicioFiscal, String periodicidad) {
+        List<TablaRetencionListaDTO> tablaRetencionListaPorAnio = tablaRetencionService
+                .listaTablaRetencionPorejercicioFiscal(ejercicioFiscal,
+                        periodicidad);
         return tablaRetencionListaPorAnio;
     }
 
@@ -37,12 +42,16 @@ public class TablaRetencionEJB {
     }
 
     public List<TablaRetencionListaDTO> obtenerAnioLista() {
-        List<TablaRetencionListaDTO> anioLista = tablaRetencionService.listaAnio();
+        List<TablaRetencionListaDTO> anioLista = tablaRetencionService
+                .listaAnio();
         return anioLista;
     }
 
-    public List<TablaSubsidioListaDTO> obtenerTablaSubsidioListaPorAnio(Integer ejercicioFiscal, String periodicidad) {
-        List<TablaSubsidioListaDTO> tablaSubsidioListaPorAnio = tablaRetencionService.listaTablaSubsidioPorejercicioFiscal(ejercicioFiscal, periodicidad);
+    public List<TablaSubsidioListaDTO> obtenerTablaSubsidioListaPorAnio(
+            Integer ejercicioFiscal, String periodicidad) {
+        List<TablaSubsidioListaDTO> tablaSubsidioListaPorAnio = tablaRetencionService
+                .listaTablaSubsidioPorejercicioFiscal(ejercicioFiscal,
+                        periodicidad);
         return tablaSubsidioListaPorAnio;
     }
 
@@ -51,16 +60,20 @@ public class TablaRetencionEJB {
         return tablaRetencionService.nuevaTablaRetencion();
     }
 
-    public TablaRetencionDTO crearTablaRetencion(TablaRetencionDTO tablaRetencionDTO) {
+    public TablaRetencionDTO crearTablaRetencion(
+            TablaRetencionDTO tablaRetencionDTO) {
         return tablaRetencionService.crearTablaRetencion(tablaRetencionDTO);
     }
 
-    public TablaRetencionDTO actualizarTablaRetencion(TablaRetencionDTO tablaRetencion) {
+    public TablaRetencionDTO actualizarTablaRetencion(
+            TablaRetencionDTO tablaRetencion) {
         return tablaRetencionService.actualizarTablaRetencion(tablaRetencion);
     }
 
-    public TablaRetencionDTO obtenerTablaRetencion(TablaRetencionListaDTO periodoSelect) {
-        return tablaRetencionService.obtenertablaRetencionPorId(periodoSelect.getIdTarifaRetencion());
+    public TablaRetencionDTO obtenerTablaRetencion(
+            TablaRetencionListaDTO periodoSelect) {
+        return tablaRetencionService.obtenertablaRetencionPorId(
+                periodoSelect.getIdTarifaRetencion());
     }
 
     public void eliminarTablaRetencion(TablaRetencionListaDTO tablaRetencion) {
@@ -73,19 +86,24 @@ public class TablaRetencionEJB {
         return tablaRetencionService.nuevoSubsidio();
     }
 
-    public TablaSubsidioDTO crearTablaSubsidio(TablaSubsidioDTO tablaSubsidioDTO) {
+    public TablaSubsidioDTO crearTablaSubsidio(
+            TablaSubsidioDTO tablaSubsidioDTO) {
         return tablaRetencionService.crearTablaSubsidio(tablaSubsidioDTO);
     }
 
-    public TablaSubsidioDTO actualizarTablaSubsidio(TablaSubsidioDTO tablaSubsidioDTO) {
+    public TablaSubsidioDTO actualizarTablaSubsidio(
+            TablaSubsidioDTO tablaSubsidioDTO) {
         return tablaRetencionService.actualizarTablaSubsidio(tablaSubsidioDTO);
     }
 
-    public TablaSubsidioDTO obtenerTablaSubsidio(TablaSubsidioListaDTO tablaSubsidioSelect) {
-        return tablaRetencionService.obtenertablaSubsidioPorId(tablaSubsidioSelect.getIdTablaSubsidio());
+    public TablaSubsidioDTO obtenerTablaSubsidio(
+            TablaSubsidioListaDTO tablaSubsidioSelect) {
+        return tablaRetencionService.obtenertablaSubsidioPorId(
+                tablaSubsidioSelect.getIdTablaSubsidio());
     }
 
-    public void eliminarTablaSubsidio(TablaSubsidioListaDTO tablaSubsidioSelect) {
+    public void eliminarTablaSubsidio(
+            TablaSubsidioListaDTO tablaSubsidioSelect) {
         tablaRetencionService.eliminarTablaSubsidio(tablaSubsidioSelect);
     }
 

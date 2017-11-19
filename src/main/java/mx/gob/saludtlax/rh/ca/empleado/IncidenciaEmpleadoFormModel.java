@@ -133,7 +133,8 @@ public class IncidenciaEmpleadoFormModel implements Serializable {
         return ignorarValidacionReglaIncidencia;
     }
 
-    public void setIgnorarValidacionReglaIncidencia(boolean ignorarValidacionReglaIncidencia) {
+    public void setIgnorarValidacionReglaIncidencia(
+            boolean ignorarValidacionReglaIncidencia) {
         this.ignorarValidacionReglaIncidencia = ignorarValidacionReglaIncidencia;
     }
 

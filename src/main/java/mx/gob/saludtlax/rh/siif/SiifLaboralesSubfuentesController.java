@@ -19,7 +19,8 @@ public class SiifLaboralesSubfuentesController {
     @PostConstruct
     public void initSiifLaboralesSubfuentes() {
         view = new SiifLaboralesSubfuentesView();
-        view.setListSiifLaboralesSubfuentes(ejb.obtenerSiifLaboralesSubfuentes());
+        view.setListSiifLaboralesSubfuentes(
+                ejb.obtenerSiifLaboralesSubfuentes());
         view.setListSubfuenteF(ejb.obtenerSubfuentesF());
         //		view.setListFuenteF(ejb.obtenerFuentesF());
         //		view.setListSubfuenteF(ejb.obtenerSubfuentesFPorId(view.getSiifLaboralesSubfuentesSelect().getIdFuenteFinanciamiento()));
@@ -50,7 +51,8 @@ public class SiifLaboralesSubfuentesController {
     }
 
     public String guardarLaboralesSubfuentes() {
-        ejb.actualizarDatos(view.getSiifLaboralesSubfuentes(), view.getSiifLaboralesSubfuentes().getIdSiifLaboralesSubfuentes());
+        ejb.actualizarDatos(view.getSiifLaboralesSubfuentes(), view
+                .getSiifLaboralesSubfuentes().getIdSiifLaboralesSubfuentes());
         return null;
     }
 

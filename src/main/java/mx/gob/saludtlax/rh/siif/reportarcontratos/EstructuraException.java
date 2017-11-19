@@ -39,7 +39,8 @@ public class EstructuraException extends Exception {
     public static final String ERROR_LONG_TO_DATE = "Se encontró un valor númerico grande que no se puede convertir a fecha.";
 
     public EstructuraException(String codigo, Integer fila, char columna) {
-        super("Error:	" + codigo + "\nFila:	" + fila + "\nColumna:		" + columna);
+        super("Error:	" + codigo + "\nFila:	" + fila + "\nColumna:		"
+                + columna);
 
         this.codigo = codigo;
         this.fila = fila;

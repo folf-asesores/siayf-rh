@@ -35,7 +35,10 @@ public class EstadoRepository {
      *
      */
     public List<EstadoEntity> estados() {
-        List<EstadoEntity> estados = entityManager.createQuery("SELECT e FROM EstadoEntity AS e", EstadoEntity.class).getResultList();
+        List<EstadoEntity> estados = entityManager
+                .createQuery("SELECT e FROM EstadoEntity AS e",
+                        EstadoEntity.class)
+                .getResultList();
         return estados;
     }
 

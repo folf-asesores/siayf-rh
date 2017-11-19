@@ -14,7 +14,8 @@ import java.util.List;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class RegimenContratacionTrabajadorRepository extends GenericRepository<RegimenContratacionTrabajadorEntity, Integer> {
+public class RegimenContratacionTrabajadorRepository extends
+        GenericRepository<RegimenContratacionTrabajadorEntity, Integer> {
 
     /**
      *
@@ -24,7 +25,9 @@ public class RegimenContratacionTrabajadorRepository extends GenericRepository<R
 
     public List<RegimenContratacionTrabajadorEntity> obtenerRegimenContratacionTrabajadores() {
         List<RegimenContratacionTrabajadorEntity> entidades = em
-                .createQuery(OBTENER_LISTA_REGIMEN_CONTRATACION_TRABAJADORES, RegimenContratacionTrabajadorEntity.class).getResultList();
+                .createQuery(OBTENER_LISTA_REGIMEN_CONTRATACION_TRABAJADORES,
+                        RegimenContratacionTrabajadorEntity.class)
+                .getResultList();
         return entidades;
     }
 

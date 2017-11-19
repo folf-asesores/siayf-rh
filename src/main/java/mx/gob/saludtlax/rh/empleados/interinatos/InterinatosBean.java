@@ -22,7 +22,8 @@ public class InterinatosBean implements Interinatos {
     private InterinatoService interinatoService;
 
     @Override
-    public List<DisponiblesInterinatoDTO> consultarCandidatosInterinato(Integer tipoBusqueda) {
+    public List<DisponiblesInterinatoDTO> consultarCandidatosInterinato(
+            Integer tipoBusqueda) {
         return interinatoService.consultarDisponiblesInterinato(tipoBusqueda);
     }
 

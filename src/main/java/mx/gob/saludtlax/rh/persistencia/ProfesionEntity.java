@@ -15,8 +15,8 @@ import javax.persistence.Table;
 
 /**
  *
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 10/03/2016 11:14:30
  */
 @Table(name = "profesiones")

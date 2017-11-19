@@ -42,7 +42,8 @@ import mx.gob.saludtlax.rh.configuracion.unidadresponsable.UnidadResponsableDTO;
 public class ProyectoController implements Serializable {
 
     private static final long serialVersionUID = -6137517116110299248L;
-    private static final Logger LOGGER = Logger.getLogger(ProyectoController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ProyectoController.class.getName());
 
     @Inject
     private AreaAdscripcion areaAdscripcionEJB;
@@ -99,7 +100,8 @@ public class ProyectoController implements Serializable {
     }
 
     public List<String> obtenerDependenciasPorConsulta(String consulta) {
-        return dependenciaEJB.consultarDescripcionDependenciasPorCriterio(consulta);
+        return dependenciaEJB
+                .consultarDescripcionDependenciasPorCriterio(consulta);
     }
 
     public List<String> obtenerSectorPorConsulta(String consulta) {
@@ -107,15 +109,18 @@ public class ProyectoController implements Serializable {
     }
 
     public List<String> obtenerUnidadResponsablePorConsulta(String consulta) {
-        return unidadResponsableEJB.consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
+        return unidadResponsableEJB
+                .consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
     }
 
     public List<String> obtenerLineaAccionPorConsulta(String consulta) {
-        return lineaAccionEJB.consultarDescripcionLineaAccionPorCriterio(consulta);
+        return lineaAccionEJB
+                .consultarDescripcionLineaAccionPorCriterio(consulta);
     }
 
     public List<String> obtenerEstrategiaPorConsulta(String consulta) {
-        return estrategiaEJB.consultarDescripcionEstrategiaPorCriterio(consulta);
+        return estrategiaEJB
+                .consultarDescripcionEstrategiaPorCriterio(consulta);
     }
 
     public List<String> obtenerAreaAdscripcionPorConsulta(String consulta) {
@@ -125,8 +130,11 @@ public class ProyectoController implements Serializable {
     public List<SelectItem> getEjerciciosFiscales() {
         List<SelectItem> items = new ArrayList<>();
 
-        for (EjercicioFiscalListaDTO ejercicioFiscal : ejercicioFiscalEJB.obtenerEjercicioFiscalLista()) {
-            SelectItem item = new SelectItem(ejercicioFiscal.getEjercicioFiscal(), ejercicioFiscal.getEjercicioFiscal().toString());
+        for (EjercicioFiscalListaDTO ejercicioFiscal : ejercicioFiscalEJB
+                .obtenerEjercicioFiscalLista()) {
+            SelectItem item = new SelectItem(
+                    ejercicioFiscal.getEjercicioFiscal(),
+                    ejercicioFiscal.getEjercicioFiscal().toString());
 
             items.add(item);
         }
@@ -140,7 +148,9 @@ public class ProyectoController implements Serializable {
             dependencia.setIdDependencia(idDependencia);
             dependencia = dependenciaEJB.obtenerDependencia(dependencia);
 
-            return dependencia == null ? "" : (dependencia.getDescripcion() == null ? "" : dependencia.getDescripcion());
+            return dependencia == null ? ""
+                    : (dependencia.getDescripcion() == null ? ""
+                            : dependencia.getDescripcion());
         } else {
             return "";
         }
@@ -150,9 +160,12 @@ public class ProyectoController implements Serializable {
         if (idUnidadResponsable > 0) {
             UnidadResponsableDTO unidadResponsable = new UnidadResponsableDTO();
             unidadResponsable.setIdUnidadResponsable(idUnidadResponsable);
-            unidadResponsable = unidadResponsableEJB.obtenerUnidadResponsable(unidadResponsable);
+            unidadResponsable = unidadResponsableEJB
+                    .obtenerUnidadResponsable(unidadResponsable);
 
-            return unidadResponsable == null ? "" : (unidadResponsable.getDescripcion() == null ? "" : unidadResponsable.getDescripcion());
+            return unidadResponsable == null ? ""
+                    : (unidadResponsable.getDescripcion() == null ? ""
+                            : unidadResponsable.getDescripcion());
         } else {
             return "";
         }
@@ -161,20 +174,23 @@ public class ProyectoController implements Serializable {
     public String getDescripcionSector(int idSector) {
         SectorDTO sector = sectorEJB.obtenerPorId(idSector);
 
-        return sector == null ? "" : (sector.getDescripcion() == null ? "" : sector.getDescripcion());
+        return sector == null ? "" : (sector.getDescripcion() == null ? ""
+                : sector.getDescripcion());
     }
 
     public String getDescripcionLineaAccion(int idLineaAccion) {
         LineaAccionDTO lineaAccion = lineaAccionEJB.obtenerPorId(idLineaAccion);
 
-        return lineaAccion == null ? "" : (lineaAccion.getDescripcion() == null ? "" : lineaAccion.getDescripcion());
+        return lineaAccion == null ? "" : (lineaAccion.getDescripcion() == null
+                ? "" : lineaAccion.getDescripcion());
     }
 
     public String getDescripcionEstrategia(int idEstrategia) {
         if (idEstrategia > 0) {
             EstrategiaDTO estrategia = estrategiaEJB.obtenerPorId(idEstrategia);
 
-            return estrategia == null ? "" : (estrategia.getEstrategia() == null ? "" : estrategia.getEstrategia());
+            return estrategia == null ? "" : (estrategia.getEstrategia() == null
+                    ? "" : estrategia.getEstrategia());
         } else {
             return "";
         }
@@ -182,16 +198,20 @@ public class ProyectoController implements Serializable {
 
     public String getDescripcionAreaAdscripcion(int idAreaAdscripcion) {
         if (idAreaAdscripcion > 0) {
-            AreaAdscripcionDTO areaAdscripcion = areaAdscripcionEJB.obtenerPorId(idAreaAdscripcion);
+            AreaAdscripcionDTO areaAdscripcion = areaAdscripcionEJB
+                    .obtenerPorId(idAreaAdscripcion);
 
-            return areaAdscripcion == null ? "" : (areaAdscripcion.getAreaAdscripcion() == null ? "" : areaAdscripcion.getAreaAdscripcion());
+            return areaAdscripcion == null ? ""
+                    : (areaAdscripcion.getAreaAdscripcion() == null ? ""
+                            : areaAdscripcion.getAreaAdscripcion());
         } else {
             return "";
         }
     }
 
     public List<ProyectoDTO> getProyectos() {
-        return proyectoEJB.consultarProyectosPorEjercicioFiscal(view.getEjercicioFiscal());
+        return proyectoEJB.consultarProyectosPorEjercicioFiscal(
+                view.getEjercicioFiscal());
     }
 
     public ProyectoView getView() {

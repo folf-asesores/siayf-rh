@@ -37,7 +37,7 @@ import org.junit.runner.RunWith;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
 
  * @version 1.0
  * @since 17:29:26 12/09/2016

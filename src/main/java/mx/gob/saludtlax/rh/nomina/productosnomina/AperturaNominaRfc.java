@@ -29,7 +29,8 @@ public interface AperturaNominaRfc extends Serializable {
      *            plano con los RFC de quienes estarán en la nómina una vez aperturada.
      * @return El producto de nómina ya aperturado.
      */
-    ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina, byte[] archivoRfc);
+    ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina,
+            byte[] archivoRfc);
 
     /**
      * Permite aperturar un producto de nómina con una lista de RFC.
@@ -43,7 +44,8 @@ public interface AperturaNominaRfc extends Serializable {
      *            el ID de la bitácora.
      * @return El producto de nómina ya aperturado.
      */
-    ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina, List<String> listaRfc, Integer idBitacora);
+    ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina,
+            List<String> listaRfc, Integer idBitacora);
 
     /**
      * Permite obtener un nuevo ID de bitacora.
@@ -71,7 +73,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param mensaje
      *            el mensaje con el detalle a informar.
      */
-    void registrarEnBitacoraEventoInformacion(Integer idBitacora, String mensaje);
+    void registrarEnBitacoraEventoInformacion(Integer idBitacora,
+            String mensaje);
 
     /**
      * Permite registrar un evento informativo en la bitacora usando un patrón
@@ -84,7 +87,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param argumentos
      *            los argumentos del patrón a formatear.
      */
-    void registrarEnBitacoraEventoInformacion(Integer idBitacora, String patron, Object... argumentos);
+    void registrarEnBitacoraEventoInformacion(Integer idBitacora, String patron,
+            Object... argumentos);
 
     /**
      * Permite registrar un evento de advertencia en la bitacora.
@@ -94,7 +98,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param mensaje
      *            el mensaje con el detalle a informar.
      */
-    void registrarEnBitacoraEventoAdvertencia(Integer idBitacora, String mensaje);
+    void registrarEnBitacoraEventoAdvertencia(Integer idBitacora,
+            String mensaje);
 
     /**
      * Permite registrar un evento de advertencia en la bitacora usando un
@@ -107,7 +112,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param argumentos
      *            los argumentos del patrón a formatear.
      */
-    void registrarEnBitacoraEventoAdvertencia(Integer idBitacora, String patron, Object... argumentos);
+    void registrarEnBitacoraEventoAdvertencia(Integer idBitacora, String patron,
+            Object... argumentos);
 
     /**
      * Permite registrar un evento de error en la bitacora.
@@ -130,7 +136,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param argumentos
      *            los argumentos del patrón a formatear.
      */
-    void registrarEnBitacoraEventoError(Integer idBitacora, String patron, Object... argumentos);
+    void registrarEnBitacoraEventoError(Integer idBitacora, String patron,
+            Object... argumentos);
 
     /**
      * Permite registrar un evento en la bitacora.
@@ -142,7 +149,8 @@ public interface AperturaNominaRfc extends Serializable {
      * @param mensaje
      *            el mensaje con el detalle a informar.
      */
-    void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String mensaje);
+    void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String mensaje);
 
     /**
      * Permite registrar un evento en la bitacora usando un usando un patrón de
@@ -157,5 +165,7 @@ public interface AperturaNominaRfc extends Serializable {
      * @param argumentos
      *            los argumentos del patrón a formatear.
      */
-    void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String patron, Object... argumentos);
+    void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String patron,
+            Object... argumentos);
 }

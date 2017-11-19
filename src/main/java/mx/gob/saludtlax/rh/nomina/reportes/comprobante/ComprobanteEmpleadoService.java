@@ -29,14 +29,16 @@ public class ComprobanteEmpleadoService implements Serializable {
     private ComprobanteEmpleadoRepository comprobateEmpleadoRepository;
 
     protected byte[] generarReporte(Integer idProductoNomina) {
-        List<ComprobanteEmpleadoPojo> datosBrutos = comprobateEmpleadoRepository.obtenerDatos(idProductoNomina);
+        List<ComprobanteEmpleadoPojo> datosBrutos = comprobateEmpleadoRepository
+                .obtenerDatos(idProductoNomina);
         List<ComprobanteEmpleadoDTO> datosTratados = convertir(datosBrutos);
         ComprobanteEmpleadoMotor per = new ComprobanteEmpleadoMotor();
 
         return per.obtenerArchivo(datosTratados);
     }
 
-    private List<ComprobanteEmpleadoDTO> convertir(List<ComprobanteEmpleadoPojo> datosBrutos) {
+    private List<ComprobanteEmpleadoDTO> convertir(
+            List<ComprobanteEmpleadoPojo> datosBrutos) {
         Map<String, List<Integer>> iteradores = new HashMap<>();
 
         for (int i = 0; i < datosBrutos.size(); i++) {
@@ -47,14 +49,16 @@ public class ComprobanteEmpleadoService implements Serializable {
                 indices.add(i);
                 iteradores.put(datoBruto.getFiliacion(), indices);
             } else {
-                List<Integer> indices = iteradores.get(datoBruto.getFiliacion());
+                List<Integer> indices = iteradores
+                        .get(datoBruto.getFiliacion());
                 indices.add(i);
             }
         }
 
         List<ComprobanteEmpleadoDTO> datosTratados = new ArrayList<>();
 
-        for (Map.Entry<String, List<Integer>> iterador : iteradores.entrySet()) {
+        for (Map.Entry<String, List<Integer>> iterador : iteradores
+                .entrySet()) {
             ComprobanteEmpleadoDTO datoTratado = new ComprobanteEmpleadoDTO();
             List<Integer> indices = iterador.getValue();
             List<ConceptoComprobanteDTO> conceptos = new ArrayList<>();
@@ -67,7 +71,8 @@ public class ComprobanteEmpleadoService implements Serializable {
                     datoTratado.setNombre(datoBruto.getNombre());
                     datoTratado.setFiliacion(datoBruto.getFiliacion());
                     datoTratado.setFechaPago(datoBruto.getFechaPago());
-                    datoTratado.setClaveCentroResponsabilidad(datoBruto.getClaveCentroResposabilidad());
+                    datoTratado.setClaveCentroResponsabilidad(
+                            datoBruto.getClaveCentroResposabilidad());
                     datoTratado.setNumeroCheque(datoBruto.getNumeroCheque());
                     datoTratado.setInicioPeriodo(datoBruto.getInicioPeriodo());
                     datoTratado.setFinPeriodo(datoBruto.getFinPeriodo());
@@ -76,11 +81,21 @@ public class ComprobanteEmpleadoService implements Serializable {
                     datoTratado.setNeto(datoBruto.getNeto());
                     datoTratado.setConceptos(conceptos);
 
-                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()),
-                            datoBruto.getImporte()));
+                    conceptos
+                            .add(new ConceptoComprobanteDTO(
+                                    Short.valueOf(
+                                            datoBruto.getClave() == null ? "0"
+                                                    : datoBruto.getClave()
+                                                            .trim()),
+                                    datoBruto.getImporte()));
                 } else {
-                    conceptos.add(new ConceptoComprobanteDTO(Short.valueOf(datoBruto.getClave() == null ? "0" : datoBruto.getClave().trim()),
-                            datoBruto.getImporte()));
+                    conceptos
+                            .add(new ConceptoComprobanteDTO(
+                                    Short.valueOf(
+                                            datoBruto.getClave() == null ? "0"
+                                                    : datoBruto.getClave()
+                                                            .trim()),
+                                    datoBruto.getImporte()));
                 }
             }
 

@@ -14,10 +14,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @since 27/06/2016 18:08:21
  * @version 1.0
-
+ * 
  */
 @Entity
 @Table(name = "expedientes_aspirantes")

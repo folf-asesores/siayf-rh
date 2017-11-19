@@ -29,7 +29,10 @@ public class WebServicesSifRepository {
 
     public void limpiarTablaConceptoPartidaNomina() {
         try {
-            entityManager.createNativeQuery("TRUNCATE TABLE consulta_conceptos_partida_nomina").executeUpdate();
+            entityManager
+                    .createNativeQuery(
+                            "TRUNCATE TABLE consulta_conceptos_partida_nomina")
+                    .executeUpdate();
 
         } catch (NoResultException exception) {
             System.out.println("ERROR :" + exception.getMessage());
@@ -38,7 +41,10 @@ public class WebServicesSifRepository {
 
     public void limpiarTablaDetalleRetenciones() {
         try {
-            entityManager.createNativeQuery("TRUNCATE TABLE consulta_detalle_retenciones").executeUpdate();
+            entityManager
+                    .createNativeQuery(
+                            "TRUNCATE TABLE consulta_detalle_retenciones")
+                    .executeUpdate();
 
         } catch (NoResultException exception) {
             System.out.println("ERROR :" + exception.getMessage());

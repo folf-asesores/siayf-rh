@@ -10,7 +10,8 @@ import org.hibernate.transform.Transformers;
 import mx.gob.oficialiatlax.rh.demo.DependenciasDTO;
 import mx.gob.oficialiatlax.rh.demo.TipoDependenciasDTO;
 
-public class TiposDependenciasRepository extends GenericRepository<DependenciasEntity, Integer> {
+public class TiposDependenciasRepository
+        extends GenericRepository<DependenciasEntity, Integer> {
 
     /**
      *
@@ -21,7 +22,8 @@ public class TiposDependenciasRepository extends GenericRepository<DependenciasE
         Session session = em.unwrap(Session.class);
         Query query = session.createSQLQuery("SELECT * from tipo_dependencias");
 
-        query.setResultTransformer(Transformers.aliasToBean(TipoDependenciasDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoDependenciasDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoDependenciasDTO> datosDto = query.list();
         return datosDto;
@@ -29,9 +31,12 @@ public class TiposDependenciasRepository extends GenericRepository<DependenciasE
 
     public List<DependenciasDTO> obtenerDependencias(Integer idtipo) {
         Session session = em.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT * from dependencias_demo where id_tipo_dependencia=:idtipo").setParameter("idtipo", idtipo);
+        Query query = session.createSQLQuery(
+                "SELECT * from dependencias_demo where id_tipo_dependencia=:idtipo")
+                .setParameter("idtipo", idtipo);
 
-        query.setResultTransformer(Transformers.aliasToBean(DependenciasDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(DependenciasDTO.class));
         @SuppressWarnings("unchecked")
         List<DependenciasDTO> datosDto = query.list();
         return datosDto;

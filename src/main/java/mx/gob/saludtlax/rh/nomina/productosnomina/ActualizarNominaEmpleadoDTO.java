@@ -62,14 +62,29 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         System.out.println("tipoCambio: " + tipoCambio);
         switch (tipoCambio) {
             case "1":
-                str = (idConfiguracionPresupuestal ? "Clave Presupuestal, " : "") + (idProyecto ? "Proyecto, " : "") + (idDependencia ? "Dependencia, " : "")
-                        + (idUnidadResponsable ? "Unidad Responsable, " : "") + (idTipoContratacion ? "Tipo Contratacion, " : "")
-                        + (idTipoNombramiento ? "Tipo Nombramiento, " : "") + (idPuestoGeneral ? "Puesto General, " : "")
-                        + (idFuenteFinanciamiento ? "Fuente Financiamiento, " : "") + (idSubfuenteFinanciamiento ? "Subfuente Financiamiento, " : "")
-                        + (idTipoRecurso ? "Tipo Recurso, " : "") + (numeroEmpleado ? "Numero Empleado, " : "")
-                        + (fechaAltaConfiguracion ? "Fecha Alta Configuracion, " : "") + (sueldos ? "Sueldos, " : "") + (idTabulador ? "Tabulador, " : "")
-                        + (numeroCuenta ? "Numero Cuenta, " : "") + (idCentroResponsabilidad ? "Centro Responsabilidad, " : "")
-                        + (numeroIdPersonal ? "Numero Id Personal, " : "") + (numeroIdLaboral ? "Numero Id Laboral, " : "") + (idFuncion ? "Funcion, " : "")
+                str = (idConfiguracionPresupuestal ? "Clave Presupuestal, "
+                        : "") + (idProyecto ? "Proyecto, " : "")
+                        + (idDependencia ? "Dependencia, " : "")
+                        + (idUnidadResponsable ? "Unidad Responsable, " : "")
+                        + (idTipoContratacion ? "Tipo Contratacion, " : "")
+                        + (idTipoNombramiento ? "Tipo Nombramiento, " : "")
+                        + (idPuestoGeneral ? "Puesto General, " : "")
+                        + (idFuenteFinanciamiento ? "Fuente Financiamiento, "
+                                : "")
+                        + (idSubfuenteFinanciamiento
+                                ? "Subfuente Financiamiento, " : "")
+                        + (idTipoRecurso ? "Tipo Recurso, " : "")
+                        + (numeroEmpleado ? "Numero Empleado, " : "")
+                        + (fechaAltaConfiguracion ? "Fecha Alta Configuracion, "
+                                : "")
+                        + (sueldos ? "Sueldos, " : "")
+                        + (idTabulador ? "Tabulador, " : "")
+                        + (numeroCuenta ? "Numero Cuenta, " : "")
+                        + (idCentroResponsabilidad ? "Centro Responsabilidad, "
+                                : "")
+                        + (numeroIdPersonal ? "Numero Id Personal, " : "")
+                        + (numeroIdLaboral ? "Numero Id Laboral, " : "")
+                        + (idFuncion ? "Funcion, " : "")
                         + (idPrograma ? "Programa, " : "");
                 str = str.substring(0, str.length() - 2);
                 break;
@@ -87,7 +102,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idConfiguracionPresupuestal;
     }
 
-    public void setIdConfiguracionPresupuestal(Boolean idConfiguracionPresupuestal) {
+    public void setIdConfiguracionPresupuestal(
+            Boolean idConfiguracionPresupuestal) {
         this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
     }
 
@@ -151,7 +167,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Boolean idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Boolean idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -271,7 +288,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idCentroResponsabilidadValue;
     }
 
-    public void setIdCentroResponsabilidadValue(Integer idCentroResponsabilidadValue) {
+    public void setIdCentroResponsabilidadValue(
+            Integer idCentroResponsabilidadValue) {
         this.idCentroResponsabilidadValue = idCentroResponsabilidadValue;
     }
 
@@ -279,7 +297,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idConfiguracionPresupuestalValue;
     }
 
-    public void setIdConfiguracionPresupuestalValue(Integer idConfiguracionPresupuestalValue) {
+    public void setIdConfiguracionPresupuestalValue(
+            Integer idConfiguracionPresupuestalValue) {
         this.idConfiguracionPresupuestalValue = idConfiguracionPresupuestalValue;
     }
 
@@ -295,7 +314,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return fechaAltaConfiguracionValue;
     }
 
-    public void setFechaAltaConfiguracionValue(Date fechaAltaConfiguracionValue) {
+    public void setFechaAltaConfiguracionValue(
+            Date fechaAltaConfiguracionValue) {
         this.fechaAltaConfiguracionValue = fechaAltaConfiguracionValue;
     }
 
@@ -343,7 +363,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idFuenteFinanciamientoValue;
     }
 
-    public void setIdFuenteFinanciamientoValue(Integer idFuenteFinanciamientoValue) {
+    public void setIdFuenteFinanciamientoValue(
+            Integer idFuenteFinanciamientoValue) {
         this.idFuenteFinanciamientoValue = idFuenteFinanciamientoValue;
     }
 
@@ -351,7 +372,8 @@ public class ActualizarNominaEmpleadoDTO implements Serializable {
         return idSubfuenteFinanciamientoValue;
     }
 
-    public void setIdSubfuenteFinanciamientoValue(Integer idSubfuenteFinanciamientoValue) {
+    public void setIdSubfuenteFinanciamientoValue(
+            Integer idSubfuenteFinanciamientoValue) {
         this.idSubfuenteFinanciamientoValue = idSubfuenteFinanciamientoValue;
     }
 

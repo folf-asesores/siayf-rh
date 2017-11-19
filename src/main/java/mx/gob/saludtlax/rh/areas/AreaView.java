@@ -78,7 +78,8 @@ public class AreaView {
         return habilitarFormularioEdicion;
     }
 
-    public void setHabilitarFormularioEdicion(boolean habilitarFormularioEdicion) {
+    public void setHabilitarFormularioEdicion(
+            boolean habilitarFormularioEdicion) {
         this.habilitarFormularioEdicion = habilitarFormularioEdicion;
     }
 
@@ -126,7 +127,8 @@ public class AreaView {
         return habilitarBotonInformacion;
     }
 
-    public void setHabilitarBotonInformacion(boolean habilitarBotonInformacion) {
+    public void setHabilitarBotonInformacion(
+            boolean habilitarBotonInformacion) {
         this.habilitarBotonInformacion = habilitarBotonInformacion;
     }
 

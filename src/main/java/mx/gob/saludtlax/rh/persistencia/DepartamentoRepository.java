@@ -34,7 +34,10 @@ public class DepartamentoRepository {
      * Retorna el listado de departamentos
      */
     public List<DepartamentoEntity> departamentos() {
-        List<DepartamentoEntity> departamentos = entityManager.createQuery("SELECT d FROM DepartamentoEntity AS d", DepartamentoEntity.class).getResultList();
+        List<DepartamentoEntity> departamentos = entityManager
+                .createQuery("SELECT d FROM DepartamentoEntity AS d",
+                        DepartamentoEntity.class)
+                .getResultList();
         return departamentos;
     }
 }

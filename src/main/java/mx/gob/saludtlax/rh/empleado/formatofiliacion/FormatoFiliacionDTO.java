@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class FormatoFiliacionDTO {
@@ -197,7 +197,8 @@ public class FormatoFiliacionDTO {
         return domicilioPersonaConocidoUno;
     }
 
-    public void setDomicilioPersonaConocidoUno(String domicilioPersonaConocidoUno) {
+    public void setDomicilioPersonaConocidoUno(
+            String domicilioPersonaConocidoUno) {
         this.domicilioPersonaConocidoUno = domicilioPersonaConocidoUno;
     }
 
@@ -221,7 +222,8 @@ public class FormatoFiliacionDTO {
         return domicilioPersonaConocidoDos;
     }
 
-    public void setDomicilioPersonaConocidoDos(String domicilioPersonaConocidoDos) {
+    public void setDomicilioPersonaConocidoDos(
+            String domicilioPersonaConocidoDos) {
         this.domicilioPersonaConocidoDos = domicilioPersonaConocidoDos;
     }
 

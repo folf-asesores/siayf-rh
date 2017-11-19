@@ -35,8 +35,8 @@ import mx.gob.saludtlax.rh.util.TipoArchivo;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:29:49 13/09/2016
  */
@@ -62,7 +62,8 @@ public class ImpresionNombramientoController implements Serializable {
     public void init() {
         view = new ImpresionNombramientoView();
 
-        view.setItemsTipoNombramiento(SelectItemsUtil.listaCatalogos(catalogo.obtenerTipoNombramiento()));
+        view.setItemsTipoNombramiento(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerTipoNombramiento()));
 
         obtenerListaInfoNombramiento();
     }
@@ -70,7 +71,8 @@ public class ImpresionNombramientoController implements Serializable {
     public void obtenerListaInfoNombramiento() {
         try {
 
-            List<InfoNombramientoDTO> listaNombramiento = nombramiento.obtenerListaInfoNombramiento();
+            List<InfoNombramientoDTO> listaNombramiento = nombramiento
+                    .obtenerListaInfoNombramiento();
 
             if (!listaNombramiento.isEmpty()) {
                 view.setListaNombramiento(listaNombramiento);
@@ -79,16 +81,20 @@ public class ImpresionNombramientoController implements Serializable {
             }
 
         } catch (ValidacionException validacionException) {
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         }
     }
 
     public void obtenerListaInfoNombramientoPoTipo() {
         try {
 
-            List<InfoNombramientoDTO> listaNombramiento = nombramiento.obtenerListaInfoNombramientoPorTipo(view.getTipoNombramiento());
+            List<InfoNombramientoDTO> listaNombramiento = nombramiento
+                    .obtenerListaInfoNombramientoPorTipo(
+                            view.getTipoNombramiento());
 
             if (!listaNombramiento.isEmpty()) {
                 view.setListaNombramiento(listaNombramiento);
@@ -97,47 +103,65 @@ public class ImpresionNombramientoController implements Serializable {
             }
 
         } catch (ValidacionException validacionException) {
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         }
     }
 
-    public void mostrarDetalleNombramiento(Integer idNombramiento, String tipoNombramiento) {
+    public void mostrarDetalleNombramiento(Integer idNombramiento,
+            String tipoNombramiento) {
         try {
 
             String nombreTipoNombramiento = "NOMBRAMIENTO " + tipoNombramiento;
 
             view.setNombreTipoNombramiento(nombreTipoNombramiento);
 
-            Integer idInventario = nombramiento.obtenerInventarioVacantePorIdNombramiento(idNombramiento);
+            Integer idInventario = nombramiento
+                    .obtenerInventarioVacantePorIdNombramiento(idNombramiento);
 
-            view.setPuestoEmpleadoDTO(puestosEmpleados.obtenerInformacionPuesto(idInventario));
+            view.setPuestoEmpleadoDTO(
+                    puestosEmpleados.obtenerInformacionPuesto(idInventario));
 
-            view.setInfoLugarAdscripcionNombramientoDTO(nombramiento.obtenerInfoLugarAdscripcion(view.getPuestoEmpleadoDTO().getIdAdscripcion(),
-                    view.getPuestoEmpleadoDTO().getIdSubadscripcion(), view.getPuestoEmpleadoDTO().getIdServicio()));
+            view.setInfoLugarAdscripcionNombramientoDTO(
+                    nombramiento.obtenerInfoLugarAdscripcion(
+                            view.getPuestoEmpleadoDTO().getIdAdscripcion(),
+                            view.getPuestoEmpleadoDTO().getIdSubadscripcion(),
+                            view.getPuestoEmpleadoDTO().getIdServicio()));
 
             view.setIdNombramiento(idNombramiento);
 
             administarcioVista(view.getNombreTipoNombramiento());
 
-            view.getItemsTiposAdscripcion().put(EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE + ": " + view.getPuestoEmpleadoDTO().getUnidadResponsable(),
+            view.getItemsTiposAdscripcion().put(
+                    EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE + ": "
+                            + view.getPuestoEmpleadoDTO()
+                                    .getUnidadResponsable(),
                     EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE);
             view.getItemsTiposAdscripcion().put(
-                    EnumTipoAdscripcionNombramiento.ADSCRIPCION + ": " + view.getInfoLugarAdscripcionNombramientoDTO().getAdscripcion(),
+                    EnumTipoAdscripcionNombramiento.ADSCRIPCION + ": "
+                            + view.getInfoLugarAdscripcionNombramientoDTO()
+                                    .getAdscripcion(),
                     EnumTipoAdscripcionNombramiento.ADSCRIPCION);
             view.getItemsTiposAdscripcion().put(
-                    EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION + ": " + view.getInfoLugarAdscripcionNombramientoDTO().getAreaAdscripcion(),
+                    EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION + ": "
+                            + view.getInfoLugarAdscripcionNombramientoDTO()
+                                    .getAreaAdscripcion(),
                     EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION);
             view.getItemsTiposAdscripcion().put(
-                    EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION + ": " + view.getInfoLugarAdscripcionNombramientoDTO().getLugarAdscripcion(),
+                    EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION + ": "
+                            + view.getInfoLugarAdscripcionNombramientoDTO()
+                                    .getLugarAdscripcion(),
                     EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION);
 
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
 
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
 
         }
     }
@@ -156,40 +180,57 @@ public class ImpresionNombramientoController implements Serializable {
             // String nombreReporte =
             // nombreReporte(this.view.getNombreTipoNombramiento());
 
-            view.getClasificacionReporteDTO().setClasificacionReporte(view.getNombreTipoNombramiento());
-            view.getClasificacionReporteDTO().setHorarioTrabajo("El que le asigne su Unidad");
-            view.getClasificacionReporteDTO().setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
+            view.getClasificacionReporteDTO()
+                    .setClasificacionReporte(view.getNombreTipoNombramiento());
+            view.getClasificacionReporteDTO()
+                    .setHorarioTrabajo("El que le asigne su Unidad");
+            view.getClasificacionReporteDTO()
+                    .setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
 
-            Integer idClasificacion = nombramiento.actualizarEstructuraNombramiento(view.getClasificacionReporteDTO());
+            Integer idClasificacion = nombramiento
+                    .actualizarEstructuraNombramiento(
+                            view.getClasificacionReporteDTO());
 
             actualizarNombramientoImpreso(view.getTipoAdscripcion());
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "nombramiento-generico", "TIPO_REPORTE", "docx",
-                    "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()), "ID_CLASIFICACION", String.valueOf(idClasificacion) };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "nombramiento-generico", "TIPO_REPORTE", "docx",
+                    "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()),
+                    "ID_CLASIFICACION", String.valueOf(idClasificacion) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             view.setBytes(admintradorReportes.obtenerReporte(referencia));
 
             if (view.getBytes() != null) {
-                JSFUtils.descargarArchivo(view.getBytes(), CadenaUtil.converterSpace(view.getNombreTipoNombramiento()), TipoArchivo.getMIMEType("docx"));
+                JSFUtils.descargarArchivo(view.getBytes(),
+                        CadenaUtil.converterSpace(
+                                view.getNombreTipoNombramiento()),
+                        TipoArchivo.getMIMEType("docx"));
 
             }
 
-            JSFUtils.infoMessage("Descargar Nombramiento: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descargar Nombramiento: ",
+                    "Se descargo correctamente...");
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
             reglaNegocioException.printStackTrace();
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidacionException validacionException) {
             System.err.println(validacionException.getMessage());
             validacionException.printStackTrace();
@@ -203,40 +244,57 @@ public class ImpresionNombramientoController implements Serializable {
             // String nombreReporte =
             // nombreReporte(this.view.getNombreTipoNombramiento());
 
-            view.getClasificacionReporteDTO().setClasificacionReporte(view.getNombreTipoNombramiento());
-            view.getClasificacionReporteDTO().setHorarioTrabajo("El que le asigne su Unidad");
-            view.getClasificacionReporteDTO().setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
+            view.getClasificacionReporteDTO()
+                    .setClasificacionReporte(view.getNombreTipoNombramiento());
+            view.getClasificacionReporteDTO()
+                    .setHorarioTrabajo("El que le asigne su Unidad");
+            view.getClasificacionReporteDTO()
+                    .setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
 
-            Integer idClasificacion = nombramiento.actualizarEstructuraNombramiento(view.getClasificacionReporteDTO());
+            Integer idClasificacion = nombramiento
+                    .actualizarEstructuraNombramiento(
+                            view.getClasificacionReporteDTO());
 
             actualizarNombramientoImpreso(view.getTipoAdscripcion());
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "nombramiento-formalizado-fase", "TIPO_REPORTE",
-                    "docx", "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()), "ID_CLASIFICACION", String.valueOf(idClasificacion) };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "nombramiento-formalizado-fase", "TIPO_REPORTE", "docx",
+                    "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()),
+                    "ID_CLASIFICACION", String.valueOf(idClasificacion) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             view.setBytes(admintradorReportes.obtenerReporte(referencia));
 
             if (view.getBytes() != null) {
-                JSFUtils.descargarArchivo(view.getBytes(), CadenaUtil.converterSpace(view.getNombreTipoNombramiento()), TipoArchivo.getMIMEType("docx"));
+                JSFUtils.descargarArchivo(view.getBytes(),
+                        CadenaUtil.converterSpace(
+                                view.getNombreTipoNombramiento()),
+                        TipoArchivo.getMIMEType("docx"));
 
             }
 
-            JSFUtils.infoMessage("Descargar Nombramiento: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descargar Nombramiento: ",
+                    "Se descargo correctamente...");
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
             reglaNegocioException.printStackTrace();
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidacionException validacionException) {
             System.err.println(validacionException.getMessage());
             validacionException.printStackTrace();
@@ -250,40 +308,57 @@ public class ImpresionNombramientoController implements Serializable {
             // String nombreReporte =
             // nombreReporte(this.view.getNombreTipoNombramiento());
 
-            view.getClasificacionReporteDTO().setClasificacionReporte(view.getNombreTipoNombramiento());
-            view.getClasificacionReporteDTO().setHorarioTrabajo("El que le asigne su Unidad");
-            view.getClasificacionReporteDTO().setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
+            view.getClasificacionReporteDTO()
+                    .setClasificacionReporte(view.getNombreTipoNombramiento());
+            view.getClasificacionReporteDTO()
+                    .setHorarioTrabajo("El que le asigne su Unidad");
+            view.getClasificacionReporteDTO()
+                    .setNombreSecretario("DR. ALEJANDRO GUARNEROS CHUMACERO");
 
-            Integer idClasificacion = nombramiento.actualizarEstructuraNombramiento(view.getClasificacionReporteDTO());
+            Integer idClasificacion = nombramiento
+                    .actualizarEstructuraNombramiento(
+                            view.getClasificacionReporteDTO());
 
             actualizarNombramientoImpreso(view.getTipoAdscripcion());
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "nombramiento-interino", "TIPO_REPORTE", "docx",
-                    "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()), "ID_CLASIFICACION", String.valueOf(idClasificacion) };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "nombramiento-interino", "TIPO_REPORTE", "docx",
+                    "ID_NOMBRAMIENTO", String.valueOf(view.getIdNombramiento()),
+                    "ID_CLASIFICACION", String.valueOf(idClasificacion) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             view.setBytes(admintradorReportes.obtenerReporte(referencia));
 
             if (view.getBytes() != null) {
-                JSFUtils.descargarArchivo(view.getBytes(), CadenaUtil.converterSpace(view.getNombreTipoNombramiento()), TipoArchivo.getMIMEType("docx"));
+                JSFUtils.descargarArchivo(view.getBytes(),
+                        CadenaUtil.converterSpace(
+                                view.getNombreTipoNombramiento()),
+                        TipoArchivo.getMIMEType("docx"));
 
             }
 
-            JSFUtils.infoMessage("Descargar Nombramiento: ", "Se descargo correctamente...");
+            JSFUtils.infoMessage("Descargar Nombramiento: ",
+                    "Se descargo correctamente...");
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             System.err.println(exception.getMessage());
             exception.printStackTrace();
             JSFUtils.errorMessage("Error: ", exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
             reglaNegocioException.printStackTrace();
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidacionException validacionException) {
             System.err.println(validacionException.getMessage());
             validacionException.printStackTrace();
@@ -299,66 +374,90 @@ public class ImpresionNombramientoController implements Serializable {
         view.setMostrarPrincipal(false);
         view.setMostrarOpcionDescarga(true);
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROVISIONAL)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROVISIONAL)) {
 
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoProvisional);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosProvisional);
-
-            view.setMostrarConfirmacionImpresion(true);
-        }
-
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROMOCION)) {
-
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoPromocion);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosPromocion);
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoProvisional);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosProvisional);
 
             view.setMostrarConfirmacionImpresion(true);
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROFESIONALIZACION)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROMOCION)) {
 
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoProfesionalizacion);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosProfesionalizacion);
-
-            view.setMostrarConfirmacionImpresion(true);
-        }
-
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.ESCALAFON)) {
-
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoEscalafon);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosEscalafon);
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoPromocion);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosPromocion);
 
             view.setMostrarConfirmacionImpresion(true);
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.DEFINITIVO)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROFESIONALIZACION)) {
 
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoDefinitivo);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosDefinitivo);
-
-            view.setMostrarConfirmacionImpresion(true);
-        }
-
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.CONFIANZA)) {
-
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoConfianza);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosConfianza);
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoProfesionalizacion);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosProfesionalizacion);
 
             view.setMostrarConfirmacionImpresion(true);
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.DEFINITIVO_FORMALIZADO_FASE_II)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.ESCALAFON)) {
 
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoFormalizadoDos);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosFormalizadoDos);
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoEscalafon);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosEscalafon);
+
+            view.setMostrarConfirmacionImpresion(true);
+        }
+
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.DEFINITIVO)) {
+
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoDefinitivo);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosDefinitivo);
+
+            view.setMostrarConfirmacionImpresion(true);
+        }
+
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.CONFIANZA)) {
+
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoConfianza);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosConfianza);
+
+            view.setMostrarConfirmacionImpresion(true);
+        }
+
+        if (nombreClasificaiconNombramiento.equals(
+                EnumClasificacionNombramiento.DEFINITIVO_FORMALIZADO_FASE_II)) {
+
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoFormalizadoDos);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosFormalizadoDos);
 
             view.setMostrarFormalizado(true);
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.INTERINATO)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.INTERINATO)) {
 
-            view.getClasificacionReporteDTO().setTextoUno(EnumPlantillaNombramiento.posicionUnoInterinato);
-            view.getClasificacionReporteDTO().setTextoDos(EnumPlantillaNombramiento.posicionDosInterinato);
+            view.getClasificacionReporteDTO().setTextoUno(
+                    EnumPlantillaNombramiento.posicionUnoInterinato);
+            view.getClasificacionReporteDTO().setTextoDos(
+                    EnumPlantillaNombramiento.posicionDosInterinato);
 
             view.setMostrarInterinato(true);
         }
@@ -367,35 +466,43 @@ public class ImpresionNombramientoController implements Serializable {
 
     public String nombreReporte(String nombreClasificaiconNombramiento) {
         String nombreReporte = "";
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROVISIONAL)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROVISIONAL)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROMOCION)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROMOCION)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.PROFESIONALIZACION)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.PROFESIONALIZACION)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.ESCALAFON)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.ESCALAFON)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.DEFINITIVO)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.DEFINITIVO)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.CONFIANZA)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.CONFIANZA)) {
             nombreReporte = "nombramiento-generico";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.DEFINITIVO_FORMALIZADO_FASE_II)) {
+        if (nombreClasificaiconNombramiento.equals(
+                EnumClasificacionNombramiento.DEFINITIVO_FORMALIZADO_FASE_II)) {
             nombreReporte = "nombramiento-formalizado-fase";
         }
 
-        if (nombreClasificaiconNombramiento.equals(EnumClasificacionNombramiento.INTERINATO)) {
+        if (nombreClasificaiconNombramiento
+                .equals(EnumClasificacionNombramiento.INTERINATO)) {
             nombreReporte = "nombramiento-interinato";
         }
 
@@ -403,28 +510,41 @@ public class ImpresionNombramientoController implements Serializable {
     }
 
     public void actualizarNombramientoImpreso(String tipoAdscripcion) {
-        if (tipoAdscripcion.equals(EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE)) {
-            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(), view.getPuestoEmpleadoDTO().getUnidadResponsable(),
+        if (tipoAdscripcion
+                .equals(EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE)) {
+            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(),
+                    view.getPuestoEmpleadoDTO().getUnidadResponsable(),
                     view.isImprimirNombramiento());
         }
 
-        if (tipoAdscripcion.equals(EnumTipoAdscripcionNombramiento.ADSCRIPCION)) {
-            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(), view.getInfoLugarAdscripcionNombramientoDTO().getAdscripcion(),
+        if (tipoAdscripcion
+                .equals(EnumTipoAdscripcionNombramiento.ADSCRIPCION)) {
+            nombramiento
+                    .actualizarNombramientoImpreso(view.getIdNombramiento(),
+                            view.getInfoLugarAdscripcionNombramientoDTO()
+                                    .getAdscripcion(),
+                            view.isImprimirNombramiento());
+        }
+
+        if (tipoAdscripcion
+                .equals(EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION)) {
+            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(),
+                    view.getInfoLugarAdscripcionNombramientoDTO()
+                            .getAreaAdscripcion(),
                     view.isImprimirNombramiento());
         }
 
-        if (tipoAdscripcion.equals(EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION)) {
-            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(), view.getInfoLugarAdscripcionNombramientoDTO().getAreaAdscripcion(),
-                    view.isImprimirNombramiento());
-        }
-
-        if (tipoAdscripcion.equals(EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION)) {
-            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(), view.getInfoLugarAdscripcionNombramientoDTO().getLugarAdscripcion(),
+        if (tipoAdscripcion
+                .equals(EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION)) {
+            nombramiento.actualizarNombramientoImpreso(view.getIdNombramiento(),
+                    view.getInfoLugarAdscripcionNombramientoDTO()
+                            .getLugarAdscripcion(),
                     view.isImprimirNombramiento());
         }
     }
 
-    public void validatorTipoAdscripcion(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorTipoAdscripcion(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
 
@@ -434,42 +554,65 @@ public class ImpresionNombramientoController implements Serializable {
                 String adscripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(adscripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una opción valida.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una opción valida.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
 
                 } else if (!ValidacionUtil.esCadenaVacia(adscripcion)) {
-                    if (adscripcion.equals(EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE)) {
-                        if (ValidacionUtil.esCadenaVacia(view.getPuestoEmpleadoDTO().getUnidadResponsable())) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    if (adscripcion.equals(
+                            EnumTipoAdscripcionNombramiento.UNIDAD_RESPONSABLE)) {
+                        if (ValidacionUtil
+                                .esCadenaVacia(view.getPuestoEmpleadoDTO()
+                                        .getUnidadResponsable())) {
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
                                     "El empleado no tiene una unidad responsable registrado.");
-                            context.addMessage(component.getClientId(), facesMessage);
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
 
-                    if (adscripcion.equals(EnumTipoAdscripcionNombramiento.ADSCRIPCION)) {
-                        if (ValidacionUtil.esCadenaVacia(view.getInfoLugarAdscripcionNombramientoDTO().getAdscripcion())) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El empleado no tiene una adscripción registrado.");
-                            context.addMessage(component.getClientId(), facesMessage);
+                    if (adscripcion.equals(
+                            EnumTipoAdscripcionNombramiento.ADSCRIPCION)) {
+                        if (ValidacionUtil.esCadenaVacia(
+                                view.getInfoLugarAdscripcionNombramientoDTO()
+                                        .getAdscripcion())) {
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "El empleado no tiene una adscripción registrado.");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
 
-                    if (adscripcion.equals(EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION)) {
-                        if (ValidacionUtil.esCadenaVacia(view.getInfoLugarAdscripcionNombramientoDTO().getAreaAdscripcion())) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    if (adscripcion.equals(
+                            EnumTipoAdscripcionNombramiento.AREA_ADSCRIPCION)) {
+                        if (ValidacionUtil.esCadenaVacia(
+                                view.getInfoLugarAdscripcionNombramientoDTO()
+                                        .getAreaAdscripcion())) {
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
                                     "El empleado no tiene un area adscripción registrado.");
-                            context.addMessage(component.getClientId(), facesMessage);
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
 
-                    if (adscripcion.equals(EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION)) {
-                        if (ValidacionUtil.esCadenaVacia(view.getInfoLugarAdscripcionNombramientoDTO().getLugarAdscripcion())) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    if (adscripcion.equals(
+                            EnumTipoAdscripcionNombramiento.LUGAR_ADSCRIPCION)) {
+                        if (ValidacionUtil.esCadenaVacia(
+                                view.getInfoLugarAdscripcionNombramientoDTO()
+                                        .getLugarAdscripcion())) {
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
                                     "El empleado no tiene un lugar adscripción registrado.");
-                            context.addMessage(component.getClientId(), facesMessage);
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
@@ -483,7 +626,8 @@ public class ImpresionNombramientoController implements Serializable {
 
     }
 
-    public void validatorTipoNombramiento(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorTipoNombramiento(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
 
@@ -495,7 +639,9 @@ public class ImpresionNombramientoController implements Serializable {
                 obtenerListaInfoNombramiento();
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoNombramiento)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un tipo nombramiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un tipo nombramiento.");
                     context.addMessage(component.getClientId(), facesMessage1);
 
                     throw new ValidatorException(facesMessage1);
@@ -510,7 +656,8 @@ public class ImpresionNombramientoController implements Serializable {
 
     public void regresarModulo() {
         try {
-            JSFUtils.redireccionar("/siayf-rh/contenido/empleado/impresionNombramiento.xhtml?faces-redirect=true");
+            JSFUtils.redireccionar(
+                    "/siayf-rh/contenido/empleado/impresionNombramiento.xhtml?faces-redirect=true");
         } catch (IOException e) {
 
             e.printStackTrace();

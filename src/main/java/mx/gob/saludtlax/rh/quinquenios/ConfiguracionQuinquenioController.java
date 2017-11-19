@@ -44,7 +44,8 @@ public class ConfiguracionQuinquenioController implements Serializable {
         listaNombramientos = nombramiento.obtenerListaTipoNombramiento();
 
         for (CatalogoDTO info : listaNombramientos) {
-            itemsNombramientos.add(new SelectItem(info.getId(), info.getNombre()));
+            itemsNombramientos
+                    .add(new SelectItem(info.getId(), info.getNombre()));
         }
 
         cargarConfiguraciones();
@@ -52,58 +53,79 @@ public class ConfiguracionQuinquenioController implements Serializable {
 
     public void cargarConfiguraciones() {
         listaConfiguracionesQuinquenios.clear();
-        listaConfiguracionesQuinquenios = configuracionQuinquenioService.obtenerConfiguraciones();
+        listaConfiguracionesQuinquenios = configuracionQuinquenioService
+                .obtenerConfiguraciones();
 
     }
 
     public void actualizarQuinquenios() {
 
-        if (idNombramientoSeleccionado == null || idNombramientoSeleccionado <= 0) {
-            JSFUtils.errorMessageEspecifico(":form:nombramiento", "Validacion:", "Debe seleccionar un nombramiento.");
+        if (idNombramientoSeleccionado == null
+                || idNombramientoSeleccionado <= 0) {
+            JSFUtils.errorMessageEspecifico(":form:nombramiento", "Validacion:",
+                    "Debe seleccionar un nombramiento.");
         } else {
 
             List<InfoEmpleadoVacanteDTO> infoEmpleados = new ArrayList<>();
-            infoEmpleados = configuracionQuinquenioService.buscarEmpleadosPorTipoNombramiento(idNombramientoSeleccionado);
+            infoEmpleados = configuracionQuinquenioService
+                    .buscarEmpleadosPorTipoNombramiento(
+                            idNombramientoSeleccionado);
 
             if (infoEmpleados != null) {
 
                 for (InfoEmpleadoVacanteDTO empleado : infoEmpleados) {
                     ConfiguracionQuinquenioDTO configuracionExistente = new ConfiguracionQuinquenioDTO();
-                    configuracionExistente = configuracionQuinquenioService.obtenerConfiguracionPorEmpleado(empleado.getIdEmpleado());
+                    configuracionExistente = configuracionQuinquenioService
+                            .obtenerConfiguracionPorEmpleado(
+                                    empleado.getIdEmpleado());
                     if (configuracionExistente != null) {
 
-                        System.out.println("config existente: " + configuracionExistente.getId_configuracion_quinquenio());
+                        System.out.println(
+                                "config existente: " + configuracionExistente
+                                        .getId_configuracion_quinquenio());
 
-                        configuracionExistente.setFecha_actualizacion(new Date());
+                        configuracionExistente
+                                .setFecha_actualizacion(new Date());
 
                         String claveQuinquenio = "";
                         if (empleado.getFechaInicioLabores() != null) {
-                            claveQuinquenio = calcularQuinquenio(empleado.getFechaInicioLabores());
+                            claveQuinquenio = calcularQuinquenio(
+                                    empleado.getFechaInicioLabores());
                         }
 
-                        configuracionExistente.setClave_concepto(claveQuinquenio);
+                        configuracionExistente
+                                .setClave_concepto(claveQuinquenio);
 
-                        configuracionQuinquenioService.actualizarConfiguracion(configuracionExistente);
+                        configuracionQuinquenioService.actualizarConfiguracion(
+                                configuracionExistente);
                     } else {
 
-                        System.out.println("datos::" + " empleado:" + empleado.getRfc() + " configuracion:" + empleado.getIdConfiguracionPresupuestal()
+                        System.out.println("datos::" + " empleado:"
+                                + empleado.getRfc() + " configuracion:"
+                                + empleado.getIdConfiguracionPresupuestal()
                                 + " fecha:" + empleado.getFechaInicioLabores());
                         String claveQuinquenio = "";
                         if (empleado.getFechaInicioLabores() != null) {
-                            claveQuinquenio = calcularQuinquenio(empleado.getFechaInicioLabores());
+                            claveQuinquenio = calcularQuinquenio(
+                                    empleado.getFechaInicioLabores());
                         }
                         ConfiguracionQuinquenioDTO configuracionNew = new ConfiguracionQuinquenioDTO();
                         configuracionNew.setClave_concepto(claveQuinquenio);
                         configuracionNew.setEstatus(true);
                         configuracionNew.setFecha_actualizacion(new Date());
                         configuracionNew.setFecha_alta(new Date());
-                        configuracionNew.setId_empleado(empleado.getIdEmpleado());
-                        configuracionNew.setIdnombramiento(empleado.getIdNombramiento());
-                        configuracionNew.setNombreEmpleado(empleado.getNombre());
+                        configuracionNew
+                                .setId_empleado(empleado.getIdEmpleado());
+                        configuracionNew.setIdnombramiento(
+                                empleado.getIdNombramiento());
+                        configuracionNew
+                                .setNombreEmpleado(empleado.getNombre());
                         configuracionNew.setRfc(empleado.getRfc());
-                        configuracionNew.setIdConfiguracionP(empleado.getIdConfiguracionPresupuestal());
+                        configuracionNew.setIdConfiguracionP(
+                                empleado.getIdConfiguracionPresupuestal());
 
-                        configuracionQuinquenioService.crearConfiguracion(configuracionNew);
+                        configuracionQuinquenioService
+                                .crearConfiguracion(configuracionNew);
                     }
                 }
             }
@@ -121,12 +143,18 @@ public class ConfiguracionQuinquenioController implements Serializable {
         long meses;
         long dias;
 
-        anios = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 0);
-        meses = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 3);
-        dias = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 4);
-        System.out.println("años:" + CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 0));
-        System.out.println("meses año:" + CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 3));
-        System.out.println("dias mes:" + CalculoDieferenciaFechas.getDiffDates(fechainiciolabores, fechaActual, 4));
+        anios = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores,
+                fechaActual, 0);
+        meses = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores,
+                fechaActual, 3);
+        dias = CalculoDieferenciaFechas.getDiffDates(fechainiciolabores,
+                fechaActual, 4);
+        System.out.println("años:" + CalculoDieferenciaFechas
+                .getDiffDates(fechainiciolabores, fechaActual, 0));
+        System.out.println("meses año:" + CalculoDieferenciaFechas
+                .getDiffDates(fechainiciolabores, fechaActual, 3));
+        System.out.println("dias mes:" + CalculoDieferenciaFechas
+                .getDiffDates(fechainiciolabores, fechaActual, 4));
 
         return buscarClaveQuinquenio(anios);
     }
@@ -160,7 +188,8 @@ public class ConfiguracionQuinquenioController implements Serializable {
         return idNombramientoSeleccionado;
     }
 
-    public void setIdNombramientoSeleccionado(Integer idNombramientoSeleccionado) {
+    public void setIdNombramientoSeleccionado(
+            Integer idNombramientoSeleccionado) {
         this.idNombramientoSeleccionado = idNombramientoSeleccionado;
     }
 
@@ -168,7 +197,8 @@ public class ConfiguracionQuinquenioController implements Serializable {
         return listaConfiguracionesQuinquenios;
     }
 
-    public void setListaConfiguracionesQuinquenios(List<ConfiguracionQuinquenioDTO> listaConfiguracionesQuinquenios) {
+    public void setListaConfiguracionesQuinquenios(
+            List<ConfiguracionQuinquenioDTO> listaConfiguracionesQuinquenios) {
         this.listaConfiguracionesQuinquenios = listaConfiguracionesQuinquenios;
     }
 

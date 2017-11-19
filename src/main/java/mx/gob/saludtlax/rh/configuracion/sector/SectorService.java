@@ -33,7 +33,8 @@ public class SectorService {
         }
     }
 
-    protected List<String> consultarDescripcionSectorPorCriterio(String consulta) {
+    protected List<String> consultarDescripcionSectorPorCriterio(
+            String consulta) {
         return sectorRepository.consultarDescripcionSectorPorCriterio(consulta);
     }
 

@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.persistencia.FormatoFiliacionEntity;
 import mx.gob.saludtlax.rh.persistencia.FormatoFiliacionRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class FormatoFiliacionService {
@@ -27,10 +27,12 @@ public class FormatoFiliacionService {
         String contexto = "crearFormatoFiliacion: ";
 
         if (dto == null) {
-            throw new ValidacionException(contexto + "Ingrese los datos", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto + "Ingrese los datos",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        List<FormatoFiliacionEntity> listaFormatoFiliacion = formatoFiliacionRepository.listaFormatoFiliacionPorIdEmpleado(dto.getIdEmpleado());
+        List<FormatoFiliacionEntity> listaFormatoFiliacion = formatoFiliacionRepository
+                .listaFormatoFiliacionPorIdEmpleado(dto.getIdEmpleado());
 
         if (!listaFormatoFiliacion.isEmpty()) {
             for (FormatoFiliacionEntity formatoFiliacionEntity : listaFormatoFiliacion) {
@@ -57,10 +59,12 @@ public class FormatoFiliacionService {
         entity.setExtranjeros(dto.getExtranjeros());
         entity.setFecha(dto.getFecha());
         entity.setNombrePersonaConocidoUno(dto.getNombrePersonaConocidoUno());
-        entity.setDomicilioPersonaConocidoUno(dto.getDomicilioPersonaConocidoUno());
+        entity.setDomicilioPersonaConocidoUno(
+                dto.getDomicilioPersonaConocidoUno());
         entity.setLugarPersonaConocidoUno(dto.getLugarPersonaConocidoUno());
         entity.setNombrePersonaConocidoDos(dto.getNombrePersonaConocidoDos());
-        entity.setDomicilioPersonaConocidoDos(dto.getDomicilioPersonaConocidoDos());
+        entity.setDomicilioPersonaConocidoDos(
+                dto.getDomicilioPersonaConocidoDos());
         entity.setLugarPersonaConocidoDos(dto.getLugarPersonaConocidoDos());
         entity.setNombreParienteUno(dto.getNombreParienteUno());
         entity.setDomicilioParienteUno(dto.getDomicilioParienteUno());

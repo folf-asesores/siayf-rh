@@ -36,7 +36,8 @@ public class NombramientoController {
         return view;
     }
 
-    public void validatorNombramiento(FacesContext context, UIComponent component, Object value) {
+    public void validatorNombramiento(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -44,7 +45,9 @@ public class NombramientoController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Descripción");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Descripción");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -53,13 +56,18 @@ public class NombramientoController {
                 String Nombramineto = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Nombramineto)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese una Nombramineto");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese una Nombramineto");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (Nombramineto.length() > 2) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Nombramineto es de un maximo de 2 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Nombramineto es de un maximo de 2 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

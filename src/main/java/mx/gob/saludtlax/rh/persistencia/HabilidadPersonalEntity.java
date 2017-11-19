@@ -19,9 +19,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 22/03/2016 16:52:55
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
 @Entity
 @Table(name = "habilidades_personales")
@@ -169,7 +169,8 @@ public class HabilidadPersonalEntity implements Serializable {
      * @param idEncuestaPersonalAspirante
      *            the idEncuestaPersonalAspirante to set
      */
-    public void setIdEncuestaPersonalAspirante(Integer idEncuestaPersonalAspirante) {
+    public void setIdEncuestaPersonalAspirante(
+            Integer idEncuestaPersonalAspirante) {
         this.idEncuestaPersonalAspirante = idEncuestaPersonalAspirante;
     }
 
@@ -589,7 +590,8 @@ public class HabilidadPersonalEntity implements Serializable {
      * @param percepcionMensualConyuge
      *            the percepcionMensualConyuge to set
      */
-    public void setPercepcionMensualConyuge(BigDecimal percepcionMensualConyuge) {
+    public void setPercepcionMensualConyuge(
+            BigDecimal percepcionMensualConyuge) {
         this.percepcionMensualConyuge = percepcionMensualConyuge;
     }
 

@@ -16,7 +16,7 @@ import javax.ejb.Local;
  *
  * @see AdministradorReportes
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 @Local
 public interface BitacoraReporte {

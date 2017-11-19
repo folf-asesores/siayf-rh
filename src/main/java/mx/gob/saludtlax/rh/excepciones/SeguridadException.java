@@ -25,7 +25,8 @@ public class SeguridadException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public SeguridadException(String message, SeguridadCodigoError codigoError) {
+    public SeguridadException(String message,
+            SeguridadCodigoError codigoError) {
         super(message);
         this.codigoError = codigoError;
     }
@@ -38,7 +39,8 @@ public class SeguridadException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public SeguridadException(Throwable cause, SeguridadCodigoError codigoError) {
+    public SeguridadException(Throwable cause,
+            SeguridadCodigoError codigoError) {
         super(cause);
         this.codigoError = codigoError;
     }
@@ -53,7 +55,8 @@ public class SeguridadException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public SeguridadException(String message, Throwable cause, SeguridadCodigoError codigoError) {
+    public SeguridadException(String message, Throwable cause,
+            SeguridadCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -127,7 +130,8 @@ public class SeguridadException extends RuntimeException {
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero()
+                        + ":" + codigoError.getClass().getName());
             }
 
             for (String key : propiedades.keySet()) {

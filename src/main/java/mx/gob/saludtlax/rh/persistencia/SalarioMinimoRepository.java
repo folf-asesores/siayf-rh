@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.persistence.NoResultException;
 
-public class SalarioMinimoRepository extends GenericRepository<SalarioMinimoEntity, Integer> {
+public class SalarioMinimoRepository
+        extends GenericRepository<SalarioMinimoEntity, Integer> {
 
     /**
      *
@@ -17,7 +18,10 @@ public class SalarioMinimoRepository extends GenericRepository<SalarioMinimoEnti
     public SalarioMinimoEntity obtenerSalarioMinimoActual() {
         SalarioMinimoEntity salarioMinimoEntity = null;
         try {
-            salarioMinimoEntity = em.createQuery(BUSCAR_SALARIO_MININO_ACTURA, SalarioMinimoEntity.class).setFirstResult(0).setMaxResults(1).getSingleResult();
+            salarioMinimoEntity = em
+                    .createQuery(BUSCAR_SALARIO_MININO_ACTURA,
+                            SalarioMinimoEntity.class)
+                    .setFirstResult(0).setMaxResults(1).getSingleResult();
         } catch (NoResultException ex) {
             ex.printStackTrace();
             salarioMinimoEntity = null;
@@ -27,7 +31,8 @@ public class SalarioMinimoRepository extends GenericRepository<SalarioMinimoEnti
     }
 
     public List<SalarioMinimoEntity> obtenerListaSalarioMinimo() {
-        return em.createQuery("SELECT s FROM SalarioMinimoEntity AS s", SalarioMinimoEntity.class).getResultList();
+        return em.createQuery("SELECT s FROM SalarioMinimoEntity AS s",
+                SalarioMinimoEntity.class).getResultList();
     }
 
 }

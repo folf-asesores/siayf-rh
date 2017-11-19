@@ -31,19 +31,24 @@ public class NotificadorErroresEJB implements NotificadorErrores {
     @Override
     public void crear(CorreoNotificacionDTO correo) {
         if (correo == null) {
-            throw new ValidacionException("El DTO no puede der nulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("El DTO no puede der nulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(correo.getAlias())) {
-            throw new ValidacionException("Debe indicar un alias.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Debe indicar un alias.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(correo.getCorreoElectronico())) {
-            throw new ValidacionException("Debe indicar un correo electrónico.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Debe indicar un correo electrónico.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!EmailValidator.validate(correo.getCorreoElectronico())) {
-            throw new ValidacionException("El formato del correo electrónico es invalido.", ValidacionCodigoError.FORMATO_INVALIDO);
+            throw new ValidacionException(
+                    "El formato del correo electrónico es invalido.",
+                    ValidacionCodigoError.FORMATO_INVALIDO);
         }
 
         correo.setIdCorreoNotificacion(null);
@@ -53,19 +58,24 @@ public class NotificadorErroresEJB implements NotificadorErrores {
     @Override
     public void actualizar(CorreoNotificacionDTO correo) {
         if (correo == null) {
-            throw new ValidacionException("El DTO no puede der nulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("El DTO no puede der nulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(correo.getAlias())) {
-            throw new ValidacionException("Debe indicar un alias.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Debe indicar un alias.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (ValidacionUtil.esCadenaVacia(correo.getCorreoElectronico())) {
-            throw new ValidacionException("Debe indicar un correo electrónico.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("Debe indicar un correo electrónico.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!EmailValidator.validate(correo.getCorreoElectronico())) {
-            throw new ValidacionException("El formato del correo electrónico es invalido.", ValidacionCodigoError.FORMATO_INVALIDO);
+            throw new ValidacionException(
+                    "El formato del correo electrónico es invalido.",
+                    ValidacionCodigoError.FORMATO_INVALIDO);
         }
 
         notificadorErroresService.actualizar(correo);
@@ -79,7 +89,9 @@ public class NotificadorErroresEJB implements NotificadorErrores {
     @Override
     public void eliminar(int idCorreoNotificacion) {
         if (ValidacionUtil.esMenorQueUno(idCorreoNotificacion)) {
-            throw new ValidacionException("El ID no puede ser nulo, cero o menor que uno.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El ID no puede ser nulo, cero o menor que uno.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         notificadorErroresService.eliminar(idCorreoNotificacion);

@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 
 /**
  * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
-
+ * 
  * @version 1.0
  * @since 17/08/2016 16:48:20
  */
@@ -141,7 +141,8 @@ public class PostulacionVacanteEntity implements Serializable {
      * @param inventarioVacante
      *            the inventarioVacante to set
      */
-    public void setInventarioVacante(InventarioVacanteEntity inventarioVacante) {
+    public void setInventarioVacante(
+            InventarioVacanteEntity inventarioVacante) {
         this.inventarioVacante = inventarioVacante;
     }
 

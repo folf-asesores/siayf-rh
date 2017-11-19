@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * Este managed bean ayuda en la visualización de los reportes.
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 @Named(value = "administradorReporte")
 @ApplicationScoped
@@ -49,13 +49,19 @@ public class AdministradorReporteController implements Serializable {
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
             return new DefaultStreamedContent();
         } else {
-            String referencia = context.getExternalContext().getRequestParameterMap().get("referencia");
+            String referencia = context.getExternalContext()
+                    .getRequestParameterMap().get("referencia");
 
-            if (!ValidacionUtil.esCadenaVacia(referencia) && "pdf".equals(administradorReportes.obtenerTipoReporte(referencia))) {
-                byte[] bytesReporte = administradorReportes.obtenerReporte(referencia);
-                ByteArrayInputStream bais = new ByteArrayInputStream(bytesReporte);
+            if (!ValidacionUtil.esCadenaVacia(referencia) && "pdf".equals(
+                    administradorReportes.obtenerTipoReporte(referencia))) {
+                byte[] bytesReporte = administradorReportes
+                        .obtenerReporte(referencia);
+                ByteArrayInputStream bais = new ByteArrayInputStream(
+                        bytesReporte);
 
-                return new DefaultStreamedContent(bais, TipoArchivo.PDF.getMIMEType(), administradorReportes.obtenerNombreReporte(referencia));
+                return new DefaultStreamedContent(bais,
+                        TipoArchivo.PDF.getMIMEType(),
+                        administradorReportes.obtenerNombreReporte(referencia));
             } else {
                 return new DefaultStreamedContent();
             }

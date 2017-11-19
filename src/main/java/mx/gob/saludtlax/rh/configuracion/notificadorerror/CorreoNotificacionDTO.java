@@ -24,7 +24,8 @@ public class CorreoNotificacionDTO implements Serializable {
         this(0, "", "");
     }
 
-    public CorreoNotificacionDTO(Integer idCorreoNotificacion, String alias, String correoElectronico) {
+    public CorreoNotificacionDTO(Integer idCorreoNotificacion, String alias,
+            String correoElectronico) {
         this.idCorreoNotificacion = idCorreoNotificacion;
         this.alias = alias;
         this.correoElectronico = correoElectronico;

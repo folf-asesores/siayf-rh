@@ -41,7 +41,8 @@ public class EstructuraDTO {
 
         if ((indice > getSize()) && (obj == null)) {
             System.out.println("tamaño:" + getSize() + " ind" + indice);
-            throw new IndexOutOfBoundsException("No se ha proporcionado índice valido:" + indice);
+            throw new IndexOutOfBoundsException(
+                    "No se ha proporcionado índice valido:" + indice);
 
             //throw new AnexoException(AnexoException.ERROR_INDICE_INVALIDO, indice);
         } else if (obj == null) {
@@ -85,7 +86,9 @@ public class EstructuraDTO {
 
                 return (T) integer;
             } else if (BigDecimal.class.isAssignableFrom(t)) {
-                BigDecimal decimal = BigDecimal.valueOf(valorDouble.doubleValue()).setScale(2, RoundingMode.HALF_EVEN);
+                BigDecimal decimal = BigDecimal
+                        .valueOf(valorDouble.doubleValue())
+                        .setScale(2, RoundingMode.HALF_EVEN);
                 //log.debug("Valor de conversión: " + decimal.toPlainString());
                 return (T) decimal;
             } else if (Long.class.isAssignableFrom(t)) {
@@ -116,7 +119,10 @@ public class EstructuraDTO {
             return (T) campo;
         }
 
-        throw new EstructuraException(exceptionAnexo(t.getSimpleName(), obj.getClass().getSimpleName()), ((Integer) datos.get(-1) + 1), obtenerColumna(indice));
+        throw new EstructuraException(
+                exceptionAnexo(t.getSimpleName(),
+                        obj.getClass().getSimpleName()),
+                ((Integer) datos.get(-1) + 1), obtenerColumna(indice));
 
         /**
          * throw new IllegalArgumentException("Tipo invalido\nClase requerida: "
@@ -129,33 +135,42 @@ public class EstructuraDTO {
 
     private String exceptionAnexo(String requiere, String obtiene) {
 
-        if (requiere.equalsIgnoreCase("Date") && obtiene.equalsIgnoreCase("String")) {
+        if (requiere.equalsIgnoreCase("Date")
+                && obtiene.equalsIgnoreCase("String")) {
             return EstructuraException.ERROR_STRING_TO_DATE;
 
-        } else if (requiere.equalsIgnoreCase("Integer") && obtiene.equalsIgnoreCase("String")) {
+        } else if (requiere.equalsIgnoreCase("Integer")
+                && obtiene.equalsIgnoreCase("String")) {
             return EstructuraException.ERROR_STRING_TO_INTEGER;
 
         }
-        if (requiere.equalsIgnoreCase("Double") && obtiene.equalsIgnoreCase("String")) {
+        if (requiere.equalsIgnoreCase("Double")
+                && obtiene.equalsIgnoreCase("String")) {
             return EstructuraException.ERROR_STRING_TO_DOUBLE;
 
-        } else if (requiere.equalsIgnoreCase("BigDecimal") && obtiene.equalsIgnoreCase("String")) {
+        } else if (requiere.equalsIgnoreCase("BigDecimal")
+                && obtiene.equalsIgnoreCase("String")) {
             return EstructuraException.ERROR_STRING_TO_BIGDECIMAL;
 
         }
-        if (requiere.equalsIgnoreCase("Long") && obtiene.equalsIgnoreCase("String")) {
+        if (requiere.equalsIgnoreCase("Long")
+                && obtiene.equalsIgnoreCase("String")) {
             return EstructuraException.ERROR_STRING_TO_LONG;
 
-        } else if (requiere.equalsIgnoreCase("Date") && obtiene.equalsIgnoreCase("Integer")) {
+        } else if (requiere.equalsIgnoreCase("Date")
+                && obtiene.equalsIgnoreCase("Integer")) {
             return EstructuraException.ERROR_INTEGER_TO_DATE;
 
-        } else if (requiere.equalsIgnoreCase("Date") && obtiene.equalsIgnoreCase("Double")) {
+        } else if (requiere.equalsIgnoreCase("Date")
+                && obtiene.equalsIgnoreCase("Double")) {
             return EstructuraException.ERROR_DOUBLE_TO_DATE;
 
-        } else if (requiere.equalsIgnoreCase("Date") && obtiene.equalsIgnoreCase("BigDecimal")) {
+        } else if (requiere.equalsIgnoreCase("Date")
+                && obtiene.equalsIgnoreCase("BigDecimal")) {
             return EstructuraException.ERROR_BIGDECIMAL_TO_DATE;
 
-        } else if (requiere.equalsIgnoreCase("Date") && obtiene.equalsIgnoreCase("Long")) {
+        } else if (requiere.equalsIgnoreCase("Date")
+                && obtiene.equalsIgnoreCase("Long")) {
             return EstructuraException.ERROR_LONG_TO_DATE;
 
         } else {
@@ -168,7 +183,8 @@ public class EstructuraDTO {
             columna = Character.toUpperCase(columna);
             return columna - 'A';
         } else {
-            throw new IllegalArgumentException("Se esperaba una letra y se recibio:" + columna);
+            throw new IllegalArgumentException(
+                    "Se esperaba una letra y se recibio:" + columna);
         }
     }
 
@@ -179,7 +195,9 @@ public class EstructuraDTO {
             System.out.println("Columna: " + columna + " indice: " + indice);
             return Character.toUpperCase(columna);
         } else {
-            throw new IllegalArgumentException("Se esperaba un valor que sea comparable con la table UTF-16 se obtuvo:" + indice + " char: " + columna);
+            throw new IllegalArgumentException(
+                    "Se esperaba un valor que sea comparable con la table UTF-16 se obtuvo:"
+                            + indice + " char: " + columna);
         }
     }
 

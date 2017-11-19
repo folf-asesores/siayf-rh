@@ -20,7 +20,8 @@ public interface UnidadResponsable {
 
     UnidadResponsableDTO actualizarUnidadResponsable(UnidadResponsableDTO dto);
 
-    List<String> consultarDescripcionUnidadesResponsablesPorCriterio(String consulta);
+    List<String> consultarDescripcionUnidadesResponsablesPorCriterio(
+            String consulta);
 
     Integer consultarIdUnidadResponsablePorDescripcion(String descripcion);
 
@@ -30,7 +31,8 @@ public interface UnidadResponsable {
 
     UnidadResponsableDTO nuevoUnidadResponsable();
 
-    UnidadResponsableDTO obtenerUnidadResponsable(UnidadResponsableDTO unidadResponsable);
+    UnidadResponsableDTO obtenerUnidadResponsable(
+            UnidadResponsableDTO unidadResponsable);
 
     List<UnidadResponsableDTO> obtenerUnidadResponsableLista();
 

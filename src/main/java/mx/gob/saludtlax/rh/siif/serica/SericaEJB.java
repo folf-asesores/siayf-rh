@@ -20,7 +20,7 @@ import org.jboss.logging.Logger;
 import com.google.common.io.Files;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
@@ -31,7 +31,8 @@ public class SericaEJB implements Serica, Serializable {
      */
     private static final long serialVersionUID = 2613208996790829992L;
 
-    private static final Logger LOGGER = Logger.getLogger(SericaEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SericaEJB.class.getName());
 
     @Inject
     private SericaService sericaService;
@@ -40,11 +41,16 @@ public class SericaEJB implements Serica, Serializable {
     public byte[] getDetalleSerica() {
 
         try {
-            List<DetalleSericaDTO> consultarDetalleSericaEncabezado = sericaService.consultarDetalleSericaEncabezados();
-            LOGGER.debugv("Cantidad de Encabezados en el txt: {0}", consultarDetalleSericaEncabezado.size());
-            List<DetalleSericaDTO> consultarDetalleSerica = sericaService.consultarDetalleSerica();
-            LOGGER.debugv("Cantidad de elementos en el txt: {0}", consultarDetalleSerica.size());
-            byte[] txt = sericaService.generarTxt(consultarDetalleSericaEncabezado, consultarDetalleSerica);
+            List<DetalleSericaDTO> consultarDetalleSericaEncabezado = sericaService
+                    .consultarDetalleSericaEncabezados();
+            LOGGER.debugv("Cantidad de Encabezados en el txt: {0}",
+                    consultarDetalleSericaEncabezado.size());
+            List<DetalleSericaDTO> consultarDetalleSerica = sericaService
+                    .consultarDetalleSerica();
+            LOGGER.debugv("Cantidad de elementos en el txt: {0}",
+                    consultarDetalleSerica.size());
+            byte[] txt = sericaService.generarTxt(
+                    consultarDetalleSericaEncabezado, consultarDetalleSerica);
 
             // Generación del archivo zip
             File file = File.createTempFile("txt", ".zip");
@@ -72,29 +78,36 @@ public class SericaEJB implements Serica, Serializable {
     }
 
     @Override
-    public byte[] getDetallerSericaPeriodo(Integer periodo, Integer ejercicioFiscal) {
+    public byte[] getDetallerSericaPeriodo(Integer periodo,
+            Integer ejercicioFiscal) {
 
         try {
 
-            List<DetalleSericaDTO> consultarDetalleSericaEncabezado = sericaService.consultarDetalleSericaEncabezados();
+            List<DetalleSericaDTO> consultarDetalleSericaEncabezado = sericaService
+                    .consultarDetalleSericaEncabezados();
 
             // Declaramos el Iterador e imprimimos los Elementos del ArrayList
-            Iterator<DetalleSericaDTO> nombreEncabezadoIterator = consultarDetalleSericaEncabezado.iterator();
+            Iterator<DetalleSericaDTO> nombreEncabezadoIterator = consultarDetalleSericaEncabezado
+                    .iterator();
             while (nombreEncabezadoIterator.hasNext()) {
                 DetalleSericaDTO elemento = nombreEncabezadoIterator.next();
                 LOGGER.info(elemento.toString());
             }
 
-            List<SericaDTO> consultarDetalleSerica = sericaService.consultarDetalleSericaEncabezadosPeriodo(periodo, ejercicioFiscal);
+            List<SericaDTO> consultarDetalleSerica = sericaService
+                    .consultarDetalleSericaEncabezadosPeriodo(periodo,
+                            ejercicioFiscal);
 
             // Declaramos el Iterador e imprimimos los Elementos del ArrayList
-            Iterator<SericaDTO> nombreIterator = consultarDetalleSerica.iterator();
+            Iterator<SericaDTO> nombreIterator = consultarDetalleSerica
+                    .iterator();
             while (nombreIterator.hasNext()) {
                 SericaDTO elemento = nombreIterator.next();
                 // LOGGER.info(elemento.toString());
             }
 
-            byte[] txt = sericaService.generarDetailTxt(consultarDetalleSericaEncabezado, consultarDetalleSerica);
+            byte[] txt = sericaService.generarDetailTxt(
+                    consultarDetalleSericaEncabezado, consultarDetalleSerica);
 
             // Generación del archivo zip
             File file = File.createTempFile("txt", ".zip");

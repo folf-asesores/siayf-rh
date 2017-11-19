@@ -54,17 +54,26 @@ public class HabilitacionSuplenteController implements Serializable {
         view.setTiposCandidatos(SelectItemsUtil.listaTipoCandidato());
         view.setMostrarBusqueda(true);
         view.setListaTiposSexo(SelectItemsUtil.listaTiposSexo());
-        view.setListaEstados(SelectItemsUtil.listaCatalogos(catalogos.listaEstados()));
-        view.setListaBancos(SelectItemsUtil.listaCatalogos(catalogos.listaBancos()));
-        view.setListaDependencias(SelectItemsUtil.listaCatalogos(catalogos.listaDependencias()));
-        view.setListaProyectos(SelectItemsUtil.listaCatalogos(catalogos.consultarProyectos()));
-        view.setListaCentrosResponsabilidades(SelectItemsUtil.listaCatalogos(catalogos.consultarCentrosResponsabilidades()));
-        view.setListaTiposBusqueda(SelectItemsUtil.listaTiposBusquedaSuplentes());
-        view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogos.listaPuestos()));
+        view.setListaEstados(
+                SelectItemsUtil.listaCatalogos(catalogos.listaEstados()));
+        view.setListaBancos(
+                SelectItemsUtil.listaCatalogos(catalogos.listaBancos()));
+        view.setListaDependencias(
+                SelectItemsUtil.listaCatalogos(catalogos.listaDependencias()));
+        view.setListaProyectos(
+                SelectItemsUtil.listaCatalogos(catalogos.consultarProyectos()));
+        view.setListaCentrosResponsabilidades(SelectItemsUtil
+                .listaCatalogos(catalogos.consultarCentrosResponsabilidades()));
+        view.setListaTiposBusqueda(
+                SelectItemsUtil.listaTiposBusquedaSuplentes());
+        view.setListaPuestos(
+                SelectItemsUtil.listaCatalogos(catalogos.listaPuestos()));
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuarioLogeado(usuario.getIdUsuario());
 
     }
@@ -72,8 +81,9 @@ public class HabilitacionSuplenteController implements Serializable {
     public void obtenerUnidadesResponsables() {
         view.getListaUnidadesResponsables().clear();
         if (view.getRegistroSuplente().getIdDependencia() != 0) {
-            view.setListaUnidadesResponsables(
-                    SelectItemsUtil.listaCatalogos(catalogos.listaUnidadesResponsablesPorDependencia(view.getRegistroSuplente().getIdDependencia())));
+            view.setListaUnidadesResponsables(SelectItemsUtil.listaCatalogos(
+                    catalogos.listaUnidadesResponsablesPorDependencia(
+                            view.getRegistroSuplente().getIdDependencia())));
         }
 
     }
@@ -84,8 +94,10 @@ public class HabilitacionSuplenteController implements Serializable {
         view.setEmpleado(empleado.obtenerInformacionEmpleado(idEmpleado));
         view.setMostrarDetalleEmpleado(true);
         view.getRegistroSuplente().setIdEmpleado(idEmpleado);
-        view.getRegistroSuplente().setIdTipoCandidato(EnumTipoCandidato.EMPLEADO);
-        if (view.getEmpleado().getEstatus().equals(EnumEstatusEmpleado.ACTIVO) && view.getEmpleado().getTipoEmpleado().equals("EMPLEADO")) {
+        view.getRegistroSuplente()
+                .setIdTipoCandidato(EnumTipoCandidato.EMPLEADO);
+        if (view.getEmpleado().getEstatus().equals(EnumEstatusEmpleado.ACTIVO)
+                && view.getEmpleado().getTipoEmpleado().equals("EMPLEADO")) {
             view.setMostrarDetalleLaboral(true);
         }
 
@@ -96,16 +108,21 @@ public class HabilitacionSuplenteController implements Serializable {
     }
 
     public void consultarMunicipioPorIdEstado() {
-        if (view.getRegistroSuplente().getSuplente().getDireccion().getIdEstado() != 0) {
-            view.setListaMunicipios(SelectItemsUtil
-                    .listaCatalogos(catalogos.consultarMunicipiosPorEstado(view.getRegistroSuplente().getSuplente().getDireccion().getIdEstado())));
+        if (view.getRegistroSuplente().getSuplente().getDireccion()
+                .getIdEstado() != 0) {
+            view.setListaMunicipios(SelectItemsUtil.listaCatalogos(catalogos
+                    .consultarMunicipiosPorEstado(view.getRegistroSuplente()
+                            .getSuplente().getDireccion().getIdEstado())));
         }
     }
 
     public void consultarAsentamientosPorIdMunicipio() {
-        if (view.getRegistroSuplente().getSuplente().getDireccion().getIdMunicipio() != 0) {
-            view.setListaAsentamientos(SelectItemsUtil
-                    .listaCatalogos(catalogos.consultarAsantamientosPorMunicipios(view.getRegistroSuplente().getSuplente().getDireccion().getIdMunicipio())));
+        if (view.getRegistroSuplente().getSuplente().getDireccion()
+                .getIdMunicipio() != 0) {
+            view.setListaAsentamientos(SelectItemsUtil.listaCatalogos(
+                    catalogos.consultarAsantamientosPorMunicipios(
+                            view.getRegistroSuplente().getSuplente()
+                                    .getDireccion().getIdMunicipio())));
 
         }
 
@@ -132,10 +149,12 @@ public class HabilitacionSuplenteController implements Serializable {
 
         if (view.getIdTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
             view.setMostrarAltaSuplente(true);
-            view.getRegistroSuplente().setIdTipoCandidato(EnumTipoCandidato.ASPIRANTE);
+            view.getRegistroSuplente()
+                    .setIdTipoCandidato(EnumTipoCandidato.ASPIRANTE);
         } else if (view.getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
             view.setMostrarEmpleado(true);
-            view.getRegistroSuplente().setIdTipoCandidato(EnumTipoCandidato.EMPLEADO);
+            view.getRegistroSuplente()
+                    .setIdTipoCandidato(EnumTipoCandidato.EMPLEADO);
         }
 
     }
@@ -149,15 +168,20 @@ public class HabilitacionSuplenteController implements Serializable {
             view.setMostrarBusqueda(true);
             RegistroSuplenteDTO registro = new RegistroSuplenteDTO();
             view.setRegistroSuplente(registro);
-            JSFUtils.infoMessage("", "¡El suplente ha sido habilitado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El suplente ha sido habilitado con éxito!");
         } catch (ReglaNegocioException | ValidacionException exception) {
 
-            if (view.getRegistroSuplente().getIdTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
+            if (view.getRegistroSuplente()
+                    .getIdTipoCandidato() == EnumTipoCandidato.ASPIRANTE) {
 
-                JSFUtils.errorMessageEspecifico("errorCandidato", "", exception.getMessage());
-            } else if (view.getRegistroSuplente().getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
+                JSFUtils.errorMessageEspecifico("errorCandidato", "",
+                        exception.getMessage());
+            } else if (view.getRegistroSuplente()
+                    .getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
 
-                JSFUtils.errorMessageEspecifico("errorEmpleado", "", exception.getMessage());
+                JSFUtils.errorMessageEspecifico("errorEmpleado", "",
+                        exception.getMessage());
             }
 
         }
@@ -165,9 +189,12 @@ public class HabilitacionSuplenteController implements Serializable {
 
     public void consultarSuplentes() {
         view.getSuplentes().clear();
-        view.setSuplentes(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        view.setSuplentes(
+                suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
         if (view.getSuplentes().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontrarón suplentes con el criterio " + view.getFiltro().getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontrarón suplentes con el criterio "
+                            + view.getFiltro().getCriterio());
         }
 
     }
@@ -175,17 +202,24 @@ public class HabilitacionSuplenteController implements Serializable {
     public void seleccionarTipoBusqueda() {
         view.setMostrarCriterio(false);
         view.getSuplentes().clear();
-        if (view.getFiltro().getTipoConsulta() == EnumTipoConsultaSuplencia.NOMBRE) {
+        if (view.getFiltro()
+                .getTipoConsulta() == EnumTipoConsultaSuplencia.NOMBRE) {
             view.setMostrarCriterio(true);
-        } else if (view.getFiltro().getTipoConsulta() == EnumTipoConsultaSuplencia.ACTIVO) {
-            view.setSuplentes(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        } else if (view.getFiltro()
+                .getTipoConsulta() == EnumTipoConsultaSuplencia.ACTIVO) {
+            view.setSuplentes(
+                    suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
             if (view.getSuplentes().isEmpty()) {
-                JSFUtils.warningMessage("", "No se encontrarón suplentes activos registrados");
+                JSFUtils.warningMessage("",
+                        "No se encontrarón suplentes activos registrados");
             }
-        } else if (view.getFiltro().getTipoConsulta() == EnumTipoConsultaSuplencia.INACTIVO) {
-            view.setSuplentes(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        } else if (view.getFiltro()
+                .getTipoConsulta() == EnumTipoConsultaSuplencia.INACTIVO) {
+            view.setSuplentes(
+                    suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
             if (view.getSuplentes().isEmpty()) {
-                JSFUtils.warningMessage("", "No se encontrarón suplentes inactivos registrados");
+                JSFUtils.warningMessage("",
+                        "No se encontrarón suplentes inactivos registrados");
             }
         }
     }

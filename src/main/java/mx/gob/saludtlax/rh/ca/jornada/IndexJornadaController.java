@@ -37,26 +37,35 @@ public class IndexJornadaController {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
         try {
             listadoFormModel = jornadaClientRest.listadoJornada();
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -74,13 +83,15 @@ public class IndexJornadaController {
         return listadoFormModelFiltrado;
     }
 
-    public void setListadoFormModelFiltrado(List<JornadaFormModel> listadoFormModelFiltrado) {
+    public void setListadoFormModelFiltrado(
+            List<JornadaFormModel> listadoFormModelFiltrado) {
         this.listadoFormModelFiltrado = listadoFormModelFiltrado;
     }
 
     public String editar(Integer id) {
 
-        return "editar.xhtml?faces-redirect=true&includeViewParams=true&id=" + id;
+        return "editar.xhtml?faces-redirect=true&includeViewParams=true&id="
+                + id;
     }
 
 }

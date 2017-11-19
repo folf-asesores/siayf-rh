@@ -42,7 +42,8 @@ public class EjercicioFiscalController {
     }
 
     public String filtrarEjercicioFiscal() {
-        view.setListEjercicioFiscal(ejb.obtenerEjercicioFiscalListaPorAnio(view.getEjercicioFiscalCriterio()));
+        view.setListEjercicioFiscal(ejb.obtenerEjercicioFiscalListaPorAnio(
+                view.getEjercicioFiscalCriterio()));
         return null;
     }
 
@@ -61,7 +62,8 @@ public class EjercicioFiscalController {
     }
 
     public String irGestionarEjercicioFiscal() {
-        view.setEjercicioFiscal(ejb.obtenerEjercicioFiscal(view.getEjercicioFiscalSelect()));
+        view.setEjercicioFiscal(
+                ejb.obtenerEjercicioFiscal(view.getEjercicioFiscalSelect()));
         view.setListTipoPeriodo(ejb.obtenerTipoPeriodoLista());
         view.setOperacionNuevo(Boolean.FALSE);
         view.setOpcionesPeriodo(Boolean.TRUE);
@@ -118,8 +120,11 @@ public class EjercicioFiscalController {
     }
 
     public void onRowSelectPeriodoCalendario(CellEditEvent event) {
-        for (PeriodoCalendarioDTO df : view.getEjercicioFiscal().getListPeriodoCalendario()) {
-            System.out.println("InicioPeriodo..." + df.getInicioPeriodo() + "FinPeriodo..." + df.getFinPeriodo() + "TipoPEriodo..." + df.getIdTipoPeriodo());
+        for (PeriodoCalendarioDTO df : view.getEjercicioFiscal()
+                .getListPeriodoCalendario()) {
+            System.out.println("InicioPeriodo..." + df.getInicioPeriodo()
+                    + "FinPeriodo..." + df.getFinPeriodo() + "TipoPEriodo..."
+                    + df.getIdTipoPeriodo());
         }
     }
 
@@ -159,7 +164,8 @@ public class EjercicioFiscalController {
 
     //	<<Validador de Busqueda>>
 
-    public void validatorBusqueda(FacesContext context, UIComponent component, Object value) {
+    public void validatorBusqueda(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -169,13 +175,19 @@ public class EjercicioFiscalController {
                     break;
                 } else {
                     if (ejercicioFiscal < 2000) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     } else {
                         if (ejercicioFiscal > 2050) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     }
@@ -188,7 +200,8 @@ public class EjercicioFiscalController {
 
     //	<<Validador de Ejercicio Fiscal>>
 
-    public void validatorEjercicio(FacesContext context, UIComponent component, Object value) {
+    public void validatorEjercicio(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -196,18 +209,26 @@ public class EjercicioFiscalController {
                 EjercicioFiscal = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(EjercicioFiscal)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor introduzca un Ejercicio Fiscal.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor introduzca un Ejercicio Fiscal.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (EjercicioFiscal < 2000) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     } else {
                         if (EjercicioFiscal > 2050) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     }
@@ -217,17 +238,22 @@ public class EjercicioFiscalController {
                 inicio = (Date) value;
 
                 if (inicio == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de inicio.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de inicio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (EjercicioFiscal == null) {
-                        EjercicioFiscal = view.getEjercicioFiscalSelect().getIdEjercicioFiscal();
+                        EjercicioFiscal = view.getEjercicioFiscalSelect()
+                                .getIdEjercicioFiscal();
                     } else {
                         if ((obtenerAnio(inicio) - EjercicioFiscal) != 0) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
                                     "Por favor ingrese una fecha que sea del mismo Ejercicio Fiscal");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     }
@@ -237,7 +263,9 @@ public class EjercicioFiscalController {
                 fin = (Date) value;
 
                 if (fin == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de fin.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de fin.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
@@ -245,9 +273,11 @@ public class EjercicioFiscalController {
                         inicio = new Date(2000 - 01 - 01);
                     } else {
                         if (fin.compareTo(inicio) < 0) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
                                     "Por favor ingrese una fecha que no sea menor a la fecha de inicio");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     }
@@ -257,7 +287,9 @@ public class EjercicioFiscalController {
                 Integer periodicidad1 = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(periodicidad1)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un Periodo");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un Periodo");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -285,7 +317,8 @@ public class EjercicioFiscalController {
 
     //	<<Validador de Periodo Calendario>>
 
-    public void validatorPeriodo(FacesContext context, UIComponent component, Object value) {
+    public void validatorPeriodo(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -293,7 +326,9 @@ public class EjercicioFiscalController {
                 Date inicioPeriodo = (Date) value;
 
                 if (inicioPeriodo == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de inicio periodo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de inicio periodo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -302,7 +337,9 @@ public class EjercicioFiscalController {
                 Date finPeriodo = (Date) value;
 
                 if (finPeriodo == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una fecha de fin periodo.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una fecha de fin periodo.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -320,7 +357,9 @@ public class EjercicioFiscalController {
                 Integer tp = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tp)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un Tipo de Periodo");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un Tipo de Periodo");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }

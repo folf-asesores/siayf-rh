@@ -31,11 +31,16 @@ public class EstrategiaService {
 
     protected int crear(EstrategiaDTO dto) {
         if (dto.getCodigoEstrategia() < 1) {
-            throw new ValidationException("El código de la estrategia no puede ser negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidationException(
+                    "El código de la estrategia no puede ser negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        if (estrategiaRepository.existeCodigoEstrategia(dto.getCodigoEstrategia())) {
-            throw new ReglaNegocioException("Ya existe un código de estrategia registrado, con el mismo código.", CODIGO_ESTRATEGIA_DUPLICADO);
+        if (estrategiaRepository
+                .existeCodigoEstrategia(dto.getCodigoEstrategia())) {
+            throw new ReglaNegocioException(
+                    "Ya existe un código de estrategia registrado, con el mismo código.",
+                    CODIGO_ESTRATEGIA_DUPLICADO);
         }
 
         EstrategiaEntity entidad = convertirDTOAEntidad(dto);
@@ -51,23 +56,28 @@ public class EstrategiaService {
     }
 
     protected EstrategiaDTO obtenerPorId(int idEstrategia) {
-        EstrategiaEntity entidad = estrategiaRepository.obtenerPorId(idEstrategia);
+        EstrategiaEntity entidad = estrategiaRepository
+                .obtenerPorId(idEstrategia);
 
         return convertirEntidadADTO(entidad);
     }
 
     protected List<EstrategiaDTO> consultarEstrategias() {
-        List<EstrategiaEntity> listaEntidades = estrategiaRepository.consultarEstrategias();
+        List<EstrategiaEntity> listaEntidades = estrategiaRepository
+                .consultarEstrategias();
 
         return convetirListaEntidadesAListaDTOs(listaEntidades);
     }
 
-    protected List<String> consultarDescripcionEstrategiaPorCriterio(String criterio) {
-        return estrategiaRepository.consultarDescripcionEstrategiaPorCriterio(criterio);
+    protected List<String> consultarDescripcionEstrategiaPorCriterio(
+            String criterio) {
+        return estrategiaRepository
+                .consultarDescripcionEstrategiaPorCriterio(criterio);
     }
 
     protected Integer consultarIdEstrategiaPorDescripcion(String descripcion) {
-        return estrategiaRepository.consultarIdEstrategiaPorDescripcion(descripcion);
+        return estrategiaRepository
+                .consultarIdEstrategiaPorDescripcion(descripcion);
     }
 
     protected void eliminar(int idEstrategia) {
@@ -98,7 +108,8 @@ public class EstrategiaService {
         return dto;
     }
 
-    private List<EstrategiaDTO> convetirListaEntidadesAListaDTOs(List<EstrategiaEntity> listaEntidades) {
+    private List<EstrategiaDTO> convetirListaEntidadesAListaDTOs(
+            List<EstrategiaEntity> listaEntidades) {
         List<EstrategiaDTO> listaDTOs = new ArrayList<>();
 
         for (EstrategiaEntity entidad : listaEntidades) {

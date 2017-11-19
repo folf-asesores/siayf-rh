@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class HistorialPagoDetalleDTO implements Serializable {
@@ -52,14 +52,24 @@ public class HistorialPagoDetalleDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "HistorialPagoDetalleDTO [rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
-                + centroResponsabilidad + ", conceptoCentroResponsabilidad=" + conceptoCentroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa
-                + ", honorariosAsimilables=" + honorariosAsimilables + ", suplencias=" + suplencias + ", diasEconomicos=" + diasEconomicos
-                + ", percepcionComplementaria=" + percepcionComplementaria + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio=" + subsidio
-                + ", primaVacacional=" + primaVacacional + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo=" + retroactivo + ", otros=" + otros
-                + ", faltasRetardos=" + faltasRetardos + ", isr=" + isr + ", responsabilidades=" + responsabilidades + ", prestamo=" + prestamo
-                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical=" + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia + ", total="
-                + total + "]";
+        return "HistorialPagoDetalleDTO [rfc=" + rfc + ", nombreEmpleado="
+                + nombreEmpleado + ", fechaIngreso=" + fechaIngreso
+                + ", centroResponsabilidad=" + centroResponsabilidad
+                + ", conceptoCentroResponsabilidad="
+                + conceptoCentroResponsabilidad + ", funcion=" + funcion
+                + ", programa=" + programa + ", honorariosAsimilables="
+                + honorariosAsimilables + ", suplencias=" + suplencias
+                + ", diasEconomicos=" + diasEconomicos
+                + ", percepcionComplementaria=" + percepcionComplementaria
+                + ", bono=" + bono + ", aguinaldo=" + aguinaldo + ", subsidio="
+                + subsidio + ", primaVacacional=" + primaVacacional
+                + ", bonificacionFalta=" + bonificacionFalta + ", retroactivo="
+                + retroactivo + ", otros=" + otros + ", faltasRetardos="
+                + faltasRetardos + ", isr=" + isr + ", responsabilidades="
+                + responsabilidades + ", prestamo=" + prestamo
+                + ", juicioMercantil=" + juicioMercantil + ", cuotaSindical="
+                + cuotaSindical + ", pensionAlimenticia=" + pensionAlimenticia
+                + ", total=" + total + "]";
     }
 
     public String getRfc() {
@@ -98,7 +108,8 @@ public class HistorialPagoDetalleDTO implements Serializable {
         return conceptoCentroResponsabilidad;
     }
 
-    public void setConceptoCentroResponsabilidad(String conceptoCentroResponsabilidad) {
+    public void setConceptoCentroResponsabilidad(
+            String conceptoCentroResponsabilidad) {
         this.conceptoCentroResponsabilidad = conceptoCentroResponsabilidad;
     }
 
@@ -146,7 +157,8 @@ public class HistorialPagoDetalleDTO implements Serializable {
         return percepcionComplementaria;
     }
 
-    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
+    public void setPercepcionComplementaria(
+            BigDecimal percepcionComplementaria) {
         this.percepcionComplementaria = percepcionComplementaria;
     }
 
@@ -266,24 +278,34 @@ public class HistorialPagoDetalleDTO implements Serializable {
 
         total = BigDecimal.ZERO;
 
-        total = total.add(honorariosAsimilables == null ? BigDecimal.ZERO : honorariosAsimilables);
+        total = total.add(honorariosAsimilables == null ? BigDecimal.ZERO
+                : honorariosAsimilables);
         total = total.add(suplencias == null ? BigDecimal.ZERO : suplencias);
-        total = total.add(diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos);
-        total = total.add(percepcionComplementaria == null ? BigDecimal.ZERO : percepcionComplementaria);
+        total = total
+                .add(diasEconomicos == null ? BigDecimal.ZERO : diasEconomicos);
+        total = total.add(percepcionComplementaria == null ? BigDecimal.ZERO
+                : percepcionComplementaria);
         total = total.add(bono == null ? BigDecimal.ZERO : bono);
         total = total.add(aguinaldo == null ? BigDecimal.ZERO : aguinaldo);
         total = total.add(subsidio == null ? BigDecimal.ZERO : subsidio);
-        total = total.add(primaVacacional == null ? BigDecimal.ZERO : primaVacacional);
-        total = total.add(bonificacionFalta == null ? BigDecimal.ZERO : bonificacionFalta);
+        total = total.add(
+                primaVacacional == null ? BigDecimal.ZERO : primaVacacional);
+        total = total.add(bonificacionFalta == null ? BigDecimal.ZERO
+                : bonificacionFalta);
         total = total.add(retroactivo == null ? BigDecimal.ZERO : retroactivo);
         total = total.add(otros == null ? BigDecimal.ZERO : otros);
-        total = total.add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
+        total = total
+                .add(faltasRetardos == null ? BigDecimal.ZERO : faltasRetardos);
         total = total.add(isr == null ? BigDecimal.ZERO : isr);
-        total = total.add(responsabilidades == null ? BigDecimal.ZERO : responsabilidades);
+        total = total.add(responsabilidades == null ? BigDecimal.ZERO
+                : responsabilidades);
         total = total.add(prestamo == null ? BigDecimal.ZERO : prestamo);
-        total = total.add(juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
-        total = total.add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
-        total = total.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
+        total = total.add(
+                juicioMercantil == null ? BigDecimal.ZERO : juicioMercantil);
+        total = total
+                .add(cuotaSindical == null ? BigDecimal.ZERO : cuotaSindical);
+        total = total.add(pensionAlimenticia == null ? BigDecimal.ZERO
+                : pensionAlimenticia);
 
         return total;
     }

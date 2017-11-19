@@ -7,8 +7,8 @@ package mx.gob.saludtlax.rh.configuracion.terceroinstitucional;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 10:55:31
  */
@@ -102,7 +102,8 @@ public class TerceroInstitucionalDTO implements Serializable {
         return contrapartidaIdentificadora;
     }
 
-    public void setContrapartidaIdentificadora(String contrapartidaIdentificadora) {
+    public void setContrapartidaIdentificadora(
+            String contrapartidaIdentificadora) {
         this.contrapartidaIdentificadora = contrapartidaIdentificadora;
     }
 

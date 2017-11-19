@@ -37,36 +37,46 @@ public class TimbradoProductoNominaController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = servicioWebEJB.getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
+            ServiciosRSEntity servicioRSEntity = servicioWebEJB
+                    .getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
-        listadoProductosNominaDTO = timbradoProductoNominaService.listadoNominasPendientesPorTimbrar();
+        listadoProductosNominaDTO = timbradoProductoNominaService
+                .listadoNominasPendientesPorTimbrar();
 
     }
 
     public void timbrarNomina(int idNominaSeleccionada) {
 
-        timbradoProductoNominaService.timbrarProductoNominina(idNominaSeleccionada);
+        timbradoProductoNominaService
+                .timbrarProductoNominina(idNominaSeleccionada);
     }
 
     public List<ProductoNominaDTO> getListadoProductosNominaDTO() {
         return listadoProductosNominaDTO;
     }
 
-    public void setListadoProductosNominaDTO(List<ProductoNominaDTO> listadoProductosNominaDTO) {
+    public void setListadoProductosNominaDTO(
+            List<ProductoNominaDTO> listadoProductosNominaDTO) {
         this.listadoProductosNominaDTO = listadoProductosNominaDTO;
     }
 

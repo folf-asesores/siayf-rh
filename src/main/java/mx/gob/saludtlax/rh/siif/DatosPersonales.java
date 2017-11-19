@@ -9,9 +9,11 @@ public interface DatosPersonales {
 
     List<DatosPersonalesDTO> obtenerListaConsultaPorRfc();
 
-    public void eliminarDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect);
+    public void eliminarDatosPersonales(
+            DatosPersonalesDTO DatosPersonalesSelect);
 
-    DatosPersonalesDTO obtenerDatosPersonales(DatosPersonalesDTO DatosPersonalesSelect);
+    DatosPersonalesDTO obtenerDatosPersonales(
+            DatosPersonalesDTO DatosPersonalesSelect);
 
     public void crearDatosPersonales(DatosPersonalesDTO DatosPersonales);
 
@@ -19,7 +21,8 @@ public interface DatosPersonales {
 
     DatosPersonalesDTO nuevoDatosPersonales();
 
-    public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(String rfcCriterio);
+    public List<DatosPersonalesDTO> obtenerlistaDatosPersonalesPorCriterio(
+            String rfcCriterio);
 
     public Boolean verificaIdDatoPersonal(int idDatoPersonal);
 

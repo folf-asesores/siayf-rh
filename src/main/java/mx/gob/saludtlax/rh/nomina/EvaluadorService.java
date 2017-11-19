@@ -24,8 +24,10 @@ public class EvaluadorService {
     @Inject
     private ConceptoNominaFederalesService conceptoNominaService;
 
-    public BigDecimal evaluarFormula(ConceptoNominaFederalesDTO conceptoFederal, NominaEmpleadoEntity nominaEmpleado) {
-        TabuladorDTO tabulador = tabuladorService.obtenerTabuladorPorPuesto(nominaEmpleado.getIdPuestoGeneral().getIdPuestoGeneral(),
+    public BigDecimal evaluarFormula(ConceptoNominaFederalesDTO conceptoFederal,
+            NominaEmpleadoEntity nominaEmpleado) {
+        TabuladorDTO tabulador = tabuladorService.obtenerTabuladorPorPuesto(
+                nominaEmpleado.getIdPuestoGeneral().getIdPuestoGeneral(),
                 FechaUtil.ejercicioActual());
         String formula = conceptoFederal.getFormula();
         //
@@ -39,19 +41,31 @@ public class EvaluadorService {
             // asignado
             List<ConceptoNominaFederalesDTO> conceptos30 = null;
             if (formula.contains("C30") || formula.contains("CA1")) {
-                conceptos30 = conceptoNominaService.obtenerConceptosPorConfiguracionPresupuestal(nominaEmpleado.getIdConfiguracionPresupuestal().getId());
+                conceptos30 = conceptoNominaService
+                        .obtenerConceptosPorConfiguracionPresupuestal(
+                                nominaEmpleado.getIdConfiguracionPresupuestal()
+                                        .getId());
 
                 if (conceptos30 != null) {
                     String formula30 = "0.0";
                     String formulaA1 = "0.0";
                     for (ConceptoNominaFederalesDTO conceptoNominaFederales : conceptos30) {
-                        if (conceptoNominaFederales.getClave().contains("30BR") || conceptoNominaFederales.getClave().contains("30MR")
-                                || conceptoNominaFederales.getClave().contains("30AR")) {
+                        if (conceptoNominaFederales.getClave().contains("30BR")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("30MR")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("30AR")) {
                             formula30 = conceptoNominaFederales.getFormula();
                         }
-                        if (conceptoNominaFederales.getClave().contains("A100") || conceptoNominaFederales.getClave().contains("A200")
-                                || conceptoNominaFederales.getClave().contains("A300") || conceptoNominaFederales.getClave().contains("A400")
-                                || conceptoNominaFederales.getClave().contains("A500")) {
+                        if (conceptoNominaFederales.getClave().contains("A100")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("A200")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("A300")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("A400")
+                                || conceptoNominaFederales.getClave()
+                                        .contains("A500")) {
                             formulaA1 = conceptoNominaFederales.getFormula();
                         }
                     }
@@ -66,9 +80,15 @@ public class EvaluadorService {
                 }
             }
 
-            formula = formula.replace("EX0700", (tabulador.getSueldoBrutoMensual() == null ? "0.0" : tabulador.getSueldoBrutoMensual() + ""));
-            formula = formula.replace("EX4200", (tabulador.getAsignacionBrutaMensual() == null ? "0.0" : tabulador.getAsignacionBrutaMensual() + ""));
-            formula = formula.replace("EX55AG", (tabulador.getAgaBrutaMensual() == null ? "0.0" : tabulador.getAgaBrutaMensual() + ""));
+            formula = formula.replace("EX0700",
+                    (tabulador.getSueldoBrutoMensual() == null ? "0.0"
+                            : tabulador.getSueldoBrutoMensual() + ""));
+            formula = formula.replace("EX4200",
+                    (tabulador.getAsignacionBrutaMensual() == null ? "0.0"
+                            : tabulador.getAsignacionBrutaMensual() + ""));
+            formula = formula.replace("EX55AG",
+                    (tabulador.getAgaBrutaMensual() == null ? "0.0"
+                            : tabulador.getAgaBrutaMensual() + ""));
 
             Evaluador evaluador = new Evaluador(formula);
             return new BigDecimal(evaluador.getResult());

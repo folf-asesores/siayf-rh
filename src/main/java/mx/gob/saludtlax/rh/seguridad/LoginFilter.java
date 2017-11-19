@@ -31,10 +31,12 @@ import mx.gob.saludtlax.rh.seguridad.usuario.UsuarioDTO;
  */
 public class LoginFilter implements Filter {
 
-    private static final Logger LOGGER = Logger.getLogger(LoginFilter.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(LoginFilter.class.getName());
 
     // Arreglo con los recursos que no quiera que se filtren
-    private static final String[] LISTA_BLANCA_DE_RECURSOS = { ConfiguracionConst.LOGIN_PAGE_URL, "/resources", "/plantillas" };
+    private static final String[] LISTA_BLANCA_DE_RECURSOS = {
+            ConfiguracionConst.LOGIN_PAGE_URL, "/resources", "/plantillas" };
 
     @Inject
     private Autenticacion autenticacionEJB;
@@ -56,12 +58,16 @@ public class LoginFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest servletRequest,
+            ServletResponse servletResponse, FilterChain chain)
+            throws IOException, ServletException {
         httpRequest = (HttpServletRequest) servletRequest;
         httpResponse = (HttpServletResponse) servletResponse;
-        String recursoSolicitado = getRequestResource(httpRequest.getRequestURI());
+        String recursoSolicitado = getRequestResource(
+                httpRequest.getRequestURI());
         httpSession = httpRequest.getSession();
-        usuarioEnSesion = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        usuarioEnSesion = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
         // Si el usuario no está en sesión pero hay una cookie de duración
         // larga.
@@ -69,21 +75,25 @@ public class LoginFilter implements Filter {
         // entonces aun cuando el servidor sea reiniciado o el explorador sea
         // cerrado pero no se hallan eliminado las cookies la sesión se iniciara
         // automáticamente para el usuario.
-        if (usuarioEnSesion == null && ConfiguracionConst.existCookieNamed(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
+        if (usuarioEnSesion == null && ConfiguracionConst.existCookieNamed(
+                httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
             comeAliveSession(ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN);
 
             // Si el usuario no está en sesión pero hay una cookie de duración
             // corta.
             // Esto es valido cuando el usuario tenía iniciada su sesión y el
             // servidor se reinicio, pero no cerro el explorador de Internet.
-        } else if (usuarioEnSesion == null && ConfiguracionConst.existCookieNamed(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN)) {
+        } else if (usuarioEnSesion == null
+                && ConfiguracionConst.existCookieNamed(httpRequest,
+                        ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN)) {
             comeAliveSession(ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN);
         } else {
 
         }
 
         if (recursoSolicitado != null && recursoSolicitado.endsWith(".xhtml")) {
-            httpResponse.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+            httpResponse.setHeader("Cache-Control",
+                    "no-cache, no-store, must-revalidate");
             httpResponse.setHeader("Pragma", "no-cache");
             httpResponse.setDateHeader("Expires", 0);
         }
@@ -91,29 +101,42 @@ public class LoginFilter implements Filter {
         // Si el usuario no está en sesión pero el recurso que solicita está
         // dentro de la lista de recursos accesibles para todos entonces se le
         // permite continuar.
-        if (recursoSolicitado != null && isWhiteLista(recursoSolicitado) && usuarioEnSesion == null) {
+        if (recursoSolicitado != null && isWhiteLista(recursoSolicitado)
+                && usuarioEnSesion == null) {
 
             chain.doFilter(servletRequest, servletResponse);
 
             // Si el recurso solicitado es la página de inicio y el usuario no está
             // en sesión.
-        } else if (recursoSolicitado != null && recursoSolicitado.equals(ConfiguracionConst.HOME_PAGE_URL) && usuarioEnSesion == null) {
+        } else if (recursoSolicitado != null
+                && recursoSolicitado.equals(ConfiguracionConst.HOME_PAGE_URL)
+                && usuarioEnSesion == null) {
 
-            if (httpRequest.getParameter("login") != null && httpRequest.getParameter("login").equals("login")) {
-                String username = httpRequest.getParameter("login:nombreUsuario");
+            if (httpRequest.getParameter("login") != null
+                    && httpRequest.getParameter("login").equals("login")) {
+                String username = httpRequest
+                        .getParameter("login:nombreUsuario");
                 String password = httpRequest.getParameter("login:contrasenya");
-                boolean keepLogin = httpRequest.getParameter("login:mantenerSesion_input") == null ? false
-                        : httpRequest.getParameter("login:mantenerSesion_input").equals("on");
+                boolean keepLogin = httpRequest
+                        .getParameter("login:mantenerSesion_input") == null
+                                ? false
+                                : httpRequest
+                                        .getParameter(
+                                                "login:mantenerSesion_input")
+                                        .equals("on");
 
-                if (!autenticacionEJB.ipEstaBloqueada(ConfiguracionConst.obtenerIp(httpRequest))) {
+                if (!autenticacionEJB.ipEstaBloqueada(
+                        ConfiguracionConst.obtenerIp(httpRequest))) {
                     try {
                         String token = login(username, password, keepLogin);
 
                         if (token != null) {
                             intentos = 0;
-                            UsuarioDTO usuarioAccesando = usuarioEJB.obtenerUsuarioPorToken(token);
+                            UsuarioDTO usuarioAccesando = usuarioEJB
+                                    .obtenerUsuarioPorToken(token);
 
-                            recursosUsuario.addAll(usuarioEJB.recursosUsuario(usuarioAccesando.getIdUsuario()));
+                            recursosUsuario.addAll(usuarioEJB.recursosUsuario(
+                                    usuarioAccesando.getIdUsuario()));
                             chain.doFilter(servletRequest, servletResponse);
                         }
 
@@ -128,35 +151,50 @@ public class LoginFilter implements Filter {
                         }
 
                         if (intentos > ConfiguracionConst.LIMITE_DE_INTENTOS_DE_INICIO_SESION) {
-                            String ip = ConfiguracionConst.obtenerIp(httpRequest);
+                            String ip = ConfiguracionConst
+                                    .obtenerIp(httpRequest);
                             autenticacionEJB.registrarIpBloqueada(ip);
-                            LOGGER.infov("El usuario: {0} con IP {1} ha superado el número máximo de intentos de inicio de sesión.", username, ip);
+                            LOGGER.infov(
+                                    "El usuario: {0} con IP {1} ha superado el número máximo de intentos de inicio de sesión.",
+                                    username, ip);
                             //servletResponse.getWriter().print("Muchos intentos fallidos");
                         }
 
-                        httpResponse.sendRedirect(contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
+                        httpResponse.sendRedirect(contextPath
+                                + ConfiguracionConst.LOGIN_PAGE_URL);
                     }
                 } else {
-                    httpResponse.sendRedirect(contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
+                    httpResponse.sendRedirect(
+                            contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
                 }
             } else {
-                httpResponse.sendRedirect(contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
+                httpResponse.sendRedirect(
+                        contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
             }
 
             // Si el usuario está en sesión y solicita la página del iniciarSesion es
             // redirigido a la página de inicio.
-        } else if (recursoSolicitado != null && recursoSolicitado.equals(ConfiguracionConst.LOGIN_PAGE_URL) && usuarioEnSesion != null) {
-            httpResponse.sendRedirect(contextPath + ConfiguracionConst.HOME_PAGE_URL);
+        } else if (recursoSolicitado != null
+                && recursoSolicitado.equals(ConfiguracionConst.LOGIN_PAGE_URL)
+                && usuarioEnSesion != null) {
+            httpResponse.sendRedirect(
+                    contextPath + ConfiguracionConst.HOME_PAGE_URL);
 
-        } else if (recursoSolicitado != null && recursoSolicitado.equals(ConfiguracionConst.LOGOUT_PAGE_URL) && usuarioEnSesion != null) {
+        } else if (recursoSolicitado != null
+                && recursoSolicitado.equals(ConfiguracionConst.LOGOUT_PAGE_URL)
+                && usuarioEnSesion != null) {
             String token;
 
-            if (ConfiguracionConst.existCookieNamed(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN)) {
-                token = ConfiguracionConst.getCookieValue(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN);
+            if (ConfiguracionConst.existCookieNamed(httpRequest,
+                    ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN)) {
+                token = ConfiguracionConst.getCookieValue(httpRequest,
+                        ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN);
                 logout(token);
                 chain.doFilter(servletRequest, servletResponse);
-            } else if (ConfiguracionConst.existCookieNamed(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
-                token = ConfiguracionConst.getCookieValue(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN);
+            } else if (ConfiguracionConst.existCookieNamed(httpRequest,
+                    ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
+                token = ConfiguracionConst.getCookieValue(httpRequest,
+                        ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN);
                 logout(token);
                 chain.doFilter(servletRequest, servletResponse);
             } else {
@@ -167,18 +205,32 @@ public class LoginFilter implements Filter {
 
             // Si el usuario está en sesión y solicita una página dentro de la
             // carpeta contenido se le permite continuar.
-        } else if (recursoSolicitado != null && recursoSolicitado.startsWith("/contenido/") && usuarioEnSesion != null) {
+        } else if (recursoSolicitado != null
+                && recursoSolicitado.startsWith("/contenido/")
+                && usuarioEnSesion != null) {
             recursosUsuario.clear();
-            recursosUsuario.addAll(usuarioEJB.recursosUsuario(usuarioEnSesion.getIdUsuario()));
+            recursosUsuario.addAll(
+                    usuarioEJB.recursosUsuario(usuarioEnSesion.getIdUsuario()));
 
-            if (usuarioEnSesion.getCargo().contentEquals("Super_Administrador")) {
+            if (usuarioEnSesion.getCargo()
+                    .contentEquals("Super_Administrador")) {
                 chain.doFilter(servletRequest, servletResponse);
             } else
 
-            if (recursoSolicitado.contentEquals("/contenido/inicio.xhtml") || recursoSolicitado.contains("/contenido/seguridad/logout.xhtml")
-                    || recursoSolicitado.contains("/contenido/seguridad/seccionExpiro.xhtml") || recursoSolicitado.contains("/contenido/seguridad/error.xhtml")
-                    || recursoSolicitado.contains("/contenido/seguridad/error404.xhtml") || recursoSolicitado.contains("/contenido/seguridad/error500.xhtml")
-                    || recursoSolicitado.contains("/contenido/seguridad/.xhtml") || recursoSolicitado.contains("/contenido/seguridad/cambiarPassword.xhtml")) {
+            if (recursoSolicitado.contentEquals("/contenido/inicio.xhtml")
+                    || recursoSolicitado
+                            .contains("/contenido/seguridad/logout.xhtml")
+                    || recursoSolicitado.contains(
+                            "/contenido/seguridad/seccionExpiro.xhtml")
+                    || recursoSolicitado
+                            .contains("/contenido/seguridad/error.xhtml")
+                    || recursoSolicitado
+                            .contains("/contenido/seguridad/error404.xhtml")
+                    || recursoSolicitado
+                            .contains("/contenido/seguridad/error500.xhtml")
+                    || recursoSolicitado.contains("/contenido/seguridad/.xhtml")
+                    || recursoSolicitado.contains(
+                            "/contenido/seguridad/cambiarPassword.xhtml")) {
                 chain.doFilter(servletRequest, servletResponse);
             } else if (recursosUsuario.contains(recursoSolicitado)) {
                 //System.out.println("Este usuario si puede accesar a :" + recursoSolicitado);
@@ -186,7 +238,8 @@ public class LoginFilter implements Filter {
             } else {
 
                 //System.out.println("Este usuario no deberia poder ingresar a este recurso: " + recursoSolicitado + " recursoUsuario "+recursosUsuario);
-                httpResponse.sendRedirect(contextPath + ConfiguracionConst.ERROR_PAGE_URL);
+                httpResponse.sendRedirect(
+                        contextPath + ConfiguracionConst.ERROR_PAGE_URL);
 
             }
             // chain.doFilter(servletRequest, servletResponse);
@@ -194,7 +247,8 @@ public class LoginFilter implements Filter {
             // Si el usuario no está en sesión y solicita una página fuera de la
             // carpeta contenido se le redirige al loggin para que inicie sesión.
         } else {
-            httpResponse.sendRedirect(contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
+            httpResponse.sendRedirect(
+                    contextPath + ConfiguracionConst.LOGIN_PAGE_URL);
         }
     }
 
@@ -216,7 +270,8 @@ public class LoginFilter implements Filter {
      * @return un token de la sesión.
      */
     private String login(String username, String password, boolean keepLogin) {
-        String token = autenticacionEJB.iniciarSesion(username, password, keepLogin);
+        String token = autenticacionEJB.iniciarSesion(username, password,
+                keepLogin);
         usuarioEnSesion = usuarioEJB.obtenerUsuarioPorToken(token);
         createSession(usuarioEnSesion, token, keepLogin);
 
@@ -247,16 +302,19 @@ public class LoginFilter implements Filter {
      * @param persistLongTime
      *            si se mantendra la sesión iniciada.
      */
-    private void createSession(UsuarioDTO userSession, String token, boolean persistLongTime) {
+    private void createSession(UsuarioDTO userSession, String token,
+            boolean persistLongTime) {
         Cookie cookie;
         int expiry;
         int interval;
 
         if (persistLongTime) {
-            cookie = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN, token);
+            cookie = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN,
+                    token);
             expiry = interval = ConfiguracionConst.DURACION_MAXIMA_SESION;
         } else {
-            cookie = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN, token);
+            cookie = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN,
+                    token);
             expiry = -1; // Durante la sesión
             interval = ConfiguracionConst.DURACION_MINIMA_SESION;
         }
@@ -265,7 +323,8 @@ public class LoginFilter implements Filter {
         cookie.setPath(contextPath);
         httpResponse.addCookie(cookie);
 
-        httpSession.setAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER, userSession);
+        httpSession.setAttribute(
+                ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER, userSession);
         httpSession.setMaxInactiveInterval(interval);
     }
 
@@ -274,16 +333,27 @@ public class LoginFilter implements Filter {
      * en sesión.
      */
     private void comeAliveSession(String cookieName) {
-        String token = ConfiguracionConst.getCookieValue(httpRequest, cookieName);
+        String token = ConfiguracionConst.getCookieValue(httpRequest,
+                cookieName);
 
-        if (!autenticacionEJB.caducoToken(token) && ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN.equals(cookieName)) {
+        if (!autenticacionEJB.caducoToken(token)
+                && ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN
+                        .equals(cookieName)) {
             usuarioEnSesion = usuarioEJB.obtenerUsuarioPorToken(token);
-            httpSession.setAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER, usuarioEnSesion);
-            httpSession.setMaxInactiveInterval(ConfiguracionConst.DURACION_MAXIMA_SESION);
-        } else if (!autenticacionEJB.caducoToken(token) && ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN.equals(cookieName)) {
+            httpSession.setAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER,
+                    usuarioEnSesion);
+            httpSession.setMaxInactiveInterval(
+                    ConfiguracionConst.DURACION_MAXIMA_SESION);
+        } else if (!autenticacionEJB.caducoToken(token)
+                && ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN
+                        .equals(cookieName)) {
             usuarioEnSesion = usuarioEJB.obtenerUsuarioPorToken(token);
-            httpSession.setAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER, usuarioEnSesion);
-            httpSession.setMaxInactiveInterval(ConfiguracionConst.DURACION_MINIMA_SESION);
+            httpSession.setAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER,
+                    usuarioEnSesion);
+            httpSession.setMaxInactiveInterval(
+                    ConfiguracionConst.DURACION_MINIMA_SESION);
         } else {
             LOGGER.debug("Sesion ya caduco");
         }
@@ -295,10 +365,13 @@ public class LoginFilter implements Filter {
     private void removeSession() {
         Cookie opentoken;
 
-        if (ConfiguracionConst.existCookieNamed(httpRequest, ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
-            opentoken = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN, null);
+        if (ConfiguracionConst.existCookieNamed(httpRequest,
+                ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN)) {
+            opentoken = new Cookie(
+                    ConfiguracionConst.COOKIE_NAME_FOR_LONG_LOGIN, null);
         } else {
-            opentoken = new Cookie(ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN, null);
+            opentoken = new Cookie(
+                    ConfiguracionConst.COOKIE_NAME_FOR_SHORT_LOGIN, null);
         }
 
         opentoken.setMaxAge(0);

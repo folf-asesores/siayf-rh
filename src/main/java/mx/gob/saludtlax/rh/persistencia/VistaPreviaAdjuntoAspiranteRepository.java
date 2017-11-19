@@ -13,18 +13,22 @@ import javax.persistence.TypedQuery;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class VistaPreviaAdjuntoAspiranteRepository extends GenericRepository<VistaPreviaAdjuntoAspiranteEntity, Integer> {
+public class VistaPreviaAdjuntoAspiranteRepository
+        extends GenericRepository<VistaPreviaAdjuntoAspiranteEntity, Integer> {
     /**
      *
      */
     private static final long serialVersionUID = -3495148646225107176L;
-    private static final String OBTENER_VISTA_PREVIA_POR_ID_ADJUNTO = "select vistaPrevia" + " from VistaPreviaAdjuntoAspiranteEntity as vistaPrevia"
+    private static final String OBTENER_VISTA_PREVIA_POR_ID_ADJUNTO = "select vistaPrevia"
+            + " from VistaPreviaAdjuntoAspiranteEntity as vistaPrevia"
             + " where vistaPrevia.informacionAdjuntoAspirante.idInformacionAdjuntoAspirante = :idAdjunto";
     private static final String ELIMINAR_POR_ID_ADJUNTO = "delete from VistaPreviaAdjuntoAspiranteEntity as vistaPrevia"
             + " where vistaPrevia.informacionAdjuntoAspirante.idInformacionAdjuntoAspirante = :idAdjunto";
 
-    public VistaPreviaAdjuntoAspiranteEntity obtenerPorIdAdjunto(Integer idAdjunto) {
-        TypedQuery<VistaPreviaAdjuntoAspiranteEntity> query = em.createQuery(OBTENER_VISTA_PREVIA_POR_ID_ADJUNTO, classType);
+    public VistaPreviaAdjuntoAspiranteEntity obtenerPorIdAdjunto(
+            Integer idAdjunto) {
+        TypedQuery<VistaPreviaAdjuntoAspiranteEntity> query = em
+                .createQuery(OBTENER_VISTA_PREVIA_POR_ID_ADJUNTO, classType);
         query.setParameter("idAdjunto", idAdjunto);
 
         return query.getSingleResult();

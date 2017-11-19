@@ -25,7 +25,8 @@ import mx.gob.saludtlax.rh.persistencia.UsuarioRepository;
  */
 public class UsuarioService {
 
-    private static final Logger LOGGER = Logger.getLogger(UsuarioService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(UsuarioService.class.getName());
 
     @Inject
     private UsuarioRepository usuarioRepository;
@@ -45,7 +46,8 @@ public class UsuarioService {
 
             usuarioRepository.crear(entity);
         } catch (PersistenceException ex) {
-            throw new SistemaException("Error al registrar un usuario", SistemaCodigoError.IMPOSIBLE_PERSISTIR_OBJETO);
+            throw new SistemaException("Error al registrar un usuario",
+                    SistemaCodigoError.IMPOSIBLE_PERSISTIR_OBJETO);
         }
     }
 
@@ -56,22 +58,29 @@ public class UsuarioService {
      */
     protected void actualizar(UsuarioDTO dto) {
         if (dto == null) {
-            throw new ValidationException("No es posible actualizar un usuario nulo", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidationException(
+                    "No es posible actualizar un usuario nulo",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (dto.getIdUsuario() < 1) {
-            throw new ValidationException("No es posible actualizar un usuario con un ID negativo o cero", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidationException(
+                    "No es posible actualizar un usuario con un ID negativo o cero",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         try {
-            PerfilUsuarioEntity perfil = perfilUsuarioDAO.obtenerPorId(dto.getIdUsuario());
-            UsuarioEntity entity = usuarioRepository.obtenerPorId(dto.getIdUsuario());
+            PerfilUsuarioEntity perfil = perfilUsuarioDAO
+                    .obtenerPorId(dto.getIdUsuario());
+            UsuarioEntity entity = usuarioRepository
+                    .obtenerPorId(dto.getIdUsuario());
             entity = convertirDTOAEntidad(dto, entity, perfil);
 
             usuarioRepository.actualizar(entity);
         } catch (PersistenceException ex) {
             LOGGER.error(ex);
-            throw new SistemaException("Error al actualizar", SistemaCodigoError.IMPOSIBLE_ACTUALIZAR_OBJETO);
+            throw new SistemaException("Error al actualizar",
+                    SistemaCodigoError.IMPOSIBLE_ACTUALIZAR_OBJETO);
         }
     }
 
@@ -94,7 +103,8 @@ public class UsuarioService {
      * @return
      */
     public UsuarioDTO obtenerUsuarioPorHashToken(String hashToken) {
-        UsuarioEntity usuario = usuarioRepository.obtenerUsuarioPorHashToken(hashToken);
+        UsuarioEntity usuario = usuarioRepository
+                .obtenerUsuarioPorHashToken(hashToken);
         return convertirEntidadADTO(usuario);
     }
 
@@ -106,7 +116,8 @@ public class UsuarioService {
      * @return el usuario que que coincide con el nombre de usuario.
      */
     public UsuarioDTO obtenerUsuarioPorNombreUsuario(String nombreUsuario) {
-        UsuarioEntity usuario = usuarioRepository.obtenerUsuarioPorNombreUsuario(nombreUsuario);
+        UsuarioEntity usuario = usuarioRepository
+                .obtenerUsuarioPorNombreUsuario(nombreUsuario);
         return convertirEntidadADTO(usuario);
     }
 
@@ -116,7 +127,8 @@ public class UsuarioService {
      * @return
      */
     public List<UsuarioDTO> consultarTodosUsuarios() {
-        List<UsuarioEntity> usuarios = usuarioRepository.consultarTodosUsuarios();
+        List<UsuarioEntity> usuarios = usuarioRepository
+                .consultarTodosUsuarios();
 
         return convertirEntidadesADTOs(usuarios);
     }
@@ -127,7 +139,8 @@ public class UsuarioService {
      * @return una lista con los usuarios activos.
      */
     public List<UsuarioDTO> consultarUsuariosActivos() {
-        List<UsuarioEntity> usuarios = usuarioRepository.consultarUsuariosActivos();
+        List<UsuarioEntity> usuarios = usuarioRepository
+                .consultarUsuariosActivos();
 
         return convertirEntidadesADTOs(usuarios);
     }
@@ -138,7 +151,8 @@ public class UsuarioService {
      * @return una lista con los usuarios inactivos.
      */
     public List<UsuarioDTO> consultarUsuariosInactivos() {
-        List<UsuarioEntity> usuarios = usuarioRepository.consultarUsuariosInactivos();
+        List<UsuarioEntity> usuarios = usuarioRepository
+                .consultarUsuariosInactivos();
 
         return convertirEntidadesADTOs(usuarios);
     }
@@ -157,11 +171,13 @@ public class UsuarioService {
         usuarioRepository.eliminarPorId(id);
     }
 
-    private static UsuarioEntity convertirDTOAEntidad(UsuarioDTO dto, PerfilUsuarioEntity perfil) {
+    private static UsuarioEntity convertirDTOAEntidad(UsuarioDTO dto,
+            PerfilUsuarioEntity perfil) {
         return convertirDTOAEntidad(dto, null, perfil);
     }
 
-    private static UsuarioEntity convertirDTOAEntidad(UsuarioDTO dto, UsuarioEntity entity, PerfilUsuarioEntity perfil) {
+    private static UsuarioEntity convertirDTOAEntidad(UsuarioDTO dto,
+            UsuarioEntity entity, PerfilUsuarioEntity perfil) {
         if (entity == null) {
             entity = new UsuarioEntity();
         }
@@ -199,14 +215,16 @@ public class UsuarioService {
         dto.setApellidoMaterno(entidad.getApellidoMaterno());
         dto.setCorreo(entidad.getCorreo());
         dto.setCargo(entidad.getCargo());
-        dto.setIdPerfil(entidad.getPerfil() == null ? null : entidad.getPerfil().getIdPerfil());
+        dto.setIdPerfil(entidad.getPerfil() == null ? null
+                : entidad.getPerfil().getIdPerfil());
         dto.setIdAdscripcion(entidad.getId_adscripcion());
         dto.setIdAreaAdscripcion(entidad.getId_area_adscripcion());
         dto.setIdLugarAdscripcion(entidad.getId_lugar_adscripcion());
         return dto;
     }
 
-    private List<UsuarioDTO> convertirEntidadesADTOs(List<UsuarioEntity> entidades) {
+    private List<UsuarioDTO> convertirEntidadesADTOs(
+            List<UsuarioEntity> entidades) {
         List<UsuarioDTO> dtos = new ArrayList<>();
 
         for (UsuarioEntity entidad : entidades) {
@@ -223,7 +241,8 @@ public class UsuarioService {
     }
 
     public List<InfoUsuarioDTO> consultarUsuariosInfoActivos() {
-        List<UsuarioEntity> usuariosActivos = usuarioRepository.consultarUsuariosActivos();
+        List<UsuarioEntity> usuariosActivos = usuarioRepository
+                .consultarUsuariosActivos();
         List<InfoUsuarioDTO> lista = new ArrayList<>();
         if (!usuariosActivos.isEmpty()) {
             for (UsuarioEntity u : usuariosActivos) {
@@ -246,11 +265,15 @@ public class UsuarioService {
     public UsuarioEntity validarUsuario(int idUsuario) {
         UsuarioEntity usuario = usuarioRepository.obtenerPorId(idUsuario);
         if (usuario == null) {
-            throw new SistemaException("No se encontró usuario con identificador " + idUsuario, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró usuario con identificador " + idUsuario,
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
         if (!usuario.isActivo()) {
-            throw new SeguridadException("El usuario está inactivo, no puede realizar la operación", SeguridadCodigoError.USUARIO_INACTIVO);
+            throw new SeguridadException(
+                    "El usuario está inactivo, no puede realizar la operación",
+                    SeguridadCodigoError.USUARIO_INACTIVO);
         }
         return usuario;
     }

@@ -5,7 +5,7 @@
 package mx.gob.saludtlax.rh.empleados.nombramientos.impresion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class EnumPlantillaNombramiento {

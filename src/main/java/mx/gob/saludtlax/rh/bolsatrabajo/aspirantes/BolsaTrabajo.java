@@ -28,42 +28,48 @@ public interface BolsaTrabajo {
      *
      * @param historialAcademico
      */
-    void crearHistorialAcademicoAspirante(HistorialAcademicoDTO historialAcademico);
+    void crearHistorialAcademicoAspirante(
+            HistorialAcademicoDTO historialAcademico);
 
     /**
      * Actualizar Historial Academico
      *
      * @param historialAcademico
      */
-    void actualizarHistorialAcademicoAspirante(HistorialAcademicoDTO historialAcademico);
+    void actualizarHistorialAcademicoAspirante(
+            HistorialAcademicoDTO historialAcademico);
 
     /**
      * Crear Experiencia Laboral Aspirante
      *
      * @param experienciaLaboral
      */
-    void crearExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral);
+    void crearExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral);
 
     /**
      * Actualizar Experiencia Laboral Aspirante
      *
      * @param experienciaLaboral
      */
-    void actualizarExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral);
+    void actualizarExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral);
 
     /**
      * Crear Habilidades Personales Aspirante
      *
      * @param encuestaPersonalAspirante
      */
-    void crearHabilidadesPersonalesAspirante(HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante);
+    void crearHabilidadesPersonalesAspirante(
+            HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante);
 
     /**
      * Actualizar Habilidades Personales del Aspirante
      *
      * @param encuestaPersonalAspirante
      */
-    void actualizarHabilidadesPersonalesAspirante(HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante);
+    void actualizarHabilidadesPersonalesAspirante(
+            HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante);
 
     /**
      * Obtener Habilidades Personales por Identificador Unico del Aspirante
@@ -71,7 +77,8 @@ public interface BolsaTrabajo {
      * @param idAspirante
      * @return Habilidades Personales del Aspirante
      */
-    HabilidadesPersonalesAspiranteDTO obtenerHabilidadesPersonalesPorIdAspirante(Integer idAspirante);
+    HabilidadesPersonalesAspiranteDTO obtenerHabilidadesPersonalesPorIdAspirante(
+            Integer idAspirante);
 
     /**
      * Eliminar Historial Academico por Identificador Unico
@@ -93,7 +100,8 @@ public interface BolsaTrabajo {
      * @param idAspirante
      * @return lista Historial Academico
      */
-    List<HistorialAcademicoDTO> obtenerListaHistorialAcademico(Integer idAspirante);
+    List<HistorialAcademicoDTO> obtenerListaHistorialAcademico(
+            Integer idAspirante);
 
     /**
      * Obtener Lista Experiencia Laboral Por Identificador Unicor del Aspirante
@@ -101,7 +109,8 @@ public interface BolsaTrabajo {
      * @param idAspirante
      * @return lista Experiencia Laboral
      */
-    List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboral(Integer idAspirante);
+    List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboral(
+            Integer idAspirante);
 
     /*
      * Valida si es correcto y si existe el rfc

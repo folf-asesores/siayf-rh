@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/07/2016 14:13:27
  */
@@ -32,8 +32,9 @@ public class FuenteFinanciamientoTempEntity {
 
     @Override
     public String toString() {
-        return "FuenteFinanciamientoEntity [id fuente financiamiento=" + idFuenteFinanciamiento + ", id base 36=" + idBase36 + ", descripcion=" + descripcion
-                + "]";
+        return "FuenteFinanciamientoEntity [id fuente financiamiento="
+                + idFuenteFinanciamiento + ", id base 36=" + idBase36
+                + ", descripcion=" + descripcion + "]";
     }
 
     /**

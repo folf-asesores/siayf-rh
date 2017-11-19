@@ -33,11 +33,13 @@ public class IndexPensionAlimenticiaController implements Serializable {
     public void init() {
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("i");
 
         if (id != null) {
-            informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(new Integer(id));
+            informacionEmpleado = pensionAlimenticiaEJB
+                    .buscarEmpleado(new Integer(id));
             mostrarInformacion = Boolean.TRUE;
 
         }
@@ -54,25 +56,31 @@ public class IndexPensionAlimenticiaController implements Serializable {
                 mostrarInformacion = Boolean.FALSE;
                 informacionEmpleado = new InformacionEmpleadoDTO();
 
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar",
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Buscar",
                         "No se encontro información del empleado con el RFC ingresado");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
                 return;
             }
 
             mostrarInformacion = Boolean.TRUE;
 
         } else {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Buscar", "Ingrese un RFC");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_WARN, "Buscar", "Ingrese un RFC");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
     }
 
-    public void eliminarPensionAlimenticia(BeneficiarioPensionAlimienticiaDTO beneficiario) {
+    public void eliminarPensionAlimenticia(
+            BeneficiarioPensionAlimienticiaDTO beneficiario) {
 
-        pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiario.getIdPensionAlimenticia());
-        informacionEmpleado = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleado.getIdEmpleado());
+        pensionAlimenticiaEJB.eliminarBeneficiarioPension(
+                beneficiario.getIdPensionAlimenticia());
+        informacionEmpleado = pensionAlimenticiaEJB
+                .buscarEmpleado(informacionEmpleado.getIdEmpleado());
 
     }
 
@@ -93,7 +101,8 @@ public class IndexPensionAlimenticiaController implements Serializable {
         return informacionEmpleado;
     }
 
-    public void setInformacionEmpleado(InformacionEmpleadoDTO informacionEmpleado) {
+    public void setInformacionEmpleado(
+            InformacionEmpleadoDTO informacionEmpleado) {
         this.informacionEmpleado = informacionEmpleado;
     }
 

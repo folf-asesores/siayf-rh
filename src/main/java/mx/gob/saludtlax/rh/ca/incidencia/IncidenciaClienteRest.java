@@ -50,7 +50,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
      */
     private static final long serialVersionUID = 7764758990374165127L;
 
-    static Logger log = Logger.getLogger(Configuracion.LOGGER_CONTROL_ASISTENCIA);
+    static Logger log = Logger
+            .getLogger(Configuracion.LOGGER_CONTROL_ASISTENCIA);
 
     private final String RESOURCE_BUSCAR_ID = "/incidencia/buscar/id/";
 
@@ -73,35 +74,49 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
      * @throws RESTClientException
      *             en caso que ocurra un error.
      */
-    public List<IncidenciaModelView> buscarIncidenciaPorDescripcion(String descripcion) throws RESTClientException {
+    public List<IncidenciaModelView> buscarIncidenciaPorDescripcion(
+            String descripcion) throws RESTClientException {
         List<IncidenciaModelView> listadoIncidenciaModelView = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         log.debug(url_serivicio + RESOURCE_BUSCAR_DESCRIPCION + descripcion);
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_BUSCAR_DESCRIPCION + descripcion.replace(" ", "%20"));
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_BUSCAR_DESCRIPCION
+                        + descripcion.replace(" ", "%20"));
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultIncidencia);
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<IncidenciaModelView>> tokenListadoIncidencias = new TypeToken<ArrayList<IncidenciaModelView>>() {
                     };
-                    listadoIncidenciaModelView = incidenciaGson.fromJson(resultIncidencia, tokenListadoIncidencias.getType());
+                    listadoIncidenciaModelView = incidenciaGson.fromJson(
+                            resultIncidencia,
+                            tokenListadoIncidencias.getType());
                     log.debug(listadoIncidenciaModelView);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -124,7 +139,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
      * @return Informacion de una incidencia.
      * @throws RESTClientException
      */
-    public IncidenciaModelView buscarIncidenciaPorId(Integer id) throws RESTClientException {
+    public IncidenciaModelView buscarIncidenciaPorId(Integer id)
+            throws RESTClientException {
 
         IncidenciaModelView incidenciaModelView = null;
 
@@ -135,31 +151,43 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_BUSCAR_ID + id);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
-            log.debug("Estatus:" + servicioResponse.getStatusLine().getStatusCode() + servicioResponse.getStatusLine().getReasonPhrase());
+            log.debug("Estatus:"
+                    + servicioResponse.getStatusLine().getStatusCode()
+                    + servicioResponse.getStatusLine().getReasonPhrase());
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
 
-                    String resultIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultIncidencia);
 
                     Gson incidenciaGson = new Gson();
-                    incidenciaModelView = incidenciaGson.fromJson(resultIncidencia, IncidenciaModelView.class);
+                    incidenciaModelView = incidenciaGson.fromJson(
+                            resultIncidencia, IncidenciaModelView.class);
 
                     log.debug(incidenciaModelView);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -187,7 +215,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
      * @throws RESTClientException
      *             en caso que haya un error de validacion o comunicacion.
      */
-    public Integer guardarIncidencia(IncidenciaFormModel incidenciaFormModel) throws RESTClientException {
+    public Integer guardarIncidencia(IncidenciaFormModel incidenciaFormModel)
+            throws RESTClientException {
         Integer idIncidencia = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -196,7 +225,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
 
         HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_NUEVO);
 
-        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder
+                .create();
 
         multipartEntityBuilder.setCharset(Charset.forName("UTF-8"));
 
@@ -205,25 +235,36 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
         if (incidenciaFormModel.getImagenMarca() != null) {
-            multipartEntityBuilder.addBinaryBody("imagen_marca", incidenciaFormModel.getImagenMarca(), ContentType.APPLICATION_OCTET_STREAM,
+            multipartEntityBuilder.addBinaryBody("imagen_marca",
+                    incidenciaFormModel.getImagenMarca(),
+                    ContentType.APPLICATION_OCTET_STREAM,
                     incidenciaFormModel.getMarcaReporte().trim());
         }
         // multipartEntityBuilder.addTextBody("id_incidencia", "");
         if (incidenciaFormModel.getDescripcion() != null) {
-            multipartEntityBuilder.addTextBody("descripcion", incidenciaFormModel.getDescripcion(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("descripcion",
+                    incidenciaFormModel.getDescripcion(),
+                    ContentType.create("application/json", "UTF-8"));
         }
         if (incidenciaFormModel.getMarcaReporte() != null) {
-            multipartEntityBuilder.addTextBody("marca_reporte", incidenciaFormModel.getMarcaReporte(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("marca_reporte",
+                    incidenciaFormModel.getMarcaReporte(),
+                    ContentType.create("application/json", "UTF-8"));
         }
         if (incidenciaFormModel.getEsImagen() != null) {
-            multipartEntityBuilder.addTextBody("es_imagen", incidenciaFormModel.getEsImagen().toString(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("es_imagen",
+                    incidenciaFormModel.getEsImagen().toString(),
+                    ContentType.create("application/json", "UTF-8"));
         }
         if (incidenciaFormModel.getColorTexto() != null) {
-            multipartEntityBuilder.addTextBody("color_texto", incidenciaFormModel.getColorTexto(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("color_texto",
+                    incidenciaFormModel.getColorTexto(),
+                    ContentType.create("application/json", "UTF-8"));
         }
 
         if (incidenciaFormModel.getTipoRegistro() != null) {
-            multipartEntityBuilder.addTextBody("tipo_registro", incidenciaFormModel.getTipoRegistro().toString(),
+            multipartEntityBuilder.addTextBody("tipo_registro",
+                    incidenciaFormModel.getTipoRegistro().toString(),
                     ContentType.create("application/json", "UTF-8"));
         }
 
@@ -236,25 +277,35 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         httpPost.setEntity(entity);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
-            log.debug(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
+            log.debug(servicioResponse.getStatusLine().getStatusCode() + " "
+                    + servicioResponse.getStatusLine().getReasonPhrase());
             String resultNuevaIncidencia;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultNuevaIncidencia);
                     idIncidencia = new Integer(resultNuevaIncidencia);
                     log.debug(idIncidencia);
                     break;
                 case 400:
-                    resultNuevaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
-                    log.error(servicioResponse.getStatusLine() + resultNuevaIncidencia);
+                    resultNuevaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    log.error(servicioResponse.getStatusLine()
+                            + resultNuevaIncidencia);
                     throw new RESTClientException(resultNuevaIncidencia);
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -279,7 +330,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
      * @throws RESTClientException
      *             En caso de algun error de conexion o validacion.
      */
-    public Integer actualizarIncidencia(IncidenciaFormModel incidenciaFormModel) throws RESTClientException {
+    public Integer actualizarIncidencia(IncidenciaFormModel incidenciaFormModel)
+            throws RESTClientException {
         Integer idIncidencia = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -289,35 +341,49 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
 
         log.debug(incidenciaFormModel);
 
-        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
+        MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder
+                .create();
         // multipartEntityBuilder.setCharset(Charset.forName("UTF-8"));
 
         multipartEntityBuilder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 
         if (incidenciaFormModel.getImagenMarca() != null) {
-            multipartEntityBuilder.addBinaryBody("imagen_marca", incidenciaFormModel.getImagenMarca(), ContentType.APPLICATION_OCTET_STREAM,
+            multipartEntityBuilder.addBinaryBody("imagen_marca",
+                    incidenciaFormModel.getImagenMarca(),
+                    ContentType.APPLICATION_OCTET_STREAM,
                     incidenciaFormModel.getMarcaReporte().trim());
         }
         // multipartEntityBuilder.addTextBody("id_incidencia", "");
         if (incidenciaFormModel.getDescripcion() != null) {
-            multipartEntityBuilder.addTextBody("descripcion", incidenciaFormModel.getDescripcion(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("descripcion",
+                    incidenciaFormModel.getDescripcion(),
+                    ContentType.create("application/json", "UTF-8"));
         }
         if (incidenciaFormModel.getMarcaReporte() != null) {
-            multipartEntityBuilder.addTextBody("marca_reporte", incidenciaFormModel.getMarcaReporte(), ContentType.create("application/json", "UTF-8"));
+            multipartEntityBuilder.addTextBody("marca_reporte",
+                    incidenciaFormModel.getMarcaReporte(),
+                    ContentType.create("application/json", "UTF-8"));
         }
         if (incidenciaFormModel.getEsImagen() != null) {
-            multipartEntityBuilder.addTextBody("es_imagen", incidenciaFormModel.getEsImagen().toString(), ContentType.create("application/json", "UTF-8"));
-        }
-
-        if (incidenciaFormModel.getColorTexto() != null) {
-            multipartEntityBuilder.addTextBody("color_texto", incidenciaFormModel.getColorTexto(), ContentType.create("application/json", "UTF-8"));
-        }
-        if (incidenciaFormModel.getTipoRegistro() != null) {
-            multipartEntityBuilder.addTextBody("tipo_registro", incidenciaFormModel.getTipoRegistro().toString(),
+            multipartEntityBuilder.addTextBody("es_imagen",
+                    incidenciaFormModel.getEsImagen().toString(),
                     ContentType.create("application/json", "UTF-8"));
         }
 
-        multipartEntityBuilder.addTextBody("id_incidencia", incidenciaFormModel.getIdIncidencia().toString(), ContentType.create("application/json", "UTF-8"));
+        if (incidenciaFormModel.getColorTexto() != null) {
+            multipartEntityBuilder.addTextBody("color_texto",
+                    incidenciaFormModel.getColorTexto(),
+                    ContentType.create("application/json", "UTF-8"));
+        }
+        if (incidenciaFormModel.getTipoRegistro() != null) {
+            multipartEntityBuilder.addTextBody("tipo_registro",
+                    incidenciaFormModel.getTipoRegistro().toString(),
+                    ContentType.create("application/json", "UTF-8"));
+        }
+
+        multipartEntityBuilder.addTextBody("id_incidencia",
+                incidenciaFormModel.getIdIncidencia().toString(),
+                ContentType.create("application/json", "UTF-8"));
 
         log.debug(multipartEntityBuilder.toString());
 
@@ -328,25 +394,34 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         httpPut.setEntity(entity);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPut);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPut);
 
             String resultNuevaIncidencia;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultNuevaIncidencia);
                     idIncidencia = new Integer(resultNuevaIncidencia);
                     log.debug(idIncidencia);
                     break;
                 case 400:
-                    resultNuevaIncidencia = EntityUtils.toString(servicioResponse.getEntity());
-                    log.error(servicioResponse.getStatusLine() + resultNuevaIncidencia);
+                    resultNuevaIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    log.error(servicioResponse.getStatusLine()
+                            + resultNuevaIncidencia);
                     throw new RESTClientException(resultNuevaIncidencia);
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -361,7 +436,8 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         return idIncidencia;
     }
 
-    public List<IncidenciaModelView> listadoIncidencias() throws RESTClientException {
+    public List<IncidenciaModelView> listadoIncidencias()
+            throws RESTClientException {
 
         List<IncidenciaModelView> listadoIncidenciaModelView = null;
 
@@ -371,26 +447,37 @@ public class IncidenciaClienteRest extends ClienteRest implements Serializable {
         HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultIncidencia = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultIncidencia = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     log.debug(resultIncidencia);
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<IncidenciaModelView>> tokenListadoIncidencias = new TypeToken<ArrayList<IncidenciaModelView>>() {
                     };
-                    listadoIncidenciaModelView = incidenciaGson.fromJson(resultIncidencia, tokenListadoIncidencias.getType());
+                    listadoIncidenciaModelView = incidenciaGson.fromJson(
+                            resultIncidencia,
+                            tokenListadoIncidencias.getType());
                     log.debug(listadoIncidenciaModelView);
 
                     break;
                 case 400:
-                    log.error(servicioResponse.getStatusLine().getReasonPhrase());
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    log.error(
+                            servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    log.error(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    log.error(ListadoMensajesSistema.E000.getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }

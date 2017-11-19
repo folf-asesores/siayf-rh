@@ -18,7 +18,8 @@ public class ConceptoNominaNombramientoDTO implements Serializable {
         return idConceptoNominaNombramiento;
     }
 
-    public void setIdConceptoNominaNombramiento(Integer idConceptoNominaNombramiento) {
+    public void setIdConceptoNominaNombramiento(
+            Integer idConceptoNominaNombramiento) {
         this.idConceptoNominaNombramiento = idConceptoNominaNombramiento;
     }
 

@@ -48,7 +48,8 @@ public class ConceptosNominaEspecialEntity implements Serializable {
         return idConceptobase;
     }
 
-    public void setIdConceptobase(ConceptoNominaFederalesEntity idConceptobase) {
+    public void setIdConceptobase(
+            ConceptoNominaFederalesEntity idConceptobase) {
         this.idConceptobase = idConceptobase;
     }
 
@@ -56,7 +57,8 @@ public class ConceptosNominaEspecialEntity implements Serializable {
         return idConceptoCompensacion;
     }
 
-    public void setIdConceptoCompensacion(ConceptoNominaFederalesEntity idConceptoCompensacion) {
+    public void setIdConceptoCompensacion(
+            ConceptoNominaFederalesEntity idConceptoCompensacion) {
         this.idConceptoCompensacion = idConceptoCompensacion;
     }
 

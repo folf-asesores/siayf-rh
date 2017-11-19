@@ -16,7 +16,8 @@ import mx.gob.saludtlax.rh.excepciones.SistemaCodigoError;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
-public class GenericRepository<T, K extends Serializable> implements Repository<T, K> {
+public class GenericRepository<T, K extends Serializable>
+        implements Repository<T, K> {
 
     private static final long serialVersionUID = -8198863493714030745L;
 
@@ -58,11 +59,13 @@ public class GenericRepository<T, K extends Serializable> implements Repository<
     }
 
     @Override
-    public List<T> consultarPaginado(int cantidadResultados, int primerResultado) {
+    public List<T> consultarPaginado(int cantidadResultados,
+            int primerResultado) {
         return consultarPaginado(false, cantidadResultados, primerResultado);
     }
 
-    private List<T> consultarPaginado(boolean todo, int cantidadResultados, int primerResultado) {
+    private List<T> consultarPaginado(boolean todo, int cantidadResultados,
+            int primerResultado) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<T> cq = cb.createQuery(classType);
         Root<T> rt = cq.from(classType);
@@ -89,7 +92,9 @@ public class GenericRepository<T, K extends Serializable> implements Repository<
         if (entity != null) {
             eliminar(entity);
         } else {
-            throw new SistemaException("La eliminación no se ha realizado" + " porque no exite un entidad con el ID indicado.",
+            throw new SistemaException(
+                    "La eliminación no se ha realizado"
+                            + " porque no exite un entidad con el ID indicado.",
                     SistemaCodigoError.IMPOSIBLE_ELIMINAR_OBJETO_INEXISTENTE);
         }
     }
@@ -100,6 +105,7 @@ public class GenericRepository<T, K extends Serializable> implements Repository<
     }
 
     private static Class<?> getParameterClass(Class<?> clazz, int index) {
-        return (Class<?>) (((ParameterizedType) clazz.getGenericSuperclass()).getActualTypeArguments()[index]);
+        return (Class<?>) (((ParameterizedType) clazz.getGenericSuperclass())
+                .getActualTypeArguments()[index]);
     }
 }

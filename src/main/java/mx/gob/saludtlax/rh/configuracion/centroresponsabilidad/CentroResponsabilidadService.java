@@ -33,9 +33,12 @@ public class CentroResponsabilidadService {
 
     public List<CentroResponsabilidadDTO> listaCentroResponsabilidad() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_centro_responsabilidad AS idCentroResponsabilidad, " + "clave AS clave, "
-                + "descripcion AS descripcion " + "FROM centro_responsabilidad");
-        query.setResultTransformer(Transformers.aliasToBean(CentroResponsabilidadDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_centro_responsabilidad AS idCentroResponsabilidad, "
+                        + "clave AS clave, " + "descripcion AS descripcion "
+                        + "FROM centro_responsabilidad");
+        query.setResultTransformer(
+                Transformers.aliasToBean(CentroResponsabilidadDTO.class));
         @SuppressWarnings("unchecked")
         List<CentroResponsabilidadDTO> result = query.list();
         return result;
@@ -48,43 +51,57 @@ public class CentroResponsabilidadService {
         return dto;
     }
 
-    public CentroResponsabilidadDTO crearCentroResponsabilidad(CentroResponsabilidadDTO dto) {
+    public CentroResponsabilidadDTO crearCentroResponsabilidad(
+            CentroResponsabilidadDTO dto) {
         CentroResponsabilidadEntity entity = new CentroResponsabilidadEntity();
         entity.setClave(dto.getClave());
         entity.setDescripcion(dto.getDescripcion());
         centroResponsabilidadRepository.crear(entity);
-        return obtenerCentroResponsabilidadPorId(entity.getIdCentroResponsabilidad());
+        return obtenerCentroResponsabilidadPorId(
+                entity.getIdCentroResponsabilidad());
     }
 
-    public CentroResponsabilidadDTO obtenerCentroResponsabilidadPorId(Integer idCentroResponsabilidad) {
+    public CentroResponsabilidadDTO obtenerCentroResponsabilidadPorId(
+            Integer idCentroResponsabilidad) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_centro_responsabilidad AS idCentroResponsabilidad, " + "clave AS clave, " + "descripcion AS descripcion "
+        Query query = session.createSQLQuery(
+                "SELECT id_centro_responsabilidad AS idCentroResponsabilidad, "
+                        + "clave AS clave, " + "descripcion AS descripcion "
                         + "FROM centro_responsabilidad WHERE id_centro_responsabilidad = :idCentroResponsabilidad")
-                .setParameter("idCentroResponsabilidad", idCentroResponsabilidad);
-        query.setResultTransformer(Transformers.aliasToBean(CentroResponsabilidadDTO.class));
-        CentroResponsabilidadDTO result = (CentroResponsabilidadDTO) query.list().get(0);
+                .setParameter("idCentroResponsabilidad",
+                        idCentroResponsabilidad);
+        query.setResultTransformer(
+                Transformers.aliasToBean(CentroResponsabilidadDTO.class));
+        CentroResponsabilidadDTO result = (CentroResponsabilidadDTO) query
+                .list().get(0);
         return result;
     }
 
-    public CentroResponsabilidadDTO actualizarCentroResponsabilidad(CentroResponsabilidadDTO dto) {
-        CentroResponsabilidadEntity entity = centroResponsabilidadRepository.obtenerPorId(dto.getIdCentroResponsabilidad());
+    public CentroResponsabilidadDTO actualizarCentroResponsabilidad(
+            CentroResponsabilidadDTO dto) {
+        CentroResponsabilidadEntity entity = centroResponsabilidadRepository
+                .obtenerPorId(dto.getIdCentroResponsabilidad());
         entity.setClave(dto.getClave());
         entity.setDescripcion(dto.getDescripcion());
         centroResponsabilidadRepository.crear(entity);
-        return obtenerCentroResponsabilidadPorId(entity.getIdCentroResponsabilidad());
+        return obtenerCentroResponsabilidadPorId(
+                entity.getIdCentroResponsabilidad());
     }
 
     public void eliminarCentroResponsabilidad(Integer idCentroResponsabilidad) {
-        CentroResponsabilidadEntity entity = entityManager.find(CentroResponsabilidadEntity.class, idCentroResponsabilidad);
+        CentroResponsabilidadEntity entity = entityManager.find(
+                CentroResponsabilidadEntity.class, idCentroResponsabilidad);
         entityManager.remove(entity);
     }
 
     public List<SelectItem> obtenerCentroResponsabilidadItems() {
         List<SelectItem> selectItems = new ArrayList<>();
-        List<CentroResponsabilidadEntity> listaCentroResponsabilidadEntities = centroResponsabilidadRepository.obtenerListaPuestoGeneral();
+        List<CentroResponsabilidadEntity> listaCentroResponsabilidadEntities = centroResponsabilidadRepository
+                .obtenerListaPuestoGeneral();
         for (CentroResponsabilidadEntity centroResponsabilidadEntity : listaCentroResponsabilidadEntities) {
-            SelectItem item = new SelectItem(centroResponsabilidadEntity.getIdCentroResponsabilidad(), centroResponsabilidadEntity.getDescripcion());
+            SelectItem item = new SelectItem(
+                    centroResponsabilidadEntity.getIdCentroResponsabilidad(),
+                    centroResponsabilidadEntity.getDescripcion());
             selectItems.add(item);
         }
         return selectItems;

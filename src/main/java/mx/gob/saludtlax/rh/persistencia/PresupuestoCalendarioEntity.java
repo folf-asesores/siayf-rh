@@ -15,7 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -115,11 +115,17 @@ public class PresupuestoCalendarioEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "PresupuestoCalendarioEntity [idPresupuestoCalendario=" + idPresupuestoCalendario + ", ur=" + ur + ", fin=" + fin + ", fn=" + fn + ", sf=" + sf
-                + ", rg=" + rg + ", ai=" + ai + ", mpp=" + mpp + ", pp=" + pp + ", ptda=" + ptda + ", tg=" + tg + ", ff=" + ff + ", ef=" + ef + ", ppi=" + ppii
-                + ", proyectoAnual=" + proyectoAnual + ", enero=" + enero + ", febrero=" + febrero + ", marzo=" + marzo + ", abril=" + abril + ", mayo=" + mayo
-                + ", junio=" + junio + ", julio=" + julio + ", agosto=" + agosto + ", septimbre=" + septimbre + ", octubre=" + octubre + ", noviembre="
-                + noviembre + ", diciembre=" + diciembre + "]";
+        return "PresupuestoCalendarioEntity [idPresupuestoCalendario="
+                + idPresupuestoCalendario + ", ur=" + ur + ", fin=" + fin
+                + ", fn=" + fn + ", sf=" + sf + ", rg=" + rg + ", ai=" + ai
+                + ", mpp=" + mpp + ", pp=" + pp + ", ptda=" + ptda + ", tg="
+                + tg + ", ff=" + ff + ", ef=" + ef + ", ppi=" + ppii
+                + ", proyectoAnual=" + proyectoAnual + ", enero=" + enero
+                + ", febrero=" + febrero + ", marzo=" + marzo + ", abril="
+                + abril + ", mayo=" + mayo + ", junio=" + junio + ", julio="
+                + julio + ", agosto=" + agosto + ", septimbre=" + septimbre
+                + ", octubre=" + octubre + ", noviembre=" + noviembre
+                + ", diciembre=" + diciembre + "]";
     }
 
     public Integer getIdPresupuestoCalendario() {

@@ -25,7 +25,8 @@ public class DatosEncabezadoRepository {
     private static final String OBTENER_DATOS_ENCABEZADO_PROSPERA = "call sp_obtener_datos_encabezado_prospera(:idEncabezado)";
     private static final String OBTENER_DATOS_ENCABEZADO_CONTRATO = "call usp_obtener_datos_encabezado_contrato(:idEncabezado)";
 
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(int idEncabezado) {
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezado(
+            int idEncabezado) {
         System.out.println("idEncabezado Federal:: " + idEncabezado);
         Query query = entityManager.createNativeQuery(OBTENER_DATOS_ENCABEZADO);
         query.setParameter("idEncabezado", idEncabezado);
@@ -56,9 +57,11 @@ public class DatosEncabezadoRepository {
         return datosDatosEncabezado;
     }
 
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(Integer idEncabezado) {
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoProspera(
+            Integer idEncabezado) {
         System.out.println("idEncabezado:: " + idEncabezado);
-        Query query = entityManager.createNativeQuery(OBTENER_DATOS_ENCABEZADO_PROSPERA);
+        Query query = entityManager
+                .createNativeQuery(OBTENER_DATOS_ENCABEZADO_PROSPERA);
         query.setParameter("idEncabezado", idEncabezado);
 
         @SuppressWarnings("unchecked")
@@ -87,18 +90,25 @@ public class DatosEncabezadoRepository {
         return datosDatosEncabezado;
     }
 
-    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(Integer idDatoPersonal) {
+    public ConsultaDatosEncabezadoDTO obtenerDatosEncabezadoPorId(
+            Integer idDatoPersonal) {
         Session session = entityManager.unwrap(Session.class);
-        SQLQuery query = (SQLQuery) session.createSQLQuery(OBTENER_DATOS_ENCABEZADO + " where id_empleado_datos_personales=:idDatoPersonal ")
+        SQLQuery query = (SQLQuery) session
+                .createSQLQuery(OBTENER_DATOS_ENCABEZADO
+                        + " where id_empleado_datos_personales=:idDatoPersonal ")
                 .setParameter("idDatoPersonal", idDatoPersonal);
-        query.setResultTransformer(Transformers.aliasToBean(ConsultaDatosEncabezadoDTO.class));
-        ConsultaDatosEncabezadoDTO result = (ConsultaDatosEncabezadoDTO) query.list().get(0);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ConsultaDatosEncabezadoDTO.class));
+        ConsultaDatosEncabezadoDTO result = (ConsultaDatosEncabezadoDTO) query
+                .list().get(0);
         return result;
     }
 
-    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(int idEncabezado) {
+    public List<ConsultaDatosEncabezadoDTO> obtenerListaDatosEncabezadoContrato(
+            int idEncabezado) {
         System.out.println("idEncabezado contrato:: " + idEncabezado);
-        Query query = entityManager.createNativeQuery(OBTENER_DATOS_ENCABEZADO_CONTRATO);
+        Query query = entityManager
+                .createNativeQuery(OBTENER_DATOS_ENCABEZADO_CONTRATO);
         query.setParameter("idEncabezado", idEncabezado);
 
         @SuppressWarnings("unchecked")

@@ -59,7 +59,8 @@ public class EjercicioFiscalView {
         return listEjercicioFiscal;
     }
 
-    public void setListEjercicioFiscal(List<EjercicioFiscalListaDTO> listEjercicioFiscal) {
+    public void setListEjercicioFiscal(
+            List<EjercicioFiscalListaDTO> listEjercicioFiscal) {
         this.listEjercicioFiscal = listEjercicioFiscal;
     }
 
@@ -67,7 +68,8 @@ public class EjercicioFiscalView {
         return ejercicioFiscalSelect;
     }
 
-    public void setEjercicioFiscalSelect(EjercicioFiscalListaDTO ejercicioFiscalSelect) {
+    public void setEjercicioFiscalSelect(
+            EjercicioFiscalListaDTO ejercicioFiscalSelect) {
         this.ejercicioFiscalSelect = ejercicioFiscalSelect;
     }
 
@@ -159,7 +161,8 @@ public class EjercicioFiscalView {
         return periodoCalendarioSelect;
     }
 
-    public void setPeriodoCalendarioSelect(PeriodoCalendarioDTO periodoCalendarioSelect) {
+    public void setPeriodoCalendarioSelect(
+            PeriodoCalendarioDTO periodoCalendarioSelect) {
         this.periodoCalendarioSelect = periodoCalendarioSelect;
     }
 

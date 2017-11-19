@@ -26,17 +26,26 @@ public class ConsultaMovimientoService {
     @Inject
     private MovimientoEmpleadoRepository movimientoEmpleadoRepository;
 
-    protected List<InfoMovimientoDTO> consultarMovimientos(FiltroConsultaDTO dto) {
+    protected List<InfoMovimientoDTO> consultarMovimientos(
+            FiltroConsultaDTO dto) {
         List<InfoMovimientoDTO> movimientos = new ArrayList<>();
         if (dto.getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTOS) {
-            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository.consultarMovimientosHijos(dto.getIdentificador()));
+            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository
+                    .consultarMovimientosHijos(dto.getIdentificador()));
 
-        } else if (dto.getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
-            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository.consultarMovimientos(dto.getIdentificador()));
-        } else if (dto.getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
-            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository.consultarMovimientosFechas(dto.getFechaInicial(), dto.getFechaFinal()));
-        } else if (dto.getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
-            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository.consultarMovimientosRFC(dto.getCriterio()));
+        } else if (dto
+                .getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_ESPECIFICO) {
+            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository
+                    .consultarMovimientos(dto.getIdentificador()));
+        } else if (dto
+                .getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_FECHAS) {
+            movimientos = toListInfoMovimientoDTO(
+                    movimientoEmpleadoRepository.consultarMovimientosFechas(
+                            dto.getFechaInicial(), dto.getFechaFinal()));
+        } else if (dto
+                .getTipoBusqueda() == EnumTipoConsultaMovimiento.MOVIMIENTO_POR_RFC_NOMBRE) {
+            movimientos = toListInfoMovimientoDTO(movimientoEmpleadoRepository
+                    .consultarMovimientosRFC(dto.getCriterio()));
         }
 
         return movimientos;
@@ -45,29 +54,38 @@ public class ConsultaMovimientoService {
     public DetalleMovimientoDTO obtenerDetalleMovimiento(Integer idMovimiento) {
 
         if (!ValidacionUtil.esNumeroPositivo(idMovimiento)) {
-            throw new ValidacionException("El identificador del movimiento es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El identificador del movimiento es requerido.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        MovimientoEmpleadoEntity movimiento = movimientoEmpleadoRepository.obtenerPorId(idMovimiento);
+        MovimientoEmpleadoEntity movimiento = movimientoEmpleadoRepository
+                .obtenerPorId(idMovimiento);
         DetalleMovimientoDTO dto = toDetalleMovimiento(movimiento);
         return dto;
     }
 
-    public DetalleMovimientoDTO toDetalleMovimiento(MovimientoEmpleadoEntity movimiento) {
+    public DetalleMovimientoDTO toDetalleMovimiento(
+            MovimientoEmpleadoEntity movimiento) {
         DetalleMovimientoDTO detalleMovimientoDTO = new DetalleMovimientoDTO();
-        detalleMovimientoDTO.setEmpleado(movimiento.getEmpleado().getNombreCompleto());
+        detalleMovimientoDTO
+                .setEmpleado(movimiento.getEmpleado().getNombreCompleto());
         detalleMovimientoDTO.setFechaFin(movimiento.getFechaFinPermiso());
         detalleMovimientoDTO.setFechaInicio(movimiento.getFechaInicioPermiso());
         detalleMovimientoDTO.setFechaMovimiento(movimiento.getFechaIngreso());
-        detalleMovimientoDTO.setMovimiento(movimiento.getMovimiento().getMovimiento());
+        detalleMovimientoDTO
+                .setMovimiento(movimiento.getMovimiento().getMovimiento());
         detalleMovimientoDTO.setNumeroOficio(movimiento.getNumeroOficio());
         detalleMovimientoDTO.setObservaciones(movimiento.getObservaciones());
-        detalleMovimientoDTO.setUsuario(movimiento.getUsuarioEntity().nombreCompleto());
-        detalleMovimientoDTO.setIdMovimiento(movimiento.getIdMovimientoEmpleado());
+        detalleMovimientoDTO
+                .setUsuario(movimiento.getUsuarioEntity().nombreCompleto());
+        detalleMovimientoDTO
+                .setIdMovimiento(movimiento.getIdMovimientoEmpleado());
         detalleMovimientoDTO.setEstatus(movimiento.getEstatusMovimiento());
         return detalleMovimientoDTO;
     }
 
-    private List<InfoMovimientoDTO> toListInfoMovimientoDTO(List<MovimientoEmpleadoEntity> movimientos) {
+    private List<InfoMovimientoDTO> toListInfoMovimientoDTO(
+            List<MovimientoEmpleadoEntity> movimientos) {
         List<InfoMovimientoDTO> listaMovimientos = new ArrayList<>();
         if (!movimientos.isEmpty()) {
             for (MovimientoEmpleadoEntity entity : movimientos) {
@@ -86,9 +104,12 @@ public class ConsultaMovimientoService {
 
     }
 
-    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(Date fechaInicial, Date fechaFinal) {
+    public List<ComisionadoLicenciaExcelDTO> listaConsultaComisionadoLicenciaPorRangoFecha(
+            Date fechaInicial, Date fechaFinal) {
 
-        return movimientoEmpleadoRepository.listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial, fechaFinal);
+        return movimientoEmpleadoRepository
+                .listaConsultaComisionadoLicenciaPorRangoFecha(fechaInicial,
+                        fechaFinal);
     }
 
 }

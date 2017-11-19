@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class MovimientoIsssteEmpleadoDTO implements Serializable {
@@ -46,7 +46,8 @@ public class MovimientoIsssteEmpleadoDTO implements Serializable {
         return idMovimientoIsssteEmpleado;
     }
 
-    public void setIdMovimientoIsssteEmpleado(Integer idMovimientoIsssteEmpleado) {
+    public void setIdMovimientoIsssteEmpleado(
+            Integer idMovimientoIsssteEmpleado) {
         this.idMovimientoIsssteEmpleado = idMovimientoIsssteEmpleado;
     }
 

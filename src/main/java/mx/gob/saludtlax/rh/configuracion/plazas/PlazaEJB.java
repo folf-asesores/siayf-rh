@@ -152,7 +152,8 @@ public class PlazaEJB {
         UserTransaction utx = context.getUserTransaction();
         try {
             utx.begin();
-            if (plazaQuery.buscarClave(clave) != "" || plazaQuery.buscarClave(clave) != null) {
+            if (plazaQuery.buscarClave(clave) != ""
+                    || plazaQuery.buscarClave(clave) != null) {
                 claveEncontrada = plazaQuery.buscarClave(clave);
             }
             utx.commit();

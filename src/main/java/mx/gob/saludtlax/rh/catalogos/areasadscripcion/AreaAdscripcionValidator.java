@@ -6,7 +6,8 @@ import javax.faces.context.FacesContext;
 
 public class AreaAdscripcionValidator {
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
     }
 }

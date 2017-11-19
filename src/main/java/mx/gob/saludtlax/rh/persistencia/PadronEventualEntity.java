@@ -103,7 +103,8 @@ public class PadronEventualEntity implements Serializable {
         return idCentroResponsabilidad;
     }
 
-    public void setIdCentroResponsabilidad(CentroResponsabilidadEntity idCentroResponsabilidad) {
+    public void setIdCentroResponsabilidad(
+            CentroResponsabilidadEntity idCentroResponsabilidad) {
         this.idCentroResponsabilidad = idCentroResponsabilidad;
     }
 

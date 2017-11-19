@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "editarPensionAlimenticia")
@@ -51,17 +51,23 @@ public class EditarPensionAlimenticiaController implements Serializable {
     public void init() {
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String idPensionAlimenticia = params.get("i");
 
         if (idPensionAlimenticia == null) {
             FacesContext facesContext = FacesContext.getCurrentInstance();
             String outcome = "index.html?faces-redirect=true";
-            facesContext.getApplication().getNavigationHandler().handleNavigation(facesContext, null, outcome);
+            facesContext.getApplication().getNavigationHandler()
+                    .handleNavigation(facesContext, null, outcome);
         }
 
-        beneficiarioPensionAlimenticiaForm = pensionAlimenticiaEJB.obtenerPensionAlimenticiaPorId(new Integer(idPensionAlimenticia));
-        informacionEmpleadoDTO = pensionAlimenticiaEJB.buscarEmpleado(new Integer(beneficiarioPensionAlimenticiaForm.getIdEmpleado()));
+        beneficiarioPensionAlimenticiaForm = pensionAlimenticiaEJB
+                .obtenerPensionAlimenticiaPorId(
+                        new Integer(idPensionAlimenticia));
+        informacionEmpleadoDTO = pensionAlimenticiaEJB
+                .buscarEmpleado(new Integer(
+                        beneficiarioPensionAlimenticiaForm.getIdEmpleado()));
         listadoTipoCoutas = pensionAlimenticiaEJB.listadoTipoCoutas();
         listadoBancos = pensionAlimenticiaEJB.listadoBanco();
 
@@ -70,19 +76,23 @@ public class EditarPensionAlimenticiaController implements Serializable {
     public String editarInformacionPension() {
 
         pensionAlimenticiaEJB.editar(beneficiarioPensionAlimenticiaForm);
-        return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
+        return "index.html?faces-redirect=true&i="
+                + beneficiarioPensionAlimenticiaForm.idEmpleado;
     }
 
     public String eliminarPensionAlimenticia() {
 
-        pensionAlimenticiaEJB.eliminarBeneficiarioPension(beneficiarioPensionAlimenticiaForm.getIdPensionAlimenticia());
+        pensionAlimenticiaEJB.eliminarBeneficiarioPension(
+                beneficiarioPensionAlimenticiaForm.getIdPensionAlimenticia());
         //		informacionEmpleadoDTO = pensionAlimenticiaEJB.buscarEmpleado(informacionEmpleadoDTO.getIdEmpleado());
-        return "index.html?faces-redirect=true&i=" + beneficiarioPensionAlimenticiaForm.idEmpleado;
+        return "index.html?faces-redirect=true&i="
+                + beneficiarioPensionAlimenticiaForm.idEmpleado;
 
     }
 
     // ----Validaciones--//
-    public void validatorDatosGenerales(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorDatosGenerales(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -91,7 +101,9 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 String expediente = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(expediente)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingres el numero de expediente.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingres el numero de expediente.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -100,7 +112,9 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 String juzgado = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(juzgado)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de juzgado.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el numero de juzgado.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -109,7 +123,9 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 String oficio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(oficio)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de oficio.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el numero de oficio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -119,11 +135,15 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 String rfc = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(rfc)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un rfc.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un rfc.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else if (!ValidacionUtil.validarRfc(rfc)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un rfc valido.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un rfc valido.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -133,7 +153,9 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre del beneficiario.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el nombre del beneficiario.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -143,7 +165,8 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 int tipo = (int) value;
 
                 if (tipo == 0) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor seleccione el tipo de descuento que se va aplicar.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -153,7 +176,9 @@ public class EditarPensionAlimenticiaController implements Serializable {
                 BigDecimal valor = (BigDecimal) value;
 
                 if (valor == BigDecimal.ZERO || valor == null) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una catidad mayor a 0.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una catidad mayor a 0.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -162,8 +187,6 @@ public class EditarPensionAlimenticiaController implements Serializable {
         }
 
     }
-
-    
 
     /**
      * @return the beneficiarioPensionAlimenticiaForm
@@ -176,7 +199,8 @@ public class EditarPensionAlimenticiaController implements Serializable {
      * @param beneficiarioPensionAlimenticiaForm
      *            the beneficiarioPensionAlimenticiaForm to set
      */
-    public void setBeneficiarioPensionAlimenticiaForm(BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm) {
+    public void setBeneficiarioPensionAlimenticiaForm(
+            BeneficiarioPensionAlimenticiaForm beneficiarioPensionAlimenticiaForm) {
         this.beneficiarioPensionAlimenticiaForm = beneficiarioPensionAlimenticiaForm;
     }
 
@@ -221,7 +245,8 @@ public class EditarPensionAlimenticiaController implements Serializable {
      * @param informacionEmpleadoDTO
      *            the informacionEmpleadoDTO to set
      */
-    public void setInformacionEmpleadoDTO(InformacionEmpleadoDTO informacionEmpleadoDTO) {
+    public void setInformacionEmpleadoDTO(
+            InformacionEmpleadoDTO informacionEmpleadoDTO) {
         this.informacionEmpleadoDTO = informacionEmpleadoDTO;
     }
 

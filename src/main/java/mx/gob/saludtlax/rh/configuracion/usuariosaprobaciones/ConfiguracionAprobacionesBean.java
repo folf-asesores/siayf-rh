@@ -7,19 +7,23 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 @Stateless
-public class ConfiguracionAprobacionesBean implements ConfiguracionAprobaciones {
+public class ConfiguracionAprobacionesBean
+        implements ConfiguracionAprobaciones {
 
     @Inject
     private ConfiguracionAprobacionService configuracionAutorizacionService;
 
     @Override
-    public List<UsuarioConfiguracionDTO> consultarUsuariosAprobacion(Integer idOperacion) {
-        return configuracionAutorizacionService.consultarUsuariosAprobacion(idOperacion);
+    public List<UsuarioConfiguracionDTO> consultarUsuariosAprobacion(
+            Integer idOperacion) {
+        return configuracionAutorizacionService
+                .consultarUsuariosAprobacion(idOperacion);
     }
 
     @Override
     public String obtenerDescripcionOperacion(Integer idOperacion) {
-        return configuracionAutorizacionService.obtenerDescripcionOperacion(idOperacion);
+        return configuracionAutorizacionService
+                .obtenerDescripcionOperacion(idOperacion);
 
     }
 
@@ -31,19 +35,23 @@ public class ConfiguracionAprobacionesBean implements ConfiguracionAprobaciones 
     }
 
     @Override
-    public void actualizarConfiguracionAprobacion(ActualizacionConfiguracionAprobacionDTO dto) {
+    public void actualizarConfiguracionAprobacion(
+            ActualizacionConfiguracionAprobacionDTO dto) {
         configuracionAutorizacionService.actualizarConfiguracionAprobacion(dto);
     }
 
     @Override
-    public void eliminarConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+    public void eliminarConfiguracionAprobacion(
+            Integer idConfiguracionAprobacion) {
 
-        configuracionAutorizacionService.eliminaConfiguracionAutorizacion(idConfiguracionAprobacion);
+        configuracionAutorizacionService
+                .eliminaConfiguracionAutorizacion(idConfiguracionAprobacion);
     }
 
     @Override
     public Boolean aplicaMovimientos(Integer idAccionUsuario) {
-        return configuracionAutorizacionService.obtenerAplicaMovimientos(idAccionUsuario);
+        return configuracionAutorizacionService
+                .obtenerAplicaMovimientos(idAccionUsuario);
     }
 
 }

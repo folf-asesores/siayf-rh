@@ -58,7 +58,8 @@ public class TablaRetencionView {
         return listTablaRetencion;
     }
 
-    public void setListTablaRetencion(List<TablaRetencionListaDTO> listTablaRetencion) {
+    public void setListTablaRetencion(
+            List<TablaRetencionListaDTO> listTablaRetencion) {
         this.listTablaRetencion = listTablaRetencion;
     }
 
@@ -66,7 +67,8 @@ public class TablaRetencionView {
         return tablaRetencionSelect;
     }
 
-    public void setTablaRetencionSelect(TablaRetencionListaDTO tablaRetencionSelect) {
+    public void setTablaRetencionSelect(
+            TablaRetencionListaDTO tablaRetencionSelect) {
         this.tablaRetencionSelect = tablaRetencionSelect;
     }
 
@@ -114,7 +116,8 @@ public class TablaRetencionView {
         return listTablaSubsidio;
     }
 
-    public void setListTablaSubsidio(List<TablaSubsidioListaDTO> listTablaSubsidio) {
+    public void setListTablaSubsidio(
+            List<TablaSubsidioListaDTO> listTablaSubsidio) {
         this.listTablaSubsidio = listTablaSubsidio;
     }
 
@@ -130,7 +133,8 @@ public class TablaRetencionView {
         this.tablaSubsidio = tablaSubsidio;
     }
 
-    public void setTablaSubsidioSelect(TablaSubsidioListaDTO tablaSubsidioSelect) {
+    public void setTablaSubsidioSelect(
+            TablaSubsidioListaDTO tablaSubsidioSelect) {
         this.tablaSubsidioSelect = tablaSubsidioSelect;
     }
 
@@ -186,7 +190,8 @@ public class TablaRetencionView {
         return disabledIrGestionarTablaRetencion;
     }
 
-    public void setDisabledIrGestionarTablaRetencion(Boolean disabledIrGestionarTablaRetencion) {
+    public void setDisabledIrGestionarTablaRetencion(
+            Boolean disabledIrGestionarTablaRetencion) {
         this.disabledIrGestionarTablaRetencion = disabledIrGestionarTablaRetencion;
     }
 
@@ -194,7 +199,8 @@ public class TablaRetencionView {
         return disabledIrGestionarTablaSubsidio;
     }
 
-    public void setDisabledIrGestionarTablaSubsidio(Boolean disabledIrGestionarTablaSubsidio) {
+    public void setDisabledIrGestionarTablaSubsidio(
+            Boolean disabledIrGestionarTablaSubsidio) {
         this.disabledIrGestionarTablaSubsidio = disabledIrGestionarTablaSubsidio;
     }
 

@@ -26,12 +26,16 @@ public class PagoGeneralEJB implements PagoGeneral {
     private PagoGeneralService pagoGeneralService;
 
     @Override
-    public Boolean rfcPerteneceAProductoNomina(String rfc, Integer idProductoNomina) {
+    public Boolean rfcPerteneceAProductoNomina(String rfc,
+            Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o negativo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o negativo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        return pagoGeneralService.rfcPerteneceAProductoNomina(rfc, idProductoNomina);
+        return pagoGeneralService.rfcPerteneceAProductoNomina(rfc,
+                idProductoNomina);
     }
 
     //    @Override

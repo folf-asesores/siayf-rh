@@ -48,28 +48,33 @@ public class PrimaVacacionalService implements Serializable {
         // Tenemos el salario mensual del empleado
         BigDecimal salarioMensual = params.getBasePrima();
 
-        Integer antiguedadMeses = calcularMesesAntiguedad(params.getConfiguracionPresupuesto().getFechaInicioLabores());
+        Integer antiguedadMeses = calcularMesesAntiguedad(
+                params.getConfiguracionPresupuesto().getFechaInicioLabores());
 
         PrimaVacacionalResult primaVacacionalResult = new PrimaVacacionalResult();
 
         primaVacacionalResult.setAntiguedadEmpleado(antiguedadMeses);
-        primaVacacionalResult.setFechaIngreso(params.getConfiguracionPresupuesto().getFechaInicioLabores());
+        primaVacacionalResult.setFechaIngreso(
+                params.getConfiguracionPresupuesto().getFechaInicioLabores());
         BigDecimal primaVacacional = BigDecimal.ZERO;
         // Validamos los meses de antiguedad del empleado
         if (antiguedadMeses > MESES_MINIMOS_ANTIGUEDAD) {
             // Dependiendo el tipo calculo se realiza el calculo de la prima
             // vacacional
-            BigDecimal salarioPorDia = salarioMensual.divide(new BigDecimal(30), 4);
+            BigDecimal salarioPorDia = salarioMensual.divide(new BigDecimal(30),
+                    4);
             primaVacacional = salarioPorDia.multiply(params.getDiasPagar());
         }
 
-        BigDecimal importeExcento = calcularImporteExcento(params.getDiasExentoPagar());
+        BigDecimal importeExcento = calcularImporteExcento(
+                params.getDiasExentoPagar());
 
         primaVacacionalResult.setTotal(primaVacacional);
 
         if (primaVacacional.compareTo(importeExcento) > 0) {
             primaVacacionalResult.setExcento(importeExcento);
-            primaVacacionalResult.setGravado(primaVacacional.subtract(importeExcento));
+            primaVacacionalResult
+                    .setGravado(primaVacacional.subtract(importeExcento));
         } else {
             primaVacacionalResult.setExcento(primaVacacional);
             primaVacacionalResult.setGravado(BigDecimal.ZERO);
@@ -79,7 +84,8 @@ public class PrimaVacacionalService implements Serializable {
     }
 
     private BigDecimal calcularImporteExcento(BigDecimal diasExentoPagar) {
-        SalarioMinimoEntity salarioMinimo = salarioMinimoRepository.obtenerSalarioMinimoActual();
+        SalarioMinimoEntity salarioMinimo = salarioMinimoRepository
+                .obtenerSalarioMinimoActual();
 
         if (salarioMinimo != null) {
             return diasExentoPagar.multiply(salarioMinimo.getSalarioMinimo());

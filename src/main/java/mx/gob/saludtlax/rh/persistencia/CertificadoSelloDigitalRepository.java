@@ -23,7 +23,8 @@ public class CertificadoSelloDigitalRepository implements Serializable {
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
-    public Integer guardarNuevoCertificadoSelloDigital(CertificadoSelloDigitalEntity certificadoSelloDigitalEntity) {
+    public Integer guardarNuevoCertificadoSelloDigital(
+            CertificadoSelloDigitalEntity certificadoSelloDigitalEntity) {
 
         Integer idCertificadoSelloDigital = null;
 
@@ -35,8 +36,9 @@ public class CertificadoSelloDigitalRepository implements Serializable {
     public CertificadoSelloDigitalEntity obtenerCertificadoSelloDigitalActivo() {
         CertificadoSelloDigitalEntity certificadoSelloDigital = null;
 
-        certificadoSelloDigital = entityManager
-                .createQuery("SELECT c FROM CertificadoSelloDigitalEntity c WHERE c.activo = 1", CertificadoSelloDigitalEntity.class).getSingleResult();
+        certificadoSelloDigital = entityManager.createQuery(
+                "SELECT c FROM CertificadoSelloDigitalEntity c WHERE c.activo = 1",
+                CertificadoSelloDigitalEntity.class).getSingleResult();
         return certificadoSelloDigital;
     }
 

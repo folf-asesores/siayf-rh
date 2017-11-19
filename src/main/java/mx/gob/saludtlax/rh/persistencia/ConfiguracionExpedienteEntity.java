@@ -44,7 +44,8 @@ public class ConfiguracionExpedienteEntity implements Serializable {
         return idConfiguracionExpediente;
     }
 
-    public void setIdConfiguracionExpediente(Integer idConfiguracionExpediente) {
+    public void setIdConfiguracionExpediente(
+            Integer idConfiguracionExpediente) {
         this.idConfiguracionExpediente = idConfiguracionExpediente;
     }
 
@@ -52,7 +53,8 @@ public class ConfiguracionExpedienteEntity implements Serializable {
         return documentoAdjuntable;
     }
 
-    public void setDocumentoAdjuntable(DocumentoAdjuntableEntity documentoAdjuntable) {
+    public void setDocumentoAdjuntable(
+            DocumentoAdjuntableEntity documentoAdjuntable) {
         this.documentoAdjuntable = documentoAdjuntable;
     }
 

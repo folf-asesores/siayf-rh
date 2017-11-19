@@ -57,22 +57,28 @@ public class UsuarioController implements Serializable {
 
         List<CatalogoDTO> adscripciones = usuarioEJB.obtenerAdscripciones();
         for (CatalogoDTO dto : adscripciones) {
-            listaAdscripciones.add(new SelectItem(dto.getId(), dto.getNombre()));
+            listaAdscripciones
+                    .add(new SelectItem(dto.getId(), dto.getNombre()));
         }
 
         List<CatalogoDTO> areaadscripciones = usuarioEJB.obtenerAdscripciones();
         for (CatalogoDTO dto : areaadscripciones) {
-            listaAreasAdscripciones.add(new SelectItem(dto.getId(), dto.getNombre()));
+            listaAreasAdscripciones
+                    .add(new SelectItem(dto.getId(), dto.getNombre()));
         }
 
-        List<CatalogoDTO> lugaradscripciones = usuarioEJB.obtenerAdscripciones();
+        List<CatalogoDTO> lugaradscripciones = usuarioEJB
+                .obtenerAdscripciones();
         for (CatalogoDTO dto : lugaradscripciones) {
-            listaLugarAdscripciones.add(new SelectItem(dto.getId(), dto.getNombre()));
+            listaLugarAdscripciones
+                    .add(new SelectItem(dto.getId(), dto.getNombre()));
         }
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        usuarioEnSession = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        usuarioEnSession = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
     }
 
     /**
@@ -81,10 +87,13 @@ public class UsuarioController implements Serializable {
     public void registrarUsuario() {
         UsuarioDTO usuario = null;
         try {
-            usuario = usuarioEJB.obtenerUsuarioPorNombreUsuario(usuarioView.getUsuarioDTO().getUserName());
+            usuario = usuarioEJB.obtenerUsuarioPorNombreUsuario(
+                    usuarioView.getUsuarioDTO().getUserName());
             if (usuario != null) {
-                JSFUtils.warningMessage("Usuario", "Se encuentra registrado seleccione otro nombre de usuario");
-            } else if (EmailValidator.validate(usuarioView.getUsuarioDTO().getCorreo())) {
+                JSFUtils.warningMessage("Usuario",
+                        "Se encuentra registrado seleccione otro nombre de usuario");
+            } else if (EmailValidator
+                    .validate(usuarioView.getUsuarioDTO().getCorreo())) {
                 UsuarioDTO newUserDto = new UsuarioDTO();
                 newUserDto = usuarioView.getUsuarioDTO();
 
@@ -93,10 +102,12 @@ public class UsuarioController implements Serializable {
                 usuarioEJB.crear(newUserDto);
                 JSFUtils.infoMessage("Usuario", "Registrado correctamente");
             } else {
-                JSFUtils.warningMessage("Correo invalido", "Verifique su correo electrónico");
+                JSFUtils.warningMessage("Correo invalido",
+                        "Verifique su correo electrónico");
             }
         } catch (BusinessException ex) {
-            JSFUtils.errorMessage("Error", "Ocurrio un error durante el registro del nuevo usuario");
+            JSFUtils.errorMessage("Error",
+                    "Ocurrio un error durante el registro del nuevo usuario");
         }
     }
 
@@ -109,14 +120,16 @@ public class UsuarioController implements Serializable {
             if (usuarioView.isCambiarContrasenia()) {
                 String newPass = usuarioView.getUsuarioDTO().getPassword();
 
-                usuarioView.getEditarUsuarioDTO().setPassword(Crypto.hmac(newPass));
+                usuarioView.getEditarUsuarioDTO()
+                        .setPassword(Crypto.hmac(newPass));
 
             }
             usuarioEJB.actualizar(usuarioView.getEditarUsuarioDTO());
             JSFUtils.infoMessage("Usuario", "Actualizado correctamente");
 
         } catch (ReglaNegocioException ex) {
-            JSFUtils.errorMessage("Error", "Ocurrio un error durante el registro del nuevo usuario");
+            JSFUtils.errorMessage("Error",
+                    "Ocurrio un error durante el registro del nuevo usuario");
         }
     }
 
@@ -138,7 +151,8 @@ public class UsuarioController implements Serializable {
                 JSFUtils.errorMessage("", "Las contraseñas deben coincidir");
             }
         } catch (BusinessException ex) {
-            JSFUtils.errorMessage("Error", "Ocurrio un error durante el registro del nuevo usuario");
+            JSFUtils.errorMessage("Error",
+                    "Ocurrio un error durante el registro del nuevo usuario");
         }
     }
 
@@ -148,7 +162,8 @@ public class UsuarioController implements Serializable {
     //	 * correo electrónico
     //	 */
     public void buscarUsuario() {
-        UsuarioDTO usuario = usuarioEJB.obtenerUsuarioPorNombreUsuario(criterio);
+        UsuarioDTO usuario = usuarioEJB
+                .obtenerUsuarioPorNombreUsuario(criterio);
         if (usuario == null) {
             usuarioView.setHabilitarPanelUsuario(false);
         } else {
@@ -183,7 +198,8 @@ public class UsuarioController implements Serializable {
         try {
             usuarioEJB.eliminar(usuarioView.getUsuarioDTO().getIdUsuario());
         } catch (BusinessException ex) {
-            JSFUtils.errorMessage("Error", "Al tratar de eliminar el usuario seleccionado");
+            JSFUtils.errorMessage("Error",
+                    "Al tratar de eliminar el usuario seleccionado");
         }
     }
 
@@ -232,11 +248,13 @@ public class UsuarioController implements Serializable {
      */
     public void eliminar() {
         try {
-            Integer idUsuario = usuarioView.getSeleccionarUsuario().getIdUsuario();
+            Integer idUsuario = usuarioView.getSeleccionarUsuario()
+                    .getIdUsuario();
             usuarioEJB.eliminar(idUsuario);
             JSFUtils.infoMessage("Usuario", "Eliminado Correctamente");
         } catch (BusinessException ex) {
-            JSFUtils.errorMessage("Error", "Al tratar de eliminar el usuario seleccionado");
+            JSFUtils.errorMessage("Error",
+                    "Al tratar de eliminar el usuario seleccionado");
         }
     }
 
@@ -333,7 +351,8 @@ public class UsuarioController implements Serializable {
         return listaAreasAdscripciones;
     }
 
-    public void setListaAreasAdscripciones(List<SelectItem> listaAreasAdscripciones) {
+    public void setListaAreasAdscripciones(
+            List<SelectItem> listaAreasAdscripciones) {
         this.listaAreasAdscripciones = listaAreasAdscripciones;
     }
 
@@ -341,7 +360,8 @@ public class UsuarioController implements Serializable {
         return listaLugarAdscripciones;
     }
 
-    public void setListaLugarAdscripciones(List<SelectItem> listaLugarAdscripciones) {
+    public void setListaLugarAdscripciones(
+            List<SelectItem> listaLugarAdscripciones) {
         this.listaLugarAdscripciones = listaLugarAdscripciones;
     }
 

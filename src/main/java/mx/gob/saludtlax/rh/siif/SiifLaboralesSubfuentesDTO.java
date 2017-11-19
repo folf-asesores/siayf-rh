@@ -12,7 +12,8 @@ public class SiifLaboralesSubfuentesDTO {
         return idSiifLaboralesSubfuentes;
     }
 
-    public void setIdSiifLaboralesSubfuentes(Integer idSiifLaboralesSubfuentes) {
+    public void setIdSiifLaboralesSubfuentes(
+            Integer idSiifLaboralesSubfuentes) {
         this.idSiifLaboralesSubfuentes = idSiifLaboralesSubfuentes;
     }
 
@@ -28,7 +29,8 @@ public class SiifLaboralesSubfuentesDTO {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

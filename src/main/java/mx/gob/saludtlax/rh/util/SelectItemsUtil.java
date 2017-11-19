@@ -142,7 +142,8 @@ public class SelectItemsUtil {
         List<SelectItem> lista = new ArrayList<>();
         if (!catalogos.isEmpty()) {
             for (CatalogoDTO dto : catalogos) {
-                SelectItem item = new SelectItem(dto.getNombre(), dto.getNombre());
+                SelectItem item = new SelectItem(dto.getNombre(),
+                        dto.getNombre());
                 lista.add(item);
             }
         }
@@ -208,10 +209,12 @@ public class SelectItemsUtil {
      * @param listaEscolaridad
      * @return
      */
-    public static List<SelectItem> listaEscolaridad(List<EscolaridadDTO> listaEscolaridad) {
+    public static List<SelectItem> listaEscolaridad(
+            List<EscolaridadDTO> listaEscolaridad) {
         List<SelectItem> lista = new ArrayList<>();
         for (EscolaridadDTO dto : listaEscolaridad) {
-            SelectItem item = new SelectItem(dto.getIdEscolaridad(), dto.getEscolaridad() + " - " + dto.getGrupoAcademico());
+            SelectItem item = new SelectItem(dto.getIdEscolaridad(),
+                    dto.getEscolaridad() + " - " + dto.getGrupoAcademico());
 
             lista.add(item);
         }
@@ -225,10 +228,12 @@ public class SelectItemsUtil {
      * @param listaEstatusEscolaridad
      * @return
      */
-    public static List<SelectItem> listaEstatusEscolaridad(List<DocumentoComprobatorioDTO> listaEstatusEscolaridad) {
+    public static List<SelectItem> listaEstatusEscolaridad(
+            List<DocumentoComprobatorioDTO> listaEstatusEscolaridad) {
         List<SelectItem> lista = new ArrayList<>();
         for (DocumentoComprobatorioDTO dto : listaEstatusEscolaridad) {
-            SelectItem item = new SelectItem(dto.getIdDocumentoComprobatorio(), dto.getEstatus());
+            SelectItem item = new SelectItem(dto.getIdDocumentoComprobatorio(),
+                    dto.getEstatus());
 
             lista.add(item);
         }
@@ -250,7 +255,8 @@ public class SelectItemsUtil {
         return lista;
     }
 
-    public static List<SelectItem> listaMovimientosEmpleado(List<CatalogoDTO> movimientos) {
+    public static List<SelectItem> listaMovimientosEmpleado(
+            List<CatalogoDTO> movimientos) {
         List<SelectItem> lista = new ArrayList<>();
         if (!movimientos.isEmpty()) {
             for (CatalogoDTO dto : movimientos) {
@@ -411,8 +417,10 @@ public class SelectItemsUtil {
         List<SelectItem> lista = new ArrayList<>();
         SelectItem item = new SelectItem("COLOR BLANCO", "COLOR BLANCO");
         SelectItem item1 = new SelectItem("COLOR NEGRO", "COLOR NEGRO");
-        SelectItem item2 = new SelectItem("COLOR MORENO CLARO", "COLOR MORENO CLARO");
-        SelectItem item3 = new SelectItem("COLOR MORENO OSCURO", "COLOR MORENO OSCURO");
+        SelectItem item2 = new SelectItem("COLOR MORENO CLARO",
+                "COLOR MORENO CLARO");
+        SelectItem item3 = new SelectItem("COLOR MORENO OSCURO",
+                "COLOR MORENO OSCURO");
         SelectItem item4 = new SelectItem("COLOR AMARILLO", "COLOR AMARILLO");
 
         lista.add(item);
@@ -425,13 +433,16 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaCabello() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem item = new SelectItem("CABELLO CASTAÑO CLARO", "CABELLO CASTAÑO CLARO");
-        SelectItem item1 = new SelectItem("CABELLO CASTAÑO OSCURO", "CABELLO CASTAÑO OSCURO");
+        SelectItem item = new SelectItem("CABELLO CASTAÑO CLARO",
+                "CABELLO CASTAÑO CLARO");
+        SelectItem item1 = new SelectItem("CABELLO CASTAÑO OSCURO",
+                "CABELLO CASTAÑO OSCURO");
         SelectItem item2 = new SelectItem("CABELLO NEGRO", "CABELLO NEGRO");
         SelectItem item3 = new SelectItem("CABELLO RUBIO", "CABELLO RUBIO");
         SelectItem item4 = new SelectItem("CABELLO ROJO", "CABELLO ROJO");
         SelectItem item5 = new SelectItem("CABELLO ALBINO", "CABELLO ALBINO");
-        SelectItem item6 = new SelectItem("CABELLO ENTRECANO", "CABELLO ENTRECANO");
+        SelectItem item6 = new SelectItem("CABELLO ENTRECANO",
+                "CABELLO ENTRECANO");
         SelectItem item7 = new SelectItem("CABELLO CANO", "CABELLO CANO");
 
         lista.add(item);
@@ -460,7 +471,8 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaCejas() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem item = new SelectItem("CEJAS ABUNDANTES", "CEJAS ABUNDANTES");
+        SelectItem item = new SelectItem("CEJAS ABUNDANTES",
+                "CEJAS ABUNDANTES");
         SelectItem item1 = new SelectItem("CEJAS ESCASAS", "CEJAS ESCASAS");
         SelectItem item2 = new SelectItem("CEJAS REGULARES", "CEJAS REGULARES");
 
@@ -475,8 +487,10 @@ public class SelectItemsUtil {
         List<SelectItem> lista = new ArrayList<>();
         SelectItem item = new SelectItem("OJOS AZULES", "OJOS AZULES");
         SelectItem item1 = new SelectItem("OJOS VERDES", "OJOS VERDES");
-        SelectItem item2 = new SelectItem("OJOS CASTAÑO CLARO", "OJOS CASTAÑO CLARO");
-        SelectItem item3 = new SelectItem("OJOS CASTAÑO OSCURO", "OJOS CASTAÑO OSCURO");
+        SelectItem item2 = new SelectItem("OJOS CASTAÑO CLARO",
+                "OJOS CASTAÑO CLARO");
+        SelectItem item3 = new SelectItem("OJOS CASTAÑO OSCURO",
+                "OJOS CASTAÑO OSCURO");
         SelectItem item4 = new SelectItem("OJOS PARDOS", "OJOS PARDOS");
         SelectItem item5 = new SelectItem("OJOS VERDOSOS", "OJOS VERDOSOS");
         SelectItem item6 = new SelectItem("OJOS NEGROS", "OJOS NEGROS");
@@ -496,7 +510,8 @@ public class SelectItemsUtil {
         List<SelectItem> lista = new ArrayList<>();
         SelectItem item = new SelectItem("NARIZ CONVEXA", "NARIZ CONVEXA");
         SelectItem item1 = new SelectItem("NARIZ CONCAVA", "NARIZ CONCAVA");
-        SelectItem item2 = new SelectItem("NARIZ RECTILINEA", "NARIZ RECTILINEA");
+        SelectItem item2 = new SelectItem("NARIZ RECTILINEA",
+                "NARIZ RECTILINEA");
 
         lista.add(item);
         lista.add(item1);
@@ -529,8 +544,10 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaReporteMovimientoEmpleado() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem item = new SelectItem("Comisionado o Licencia", "Comisionado o Licencia");
-        SelectItem item1 = new SelectItem("Consentrado de Altas y Bajas", "Consentrado de Altas y Bajas");
+        SelectItem item = new SelectItem("Comisionado o Licencia",
+                "Comisionado o Licencia");
+        SelectItem item1 = new SelectItem("Consentrado de Altas y Bajas",
+                "Consentrado de Altas y Bajas");
         lista.add(item);
         lista.add(item1);
         return lista;
@@ -583,9 +600,12 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaEstatusSuplencias() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumEstatusSuplencia.APROBADO, EnumEstatusSuplencia.APROBADO);
-        SelectItem dos = new SelectItem(EnumEstatusSuplencia.PENDIENTE, EnumEstatusSuplencia.PENDIENTE);
-        SelectItem tres = new SelectItem(EnumEstatusSuplencia.RECHAZADO, EnumEstatusSuplencia.RECHAZADO);
+        SelectItem uno = new SelectItem(EnumEstatusSuplencia.APROBADO,
+                EnumEstatusSuplencia.APROBADO);
+        SelectItem dos = new SelectItem(EnumEstatusSuplencia.PENDIENTE,
+                EnumEstatusSuplencia.PENDIENTE);
+        SelectItem tres = new SelectItem(EnumEstatusSuplencia.RECHAZADO,
+                EnumEstatusSuplencia.RECHAZADO);
 
         lista.add(uno);
         lista.add(dos);
@@ -596,8 +616,10 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaEstatusSuplenciasCierre() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumEstatusSuplencia.APROBADO, EnumEstatusSuplencia.APROBADO);
-        SelectItem dos = new SelectItem(EnumEstatusSuplencia.CERRADA, EnumEstatusSuplencia.CERRADA);
+        SelectItem uno = new SelectItem(EnumEstatusSuplencia.APROBADO,
+                EnumEstatusSuplencia.APROBADO);
+        SelectItem dos = new SelectItem(EnumEstatusSuplencia.CERRADA,
+                EnumEstatusSuplencia.CERRADA);
 
         lista.add(uno);
         lista.add(dos);
@@ -607,7 +629,8 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaTiposBusquedaInterinato() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumTipoBusquedaInterinato.POR_PERMISO, "PERMISO");
+        SelectItem uno = new SelectItem(EnumTipoBusquedaInterinato.POR_PERMISO,
+                "PERMISO");
         // SelectItem dos = new
         // SelectItem(EnumTipoBusquedaInterinato.POR_LIBERACION, "VACANTE");
 
@@ -619,8 +642,10 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaTiposBusquedaVoluntarios() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumTipoConsultaVoluntario.NOMBRE, "NOMBRE");
-        SelectItem dos = new SelectItem(EnumTipoConsultaVoluntario.ACTIVOS, "ACTIVOS");
+        SelectItem uno = new SelectItem(EnumTipoConsultaVoluntario.NOMBRE,
+                "NOMBRE");
+        SelectItem dos = new SelectItem(EnumTipoConsultaVoluntario.ACTIVOS,
+                "ACTIVOS");
 
         lista.add(uno);
         lista.add(dos);
@@ -630,10 +655,13 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaTiposBusquedaSuplentes() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumTipoConsultaSuplencia.NOMBRE, "NOMBRE O RFC");
-        SelectItem dos = new SelectItem(EnumTipoConsultaSuplencia.ACTIVO, "ACTIVOS");
+        SelectItem uno = new SelectItem(EnumTipoConsultaSuplencia.NOMBRE,
+                "NOMBRE O RFC");
+        SelectItem dos = new SelectItem(EnumTipoConsultaSuplencia.ACTIVO,
+                "ACTIVOS");
 
-        SelectItem tres = new SelectItem(EnumTipoConsultaSuplencia.INACTIVO, "INACTIVOS");
+        SelectItem tres = new SelectItem(EnumTipoConsultaSuplencia.INACTIVO,
+                "INACTIVOS");
 
         lista.add(uno);
         lista.add(dos);
@@ -644,8 +672,12 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaBusquedasRevisionSuplencias() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumTipoConsultaSuplencia.QUINCENA_POR_CRITERIO, "NOMBRE O RFC");
-        SelectItem dos = new SelectItem(EnumTipoConsultaSuplencia.QUINCENAS_CENTROS_ESTATUS, "CENTRO RESPONSABILIDAD");
+        SelectItem uno = new SelectItem(
+                EnumTipoConsultaSuplencia.QUINCENA_POR_CRITERIO,
+                "NOMBRE O RFC");
+        SelectItem dos = new SelectItem(
+                EnumTipoConsultaSuplencia.QUINCENAS_CENTROS_ESTATUS,
+                "CENTRO RESPONSABILIDAD");
         lista.add(uno);
         lista.add(dos);
         return lista;
@@ -653,8 +685,10 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaTiposMovimientosSuplentes() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem(EnumTipoMovimientoSuplente.VACACIONES, EnumTipoMovimientoSuplente.VACACIONES);
-        SelectItem dos = new SelectItem(EnumTipoMovimientoSuplente.INCAPACIDAD, EnumTipoMovimientoSuplente.INCAPACIDAD);
+        SelectItem uno = new SelectItem(EnumTipoMovimientoSuplente.VACACIONES,
+                EnumTipoMovimientoSuplente.VACACIONES);
+        SelectItem dos = new SelectItem(EnumTipoMovimientoSuplente.INCAPACIDAD,
+                EnumTipoMovimientoSuplente.INCAPACIDAD);
         lista.add(uno);
         lista.add(dos);
         return lista;
@@ -666,11 +700,15 @@ public class SelectItemsUtil {
         SelectItem dos = new SelectItem("2", "MÉDICO GENERAL");
         SelectItem tres = new SelectItem("3", "CIRUJANO DENTISTA");
         SelectItem cuatro = new SelectItem("4", "ODONTÓLOGOS");
-        SelectItem cinco = new SelectItem("5", "ENFERMERAS Y AUXILIAR DE ENFERMERÍA");
-        SelectItem seis = new SelectItem("6", "PARAMÉDICA (TÉCNICO, LABORATORISTA)");
+        SelectItem cinco = new SelectItem("5",
+                "ENFERMERAS Y AUXILIAR DE ENFERMERÍA");
+        SelectItem seis = new SelectItem("6",
+                "PARAMÉDICA (TÉCNICO, LABORATORISTA)");
         SelectItem siete = new SelectItem("7", "AFINES");
-        SelectItem ocho = new SelectItem("8", "SOPORTES ADMINISTRATIVOS (PERSONAL CONFIANZA)");
-        SelectItem nueve = new SelectItem("9", "APOYOS ADMINISTRATIVOS (PERSONAL BASE)");
+        SelectItem ocho = new SelectItem("8",
+                "SOPORTES ADMINISTRATIVOS (PERSONAL CONFIANZA)");
+        SelectItem nueve = new SelectItem("9",
+                "APOYOS ADMINISTRATIVOS (PERSONAL BASE)");
         SelectItem diez = new SelectItem("10", "PERSONAL DE MANDO");
         SelectItem once = new SelectItem("11", "INVESTIGADOR");
         SelectItem doce = new SelectItem("12", "MÉDICO RESIDENTE");
@@ -787,12 +825,15 @@ public class SelectItemsUtil {
         SelectItem seis = new SelectItem("06", "06-RECURSO RAMO 12 (610)");
         SelectItem siete = new SelectItem("07", "07-RECURSOS RAMO 12 (X00)");
         SelectItem ocho = new SelectItem("08", "08-FASSA + SEGURO POPULAR");
-        SelectItem nueve = new SelectItem("09", "09-FASSA + RECURSOS ESTATALES");
+        SelectItem nueve = new SelectItem("09",
+                "09-FASSA + RECURSOS ESTATALES");
         SelectItem diez = new SelectItem("10", "10-FASSA + RECURSOS RAMO 12");
         SelectItem once = new SelectItem("11", "11-RECURSO RAMO 12 (AFASPE)");
-        SelectItem doce = new SelectItem("12", "12-SEGURO POPULAR + RECURSOS ESTATALES");
+        SelectItem doce = new SelectItem("12",
+                "12-SEGURO POPULAR + RECURSOS ESTATALES");
         SelectItem trece = new SelectItem("13", "13-CARAVANAS DE LA SALUD");
-        SelectItem catorce = new SelectItem("14", "14-FASSA + OPORTUNIDADES + CUOTAS DE RECUPERACIÓN");
+        SelectItem catorce = new SelectItem("14",
+                "14-FASSA + OPORTUNIDADES + CUOTAS DE RECUPERACIÓN");
         lista.add(uno);
         lista.add(dos);
         lista.add(tres);
@@ -813,9 +854,12 @@ public class SelectItemsUtil {
 
     public static List<SelectItem> listaJornadas() {
         List<SelectItem> lista = new ArrayList<>();
-        SelectItem uno = new SelectItem("01", "JORNADA DIURNA ÁREA MÉDICA (MÁXIMO 8.0 HRS)");
-        SelectItem dos = new SelectItem("02", "JORNADA DIURNA GRUPO AFÍN ADMVO. (7.0 HRS)");
-        SelectItem tres = new SelectItem("03", "JORNADA MIXTA ÁREA MÉDICA (7.5 HRS)");
+        SelectItem uno = new SelectItem("01",
+                "JORNADA DIURNA ÁREA MÉDICA (MÁXIMO 8.0 HRS)");
+        SelectItem dos = new SelectItem("02",
+                "JORNADA DIURNA GRUPO AFÍN ADMVO. (7.0 HRS)");
+        SelectItem tres = new SelectItem("03",
+                "JORNADA MIXTA ÁREA MÉDICA (7.5 HRS)");
         SelectItem cuatro = new SelectItem("04", "JORNADA ESPECIAL (12.0 HRS)");
         SelectItem cinco = new SelectItem("05", "JORNADA DIURNA (6.0 HRS)");
 

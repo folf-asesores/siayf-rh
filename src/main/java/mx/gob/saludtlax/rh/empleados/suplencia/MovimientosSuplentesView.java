@@ -41,7 +41,8 @@ public class MovimientosSuplentesView {
         return mostrarRegistroMovimiento;
     }
 
-    public void setMostrarRegistroMovimiento(boolean mostrarRegistroMovimiento) {
+    public void setMostrarRegistroMovimiento(
+            boolean mostrarRegistroMovimiento) {
         this.mostrarRegistroMovimiento = mostrarRegistroMovimiento;
     }
 

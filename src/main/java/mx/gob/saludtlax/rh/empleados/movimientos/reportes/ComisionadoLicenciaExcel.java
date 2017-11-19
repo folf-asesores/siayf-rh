@@ -20,12 +20,14 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ComisionadoLicenciaExcel {
 
-    private final InputStream is = ComisionadoLicenciaExcel.class.getResourceAsStream("/plantillas/comisionadoLicencia/Comisionado_Licencia.xlsx");
+    private final InputStream is = ComisionadoLicenciaExcel.class
+            .getResourceAsStream(
+                    "/plantillas/comisionadoLicencia/Comisionado_Licencia.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -107,7 +109,8 @@ public class ComisionadoLicenciaExcel {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
@@ -140,22 +143,27 @@ public class ComisionadoLicenciaExcel {
             // filaDetalle.createCell(COLUMNA_NUMERO_HORAS);
             // celdaNumeroHr.setCellValue(FechaUtil.formatoHora(detalle.getNumeroHoras()));
 
-            Cell celdaFnE = filaDetalle.createCell(COLUMNA_FUNCIONES_ESPECIFICAS);
+            Cell celdaFnE = filaDetalle
+                    .createCell(COLUMNA_FUNCIONES_ESPECIFICAS);
             celdaFnE.setCellValue(detalle.getFuncionesEspecificas());
 
             Cell celdaCP = filaDetalle.createCell(COLUMNA_CLAVE_PAGO);
             celdaCP.setCellValue(detalle.getClavePago());
 
             Cell celdaFI = filaDetalle.createCell(COLUMNA_FECHA_INICIO);
-            celdaFI.setCellValue(FechaUtil.formatoFecha(detalle.getFechaInicio()));
+            celdaFI.setCellValue(
+                    FechaUtil.formatoFecha(detalle.getFechaInicio()));
 
             Cell celdaFC = filaDetalle.createCell(COLUMNA_FECHA_CONCLUSION);
-            celdaFC.setCellValue(FechaUtil.formatoFecha(detalle.getFechaConclusion()));
+            celdaFC.setCellValue(
+                    FechaUtil.formatoFecha(detalle.getFechaConclusion()));
 
-            Cell celdaCTO = filaDetalle.createCell(COLUMNA_CENTRO_TRABAJO_ORIGEN);
+            Cell celdaCTO = filaDetalle
+                    .createCell(COLUMNA_CENTRO_TRABAJO_ORIGEN);
             celdaCTO.setCellValue(detalle.getCentroTrabajoOrigen());
 
-            Cell celdaCTD = filaDetalle.createCell(COLUMNA_CENTRO_TRABAJO_DESTINO);
+            Cell celdaCTD = filaDetalle
+                    .createCell(COLUMNA_CENTRO_TRABAJO_DESTINO);
             celdaCTD.setCellValue(detalle.getCentroTrabajoDestino());
 
             i++;

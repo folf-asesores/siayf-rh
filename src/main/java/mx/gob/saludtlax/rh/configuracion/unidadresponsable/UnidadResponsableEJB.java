@@ -14,24 +14,32 @@ public class UnidadResponsableEJB implements UnidadResponsable {
 
     @Override
     public List<UnidadResponsableDTO> obtenerUnidadResponsableLista() {
-        List<UnidadResponsableDTO> unidadResponsableLista = unidadResponsableService.listaUnidadResponsable();
+        List<UnidadResponsableDTO> unidadResponsableLista = unidadResponsableService
+                .listaUnidadResponsable();
         return unidadResponsableLista;
     }
 
     @Override
-    public UnidadResponsableDTO obtenerUnidadResponsable(UnidadResponsableDTO unidadResponsable) {
-        UnidadResponsableDTO dto = unidadResponsableService.obtenerUnidadResponsablePorId(unidadResponsable.getIdUnidadResponsable());
+    public UnidadResponsableDTO obtenerUnidadResponsable(
+            UnidadResponsableDTO unidadResponsable) {
+        UnidadResponsableDTO dto = unidadResponsableService
+                .obtenerUnidadResponsablePorId(
+                        unidadResponsable.getIdUnidadResponsable());
         return dto;
     }
 
     @Override
-    public List<String> consultarDescripcionUnidadesResponsablesPorCriterio(String consulta) {
-        return unidadResponsableService.consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
+    public List<String> consultarDescripcionUnidadesResponsablesPorCriterio(
+            String consulta) {
+        return unidadResponsableService
+                .consultarDescripcionUnidadesResponsablesPorCriterio(consulta);
     }
 
     @Override
-    public Integer consultarIdUnidadResponsablePorDescripcion(String descripcion) {
-        return unidadResponsableService.consultarIdUnidadResponsablePorDescripcion(descripcion);
+    public Integer consultarIdUnidadResponsablePorDescripcion(
+            String descripcion) {
+        return unidadResponsableService
+                .consultarIdUnidadResponsablePorDescripcion(descripcion);
     }
 
     @Override
@@ -40,12 +48,14 @@ public class UnidadResponsableEJB implements UnidadResponsable {
     }
 
     @Override
-    public UnidadResponsableDTO crearUnidadResponsable(UnidadResponsableDTO dto) {
+    public UnidadResponsableDTO crearUnidadResponsable(
+            UnidadResponsableDTO dto) {
         return unidadResponsableService.crearUnidadResponsable(dto);
     }
 
     @Override
-    public UnidadResponsableDTO actualizarUnidadResponsable(UnidadResponsableDTO dto) {
+    public UnidadResponsableDTO actualizarUnidadResponsable(
+            UnidadResponsableDTO dto) {
         return unidadResponsableService.actualizarUnidadResponsable(dto);
     }
 

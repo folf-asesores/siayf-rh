@@ -23,7 +23,8 @@ public final class FirmaEmpleadoDTO implements Serializable {
     private final String numeroCheque;
     private final BigDecimal importe;
 
-    public FirmaEmpleadoDTO(String filiacion, String nombre, String numeroCheque, BigDecimal importe) {
+    public FirmaEmpleadoDTO(String filiacion, String nombre,
+            String numeroCheque, BigDecimal importe) {
         this.filiacion = filiacion;
         this.nombre = nombre;
         this.numeroCheque = numeroCheque;
@@ -82,7 +83,9 @@ public final class FirmaEmpleadoDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "FirmaEmpleadoDTO{" + "filiacion : " + filiacion + ", nombre : " + nombre + ", numeroCheque : " + numeroCheque + ", importe : " + importe + '}';
+        return "FirmaEmpleadoDTO{" + "filiacion : " + filiacion + ", nombre : "
+                + nombre + ", numeroCheque : " + numeroCheque + ", importe : "
+                + importe + '}';
     }
 
     public static final class Builder {
@@ -120,7 +123,8 @@ public final class FirmaEmpleadoDTO implements Serializable {
         }
 
         public FirmaEmpleadoDTO construirFirmaEmpleadoDTO() {
-            return new FirmaEmpleadoDTO(filiacion, nombre, numeroCheque, importe);
+            return new FirmaEmpleadoDTO(filiacion, nombre, numeroCheque,
+                    importe);
         }
     }
 }

@@ -73,8 +73,9 @@ public class BitacoraExcepcionEntity implements Serializable {
         this.idBitacoraExcepcion = idBitacoraExcepcion;
     }
 
-    public BitacoraExcepcionEntity(Integer idBitacoraExcepcion, UsuarioEntity usuario, String tipoExcepcion, String mensaje, String pilaSeguimiento, Date fecha,
-            Date hora) {
+    public BitacoraExcepcionEntity(Integer idBitacoraExcepcion,
+            UsuarioEntity usuario, String tipoExcepcion, String mensaje,
+            String pilaSeguimiento, Date fecha, Date hora) {
         this.idBitacoraExcepcion = idBitacoraExcepcion;
         this.usuario = usuario;
         this.tipoExcepcion = tipoExcepcion;

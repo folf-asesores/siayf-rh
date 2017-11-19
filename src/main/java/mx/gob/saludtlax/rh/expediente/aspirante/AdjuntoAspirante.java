@@ -25,5 +25,6 @@ public interface AdjuntoAspirante extends Adjunto {
      *            el ID del aspirante.
      * @return todos los adjuntos que tiene el aspirante.
      */
-    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorIdAspirante(int idAspirante);
+    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorIdAspirante(
+            int idAspirante);
 }

@@ -3,7 +3,8 @@ package mx.gob.saludtlax.rh.excepciones;
 
 import java.io.Serializable;
 
-public class RESTClientReglaAsistenciaJornadaException extends Exception implements Serializable {
+public class RESTClientReglaAsistenciaJornadaException extends Exception
+        implements Serializable {
 
     /**
      *

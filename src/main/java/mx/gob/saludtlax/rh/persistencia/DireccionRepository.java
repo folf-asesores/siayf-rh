@@ -11,7 +11,8 @@ import javax.persistence.NoResultException;
  *
  * @since 15/03/2016-11:43:12
  */
-public class DireccionRepository extends GenericRepository<DireccionEntity, Integer> {
+public class DireccionRepository
+        extends GenericRepository<DireccionEntity, Integer> {
 
     /**
      *
@@ -20,7 +21,9 @@ public class DireccionRepository extends GenericRepository<DireccionEntity, Inte
 
     public DireccionEntity consultarDireccionEmpleadoPorId(Integer idEmpleado) {
         try {
-            DireccionEntity direccion = em.createQuery("SELECT d FROM DireccionEntity AS d WHERE d.idEmpleado =:idEmpleado", DireccionEntity.class)
+            DireccionEntity direccion = em.createQuery(
+                    "SELECT d FROM DireccionEntity AS d WHERE d.idEmpleado =:idEmpleado",
+                    DireccionEntity.class)
                     .setParameter("idEmpleado", idEmpleado).getSingleResult();
             return direccion;
         } catch (NoResultException exception) {
@@ -28,9 +31,12 @@ public class DireccionRepository extends GenericRepository<DireccionEntity, Inte
         }
     }
 
-    public DireccionEntity consultarDireccionAspirantePorId(Integer idAspirante) {
+    public DireccionEntity consultarDireccionAspirantePorId(
+            Integer idAspirante) {
         try {
-            DireccionEntity direccion = em.createQuery("SELECT d FROM DireccionEntity AS d WHERE d.idAspirante =:idAspirante", DireccionEntity.class)
+            DireccionEntity direccion = em.createQuery(
+                    "SELECT d FROM DireccionEntity AS d WHERE d.idAspirante =:idAspirante",
+                    DireccionEntity.class)
                     .setParameter("idAspirante", idAspirante).getSingleResult();
             return direccion;
         } catch (NoResultException exception) {

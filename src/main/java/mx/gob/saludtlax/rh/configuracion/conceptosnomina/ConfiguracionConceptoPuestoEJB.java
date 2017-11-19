@@ -21,20 +21,28 @@ public class ConfiguracionConceptoPuestoEJB {
     }
 
     public void borrar(ConfiguracionConceptoPuestoDTO dto) {
-        System.out.println("borrarConfiguracion: " + dto.getIdConfiguracionConcepto());
-        configuracionConceptoPuestoService.borrar(dto.getIdConfiguracionConcepto());
+        System.out.println(
+                "borrarConfiguracion: " + dto.getIdConfiguracionConcepto());
+        configuracionConceptoPuestoService
+                .borrar(dto.getIdConfiguracionConcepto());
     }
 
-    public List<ConfiguracionConceptoPuestoDTO> obtenerListaPorConcepto(Integer idConcepto) {
-        return configuracionConceptoPuestoService.obtenerListaConfiguracionPorConcepto(idConcepto);
+    public List<ConfiguracionConceptoPuestoDTO> obtenerListaPorConcepto(
+            Integer idConcepto) {
+        return configuracionConceptoPuestoService
+                .obtenerListaConfiguracionPorConcepto(idConcepto);
     }
 
-    public List<ConfiguracionConceptoPuestoDTO> obtenerListaPorPuesto(Integer idPuesto) {
-        return configuracionConceptoPuestoService.obtenerListaConfiguracionPorPuesto(idPuesto);
+    public List<ConfiguracionConceptoPuestoDTO> obtenerListaPorPuesto(
+            Integer idPuesto) {
+        return configuracionConceptoPuestoService
+                .obtenerListaConfiguracionPorPuesto(idPuesto);
     }
 
-    public ConfiguracionConceptoPuestoDTO obtenerConfiguracionPorPuestoConcepto(Integer idPuesto, Integer idConcepto) {
-        return configuracionConceptoPuestoService.obtenerConfiguracionPorPuestoCocepto(idPuesto, idConcepto);
+    public ConfiguracionConceptoPuestoDTO obtenerConfiguracionPorPuestoConcepto(
+            Integer idPuesto, Integer idConcepto) {
+        return configuracionConceptoPuestoService
+                .obtenerConfiguracionPorPuestoCocepto(idPuesto, idConcepto);
     }
 
 }

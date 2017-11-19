@@ -39,8 +39,11 @@ public class ConfiguracionAprobacionService {
         for (Integer i : DTO.getUsuarios()) {
 
             if (accionesUsuariosRepository.usuarioPorAcciones(acc, i) != null) {
-                throw new ReglaNegocioException("El usuario ya tiene esa accion", ReglaNegocioCodigoError.YA_REGISTRADO);
-            } else if (accionesUsuariosRepository.usuarioPorAcciones(acc, i) == null) {
+                throw new ReglaNegocioException(
+                        "El usuario ya tiene esa accion",
+                        ReglaNegocioCodigoError.YA_REGISTRADO);
+            } else if (accionesUsuariosRepository.usuarioPorAcciones(acc,
+                    i) == null) {
                 ConfiguracionAprobacionEntity entity = new ConfiguracionAprobacionEntity();
                 entity.setUsuario(usuarioRepository.obtenerPorId(i));
                 entity.setAccion(operacionSistemaRepository.obtenerPorId(acc));
@@ -52,10 +55,13 @@ public class ConfiguracionAprobacionService {
 
     }
 
-    protected void actualizarConfiguracionAprobacion(ActualizacionConfiguracionAprobacionDTO dto) {
-        ConfiguracionAprobacionEntity entity = accionesUsuariosRepository.obtenerPorId(dto.getIdConfiguracionAprobacion());
+    protected void actualizarConfiguracionAprobacion(
+            ActualizacionConfiguracionAprobacionDTO dto) {
+        ConfiguracionAprobacionEntity entity = accionesUsuariosRepository
+                .obtenerPorId(dto.getIdConfiguracionAprobacion());
 
-        entity.setAccion(operacionSistemaRepository.obtenerPorId(dto.getIdAccionUsuario()));
+        entity.setAccion(operacionSistemaRepository
+                .obtenerPorId(dto.getIdAccionUsuario()));
         entity.setUsuario(usuarioRepository.obtenerPorId(dto.getIdUsuario()));
 
         if (dto.getEstatus() == 1) {
@@ -68,13 +74,16 @@ public class ConfiguracionAprobacionService {
 
         }
 
-        if (entity.getAccion() != null && entity.getAccion().getAplicaMovimiento()) {
-            entity.setTipoMovimientoEmpleado(tipoMovimientoEmpleadoRepository.obtenerPorId(dto.getIdTipoMovimiento()));
+        if (entity.getAccion() != null
+                && entity.getAccion().getAplicaMovimiento()) {
+            entity.setTipoMovimientoEmpleado(tipoMovimientoEmpleadoRepository
+                    .obtenerPorId(dto.getIdTipoMovimiento()));
         }
         accionesUsuariosRepository.actualizar(entity);
     }
 
-    public void eliminaConfiguracionAutorizacion(List<UsuarioConfiguracionDTO> DTO) {
+    public void eliminaConfiguracionAutorizacion(
+            List<UsuarioConfiguracionDTO> DTO) {
         try {
             for (UsuarioConfiguracionDTO acciones : DTO) {
                 Integer ida = acciones.getIdAccionUsuario();
@@ -85,17 +94,20 @@ public class ConfiguracionAprobacionService {
         }
     }
 
-    public void actualizarConfiguracionAutorizacion(List<UsuarioConfiguracionDTO> DTO, Integer activo) {
+    public void actualizarConfiguracionAutorizacion(
+            List<UsuarioConfiguracionDTO> DTO, Integer activo) {
         try {
             if (activo == 1) {
                 for (UsuarioConfiguracionDTO acciones : DTO) {
-                    ConfiguracionAprobacionEntity entity = accionesUsuariosRepository.obtenerPorId(acciones.getIdAccionUsuario());
+                    ConfiguracionAprobacionEntity entity = accionesUsuariosRepository
+                            .obtenerPorId(acciones.getIdAccionUsuario());
                     entity.setEstatus(EnumEstatusConfiguracion.INACTIVO);
                     accionesUsuariosRepository.actualizar(entity);
                 }
             } else {
                 for (UsuarioConfiguracionDTO acciones : DTO) {
-                    ConfiguracionAprobacionEntity entity = accionesUsuariosRepository.obtenerPorId(acciones.getIdAccionUsuario());
+                    ConfiguracionAprobacionEntity entity = accionesUsuariosRepository
+                            .obtenerPorId(acciones.getIdAccionUsuario());
                     entity.setEstatus(EnumEstatusConfiguracion.ACTIVO);
                     accionesUsuariosRepository.actualizar(entity);
                 }
@@ -110,14 +122,16 @@ public class ConfiguracionAprobacionService {
     }
 
     public void activar(UsuarioConfiguracionDTO dto) {
-        ConfiguracionAprobacionEntity entity = accionesUsuariosRepository.obtenerPorId(dto.getIdAccionUsuario());
+        ConfiguracionAprobacionEntity entity = accionesUsuariosRepository
+                .obtenerPorId(dto.getIdAccionUsuario());
         // entity.setActivo(dto.getActivo());
         accionesUsuariosRepository.actualizar(entity);
     }
 
     public List<UsuarioDTO> obtenerListaUsuarios() {
         List<UsuarioDTO> UsuarioDTO = new ArrayList<>();
-        for (UsuarioEntity usuario : usuarioRepository.consultarUsuariosActivos()) {
+        for (UsuarioEntity usuario : usuarioRepository
+                .consultarUsuariosActivos()) {
             UsuarioDTO DTO = new UsuarioDTO();
             DTO.setIdUsuario(usuario.getIdUsuario());
             DTO.setUserName(usuario.getUserName());
@@ -129,25 +143,31 @@ public class ConfiguracionAprobacionService {
         return UsuarioDTO;
     }
 
-    public List<UsuarioConfiguracionDTO> consultarUsuariosAprobacion(Integer idOperacion) {
+    public List<UsuarioConfiguracionDTO> consultarUsuariosAprobacion(
+            Integer idOperacion) {
         if (!ValidacionUtil.esNumeroPositivo(idOperacion)) {
-            throw new ValidacionException("La aprobacion es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("La aprobacion es requerida.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        List<ConfiguracionAprobacionEntity> configuraciones = accionesUsuariosRepository.consultarUsuariosConfiguraciones(idOperacion);
+        List<ConfiguracionAprobacionEntity> configuraciones = accionesUsuariosRepository
+                .consultarUsuariosConfiguraciones(idOperacion);
         List<UsuarioConfiguracionDTO> lista = new ArrayList<>();
         if (!configuraciones.isEmpty()) {
             for (ConfiguracionAprobacionEntity c : configuraciones) {
                 UsuarioConfiguracionDTO dto = new UsuarioConfiguracionDTO();
 
-                dto.setIdConfiguracionAprobacion(c.getIdConfiguracionAprobacion());
+                dto.setIdConfiguracionAprobacion(
+                        c.getIdConfiguracionAprobacion());
                 dto.setAccion(c.getAccion().getOperacion());
                 dto.setIdAccionUsuario(c.getAccion().getIdOperacion());
                 dto.setEstatus(c.getEstatus());
                 dto.setUsuario(c.getUsuario().nombreCompleto());
                 dto.setIdUsuario(c.getUsuario().getIdUsuario());
                 if (c.getTipoMovimientoEmpleado() != null) {
-                    dto.setMovimiento(c.getTipoMovimientoEmpleado().getMovimiento());
-                    dto.setIdTipoMovimiento(c.getTipoMovimientoEmpleado().getIdTipoMovimiento());
+                    dto.setMovimiento(
+                            c.getTipoMovimientoEmpleado().getMovimiento());
+                    dto.setIdTipoMovimiento(c.getTipoMovimientoEmpleado()
+                            .getIdTipoMovimiento());
                 } else {
                     dto.setMovimiento("SIN TIPO MOVIMIENTO");
                 }
@@ -159,13 +179,16 @@ public class ConfiguracionAprobacionService {
     }
 
     public String obtenerDescripcionOperacion(Integer idOperacion) {
-        return operacionSistemaRepository.obtenerDescripcionOperacion(idOperacion);
+        return operacionSistemaRepository
+                .obtenerDescripcionOperacion(idOperacion);
 
     }
 
     public Boolean obtenerAplicaMovimientos(Integer idAccionUsuario) {
-        OperacionSistemaEntity accion = operacionSistemaRepository.obtenerPorId(idAccionUsuario);
-        return accion.getAplicaMovimiento() == null ? Boolean.FALSE : accion.getAplicaMovimiento();
+        OperacionSistemaEntity accion = operacionSistemaRepository
+                .obtenerPorId(idAccionUsuario);
+        return accion.getAplicaMovimiento() == null ? Boolean.FALSE
+                : accion.getAplicaMovimiento();
     }
 
 }

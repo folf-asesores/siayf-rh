@@ -4,7 +4,8 @@ package mx.gob.saludtlax.rh.persistencia;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConfiguracionUsuarioModuloRepository extends GenericRepository<ConfiguracionUsuarioModuloEntity, Integer> {
+public class ConfiguracionUsuarioModuloRepository
+        extends GenericRepository<ConfiguracionUsuarioModuloEntity, Integer> {
 
     /**
      *
@@ -14,15 +15,19 @@ public class ConfiguracionUsuarioModuloRepository extends GenericRepository<Conf
     public List<ConfiguracionUsuarioModuloEntity> obtenerRegistros() {
         List<ConfiguracionUsuarioModuloEntity> list = new ArrayList<>();
 
-        list = em.createQuery("Select c From ConfiguracionUsuarioModuloEntity as c", ConfiguracionUsuarioModuloEntity.class).getResultList();
+        list = em.createQuery(
+                "Select c From ConfiguracionUsuarioModuloEntity as c",
+                ConfiguracionUsuarioModuloEntity.class).getResultList();
         return list;
     }
 
-    public List<ConfiguracionUsuarioModuloEntity> obtenerRegistrosPorUsuario(Integer idUsuario) {
+    public List<ConfiguracionUsuarioModuloEntity> obtenerRegistrosPorUsuario(
+            Integer idUsuario) {
         List<ConfiguracionUsuarioModuloEntity> list = new ArrayList<>();
 
-        list = em
-                .createQuery("Select c From ConfiguracionUsuarioModuloEntity as c where c.usuario.idUsuario=:idUsuario", ConfiguracionUsuarioModuloEntity.class)
+        list = em.createQuery(
+                "Select c From ConfiguracionUsuarioModuloEntity as c where c.usuario.idUsuario=:idUsuario",
+                ConfiguracionUsuarioModuloEntity.class)
                 .setParameter("idUsuario", idUsuario).getResultList();
         return list;
     }

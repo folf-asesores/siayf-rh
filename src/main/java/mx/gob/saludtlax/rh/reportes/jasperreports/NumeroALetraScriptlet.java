@@ -21,7 +21,8 @@ import net.sf.jasperreports.engine.JRScriptletException;
  */
 public class NumeroALetraScriptlet extends JRDefaultScriptlet {
 
-    private static final Logger LOGGER = Logger.getLogger(NumeroALetraScriptlet.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(NumeroALetraScriptlet.class.getName());
 
     /**
      * Ayuda en la transcripción de números a letras como una cantidad en
@@ -34,7 +35,8 @@ public class NumeroALetraScriptlet extends JRDefaultScriptlet {
      *             en caso de que ocurra un error al realizar
      *             la transcripción o algún otro error en tiempo de ejecución del reporte.
      */
-    public String convertirNumeroALetras(Number numero) throws JRScriptletException {
+    public String convertirNumeroALetras(Number numero)
+            throws JRScriptletException {
         return convertirNumeroALetras(numero, true);
     }
 
@@ -53,16 +55,19 @@ public class NumeroALetraScriptlet extends JRDefaultScriptlet {
      *             en caso de que ocurra un error al realizar
      *             la transcripción o algún otro error en tiempo de ejecución del reporte.
      */
-    public String convertirNumeroALetras(Number numero, boolean moneda) throws JRScriptletException {
+    public String convertirNumeroALetras(Number numero, boolean moneda)
+            throws JRScriptletException {
         String asLetters = "";
 
         try {
             if (numero instanceof BigDecimal) {
                 LOGGER.debugv("Evaluandolo como BigDecimal {0}", numero);
-                asLetters = NumeroALetra.convertNumberToLetter((BigDecimal) numero, moneda);
+                asLetters = NumeroALetra
+                        .convertNumberToLetter((BigDecimal) numero, moneda);
             } else {
                 LOGGER.debugv("Evaluandolo como String {0}", numero);
-                asLetters = NumeroALetra.convertNumberToLetter(numero.toString(), moneda);
+                asLetters = NumeroALetra
+                        .convertNumberToLetter(numero.toString(), moneda);
             }
         } catch (NumberFormatException ex) {
             LOGGER.errorv("Error de conversión: {0}", ex);

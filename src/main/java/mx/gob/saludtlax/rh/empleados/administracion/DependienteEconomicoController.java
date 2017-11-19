@@ -43,13 +43,15 @@ public class DependienteEconomicoController implements Serializable {
     }
 
     public void consultarEmpleados(ActionEvent actionEvent) {
-        List<InfoEmpleadoDTO> empleadosEncontrados = empleadoEJB.consultaPorCriterio(view.getBusqueda());
+        List<InfoEmpleadoDTO> empleadosEncontrados = empleadoEJB
+                .consultaPorCriterio(view.getBusqueda());
         view.setEmpleadosEncontrados(empleadosEncontrados);
     }
 
     public void mostrarDetalleEmpleado(InfoEmpleadoDTO empleado) {
         view.setEmpleadoSelecionado(empleado);
-        List<InfoDependienteEconomicoDTO> dependientesEconomicos = empleadoEJB.consultarDependientesEmpleado(empleado.getIdEmpleado());
+        List<InfoDependienteEconomicoDTO> dependientesEconomicos = empleadoEJB
+                .consultarDependientesEmpleado(empleado.getIdEmpleado());
         view.setDependientesEconomicos(dependientesEconomicos);
 
         view.setPanelBusqueda(false);
@@ -76,23 +78,28 @@ public class DependienteEconomicoController implements Serializable {
     }
 
     public void agregarDependieteEconomico(ActionEvent actionEvent) {
-        DependienteEconomicoDTO dependienteEconomico = view.getDependienteEconomico();
-        dependienteEconomico.setIdEmpleado(view.getEmpleadoSelecionado().getIdEmpleado());
+        DependienteEconomicoDTO dependienteEconomico = view
+                .getDependienteEconomico();
+        dependienteEconomico
+                .setIdEmpleado(view.getEmpleadoSelecionado().getIdEmpleado());
         empleadoEJB.crearDependienteEconomico(dependienteEconomico);
         ocultarNuevoDependieteEconomico(actionEvent);
         mostrarDetalleEmpleado(view.getEmpleadoSelecionado());
     }
 
     public void actualizarDependieteEconomico(ActionEvent actionEvent) {
-        DependienteEconomicoDTO dependienteEconomico = view.getDependienteEconomico();
-        dependienteEconomico.setIdEmpleado(view.getEmpleadoSelecionado().getIdEmpleado());
+        DependienteEconomicoDTO dependienteEconomico = view
+                .getDependienteEconomico();
+        dependienteEconomico
+                .setIdEmpleado(view.getEmpleadoSelecionado().getIdEmpleado());
         empleadoEJB.actualizarDependienteEconomico(dependienteEconomico);
         ocultarActualizarDependieteEconomico(actionEvent);
         mostrarDetalleEmpleado(view.getEmpleadoSelecionado());
     }
 
     public void mostrarDependienteEconomico(Integer idDependienteEconomico) {
-        DependienteEconomicoDTO dependienteEconomico = empleadoEJB.obtenerDependienteEconimicoPorId(idDependienteEconomico);
+        DependienteEconomicoDTO dependienteEconomico = empleadoEJB
+                .obtenerDependienteEconimicoPorId(idDependienteEconomico);
         view.setDependienteEconomico(dependienteEconomico);
         view.setPanelActualizar(true);
     }
@@ -102,7 +109,8 @@ public class DependienteEconomicoController implements Serializable {
         mostrarDetalleEmpleado(view.getEmpleadoSelecionado());
     }
 
-    public void validarDependienteEconomico(FacesContext context, UIComponent component, Object value) {
+    public void validarDependienteEconomico(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponente = component.getId();
 
         switch (nombreComponente) {
@@ -111,20 +119,25 @@ public class DependienteEconomicoController implements Serializable {
                 String curp = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(curp)) {
-                    FacesMessage curpFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La CURP es un campo requerido.");
+                    FacesMessage curpFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "La CURP es un campo requerido.");
                     context.addMessage(nombreComponente, curpFmVacio);
                     throw new ValidatorException(curpFmVacio);
                 }
 
                 if (!ValidacionUtil.validarCurp(curp)) {
-                    FacesMessage curpFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage curpFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Verifique el formato de la CURP. La CURP debe contener 4 letras al principio segudido de 6 números a continuación debe tener 3 letras y finalmente 5 caracteres alfanúmericos.");
                     context.addMessage(nombreComponente, curpFmVacio);
                     throw new ValidatorException(curpFmVacio);
                 }
 
-                if (!"txtActualizarCurp".equals(nombreComponente) && empleadoEJB.existeDependientePorCurp(curp)) {
-                    FacesMessage curpFmDuplicado = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                if (!"txtActualizarCurp".equals(nombreComponente)
+                        && empleadoEJB.existeDependientePorCurp(curp)) {
+                    FacesMessage curpFmDuplicado = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Ya existe un dependiente económico registrado con la misma CURP.");
                     context.addMessage(nombreComponente, curpFmDuplicado);
                     throw new ValidatorException(curpFmDuplicado);
@@ -136,7 +149,9 @@ public class DependienteEconomicoController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage nombreFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El nombre es un campo requerido.");
+                    FacesMessage nombreFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El nombre es un campo requerido.");
                     context.addMessage(nombreComponente, nombreFmVacio);
                     throw new ValidatorException(nombreFmVacio);
                 }
@@ -145,9 +160,15 @@ public class DependienteEconomicoController implements Serializable {
             case "txtActualizarApellidoPaterno":
                 String apellidoPaterno = (String) value;
 
-                if (ValidacionUtil.esCadenaVacia(apellidoPaterno) && ValidacionUtil.esCadenaVacia(view.getDependienteEconomico().getApellidoMaterno())) {
-                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Debe indicar por lo menos un apellido.");
-                    context.addMessage(nombreComponente, fechaNacimientoFmVacio);
+                if (ValidacionUtil.esCadenaVacia(apellidoPaterno)
+                        && ValidacionUtil
+                                .esCadenaVacia(view.getDependienteEconomico()
+                                        .getApellidoMaterno())) {
+                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Debe indicar por lo menos un apellido.");
+                    context.addMessage(nombreComponente,
+                            fechaNacimientoFmVacio);
                     throw new ValidatorException(fechaNacimientoFmVacio);
                 }
                 break;
@@ -155,9 +176,15 @@ public class DependienteEconomicoController implements Serializable {
             case "txtActualizarApellidoMaterno":
                 String apellidoMaterno = (String) value;
 
-                if (ValidacionUtil.esCadenaVacia(apellidoMaterno) && ValidacionUtil.esCadenaVacia(view.getDependienteEconomico().getApellidoPaterno())) {
-                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Debe indicar por lo menos un apellido.");
-                    context.addMessage(nombreComponente, fechaNacimientoFmVacio);
+                if (ValidacionUtil.esCadenaVacia(apellidoMaterno)
+                        && ValidacionUtil
+                                .esCadenaVacia(view.getDependienteEconomico()
+                                        .getApellidoPaterno())) {
+                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Debe indicar por lo menos un apellido.");
+                    context.addMessage(nombreComponente,
+                            fechaNacimientoFmVacio);
                     throw new ValidatorException(fechaNacimientoFmVacio);
                 }
                 break;
@@ -166,8 +193,11 @@ public class DependienteEconomicoController implements Serializable {
                 Date fechaNacimiento = (Date) value;
 
                 if (fechaNacimiento == null) {
-                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "La fecha de nacimiento es un campo requerido.");
-                    context.addMessage(nombreComponente, fechaNacimientoFmVacio);
+                    FacesMessage fechaNacimientoFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "La fecha de nacimiento es un campo requerido.");
+                    context.addMessage(nombreComponente,
+                            fechaNacimientoFmVacio);
                     throw new ValidatorException(fechaNacimientoFmVacio);
                 }
                 break;
@@ -176,7 +206,9 @@ public class DependienteEconomicoController implements Serializable {
                 String sexo = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(sexo)) {
-                    FacesMessage nombreFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El sexo es un campo requerido.");
+                    FacesMessage nombreFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El sexo es un campo requerido.");
                     context.addMessage(nombreComponente, nombreFmVacio);
                     throw new ValidatorException(nombreFmVacio);
                 }
@@ -186,18 +218,23 @@ public class DependienteEconomicoController implements Serializable {
                 String parentesco = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(parentesco)) {
-                    FacesMessage parentescoFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El parentesco es un campo requerido.");
+                    FacesMessage parentescoFmVacio = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El parentesco es un campo requerido.");
                     context.addMessage(nombreComponente, parentescoFmVacio);
                     throw new ValidatorException(parentescoFmVacio);
                 }
                 break;
             case "txtOtroParentesco":
             case "txtActualizarOtroParentesco":
-                if ("OTROS".equals(view.getDependienteEconomico().getParentesco())) {
+                if ("OTROS".equals(
+                        view.getDependienteEconomico().getParentesco())) {
                     String otroParentesco = (String) value;
 
                     if (ValidacionUtil.esCadenaVacia(otroParentesco)) {
-                        FacesMessage parentescoFmVacio = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El parentesco es un campo requerido.");
+                        FacesMessage parentescoFmVacio = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El parentesco es un campo requerido.");
                         context.addMessage(nombreComponente, parentescoFmVacio);
                         throw new ValidatorException(parentescoFmVacio);
                     }

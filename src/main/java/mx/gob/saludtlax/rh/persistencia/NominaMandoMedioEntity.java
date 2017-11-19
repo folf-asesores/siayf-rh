@@ -159,7 +159,8 @@ public class NominaMandoMedioEntity implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idNominaMandoMedio != null ? idNominaMandoMedio.hashCode() : 0);
+        hash += (idNominaMandoMedio != null ? idNominaMandoMedio.hashCode()
+                : 0);
         return hash;
     }
 
@@ -170,13 +171,16 @@ public class NominaMandoMedioEntity implements Serializable {
             return false;
         }
         NominaMandoMedioEntity other = (NominaMandoMedioEntity) object;
-        return !((idNominaMandoMedio == null && other.idNominaMandoMedio != null)
-                || (idNominaMandoMedio != null && !idNominaMandoMedio.equals(other.idNominaMandoMedio)));
+        return !((idNominaMandoMedio == null
+                && other.idNominaMandoMedio != null)
+                || (idNominaMandoMedio != null && !idNominaMandoMedio
+                        .equals(other.idNominaMandoMedio)));
     }
 
     @Override
     public String toString() {
-        return "mx.gob.saludtlax.rh.persistencia.NominaMandoMedioMedio[ idNominaMandoMedio=" + idNominaMandoMedio + " ]";
+        return "mx.gob.saludtlax.rh.persistencia.NominaMandoMedioMedio[ idNominaMandoMedio="
+                + idNominaMandoMedio + " ]";
     }
 
 }

@@ -19,8 +19,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 28/07/2016 12:19:23
  */
@@ -79,8 +79,6 @@ public class TabuladorEntity implements Serializable {
     @Column(name = "sueldo_diario")
     private BigDecimal sueldoDiario;
 
-    
-
     public Integer getIdTabulador() {
         return idTabulador;
     }
@@ -97,7 +95,8 @@ public class TabuladorEntity implements Serializable {
         return subclasificacion;
     }
 
-    public void setSubclasificacion(SubclasificacionTabuladorEntity subclasificacion) {
+    public void setSubclasificacion(
+            SubclasificacionTabuladorEntity subclasificacion) {
         this.subclasificacion = subclasificacion;
     }
 

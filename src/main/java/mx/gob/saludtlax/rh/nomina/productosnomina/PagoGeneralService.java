@@ -66,15 +66,20 @@ public class PagoGeneralService implements Serializable {
     //            + " AND nomina_empleado.id_producto_nomina = :idProductoNominaViejo"
     //            + " AND empleados.rfc IN :rfc";
 
-    private static final String RFC_PERTENECE_A_PRODUCTO_NOMINA = "  SELECT CASE count(*)" + "          WHEN 0 THEN false" + "          ELSE true END"
-            + "  FROM NominaEmpleadoEntity AS nominaEmpleado" + "       JOIN nominaEmpleado.idEmpleado AS empleado" + " WHERE empleado.rfc = :rfc"
+    private static final String RFC_PERTENECE_A_PRODUCTO_NOMINA = "  SELECT CASE count(*)"
+            + "          WHEN 0 THEN false" + "          ELSE true END"
+            + "  FROM NominaEmpleadoEntity AS nominaEmpleado"
+            + "       JOIN nominaEmpleado.idEmpleado AS empleado"
+            + " WHERE empleado.rfc = :rfc"
             + "   AND nominaEmpleado.idProductoNomina.idProductoNomina = :idProductoNomina";
 
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager em;
 
-    protected Boolean rfcPerteneceAProductoNomina(String rfc, Integer idProductoNomina) {
-        TypedQuery<Boolean> query = em.createQuery(RFC_PERTENECE_A_PRODUCTO_NOMINA, Boolean.class);
+    protected Boolean rfcPerteneceAProductoNomina(String rfc,
+            Integer idProductoNomina) {
+        TypedQuery<Boolean> query = em
+                .createQuery(RFC_PERTENECE_A_PRODUCTO_NOMINA, Boolean.class);
         query.setParameter("rfc", rfc);
         query.setParameter("idProductoNomina", idProductoNomina);
         return query.getSingleResult();

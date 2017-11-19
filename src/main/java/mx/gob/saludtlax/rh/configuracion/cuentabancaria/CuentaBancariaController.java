@@ -53,7 +53,8 @@ public class CuentaBancariaController {
     }
 
     public String irGestionarCuentaBancaria() {
-        view.setCuentaBancaria(ejb.obtenerCuentaBancaria(view.getCuentaBancariaSelect()));
+        view.setCuentaBancaria(
+                ejb.obtenerCuentaBancaria(view.getCuentaBancariaSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.setOpEliminar(Boolean.TRUE);
         view.panelGestion();
@@ -99,20 +100,26 @@ public class CuentaBancariaController {
         this.dialogo = dialogo;
     }
 
-    public void validatorCuentaBancaria(FacesContext context, UIComponent component, Object value) {
+    public void validatorCuentaBancaria(FacesContext context,
+            UIComponent component, Object value) {
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "Clave":
                 Integer Clave = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(Clave)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor introcuzca un ID.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor introcuzca un ID.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (Clave > 999) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El ID debe ser de 3 digitos.");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El ID debe ser de 3 digitos.");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -121,7 +128,9 @@ public class CuentaBancariaController {
                 String Descripcion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Descripcion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Descripcion.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Descripcion.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -130,7 +139,9 @@ public class CuentaBancariaController {
                 String Banco = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(Banco)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Descripcion.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Descripcion.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -139,13 +150,18 @@ public class CuentaBancariaController {
                 String noCuenta = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(noCuenta)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un Número de Cuenta.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un Número de Cuenta.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (noCuenta.length() > 11) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Número de Cuenta debe ser de maximo 11 digitos.");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El Número de Cuenta debe ser de maximo 11 digitos.");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     }
                 }
@@ -154,7 +170,9 @@ public class CuentaBancariaController {
                 String FF = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(FF)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese una Fuente de Financiamiento.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese una Fuente de Financiamiento.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -163,18 +181,26 @@ public class CuentaBancariaController {
                 Integer EjFis = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(EjFis)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor introcuzca un ID.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor introcuzca un ID.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 } else {
                     if (EjFis < 2000) {
-                        FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                        context.addMessage(component.getClientId(), facesMessage1);
+                        FacesMessage facesMessage1 = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                        context.addMessage(component.getClientId(),
+                                facesMessage1);
                         throw new ValidatorException(facesMessage1);
                     } else {
                         if (EjFis > 2050) {
-                            FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El Ejercicio Fiscal debe estar entre 2000 y 2050");
-                            context.addMessage(component.getClientId(), facesMessage1);
+                            FacesMessage facesMessage1 = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "El Ejercicio Fiscal debe estar entre 2000 y 2050");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage1);
                             throw new ValidatorException(facesMessage1);
                         }
                     }

@@ -28,7 +28,9 @@ public class SelloDigital implements Serializable {
      */
     private static final long serialVersionUID = 1012987024277482735L;
 
-    public String generarSello(InputStream keyFile, String password, String cadenaOriginal) throws GeneralSecurityException, IOException {
+    public String generarSello(InputStream keyFile, String password,
+            String cadenaOriginal)
+            throws GeneralSecurityException, IOException {
         String selloDigital = "";
 
         PrivateKey llavePrivada = getPrivateKey(keyFile, password);
@@ -37,7 +39,8 @@ public class SelloDigital implements Serializable {
         return selloDigital;
     }
 
-    private PrivateKey getPrivateKey(InputStream keyFile, String password) throws GeneralSecurityException, IOException {
+    private PrivateKey getPrivateKey(InputStream keyFile, String password)
+            throws GeneralSecurityException, IOException {
 
         PKCS8Key pkcs = new PKCS8Key(keyFile, password.toCharArray());
         byte[] decryptor = pkcs.getDecryptedBytes();
@@ -53,7 +56,8 @@ public class SelloDigital implements Serializable {
     }
 
     private String generaSelloDigital(PrivateKey key, String cadenaOriginal)
-            throws NoSuchAlgorithmException, InvalidKeyException, SignatureException, UnsupportedEncodingException {
+            throws NoSuchAlgorithmException, InvalidKeyException,
+            SignatureException, UnsupportedEncodingException {
         Signature sign = Signature.getInstance("SHA1withRSA");
         sign.initSign(key, new SecureRandom());
         sign.update(cadenaOriginal.getBytes());

@@ -17,7 +17,8 @@ public class EntityConverter implements Converter {
     private static Map<Object, String> entities = new WeakHashMap<>();
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object entity) {
+    public String getAsString(FacesContext context, UIComponent component,
+            Object entity) {
         synchronized (entities) {
             if (!entities.containsKey(entity)) {
                 String uuid = UUID.randomUUID().toString();
@@ -30,7 +31,8 @@ public class EntityConverter implements Converter {
     }
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String uuid) {
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String uuid) {
         for (Entry<Object, String> entry : entities.entrySet()) {
             if (entry.getValue().equals(uuid)) {
                 return entry.getKey();

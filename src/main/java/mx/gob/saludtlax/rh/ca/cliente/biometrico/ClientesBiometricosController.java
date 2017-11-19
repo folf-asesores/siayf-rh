@@ -40,7 +40,8 @@ public class ClientesBiometricosController implements Serializable {
         return listaClientes;
     }
 
-    public void setListaClientes(List<ClienteBiometricoFormModel> listaClientes) {
+    public void setListaClientes(
+            List<ClienteBiometricoFormModel> listaClientes) {
         this.listaClientes = listaClientes;
     }
 

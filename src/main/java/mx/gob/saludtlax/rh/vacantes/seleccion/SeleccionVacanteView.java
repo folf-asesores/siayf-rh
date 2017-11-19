@@ -11,8 +11,8 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:33:31 12/08/2016
  */
@@ -64,7 +64,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param listaSeleccionVacante
      *            the listaSeleccionVacante to set
      */
-    public void setListaSeleccionVacante(List<InfoPuestoDTO> listaSeleccionVacante) {
+    public void setListaSeleccionVacante(
+            List<InfoPuestoDTO> listaSeleccionVacante) {
         this.listaSeleccionVacante = listaSeleccionVacante;
     }
 
@@ -79,7 +80,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param filtroSeleccionVacante
      *            the filtroSeleccionVacante to set
      */
-    public void setFiltroSeleccionVacante(List<InfoPuestoDTO> filtroSeleccionVacante) {
+    public void setFiltroSeleccionVacante(
+            List<InfoPuestoDTO> filtroSeleccionVacante) {
         this.filtroSeleccionVacante = filtroSeleccionVacante;
     }
 
@@ -103,7 +105,8 @@ public class SeleccionVacanteView implements Serializable {
         return mostrarSeleccionCandidato;
     }
 
-    public void setMostrarSeleccionCandidato(boolean mostrarSeleccionCandidato) {
+    public void setMostrarSeleccionCandidato(
+            boolean mostrarSeleccionCandidato) {
         this.mostrarSeleccionCandidato = mostrarSeleccionCandidato;
     }
 
@@ -133,7 +136,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param listaVacantePostular
      *            the listaVacantePostular to set
      */
-    public void setListaVacantePostular(List<InfoVacantePostularDTO> listaVacantePostular) {
+    public void setListaVacantePostular(
+            List<InfoVacantePostularDTO> listaVacantePostular) {
         this.listaVacantePostular = listaVacantePostular;
     }
 
@@ -163,7 +167,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param mostrarConfirmacionPostular
      *            the mostrarConfirmacionPostular to set
      */
-    public void setMostrarConfirmacionPostular(boolean mostrarConfirmacionPostular) {
+    public void setMostrarConfirmacionPostular(
+            boolean mostrarConfirmacionPostular) {
         this.mostrarConfirmacionPostular = mostrarConfirmacionPostular;
     }
 
@@ -253,7 +258,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param mostrarFiltroEspecialidad
      *            the mostrarFiltroEspecialidad to set
      */
-    public void setMostrarFiltroEspecialidad(boolean mostrarFiltroEspecialidad) {
+    public void setMostrarFiltroEspecialidad(
+            boolean mostrarFiltroEspecialidad) {
         this.mostrarFiltroEspecialidad = mostrarFiltroEspecialidad;
     }
 
@@ -283,7 +289,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param listaTipoEspecialidad
      *            the listaTipoEspecialidad to set
      */
-    public void setListaTipoEspecialidad(List<SelectItem> listaTipoEspecialidad) {
+    public void setListaTipoEspecialidad(
+            List<SelectItem> listaTipoEspecialidad) {
         this.listaTipoEspecialidad = listaTipoEspecialidad;
     }
 
@@ -328,7 +335,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param filtroVacantePostular
      *            the filtroVacantePostular to set
      */
-    public void setFiltroVacantePostular(List<InfoVacantePostularDTO> filtroVacantePostular) {
+    public void setFiltroVacantePostular(
+            List<InfoVacantePostularDTO> filtroVacantePostular) {
         this.filtroVacantePostular = filtroVacantePostular;
     }
 
@@ -358,7 +366,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param mostrarColumnaHeaderPerfil
      *            the mostrarColumnaHeaderPerfil to set
      */
-    public void setMostrarColumnaHeaderPerfil(boolean mostrarColumnaHeaderPerfil) {
+    public void setMostrarColumnaHeaderPerfil(
+            boolean mostrarColumnaHeaderPerfil) {
         this.mostrarColumnaHeaderPerfil = mostrarColumnaHeaderPerfil;
     }
 
@@ -373,7 +382,8 @@ public class SeleccionVacanteView implements Serializable {
      * @param listaSeleccionadaVacantePostular
      *            the listaSeleccionadaVacantePostular to set
      */
-    public void setListaSeleccionadaVacantePostular(List<InfoVacantePostularDTO> listaSeleccionadaVacantePostular) {
+    public void setListaSeleccionadaVacantePostular(
+            List<InfoVacantePostularDTO> listaSeleccionadaVacantePostular) {
         this.listaSeleccionadaVacantePostular = listaSeleccionadaVacantePostular;
     }
 

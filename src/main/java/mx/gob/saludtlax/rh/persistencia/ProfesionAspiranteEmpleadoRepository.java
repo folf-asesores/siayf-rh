@@ -16,12 +16,14 @@ import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 14:20:58 05/08/2016
  */
-public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<ProfesionAspiranteEmpleadoEntity, Integer> implements Serializable {
+public class ProfesionAspiranteEmpleadoRepository
+        extends GenericRepository<ProfesionAspiranteEmpleadoEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -33,33 +35,45 @@ public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<Prof
      *
      * @param nombre
      */
-    public List<InfoAspiranteDTO> aspirantesDisponiblesPorProfesion(String criterio) {
+    public List<InfoAspiranteDTO> aspirantesDisponiblesPorProfesion(
+            String criterio) {
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.bolsatrabajo.aspirantes.InfoAspiranteDTO(p.aspirante.idAspirante, p.aspirante.nombreCompleto, p.aspirante.curp, p.aspirante.rfc, p.aspirante.direccionCompleta, p.aspirante.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity AS p WHERE (p.profesion.profesion LIKE :criterio) AND p.empleado.idEmpleado IS NULL";
-        List<InfoAspiranteDTO> resultado = em.createQuery(consulta, InfoAspiranteDTO.class).setParameter("criterio", "%" + criterio + "%").getResultList();
+        List<InfoAspiranteDTO> resultado = em
+                .createQuery(consulta, InfoAspiranteDTO.class)
+                .setParameter("criterio", "%" + criterio + "%").getResultList();
         return resultado;
     }
 
-    public List<ProfesionDTO> obtenerListaProfesionPorIdAspirante(Integer idAspirante) {
+    public List<ProfesionDTO> obtenerListaProfesionPorIdAspirante(
+            Integer idAspirante) {
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.configuracion.profesion.ProfesionDTO(p.idProfesionAspiranteEmpleado, p.profesion.idProfesion, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity AS p WHERE p.aspirante.idAspirante =:idAspirante AND p.empleado.idEmpleado IS NULL";
 
-        List<ProfesionDTO> resultado = em.createQuery(consulta, ProfesionDTO.class).setParameter("idAspirante", idAspirante).getResultList();
+        List<ProfesionDTO> resultado = em
+                .createQuery(consulta, ProfesionDTO.class)
+                .setParameter("idAspirante", idAspirante).getResultList();
 
         return resultado;
 
     }
 
-    public List<InfoEmpleadoDTO> empleadoDisponiblePorProfesion(String criterio) {
+    public List<InfoEmpleadoDTO> empleadoDisponiblePorProfesion(
+            String criterio) {
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(p.empleado.idEmpleado, p.empleado.nombreCompleto, p.empleado.curp, p.empleado.rfc, p.empleado.direccionCompleta, p.empleado.numeroEmpleado, p.empleado.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity AS p WHERE (p.profesion.profesion LIKE :criterio)";
-        List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class).setParameter("criterio", "%" + criterio + "%").getResultList();
+        List<InfoEmpleadoDTO> resultado = em
+                .createQuery(consulta, InfoEmpleadoDTO.class)
+                .setParameter("criterio", "%" + criterio + "%").getResultList();
 
         return resultado;
     }
 
-    public List<ProfesionDTO> obtenerListaProfesionPorIdEmpleado(Integer idEmpleado) {
+    public List<ProfesionDTO> obtenerListaProfesionPorIdEmpleado(
+            Integer idEmpleado) {
 
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.configuracion.profesion.ProfesionDTO(p.idProfesionAspiranteEmpleado, p.profesion.idProfesion, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity AS p WHERE p.empleado.idEmpleado =:idEmpleado";
 
-        List<ProfesionDTO> resultado = em.createQuery(consulta, ProfesionDTO.class).setParameter("idEmpleado", idEmpleado).getResultList();
+        List<ProfesionDTO> resultado = em
+                .createQuery(consulta, ProfesionDTO.class)
+                .setParameter("idEmpleado", idEmpleado).getResultList();
 
         return resultado;
     }
@@ -70,11 +84,14 @@ public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<Prof
      * @param idProfesion
      * @return
      */
-    public List<InfoVacantePostularDTO> obtenerListaPorIdProfesionTipoCandidatoAspirante(Integer idProfesion) {
+    public List<InfoVacantePostularDTO> obtenerListaPorIdProfesionTipoCandidatoAspirante(
+            Integer idProfesion) {
 
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO(p.aspirante.idAspirante, p.aspirante.rfc, p.aspirante.curp, p.aspirante.nombreCompleto, p.aspirante.direccionCompleta, p.aspirante.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity As p WHERE p.profesion.idProfesion =:idProfesion AND p.empleado.idEmpleado IS NULL";
 
-        List<InfoVacantePostularDTO> resultado = em.createQuery(query, InfoVacantePostularDTO.class).setParameter("idProfesion", idProfesion).getResultList();
+        List<InfoVacantePostularDTO> resultado = em
+                .createQuery(query, InfoVacantePostularDTO.class)
+                .setParameter("idProfesion", idProfesion).getResultList();
 
         return resultado;
     }
@@ -88,7 +105,9 @@ public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<Prof
 
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO(p.aspirante.idAspirante, p.aspirante.rfc, p.aspirante.curp, p.aspirante.nombreCompleto, p.aspirante.direccionCompleta, p.aspirante.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity As p WHERE p.empleado.idEmpleado IS NULL";
 
-        List<InfoVacantePostularDTO> resultado = em.createQuery(query, InfoVacantePostularDTO.class).getResultList();
+        List<InfoVacantePostularDTO> resultado = em
+                .createQuery(query, InfoVacantePostularDTO.class)
+                .getResultList();
 
         return resultado;
     }
@@ -99,11 +118,14 @@ public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<Prof
      * @param idProfesion
      * @return
      */
-    public List<InfoVacantePostularDTO> obtenerListaPorIdProfesionTipoCandidatoEmpleado(Integer idProfesion) {
+    public List<InfoVacantePostularDTO> obtenerListaPorIdProfesionTipoCandidatoEmpleado(
+            Integer idProfesion) {
 
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO(p.empleado.idEmpleado, p.empleado.rfc, p.empleado.curp, p.empleado.nombreCompleto, p.empleado.direccionCompleta, p.empleado.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity As p WHERE p.profesion.idProfesion =:idProfesion AND p.aspirante.idAspirante IS NULL";
 
-        List<InfoVacantePostularDTO> resultado = em.createQuery(query, InfoVacantePostularDTO.class).setParameter("idProfesion", idProfesion).getResultList();
+        List<InfoVacantePostularDTO> resultado = em
+                .createQuery(query, InfoVacantePostularDTO.class)
+                .setParameter("idProfesion", idProfesion).getResultList();
 
         return resultado;
 
@@ -119,18 +141,23 @@ public class ProfesionAspiranteEmpleadoRepository extends GenericRepository<Prof
 
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO(p.empleado.idEmpleado, p.empleado.rfc, p.empleado.curp, p.empleado.nombreCompleto, p.empleado.direccionCompleta, p.empleado.idEstatus, p.profesion.profesion) FROM ProfesionAspiranteEmpleadoEntity As p WHERE p.aspirante.idAspirante IS NULL";
 
-        List<InfoVacantePostularDTO> resultado = em.createQuery(query, InfoVacantePostularDTO.class).getResultList();
+        List<InfoVacantePostularDTO> resultado = em
+                .createQuery(query, InfoVacantePostularDTO.class)
+                .getResultList();
 
         return resultado;
 
     }
 
-    public boolean existeProfesionAspirante(Integer idProfesion, Integer idAspirante) {
+    public boolean existeProfesionAspirante(Integer idProfesion,
+            Integer idAspirante) {
 
         try {
             em.createQuery(
                     "SELECT p.idProfesionAspiranteEmpleado FROM ProfesionAspiranteEmpleadoEntity AS p WHERE p.profesion.idProfesion =:idProfesion AND p.aspirante.idAspirante =:idAspirante",
-                    ProfesionAspiranteEmpleadoEntity.class).setParameter("idProfesion", idProfesion).setParameter("idAspirante", idAspirante).getSingleResult();
+                    ProfesionAspiranteEmpleadoEntity.class)
+                    .setParameter("idProfesion", idProfesion)
+                    .setParameter("idAspirante", idAspirante).getSingleResult();
 
             return true;
         } catch (NoResultException e) {

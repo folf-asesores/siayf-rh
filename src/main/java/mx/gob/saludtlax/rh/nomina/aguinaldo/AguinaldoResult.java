@@ -81,7 +81,8 @@ public class AguinaldoResult implements Serializable {
         return importeAguinaldoCompleto;
     }
 
-    public void setImporteAguinaldoCompleto(BigDecimal importeAguinaldoCompleto) {
+    public void setImporteAguinaldoCompleto(
+            BigDecimal importeAguinaldoCompleto) {
         this.importeAguinaldoCompleto = importeAguinaldoCompleto;
     }
 
@@ -103,8 +104,12 @@ public class AguinaldoResult implements Serializable {
     @Override
     public String toString() {
 
-        return "Dias Pagados: " + diasPagados.toString() + " \n Total: " + total.toString() + " \n Excento: " + excento.toString() + " \n Gravado: "
-                + gravado.toString() + " \n Importe Aguinaldo Completo: " + importeAguinaldoCompleto.toString() + " \n Importe Aguinaldo Por Dia: "
+        return "Dias Pagados: " + diasPagados.toString() + " \n Total: "
+                + total.toString() + " \n Excento: " + excento.toString()
+                + " \n Gravado: " + gravado.toString()
+                + " \n Importe Aguinaldo Completo: "
+                + importeAguinaldoCompleto.toString()
+                + " \n Importe Aguinaldo Por Dia: "
                 + importeAguinaldoPorDia.toString();
     }
 

@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class DatoGeneralCandidatoDTO {
@@ -38,9 +38,12 @@ public class DatoGeneralCandidatoDTO {
         super();
     }
 
-    public DatoGeneralCandidatoDTO(String nombreCompleto, String rfc, String curp, String direccionCompleta, String idSexo, String idEstadoCivil,
-            Date fechaNacimiento, String lugarNacimiento, String telefonos, String correo, String idTipoSangre, Boolean tienePersonasDependientes,
-            int numeroHijos, Integer numeroPadres, Integer numeroConyuges, Integer numeroOtros) {
+    public DatoGeneralCandidatoDTO(String nombreCompleto, String rfc,
+            String curp, String direccionCompleta, String idSexo,
+            String idEstadoCivil, Date fechaNacimiento, String lugarNacimiento,
+            String telefonos, String correo, String idTipoSangre,
+            Boolean tienePersonasDependientes, int numeroHijos,
+            Integer numeroPadres, Integer numeroConyuges, Integer numeroOtros) {
 
         this.nombreCompleto = nombreCompleto;
         this.rfc = rfc;
@@ -237,7 +240,8 @@ public class DatoGeneralCandidatoDTO {
      * @param tienePersonasDependientes
      *            the tienePersonasDependientes to set
      */
-    public void setTienePersonasDependientes(Boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            Boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

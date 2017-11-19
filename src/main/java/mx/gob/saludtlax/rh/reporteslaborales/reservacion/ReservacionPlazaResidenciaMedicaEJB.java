@@ -11,7 +11,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoEmpleadoRepository;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -23,22 +23,28 @@ public class ReservacionPlazaResidenciaMedicaEJB {
 
     public ReservacionDTO obtenerReservacion(Integer idTipoMovimiento) {
 
-        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository.obtenerPorId(idTipoMovimiento);
+        MovimientoEmpleadoEntity movimientoEmpleadoEntity = movimientoEmpleadoRepository
+                .obtenerPorId(idTipoMovimiento);
         ReservacionDTO reservacionDTO = new ReservacionDTO();
 
-        Integer idMovimiento = movimientoEmpleadoEntity.getIdMovimientoEmpleado();
+        Integer idMovimiento = movimientoEmpleadoEntity
+                .getIdMovimientoEmpleado();
 
         String asunto = "ASUNTO";
-        String presenteNombre = movimientoEmpleadoEntity.getEmpleado().nombreCompleto();
-        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado().getRfc();
-        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado().getCurp();
+        String presenteNombre = movimientoEmpleadoEntity.getEmpleado()
+                .nombreCompleto();
+        String presenteClaveUno = movimientoEmpleadoEntity.getEmpleado()
+                .getRfc();
+        String presenteClaveDos = movimientoEmpleadoEntity.getEmpleado()
+                .getCurp();
         String fecha = "16 de febrero de 2016";
         String clavePresupuestal = "I0024161103 M02107 290040025";
         String denominacion = "Enfermera Especialista “C”";
         String adscripcion = "Hospital Regional “Lic. Emilio Sánchez Piedras”";
         String vigencia = "Del 01 de marzo de 2016 al 28 de febrero de 2017";
         String solicitud = "deberá presentar ante la Comisión Central Mixta de Capacitación y a la Oficina de Relaciones Laborales de ésta "
-                + "Secretaría, en la primera quincena de diciembre de cada año, comprobantes de que subsisten las causas que dieron origen a" + "esta licencia";
+                + "Secretaría, en la primera quincena de diciembre de cada año, comprobantes de que subsisten las causas que dieron origen a"
+                + "esta licencia";
         String posicionUno = "os Artículos 151 Párrafo Segundo de las Condiciones Generales de Trabajo y 55 del Reglamento mencionado, deberá "
                 + "reincorporarse a su puesto de base, en su lugar de adscripción, dentro de los seis días hábiles siguientes al término de dicha "
                 + "licencia, por lo que deberá dar aviso de reincorporación a ésta Dirección, 15 días antes de que concluya la residencia médica o "
@@ -72,14 +78,16 @@ public class ReservacionPlazaResidenciaMedicaEJB {
         List<MovimientoEmpleadoEntity> movimientoEmpleadoEntityList = null;
 
         try {
-            movimientoEmpleadoEntityList = movimientoEmpleadoRepository.consultarMovimientosPorRfc(criterio);
+            movimientoEmpleadoEntityList = movimientoEmpleadoRepository
+                    .consultarMovimientosPorRfc(criterio);
         } catch (Exception ex) {
         }
 
         if (movimientoEmpleadoEntityList != null) {
 
             for (int i = 0; i < movimientoEmpleadoEntityList.size(); i++) {
-                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList.get(i);
+                MovimientoEmpleadoEntity m = movimientoEmpleadoEntityList
+                        .get(i);
 
                 ReservacionDetalleDTO dto = new ReservacionDetalleDTO();
 

@@ -15,20 +15,25 @@ import javax.persistence.TypedQuery;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class SIIFEncabezadoRepository extends GenericRepository<SIIFEncabezadoEntity, Integer> {
+public class SIIFEncabezadoRepository
+        extends GenericRepository<SIIFEncabezadoEntity, Integer> {
 
     /**
      *
      */
     private static final long serialVersionUID = 6673075234083646187L;
 
-    private static final String CONSULTAR_ENCABEZADO = "select encabezado" + " from SIIFEncabezadoEntity as encabezado"
-            + "	 inner join encabezado.bitacora as b" + " where b.periodo = :periodo and b.anio= :anyo";
+    private static final String CONSULTAR_ENCABEZADO = "select encabezado"
+            + " from SIIFEncabezadoEntity as encabezado"
+            + "	 inner join encabezado.bitacora as b"
+            + " where b.periodo = :periodo and b.anio= :anyo";
 
-    private static final String OBTENER_ULTIMO_ID_NOMINA = "select max(e.idNomina)" + " from SIIFEncabezadoEntity e";
+    private static final String OBTENER_ULTIMO_ID_NOMINA = "select max(e.idNomina)"
+            + " from SIIFEncabezadoEntity e";
 
     public Integer obtenerUltimoIdNomina() {
-        TypedQuery<Integer> query = em.createQuery(OBTENER_ULTIMO_ID_NOMINA, Integer.class);
+        TypedQuery<Integer> query = em.createQuery(OBTENER_ULTIMO_ID_NOMINA,
+                Integer.class);
         Integer idNomina = query.getSingleResult();
         idNomina = idNomina == null ? 139 : idNomina + 1;
 
@@ -44,16 +49,20 @@ public class SIIFEncabezadoRepository extends GenericRepository<SIIFEncabezadoEn
 
     @Override
     public SIIFEncabezadoEntity actualizar(SIIFEncabezadoEntity entity) {
-        if ((entity.getIdNomina() == null || entity.getIdNomina() == 0) && entity.getPercepciones().intValue() > 0 && entity.getNeto().intValue() > 0) {
+        if ((entity.getIdNomina() == null || entity.getIdNomina() == 0)
+                && entity.getPercepciones().intValue() > 0
+                && entity.getNeto().intValue() > 0) {
             entity.setIdNomina(obtenerUltimoIdNomina());
         }
         em.merge(entity);
         return entity;
     }
 
-    public List<SIIFEncabezadoEntity> consultarEncabezado(String periodo, Integer anyo) {
+    public List<SIIFEncabezadoEntity> consultarEncabezado(String periodo,
+            Integer anyo) {
         //String anyoComoCadena = Integer.toString(anyo);
-        TypedQuery<SIIFEncabezadoEntity> query = em.createQuery(CONSULTAR_ENCABEZADO, SIIFEncabezadoEntity.class);
+        TypedQuery<SIIFEncabezadoEntity> query = em
+                .createQuery(CONSULTAR_ENCABEZADO, SIIFEncabezadoEntity.class);
 
         query.setParameter("periodo", periodo);
         query.setParameter("anyo", anyo);
@@ -64,9 +73,12 @@ public class SIIFEncabezadoRepository extends GenericRepository<SIIFEncabezadoEn
     public Integer obtenerCuentaBancaria(Integer idSIIFEncabezado) {
         try {
             Integer cb = em
-                    .createQuery("SELECT cuentaBancaria.idCuentaBancaria " + "FROM SIIFEncabezadoEntity " + "WHERE id_siif_encabezado =:idSIIFEncabezado",
+                    .createQuery("SELECT cuentaBancaria.idCuentaBancaria "
+                            + "FROM SIIFEncabezadoEntity "
+                            + "WHERE id_siif_encabezado =:idSIIFEncabezado",
                             Integer.class)
-                    .setParameter("idSIIFEncabezado", idSIIFEncabezado).getSingleResult();
+                    .setParameter("idSIIFEncabezado", idSIIFEncabezado)
+                    .getSingleResult();
             return cb;
         } catch (NoResultException exception) {
             return null;

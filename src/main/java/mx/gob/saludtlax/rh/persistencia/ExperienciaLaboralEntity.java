@@ -95,19 +95,33 @@ public class ExperienciaLaboralEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ExperienciaLaboralEntity [idExperienciaLaboral=" + idExperienciaLaboral + ", aspirante=" + aspirante + ", nombreEmpresa=" + nombreEmpresa
-                + ", puesto=" + puesto + ", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + ", direccionEmpresa=" + direccionEmpresa
-                + ", motivoSeparacion=" + motivoSeparacion + ", sueldoMensual=" + sueldoMensual + ", comentarios=" + comentarios + ", telefono=" + telefono
-                + ", correoContacto=" + correoContacto + ", nombreJefe=" + nombreJefe + ", puestoJefe=" + puestoJefe + ", solicitarInformacion="
-                + solicitarInformacion + ", razonNoSolicitar=" + razonNoSolicitar + ", idEmpleado=" + idEmpleado + "]";
+        return "ExperienciaLaboralEntity [idExperienciaLaboral="
+                + idExperienciaLaboral + ", aspirante=" + aspirante
+                + ", nombreEmpresa=" + nombreEmpresa + ", puesto=" + puesto
+                + ", fechaInicial=" + fechaInicial + ", fechaFinal="
+                + fechaFinal + ", direccionEmpresa=" + direccionEmpresa
+                + ", motivoSeparacion=" + motivoSeparacion + ", sueldoMensual="
+                + sueldoMensual + ", comentarios=" + comentarios + ", telefono="
+                + telefono + ", correoContacto=" + correoContacto
+                + ", nombreJefe=" + nombreJefe + ", puestoJefe=" + puestoJefe
+                + ", solicitarInformacion=" + solicitarInformacion
+                + ", razonNoSolicitar=" + razonNoSolicitar + ", idEmpleado="
+                + idEmpleado + "]";
     }
 
     public String lccExperiencia() {
-        return "ExperienciaLaboral[idExperienciaLaboral=" + idExperienciaLaboral + ", aspirante=" + aspirante + ", nombreEmpresa=" + nombreEmpresa + ", puesto="
-                + puesto + ", fechaInicial=" + fechaInicial + ", fechaFinal=" + fechaFinal + ", direccionEmpresa=" + direccionEmpresa + ", motivoSeparacion="
-                + motivoSeparacion + ", sueldoMensual=" + sueldoMensual + ", comentarios=" + comentarios + ", telefono=" + telefono + ", correoContacto="
-                + correoContacto + ", nombreJefe=" + nombreJefe + ", puestoJefe=" + puestoJefe + ", solicitarInformacion=" + solicitarInformacion
-                + ", razonNoSolicitar=" + razonNoSolicitar + ", idEmpleado=" + idEmpleado + "]";
+        return "ExperienciaLaboral[idExperienciaLaboral=" + idExperienciaLaboral
+                + ", aspirante=" + aspirante + ", nombreEmpresa="
+                + nombreEmpresa + ", puesto=" + puesto + ", fechaInicial="
+                + fechaInicial + ", fechaFinal=" + fechaFinal
+                + ", direccionEmpresa=" + direccionEmpresa
+                + ", motivoSeparacion=" + motivoSeparacion + ", sueldoMensual="
+                + sueldoMensual + ", comentarios=" + comentarios + ", telefono="
+                + telefono + ", correoContacto=" + correoContacto
+                + ", nombreJefe=" + nombreJefe + ", puestoJefe=" + puestoJefe
+                + ", solicitarInformacion=" + solicitarInformacion
+                + ", razonNoSolicitar=" + razonNoSolicitar + ", idEmpleado="
+                + idEmpleado + "]";
     }
 
     public void setIdEmpleado(Integer idEmpleado) {

@@ -28,7 +28,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 @Stateless
-public class ReglaIncidenciaClienteRest extends ClienteRest implements Serializable {
+public class ReglaIncidenciaClienteRest extends ClienteRest
+        implements Serializable {
 
     /**
      *
@@ -43,31 +44,42 @@ public class ReglaIncidenciaClienteRest extends ClienteRest implements Serializa
     private final String RESOURCE_NUEVA_REGLA_ASISTENCIA = "/incidencia/regla/agregar";
     private final String RESOURCE_ELIMINA_REGLA_INCIDENCIA = "/incidencia/regla/eliminar/";
 
-    public List<ReglaIncidenciaViewModel> listadoReglasIncidencia(Integer idIncidencia, Integer idTipoContraacion) throws RESTClientException {
+    public List<ReglaIncidenciaViewModel> listadoReglasIncidencia(
+            Integer idIncidencia, Integer idTipoContraacion)
+            throws RESTClientException {
 
         List<ReglaIncidenciaViewModel> listadoReglasIncidenciaViewModel = null;
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpGet httpGet = new HttpGet(url_serivicio + RESOURCE_LISTADO_REGLAS_INCIDENCIAS + idIncidencia + "/" + idTipoContraacion);
+        HttpGet httpGet = new HttpGet(
+                url_serivicio + RESOURCE_LISTADO_REGLAS_INCIDENCIAS
+                        + idIncidencia + "/" + idTipoContraacion);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpGet);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpGet);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String result = EntityUtils.toString(servicioResponse.getEntity());
+                    String result = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     Gson incidenciaGson = new Gson();
                     TypeToken<ArrayList<ReglaIncidenciaViewModel>> tokenListado = new TypeToken<ArrayList<ReglaIncidenciaViewModel>>() {
                     };
-                    listadoReglasIncidenciaViewModel = incidenciaGson.fromJson(result, tokenListado.getType());
+                    listadoReglasIncidenciaViewModel = incidenciaGson
+                            .fromJson(result, tokenListado.getType());
 
                     break;
                 case 400:
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }
@@ -81,36 +93,48 @@ public class ReglaIncidenciaClienteRest extends ClienteRest implements Serializa
 
     }
 
-    public void crearNuevaReglaIncidencia(ReglaIncidenciaFormModel reglaIncidenciaFormModel) throws RESTClientException {
+    public void crearNuevaReglaIncidencia(
+            ReglaIncidenciaFormModel reglaIncidenciaFormModel)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpPost httpPost = new HttpPost(url_serivicio + RESOURCE_NUEVA_REGLA_ASISTENCIA);
+        HttpPost httpPost = new HttpPost(
+                url_serivicio + RESOURCE_NUEVA_REGLA_ASISTENCIA);
 
         Gson gson = new Gson();
         StringEntity nuevaReglaIncidenciaFormModelJSON;
         try {
-            nuevaReglaIncidenciaFormModelJSON = new StringEntity(gson.toJson(reglaIncidenciaFormModel));
+            nuevaReglaIncidenciaFormModelJSON = new StringEntity(
+                    gson.toJson(reglaIncidenciaFormModel));
 
-            nuevaReglaIncidenciaFormModelJSON.setContentType("application/json");
+            nuevaReglaIncidenciaFormModelJSON
+                    .setContentType("application/json");
 
             httpPost.setEntity(nuevaReglaIncidenciaFormModelJSON);
 
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultNuevaIncidenciaEmpleado;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
+                    resultNuevaIncidenciaEmpleado = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     break;
                 case 400:
-                    resultNuevaIncidenciaEmpleado = EntityUtils.toString(servicioResponse.getEntity());
-                    throw new RESTClientException(resultNuevaIncidenciaEmpleado);
+                    resultNuevaIncidenciaEmpleado = EntityUtils
+                            .toString(servicioResponse.getEntity());
+                    throw new RESTClientException(
+                            resultNuevaIncidenciaEmpleado);
 
                 default:
 
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
 
@@ -127,25 +151,33 @@ public class ReglaIncidenciaClienteRest extends ClienteRest implements Serializa
 
     }
 
-    public void elminarReglaIncidencia(Integer idReglaIncidenciaElminar) throws RESTClientException {
+    public void elminarReglaIncidencia(Integer idReglaIncidenciaElminar)
+            throws RESTClientException {
 
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        HttpDelete httpDelete = new HttpDelete(url_serivicio + RESOURCE_ELIMINA_REGLA_INCIDENCIA + idReglaIncidenciaElminar);
+        HttpDelete httpDelete = new HttpDelete(url_serivicio
+                + RESOURCE_ELIMINA_REGLA_INCIDENCIA + idReglaIncidenciaElminar);
 
         try {
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpDelete);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpDelete);
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    String resultHorario = EntityUtils.toString(servicioResponse.getEntity());
+                    String resultHorario = EntityUtils
+                            .toString(servicioResponse.getEntity());
                     break;
                 case 400:
 
-                    throw new RESTClientException(servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getReasonPhrase());
                 default:
 
-                    throw new RESTClientException(ListadoMensajesSistema.E000.getMensaje() + servicioResponse.getStatusLine().getStatusCode() + " "
+                    throw new RESTClientException(ListadoMensajesSistema.E000
+                            .getMensaje()
+                            + servicioResponse.getStatusLine().getStatusCode()
+                            + " "
                             + servicioResponse.getStatusLine().toString());
 
             }

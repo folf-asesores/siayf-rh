@@ -8,4 +8,5 @@
  * Este paquete contiene las clases necesarias para la generación del reporte
  * de seguro popular.
  */
+
 package mx.gob.saludtlax.rh.siif.seguropopular;

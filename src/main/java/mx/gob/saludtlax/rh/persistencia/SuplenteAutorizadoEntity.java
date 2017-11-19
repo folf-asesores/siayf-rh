@@ -153,7 +153,8 @@ public class SuplenteAutorizadoEntity implements Serializable {
         return unidadResponsable;
     }
 
-    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+    public void setUnidadResponsable(
+            UnidadResponsableEntity unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
     }
 
@@ -161,7 +162,8 @@ public class SuplenteAutorizadoEntity implements Serializable {
         return centroResponsabilidad;
     }
 
-    public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
+    public void setCentroResponsabilidad(
+            CentroResponsabilidadEntity centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 07/06/2016 19:23:01
  */
@@ -42,7 +42,8 @@ public class RiesgoPuestoView implements Serializable {
      * @param obtenerListaPuestoDTOs
      *            the obtenerListaPuestoDTOs to set
      */
-    public void setObtenerListaPuestoDTOs(List<RiesgoPuestoDTO> obtenerListaPuestoDTOs) {
+    public void setObtenerListaPuestoDTOs(
+            List<RiesgoPuestoDTO> obtenerListaPuestoDTOs) {
         this.obtenerListaPuestoDTOs = obtenerListaPuestoDTOs;
     }
 
@@ -102,7 +103,8 @@ public class RiesgoPuestoView implements Serializable {
      * @param dialogRiesgoPuestoEliminar
      *            the dialogRiesgoPuestoEliminar to set
      */
-    public void setDialogRiesgoPuestoEliminar(Boolean dialogRiesgoPuestoEliminar) {
+    public void setDialogRiesgoPuestoEliminar(
+            Boolean dialogRiesgoPuestoEliminar) {
         this.dialogRiesgoPuestoEliminar = dialogRiesgoPuestoEliminar;
     }
 

@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -43,7 +43,8 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
         view = new TerminoView();
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
 
         String nombreComponete = component.getId();
 
@@ -52,7 +53,9 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
                 Integer criterio = (Integer) value;
 
                 if (ValidacionUtil.esNumeroPositivo(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -67,7 +70,8 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
     public void buscarEmpleados() {
         String criterio = view.getCriterio();
 
-        List<TerminoDetalleDTO> resultado = terminoConfianzaReincorporacionEJB.consultarPorCriterio(criterio);
+        List<TerminoDetalleDTO> resultado = terminoConfianzaReincorporacionEJB
+                .consultarPorCriterio(criterio);
         view.setTerminoDetalleDTO(resultado);
     }
 
@@ -75,7 +79,8 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
 
         TerminoDTO terminoDTO = view.getTerminoDTO();
         TerminoConfianzaReincorporacionWord terminoConfianzaReincorporacionWord = new TerminoConfianzaReincorporacionWord();
-        byte[] bytesWord = terminoConfianzaReincorporacionWord.generar(terminoDTO);
+        byte[] bytesWord = terminoConfianzaReincorporacionWord
+                .generar(terminoDTO);
 
         FacesContext fc = FacesContext.getCurrentInstance();
 
@@ -83,9 +88,11 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
             ExternalContext ec = fc.getExternalContext();
 
             ec.responseReset();
-            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentType(
+                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             ec.setResponseContentLength(bytesWord.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoConfianzaReincorporacion.docx");
+            ec.setResponseHeader("Content-Disposition", "attachment;filename="
+                    + "TerminoConfianzaReincorporacion.docx");
 
             OutputStream outputStream = ec.getResponseOutputStream();
             outputStream.write(bytesWord, 0, bytesWord.length);
@@ -100,7 +107,8 @@ public class TerminoConfianzaReincorporacionController implements Serializable {
     }
 
     public void contenidoTermino(Integer idTipoMovimiento) {
-        TerminoDTO terminoDTO = terminoConfianzaReincorporacionEJB.obtenerTermino(idTipoMovimiento);
+        TerminoDTO terminoDTO = terminoConfianzaReincorporacionEJB
+                .obtenerTermino(idTipoMovimiento);
 
         view.setTerminoDTO(terminoDTO);
         view.setMostrarPrincipal(false);

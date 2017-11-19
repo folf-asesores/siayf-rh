@@ -53,7 +53,8 @@ public class DetalleRetencionEntity implements Serializable {
         return idDetalleRetencionCuentaBancaria;
     }
 
-    public void setIdDetalleRetencionCuentaBancaria(Integer idDetalleRetencionCuentaBancaria) {
+    public void setIdDetalleRetencionCuentaBancaria(
+            Integer idDetalleRetencionCuentaBancaria) {
         this.idDetalleRetencionCuentaBancaria = idDetalleRetencionCuentaBancaria;
     }
 

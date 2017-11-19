@@ -32,7 +32,8 @@ public class SiifLaboralesSubfuentesEntity implements Serializable {
         return idSiifLaboralesSubfuentes;
     }
 
-    public void setIdSiifLaboralesSubfuentes(Integer idSiifLaboralesSubfuentes) {
+    public void setIdSiifLaboralesSubfuentes(
+            Integer idSiifLaboralesSubfuentes) {
         this.idSiifLaboralesSubfuentes = idSiifLaboralesSubfuentes;
     }
 
@@ -48,7 +49,8 @@ public class SiifLaboralesSubfuentesEntity implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 

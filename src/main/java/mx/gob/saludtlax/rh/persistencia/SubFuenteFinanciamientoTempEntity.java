@@ -14,8 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/07/2016 14:19:03
  */
@@ -52,9 +52,11 @@ public class SubFuenteFinanciamientoTempEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "SubFuenteFinanciamientoEntity [id subfuente financiamiento=" + idSubfuenteFinanciamiento + ", id fuente financiamiento="
-                + idFuenteFinanciamiento + ", id fuente financiamiento opd=" + idFuenteFinanciamientoOpd + ", id base 36=" + idBase36 + ", descripcion="
-                + descripcion + "]";
+        return "SubFuenteFinanciamientoEntity [id subfuente financiamiento="
+                + idSubfuenteFinanciamiento + ", id fuente financiamiento="
+                + idFuenteFinanciamiento + ", id fuente financiamiento opd="
+                + idFuenteFinanciamientoOpd + ", id base 36=" + idBase36
+                + ", descripcion=" + descripcion + "]";
     }
 
     /**
@@ -68,7 +70,8 @@ public class SubFuenteFinanciamientoTempEntity implements Serializable {
      * @param idSubfuenteFinanciamiento
      *            the idSubfuenteFinanciamiento to set
      */
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -98,7 +101,8 @@ public class SubFuenteFinanciamientoTempEntity implements Serializable {
      * @param idFuenteFinanciamientoOpd
      *            the idFuenteFinanciamientoOpd to set
      */
-    public void setIdFuenteFinanciamientoOpd(Integer idFuenteFinanciamientoOpd) {
+    public void setIdFuenteFinanciamientoOpd(
+            Integer idFuenteFinanciamientoOpd) {
         this.idFuenteFinanciamientoOpd = idFuenteFinanciamientoOpd;
     }
 

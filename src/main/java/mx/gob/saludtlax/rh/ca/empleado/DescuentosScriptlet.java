@@ -31,7 +31,8 @@ public class DescuentosScriptlet extends JRDefaultScriptlet {
      *             en caso de que ocurra un error al realizar
      *             la transcripción o algún otro error en tiempo de ejecución del reporte.
      */
-    public String convertirNumeroALetras(Number numero) throws JRScriptletException {
+    public String convertirNumeroALetras(Number numero)
+            throws JRScriptletException {
         return NumeroALetra.convertNumberToLetter(numero.toString(), false);
     }
 }

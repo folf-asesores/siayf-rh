@@ -44,9 +44,11 @@ public class EstructurasContratosController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.setIdUsuarioLogeado(usuario.getIdUsuario());
         view.setListaFunciones(SelectItemsUtil.listaFuncionesEspecificas());
         view.setListaJornadas(SelectItemsUtil.listaJornadas());
@@ -54,11 +56,15 @@ public class EstructurasContratosController implements Serializable {
     }
 
     public void consultarEmpleado() {
-        view.getFiltro().setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION);
+        view.getFiltro()
+                .setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_CONTRATACION);
         view.getFiltro().setId(EnumTipoContratacion.CONTRATO_ESTATAL);
-        view.setEmpleados(empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
+        view.setEmpleados(
+                empleado.consultarEmpleadosConPuestosActivos(view.getFiltro()));
         if (view.getEmpleados().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron empleados con el criterio " + view.getFiltro().getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontraron empleados con el criterio "
+                            + view.getFiltro().getCriterio());
         }
     }
 
@@ -66,7 +72,8 @@ public class EstructurasContratosController implements Serializable {
         view.setMostrarInformacionPuesto(true);
 
         view.setPuesto(puestosAutorizados.obtenerInformacionIdPuesto(idPuesto));
-        view.setEstructuraContrato(puestosAutorizados.obtenerEstructuraContratoPuesto(idPuesto));
+        view.setEstructuraContrato(
+                puestosAutorizados.obtenerEstructuraContratoPuesto(idPuesto));
         view.getEstructuraContrato().setIdPuesto(idPuesto);
 
     }
@@ -77,12 +84,15 @@ public class EstructurasContratosController implements Serializable {
 
     public void actualizarEstructuras() {
         try {
-            view.getEstructuraContrato().setIdUsuario(view.getIdUsuarioLogeado());
-            puestosAutorizados.modificarEstructuraNominaContratos(view.getEstructuraContrato());
+            view.getEstructuraContrato()
+                    .setIdUsuario(view.getIdUsuarioLogeado());
+            puestosAutorizados.modificarEstructuraNominaContratos(
+                    view.getEstructuraContrato());
             view.setMostrarInformacionPuesto(false);
             EstructuraContratoDTO estructura = new EstructuraContratoDTO();
             view.setEstructuraContrato(estructura);
-            JSFUtils.infoMessage("", "¡La información ha sido actualizada con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡La información ha sido actualizada con éxito!");
 
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());

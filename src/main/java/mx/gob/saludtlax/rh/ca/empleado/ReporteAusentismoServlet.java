@@ -22,7 +22,8 @@ import javax.sql.DataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 
-@WebServlet(name = "reporteAusentismoServlet", urlPatterns = { "/reporte-ausentismo_empleado", "/reporte-ausentismo_empleado" })
+@WebServlet(name = "reporteAusentismoServlet", urlPatterns = {
+        "/reporte-ausentismo_empleado", "/reporte-ausentismo_empleado" })
 public class ReporteAusentismoServlet extends HttpServlet {
 
     /**
@@ -31,7 +32,8 @@ public class ReporteAusentismoServlet extends HttpServlet {
     private static final long serialVersionUID = -5073900726653316038L;
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
 
         String fechaInicio = request.getParameter("fechaInicio");
         String fechaFin = request.getParameter("fechaFin");
@@ -47,14 +49,17 @@ public class ReporteAusentismoServlet extends HttpServlet {
         servletOutputStream.close();
     }
 
-    private byte[] doReport(String fechaInicio, String fechaFin, Integer idAdscripcion) {
+    private byte[] doReport(String fechaInicio, String fechaFin,
+            Integer idAdscripcion) {
         byte[] bytes = null;
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/reporte_ausentismo.jasper");
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("/reportes/reporte_ausentismo.jasper");
         Connection conexion = null;
         try {
             Context initcontext = new InitialContext();
-            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+            DataSource ds = (DataSource) initcontext
+                    .lookup("java:jboss/datasources/SIAYFRHDS");
 
             conexion = ds.getConnection();
 
@@ -64,13 +69,18 @@ public class ReporteAusentismoServlet extends HttpServlet {
             parameters.put("fecha_fin", fechaFin);
             parameters.put("unidad_administrativa", idAdscripcion);
 
-            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters,
+                    conexion);
 
         } catch (NamingException ex) {
-            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            System.err.println(
+                    "Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (SQLException ex) {
-            System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
+            System.err.println(
+                    "Error al tratar obtener la conexiÃ³n con la base de datos en "
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (JRException ex) {
             System.err.println("Error durante la generación del reporte ");
@@ -80,7 +90,9 @@ public class ReporteAusentismoServlet extends HttpServlet {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    System.err.println("Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
+                    System.err.println(
+                            "Error al tratar cerrar la conexiÃ³n con la base de datos en "
+                                    + getClass().getName());
                     e.printStackTrace();
                 }
             }

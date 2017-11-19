@@ -28,7 +28,7 @@ import org.junit.Test;
 import mx.gob.saludtlax.rh.util.NumeroUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class NombramientoGenericoTest {

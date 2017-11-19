@@ -14,12 +14,13 @@ import javax.persistence.PersistenceContext;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 07/06/2016 18:50:58
  */
-public class RiesgoPuestoRepository extends GenericRepository<RiesgoPuestoEntity, Integer> implements Serializable {
+public class RiesgoPuestoRepository extends
+        GenericRepository<RiesgoPuestoEntity, Integer> implements Serializable {
 
     /**
      *
@@ -30,14 +31,17 @@ public class RiesgoPuestoRepository extends GenericRepository<RiesgoPuestoEntity
     private EntityManager entityManager;
 
     public List<RiesgoPuestoEntity> obtenerListaRiesgoPuesto() {
-        return entityManager.createQuery("SELECT r FROM RiesgoPuestoEntity AS r ORDER BY r.idRiesgoPuesto", RiesgoPuestoEntity.class).getResultList();
+        return entityManager.createQuery(
+                "SELECT r FROM RiesgoPuestoEntity AS r ORDER BY r.idRiesgoPuesto",
+                RiesgoPuestoEntity.class).getResultList();
     }
 
     public boolean validarClave(Integer clave) {
         boolean resultado = false;
         try {
-            RiesgoPuestoEntity riesgoPuestoEntity = entityManager
-                    .createQuery("SELECT r FROM RiesgoPuestoEntity AS r WHERE r.clave =:clave", RiesgoPuestoEntity.class).setParameter("clave", clave)
+            RiesgoPuestoEntity riesgoPuestoEntity = entityManager.createQuery(
+                    "SELECT r FROM RiesgoPuestoEntity AS r WHERE r.clave =:clave",
+                    RiesgoPuestoEntity.class).setParameter("clave", clave)
                     .getSingleResult();
 
             resultado = true;

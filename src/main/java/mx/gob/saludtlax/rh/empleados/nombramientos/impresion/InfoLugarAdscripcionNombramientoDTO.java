@@ -7,8 +7,8 @@ package mx.gob.saludtlax.rh.empleados.nombramientos.impresion;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 15:15:17 14/09/2016
  */

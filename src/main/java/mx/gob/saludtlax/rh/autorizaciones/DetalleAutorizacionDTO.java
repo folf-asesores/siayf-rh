@@ -51,7 +51,8 @@ public class DetalleAutorizacionDTO {
         return configuracionDetallePrograma;
     }
 
-    public void setConfiguracionDetallePrograma(ConfiguracionDetalleProgramaDTO configuracionDetallePrograma) {
+    public void setConfiguracionDetallePrograma(
+            ConfiguracionDetalleProgramaDTO configuracionDetallePrograma) {
         this.configuracionDetallePrograma = configuracionDetallePrograma;
     }
 
@@ -67,7 +68,8 @@ public class DetalleAutorizacionDTO {
         return configuracionPresupuesto;
     }
 
-    public void setConfiguracionPresupuesto(DetalleConfiguracionPresupuestoDTO configuracionPresupuesto) {
+    public void setConfiguracionPresupuesto(
+            DetalleConfiguracionPresupuestoDTO configuracionPresupuesto) {
         this.configuracionPresupuesto = configuracionPresupuesto;
     }
 

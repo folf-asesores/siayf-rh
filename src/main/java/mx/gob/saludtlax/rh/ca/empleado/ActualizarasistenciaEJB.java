@@ -17,7 +17,8 @@ public class ActualizarasistenciaEJB {
     @Inject
     private AsistenciasEmpleadosRepository asistenciasEmpleadosRepository;
 
-    public Integer actualizarAsistencias(Date fechaIni, Date fechaFin, Integer tipoContratacion, Integer adscripcion) {
+    public Integer actualizarAsistencias(Date fechaIni, Date fechaFin,
+            Integer tipoContratacion, Integer adscripcion) {
 
         try {
 
@@ -26,7 +27,8 @@ public class ActualizarasistenciaEJB {
             String fInicio = sdf.format(fechaIni);
             String fFin = sdf.format(fechaFin);
 
-            Integer res = asistenciasEmpleadosRepository.actualizarAsistencias(fInicio, fFin, tipoContratacion, adscripcion);
+            Integer res = asistenciasEmpleadosRepository.actualizarAsistencias(
+                    fInicio, fFin, tipoContratacion, adscripcion);
             System.out.println("Estas son las asistencias actualizadas");
             return res;
         } catch (ResolutionException e) {

@@ -13,8 +13,8 @@ import javax.inject.Inject;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 12:25:20 09/08/2016
  */
@@ -30,35 +30,45 @@ public class EspecialidadEJB implements Especialidad, Serializable {
     private EspecialidadService especialidadService;
 
     @Override
-    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdAspirante(Integer idAspirante) {
-        return especialidadService.obtenerListaEspecialidadPorIdAspirante(idAspirante);
+    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdAspirante(
+            Integer idAspirante) {
+        return especialidadService
+                .obtenerListaEspecialidadPorIdAspirante(idAspirante);
     }
 
     @Override
-    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdEmpleado(Integer idEmpleado) {
-        return especialidadService.obtenerListaEspecialidadPorIdEmpleado(idEmpleado);
+    public List<EspecialidadDTO> obtenerListaEspecialidadPorIdEmpleado(
+            Integer idEmpleado) {
+        return especialidadService
+                .obtenerListaEspecialidadPorIdEmpleado(idEmpleado);
     }
 
     @Override
-    public List<InfoVacantePostularDTO> obtenerListaEspecialidadPorTipoCandidato(Integer idEspecialidad, Integer tipoCandidato) {
+    public List<InfoVacantePostularDTO> obtenerListaEspecialidadPorTipoCandidato(
+            Integer idEspecialidad, Integer tipoCandidato) {
 
-        return especialidadService.obtenerListaEspecialidadPorTipoCandidato(idEspecialidad, tipoCandidato);
+        return especialidadService.obtenerListaEspecialidadPorTipoCandidato(
+                idEspecialidad, tipoCandidato);
     }
 
     @Override
-    public void crearEspecialidadAspirante(Integer idEspecialidad, Integer idAspirante) {
-        especialidadService.crearEspecialidadAspirante(idEspecialidad, idAspirante);
+    public void crearEspecialidadAspirante(Integer idEspecialidad,
+            Integer idAspirante) {
+        especialidadService.crearEspecialidadAspirante(idEspecialidad,
+                idAspirante);
     }
 
     @Override
-    public void actualizarEspecialidadAspirante(EspecialidadDTO dto, Integer idAspirante) {
+    public void actualizarEspecialidadAspirante(EspecialidadDTO dto,
+            Integer idAspirante) {
         especialidadService.actualizarEspecialidadAspirante(dto, idAspirante);
 
     }
 
     @Override
     public void eliminarEspecialidadAspirante(Integer idEspecialidadAspirante) {
-        especialidadService.eliminarEspecialidadAspirante(idEspecialidadAspirante);
+        especialidadService
+                .eliminarEspecialidadAspirante(idEspecialidadAspirante);
 
     }
 

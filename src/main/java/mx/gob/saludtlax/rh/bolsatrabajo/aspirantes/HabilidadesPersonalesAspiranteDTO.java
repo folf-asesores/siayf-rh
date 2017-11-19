@@ -9,9 +9,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 22/03/2016 17:50:24
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
 public class HabilidadesPersonalesAspiranteDTO implements Serializable {
 
@@ -113,7 +113,8 @@ public class HabilidadesPersonalesAspiranteDTO implements Serializable {
      * @param idEncuestaPersonalAspirante
      *            the idEncuestaPersonalAspirante to set
      */
-    public void setIdEncuestaPersonalAspirante(Integer idEncuestaPersonalAspirante) {
+    public void setIdEncuestaPersonalAspirante(
+            Integer idEncuestaPersonalAspirante) {
         this.idEncuestaPersonalAspirante = idEncuestaPersonalAspirante;
     }
 
@@ -518,7 +519,8 @@ public class HabilidadesPersonalesAspiranteDTO implements Serializable {
      * @param percepcionMensualConyuge
      *            the percepcionMensualConyuge to set
      */
-    public void setPercepcionMensualConyuge(BigDecimal percepcionMensualConyuge) {
+    public void setPercepcionMensualConyuge(
+            BigDecimal percepcionMensualConyuge) {
         this.percepcionMensualConyuge = percepcionMensualConyuge;
     }
 

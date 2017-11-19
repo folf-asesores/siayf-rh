@@ -90,7 +90,8 @@ public class AutorizacionesView {
         return listaAutorizados;
     }
 
-    public void setListaAutorizados(List<UsuarioConfiguracionDTO> listaAutorizados) {
+    public void setListaAutorizados(
+            List<UsuarioConfiguracionDTO> listaAutorizados) {
         this.listaAutorizados = listaAutorizados;
     }
 
@@ -106,7 +107,8 @@ public class AutorizacionesView {
         return autorizadosSelect;
     }
 
-    public void setAutorizadosSelect(List<UsuarioConfiguracionDTO> autorizadosSelect) {
+    public void setAutorizadosSelect(
+            List<UsuarioConfiguracionDTO> autorizadosSelect) {
         this.autorizadosSelect = autorizadosSelect;
     }
 
@@ -194,7 +196,8 @@ public class AutorizacionesView {
         return selectAutorizados;
     }
 
-    public void setSelectAutorizados(List<UsuarioConfiguracionDTO> selectAutorizados) {
+    public void setSelectAutorizados(
+            List<UsuarioConfiguracionDTO> selectAutorizados) {
         this.selectAutorizados = selectAutorizados;
     }
 

@@ -98,7 +98,8 @@ public class PensionAlimenticiaNominaEntity implements Serializable {
         return pensionAlimenticia;
     }
 
-    public void setPensionAlimenticia(PensionAlimenticiaEntity pensionAlimenticia) {
+    public void setPensionAlimenticia(
+            PensionAlimenticiaEntity pensionAlimenticia) {
         this.pensionAlimenticia = pensionAlimenticia;
     }
 
@@ -130,7 +131,8 @@ public class PensionAlimenticiaNominaEntity implements Serializable {
         return configuracionPresupuesto;
     }
 
-    public void setConfiguracionPresupuesto(ConfiguracionPresupuestoEntity configuracionPresupuesto) {
+    public void setConfiguracionPresupuesto(
+            ConfiguracionPresupuestoEntity configuracionPresupuesto) {
         this.configuracionPresupuesto = configuracionPresupuesto;
     }
 
@@ -154,7 +156,8 @@ public class PensionAlimenticiaNominaEntity implements Serializable {
         return centroResponsabilidad;
     }
 
-    public void setCentroResponsabilidad(CentroResponsabilidadEntity centroResponsabilidad) {
+    public void setCentroResponsabilidad(
+            CentroResponsabilidadEntity centroResponsabilidad) {
         this.centroResponsabilidad = centroResponsabilidad;
     }
 
@@ -162,7 +165,8 @@ public class PensionAlimenticiaNominaEntity implements Serializable {
         return estatusNominaEmpleado;
     }
 
-    public void setEstatusNominaEmpleado(EstatusNominasEmpleadoEntity estatusNominaEmpleado) {
+    public void setEstatusNominaEmpleado(
+            EstatusNominasEmpleadoEntity estatusNominaEmpleado) {
         this.estatusNominaEmpleado = estatusNominaEmpleado;
     }
 

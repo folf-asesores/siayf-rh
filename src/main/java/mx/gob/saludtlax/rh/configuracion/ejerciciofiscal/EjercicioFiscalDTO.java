@@ -56,7 +56,8 @@ public class EjercicioFiscalDTO {
         return listPeriodoCalendario;
     }
 
-    public void setListPeriodoCalendario(List<PeriodoCalendarioDTO> listPeriodoCalendario) {
+    public void setListPeriodoCalendario(
+            List<PeriodoCalendarioDTO> listPeriodoCalendario) {
         this.listPeriodoCalendario = listPeriodoCalendario;
     }
 }

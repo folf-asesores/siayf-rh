@@ -12,76 +12,106 @@ import java.util.Map;
 import mx.gob.saludtlax.rh.reportes.AlmacenReportes;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class AlmacenReportesJasperReports implements AlmacenReportes<JasperReporte> {
+public class AlmacenReportesJasperReports
+        implements AlmacenReportes<JasperReporte> {
 
     private static final Map<String, JasperReporte> REPORTES = new HashMap<>();
 
     static {
-        JasperReporte comprobanteFiscal = new JasperReporte("comprobante-fiscal.jrxml", "plantillas/jasperreports/");
-        JasperReporte comprobanteFiscalPercepciones = new JasperReporte("comprobante-fiscal__percepciones.jrxml", "plantillas/jasperreports/");
-        JasperReporte comprobanteFiscalDeducciones = new JasperReporte("comprobante-fiscal__deducciones.jrxml", "plantillas/jasperreports/");
-        comprobanteFiscal.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", comprobanteFiscalPercepciones);
-        comprobanteFiscal.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", comprobanteFiscalDeducciones);
+        JasperReporte comprobanteFiscal = new JasperReporte(
+                "comprobante-fiscal.jrxml", "plantillas/jasperreports/");
+        JasperReporte comprobanteFiscalPercepciones = new JasperReporte(
+                "comprobante-fiscal__percepciones.jrxml",
+                "plantillas/jasperreports/");
+        JasperReporte comprobanteFiscalDeducciones = new JasperReporte(
+                "comprobante-fiscal__deducciones.jrxml",
+                "plantillas/jasperreports/");
+        comprobanteFiscal.agregarSubreporte("SUB_REPORTE_PERCEPCIONES",
+                comprobanteFiscalPercepciones);
+        comprobanteFiscal.agregarSubreporte("SUB_REPORTE_DEDUCCIONES",
+                comprobanteFiscalDeducciones);
         comprobanteFiscal.agregarParametro("ID_COMPROBANTE", Integer.class);
         REPORTES.put("comprobante-fiscal", comprobanteFiscal);
 
-        JasperReporte formatoFiliacion = new JasperReporte("FORMATO_FILIACION.jrxml", "reportes/");
+        JasperReporte formatoFiliacion = new JasperReporte(
+                "FORMATO_FILIACION.jrxml", "reportes/");
         formatoFiliacion.agregarParametro("ID_EMPLEADO", Integer.class);
         //        formatoFiliacion.agregarParametro("ID_FORMATO", Integer.class);
         REPORTES.put("formato-filiacion", formatoFiliacion);
 
         // Reportes de control de asistencia.
-        JasperReporte _8001Descuentos = new JasperReporte("8001-descuentos.jrxml", "reportes/");
+        JasperReporte _8001Descuentos = new JasperReporte(
+                "8001-descuentos.jrxml", "reportes/");
         _8001Descuentos.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _8001Descuentos.agregarParametro("TIPO_CONTRATACION", Integer.class);
         _8001Descuentos.agregarParametro("FECHA_INICIO", String.class);
         _8001Descuentos.agregarParametro("FECHA_FIN", String.class);
-        _8001Descuentos.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
-        _8001Descuentos.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
+        _8001Descuentos.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO",
+                Integer.class);
+        _8001Descuentos.agregarParametro("ANYO_APLICACION_MOVIMIENTO",
+                Integer.class);
         REPORTES.put("8001-descuentos", _8001Descuentos);
 
-        JasperReporte _9201PrimaDominical = new JasperReporte("9201-prima_dominical.jrxml", "reportes/");
+        JasperReporte _9201PrimaDominical = new JasperReporte(
+                "9201-prima_dominical.jrxml", "reportes/");
         _9201PrimaDominical.agregarParametro("ID_ADSCRIPCION", Integer.class);
-        _9201PrimaDominical.agregarParametro("TIPO_CONTRATACION", Integer.class);
+        _9201PrimaDominical.agregarParametro("TIPO_CONTRATACION",
+                Integer.class);
         _9201PrimaDominical.agregarParametro("FECHA_INICIO", String.class);
         _9201PrimaDominical.agregarParametro("FECHA_FIN", String.class);
-        _9201PrimaDominical.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
-        _9201PrimaDominical.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
+        _9201PrimaDominical.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO",
+                Integer.class);
+        _9201PrimaDominical.agregarParametro("ANYO_APLICACION_MOVIMIENTO",
+                Integer.class);
         REPORTES.put("9201-prima_dominical", _9201PrimaDominical);
 
-        JasperReporte _9204Trimestral = new JasperReporte("9204-trimestral.jrxml", "reportes/");
+        JasperReporte _9204Trimestral = new JasperReporte(
+                "9204-trimestral.jrxml", "reportes/");
         _9204Trimestral.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9204Trimestral.agregarParametro("TIPO_CONTRATACION", Integer.class);
         _9204Trimestral.agregarParametro("FECHA_INICIO", String.class);
         _9204Trimestral.agregarParametro("FECHA_FIN", String.class);
-        _9204Trimestral.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
-        _9204Trimestral.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
+        _9204Trimestral.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO",
+                Integer.class);
+        _9204Trimestral.agregarParametro("ANYO_APLICACION_MOVIMIENTO",
+                Integer.class);
         REPORTES.put("9204-trimestral", _9204Trimestral);
 
-        JasperReporte _9205Anual = new JasperReporte("9205-anual.jrxml", "reportes/");
+        JasperReporte _9205Anual = new JasperReporte("9205-anual.jrxml",
+                "reportes/");
         _9205Anual.agregarParametro("ID_ADSCRIPCION", Integer.class);
         _9205Anual.agregarParametro("TIPO_CONTRATACION", Integer.class);
         _9205Anual.agregarParametro("FECHA_INICIO", String.class);
         _9205Anual.agregarParametro("FECHA_FIN", String.class);
-        _9205Anual.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
-        _9205Anual.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
+        _9205Anual.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO",
+                Integer.class);
+        _9205Anual.agregarParametro("ANYO_APLICACION_MOVIMIENTO",
+                Integer.class);
         REPORTES.put("9205-anual", _9205Anual);
 
-        JasperReporte _9207AsistenciaPerfecta = new JasperReporte("9207-asistencia_perfecta.jrxml", "reportes/");
-        _9207AsistenciaPerfecta.agregarParametro("ID_ADSCRIPCION", Integer.class);
-        _9207AsistenciaPerfecta.agregarParametro("TIPO_CONTRATACION", Integer.class);
+        JasperReporte _9207AsistenciaPerfecta = new JasperReporte(
+                "9207-asistencia_perfecta.jrxml", "reportes/");
+        _9207AsistenciaPerfecta.agregarParametro("ID_ADSCRIPCION",
+                Integer.class);
+        _9207AsistenciaPerfecta.agregarParametro("TIPO_CONTRATACION",
+                Integer.class);
         _9207AsistenciaPerfecta.agregarParametro("FECHA_INICIO", String.class);
         _9207AsistenciaPerfecta.agregarParametro("FECHA_FIN", String.class);
-        _9207AsistenciaPerfecta.agregarParametro("QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
-        _9207AsistenciaPerfecta.agregarParametro("ANYO_APLICACION_MOVIMIENTO", Integer.class);
+        _9207AsistenciaPerfecta.agregarParametro(
+                "QUINCENA_APLICACION_MOVIMIENTO", Integer.class);
+        _9207AsistenciaPerfecta.agregarParametro("ANYO_APLICACION_MOVIMIENTO",
+                Integer.class);
         REPORTES.put("9207-asistencia_perfecta", _9207AsistenciaPerfecta);
 
-        JasperReporte reporteUnicoIncidencias = new JasperReporte("reporte_unico_incidencias.jrxml", "reportes/");
-        reporteUnicoIncidencias.agregarParametro("ID_ADSCRIPCION", Integer.class);
-        reporteUnicoIncidencias.agregarParametro("TIPO_CONTRATACION", Integer.class);
+        JasperReporte reporteUnicoIncidencias = new JasperReporte(
+                "reporte_unico_incidencias.jrxml", "reportes/");
+        reporteUnicoIncidencias.agregarParametro("ID_ADSCRIPCION",
+                Integer.class);
+        reporteUnicoIncidencias.agregarParametro("TIPO_CONTRATACION",
+                Integer.class);
         reporteUnicoIncidencias.agregarParametro("FECHA_INICIO", String.class);
         reporteUnicoIncidencias.agregarParametro("FECHA_FIN", String.class);
         REPORTES.put("reporte_unico_incidencias", reporteUnicoIncidencias);
@@ -113,41 +143,71 @@ public class AlmacenReportesJasperReports implements AlmacenReportes<JasperRepor
         //        prenominaEventuales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_PROGRAMA", prenominaEventualesDeducccionesPrograma);
         //        REPORTES.put("prenomina_eventuales", prenominaEventuales);
 
-        JasperReporte nominaFederalesPercepciones = new JasperReporte("nomina_federales--percepciones.jrxml", "reportes/");
-        JasperReporte nominaFederalesPercepcionesTotal = new JasperReporte("nomina_federales--percepciones-total.jrxml", "reportes/");
-        JasperReporte nominaFederalesPercepcionesCentroResponsabilidad = new JasperReporte("nomina_federales--percepciones-centro-responsabilidad.jrxml",
+        JasperReporte nominaFederalesPercepciones = new JasperReporte(
+                "nomina_federales--percepciones.jrxml", "reportes/");
+        JasperReporte nominaFederalesPercepcionesTotal = new JasperReporte(
+                "nomina_federales--percepciones-total.jrxml", "reportes/");
+        JasperReporte nominaFederalesPercepcionesCentroResponsabilidad = new JasperReporte(
+                "nomina_federales--percepciones-centro-responsabilidad.jrxml",
                 "reportes/");
 
-        JasperReporte nominaFederalesDeducccionesTotal = new JasperReporte("nomina_federales--deducciones-total.jrxml", "reportes/");
-        JasperReporte nominaFederalesDeducccionesCentroResponsabilidad = new JasperReporte("nomina_federales--deducciones-centro-responsabilidad.jrxml",
+        JasperReporte nominaFederalesDeducccionesTotal = new JasperReporte(
+                "nomina_federales--deducciones-total.jrxml", "reportes/");
+        JasperReporte nominaFederalesDeducccionesCentroResponsabilidad = new JasperReporte(
+                "nomina_federales--deducciones-centro-responsabilidad.jrxml",
                 "reportes/");
-        JasperReporte nominaFederalesDeduccciones = new JasperReporte("nomina_federales--deducciones.jrxml", "reportes/");
-        JasperReporte nominaFederales = new JasperReporte("nomina_federales.jrxml", "reportes/");
+        JasperReporte nominaFederalesDeduccciones = new JasperReporte(
+                "nomina_federales--deducciones.jrxml", "reportes/");
+        JasperReporte nominaFederales = new JasperReporte(
+                "nomina_federales.jrxml", "reportes/");
 
         nominaFederales.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", nominaFederalesPercepciones);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", nominaFederalesPercepcionesCentroResponsabilidad);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", nominaFederalesPercepcionesTotal);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", nominaFederalesDeduccciones);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", nominaFederalesDeducccionesCentroResponsabilidad);
-        nominaFederales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", nominaFederalesDeducccionesTotal);
+        nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES",
+                nominaFederalesPercepciones);
+        nominaFederales.agregarSubreporte(
+                "SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD",
+                nominaFederalesPercepcionesCentroResponsabilidad);
+        nominaFederales.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL",
+                nominaFederalesPercepcionesTotal);
+        nominaFederales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES",
+                nominaFederalesDeduccciones);
+        nominaFederales.agregarSubreporte(
+                "SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD",
+                nominaFederalesDeducccionesCentroResponsabilidad);
+        nominaFederales.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL",
+                nominaFederalesDeducccionesTotal);
         REPORTES.put("nomina_federales", nominaFederales);
 
-        JasperReporte nominaSuplencia = new JasperReporte("nomina_suplencias.jrxml", "reportes/");
-        JasperReporte nominaSuplenciaPercepciones = new JasperReporte("nomina_suplencias--percepciones.jrxml", "reportes/");
-        JasperReporte nominaSuplenciaPercepcionesCentroResponsabilidad = new JasperReporte("nomina_suplencias--percepciones-centro-responsabilidad.jrxml",
+        JasperReporte nominaSuplencia = new JasperReporte(
+                "nomina_suplencias.jrxml", "reportes/");
+        JasperReporte nominaSuplenciaPercepciones = new JasperReporte(
+                "nomina_suplencias--percepciones.jrxml", "reportes/");
+        JasperReporte nominaSuplenciaPercepcionesCentroResponsabilidad = new JasperReporte(
+                "nomina_suplencias--percepciones-centro-responsabilidad.jrxml",
                 "reportes/");
-        JasperReporte nominaSuplenciaPercepcionesTotal = new JasperReporte("nomina_suplencias--percepciones-total.jrxml", "reportes/");
-        JasperReporte nominaSuplenciaDeduccciones = new JasperReporte("nomina_suplencias--deducciones.jrxml", "reportes/");
-        JasperReporte nominaSuplenciaDeducccionesCentroResponsabilidad = new JasperReporte("nomina_suplencias--deducciones-centro-responsabilidad.jrxml",
+        JasperReporte nominaSuplenciaPercepcionesTotal = new JasperReporte(
+                "nomina_suplencias--percepciones-total.jrxml", "reportes/");
+        JasperReporte nominaSuplenciaDeduccciones = new JasperReporte(
+                "nomina_suplencias--deducciones.jrxml", "reportes/");
+        JasperReporte nominaSuplenciaDeducccionesCentroResponsabilidad = new JasperReporte(
+                "nomina_suplencias--deducciones-centro-responsabilidad.jrxml",
                 "reportes/");
-        JasperReporte nominaSuplenciaDeducccionesTotal = new JasperReporte("nomina_suplencias--deducciones-total.jrxml", "reportes/");
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_PERCEPCIONES", nominaSuplenciaPercepciones);
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD", nominaSuplenciaPercepcionesCentroResponsabilidad);
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL", nominaSuplenciaPercepcionesTotal);
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_DEDUCCIONES", nominaSuplenciaDeduccciones);
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD", nominaSuplenciaDeducccionesCentroResponsabilidad);
-        nominaSuplencia.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL", nominaSuplenciaDeducccionesTotal);
+        JasperReporte nominaSuplenciaDeducccionesTotal = new JasperReporte(
+                "nomina_suplencias--deducciones-total.jrxml", "reportes/");
+        nominaSuplencia.agregarSubreporte("SUB_REPORTE_PERCEPCIONES",
+                nominaSuplenciaPercepciones);
+        nominaSuplencia.agregarSubreporte(
+                "SUB_REPORTE_PERCEPCIONES_CENTRO_RESPONSABILIDAD",
+                nominaSuplenciaPercepcionesCentroResponsabilidad);
+        nominaSuplencia.agregarSubreporte("SUB_REPORTE_PERCEPCIONES_TOTAL",
+                nominaSuplenciaPercepcionesTotal);
+        nominaSuplencia.agregarSubreporte("SUB_REPORTE_DEDUCCIONES",
+                nominaSuplenciaDeduccciones);
+        nominaSuplencia.agregarSubreporte(
+                "SUB_REPORTE_DEDUCCIONES_CENTRO_RESPONSABILIDAD",
+                nominaSuplenciaDeducccionesCentroResponsabilidad);
+        nominaSuplencia.agregarSubreporte("SUB_REPORTE_DEDUCCIONES_TOTAL",
+                nominaSuplenciaDeducccionesTotal);
         nominaSuplencia.agregarParametro("ID_PRODUCTO_NOMINA", Integer.class);
         REPORTES.put("nomina_suplencias", nominaSuplencia);
     }

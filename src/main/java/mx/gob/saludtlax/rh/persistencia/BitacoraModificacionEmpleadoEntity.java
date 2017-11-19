@@ -115,7 +115,8 @@ public class BitacoraModificacionEmpleadoEntity implements Serializable {
         return tipoMovimiento;
     }
 
-    public void setTipoMovimiento(TipoModificacionEmpleadoEntity tipoMovimiento) {
+    public void setTipoMovimiento(
+            TipoModificacionEmpleadoEntity tipoMovimiento) {
         this.tipoMovimiento = tipoMovimiento;
     }
 

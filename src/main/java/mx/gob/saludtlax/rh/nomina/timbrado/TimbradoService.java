@@ -128,7 +128,8 @@ public class TimbradoService implements Serializable {
 
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public Future<DatosCFDITimbrado> generarCFDI(ComprobanteEntity comprobatenEntity) {
+    public Future<DatosCFDITimbrado> generarCFDI(
+            ComprobanteEntity comprobatenEntity) {
 
         DatosCFDINomina datosCFDINomina = toDatosCFDINomina(comprobatenEntity);
 
@@ -158,25 +159,33 @@ public class TimbradoService implements Serializable {
         datosSalud.setDomicilioFiscal(domicilioSalud);
 
         // Informacion RECEPTOR
-        if (datosCFDINomina.getCalle() != null && !datosCFDINomina.getCalle().isEmpty()) {
+        if (datosCFDINomina.getCalle() != null
+                && !datosCFDINomina.getCalle().isEmpty()) {
             domicilioEmpleado.setCalle(datosCFDINomina.getCalle());
         }
-        if (datosCFDINomina.getCodigoPostal() != null && !datosCFDINomina.getCodigoPostal().isEmpty()) {
-            domicilioEmpleado.setCodigoPostal(datosCFDINomina.getCodigoPostal());
+        if (datosCFDINomina.getCodigoPostal() != null
+                && !datosCFDINomina.getCodigoPostal().isEmpty()) {
+            domicilioEmpleado
+                    .setCodigoPostal(datosCFDINomina.getCodigoPostal());
         }
-        if (datosCFDINomina.getColonia() != null && !datosCFDINomina.getColonia().isEmpty()) {
+        if (datosCFDINomina.getColonia() != null
+                && !datosCFDINomina.getColonia().isEmpty()) {
             domicilioEmpleado.setColonia(datosCFDINomina.getColonia());
         }
-        if (datosCFDINomina.getEstado() != null && !datosCFDINomina.getEstado().isEmpty()) {
+        if (datosCFDINomina.getEstado() != null
+                && !datosCFDINomina.getEstado().isEmpty()) {
             domicilioEmpleado.setEstado(datosCFDINomina.getEstado());
         }
-        if (datosCFDINomina.getMunicipio() != null && !datosCFDINomina.getMunicipio().isEmpty()) {
+        if (datosCFDINomina.getMunicipio() != null
+                && !datosCFDINomina.getMunicipio().isEmpty()) {
             domicilioEmpleado.setMunicipio(datosCFDINomina.getMunicipio());
         }
-        if (datosCFDINomina.getNoExterio() != null && !datosCFDINomina.getNoExterio().isEmpty()) {
+        if (datosCFDINomina.getNoExterio() != null
+                && !datosCFDINomina.getNoExterio().isEmpty()) {
             domicilioEmpleado.setNoExterior(datosCFDINomina.getNoExterio());
         }
-        if (datosCFDINomina.getNoInterior() != null && !datosCFDINomina.getNoInterior().isEmpty()) {
+        if (datosCFDINomina.getNoInterior() != null
+                && !datosCFDINomina.getNoInterior().isEmpty()) {
             domicilioEmpleado.setNoInterior(datosCFDINomina.getNoInterior());
         }
         domicilioEmpleado.setPais("MEXICO");
@@ -207,7 +216,8 @@ public class TimbradoService implements Serializable {
         cfdiNomina.setVersion("3.2");
         cfdiNomina.setLugarExpedicion("MEXICO");
         try {
-            cfdiNomina.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaPago));
+            cfdiNomina.setFecha(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(fechaPago));
         } catch (DatatypeConfigurationException e) {
 
             e.printStackTrace();
@@ -217,16 +227,20 @@ public class TimbradoService implements Serializable {
         BigDecimal subTotalNomina = subTotal(complementoNomina);
         BigDecimal descuentoNomina = descuentos(complementoNomina);
         BigDecimal totalISRNomina = totalISRNomina(complementoNomina);
-        BigDecimal total = subTotalNomina.subtract(descuentoNomina).subtract(totalISRNomina);
-        cfdiNomina.setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
-        cfdiNomina.setDescuento(descuentoNomina.setScale(2, RoundingMode.HALF_UP));
+        BigDecimal total = subTotalNomina.subtract(descuentoNomina)
+                .subtract(totalISRNomina);
+        cfdiNomina
+                .setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        cfdiNomina.setDescuento(
+                descuentoNomina.setScale(2, RoundingMode.HALF_UP));
         cfdiNomina.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
         Comprobante.Conceptos.Concepto concepto = new Comprobante.Conceptos.Concepto();
         concepto.setCantidad(new BigDecimal("1"));
         concepto.setDescripcion("Pago Nomina");
         concepto.setUnidad("Servicio");
-        concepto.setValorUnitario(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        concepto.setValorUnitario(
+                subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         concepto.setImporte(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         concepto.setNoIdentificacion("a");
         Comprobante.Conceptos conceptos = new Comprobante.Conceptos();
@@ -235,11 +249,13 @@ public class TimbradoService implements Serializable {
         cfdiNomina.setConceptos(conceptos);
 
         Comprobante.Impuestos impuesto = new Comprobante.Impuestos();
-        impuesto.setTotalImpuestosRetenidos(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+        impuesto.setTotalImpuestosRetenidos(
+                totalISRNomina.setScale(2, RoundingMode.HALF_UP));
 
         Comprobante.Impuestos.Retenciones.Retencion retencionISR = new Comprobante.Impuestos.Retenciones.Retencion();
         Comprobante.Impuestos.Retenciones retenciones = new Comprobante.Impuestos.Retenciones();
-        retencionISR.setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+        retencionISR
+                .setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
         retencionISR.setImpuesto("ISR");
         retenciones.getRetencion().add(retencionISR);
 
@@ -252,7 +268,8 @@ public class TimbradoService implements Serializable {
 
         String cadenaOriginal;
         try {
-            cadenaOriginal = cadenaOriginaServices.generar(generarXMLStream(cfdiNomina));
+            cadenaOriginal = cadenaOriginaServices
+                    .generar(generarXMLStream(cfdiNomina));
         } catch (TransformerConfigurationException e1) {
             throw new TimbradoCFDINominaException(e1.getMessage());
         } catch (IOException e1) {
@@ -269,7 +286,8 @@ public class TimbradoService implements Serializable {
         try {
             xmlSellado = generarXMLStream(cfdiNomina);
 
-            xmlBase64 = new String(Base64.encodeBase64(xmlSellado.toByteArray()));
+            xmlBase64 = new String(
+                    Base64.encodeBase64(xmlSellado.toByteArray()));
         } catch (JAXBException e) {
 
             e.printStackTrace();
@@ -287,17 +305,22 @@ public class TimbradoService implements Serializable {
             System.out.println(cfdiRespuesta.getUuid());
             if (cfdiRespuesta.getCodigo().equals("100")) {
 
-                xmlTimbrado = new String(Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
+                xmlTimbrado = new String(
+                        Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
 
-                try (PrintWriter out = new PrintWriter(mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO + cfdiNomina.getReceptor().getRfc() + "-"
-                        + cfdiRespuesta.getUuid() + ".xml")) {
+                try (PrintWriter out = new PrintWriter(
+                        mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO
+                                + cfdiNomina.getReceptor().getRfc() + "-"
+                                + cfdiRespuesta.getUuid() + ".xml")) {
                     out.println(xmlTimbrado);
 
                 }
-                comprobanteNominaService.tranformComprobanteToNominaTimbrado(xmlTimbrado);
+                comprobanteNominaService
+                        .tranformComprobanteToNominaTimbrado(xmlTimbrado);
 
             } else {
-                System.out.println("Fallo " + cfdiNomina.getReceptor().getRfc());
+                System.out
+                        .println("Fallo " + cfdiNomina.getReceptor().getRfc());
             }
 
             System.out.println(xmlTimbrado);
@@ -332,7 +355,8 @@ public class TimbradoService implements Serializable {
 
     @Asynchronous
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public Future<DatosCFDITimbrado> generarCFDI2(ComprobanteEntity comprobatenEntity) {
+    public Future<DatosCFDITimbrado> generarCFDI2(
+            ComprobanteEntity comprobatenEntity) {
 
         DatosCFDINomina datosCFDINomina = toDatosCFDINomina(comprobatenEntity);
 
@@ -363,25 +387,33 @@ public class TimbradoService implements Serializable {
         //datosSalud.setDomicilioFiscal(domicilioSalud);
 
         // Informacion RECEPTOR
-        if (datosCFDINomina.getCalle() != null && !datosCFDINomina.getCalle().isEmpty()) {
+        if (datosCFDINomina.getCalle() != null
+                && !datosCFDINomina.getCalle().isEmpty()) {
             domicilioEmpleado.setCalle(datosCFDINomina.getCalle());
         }
-        if (datosCFDINomina.getCodigoPostal() != null && !datosCFDINomina.getCodigoPostal().isEmpty()) {
-            domicilioEmpleado.setCodigoPostal(datosCFDINomina.getCodigoPostal());
+        if (datosCFDINomina.getCodigoPostal() != null
+                && !datosCFDINomina.getCodigoPostal().isEmpty()) {
+            domicilioEmpleado
+                    .setCodigoPostal(datosCFDINomina.getCodigoPostal());
         }
-        if (datosCFDINomina.getColonia() != null && !datosCFDINomina.getColonia().isEmpty()) {
+        if (datosCFDINomina.getColonia() != null
+                && !datosCFDINomina.getColonia().isEmpty()) {
             domicilioEmpleado.setColonia(datosCFDINomina.getColonia());
         }
-        if (datosCFDINomina.getEstado() != null && !datosCFDINomina.getEstado().isEmpty()) {
+        if (datosCFDINomina.getEstado() != null
+                && !datosCFDINomina.getEstado().isEmpty()) {
             domicilioEmpleado.setEstado(datosCFDINomina.getEstado());
         }
-        if (datosCFDINomina.getMunicipio() != null && !datosCFDINomina.getMunicipio().isEmpty()) {
+        if (datosCFDINomina.getMunicipio() != null
+                && !datosCFDINomina.getMunicipio().isEmpty()) {
             domicilioEmpleado.setMunicipio(datosCFDINomina.getMunicipio());
         }
-        if (datosCFDINomina.getNoExterio() != null && !datosCFDINomina.getNoExterio().isEmpty()) {
+        if (datosCFDINomina.getNoExterio() != null
+                && !datosCFDINomina.getNoExterio().isEmpty()) {
             domicilioEmpleado.setNoExterior(datosCFDINomina.getNoExterio());
         }
-        if (datosCFDINomina.getNoInterior() != null && !datosCFDINomina.getNoInterior().isEmpty()) {
+        if (datosCFDINomina.getNoInterior() != null
+                && !datosCFDINomina.getNoInterior().isEmpty()) {
             domicilioEmpleado.setNoInterior(datosCFDINomina.getNoInterior());
         }
         domicilioEmpleado.setPais("MEXICO");
@@ -394,8 +426,9 @@ public class TimbradoService implements Serializable {
 
         DateTime fechaCom = new DateTime();
 
-        GregorianCalendar fechaPago = new GregorianCalendar(fechaCom.getYear(), fechaCom.getMonthOfYear(), fechaCom.getDayOfMonth(), fechaCom.getHourOfDay(),
-                fechaCom.getMinuteOfHour());
+        GregorianCalendar fechaPago = new GregorianCalendar(fechaCom.getYear(),
+                fechaCom.getMonthOfYear(), fechaCom.getDayOfMonth(),
+                fechaCom.getHourOfDay(), fechaCom.getMinuteOfHour());
         fechaPago.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         //fechaPago.setTime(new Date());
@@ -420,7 +453,10 @@ public class TimbradoService implements Serializable {
         cfdiNomina.setVersion("3.2");
         cfdiNomina.setLugarExpedicion("90800");
         try {
-            cfdiNomina.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss").format(new Date())));
+            cfdiNomina.setFecha(
+                    DatatypeFactory.newInstance().newXMLGregorianCalendar(
+                            new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                                    .format(new Date())));
         } catch (DatatypeConfigurationException e) {
 
             e.printStackTrace();
@@ -432,19 +468,23 @@ public class TimbradoService implements Serializable {
         BigDecimal totalISRNomina = BigDecimal.ZERO;
         if (complementoNomina.getDeducciones() != null) {
             descuentoNomina = complementoNomina.getTotalDeducciones();
-            totalISRNomina = complementoNomina.getDeducciones().getTotalImpuestosRetenidos();
+            totalISRNomina = complementoNomina.getDeducciones()
+                    .getTotalImpuestosRetenidos();
         }
 
         BigDecimal total = subTotalNomina.subtract(descuentoNomina);
-        cfdiNomina.setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
-        cfdiNomina.setDescuento(descuentoNomina.setScale(2, RoundingMode.HALF_UP));
+        cfdiNomina
+                .setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        cfdiNomina.setDescuento(
+                descuentoNomina.setScale(2, RoundingMode.HALF_UP));
         cfdiNomina.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
         mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos.Concepto concepto = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos.Concepto();
         concepto.setCantidad(new BigDecimal("1"));
         concepto.setDescripcion("Pago de nómina");
         concepto.setUnidad("ACT");
-        concepto.setValorUnitario(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        concepto.setValorUnitario(
+                subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         concepto.setImporte(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         //concepto.setNoIdentificacion("a");
         mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos conceptos = new mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante.Conceptos();
@@ -471,7 +511,8 @@ public class TimbradoService implements Serializable {
 
         String cadenaOriginal;
         try {
-            cadenaOriginal = cadenaOriginaServices.generar(generarXMLStream12(cfdiNomina));
+            cadenaOriginal = cadenaOriginaServices
+                    .generar(generarXMLStream12(cfdiNomina));
         } catch (TransformerConfigurationException e1) {
             throw new TimbradoCFDINominaException(e1.getMessage());
         } catch (IOException e1) {
@@ -490,7 +531,8 @@ public class TimbradoService implements Serializable {
 
             System.out.println(xmlSellado);
 
-            xmlBase64 = new String(Base64.encodeBase64(xmlSellado.toByteArray()));
+            xmlBase64 = new String(
+                    Base64.encodeBase64(xmlSellado.toByteArray()));
 
             /*
              * System.out.println(new
@@ -513,18 +555,23 @@ public class TimbradoService implements Serializable {
             System.out.println(cfdiRespuesta.getUuid());
             if (cfdiRespuesta.getCodigo().equals("100")) {
 
-                xmlTimbrado = new String(Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
+                xmlTimbrado = new String(
+                        Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
 
-                try (PrintWriter out = new PrintWriter(mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO + cfdiNomina.getReceptor().getRfc() + "-"
-                        + cfdiRespuesta.getUuid() + ".xml")) {
+                try (PrintWriter out = new PrintWriter(
+                        mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO
+                                + cfdiNomina.getReceptor().getRfc() + "-"
+                                + cfdiRespuesta.getUuid() + ".xml")) {
                     out.println(xmlTimbrado);
 
                 }
 
-                comprobanteNominaService.tranformComprobanteToNominaTimbrado12(xmlTimbrado, idComprobante);
+                comprobanteNominaService.tranformComprobanteToNominaTimbrado12(
+                        xmlTimbrado, idComprobante);
 
             } else {
-                System.out.println("Fallo " + cfdiNomina.getReceptor().getRfc());
+                System.out
+                        .println("Fallo " + cfdiNomina.getReceptor().getRfc());
             }
 
             System.out.println(xmlTimbrado);
@@ -551,7 +598,8 @@ public class TimbradoService implements Serializable {
 
     }
 
-    public DatosCFDITimbrado generarProductoNominaCFDI(DatosCFDINomina datosCFDINomina) {
+    public DatosCFDITimbrado generarProductoNominaCFDI(
+            DatosCFDINomina datosCFDINomina) {
 
         // DatosCFDINomina datosCFDINomina =
         // toDatosCFDINomina(comprobatenEntity);
@@ -582,25 +630,33 @@ public class TimbradoService implements Serializable {
         datosSalud.setDomicilioFiscal(domicilioSalud);
 
         // Informacion RECEPTOR
-        if (datosCFDINomina.getCalle() != null && !datosCFDINomina.getCalle().isEmpty()) {
+        if (datosCFDINomina.getCalle() != null
+                && !datosCFDINomina.getCalle().isEmpty()) {
             domicilioEmpleado.setCalle(datosCFDINomina.getCalle());
         }
-        if (datosCFDINomina.getCodigoPostal() != null && !datosCFDINomina.getCodigoPostal().isEmpty()) {
-            domicilioEmpleado.setCodigoPostal(datosCFDINomina.getCodigoPostal());
+        if (datosCFDINomina.getCodigoPostal() != null
+                && !datosCFDINomina.getCodigoPostal().isEmpty()) {
+            domicilioEmpleado
+                    .setCodigoPostal(datosCFDINomina.getCodigoPostal());
         }
-        if (datosCFDINomina.getColonia() != null && !datosCFDINomina.getColonia().isEmpty()) {
+        if (datosCFDINomina.getColonia() != null
+                && !datosCFDINomina.getColonia().isEmpty()) {
             domicilioEmpleado.setColonia(datosCFDINomina.getColonia());
         }
-        if (datosCFDINomina.getEstado() != null && !datosCFDINomina.getEstado().isEmpty()) {
+        if (datosCFDINomina.getEstado() != null
+                && !datosCFDINomina.getEstado().isEmpty()) {
             domicilioEmpleado.setEstado(datosCFDINomina.getEstado());
         }
-        if (datosCFDINomina.getMunicipio() != null && !datosCFDINomina.getMunicipio().isEmpty()) {
+        if (datosCFDINomina.getMunicipio() != null
+                && !datosCFDINomina.getMunicipio().isEmpty()) {
             domicilioEmpleado.setMunicipio(datosCFDINomina.getMunicipio());
         }
-        if (datosCFDINomina.getNoExterio() != null && !datosCFDINomina.getNoExterio().isEmpty()) {
+        if (datosCFDINomina.getNoExterio() != null
+                && !datosCFDINomina.getNoExterio().isEmpty()) {
             domicilioEmpleado.setNoExterior(datosCFDINomina.getNoExterio());
         }
-        if (datosCFDINomina.getNoInterior() != null && !datosCFDINomina.getNoInterior().isEmpty()) {
+        if (datosCFDINomina.getNoInterior() != null
+                && !datosCFDINomina.getNoInterior().isEmpty()) {
             domicilioEmpleado.setNoInterior(datosCFDINomina.getNoInterior());
         }
         domicilioEmpleado.setPais("MEXICO");
@@ -625,7 +681,8 @@ public class TimbradoService implements Serializable {
         cfdiNomina.setVersion("3.2");
         cfdiNomina.setLugarExpedicion("MEXICO");
         try {
-            cfdiNomina.setFecha(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaPago));
+            cfdiNomina.setFecha(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(fechaPago));
         } catch (DatatypeConfigurationException e) {
 
             e.printStackTrace();
@@ -635,16 +692,20 @@ public class TimbradoService implements Serializable {
         BigDecimal subTotalNomina = subTotal(complementoNomina);
         BigDecimal descuentoNomina = descuentos(complementoNomina);
         BigDecimal totalISRNomina = totalISRNomina(complementoNomina);
-        BigDecimal total = subTotalNomina.subtract(descuentoNomina).subtract(totalISRNomina);
-        cfdiNomina.setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
-        cfdiNomina.setDescuento(descuentoNomina.setScale(2, RoundingMode.HALF_UP));
+        BigDecimal total = subTotalNomina.subtract(descuentoNomina)
+                .subtract(totalISRNomina);
+        cfdiNomina
+                .setSubTotal(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        cfdiNomina.setDescuento(
+                descuentoNomina.setScale(2, RoundingMode.HALF_UP));
         cfdiNomina.setTotal(total.setScale(2, RoundingMode.HALF_UP));
 
         Comprobante.Conceptos.Concepto concepto = new Comprobante.Conceptos.Concepto();
         concepto.setCantidad(new BigDecimal("1"));
         concepto.setDescripcion("Pago Nomina");
         concepto.setUnidad("Servicio");
-        concepto.setValorUnitario(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
+        concepto.setValorUnitario(
+                subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         concepto.setImporte(subTotalNomina.setScale(2, RoundingMode.HALF_UP));
         concepto.setNoIdentificacion("a");
         Comprobante.Conceptos conceptos = new Comprobante.Conceptos();
@@ -653,11 +714,13 @@ public class TimbradoService implements Serializable {
         cfdiNomina.setConceptos(conceptos);
 
         Comprobante.Impuestos impuesto = new Comprobante.Impuestos();
-        impuesto.setTotalImpuestosRetenidos(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+        impuesto.setTotalImpuestosRetenidos(
+                totalISRNomina.setScale(2, RoundingMode.HALF_UP));
 
         Comprobante.Impuestos.Retenciones.Retencion retencionISR = new Comprobante.Impuestos.Retenciones.Retencion();
         Comprobante.Impuestos.Retenciones retenciones = new Comprobante.Impuestos.Retenciones();
-        retencionISR.setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
+        retencionISR
+                .setImporte(totalISRNomina.setScale(2, RoundingMode.HALF_UP));
         retencionISR.setImpuesto("ISR");
         retenciones.getRetencion().add(retencionISR);
 
@@ -670,7 +733,8 @@ public class TimbradoService implements Serializable {
 
         String cadenaOriginal;
         try {
-            cadenaOriginal = cadenaOriginaServices.generar(generarXMLStream(cfdiNomina));
+            cadenaOriginal = cadenaOriginaServices
+                    .generar(generarXMLStream(cfdiNomina));
         } catch (TransformerConfigurationException e1) {
             throw new TimbradoCFDINominaException(e1.getMessage());
         } catch (IOException e1) {
@@ -687,7 +751,8 @@ public class TimbradoService implements Serializable {
         try {
             xmlSellado = generarXMLStream(cfdiNomina);
 
-            xmlBase64 = new String(Base64.encodeBase64(xmlSellado.toByteArray()));
+            xmlBase64 = new String(
+                    Base64.encodeBase64(xmlSellado.toByteArray()));
         } catch (JAXBException e) {
 
             e.printStackTrace();
@@ -707,17 +772,22 @@ public class TimbradoService implements Serializable {
             System.out.println(cfdiRespuesta.getUuid());
             if (cfdiRespuesta.getCodigo().equals("100")) {
 
-                xmlTimbrado = new String(Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
+                xmlTimbrado = new String(
+                        Base64.decodeBase64(cfdiRespuesta.getXml().getBytes()));
 
-                try (PrintWriter out = new PrintWriter(mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO + cfdiNomina.getReceptor().getRfc() + "-"
-                        + cfdiRespuesta.getUuid() + ".xml")) {
+                try (PrintWriter out = new PrintWriter(
+                        mx.gob.saludtlax.rh.util.Configuracion.PATH_XML_TIMBRADO
+                                + cfdiNomina.getReceptor().getRfc() + "-"
+                                + cfdiRespuesta.getUuid() + ".xml")) {
                     out.println(xmlTimbrado);
 
                 }
-                comprobanteNominaView = comprobanteNominaService.tranformComprobanteToNominaSimple(xmlTimbrado);
+                comprobanteNominaView = comprobanteNominaService
+                        .tranformComprobanteToNominaSimple(xmlTimbrado);
 
             } else {
-                System.out.println("Fallo " + cfdiNomina.getReceptor().getRfc());
+                System.out
+                        .println("Fallo " + cfdiNomina.getReceptor().getRfc());
             }
 
             System.out.println(xmlTimbrado);
@@ -765,7 +835,8 @@ public class TimbradoService implements Serializable {
         datosCFDI.setEstado(comprobante.getEstado());
         datosCFDI.setFechaFinalPago(comprobante.getFechaFinalPago());
         datosCFDI.setFechaInicalPago(comprobante.getFechaInicialPago());
-        datosCFDI.setFechaInicioRelLaboral(comprobante.getFechaInicioRelacionLaboral());
+        datosCFDI.setFechaInicioRelLaboral(
+                comprobante.getFechaInicioRelacionLaboral());
         datosCFDI.setFechaPago(comprobante.getFechaPago());
         datosCFDI.setFolio(comprobante.getIdComprobante() + "");
         datosCFDI.setSerie(year.toString() + "B");
@@ -781,8 +852,10 @@ public class TimbradoService implements Serializable {
         datosCFDI.setPuesto(comprobante.getPuesto());
         datosCFDI.setRfc(comprobante.getrFC());
         datosCFDI.setRiesgoPuesto(comprobante.getRiesgoPuesto());
-        datosCFDI.setSalarioBaseCotApor(comprobante.getSalarioBaseCotizacionAport());
-        datosCFDI.setSalarioDiarioIntegrado(comprobante.getSalarioDiarioIntegrado());
+        datosCFDI.setSalarioBaseCotApor(
+                comprobante.getSalarioBaseCotizacionAport());
+        datosCFDI.setSalarioDiarioIntegrado(
+                comprobante.getSalarioDiarioIntegrado());
         datosCFDI.setTipoContrato(comprobante.getTipoContrato());
         datosCFDI.setTipoJornada(comprobante.getTipoJornada());
         datosCFDI.setNumeroEmpleado(comprobante.getrFC());
@@ -793,14 +866,17 @@ public class TimbradoService implements Serializable {
         datosCFDI.setOrigenRecursos(comprobante.getOrigenRecurso());
         datosCFDI.setMontoRecursosPropios(comprobante.getMontoRecursoPropio());
 
-        List<OtrosPagosComprobantesEntity> listadoOtrosPagosEntity = otrosPagosComprobanteDAO.obtenerOtrosPagosPorIdComprobante(comprobante.getIdComprobante());
+        List<OtrosPagosComprobantesEntity> listadoOtrosPagosEntity = otrosPagosComprobanteDAO
+                .obtenerOtrosPagosPorIdComprobante(
+                        comprobante.getIdComprobante());
 
         if (listadoOtrosPagosEntity.size() > 0) {
             List<OtroPagoCFDI> listadoOtrosPagosCFDI = new ArrayList<>();
             for (OtrosPagosComprobantesEntity otroPagoComprobanteEntity : listadoOtrosPagosEntity) {
                 OtroPagoCFDI otroPagoCFDI = new OtroPagoCFDI();
                 otroPagoCFDI.setClave(otroPagoComprobanteEntity.getClave());
-                otroPagoCFDI.setConcepto(otroPagoComprobanteEntity.getConcepto());
+                otroPagoCFDI
+                        .setConcepto(otroPagoComprobanteEntity.getConcepto());
                 otroPagoCFDI.setImporte(otroPagoComprobanteEntity.getImporte());
                 otroPagoCFDI.setTipo(otroPagoComprobanteEntity.getClaveSat());
                 listadoOtrosPagosCFDI.add(otroPagoCFDI);
@@ -815,7 +891,8 @@ public class TimbradoService implements Serializable {
 
         // Obtenemos las percepciones del empleado
         List<PercepcionComprobanteEntity> listadoPercepcionesComprobanteEntity = percepcionComprobanteDAO
-                .obtenerPercepcionesPorIdComprobante(comprobante.getIdComprobante());
+                .obtenerPercepcionesPorIdComprobante(
+                        comprobante.getIdComprobante());
 
         for (PercepcionComprobanteEntity percepcion : listadoPercepcionesComprobanteEntity) {
             percepcionCFDI = new PercepcionCFDI();
@@ -836,7 +913,9 @@ public class TimbradoService implements Serializable {
         List<DeduccionCFDI> listadoDeduccion = new ArrayList<>();
         DeduccionCFDI deduccionCFDI = null;
 
-        List<DeduccionComprobanteEntity> listadoDeduccionEntity = deduccionComprobanteDAO.obtenerPercepcionesPorIdComprobante(comprobante.getIdComprobante());
+        List<DeduccionComprobanteEntity> listadoDeduccionEntity = deduccionComprobanteDAO
+                .obtenerPercepcionesPorIdComprobante(
+                        comprobante.getIdComprobante());
 
         for (DeduccionComprobanteEntity deduccion : listadoDeduccionEntity) {
             deduccionCFDI = new DeduccionCFDI();
@@ -855,13 +934,16 @@ public class TimbradoService implements Serializable {
         }
 
         List<HorasExtraCFDI> listadoHorasExtra = new ArrayList<>();
-        List<HoraExtraComprobanteEntity> listadoHorarExtraEntity = horasExtraComprobanteDAO.obtenerPercepcionesPorIdComprobante(comprobante.getIdComprobante());
+        List<HoraExtraComprobanteEntity> listadoHorarExtraEntity = horasExtraComprobanteDAO
+                .obtenerPercepcionesPorIdComprobante(
+                        comprobante.getIdComprobante());
         for (HoraExtraComprobanteEntity horaExtraComprobanteEntity : listadoHorarExtraEntity) {
 
             HorasExtraCFDI horaExtra = new HorasExtraCFDI();
             horaExtra.setDias(horaExtraComprobanteEntity.getDia());
             horaExtra.setHorasExtra(horaExtraComprobanteEntity.getHoraExtra());
-            horaExtra.setImportePagado(horaExtraComprobanteEntity.getImportePagado());
+            horaExtra.setImportePagado(
+                    horaExtraComprobanteEntity.getImportePagado());
             horaExtra.setTipoHoras(horaExtraComprobanteEntity.getTipoHora());
             listadoHorasExtra.add(horaExtra);
 
@@ -875,9 +957,12 @@ public class TimbradoService implements Serializable {
 
         for (IncapacidadComprobanteEntity incapacidadComprobanteEntity : listadoIncapacidadEntity) {
             IncapacidadCFDI incapacidadCFDI = new IncapacidadCFDI();
-            incapacidadCFDI.setDescuento(incapacidadComprobanteEntity.getDescuento());
-            incapacidadCFDI.setDiasIncapacidad(incapacidadComprobanteEntity.getDiaIncapacidad());
-            incapacidadCFDI.setTipoIncapacidad(incapacidadComprobanteEntity.getTipoIncapacidad());
+            incapacidadCFDI
+                    .setDescuento(incapacidadComprobanteEntity.getDescuento());
+            incapacidadCFDI.setDiasIncapacidad(
+                    incapacidadComprobanteEntity.getDiaIncapacidad());
+            incapacidadCFDI.setTipoIncapacidad(
+                    incapacidadComprobanteEntity.getTipoIncapacidad());
             listadoIncapacidad.add(incapacidadCFDI);
         }
 
@@ -889,14 +974,20 @@ public class TimbradoService implements Serializable {
     }
 
     public void cancelarCFDI() {
-        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository.obtenerCertificadoSelloDigitalActivo();
-        InputStream certificadoDigital = new ByteArrayInputStream(certificadoSelloDigitalEntity.getCertificado());
-        InputStream llaveCertificado = new ByteArrayInputStream(certificadoSelloDigitalEntity.getArchivoKey());
+        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository
+                .obtenerCertificadoSelloDigitalActivo();
+        InputStream certificadoDigital = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getCertificado());
+        InputStream llaveCertificado = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getArchivoKey());
         try {
             byte[] llaveCertificadoByte = IOUtils.toByteArray(llaveCertificado);
-            byte[] certificadoDigitalByte = IOUtils.toByteArray(certificadoDigital);
-            byte[] laveBase64Byte = org.apache.commons.codec.binary.Base64.encodeBase64(llaveCertificadoByte);
-            byte[] certificadoDigital64Byte = org.apache.commons.codec.binary.Base64.encodeBase64(certificadoDigitalByte);
+            byte[] certificadoDigitalByte = IOUtils
+                    .toByteArray(certificadoDigital);
+            byte[] laveBase64Byte = org.apache.commons.codec.binary.Base64
+                    .encodeBase64(llaveCertificadoByte);
+            byte[] certificadoDigital64Byte = org.apache.commons.codec.binary.Base64
+                    .encodeBase64(certificadoDigitalByte);
 
             String llaveBase64 = new String(laveBase64Byte);
             String CertificadoBase64 = new String(certificadoDigital64Byte);
@@ -907,18 +998,27 @@ public class TimbradoService implements Serializable {
 
     }
 
-    private mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante sellarCFDI(mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante cfdiNomina, String cadenaOriginal) {
+    private mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante sellarCFDI(
+            mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante cfdiNomina,
+            String cadenaOriginal) {
 
         try {
-            CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository.obtenerCertificadoSelloDigitalActivo();
-            InputStream certificadoDigital = new ByteArrayInputStream(certificadoSelloDigitalEntity.getCertificado());
-            InputStream llaveCertificado = new ByteArrayInputStream(certificadoSelloDigitalEntity.getArchivoKey());
-            DatosCertificado datosCertificado = getDatosCertificado(certificadoDigital);
+            CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository
+                    .obtenerCertificadoSelloDigitalActivo();
+            InputStream certificadoDigital = new ByteArrayInputStream(
+                    certificadoSelloDigitalEntity.getCertificado());
+            InputStream llaveCertificado = new ByteArrayInputStream(
+                    certificadoSelloDigitalEntity.getArchivoKey());
+            DatosCertificado datosCertificado = getDatosCertificado(
+                    certificadoDigital);
 
-            cfdiNomina.setNoCertificado(datosCertificado.getNumeroCertficiado());
+            cfdiNomina
+                    .setNoCertificado(datosCertificado.getNumeroCertficiado());
             cfdiNomina.setCertificado(datosCertificado.getInformacionBase64());
 
-            String selloDigitalCadena = selloDigital.generarSello(llaveCertificado, certificadoSelloDigitalEntity.getClave(), cadenaOriginal);
+            String selloDigitalCadena = selloDigital.generarSello(
+                    llaveCertificado, certificadoSelloDigitalEntity.getClave(),
+                    cadenaOriginal);
 
             cfdiNomina.setSello(selloDigitalCadena);
             ;
@@ -941,18 +1041,26 @@ public class TimbradoService implements Serializable {
 
     }
 
-    private Comprobante sellarCFDI(Comprobante cfdiNomina, String cadenaOriginal) {
+    private Comprobante sellarCFDI(Comprobante cfdiNomina,
+            String cadenaOriginal) {
 
         try {
-            CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository.obtenerCertificadoSelloDigitalActivo();
-            InputStream certificadoDigital = new ByteArrayInputStream(certificadoSelloDigitalEntity.getCertificado());
-            InputStream llaveCertificado = new ByteArrayInputStream(certificadoSelloDigitalEntity.getArchivoKey());
-            DatosCertificado datosCertificado = getDatosCertificado(certificadoDigital);
+            CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository
+                    .obtenerCertificadoSelloDigitalActivo();
+            InputStream certificadoDigital = new ByteArrayInputStream(
+                    certificadoSelloDigitalEntity.getCertificado());
+            InputStream llaveCertificado = new ByteArrayInputStream(
+                    certificadoSelloDigitalEntity.getArchivoKey());
+            DatosCertificado datosCertificado = getDatosCertificado(
+                    certificadoDigital);
 
-            cfdiNomina.setNoCertificado(datosCertificado.getNumeroCertficiado());
+            cfdiNomina
+                    .setNoCertificado(datosCertificado.getNumeroCertficiado());
             cfdiNomina.setCertificado(datosCertificado.getInformacionBase64());
 
-            String selloDigitalCadena = selloDigital.generarSello(llaveCertificado, certificadoSelloDigitalEntity.getClave(), cadenaOriginal);
+            String selloDigitalCadena = selloDigital.generarSello(
+                    llaveCertificado, certificadoSelloDigitalEntity.getClave(),
+                    cadenaOriginal);
 
             cfdiNomina.setSello(selloDigitalCadena);
             ;
@@ -975,12 +1083,14 @@ public class TimbradoService implements Serializable {
 
     }
 
-    private ByteArrayOutputStream generarXMLStream(Comprobante comprobante) throws JAXBException {
+    private ByteArrayOutputStream generarXMLStream(Comprobante comprobante)
+            throws JAXBException {
         ByteArrayOutputStream resultadoMarshall = new ByteArrayOutputStream();
 
         JAXBContext jaxbContext;
 
-        jaxbContext = JAXBContext.newInstance("mx.gob.saludtlax.rh.sat.xml.cfdi");
+        jaxbContext = JAXBContext
+                .newInstance("mx.gob.saludtlax.rh.sat.xml.cfdi");
 
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
@@ -992,12 +1102,15 @@ public class TimbradoService implements Serializable {
 
     }
 
-    private ByteArrayOutputStream generarXMLStream12(mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante comprobante) throws JAXBException {
+    private ByteArrayOutputStream generarXMLStream12(
+            mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante comprobante)
+            throws JAXBException {
         ByteArrayOutputStream resultadoMarshall = new ByteArrayOutputStream();
 
         JAXBContext jaxbContext;
 
-        jaxbContext = JAXBContext.newInstance("mx.gob.saludtlax.rh.sat.xml.cfdi12");
+        jaxbContext = JAXBContext
+                .newInstance("mx.gob.saludtlax.rh.sat.xml.cfdi12");
 
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
@@ -1009,16 +1122,19 @@ public class TimbradoService implements Serializable {
 
     }
 
-    private DatosCertificado getDatosCertificado(InputStream x509Certificate) throws CertificateException, IOException {
+    private DatosCertificado getDatosCertificado(InputStream x509Certificate)
+            throws CertificateException, IOException {
         DatosCertificado datosCertificado = new DatosCertificado();
         X509Certificate certificado = getX509Certificate(x509Certificate);
         datosCertificado.setNumeroCertficiado(getNoCertificado(certificado));
-        datosCertificado.setInformacionBase64(getCertificadoBase64(certificado));
+        datosCertificado
+                .setInformacionBase64(getCertificadoBase64(certificado));
         return datosCertificado;
 
     }
 
-    private X509Certificate getX509Certificate(InputStream x509Certificate) throws CertificateException, IOException {
+    private X509Certificate getX509Certificate(InputStream x509Certificate)
+            throws CertificateException, IOException {
 
         InputStream file = x509Certificate;
         try {
@@ -1044,7 +1160,8 @@ public class TimbradoService implements Serializable {
         return buffer.toString();
     }
 
-    private String getCertificadoBase64(X509Certificate cert) throws CertificateEncodingException {
+    private String getCertificadoBase64(X509Certificate cert)
+            throws CertificateEncodingException {
         return new String(Base64.encodeBase64(cert.getEncoded()));
     }
 
@@ -1052,7 +1169,8 @@ public class TimbradoService implements Serializable {
         BigDecimal totalISR = new BigDecimal("0");
 
         if (complementoNomina.getDeducciones() != null) {
-            for (Nomina.Deducciones.Deduccion deduccion : complementoNomina.getDeducciones().getDeduccion()) {
+            for (Nomina.Deducciones.Deduccion deduccion : complementoNomina
+                    .getDeducciones().getDeduccion()) {
 
                 if (deduccion.getTipoDeduccion().equals("002")) {
 
@@ -1072,15 +1190,18 @@ public class TimbradoService implements Serializable {
 
         BigDecimal subTotal = new BigDecimal("0");
         if (complementoNomina.getPercepciones().getTotalExento() != null) {
-            subTotal = subTotal.add(complementoNomina.getPercepciones().getTotalExento());
+            subTotal = subTotal
+                    .add(complementoNomina.getPercepciones().getTotalExento());
         }
 
         if (complementoNomina.getPercepciones().getTotalGravado() != null) {
-            subTotal = subTotal.add(complementoNomina.getPercepciones().getTotalGravado());
+            subTotal = subTotal
+                    .add(complementoNomina.getPercepciones().getTotalGravado());
         }
 
         if (complementoNomina.getHorasExtras() != null) {
-            for (Nomina.HorasExtras.HorasExtra horaExtra : complementoNomina.getHorasExtras().getHorasExtra()) {
+            for (Nomina.HorasExtras.HorasExtra horaExtra : complementoNomina
+                    .getHorasExtras().getHorasExtra()) {
 
                 if (horaExtra.getImportePagado() != null) {
                     subTotal = subTotal.add(horaExtra.getImportePagado());
@@ -1120,24 +1241,29 @@ public class TimbradoService implements Serializable {
         BigDecimal totalDescuentos = new BigDecimal("0");
 
         if (complementoNomina.getDeducciones() != null) {
-            for (Nomina.Deducciones.Deduccion deduccion : complementoNomina.getDeducciones().getDeduccion()) {
+            for (Nomina.Deducciones.Deduccion deduccion : complementoNomina
+                    .getDeducciones().getDeduccion()) {
 
                 if (!deduccion.getTipoDeduccion().equals("002")) {
 
                     if (deduccion.getImporteGravado() != null) {
-                        totalDescuentos = totalDescuentos.add(deduccion.getImporteGravado());
+                        totalDescuentos = totalDescuentos
+                                .add(deduccion.getImporteGravado());
                     }
                     if (deduccion.getImporteExento() != null) {
-                        totalDescuentos = totalDescuentos.add(deduccion.getImporteExento());
+                        totalDescuentos = totalDescuentos
+                                .add(deduccion.getImporteExento());
                     }
                 }
             }
         }
 
         if (complementoNomina.getIncapacidades() != null) {
-            for (Nomina.Incapacidades.Incapacidad incapacidad : complementoNomina.getIncapacidades().getIncapacidad()) {
+            for (Nomina.Incapacidades.Incapacidad incapacidad : complementoNomina
+                    .getIncapacidades().getIncapacidad()) {
                 if (incapacidad.getDescuento() != null) {
-                    totalDescuentos = totalDescuentos.add(incapacidad.getDescuento());
+                    totalDescuentos = totalDescuentos
+                            .add(incapacidad.getDescuento());
                 }
             }
         }
@@ -1157,7 +1283,8 @@ public class TimbradoService implements Serializable {
         receptor.setBanco(datosCFDINomina.getBanco());
 
         if (datosCFDINomina.getSalarioBaseCotApor() != null) {
-            receptor.setSalarioBaseCotApor(datosCFDINomina.getSalarioBaseCotApor());
+            receptor.setSalarioBaseCotApor(
+                    datosCFDINomina.getSalarioBaseCotApor());
         }
 
         receptor.setClaveEntFed(CEstado.TLA);
@@ -1175,13 +1302,16 @@ public class TimbradoService implements Serializable {
         GregorianCalendar fechaInicioRelacionLaboral = new GregorianCalendar();
 
         if (datosCFDINomina.getFechaInicioRelLaboral() != null) {
-            fechaInicioRelacionLaboral.setTime(datosCFDINomina.getFechaInicioRelLaboral());
+            fechaInicioRelacionLaboral
+                    .setTime(datosCFDINomina.getFechaInicioRelLaboral());
             try {
                 int anyo = fechaInicioRelacionLaboral.get(Calendar.YEAR);
                 int mes = fechaInicioRelacionLaboral.get(Calendar.MONTH) + 1;
                 int dia = fechaInicioRelacionLaboral.get(Calendar.DAY_OF_MONTH);
 
-                receptor.setFechaInicioRelLaboral(DatatypeFactory.newInstance().newXMLGregorianCalendarDate(anyo, mes, dia, DatatypeConstants.FIELD_UNDEFINED));
+                receptor.setFechaInicioRelLaboral(DatatypeFactory.newInstance()
+                        .newXMLGregorianCalendarDate(anyo, mes, dia,
+                                DatatypeConstants.FIELD_UNDEFINED));
             } catch (DatatypeConfigurationException e) {
                 e.printStackTrace();
             }
@@ -1189,15 +1319,18 @@ public class TimbradoService implements Serializable {
 
         EntidadSNCF entidadSNFC = new EntidadSNCF();
 
-        entidadSNFC.setOrigenRecurso(COrigenRecurso.valueOf(datosCFDINomina.getOrigenRecursos()));
-        entidadSNFC.setMontoRecursoPropio(datosCFDINomina.getMontoRecursosPropios());
+        entidadSNFC.setOrigenRecurso(
+                COrigenRecurso.valueOf(datosCFDINomina.getOrigenRecursos()));
+        entidadSNFC.setMontoRecursoPropio(
+                datosCFDINomina.getMontoRecursosPropios());
 
         emisor.setEntidadSNCF(entidadSNFC);
 
         receptor.setNumEmpleado(datosCFDINomina.getNumeroEmpleado());
         if (datosCFDINomina.getNumeroSeguroSocial() != null) {
             if (datosCFDINomina.getNumeroSeguroSocial().length() > 0) {
-                receptor.setNumSeguridadSocial(datosCFDINomina.getNumeroSeguroSocial());
+                receptor.setNumSeguridadSocial(
+                        datosCFDINomina.getNumeroSeguroSocial());
             }
         }
 
@@ -1208,15 +1341,18 @@ public class TimbradoService implements Serializable {
             receptor.setPuesto(datosCFDINomina.getPuesto());
         }
         if (datosCFDINomina.getRiesgoPuesto() != null) {
-            receptor.setRiesgoPuesto(datosCFDINomina.getRiesgoPuesto().toString());
+            receptor.setRiesgoPuesto(
+                    datosCFDINomina.getRiesgoPuesto().toString());
         }
 
         if (datosCFDINomina.getSalarioBaseCotApor() != null) {
-            receptor.setSalarioBaseCotApor(datosCFDINomina.getSalarioBaseCotApor());
+            receptor.setSalarioBaseCotApor(
+                    datosCFDINomina.getSalarioBaseCotApor());
         }
 
         if (datosCFDINomina.getSalarioDiarioIntegrado() != null) {
-            receptor.setSalarioDiarioIntegrado(datosCFDINomina.getSalarioDiarioIntegrado());
+            receptor.setSalarioDiarioIntegrado(
+                    datosCFDINomina.getSalarioDiarioIntegrado());
         }
 
         if (datosCFDINomina.getTipoContrato() != null) {
@@ -1239,21 +1375,28 @@ public class TimbradoService implements Serializable {
         if (datosCFDINomina.getDeducciones() != null) {
             Deducciones deducciones = new Deducciones();
 
-            for (DeduccionCFDI deduccionCFDI : datosCFDINomina.getDeducciones()) {
+            for (DeduccionCFDI deduccionCFDI : datosCFDINomina
+                    .getDeducciones()) {
                 Deduccion deduccion = new Deduccion();
                 deduccion.setClave(deduccionCFDI.getClave());
                 deduccion.setConcepto(deduccionCFDI.getConcepto());
-                deduccion.setImporte(deduccionCFDI.getImporteExcento().add(deduccionCFDI.getImporteGravado()));
+                deduccion.setImporte(deduccionCFDI.getImporteExcento()
+                        .add(deduccionCFDI.getImporteGravado()));
                 deduccion.setTipoDeduccion(deduccionCFDI.getTipoPercepcion());
                 deducciones.getDeduccion().add(deduccion);
                 if (deduccionCFDI.getTipoPercepcion().equals("002")) {
-                    totalImpuestosRetenidos = totalImpuestosRetenidos.add(deduccionCFDI.getImporteGravado());
-                    deducciones.setTotalImpuestosRetenidos(totalImpuestosRetenidos);
+                    totalImpuestosRetenidos = totalImpuestosRetenidos
+                            .add(deduccionCFDI.getImporteGravado());
+                    deducciones.setTotalImpuestosRetenidos(
+                            totalImpuestosRetenidos);
                 } else {
-                    totalOtrasDeducciones = totalOtrasDeducciones.add(deduccionCFDI.getImporteGravado());
+                    totalOtrasDeducciones = totalOtrasDeducciones
+                            .add(deduccionCFDI.getImporteGravado());
                     deducciones.setTotalOtrasDeducciones(totalOtrasDeducciones);
                 }
-                totalDeduciones = totalDeduciones.add(deduccionCFDI.getImporteExcento().add(deduccionCFDI.getImporteGravado()));
+                totalDeduciones = totalDeduciones
+                        .add(deduccionCFDI.getImporteExcento()
+                                .add(deduccionCFDI.getImporteGravado()));
 
             }
 
@@ -1268,28 +1411,43 @@ public class TimbradoService implements Serializable {
             fechaInicialPago.setTime(datosCFDINomina.getFechaInicalPago());
             GregorianCalendar fechaPago = new GregorianCalendar();
             fechaPago.setTime(datosCFDINomina.getFechaPago());
-            complementoNomina12.setFechaFinalPago(DatatypeFactory.newInstance().newXMLGregorianCalendarDate(fechaFinalPago.get(Calendar.YEAR),
-                    fechaFinalPago.get(Calendar.MONTH) + 1, fechaFinalPago.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED));
-            complementoNomina12.setFechaInicialPago(DatatypeFactory.newInstance().newXMLGregorianCalendarDate(fechaInicialPago.get(Calendar.YEAR),
-                    fechaInicialPago.get(Calendar.MONTH) + 1, fechaInicialPago.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED));
-            complementoNomina12.setFechaPago(DatatypeFactory.newInstance().newXMLGregorianCalendarDate(fechaPago.get(Calendar.YEAR),
-                    fechaPago.get(Calendar.MONTH) + 1, fechaPago.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED));
+            complementoNomina12.setFechaFinalPago(
+                    DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                            fechaFinalPago.get(Calendar.YEAR),
+                            fechaFinalPago.get(Calendar.MONTH) + 1,
+                            fechaFinalPago.get(Calendar.DAY_OF_MONTH),
+                            DatatypeConstants.FIELD_UNDEFINED));
+            complementoNomina12.setFechaInicialPago(
+                    DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+                            fechaInicialPago.get(Calendar.YEAR),
+                            fechaInicialPago.get(Calendar.MONTH) + 1,
+                            fechaInicialPago.get(Calendar.DAY_OF_MONTH),
+                            DatatypeConstants.FIELD_UNDEFINED));
+            complementoNomina12.setFechaPago(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendarDate(fechaPago.get(Calendar.YEAR),
+                            fechaPago.get(Calendar.MONTH) + 1,
+                            fechaPago.get(Calendar.DAY_OF_MONTH),
+                            DatatypeConstants.FIELD_UNDEFINED));
 
         } catch (DatatypeConfigurationException e) {
         }
-        complementoNomina12.setNumDiasPagados(datosCFDINomina.getNumeroDiasPagados().setScale(3, RoundingMode.UP));
+        complementoNomina12.setNumDiasPagados(datosCFDINomina
+                .getNumeroDiasPagados().setScale(3, RoundingMode.UP));
 
         BigDecimal totalGravado = BigDecimal.ZERO;
         BigDecimal totalExcento = BigDecimal.ZERO;
 
         Percepciones percepciones = new Percepciones();
-        for (PercepcionCFDI percepcionCFDI : datosCFDINomina.getPercepciones()) {
+        for (PercepcionCFDI percepcionCFDI : datosCFDINomina
+                .getPercepciones()) {
 
             Percepcion percepcion = new Percepcion();
             percepcion.setClave(percepcionCFDI.getClave());
             percepcion.setConcepto(percepcionCFDI.getConcepto());
-            percepcion.setImporteExento(percepcionCFDI.getImporteExcento().setScale(2, RoundingMode.HALF_UP));
-            percepcion.setImporteGravado(percepcionCFDI.getImporteGravado().setScale(2, RoundingMode.HALF_UP));
+            percepcion.setImporteExento(percepcionCFDI.getImporteExcento()
+                    .setScale(2, RoundingMode.HALF_UP));
+            percepcion.setImporteGravado(percepcionCFDI.getImporteGravado()
+                    .setScale(2, RoundingMode.HALF_UP));
             percepcion.setTipoPercepcion(percepcionCFDI.getTipoPercepcion());
             percepciones.getPercepcion().add(percepcion);
             totalGravado = totalGravado.add(percepcionCFDI.getImporteGravado());
@@ -1300,16 +1458,19 @@ public class TimbradoService implements Serializable {
         if (datosCFDINomina.getOtrosPagosCFDI() != null) {
             BigDecimal totalOtrosPagos = BigDecimal.ZERO;
             OtrosPagos otrosPagos = new OtrosPagos();
-            for (OtroPagoCFDI otrosPagosCFDI : datosCFDINomina.getOtrosPagosCFDI()) {
+            for (OtroPagoCFDI otrosPagosCFDI : datosCFDINomina
+                    .getOtrosPagosCFDI()) {
                 OtroPago otroPago = new OtroPago();
                 otroPago.setClave(otrosPagosCFDI.getClave());
                 otroPago.setConcepto(otrosPagosCFDI.getConcepto());
                 otroPago.setImporte(otrosPagosCFDI.getImporte());
                 otroPago.setTipoOtroPago(otrosPagosCFDI.getTipo());
                 SubsidioAlEmpleo subsidioAlEmpleo = new SubsidioAlEmpleo();
-                subsidioAlEmpleo.setSubsidioCausado(otrosPagosCFDI.getImporte());
+                subsidioAlEmpleo
+                        .setSubsidioCausado(otrosPagosCFDI.getImporte());
                 otroPago.setSubsidioAlEmpleo(subsidioAlEmpleo);
-                totalOtrosPagos = totalOtrosPagos.add(otrosPagosCFDI.getImporte());
+                totalOtrosPagos = totalOtrosPagos
+                        .add(otrosPagosCFDI.getImporte());
                 otrosPagos.getOtroPago().add(otroPago);
             }
             complementoNomina12.setOtrosPagos(otrosPagos);
@@ -1322,9 +1483,11 @@ public class TimbradoService implements Serializable {
 
         complementoNomina12.setPercepciones(percepciones);
         //		complementoNomina12.setTotalOtrosPagos(to);
-        complementoNomina12.setTipoNomina(CTipoNomina.valueOf(datosCFDINomina.getTipoNomina()));
+        complementoNomina12.setTipoNomina(
+                CTipoNomina.valueOf(datosCFDINomina.getTipoNomina()));
 
-        complementoNomina12.setTotalPercepciones(totalExcento.add(totalGravado));
+        complementoNomina12
+                .setTotalPercepciones(totalExcento.add(totalGravado));
         complementoNomina12.setVersion("1.2");
 
         return complementoNomina12;
@@ -1338,7 +1501,8 @@ public class TimbradoService implements Serializable {
             complementoNomina.setBanco(datosCFDINomina.getBanco());
             complementoNomina.setCURP(datosCFDINomina.getCurp());
             if (datosCFDINomina.getDepartamento() != null) {
-                complementoNomina.setDepartamento(datosCFDINomina.getDepartamento());
+                complementoNomina
+                        .setDepartamento(datosCFDINomina.getDepartamento());
             }
 
             GregorianCalendar fechaFinalPago = new GregorianCalendar();
@@ -1347,40 +1511,58 @@ public class TimbradoService implements Serializable {
             fechaInicialPago.setTime(datosCFDINomina.getFechaInicalPago());
             GregorianCalendar fechaInicioRelacionLaboral = new GregorianCalendar();
             if (datosCFDINomina.getFechaInicioRelLaboral() != null) {
-                fechaInicioRelacionLaboral.setTime(datosCFDINomina.getFechaInicioRelLaboral());
+                fechaInicioRelacionLaboral
+                        .setTime(datosCFDINomina.getFechaInicioRelLaboral());
             }
             GregorianCalendar fechaPago = new GregorianCalendar();
             fechaPago.setTime(datosCFDINomina.getFechaPago());
 
-            complementoNomina.setFechaFinalPago(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaFinalPago));
-            complementoNomina.setFechaInicialPago(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaInicialPago));
+            complementoNomina.setFechaFinalPago(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(fechaFinalPago));
+            complementoNomina.setFechaInicialPago(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(fechaInicialPago));
 
             if (datosCFDINomina.getFechaInicioRelLaboral() != null) {
-                complementoNomina.setFechaInicioRelLaboral(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaInicioRelacionLaboral));
+                complementoNomina.setFechaInicioRelLaboral(
+                        DatatypeFactory.newInstance().newXMLGregorianCalendar(
+                                fechaInicioRelacionLaboral));
             }
 
-            complementoNomina.setFechaPago(DatatypeFactory.newInstance().newXMLGregorianCalendar(fechaPago));
-            complementoNomina.setNumDiasPagados(datosCFDINomina.getNumeroDiasPagados());
-            if (datosCFDINomina.getNumeroEmpleado() != null && !datosCFDINomina.getNumeroEmpleado().isEmpty()) {
-                complementoNomina.setNumEmpleado(datosCFDINomina.getNumeroEmpleado());
+            complementoNomina.setFechaPago(DatatypeFactory.newInstance()
+                    .newXMLGregorianCalendar(fechaPago));
+            complementoNomina
+                    .setNumDiasPagados(datosCFDINomina.getNumeroDiasPagados());
+            if (datosCFDINomina.getNumeroEmpleado() != null
+                    && !datosCFDINomina.getNumeroEmpleado().isEmpty()) {
+                complementoNomina
+                        .setNumEmpleado(datosCFDINomina.getNumeroEmpleado());
             }
-            if (datosCFDINomina.getNumeroSeguroSocial() != null && !datosCFDINomina.getNumeroSeguroSocial().isEmpty()) {
-                complementoNomina.setNumSeguridadSocial(datosCFDINomina.getNumeroSeguroSocial());
+            if (datosCFDINomina.getNumeroSeguroSocial() != null
+                    && !datosCFDINomina.getNumeroSeguroSocial().isEmpty()) {
+                complementoNomina.setNumSeguridadSocial(
+                        datosCFDINomina.getNumeroSeguroSocial());
             }
 
-            complementoNomina.setPeriodicidadPago(datosCFDINomina.getPeriocidadPago());
+            complementoNomina
+                    .setPeriodicidadPago(datosCFDINomina.getPeriocidadPago());
 
             complementoNomina.setPuesto(datosCFDINomina.getPuesto());
 
             complementoNomina.setRegistroPatronal("XXXXXXXXX");
-            complementoNomina.setRiesgoPuesto(datosCFDINomina.getRiesgoPuesto());
+            complementoNomina
+                    .setRiesgoPuesto(datosCFDINomina.getRiesgoPuesto());
             if (datosCFDINomina.getSalarioBaseCotApor() != null) {
-                complementoNomina.setSalarioBaseCotApor(datosCFDINomina.getSalarioBaseCotApor().setScale(2, RoundingMode.HALF_UP));
+                complementoNomina.setSalarioBaseCotApor(
+                        datosCFDINomina.getSalarioBaseCotApor().setScale(2,
+                                RoundingMode.HALF_UP));
             }
             if (datosCFDINomina.getSalarioDiarioIntegrado() != null) {
-                complementoNomina.setSalarioDiarioIntegrado(datosCFDINomina.getSalarioDiarioIntegrado().setScale(2, RoundingMode.HALF_UP));
+                complementoNomina.setSalarioDiarioIntegrado(
+                        datosCFDINomina.getSalarioDiarioIntegrado().setScale(2,
+                                RoundingMode.HALF_UP));
             }
-            complementoNomina.setTipoContrato(datosCFDINomina.getTipoContrato());
+            complementoNomina
+                    .setTipoContrato(datosCFDINomina.getTipoContrato());
             complementoNomina.setTipoJornada(datosCFDINomina.getTipoJornada());
             complementoNomina.setTipoRegimen(datosCFDINomina.getTipoRegimen());
             complementoNomina.setVersion("1.1");
@@ -1390,26 +1572,34 @@ public class TimbradoService implements Serializable {
             // Armamos percepciones
             BigDecimal totalGravado = new BigDecimal("0");
             BigDecimal totalExcento = new BigDecimal("0");
-            for (PercepcionCFDI percepcionCFDI : datosCFDINomina.getPercepciones()) {
+            for (PercepcionCFDI percepcionCFDI : datosCFDINomina
+                    .getPercepciones()) {
 
                 Nomina.Percepciones.Percepcion percepcion = new Nomina.Percepciones.Percepcion();
                 percepcion.setClave(percepcionCFDI.getClave());
                 percepcion.setConcepto(percepcionCFDI.getConcepto());
-                percepcion.setImporteExento(percepcionCFDI.getImporteExcento().setScale(2, RoundingMode.HALF_UP));
-                percepcion.setImporteGravado(percepcionCFDI.getImporteGravado().setScale(2, RoundingMode.HALF_UP));
-                percepcion.setTipoPercepcion(percepcionCFDI.getTipoPercepcion());
+                percepcion.setImporteExento(percepcionCFDI.getImporteExcento()
+                        .setScale(2, RoundingMode.HALF_UP));
+                percepcion.setImporteGravado(percepcionCFDI.getImporteGravado()
+                        .setScale(2, RoundingMode.HALF_UP));
+                percepcion
+                        .setTipoPercepcion(percepcionCFDI.getTipoPercepcion());
 
                 percepciones.getPercepcion().add(percepcion);
                 if (percepcionCFDI.getImporteGravado() != null) {
-                    totalGravado = totalGravado.add(percepcionCFDI.getImporteGravado());
+                    totalGravado = totalGravado
+                            .add(percepcionCFDI.getImporteGravado());
                 }
                 if (percepcionCFDI.getImporteExcento() != null) {
-                    totalExcento = totalExcento.add(percepcionCFDI.getImporteExcento());
+                    totalExcento = totalExcento
+                            .add(percepcionCFDI.getImporteExcento());
                 }
 
             }
-            percepciones.setTotalExento(totalExcento.setScale(2, RoundingMode.HALF_UP));
-            percepciones.setTotalGravado(totalGravado.setScale(2, RoundingMode.HALF_UP));
+            percepciones.setTotalExento(
+                    totalExcento.setScale(2, RoundingMode.HALF_UP));
+            percepciones.setTotalGravado(
+                    totalGravado.setScale(2, RoundingMode.HALF_UP));
 
             complementoNomina.setPercepciones(percepciones);
 
@@ -1420,37 +1610,49 @@ public class TimbradoService implements Serializable {
             // Armamos deducciones
             if (datosCFDINomina.getDeducciones() != null) {
 
-                for (DeduccionCFDI deduccionCFDI : datosCFDINomina.getDeducciones()) {
+                for (DeduccionCFDI deduccionCFDI : datosCFDINomina
+                        .getDeducciones()) {
                     Nomina.Deducciones.Deduccion deduccion = new Nomina.Deducciones.Deduccion();
                     deduccion.setClave(deduccionCFDI.getClave());
                     deduccion.setConcepto(deduccionCFDI.getConcepto());
-                    deduccion.setImporteExento(deduccionCFDI.getImporteExcento().setScale(2, RoundingMode.HALF_UP));
-                    deduccion.setImporteGravado(deduccionCFDI.getImporteGravado().setScale(2, RoundingMode.HALF_UP));
-                    deduccion.setTipoDeduccion(deduccionCFDI.getTipoPercepcion());
+                    deduccion.setImporteExento(deduccionCFDI.getImporteExcento()
+                            .setScale(2, RoundingMode.HALF_UP));
+                    deduccion
+                            .setImporteGravado(deduccionCFDI.getImporteGravado()
+                                    .setScale(2, RoundingMode.HALF_UP));
+                    deduccion.setTipoDeduccion(
+                            deduccionCFDI.getTipoPercepcion());
 
                     deducciones.getDeduccion().add(deduccion);
                     if (deduccionCFDI.getImporteExcento() != null) {
-                        totalExcento = totalExcento.add(deduccionCFDI.getImporteExcento());
+                        totalExcento = totalExcento
+                                .add(deduccionCFDI.getImporteExcento());
                     }
                     if (deduccionCFDI.getImporteGravado() != null) {
-                        totalGravado = totalGravado.add(deduccionCFDI.getImporteGravado());
+                        totalGravado = totalGravado
+                                .add(deduccionCFDI.getImporteGravado());
                     }
                 }
-                deducciones.setTotalExento(totalExcento.setScale(2, RoundingMode.HALF_UP));
-                deducciones.setTotalGravado(totalGravado.setScale(2, RoundingMode.HALF_UP));
+                deducciones.setTotalExento(
+                        totalExcento.setScale(2, RoundingMode.HALF_UP));
+                deducciones.setTotalGravado(
+                        totalGravado.setScale(2, RoundingMode.HALF_UP));
                 complementoNomina.setDeducciones(deducciones);
 
             }
 
             Nomina.HorasExtras horasExtra = null;
 
-            if (datosCFDINomina.getHorasExtra() != null && !datosCFDINomina.getHorasExtra().isEmpty()) {
+            if (datosCFDINomina.getHorasExtra() != null
+                    && !datosCFDINomina.getHorasExtra().isEmpty()) {
                 horasExtra = new Nomina.HorasExtras();
-                for (HorasExtraCFDI horaExtraCFDI : datosCFDINomina.getHorasExtra()) {
+                for (HorasExtraCFDI horaExtraCFDI : datosCFDINomina
+                        .getHorasExtra()) {
                     Nomina.HorasExtras.HorasExtra horaExtra = new Nomina.HorasExtras.HorasExtra();
                     horaExtra.setDias(horaExtraCFDI.getDias());
                     horaExtra.setHorasExtra(horaExtra.getHorasExtra());
-                    horaExtra.setImportePagado(horaExtraCFDI.getImportePagado().setScale(2, RoundingMode.HALF_UP));
+                    horaExtra.setImportePagado(horaExtraCFDI.getImportePagado()
+                            .setScale(2, RoundingMode.HALF_UP));
                     horaExtra.setTipoHoras(horaExtraCFDI.getTipoHoras());
                     horasExtra.getHorasExtra().add(horaExtra);
                 }
@@ -1460,14 +1662,19 @@ public class TimbradoService implements Serializable {
 
             Nomina.Incapacidades incapacidades = null;
 
-            if (datosCFDINomina.getIncapacidadCFDI() != null && !datosCFDINomina.getIncapacidadCFDI().isEmpty()) {
+            if (datosCFDINomina.getIncapacidadCFDI() != null
+                    && !datosCFDINomina.getIncapacidadCFDI().isEmpty()) {
                 incapacidades = new Nomina.Incapacidades();
-                for (IncapacidadCFDI incapacidadCFDI : datosCFDINomina.getIncapacidadCFDI()) {
+                for (IncapacidadCFDI incapacidadCFDI : datosCFDINomina
+                        .getIncapacidadCFDI()) {
                     Nomina.Incapacidades.Incapacidad incapacidad = new Nomina.Incapacidades.Incapacidad();
 
-                    incapacidad.setDescuento(incapacidadCFDI.getDescuento().setScale(2, RoundingMode.HALF_UP));
-                    incapacidad.setDiasIncapacidad(incapacidadCFDI.getDiasIncapacidad());
-                    incapacidad.setTipoIncapacidad(incapacidadCFDI.getTipoIncapacidad());
+                    incapacidad.setDescuento(incapacidadCFDI.getDescuento()
+                            .setScale(2, RoundingMode.HALF_UP));
+                    incapacidad.setDiasIncapacidad(
+                            incapacidadCFDI.getDiasIncapacidad());
+                    incapacidad.setTipoIncapacidad(
+                            incapacidadCFDI.getTipoIncapacidad());
 
                     incapacidades.getIncapacidad().add(incapacidad);
                 }

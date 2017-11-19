@@ -12,9 +12,9 @@ import mx.gob.saludtlax.rh.excepciones.ValidationException;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 29/03/2016 12:53:35
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
 public class RegistroDatoPersonalValidator {
 
@@ -24,34 +24,41 @@ public class RegistroDatoPersonalValidator {
         AspiranteDTO dto = (AspiranteDTO) context.getParameters()[0];
         String contexto = "Registro Datos Generales: ";
         if (dto == null) {
-            throw new BusinessException(contexto + "Los datos personales son requeridos");
+            throw new BusinessException(
+                    contexto + "Los datos personales son requeridos");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getNombre())) {
 
             System.out.println(dto.getNombre());
 
-            throw new BusinessException(contexto + "El nombre es requerido, Ingrese el nombre");
+            throw new BusinessException(
+                    contexto + "El nombre es requerido, Ingrese el nombre");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getApellidoPaterno())) {
-            throw new BusinessException(contexto + "El apellido paterno es requerido, Ingrese el apellido paterno");
+            throw new BusinessException(contexto
+                    + "El apellido paterno es requerido, Ingrese el apellido paterno");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getApellidoMaterno())) {
-            throw new BusinessException(contexto + "El apellido materno es requerido, ingrese el apellido materno.");
+            throw new BusinessException(contexto
+                    + "El apellido materno es requerido, ingrese el apellido materno.");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getRfc())) {
-            throw new BusinessException(contexto + "El RFC es requerido, Ingrese el RFC");
+            throw new BusinessException(
+                    contexto + "El RFC es requerido, Ingrese el RFC");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getCurp())) {
-            throw new BusinessException(contexto + "La CURP es requerido, Ingrese la CURP");
+            throw new BusinessException(
+                    contexto + "La CURP es requerido, Ingrese la CURP");
         }
 
         if (dto.getFechaNacimiento() == null) {
-            throw new BusinessException(contexto + "La fecha de nacimiento es requerido, Seleccione la fecha de nacimiento");
+            throw new BusinessException(contexto
+                    + "La fecha de nacimiento es requerido, Seleccione la fecha de nacimiento");
         }
 
         // if (ValidacionUtil.esCadenaVacia(dto.getTelefono())) {
@@ -64,7 +71,8 @@ public class RegistroDatoPersonalValidator {
         //		}
 
         if (ValidacionUtil.esCadenaVacia(dto.getEstadoCivil())) {
-            throw new BusinessException(contexto + "El estado civil es requerido, Seleccione el estado civil");
+            throw new BusinessException(contexto
+                    + "El estado civil es requerido, Seleccione el estado civil");
         }
 
         // if (dto.getIdPuesto() == null || dto.getIdPuesto() == 0) {
@@ -73,15 +81,19 @@ public class RegistroDatoPersonalValidator {
         // }
 
         if (ValidacionUtil.esCadenaVacia(dto.getSexo())) {
-            throw new BusinessException(contexto + "El sexo es requerido, Seleccione el sexo");
+            throw new BusinessException(
+                    contexto + "El sexo es requerido, Seleccione el sexo");
         }
 
         if (ValidacionUtil.esCadenaVacia(dto.getLugarNacimiento())) {
-            throw new BusinessException(contexto + "El lugar de nacimiento es requerido, Ingrese el lugar de nacimiento");
+            throw new BusinessException(contexto
+                    + "El lugar de nacimiento es requerido, Ingrese el lugar de nacimiento");
         }
 
-        if (ValidacionUtil.esCadenaVacia(dto.getDireccionDTO().getNumeroExterior())) {
-            throw new BusinessException(contexto + "El número exterior es requerido, Ingrese el número exterior");
+        if (ValidacionUtil
+                .esCadenaVacia(dto.getDireccionDTO().getNumeroExterior())) {
+            throw new BusinessException(contexto
+                    + "El número exterior es requerido, Ingrese el número exterior");
         }
         /*
          * if (dto.getEstatura() <= 0) {
@@ -98,7 +110,8 @@ public class RegistroDatoPersonalValidator {
         // Seleccione una opción.");
         // }
         if (ValidacionUtil.esCadenaVacia(dto.getDireccionDTO().getCalle())) {
-            throw new ValidationException(contexto + "La calle es requerida, Ingerese el nombre de la calle.");
+            throw new ValidationException(contexto
+                    + "La calle es requerida, Ingerese el nombre de la calle.");
         }
 
         // if (ValidacionUtil.esCadenaVacia(dto.getCorreoElectronico())) {
@@ -107,12 +120,16 @@ public class RegistroDatoPersonalValidator {
         // del aspirante");
         // }
 
-        if (dto.getDireccionDTO().getIdMunicipio() == null || dto.getDireccionDTO().getIdMunicipio() == 0) {
-            throw new BusinessException(contexto + "El municipio es requerido, Seleccione un municipio");
+        if (dto.getDireccionDTO().getIdMunicipio() == null
+                || dto.getDireccionDTO().getIdMunicipio() == 0) {
+            throw new BusinessException(contexto
+                    + "El municipio es requerido, Seleccione un municipio");
         }
 
-        if (dto.getDireccionDTO().getIdAsentamiento() == null || dto.getDireccionDTO().getIdAsentamiento() == 0) {
-            throw new BusinessException(contexto + "El asentamiento es requerido, Seleccione el asentamiento");
+        if (dto.getDireccionDTO().getIdAsentamiento() == null
+                || dto.getDireccionDTO().getIdAsentamiento() == 0) {
+            throw new BusinessException(contexto
+                    + "El asentamiento es requerido, Seleccione el asentamiento");
         }
 
         return context.proceed();

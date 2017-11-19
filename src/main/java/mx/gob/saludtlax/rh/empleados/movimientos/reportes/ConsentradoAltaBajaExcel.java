@@ -20,12 +20,14 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ConsentradoAltaBajaExcel {
 
-    private final InputStream is = ConsentradoAltaBajaExcel.class.getResourceAsStream("/plantillas/concentradoAltaBaja/Concentrado_Altas_Bajas.xlsx");
+    private final InputStream is = ConsentradoAltaBajaExcel.class
+            .getResourceAsStream(
+                    "/plantillas/concentradoAltaBaja/Concentrado_Altas_Bajas.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -104,7 +106,8 @@ public class ConsentradoAltaBajaExcel {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }

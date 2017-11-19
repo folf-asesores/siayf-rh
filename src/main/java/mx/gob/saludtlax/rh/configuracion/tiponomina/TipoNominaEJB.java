@@ -17,17 +17,20 @@ public class TipoNominaEJB {
     private TipoNominaService tipoNominaService;
 
     public List<TipoNominaDTO> obtenerTipoNominaLista() {
-        List<TipoNominaDTO> tipoNominaLista = tipoNominaService.listaTipoNomina();
+        List<TipoNominaDTO> tipoNominaLista = tipoNominaService
+                .listaTipoNomina();
         return tipoNominaLista;
     }
 
     public List<TipoNominaListaDTO> obtenerListaTipoNomina() {
-        List<TipoNominaListaDTO> tipoNominaLista = tipoNominaService.tipoNominaLista();
+        List<TipoNominaListaDTO> tipoNominaLista = tipoNominaService
+                .tipoNominaLista();
         return tipoNominaLista;
     }
 
     public TipoNominaDTO obtenerTipoNomina(TipoNominaDTO tipoNomina) {
-        TipoNominaDTO dto = tipoNominaService.obtenerTipoNominaPorId(tipoNomina.getIdTipoNomina());
+        TipoNominaDTO dto = tipoNominaService
+                .obtenerTipoNominaPorId(tipoNomina.getIdTipoNomina());
         return dto;
     }
 

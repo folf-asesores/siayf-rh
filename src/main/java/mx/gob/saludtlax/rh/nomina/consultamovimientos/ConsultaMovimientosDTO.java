@@ -99,7 +99,8 @@ public class ConsultaMovimientosDTO {
         return tienePersonasDependientes;
     }
 
-    public void setTienePersonasDependientes(Boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            Boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

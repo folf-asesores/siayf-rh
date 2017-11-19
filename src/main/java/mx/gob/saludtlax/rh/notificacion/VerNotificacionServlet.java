@@ -30,12 +30,15 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-@WebServlet(name = "VerNotificacionServlet", urlPatterns = { "/contenido/notificaciones/ver-notificacion",
-        "/contenido/notificaciones/notificacion-vista" }, initParams = { @WebInitParam(name = "token", value = "") })
+@WebServlet(name = "VerNotificacionServlet", urlPatterns = {
+        "/contenido/notificaciones/ver-notificacion",
+        "/contenido/notificaciones/notificacion-vista" }, initParams = {
+                @WebInitParam(name = "token", value = "") })
 public class VerNotificacionServlet extends HttpServlet {
 
     private static final long serialVersionUID = 8714343555749201297L;
-    private static final Logger LOGGER = Logger.getLogger(VerNotificacionServlet.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(VerNotificacionServlet.class.getName());
 
     @Inject
     private Notificacion notificacionEJB;
@@ -53,7 +56,8 @@ public class VerNotificacionServlet extends HttpServlet {
      * @throws IOException
      *             if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         String token = request.getParameter("token");
         String url = request.getParameter("url");
 
@@ -77,7 +81,8 @@ public class VerNotificacionServlet extends HttpServlet {
      *             if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -94,7 +99,8 @@ public class VerNotificacionServlet extends HttpServlet {
      *             if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         processRequest(request, response);
     }
 
@@ -120,10 +126,13 @@ public class VerNotificacionServlet extends HttpServlet {
      * @return <code>true</code> si el ID del usuario del mensaje y el de sesión
      *         son el mismo en caso contrario retornana <code>false</code>.
      */
-    private boolean esParaUsuarioEnSesion(Integer idUsuario, HttpSession sesion) {
-        UsuarioDTO usuarioEnSesion = (UsuarioDTO) sesion.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+    private boolean esParaUsuarioEnSesion(Integer idUsuario,
+            HttpSession sesion) {
+        UsuarioDTO usuarioEnSesion = (UsuarioDTO) sesion
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-        return usuarioEnSesion != null && usuarioEnSesion.getIdUsuario() != null && idUsuario != null
+        return usuarioEnSesion != null && usuarioEnSesion.getIdUsuario() != null
+                && idUsuario != null
                 && usuarioEnSesion.getIdUsuario().compareTo(idUsuario) == 0;
     }
 
@@ -142,17 +151,20 @@ public class VerNotificacionServlet extends HttpServlet {
      *             si ocurre algún error al escribir o leer la
      *             información en la respuesta.
      */
-    private void verNotificacion(String token, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void verNotificacion(String token, HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
         if (token != null && !ValidacionUtil.esCadenaVacia(token)) {
 
             try {
 
-                NotificacionDTO notificacion = notificacionEJB.obtenerPorToken(token);
+                NotificacionDTO notificacion = notificacionEJB
+                        .obtenerPorToken(token);
                 HttpSession session = request.getSession(true);
 
                 Integer idUsuario = 0;
 
-                for (Map.Entry<Integer, String> idDestinatarioMap : notificacion.getIdsDestinatarios().entrySet()) {
+                for (Map.Entry<Integer, String> idDestinatarioMap : notificacion
+                        .getIdsDestinatarios().entrySet()) {
                     Integer key = idDestinatarioMap.getKey();
                     String value = idDestinatarioMap.getValue();
 
@@ -163,27 +175,35 @@ public class VerNotificacionServlet extends HttpServlet {
                 }
 
                 if (!esParaUsuarioEnSesion(idUsuario, session)) {
-                    response.sendRedirect(request.getContextPath() + "/contenido/notificaciones/sin-autorizacion.xhtml");
+                    response.sendRedirect(request.getContextPath()
+                            + "/contenido/notificaciones/sin-autorizacion.xhtml");
                 }
 
-                for (Map.Entry<String, String> parametro : notificacion.getParametros().entrySet()) {
-                    LOGGER.debugv("{0},\t\t{1}\n", parametro.getKey(), parametro.getValue());
-                    session.setAttribute(parametro.getKey(), parametro.getValue());
+                for (Map.Entry<String, String> parametro : notificacion
+                        .getParametros().entrySet()) {
+                    LOGGER.debugv("{0},\t\t{1}\n", parametro.getKey(),
+                            parametro.getValue());
+                    session.setAttribute(parametro.getKey(),
+                            parametro.getValue());
                 }
 
                 notificacionEJB.marcarComoVista(token);
 
                 if (!Modulo.SIN_MODULO.equals(notificacion.getModulo())) {
-                    response.sendRedirect(request.getContextPath() + notificacion.getModulo().getUrl());
+                    response.sendRedirect(request.getContextPath()
+                            + notificacion.getModulo().getUrl());
                 }
             } catch (ReglaNegocioException rne) {
-                if (ReglaNegocioCodigoError.NOTIFICACION_NO_ENCONTRADA.equals(rne.getCodigoError())) {
-                    response.sendRedirect(request.getContextPath() + "/contenido/notificaciones/token-invalido.xhtml");
+                if (ReglaNegocioCodigoError.NOTIFICACION_NO_ENCONTRADA
+                        .equals(rne.getCodigoError())) {
+                    response.sendRedirect(request.getContextPath()
+                            + "/contenido/notificaciones/token-invalido.xhtml");
                 }
             }
 
         } else {
-            response.sendRedirect(request.getContextPath() + "/contenido/notificaciones/token-invalido.xhtml");
+            response.sendRedirect(request.getContextPath()
+                    + "/contenido/notificaciones/token-invalido.xhtml");
         }
     }
 
@@ -203,7 +223,9 @@ public class VerNotificacionServlet extends HttpServlet {
      *             si ocurre algún error al escribir o leer la
      *             información en la respuesta.
      */
-    private void marcarNotificacionComoVista(String token, String url, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void marcarNotificacionComoVista(String token, String url,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
         if (token != null && !ValidacionUtil.esCadenaVacia(token)) {
             notificacionEJB.marcarComoVista(token);
@@ -212,7 +234,8 @@ public class VerNotificacionServlet extends HttpServlet {
         if (url != null && url.startsWith("/contenido/")) {
             response.sendRedirect(request.getContextPath() + url);
         } else {
-            response.sendRedirect(request.getContextPath() + ConfiguracionConst.HOME_PAGE_URL);
+            response.sendRedirect(request.getContextPath()
+                    + ConfiguracionConst.HOME_PAGE_URL);
         }
     }
 }

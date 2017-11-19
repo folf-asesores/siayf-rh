@@ -24,7 +24,7 @@ import mx.gob.saludtlax.rh.nomina.reportes.productonomina.ProductosNominaExcelDT
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ProductoNominaExcel implements Serializable {
@@ -34,7 +34,8 @@ public class ProductoNominaExcel implements Serializable {
      */
     private static final long serialVersionUID = -603631720915196921L;
 
-    private final InputStream is = ContratoExcel.class.getResourceAsStream("/plantillas/nomina/Producto_Nomina.xlsx");
+    private final InputStream is = ContratoExcel.class
+            .getResourceAsStream("/plantillas/nomina/Producto_Nomina.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -156,7 +157,8 @@ public class ProductoNominaExcel implements Serializable {
             llenarDetalles(detalles);
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
     }
 
@@ -177,13 +179,18 @@ public class ProductoNominaExcel implements Serializable {
             celdaNombreEmpleado.setCellValue(detalle.getNombreEmpleado());
 
             Cell celdaFechaIngreso = filaDetalle.createCell(FECHA_INGRESO);
-            celdaFechaIngreso.setCellValue(detalle.getFechaIngreso() == null ? "" : simpleDateFormat.format(detalle.getFechaIngreso()));
+            celdaFechaIngreso.setCellValue(detalle.getFechaIngreso() == null
+                    ? "" : simpleDateFormat.format(detalle.getFechaIngreso()));
 
-            Cell celdaCentroResponsabilidad = filaDetalle.createCell(CENTRO_RESPONSABILIDAD);
-            celdaCentroResponsabilidad.setCellValue(detalle.getCentroResponsabilidad());
+            Cell celdaCentroResponsabilidad = filaDetalle
+                    .createCell(CENTRO_RESPONSABILIDAD);
+            celdaCentroResponsabilidad
+                    .setCellValue(detalle.getCentroResponsabilidad());
 
-            Cell celdaConceptoCentroResponsabilidad = filaDetalle.createCell(CONCEPTO_CENTRO_RESPONSABILIDAD);
-            celdaConceptoCentroResponsabilidad.setCellValue(detalle.getConceptoCentroResponsabilidad());
+            Cell celdaConceptoCentroResponsabilidad = filaDetalle
+                    .createCell(CONCEPTO_CENTRO_RESPONSABILIDAD);
+            celdaConceptoCentroResponsabilidad
+                    .setCellValue(detalle.getConceptoCentroResponsabilidad());
 
             Cell celdaFuncion = filaDetalle.createCell(FUNCION);
             celdaFuncion.setCellValue(detalle.getFuncion());
@@ -197,84 +204,146 @@ public class ProductoNominaExcel implements Serializable {
             Cell celdaSubfuente = filaDetalle.createCell(SUBFUENTE);
             celdaSubfuente.setCellValue(detalle.getSubfuente());
 
-            Cell celdaHonorariosAsimilables = filaDetalle.createCell(HONORARIOS_ASIMILABLES, Cell.CELL_TYPE_NUMERIC);
-            celdaHonorariosAsimilables.setCellValue(detalle.getHonorariosAsimilables() == null ? 0 : detalle.getHonorariosAsimilables().doubleValue());
-            TOTAL_HONORARIOS_ASIMILABLES = TOTAL_HONORARIOS_ASIMILABLES
-                    .add(detalle.getHonorariosAsimilables() == null ? BigDecimal.ZERO : detalle.getHonorariosAsimilables());
+            Cell celdaHonorariosAsimilables = filaDetalle
+                    .createCell(HONORARIOS_ASIMILABLES, Cell.CELL_TYPE_NUMERIC);
+            celdaHonorariosAsimilables
+                    .setCellValue(detalle.getHonorariosAsimilables() == null ? 0
+                            : detalle.getHonorariosAsimilables().doubleValue());
+            TOTAL_HONORARIOS_ASIMILABLES = TOTAL_HONORARIOS_ASIMILABLES.add(
+                    detalle.getHonorariosAsimilables() == null ? BigDecimal.ZERO
+                            : detalle.getHonorariosAsimilables());
 
             Cell celdaSuplencias = filaDetalle.createCell(SUPLENCIAS);
-            celdaSuplencias.setCellValue(detalle.getSuplencias() == null ? 0 : detalle.getSuplencias().doubleValue());
-            TOTAL_SUPLENCIAS = TOTAL_SUPLENCIAS.add(detalle.getSuplencias() == null ? BigDecimal.ZERO : detalle.getSuplencias());
+            celdaSuplencias.setCellValue(detalle.getSuplencias() == null ? 0
+                    : detalle.getSuplencias().doubleValue());
+            TOTAL_SUPLENCIAS = TOTAL_SUPLENCIAS
+                    .add(detalle.getSuplencias() == null ? BigDecimal.ZERO
+                            : detalle.getSuplencias());
 
             Cell celdaDiasEconomicos = filaDetalle.createCell(DIAS_ECONOMICOS);
-            celdaDiasEconomicos.setCellValue(detalle.getDiasEconomicos() == null ? 0 : detalle.getDiasEconomicos().doubleValue());
-            TOTAL_DIAS_ECONOMICOS = TOTAL_DIAS_ECONOMICOS.add(detalle.getDiasEconomicos() == null ? BigDecimal.ZERO : detalle.getDiasEconomicos());
+            celdaDiasEconomicos.setCellValue(detalle.getDiasEconomicos() == null
+                    ? 0 : detalle.getDiasEconomicos().doubleValue());
+            TOTAL_DIAS_ECONOMICOS = TOTAL_DIAS_ECONOMICOS
+                    .add(detalle.getDiasEconomicos() == null ? BigDecimal.ZERO
+                            : detalle.getDiasEconomicos());
 
-            Cell celdaPercepcionComplementaria = filaDetalle.createCell(PERCEPCION_COMPLEMENTARIA);
-            celdaPercepcionComplementaria.setCellValue(detalle.getPercepcionComplementaria() == null ? 0 : detalle.getPercepcionComplementaria().doubleValue());
+            Cell celdaPercepcionComplementaria = filaDetalle
+                    .createCell(PERCEPCION_COMPLEMENTARIA);
+            celdaPercepcionComplementaria.setCellValue(
+                    detalle.getPercepcionComplementaria() == null ? 0 : detalle
+                            .getPercepcionComplementaria().doubleValue());
             TOTAL_PERCEPCION_COMPLEMENTARIA = TOTAL_PERCEPCION_COMPLEMENTARIA
-                    .add(detalle.getPercepcionComplementaria() == null ? BigDecimal.ZERO : detalle.getPercepcionComplementaria());
+                    .add(detalle.getPercepcionComplementaria() == null
+                            ? BigDecimal.ZERO
+                            : detalle.getPercepcionComplementaria());
 
             Cell celdaBono = filaDetalle.createCell(BONO);
-            celdaBono.setCellValue(detalle.getBono() == null ? 0 : detalle.getBono().doubleValue());
-            TOTAL_BONO = TOTAL_BONO.add(detalle.getBono() == null ? BigDecimal.ZERO : detalle.getBono());
+            celdaBono.setCellValue(detalle.getBono() == null ? 0
+                    : detalle.getBono().doubleValue());
+            TOTAL_BONO = TOTAL_BONO.add(detalle.getBono() == null
+                    ? BigDecimal.ZERO : detalle.getBono());
 
             Cell celdaAguinaldo = filaDetalle.createCell(AGUINALDO);
-            celdaAguinaldo.setCellValue(detalle.getAguinaldo() == null ? 0 : detalle.getAguinaldo().doubleValue());
-            TOTAL_AGUINALDO = TOTAL_AGUINALDO.add(detalle.getAguinaldo() == null ? BigDecimal.ZERO : detalle.getAguinaldo());
+            celdaAguinaldo.setCellValue(detalle.getAguinaldo() == null ? 0
+                    : detalle.getAguinaldo().doubleValue());
+            TOTAL_AGUINALDO = TOTAL_AGUINALDO.add(detalle.getAguinaldo() == null
+                    ? BigDecimal.ZERO : detalle.getAguinaldo());
 
             Cell celdaSubsidio = filaDetalle.createCell(SUBSIDIO);
-            celdaSubsidio.setCellValue(detalle.getSubsidio() == null ? 0 : detalle.getSubsidio().doubleValue());
-            TOTAL_SUBSIDIO = TOTAL_SUBSIDIO.add(detalle.getSubsidio() == null ? BigDecimal.ZERO : detalle.getSubsidio());
+            celdaSubsidio.setCellValue(detalle.getSubsidio() == null ? 0
+                    : detalle.getSubsidio().doubleValue());
+            TOTAL_SUBSIDIO = TOTAL_SUBSIDIO.add(detalle.getSubsidio() == null
+                    ? BigDecimal.ZERO : detalle.getSubsidio());
 
-            Cell celdaPrimaVacacional = filaDetalle.createCell(PRIMA_VACACIONAL);
-            celdaPrimaVacacional.setCellValue(detalle.getPrimaVacacional() == null ? 0 : detalle.getPrimaVacacional().doubleValue());
-            TOTAL_PRIMA_VACACIONAL = TOTAL_PRIMA_VACACIONAL.add(detalle.getPrimaVacacional() == null ? BigDecimal.ZERO : detalle.getPrimaVacacional());
+            Cell celdaPrimaVacacional = filaDetalle
+                    .createCell(PRIMA_VACACIONAL);
+            celdaPrimaVacacional
+                    .setCellValue(detalle.getPrimaVacacional() == null ? 0
+                            : detalle.getPrimaVacacional().doubleValue());
+            TOTAL_PRIMA_VACACIONAL = TOTAL_PRIMA_VACACIONAL
+                    .add(detalle.getPrimaVacacional() == null ? BigDecimal.ZERO
+                            : detalle.getPrimaVacacional());
 
-            Cell celdaBonificacionFalta = filaDetalle.createCell(BONIFICACION_FALTA);
-            celdaBonificacionFalta.setCellValue(detalle.getBonificacionFalta() == null ? 0 : detalle.getBonificacionFalta().doubleValue());
-            TOTAL_BONIFICACION_FALTA = TOTAL_BONIFICACION_FALTA.add(detalle.getBonificacionFalta() == null ? BigDecimal.ZERO : detalle.getBonificacionFalta());
+            Cell celdaBonificacionFalta = filaDetalle
+                    .createCell(BONIFICACION_FALTA);
+            celdaBonificacionFalta
+                    .setCellValue(detalle.getBonificacionFalta() == null ? 0
+                            : detalle.getBonificacionFalta().doubleValue());
+            TOTAL_BONIFICACION_FALTA = TOTAL_BONIFICACION_FALTA
+                    .add(detalle.getBonificacionFalta() == null
+                            ? BigDecimal.ZERO : detalle.getBonificacionFalta());
 
             Cell celdaRetroactivo = filaDetalle.createCell(RETROACTIVO);
-            celdaRetroactivo.setCellValue(detalle.getRetroactivo() == null ? 0 : detalle.getRetroactivo().doubleValue());
-            TOTAL_RETROACTIVO = TOTAL_RETROACTIVO.add(detalle.getRetroactivo() == null ? BigDecimal.ZERO : detalle.getRetroactivo());
+            celdaRetroactivo.setCellValue(detalle.getRetroactivo() == null ? 0
+                    : detalle.getRetroactivo().doubleValue());
+            TOTAL_RETROACTIVO = TOTAL_RETROACTIVO
+                    .add(detalle.getRetroactivo() == null ? BigDecimal.ZERO
+                            : detalle.getRetroactivo());
 
             Cell celdaOtros = filaDetalle.createCell(OTROS);
-            celdaOtros.setCellValue(detalle.getOtros() == null ? 0 : detalle.getOtros().doubleValue());
-            TOTAL_OTROS = TOTAL_OTROS.add(detalle.getOtros() == null ? BigDecimal.ZERO : detalle.getOtros());
+            celdaOtros.setCellValue(detalle.getOtros() == null ? 0
+                    : detalle.getOtros().doubleValue());
+            TOTAL_OTROS = TOTAL_OTROS.add(detalle.getOtros() == null
+                    ? BigDecimal.ZERO : detalle.getOtros());
 
             Cell celdaFaltaRetardo = filaDetalle.createCell(FALTAS_RETARDOS);
-            celdaFaltaRetardo.setCellValue(detalle.getFaltasRetardos() == null ? 0 : detalle.getFaltasRetardos().doubleValue());
-            TOTAL_FALTAS_RETARDOS = TOTAL_FALTAS_RETARDOS.add(detalle.getFaltasRetardos() == null ? BigDecimal.ZERO : detalle.getFaltasRetardos());
+            celdaFaltaRetardo.setCellValue(detalle.getFaltasRetardos() == null
+                    ? 0 : detalle.getFaltasRetardos().doubleValue());
+            TOTAL_FALTAS_RETARDOS = TOTAL_FALTAS_RETARDOS
+                    .add(detalle.getFaltasRetardos() == null ? BigDecimal.ZERO
+                            : detalle.getFaltasRetardos());
 
             Cell celdaIsr = filaDetalle.createCell(ISR);
-            celdaIsr.setCellValue(detalle.getIsr() == null ? 0 : detalle.getIsr().doubleValue());
-            TOTAL_ISR = TOTAL_ISR.add(detalle.getIsr() == null ? BigDecimal.ZERO : detalle.getIsr());
+            celdaIsr.setCellValue(detalle.getIsr() == null ? 0
+                    : detalle.getIsr().doubleValue());
+            TOTAL_ISR = TOTAL_ISR.add(detalle.getIsr() == null ? BigDecimal.ZERO
+                    : detalle.getIsr());
 
-            Cell celdaResponsabilidad = filaDetalle.createCell(RESPONSABILIDADES);
-            celdaResponsabilidad.setCellValue(detalle.getResponsabilidades() == null ? 0 : detalle.getResponsabilidades().doubleValue());
-            TOTAL_RESPONSABILIDADES = TOTAL_RESPONSABILIDADES.add(detalle.getResponsabilidades() == null ? BigDecimal.ZERO : detalle.getResponsabilidades());
+            Cell celdaResponsabilidad = filaDetalle
+                    .createCell(RESPONSABILIDADES);
+            celdaResponsabilidad
+                    .setCellValue(detalle.getResponsabilidades() == null ? 0
+                            : detalle.getResponsabilidades().doubleValue());
+            TOTAL_RESPONSABILIDADES = TOTAL_RESPONSABILIDADES
+                    .add(detalle.getResponsabilidades() == null
+                            ? BigDecimal.ZERO : detalle.getResponsabilidades());
 
             Cell celdaPrestamo = filaDetalle.createCell(PRESTAMO);
-            celdaPrestamo.setCellValue(detalle.getPrestamo() == null ? 0 : detalle.getPrestamo().doubleValue());
-            TOTAL_PRESTAMO = TOTAL_PRESTAMO.add(detalle.getPrestamo() == null ? BigDecimal.ZERO : detalle.getPrestamo());
+            celdaPrestamo.setCellValue(detalle.getPrestamo() == null ? 0
+                    : detalle.getPrestamo().doubleValue());
+            TOTAL_PRESTAMO = TOTAL_PRESTAMO.add(detalle.getPrestamo() == null
+                    ? BigDecimal.ZERO : detalle.getPrestamo());
 
-            Cell celdaJuicioMercantil = filaDetalle.createCell(JUICIO_MERCANTIL);
-            celdaJuicioMercantil.setCellValue(detalle.getJuicioMercantil() == null ? 0 : detalle.getJuicioMercantil().doubleValue());
-            TOTAL_JUICIO_MERCANTIL = TOTAL_JUICIO_MERCANTIL.add(detalle.getJuicioMercantil() == null ? BigDecimal.ZERO : detalle.getJuicioMercantil());
+            Cell celdaJuicioMercantil = filaDetalle
+                    .createCell(JUICIO_MERCANTIL);
+            celdaJuicioMercantil
+                    .setCellValue(detalle.getJuicioMercantil() == null ? 0
+                            : detalle.getJuicioMercantil().doubleValue());
+            TOTAL_JUICIO_MERCANTIL = TOTAL_JUICIO_MERCANTIL
+                    .add(detalle.getJuicioMercantil() == null ? BigDecimal.ZERO
+                            : detalle.getJuicioMercantil());
 
             Cell celdaCuotaSindical = filaDetalle.createCell(CUOTA_SINDICAL);
-            celdaCuotaSindical.setCellValue(detalle.getCuotaSindical() == null ? 0 : detalle.getCuotaSindical().doubleValue());
-            TOTAL_CUOTA_SINDICAL = TOTAL_CUOTA_SINDICAL.add(detalle.getCuotaSindical() == null ? BigDecimal.ZERO : detalle.getCuotaSindical());
+            celdaCuotaSindical.setCellValue(detalle.getCuotaSindical() == null
+                    ? 0 : detalle.getCuotaSindical().doubleValue());
+            TOTAL_CUOTA_SINDICAL = TOTAL_CUOTA_SINDICAL
+                    .add(detalle.getCuotaSindical() == null ? BigDecimal.ZERO
+                            : detalle.getCuotaSindical());
 
-            Cell celdaPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
-            celdaPensionAlimenticia.setCellValue(detalle.getPensionAlimenticia() == null ? 0 : detalle.getPensionAlimenticia().doubleValue());
-            TOTAL_PENSION_ALIMENTICIA = TOTAL_PENSION_ALIMENTICIA
-                    .add(detalle.getPensionAlimenticia() == null ? BigDecimal.ZERO : detalle.getPensionAlimenticia());
+            Cell celdaPensionAlimenticia = filaDetalle
+                    .createCell(PENSION_ALIMENTICIA);
+            celdaPensionAlimenticia
+                    .setCellValue(detalle.getPensionAlimenticia() == null ? 0
+                            : detalle.getPensionAlimenticia().doubleValue());
+            TOTAL_PENSION_ALIMENTICIA = TOTAL_PENSION_ALIMENTICIA.add(
+                    detalle.getPensionAlimenticia() == null ? BigDecimal.ZERO
+                            : detalle.getPensionAlimenticia());
 
             Cell celdaTotal = filaDetalle.createCell(COLUMNA_TOTAL);
-            celdaTotal.setCellValue(detalle.getTotal() == null ? 0 : detalle.getTotal().doubleValue());
-            TOTALES = TOTALES.add(detalle.getTotal() == null ? BigDecimal.ZERO : detalle.getTotal());
+            celdaTotal.setCellValue(detalle.getTotal() == null ? 0
+                    : detalle.getTotal().doubleValue());
+            TOTALES = TOTALES.add(detalle.getTotal() == null ? BigDecimal.ZERO
+                    : detalle.getTotal());
 
             filaTotales++;
             i++;
@@ -290,17 +359,23 @@ public class ProductoNominaExcel implements Serializable {
             Cell celdaGeneral = filaDetalle.createCell(RFC);
             celdaGeneral.setCellValue(general);
 
-            Cell celdaTotalHonorarios = filaDetalle.createCell(HONORARIOS_ASIMILABLES);
-            celdaTotalHonorarios.setCellValue(TOTAL_HONORARIOS_ASIMILABLES.doubleValue());
+            Cell celdaTotalHonorarios = filaDetalle
+                    .createCell(HONORARIOS_ASIMILABLES);
+            celdaTotalHonorarios
+                    .setCellValue(TOTAL_HONORARIOS_ASIMILABLES.doubleValue());
 
             Cell celdaTotalSuplencias = filaDetalle.createCell(SUPLENCIAS);
             celdaTotalSuplencias.setCellValue(TOTAL_SUPLENCIAS.doubleValue());
 
-            Cell celdaTotalDiasEconomicos = filaDetalle.createCell(DIAS_ECONOMICOS);
-            celdaTotalDiasEconomicos.setCellValue(TOTAL_DIAS_ECONOMICOS.doubleValue());
+            Cell celdaTotalDiasEconomicos = filaDetalle
+                    .createCell(DIAS_ECONOMICOS);
+            celdaTotalDiasEconomicos
+                    .setCellValue(TOTAL_DIAS_ECONOMICOS.doubleValue());
 
-            Cell celdaTotalPercepcionComplementaria = filaDetalle.createCell(PERCEPCION_COMPLEMENTARIA);
-            celdaTotalPercepcionComplementaria.setCellValue(TOTAL_PERCEPCION_COMPLEMENTARIA.doubleValue());
+            Cell celdaTotalPercepcionComplementaria = filaDetalle
+                    .createCell(PERCEPCION_COMPLEMENTARIA);
+            celdaTotalPercepcionComplementaria.setCellValue(
+                    TOTAL_PERCEPCION_COMPLEMENTARIA.doubleValue());
 
             Cell celdaTotalBono = filaDetalle.createCell(BONO);
             celdaTotalBono.setCellValue(TOTAL_BONO.doubleValue());
@@ -311,11 +386,15 @@ public class ProductoNominaExcel implements Serializable {
             Cell celdaTotalSubsidio = filaDetalle.createCell(SUBSIDIO);
             celdaTotalSubsidio.setCellValue(TOTAL_SUBSIDIO.doubleValue());
 
-            Cell celdaTotalPrimaVacacional = filaDetalle.createCell(PRIMA_VACACIONAL);
-            celdaTotalPrimaVacacional.setCellValue(TOTAL_PRIMA_VACACIONAL.doubleValue());
+            Cell celdaTotalPrimaVacacional = filaDetalle
+                    .createCell(PRIMA_VACACIONAL);
+            celdaTotalPrimaVacacional
+                    .setCellValue(TOTAL_PRIMA_VACACIONAL.doubleValue());
 
-            Cell celdaTotalBonificacionFalta = filaDetalle.createCell(BONIFICACION_FALTA);
-            celdaTotalBonificacionFalta.setCellValue(TOTAL_BONIFICACION_FALTA.doubleValue());
+            Cell celdaTotalBonificacionFalta = filaDetalle
+                    .createCell(BONIFICACION_FALTA);
+            celdaTotalBonificacionFalta
+                    .setCellValue(TOTAL_BONIFICACION_FALTA.doubleValue());
 
             Cell celdaTotalRetroactivo = filaDetalle.createCell(RETROACTIVO);
             celdaTotalRetroactivo.setCellValue(TOTAL_RETROACTIVO.doubleValue());
@@ -324,25 +403,34 @@ public class ProductoNominaExcel implements Serializable {
             celdaTotalOtros.setCellValue(TOTAL_OTROS.doubleValue());
 
             Cell celdaFaltasRetardos = filaDetalle.createCell(FALTAS_RETARDOS);
-            celdaFaltasRetardos.setCellValue(TOTAL_FALTAS_RETARDOS.doubleValue());
+            celdaFaltasRetardos
+                    .setCellValue(TOTAL_FALTAS_RETARDOS.doubleValue());
 
             Cell celdaTotalIsr = filaDetalle.createCell(ISR);
             celdaTotalIsr.setCellValue(TOTAL_ISR.doubleValue());
 
-            Cell celdaTotalResponsabilidades = filaDetalle.createCell(RESPONSABILIDADES);
-            celdaTotalResponsabilidades.setCellValue(TOTAL_RESPONSABILIDADES.doubleValue());
+            Cell celdaTotalResponsabilidades = filaDetalle
+                    .createCell(RESPONSABILIDADES);
+            celdaTotalResponsabilidades
+                    .setCellValue(TOTAL_RESPONSABILIDADES.doubleValue());
 
             Cell celdaTotalPrestamo = filaDetalle.createCell(PRESTAMO);
             celdaTotalPrestamo.setCellValue(TOTAL_PRESTAMO.doubleValue());
 
-            Cell celdaTotalJuicioMercantil = filaDetalle.createCell(JUICIO_MERCANTIL);
-            celdaTotalJuicioMercantil.setCellValue(TOTAL_JUICIO_MERCANTIL.doubleValue());
+            Cell celdaTotalJuicioMercantil = filaDetalle
+                    .createCell(JUICIO_MERCANTIL);
+            celdaTotalJuicioMercantil
+                    .setCellValue(TOTAL_JUICIO_MERCANTIL.doubleValue());
 
-            Cell celdaTotalCuotaSindical = filaDetalle.createCell(CUOTA_SINDICAL);
-            celdaTotalCuotaSindical.setCellValue(TOTAL_CUOTA_SINDICAL.doubleValue());
+            Cell celdaTotalCuotaSindical = filaDetalle
+                    .createCell(CUOTA_SINDICAL);
+            celdaTotalCuotaSindical
+                    .setCellValue(TOTAL_CUOTA_SINDICAL.doubleValue());
 
-            Cell celdaTotalPensionAlimenticia = filaDetalle.createCell(PENSION_ALIMENTICIA);
-            celdaTotalPensionAlimenticia.setCellValue(TOTAL_PENSION_ALIMENTICIA.doubleValue());
+            Cell celdaTotalPensionAlimenticia = filaDetalle
+                    .createCell(PENSION_ALIMENTICIA);
+            celdaTotalPensionAlimenticia
+                    .setCellValue(TOTAL_PENSION_ALIMENTICIA.doubleValue());
 
             Cell celdaTotalTotales = filaDetalle.createCell(COLUMNA_TOTAL);
             celdaTotalTotales.setCellValue(TOTALES.doubleValue());

@@ -21,7 +21,8 @@ import org.jboss.logging.Logger;
 public class SeguroPopularReporteEJB implements SeguroPopularReporte {
 
     private static final long serialVersionUID = 4503000459957085272L;
-    private static final Logger LOGGER = Logger.getLogger(SeguroPopularReporteEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SeguroPopularReporteEJB.class.getName());
 
     @Inject
     private SeguroPopularReporteService seguroPopularReporteService;
@@ -30,13 +31,15 @@ public class SeguroPopularReporteEJB implements SeguroPopularReporte {
 
     @Override
     public byte[] obtenerReporte() {
-        List<SeguroPopularReporteDTO> detalles = seguroPopularReporteService.obtenerInformacion();
+        List<SeguroPopularReporteDTO> detalles = seguroPopularReporteService
+                .obtenerInformacion();
         return seguroPopularReporteExcel.generar(detalles);
     }
 
     @Override
     public byte[] obtenerReporte(String anyo, Integer quincena) {
-        List<SeguroPopularReporteDTO> detalles = seguroPopularReporteService.obtenerInformacion(anyo, quincena);
+        List<SeguroPopularReporteDTO> detalles = seguroPopularReporteService
+                .obtenerInformacion(anyo, quincena);
         return seguroPopularReporteExcel.generar(detalles);
     }
 }

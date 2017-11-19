@@ -17,28 +17,33 @@ public class UnidadResponsableDTOBuilder {
     private String numeroUnidadResponsable;
     private Map<String, NominaEmpleadoDTO> nominasEmpleados;
 
-    public UnidadResponsableDTOBuilder(String numeroUnidadResponsable, String unidadResponsable) {
+    public UnidadResponsableDTOBuilder(String numeroUnidadResponsable,
+            String unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
         this.numeroUnidadResponsable = numeroUnidadResponsable;
         nominasEmpleados = null;
     }
 
-    public UnidadResponsableDTOBuilder setUnidadResponsable(String unidadResponsable) {
+    public UnidadResponsableDTOBuilder setUnidadResponsable(
+            String unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
         return this;
     }
 
-    public UnidadResponsableDTOBuilder setNumeroUnidadResponsable(String numeroUnidadResponsable) {
+    public UnidadResponsableDTOBuilder setNumeroUnidadResponsable(
+            String numeroUnidadResponsable) {
         this.numeroUnidadResponsable = numeroUnidadResponsable;
         return this;
     }
 
-    public UnidadResponsableDTOBuilder setNominasEmpleados(Map<String, NominaEmpleadoDTO> nominasEmpleados) {
+    public UnidadResponsableDTOBuilder setNominasEmpleados(
+            Map<String, NominaEmpleadoDTO> nominasEmpleados) {
         this.nominasEmpleados = nominasEmpleados;
         return this;
     }
 
     public UnidadResponsableDTO createUnidadResponsableDTO() {
-        return new UnidadResponsableDTO(numeroUnidadResponsable, unidadResponsable, nominasEmpleados);
+        return new UnidadResponsableDTO(numeroUnidadResponsable,
+                unidadResponsable, nominasEmpleados);
     }
 }

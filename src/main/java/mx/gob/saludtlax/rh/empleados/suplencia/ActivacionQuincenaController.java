@@ -43,9 +43,11 @@ public class ActivacionQuincenaController implements Serializable {
     @PostConstruct
     public void inicio() {
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         setQuincenaActiva(suplencia.obtenerQuincenaActiva());
 
         setIdUsuario(usuario.getIdUsuario());
@@ -54,7 +56,8 @@ public class ActivacionQuincenaController implements Serializable {
 
     public void activarQuincena() {
         try {
-            suplencia.activarQuincenaSuplencia(numeroQuincena, ejercicioFiscal, idUsuario);
+            suplencia.activarQuincenaSuplencia(numeroQuincena, ejercicioFiscal,
+                    idUsuario);
             inicio();
             JSFUtils.infoMessage("", "¡Se ha activado la quincena con éxito!");
             setNumeroQuincena(0);

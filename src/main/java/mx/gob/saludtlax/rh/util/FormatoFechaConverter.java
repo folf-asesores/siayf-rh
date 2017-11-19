@@ -14,13 +14,15 @@ import javax.faces.convert.FacesConverter;
 public class FormatoFechaConverter implements Converter {
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String value) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date fecha;
         try {
             fecha = formatter.parse(value);
-            String fechaString = new SimpleDateFormat("yyyy-MM-dd").format(fecha);
+            String fechaString = new SimpleDateFormat("yyyy-MM-dd")
+                    .format(fecha);
             return fechaString;
         } catch (ParseException e) {
 
@@ -31,7 +33,8 @@ public class FormatoFechaConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component,
+            Object value) {
 
         return value.toString();
     }

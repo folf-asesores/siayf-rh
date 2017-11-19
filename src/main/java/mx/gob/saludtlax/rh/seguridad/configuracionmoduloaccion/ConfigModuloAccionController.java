@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "configModuloAccion")
@@ -40,17 +40,20 @@ public class ConfigModuloAccionController implements Serializable {
         view = new ConfigModuloAccionView();
 
         List<ConfiguracionModuloAccionDTO> configuracionModuloAccionTemp = new ArrayList<>();
-        configuracionModuloAccionTemp = configuracionModuloAccion.obtenerListaConfiguracionModuloAccionDTO();
+        configuracionModuloAccionTemp = configuracionModuloAccion
+                .obtenerListaConfiguracionModuloAccionDTO();
 
         view.getListaConfiguracionModuloAccion().clear();
-        view.getListaConfiguracionModuloAccion().addAll(configuracionModuloAccionTemp);
+        view.getListaConfiguracionModuloAccion()
+                .addAll(configuracionModuloAccionTemp);
 
     }
 
     public void eliminarConfiguracion(Integer idConfiguracionModuloAccion) {
         configuracionModuloAccion.eliminar(idConfiguracionModuloAccion);
         init();
-        JSFUtils.infoMessage("Configuración Modulo Acción: ", "¡Se elimino Correctamente!");
+        JSFUtils.infoMessage("Configuración Modulo Acción: ",
+                "¡Se elimino Correctamente!");
     }
 
     public ConfigModuloAccionView getView() {

@@ -21,13 +21,16 @@ public class JSFUtils {
     public static Object getManagedBean(final String beanName) {
         Object bean;
         try {
-            ELContext elContext = FacesContext.getCurrentInstance().getELContext();
-            bean = elContext.getELResolver().getValue(elContext, null, beanName);
+            ELContext elContext = FacesContext.getCurrentInstance()
+                    .getELContext();
+            bean = elContext.getELResolver().getValue(elContext, null,
+                    beanName);
         } catch (RuntimeException e) {
             throw new FacesException(e.getMessage(), e);
         }
         if (bean == null) {
-            throw new FacesException("Managed bean with name '" + beanName + "' was not found. Check your faces-config.xml or @ManagedBean annotation.");
+            throw new FacesException("Managed bean with name '" + beanName
+                    + "' was not found. Check your faces-config.xml or @ManagedBean annotation.");
         }
         return bean;
     }
@@ -36,7 +39,8 @@ public class JSFUtils {
         Object obj = new Object();
 
         try {
-            obj = (new InitialContext()).lookup("java:global/siayf-rh/" + service);
+            obj = (new InitialContext())
+                    .lookup("java:global/siayf-rh/" + service);
         } catch (NamingException e) {
 
             e.printStackTrace();
@@ -46,45 +50,57 @@ public class JSFUtils {
     }
 
     public static void infoMessage(String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
     }
 
     public static void warningMessage(String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, detail);
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
     }
 
     public static void errorMessage(String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+        FacesMessage facesMessage = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, summary, detail);
         FacesContext.getCurrentInstance().addMessage(null, facesMessage);
     }
 
-    public static void errorMessages(String control, String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+    public static void errorMessages(String control, String summary,
+            String detail) {
+        FacesMessage facesMessage = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, summary, detail);
         FacesContext.getCurrentInstance().addMessage(control, facesMessage);
         if (control != null) {
             atributoInvalido(control);
         }
     }
 
-    public static void warningMessageEspecifico(String clientId, String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, detail);
+    public static void warningMessageEspecifico(String clientId, String summary,
+            String detail) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                summary, detail);
         FacesContext.getCurrentInstance().addMessage(clientId, facesMessage);
     }
 
-    public static void errorMessageEspecifico(String clientId, String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, detail);
+    public static void errorMessageEspecifico(String clientId, String summary,
+            String detail) {
+        FacesMessage facesMessage = new FacesMessage(
+                FacesMessage.SEVERITY_ERROR, summary, detail);
         FacesContext.getCurrentInstance().addMessage(clientId, facesMessage);
     }
 
-    public static void infoMessageEspecifico(String clientId, String summary, String detail) {
-        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+    public static void infoMessageEspecifico(String clientId, String summary,
+            String detail) {
+        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,
+                summary, detail);
         FacesContext.getCurrentInstance().addMessage(clientId, facesMessage);
     }
 
     private static UIInput atributoInvalido(String atributo) {
-        UIInput field = (UIInput) FacesContext.getCurrentInstance().getViewRoot().findComponent(atributo);
+        UIInput field = (UIInput) FacesContext.getCurrentInstance()
+                .getViewRoot().findComponent(atributo);
         if (field != null) {
             field.setValid(false);
             return field;
@@ -93,9 +109,11 @@ public class JSFUtils {
     }
 
     public static void redireccionarInterna(String url) throws IOException {
-        String contextPath = FacesContext.getCurrentInstance().getExternalContext().getApplicationContextPath();
+        String contextPath = FacesContext.getCurrentInstance()
+                .getExternalContext().getApplicationContextPath();
         System.out.println("contextPath:: " + contextPath);
-        FacesContext.getCurrentInstance().getExternalContext().redirect(contextPath + url);
+        FacesContext.getCurrentInstance().getExternalContext()
+                .redirect(contextPath + url);
 
     }
 
@@ -120,8 +138,10 @@ public class JSFUtils {
      *            el tipo de MIME Type del archivo.
      * @throws IOException
      */
-    public static void descargarArchivo(byte[] bytes, String nombreArchivo, String contentType) throws IOException {
-        TipoArchivo extension = TipoArchivo.getTipoArchivoPorMIMEType(contentType);
+    public static void descargarArchivo(byte[] bytes, String nombreArchivo,
+            String contentType) throws IOException {
+        TipoArchivo extension = TipoArchivo
+                .getTipoArchivoPorMIMEType(contentType);
         descargarArchivo(bytes, nombreArchivo, extension);
     }
 
@@ -144,10 +164,12 @@ public class JSFUtils {
      *      ://stackoverflow.com/questions/9391838/how-to-provide-a-file-download
      *      -from-a-jsf-backing-bean
      */
-    public static void descargarArchivo(byte[] bytes, String nombreArchivo, TipoArchivo extension) throws IOException {
+    public static void descargarArchivo(byte[] bytes, String nombreArchivo,
+            TipoArchivo extension) throws IOException {
 
         if (bytes == null) {
-            throw new IllegalArgumentException("No puede enviar un valor vacio para descarga.");
+            throw new IllegalArgumentException(
+                    "No puede enviar un valor vacio para descarga.");
         }
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -158,7 +180,8 @@ public class JSFUtils {
             ec.responseReset();
             ec.setResponseContentType(extension.getMIMEType());
             ec.setResponseContentLength(bytes.length);
-            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + nombreArchivo.trim() + extension.getExtension(true));
+            ec.setResponseHeader("Content-Disposition", "attachment;filename="
+                    + nombreArchivo.trim() + extension.getExtension(true));
 
             try (OutputStream outputStream = ec.getResponseOutputStream()) {
                 outputStream.write(bytes, 0, bytes.length);

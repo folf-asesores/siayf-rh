@@ -24,8 +24,8 @@ import mx.gob.saludtlax.rh.util.SelectItemsUtil;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 28/07/2016 13:11:43
  */
@@ -54,10 +54,14 @@ public class TabuladorController implements Serializable {
         view.setMostrarFederal(false);
         List<TabuladorDTO> listaTabulador = tabulador.obtenerListaTabulador();
         view.setListaTabulador(listaTabulador);
-        view.setListaPuestoGeneral(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
-        view.setListaTipoTabulador(SelectItemsUtil.listaCatalogos(catalogo.obtenerlistaTipoTabulador()));
-        view.setListaEjercicioFiscal(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaEjercicioFiscal()));
-        view.setListaSubClasificacionTabulador(SelectItemsUtil.listaCatalogos(catalogo.obtenerListaSubClasificacionTabulador()));
+        view.setListaPuestoGeneral(
+                SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+        view.setListaTipoTabulador(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerlistaTipoTabulador()));
+        view.setListaEjercicioFiscal(SelectItemsUtil
+                .listaCatalogos(catalogo.obtenerListaEjercicioFiscal()));
+        view.setListaSubClasificacionTabulador(SelectItemsUtil.listaCatalogos(
+                catalogo.obtenerListaSubClasificacionTabulador()));
 
     }
 
@@ -66,7 +70,8 @@ public class TabuladorController implements Serializable {
         view.setMostrarFederal(false);
         if (ValidacionUtil.esNumeroPositivo(view.getIdTipoTabulador())) {
             view.getListaTabulador().clear();
-            List<TabuladorDTO> listaTabulador = tabulador.listaTabulador(view.getIdTipoTabulador());
+            List<TabuladorDTO> listaTabulador = tabulador
+                    .listaTabulador(view.getIdTipoTabulador());
             view.setListaTabulador(listaTabulador);
             if (view.getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
                 view.setMostrarEstatal(true);
@@ -81,47 +86,61 @@ public class TabuladorController implements Serializable {
             }
 
         } else {
-            List<TabuladorDTO> listaTabulador = tabulador.obtenerListaTabulador();
+            List<TabuladorDTO> listaTabulador = tabulador
+                    .obtenerListaTabulador();
             view.setListaTabulador(listaTabulador);
         }
 
     }
 
     public void obtenerInfoPuestoGeneral() {
-        InfoTabuladorPuestoDTO dto = tabulador.obtenerInfoPuesto(view.getTabuladorDTO().getIdPuestoGeneral());
+        InfoTabuladorPuestoDTO dto = tabulador
+                .obtenerInfoPuesto(view.getTabuladorDTO().getIdPuestoGeneral());
 
         view.getTabuladorDTO().setNombreRamaPuesto(dto.getNombreRamaPuesto());
-        view.getTabuladorDTO().setCodigoPuestoGeneral(dto.getCodigoPuestoGeneral());
+        view.getTabuladorDTO()
+                .setCodigoPuestoGeneral(dto.getCodigoPuestoGeneral());
         view.getTabuladorDTO().setNivelTipoPuesto(dto.getNivelTipoPuesto());
     }
 
     public void accionRegistraActualizar() {
         try {
 
-            if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
+            if (view.getTabuladorDTO()
+                    .getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
                 view.getTabuladorDTO().setSueldoBrutoMensual(new BigDecimal(0));
-                view.getTabuladorDTO().setAsignacionBrutaMensual(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setAsignacionBrutaMensual(new BigDecimal(0));
                 view.getTabuladorDTO().setAgaBrutaMensual(new BigDecimal(0));
                 view.getTabuladorDTO().setTotalBrutoMensual(new BigDecimal(0));
             }
 
-            if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
-                view.getTabuladorDTO().setSueldoBaseMensualMinimo(new BigDecimal(0));
-                view.getTabuladorDTO().setSueldoBaseMensualMedio(new BigDecimal(0));
-                view.getTabuladorDTO().setSueldoBaseMensualMaximo(new BigDecimal(0));
+            if (view.getTabuladorDTO()
+                    .getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMinimo(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMedio(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMaximo(new BigDecimal(0));
                 view.getTabuladorDTO().setIdSubClasificacion(0);
             }
 
-            if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE) {
+            if (view.getTabuladorDTO()
+                    .getIdTipoTabulador() == EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE) {
                 // federal
                 view.getTabuladorDTO().setSueldoBrutoMensual(new BigDecimal(0));
-                view.getTabuladorDTO().setAsignacionBrutaMensual(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setAsignacionBrutaMensual(new BigDecimal(0));
                 view.getTabuladorDTO().setAgaBrutaMensual(new BigDecimal(0));
                 view.getTabuladorDTO().setTotalBrutoMensual(new BigDecimal(0));
                 // estatal
-                view.getTabuladorDTO().setSueldoBaseMensualMinimo(new BigDecimal(0));
-                view.getTabuladorDTO().setSueldoBaseMensualMedio(new BigDecimal(0));
-                view.getTabuladorDTO().setSueldoBaseMensualMaximo(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMinimo(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMedio(new BigDecimal(0));
+                view.getTabuladorDTO()
+                        .setSueldoBaseMensualMaximo(new BigDecimal(0));
                 view.getTabuladorDTO().setIdSubClasificacion(0);
             }
 
@@ -131,15 +150,18 @@ public class TabuladorController implements Serializable {
                 cerrarDialogoPrincipal();
                 obtenerListaTabulador();
 
-                JSFUtils.infoMessage("Registro Tabulador: ", "Se realizo correctamente...");
+                JSFUtils.infoMessage("Registro Tabulador: ",
+                        "Se realizo correctamente...");
 
-            } else if (view.getAccionTabulador().equals("Actualizar Tabulador Seleccionado")) {
+            } else if (view.getAccionTabulador()
+                    .equals("Actualizar Tabulador Seleccionado")) {
                 tabulador.actualizarTabulador(view.getTabuladorDTO());
 
                 cerrarDialogoPrincipal();
                 obtenerListaTabulador();
 
-                JSFUtils.infoMessage("Actualización Tabulador: ", "Se realizo correctamente...");
+                JSFUtils.infoMessage("Actualización Tabulador: ",
+                        "Se realizo correctamente...");
             }
 
         } catch (BusinessException ex) {
@@ -154,7 +176,8 @@ public class TabuladorController implements Serializable {
             cerrarDialogoAccionEliminar();
             obtenerListaTabulador();
 
-            JSFUtils.infoMessage("Eliminación Tabulador: ", "Se realizo correctamente...");
+            JSFUtils.infoMessage("Eliminación Tabulador: ",
+                    "Se realizo correctamente...");
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
         }
@@ -182,15 +205,18 @@ public class TabuladorController implements Serializable {
         view.setMostrarInputMandosMedios(false);
         view.setMostrarInputUnicoPersonalSuplente(false);
 
-        if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
+        if (view.getTabuladorDTO()
+                .getIdTipoTabulador() == EnumTipoTabulador.ESTATAL) {
             view.setMostrarInputEstatal(true);
         }
 
-        if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
+        if (view.getTabuladorDTO()
+                .getIdTipoTabulador() == EnumTipoTabulador.FEDERAL) {
             view.setMostrarInputFederal(true);
         }
 
-        if (view.getTabuladorDTO().getIdTipoTabulador() == EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE) {
+        if (view.getTabuladorDTO()
+                .getIdTipoTabulador() == EnumTipoTabulador.UNICO_PERSONAL_SUPLENTE) {
             view.setMostrarInputUnicoPersonalSuplente(true);
         }
     }
@@ -213,7 +239,8 @@ public class TabuladorController implements Serializable {
         view.setDialogoEliminar(false);
     }
 
-    public void validarCampo(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validarCampo(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponente = component.getId();
         String contexto = "Campo requerido.";
@@ -230,7 +257,9 @@ public class TabuladorController implements Serializable {
                 Integer tipoTabulador = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoTabulador)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el tipo tabulador");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el tipo tabulador");
                     context.addMessage(component.getClientId(), facesMessage);
                     view.getTabuladorDTO().setIdTipoTabulador(0);
                     throw new ValidatorException(facesMessage);
@@ -255,7 +284,9 @@ public class TabuladorController implements Serializable {
                 Integer puestoGeneral = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(puestoGeneral)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el puesto general");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el puesto general");
                     context.addMessage(component.getClientId(), facesMessage);
 
                     view.getTabuladorDTO().setNombreRamaPuesto("");
@@ -271,7 +302,9 @@ public class TabuladorController implements Serializable {
                 Integer ejercicioFiscal = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(ejercicioFiscal)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, contexto, "Seleccione el ejercicio fiscal");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, contexto,
+                            "Seleccione el ejercicio fiscal");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -288,9 +321,16 @@ public class TabuladorController implements Serializable {
 
         BigDecimal total = new BigDecimal(0);
 
-        total = total.add(view.getTabuladorDTO().getSueldoBrutoMensual() == null ? new BigDecimal(0) : view.getTabuladorDTO().getSueldoBrutoMensual());
-        total = total.add(view.getTabuladorDTO().getAsignacionBrutaMensual() == null ? new BigDecimal(0) : view.getTabuladorDTO().getAsignacionBrutaMensual());
-        total = total.add(view.getTabuladorDTO().getAgaBrutaMensual() == null ? new BigDecimal(0) : view.getTabuladorDTO().getAgaBrutaMensual());
+        total = total.add(view.getTabuladorDTO().getSueldoBrutoMensual() == null
+                ? new BigDecimal(0)
+                : view.getTabuladorDTO().getSueldoBrutoMensual());
+        total = total
+                .add(view.getTabuladorDTO().getAsignacionBrutaMensual() == null
+                        ? new BigDecimal(0)
+                        : view.getTabuladorDTO().getAsignacionBrutaMensual());
+        total = total.add(view.getTabuladorDTO().getAgaBrutaMensual() == null
+                ? new BigDecimal(0)
+                : view.getTabuladorDTO().getAgaBrutaMensual());
 
         view.getTabuladorDTO().setTotalBrutoMensual(total);
 

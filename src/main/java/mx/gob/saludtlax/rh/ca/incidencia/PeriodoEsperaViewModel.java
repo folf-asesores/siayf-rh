@@ -32,7 +32,8 @@ public class PeriodoEsperaViewModel implements Serializable {
         return idPeriodoEsperaIncidencias;
     }
 
-    public void setIdPeriodoEsperaIncidencias(Integer idPeriodoEsperaIncidencias) {
+    public void setIdPeriodoEsperaIncidencias(
+            Integer idPeriodoEsperaIncidencias) {
         this.idPeriodoEsperaIncidencias = idPeriodoEsperaIncidencias;
     }
 

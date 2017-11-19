@@ -29,7 +29,8 @@ public class RevisarChequesView {
         return obtenerListaRevisarCheques;
     }
 
-    public void setObtenerListaRevisarChequesDTOs(List<RevisarChequesDTO> obtenerListaRevisarCheques) {
+    public void setObtenerListaRevisarChequesDTOs(
+            List<RevisarChequesDTO> obtenerListaRevisarCheques) {
         this.obtenerListaRevisarCheques = obtenerListaRevisarCheques;
     }
 

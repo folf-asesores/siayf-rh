@@ -82,23 +82,30 @@ public class VistaPreviaService implements Serializable {
         } else {
             // Ya que, el navegador solicita la imagen.
             // Se devolverá un StreamedContent real con los bytes de imagen.
-            String idAdjuntoComoString = context.getExternalContext().getRequestParameterMap().get("idAdjunto");
+            String idAdjuntoComoString = context.getExternalContext()
+                    .getRequestParameterMap().get("idAdjunto");
             Integer idAdjunto = parseInt(idAdjuntoComoString);
 
             InformacionAdjuntoDTO informacionAdjunto;
             byte[] archivo;
 
             if (esEmpleado) {
-                informacionAdjunto = adjuntoEmpleadoEJB.obtenerInformacionAdjuntoPorIdAdjunto(idAdjunto);
-                archivo = adjuntoEmpleadoEJB.obtenerVistaPreviaPorIdAdjunto(idAdjunto);
+                informacionAdjunto = adjuntoEmpleadoEJB
+                        .obtenerInformacionAdjuntoPorIdAdjunto(idAdjunto);
+                archivo = adjuntoEmpleadoEJB
+                        .obtenerVistaPreviaPorIdAdjunto(idAdjunto);
             } else {
-                informacionAdjunto = adjuntoAspiranteEJB.obtenerInformacionAdjuntoPorIdAdjunto(idAdjunto);
-                archivo = adjuntoAspiranteEJB.obtenerVistaPreviaPorIdAdjunto(idAdjunto);
+                informacionAdjunto = adjuntoAspiranteEJB
+                        .obtenerInformacionAdjuntoPorIdAdjunto(idAdjunto);
+                archivo = adjuntoAspiranteEJB
+                        .obtenerVistaPreviaPorIdAdjunto(idAdjunto);
             }
 
             if (archivo != null) {
-                ByteArrayInputStream inputStream = new ByteArrayInputStream(archivo);
-                StreamedContent image = new DefaultStreamedContent(inputStream, informacionAdjunto.getExtension().getMIMEType(),
+                ByteArrayInputStream inputStream = new ByteArrayInputStream(
+                        archivo);
+                StreamedContent image = new DefaultStreamedContent(inputStream,
+                        informacionAdjunto.getExtension().getMIMEType(),
                         informacionAdjunto.getNombreAdjunto());
                 return image;
             } else {
@@ -107,21 +114,31 @@ public class VistaPreviaService implements Serializable {
                 switch (informacionAdjunto.getExtension()) {
                     case JPG:
                     case JPEG:
-                        is = getCurrentInstance().getExternalContext().getResourceAsStream("/resources/imagenes/icon-jpeg.png");
+                        is = getCurrentInstance().getExternalContext()
+                                .getResourceAsStream(
+                                        "/resources/imagenes/icon-jpeg.png");
                         break;
                     case PNG:
-                        is = getCurrentInstance().getExternalContext().getResourceAsStream("/resources/imagenes/icon-png");
+                        is = getCurrentInstance().getExternalContext()
+                                .getResourceAsStream(
+                                        "/resources/imagenes/icon-png");
                         break;
                     case TIF:
                     case TIFF:
-                        is = getCurrentInstance().getExternalContext().getResourceAsStream("/resources/imagenes/icon-tiff.png");
+                        is = getCurrentInstance().getExternalContext()
+                                .getResourceAsStream(
+                                        "/resources/imagenes/icon-tiff.png");
                         break;
                     default:
-                        is = getCurrentInstance().getExternalContext().getResourceAsStream("/resources/imagenes/icon-file.png");
+                        is = getCurrentInstance().getExternalContext()
+                                .getResourceAsStream(
+                                        "/resources/imagenes/icon-file.png");
                         break;
                 }
 
-                StreamedContent image = new DefaultStreamedContent(is, informacionAdjunto.getExtension().getMIMEType(), informacionAdjunto.getNombreAdjunto());
+                StreamedContent image = new DefaultStreamedContent(is,
+                        informacionAdjunto.getExtension().getMIMEType(),
+                        informacionAdjunto.getNombreAdjunto());
                 return image;
             }
         }

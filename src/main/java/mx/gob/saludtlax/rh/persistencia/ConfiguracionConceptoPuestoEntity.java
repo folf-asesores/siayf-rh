@@ -58,7 +58,8 @@ public class ConfiguracionConceptoPuestoEntity implements Serializable {
         return conceptoNomina;
     }
 
-    public void setConceptoNomina(ConceptoNominaFederalesEntity conceptoNomina) {
+    public void setConceptoNomina(
+            ConceptoNominaFederalesEntity conceptoNomina) {
         this.conceptoNomina = conceptoNomina;
     }
 

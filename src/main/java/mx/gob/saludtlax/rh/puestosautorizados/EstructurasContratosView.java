@@ -48,7 +48,8 @@ public class EstructurasContratosView {
         return estructuraContrato;
     }
 
-    public void setEstructuraContrato(EstructuraContratoDTO estructuraContrato) {
+    public void setEstructuraContrato(
+            EstructuraContratoDTO estructuraContrato) {
         this.estructuraContrato = estructuraContrato;
     }
 

@@ -17,24 +17,31 @@ import org.jboss.logging.Logger;
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
-public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, Integer> {
+public class EstrategiaRepository
+        extends GenericRepository<EstrategiaEntity, Integer> {
 
     /**
      *
      */
     private static final long serialVersionUID = 6592101091691276264L;
 
-    private static final Logger LOGGER = Logger.getLogger(EstrategiaRepository.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(EstrategiaRepository.class.getName());
 
     private static final String CONSULTAR_ESTREATEGIAS = "from EstrategiaEntity as estrategia";
-    private static final String CONSULTAR_DESCRIPCION_ESTREATEGIAS_POR_CRITERIO = "select estrategia.estrategia" + "  from EstrategiaEntity as estrategia"
+    private static final String CONSULTAR_DESCRIPCION_ESTREATEGIAS_POR_CRITERIO = "select estrategia.estrategia"
+            + "  from EstrategiaEntity as estrategia"
             + "  where estrategia.estrategia like :descripcion";
-    private static final String CONSULTAR_ID_ESTREATEGIAS_POR_CRITERIO = "select estrategia.idEstrategia" + "  from EstrategiaEntity as estrategia"
+    private static final String CONSULTAR_ID_ESTREATEGIAS_POR_CRITERIO = "select estrategia.idEstrategia"
+            + "  from EstrategiaEntity as estrategia"
             + "  where estrategia.estrategia = :descripcion";
     private static final String OBTENER_POR_CODIGO_ESTRATEGIA = "from EstrategiaEntity as estrategia"
             + " where estrategia.codigoEstrategia = :codigoEstrategia";
-    private static final String EXISTE_CODIGO_ESTRATEGIA = "select" + "   case count(estrategia.codigoEstrategia)" + "      when 0 then false"
-            + "      else true" + "   end" + " from EstrategiaEntity as estrategia" + "    where estrategia.codigoEstrategia = :codigoEstrategia";
+    private static final String EXISTE_CODIGO_ESTRATEGIA = "select"
+            + "   case count(estrategia.codigoEstrategia)"
+            + "      when 0 then false" + "      else true" + "   end"
+            + " from EstrategiaEntity as estrategia"
+            + "    where estrategia.codigoEstrategia = :codigoEstrategia";
 
     /**
      * Permite obtener una estrategia por medio del código de la estrategia.
@@ -44,7 +51,8 @@ public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, In
      * @return la estrategia asociada al código.
      */
     public EstrategiaEntity obtenerPorCodigoEstrategia(int codigoEstrategia) {
-        TypedQuery<EstrategiaEntity> query = em.createQuery(OBTENER_POR_CODIGO_ESTRATEGIA, classType);
+        TypedQuery<EstrategiaEntity> query = em
+                .createQuery(OBTENER_POR_CODIGO_ESTRATEGIA, classType);
         EstrategiaEntity estrategia = query.getSingleResult();
         return estrategia;
     }
@@ -58,7 +66,8 @@ public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, In
      * @return verdad si y sólo existe un código de estrategia registado.
      */
     public boolean existeCodigoEstrategia(int codigoEstrategia) {
-        TypedQuery<Boolean> query = em.createQuery(EXISTE_CODIGO_ESTRATEGIA, Boolean.class);
+        TypedQuery<Boolean> query = em.createQuery(EXISTE_CODIGO_ESTRATEGIA,
+                Boolean.class);
         query.setParameter("codigoEstrategia", codigoEstrategia);
 
         return query.getSingleResult();
@@ -71,7 +80,8 @@ public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, In
      * @return una lista con todas las estrategias.
      */
     public List<EstrategiaEntity> consultarEstrategias() {
-        TypedQuery<EstrategiaEntity> query = em.createQuery(CONSULTAR_ESTREATEGIAS, classType);
+        TypedQuery<EstrategiaEntity> query = em
+                .createQuery(CONSULTAR_ESTREATEGIAS, classType);
 
         return query.getResultList();
     }
@@ -86,13 +96,15 @@ public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, In
      * @return una lista con las descripciones que coincidieron con el criterio
      *         de busqueda.
      */
-    public List<String> consultarDescripcionEstrategiaPorCriterio(String criterio) {
+    public List<String> consultarDescripcionEstrategiaPorCriterio(
+            String criterio) {
         StringBuilder sb = new StringBuilder();
         sb.append('%');
         sb.append(criterio);
         sb.append('%');
 
-        TypedQuery<String> query = em.createQuery(CONSULTAR_DESCRIPCION_ESTREATEGIAS_POR_CRITERIO, String.class);
+        TypedQuery<String> query = em.createQuery(
+                CONSULTAR_DESCRIPCION_ESTREATEGIAS_POR_CRITERIO, String.class);
         query.setParameter("descripcion", sb.toString());
         query.setMaxResults(10);
 
@@ -109,13 +121,16 @@ public class EstrategiaRepository extends GenericRepository<EstrategiaEntity, In
      * @return el ID de la estrategia si se encuentra alguna coincidencia.
      */
     public Integer consultarIdEstrategiaPorDescripcion(String descripcion) {
-        TypedQuery<Integer> query = em.createQuery(CONSULTAR_ID_ESTREATEGIAS_POR_CRITERIO, Integer.class);
+        TypedQuery<Integer> query = em.createQuery(
+                CONSULTAR_ID_ESTREATEGIAS_POR_CRITERIO, Integer.class);
         query.setParameter("descripcion", descripcion);
         List<Integer> resultList = query.getResultList();
 
         if (resultList != null && !resultList.isEmpty()) {
             if (resultList.size() > 0) {
-                LOGGER.warn("Se encontro más de una estrategia que tiene la " + "misma descripción, se tomo la primera como valor por " + "defecto.");
+                LOGGER.warn("Se encontro más de una estrategia que tiene la "
+                        + "misma descripción, se tomo la primera como valor por "
+                        + "defecto.");
             }
 
             return resultList.get(0);

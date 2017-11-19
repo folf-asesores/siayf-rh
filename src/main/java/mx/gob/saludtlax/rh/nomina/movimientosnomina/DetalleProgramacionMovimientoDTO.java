@@ -28,7 +28,8 @@ public class DetalleProgramacionMovimientoDTO implements Serializable {
         return idDetalleProgramacionMovimiento;
     }
 
-    public void setIdDetalleProgramacionMovimiento(Integer idDetalleProgramacionMovimiento) {
+    public void setIdDetalleProgramacionMovimiento(
+            Integer idDetalleProgramacionMovimiento) {
         this.idDetalleProgramacionMovimiento = idDetalleProgramacionMovimiento;
     }
 
@@ -68,7 +69,8 @@ public class DetalleProgramacionMovimientoDTO implements Serializable {
         return descripcionTipoContratacion;
     }
 
-    public void setDescripcionTipoContratacion(String descripcionTipoContratacion) {
+    public void setDescripcionTipoContratacion(
+            String descripcionTipoContratacion) {
         this.descripcionTipoContratacion = descripcionTipoContratacion;
     }
 

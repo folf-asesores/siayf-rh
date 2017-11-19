@@ -11,7 +11,8 @@ public class ConfiguracionPerfilModuloEJB implements ConfiguracionPerfilModulo {
     private ConfiguracionPerfilModuloService service;
 
     @Override
-    public void crearConfiguracionPerfilModulo(ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
+    public void crearConfiguracionPerfilModulo(
+            ConfiguracionPerfilModuloDTO configuracionPerfilModuloDTO) {
         service.crearConfiguracion(configuracionPerfilModuloDTO);
     }
 
@@ -26,7 +27,8 @@ public class ConfiguracionPerfilModuloEJB implements ConfiguracionPerfilModulo {
     }
 
     @Override
-    public List<ConfiguracionPerfilModuloDTO> listaConfiguracionPerfilModuloPorIdPerfil(Integer id) {
+    public List<ConfiguracionPerfilModuloDTO> listaConfiguracionPerfilModuloPorIdPerfil(
+            Integer id) {
         return service.obtenerRegistrosPorIdPerfil(id);
     }
 

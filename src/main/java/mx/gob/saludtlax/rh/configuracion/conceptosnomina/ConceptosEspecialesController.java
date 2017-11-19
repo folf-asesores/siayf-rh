@@ -47,16 +47,20 @@ public class ConceptosEspecialesController implements Serializable {
         listaConceptos = conceptoEspecialesService.listaConceptos();
 
         percepciones.clear();
-        percepciones = conceptoNominaEJB.obtenerConceptoNominasLista(TipoConceptoNominaEnum.PERCEPCION);
+        percepciones = conceptoNominaEJB
+                .obtenerConceptoNominasLista(TipoConceptoNominaEnum.PERCEPCION);
         percepcionItems.clear();
         for (ConceptoNominaFederalesDTO dto : percepciones) {
-            percepcionItems.add(new SelectItem(dto.getIdConceptoNomina(), dto.getClave() + "--" + dto.getDescripcion()));
+            percepcionItems.add(new SelectItem(dto.getIdConceptoNomina(),
+                    dto.getClave() + "--" + dto.getDescripcion()));
         }
 
         deducciones.clear();
-        deducciones = conceptoNominaEJB.obtenerConceptoNominasLista(TipoConceptoNominaEnum.DEDUCCION);
+        deducciones = conceptoNominaEJB
+                .obtenerConceptoNominasLista(TipoConceptoNominaEnum.DEDUCCION);
         for (ConceptoNominaFederalesDTO dto : deducciones) {
-            deduccionesItems.add(new SelectItem(dto.getIdConceptoNomina(), dto.getClave() + "--" + dto.getDescripcion()));
+            deduccionesItems.add(new SelectItem(dto.getIdConceptoNomina(),
+                    dto.getClave() + "--" + dto.getDescripcion()));
         }
     }
 
@@ -76,7 +80,8 @@ public class ConceptosEspecialesController implements Serializable {
     }
 
     public void eliminar() {
-        conceptoEspecialesService.eliminarConcepto(conceptoSeleccionado.getId());
+        conceptoEspecialesService
+                .eliminarConcepto(conceptoSeleccionado.getId());
         inicio();
     }
 
@@ -84,7 +89,8 @@ public class ConceptosEspecialesController implements Serializable {
         return listaConceptos;
     }
 
-    public void setListaConceptos(List<ConceptoNominaFederalEspecialDTO> listaConceptos) {
+    public void setListaConceptos(
+            List<ConceptoNominaFederalEspecialDTO> listaConceptos) {
         this.listaConceptos = listaConceptos;
     }
 
@@ -124,7 +130,8 @@ public class ConceptosEspecialesController implements Serializable {
         return persepcionBaseSeleccionada;
     }
 
-    public void setPersepcionBaseSeleccionada(Integer persepcionBaseSeleccionada) {
+    public void setPersepcionBaseSeleccionada(
+            Integer persepcionBaseSeleccionada) {
         this.persepcionBaseSeleccionada = persepcionBaseSeleccionada;
     }
 
@@ -132,7 +139,8 @@ public class ConceptosEspecialesController implements Serializable {
         return percepcionCompensacionSeleccionada;
     }
 
-    public void setPercepcionCompensacionSeleccionada(Integer percepcionCompensacionSeleccionada) {
+    public void setPercepcionCompensacionSeleccionada(
+            Integer percepcionCompensacionSeleccionada) {
         this.percepcionCompensacionSeleccionada = percepcionCompensacionSeleccionada;
     }
 
@@ -148,7 +156,8 @@ public class ConceptosEspecialesController implements Serializable {
         return conceptoSeleccionado;
     }
 
-    public void setConceptoSeleccionado(ConceptoNominaFederalEspecialDTO conceptoSeleccionado) {
+    public void setConceptoSeleccionado(
+            ConceptoNominaFederalEspecialDTO conceptoSeleccionado) {
         this.conceptoSeleccionado = conceptoSeleccionado;
     }
 

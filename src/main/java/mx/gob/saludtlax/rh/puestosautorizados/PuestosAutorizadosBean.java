@@ -36,7 +36,8 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
 
     @Interceptors({ SolicitudAperturaValidator.class })
     @Override
-    public void solicitarAperturaVacante(SolicitudNuevoPuestoDTO solicitudPuestoDTO) {
+    public void solicitarAperturaVacante(
+            SolicitudNuevoPuestoDTO solicitudPuestoDTO) {
         puestoAutorizadoService.solicitarCreacionPuesto(solicitudPuestoDTO);
 
     }
@@ -48,9 +49,11 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
     }
 
     @Override
-    public List<InfoPuestoDTO> consultaVacantesPorCriterio(FiltroVacanteDTO filtroVacanteDTO) {
+    public List<InfoPuestoDTO> consultaVacantesPorCriterio(
+            FiltroVacanteDTO filtroVacanteDTO) {
 
-        return consultaVacanteService.consultaVacantesPorCriterio(filtroVacanteDTO);
+        return consultaVacanteService
+                .consultaVacantesPorCriterio(filtroVacanteDTO);
     }
 
     @Override
@@ -65,8 +68,10 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
     }
 
     @Override
-    public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(Integer idEmpleado) {
-        return consultaPuestoService.obtenerInformacionPuestoIdEmpleado(idEmpleado);
+    public PuestoEmpleadoDTO obtenerInformacionPuestoIdEmpleado(
+            Integer idEmpleado) {
+        return consultaPuestoService
+                .obtenerInformacionPuestoIdEmpleado(idEmpleado);
     }
 
     @Override
@@ -82,28 +87,35 @@ public class PuestosAutorizadosBean implements PuestosAutorizadosEmpleados {
     }
 
     @Override
-    public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(Integer tipoContratacion) {
-        return consultaPuestoService.consultarDetallesCodigosPorContratacion(tipoContratacion);
+    public List<ResumenPuestoDTO> consultarDetallesCodigosPorContratacion(
+            Integer tipoContratacion) {
+        return consultaPuestoService
+                .consultarDetallesCodigosPorContratacion(tipoContratacion);
     }
 
     @Override
-    public List<DetallePuestoDTO> porContratacionYEstatus(Integer tipoContratacion, Integer idEstatus) {
-        return consultaPuestoService.porContratacionYEstatus(tipoContratacion, idEstatus);
+    public List<DetallePuestoDTO> porContratacionYEstatus(
+            Integer tipoContratacion, Integer idEstatus) {
+        return consultaPuestoService.porContratacionYEstatus(tipoContratacion,
+                idEstatus);
     }
 
     @Override
-    public void modificarEstructuraNominaContratos(EstructuraContratoDTO estructuraContratoDTO) {
+    public void modificarEstructuraNominaContratos(
+            EstructuraContratoDTO estructuraContratoDTO) {
         estructurasService.actualizarEstructuraContrato(estructuraContratoDTO);
     }
 
     @Override
-    public EstructuraContratoDTO obtenerEstructuraContratoPuesto(Integer idPuesto) {
+    public EstructuraContratoDTO obtenerEstructuraContratoPuesto(
+            Integer idPuesto) {
         return consultaPuestoService.obtenerEstructuraContratoPuesto(idPuesto);
     }
 
     @Interceptors({ EstructuraFederalValidator.class })
     @Override
-    public void actualizarEstructuraNomina(EstructuraNominaDTO estructuraNominaDTO) {
+    public void actualizarEstructuraNomina(
+            EstructuraNominaDTO estructuraNominaDTO) {
         estructurasService.actualizarEstructuraNomina(estructuraNominaDTO);
     }
 

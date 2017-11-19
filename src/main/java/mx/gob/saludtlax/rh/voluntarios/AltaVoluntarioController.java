@@ -46,11 +46,16 @@ public class AltaVoluntarioController implements Serializable {
     public void inicio() {
         view = new AltaVoluntarioView();
         view.setMostrarBusqueda(true);
-        view.setProgramas(SelectItemsUtil.listaCatalogos(catalogo.consultarProgramas()));
-        view.setListaAdscripciones(SelectItemsUtil.listaCatalogos(catalogo.consultarAdscripciones()));
-        view.setListaSubadscripcion(SelectItemsUtil.listaCatalogos(catalogo.consultarSubadscripciones()));
-        view.setListaServicio(SelectItemsUtil.listaCatalogos(catalogo.consultarServicios()));
-        view.setListaFuncion(SelectItemsUtil.listaCatalogos(catalogo.consultarFunciones()));
+        view.setProgramas(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarProgramas()));
+        view.setListaAdscripciones(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarAdscripciones()));
+        view.setListaSubadscripcion(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarSubadscripciones()));
+        view.setListaServicio(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarServicios()));
+        view.setListaFuncion(
+                SelectItemsUtil.listaCatalogos(catalogo.consultarFunciones()));
     }
 
     public void consultarCandidato() {
@@ -60,7 +65,9 @@ public class AltaVoluntarioController implements Serializable {
         filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
         view.setAspirantes(bolsaTrabajo.consultarPorCriterio(filtroDTO));
         if (view.getAspirantes().isEmpty()) {
-            JSFUtils.warningMessage("", "No se encontraron resultados con el criterio " + view.getCriterio());
+            JSFUtils.warningMessage("",
+                    "No se encontraron resultados con el criterio "
+                            + view.getCriterio());
         }
 
     }
@@ -68,7 +75,8 @@ public class AltaVoluntarioController implements Serializable {
     public void seleccionarAspirante(Integer idAspirante) {
         try {
             view.getAlta().setIdAspirante(idAspirante);
-            view.setAspirante(bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
+            view.setAspirante(
+                    bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
             view.setMostrarBusqueda(false);
             view.setMostrarAlta(true);
             view.getAspirantes().clear();
@@ -87,7 +95,8 @@ public class AltaVoluntarioController implements Serializable {
             view.setMostrarBusqueda(true);
             AltaVoluntarioDTO alta = new AltaVoluntarioDTO();
             view.setAlta(alta);
-            JSFUtils.infoMessage("", "El alta del voluntario se ha registrado de manera exitosa.");
+            JSFUtils.infoMessage("",
+                    "El alta del voluntario se ha registrado de manera exitosa.");
 
         } catch (ReglaNegocioException exception) {
             JSFUtils.errorMessage("", exception.getMessage());

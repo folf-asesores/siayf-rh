@@ -281,7 +281,8 @@ public class DetalleSuplenciaEntity implements Serializable {
         return movimientoEmpleado;
     }
 
-    public void setMovimientoEmpleado(MovimientoEmpleadoEntity movimientoEmpleado) {
+    public void setMovimientoEmpleado(
+            MovimientoEmpleadoEntity movimientoEmpleado) {
         this.movimientoEmpleado = movimientoEmpleado;
     }
 

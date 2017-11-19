@@ -71,7 +71,8 @@ public class MovimientosView implements Serializable {
         panelBusqueda = true;
     }
 
-    public void validator(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validator(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -80,7 +81,8 @@ public class MovimientosView implements Serializable {
                 Integer dias = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(dias)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el numero de dias, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -92,7 +94,8 @@ public class MovimientosView implements Serializable {
                 String folio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(folio)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese el folio del documento, el campo no puede quedar vacio.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -102,9 +105,12 @@ public class MovimientosView implements Serializable {
             case "anioFinal":
                 Integer anioFinal = (Integer) value;
 
-                if (!ValidacionUtil.esNumeroPositivo(anioFinal) || anioFinal.compareTo(2015) < 0) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-                            "Por favor ingrese el año final, debe ser mayor a" + (FechaUtil.ejercicioActual() - 1) + ".");
+                if (!ValidacionUtil.esNumeroPositivo(anioFinal)
+                        || anioFinal.compareTo(2015) < 0) {
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el año final, debe ser mayor a"
+                                    + (FechaUtil.ejercicioActual() - 1) + ".");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -112,7 +118,9 @@ public class MovimientosView implements Serializable {
             case "importeQuincenal":
                 BigDecimal importeQuincenal = (BigDecimal) value;
                 if (!ValidacionUtil.esMayorCero(importeQuincenal)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "El importe debe ser mayor a 0.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "El importe debe ser mayor a 0.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -121,7 +129,9 @@ public class MovimientosView implements Serializable {
                 Integer concepto = (Integer) value;
 
                 if (!ValidacionUtil.esNumeroPositivo(concepto)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Eliga un concepto para el movimiento.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Eliga un concepto para el movimiento.");
                     System.out.println("concepto::" + concepto);
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
@@ -238,7 +248,8 @@ public class MovimientosView implements Serializable {
         return movimientoSeleccionado;
     }
 
-    public void setMovimientoSeleccionado(MovimientoNominaDTO movimientoSeleccionado) {
+    public void setMovimientoSeleccionado(
+            MovimientoNominaDTO movimientoSeleccionado) {
         this.movimientoSeleccionado = movimientoSeleccionado;
     }
 
@@ -246,7 +257,8 @@ public class MovimientosView implements Serializable {
         return listaMovimientos;
     }
 
-    public void setListaMovimientos(List<MovimientoNominaDTO> listaMovimientos) {
+    public void setListaMovimientos(
+            List<MovimientoNominaDTO> listaMovimientos) {
         this.listaMovimientos = listaMovimientos;
     }
 
@@ -286,7 +298,8 @@ public class MovimientosView implements Serializable {
         return tipoMovimientoSeleccionado;
     }
 
-    public void setTipoMovimientoSeleccionado(TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
+    public void setTipoMovimientoSeleccionado(
+            TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
         this.tipoMovimientoSeleccionado = tipoMovimientoSeleccionado;
     }
 
@@ -294,7 +307,8 @@ public class MovimientosView implements Serializable {
         return formaRegistroMovSeleccionado;
     }
 
-    public void setFormaRegistroMovSeleccionado(Integer formaRegistroMovSeleccionado) {
+    public void setFormaRegistroMovSeleccionado(
+            Integer formaRegistroMovSeleccionado) {
         this.formaRegistroMovSeleccionado = formaRegistroMovSeleccionado;
     }
 }

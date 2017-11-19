@@ -33,7 +33,8 @@ public interface Adjunto extends Serializable {
      * @param idEntidadContexto
      * @return una lista con los adjuntos que conincidan con el filtro.
      */
-    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto entidadContexto, int idEntidadContexto);
+    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+            EntidadContexto entidadContexto, int idEntidadContexto);
 
     /**
      * Este método permite obtener la información de varios adjuntos.
@@ -44,8 +45,9 @@ public interface Adjunto extends Serializable {
      * @return the
      *         java.util.List<mx.gob.saludtlax.rh.expediente.InformacionAdjuntoDTO>
      */
-    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContextoIdDocumentoAdjuntable(EntidadContexto entidadContexto,
-            int idEntidadContexto, int idDocumentoAdjuntable);
+    List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContextoIdDocumentoAdjuntable(
+            EntidadContexto entidadContexto, int idEntidadContexto,
+            int idDocumentoAdjuntable);
 
     /**
      * Este método permite obtener un archivo adjunto por medio de su

@@ -14,13 +14,17 @@ public class RetencionDTO {
     private String cuenta_contable_banco;
     private String descripcion_cuenta_banco;
 
-    public DetalleRetencionEntity toEntity(DetalleRetencionEntity entity, RetencionDTO dto) {
+    public DetalleRetencionEntity toEntity(DetalleRetencionEntity entity,
+            RetencionDTO dto) {
 
-        entity.setIdDetalleRetencionCuentaBancaria(dto.getId_detalle_retencion_cuenta_bancaria());
+        entity.setIdDetalleRetencionCuentaBancaria(
+                dto.getId_detalle_retencion_cuenta_bancaria());
         entity.setIdConceptoNomina(dto.getId_concepto_nomina());
-        entity.setDescripcionConceptoNomina(dto.getDescripcion_concepto_nomina());
+        entity.setDescripcionConceptoNomina(
+                dto.getDescripcion_concepto_nomina());
         entity.setCuentaContableRetencion(dto.getCuenta_contable_retencion());
-        entity.setDescripcionCuentaContable(dto.getDescripcion_cuenta_contable());
+        entity.setDescripcionCuentaContable(
+                dto.getDescripcion_cuenta_contable());
         entity.setCuentaRetencion(dto.getCuenta_retencion());
         entity.setCuentaContableBanco(dto.getCuenta_contable_banco());
         entity.setDescripcionCuentaBanco(dto.getDescripcion_cuenta_banco());
@@ -33,7 +37,8 @@ public class RetencionDTO {
         return id_detalle_retencion_cuenta_bancaria;
     }
 
-    public void setId_detalle_retencion_cuenta_bancaria(Integer id_detalle_retencion_cuenta_bancaria) {
+    public void setId_detalle_retencion_cuenta_bancaria(
+            Integer id_detalle_retencion_cuenta_bancaria) {
         this.id_detalle_retencion_cuenta_bancaria = id_detalle_retencion_cuenta_bancaria;
     }
 
@@ -49,7 +54,8 @@ public class RetencionDTO {
         return descripcion_concepto_nomina;
     }
 
-    public void setDescripcion_concepto_nomina(String descripcion_concepto_nomina) {
+    public void setDescripcion_concepto_nomina(
+            String descripcion_concepto_nomina) {
         this.descripcion_concepto_nomina = descripcion_concepto_nomina;
     }
 
@@ -65,7 +71,8 @@ public class RetencionDTO {
         return descripcion_cuenta_contable;
     }
 
-    public void setDescripcion_cuenta_contable(String descripcion_cuenta_contable) {
+    public void setDescripcion_cuenta_contable(
+            String descripcion_cuenta_contable) {
         this.descripcion_cuenta_contable = descripcion_cuenta_contable;
     }
 

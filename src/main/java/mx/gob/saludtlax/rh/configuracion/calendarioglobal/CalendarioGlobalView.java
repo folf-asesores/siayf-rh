@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class CalendarioGlobalView implements Serializable {
@@ -37,7 +37,8 @@ public class CalendarioGlobalView implements Serializable {
         return creaCalendarioGlobal;
     }
 
-    public void setCreaCalendarioGlobal(CalendarioGlobalDTO creaCalendarioGlobal) {
+    public void setCreaCalendarioGlobal(
+            CalendarioGlobalDTO creaCalendarioGlobal) {
         this.creaCalendarioGlobal = creaCalendarioGlobal;
     }
 
@@ -45,7 +46,8 @@ public class CalendarioGlobalView implements Serializable {
         return actualizarCalendarioGlobal;
     }
 
-    public void setActualizarCalendarioGlobal(CalendarioGlobalDTO actualizarCalendarioGlobal) {
+    public void setActualizarCalendarioGlobal(
+            CalendarioGlobalDTO actualizarCalendarioGlobal) {
         this.actualizarCalendarioGlobal = actualizarCalendarioGlobal;
     }
 
@@ -84,7 +86,8 @@ public class CalendarioGlobalView implements Serializable {
      * @param listaCalendarioGlobal
      *            the listaCalendarioGlobal to set
      */
-    public void setListaCalendarioGlobal(List<CalendarioGlobalDTO> listaCalendarioGlobal) {
+    public void setListaCalendarioGlobal(
+            List<CalendarioGlobalDTO> listaCalendarioGlobal) {
         this.listaCalendarioGlobal = listaCalendarioGlobal;
     }
 

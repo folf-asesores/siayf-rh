@@ -10,7 +10,8 @@ import javax.faces.convert.FacesConverter;
 public class InputSwitchConverter implements Converter {
 
     @Override
-    public Object getAsObject(FacesContext context, UIComponent component, String value) {
+    public Object getAsObject(FacesContext context, UIComponent component,
+            String value) {
 
         System.out.println(value);
         if (value == "true") {
@@ -21,7 +22,8 @@ public class InputSwitchConverter implements Converter {
     }
 
     @Override
-    public String getAsString(FacesContext context, UIComponent component, Object value) {
+    public String getAsString(FacesContext context, UIComponent component,
+            Object value) {
 
         return value.toString();
     }

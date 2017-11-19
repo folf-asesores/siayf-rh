@@ -86,7 +86,8 @@ public class UsuarioConfiguracionDTO implements Serializable {
      * @param idConfiguracionAprobacion
      *            the idConfiguracionAprobacion to set
      */
-    public void setIdConfiguracionAprobacion(Integer idConfiguracionAprobacion) {
+    public void setIdConfiguracionAprobacion(
+            Integer idConfiguracionAprobacion) {
         this.idConfiguracionAprobacion = idConfiguracionAprobacion;
     }
 

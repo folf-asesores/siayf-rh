@@ -85,7 +85,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return administracionMovimientos;
     }
 
-    public void setAdministracionMovimientos(boolean administracionMovimientos) {
+    public void setAdministracionMovimientos(
+            boolean administracionMovimientos) {
         this.administracionMovimientos = administracionMovimientos;
     }
 
@@ -157,7 +158,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return altaTrabajadorDTO;
     }
 
-    public void setAltaTrabajadorDTO(MovimientoIsssteEmpleadoDTO altaTrabajadorDTO) {
+    public void setAltaTrabajadorDTO(
+            MovimientoIsssteEmpleadoDTO altaTrabajadorDTO) {
         this.altaTrabajadorDTO = altaTrabajadorDTO;
     }
 
@@ -165,7 +167,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return listaMovimiento;
     }
 
-    public void setListaMovimiento(List<InfoMovimientoIsssteDTO> listaMovimiento) {
+    public void setListaMovimiento(
+            List<InfoMovimientoIsssteDTO> listaMovimiento) {
         this.listaMovimiento = listaMovimiento;
     }
 
@@ -173,7 +176,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return movimientoSeleccinado;
     }
 
-    public void setMovimientoSeleccinado(InfoMovimientoIsssteDTO movimientoSeleccinado) {
+    public void setMovimientoSeleccinado(
+            InfoMovimientoIsssteDTO movimientoSeleccinado) {
         this.movimientoSeleccinado = movimientoSeleccinado;
     }
 
@@ -181,7 +185,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return modificacionTrabajadorDTO;
     }
 
-    public void setModificacionTrabajadorDTO(MovimientoIsssteEmpleadoDTO modificacionTrabajadorDTO) {
+    public void setModificacionTrabajadorDTO(
+            MovimientoIsssteEmpleadoDTO modificacionTrabajadorDTO) {
         this.modificacionTrabajadorDTO = modificacionTrabajadorDTO;
     }
 
@@ -189,7 +194,8 @@ public class AdministracionMovimientsIsssteView implements Serializable {
         return bajaTrabajadorDTO;
     }
 
-    public void setBajaTrabajadorDTO(MovimientoIsssteEmpleadoDTO bajaTrabajadorDTO) {
+    public void setBajaTrabajadorDTO(
+            MovimientoIsssteEmpleadoDTO bajaTrabajadorDTO) {
         this.bajaTrabajadorDTO = bajaTrabajadorDTO;
     }
 

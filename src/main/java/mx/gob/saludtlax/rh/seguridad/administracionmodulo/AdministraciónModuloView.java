@@ -11,7 +11,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.modulos.ModuloDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class AdministraciónModuloView implements Serializable {

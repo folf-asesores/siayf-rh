@@ -15,11 +15,12 @@ import mx.gob.saludtlax.rh.configuracion.centroresponsabilidad.CentroResponsabil
 import mx.gob.saludtlax.rh.configuracion.ejerciciofiscal.EjercicioFiscalService;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Stateless
-public class RelacionPersonalSuplenteEJB implements RelacionPersonalSuplente, Serializable {
+public class RelacionPersonalSuplenteEJB
+        implements RelacionPersonalSuplente, Serializable {
 
     /**
      *
@@ -36,10 +37,13 @@ public class RelacionPersonalSuplenteEJB implements RelacionPersonalSuplente, Se
     private RelacionPersonalSuplenteService relacionPersonalSuplenteService;
 
     @Override
-    public List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(Integer numeroQuincena, Integer ejercicioFiscal,
+    public List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(
+            Integer numeroQuincena, Integer ejercicioFiscal,
             Integer idCentroResponsabilidad) {
 
-        return relacionPersonalSuplenteService.obtenerListaRelacionPersonalSuplente(numeroQuincena, ejercicioFiscal, idCentroResponsabilidad);
+        return relacionPersonalSuplenteService
+                .obtenerListaRelacionPersonalSuplente(numeroQuincena,
+                        ejercicioFiscal, idCentroResponsabilidad);
     }
 
     @Override

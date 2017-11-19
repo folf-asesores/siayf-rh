@@ -13,13 +13,15 @@ import mx.gob.saludtlax.rh.persistencia.DependenciaTempRepository;
 
 public class DependenciaService {
 
-    private static final Logger LOGGER = Logger.getLogger(DependenciaService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DependenciaService.class.getName());
 
     @Inject
     private DependenciaTempRepository dependenciaRepository;
 
     public List<DependenciaDTO> listaDependencia() {
-        List<DependenciaTempEntity> dependencias = dependenciaRepository.consultarDependencias();
+        List<DependenciaTempEntity> dependencias = dependenciaRepository
+                .consultarDependencias();
         return convertirEntidadesADTOs(dependencias);
     }
 
@@ -44,27 +46,33 @@ public class DependenciaService {
     }
 
     protected DependenciaDTO obtenerDependenciaPorId(Integer idDependencia) {
-        DependenciaTempEntity entidad = dependenciaRepository.obtenerPorId(idDependencia);
+        DependenciaTempEntity entidad = dependenciaRepository
+                .obtenerPorId(idDependencia);
         DependenciaDTO dto = convertirEntidadADTO(entidad);
 
         return dto;
     }
 
-    protected List<String> consultarDescripcionDependenciasPorCriterio(String consulta) {
-        return dependenciaRepository.consultarDescripcionDependenciasPorCriterio(consulta);
+    protected List<String> consultarDescripcionDependenciasPorCriterio(
+            String consulta) {
+        return dependenciaRepository
+                .consultarDescripcionDependenciasPorCriterio(consulta);
     }
 
     protected Integer consultarIdDependenciaPorDescripcion(String descripcion) {
-        return dependenciaRepository.consultarIdDependenciaPorDescripcion(descripcion);
+        return dependenciaRepository
+                .consultarIdDependenciaPorDescripcion(descripcion);
     }
 
     protected DependenciaDTO actualizarDependencia(DependenciaDTO dto) {
-        DependenciaTempEntity DependenciaTempEntity = dependenciaRepository.obtenerPorId(dto.getIdDependencia());
+        DependenciaTempEntity DependenciaTempEntity = dependenciaRepository
+                .obtenerPorId(dto.getIdDependencia());
         DependenciaTempEntity.setIdSector(dto.getIdSector());
         DependenciaTempEntity.setIdBase36(dto.getIdBase());
         DependenciaTempEntity.setDescripcion(dto.getDescripcion());
         dependenciaRepository.actualizar(DependenciaTempEntity);
-        return obtenerDependenciaPorId(DependenciaTempEntity.getIdDependencia());
+        return obtenerDependenciaPorId(
+                DependenciaTempEntity.getIdDependencia());
     }
 
     protected void eliminarDependencia(DependenciaDTO dto) {
@@ -75,7 +83,8 @@ public class DependenciaService {
         }
     }
 
-    private static DependenciaDTO convertirEntidadADTO(DependenciaTempEntity entidad) {
+    private static DependenciaDTO convertirEntidadADTO(
+            DependenciaTempEntity entidad) {
         DependenciaDTO dto = new DependenciaDTO();
 
         dto.setIdSector(entidad.getIdSector());
@@ -89,7 +98,8 @@ public class DependenciaService {
         return dto;
     }
 
-    private static List<DependenciaDTO> convertirEntidadesADTOs(List<DependenciaTempEntity> entidades) {
+    private static List<DependenciaDTO> convertirEntidadesADTOs(
+            List<DependenciaTempEntity> entidades) {
         List<DependenciaDTO> dtos = new ArrayList<>();
 
         for (DependenciaTempEntity entidad : entidades) {

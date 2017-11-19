@@ -175,7 +175,8 @@ public class AdministracionProcesosView {
         return mostrarTipoBusquedaHeader;
     }
 
-    public void setMostrarTipoBusquedaHeader(boolean mostrarTipoBusquedaHeader) {
+    public void setMostrarTipoBusquedaHeader(
+            boolean mostrarTipoBusquedaHeader) {
         this.mostrarTipoBusquedaHeader = mostrarTipoBusquedaHeader;
     }
 

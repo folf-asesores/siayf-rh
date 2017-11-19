@@ -50,7 +50,8 @@ public class InfoEmpleadoVacanteDTO {
         return idConfiguracionPresupuestal;
     }
 
-    public void setIdConfiguracionPresupuestal(Integer idConfiguracionPresupuestal) {
+    public void setIdConfiguracionPresupuestal(
+            Integer idConfiguracionPresupuestal) {
         this.idConfiguracionPresupuestal = idConfiguracionPresupuestal;
     }
 

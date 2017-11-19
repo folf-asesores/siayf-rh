@@ -99,7 +99,8 @@ public class DependienteEconomicoEntity implements Serializable {
     }
 
     public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno != null ? apellidoPaterno.toUpperCase() : null;
+        this.apellidoPaterno = apellidoPaterno != null
+                ? apellidoPaterno.toUpperCase() : null;
     }
 
     public String getApellidoMaterno() {
@@ -107,7 +108,8 @@ public class DependienteEconomicoEntity implements Serializable {
     }
 
     public void setApellidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno != null ? apellidoMaterno.toUpperCase() : null;
+        this.apellidoMaterno = apellidoMaterno != null
+                ? apellidoMaterno.toUpperCase() : null;
     }
 
     public String getNombreCompleto() {
@@ -163,6 +165,7 @@ public class DependienteEconomicoEntity implements Serializable {
     }
 
     public void setOtroParentesco(String otroParentesco) {
-        this.otroParentesco = otroParentesco != null ? otroParentesco.toUpperCase() : null;
+        this.otroParentesco = otroParentesco != null
+                ? otroParentesco.toUpperCase() : null;
     }
 }

@@ -64,7 +64,8 @@ public class AltaInterinatoView {
         return mostrarDetallePuestoActivo;
     }
 
-    public void setMostrarDetallePuestoActivo(boolean mostrarDetallePuestoActivo) {
+    public void setMostrarDetallePuestoActivo(
+            boolean mostrarDetallePuestoActivo) {
         this.mostrarDetallePuestoActivo = mostrarDetallePuestoActivo;
     }
 
@@ -72,7 +73,8 @@ public class AltaInterinatoView {
         return mostrarConfirmacionEmpleado;
     }
 
-    public void setMostrarConfirmacionEmpleado(boolean mostrarConfirmacionEmpleado) {
+    public void setMostrarConfirmacionEmpleado(
+            boolean mostrarConfirmacionEmpleado) {
         this.mostrarConfirmacionEmpleado = mostrarConfirmacionEmpleado;
     }
 
@@ -80,7 +82,8 @@ public class AltaInterinatoView {
         return mostrarConfirmacionAspirante;
     }
 
-    public void setMostrarConfirmacionAspirante(boolean mostrarConfirmacionAspirante) {
+    public void setMostrarConfirmacionAspirante(
+            boolean mostrarConfirmacionAspirante) {
         this.mostrarConfirmacionAspirante = mostrarConfirmacionAspirante;
     }
 
@@ -160,7 +163,8 @@ public class AltaInterinatoView {
         return puestoSeleccionado;
     }
 
-    public void setPuestoSeleccionado(DisponiblesInterinatoDTO puestoSeleccionado) {
+    public void setPuestoSeleccionado(
+            DisponiblesInterinatoDTO puestoSeleccionado) {
         this.puestoSeleccionado = puestoSeleccionado;
     }
 
@@ -216,7 +220,8 @@ public class AltaInterinatoView {
         return puestosDisponibles;
     }
 
-    public void setPuestosDisponibles(List<DisponiblesInterinatoDTO> puestosDisponibles) {
+    public void setPuestosDisponibles(
+            List<DisponiblesInterinatoDTO> puestosDisponibles) {
         this.puestosDisponibles = puestosDisponibles;
     }
 

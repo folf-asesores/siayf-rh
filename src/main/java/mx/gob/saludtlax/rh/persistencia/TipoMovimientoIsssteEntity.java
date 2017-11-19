@@ -14,7 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @Entity
@@ -38,7 +38,8 @@ public class TipoMovimientoIsssteEntity implements Serializable {
         return idTipoMovimientoIsssteEmpleado;
     }
 
-    public void setIdTipoMovimientoIsssteEmpleado(Integer idTipoMovimientoIsssteEmpleado) {
+    public void setIdTipoMovimientoIsssteEmpleado(
+            Integer idTipoMovimientoIsssteEmpleado) {
         this.idTipoMovimientoIsssteEmpleado = idTipoMovimientoIsssteEmpleado;
     }
 

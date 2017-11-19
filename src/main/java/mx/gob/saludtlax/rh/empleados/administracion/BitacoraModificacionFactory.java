@@ -30,7 +30,8 @@ public class BitacoraModificacionFactory {
      * @param tipoMovimientoEmpleado
      *            movimiento realizado al empleado.
      */
-    public static BitacoraEmpleadoDTO toBitacoraEmpleadoDTO(String comentarios, EmpleadoEntity empleado, String lccActual, String lccAnterior,
+    public static BitacoraEmpleadoDTO toBitacoraEmpleadoDTO(String comentarios,
+            EmpleadoEntity empleado, String lccActual, String lccAnterior,
             Integer tipoMovimientoEmpleado) {
         BitacoraEmpleadoDTO dto = new BitacoraEmpleadoDTO();
         dto.setComentarios(comentarios);

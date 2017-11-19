@@ -7,10 +7,10 @@ package mx.gob.saludtlax.rh.expediente.aspirante;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @since 30/06/2016 15:07:56
  * @version 1.0
-
+ * 
  */
 public class ExpedienteAspiranteDTO implements Serializable {
 

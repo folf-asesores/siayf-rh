@@ -96,7 +96,8 @@ public class NombramientoEntity implements Serializable {
      * @param tiposNombramientos
      *            the tiposNombramientos to set
      */
-    public void setTiposNombramientos(TiposNombramientosEntity tiposNombramientos) {
+    public void setTiposNombramientos(
+            TiposNombramientosEntity tiposNombramientos) {
         this.tiposNombramientos = tiposNombramientos;
     }
 
@@ -230,7 +231,8 @@ public class NombramientoEntity implements Serializable {
         return clasificacionNombramiento;
     }
 
-    public void setClasificacionNombramiento(ClasificacionNombramientoEntity clasificacionNombramiento) {
+    public void setClasificacionNombramiento(
+            ClasificacionNombramientoEntity clasificacionNombramiento) {
         this.clasificacionNombramiento = clasificacionNombramiento;
     }
 

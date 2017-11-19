@@ -14,7 +14,6 @@ import java.io.Serializable;
  */
 public class DocumentoAdjuntableDTO implements Serializable {
 
-    
     private static final long serialVersionUID = 1298793496986963950L;
 
     private Integer idDocumentoAdjuntable;
@@ -32,11 +31,14 @@ public class DocumentoAdjuntableDTO implements Serializable {
         this(idDocumentoAdjuntable, "");
     }
 
-    public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable, String nombre) {
+    public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable,
+            String nombre) {
         this(idDocumentoAdjuntable, nombre, false, false, false, false);
     }
 
-    public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable, String descripcion, boolean confidencial, boolean original, boolean requerido, boolean unico) {
+    public DocumentoAdjuntableDTO(Integer idDocumentoAdjuntable,
+            String descripcion, boolean confidencial, boolean original,
+            boolean requerido, boolean unico) {
         this.idDocumentoAdjuntable = idDocumentoAdjuntable;
         this.descripcion = descripcion;
         this.confidencial = confidencial;

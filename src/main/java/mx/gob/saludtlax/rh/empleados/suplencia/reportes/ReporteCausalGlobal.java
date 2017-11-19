@@ -12,8 +12,9 @@ import javax.faces.model.SelectItem;
  */
 public interface ReporteCausalGlobal {
 
-    public List<ReporteCausalGlobalDTO> obtenerListaCausalGlobal(Integer numeroQuincena, Integer ejercicioFiscal, Integer idCentroResponsabilidad,
-            String lugar);
+    public List<ReporteCausalGlobalDTO> obtenerListaCausalGlobal(
+            Integer numeroQuincena, Integer ejercicioFiscal,
+            Integer idCentroResponsabilidad, String lugar);
 
     public List<SelectItem> listaEjercicioFiscal();
 

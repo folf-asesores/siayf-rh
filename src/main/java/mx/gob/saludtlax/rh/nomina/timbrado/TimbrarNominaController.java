@@ -36,27 +36,36 @@ public class TimbrarNominaController implements Serializable {
 
     public void init() {
 
-        totalNominaPendientePorTimbrar = timbraNominaService.totalNominasPorTimbrar();
+        totalNominaPendientePorTimbrar = timbraNominaService
+                .totalNominasPorTimbrar();
 
-        if (totalNominaPendientePorTimbrar > 0 && !timbraNominaService.isTimbrando()) {
+        if (totalNominaPendientePorTimbrar > 0
+                && !timbraNominaService.isTimbrando()) {
             deshabilitar = false;
         }
-        HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest req = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         String url = req.getContextPath().toString();
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.FACTURACION_ELECTRONICA);
             if (!servicioRSEntity.isProduccion()) {
 
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error Servicio Web",
-                    e1.getMessage() + ". Consulte la <a href='" + url + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error Servicio Web",
+                    e1.getMessage() + ". Consulte la <a href='" + url
+                            + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
             deshabilitar = true;
         }
@@ -72,7 +81,8 @@ public class TimbrarNominaController implements Serializable {
         return totalNominaPendientePorTimbrar;
     }
 
-    public void setTotalNominaPendientePorTimbrar(Long totalNominaPendientePorTimbrar) {
+    public void setTotalNominaPendientePorTimbrar(
+            Long totalNominaPendientePorTimbrar) {
         this.totalNominaPendientePorTimbrar = totalNominaPendientePorTimbrar;
     }
 

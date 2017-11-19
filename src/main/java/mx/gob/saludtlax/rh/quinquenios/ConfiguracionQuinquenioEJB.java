@@ -17,7 +17,8 @@ import mx.gob.saludtlax.rh.persistencia.InventarioVacanteRepository;
 import mx.gob.saludtlax.rh.vacantes.seleccion.InfoEmpleadoVacanteDTO;
 
 @Stateless
-public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioService {
+public class ConfiguracionQuinquenioEJB
+        implements ConfiguracionQuinquenioService {
 
     @Inject
     ConfiguracionQuinquenioRepository configuracionQuinquenioRepository;
@@ -31,17 +32,20 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
     @Override
     public List<ConfiguracionQuinquenioDTO> obtenerConfiguraciones() {
         try {
-            return configuracionQuinquenioRepository.obtenerConfiguracionesQuinquenio();
+            return configuracionQuinquenioRepository
+                    .obtenerConfiguracionesQuinquenio();
         } catch (NoResultException e) {
             return null;
         }
     }
 
     @Override
-    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorEmpleado(Integer id) {
+    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorEmpleado(
+            Integer id) {
         try {
 
-            List<ConfiguracionQuinquenioDTO> list = configuracionQuinquenioRepository.obtenerConfiguracionQuinqueniosPorEmpleado(id);
+            List<ConfiguracionQuinquenioDTO> list = configuracionQuinquenioRepository
+                    .obtenerConfiguracionQuinqueniosPorEmpleado(id);
             if (!list.isEmpty()) {
                 return list.get(0);
             }
@@ -52,24 +56,32 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
     }
 
     @Override
-    public List<InfoEmpleadoVacanteDTO> buscarEmpleadosPorTipoNombramiento(Integer idTipoNombramiento) {
+    public List<InfoEmpleadoVacanteDTO> buscarEmpleadosPorTipoNombramiento(
+            Integer idTipoNombramiento) {
 
         try {
             List<InventarioVacanteEntity> listaInventariosEntity = new ArrayList<>();
-            listaInventariosEntity = inventarioVacante.consultaEmpleadosPorTipoNombramiento(idTipoNombramiento);
+            listaInventariosEntity = inventarioVacante
+                    .consultaEmpleadosPorTipoNombramiento(idTipoNombramiento);
 
             List<InfoEmpleadoVacanteDTO> listaInfo = new ArrayList<>();
             if (listaInventariosEntity != null) {
                 for (InventarioVacanteEntity entity : listaInventariosEntity) {
                     InfoEmpleadoVacanteDTO dto = new InfoEmpleadoVacanteDTO();
-                    dto.setFechaInicioLabores(entity.getEmpleadoActivo().getFechaIngreso());
-                    dto.setIdConfiguracionPresupuestal(entity.getConfiguracion().getId());
+                    dto.setFechaInicioLabores(
+                            entity.getEmpleadoActivo().getFechaIngreso());
+                    dto.setIdConfiguracionPresupuestal(
+                            entity.getConfiguracion().getId());
                     dto.setIdInventarioVacante(entity.getIdVacante());
-                    dto.setIdEmpleado(entity.getEmpleadoActivo().getIdEmpleado());
-                    dto.setNombre(entity.getEmpleadoActivo().getNombreCompleto());
-                    dto.setNumeroEmpleado(entity.getConfiguracion().getNumeroEmpleado());
+                    dto.setIdEmpleado(
+                            entity.getEmpleadoActivo().getIdEmpleado());
+                    dto.setNombre(
+                            entity.getEmpleadoActivo().getNombreCompleto());
+                    dto.setNumeroEmpleado(
+                            entity.getConfiguracion().getNumeroEmpleado());
                     dto.setRfc(entity.getEmpleadoActivo().getRfc());
-                    dto.setIdNombramiento(entity.getNombramiento().getIdTipoNombramiento());
+                    dto.setIdNombramiento(
+                            entity.getNombramiento().getIdTipoNombramiento());
                     listaInfo.add(dto);
                 }
             }
@@ -88,7 +100,8 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
         entity.setEstatus(dto.getEstatus());
         entity.setFecha_actualizacion(dto.getFecha_actualizacion());
         entity.setFecha_alta(dto.getFecha_alta());
-        ConceptoNominaFederalesEntity concepto = conceptosFederalesRepository.obtenerConceptoPorClave(dto.getClave_concepto());
+        ConceptoNominaFederalesEntity concepto = conceptosFederalesRepository
+                .obtenerConceptoPorClave(dto.getClave_concepto());
         entity.setId_concepto_nomina(concepto);
         entity.setId_empleado(dto.getId_empleado());
         entity.setIdnombramiento(dto.getIdnombramiento());
@@ -99,13 +112,16 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
 
     @Override
     public void actualizarConfiguracion(ConfiguracionQuinquenioDTO dto) {
-        ConfiguracionQuinquenioEntity entity = configuracionQuinquenioRepository.obtenerPorId(dto.getId_configuracion_quinquenio());
-        System.out.println("?? " + dto.getEstatus() + entity.getId_configuracion_quinquenio());
+        ConfiguracionQuinquenioEntity entity = configuracionQuinquenioRepository
+                .obtenerPorId(dto.getId_configuracion_quinquenio());
+        System.out.println("?? " + dto.getEstatus()
+                + entity.getId_configuracion_quinquenio());
         entity.setEstatus(dto.getEstatus());
         entity.setFecha_actualizacion(dto.getFecha_actualizacion());
         entity.setFecha_alta(dto.getFecha_alta());
 
-        ConceptoNominaFederalesEntity concepto = conceptosFederalesRepository.obtenerConceptoPorClave(dto.getClave_concepto());
+        ConceptoNominaFederalesEntity concepto = conceptosFederalesRepository
+                .obtenerConceptoPorClave(dto.getClave_concepto());
         entity.setId_concepto_nomina(concepto);
         entity.setId_empleado(dto.getId_empleado());
         entity.setIdnombramiento(dto.getIdnombramiento());
@@ -115,9 +131,11 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
     }
 
     @Override
-    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorConfiguracionPresup(Integer idConfiguracion) {
+    public ConfiguracionQuinquenioDTO obtenerConfiguracionPorConfiguracionPresup(
+            Integer idConfiguracion) {
 
-        return configuracionQuinquenioRepository.obtenerQuinquenioPorConfiguracionPresupuestal(idConfiguracion);
+        return configuracionQuinquenioRepository
+                .obtenerQuinquenioPorConfiguracionPresupuestal(idConfiguracion);
     }
 
 }

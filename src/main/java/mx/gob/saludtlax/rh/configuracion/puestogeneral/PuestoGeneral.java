@@ -5,8 +5,8 @@ import java.util.List;
 
 /**
  *
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 13:40:17
  */

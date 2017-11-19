@@ -17,8 +17,8 @@ public class AccionDTO implements Serializable {
     public AccionDTO() {
     }
 
-    public AccionDTO(Integer idAccion, String clave, String descripcion, Integer idArea, Integer idModulo, String nombreArea) {
-        super();
+    public AccionDTO(Integer idAccion, String clave, String descripcion,
+            Integer idArea, Integer idModulo, String nombreArea) {
         this.idAccion = idAccion;
         this.clave = clave;
         this.descripcion = descripcion;
@@ -28,7 +28,7 @@ public class AccionDTO implements Serializable {
     }
 
     public Integer getIdAccion() {
-        return idAccion;
+        return this.idAccion;
     }
 
     public void setIdAccion(Integer idAccion) {
@@ -36,7 +36,7 @@ public class AccionDTO implements Serializable {
     }
 
     public String getClave() {
-        return clave;
+        return this.clave;
     }
 
     public void setClave(String clave) {
@@ -44,7 +44,7 @@ public class AccionDTO implements Serializable {
     }
 
     public String getDescripcion() {
-        return descripcion;
+        return this.descripcion;
     }
 
     public void setDescripcion(String descripcion) {
@@ -52,7 +52,7 @@ public class AccionDTO implements Serializable {
     }
 
     public Integer getIdArea() {
-        return idArea;
+        return this.idArea;
     }
 
     public void setIdArea(Integer idArea) {
@@ -60,7 +60,7 @@ public class AccionDTO implements Serializable {
     }
 
     public Integer getIdModulo() {
-        return idModulo;
+        return this.idModulo;
     }
 
     public void setIdModulo(Integer idModulo) {
@@ -68,7 +68,7 @@ public class AccionDTO implements Serializable {
     }
 
     public String getNombreArea() {
-        return nombreArea;
+        return this.nombreArea;
     }
 
     public void setNombreArea(String nombreArea) {
@@ -77,8 +77,10 @@ public class AccionDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "AccionDTO{" + "idAccion=" + idAccion + ", clave=" + clave + ", descripcion=" + descripcion + ", idArea=" + idArea + ", idModulo=" + idModulo
-                + ", nombreArea=" + nombreArea + '}';
+        return "AccionDTO{" + "idAccion=" + this.idAccion + ", clave="
+                + this.clave + ", descripcion=" + this.descripcion + ", idArea="
+                + this.idArea + ", idModulo=" + this.idModulo + ", nombreArea="
+                + this.nombreArea + '}';
     }
 
 }

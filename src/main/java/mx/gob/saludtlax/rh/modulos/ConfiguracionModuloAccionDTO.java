@@ -20,7 +20,8 @@ public class ConfiguracionModuloAccionDTO implements Serializable {
         return idConfiguracionModuloAccion;
     }
 
-    public void setIdConfiguracionModuloAccion(Integer idConfiguracionModuloAccion) {
+    public void setIdConfiguracionModuloAccion(
+            Integer idConfiguracionModuloAccion) {
         this.idConfiguracionModuloAccion = idConfiguracionModuloAccion;
     }
 

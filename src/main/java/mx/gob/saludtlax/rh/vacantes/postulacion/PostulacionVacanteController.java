@@ -61,14 +61,17 @@ public class PostulacionVacanteController implements Serializable {
 
         view = new PostulacionVacanteView();
 
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.getPostulacion().setIdUsuario(usuario.getIdUsuario());
         view.setListaTipoCandidato(SelectItemsUtil.listaTipoCandidato());
         view.setMostrarBusqueda(true);
         view.setPuestosDisponibles(postulacion.consultarPuestosDisponibles());
-        view.setListaPuestos(SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
+        view.setListaPuestos(
+                SelectItemsUtil.listaCatalogos(catalogo.listaPuestos()));
 
     }
 
@@ -77,15 +80,19 @@ public class PostulacionVacanteController implements Serializable {
         try {
             view.setMostrarCapturaPuesto(false);
             view.setMostrarDetallePuesto(false);
-            view.setPuesto(puestosAutorizadosEmpleados.obtenerInformacionPuesto(idVacante));
+            view.setPuesto(puestosAutorizadosEmpleados
+                    .obtenerInformacionPuesto(idVacante));
             view.setMostrarBusqueda(false);
             view.setMostrarPostulacion(true);
-            view.setIdPostulacion(postulacion.obtenerIdPostulacionActiva(idVacante));
+            view.setIdPostulacion(
+                    postulacion.obtenerIdPostulacionActiva(idVacante));
             view.getPostulacion().setIdVacante(idVacante);
             view.setTipoCandidato(EnumTipoCandidato.ASPIRANTE);
 
             if (view.getIdPostulacion() != null) {
-                view.setCandidatosPostulados(postulacion.consultarCandidatosPostulacion(view.getIdPostulacion()));
+                view.setCandidatosPostulados(
+                        postulacion.consultarCandidatosPostulacion(
+                                view.getIdPostulacion()));
             }
             if (view.getPuesto().getPuesto().equals("SIN PUESTO")) {
                 view.setMostrarCapturaPuesto(true);
@@ -124,8 +131,10 @@ public class PostulacionVacanteController implements Serializable {
             try {
                 FiltroDTO filtroDTO = new FiltroDTO();
                 filtroDTO.setCriterio(view.getCriterioBusqueda());
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
-                view.setAspirantes(bolsaTrabajo.consultarPorCriterio(filtroDTO));
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+                view.setAspirantes(
+                        bolsaTrabajo.consultarPorCriterio(filtroDTO));
                 view.setMostrarConsultaAspirante(true);
             } catch (ValidacionException exception) {
                 JSFUtils.errorMessage("", exception.getMessage());
@@ -134,7 +143,8 @@ public class PostulacionVacanteController implements Serializable {
             try {
                 FiltroDTO filtroDTO = new FiltroDTO();
                 filtroDTO.setCriterio(view.getCriterioBusqueda());
-                filtroDTO.setTipoFiltro(EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
+                filtroDTO.setTipoFiltro(
+                        EnumTipoFiltro.NOMBRE_RFC_CURP_PROFESION);
 
                 view.setEmpleados(empleado.consultaEmpleado(filtroDTO));
                 view.setMostrarConsultaEmpleado(true);
@@ -153,7 +163,8 @@ public class PostulacionVacanteController implements Serializable {
         view.setMostrarConsultaEmpleado(false);
         view.getPostulacion().setIdEmpleado(idEmpleado);
         view.setMostrarDetalle(true);
-        if (view.getEmpleado().getEstatus().equals(EnumEstatusEmpleado.ACTIVO)) {
+        if (view.getEmpleado().getEstatus()
+                .equals(EnumEstatusEmpleado.ACTIVO)) {
             view.setMostrarDetallePuestoActivo(true);
         }
 
@@ -161,7 +172,8 @@ public class PostulacionVacanteController implements Serializable {
 
     public void seleccionarAspirante(Integer idAspirante) {
         try {
-            view.setAspirante(bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
+            view.setAspirante(
+                    bolsaTrabajo.obtenerDetalleAspirantePorId(idAspirante));
             view.setMostrarConsultaAspirante(false);
             view.setMostrarDetalleAspirante(true);
             view.getPostulacion().setIdAspirante(idAspirante);
@@ -175,13 +187,16 @@ public class PostulacionVacanteController implements Serializable {
     public void postularCandidato() {
         try {
 
-            Integer idPostulacion = postulacion.postularCandidato(view.getPostulacion());
+            Integer idPostulacion = postulacion
+                    .postularCandidato(view.getPostulacion());
             view.getCandidatosPostulados().clear();
-            view.setCandidatosPostulados(postulacion.consultarCandidatosPostulacion(idPostulacion));
+            view.setCandidatosPostulados(
+                    postulacion.consultarCandidatosPostulacion(idPostulacion));
             view.setMostrarDetalle(false);
 
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("errorPostulacion", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("errorPostulacion", "",
+                    exception.getMessage());
         }
 
     }

@@ -24,7 +24,8 @@ public class TipoNombramientoService {
     private TiposNombramientosRepository tipoNombramientoRepository;
 
     public List<TipoNombramientoDTO> listaNombramiento() {
-        List<TiposNombramientosEntity> nombramientos = tipoNombramientoRepository.consultarTodos();
+        List<TiposNombramientosEntity> nombramientos = tipoNombramientoRepository
+                .consultarTodos();
         List<TipoNombramientoDTO> lista = new ArrayList<>();
         if (!nombramientos.isEmpty()) {
             for (TiposNombramientosEntity entity : nombramientos) {
@@ -41,10 +42,14 @@ public class TipoNombramientoService {
         return lista;
     }
 
-    public TipoNombramientoDTO obtenerNombramientoPorId(Integer idNombramiento) {
-        TiposNombramientosEntity tipoNombramiento = tipoNombramientoRepository.nombramientoPorId(idNombramiento);
+    public TipoNombramientoDTO obtenerNombramientoPorId(
+            Integer idNombramiento) {
+        TiposNombramientosEntity tipoNombramiento = tipoNombramientoRepository
+                .nombramientoPorId(idNombramiento);
         if (tipoNombramiento == null) {
-            throw new ValidacionException("El nombramiento con identificador " + idNombramiento + " no está registrado en el catalogo de nombramientos.",
+            throw new ValidacionException("El nombramiento con identificador "
+                    + idNombramiento
+                    + " no está registrado en el catalogo de nombramientos.",
                     ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
         TipoNombramientoDTO dto = new TipoNombramientoDTO();

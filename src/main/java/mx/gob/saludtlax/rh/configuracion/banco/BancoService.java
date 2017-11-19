@@ -15,8 +15,8 @@ import mx.gob.saludtlax.rh.persistencia.BancoSatEntity;
 import mx.gob.saludtlax.rh.persistencia.BancoSatRepository;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 03/06/2016 14:24:39
  */
@@ -34,10 +34,13 @@ public class BancoService implements Serializable {
 
         String contexto = "Registro Banco: ";
 
-        Boolean validarClave = bancoRepository.validarClaveBanco(bancoDTO.getClave());
+        Boolean validarClave = bancoRepository
+                .validarClaveBanco(bancoDTO.getClave());
 
         if (validarClave) {
-            throw new ReglaNegocioException(contexto + "La clave del banco ya se encuentra registrado, ingrese otro", null);
+            throw new ReglaNegocioException(contexto
+                    + "La clave del banco ya se encuentra registrado, ingrese otro",
+                    null);
         }
 
         BancoSatEntity bancoEntity = new BancoSatEntity();
@@ -52,7 +55,8 @@ public class BancoService implements Serializable {
 
     protected void actualizarBanco(BancoDTO bancoDTO) {
 
-        BancoSatEntity bancoEntity = bancoRepository.obtenerPorId(bancoDTO.getIdBanco());
+        BancoSatEntity bancoEntity = bancoRepository
+                .obtenerPorId(bancoDTO.getIdBanco());
 
         bancoEntity.setClave(bancoDTO.getClave());
         bancoEntity.setNombreCorto(bancoDTO.getNombreCorto());

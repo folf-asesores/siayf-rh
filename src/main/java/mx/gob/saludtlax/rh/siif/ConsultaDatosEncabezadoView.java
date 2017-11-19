@@ -46,7 +46,8 @@ public class ConsultaDatosEncabezadoView {
         return listDatosPersonalesLista;
     }
 
-    public void setListDatosPersonalesLista(List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista) {
+    public void setListDatosPersonalesLista(
+            List<ConsultaDatosEncabezadoDTO> listDatosPersonalesLista) {
         this.listDatosPersonalesLista = listDatosPersonalesLista;
     }
 
@@ -62,7 +63,8 @@ public class ConsultaDatosEncabezadoView {
         return datoEncabezadoSelect;
     }
 
-    public void setDatoEncabezadoSelect(ConsultaDatosEncabezadoDTO datoEncabezadoSelect) {
+    public void setDatoEncabezadoSelect(
+            ConsultaDatosEncabezadoDTO datoEncabezadoSelect) {
         this.datoEncabezadoSelect = datoEncabezadoSelect;
     }
 
@@ -78,7 +80,8 @@ public class ConsultaDatosEncabezadoView {
         return disabledIrGestionarDatosEncabezado;
     }
 
-    public void setDisabledIrGestionarDatosEncabezado(Boolean disabledIrGestionarDatosEncabezado) {
+    public void setDisabledIrGestionarDatosEncabezado(
+            Boolean disabledIrGestionarDatosEncabezado) {
         this.disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosEncabezado;
     }
 
@@ -114,7 +117,8 @@ public class ConsultaDatosEncabezadoView {
         return disabledIrGestionarDatosEncabezado;
     }
 
-    public void setDisabledIrGestionarDatosPersonales(Boolean disabledIrGestionarDatosPersonales) {
+    public void setDisabledIrGestionarDatosPersonales(
+            Boolean disabledIrGestionarDatosPersonales) {
         disabledIrGestionarDatosEncabezado = disabledIrGestionarDatosPersonales;
     }
 

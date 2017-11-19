@@ -17,7 +17,8 @@ public class ActualizarDomicilioValidator {
         String contexto = "Actualizacion domicilio: ";
 
         if (idEmpleado == null) {
-            throw new BusinessException(contexto + " El empleado es requerido, comuniquese con soporte tecnico.");
+            throw new BusinessException(contexto
+                    + " El empleado es requerido, comuniquese con soporte tecnico.");
         }
         /*
          * if (idUsuario == null) {
@@ -28,23 +29,28 @@ public class ActualizarDomicilioValidator {
          */
 
         if (domicilio == null) {
-            throw new BusinessException(contexto + "Los datos del domicilio son requeridos, comuniquese con soporte tecnico.");
+            throw new BusinessException(contexto
+                    + "Los datos del domicilio son requeridos, comuniquese con soporte tecnico.");
         }
 
         if (!ValidacionUtil.esNumeroPositivo(domicilio.getIdMunicipio())) {
-            throw new BusinessException(contexto + "El municipio del empleado es requerido, seleccione una opcion");
+            throw new BusinessException(contexto
+                    + "El municipio del empleado es requerido, seleccione una opcion");
         }
 
         if (!ValidacionUtil.esNumeroPositivo(domicilio.getIdAsentamiento())) {
-            throw new BusinessException(contexto + "El asentamiento es requerido, seleccione una opción.");
+            throw new BusinessException(contexto
+                    + "El asentamiento es requerido, seleccione una opción.");
         }
 
         if (ValidacionUtil.esCadenaVacia(domicilio.getCalle())) {
-            throw new BusinessException(contexto + "La calle del empleado es requerida, ingrese una calle.");
+            throw new BusinessException(contexto
+                    + "La calle del empleado es requerida, ingrese una calle.");
         }
 
         if (ValidacionUtil.esCadenaVacia(domicilio.getNumeroExterior())) {
-            throw new BusinessException(contexto + "El numero exterior es requerido, ingrese un numero exterior.");
+            throw new BusinessException(contexto
+                    + "El numero exterior es requerido, ingrese un numero exterior.");
         }
         /*
          * if (domicilio.getCodigoPostal() == 0) {

@@ -20,7 +20,7 @@ import mx.gob.saludtlax.rh.util.JSFUtils;
 import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -40,13 +40,17 @@ public class FormatoBajaIsssteController {
 
     public void consultarEmpleados() {
         try {
-            view.setListaEmpleados(empleado.consultaPorCriterio(view.getCriterio()));
+            view.setListaEmpleados(
+                    empleado.consultaPorCriterio(view.getCriterio()));
 
             if (view.getListaEmpleados().isEmpty()) {
-                JSFUtils.infoMessageEspecifico("info", "", "No se encontrarón registros en el criterio" + view.getCriterio());
+                JSFUtils.infoMessageEspecifico("info", "",
+                        "No se encontrarón registros en el criterio"
+                                + view.getCriterio());
             }
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         } catch (ValidatorException validatorException) {
             JSFUtils.errorMessage("Error: ", validatorException.getMessage());
         }
@@ -64,7 +68,8 @@ public class FormatoBajaIsssteController {
     public void verFormatoBajas() throws IOException {
         try {
 
-            view.setUrlReporte("FormatoBajaIsssteServlet?" + "idEmpleado=" + view.getIdEmpleado());
+            view.setUrlReporte("FormatoBajaIsssteServlet?" + "idEmpleado="
+                    + view.getIdEmpleado());
             view.setDatosPrincipales(false);
             view.setDatosPersona(false);
             view.setVentanaNuevoReporte(true);
@@ -77,11 +82,13 @@ public class FormatoBajaIsssteController {
         } catch (ValidacionException validacionException) {
             JSFUtils.errorMessage("Error: ", validacionException.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            JSFUtils.errorMessage("Error: ", reglaNegocioException.getMessage());
+            JSFUtils.errorMessage("Error: ",
+                    reglaNegocioException.getMessage());
         }
     }
 
-    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    public void validatorConsulta(FacesContext context, UIComponent component,
+            Object value) {
         String nombreComponete = component.getId();
 
         switch (nombreComponete) {
@@ -89,14 +96,18 @@ public class FormatoBajaIsssteController {
                 String criterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (criterio.trim().length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
                                 "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }
@@ -110,7 +121,8 @@ public class FormatoBajaIsssteController {
 
     public void regresar() {
         try {
-            JSFUtils.redireccionar("/siayf-rh/contenido/reportesLaborales/reporteFormatoBajasIssste.xhtml?faces-redirect=true");
+            JSFUtils.redireccionar(
+                    "/siayf-rh/contenido/reportesLaborales/reporteFormatoBajasIssste.xhtml?faces-redirect=true");
         } catch (IOException e) {
 
             e.printStackTrace();

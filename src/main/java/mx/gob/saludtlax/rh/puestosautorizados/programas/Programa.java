@@ -19,11 +19,13 @@ public interface Programa {
 
     public List<InfoProgramaDTO> consultarProgramas();
 
-    public List<InfoDetallePrograma> consultarDetallesProgramas(Integer idPrograma);
+    public List<InfoDetallePrograma> consultarDetallesProgramas(
+            Integer idPrograma);
 
     public void crearDetallePrograma(DetalleProgramaDTO detalleProgramaDTO);
 
-    public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(Integer idDetallePrograma);
+    public ConfiguracionDetalleProgramaDTO obtenerDetallePrograma(
+            Integer idDetallePrograma);
 
     public ProgramaDTO obtenerDetalleProgramaPorId(Integer idPrograma);
 

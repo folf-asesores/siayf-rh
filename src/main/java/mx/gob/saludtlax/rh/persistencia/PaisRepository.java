@@ -32,7 +32,9 @@ public class PaisRepository {
      */
     public List<PaisEntity> paises() {
 
-        List<PaisEntity> lista = entityManager.createQuery("SELECT p FROM PaisEntity AS p", PaisEntity.class).getResultList();
+        List<PaisEntity> lista = entityManager
+                .createQuery("SELECT p FROM PaisEntity AS p", PaisEntity.class)
+                .getResultList();
         return lista;
     }
 

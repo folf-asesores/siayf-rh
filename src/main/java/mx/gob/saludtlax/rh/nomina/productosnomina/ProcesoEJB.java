@@ -21,7 +21,8 @@ public class ProcesoEJB {
     private ProcesoCalculoRepository procesoCalculoRepository;
 
     public ProcesoDTO obtenerProceso(int idProceso) {
-        ProcesoCalculoEntity procesoCalculo = procesoCalculoRepository.obtenerPorId(idProceso);
+        ProcesoCalculoEntity procesoCalculo = procesoCalculoRepository
+                .obtenerPorId(idProceso);
         ProcesoDTO proceso = new ProcesoDTO();
         if (procesoCalculo != null) {
             proceso.setEnProceso(procesoCalculo.isEnProceso());
@@ -31,7 +32,8 @@ public class ProcesoEJB {
     }
 
     public void detenerProceso(int idProceso) {
-        ProcesoCalculoEntity procesoCalculo = procesoCalculoRepository.obtenerPorId(idProceso);
+        ProcesoCalculoEntity procesoCalculo = procesoCalculoRepository
+                .obtenerPorId(idProceso);
 
         procesoCalculo.setEnProceso(false);
         procesoCalculo.setNumeroProcesado(0);

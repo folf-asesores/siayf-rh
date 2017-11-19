@@ -47,7 +47,8 @@ public class UploadExcelFileAnexo {
 
                 dto.agregarDato(-1, fila);
 
-                for (int columna = 0; columna < row.getLastCellNum(); columna++) {
+                for (int columna = 0; columna < row
+                        .getLastCellNum(); columna++) {
                     // log.info("::Inicia carga de datos:: Fila:: " + fila + "
                     // Columna:: " + columna);
                     Cell cell = row.getCell(columna);
@@ -58,23 +59,29 @@ public class UploadExcelFileAnexo {
                         //log.info("Celda::"+text);
                         switch (cell.getCellType()) {
                             case Cell.CELL_TYPE_STRING:
-                                dto.agregarDato(cell.getColumnIndex(), cell.getStringCellValue());
+                                dto.agregarDato(cell.getColumnIndex(),
+                                        cell.getStringCellValue());
                                 break;
                             case Cell.CELL_TYPE_NUMERIC:
                                 if (DateUtil.isCellDateFormatted(cell)) {
-                                    dto.agregarDato(cell.getColumnIndex(), cell.getDateCellValue());
+                                    dto.agregarDato(cell.getColumnIndex(),
+                                            cell.getDateCellValue());
                                 } else {
-                                    log.debug("Valor númerico en el Excel:" + cell.getNumericCellValue());
-                                    dto.agregarDato(cell.getColumnIndex(), cell.getNumericCellValue());
+                                    log.debug("Valor númerico en el Excel:"
+                                            + cell.getNumericCellValue());
+                                    dto.agregarDato(cell.getColumnIndex(),
+                                            cell.getNumericCellValue());
                                 }
                                 break;
                             case Cell.CELL_TYPE_BOOLEAN:
-                                dto.agregarDato(cell.getColumnIndex(), cell.getBooleanCellValue());
+                                dto.agregarDato(cell.getColumnIndex(),
+                                        cell.getBooleanCellValue());
                                 break;
                             case Cell.CELL_TYPE_FORMULA:
                                 //// toma la formula del archivo excel como valor
                                 //// numerico
-                                dto.agregarDato(cell.getColumnIndex(), cell.getNumericCellValue());
+                                dto.agregarDato(cell.getColumnIndex(),
+                                        cell.getNumericCellValue());
                                 break;
 
                             case Cell.CELL_TYPE_BLANK:

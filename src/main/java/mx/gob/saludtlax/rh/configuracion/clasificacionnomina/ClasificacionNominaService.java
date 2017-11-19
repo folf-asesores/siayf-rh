@@ -26,9 +26,13 @@ public class ClasificacionNominaService {
 
     public List<ClasificacionNominaDTO> listaClasificacionNomina() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_clasificacion_nomina AS idClasificacionNomina, " + "clasificacion_nomina AS clasificacionNomina, "
-                + "descripcion AS descripcion " + "FROM clasificaciones_nominas");
-        query.setResultTransformer(Transformers.aliasToBean(ClasificacionNominaDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_clasificacion_nomina AS idClasificacionNomina, "
+                        + "clasificacion_nomina AS clasificacionNomina, "
+                        + "descripcion AS descripcion "
+                        + "FROM clasificaciones_nominas");
+        query.setResultTransformer(
+                Transformers.aliasToBean(ClasificacionNominaDTO.class));
         @SuppressWarnings("unchecked")
         List<ClasificacionNominaDTO> result = query.list();
         return result;
@@ -41,35 +45,47 @@ public class ClasificacionNominaService {
         return dto;
     }
 
-    public ClasificacionNominaDTO crearClasificacionNomina(ClasificacionNominaDTO dto) {
+    public ClasificacionNominaDTO crearClasificacionNomina(
+            ClasificacionNominaDTO dto) {
         ClasificacionNominaEntity entity = new ClasificacionNominaEntity();
         entity.setDescripcion(dto.getDescripcion());
         entity.setClasificacionNomina(dto.getClasificacionNomina());
         clasificacionNominaDAO.crear(entity);
-        return obtenerClasificacionNominaPorId(entity.getIdClasificacionNomina());
+        return obtenerClasificacionNominaPorId(
+                entity.getIdClasificacionNomina());
     }
 
-    public ClasificacionNominaDTO obtenerClasificacionNominaPorId(Integer idClasificacionNomina) {
+    public ClasificacionNominaDTO obtenerClasificacionNominaPorId(
+            Integer idClasificacionNomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session
-                .createSQLQuery("SELECT id_clasificacion_nomina AS idClasificacionNomina, " + "clasificacion_nomina AS clasificacionNomina, "
-                        + "descripcion AS descripcion " + "FROM clasificaciones_nominas WHERE id_clasificacion_nomina= :idClasificacionNomina")
+        Query query = session.createSQLQuery(
+                "SELECT id_clasificacion_nomina AS idClasificacionNomina, "
+                        + "clasificacion_nomina AS clasificacionNomina, "
+                        + "descripcion AS descripcion "
+                        + "FROM clasificaciones_nominas WHERE id_clasificacion_nomina= :idClasificacionNomina")
                 .setParameter("idClasificacionNomina", idClasificacionNomina);
-        query.setResultTransformer(Transformers.aliasToBean(ClasificacionNominaDTO.class));
-        ClasificacionNominaDTO result = (ClasificacionNominaDTO) query.list().get(0);
+        query.setResultTransformer(
+                Transformers.aliasToBean(ClasificacionNominaDTO.class));
+        ClasificacionNominaDTO result = (ClasificacionNominaDTO) query.list()
+                .get(0);
         return result;
     }
 
-    public ClasificacionNominaDTO actualizarClasificacionNomina(ClasificacionNominaDTO dto) {
-        ClasificacionNominaEntity entity = clasificacionNominaDAO.obtenerPorId(dto.getIdClasificacionNomina());
+    public ClasificacionNominaDTO actualizarClasificacionNomina(
+            ClasificacionNominaDTO dto) {
+        ClasificacionNominaEntity entity = clasificacionNominaDAO
+                .obtenerPorId(dto.getIdClasificacionNomina());
         entity.setDescripcion(dto.getDescripcion());
         entity.setClasificacionNomina(dto.getClasificacionNomina());
         clasificacionNominaDAO.crear(entity);
-        return obtenerClasificacionNominaPorId(entity.getIdClasificacionNomina());
+        return obtenerClasificacionNominaPorId(
+                entity.getIdClasificacionNomina());
     }
 
     public void eliminarClasificacionNomina(ClasificacionNominaDTO dto) {
-        ClasificacionNominaEntity entity = entityManager.find(ClasificacionNominaEntity.class, dto.getIdClasificacionNomina());
+        ClasificacionNominaEntity entity = entityManager.find(
+                ClasificacionNominaEntity.class,
+                dto.getIdClasificacionNomina());
         entityManager.remove(entity);
     }
 

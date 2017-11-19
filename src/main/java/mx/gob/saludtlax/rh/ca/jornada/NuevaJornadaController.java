@@ -41,9 +41,11 @@ public class NuevaJornadaController implements Serializable {
         List<IncidenciaModelView> listadoIncidencias = null;
 
         try {
-            listadoIncidencias = incidenciaClienteRest.buscarIncidenciaPorDescripcion(query);
+            listadoIncidencias = incidenciaClienteRest
+                    .buscarIncidenciaPorDescripcion(query);
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
             e.printStackTrace();
         }
 
@@ -52,13 +54,16 @@ public class NuevaJornadaController implements Serializable {
 
     public String guardarJornada() {
         if (jornadaFormModel.getDescripcion().length() == 0) {
-            JSFUtils.errorMessage("Guardar", ListadoMensajesSistema.CARA003.getMensaje());
+            JSFUtils.errorMessage("Guardar",
+                    ListadoMensajesSistema.CARA003.getMensaje());
             return "";
         }
 
         try {
-            Integer idJornada = jornadaClientRest.nuevaJornada(jornadaFormModel);
-            JSFUtils.infoMessage("Guardar", ListadoMensajesSistema.CA001.getMensaje() + " \n ");
+            Integer idJornada = jornadaClientRest
+                    .nuevaJornada(jornadaFormModel);
+            JSFUtils.infoMessage("Guardar",
+                    ListadoMensajesSistema.CA001.getMensaje() + " \n ");
             return "editar.xhtml?faces-redirect=true&id=" + idJornada;
         } catch (RESTClientJornadaException e) {
             JSFUtils.errorMessage("Guardar", e.getMessage());
@@ -66,14 +71,16 @@ public class NuevaJornadaController implements Serializable {
             return "";
 
         } catch (RESTClientReglaAsistenciaJornadaException e) {
-            JSFUtils.warningMessage("Guardar", ListadoMensajesSistema.CARA004 + " \n " + e.getMessage());
+            JSFUtils.warningMessage("Guardar",
+                    ListadoMensajesSistema.CARA004 + " \n " + e.getMessage());
             e.printStackTrace();
             return "";
         }
 
     }
 
-    public void eliminarReglaAsistencia(ReglaAsistenciaViewModel reglaEliminar) {
+    public void eliminarReglaAsistencia(
+            ReglaAsistenciaViewModel reglaEliminar) {
 
         listadoReglasAsistencia.remove(reglaEliminar);
 
@@ -91,7 +98,8 @@ public class NuevaJornadaController implements Serializable {
         return listadoReglasAsistencia;
     }
 
-    public void setListadoReglasAsistencia(List<ReglaAsistenciaViewModel> listadoReglasAsistencia) {
+    public void setListadoReglasAsistencia(
+            List<ReglaAsistenciaViewModel> listadoReglasAsistencia) {
         this.listadoReglasAsistencia = listadoReglasAsistencia;
     }
 
@@ -99,7 +107,8 @@ public class NuevaJornadaController implements Serializable {
         return reglaAsistenciaViewModelSelecionado;
     }
 
-    public void setReglaAsistenciaViewModelSelecionado(ReglaAsistenciaViewModel reglaAsistenciaViewModelSelecionado) {
+    public void setReglaAsistenciaViewModelSelecionado(
+            ReglaAsistenciaViewModel reglaAsistenciaViewModelSelecionado) {
         this.reglaAsistenciaViewModelSelecionado = reglaAsistenciaViewModelSelecionado;
     }
 

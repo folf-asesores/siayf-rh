@@ -16,7 +16,8 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  *
  * @since 05/04/2016-11:51:35
  */
-public class DocumentacionRepository extends GenericRepository<DocumentacionEntity, Integer> {
+public class DocumentacionRepository
+        extends GenericRepository<DocumentacionEntity, Integer> {
     /**
     *
     */
@@ -29,7 +30,8 @@ public class DocumentacionRepository extends GenericRepository<DocumentacionEnti
      *
      * @param documentacionEntity
      */
-    public void registrarActualizarDocumento(DocumentacionEntity documentacionEntity) {
+    public void registrarActualizarDocumento(
+            DocumentacionEntity documentacionEntity) {
         entityManager.persist(documentacionEntity);
     }
 
@@ -39,10 +41,13 @@ public class DocumentacionRepository extends GenericRepository<DocumentacionEnti
      * @param idAspirante
      * @return
      */
-    public List<DocumentacionEntity> documentacionesPorIdAspirante(Integer idAspirante) {
+    public List<DocumentacionEntity> documentacionesPorIdAspirante(
+            Integer idAspirante) {
 
         List<DocumentacionEntity> listaDocumentacion = entityManager
-                .createQuery("SELECT d FROM DocumentacionEntity AS d WHERE d.idAspirante.idAspirante =:idAspirante", DocumentacionEntity.class)
+                .createQuery(
+                        "SELECT d FROM DocumentacionEntity AS d WHERE d.idAspirante.idAspirante =:idAspirante",
+                        DocumentacionEntity.class)
                 .setParameter("idAspirante", idAspirante).getResultList();
 
         return listaDocumentacion;

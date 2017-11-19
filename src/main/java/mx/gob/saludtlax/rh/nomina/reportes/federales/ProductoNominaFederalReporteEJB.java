@@ -24,10 +24,12 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 @Stateless
-public class ProductoNominaFederalReporteEJB implements ProductoNominaFederalReporte {
+public class ProductoNominaFederalReporteEJB
+        implements ProductoNominaFederalReporte {
 
     private static final long serialVersionUID = -6429903585735894314L;
-    private static final Logger LOGGER = Logger.getLogger(ProductoNominaFederalReporteEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ProductoNominaFederalReporteEJB.class.getName());
 
     @Inject
     private ProductoNominaFederalReporteService service;
@@ -37,7 +39,9 @@ public class ProductoNominaFederalReporteEJB implements ProductoNominaFederalRep
     @Override
     public byte[] generarReporte(Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o menor que uno", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o menor que uno",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
         List<String> titulos = new ArrayList<>();

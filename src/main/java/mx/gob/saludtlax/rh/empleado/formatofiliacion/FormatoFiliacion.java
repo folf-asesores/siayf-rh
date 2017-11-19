@@ -5,11 +5,12 @@
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public interface FormatoFiliacion {
 
-    public Integer crearFormatoFiliacion(FormatoFiliacionDTO formatoFiliacionDTO);
+    public Integer crearFormatoFiliacion(
+            FormatoFiliacionDTO formatoFiliacionDTO);
 
 }

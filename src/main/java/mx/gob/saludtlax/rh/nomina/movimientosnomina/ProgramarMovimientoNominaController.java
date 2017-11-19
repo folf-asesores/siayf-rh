@@ -39,7 +39,6 @@ public class ProgramarMovimientoNominaController implements Serializable {
     @Inject
     ConceptoNominaService conceptoNominaService;
 
-    
     private List<TipoMovimientoNominaDTO> listaMovimientos = new ArrayList<>();
     private List<SelectItem> itemsTiposMov = new ArrayList<>();
 
@@ -78,7 +77,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         listaMovimientos = tipoMovimientosNominaEJB.obtenerListaMovimientos();
         itemsTiposMov.clear();
         for (TipoMovimientoNominaDTO dto : listaMovimientos) {
-            itemsTiposMov.add(new SelectItem(dto.getIdTimpoMovimiento(), dto.getClave() + " - " + dto.getDescripcion()));
+            itemsTiposMov.add(new SelectItem(dto.getIdTimpoMovimiento(),
+                    dto.getClave() + " - " + dto.getDescripcion()));
         }
 
         tiposContratacion = catalogos.consultarTiposContratacion();
@@ -101,12 +101,14 @@ public class ProgramarMovimientoNominaController implements Serializable {
 
     public void renderizarCamposEdicion() {
         opcionesSeleccionadasEdicion.clear();
-        if (movimientoProgramadoSeleccionado.getTipoAplicacion().compareTo(1) == 0) {
+        if (movimientoProgramadoSeleccionado.getTipoAplicacion()
+                .compareTo(1) == 0) {
             opciones.clear();
             opciones = catalogos.consultarTiposContratacion();
 
         }
-        if (movimientoProgramadoSeleccionado.getTipoAplicacion().compareTo(2) == 0) {
+        if (movimientoProgramadoSeleccionado.getTipoAplicacion()
+                .compareTo(2) == 0) {
             opciones.clear();
             opciones = catalogos.listaPuestos();
         }
@@ -117,13 +119,16 @@ public class ProgramarMovimientoNominaController implements Serializable {
         modoAplicacion = movimientoProgramadoSeleccionado.getTipoAplicacion();
         renderizarCampos();
         List<CatalogoDTO> listaSeleccionados = new ArrayList<>();
-        for (DetalleProgramacionMovimientoDTO detalle : movimientoProgramadoSeleccionado.getListaDetalles()) {
+        for (DetalleProgramacionMovimientoDTO detalle : movimientoProgramadoSeleccionado
+                .getListaDetalles()) {
             CatalogoDTO catalogo = new CatalogoDTO();
-            if (movimientoProgramadoSeleccionado.getTipoAplicacion().compareTo(1) == 0) {
+            if (movimientoProgramadoSeleccionado.getTipoAplicacion()
+                    .compareTo(1) == 0) {
                 catalogo.setId(detalle.getIdTipoContratacion());
                 catalogo.setNombre(detalle.getDescripcionTipoContratacion());
             }
-            if (movimientoProgramadoSeleccionado.getTipoAplicacion().compareTo(2) == 0) {
+            if (movimientoProgramadoSeleccionado.getTipoAplicacion()
+                    .compareTo(2) == 0) {
                 catalogo.setId(detalle.getIdPuesto());
                 catalogo.setNombre(detalle.getDescripcionPuesto());
             }
@@ -135,7 +140,9 @@ public class ProgramarMovimientoNominaController implements Serializable {
     }
 
     public void buscarConfiguracion() {
-        listaMovimientoProgramados = programacionMovimientosEJB.obtenerMovimientosProgramados(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+        listaMovimientoProgramados = programacionMovimientosEJB
+                .obtenerMovimientosProgramados(
+                        tipoMovimientoSeleccionado.getIdTimpoMovimiento());
         mostrarPanelbusqueda = false;
         mostrarPanelConf = true;
 
@@ -145,17 +152,23 @@ public class ProgramarMovimientoNominaController implements Serializable {
         programacionMovimientosEJB.eliminar(movimientoProgramadoSeleccionado);
         listaMovimientoProgramados.clear();
         limpiarCampos();
-        listaMovimientoProgramados = programacionMovimientosEJB.obtenerMovimientosProgramados(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+        listaMovimientoProgramados = programacionMovimientosEJB
+                .obtenerMovimientosProgramados(
+                        tipoMovimientoSeleccionado.getIdTimpoMovimiento());
 
-        JSFUtils.infoMessage("Atencion:", "El registro de movimiento se elimino correctamente");
+        JSFUtils.infoMessage("Atencion:",
+                "El registro de movimiento se elimino correctamente");
     }
 
     public void guardarNuevaConfiguracion() {
         try {
             ProgramarMovimientoDTO newProgramacionMovimiento = new ProgramarMovimientoDTO();
             newProgramacionMovimiento.setDescripcion(descripcion);
-            newProgramacionMovimiento.setIdTipoMovimiento(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
-            newProgramacionMovimiento.setMovimiento(tipoMovimientoSeleccionado.getClave() + " " + tipoMovimientoSeleccionado.getDescripcion());
+            newProgramacionMovimiento.setIdTipoMovimiento(
+                    tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+            newProgramacionMovimiento
+                    .setMovimiento(tipoMovimientoSeleccionado.getClave() + " "
+                            + tipoMovimientoSeleccionado.getDescripcion());
             newProgramacionMovimiento.setPeriodoAplicacion(periodoAplicacion);
             newProgramacionMovimiento.setTipoAplicacion(modoAplicacion);
 
@@ -178,16 +191,20 @@ public class ProgramarMovimientoNominaController implements Serializable {
             programacionMovimientosEJB.crear(newProgramacionMovimiento);
             listaMovimientoProgramados.clear();
             limpiarCampos();
-            listaMovimientoProgramados = programacionMovimientosEJB.obtenerMovimientosProgramados(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+            listaMovimientoProgramados = programacionMovimientosEJB
+                    .obtenerMovimientosProgramados(
+                            tipoMovimientoSeleccionado.getIdTimpoMovimiento());
             JSFUtils.infoMessage("", "Se creo la configuracion correctamente.");
         } catch (PersistenceException e) {
-            JSFUtils.errorMessage("", "Ocurrio un error al intentar guardar la configuracion.");
+            JSFUtils.errorMessage("",
+                    "Ocurrio un error al intentar guardar la configuracion.");
         }
     }
 
     public void actualizarNuevaConfiguracion() {
         try {
-            modoAplicacion = movimientoProgramadoSeleccionado.getTipoAplicacion();
+            modoAplicacion = movimientoProgramadoSeleccionado
+                    .getTipoAplicacion();
             List<DetalleProgramacionMovimientoDTO> detallesProgramacionEdicion = new ArrayList<>();
             for (CatalogoDTO catDto : opcionesSeleccionadasEdicion) {
                 DetalleProgramacionMovimientoDTO detallenew = new DetalleProgramacionMovimientoDTO();
@@ -202,15 +219,21 @@ public class ProgramarMovimientoNominaController implements Serializable {
                 detallesProgramacionEdicion.add(detallenew);
             }
             movimientoProgramadoSeleccionado.getListaDetalles().clear();
-            movimientoProgramadoSeleccionado.setListaDetalles(detallesProgramacionEdicion);
+            movimientoProgramadoSeleccionado
+                    .setListaDetalles(detallesProgramacionEdicion);
 
-            programacionMovimientosEJB.modificar(movimientoProgramadoSeleccionado);
+            programacionMovimientosEJB
+                    .modificar(movimientoProgramadoSeleccionado);
             listaMovimientoProgramados.clear();
             limpiarCampos();
-            listaMovimientoProgramados = programacionMovimientosEJB.obtenerMovimientosProgramados(tipoMovimientoSeleccionado.getIdTimpoMovimiento());
-            JSFUtils.infoMessage("", "Se edito la configuracion correctamente.");
+            listaMovimientoProgramados = programacionMovimientosEJB
+                    .obtenerMovimientosProgramados(
+                            tipoMovimientoSeleccionado.getIdTimpoMovimiento());
+            JSFUtils.infoMessage("",
+                    "Se edito la configuracion correctamente.");
         } catch (PersistenceException e) {
-            JSFUtils.errorMessage("", "Ocurrio un error al intentar guardar la configuracion.");
+            JSFUtils.errorMessage("",
+                    "Ocurrio un error al intentar guardar la configuracion.");
         }
     }
 
@@ -230,7 +253,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return listaMovimientos;
     }
 
-    public void setListaMovimientos(List<TipoMovimientoNominaDTO> listaMovimientos) {
+    public void setListaMovimientos(
+            List<TipoMovimientoNominaDTO> listaMovimientos) {
         this.listaMovimientos = listaMovimientos;
     }
 
@@ -238,7 +262,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return tipoMovimientoSeleccionado;
     }
 
-    public void setTipoMovimientoSeleccionado(TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
+    public void setTipoMovimientoSeleccionado(
+            TipoMovimientoNominaDTO tipoMovimientoSeleccionado) {
         this.tipoMovimientoSeleccionado = tipoMovimientoSeleccionado;
     }
 
@@ -286,7 +311,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return tipoContratacionSeleccionada;
     }
 
-    public void setTipoContratacionSeleccionada(Integer tipoContratacionSeleccionada) {
+    public void setTipoContratacionSeleccionada(
+            Integer tipoContratacionSeleccionada) {
         this.tipoContratacionSeleccionada = tipoContratacionSeleccionada;
     }
 
@@ -342,7 +368,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return opcionesSeleccionadas;
     }
 
-    public void setOpcionesSeleccionadas(List<CatalogoDTO> opcionesSeleccionadas) {
+    public void setOpcionesSeleccionadas(
+            List<CatalogoDTO> opcionesSeleccionadas) {
         this.opcionesSeleccionadas = opcionesSeleccionadas;
     }
 
@@ -350,7 +377,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return listaMovimientoProgramados;
     }
 
-    public void setListaMovimientoProgramados(List<ProgramarMovimientoDTO> listaMovimientoProgramados) {
+    public void setListaMovimientoProgramados(
+            List<ProgramarMovimientoDTO> listaMovimientoProgramados) {
         this.listaMovimientoProgramados = listaMovimientoProgramados;
     }
 
@@ -358,7 +386,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return nuevoMovimientoProgramado;
     }
 
-    public void setNuevoMovimientoProgramado(ProgramarMovimientoDTO nuevoMovimientoProgramado) {
+    public void setNuevoMovimientoProgramado(
+            ProgramarMovimientoDTO nuevoMovimientoProgramado) {
         this.nuevoMovimientoProgramado = nuevoMovimientoProgramado;
     }
 
@@ -374,7 +403,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return movimientoProgramadoSeleccionado;
     }
 
-    public void setMovimientoProgramadoSeleccionado(ProgramarMovimientoDTO movimientoProgramadoSeleccionado) {
+    public void setMovimientoProgramadoSeleccionado(
+            ProgramarMovimientoDTO movimientoProgramadoSeleccionado) {
         this.movimientoProgramadoSeleccionado = movimientoProgramadoSeleccionado;
     }
 
@@ -382,7 +412,8 @@ public class ProgramarMovimientoNominaController implements Serializable {
         return opcionesSeleccionadasEdicion;
     }
 
-    public void setOpcionesSeleccionadasEdicion(List<CatalogoDTO> opcionesSeleccionadasEdicion) {
+    public void setOpcionesSeleccionadasEdicion(
+            List<CatalogoDTO> opcionesSeleccionadasEdicion) {
         this.opcionesSeleccionadasEdicion = opcionesSeleccionadasEdicion;
     }
 

@@ -46,7 +46,8 @@ public class AccionEJB implements Accion {
     }
 
     @Override
-    public List<AccionDTO> obtenerAccionesFiltradas(Integer idmodulo, List<Integer> idAccionFiltro) {
+    public List<AccionDTO> obtenerAccionesFiltradas(Integer idmodulo,
+            List<Integer> idAccionFiltro) {
 
         return accionService.obtenerAccionesFiltradas(idmodulo, idAccionFiltro);
     }

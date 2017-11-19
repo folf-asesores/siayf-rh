@@ -22,20 +22,24 @@ public class HistorialAcademicoEJB implements HistorialAcademico {
     private HistorialAcademicoService historialAcaedmicoService;
 
     @Override
-    public List<HistorialAcademicoDTO> consultarHistorialAcademicoEmpleado(Integer idEmpleado) {
-        return historialAcaedmicoService.listaHistorialAcademicoPorIdEmpleado(idEmpleado);
+    public List<HistorialAcademicoDTO> consultarHistorialAcademicoEmpleado(
+            Integer idEmpleado) {
+        return historialAcaedmicoService
+                .listaHistorialAcademicoPorIdEmpleado(idEmpleado);
     }
 
     @Interceptors({ HistorialAcademicoValidator.class })
     @Override
-    public void crearHistorialAcademico(NuevoHistorialDTO nuevoHistorial, boolean esEmpleado) {
+    public void crearHistorialAcademico(NuevoHistorialDTO nuevoHistorial,
+            boolean esEmpleado) {
         historialAcaedmicoService.crearHistorial(nuevoHistorial, esEmpleado);
 
     }
 
     @Override
     public void actualizarAdjuntoHistorial(Integer idHistorialAcademico) {
-        historialAcaedmicoService.actualizarAdjuntoHistorial(idHistorialAcademico);
+        historialAcaedmicoService
+                .actualizarAdjuntoHistorial(idHistorialAcademico);
 
     }
 
@@ -48,8 +52,10 @@ public class HistorialAcademicoEJB implements HistorialAcademico {
      */
     @Interceptors({ HistorialAcademicoActualizarValidator.class })
     @Override
-    public void actualizarHistorialAcademico(HistorialAcademicoDTO actualizarHistorial) {
-        historialAcaedmicoService.actualizarHistorialAcademico(actualizarHistorial);
+    public void actualizarHistorialAcademico(
+            HistorialAcademicoDTO actualizarHistorial) {
+        historialAcaedmicoService
+                .actualizarHistorialAcademico(actualizarHistorial);
     }
 
 }

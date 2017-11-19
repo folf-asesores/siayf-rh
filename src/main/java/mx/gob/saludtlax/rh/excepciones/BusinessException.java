@@ -21,7 +21,6 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback = true)
 public class BusinessException extends RuntimeException {
 
-    
     private static final long serialVersionUID = 8853273999950326870L;
 
     private CodigoError codigoError;
@@ -47,7 +46,8 @@ public class BusinessException extends RuntimeException {
         this.codigoError = codigoError;
     }
 
-    public BusinessException(String message, Throwable cause, CodigoError codigoError) {
+    public BusinessException(String message, Throwable cause,
+            CodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -112,7 +112,9 @@ public class BusinessException extends RuntimeException {
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getClass().getName() + "(" + codigoError.getNumero() + ")");
+                s.println("\t" + codigoError + ":"
+                        + codigoError.getClass().getName() + "("
+                        + codigoError.getNumero() + ")");
             }
 
             for (String key : propiedades.keySet()) {

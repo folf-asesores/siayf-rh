@@ -33,7 +33,7 @@ import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.reporteslaborales.proyeccion.ContratoExcel;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class RelacionPersonalSuplenteExcel implements Serializable {
@@ -43,7 +43,8 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
      */
     private static final long serialVersionUID = -9179526340442714804L;
 
-    private final InputStream is = ContratoExcel.class.getResourceAsStream("/plantillas/suplencia/Relacion_Personal_Suplente.xlsx");
+    private final InputStream is = ContratoExcel.class.getResourceAsStream(
+            "/plantillas/suplencia/Relacion_Personal_Suplente.xlsx");
 
     /**
      * El nombre de la hoja donde se encuentra el detalle
@@ -147,28 +148,35 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
 
             return obtenerBytes();
         } catch (IOException e) {
-            throw new SistemaException("Ocurrio un error al leer la platilla", SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
+            throw new SistemaException("Ocurrio un error al leer la platilla",
+                    SistemaCodigoError.ERROR_LECTURA_ESCRITURA);
         }
 
     }
 
     private void llenarEncabezados(String centroResponsabilidad) {
 
-        SimpleDateFormat fechaFormat = new SimpleDateFormat("EEEEEEEEE dd 'de' MMMMM 'de' yyyy");
+        SimpleDateFormat fechaFormat = new SimpleDateFormat(
+                "EEEEEEEEE dd 'de' MMMMM 'de' yyyy");
 
         Row filaDetalle = hoja.createRow(FILA_CENTRO_RESPONSABILIDAD);
 
-        Cell celdaCentroResponsabilidadDescripcion = filaDetalle.createCell(COLUMNA_DESCRIPCION_CENTRO_RESPONSABILIDAD);
-        celdaCentroResponsabilidadDescripcion.setCellValue("C. DE RESPONSABILIDAD:");
+        Cell celdaCentroResponsabilidadDescripcion = filaDetalle
+                .createCell(COLUMNA_DESCRIPCION_CENTRO_RESPONSABILIDAD);
+        celdaCentroResponsabilidadDescripcion
+                .setCellValue("C. DE RESPONSABILIDAD:");
         estiloCeldaSeleccionado(celdaCentroResponsabilidadDescripcion);
 
-        Cell celdaCentroResponsabilidad = filaDetalle.createCell(COLUMNA_CENTRO_RESPONSABILIDAD);
-        celdaCentroResponsabilidad.setCellValue(centroResponsabilidad.toUpperCase());
+        Cell celdaCentroResponsabilidad = filaDetalle
+                .createCell(COLUMNA_CENTRO_RESPONSABILIDAD);
+        celdaCentroResponsabilidad
+                .setCellValue(centroResponsabilidad.toUpperCase());
         celdaNormalSinCentrado(celdaCentroResponsabilidad);
 
         filaDetalle = hoja.createRow(FILA_FECHA_ENTREGA);
 
-        Cell celdaFechaEntregaDescripcion = filaDetalle.createCell(COLUMNA_DESCRIPCION_FECHA_ENTREGA);
+        Cell celdaFechaEntregaDescripcion = filaDetalle
+                .createCell(COLUMNA_DESCRIPCION_FECHA_ENTREGA);
         celdaFechaEntregaDescripcion.setCellValue("FECHA DE ENTREGA:");
         estiloCeldaSeleccionado(celdaFechaEntregaDescripcion);
 
@@ -188,40 +196,52 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
         for (RelacionPersonalSuplenteDTO detalle : estructura) {
             Row filaDetalle = hoja.createRow(i);
 
-            Cell celdaNumeroConsecutivo = filaDetalle.createCell(NUMERO_CONSECUTIVO);
+            Cell celdaNumeroConsecutivo = filaDetalle
+                    .createCell(NUMERO_CONSECUTIVO);
             celdaNumeroConsecutivo.setCellValue(puntero);
             celdaNormal(celdaNumeroConsecutivo);
 
             Cell celdaNumeroFolio = filaDetalle.createCell(NUMERO_FOLIO);
-            celdaNumeroFolio.setCellValue(detalle.getNumeroFolio() == null ? "" : detalle.getNumeroFolio());
+            celdaNumeroFolio.setCellValue(detalle.getNumeroFolio() == null ? ""
+                    : detalle.getNumeroFolio());
             celdaNormal(celdaNumeroFolio);
 
             Cell celdaRfc = filaDetalle.createCell(RFC);
-            celdaRfc.setCellValue(detalle.getRfc() == null ? "" : detalle.getRfc());
+            celdaRfc.setCellValue(
+                    detalle.getRfc() == null ? "" : detalle.getRfc());
             celdaNormal(celdaRfc);
 
             Cell celdaNombreCompleto = filaDetalle.createCell(NOMBRE_COMPLETO);
-            celdaNombreCompleto.setCellValue(detalle.getNombreEmpleado() == null ? "" : detalle.getNombreEmpleado());
+            celdaNombreCompleto.setCellValue(detalle.getNombreEmpleado() == null
+                    ? "" : detalle.getNombreEmpleado());
             celdaNormal(celdaNombreCompleto);
 
             Cell celdaFuncion = filaDetalle.createCell(FUNCION);
-            celdaFuncion.setCellValue(detalle.getFuncion() == null ? "" : detalle.getFuncion());
+            celdaFuncion.setCellValue(
+                    detalle.getFuncion() == null ? "" : detalle.getFuncion());
             celdaNormal(celdaFuncion);
 
             Cell celdaAreaSuple = filaDetalle.createCell(AREA_SUPLE);
-            celdaAreaSuple.setCellValue(detalle.getAreaSuple() == null ? "" : detalle.getAreaSuple());
+            celdaAreaSuple.setCellValue(detalle.getAreaSuple() == null ? ""
+                    : detalle.getAreaSuple());
             celdaNormal(celdaAreaSuple);
 
-            Cell celdaPeriodoSuplencia = filaDetalle.createCell(PERIODO_SUPLENCIA);
-            celdaPeriodoSuplencia.setCellValue(detalle.getPeriodoSuplencia() == null ? "" : detalle.getPeriodoSuplencia());
+            Cell celdaPeriodoSuplencia = filaDetalle
+                    .createCell(PERIODO_SUPLENCIA);
+            celdaPeriodoSuplencia
+                    .setCellValue(detalle.getPeriodoSuplencia() == null ? ""
+                            : detalle.getPeriodoSuplencia());
             celdaNormal(celdaPeriodoSuplencia);
 
             Cell celdaImporte = filaDetalle.createCell(IMPORTE);
-            celdaImporte.setCellValue(detalle.getImporte() == null ? BigDecimal.ZERO.toString() : "$ " + detalle.getImporte().toString());
+            celdaImporte.setCellValue(
+                    detalle.getImporte() == null ? BigDecimal.ZERO.toString()
+                            : "$ " + detalle.getImporte().toString());
             estiloTotal(celdaImporte);
 
             Cell celdaObservaciones = filaDetalle.createCell(OBSERVACIONES);
-            celdaObservaciones.setCellValue(detalle.getObservaciones() == null ? "" : detalle.getObservaciones());
+            celdaObservaciones.setCellValue(detalle.getObservaciones() == null
+                    ? "" : detalle.getObservaciones());
             celdaNormal(celdaObservaciones);
 
             puntero++;
@@ -235,7 +255,8 @@ public class RelacionPersonalSuplenteExcel implements Serializable {
     private void obtenerTotal(List<RelacionPersonalSuplenteDTO> estructura) {
 
         for (RelacionPersonalSuplenteDTO detalle : estructura) {
-            totalImporte = totalImporte.add(detalle.getImporte() == null ? BigDecimal.ZERO : detalle.getImporte());
+            totalImporte = totalImporte.add(detalle.getImporte() == null
+                    ? BigDecimal.ZERO : detalle.getImporte());
         }
 
         int ultimaFila = hoja.getLastRowNum();

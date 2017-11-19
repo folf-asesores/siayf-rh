@@ -17,7 +17,7 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class HistorialPagoService implements Serializable {
@@ -30,13 +30,17 @@ public class HistorialPagoService implements Serializable {
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
-    protected List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(Integer idEmpleado) {
+    protected List<HistorialPagoDetalleDTO> obtenerListaHistorialPagoPorIdEmpleado(
+            Integer idEmpleado) {
 
         Session session = entityManager.unwrap(Session.class);
 
-        Query query = session.createSQLQuery("CALL usp_historiales_pagos(:idEmpleado) ").setParameter("idEmpleado", idEmpleado);
+        Query query = session
+                .createSQLQuery("CALL usp_historiales_pagos(:idEmpleado) ")
+                .setParameter("idEmpleado", idEmpleado);
 
-        query.setResultTransformer(Transformers.aliasToBean(HistorialPagoDetalleDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(HistorialPagoDetalleDTO.class));
 
         @SuppressWarnings("unchecked")
         List<HistorialPagoDetalleDTO> list = query.list();

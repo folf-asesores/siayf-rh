@@ -28,7 +28,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class DispersionEJB implements Dispersion {
 
     private static final long serialVersionUID = 1691448290310983411L;
-    private static final Logger LOGGER = Logger.getLogger(DispersionEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DispersionEJB.class.getName());
 
     @Inject
     private DispersionService dispersionService;
@@ -45,15 +46,20 @@ public class DispersionEJB implements Dispersion {
     @Override
     public byte[] generarReporte(Integer idProductoNomina, boolean excel) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto de nomina no puede ser cero o menor que uno", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del producto de nomina no puede ser cero o menor que uno",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
 
-        List<Integer> idPagoNominaList = dispersionService.obtenerIdPagoNominaList(idProductoNomina);
+        List<Integer> idPagoNominaList = dispersionService
+                .obtenerIdPagoNominaList(idProductoNomina);
         List<List<DispersionDTO>> dispersionList = new ArrayList<>();
         for (Integer idPagoNomina : idPagoNominaList) {
-            List<DispersionDTO> dispersion = dispersionService.obtenerInformacion(idPagoNomina);
+            List<DispersionDTO> dispersion = dispersionService
+                    .obtenerInformacion(idPagoNomina);
             for (DispersionDTO dispersionDTO : dispersion) {
-                String nombreEmpleado = CadenaUtil.remplazarCaracteresLatinos(dispersionDTO.getNombreEmpleado());
+                String nombreEmpleado = CadenaUtil.remplazarCaracteresLatinos(
+                        dispersionDTO.getNombreEmpleado());
                 dispersionDTO.setNombreEmpleado(nombreEmpleado);
             }
             dispersionList.add(dispersion);

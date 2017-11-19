@@ -81,19 +81,31 @@ public class HistorialAcademicoEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "HistorialAcademicoEntity [idHistorialAcademico=" + idHistorialAcademico + ", escolaridad=" + escolaridad + ", idEmpleado=" + idEmpleado
-                + ", idAspirante=" + idAspirante + ", comprobanteEstudio=" + comprobanteEstudio + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial="
-                + fechaInicial + ", FechaFinal=" + FechaFinal + ", duracion=" + duracion + ", cursando=" + cursando + ", nombreCurso=" + nombreCurso
-                + ", tieneDocumentacion=" + tieneDocumentacion + ", maximoEstudio=" + maximoEstudio + ", fechaExpedicionCedula=" + fechaExpedicionCedula
+        return "HistorialAcademicoEntity [idHistorialAcademico="
+                + idHistorialAcademico + ", escolaridad=" + escolaridad
+                + ", idEmpleado=" + idEmpleado + ", idAspirante=" + idAspirante
+                + ", comprobanteEstudio=" + comprobanteEstudio
+                + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial="
+                + fechaInicial + ", FechaFinal=" + FechaFinal + ", duracion="
+                + duracion + ", cursando=" + cursando + ", nombreCurso="
+                + nombreCurso + ", tieneDocumentacion=" + tieneDocumentacion
+                + ", maximoEstudio=" + maximoEstudio
+                + ", fechaExpedicionCedula=" + fechaExpedicionCedula
                 + ", numeroCedula=" + numeroCedula + "]";
     }
 
     public String lccHistorial() {
-        return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico + ", escolaridad=" + escolaridad.getEscolaridad() + ", idEmpleado="
-                + idEmpleado + ", idAspirante=" + idAspirante + ", comprobanteEstudio=" + comprobanteEstudio + ", nombreInstitucion=" + nombreInstitucion
-                + ", fechaInicial=" + fechaInicial + ", FechaFinal=" + FechaFinal + ", duracion=" + duracion + ", cursando=" + cursando + ", nombreCurso="
-                + nombreCurso + ", tieneDocumentacion=" + tieneDocumentacion + ", maximoEstudio=" + maximoEstudio + ", fechaExpedicionCedula="
-                + fechaExpedicionCedula + ", numeroCedula=" + numeroCedula + "]";
+        return "HistorialAcademico[idHistorialAcademico=" + idHistorialAcademico
+                + ", escolaridad=" + escolaridad.getEscolaridad()
+                + ", idEmpleado=" + idEmpleado + ", idAspirante=" + idAspirante
+                + ", comprobanteEstudio=" + comprobanteEstudio
+                + ", nombreInstitucion=" + nombreInstitucion + ", fechaInicial="
+                + fechaInicial + ", FechaFinal=" + FechaFinal + ", duracion="
+                + duracion + ", cursando=" + cursando + ", nombreCurso="
+                + nombreCurso + ", tieneDocumentacion=" + tieneDocumentacion
+                + ", maximoEstudio=" + maximoEstudio
+                + ", fechaExpedicionCedula=" + fechaExpedicionCedula
+                + ", numeroCedula=" + numeroCedula + "]";
     }
 
     public Integer getIdHistorialAcademico() {
@@ -147,7 +159,8 @@ public class HistorialAcademicoEntity implements Serializable {
      * @param comprobanteEstudio
      *            the comprobanteEstudio to set
      */
-    public void setComprobanteEstudio(ComprobanteEstudioEntity comprobanteEstudio) {
+    public void setComprobanteEstudio(
+            ComprobanteEstudioEntity comprobanteEstudio) {
         this.comprobanteEstudio = comprobanteEstudio;
     }
 

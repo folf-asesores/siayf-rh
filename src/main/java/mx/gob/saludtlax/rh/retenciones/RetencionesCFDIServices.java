@@ -48,8 +48,11 @@ public class RetencionesCFDIServices implements Serializable {
     @Inject
     CertificadoSelloDigitalRepository certificadoSelloDigitalRepository;
 
-    public ConstanciaSueldoEntity toComprobanteRetencionesCFDI(ConstanciaSueldoEntity _constanciaSueldoEntity) throws DatatypeConfigurationException,
-            TransformerConfigurationException, IOException, TransformerException, JAXBException, GeneralSecurityException {
+    public ConstanciaSueldoEntity toComprobanteRetencionesCFDI(
+            ConstanciaSueldoEntity _constanciaSueldoEntity)
+            throws DatatypeConfigurationException,
+            TransformerConfigurationException, IOException,
+            TransformerException, JAXBException, GeneralSecurityException {
 
         Retenciones retencionesCFDI = new Retenciones();
 
@@ -63,8 +66,9 @@ public class RetencionesCFDIServices implements Serializable {
         Retenciones.Receptor receptor = new Retenciones.Receptor();
         Retenciones.Receptor.Nacional nacional = new Retenciones.Receptor.Nacional();
         nacional.setCURPR(_constanciaSueldoEntity.getCURP());
-        nacional.setNomDenRazSocR(
-                _constanciaSueldoEntity.getApellidoPaterno() + " " + _constanciaSueldoEntity.getApellidoMaterno() + " " + _constanciaSueldoEntity.getNombre());
+        nacional.setNomDenRazSocR(_constanciaSueldoEntity.getApellidoPaterno()
+                + " " + _constanciaSueldoEntity.getApellidoMaterno() + " "
+                + _constanciaSueldoEntity.getNombre());
         nacional.setRFCRecep(_constanciaSueldoEntity.getRFC());
         receptor.setNacional(nacional);
 
@@ -75,49 +79,67 @@ public class RetencionesCFDIServices implements Serializable {
 
         Retenciones.Totales totales = new Retenciones.Totales();
 
-        totales.setMontoTotExent(_constanciaSueldoEntity.getSumaIngresoPorSueldoExento());
-        totales.setMontoTotGrav(_constanciaSueldoEntity.getSumaIngresoPorSueldoGravado());
-        totales.setMontoTotOperacion(_constanciaSueldoEntity.getSumaIngresoPorSueldoGravado());
-        totales.setMontoTotRet(_constanciaSueldoEntity.getImpuestoRetenidoEjercicioDeclara());
+        totales.setMontoTotExent(
+                _constanciaSueldoEntity.getSumaIngresoPorSueldoExento());
+        totales.setMontoTotGrav(
+                _constanciaSueldoEntity.getSumaIngresoPorSueldoGravado());
+        totales.setMontoTotOperacion(
+                _constanciaSueldoEntity.getSumaIngresoPorSueldoGravado());
+        totales.setMontoTotRet(
+                _constanciaSueldoEntity.getImpuestoRetenidoEjercicioDeclara());
 
         retencionesCFDI.setEmisor(emisor);
         retencionesCFDI.setReceptor(receptor);
-        retencionesCFDI.setCveRetenc(_constanciaSueldoEntity.getClaveSalarioAsimilado());
+        retencionesCFDI.setCveRetenc(
+                _constanciaSueldoEntity.getClaveSalarioAsimilado());
         retencionesCFDI.setDescRetenc("Servicios profesionales");
-        retencionesCFDI.setFechaExp(DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
-        retencionesCFDI.setFolioInt(_constanciaSueldoEntity.getIdConstanciaSueldo().toString());
+        retencionesCFDI.setFechaExp(
+                DatatypeFactory.newInstance().newXMLGregorianCalendar(cal));
+        retencionesCFDI.setFolioInt(
+                _constanciaSueldoEntity.getIdConstanciaSueldo().toString());
         retencionesCFDI.setPeriodo(periodo);
         retencionesCFDI.setSello("");
         retencionesCFDI.setTotales(totales);
         retencionesCFDI.setVersion("1.0");
 
-        RetencionesView retencionesView = generaComprobanteRetencionesCFDI(retencionesCFDI);
+        RetencionesView retencionesView = generaComprobanteRetencionesCFDI(
+                retencionesCFDI);
         _constanciaSueldoEntity.setXml(retencionesView.getXml());
-        _constanciaSueldoEntity.setCadenaOriginal(retencionesView.getCadenaOriginal());
+        _constanciaSueldoEntity
+                .setCadenaOriginal(retencionesView.getCadenaOriginal());
         _constanciaSueldoEntity.setSello(retencionesView.getSello());
 
         return _constanciaSueldoEntity;
     }
 
-    public RetencionesView generaComprobanteRetencionesCFDI(Retenciones retenciones)
-            throws IOException, TransformerConfigurationException, TransformerException, JAXBException, GeneralSecurityException {
+    public RetencionesView generaComprobanteRetencionesCFDI(
+            Retenciones retenciones)
+            throws IOException, TransformerConfigurationException,
+            TransformerException, JAXBException, GeneralSecurityException {
 
-        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository.obtenerCertificadoSelloDigitalActivo();
+        CertificadoSelloDigitalEntity certificadoSelloDigitalEntity = certificadoSelloDigitalRepository
+                .obtenerCertificadoSelloDigitalActivo();
 
-        InputStream certificadoDigital = new ByteArrayInputStream(certificadoSelloDigitalEntity.getCertificado());
-        InputStream llaveCertificado = new ByteArrayInputStream(certificadoSelloDigitalEntity.getArchivoKey());
+        InputStream certificadoDigital = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getCertificado());
+        InputStream llaveCertificado = new ByteArrayInputStream(
+                certificadoSelloDigitalEntity.getArchivoKey());
 
-        DatosCertificado datosCertificado = getDatosCertificado(certificadoDigital);
+        DatosCertificado datosCertificado = getDatosCertificado(
+                certificadoDigital);
         retenciones.setNumCert(datosCertificado.getNumeroCertficiado());
         retenciones.setCert(datosCertificado.getInformacionBase64());
 
-        String cadenaOriginal = cadenaOriginaServices.generar(generarXMLStream(retenciones));
+        String cadenaOriginal = cadenaOriginaServices
+                .generar(generarXMLStream(retenciones));
 
-        String selloDigitalCadena = selloDigital.generarSello(llaveCertificado, certificadoSelloDigitalEntity.getClave(), cadenaOriginal);
+        String selloDigitalCadena = selloDigital.generarSello(llaveCertificado,
+                certificadoSelloDigitalEntity.getClave(), cadenaOriginal);
 
         retenciones.setSello(selloDigitalCadena);
 
-        ByteArrayOutputStream retencionesCFDISellado = generarXMLStream(retenciones);
+        ByteArrayOutputStream retencionesCFDISellado = generarXMLStream(
+                retenciones);
         Random md = new Random();
         /*
          * OutputStream outputStream = new FileOutputStream(
@@ -127,7 +149,8 @@ public class RetencionesCFDIServices implements Serializable {
 
         RetencionesView retencionesView = new RetencionesView();
 
-        retencionesView.setXml(new String(retencionesCFDISellado.toByteArray()));
+        retencionesView
+                .setXml(new String(retencionesCFDISellado.toByteArray()));
         retencionesView.setCadenaOriginal(cadenaOriginal);
         retencionesView.setSello(selloDigitalCadena);
 
@@ -135,12 +158,14 @@ public class RetencionesCFDIServices implements Serializable {
 
     }
 
-    public ByteArrayOutputStream generarXMLStream(Retenciones retenciones) throws JAXBException {
+    public ByteArrayOutputStream generarXMLStream(Retenciones retenciones)
+            throws JAXBException {
         ByteArrayOutputStream resultadoMarshall = new ByteArrayOutputStream();
 
         JAXBContext jaxbContext;
 
-        jaxbContext = JAXBContext.newInstance("mx.gob.saludtlax.rh.sat.xml.retenciones");
+        jaxbContext = JAXBContext
+                .newInstance("mx.gob.saludtlax.rh.sat.xml.retenciones");
 
         Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION,
@@ -152,16 +177,19 @@ public class RetencionesCFDIServices implements Serializable {
 
     }
 
-    public DatosCertificado getDatosCertificado(InputStream x509Certificate) throws CertificateException, IOException {
+    public DatosCertificado getDatosCertificado(InputStream x509Certificate)
+            throws CertificateException, IOException {
         DatosCertificado datosCertificado = new DatosCertificado();
         X509Certificate certificado = getX509Certificate(x509Certificate);
         datosCertificado.setNumeroCertficiado(getNoCertificado(certificado));
-        datosCertificado.setInformacionBase64(getCertificadoBase64(certificado));
+        datosCertificado
+                .setInformacionBase64(getCertificadoBase64(certificado));
         return datosCertificado;
 
     }
 
-    private X509Certificate getX509Certificate(InputStream x509Certificate) throws CertificateException, IOException {
+    private X509Certificate getX509Certificate(InputStream x509Certificate)
+            throws CertificateException, IOException {
 
         InputStream file = x509Certificate;
         try {
@@ -176,7 +204,8 @@ public class RetencionesCFDIServices implements Serializable {
 
     }
 
-    private String getCertificadoBase64(X509Certificate cert) throws CertificateEncodingException {
+    private String getCertificadoBase64(X509Certificate cert)
+            throws CertificateEncodingException {
         return new String(Base64.encodeBase64(cert.getEncoded()));
     }
 

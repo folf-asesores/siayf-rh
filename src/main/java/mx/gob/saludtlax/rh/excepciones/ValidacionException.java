@@ -39,7 +39,8 @@ public class ValidacionException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidacionException(String message, ValidacionCodigoError codigoError) {
+    public ValidacionException(String message,
+            ValidacionCodigoError codigoError) {
         super(message);
         this.codigoError = codigoError;
     }
@@ -54,7 +55,8 @@ public class ValidacionException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidacionException(String message, Throwable cause, ValidacionCodigoError codigoError) {
+    public ValidacionException(String message, Throwable cause,
+            ValidacionCodigoError codigoError) {
         super(message, cause);
         this.codigoError = codigoError;
     }
@@ -67,7 +69,8 @@ public class ValidacionException extends RuntimeException {
      * @param codigoError
      *            el código de error que identifica la excepción.
      */
-    public ValidacionException(Throwable cause, ValidacionCodigoError codigoError) {
+    public ValidacionException(Throwable cause,
+            ValidacionCodigoError codigoError) {
         super(cause);
         this.codigoError = codigoError;
     }
@@ -141,7 +144,8 @@ public class ValidacionException extends RuntimeException {
             s.println("\t-------------------------------");
 
             if (codigoError != null) {
-                s.println("\t" + codigoError + ":" + codigoError.getNumero() + ":" + codigoError.getClass().getName());
+                s.println("\t" + codigoError + ":" + codigoError.getNumero()
+                        + ":" + codigoError.getClass().getName());
             }
 
             for (String key : propiedades.keySet()) {

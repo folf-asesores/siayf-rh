@@ -62,7 +62,8 @@ public class EstructuraNominaTrailersEntity implements Serializable {
         return idEstructurasNominasTrailers;
     }
 
-    public void setIdEstructurasNominasTrailers(Integer idEstructurasNominasTrailers) {
+    public void setIdEstructurasNominasTrailers(
+            Integer idEstructurasNominasTrailers) {
         this.idEstructurasNominasTrailers = idEstructurasNominasTrailers;
     }
 

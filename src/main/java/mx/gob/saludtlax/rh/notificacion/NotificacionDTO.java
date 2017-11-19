@@ -33,7 +33,8 @@ public class NotificacionDTO implements Serializable {
     public NotificacionDTO() {
     }
 
-    public NotificacionDTO(Integer idRemitente, Modulo modulo, String asunto, String cuerpo, Map<Integer, String> idsDestinatarios,
+    public NotificacionDTO(Integer idRemitente, Modulo modulo, String asunto,
+            String cuerpo, Map<Integer, String> idsDestinatarios,
             Map<String, String> parametros) {
         this.idRemitente = idRemitente;
         this.modulo = modulo;

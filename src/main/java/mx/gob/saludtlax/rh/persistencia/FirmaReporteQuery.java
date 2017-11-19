@@ -31,7 +31,8 @@ import mx.gob.saludtlax.rh.util.Configuracion;
 public class FirmaReporteQuery implements Serializable {
 
     private static final long serialVersionUID = 8646160355015622370L;
-    private static final Logger LOGGER = Logger.getLogger(FirmaReporteQuery.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(FirmaReporteQuery.class.getName());
 
     private static final String OBTENER_DATOS_FIRMAS = "CALL usp_listado_firma(?)";
 
@@ -60,7 +61,8 @@ public class FirmaReporteQuery implements Serializable {
 
     public List<FirmaPojo> obtenerDatos(Integer idProductoNomina) {
         try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement prepareStatement = connection.prepareStatement(OBTENER_DATOS_FIRMAS);
+            PreparedStatement prepareStatement = connection
+                    .prepareStatement(OBTENER_DATOS_FIRMAS);
             prepareStatement.setInt(1, idProductoNomina);
             ResultSet rs = prepareStatement.executeQuery();
 
@@ -78,7 +80,8 @@ public class FirmaReporteQuery implements Serializable {
                 String programa = rs.getString(COLUMNA_PROGRAMA);
                 firma.setPrograma(programa);
 
-                String clave = rs.getString(COLUMNA_CLAVE) == null ? "" : rs.getString(COLUMNA_CLAVE);
+                String clave = rs.getString(COLUMNA_CLAVE) == null ? ""
+                        : rs.getString(COLUMNA_CLAVE);
                 firma.setClave(clave);
 
                 String descripcion = rs.getString(COLUMNA_DESCRIPCION);
@@ -99,7 +102,9 @@ public class FirmaReporteQuery implements Serializable {
                 Date finPeriodo = rs.getDate(COLUMNA_FIN_PERIODO);
                 firma.setFinPeriodo(finPeriodo);
 
-                String numeroCheque = rs.getString(COLUMNA_NUMERO_CHEQUE) == null ? "0" : rs.getString(COLUMNA_NUMERO_CHEQUE);
+                String numeroCheque = rs
+                        .getString(COLUMNA_NUMERO_CHEQUE) == null ? "0"
+                                : rs.getString(COLUMNA_NUMERO_CHEQUE);
                 firma.setNumeroCheque(numeroCheque);
 
                 BigDecimal neto = rs.getBigDecimal(COLUMNA_NETO);

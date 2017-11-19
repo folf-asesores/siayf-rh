@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ProductosNominaProgramasExcelDTO implements Serializable {
@@ -114,25 +114,32 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
     }
 
     public void setPensionAlimenticia(BigDecimal pensionAlimenticia) {
-        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia;
+        this.pensionAlimenticia = pensionAlimenticia == null ? BigDecimal.ZERO
+                : pensionAlimenticia;
     }
 
     public BigDecimal getTotal() {
         BigDecimal percepciones = BigDecimal.ZERO;
-        percepciones = percepciones.add(sueldo == null ? BigDecimal.ZERO : sueldo);
+        percepciones = percepciones
+                .add(sueldo == null ? BigDecimal.ZERO : sueldo);
 
         BigDecimal deducciones = BigDecimal.ZERO;
         deducciones = deducciones.add(isr == null ? BigDecimal.ZERO : isr);
-        deducciones = deducciones.add(pensionAlimenticia == null ? BigDecimal.ZERO : pensionAlimenticia);
+        deducciones = deducciones.add(pensionAlimenticia == null
+                ? BigDecimal.ZERO : pensionAlimenticia);
 
         return percepciones.subtract(deducciones);
     }
 
     @Override
     public String toString() {
-        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", fechaIngreso=" + fechaIngreso + ", centroResponsabilidad="
-                + centroResponsabilidad + ", funcion=" + funcion + ", programa=" + programa + ", sueldo=" + sueldo + ", isr=" + isr + ", pensionAlimenticia="
-                + pensionAlimenticia + ", total=" + getTotal() + ']';
+        return "ProductosNominaExcelDTO[" + "rfc=" + rfc + ", nombreEmpleado="
+                + nombreEmpleado + ", fechaIngreso=" + fechaIngreso
+                + ", centroResponsabilidad=" + centroResponsabilidad
+                + ", funcion=" + funcion + ", programa=" + programa
+                + ", sueldo=" + sueldo + ", isr=" + isr
+                + ", pensionAlimenticia=" + pensionAlimenticia + ", total="
+                + getTotal() + ']';
     }
 
     @Override
@@ -169,7 +176,8 @@ public class ProductosNominaProgramasExcelDTO implements Serializable {
         if (!Objects.equals(nombreEmpleado, other.nombreEmpleado)) {
             return false;
         }
-        if (!Objects.equals(centroResponsabilidad, other.centroResponsabilidad)) {
+        if (!Objects.equals(centroResponsabilidad,
+                other.centroResponsabilidad)) {
             return false;
         }
 

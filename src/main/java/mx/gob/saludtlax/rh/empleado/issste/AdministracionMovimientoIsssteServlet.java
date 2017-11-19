@@ -46,31 +46,40 @@ public class AdministracionMovimientoIsssteServlet extends HttpServlet {
      *      response)
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request,
+            HttpServletResponse response) throws ServletException, IOException {
         String accion = "";
         String nombrePdf = "";
 
-        Integer idMovimientoIssste = Integer.parseInt(request.getParameter("idMovimientoIssste"));
-        Integer idAccionMovimientoIssste = Integer.parseInt(request.getParameter("idAccionMovimientoIssste"));
-        Integer idTipoMovimientoIssste = Integer.parseInt(request.getParameter("idTipoMovimientoIssste"));
+        Integer idMovimientoIssste = Integer
+                .parseInt(request.getParameter("idMovimientoIssste"));
+        Integer idAccionMovimientoIssste = Integer
+                .parseInt(request.getParameter("idAccionMovimientoIssste"));
+        Integer idTipoMovimientoIssste = Integer
+                .parseInt(request.getParameter("idTipoMovimientoIssste"));
 
-        if (idAccionMovimientoIssste.equals(EnumAccionMovimientoIssste.VISUALIZAR)) {
+        if (idAccionMovimientoIssste
+                .equals(EnumAccionMovimientoIssste.VISUALIZAR)) {
             accion = "inline;filename=";
         }
 
-        if (idAccionMovimientoIssste.equals(EnumAccionMovimientoIssste.DESCARGAR)) {
+        if (idAccionMovimientoIssste
+                .equals(EnumAccionMovimientoIssste.DESCARGAR)) {
             accion = "attachment;filename=";
         }
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.ALTA_TRABAJADOR)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.ALTA_TRABAJADOR)) {
             nombrePdf = "Formato_Altas_ISSSTE.pdf";
         }
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.BAJA_ISSSTE)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.BAJA_ISSSTE)) {
             nombrePdf = "Formato_Bajas_ISSSTE.pdf";
         }
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO)) {
             nombrePdf = "Formato_Modificacion_ISSSTE.pdf";
         }
 
@@ -85,28 +94,34 @@ public class AdministracionMovimientoIsssteServlet extends HttpServlet {
         servletOutputStream.close();
     }
 
-    private byte[] doReport(Integer idMovimientoIssste, Integer idTipoMovimientoIssste) {
+    private byte[] doReport(Integer idMovimientoIssste,
+            Integer idTipoMovimientoIssste) {
         byte[] bytes = null;
 
         String rutaReporte = "";
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.ALTA_TRABAJADOR)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.ALTA_TRABAJADOR)) {
             rutaReporte = "/reportes/REPORTE_FORMATO_ALTAS_ISSSTE.jasper";
         }
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.BAJA_ISSSTE)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.BAJA_ISSSTE)) {
             rutaReporte = "/reportes/REPORTE_FORMATO_BAJAS_ISSSTE.jasper";
         }
 
-        if (idTipoMovimientoIssste.equals(EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO)) {
+        if (idTipoMovimientoIssste
+                .equals(EnumTipoMovimientoIssste.MODIFICACIÓN_SUELDO)) {
             rutaReporte = "/reportes/REPORTE_FORMATO_MODIFICACION_ISSSTE.jasper";
         }
 
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(rutaReporte);
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream(rutaReporte);
         Connection conexion = null;
         try {
             Context initcontext = new InitialContext();
-            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+            DataSource ds = (DataSource) initcontext
+                    .lookup("java:jboss/datasources/SIAYFRHDS");
 
             conexion = ds.getConnection();
 
@@ -114,13 +129,18 @@ public class AdministracionMovimientoIsssteServlet extends HttpServlet {
 
             parameters.put("ID_MOVIMIENTO_ISSSTE", idMovimientoIssste);
 
-            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters,
+                    conexion);
 
         } catch (NamingException ex) {
-            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            System.err.println(
+                    "Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (SQLException ex) {
-            System.err.println("Error al tratar obtener la conexion con la base de datos en " + getClass().getName());
+            System.err.println(
+                    "Error al tratar obtener la conexion con la base de datos en "
+                            + getClass().getName());
             ex.printStackTrace();
         } catch (JRException ex) {
             System.err.println("Error durante la generación del reporte ");
@@ -130,7 +150,9 @@ public class AdministracionMovimientoIsssteServlet extends HttpServlet {
                 try {
                     conexion.close();
                 } catch (SQLException e) {
-                    System.err.println("Error al tratar cerrar la conexion con la base de datos en " + getClass().getName());
+                    System.err.println(
+                            "Error al tratar cerrar la conexion con la base de datos en "
+                                    + getClass().getName());
                     e.printStackTrace();
                 }
             }

@@ -41,19 +41,24 @@ import mx.gob.saludtlax.rh.util.Configuracion;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class SIIFEncabezadoService {
-    private static final Logger LOGGER = Logger.getLogger(SIIFLayoutEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(SIIFLayoutEJB.class.getName());
 
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
     @Inject
     private EstructuraContratoRepository estructuraDatDAO;
 
-    protected List<SIIFEncabezadoDTO> consultarEncabezado(String periodo, int anyo) {
+    protected List<SIIFEncabezadoDTO> consultarEncabezado(String periodo,
+            int anyo) {
         //       List<SIIFEncabezadoEntity> encabezadoEntidades = encabezadoRepository.consultarEncabezado(periodo, anyo);
         //       List<SIIFEncabezadoDTO> encabezadoDTOs = convertirListaEncabezadosEntidadesADTOs(encabezadoEntidades);
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_obtener_encabezados(:anyo, :periodo)").setParameter("anyo", anyo).setParameter("periodo", periodo);
-        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+        Query query = session
+                .createSQLQuery("CALL usp_obtener_encabezados(:anyo, :periodo)")
+                .setParameter("anyo", anyo).setParameter("periodo", periodo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SIIFEncabezadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> siifEncabezadoList = query.list();
@@ -61,12 +66,16 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<SIIFEncabezadoDTO> generarEncabezado(String periodo, int anyo) {
+    protected List<SIIFEncabezadoDTO> generarEncabezado(String periodo,
+            int anyo) {
         //      List<SIIFEncabezadoEntity> encabezadoEntidades = encabezadoRepository.consultarEncabezado(periodo, anyo);
         //      List<SIIFEncabezadoDTO> encabezadoDTOs = convertirListaEncabezadosEntidadesADTOs(encabezadoEntidades);
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_encabezados(:anyo, :periodo)").setParameter("anyo", anyo).setParameter("periodo", periodo);
-        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+        Query query = session
+                .createSQLQuery("CALL usp_generar_encabezados(:anyo, :periodo)")
+                .setParameter("anyo", anyo).setParameter("periodo", periodo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SIIFEncabezadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> siifEncabezadoList = query.list();
@@ -74,10 +83,15 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<SIIFEncabezadoDTO> generarEncabezadoRH(int idProductoNomina) {
+    protected List<SIIFEncabezadoDTO> generarEncabezadoRH(
+            int idProductoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_encabezados_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina);
-        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_generar_encabezados_rh(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SIIFEncabezadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> siifEncabezadoList = query.list();
@@ -87,15 +101,22 @@ public class SIIFEncabezadoService {
 
     protected void crearEncabezadoRH(int idProductoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_crear_encabezados_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina);
+        Query query = session
+                .createSQLQuery(
+                        "CALL usp_crear_encabezados_rh(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina);
         query.executeUpdate();
 
     }
 
-    protected List<SIIFEncabezadoDTO> consultarEncabezadoRH(int idProductoNomina) {
+    protected List<SIIFEncabezadoDTO> consultarEncabezadoRH(
+            int idProductoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_encabezados_rh_cont(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina);
-        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_encabezados_rh_cont(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SIIFEncabezadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> siifEncabezadoList = query.list();
@@ -103,11 +124,14 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<SIIFEncabezadoDTO> consultarEncabezadoFinal(String periodo, int anyo) {
+    protected List<SIIFEncabezadoDTO> consultarEncabezadoFinal(String periodo,
+            int anyo) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_encabezado_siif_final(:anyo, :periodo)").setParameter("anyo", anyo).setParameter("periodo",
-                periodo);
-        query.setResultTransformer(Transformers.aliasToBean(SIIFEncabezadoDTO.class));
+        Query query = session.createSQLQuery(
+                "CALL usp_generar_encabezado_siif_final(:anyo, :periodo)")
+                .setParameter("anyo", anyo).setParameter("periodo", periodo);
+        query.setResultTransformer(
+                Transformers.aliasToBean(SIIFEncabezadoDTO.class));
 
         @SuppressWarnings("unchecked")
         List<SIIFEncabezadoDTO> siifEncabezadoList = query.list();
@@ -115,11 +139,13 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraNominaTrailersDTO> consultarTra(String periodo, int anyo) {
+    protected List<EstructuraNominaTrailersDTO> consultarTra(String periodo,
+            int anyo) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_generar_tra_rh");
 
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
 
         @SuppressWarnings("unchecked")
         List<EstructuraNominaTrailersDTO> siifEncabezadoList = query.list();
@@ -127,21 +153,27 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraNominaTrailersDTO> consultarTraN(Integer idBitacora) {
+    protected List<EstructuraNominaTrailersDTO> consultarTraN(
+            Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_tra(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_tra(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraNominaTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraNominaTrailersDTO.class));
         List<EstructuraNominaTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraNominaTrailersDTO> consultarTraRH(Integer idBitacora) {
+    protected List<EstructuraNominaTrailersDTO> consultarTraRH(
+            Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_tra_rh(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_tra_rh(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraNominaTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraNominaTrailersDTO.class));
         List<EstructuraNominaTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
@@ -149,19 +181,23 @@ public class SIIFEncabezadoService {
 
     protected List<EstructuraContratosDatDTO> consultarTra(Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_tra(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_tra(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraNominaDatDTO> consultarDat(String periodo, int anyo) {
+    protected List<EstructuraNominaDatDTO> consultarDat(String periodo,
+            int anyo) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL usp_generar_dat_rh");
 
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraNominaDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraNominaDatDTO.class));
 
         @SuppressWarnings("unchecked")
         List<EstructuraNominaDatDTO> siifEncabezadoList = query.list();
@@ -169,11 +205,15 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraCont(String producto) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraCont(
+            String producto) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_tra_contrato(:producto)").setParameter("producto", producto);
+        Query query = session
+                .createSQLQuery("CALL usp_generar_tra_contrato(:producto)")
+                .setParameter("producto", producto);
 
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
 
         @SuppressWarnings("unchecked")
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
@@ -181,11 +221,15 @@ public class SIIFEncabezadoService {
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatCont(String producto) {
+    protected List<EstructuraContratosDatDTO> consultarDatCont(
+            String producto) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_dat_contrato(:producto)").setParameter("producto", producto);
+        Query query = session
+                .createSQLQuery("CALL usp_generar_dat_contrato(:producto)")
+                .setParameter("producto", producto);
 
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
 
         @SuppressWarnings("unchecked")
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
@@ -195,7 +239,9 @@ public class SIIFEncabezadoService {
 
     protected List<String> listProductos(String quincena) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT DISTINCT ec.nom_prod FROM estructuras_contratos AS ec WHERE ec.qna_real=" + quincena);
+        Query query = session.createSQLQuery(
+                "SELECT DISTINCT ec.nom_prod FROM estructuras_contratos AS ec WHERE ec.qna_real="
+                        + quincena);
         //Query query = session.createSQLQuery("SELECT DISTINCT ec.nom_prod FROM estructuras_contratos AS ec");
 
         List<String> list = query.list();
@@ -205,9 +251,11 @@ public class SIIFEncabezadoService {
 
     protected List<EstructuraContratosDatDTO> consultarDat(Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_dat(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_dat(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
@@ -215,9 +263,11 @@ public class SIIFEncabezadoService {
 
     protected List<EstructuraNominaDatDTO> consultarDatN(Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_dat(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_dat(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraNominaDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraNominaDatDTO.class));
         List<EstructuraNominaDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
@@ -225,143 +275,184 @@ public class SIIFEncabezadoService {
 
     protected List<EstructuraNominaDatDTO> consultarDatRH(Integer idBitacora) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_dat_rh(:id_siif_bitacora)");
+        Query query = session
+                .createSQLQuery("CALL usp_generar_dat_rh(:id_siif_bitacora)");
         query.setParameter("id_siif_bitacora", idBitacora);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraNominaDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraNominaDatDTO.class));
         List<EstructuraNominaDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatProdNom(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNom(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_dat_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_generar_dat_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraProdNom(Integer id_producto_nomina) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNom(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_generar_tra_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_generar_tra_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatProdNomRH(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRH(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_dat_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRH(Integer id_producto_nomina) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRH(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_tra_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHCont(Integer id_producto_nomina, Integer id_programa) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHCont(
+            Integer id_producto_nomina, Integer id_programa) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_cont(:id_producto_nomina, :id_programa)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_dat_rh_dev_cont(:id_producto_nomina, :id_programa)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
         query.setParameter("id_programa", id_programa);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHCont(Integer id_producto_nomina, Integer id_programa) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHCont(
+            Integer id_producto_nomina, Integer id_programa) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_cont(:id_producto_nomina, :id_programa)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_tra_rh_dev_cont(:id_producto_nomina, :id_programa)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
         query.setParameter("id_programa", id_programa);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContrato(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContrato(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_contrato(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_dat_rh_dev_contrato(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContrato(Integer id_producto_nomina) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContrato(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_contrato(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_tra_rh_dev_contrato(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContSegPop(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> consultarDatProdNomRHContSegPop(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_dat_rh_dev_cont_seg_pop(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_dat_rh_dev_cont_seg_pop(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
-    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContSegPop(Integer id_producto_nomina) {
+    protected List<EstructuraContratosTrailersDTO> consultarTraProdNomRHContSegPop(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_consultar_tra_rh_dev_cont_seg_pop(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_consultar_tra_rh_dev_cont_seg_pop(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
     @SuppressWarnings("unchecked")
-    protected List<EstructuraContratosDatDTO> crearDatProdNom(Integer id_producto_nomina) {
+    protected List<EstructuraContratosDatDTO> crearDatProdNom(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_crear_dat_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_crear_dat_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         List<EstructuraContratosDatDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
     @SuppressWarnings("unchecked")
-    protected List<EstructuraContratosTrailersDTO> crearTraProdNom(Integer id_producto_nomina) {
+    protected List<EstructuraContratosTrailersDTO> crearTraProdNom(
+            Integer id_producto_nomina) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("CALL usp_crear_tra_rh_dev(:id_producto_nomina)");
+        Query query = session.createSQLQuery(
+                "CALL usp_crear_tra_rh_dev(:id_producto_nomina)");
         query.setParameter("id_producto_nomina", id_producto_nomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosTrailersDTO.class));
         List<EstructuraContratosTrailersDTO> siifEncabezadoList = query.list();
 
         return siifEncabezadoList;
     }
 
     @SuppressWarnings("unchecked")
-    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopular(String periodo, int anyo) {
+    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopular(
+            String periodo, int anyo) {
         List<Object[]> objetos;
         List<EstructuraSeguroPopularDTO> seguroPopularList = new ArrayList<>();
-        objetos = entityManager.createNativeQuery("CALL usp_generar_seguro_popular(:periodo)").setParameter("periodo", periodo).getResultList();
+        objetos = entityManager
+                .createNativeQuery("CALL usp_generar_seguro_popular(:periodo)")
+                .setParameter("periodo", periodo).getResultList();
 
         if (objetos.size() > 0) {
             for (Object[] obj : objetos) {
@@ -395,10 +486,14 @@ public class SIIFEncabezadoService {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRHCont(int idProductoNomina) {
+    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRHCont(
+            int idProductoNomina) {
         List<Object[]> objetos;
         List<EstructuraSeguroPopularDTO> seguroPopularList = new ArrayList<>();
-        objetos = entityManager.createNativeQuery("CALL usp_generar_seguro_popular_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina)
+        objetos = entityManager
+                .createNativeQuery(
+                        "CALL usp_generar_seguro_popular_rh(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina)
                 .getResultList();
 
         if (objetos.size() > 0) {
@@ -433,10 +528,14 @@ public class SIIFEncabezadoService {
     }
 
     @SuppressWarnings("unchecked")
-    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRH(int idProductoNomina) {
+    protected List<EstructuraSeguroPopularDTO> consultarSeguroPopularRH(
+            int idProductoNomina) {
         List<Object[]> objetos;
         List<EstructuraSeguroPopularDTO> seguroPopularList = new ArrayList<>();
-        objetos = entityManager.createNativeQuery("CALL usp_generar_seguro_popular_rh(:idProductoNomina)").setParameter("idProductoNomina", idProductoNomina)
+        objetos = entityManager
+                .createNativeQuery(
+                        "CALL usp_generar_seguro_popular_rh(:idProductoNomina)")
+                .setParameter("idProductoNomina", idProductoNomina)
                 .getResultList();
 
         if (objetos.size() > 0) {
@@ -470,11 +569,13 @@ public class SIIFEncabezadoService {
         return seguroPopularList;
     }
 
-    private static List<SIIFEncabezadoDTO> convertirListaEncabezadosEntidadesADTOs(List<SIIFEncabezadoEntity> encabezadoEntidades) {
+    private static List<SIIFEncabezadoDTO> convertirListaEncabezadosEntidadesADTOs(
+            List<SIIFEncabezadoEntity> encabezadoEntidades) {
         List<SIIFEncabezadoDTO> encabezadoDTOs = new ArrayList<>();
 
         for (SIIFEncabezadoEntity encabezadoEntidad : encabezadoEntidades) {
-            SIIFEncabezadoDTO encabezadoDTO = convertirEncabezadoEntidadADTO(encabezadoEntidad);
+            SIIFEncabezadoDTO encabezadoDTO = convertirEncabezadoEntidadADTO(
+                    encabezadoEntidad);
 
             encabezadoDTOs.add(encabezadoDTO);
         }
@@ -482,7 +583,8 @@ public class SIIFEncabezadoService {
         return encabezadoDTOs;
     }
 
-    private static SIIFEncabezadoDTO convertirEncabezadoEntidadADTO(SIIFEncabezadoEntity entidad) {
+    private static SIIFEncabezadoDTO convertirEncabezadoEntidadADTO(
+            SIIFEncabezadoEntity entidad) {
 
         SIIFEncabezadoDTO dto = new SIIFEncabezadoDTO();
 
@@ -502,72 +604,102 @@ public class SIIFEncabezadoService {
         return dto;
     }
 
-    public void generarNumDatCont(List<EstructuraContratosDatDTO> listaDetalles) {
+    public void generarNumDatCont(
+            List<EstructuraContratosDatDTO> listaDetalles) {
 
     }
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
-    public void actualizarEstructuraDat(List<EstructuraContratosDatDTO> listaEstructura) {
+    public void actualizarEstructuraDat(
+            List<EstructuraContratosDatDTO> listaEstructura) {
         try {
             Session session = entityManager.unwrap(Session.class);
 
             if (listaEstructura.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             } else {
                 int a = 1;
                 //LOGGER.debugv("Lista tamaño: ", listaEstructura.size());
                 for (EstructuraContratosDatDTO dat : listaEstructura) {
-                    Query queryA = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" + "SET d.num_emp = (:num_emp), " +
-                    //"d.nombre = (:nombre), " +
-                            "d.num_ctrol = (:num) " + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos) " + "AND d.id_programa = 23")
-                            .setParameter("id_estructuras_contratos", dat.getIdEstructurasContratos()).setParameter("num_emp", formatoNumEmp(a))
+                    Query queryA = session.createSQLQuery(
+                            "UPDATE estructuras_contratos_dat AS d	"
+                                    + "SET d.num_emp = (:num_emp), " +
+                                    //"d.nombre = (:nombre), " +
+                                    "d.num_ctrol = (:num) "
+                                    + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos) "
+                                    + "AND d.id_programa = 23")
+                            .setParameter("id_estructuras_contratos",
+                                    dat.getIdEstructurasContratos())
+                            .setParameter("num_emp", formatoNumEmp(a))
                             //.setParameter("nombre",formatoNombre(dat.getNombre()))
                             .setParameter("num", a + 1);
                     queryA.executeUpdate();
-                    if (dat.getIdPrograma() != null && dat.getIdPrograma() == 23) {
+                    if (dat.getIdPrograma() != null
+                            && dat.getIdPrograma() == 23) {
                         a = a + 1;
                     }
                 }
                 int f = 1;
                 for (EstructuraContratosDatDTO dat : listaEstructura) {
-                    Query queryF = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" + "SET d.num_emp = (:num_emp), " +
-                    //"d.nombre = (:nombre), " +
-                            "d.num_ctrol = (:num) " + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)" + "AND d.id_programa = 27")
-                            .setParameter("id_estructuras_contratos", dat.getIdEstructurasContratos()).setParameter("num_emp", formatoNumEmp(f))
+                    Query queryF = session.createSQLQuery(
+                            "UPDATE estructuras_contratos_dat AS d	"
+                                    + "SET d.num_emp = (:num_emp), " +
+                                    //"d.nombre = (:nombre), " +
+                                    "d.num_ctrol = (:num) "
+                                    + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+                                    + "AND d.id_programa = 27")
+                            .setParameter("id_estructuras_contratos",
+                                    dat.getIdEstructurasContratos())
+                            .setParameter("num_emp", formatoNumEmp(f))
                             //.setParameter("nombre",formatoNombre(dat.getNombre()))
                             .setParameter("num", f + 1);
                     queryF.executeUpdate();
-                    if (dat.getIdPrograma() != null && dat.getIdPrograma() == 27) {
+                    if (dat.getIdPrograma() != null
+                            && dat.getIdPrograma() == 27) {
                         f = f + 1;
                     }
                 }
                 int c = 1;
                 for (EstructuraContratosDatDTO dat : listaEstructura) {
-                    Query queryC = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" + "SET d.num_emp = (:num_emp), " +
-                    //"d.nombre = (:nombre), " +
-                            "d.num_ctrol = (:num) " + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
-                            + "AND ( d.id_programa != 23 AND d.id_programa != 27 and d.id_subfuente_financiamiento != 207)")
-                            .setParameter("id_estructuras_contratos", dat.getIdEstructurasContratos()).setParameter("num_emp", formatoNumEmp(c))
+                    Query queryC = session.createSQLQuery(
+                            "UPDATE estructuras_contratos_dat AS d	"
+                                    + "SET d.num_emp = (:num_emp), " +
+                                    //"d.nombre = (:nombre), " +
+                                    "d.num_ctrol = (:num) "
+                                    + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+                                    + "AND ( d.id_programa != 23 AND d.id_programa != 27 and d.id_subfuente_financiamiento != 207)")
+                            .setParameter("id_estructuras_contratos",
+                                    dat.getIdEstructurasContratos())
+                            .setParameter("num_emp", formatoNumEmp(c))
                             //.setParameter("nombre",formatoNombre(dat.getNombre()))
                             .setParameter("num", c + 1);
                     queryC.executeUpdate();
-                    if (dat.getIdPrograma() != null && dat.getIdPrograma() != 23 && dat.getIdPrograma() != 27) {
-                        if (dat.getIdSubfuenteFinanciamiento() != null && dat.getIdSubfuenteFinanciamiento() != 207) {
+                    if (dat.getIdPrograma() != null && dat.getIdPrograma() != 23
+                            && dat.getIdPrograma() != 27) {
+                        if (dat.getIdSubfuenteFinanciamiento() != null
+                                && dat.getIdSubfuenteFinanciamiento() != 207) {
                             c = c + 1;
                         }
                     }
                 }
                 int s = 1;
                 for (EstructuraContratosDatDTO dat : listaEstructura) {
-                    Query querySP = session.createSQLQuery("UPDATE estructuras_contratos_dat AS d	" + "SET d.num_emp = (:num_emp), " +
-                    //"d.nombre = (:nombre), " +
-                            "d.num_ctrol = (:num) " + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
-                            + "AND d.id_subfuente_financiamiento = 207 ").setParameter("id_estructuras_contratos", dat.getIdEstructurasContratos())
+                    Query querySP = session.createSQLQuery(
+                            "UPDATE estructuras_contratos_dat AS d	"
+                                    + "SET d.num_emp = (:num_emp), " +
+                                    //"d.nombre = (:nombre), " +
+                                    "d.num_ctrol = (:num) "
+                                    + "WHERE d.id_estructuras_contratos = (:id_estructuras_contratos)"
+                                    + "AND d.id_subfuente_financiamiento = 207 ")
+                            .setParameter("id_estructuras_contratos",
+                                    dat.getIdEstructurasContratos())
                             .setParameter("num_emp", formatoNumEmp(s))
                             //.setParameter("nombre",formatoNombre(dat.getNombre()))
                             .setParameter("num", s + 1);
                     querySP.executeUpdate();
-                    if (dat.getIdSubfuenteFinanciamiento() != null && dat.getIdSubfuenteFinanciamiento() == 207) {
+                    if (dat.getIdSubfuenteFinanciamiento() != null
+                            && dat.getIdSubfuenteFinanciamiento() == 207) {
                         s = s + 1;
                     }
                 }
@@ -584,14 +716,19 @@ public class SIIFEncabezadoService {
         Session session = entityManager.unwrap(Session.class);
 
         Query query = session
-                .createSQLQuery("UPDATE estructuras_contratos_tra AS t " + "INNER JOIN estructuras_contratos_dat AS d " + "ON d.rfc = t.rfc "
-                        + "SET t.num_emp = d.num_emp, " + "t.num_ctrol = d.num_ctrol " + "WHERE t.id_producto_nomina = (:id_producto_nomina)")
+                .createSQLQuery("UPDATE estructuras_contratos_tra AS t "
+                        + "INNER JOIN estructuras_contratos_dat AS d "
+                        + "ON d.rfc = t.rfc " + "SET t.num_emp = d.num_emp, "
+                        + "t.num_ctrol = d.num_ctrol "
+                        + "WHERE t.id_producto_nomina = (:id_producto_nomina)")
                 .setParameter("id_producto_nomina", id_producto_nomina);
         query.executeUpdate();
         //Actualiza No_Trail
         Query querytra = session
-                .createSQLQuery("UPDATE estructuras_contratos_dat AS d " + "SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t "
-                        + "WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) " + "WHERE d.id_producto_nomina = (:id_producto_nomina) ")
+                .createSQLQuery("UPDATE estructuras_contratos_dat AS d "
+                        + "SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t "
+                        + "WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) "
+                        + "WHERE d.id_producto_nomina = (:id_producto_nomina) ")
                 .setParameter("id_producto_nomina", id_producto_nomina);
         query.executeUpdate();
 
@@ -603,8 +740,10 @@ public class SIIFEncabezadoService {
         Session session = entityManager.unwrap(Session.class);
 
         Query query = session
-                .createSQLQuery("UPDATE estructuras_contratos_dat AS d " + "SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t "
-                        + "WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) " + "WHERE d.id_producto_nomina = (:id_producto_nomina) ")
+                .createSQLQuery("UPDATE estructuras_contratos_dat AS d "
+                        + "SET d.no_trail = (SELECT COUNT(t.rfc) FROM estructuras_contratos_tra AS t "
+                        + "WHERE t.rfc=d.rfc AND t.id_producto_nomina = (:id_producto_nomina) ) "
+                        + "WHERE d.id_producto_nomina = (:id_producto_nomina) ")
                 .setParameter("id_producto_nomina", id_producto_nomina);
         query.executeUpdate();
 
@@ -614,24 +753,31 @@ public class SIIFEncabezadoService {
     public SIIFEncabezadoDTO actualizaTra(EstructuraContratosTrailersDTO dto) {
         Session session = entityManager.unwrap(Session.class);
         Query query = session
-                .createSQLQuery("UPDATE estructuras_contratos_tra AS t	" + "INNER JOIN estructuras_conytratos_dat as d " + "SET t.num_emp = (:nombre), "
+                .createSQLQuery("UPDATE estructuras_contratos_tra AS t	"
+                        + "INNER JOIN estructuras_conytratos_dat as d "
+                        + "SET t.num_emp = (:nombre), "
                         + "t.num_ctrol = (:num) " + "WHERE t.rfc = (:rfc)")
-                .setParameter("rfc", dto.getRfc()).setParameter("num_emp", dto.getNumEmp()).setParameter("num", dto.getNumControl());
+                .setParameter("rfc", dto.getRfc())
+                .setParameter("num_emp", dto.getNumEmp())
+                .setParameter("num", dto.getNumControl());
         query.executeUpdate();
         return null;
     }
 
-    public void actualizarListaEstructuraDat(List<EstructuraContratosDatDTO> listaEstructura) {
+    public void actualizarListaEstructuraDat(
+            List<EstructuraContratosDatDTO> listaEstructura) {
         try {
 
             if (listaEstructura.isEmpty()) {
-                throw new ReglaNegocioException("No existen registros de datos");
+                throw new ReglaNegocioException(
+                        "No existen registros de datos");
             } else {
                 int num = 0;
                 LOGGER.debugv("Lista tamaño: ", listaEstructura.size());
                 for (EstructuraContratosDatDTO dat : listaEstructura) {
 
-                    EstructuraContratoEntity estructuraEntity = estructuraDatDAO.obtenerPorId(dat.getIdEstructurasContratos());
+                    EstructuraContratoEntity estructuraEntity = estructuraDatDAO
+                            .obtenerPorId(dat.getIdEstructurasContratos());
                     estructuraEntity.setNumEmp(formatoNumEmp(num));
                     estructuraEntity.setNombre(formatoNombre(dat.getNombre()));
                     estructuraEntity.setNumCtrol(num + 1);
@@ -675,9 +821,12 @@ public class SIIFEncabezadoService {
 
     public int verificaProductoNomina(Integer idProductoNomina) {
         Session session = entityManager.unwrap(Session.class);
-        SQLQuery query = (SQLQuery) session.createSQLQuery("SELECT dat.id_estructuras_contratos as idEstructurasContratos FROM estructuras_contratos_dat"
-                + " AS dat WHERE dat.id_producto_nomina=:idProductoNomina").setParameter("idProductoNomina", idProductoNomina);
-        query.setResultTransformer(Transformers.aliasToBean(EstructuraContratosDatDTO.class));
+        SQLQuery query = (SQLQuery) session.createSQLQuery(
+                "SELECT dat.id_estructuras_contratos as idEstructurasContratos FROM estructuras_contratos_dat"
+                        + " AS dat WHERE dat.id_producto_nomina=:idProductoNomina")
+                .setParameter("idProductoNomina", idProductoNomina);
+        query.setResultTransformer(
+                Transformers.aliasToBean(EstructuraContratosDatDTO.class));
         EstructuraContratosDatDTO result;
         if (query.list().size() > 0) {
             result = (EstructuraContratosDatDTO) query.list().get(0);

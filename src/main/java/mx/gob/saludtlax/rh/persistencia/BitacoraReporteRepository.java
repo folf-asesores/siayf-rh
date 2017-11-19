@@ -7,10 +7,11 @@ package mx.gob.saludtlax.rh.persistencia;
 import java.util.UUID;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class BitacoraReporteRepository extends GenericRepository<BitacoraReporteEntity, UUID> {
+public class BitacoraReporteRepository
+        extends GenericRepository<BitacoraReporteEntity, UUID> {
 
     /**
      *
@@ -19,12 +20,14 @@ public class BitacoraReporteRepository extends GenericRepository<BitacoraReporte
 
     @Override
     public void eliminar(BitacoraReporteEntity entity) {
-        throw new UnsupportedOperationException("No se permite la modificación de elementos de la bitacora.");
+        throw new UnsupportedOperationException(
+                "No se permite la modificación de elementos de la bitacora.");
     }
 
     @Override
     public BitacoraReporteEntity actualizar(BitacoraReporteEntity entity) {
-        throw new UnsupportedOperationException("No se permite la eliminación de elementos de la bitacora.");
+        throw new UnsupportedOperationException(
+                "No se permite la eliminación de elementos de la bitacora.");
     }
 
 }

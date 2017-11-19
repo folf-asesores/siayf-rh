@@ -23,7 +23,8 @@ import mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO;
  *
  * @since 07/03/2016-14:56:14
  */
-public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Integer> {
+public class EmpleadoRepository
+        extends GenericRepository<EmpleadoEntity, Integer> {
 
     private static final long serialVersionUID = -2508778264142668669L;
 
@@ -34,7 +35,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
      */
     public boolean existeAspiranteCurp(String curp) {
         try {
-            em.createQuery("SELECT a.idEmpleado FROM EmpleadoEntity AS a WHERE a.curp =:curp", Integer.class).setParameter("curp", curp).getSingleResult();
+            em.createQuery(
+                    "SELECT a.idEmpleado FROM EmpleadoEntity AS a WHERE a.curp =:curp",
+                    Integer.class).setParameter("curp", curp).getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -49,7 +52,10 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
      */
     public boolean existeEmpleadoRfc(String rfc) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.rfc =:rfc", Integer.class).setParameter("rfc", rfc.trim()).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.rfc =:rfc",
+                    Integer.class).setParameter("rfc", rfc.trim())
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -64,7 +70,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
      */
     public boolean existeEmpleadoNumeroEmpleado(String numeroEmpleado) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.curp =:curp", Integer.class).setParameter("curp", numeroEmpleado.trim())
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.curp =:curp",
+                    Integer.class).setParameter("curp", numeroEmpleado.trim())
                     .getSingleResult();
             return true;
         } catch (NoResultException exception) {
@@ -83,17 +91,23 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(e.idEmpleado, e.nombreCompleto,"
                 + " e.curp, e.rfc, e.direccionCompleta, e.numeroEmpleado, e.idEstatus, e.tipoEmpleado.tipoEmpleado) "
                 + "FROM EmpleadoEntity AS e WHERE e.nombreCompleto LIKE :criterio OR e.rfc LIKE :criterio OR e.curp LIKE :criterio";
-        List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class).setParameter("criterio", "%" + criterio + "%").getResultList();
+        List<InfoEmpleadoDTO> resultado = em
+                .createQuery(consulta, InfoEmpleadoDTO.class)
+                .setParameter("criterio", "%" + criterio + "%").getResultList();
 
         return resultado;
     }
 
-    public List<InfoEmpleadoDTO> consultarEmpleadosActivosPorCriterio(String criterio) {
+    public List<InfoEmpleadoDTO> consultarEmpleadosActivosPorCriterio(
+            String criterio) {
         String consulta = "SELECT NEW mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO(e.idEmpleado, e.nombreCompleto,"
                 + " e.curp, e.rfc, e.direccionCompleta, e.numeroEmpleado, e.idEstatus, e.tipoEmpleado.tipoEmpleado) "
                 + "FROM EmpleadoEntity AS e WHERE e.idEstatus =:estatus AND ( e.nombreCompleto LIKE :criterio OR e.rfc LIKE :criterio OR e.curp LIKE :criterio)";
-        List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class).setParameter("criterio", "%" + criterio + "%")
-                .setParameter("estatus", EnumEstatusEmpleado.ACTIVO).getResultList();
+        List<InfoEmpleadoDTO> resultado = em
+                .createQuery(consulta, InfoEmpleadoDTO.class)
+                .setParameter("criterio", "%" + criterio + "%")
+                .setParameter("estatus", EnumEstatusEmpleado.ACTIVO)
+                .getResultList();
 
         return resultado;
     }
@@ -109,7 +123,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
                 + " e.rfc, e.direccionCompleta, e.numeroEmpleado, e.idEstatus,e.tipoEmpleado.tipoEmpleado) "
                 + "FROM EmpleadoEntity AS e WHERE e.nombreCompleto LIKE :criterio OR e.rfc "
                 + "LIKE :criterio OR e.curp LIKE :criterio OR e.perfilAcademico LIKE :criterio";
-        List<InfoEmpleadoDTO> resultado = em.createQuery(consulta, InfoEmpleadoDTO.class).setParameter("criterio", "%" + criterio + "%").getResultList();
+        List<InfoEmpleadoDTO> resultado = em
+                .createQuery(consulta, InfoEmpleadoDTO.class)
+                .setParameter("criterio", "%" + criterio + "%").getResultList();
 
         return resultado;
     }
@@ -121,7 +137,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
      */
     public boolean existeIdEmpleado(Integer idEmpleado) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", Integer.class).setParameter("idEmpleado", idEmpleado)
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    Integer.class).setParameter("idEmpleado", idEmpleado)
                     .getResultList();
             return true;
         } catch (NoResultException exception) {
@@ -132,18 +150,23 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
     public boolean existeEmpleadoConCurp(String curp) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.curp =:curp", Integer.class).setParameter("curp", curp).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.curp =:curp",
+                    Integer.class).setParameter("curp", curp).getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
         } catch (NonUniqueResultException exception) {
-            throw new ValidacionException("La curp " + curp + " existe", ValidacionCodigoError.VALOR_DUPLICADO);
+            throw new ValidacionException("La curp " + curp + " existe",
+                    ValidacionCodigoError.VALOR_DUPLICADO);
         }
     }
 
     public boolean existeEmpleadoConRfc(String rfc) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.rfc =:rfc", Integer.class).setParameter("rfc", rfc).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.rfc =:rfc",
+                    Integer.class).setParameter("rfc", rfc).getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -152,8 +175,12 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
     public boolean existeEmpleadoConNumeroPersonal(Integer numeroEmpleado) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.numeroEmpleado =:numeroEmpleado AND e.idEstatus =:estatus", Integer.class)
-                    .setParameter("numeroEmpleado", numeroEmpleado).setParameter("estatus", EnumEstatusEmpleado.ACTIVO).getSingleResult();
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.numeroEmpleado =:numeroEmpleado AND e.idEstatus =:estatus",
+                    Integer.class)
+                    .setParameter("numeroEmpleado", numeroEmpleado)
+                    .setParameter("estatus", EnumEstatusEmpleado.ACTIVO)
+                    .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
@@ -162,40 +189,54 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
     public String obtenerCurpEmpleado(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.curp FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", String.class).setParameter("idEmpleado", idEmpleado)
+            return em.createQuery(
+                    "SELECT e.curp FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    String.class).setParameter("idEmpleado", idEmpleado)
                     .getSingleResult();
 
         } catch (NoResultException exception) {
-            throw new SistemaException("obtenerCurpEmpleado: No existe empleado con el identificador indicado.", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "obtenerCurpEmpleado: No existe empleado con el identificador indicado.",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
     }
 
     public String obtenerNombreEmpleadoId(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.nombreCompleto FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", String.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.nombreCompleto FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    String.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
-            throw new SistemaException("obtenerCurpEmpleado: No existe empleado con el identificador indicado.", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "obtenerCurpEmpleado: No existe empleado con el identificador indicado.",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
     }
 
     public String obtenerRfcEmpleado(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.rfc FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", String.class).setParameter("idEmpleado", idEmpleado)
+            return em.createQuery(
+                    "SELECT e.rfc FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    String.class).setParameter("idEmpleado", idEmpleado)
                     .getSingleResult();
 
         } catch (NoResultException exception) {
-            throw new SistemaException("obtenerRfcEmpleado: No existe empleado con el identificador indicado.", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "obtenerRfcEmpleado: No existe empleado con el identificador indicado.",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
     }
 
     public EmpleadoEntity obtenerEmpleadoRfc(String rfc) {
         try {
-            return em.createQuery("SELECT e FROM EmpleadoEntity AS e WHERE e.rfc =:rfc", EmpleadoEntity.class).setParameter("rfc", rfc.trim())
+            return em.createQuery(
+                    "SELECT e FROM EmpleadoEntity AS e WHERE e.rfc =:rfc",
+                    EmpleadoEntity.class).setParameter("rfc", rfc.trim())
                     .getSingleResult();
 
         } catch (NoResultException exception) {
@@ -206,7 +247,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
     public List<InfoVacantePostularDTO> obtenerListaEmpleadoCandidato() {
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.seleccion.InfoVacantePostularDTO(e.idEmpleado, e.rfc, e.curp, e.nombreCompleto, e.direccionCompleta, e.idEstatus) FROM EmpleadoEntity AS e WHERE e.idEstatus = 'ACTIVO'";
 
-        List<InfoVacantePostularDTO> resultado = em.createQuery(query, InfoVacantePostularDTO.class).getResultList();
+        List<InfoVacantePostularDTO> resultado = em
+                .createQuery(query, InfoVacantePostularDTO.class)
+                .getResultList();
 
         return resultado;
 
@@ -214,8 +257,10 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
     public String obtenerNombreEmpleadoPorId(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.nombreCompleto FROM EmpleadoEntity As e WHERE e.idEmpleado =:idEmpleado", String.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.nombreCompleto FROM EmpleadoEntity As e WHERE e.idEmpleado =:idEmpleado",
+                    String.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return "";
         }
@@ -225,7 +270,9 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
         String query = "SELECT NEW mx.gob.saludtlax.rh.vacantes.consulta.DatoGeneralCandidatoDTO(e.nombreCompleto, e.rfc, e.curp, e.direccionCompleta, e.idSexo, e.estadoCivil, e.fechaNacimiento, e.lugarNacimiento, e.telefono, e.correoElectronico, e.tipoSangre, e.tienePersonasDependientes, e.numeroHijos, e.numeroPadres, e.numeroConyuges, e.numeroOtros)FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado";
 
-        DatoGeneralCandidatoDTO dto = em.createQuery(query, DatoGeneralCandidatoDTO.class).setParameter("idEmpleado", idEmpleado).getSingleResult();
+        DatoGeneralCandidatoDTO dto = em
+                .createQuery(query, DatoGeneralCandidatoDTO.class)
+                .setParameter("idEmpleado", idEmpleado).getSingleResult();
 
         return dto;
 
@@ -233,36 +280,51 @@ public class EmpleadoRepository extends GenericRepository<EmpleadoEntity, Intege
 
     public String obtenerEstatusEmpleado(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.idEstatus FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", String.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.idEstatus FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    String.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
         } catch (NoResultException exception) {
-            throw new SistemaException("No se encontró empleado con el identificador " + idEmpleado, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró empleado con el identificador "
+                            + idEmpleado,
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
     }
 
     public Integer obtenerTipoEmpleado(Integer idEmpleado) {
         try {
-            return em.createQuery("SELECT e.tipoEmpleado.idTipoEmpleado FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado", Integer.class)
-                    .setParameter("idEmpleado", idEmpleado).getSingleResult();
+            return em.createQuery(
+                    "SELECT e.tipoEmpleado.idTipoEmpleado FROM EmpleadoEntity AS e WHERE e.idEmpleado =:idEmpleado",
+                    Integer.class).setParameter("idEmpleado", idEmpleado)
+                    .getSingleResult();
         } catch (NoResultException exception) {
-            throw new SistemaException("No se encontró empleado con el identificador " + idEmpleado, SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró empleado con el identificador "
+                            + idEmpleado,
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
     }
 
     public List<EmpleadoEntity> consultarEmpleadosPorEstatus(String estatus) {
-        return em.createQuery("SELECT e FROM EmpleadoEntity AS e WHERE e.idEstatus =:estatus", EmpleadoEntity.class).setParameter("estatus", estatus)
+        return em.createQuery(
+                "SELECT e FROM EmpleadoEntity AS e WHERE e.idEstatus =:estatus",
+                EmpleadoEntity.class).setParameter("estatus", estatus)
                 .getResultList();
     }
 
     public boolean existeCuentaAsignada(String cuenta) {
         try {
-            em.createQuery("SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.numeroCuenta =:cuenta", Integer.class).setParameter("cuenta", cuenta.trim())
+            em.createQuery(
+                    "SELECT e.idEmpleado FROM EmpleadoEntity AS e WHERE e.numeroCuenta =:cuenta",
+                    Integer.class).setParameter("cuenta", cuenta.trim())
                     .getSingleResult();
             return true;
         } catch (NoResultException exception) {
             return false;
         } catch (NonUniqueResultException exception) {
-            throw new SistemaException("La cuenta " + cuenta + " está asignada a mas de un empleado, verificar con sistemas.",
+            throw new SistemaException("La cuenta " + cuenta
+                    + " está asignada a mas de un empleado, verificar con sistemas.",
                     SistemaCodigoError.ERROR_MULTIPLES_RESULTADOS);
         }
     }

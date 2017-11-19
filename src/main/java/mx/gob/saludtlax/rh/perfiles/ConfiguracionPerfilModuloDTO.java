@@ -41,7 +41,8 @@ public class ConfiguracionPerfilModuloDTO implements Serializable {
         return configuracionModuloAccionDTO;
     }
 
-    public void setConfiguracionModuloAccionDTO(ConfiguracionModuloAccionDTO configuracionModuloAccionDTO) {
+    public void setConfiguracionModuloAccionDTO(
+            ConfiguracionModuloAccionDTO configuracionModuloAccionDTO) {
         this.configuracionModuloAccionDTO = configuracionModuloAccionDTO;
     }
 

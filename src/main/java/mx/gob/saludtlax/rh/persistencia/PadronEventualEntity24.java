@@ -140,7 +140,8 @@ public class PadronEventualEntity24 implements Serializable {
         return claveCentroResponsabilidad;
     }
 
-    public void setClaveCentroResponsabilidad(String claveCentroResponsabilidad) {
+    public void setClaveCentroResponsabilidad(
+            String claveCentroResponsabilidad) {
         this.claveCentroResponsabilidad = claveCentroResponsabilidad;
     }
 

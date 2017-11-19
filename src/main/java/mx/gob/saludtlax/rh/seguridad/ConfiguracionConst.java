@@ -35,7 +35,8 @@ public class ConfiguracionConst {
      * @param name
      * @return
      */
-    public static String getCookieValue(HttpServletRequest request, String name) {
+    public static String getCookieValue(HttpServletRequest request,
+            String name) {
         Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {
@@ -79,7 +80,8 @@ public class ConfiguracionConst {
      *            el nombre de la cookie a buscar.
      * @return verdad si se encuentra alguna cookie con el nombre deseado.
      */
-    public static boolean existCookieNamed(HttpServletRequest request, String cookieName) {
+    public static boolean existCookieNamed(HttpServletRequest request,
+            String cookieName) {
         Cookie[] cookies = request.getCookies();
 
         if (cookies != null) {

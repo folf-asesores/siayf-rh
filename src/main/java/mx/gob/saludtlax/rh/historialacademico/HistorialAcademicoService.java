@@ -43,26 +43,32 @@ public class HistorialAcademicoService {
     @Inject
     private HistorialAcademicoRepository historialAcademicoRepository;
 
-    protected List<HistorialAcademicoDTO> listaHistorialAcademicoPorIdEmpleado(Integer idEmpleado) {
+    protected List<HistorialAcademicoDTO> listaHistorialAcademicoPorIdEmpleado(
+            Integer idEmpleado) {
         List<HistorialAcademicoDTO> listaDTOs = new ArrayList<>();
 
-        List<HistorialAcademicoEntity> listaEntities = historialAcademicoRepository.consultarHistorialAcademicoEmpleado(idEmpleado);
+        List<HistorialAcademicoEntity> listaEntities = historialAcademicoRepository
+                .consultarHistorialAcademicoEmpleado(idEmpleado);
         if (!listaEntities.isEmpty()) {
             for (HistorialAcademicoEntity entity : listaEntities) {
                 HistorialAcademicoDTO dto = new HistorialAcademicoDTO();
 
                 dto.setIdHistorialAcademico(entity.getIdHistorialAcademico());
                 dto.setEscolaridad(entity.getEscolaridad().getIdEscolaridad());
-                dto.setDocumentoComprobatorio(entity.getComprobanteEstudio().getIdComprobanteEstudio());
-                dto.setEstatusComprobatorio(entity.getComprobanteEstudio().getEstatus());
+                dto.setDocumentoComprobatorio(entity.getComprobanteEstudio()
+                        .getIdComprobanteEstudio());
+                dto.setEstatusComprobatorio(
+                        entity.getComprobanteEstudio().getEstatus());
                 dto.setNombreInstitucion(entity.getNombreInstitucion());
                 dto.setFechaInicial(entity.getFechaInicial());
                 dto.setFechaFinal(entity.getFechaFinal());
                 dto.setDuracion(entity.getDuracion());
                 dto.setNombreCurso(entity.getNombreCurso());
                 dto.setCursando(entity.getCursando());
-                dto.setNombreDocumentoComprobatorio(entity.getComprobanteEstudio().getEstatus());
-                dto.setNombreEscolaridad(entity.getEscolaridad().getGrupoAcademico());
+                dto.setNombreDocumentoComprobatorio(
+                        entity.getComprobanteEstudio().getEstatus());
+                dto.setNombreEscolaridad(
+                        entity.getEscolaridad().getGrupoAcademico());
                 dto.setTieneDocumentacion(entity.getTieneDocumentacion());
                 dto.setEsMaximoEstudio(entity.getMaximoEstudio());
 
@@ -77,83 +83,119 @@ public class HistorialAcademicoService {
         return listaDTOs;
     }
 
-    protected void crearHistorial(NuevoHistorialDTO historialAcademico, boolean esEmpleado) {
+    protected void crearHistorial(NuevoHistorialDTO historialAcademico,
+            boolean esEmpleado) {
         String contexto = "Registro de historial académico: ";
 
         if (historialAcademico == null) {
-            throw new BusinessException(contexto + "Es necesario los datos importantes del historial academico");
+            throw new BusinessException(contexto
+                    + "Es necesario los datos importantes del historial academico");
         }
 
         HistorialAcademicoEntity registroHistorialAcademico = new HistorialAcademicoEntity();
         if (esEmpleado) {
-            EmpleadoEntity empleado = validarEmpleado(historialAcademico.getIdEmpleado());
+            EmpleadoEntity empleado = validarEmpleado(
+                    historialAcademico.getIdEmpleado());
             registroHistorialAcademico.setIdEmpleado(empleado.getIdEmpleado());
         }
 
-        EscolaridadEntity escolaridad = escolaridadRepository.escolaridadPorId(historialAcademico.getIdEscolaridad());
-        ComprobanteEstudioEntity documentoComprobatorio = comprobanteEstudioRepository.obtenerPorId(historialAcademico.getIdComprobanteEstudio());
+        EscolaridadEntity escolaridad = escolaridadRepository
+                .escolaridadPorId(historialAcademico.getIdEscolaridad());
+        ComprobanteEstudioEntity documentoComprobatorio = comprobanteEstudioRepository
+                .obtenerPorId(historialAcademico.getIdComprobanteEstudio());
 
         registroHistorialAcademico.setEscolaridad(escolaridad);
-        registroHistorialAcademico.setComprobanteEstudio(documentoComprobatorio);
-        registroHistorialAcademico.setNombreInstitucion(historialAcademico.getNombreInstitucion());
-        registroHistorialAcademico.setFechaInicial(historialAcademico.getFechaInicial());
-        registroHistorialAcademico.setFechaFinal(historialAcademico.getFechaFinal());
+        registroHistorialAcademico
+                .setComprobanteEstudio(documentoComprobatorio);
+        registroHistorialAcademico.setNombreInstitucion(
+                historialAcademico.getNombreInstitucion());
+        registroHistorialAcademico
+                .setFechaInicial(historialAcademico.getFechaInicial());
+        registroHistorialAcademico
+                .setFechaFinal(historialAcademico.getFechaFinal());
 
-        registroHistorialAcademico.setDuracion(historialAcademico.getDuracion());
-        registroHistorialAcademico.setNombreCurso(historialAcademico.getNombreCurso());
+        registroHistorialAcademico
+                .setDuracion(historialAcademico.getDuracion());
+        registroHistorialAcademico
+                .setNombreCurso(historialAcademico.getNombreCurso());
         registroHistorialAcademico.setCursando(historialAcademico.isCursando());
         registroHistorialAcademico.setTieneDocumentacion(Boolean.FALSE);
-        registroHistorialAcademico.setMaximoEstudio(historialAcademico.isMaximoEstudios());
-        registroHistorialAcademico.setFechaExpedicionCedula(historialAcademico.getFechaExpedicionCedula());
-        registroHistorialAcademico.setNumeroCedula(historialAcademico.getNumeroCedula());
+        registroHistorialAcademico
+                .setMaximoEstudio(historialAcademico.isMaximoEstudios());
+        registroHistorialAcademico.setFechaExpedicionCedula(
+                historialAcademico.getFechaExpedicionCedula());
+        registroHistorialAcademico
+                .setNumeroCedula(historialAcademico.getNumeroCedula());
 
         historialAcademicoRepository.crear(registroHistorialAcademico);
 
     }
 
-    protected void actualizarHistorialAcademico(HistorialAcademicoDTO historialAcademico) {
+    protected void actualizarHistorialAcademico(
+            HistorialAcademicoDTO historialAcademico) {
 
         String contexto = "Actualización de historial académico: ";
 
         if (historialAcademico == null) {
-            throw new ValidacionException(contexto + "Es necesario los datos importantes del historial academico", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(contexto
+                    + "Es necesario los datos importantes del historial academico",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         // Valida datos los para la bitacora
-        if (ValidacionUtil.esCadenaVacia(historialAcademico.getComentarioMovimiento())
-                | ValidacionUtil.esNumeroPositivo(historialAcademico.getIdUsuarioEnSesion())) {
+        if (ValidacionUtil
+                .esCadenaVacia(historialAcademico.getComentarioMovimiento())
+                | ValidacionUtil.esNumeroPositivo(
+                        historialAcademico.getIdUsuarioEnSesion())) {
 
-            bitacoraModificacionService.registrarBitacoraModificacionHistorial(historialAcademico);
+            bitacoraModificacionService
+                    .registrarBitacoraModificacionHistorial(historialAcademico);
 
         }
 
-        HistorialAcademicoEntity actualizarHistorialAcademico = historialAcademicoRepository.obtenerPorId(historialAcademico.getIdHistorialAcademico());
+        HistorialAcademicoEntity actualizarHistorialAcademico = historialAcademicoRepository
+                .obtenerPorId(historialAcademico.getIdHistorialAcademico());
 
         if (actualizarHistorialAcademico == null) {
-            throw new ReglaNegocioException(contexto + "El historial academico no se encuentra registrado", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(contexto
+                    + "El historial academico no se encuentra registrado",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
-        EscolaridadEntity escolaridad = escolaridadRepository.escolaridadPorId(historialAcademico.getEscolaridad());
-        ComprobanteEstudioEntity documentoComprobatorio = comprobanteEstudioRepository.obtenerPorId(historialAcademico.getDocumentoComprobatorio());
+        EscolaridadEntity escolaridad = escolaridadRepository
+                .escolaridadPorId(historialAcademico.getEscolaridad());
+        ComprobanteEstudioEntity documentoComprobatorio = comprobanteEstudioRepository
+                .obtenerPorId(historialAcademico.getDocumentoComprobatorio());
 
         actualizarHistorialAcademico.setEscolaridad(escolaridad);
-        actualizarHistorialAcademico.setComprobanteEstudio(documentoComprobatorio);
-        actualizarHistorialAcademico.setNombreInstitucion(historialAcademico.getNombreInstitucion());
-        actualizarHistorialAcademico.setFechaInicial(historialAcademico.getFechaInicial());
-        actualizarHistorialAcademico.setFechaFinal(historialAcademico.getFechaFinal());
-        actualizarHistorialAcademico.setDuracion(historialAcademico.getDuracion());
-        actualizarHistorialAcademico.setNombreCurso(historialAcademico.getNombreCurso());
-        actualizarHistorialAcademico.setCursando(historialAcademico.getCursando());
-        actualizarHistorialAcademico.setMaximoEstudio(historialAcademico.getEsMaximoEstudio());
-        actualizarHistorialAcademico.setFechaExpedicionCedula(historialAcademico.getFechaExpedicionCedula());
-        actualizarHistorialAcademico.setNumeroCedula(historialAcademico.getNumeroCedula());
+        actualizarHistorialAcademico
+                .setComprobanteEstudio(documentoComprobatorio);
+        actualizarHistorialAcademico.setNombreInstitucion(
+                historialAcademico.getNombreInstitucion());
+        actualizarHistorialAcademico
+                .setFechaInicial(historialAcademico.getFechaInicial());
+        actualizarHistorialAcademico
+                .setFechaFinal(historialAcademico.getFechaFinal());
+        actualizarHistorialAcademico
+                .setDuracion(historialAcademico.getDuracion());
+        actualizarHistorialAcademico
+                .setNombreCurso(historialAcademico.getNombreCurso());
+        actualizarHistorialAcademico
+                .setCursando(historialAcademico.getCursando());
+        actualizarHistorialAcademico
+                .setMaximoEstudio(historialAcademico.getEsMaximoEstudio());
+        actualizarHistorialAcademico.setFechaExpedicionCedula(
+                historialAcademico.getFechaExpedicionCedula());
+        actualizarHistorialAcademico
+                .setNumeroCedula(historialAcademico.getNumeroCedula());
 
         historialAcademicoRepository.actualizar(actualizarHistorialAcademico);
 
     }
 
     protected void actualizarAdjuntoHistorial(Integer idHistorialAcademico) {
-        HistorialAcademicoEntity historial = historialAcademicoRepository.obtenerPorId(idHistorialAcademico);
+        HistorialAcademicoEntity historial = historialAcademicoRepository
+                .obtenerPorId(idHistorialAcademico);
         historial.setTieneDocumentacion(Boolean.TRUE);
         historialAcademicoRepository.crear(historial);
     }
@@ -162,11 +204,14 @@ public class HistorialAcademicoService {
         String contexto = "Actualizacion datos: ";
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            throw new BusinessException(contexto + "El empleado con identificador " + idEmpleado + " no esta registrado en el sistema");
+            throw new BusinessException(
+                    contexto + "El empleado con identificador " + idEmpleado
+                            + " no esta registrado en el sistema");
         }
 
         if (empleado.getIdEstatus().equals("INACTIVO")) {
-            throw new BusinessException(contexto + " El empleado no esta activo.");
+            throw new BusinessException(
+                    contexto + " El empleado no esta activo.");
         }
 
         return empleado;

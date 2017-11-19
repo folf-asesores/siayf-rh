@@ -106,7 +106,7 @@ public class NumeroUtil {
     /**
      * Devuelve el bigcimal en string formateado
      *
-     * @author eduardo Mex
+     * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
      * @param bigDecimal
      * @return
      */
@@ -120,7 +120,7 @@ public class NumeroUtil {
 
     /**
      *
-     * @author eduardo Mex
+     * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
      * @param importe
      * @return
      */
@@ -130,7 +130,7 @@ public class NumeroUtil {
 
     /**
      *
-     * @author eduardo Mex
+     * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
      * @param importe
      * @return
      */

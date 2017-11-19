@@ -47,7 +47,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  */
 @Named(value = "administracionExpedienteAspirante")
 @ViewScoped
-public class AdministracionExpedienteAspiranteController implements Serializable {
+public class AdministracionExpedienteAspiranteController
+        implements Serializable {
 
     private static final long serialVersionUID = -3430132076897945549L;
 
@@ -71,8 +72,10 @@ public class AdministracionExpedienteAspiranteController implements Serializable
 
     @PostConstruct
     public void init() {
-        view.setListaEscolaridades(SelectItemsUtil.listaCatalogos(catalogo.listaEscolaridades()));
-        view.setListaComprobantesEstudios(SelectItemsUtil.listaCatalogos(catalogo.listaComprobantesEstudios()));
+        view.setListaEscolaridades(
+                SelectItemsUtil.listaCatalogos(catalogo.listaEscolaridades()));
+        view.setListaComprobantesEstudios(SelectItemsUtil
+                .listaCatalogos(catalogo.listaComprobantesEstudios()));
     }
 
     public void consultarAspirantes(ActionEvent actionEvent) {
@@ -95,16 +98,27 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         view.setMostrarPanelCorrecciones(true);
         view.setMostrarResultadoConsulta(false);
 
-        if (expedienteAspirante.tieneExpedienteAperturado(view.getIdAspiranteSeleccionado())) {
+        if (expedienteAspirante
+                .tieneExpedienteAperturado(view.getIdAspiranteSeleccionado())) {
             view.setImagenExpediente("expediente_aperturado.png");
-            view.setNumeroExpediente(expedienteAspirante.numeroExpedienteAspirante(view.getIdAspiranteSeleccionado()));
-            view.setIdExpediente(expedienteAspirante.obtenerIdExpedienteAspirante(view.getIdAspiranteSeleccionado()));
+            view.setNumeroExpediente(
+                    expedienteAspirante.numeroExpedienteAspirante(
+                            view.getIdAspiranteSeleccionado()));
+            view.setIdExpediente(
+                    expedienteAspirante.obtenerIdExpedienteAspirante(
+                            view.getIdAspiranteSeleccionado()));
 
             view.setListaTiposDocumentosExpediente(
-                    SelectItemsUtil.listaCatalogos(catalogo.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
-            view.setDocumentosExpedientes(adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(view.getIdAspiranteSeleccionado()));
+                    SelectItemsUtil.listaCatalogos(catalogo
+                            .consultarDocumentosExpedientesClasificacion(
+                                    EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
+            view.setDocumentosExpedientes(
+                    adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(
+                            view.getIdAspiranteSeleccionado()));
 
-            view.setHistorialesAcademicos(bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspiranteSeleccionado()));
+            view.setHistorialesAcademicos(
+                    bolsaTrabajo.obtenerListaHistorialAcademico(
+                            view.getIdAspiranteSeleccionado()));
             view.setMostrarActualizacionExpediente(true);
         } else {
             view.setImagenExpediente("sin_expediente.png");
@@ -117,14 +131,21 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         view.getExpediente().setIdAspirante(view.getIdAspiranteSeleccionado());
         expedienteAspirante.crearExpediente(view.getExpediente());
 
-        view.setNumeroExpediente(view.getExpediente().getNumeroExpediente().toUpperCase());
+        view.setNumeroExpediente(
+                view.getExpediente().getNumeroExpediente().toUpperCase());
         view.setImagenExpediente("expediente_aperturado.png");
-        view.setIdExpediente(expedienteAspirante.obtenerIdExpedienteAspirante(view.getIdAspiranteSeleccionado()));
-        view.setListaTiposDocumentosExpediente(
-                SelectItemsUtil.listaCatalogos(catalogo.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
-        view.setDocumentosExpedientes(adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(view.getIdAspiranteSeleccionado()));
+        view.setIdExpediente(expedienteAspirante.obtenerIdExpedienteAspirante(
+                view.getIdAspiranteSeleccionado()));
+        view.setListaTiposDocumentosExpediente(SelectItemsUtil.listaCatalogos(
+                catalogo.consultarDocumentosExpedientesClasificacion(
+                        EnumClasificacionExpediente.DOCUMENTOS_BOLSA_TRABAJO)));
+        view.setDocumentosExpedientes(
+                adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(
+                        view.getIdAspiranteSeleccionado()));
 
-        view.setHistorialesAcademicos(bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspiranteSeleccionado()));
+        view.setHistorialesAcademicos(
+                bolsaTrabajo.obtenerListaHistorialAcademico(
+                        view.getIdAspiranteSeleccionado()));
 
         view.setMostrarAperturaExpediente(false);
         view.setMostrarActualizacionExpediente(true);
@@ -135,10 +156,13 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         String nombreAdjunto = archivo.getFileName();
         byte[] adjunto = archivo.getContents();
 
-        TipoArchivo extension = TipoArchivo.getTipoArchivoPorMIMEType(archivo.getContentType());
+        TipoArchivo extension = TipoArchivo
+                .getTipoArchivoPorMIMEType(archivo.getContentType());
 
-        Integer idAspirante = (Integer) evento.getComponent().getAttributes().get("idAspirante");
-        Integer idDocAdj = (Integer) evento.getComponent().getAttributes().get("idDocAdj");
+        Integer idAspirante = (Integer) evento.getComponent().getAttributes()
+                .get("idAspirante");
+        Integer idDocAdj = (Integer) evento.getComponent().getAttributes()
+                .get("idDocAdj");
 
         InformacionAdjuntoDTO info = new InformacionAdjuntoDTO();
 
@@ -155,7 +179,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
 
         adjuntoAspirante.crear(info, adjunto);
         view.getDocumentosExpedientes().clear();
-        List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(view.getIdAspiranteSeleccionado());
+        List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoAspirante
+                .consultarInformacionAdjuntosPorIdAspirante(
+                        view.getIdAspiranteSeleccionado());
         view.setDocumentosExpedientes(documentosExpedientes);
     }
 
@@ -165,31 +191,40 @@ public class AdministracionExpedienteAspiranteController implements Serializable
     }
 
     public void visualizarRegistroHistorial(ActionEvent actionEvent) {
-        if (expedienteAspirante.tieneExpedienteAperturado(view.getIdAspiranteSeleccionado())) {
+        if (expedienteAspirante
+                .tieneExpedienteAperturado(view.getIdAspiranteSeleccionado())) {
             view.setMostrarHistorialAcademico(true);
             view.setMostrarAdjuntarDocumentoHistorial(false);
         } else {
-            JSFUtils.warningMessage("El expedienete no esta aperturado.", "Debe aperturar el expediente para poder agregar un historial.");
+            JSFUtils.warningMessage("El expedienete no esta aperturado.",
+                    "Debe aperturar el expediente para poder agregar un historial.");
         }
     }
 
-    public void visualizarAdjuntarDocumentoHistorial(HistorialAcademicoDTO historialAcademicoDTO) {
+    public void visualizarAdjuntarDocumentoHistorial(
+            HistorialAcademicoDTO historialAcademicoDTO) {
         view.setHistorialAcademicoSeleccionado(historialAcademicoDTO);
 
         List<InformacionAdjuntoDTO> consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto = adjuntoAspirante
-                .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(EntidadContexto.HISTORIAL_ACADEMICO,
-                        view.getHistorialAcademicoSeleccionado().getIdHistorialAcademico());
+                .consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto(
+                        EntidadContexto.HISTORIAL_ACADEMICO,
+                        view.getHistorialAcademicoSeleccionado()
+                                .getIdHistorialAcademico());
         List<String> descripciones = new ArrayList<>();
 
         for (InformacionAdjuntoDTO informacionAdjuntoDTO : consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto) {
-            descripciones.add(informacionAdjuntoDTO.getDocumentoAdjuntable().getDescripcion());
+            descripciones.add(informacionAdjuntoDTO.getDocumentoAdjuntable()
+                    .getDescripcion());
         }
 
-        view.setDocumentosExpedientes(consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto);
+        view.setDocumentosExpedientes(
+                consultarInformacionAdjuntosPorEntidadContextoIdEntidadContexto);
 
         view.setDocumentacionActualHistorial(descripciones);
         view.setListaDocumentosHistorialAcademico(
-                SelectItemsUtil.listaCatalogos(catalogo.consultarDocumentosExpedientesClasificacion(EnumClasificacionExpediente.DOCUMENTOS_HISTORIAL)));
+                SelectItemsUtil.listaCatalogos(
+                        catalogo.consultarDocumentosExpedientesClasificacion(
+                                EnumClasificacionExpediente.DOCUMENTOS_HISTORIAL)));
 
         view.setMostrarHistorialAcademico(false);
         view.setMostrarAdjuntarDocumentoHistorial(true);
@@ -199,54 +234,70 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         adjuntoAspirante.elimnar(idAdjunto);
         view.getDocumentosExpedientes().clear();
 
-        List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoAspirante.consultarInformacionAdjuntosPorIdAspirante(view.getIdAspiranteSeleccionado());
+        List<InformacionAdjuntoDTO> documentosExpedientes = adjuntoAspirante
+                .consultarInformacionAdjuntosPorIdAspirante(
+                        view.getIdAspiranteSeleccionado());
         view.setDocumentosExpedientes(documentosExpedientes);
 
         //		visualizarAdjuntarDocumentoHistorial(this.view.getHistorialAcademicoSeleccionado());
 
-        JSFUtils.infoMessageEspecifico("info", "", "El documento se ha eliminado correctamente.");
+        JSFUtils.infoMessageEspecifico("info", "",
+                "El documento se ha eliminado correctamente.");
     }
 
     public void descargarAdjunto(InformacionAdjuntoDTO adjunto) {
         try {
-            byte[] bytes = adjuntoAspirante.obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
+            byte[] bytes = adjuntoAspirante
+                    .obtenerAdjuntoPorIdAdjunto(adjunto.getIdAdjunto());
 
-            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(), adjunto.getExtension().getMIMEType());
-            JSFUtils.infoMessage("Descarga iniciada", "La descarga del archivo ha iniciado.");
+            JSFUtils.descargarArchivo(bytes, adjunto.getNombreAdjunto(),
+                    adjunto.getExtension().getMIMEType());
+            JSFUtils.infoMessage("Descarga iniciada",
+                    "La descarga del archivo ha iniciado.");
         } catch (IOException e) {
-            JSFUtils.errorMessage("Error al iniciar la descarga", "No se ha logrado iniciar la descarga del archivo.");
+            JSFUtils.errorMessage("Error al iniciar la descarga",
+                    "No se ha logrado iniciar la descarga del archivo.");
         }
     }
 
     public void registrarHistorialAcademico(ActionEvent actionEvent) {
         view.getHistorial().setAspirante(view.getIdAspiranteSeleccionado());
         bolsaTrabajo.crearHistorialAcademicoAspirante(view.getHistorial());
-        view.setHistorialesAcademicos(bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspiranteSeleccionado()));
+        view.setHistorialesAcademicos(
+                bolsaTrabajo.obtenerListaHistorialAcademico(
+                        view.getIdAspiranteSeleccionado()));
         view.setHistorial(new HistorialAcademicoDTO());
 
         view.setMostrarHistorialAcademico(false);
-        JSFUtils.infoMessageEspecifico("info", "", "El historial academico ha sido registrado con éxito.");
+        JSFUtils.infoMessageEspecifico("info", "",
+                "El historial academico ha sido registrado con éxito.");
     }
 
     public void subirDocumentoAdjuntoHistorial(FileUploadEvent evento) {
-        if (!ValidacionUtil.esNumeroPositivo(view.getIdDocumentoAdjuntableHistorial())) {
-            JSFUtils.errorMessage("Error al adjuntar", "Es requerido seleccionar el tipo de documento que se está adjuntando, seleccione una opcion.");
+        if (!ValidacionUtil
+                .esNumeroPositivo(view.getIdDocumentoAdjuntableHistorial())) {
+            JSFUtils.errorMessage("Error al adjuntar",
+                    "Es requerido seleccionar el tipo de documento que se está adjuntando, seleccione una opcion.");
         } else if (ValidacionUtil.esCadenaVacia(view.getNumeroExpediente())) {
-            JSFUtils.errorMessage("Adjuntar documento historial", "Por favor aperture el expediente para poder adjuntarle el documento");
+            JSFUtils.errorMessage("Adjuntar documento historial",
+                    "Por favor aperture el expediente para poder adjuntarle el documento");
         } else {
             UploadedFile archivo = evento.getFile();
             String nombreAdjunto = archivo.getFileName();
             byte[] adjunto = archivo.getContents();
 
-            TipoArchivo extension = TipoArchivo.getTipoArchivoPorMIMEType(archivo.getContentType());
+            TipoArchivo extension = TipoArchivo
+                    .getTipoArchivoPorMIMEType(archivo.getContentType());
 
             InformacionAdjuntoDTO info = new InformacionAdjuntoDTO();
 
             DocumentoAdjuntableDTO dto = new DocumentoAdjuntableDTO();
-            dto.setIdDocumentoAdjuntable(view.getIdDocumentoAdjuntableHistorial());
+            dto.setIdDocumentoAdjuntable(
+                    view.getIdDocumentoAdjuntableHistorial());
 
             info.setEntidadContexto(EntidadContexto.HISTORIAL_ACADEMICO);
-            info.setIdEntidadContexto(view.getHistorialAcademicoSeleccionado().getIdHistorialAcademico());
+            info.setIdEntidadContexto(view.getHistorialAcademicoSeleccionado()
+                    .getIdHistorialAcademico());
 
             info.setIdAdjunto(null);
             info.setNombreAdjunto(nombreAdjunto);
@@ -258,9 +309,13 @@ public class AdministracionExpedienteAspiranteController implements Serializable
             view.setMostrarAdjuntarDocumentoHistorial(false);
 
             adjuntoAspirante.crear(info, adjunto);
-            view.getHistorialAcademicoSeleccionado().setTieneDocumentacion(true);
-            bolsaTrabajo.actualizarHistorialAcademicoAspirante(view.getHistorialAcademicoSeleccionado());
-            view.setHistorialesAcademicos(bolsaTrabajo.obtenerListaHistorialAcademico(view.getIdAspiranteSeleccionado()));
+            view.getHistorialAcademicoSeleccionado()
+                    .setTieneDocumentacion(true);
+            bolsaTrabajo.actualizarHistorialAcademicoAspirante(
+                    view.getHistorialAcademicoSeleccionado());
+            view.setHistorialesAcademicos(
+                    bolsaTrabajo.obtenerListaHistorialAcademico(
+                            view.getIdAspiranteSeleccionado()));
         }
     }
 
@@ -274,19 +329,23 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         }
     }
 
-    public void validarBusqueda(FacesContext context, UIComponent component, Object value) {
+    public void validarBusqueda(FacesContext context, UIComponent component,
+            Object value) {
         switch (component.getId()) {
             case "txtCriterioBusqueda":
                 String criterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(criterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
 
                 if (criterio.trim().length() < 5) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor ingrese un criterio de búsqueda mayor a 4 letras.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
@@ -299,14 +358,17 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         }
     }
 
-    public void validarExpediente(FacesContext context, UIComponent component, Object value) {
+    public void validarExpediente(FacesContext context, UIComponent component,
+            Object value) {
 
         switch (component.getId()) {
             case "txtNumeroExpediente":
                 String numeroExpediente = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(numeroExpediente)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Ingrese un número de expediente");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Ingrese un número de expediente");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -316,13 +378,16 @@ public class AdministracionExpedienteAspiranteController implements Serializable
         }
     }
 
-    public void validarHistorialAcademico(FacesContext context, UIComponent component, Object value) {
+    public void validarHistorialAcademico(FacesContext context,
+            UIComponent component, Object value) {
         switch (component.getId()) {
             case "escolaridad":
                 Integer escolaridad = (Integer) value;
 
                 if (ValidacionUtil.esMenorQueUno(escolaridad)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Seleccione una escolaridad");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Seleccione una escolaridad");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -331,7 +396,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
                 String institucion = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(institucion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Indique el nombre de una institución");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Indique el nombre de una institución");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -340,7 +407,8 @@ public class AdministracionExpedienteAspiranteController implements Serializable
                 Integer documentoComprobatorio = (Integer) value;
 
                 if (ValidacionUtil.esMenorQueUno(documentoComprobatorio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
                             "Por favor seleccione el último comprobante estudio del Grado Academico");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
@@ -350,7 +418,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
                 Date fechaInicial = (Date) value;
 
                 if (fechaInicial == null) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor indique una fecha inicial.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor indique una fecha inicial.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -359,7 +429,9 @@ public class AdministracionExpedienteAspiranteController implements Serializable
                 String nombreCurso = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombreCurso)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Indique el nombre de la escolaridad cursada");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Indique el nombre de la escolaridad cursada");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -367,8 +439,11 @@ public class AdministracionExpedienteAspiranteController implements Serializable
             case "duracion":
                 String duracion = (String) value;
 
-                if (view.getVisualizarDatosCurso() && ValidacionUtil.esCadenaVacia(duracion)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Indique la duración de la Escolaridad Complementaria");
+                if (view.getVisualizarDatosCurso()
+                        && ValidacionUtil.esCadenaVacia(duracion)) {
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Indique la duración de la Escolaridad Complementaria");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

@@ -29,11 +29,14 @@ public class ConfiguracionConceptoPuestoService {
     public void crear(ConfiguracionConceptoPuestoDTO dto) {
         ConfiguracionConceptoPuestoEntity entity = new ConfiguracionConceptoPuestoEntity();
 
-        entity.setConceptoNomina(conceptoNominaFederalesRepository.obtenerPorId(dto.getIdConceptoNomina()));
+        entity.setConceptoNomina(conceptoNominaFederalesRepository
+                .obtenerPorId(dto.getIdConceptoNomina()));
         entity.setImporteConcepto(dto.getImporteConcepto());
-        entity.setPuestoGeneral(puestoRepository.obtenerPorId(dto.getIdPuestoGeneral()));
+        entity.setPuestoGeneral(
+                puestoRepository.obtenerPorId(dto.getIdPuestoGeneral()));
         if (dto.getIdTabulador() != null) {
-            entity.setTabulador(tabuladorRepository.obtenerPorId(dto.getIdTabulador()));
+            entity.setTabulador(
+                    tabuladorRepository.obtenerPorId(dto.getIdTabulador()));
         }
         entity.setFormula(dto.getFormula());
         reporsitory.crear(entity);
@@ -41,13 +44,17 @@ public class ConfiguracionConceptoPuestoService {
     }
 
     public void editar(ConfiguracionConceptoPuestoDTO dto) {
-        ConfiguracionConceptoPuestoEntity entity = reporsitory.obtenerPorId(dto.getIdConfiguracionConcepto());
+        ConfiguracionConceptoPuestoEntity entity = reporsitory
+                .obtenerPorId(dto.getIdConfiguracionConcepto());
 
-        entity.setConceptoNomina(conceptoNominaFederalesRepository.obtenerPorId(dto.getIdConceptoNomina()));
+        entity.setConceptoNomina(conceptoNominaFederalesRepository
+                .obtenerPorId(dto.getIdConceptoNomina()));
         entity.setImporteConcepto(dto.getImporteConcepto());
-        entity.setPuestoGeneral(puestoRepository.obtenerPorId(dto.getIdPuestoGeneral()));
+        entity.setPuestoGeneral(
+                puestoRepository.obtenerPorId(dto.getIdPuestoGeneral()));
         if (dto.getIdTabulador() != null) {
-            entity.setTabulador(tabuladorRepository.obtenerPorId(dto.getIdTabulador()));
+            entity.setTabulador(
+                    tabuladorRepository.obtenerPorId(dto.getIdTabulador()));
         }
         entity.setFormula(dto.getFormula());
         reporsitory.crear(entity);
@@ -57,27 +64,35 @@ public class ConfiguracionConceptoPuestoService {
         reporsitory.eliminarPorId(idConfiguracion);
     }
 
-    public List<ConfiguracionConceptoPuestoDTO> obtenerListaConfiguracionPorConcepto(Integer idConcepto) {
+    public List<ConfiguracionConceptoPuestoDTO> obtenerListaConfiguracionPorConcepto(
+            Integer idConcepto) {
         List<ConfiguracionConceptoPuestoDTO> listDtos = new ArrayList<>();
         List<ConfiguracionConceptoPuestoEntity> listEntitys = new ArrayList<>();
 
-        listEntitys = reporsitory.obtenerListaConfiguracionesPorConcepto(idConcepto);
+        listEntitys = reporsitory
+                .obtenerListaConfiguracionesPorConcepto(idConcepto);
 
         if (listEntitys != null) {
             for (ConfiguracionConceptoPuestoEntity ent : listEntitys) {
                 ConfiguracionConceptoPuestoDTO dto = new ConfiguracionConceptoPuestoDTO();
                 dto.setClaveConcepto(ent.getConceptoNomina().getClave());
                 dto.setCodigoPuesto(ent.getPuestoGeneral().getCodigo());
-                dto.setDecripcionConcepto(ent.getConceptoNomina().getDescripcion());
+                dto.setDecripcionConcepto(
+                        ent.getConceptoNomina().getDescripcion());
                 dto.setDescripcionPuesto(ent.getPuestoGeneral().getPuesto());
                 if (ent.getTabulador() != null) {
-                    dto.setEjercicioFiscalTabulador(ent.getTabulador().getEjercicioFiscal());
+                    dto.setEjercicioFiscalTabulador(
+                            ent.getTabulador().getEjercicioFiscal());
                     dto.setIdTabulador(ent.getTabulador().getIdTabulador());
                 }
-                dto.setIdConceptoNomina(ent.getConceptoNomina().getIdConceptoNomina());
-                dto.setIdConfiguracionConcepto(ent.getIdConfiguracionConcepto());
-                dto.setIdPuestoGeneral(ent.getPuestoGeneral().getIdPuestoGeneral());
-                dto.setTipoPuesto(ent.getPuestoGeneral().getIdTipoPuesto().getIdTipoPuesto());
+                dto.setIdConceptoNomina(
+                        ent.getConceptoNomina().getIdConceptoNomina());
+                dto.setIdConfiguracionConcepto(
+                        ent.getIdConfiguracionConcepto());
+                dto.setIdPuestoGeneral(
+                        ent.getPuestoGeneral().getIdPuestoGeneral());
+                dto.setTipoPuesto(ent.getPuestoGeneral().getIdTipoPuesto()
+                        .getIdTipoPuesto());
                 dto.setImporteConcepto(ent.getImporteConcepto());
                 dto.setFormula(ent.getFormula());
                 listDtos.add(dto);
@@ -86,26 +101,34 @@ public class ConfiguracionConceptoPuestoService {
         return listDtos;
     }
 
-    public List<ConfiguracionConceptoPuestoDTO> obtenerListaConfiguracionPorPuesto(Integer idPuesto) {
+    public List<ConfiguracionConceptoPuestoDTO> obtenerListaConfiguracionPorPuesto(
+            Integer idPuesto) {
         List<ConfiguracionConceptoPuestoDTO> listDtos = new ArrayList<>();
         List<ConfiguracionConceptoPuestoEntity> listEntitys = new ArrayList<>();
 
-        listEntitys = reporsitory.obtenerListaConfiguracionesPorPuesto(idPuesto);
+        listEntitys = reporsitory
+                .obtenerListaConfiguracionesPorPuesto(idPuesto);
 
         if (listEntitys != null) {
             for (ConfiguracionConceptoPuestoEntity ent : listEntitys) {
                 ConfiguracionConceptoPuestoDTO dto = new ConfiguracionConceptoPuestoDTO();
                 dto.setClaveConcepto(ent.getConceptoNomina().getClave());
                 dto.setCodigoPuesto(ent.getPuestoGeneral().getCodigo());
-                dto.setDecripcionConcepto(ent.getConceptoNomina().getDescripcion());
+                dto.setDecripcionConcepto(
+                        ent.getConceptoNomina().getDescripcion());
                 dto.setDescripcionPuesto(ent.getPuestoGeneral().getPuesto());
-                dto.setEjercicioFiscalTabulador(ent.getTabulador().getEjercicioFiscal());
-                dto.setIdConceptoNomina(ent.getConceptoNomina().getIdConceptoNomina());
-                dto.setIdConfiguracionConcepto(ent.getIdConfiguracionConcepto());
-                dto.setIdPuestoGeneral(ent.getPuestoGeneral().getIdPuestoGeneral());
+                dto.setEjercicioFiscalTabulador(
+                        ent.getTabulador().getEjercicioFiscal());
+                dto.setIdConceptoNomina(
+                        ent.getConceptoNomina().getIdConceptoNomina());
+                dto.setIdConfiguracionConcepto(
+                        ent.getIdConfiguracionConcepto());
+                dto.setIdPuestoGeneral(
+                        ent.getPuestoGeneral().getIdPuestoGeneral());
                 dto.setIdTabulador(ent.getTabulador().getIdTabulador());
                 dto.setImporteConcepto(ent.getImporteConcepto());
-                dto.setTipoPuesto(ent.getPuestoGeneral().getIdTipoPuesto().getIdTipoPuesto());
+                dto.setTipoPuesto(ent.getPuestoGeneral().getIdTipoPuesto()
+                        .getIdTipoPuesto());
                 dto.setFormula(ent.getFormula());
                 listDtos.add(dto);
             }
@@ -113,7 +136,8 @@ public class ConfiguracionConceptoPuestoService {
         return listDtos;
     }
 
-    public ConfiguracionConceptoPuestoDTO obtenerConfiguracionPorPuestoCocepto(Integer idPuesto, Integer idConcepto) {
+    public ConfiguracionConceptoPuestoDTO obtenerConfiguracionPorPuestoCocepto(
+            Integer idPuesto, Integer idConcepto) {
         ConfiguracionConceptoPuestoEntity ent = new ConfiguracionConceptoPuestoEntity();
         ent = reporsitory.obtenerPorConceptoPuesto(idPuesto, idConcepto);
 
@@ -122,13 +146,15 @@ public class ConfiguracionConceptoPuestoService {
         dto.setCodigoPuesto(ent.getPuestoGeneral().getCodigo());
         dto.setDecripcionConcepto(ent.getConceptoNomina().getDescripcion());
         dto.setDescripcionPuesto(ent.getPuestoGeneral().getPuesto());
-        dto.setEjercicioFiscalTabulador(ent.getTabulador().getEjercicioFiscal());
+        dto.setEjercicioFiscalTabulador(
+                ent.getTabulador().getEjercicioFiscal());
         dto.setIdConceptoNomina(ent.getConceptoNomina().getIdConceptoNomina());
         dto.setIdConfiguracionConcepto(ent.getIdConfiguracionConcepto());
         dto.setIdPuestoGeneral(ent.getPuestoGeneral().getIdPuestoGeneral());
         dto.setIdTabulador(ent.getTabulador().getIdTabulador());
         dto.setImporteConcepto(ent.getImporteConcepto());
-        dto.setTipoPuesto(ent.getPuestoGeneral().getIdTipoPuesto().getIdTipoPuesto());
+        dto.setTipoPuesto(
+                ent.getPuestoGeneral().getIdTipoPuesto().getIdTipoPuesto());
         dto.setFormula(ent.getFormula());
         return dto;
     }

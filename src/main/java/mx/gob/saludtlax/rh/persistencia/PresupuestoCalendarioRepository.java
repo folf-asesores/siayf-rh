@@ -9,10 +9,11 @@ import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class PresupuestoCalendarioRepository extends GenericRepository<PresupuestoCalendarioEntity, Integer> {
+public class PresupuestoCalendarioRepository
+        extends GenericRepository<PresupuestoCalendarioEntity, Integer> {
 
     /**
      *
@@ -21,16 +22,21 @@ public class PresupuestoCalendarioRepository extends GenericRepository<Presupues
 
     public List<PresupuestoCalendarioEntity> obtenerListaPresupuestoCalendario() {
         try {
-            return em.createQuery("SELECT p FROM PresupuestoCalendarioEntity AS p", PresupuestoCalendarioEntity.class).getResultList();
+            return em.createQuery(
+                    "SELECT p FROM PresupuestoCalendarioEntity AS p",
+                    PresupuestoCalendarioEntity.class).getResultList();
 
         } catch (NoResultException ex) {
             return null;
         }
     }
 
-    public List<PresupuestoCalendarioEntity> obtenerListaPresupuestoCalendarioPorAnio(Integer anio) {
+    public List<PresupuestoCalendarioEntity> obtenerListaPresupuestoCalendarioPorAnio(
+            Integer anio) {
         try {
-            return em.createQuery("SELECT p FROM PresupuestoCalendarioEntity AS p WHERE p.anio =:anio", PresupuestoCalendarioEntity.class)
+            return em.createQuery(
+                    "SELECT p FROM PresupuestoCalendarioEntity AS p WHERE p.anio =:anio",
+                    PresupuestoCalendarioEntity.class)
                     .setParameter("anio", anio).getResultList();
 
         } catch (NoResultException ex) {

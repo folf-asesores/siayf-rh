@@ -13,11 +13,14 @@ import java.util.List;
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public interface RegimenContratacionTrabajador {
-    int crear(RegimenContratacionTrabajadorDTO regimenContratacionTrabajadorDTO);
+    int crear(
+            RegimenContratacionTrabajadorDTO regimenContratacionTrabajadorDTO);
 
-    void actualizar(RegimenContratacionTrabajadorDTO regimenContratacionTrabajadorDTO);
+    void actualizar(
+            RegimenContratacionTrabajadorDTO regimenContratacionTrabajadorDTO);
 
-    RegimenContratacionTrabajadorDTO obtenerPorId(int idRegimenContratacionTrabajador);
+    RegimenContratacionTrabajadorDTO obtenerPorId(
+            int idRegimenContratacionTrabajador);
 
     List<RegimenContratacionTrabajadorDTO> obtenerRegimenContratacionTrabajadores();
 

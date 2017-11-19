@@ -20,12 +20,13 @@ import mx.gob.saludtlax.rh.reportes.Generador;
 import net.sf.jasperreports.engine.JasperReport;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class JasperReportsGenerador implements Generador {
 
-    private static final Logger LOGGER = Logger.getLogger(JasperReportsGenerador.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(JasperReportsGenerador.class.getName());
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -39,10 +40,12 @@ public class JasperReportsGenerador implements Generador {
         if (reporte.tieneSubreportes()) {
             Map<String, JasperReporte> subreportes = reporte.getSubreportes();
 
-            for (Map.Entry<String, JasperReporte> entry : subreportes.entrySet()) {
+            for (Map.Entry<String, JasperReporte> entry : subreportes
+                    .entrySet()) {
                 String clave = entry.getKey();
                 JasperReporte subreporte = entry.getValue();
-                JasperReport subjr = compilador.compilar(subreporte.getInputStream());
+                JasperReport subjr = compilador
+                        .compilar(subreporte.getInputStream());
 
                 parametrosReporte.put(clave, subjr);
             }
@@ -55,12 +58,14 @@ public class JasperReportsGenerador implements Generador {
             Class<?> patametroTipo = entry.getValue();
             String parametroValor = parametros.get(parametroClave);
 
-            parametrosReporte.put(parametroClave, obtenerValorCasteado(parametroValor, patametroTipo));
+            parametrosReporte.put(parametroClave,
+                    obtenerValorCasteado(parametroValor, patametroTipo));
         }
 
         JasperReport jr = compilador.compilar(reporte.getInputStream());
 
-        return compilador.generarReporte(jr, parametrosReporte, parametros.get("TIPO_REPORTE"));
+        return compilador.generarReporte(jr, parametrosReporte,
+                parametros.get("TIPO_REPORTE"));
     }
 
     public <T> T obtenerValorCasteado(String valor, Class<T> t) {
@@ -93,6 +98,7 @@ public class JasperReportsGenerador implements Generador {
             return (T) String.valueOf(valor);
         }
 
-        throw new RuntimeException("No se ha logro convertir el valor:" + valor + " en " + t.getCanonicalName());
+        throw new RuntimeException("No se ha logro convertir el valor:" + valor
+                + " en " + t.getCanonicalName());
     }
 }

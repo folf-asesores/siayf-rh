@@ -42,7 +42,8 @@ public class TimbrarNominaEJB implements Serializable {
 
         if (timbrando == false) {
             timbrando = true;
-            List<ComprobanteEntity> comprobanteEstatalList = comprobanteEstatalDAO.obtenerLista();
+            List<ComprobanteEntity> comprobanteEstatalList = comprobanteEstatalDAO
+                    .obtenerLista();
 
             for (ComprobanteEntity comprobanteEstatal : comprobanteEstatalList) {
 

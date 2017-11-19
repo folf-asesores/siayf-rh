@@ -86,19 +86,26 @@ public class TarjetaEmpleadoController implements Serializable {
          */
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -112,7 +119,8 @@ public class TarjetaEmpleadoController implements Serializable {
             @Override
             public void loadEvents(Date start, Date end) {
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+                SimpleDateFormat sdf = new SimpleDateFormat(
+                        "dd-M-yyyy hh:mm:ss");
                 if (falta == null) {
                     falta = 0;
                     retardo = 0;
@@ -133,8 +141,10 @@ public class TarjetaEmpleadoController implements Serializable {
                         minutoSalStr = "0" + minutoStr;
                     }
 
-                    String dateInString = i + "-07-2016 08:" + minutoStr + ":50";
-                    String dateOtString = i + "-07-2016 16:" + minutoStr + ":50";
+                    String dateInString = i + "-07-2016 08:" + minutoStr
+                            + ":50";
+                    String dateOtString = i + "-07-2016 16:" + minutoStr
+                            + ":50";
                     Date date;
                     Date dateSal;
 
@@ -155,8 +165,11 @@ public class TarjetaEmpleadoController implements Serializable {
                         }
 
                         if (date.getDay() != 0 && date.getDay() != 6) {
-                            addEvent(new DefaultScheduleEvent("Entrada " + incidencia, date, date, style));
-                            addEvent(new DefaultScheduleEvent("Salida", dateSal, dateSal, style));
+                            addEvent(new DefaultScheduleEvent(
+                                    "Entrada " + incidencia, date, date,
+                                    style));
+                            addEvent(new DefaultScheduleEvent("Salida", dateSal,
+                                    dateSal, style));
                         }
                     } catch (ParseException e) {
 
@@ -169,7 +182,8 @@ public class TarjetaEmpleadoController implements Serializable {
                 try {
                     date = sdf.parse(dateInString);
                     Date date2 = sdf.parse(dateOtString);
-                    DefaultScheduleEvent eventoT = new DefaultScheduleEvent("Vacaciones", date, date2, "emp1");
+                    DefaultScheduleEvent eventoT = new DefaultScheduleEvent(
+                            "Vacaciones", date, date2, "emp1");
                     eventoT.setAllDay(true);
                     eventoT.setStyleClass("emp1");
                     addEvent(eventoT);
@@ -225,7 +239,8 @@ public class TarjetaEmpleadoController implements Serializable {
         return consultaTarjetaEmpleadoFormModel;
     }
 
-    public void setConsultaTarjetaEmpleadoFormModel(ConsultaTarjetaEmpleadoFormModel consultaTarjetaEmpleadoFormModel) {
+    public void setConsultaTarjetaEmpleadoFormModel(
+            ConsultaTarjetaEmpleadoFormModel consultaTarjetaEmpleadoFormModel) {
         this.consultaTarjetaEmpleadoFormModel = consultaTarjetaEmpleadoFormModel;
     }
 

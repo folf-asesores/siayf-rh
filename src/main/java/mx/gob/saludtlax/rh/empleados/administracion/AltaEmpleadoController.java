@@ -60,14 +60,20 @@ public class AltaEmpleadoController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        view.setListaTiposContratacion(SelectItemsUtil.listaTiposContratacion());
-        view.setListaTiposJornadas(SelectItemsUtil.listaCatalogos(catalogo.listaTiposJornadas()));
-        view.setListaBancos(SelectItemsUtil.listaCatalogos(catalogo.listaBancos()));
-        view.setListaMetodosPago(SelectItemsUtil.listaCatalogos(catalogo.consultarMetodosPago()));
+        view.setListaTiposContratacion(
+                SelectItemsUtil.listaTiposContratacion());
+        view.setListaTiposJornadas(
+                SelectItemsUtil.listaCatalogos(catalogo.listaTiposJornadas()));
+        view.setListaBancos(
+                SelectItemsUtil.listaCatalogos(catalogo.listaBancos()));
+        view.setListaMetodosPago(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarMetodosPago()));
         view.setMostrarTablaResultado(true);
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuario = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
         view.getAltaEmpleado().setIdUsuario(usuario.getIdUsuario());
     }
 
@@ -77,19 +83,24 @@ public class AltaEmpleadoController implements Serializable {
             view.getVacantesDisponibles().clear();
             FiltroVacanteDTO filtroVacanteDTO = new FiltroVacanteDTO();
             filtroVacanteDTO.setIdentificador(view.getIdTipoContratacion());
-            filtroVacanteDTO.setTipoBusqueda(EnumFiltroConsultaVacante.DISPONIBLES_POSTULADAS);
+            filtroVacanteDTO.setTipoBusqueda(
+                    EnumFiltroConsultaVacante.DISPONIBLES_POSTULADAS);
 
-            view.setVacantesDisponibles(vacantes.consultaVacantesPorCriterio(filtroVacanteDTO));
+            view.setVacantesDisponibles(
+                    vacantes.consultaVacantesPorCriterio(filtroVacanteDTO));
             if (view.getVacantesDisponibles().isEmpty()) {
-                JSFUtils.warningMessage("", "No se encontró candidatos aprobados, seleccione otro tipo de contratación");
+                JSFUtils.warningMessage("",
+                        "No se encontró candidatos aprobados, seleccione otro tipo de contratación");
             }
 
         } catch (ReglaNegocioException exception) {
-            throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
+            throw new ReglaNegocioException(exception.getMessage(),
+                    exception.getCodigoError());
         }
     }
 
-    public void obtenerDetalleConfiguracion(Integer idConfiguracion, Integer idVacante, String tipoContratacion) {
+    public void obtenerDetalleConfiguracion(Integer idConfiguracion,
+            Integer idVacante, String tipoContratacion) {
 
         try {
             view.getAltaEmpleado().setIdVacante(idVacante);
@@ -97,15 +108,19 @@ public class AltaEmpleadoController implements Serializable {
             view.setMostrarPanelAlta(true);
             view.setMostrarCamposFederales(false);
             view.setMostrarCamposEventuales(false);
-            DetalleConfiguracionPresupuestoDTO detalle = configuracionPresupuestal.obtenerDetalleConfiguracionId(idConfiguracion);
+            DetalleConfiguracionPresupuestoDTO detalle = configuracionPresupuestal
+                    .obtenerDetalleConfiguracionId(idConfiguracion);
             view.setDetalleVacante(detalle);
 
-            InfoCandidatoDTO candidato = postulacion.obtenerInformacionCandidatoAprobado(idVacante);
+            InfoCandidatoDTO candidato = postulacion
+                    .obtenerInformacionCandidatoAprobado(idVacante);
 
             view.setCandidato(candidato);
 
             if (candidato.getIdTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
-                ValidacionEmpleadoDTO validacion = empleado.validarDatosObligatoriosEmpleado(candidato.getIdContexto());
+                ValidacionEmpleadoDTO validacion = empleado
+                        .validarDatosObligatoriosEmpleado(
+                                candidato.getIdContexto());
                 if (!validacion.isEsValido()) {
                     JSFUtils.warningMessage("", validacion.getMensaje());
                 }
@@ -113,12 +128,15 @@ public class AltaEmpleadoController implements Serializable {
 
             if (tipoContratacion.equals("BASE")) {
                 view.setMostrarCamposFederales(true);
-            } else if (tipoContratacion.equals("CONTRATO ESTATAL") || tipoContratacion.equals("CONTRATO FEDERAL")) {
+            } else if (tipoContratacion.equals("CONTRATO ESTATAL")
+                    || tipoContratacion.equals("CONTRATO FEDERAL")) {
                 view.setMostrarCamposEventuales(true);
             }
 
             view.getAltaEmpleado().getNombramiento().setClavePresupuestal(
-                    generarClavePresupuestal(detalle.getCodigoPuesto(), detalle.getIdTipoContratacion(), detalle.getIdTipoNombramiento()));
+                    generarClavePresupuestal(detalle.getCodigoPuesto(),
+                            detalle.getIdTipoContratacion(),
+                            detalle.getIdTipoNombramiento()));
 
         } catch (NoResultException exception) {
             JSFUtils.errorMessage("", exception.getMessage());
@@ -132,25 +150,33 @@ public class AltaEmpleadoController implements Serializable {
             setView(view);
             inicio();
             view.setMostrarTablaResultado(true);
-            JSFUtils.infoMessage("", "¡El empleado ha sido registrado con éxito!");
+            JSFUtils.infoMessage("",
+                    "¡El empleado ha sido registrado con éxito!");
         } catch (ReglaNegocioException exception) {
-            throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
+            throw new ReglaNegocioException(exception.getMessage(),
+                    exception.getCodigoError());
         }
     }
 
-    private String generarClavePresupuestal(String codigoPuesto, Integer tipoContratacion, Integer idTipoNombramiento) {
+    private String generarClavePresupuestal(String codigoPuesto,
+            Integer tipoContratacion, Integer idTipoNombramiento) {
         String clavePresupuestal = "";
         if (tipoContratacion == EnumTipoContratacion.BASE) {
-            clavePresupuestal = "IO02 " + "4161103 " + codigoPuesto + " 29004 0001";
+            clavePresupuestal = "IO02 " + "4161103 " + codigoPuesto
+                    + " 29004 0001";
         } else if (tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
-            clavePresupuestal = "IO02 " + "HOM1103 " + codigoPuesto + " 29004 0001";
+            clavePresupuestal = "IO02 " + "HOM1103 " + codigoPuesto
+                    + " 29004 0001";
         } else if (tipoContratacion == EnumTipoContratacion.REGULARIZADOS) {
-            clavePresupuestal = "U004 " + "REG1103 " + codigoPuesto + " 0002 20001";
+            clavePresupuestal = "U004 " + "REG1103 " + codigoPuesto
+                    + " 0002 20001";
         } else if (tipoContratacion == EnumTipoContratacion.FORMALIZADOS) {
             if (idTipoNombramiento == EnumTipoNombramiento.FORMALIZADOS) {
-                clavePresupuestal = "U005" + "FOR1103 " + codigoPuesto + " 00022 0001";
+                clavePresupuestal = "U005" + "FOR1103 " + codigoPuesto
+                        + " 00022 0001";
             } else if (idTipoNombramiento == EnumTipoNombramiento.FORMALIZADOS_2) {
-                clavePresupuestal = "U005" + "FO21103 " + codigoPuesto + " 00022 0001";
+                clavePresupuestal = "U005" + "FO21103 " + codigoPuesto
+                        + " 00022 0001";
             }
         }
 

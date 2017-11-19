@@ -23,7 +23,8 @@ public class LineaAccionService {
     private LineaAccionRepository lineaAccionRepository;
 
     protected LineaAccionDTO obtenerPorId(int idLineaAccion) {
-        LineaAccionEntity entidad = lineaAccionRepository.obtenerPorId(idLineaAccion);
+        LineaAccionEntity entidad = lineaAccionRepository
+                .obtenerPorId(idLineaAccion);
 
         if (entidad != null) {
             return convertirEntidadADTO(entidad);
@@ -32,15 +33,19 @@ public class LineaAccionService {
         }
     }
 
-    protected List<String> consultarDescripcionLineaAccionPorCriterio(String consulta) {
-        return lineaAccionRepository.consultarDescripcionLineaAccionPorCriterio(consulta);
+    protected List<String> consultarDescripcionLineaAccionPorCriterio(
+            String consulta) {
+        return lineaAccionRepository
+                .consultarDescripcionLineaAccionPorCriterio(consulta);
     }
 
     protected Integer consultarIdLineaAccionPorDescripcion(String descripcion) {
-        return lineaAccionRepository.consultarIdLineaAccionPorDescripcion(descripcion);
+        return lineaAccionRepository
+                .consultarIdLineaAccionPorDescripcion(descripcion);
     }
 
-    private static LineaAccionDTO convertirEntidadADTO(LineaAccionEntity entidad) {
+    private static LineaAccionDTO convertirEntidadADTO(
+            LineaAccionEntity entidad) {
         LineaAccionDTO dto = new LineaAccionDTO();
 
         dto.setIdLineaAccion(entidad.getIdLineaAccion());

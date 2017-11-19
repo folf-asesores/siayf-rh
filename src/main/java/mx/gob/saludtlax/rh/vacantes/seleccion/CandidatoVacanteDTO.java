@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  *
  * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
-
+ * 
  * @version 1.0
  * @since 17/08/2016 17:27:38
  */
@@ -23,8 +23,6 @@ public class CandidatoVacanteDTO implements Serializable {
     private Integer tipoCandidato;
 
     private Integer idContexto;
-
-    
 
     /**
      *

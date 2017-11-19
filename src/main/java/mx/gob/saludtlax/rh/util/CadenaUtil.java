@@ -8,7 +8,7 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class CadenaUtil {
@@ -16,7 +16,8 @@ public class CadenaUtil {
     public synchronized static String converterSpace(String string) {
         final StringBuffer sb = new StringBuffer(string.length() * 2);
 
-        final StringCharacterIterator iterator = new StringCharacterIterator(string);
+        final StringCharacterIterator iterator = new StringCharacterIterator(
+                string);
 
         char ch = iterator.current();
 
@@ -180,9 +181,11 @@ public class CadenaUtil {
         return sb.toString();
     }
 
-    public synchronized static String remplazarCaracteresLatinos(final String cadena) {
+    public synchronized static String remplazarCaracteresLatinos(
+            final String cadena) {
         final StringBuffer sb = new StringBuffer();
-        final StringCharacterIterator iterator = new StringCharacterIterator(cadena);
+        final StringCharacterIterator iterator = new StringCharacterIterator(
+                cadena);
         char ch;
         do {
             ch = iterator.current();

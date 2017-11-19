@@ -31,7 +31,8 @@ public class ConceptosNominaContratosController implements Serializable {
     }
 
     public String updateCategoriaSAT() {
-        view.setCategoriaSatLista(ejb.listaCategoriaSatPorTipo(view.getConceptoNominaSelect().getTipo()));
+        view.setCategoriaSatLista(ejb.listaCategoriaSatPorTipo(
+                view.getConceptoNominaSelect().getTipo()));
         return null;
     }
 
@@ -46,7 +47,8 @@ public class ConceptosNominaContratosController implements Serializable {
     }
 
     public String irPrincipal() {
-        view.setConceptoNominaLista(ejb.obtenerConceptoNominasLista(TipoConceptoNominaEnum.get(view.getTipoSelect())));
+        view.setConceptoNominaLista(ejb.obtenerConceptoNominasLista(
+                TipoConceptoNominaEnum.get(view.getTipoSelect())));
         view.panelPrincipal();
         return null;
     }

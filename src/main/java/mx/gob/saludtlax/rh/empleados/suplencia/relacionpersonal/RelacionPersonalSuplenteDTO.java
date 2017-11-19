@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class RelacionPersonalSuplenteDTO implements Serializable {
@@ -38,8 +38,11 @@ public class RelacionPersonalSuplenteDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "RelacionPersonalSuplenteDTO [numeroFolio=" + numeroFolio + ", rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado + ", funcion=" + funcion
-                + ", areaSuple=" + areaSuple + ", periodoSuplencia=" + periodoSuplencia + ", importe=" + importe + ", observaciones=" + observaciones
+        return "RelacionPersonalSuplenteDTO [numeroFolio=" + numeroFolio
+                + ", rfc=" + rfc + ", nombreEmpleado=" + nombreEmpleado
+                + ", funcion=" + funcion + ", areaSuple=" + areaSuple
+                + ", periodoSuplencia=" + periodoSuplencia + ", importe="
+                + importe + ", observaciones=" + observaciones
                 + ", centroResponsabilidad=" + centroResponsabilidad + "]";
     }
 

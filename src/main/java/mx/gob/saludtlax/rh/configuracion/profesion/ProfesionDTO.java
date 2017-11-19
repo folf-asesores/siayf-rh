@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.configuracion.profesion;
 import java.io.Serializable;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  * @version 10/03/2016 11:03:32
  */
@@ -24,13 +24,12 @@ public class ProfesionDTO implements Serializable {
 
     private String profesion;
 
-    
-
     public ProfesionDTO() {
         super();
     }
 
-    public ProfesionDTO(Integer idProfesionAspiranteEmpleado, Integer idProfesion, String profesion) {
+    public ProfesionDTO(Integer idProfesionAspiranteEmpleado,
+            Integer idProfesion, String profesion) {
 
         this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
         this.idProfesion = idProfesion;
@@ -86,7 +85,8 @@ public class ProfesionDTO implements Serializable {
      * @param idProfesionAspiranteEmpleado
      *            the idProfesionAspiranteEmpleado to set
      */
-    public void setIdProfesionAspiranteEmpleado(Integer idProfesionAspiranteEmpleado) {
+    public void setIdProfesionAspiranteEmpleado(
+            Integer idProfesionAspiranteEmpleado) {
         this.idProfesionAspiranteEmpleado = idProfesionAspiranteEmpleado;
     }
 

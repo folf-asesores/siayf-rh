@@ -190,7 +190,8 @@ public class ProductosNominaView implements Serializable {
         return ejercicioFiscalList;
     }
 
-    public void setEjercicioFiscalList(List<EjercicioFiscalListaDTO> ejercicioFiscalList) {
+    public void setEjercicioFiscalList(
+            List<EjercicioFiscalListaDTO> ejercicioFiscalList) {
         this.ejercicioFiscalList = ejercicioFiscalList;
     }
 
@@ -198,7 +199,8 @@ public class ProductosNominaView implements Serializable {
         return periodoCalendarioList;
     }
 
-    public void setPeriodoCalendarioList(List<PeriodoCalendarioDTO> periodoCalendarioList) {
+    public void setPeriodoCalendarioList(
+            List<PeriodoCalendarioDTO> periodoCalendarioList) {
         this.periodoCalendarioList = periodoCalendarioList;
     }
 
@@ -206,7 +208,8 @@ public class ProductosNominaView implements Serializable {
         return fuenteFinanciamientoList;
     }
 
-    public void setFuenteFinanciamientoList(List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoList) {
+    public void setFuenteFinanciamientoList(
+            List<FuenteFinanciamientoOPDDTO> fuenteFinanciamientoList) {
         this.fuenteFinanciamientoList = fuenteFinanciamientoList;
     }
 
@@ -214,7 +217,8 @@ public class ProductosNominaView implements Serializable {
         return subfuenteFinanciamientoList;
     }
 
-    public void setSubfuenteFinanciamientoList(List<SubfuenteFinanciamientoDTO> subfuenteFinanciamientoList) {
+    public void setSubfuenteFinanciamientoList(
+            List<SubfuenteFinanciamientoDTO> subfuenteFinanciamientoList) {
         this.subfuenteFinanciamientoList = subfuenteFinanciamientoList;
     }
 
@@ -230,7 +234,8 @@ public class ProductosNominaView implements Serializable {
         return nominaEmpleadoList;
     }
 
-    public void setNominaEmpleadoList(List<NominaEmpleadoDTO> nominaEmpleadoList) {
+    public void setNominaEmpleadoList(
+            List<NominaEmpleadoDTO> nominaEmpleadoList) {
         this.nominaEmpleadoList = nominaEmpleadoList;
     }
 
@@ -238,7 +243,8 @@ public class ProductosNominaView implements Serializable {
         return estatusProductoNominaLista;
     }
 
-    public void setEstatusProductoNominaLista(List<EstatusProductoNominaDTO> estatusProductoNominaLista) {
+    public void setEstatusProductoNominaLista(
+            List<EstatusProductoNominaDTO> estatusProductoNominaLista) {
         this.estatusProductoNominaLista = estatusProductoNominaLista;
     }
 
@@ -262,7 +268,8 @@ public class ProductosNominaView implements Serializable {
         return cambiarFuenteFinanciamiento;
     }
 
-    public void setCambiarFuenteFinanciamiento(Boolean cambiarFuenteFinanciamiento) {
+    public void setCambiarFuenteFinanciamiento(
+            Boolean cambiarFuenteFinanciamiento) {
         this.cambiarFuenteFinanciamiento = cambiarFuenteFinanciamiento;
     }
 
@@ -318,7 +325,8 @@ public class ProductosNominaView implements Serializable {
         return filtroProductoNominaList;
     }
 
-    public void setFiltroProductoNominaList(List<ProductoNominaListaDTO> filtroProductoNominaList) {
+    public void setFiltroProductoNominaList(
+            List<ProductoNominaListaDTO> filtroProductoNominaList) {
         this.filtroProductoNominaList = filtroProductoNominaList;
     }
 
@@ -326,7 +334,8 @@ public class ProductosNominaView implements Serializable {
         return productoNominaSelect;
     }
 
-    public void setProductoNominaSelect(ProductoNominaListaDTO productoNominaSelect) {
+    public void setProductoNominaSelect(
+            ProductoNominaListaDTO productoNominaSelect) {
         this.productoNominaSelect = productoNominaSelect;
     }
 
@@ -334,7 +343,8 @@ public class ProductosNominaView implements Serializable {
         return nominaEmpleadoSelect;
     }
 
-    public void setNominaEmpleadoSelect(NominaEmpleadoDTO nominaEmpleadoSelect) {
+    public void setNominaEmpleadoSelect(
+            NominaEmpleadoDTO nominaEmpleadoSelect) {
         this.nominaEmpleadoSelect = nominaEmpleadoSelect;
     }
 
@@ -358,7 +368,8 @@ public class ProductosNominaView implements Serializable {
         return tipoContratacionList;
     }
 
-    public void setTipoContratacionList(List<TipoContratacionDTO> tipoContratacionList) {
+    public void setTipoContratacionList(
+            List<TipoContratacionDTO> tipoContratacionList) {
         this.tipoContratacionList = tipoContratacionList;
     }
 
@@ -370,11 +381,13 @@ public class ProductosNominaView implements Serializable {
         return pensionesNominaList;
     }
 
-    public void setPensionesNominaList(List<PensionesNominaDTO> pensionesNominaList) {
+    public void setPensionesNominaList(
+            List<PensionesNominaDTO> pensionesNominaList) {
         this.pensionesNominaList = pensionesNominaList;
     }
 
-    public void setConceptosNominaSelect(ConceptosNominaEmpleadosDTO conceptosNominaSelect) {
+    public void setConceptosNominaSelect(
+            ConceptosNominaEmpleadosDTO conceptosNominaSelect) {
         this.conceptosNominaSelect = conceptosNominaSelect;
     }
 
@@ -390,7 +403,8 @@ public class ProductosNominaView implements Serializable {
         return cuentaBancariaList;
     }
 
-    public void setCuentaBancariaList(List<CuentaBancariaDTO> cuentaBancariaList) {
+    public void setCuentaBancariaList(
+            List<CuentaBancariaDTO> cuentaBancariaList) {
         this.cuentaBancariaList = cuentaBancariaList;
     }
 
@@ -422,7 +436,8 @@ public class ProductosNominaView implements Serializable {
         return panelDetalleGestionFaltas;
     }
 
-    public void setPanelDetalleGestionFaltas(Boolean panelDetalleGestionFaltas) {
+    public void setPanelDetalleGestionFaltas(
+            Boolean panelDetalleGestionFaltas) {
         this.panelDetalleGestionFaltas = panelDetalleGestionFaltas;
     }
 
@@ -430,7 +445,8 @@ public class ProductosNominaView implements Serializable {
         return mostrarTablaNominaEmpleado;
     }
 
-    public void setMostrarTablaNominaEmpleado(Boolean mostrarTablaNominaEmpleado) {
+    public void setMostrarTablaNominaEmpleado(
+            Boolean mostrarTablaNominaEmpleado) {
         this.mostrarTablaNominaEmpleado = mostrarTablaNominaEmpleado;
     }
 
@@ -438,7 +454,8 @@ public class ProductosNominaView implements Serializable {
         return faltasGestionar;
     }
 
-    public void setFaltasGestionar(DualListModel<FaltaContadaDTO> faltasGestionar) {
+    public void setFaltasGestionar(
+            DualListModel<FaltaContadaDTO> faltasGestionar) {
         this.faltasGestionar = faltasGestionar;
     }
 
@@ -454,7 +471,8 @@ public class ProductosNominaView implements Serializable {
         return actualizarNominaEmpleadoList;
     }
 
-    public void setActualizarNominaEmpleadoList(List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList) {
+    public void setActualizarNominaEmpleadoList(
+            List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoList) {
         this.actualizarNominaEmpleadoList = actualizarNominaEmpleadoList;
     }
 
@@ -462,7 +480,8 @@ public class ProductosNominaView implements Serializable {
         return actualizarNominaEmpleadoSelectList;
     }
 
-    public void setActualizarNominaEmpleadoSelectList(List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoSelectList) {
+    public void setActualizarNominaEmpleadoSelectList(
+            List<ActualizarNominaEmpleadoDTO> actualizarNominaEmpleadoSelectList) {
         this.actualizarNominaEmpleadoSelectList = actualizarNominaEmpleadoSelectList;
     }
 

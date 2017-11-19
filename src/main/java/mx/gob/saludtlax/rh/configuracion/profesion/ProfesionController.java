@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.excepciones.BusinessException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 10/03/2016 11:08:20
  */
 @ManagedBean(name = "profesion")
@@ -62,7 +62,8 @@ public class ProfesionController implements Serializable {
 
     public void actualizarProfesion() {
         try {
-            profesionEJB.actualizarProfesion(profesion.getSeleccionarProfesion());
+            profesionEJB
+                    .actualizarProfesion(profesion.getSeleccionarProfesion());
             listaProfesion();
             cerrarDialogo();
             JSFUtils.infoMessage("Puesto", "Actualizada Correctamente");
@@ -73,7 +74,8 @@ public class ProfesionController implements Serializable {
 
     public void eliminarProfesion() {
         try {
-            profesionEJB.eliminarProfesion(profesion.getSeleccionarProfesion().getIdProfesion());
+            profesionEJB.eliminarProfesion(
+                    profesion.getSeleccionarProfesion().getIdProfesion());
             listaProfesion();
             cerrarDialogo();
             JSFUtils.infoMessage("Puesto", "Elimanada Correctamente");

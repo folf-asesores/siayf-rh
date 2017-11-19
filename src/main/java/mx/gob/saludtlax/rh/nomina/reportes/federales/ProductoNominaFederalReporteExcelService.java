@@ -35,7 +35,8 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 public class ProductoNominaFederalReporteExcelService implements Serializable {
 
     private static final long serialVersionUID = -5362019182861266115L;
-    private static final Logger LOGGER = Logger.getLogger(ProductoNominaFederalReporteExcelService.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(
+            ProductoNominaFederalReporteExcelService.class.getName());
 
     /** Instancia que representa el libro de Excel sobre el que se trabajará. */
     private Workbook libro;
@@ -46,7 +47,8 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
 
     private void inicializar() {
         libro = new XSSFWorkbook();
-        String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("PRODUCTO NOMINA FEDERAL", '_');
+        String nombreHojaSeguro = WorkbookUtil
+                .createSafeSheetName("PRODUCTO NOMINA FEDERAL", '_');
         hoja = libro.createSheet(nombreHojaSeguro);
     }
 
@@ -73,7 +75,8 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
         estiloMoneda.setDataFormat(monedaDataFormat.getFormat("$#,#0.00"));
 
         DataFormat fechaDataFormat = libro.createDataFormat();
-        String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO, FechaUtil.PATRON_FECHA_CORTA);
+        String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO,
+                FechaUtil.PATRON_FECHA_CORTA);
         CellStyle estiloFecha = libro.createCellStyle();
         estiloFecha.setDataFormat(fechaDataFormat.getFormat(patronFecha));
 
@@ -159,7 +162,8 @@ public class ProductoNominaFederalReporteExcelService implements Serializable {
      * @throws IOException
      *             en caso de que haya algún error al crear el archivo.
      */
-    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos) throws IOException {
+    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos)
+            throws IOException {
         inicializar();
         llenarTitulos(titulos);
         llenarDetalle(datos);

@@ -38,7 +38,8 @@ import mx.gob.saludtlax.rh.util.FechaUtil;
 public class PagoGeneralReporteExcelService implements Serializable {
 
     private static final long serialVersionUID = -5421623153289958107L;
-    private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteExcelService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoGeneralReporteExcelService.class.getName());
 
     /** Instancia que representa el libro de Excel sobre el que se trabajará. */
     private Workbook libro;
@@ -72,7 +73,8 @@ public class PagoGeneralReporteExcelService implements Serializable {
         estiloMoneda.setDataFormat(monedaDataFormat.getFormat("$#,#0.00"));
 
         DataFormat fechaDataFormat = libro.createDataFormat();
-        String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO, FechaUtil.PATRON_FECHA_CORTA);
+        String patronFecha = DateFormatConverter.convert(FechaUtil.LUGAR_MEXICO,
+                FechaUtil.PATRON_FECHA_CORTA);
         CellStyle estiloFecha = libro.createCellStyle();
         estiloFecha.setDataFormat(fechaDataFormat.getFormat(patronFecha));
 
@@ -128,11 +130,13 @@ public class PagoGeneralReporteExcelService implements Serializable {
      * @throws IOException
      *             en caso de que haya algún error al crear el archivo.
      */
-    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos) throws IOException {
+    public byte[] obtenerBytes(List<String> titulos, List<Object[]> datos)
+            throws IOException {
         inicializar();
         if (titulos.contains("idPagoNomina")) {
             int posicion = 0;
-            while (posicion < titulos.size() && !"idPagoNomina".equals(titulos.get(posicion))) {
+            while (posicion < titulos.size()
+                    && !"idPagoNomina".equals(titulos.get(posicion))) {
                 posicion++;
             }
             Map<Integer, List<Object[]>> indiceHojas = new HashMap<>();
@@ -151,20 +155,24 @@ public class PagoGeneralReporteExcelService implements Serializable {
             }
             titulos.remove(posicion);
             int contadorHojas = 1;
-            for (Map.Entry<Integer, List<Object[]>> entrada : indiceHojas.entrySet()) {
+            for (Map.Entry<Integer, List<Object[]>> entrada : indiceHojas
+                    .entrySet()) {
                 String nombreHoja = "PAGO " + contadorHojas;
-                String nombreHojaSeguro = WorkbookUtil.createSafeSheetName(nombreHoja, '_');
+                String nombreHojaSeguro = WorkbookUtil
+                        .createSafeSheetName(nombreHoja, '_');
                 Sheet hoja = libro.createSheet(nombreHojaSeguro);
                 llenarTitulos(hoja, titulos);
                 llenarDetalle(hoja, entrada.getValue());
                 contadorHojas++;
             }
-            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("QNA", '_');
+            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("QNA",
+                    '_');
             Sheet hoja = libro.createSheet(nombreHojaSeguro);
             llenarTitulos(hoja, titulos);
             llenarDetalle(hoja, datos);
         } else {
-            String nombreHojaSeguro = WorkbookUtil.createSafeSheetName("Nueva hoja", '_');
+            String nombreHojaSeguro = WorkbookUtil
+                    .createSafeSheetName("Nueva hoja", '_');
             Sheet hoja = libro.createSheet(nombreHojaSeguro);
         }
         return finalizar();

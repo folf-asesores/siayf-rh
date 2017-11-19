@@ -43,7 +43,9 @@ public class IsrDTO {
 
     @Override
     public String toString() {
-        return "IsrDTO [ingresoGravable=" + ingresoGravable + ", subsidiosEntregar=" + subsidiosEntregar + ", impuestoRetener=" + impuestoRetener
+        return "IsrDTO [ingresoGravable=" + ingresoGravable
+                + ", subsidiosEntregar=" + subsidiosEntregar
+                + ", impuestoRetener=" + impuestoRetener
                 + ", percepcionEfectiva=" + percepcionEfectiva + "]";
     }
 }

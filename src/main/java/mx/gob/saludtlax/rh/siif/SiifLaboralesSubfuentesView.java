@@ -28,7 +28,8 @@ public class SiifLaboralesSubfuentesView {
         return listSiifLaboralesSubfuentes;
     }
 
-    public void setListSiifLaboralesSubfuentes(List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
+    public void setListSiifLaboralesSubfuentes(
+            List<SiifLaboralesSubfuentesDTO> listSiifLaboralesSubfuentes) {
         this.listSiifLaboralesSubfuentes = listSiifLaboralesSubfuentes;
     }
 
@@ -36,7 +37,8 @@ public class SiifLaboralesSubfuentesView {
         return siifLaboralesSubfuentes;
     }
 
-    public void setSiifLaboralesSubfuentes(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
+    public void setSiifLaboralesSubfuentes(
+            SiifLaboralesSubfuentesDTO siifLaboralesSubfuentes) {
         this.siifLaboralesSubfuentes = siifLaboralesSubfuentes;
     }
 
@@ -44,7 +46,8 @@ public class SiifLaboralesSubfuentesView {
         return siifLaboralesSubfuentesSelect;
     }
 
-    public void setSiifLaboralesSubfuentesSelect(SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
+    public void setSiifLaboralesSubfuentesSelect(
+            SiifLaboralesSubfuentesDTO siifLaboralesSubfuentesSelect) {
         this.siifLaboralesSubfuentesSelect = siifLaboralesSubfuentesSelect;
     }
 
@@ -60,7 +63,8 @@ public class SiifLaboralesSubfuentesView {
         return listSubfuenteF;
     }
 
-    public void setListSubfuenteF(List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
+    public void setListSubfuenteF(
+            List<SubfuenteFinanciamientoDTO> listSubfuenteF) {
         this.listSubfuenteF = listSubfuenteF;
     }
 

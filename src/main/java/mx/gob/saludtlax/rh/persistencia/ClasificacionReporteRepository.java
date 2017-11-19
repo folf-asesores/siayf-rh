@@ -3,10 +3,11 @@ package mx.gob.saludtlax.rh.persistencia;
 
 /**
  *
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class ClasificacionReporteRepository extends GenericRepository<ClasificacionReporteEntity, Integer> {
+public class ClasificacionReporteRepository
+        extends GenericRepository<ClasificacionReporteEntity, Integer> {
 
     /**
      *

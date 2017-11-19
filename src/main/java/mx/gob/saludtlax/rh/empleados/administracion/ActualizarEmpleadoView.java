@@ -16,8 +16,8 @@ import mx.gob.saludtlax.rh.historialacademico.HistorialAcademicoDTO;
 import mx.gob.saludtlax.rh.historialacademico.NuevoHistorialDTO;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 13:18:29 21/09/2016
  */
@@ -133,7 +133,8 @@ public class ActualizarEmpleadoView implements Serializable {
         return mostrarDialogoConfirmacionDatosGenerales;
     }
 
-    public void setMostrarDialogoConfirmacionDatosGenerales(boolean mostrarDialogoConfirmacionDatosGenerales) {
+    public void setMostrarDialogoConfirmacionDatosGenerales(
+            boolean mostrarDialogoConfirmacionDatosGenerales) {
         this.mostrarDialogoConfirmacionDatosGenerales = mostrarDialogoConfirmacionDatosGenerales;
     }
 
@@ -156,7 +157,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param listaTiposParentescos
      *            the listaTiposParentescos to set
      */
-    public void setListaTiposParentescos(List<SelectItem> listaTiposParentescos) {
+    public void setListaTiposParentescos(
+            List<SelectItem> listaTiposParentescos) {
         this.listaTiposParentescos = listaTiposParentescos;
     }
 
@@ -231,7 +233,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param visualizarBotonDependientes
      *            the visualizarBotonDependientes to set
      */
-    public void setVisualizarBotonDependientes(boolean visualizarBotonDependientes) {
+    public void setVisualizarBotonDependientes(
+            boolean visualizarBotonDependientes) {
         this.visualizarBotonDependientes = visualizarBotonDependientes;
     }
 
@@ -246,7 +249,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarActualizacionExpediente
      *            the mostrarActualizacionExpediente to set
      */
-    public void setMostrarActualizacionExpediente(boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(
+            boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -306,7 +310,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarAperturaExpediente
      *            the mostrarAperturaExpediente to set
      */
-    public void setMostrarAperturaExpediente(boolean mostrarAperturaExpediente) {
+    public void setMostrarAperturaExpediente(
+            boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
     }
 
@@ -381,7 +386,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param listaComprobantesEstudios
      *            the listaComprobantesEstudios to set
      */
-    public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
+    public void setListaComprobantesEstudios(
+            List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
     }
 
@@ -486,7 +492,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarHistorialAcademico
      *            the mostrarHistorialAcademico to set
      */
-    public void setMostrarHistorialAcademico(boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -516,7 +523,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param historialesAcademicos
      *            the historialesAcademicos to set
      */
-    public void setHistorialesAcademicos(List<HistorialAcademicoDTO> historialesAcademicos) {
+    public void setHistorialesAcademicos(
+            List<HistorialAcademicoDTO> historialesAcademicos) {
         this.historialesAcademicos = historialesAcademicos;
     }
 
@@ -531,7 +539,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param historialAcademicoSeleccionado
      *            the historialAcademicoSeleccionado to set
      */
-    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 
@@ -546,7 +555,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param documentosAdjuntosGradoAcademico
      *            the documentosAdjuntosGradoAcademico to set
      */
-    public void setDocumentosAdjuntosGradoAcademico(List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico) {
+    public void setDocumentosAdjuntosGradoAcademico(
+            List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico) {
         this.documentosAdjuntosGradoAcademico = documentosAdjuntosGradoAcademico;
     }
 
@@ -561,7 +571,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarAdjuntoDocumentoHistorial
      *            the mostrarAdjuntoDocumentoHistorial to set
      */
-    public void setMostrarAdjuntoDocumentoHistorial(boolean mostrarAdjuntoDocumentoHistorial) {
+    public void setMostrarAdjuntoDocumentoHistorial(
+            boolean mostrarAdjuntoDocumentoHistorial) {
         this.mostrarAdjuntoDocumentoHistorial = mostrarAdjuntoDocumentoHistorial;
     }
 
@@ -606,7 +617,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param idDocumentoAdjuntableHistorial
      *            the idDocumentoAdjuntableHistorial to set
      */
-    public void setIdDocumentoAdjuntableHistorial(Integer idDocumentoAdjuntableHistorial) {
+    public void setIdDocumentoAdjuntableHistorial(
+            Integer idDocumentoAdjuntableHistorial) {
         this.idDocumentoAdjuntableHistorial = idDocumentoAdjuntableHistorial;
     }
 
@@ -621,7 +633,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param listaDocumentosHistorialAcademico
      *            the listaDocumentosHistorialAcademico to set
      */
-    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(
+            List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 
@@ -666,7 +679,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarActualizarHistorial
      *            the mostrarActualizarHistorial to set
      */
-    public void setMostrarActualizarHistorial(boolean mostrarActualizarHistorial) {
+    public void setMostrarActualizarHistorial(
+            boolean mostrarActualizarHistorial) {
         this.mostrarActualizarHistorial = mostrarActualizarHistorial;
     }
 
@@ -681,7 +695,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarExperienciaLaboral
      *            the mostrarExperienciaLaboral to set
      */
-    public void setMostrarExperienciaLaboral(boolean mostrarExperienciaLaboral) {
+    public void setMostrarExperienciaLaboral(
+            boolean mostrarExperienciaLaboral) {
         this.mostrarExperienciaLaboral = mostrarExperienciaLaboral;
     }
 
@@ -696,7 +711,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param experienciasLaborales
      *            the experienciasLaborales to set
      */
-    public void setExperienciasLaborales(List<ExperienciaLaboralDTO> experienciasLaborales) {
+    public void setExperienciasLaborales(
+            List<ExperienciaLaboralDTO> experienciasLaborales) {
         this.experienciasLaborales = experienciasLaborales;
     }
 
@@ -711,7 +727,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param experienciaLaboral
      *            the experienciaLaboral to set
      */
-    public void setExperienciaLaboral(ExperienciaLaboralDTO experienciaLaboral) {
+    public void setExperienciaLaboral(
+            ExperienciaLaboralDTO experienciaLaboral) {
         this.experienciaLaboral = experienciaLaboral;
     }
 
@@ -726,7 +743,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarRegistroExperiencia
      *            the mostrarRegistroExperiencia to set
      */
-    public void setMostrarRegistroExperiencia(boolean mostrarRegistroExperiencia) {
+    public void setMostrarRegistroExperiencia(
+            boolean mostrarRegistroExperiencia) {
         this.mostrarRegistroExperiencia = mostrarRegistroExperiencia;
     }
 
@@ -741,7 +759,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarActualizacionExperiencia
      *            the mostrarActualizacionExperiencia to set
      */
-    public void setMostrarActualizacionExperiencia(boolean mostrarActualizacionExperiencia) {
+    public void setMostrarActualizacionExperiencia(
+            boolean mostrarActualizacionExperiencia) {
         this.mostrarActualizacionExperiencia = mostrarActualizacionExperiencia;
     }
 
@@ -756,7 +775,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param experienciaLaboralSeleccionado
      *            the experienciaLaboralSeleccionado to set
      */
-    public void setExperienciaLaboralSeleccionado(ExperienciaLaboralDTO experienciaLaboralSeleccionado) {
+    public void setExperienciaLaboralSeleccionado(
+            ExperienciaLaboralDTO experienciaLaboralSeleccionado) {
         this.experienciaLaboralSeleccionado = experienciaLaboralSeleccionado;
     }
 
@@ -771,7 +791,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarDialogoConfirmacionHistorial
      *            the mostrarDialogoConfirmacionHistorial to set
      */
-    public void setMostrarDialogoConfirmacionHistorial(boolean mostrarDialogoConfirmacionHistorial) {
+    public void setMostrarDialogoConfirmacionHistorial(
+            boolean mostrarDialogoConfirmacionHistorial) {
         this.mostrarDialogoConfirmacionHistorial = mostrarDialogoConfirmacionHistorial;
     }
 
@@ -786,7 +807,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarDialogoConfirmacionExperiencia
      *            the mostrarDialogoConfirmacionExperiencia to set
      */
-    public void setMostrarDialogoConfirmacionExperiencia(boolean mostrarDialogoConfirmacionExperiencia) {
+    public void setMostrarDialogoConfirmacionExperiencia(
+            boolean mostrarDialogoConfirmacionExperiencia) {
         this.mostrarDialogoConfirmacionExperiencia = mostrarDialogoConfirmacionExperiencia;
     }
 
@@ -801,7 +823,8 @@ public class ActualizarEmpleadoView implements Serializable {
      * @param mostrarDialogoConfirmacionDomicilio
      *            the mostrarDialogoConfirmacionDomicilio to set
      */
-    public void setMostrarDialogoConfirmacionDomicilio(Boolean mostrarDialogoConfirmacionDomicilio) {
+    public void setMostrarDialogoConfirmacionDomicilio(
+            Boolean mostrarDialogoConfirmacionDomicilio) {
         this.mostrarDialogoConfirmacionDomicilio = mostrarDialogoConfirmacionDomicilio;
     }
 

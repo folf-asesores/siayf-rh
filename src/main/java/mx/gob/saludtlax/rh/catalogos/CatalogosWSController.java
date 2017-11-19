@@ -45,22 +45,29 @@ public class CatalogosWSController implements Serializable {
 
             listaConceptos = new ArrayList<>();
             String token = "krt/jkwufs6uijcn/taa1lmovbqcjdzv4wkvsfgfnk=";
-            String llaveTokent = metodosServices.getConsultaTcodePortType().firmarTokenBy5(token);
+            String llaveTokent = metodosServices.getConsultaTcodePortType()
+                    .firmarTokenBy5(token);
             System.out.println("llave :" + llaveTokent);
 
-            ConsultaConceptosPartidaNominaResponseElementoConversion dto = metodosServices.getConsultaTcodePortType()
-                    .consultaConceptosPartidaNomina(llaveTokent, cuentaRetencion);
+            ConsultaConceptosPartidaNominaResponseElementoConversion dto = metodosServices
+                    .getConsultaTcodePortType().consultaConceptosPartidaNomina(
+                            llaveTokent, cuentaRetencion);
 
-            for (ConsultaConceptosPartidaNominaResponseElementoConversion.Element elemento : dto.getElement()) {
+            for (ConsultaConceptosPartidaNominaResponseElementoConversion.Element elemento : dto
+                    .getElement()) {
 
                 ConceptoPartidaNominaDTO concepto = new ConceptoPartidaNominaDTO();
-                concepto.setId_concepto_partida_nomina(elemento.getIdConceptoPartidaNomina());
+                concepto.setId_concepto_partida_nomina(
+                        elemento.getIdConceptoPartidaNomina());
                 concepto.setId_concepto_nomina(elemento.getIdConceptoNomina());
-                concepto.setDescripcion_concepto_nomina(elemento.getDescripcionConceptoNomina());
+                concepto.setDescripcion_concepto_nomina(
+                        elemento.getDescripcionConceptoNomina());
                 concepto.setId_nombramiento(elemento.getIdNombramiento());
-                concepto.setDescripcion_nombramiento(elemento.getDescripcionNombramiento());
+                concepto.setDescripcion_nombramiento(
+                        elemento.getDescripcionNombramiento());
                 concepto.setId_partida(elemento.getIdPartida());
-                concepto.setDescripcion_partida(elemento.getDescripcionPartida());
+                concepto.setDescripcion_partida(
+                        elemento.getDescripcionPartida());
 
                 listaConceptos.add(concepto);
             }
@@ -81,24 +88,33 @@ public class CatalogosWSController implements Serializable {
 
             listaElementosRetenciones = new ArrayList<>();
             String token = "krt/jkwufs6uijcn/taa1lmovbqcjdzv4wkvsfgfnk=";
-            String llaveTokent = metodosServices.getConsultaTcodePortType().firmarTokenBy5(token);
+            String llaveTokent = metodosServices.getConsultaTcodePortType()
+                    .firmarTokenBy5(token);
             System.out.println("llave :" + llaveTokent);
 
-            ConsultaDetalleRetencionesResponseElementoRetencion dto = metodosServices.getConsultaTcodePortType().consultaDetalleRetenciones(llaveTokent,
-                    cuentaRetencion);
+            ConsultaDetalleRetencionesResponseElementoRetencion dto = metodosServices
+                    .getConsultaTcodePortType()
+                    .consultaDetalleRetenciones(llaveTokent, cuentaRetencion);
 
-            for (ConsultaDetalleRetencionesResponseElementoRetencion.Element elemento : dto.getElement()) {
+            for (ConsultaDetalleRetencionesResponseElementoRetencion.Element elemento : dto
+                    .getElement()) {
 
                 RetencionDTO concepto = new RetencionDTO();
 
-                concepto.setId_detalle_retencion_cuenta_bancaria(elemento.getIdDetalleRetencionCuentaBancaria());
+                concepto.setId_detalle_retencion_cuenta_bancaria(
+                        elemento.getIdDetalleRetencionCuentaBancaria());
                 concepto.setId_concepto_nomina(elemento.getIdConceptoNomina());
-                concepto.setDescripcion_concepto_nomina(elemento.getDescripcionConceptoNomina());
-                concepto.setCuenta_contable_retencion(elemento.getCuentaContableRetencion());
-                concepto.setDescripcion_cuenta_contable(elemento.getDescripcionCuentaContable());
+                concepto.setDescripcion_concepto_nomina(
+                        elemento.getDescripcionConceptoNomina());
+                concepto.setCuenta_contable_retencion(
+                        elemento.getCuentaContableRetencion());
+                concepto.setDescripcion_cuenta_contable(
+                        elemento.getDescripcionCuentaContable());
                 concepto.setCuenta_retencion(elemento.getCuentaRetencion());
-                concepto.setCuenta_contable_banco(elemento.getCuentaContableBanco());
-                concepto.setDescripcion_cuenta_banco(elemento.getDescripcionCuentaBanco());
+                concepto.setCuenta_contable_banco(
+                        elemento.getCuentaContableBanco());
+                concepto.setDescripcion_cuenta_banco(
+                        elemento.getDescripcionCuentaBanco());
 
                 listaElementosRetenciones.add(concepto);
             }
@@ -116,7 +132,8 @@ public class CatalogosWSController implements Serializable {
             panelConceptoPartidaNomina = Boolean.FALSE;
 
         } else if (panelDetalleRetenciones) {
-            catalogoswsEJB.guardarDetalleRetenciones(getListaElementosRetenciones());
+            catalogoswsEJB
+                    .guardarDetalleRetenciones(getListaElementosRetenciones());
             System.out.println("va actualizar rerenciones");
             panelDetalleRetenciones = Boolean.FALSE;
         }
@@ -127,7 +144,8 @@ public class CatalogosWSController implements Serializable {
         return listaConceptos;
     }
 
-    public void setListaConceptos(List<ConceptoPartidaNominaDTO> listaConceptos) {
+    public void setListaConceptos(
+            List<ConceptoPartidaNominaDTO> listaConceptos) {
         this.listaConceptos = listaConceptos;
     }
 
@@ -135,7 +153,8 @@ public class CatalogosWSController implements Serializable {
         return panelConceptoPartidaNomina;
     }
 
-    public void setPanelConceptoPartidaNomina(Boolean panelConceptoPartidaNomina) {
+    public void setPanelConceptoPartidaNomina(
+            Boolean panelConceptoPartidaNomina) {
         this.panelConceptoPartidaNomina = panelConceptoPartidaNomina;
     }
 
@@ -151,7 +170,8 @@ public class CatalogosWSController implements Serializable {
         return listaElementosRetenciones;
     }
 
-    public void setListaElementosRetenciones(List<RetencionDTO> listaElementosRetenciones) {
+    public void setListaElementosRetenciones(
+            List<RetencionDTO> listaElementosRetenciones) {
         this.listaElementosRetenciones = listaElementosRetenciones;
     }
 

@@ -33,7 +33,8 @@ public class ClasificacionNominaView {
         return clasificacionNominaCriterio;
     }
 
-    public void setClasificacionNominaCriterio(Integer clasificacionNominaCriterio) {
+    public void setClasificacionNominaCriterio(
+            Integer clasificacionNominaCriterio) {
         this.clasificacionNominaCriterio = clasificacionNominaCriterio;
     }
 
@@ -41,7 +42,8 @@ public class ClasificacionNominaView {
         return listClasificacionNomina;
     }
 
-    public void setListClasificacionNomina(List<ClasificacionNominaDTO> listClasificacionNomina) {
+    public void setListClasificacionNomina(
+            List<ClasificacionNominaDTO> listClasificacionNomina) {
         this.listClasificacionNomina = listClasificacionNomina;
     }
 
@@ -49,7 +51,8 @@ public class ClasificacionNominaView {
         return clasificacionNominaSelect;
     }
 
-    public void setClasificacionNominaSelect(ClasificacionNominaDTO clasificacionNominaSelect) {
+    public void setClasificacionNominaSelect(
+            ClasificacionNominaDTO clasificacionNominaSelect) {
         this.clasificacionNominaSelect = clasificacionNominaSelect;
     }
 
@@ -57,7 +60,8 @@ public class ClasificacionNominaView {
         return clasificacionNomina;
     }
 
-    public void setClasificacionNomina(ClasificacionNominaDTO clasificacionNomina) {
+    public void setClasificacionNomina(
+            ClasificacionNominaDTO clasificacionNomina) {
         this.clasificacionNomina = clasificacionNomina;
     }
 

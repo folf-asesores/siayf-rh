@@ -29,7 +29,8 @@ public class DependenciasController {
     public void inicio() {
         listTipos = dependenciasEJB.obtenerTiposDependencias();
         for (TipoDependenciasDTO dpdto : listTipos) {
-            SelectItem item = new SelectItem(dpdto.getId(), dpdto.getTipoDependencia());
+            SelectItem item = new SelectItem(dpdto.getId(),
+                    dpdto.getTipoDependencia());
             tipos.add(item);
         }
         System.out.println("tipos" + tipos.size());
@@ -42,7 +43,8 @@ public class DependenciasController {
         lisDependencias.addAll(listd);
         itemsDep.clear();
         for (DependenciasDTO dto : listd) {
-            SelectItem item = new SelectItem(dto.getIdDependencia(), dto.getDescripcion());
+            SelectItem item = new SelectItem(dto.getIdDependencia(),
+                    dto.getDescripcion());
 
             itemsDep.add(item);
         }

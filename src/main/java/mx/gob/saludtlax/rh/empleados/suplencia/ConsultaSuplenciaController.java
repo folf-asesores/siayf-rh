@@ -32,10 +32,12 @@ public class ConsultaSuplenciaController implements Serializable {
 
     public void buscarSuplente() {
         view.getFiltro().setTipoConsulta(EnumTipoConsultaSuplencia.NOMBRE);
-        view.setSuplentesAutorizados(suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
+        view.setSuplentesAutorizados(
+                suplencia.consultarSuplentesPorCriterio(view.getFiltro()));
 
         if (view.getSuplentesAutorizados().isEmpty()) {
-            JSFUtils.errorMessage("", "No se encontraron resultado con el criterio ingresado.");
+            JSFUtils.errorMessage("",
+                    "No se encontraron resultado con el criterio ingresado.");
         }
 
     }

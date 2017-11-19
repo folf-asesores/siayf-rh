@@ -43,7 +43,8 @@ public class AreasController implements Serializable {
         listaAreas.addAll(areasTemp);
     }
 
-    public void validatorArea(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorArea(FacesContext context, UIComponent component,
+            Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -52,7 +53,9 @@ public class AreasController implements Serializable {
                 String nombre = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(nombre)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un nombre.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un nombre.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -61,7 +64,9 @@ public class AreasController implements Serializable {
                 String descripcionArea = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(descripcionArea)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese descripcion.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese descripcion.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -70,7 +75,9 @@ public class AreasController implements Serializable {
                 String titular = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(titular)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el nombre del titular.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el nombre del titular.");
                     context.addMessage(component.getClientId(), facesMessage1);
                     throw new ValidatorException(facesMessage1);
                 }
@@ -92,7 +99,8 @@ public class AreasController implements Serializable {
             AreaDTO area = ((AreaDTO) event.getObject());
             areas.editarArea(area);
 
-            FacesMessage msg = new FacesMessage("Actualizado:", ((AreaDTO) event.getObject()).getNombreArea());
+            FacesMessage msg = new FacesMessage("Actualizado:",
+                    ((AreaDTO) event.getObject()).getNombreArea());
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } catch (BusinessException ex) {
@@ -102,7 +110,8 @@ public class AreasController implements Serializable {
     }
 
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edicion Cancelada:", ((AreaDTO) event.getObject()).getNombreArea());
+        FacesMessage msg = new FacesMessage("Edicion Cancelada:",
+                ((AreaDTO) event.getObject()).getNombreArea());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
@@ -111,7 +120,8 @@ public class AreasController implements Serializable {
 
         System.out.println(res);
         if (!res) {
-            JSFUtils.warningMessage("", "EL registro de Area no se puede eliminar ya que se encuentra usado por configuraciones de acciones o modulos.");
+            JSFUtils.warningMessage("",
+                    "EL registro de Area no se puede eliminar ya que se encuentra usado por configuraciones de acciones o modulos.");
         }
         inicio();
 

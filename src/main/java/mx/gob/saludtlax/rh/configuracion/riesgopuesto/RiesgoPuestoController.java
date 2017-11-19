@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.excepciones.BusinessException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 07/06/2016 19:21:12
  */
@@ -44,7 +44,8 @@ public class RiesgoPuestoController implements Serializable {
 
     public void obtenerListaRiesgoPuesto() {
 
-        List<RiesgoPuestoDTO> obtenerLista = riesgoPuesto.obtenerListaRiesgoPuesto();
+        List<RiesgoPuestoDTO> obtenerLista = riesgoPuesto
+                .obtenerListaRiesgoPuesto();
 
         if (!obtenerLista.isEmpty()) {
             view.setObtenerListaPuestoDTOs(obtenerLista);
@@ -57,11 +58,13 @@ public class RiesgoPuestoController implements Serializable {
         try {
             if (view.getAccionRiesgoPuesto().equals("Registrar")) {
                 riesgoPuesto.crearRiesgoPuesto(view.getRiesgoPuestoDTO());
-                JSFUtils.infoMessage("Registro Riesgo Puesto: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Registro Riesgo Puesto: ",
+                        "Se realizo correctamente");
                 limpiarVista();
             } else if (view.getAccionRiesgoPuesto().equals("Actualizar")) {
                 riesgoPuesto.actualizarRiesgoPuesto(view.getRiesgoPuestoDTO());
-                JSFUtils.infoMessage("Actualización Riesgo Puesto: ", "Se realizo correctamente");
+                JSFUtils.infoMessage("Actualización Riesgo Puesto: ",
+                        "Se realizo correctamente");
                 limpiarVista();
             }
         } catch (BusinessException ex) {
@@ -73,7 +76,8 @@ public class RiesgoPuestoController implements Serializable {
     public void eliminarRiesgoPuesto() {
         try {
             riesgoPuesto.eliminarRiesgoPuesto(view.getIdRiesgoPuesto());
-            JSFUtils.infoMessage("Eliminación Riesgo Puesto: ", "Se realizo correctamente");
+            JSFUtils.infoMessage("Eliminación Riesgo Puesto: ",
+                    "Se realizo correctamente");
             cerrarDialogEliminar();
             limpiarVista();
         } catch (BusinessException ex) {

@@ -34,8 +34,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 
 /**
  *
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 14:26:01 09/09/2016
  */
@@ -59,7 +59,8 @@ public class ImpresionContratoController implements Serializable {
 
         obtenerListaContratoEmpleado();
 
-        view.setListaTipoContrato(SelectItemsUtil.listaTiposContratosEmpleados());
+        view.setListaTipoContrato(
+                SelectItemsUtil.listaTiposContratosEmpleados());
     }
 
     public void obtenerListaContratoEmpleado() {
@@ -72,16 +73,19 @@ public class ImpresionContratoController implements Serializable {
             }
 
         } catch (ValidacionException validacionException) {
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         }
     }
 
     public void obtenerListaContratoEmpleadoPorTipo() {
         try {
 
-            List<ContratoDTO> listaContrato = contrato.obtenerListaContratoPorTipo(view.getTipoContrato());
+            List<ContratoDTO> listaContrato = contrato
+                    .obtenerListaContratoPorTipo(view.getTipoContrato());
 
             if (!listaContrato.isEmpty()) {
                 view.setListaContrato(listaContrato);
@@ -90,45 +94,60 @@ public class ImpresionContratoController implements Serializable {
             }
 
         } catch (ValidacionException validacionException) {
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         }
     }
 
     public void descargarContrato() {
         try {
 
-            contrato.actualizarContratoPorImpresion(view.getIdContratoSeleccionado(), view.getNumeroContrato());
+            contrato.actualizarContratoPorImpresion(
+                    view.getIdContratoSeleccionado(), view.getNumeroContrato());
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "contrato-individual", "TIPO_REPORTE", "docx",
-                    "ID_CONTRATO", String.valueOf(view.getIdContratoSeleccionado()) };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "contrato-individual", "TIPO_REPORTE", "docx",
+                    "ID_CONTRATO",
+                    String.valueOf(view.getIdContratoSeleccionado()) };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             view.setBytes(admintradorReportes.obtenerReporte(referencia));
 
             if (view.getBytes() != null) {
-                JSFUtils.descargarArchivo(view.getBytes(), "CONTRATO_INDIVIDUAL_DE_TRABAJO_POR_TIEMPO_DETERMINADO", TipoArchivo.getMIMEType("docx"));
+                JSFUtils.descargarArchivo(view.getBytes(),
+                        "CONTRATO_INDIVIDUAL_DE_TRABAJO_POR_TIEMPO_DETERMINADO",
+                        TipoArchivo.getMIMEType("docx"));
 
             }
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             System.err.println(exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         } catch (ValidacionException validacionException) {
             System.err.println(validacionException.getMessage());
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         }
     }
 
-    public void mostrarConfirmacionDescarga(Integer idContratoSeleccionado, boolean impreso, String numeroContrato) {
+    public void mostrarConfirmacionDescarga(Integer idContratoSeleccionado,
+            boolean impreso, String numeroContrato) {
         if (impreso) {
             view.setMostrarReimpresion(true);
             view.setNumeroContrato(numeroContrato);
@@ -144,7 +163,8 @@ public class ImpresionContratoController implements Serializable {
         return "/contenido/empleado/impresionContrato.xhtml?faces-redirect=true.";
     }
 
-    public void validatorTipoContrato(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorTipoContrato(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
 
@@ -156,7 +176,9 @@ public class ImpresionContratoController implements Serializable {
                 obtenerListaContratoEmpleado();
 
                 if (!ValidacionUtil.esNumeroPositivo(tipoContrato)) {
-                    FacesMessage facesMessage1 = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione un tipo contrato.");
+                    FacesMessage facesMessage1 = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione un tipo contrato.");
                     context.addMessage(component.getClientId(), facesMessage1);
 
                     throw new ValidatorException(facesMessage1);
@@ -169,7 +191,8 @@ public class ImpresionContratoController implements Serializable {
 
     }
 
-    public void validatorNumeroContrato(FacesContext context, UIComponent component, Object value) throws ValidatorException {
+    public void validatorNumeroContrato(FacesContext context,
+            UIComponent component, Object value) throws ValidatorException {
 
         String nombreComponete = component.getId();
 
@@ -179,7 +202,9 @@ public class ImpresionContratoController implements Serializable {
                 String numeroContrato = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(numeroContrato)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese el numero de cuenta.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese el numero de cuenta.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

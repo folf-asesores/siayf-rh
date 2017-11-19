@@ -8,7 +8,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.empleados.administracion.InfoEmpleadoDTO;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 
@@ -42,7 +42,8 @@ public class CambioAdscripcionView implements Serializable {
         return cambioDetalle;
     }
 
-    public void setCambioDetalle(List<CambioAdscripcionDetalleDTO> cambioDetalle) {
+    public void setCambioDetalle(
+            List<CambioAdscripcionDetalleDTO> cambioDetalle) {
         this.cambioDetalle = cambioDetalle;
     }
 
@@ -50,7 +51,8 @@ public class CambioAdscripcionView implements Serializable {
         return cambioAdscripcion;
     }
 
-    public void setCambioAdscripcion(List<CambioAdscripcionDTO> cambioAdscripcion) {
+    public void setCambioAdscripcion(
+            List<CambioAdscripcionDTO> cambioAdscripcion) {
         this.cambioAdscripcion = cambioAdscripcion;
     }
 
@@ -58,7 +60,8 @@ public class CambioAdscripcionView implements Serializable {
         return cambioAdscripcionDTO;
     }
 
-    public void setCambioAdscripcionDTO(CambioAdscripcionDTO cambioAdscripcionDTO) {
+    public void setCambioAdscripcionDTO(
+            CambioAdscripcionDTO cambioAdscripcionDTO) {
         this.cambioAdscripcionDTO = cambioAdscripcionDTO;
     }
 

@@ -92,31 +92,44 @@ public class AltaEmpleadoService {
 
     public void altaEmpleado(AltaEmpleadoDTO dto) {
 
-        InventarioVacanteEntity vacante = inventarioVacanteRepository.obtenerPorId(dto.getIdVacante());
+        InventarioVacanteEntity vacante = inventarioVacanteRepository
+                .obtenerPorId(dto.getIdVacante());
 
         if (vacante == null) {
-            throw new ValidacionException("No se encontró registro de la vacante con identificador " + dto.getIdVacante(),
+            throw new ValidacionException(
+                    "No se encontró registro de la vacante con identificador "
+                            + dto.getIdVacante(),
                     ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
 
         if (vacante.getDisponible().equals("NO")) {
-            throw new ReglaNegocioException("La vacante no se encuentra disponible", ReglaNegocioCodigoError.VACANTE_NO_DISPONIBLE);
+            throw new ReglaNegocioException(
+                    "La vacante no se encuentra disponible",
+                    ReglaNegocioCodigoError.VACANTE_NO_DISPONIBLE);
         }
 
         if (vacante.getIdCandidatoPostulado() == null) {
-            throw new ReglaNegocioException("La vacante no tiene asignada un candidato", ReglaNegocioCodigoError.SIN_REGISTRO);
+            throw new ReglaNegocioException(
+                    "La vacante no tiene asignada un candidato",
+                    ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
-        if (configuracionPresupuestalRepository.numeroLaboralEnUso(dto.getNumeroLaboral())) {
-            throw new ReglaNegocioException("El número laboral se encuentra en uso, ingrese uno nuevo.", ReglaNegocioCodigoError.NUMERO_EMPLEADO);
+        if (configuracionPresupuestalRepository
+                .numeroLaboralEnUso(dto.getNumeroLaboral())) {
+            throw new ReglaNegocioException(
+                    "El número laboral se encuentra en uso, ingrese uno nuevo.",
+                    ReglaNegocioCodigoError.NUMERO_EMPLEADO);
         }
 
         Integer tipoContratacion = vacante.getTipoContratacion().getId();
-        CandidatoVacanteEntity candidato = canditatoVacanteRepository.obtenerPorId(vacante.getIdCandidatoPostulado());
+        CandidatoVacanteEntity candidato = canditatoVacanteRepository
+                .obtenerPorId(vacante.getIdCandidatoPostulado());
         EmpleadoEntity empleado = null;
 
         if (candidato == null) {
-            throw new ReglaNegocioException("No se encontro el candidato con identificador " + vacante.getIdCandidatoPostulado(),
+            throw new ReglaNegocioException(
+                    "No se encontro el candidato con identificador "
+                            + vacante.getIdCandidatoPostulado(),
                     ReglaNegocioCodigoError.SIN_REGISTRO);
         }
 
@@ -125,15 +138,20 @@ public class AltaEmpleadoService {
             empleado = registrarAspirante(vacante, candidato, dto);
         } else if (candidato.getTipoCandidato() == EnumTipoCandidato.EMPLEADO) {
 
-            empleado = reingresarEmpleado(candidato, tipoContratacion, dto.getIdUsuario(), dto.getIdBanco(), dto.getNumeroCuenta(), dto.getIdMetodoPago());
+            empleado = reingresarEmpleado(candidato, tipoContratacion,
+                    dto.getIdUsuario(), dto.getIdBanco(), dto.getNumeroCuenta(),
+                    dto.getIdMetodoPago());
         }
 
-        if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.CONFIANZA
-                || tipoContratacion == EnumTipoContratacion.FORMALIZADOS || tipoContratacion == EnumTipoContratacion.REGULARIZADOS
+        if (tipoContratacion == EnumTipoContratacion.BASE
+                || tipoContratacion == EnumTipoContratacion.CONFIANZA
+                || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
+                || tipoContratacion == EnumTipoContratacion.REGULARIZADOS
                 || tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
 
             Integer idClasificacionNombramiento = 0;
-            if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
+            if (tipoContratacion == EnumTipoContratacion.BASE
+                    || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
                     || tipoContratacion == EnumTipoContratacion.REGULARIZADOS) {
                 idClasificacionNombramiento = EnumClasificacionNombramiento.PROVISIONAL;
                 vacante.setProvisional(true);
@@ -144,13 +162,18 @@ public class AltaEmpleadoService {
             }
 
             dto.getNombramiento().setEmpleado(empleado);
-            dto.getNombramiento().setSueldo(vacante.getConfiguracion().getSueldo());
-            dto.getNombramiento().setIdClasificacionNombramiento(idClasificacionNombramiento);
+            dto.getNombramiento()
+                    .setSueldo(vacante.getConfiguracion().getSueldo());
+            dto.getNombramiento().setIdClasificacionNombramiento(
+                    idClasificacionNombramiento);
 
-            nombramientoService.crearNombramiento(dto.getNombramiento(), vacante.getConfiguracion().getNombramiento().getIdTipoNombramiento(),
+            nombramientoService.crearNombramiento(
+                    dto.getNombramiento(), vacante.getConfiguracion()
+                            .getNombramiento().getIdTipoNombramiento(),
                     dto.getIdTipoJornada());
 
-        } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
+        } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL
+                || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
             ContratoEmpleadoEntity nuevoContrato = new ContratoEmpleadoEntity();
             nuevoContrato.setActivo(true);
             nuevoContrato.setDescripcionSueldo("");
@@ -158,12 +181,14 @@ public class AltaEmpleadoService {
             nuevoContrato.setFechaInicio(dto.getFechaInicio());
             nuevoContrato.setIdEmpleado(empleado.getIdEmpleado());
             nuevoContrato.setIdVacante(vacante.getIdVacante());
-            nuevoContrato.setSueldoMensual(vacante.getConfiguracion().getSueldo());
+            nuevoContrato
+                    .setSueldoMensual(vacante.getConfiguracion().getSueldo());
 
             if (tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
                 ProgramaEntity programa = vacante.getPrograma();
                 if (programa == null) {
-                    throw new ValidacionException("Es requerido asignarle  a la vacante de contrato federal un programa.",
+                    throw new ValidacionException(
+                            "Es requerido asignarle  a la vacante de contrato federal un programa.",
                             ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
                 }
                 nuevoContrato.setTipoContrato(EnumTipoContratoEmpleado.FEDERAL);
@@ -174,7 +199,8 @@ public class AltaEmpleadoService {
             contratoEmpleadoRepository.crear(nuevoContrato);
 
         }
-        EstatusPuestosEntity estatusPuesto = estatusPuestoRepository.obtenerPorId(EnumEstatusPuesto.EMPLEADO_ACTIVO);
+        EstatusPuestosEntity estatusPuesto = estatusPuestoRepository
+                .obtenerPorId(EnumEstatusPuesto.EMPLEADO_ACTIVO);
         vacante.setDisponible("NO");
         vacante.setIdCandidatoPostulado(null);
         vacante.setFechaInicio(dto.getFechaInicio());
@@ -184,25 +210,33 @@ public class AltaEmpleadoService {
 
         inventarioVacanteRepository.actualizar(vacante);
 
-        ConfiguracionPresupuestoEntity configuracionPresupuestal = vacante.getConfiguracion();
+        ConfiguracionPresupuestoEntity configuracionPresupuestal = vacante
+                .getConfiguracion();
 
-        EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository.obtenerPorId(EnumEstatusConfiguracion.ACTIVO);
+        EstatusConfiguracionesEntity estatus = estatusConfiguracionesRepository
+                .obtenerPorId(EnumEstatusConfiguracion.ACTIVO);
 
         configuracionPresupuestal.setEmpleado(empleado);
         configuracionPresupuestal.setNumeroEmpleado(dto.getNumeroLaboral());
         configuracionPresupuestal.setEstatus(estatus);
-        configuracionPresupuestal.setFechaInicioLabores(dto.getFechaInicioLabores());
+        configuracionPresupuestal
+                .setFechaInicioLabores(dto.getFechaInicioLabores());
         configuracionPresupuestal.setIdJornada(dto.getIdTipoJornada());
         configuracionPresupuestal.setTipoPago(dto.getTipoPago());
-        configuracionPresupuestalRepository.actualizar(configuracionPresupuestal);
+        configuracionPresupuestalRepository
+                .actualizar(configuracionPresupuestal);
 
     }
 
-    private EmpleadoEntity reingresarEmpleado(CandidatoVacanteEntity candidato, Integer tipoContratacion, Integer idUsuario, Integer idBanco,
+    private EmpleadoEntity reingresarEmpleado(CandidatoVacanteEntity candidato,
+            Integer tipoContratacion, Integer idUsuario, Integer idBanco,
             String numeroCuenta, Integer idMetodoPago) {
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(candidato.getIdContexto());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(candidato.getIdContexto());
         if (empleado == null) {
-            throw new ValidacionException("No se encontró al empleado con identificador " + candidato.getIdContexto(),
+            throw new ValidacionException(
+                    "No se encontró al empleado con identificador "
+                            + candidato.getIdContexto(),
                     ValidacionCodigoError.REGISTRO_NO_ENCONTRADO);
         }
         /**
@@ -229,27 +263,37 @@ public class AltaEmpleadoService {
         // tengan definido el tipo de baja.
 
         if (idTipoBaja != null) {
-            TipoMovimientoEmpleadoEntity baja = tipoMovimientoEmpleadoRepository.obtenerPorId(idTipoBaja);
+            TipoMovimientoEmpleadoEntity baja = tipoMovimientoEmpleadoRepository
+                    .obtenerPorId(idTipoBaja);
 
-            if (tipoContratacion == EnumTipoContratacion.BASE || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
-                    || tipoContratacion == EnumTipoContratacion.REGULARIZADOS || tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
+            if (tipoContratacion == EnumTipoContratacion.BASE
+                    || tipoContratacion == EnumTipoContratacion.FORMALIZADOS
+                    || tipoContratacion == EnumTipoContratacion.REGULARIZADOS
+                    || tipoContratacion == EnumTipoContratacion.HOMOLOGADOS) {
                 if (baja.isConAntecedente()) {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_BASE);
+                    movimientoReingreso
+                            .setIdMovimiento(EnumTipoMovimiento.REINGRESO_BASE);
                 } else {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_BASE_SIN_ANTECEDENTES);
+                    movimientoReingreso.setIdMovimiento(
+                            EnumTipoMovimiento.REINGRESO_BASE_SIN_ANTECEDENTES);
                 }
             } else if (tipoContratacion == EnumTipoContratacion.CONFIANZA) {
                 if (baja.isConAntecedente()) {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_CONFIANZA);
+                    movimientoReingreso.setIdMovimiento(
+                            EnumTipoMovimiento.REINGRESO_CONFIANZA);
                 } else {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_CONFIANZA_SIN_ANTECEDENTES);
+                    movimientoReingreso.setIdMovimiento(
+                            EnumTipoMovimiento.REINGRESO_CONFIANZA_SIN_ANTECEDENTES);
                 }
-            } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
+            } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL
+                    || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL) {
 
                 if (baja.isConAntecedente()) {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_EVENTUAL);
+                    movimientoReingreso.setIdMovimiento(
+                            EnumTipoMovimiento.REINGRESO_EVENTUAL);
                 } else {
-                    movimientoReingreso.setIdMovimiento(EnumTipoMovimiento.REINGRESO_EVENTUAL_SIN_ANTECEDENTES);
+                    movimientoReingreso.setIdMovimiento(
+                            EnumTipoMovimiento.REINGRESO_EVENTUAL_SIN_ANTECEDENTES);
                 }
             }
 
@@ -257,10 +301,14 @@ public class AltaEmpleadoService {
 
         // TODO quitar condición, solo está mientras definen el tipo de
         // movimiento por alta
-        if (!ValidacionUtil.esNumeroPositivo(movimientoReingreso.getIdMovimiento())) {
-            movimientoReingreso.setObservaciones("ALTA EMPLEADO DE " + EnumTipoContratacion.obtenerDescripcion(tipoContratacion));
+        if (!ValidacionUtil
+                .esNumeroPositivo(movimientoReingreso.getIdMovimiento())) {
+            movimientoReingreso
+                    .setObservaciones("ALTA EMPLEADO DE " + EnumTipoContratacion
+                            .obtenerDescripcion(tipoContratacion));
             movimientoReingreso.setIdUsuario(idUsuario);
-            movimientoReingreso.setIdVacante(candidato.getPostuladoVacante().getInventarioVacante().getIdVacante());
+            movimientoReingreso.setIdVacante(candidato.getPostuladoVacante()
+                    .getInventarioVacante().getIdVacante());
             movimientoReingreso.setObservaciones("");
             // movimientosEmpleados.crearMovimientoEmpleado(movimientoReingreso);
         }
@@ -269,39 +317,57 @@ public class AltaEmpleadoService {
 
     }
 
-    private EmpleadoEntity registrarAspirante(InventarioVacanteEntity vacante, CandidatoVacanteEntity candidato, AltaEmpleadoDTO dto) {
+    private EmpleadoEntity registrarAspirante(InventarioVacanteEntity vacante,
+            CandidatoVacanteEntity candidato, AltaEmpleadoDTO dto) {
 
-        AspiranteEntity aspiranteEntity = aspiranteRepository.obtenerPorId(candidato.getIdContexto());
+        AspiranteEntity aspiranteEntity = aspiranteRepository
+                .obtenerPorId(candidato.getIdContexto());
         if (aspiranteEntity == null) {
-            throw new SistemaException("No se encontró aspirante con identificador " + candidato.getIdContexto(), SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No se encontró aspirante con identificador "
+                            + candidato.getIdContexto(),
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
-        if (aspiranteEntity.getIdEstatus().equals(EnumEstatusAspirante.EMPLEADO)) {
-            throw new ReglaNegocioException("El aspirante se encuentra activo como empleado", ReglaNegocioCodigoError.YA_REGISTRADO);
+        if (aspiranteEntity.getIdEstatus()
+                .equals(EnumEstatusAspirante.EMPLEADO)) {
+            throw new ReglaNegocioException(
+                    "El aspirante se encuentra activo como empleado",
+                    ReglaNegocioCodigoError.YA_REGISTRADO);
         }
 
         if (empleadoRepository.existeEmpleadoRfc(aspiranteEntity.getRfc())) {
-            throw new ReglaNegocioException("El rfc del aspirante está asignado a un empleado.", ReglaNegocioCodigoError.RFC_REGISTRADO);
+            throw new ReglaNegocioException(
+                    "El rfc del aspirante está asignado a un empleado.",
+                    ReglaNegocioCodigoError.RFC_REGISTRADO);
         }
 
-        if (empleadoRepository.existeEmpleadoConCurp(aspiranteEntity.getCurp())) {
-            throw new ReglaNegocioException("El curp del aspirante está asignado a un empleado", ReglaNegocioCodigoError.CURP_REGISTRADA);
+        if (empleadoRepository
+                .existeEmpleadoConCurp(aspiranteEntity.getCurp())) {
+            throw new ReglaNegocioException(
+                    "El curp del aspirante está asignado a un empleado",
+                    ReglaNegocioCodigoError.CURP_REGISTRADA);
         }
 
-        if (empleadoRepository.existeEmpleadoConNumeroPersonal(dto.getNumeroEmpleado())) {
-            throw new ReglaNegocioException("El número personal ya se encuentra asignado a un empleado, ingrese uno nuevo.",
+        if (empleadoRepository
+                .existeEmpleadoConNumeroPersonal(dto.getNumeroEmpleado())) {
+            throw new ReglaNegocioException(
+                    "El número personal ya se encuentra asignado a un empleado, ingrese uno nuevo.",
                     ReglaNegocioCodigoError.NUMERO_EMPLEADO);
         }
 
-        TipoEmpleadoEntity tipoEmpleado = tipoEmpleadoRepository.obtenerPorId(EnumTipoEmpleado.EMPLEADO);
+        TipoEmpleadoEntity tipoEmpleado = tipoEmpleadoRepository
+                .obtenerPorId(EnumTipoEmpleado.EMPLEADO);
         // Validar si el aspirante está aprobado
 
         EmpleadoEntity nuevoEmpleado = new EmpleadoEntity();
         nuevoEmpleado.setApellidoMaterno(aspiranteEntity.getApellidoMaterno());
         nuevoEmpleado.setApellidoPaterno(aspiranteEntity.getApellidoPaterno());
-        nuevoEmpleado.setCorreoElectronico(aspiranteEntity.getCorreoElectronico());
+        nuevoEmpleado
+                .setCorreoElectronico(aspiranteEntity.getCorreoElectronico());
         nuevoEmpleado.setCurp(aspiranteEntity.getCurp());
-        nuevoEmpleado.setDireccionCompleta(aspiranteEntity.getDireccionCompleta());
+        nuevoEmpleado
+                .setDireccionCompleta(aspiranteEntity.getDireccionCompleta());
         nuevoEmpleado.setEstadoCivil(aspiranteEntity.getEstadoCivil());
         nuevoEmpleado.setEstatura(aspiranteEntity.getEstatura());
         nuevoEmpleado.setFechaAlta(FechaUtil.fechaActual());
@@ -320,13 +386,15 @@ public class AltaEmpleadoService {
         nuevoEmpleado.setNumeroOtros(aspiranteEntity.getNumeroOtros());
         nuevoEmpleado.setNumeroPadres(aspiranteEntity.getNumeroPadres());
         // nuevoEmpleado.setOtroParentesco(aspiranteEntity.get);
-        nuevoEmpleado.setPaisNacionalidad(aspiranteEntity.getPaisNacionalidad());
+        nuevoEmpleado
+                .setPaisNacionalidad(aspiranteEntity.getPaisNacionalidad());
         // nuevoEmpleado.setPersonasDependientes(aspiranteEntity.get);
         nuevoEmpleado.setPeso(aspiranteEntity.getPeso());
         nuevoEmpleado.setRfc(aspiranteEntity.getRfc());
         nuevoEmpleado.setTelefono(aspiranteEntity.getTelefono());
         // nuevoEmpleado.setTieneLicencia(aspiranteEntity.get);
-        nuevoEmpleado.setTienePersonasDependientes(aspiranteEntity.getTienePersonasDependientes());
+        nuevoEmpleado.setTienePersonasDependientes(
+                aspiranteEntity.getTienePersonasDependientes());
         nuevoEmpleado.setTipoSangre(aspiranteEntity.getTipoSangre());
         nuevoEmpleado.setViveCon(aspiranteEntity.getViveCon());
         nuevoEmpleado.setTipoEmpleado(tipoEmpleado);
@@ -343,7 +411,8 @@ public class AltaEmpleadoService {
         aspiranteRepository.actualizar(aspiranteEntity);
 
         List<ExperienciaLaboralEntity> experienciasLaborales = experienciaLaboralRepository
-                .consultarExperienciasLaboralesAspirante(aspiranteEntity.getIdAspirante());
+                .consultarExperienciasLaboralesAspirante(
+                        aspiranteEntity.getIdAspirante());
         if (!experienciasLaborales.isEmpty()) {
             for (ExperienciaLaboralEntity entity : experienciasLaborales) {
                 entity.setIdEmpleado(nuevoEmpleado.getIdEmpleado());
@@ -353,9 +422,11 @@ public class AltaEmpleadoService {
         }
 
         List<HistorialAcademicoEntity> historialesAcademicos = historialAcademicoRepository
-                .consultarHistorialAcademicoAspirante(aspiranteEntity.getIdAspirante());
+                .consultarHistorialAcademicoAspirante(
+                        aspiranteEntity.getIdAspirante());
         if (historialesAcademicos.isEmpty()) {
-            throw new ReglaNegocioException("El aspirante no cuenta con historial academico, es requerido actualizarlo.",
+            throw new ReglaNegocioException(
+                    "El aspirante no cuenta con historial academico, es requerido actualizarlo.",
                     ReglaNegocioCodigoError.ASPIRANTE_SIN_HISTORIAL);
         }
 
@@ -369,22 +440,30 @@ public class AltaEmpleadoService {
 
         if (tipoContratacion == EnumTipoContratacion.BASE) {
 
-            movimientoAlta.setIdMovimiento(EnumTipoMovimiento.ALTA_PERSONAL_BASE);
+            movimientoAlta
+                    .setIdMovimiento(EnumTipoMovimiento.ALTA_PERSONAL_BASE);
 
         } else if (tipoContratacion == EnumTipoContratacion.CONFIANZA) {
-            movimientoAlta.setIdMovimiento(EnumTipoMovimiento.ALTA_PERSONAL_CONFIANZA);
-        } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL
+            movimientoAlta.setIdMovimiento(
+                    EnumTipoMovimiento.ALTA_PERSONAL_CONFIANZA);
+        } else if (tipoContratacion == EnumTipoContratacion.CONTRATO_ESTATAL
+                || tipoContratacion == EnumTipoContratacion.CONTRATO_FEDERAL
                 || tipoContratacion == EnumTipoContratacion.HONORARIOS) {
 
-            movimientoAlta.setIdMovimiento(EnumTipoMovimiento.ALTA_PERSONAL_EVENTUAL);
+            movimientoAlta
+                    .setIdMovimiento(EnumTipoMovimiento.ALTA_PERSONAL_EVENTUAL);
         } else {
-            throw new BusinessException("Error al generar tipo de movimiento de alta.");
+            throw new BusinessException(
+                    "Error al generar tipo de movimiento de alta.");
         }
 
         // TODO quitar condición, solo está mientras definen el tipo de
         // movimiento por alta
-        if (!ValidacionUtil.esNumeroPositivo(movimientoAlta.getIdMovimiento())) {
-            movimientoAlta.setObservaciones("ALTA EMPLEADO DE " + EnumTipoContratacion.obtenerDescripcion(tipoContratacion));
+        if (!ValidacionUtil
+                .esNumeroPositivo(movimientoAlta.getIdMovimiento())) {
+            movimientoAlta
+                    .setObservaciones("ALTA EMPLEADO DE " + EnumTipoContratacion
+                            .obtenerDescripcion(tipoContratacion));
             movimientoAlta.setIdUsuario(dto.getIdUsuario());
             movimientoAlta.setIdVacante(vacante.getIdVacante());
             movimientoAlta.setObservaciones("");

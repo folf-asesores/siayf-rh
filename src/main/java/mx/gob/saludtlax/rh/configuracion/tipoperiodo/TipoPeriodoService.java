@@ -19,19 +19,29 @@ public class TipoPeriodoService {
 
     public List<TipoPeriodoDTO> listaTipoPeriodo() {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT id_tipo_periodo AS idTipoPeriodo, tipo_periodo AS tipoPeriodo FROM tipos_periodos");
-        query.setResultTransformer(Transformers.aliasToBean(TipoPeriodoDTO.class));
+        Query query = session.createSQLQuery(
+                "SELECT id_tipo_periodo AS idTipoPeriodo, tipo_periodo AS tipoPeriodo FROM tipos_periodos");
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoPeriodoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoPeriodoDTO> result = query.list();
         return result;
     }
 
-    public List<TipoPeriodoDTO> listaTipoPeriodoPorEjercicioFiscal(Integer ejercicioFiscal) {
+    public List<TipoPeriodoDTO> listaTipoPeriodoPorEjercicioFiscal(
+            Integer ejercicioFiscal) {
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createSQLQuery("SELECT" + " tp.id_tipo_periodo AS idTipoPeriodo, " + " tp.tipo_periodo AS tipoPeriodo "
-                + " FROM tipos_periodos AS tp " + " INNER JOIN ejercicios_fiscales AS ef " + " ON tp.id_tipo_periodo = ef.id_tipo_periodo " + " WHERE "
-                + " ef.ejercicio_fiscal = :ejercicioFiscal").setParameter("ejercicioFiscal", ejercicioFiscal);
-        query.setResultTransformer(Transformers.aliasToBean(TipoPeriodoDTO.class));
+        Query query = session
+                .createSQLQuery("SELECT"
+                        + " tp.id_tipo_periodo AS idTipoPeriodo, "
+                        + " tp.tipo_periodo AS tipoPeriodo "
+                        + " FROM tipos_periodos AS tp "
+                        + " INNER JOIN ejercicios_fiscales AS ef "
+                        + " ON tp.id_tipo_periodo = ef.id_tipo_periodo "
+                        + " WHERE " + " ef.ejercicio_fiscal = :ejercicioFiscal")
+                .setParameter("ejercicioFiscal", ejercicioFiscal);
+        query.setResultTransformer(
+                Transformers.aliasToBean(TipoPeriodoDTO.class));
         @SuppressWarnings("unchecked")
         List<TipoPeriodoDTO> result = query.list();
         return result;

@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
-
+ * 
  * @version 1.0
  * @since 17/08/2016 17:23:27
  */
@@ -74,7 +74,8 @@ public class PostuladoVacanteDTO implements Serializable {
      * @param listaCandidatoVacante
      *            the listaCandidatoVacante to set
      */
-    public void setListaCandidatoVacante(List<CandidatoVacanteDTO> listaCandidatoVacante) {
+    public void setListaCandidatoVacante(
+            List<CandidatoVacanteDTO> listaCandidatoVacante) {
         this.listaCandidatoVacante = listaCandidatoVacante;
     }
 

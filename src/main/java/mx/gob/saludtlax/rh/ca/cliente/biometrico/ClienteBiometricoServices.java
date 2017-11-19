@@ -15,7 +15,9 @@ public class ClienteBiometricoServices {
     @Inject
     BiometricoClientRest biometricoClientRest;
 
-    public BiometricoClientRestResponse guardar(BiometricoFormModel biometricoFormModel) throws RESTClientException {
+    public BiometricoClientRestResponse guardar(
+            BiometricoFormModel biometricoFormModel)
+            throws RESTClientException {
         return biometricoClientRest.guardarBiometrico(biometricoFormModel);
 
     }

@@ -68,8 +68,11 @@ public class AcumuladosController implements Serializable {
         tiposNombramientosItems.clear();
         tiposNombramientosItems.add(new SelectItem(-1, "Todos"));
         for (TipoNombramientoDTO tipoNombramiento : tiposNom) {
-            tiposNombramientosItems.add(new SelectItem(tipoNombramiento.getIdTipoNombramiento(),
-                    (tipoNombramiento.getClave().isEmpty() ? tipoNombramiento.getDescripcion() : tipoNombramiento.getClave())));
+            tiposNombramientosItems.add(
+                    new SelectItem(tipoNombramiento.getIdTipoNombramiento(),
+                            (tipoNombramiento.getClave().isEmpty()
+                                    ? tipoNombramiento.getDescripcion()
+                                    : tipoNombramiento.getClave())));
         }
 
         for (int i = 1; i <= 24; i++) {
@@ -84,9 +87,13 @@ public class AcumuladosController implements Serializable {
         try {
             if (nombramientoSeleccionado > 0) {
 
-                claveNombramientoSeleccionado = nombramientoEJB.obtenerNombramiento(nombramientoSeleccionado).getClave();
+                claveNombramientoSeleccionado = nombramientoEJB
+                        .obtenerNombramiento(nombramientoSeleccionado)
+                        .getClave();
             }
-            dts = consultaNominaService.listaConsultaNominaPorNombramiento(nombramientoSeleccionado, quincenaInicial, quincenaFinal, anio);
+            dts = consultaNominaService.listaConsultaNominaPorNombramiento(
+                    nombramientoSeleccionado, quincenaInicial, quincenaFinal,
+                    anio);
             System.out.println("acumulados:" + dts.size());
             listaNominas.addAll(dts);
         } catch (NoResultException e) {
@@ -97,31 +104,42 @@ public class AcumuladosController implements Serializable {
     public void descargarExcel() {
         try {
 
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuario = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
-            String[] parametros = { "ID_USUARIO", String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE", "acumulados", "TIPO_REPORTE", "xlsx",
-                    "TIPO_NOMBRAMIENTO", String.valueOf(nombramientoSeleccionado), "QUINCENA_INICIAL", String.valueOf(quincenaInicial), "QUINCENA_FINAL",
-                    String.valueOf(quincenaFinal), "ANIO_REAL", String.valueOf(anio), };
+            String[] parametros = { "ID_USUARIO",
+                    String.valueOf(usuario.getIdUsuario()), "REPORTE_NOMBRE",
+                    "acumulados", "TIPO_REPORTE", "xlsx", "TIPO_NOMBRAMIENTO",
+                    String.valueOf(nombramientoSeleccionado),
+                    "QUINCENA_INICIAL", String.valueOf(quincenaInicial),
+                    "QUINCENA_FINAL", String.valueOf(quincenaFinal),
+                    "ANIO_REAL", String.valueOf(anio), };
 
             AdministradorReportes admintradorReportes = new AdministradorReportes();
-            String referencia = admintradorReportes.obtenerReferencia(parametros);
+            String referencia = admintradorReportes
+                    .obtenerReferencia(parametros);
 
             setBytes(admintradorReportes.obtenerReporte(referencia));
 
             if (getBytes() != null) {
-                JSFUtils.descargarArchivo(getBytes(), "acumulados", TipoArchivo.getMIMEType("xlsx"));
+                JSFUtils.descargarArchivo(getBytes(), "acumulados",
+                        TipoArchivo.getMIMEType("xlsx"));
 
             }
 
-        } catch (NullPointerException | IllegalArgumentException | IOException exception) {
+        } catch (NullPointerException | IllegalArgumentException
+                | IOException exception) {
             System.err.println(exception.getMessage());
         } catch (ReglaNegocioException reglaNegocioException) {
-            throw new ReglaNegocioException(reglaNegocioException.getMessage(), reglaNegocioException.getCodigoError());
+            throw new ReglaNegocioException(reglaNegocioException.getMessage(),
+                    reglaNegocioException.getCodigoError());
         } catch (ValidacionException validacionException) {
             System.err.println(validacionException.getMessage());
-            throw new ValidacionException(validacionException.getMessage(), null);
+            throw new ValidacionException(validacionException.getMessage(),
+                    null);
         }
     }
 
@@ -137,7 +155,8 @@ public class AcumuladosController implements Serializable {
         return tiposNombramientosItems;
     }
 
-    public void setTiposNombramientosItems(List<SelectItem> tiposNombramientosItems) {
+    public void setTiposNombramientosItems(
+            List<SelectItem> tiposNombramientosItems) {
         this.tiposNombramientosItems = tiposNombramientosItems;
     }
 
@@ -201,7 +220,8 @@ public class AcumuladosController implements Serializable {
         return claveNombramientoSeleccionado;
     }
 
-    public void setClaveNombramientoSeleccionado(String claveNombramientoSeleccionado) {
+    public void setClaveNombramientoSeleccionado(
+            String claveNombramientoSeleccionado) {
         this.claveNombramientoSeleccionado = claveNombramientoSeleccionado;
     }
 

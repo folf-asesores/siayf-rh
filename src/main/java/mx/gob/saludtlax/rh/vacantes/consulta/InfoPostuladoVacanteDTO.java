@@ -12,7 +12,7 @@ import mx.gob.saludtlax.rh.vacantes.postulacion.InfoCandidatoDTO;
 
 /**
  * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
-
+ * 
  * @version 1.0
  * @since 16/08/2016 11:56:11
  */
@@ -38,8 +38,6 @@ public class InfoPostuladoVacanteDTO implements Serializable {
     private BigDecimal sueldo;
 
     private List<InfoCandidatoDTO> listaInfoCandidatoVacante;
-
-    
 
     /**
      *
@@ -149,7 +147,8 @@ public class InfoPostuladoVacanteDTO implements Serializable {
      * @param listaInfoCandidatoVacante
      *            the listaInfoCandidatoVacante to set
      */
-    public void setListaInfoCandidatoVacante(List<InfoCandidatoDTO> listaInfoCandidatoVacante) {
+    public void setListaInfoCandidatoVacante(
+            List<InfoCandidatoDTO> listaInfoCandidatoVacante) {
         this.listaInfoCandidatoVacante = listaInfoCandidatoVacante;
     }
 

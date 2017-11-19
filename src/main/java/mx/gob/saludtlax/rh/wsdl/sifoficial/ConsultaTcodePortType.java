@@ -56,7 +56,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "firmar_token_by5", action = "firmar_token_by5")
     @WebResult(name = "id_key_by5", partName = "id_key_by5")
-    public String firmarTokenBy5(@WebParam(name = "id_key_by5", partName = "id_key_by5") String idKeyBy5);
+    public String firmarTokenBy5(
+            @WebParam(name = "id_key_by5", partName = "id_key_by5") String idKeyBy5);
 
     /**
      *
@@ -67,7 +68,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "consulta_dependencias", action = "consulta_dependencias")
     @WebResult(name = "arr_dependencias", partName = "arr_dependencias")
-    public ConsultaDependenciasResponseArrDependencias consultaDependencias(@WebParam(name = "id_dependencia", partName = "id_dependencia") int idDependencia,
+    public ConsultaDependenciasResponseArrDependencias consultaDependencias(
+            @WebParam(name = "id_dependencia", partName = "id_dependencia") int idDependencia,
             @WebParam(name = "id_token_crypted", mode = WebParam.Mode.INOUT, partName = "id_token_crypted") Holder<String> idTokenCrypted);
 
     /**
@@ -79,7 +81,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "consulta_tipos_recurso", action = "consulta_tipos_recurso")
     @WebResult(name = "arr_tipos_recurso", partName = "arr_tipos_recurso")
-    public ConsultaTiposRecursoResponseArrTiposRecurso consultaTiposRecurso(@WebParam(name = "id_tipo_recurso", partName = "id_tipo_recurso") int idTipoRecurso,
+    public ConsultaTiposRecursoResponseArrTiposRecurso consultaTiposRecurso(
+            @WebParam(name = "id_tipo_recurso", partName = "id_tipo_recurso") int idTipoRecurso,
             @WebParam(name = "id_token_crypted", mode = WebParam.Mode.INOUT, partName = "id_token_crypted") Holder<String> idTokenCrypted);
 
     /**
@@ -104,7 +107,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "consulta_partidas", action = "consulta_partidas")
     @WebResult(name = "arr_partidas", partName = "arr_partidas")
-    public ConsultaPartidasResponseArrPartidas consultaPartidas(@WebParam(name = "id_capitulo", partName = "id_capitulo") int idCapitulo,
+    public ConsultaPartidasResponseArrPartidas consultaPartidas(
+            @WebParam(name = "id_capitulo", partName = "id_capitulo") int idCapitulo,
             @WebParam(name = "id_token_crypted", mode = WebParam.Mode.INOUT, partName = "id_token_crypted") Holder<String> idTokenCrypted);
 
     /**
@@ -116,7 +120,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "consulta_proyectos", action = "consulta_proyectos")
     @WebResult(name = "arr_proyectos", partName = "arr_proyectos")
-    public ConsultaProyectosResponseArrProyectos consultaProyectos(@WebParam(name = "id_dependencia", partName = "id_dependencia") int idDependencia,
+    public ConsultaProyectosResponseArrProyectos consultaProyectos(
+            @WebParam(name = "id_dependencia", partName = "id_dependencia") int idDependencia,
             @WebParam(name = "id_token_crypted", mode = WebParam.Mode.INOUT, partName = "id_token_crypted") Holder<String> idTokenCrypted);
 
     /**
@@ -163,7 +168,8 @@ public interface ConsultaTcodePortType {
      */
     @WebMethod(operationName = "insercion_tramite", action = "insercion_tramite")
     @WebResult(name = "id_tramite", partName = "id_tramite")
-    public int insercionTramite(@WebParam(name = "id_token_crypted", partName = "id_token_crypted") String idTokenCrypted,
+    public int insercionTramite(
+            @WebParam(name = "id_token_crypted", partName = "id_token_crypted") String idTokenCrypted,
             @WebParam(name = "id_tipo_tramite", partName = "id_tipo_tramite") int idTipoTramite,
             @WebParam(name = "id_tipo_documento_tramite", partName = "id_tipo_documento_tramite") int idTipoDocumentoTramite,
             @WebParam(name = "numero_documento_tramite", partName = "numero_documento_tramite") String numeroDocumentoTramite,

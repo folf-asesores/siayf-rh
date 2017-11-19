@@ -42,7 +42,8 @@ public class ComprobanteNominaView implements Serializable {
         return comprobanteCFDI12;
     }
 
-    public void setComprobanteCFDI12(mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante comprobanteCFDI12) {
+    public void setComprobanteCFDI12(
+            mx.gob.saludtlax.rh.sat.xml.cfdi12.Comprobante comprobanteCFDI12) {
         this.comprobanteCFDI12 = comprobanteCFDI12;
     }
 

@@ -57,7 +57,8 @@ public class ConfiguracionQuinquenioEntity implements Serializable {
         return id_configuracion_quinquenio;
     }
 
-    public void setId_configuracion_quinquenio(Integer id_configuracion_quinquenio) {
+    public void setId_configuracion_quinquenio(
+            Integer id_configuracion_quinquenio) {
         this.id_configuracion_quinquenio = id_configuracion_quinquenio;
     }
 
@@ -81,7 +82,8 @@ public class ConfiguracionQuinquenioEntity implements Serializable {
         return id_concepto_nomina;
     }
 
-    public void setId_concepto_nomina(ConceptoNominaFederalesEntity id_concepto_nomina) {
+    public void setId_concepto_nomina(
+            ConceptoNominaFederalesEntity id_concepto_nomina) {
         this.id_concepto_nomina = id_concepto_nomina;
     }
 
@@ -121,7 +123,8 @@ public class ConfiguracionQuinquenioEntity implements Serializable {
         return idConfiguracionPresupestal;
     }
 
-    public void setIdConfiguracionPresupestal(Integer idConfiguracionPresupestal) {
+    public void setIdConfiguracionPresupestal(
+            Integer idConfiguracionPresupestal) {
         this.idConfiguracionPresupestal = idConfiguracionPresupestal;
     }
 

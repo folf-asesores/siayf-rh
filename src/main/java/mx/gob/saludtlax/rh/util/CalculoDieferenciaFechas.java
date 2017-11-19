@@ -71,7 +71,8 @@ public class CalculoDieferenciaFechas {
 
             // Febrero
 
-            if ((anioFin % 4 == 0) && ((anioFin % 100 != 0) || (anioFin % 400 == 0))) {
+            if ((anioFin % 4 == 0)
+                    && ((anioFin % 100 != 0) || (anioFin % 400 == 0))) {
 
                 // Bisiesto
 
@@ -121,9 +122,11 @@ public class CalculoDieferenciaFechas {
 
         //
 
-        if ((anioInicio > anioFin) || (anioInicio == anioFin && mesInicio > mesFin)
+        if ((anioInicio > anioFin)
+                || (anioInicio == anioFin && mesInicio > mesFin)
 
-                || (anioInicio == anioFin && mesInicio == mesFin && diaInicio > diaFin)) {
+                || (anioInicio == anioFin && mesInicio == mesFin
+                        && diaInicio > diaFin)) {
 
             // La fecha de inicio es posterior a la fecha fin
 
@@ -221,7 +224,8 @@ public class CalculoDieferenciaFechas {
 
                 long millsecsPerDay = 86400000; // Milisegundos al día
 
-                returnValue = (fechaFin.getTime() - fechaInicio.getTime()) / millsecsPerDay;
+                returnValue = (fechaFin.getTime() - fechaInicio.getTime())
+                        / millsecsPerDay;
 
                 // System.out.println("Total días: " + returnValue + " Días.");
 

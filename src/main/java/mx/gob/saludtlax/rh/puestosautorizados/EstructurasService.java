@@ -31,15 +31,23 @@ public class EstructurasService {
     @Inject
     private InventarioVacanteRepository puestoAutorizadoRepository;
 
-    protected void actualizarEstructuraContrato(EstructuraContratoDTO estructuraContrato) {
+    protected void actualizarEstructuraContrato(
+            EstructuraContratoDTO estructuraContrato) {
 
-        InventarioVacanteEntity puesto = puestoAutorizadoRepository.obtenerPorId(estructuraContrato.getIdPuesto());
+        InventarioVacanteEntity puesto = puestoAutorizadoRepository
+                .obtenerPorId(estructuraContrato.getIdPuesto());
         if (puesto == null) {
-            throw new SistemaException("No existe el puesto con identificador " + estructuraContrato.getIdPuesto(), SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "No existe el puesto con identificador "
+                            + estructuraContrato.getIdPuesto(),
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
-        if (puesto.getTipoContratacion().getId() != EnumTipoContratacion.CONTRATO_ESTATAL) {
-            throw new ReglaNegocioException("La estructura solo está permitida para contrato estatal.", ReglaNegocioCodigoError.TIPO_CONTRATACION_NO_PERMITIDA);
+        if (puesto.getTipoContratacion()
+                .getId() != EnumTipoContratacion.CONTRATO_ESTATAL) {
+            throw new ReglaNegocioException(
+                    "La estructura solo está permitida para contrato estatal.",
+                    ReglaNegocioCodigoError.TIPO_CONTRATACION_NO_PERMITIDA);
         }
 
         String lccActual = puesto.lccEstructuraContrato();
@@ -57,20 +65,28 @@ public class EstructurasService {
             bitacora.setIdUsuario(estructuraContrato.getIdUsuario());
             bitacora.setLccActual(lccNueva);
             bitacora.setLccAnterior(lccActual);
-            bitacora.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
+            bitacora.setTipoMovimientoEmpleado(
+                    EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
             bitacoraModificacionService.registrarBitacora(bitacora);
         }
     }
 
     protected void actualizarEstructuraNomina(EstructuraNominaDTO dto) {
-        EstructuraEntity estructuraNomina = estructuraRepository.obtenerEstructuraPorIdPuesto(dto.getIdPuesto());
-        InventarioVacanteEntity puesto = puestoAutorizadoRepository.obtenerPorId(dto.getIdPuesto());
+        EstructuraEntity estructuraNomina = estructuraRepository
+                .obtenerEstructuraPorIdPuesto(dto.getIdPuesto());
+        InventarioVacanteEntity puesto = puestoAutorizadoRepository
+                .obtenerPorId(dto.getIdPuesto());
         if (puesto == null) {
-            throw new SistemaException("El puesto con identificador " + dto.getIdPuesto() + " no existe.", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "El puesto con identificador " + dto.getIdPuesto()
+                            + " no existe.",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
         if (!puesto.getEstatus().isPuestoActivo()) {
-            throw new ReglaNegocioException("No se puede modificar la estructura de un puesto que no esté activo.", ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
+            throw new ReglaNegocioException(
+                    "No se puede modificar la estructura de un puesto que no esté activo.",
+                    ReglaNegocioCodigoError.ESTATUS_INCORRECTO);
         }
 
         BitacoraEmpleadoDTO bitacora = new BitacoraEmpleadoDTO();
@@ -87,12 +103,14 @@ public class EstructurasService {
             nuevaEstructura.setTipoUnidad(dto.getTipoUnidad());
             estructuraRepository.crear(nuevaEstructura);
 
-            bitacora.setComentarios("Alta configuración de la estructura de nómina.");
+            bitacora.setComentarios(
+                    "Alta configuración de la estructura de nómina.");
             bitacora.setEmpleado(puesto.getEmpleadoActivo().getIdEmpleado());
             bitacora.setIdUsuario(dto.getIdUsuario());
             bitacora.setLccActual(nuevaEstructura.lccEstructuraNomina());
             bitacora.setLccAnterior("");
-            bitacora.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
+            bitacora.setTipoMovimientoEmpleado(
+                    EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
             bitacoraModificacionService.registrarBitacora(bitacora);
         } else {
 
@@ -111,38 +129,49 @@ public class EstructurasService {
 
             if (!lccActual.equals(lccNueva)) {
                 bitacora.setComentarios("");
-                bitacora.setEmpleado(puesto.getEmpleadoActivo().getIdEmpleado());
+                bitacora.setEmpleado(
+                        puesto.getEmpleadoActivo().getIdEmpleado());
                 bitacora.setIdUsuario(dto.getIdUsuario());
                 bitacora.setLccActual(lccNueva);
                 bitacora.setLccAnterior(lccActual);
-                bitacora.setTipoMovimientoEmpleado(EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
+                bitacora.setTipoMovimientoEmpleado(
+                        EnumTipoModificacionEmpleado.ACTUALIZACION_ESTRUCTURA_NOMINA);
                 bitacoraModificacionService.registrarBitacora(bitacora);
             }
         }
 
     }
 
-    protected EstructuraNominaDTO obtenerEstructuraNominaPuesto(Integer idPuesto) {
+    protected EstructuraNominaDTO obtenerEstructuraNominaPuesto(
+            Integer idPuesto) {
 
-        EstructuraEntity estructuraNomina = estructuraRepository.obtenerEstructuraPorIdPuesto(idPuesto);
+        EstructuraEntity estructuraNomina = estructuraRepository
+                .obtenerEstructuraPorIdPuesto(idPuesto);
 
-        InventarioVacanteEntity puesto = puestoAutorizadoRepository.obtenerPorId(idPuesto);
+        InventarioVacanteEntity puesto = puestoAutorizadoRepository
+                .obtenerPorId(idPuesto);
         if (puesto == null) {
-            throw new SistemaException("El puesto con identificador " + idPuesto + " no existe.", SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
+            throw new SistemaException(
+                    "El puesto con identificador " + idPuesto + " no existe.",
+                    SistemaCodigoError.BUSQUEDA_SIN_RESULTADOS);
         }
 
         if (puesto.getTipoContratacion().getAreaResponsable() != 1) {
-            throw new ReglaNegocioException("Para obtener la estructura nómina el puesto debe ser federal.", ReglaNegocioCodigoError.MOVIMIENTO_NO_AUTORIZADO);
+            throw new ReglaNegocioException(
+                    "Para obtener la estructura nómina el puesto debe ser federal.",
+                    ReglaNegocioCodigoError.MOVIMIENTO_NO_AUTORIZADO);
         }
 
         EstructuraNominaDTO estructura = new EstructuraNominaDTO();
         if (estructuraNomina != null) {
-            estructura.setFinanciamiento(estructuraNomina.getFinanciamientoFederal());
+            estructura.setFinanciamiento(
+                    estructuraNomina.getFinanciamientoFederal());
             estructura.setIndicadorMando(estructuraNomina.getIndicadorMando());
             estructura.setJornadaTrabajo(estructuraNomina.getJornadaTrabajo());
             estructura.setPagaduria(estructuraNomina.getPagaduria());
             estructura.setSubfuncion(estructuraNomina.getSubfuncion());
-            estructura.setTabuladorPuesto(estructuraNomina.getTabuladorPuesto());
+            estructura
+                    .setTabuladorPuesto(estructuraNomina.getTabuladorPuesto());
             estructura.setTipoPago(estructuraNomina.getTipoPago());
             estructura.setTipoUnidad(estructuraNomina.getTipoUnidad());
         }

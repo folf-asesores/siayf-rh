@@ -78,9 +78,11 @@ public class VistaUsuarioController implements Serializable {
         view.setPrincipal(false);
         view.setTabla(false);
         listaConfiguracion.clear();
-        listaConfiguracionUsuario = configuracionUsuarioModulo.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
+        listaConfiguracionUsuario = configuracionUsuarioModulo
+                .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
         listaConfiguracionModuloAccionRestantes = configuracionModuloAccion
-                .obtenerListaConfiguracionModuloAccionDTOPorUsuario(usuarioSeleccionado.getIdUsuario());
+                .obtenerListaConfiguracionModuloAccionDTOPorUsuario(
+                        usuarioSeleccionado.getIdUsuario());
         return null;
     }
 
@@ -109,35 +111,44 @@ public class VistaUsuarioController implements Serializable {
                 .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
 
         for (ConfiguracionUsuarioModuloDTO configuracion : listaConfiguracionUsuarioExistente) {
-            configuracionUsuarioModulo.eliminar(configuracion.getIdConfiguracionUsuarioModulo());
+            configuracionUsuarioModulo
+                    .eliminar(configuracion.getIdConfiguracionUsuarioModulo());
         }
 
         try {
             for (ConfiguracionUsuarioModuloDTO configuracion : listaConfiguracionUsuario) {
                 configuracionUsuarioModulo.crear(configuracion);
             }
-            listaConfiguracionUsuario = configuracionUsuarioModulo.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
+            listaConfiguracionUsuario = configuracionUsuarioModulo
+                    .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
 
             listaConfiguracionModuloAccionRestantes = configuracionModuloAccion
-                    .obtenerListaConfiguracionModuloAccionDTOPorUsuario(usuarioSeleccionado.getIdUsuario());
-            JSFUtils.infoMessage("", "Se crearon las configuraciones correctamente");
+                    .obtenerListaConfiguracionModuloAccionDTOPorUsuario(
+                            usuarioSeleccionado.getIdUsuario());
+            JSFUtils.infoMessage("",
+                    "Se crearon las configuraciones correctamente");
         } catch (PersistenceException e) {
-            JSFUtils.infoMessage("", "Se presento un problema al guardar la configuracion");
+            JSFUtils.infoMessage("",
+                    "Se presento un problema al guardar la configuracion");
         }
     }
 
     public void eliminar(ConfiguracionUsuarioModuloDTO eliminarConfiguracion) {
 
         if (eliminarConfiguracion.getIdConfiguracionUsuarioModulo() != null) {
-            configuracionUsuarioModulo.eliminar(eliminarConfiguracion.getIdConfiguracionUsuarioModulo());
-            listaConfiguracionUsuario = configuracionUsuarioModulo.obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
+            configuracionUsuarioModulo.eliminar(
+                    eliminarConfiguracion.getIdConfiguracionUsuarioModulo());
+            listaConfiguracionUsuario = configuracionUsuarioModulo
+                    .obtenerListaPorUsuario(usuarioSeleccionado.getIdUsuario());
 
             listaConfiguracionModuloAccionRestantes = configuracionModuloAccion
-                    .obtenerListaConfiguracionModuloAccionDTOPorUsuario(usuarioSeleccionado.getIdUsuario());
+                    .obtenerListaConfiguracionModuloAccionDTOPorUsuario(
+                            usuarioSeleccionado.getIdUsuario());
 
             listaConfiguracionUsuarioSelect.clear();
         } else {
-            JSFUtils.errorMessage("", "Verifique ya guardo previamente la configuracion que desea eliminar, de lo contrario no es necesario eliminarla.");
+            JSFUtils.errorMessage("",
+                    "Verifique ya guardo previamente la configuracion que desea eliminar, de lo contrario no es necesario eliminarla.");
         }
     }
 
@@ -189,7 +200,8 @@ public class VistaUsuarioController implements Serializable {
         return listaConfiguracion;
     }
 
-    public void setListaConfiguracion(List<VistaUsuarioDTO> listaConfiguracion) {
+    public void setListaConfiguracion(
+            List<VistaUsuarioDTO> listaConfiguracion) {
         this.listaConfiguracion = listaConfiguracion;
     }
 
@@ -197,7 +209,8 @@ public class VistaUsuarioController implements Serializable {
         return listaModulos;
     }
 
-    public void setListaModulos(List<ConfiguracionModuloAccionDTO> listaModulos) {
+    public void setListaModulos(
+            List<ConfiguracionModuloAccionDTO> listaModulos) {
         this.listaModulos = listaModulos;
     }
 
@@ -221,7 +234,8 @@ public class VistaUsuarioController implements Serializable {
         return listaConfiguracionUsuario;
     }
 
-    public void setListaConfiguracionUsuario(List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario) {
+    public void setListaConfiguracionUsuario(
+            List<ConfiguracionUsuarioModuloDTO> listaConfiguracionUsuario) {
         this.listaConfiguracionUsuario = listaConfiguracionUsuario;
     }
 
@@ -229,7 +243,8 @@ public class VistaUsuarioController implements Serializable {
         return listaConfiguracionModuloAccionRestantes;
     }
 
-    public void setListaConfiguracionModuloAccionRestantes(List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccionRestantes) {
+    public void setListaConfiguracionModuloAccionRestantes(
+            List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccionRestantes) {
         this.listaConfiguracionModuloAccionRestantes = listaConfiguracionModuloAccionRestantes;
     }
 
@@ -237,7 +252,8 @@ public class VistaUsuarioController implements Serializable {
         return listaConfiguracionUsuarioSelect;
     }
 
-    public void setListaConfiguracionUsuarioSelect(List<ConfiguracionModuloAccionDTO> listaConfiguracionUsuarioSelect) {
+    public void setListaConfiguracionUsuarioSelect(
+            List<ConfiguracionModuloAccionDTO> listaConfiguracionUsuarioSelect) {
         this.listaConfiguracionUsuarioSelect = listaConfiguracionUsuarioSelect;
     }
 

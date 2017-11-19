@@ -17,7 +17,7 @@ import mx.gob.saludtlax.rh.persistencia.SeguroVidaEntity;
 import mx.gob.saludtlax.rh.persistencia.SeguroVidaRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class SeguroVidaInstitucionalService {
@@ -27,10 +27,13 @@ public class SeguroVidaInstitucionalService {
     @Inject
     private BeneficiarioRepository beneficiarioRepository;
 
-    protected Integer crearSeguroVida(SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
+    protected Integer crearSeguroVida(
+            SeguroVidaInstitucionalDTO seguroVidaInstitucionalDTO) {
 
-        if (seguroVidaRepository.existeNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente())) {
-            throw new ReglaNegocioException("El numero de expediente ya existe", ReglaNegocioCodigoError.YA_REGISTRADO);
+        if (seguroVidaRepository.existeNumeroExpediente(
+                seguroVidaInstitucionalDTO.getNumeroExpediente())) {
+            throw new ReglaNegocioException("El numero de expediente ya existe",
+                    ReglaNegocioCodigoError.YA_REGISTRADO);
         }
 
         SeguroVidaEntity seguroVidaEntity = new SeguroVidaEntity();
@@ -38,16 +41,21 @@ public class SeguroVidaInstitucionalService {
         seguroVidaEntity.setEstatus(true);
         seguroVidaEntity.setFechaAlta(new Date());
         seguroVidaEntity.setHoraAlta(new Time(new Date().getTime()));
-        seguroVidaEntity.setIdEmpleado(seguroVidaInstitucionalDTO.getIdEmpleado());
-        seguroVidaEntity.setNumeroExpediente(seguroVidaInstitucionalDTO.getNumeroExpediente());
+        seguroVidaEntity
+                .setIdEmpleado(seguroVidaInstitucionalDTO.getIdEmpleado());
+        seguroVidaEntity.setNumeroExpediente(
+                seguroVidaInstitucionalDTO.getNumeroExpediente());
 
         seguroVidaRepository.crear(seguroVidaEntity);
 
-        for (BeneficiariosDTO beneficiariosDTO : seguroVidaInstitucionalDTO.getBeneficiariosDTOs()) {
+        for (BeneficiariosDTO beneficiariosDTO : seguroVidaInstitucionalDTO
+                .getBeneficiariosDTOs()) {
             BeneficiarioEntity beneficiarioEntity = new BeneficiarioEntity();
 
-            beneficiarioEntity.setIdDependienteEconomico(beneficiariosDTO.getIdDependienteEconomico());
-            beneficiarioEntity.setIdSeguroVida(seguroVidaEntity.getIdSeguroVida());
+            beneficiarioEntity.setIdDependienteEconomico(
+                    beneficiariosDTO.getIdDependienteEconomico());
+            beneficiarioEntity
+                    .setIdSeguroVida(seguroVidaEntity.getIdSeguroVida());
             beneficiarioEntity.setPorcetaje(beneficiariosDTO.getPorcetaje());
 
             beneficiarioRepository.crear(beneficiarioEntity);

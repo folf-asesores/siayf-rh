@@ -349,7 +349,8 @@ public class AspiranteEntity implements Serializable {
         return tienePersonasDependientes;
     }
 
-    public void setTienePersonasDependientes(Boolean tienePersonasDependientes) {
+    public void setTienePersonasDependientes(
+            Boolean tienePersonasDependientes) {
         this.tienePersonasDependientes = tienePersonasDependientes;
     }
 

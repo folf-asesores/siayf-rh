@@ -18,7 +18,7 @@ import mx.gob.saludtlax.rh.modulos.Modulos;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 @ManagedBean(name = "administracionModulo")
@@ -55,7 +55,8 @@ public class AdministracionModuloController implements Serializable {
 
         Boolean res = modulos.eliminarModulo(idModulo);
         if (!res) {
-            JSFUtils.warningMessage("", "EL registro de Modulo no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
+            JSFUtils.warningMessage("",
+                    "EL registro de Modulo no se puede eliminar ya que se encuentra usado por configuraciones de modulos.");
         }
         cargarListaModulos();
     }

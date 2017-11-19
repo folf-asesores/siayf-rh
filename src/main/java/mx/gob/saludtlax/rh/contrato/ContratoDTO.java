@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ContratoDTO implements Serializable {
@@ -60,7 +60,8 @@ public class ContratoDTO implements Serializable {
     /**
      *
      */
-    public ContratoDTO(Integer idContrato, String nombreTipoContrato, String nombreCompletoEmpleado, Date fechaInicio, Date fechaFin) {
+    public ContratoDTO(Integer idContrato, String nombreTipoContrato,
+            String nombreCompletoEmpleado, Date fechaInicio, Date fechaFin) {
 
         this.idContrato = idContrato;
         this.nombreTipoContrato = nombreTipoContrato;

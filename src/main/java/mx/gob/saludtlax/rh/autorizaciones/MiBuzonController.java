@@ -46,13 +46,18 @@ public class MiBuzonController implements Serializable {
 
     @PostConstruct
     public void inicio() {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
         HttpSession httpSession = request.getSession(false);
-        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+        UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession
+                .getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
         view.setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
-        view.setMisNotificaciones(autorizaciones.consultarAutorizacionesUsuarioEstatus(view.getIdUsuarioLogeado(), false));
-        view.setListaOperaciones(SelectItemsUtil.listaCatalogos(catalogo.consultarOperacionesSistema()));
+        view.setMisNotificaciones(
+                autorizaciones.consultarAutorizacionesUsuarioEstatus(
+                        view.getIdUsuarioLogeado(), false));
+        view.setListaOperaciones(SelectItemsUtil
+                .listaCatalogos(catalogo.consultarOperacionesSistema()));
         Object idAccionObj = httpSession.getAttribute("idAccion");
         Object idBuzonObj = httpSession.getAttribute("idBuzon");
 
@@ -68,7 +73,10 @@ public class MiBuzonController implements Serializable {
     public void filtarOperacion() {
         if (ValidacionUtil.esNumeroPositivo(view.getIdOperacion())) {
             view.getMisNotificaciones().clear();
-            view.setMisNotificaciones(autorizaciones.consultarAutorizacionesPorOperacionEstatus(view.getIdUsuarioLogeado(), false, view.getIdOperacion()));
+            view.setMisNotificaciones(
+                    autorizaciones.consultarAutorizacionesPorOperacionEstatus(
+                            view.getIdUsuarioLogeado(), false,
+                            view.getIdOperacion()));
         }
     }
 
@@ -82,10 +90,12 @@ public class MiBuzonController implements Serializable {
 
         try {
             view.getAutorizacion().setIdBuzon(idBuzon);
-            DetalleAutorizacionDTO detalleAutorizacion = autorizaciones.obtenerDetalleAutorizacion(idBuzon);
+            DetalleAutorizacionDTO detalleAutorizacion = autorizaciones
+                    .obtenerDetalleAutorizacion(idBuzon);
             view.setDetalleAutorizacion(detalleAutorizacion);
 
-            if (idAccion == EnumTiposAccionesAutorizacion.APERTURA_VACANTE || idAccion == EnumTiposAccionesAutorizacion.APERTURA_INTERINATO) {
+            if (idAccion == EnumTiposAccionesAutorizacion.APERTURA_VACANTE
+                    || idAccion == EnumTiposAccionesAutorizacion.APERTURA_INTERINATO) {
 
                 view.setMostrarDetalleAperturaVacante(true);
             } else if (idAccion == EnumTiposAccionesAutorizacion.APERTURA_VACANTE_PROGRAMA_FEDERAL_POR_DETALLE
@@ -107,9 +117,11 @@ public class MiBuzonController implements Serializable {
                 view.setMostrarDetalleModificacionSueldo(true);
             }
         } catch (ReglaNegocioException exception) {
-            JSFUtils.errorMessageEspecifico("messages_generales", "", exception.getMessage());
+            JSFUtils.errorMessageEspecifico("messages_generales", "",
+                    exception.getMessage());
         } catch (IOException e) {
-            JSFUtils.errorMessageEspecifico("messages_generales", "", e.getMessage());
+            JSFUtils.errorMessageEspecifico("messages_generales", "",
+                    e.getMessage());
         }
     }
 
@@ -122,17 +134,22 @@ public class MiBuzonController implements Serializable {
             autorizaciones.autorizarProceso(view.getAutorizacion());
             MiBuzonView view = new MiBuzonView();
             setView(view);
-            HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+            HttpServletRequest request = (HttpServletRequest) FacesContext
+                    .getCurrentInstance().getExternalContext().getRequest();
             HttpSession httpSession = request.getSession(false);
-            UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession.getAttribute(ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
+            UsuarioDTO usuarioLogeado = (UsuarioDTO) httpSession.getAttribute(
+                    ConfiguracionConst.SESSION_ATRIBUTE_LOGGED_USER);
 
             view.setIdUsuarioLogeado(usuarioLogeado.getIdUsuario());
-            view.setMisNotificaciones(autorizaciones.consultarAutorizacionesUsuarioEstatus(view.getIdUsuarioLogeado(), false));
+            view.setMisNotificaciones(
+                    autorizaciones.consultarAutorizacionesUsuarioEstatus(
+                            view.getIdUsuarioLogeado(), false));
 
             JSFUtils.infoMessage("", "¡La autorización ha sido exitosa!");
 
         } catch (ReglaNegocioException exception) {
-            throw new ReglaNegocioException(exception.getMessage(), exception.getCodigoError());
+            throw new ReglaNegocioException(exception.getMessage(),
+                    exception.getCodigoError());
         }
 
     }

@@ -8,10 +8,12 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author eduardo
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
-public class TipoTabuladorRepository extends GenericRepository<TipoTabuladorEntity, Integer> implements Serializable {
+public class TipoTabuladorRepository
+        extends GenericRepository<TipoTabuladorEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -19,7 +21,8 @@ public class TipoTabuladorRepository extends GenericRepository<TipoTabuladorEnti
     private static final long serialVersionUID = -4818365157863704093L;
 
     public List<TipoTabuladorEntity> obtenerListaTipoTabulador() {
-        return em.createQuery("SELECT t FROM TipoTabuladorEntity as t", TipoTabuladorEntity.class).getResultList();
+        return em.createQuery("SELECT t FROM TipoTabuladorEntity as t",
+                TipoTabuladorEntity.class).getResultList();
     }
 
 }

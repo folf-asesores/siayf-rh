@@ -28,10 +28,13 @@ public class FirmaBean implements Firma {
     @Override
     public byte[] generarReporte(final Integer idProductoNomina) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del producto no debe ser nulo o menor que uno", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El ID del producto no debe ser nulo o menor que uno",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        FirmaDTO firmasEmpleados = firmaService.obtenerFirmaEmpleado(idProductoNomina);
+        FirmaDTO firmasEmpleados = firmaService
+                .obtenerFirmaEmpleado(idProductoNomina);
         FirmaMotor firmaMotor = new FirmaMotor();
         byte[] reporte = firmaMotor.obtenerArchivo(firmasEmpleados);
 

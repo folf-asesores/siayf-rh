@@ -39,24 +39,28 @@ public class NotificadorErroresController implements Serializable {
 
     @PostConstruct
     public void init() {
-        view.setCorreosNotificacion(notificadorErroresEJB.consutarCorreosNotificacion());
+        view.setCorreosNotificacion(
+                notificadorErroresEJB.consutarCorreosNotificacion());
     }
 
     public void guardar() {
         notificadorErroresEJB.crear(view.getNuevoCorreoNotificacion());
         view.setMostrarDialogoNuevo(false);
-        view.setCorreosNotificacion(notificadorErroresEJB.consutarCorreosNotificacion());
+        view.setCorreosNotificacion(
+                notificadorErroresEJB.consutarCorreosNotificacion());
     }
 
     public void actualizar() {
         notificadorErroresEJB.actualizar(view.getEditarCorreoNotificacion());
         view.setMostrarDialogoEditar(false);
-        view.setCorreosNotificacion(notificadorErroresEJB.consutarCorreosNotificacion());
+        view.setCorreosNotificacion(
+                notificadorErroresEJB.consutarCorreosNotificacion());
     }
 
     public void eliminar(int idCorreoNotificacion) {
         notificadorErroresEJB.eliminar(idCorreoNotificacion);
-        view.setCorreosNotificacion(notificadorErroresEJB.consutarCorreosNotificacion());
+        view.setCorreosNotificacion(
+                notificadorErroresEJB.consutarCorreosNotificacion());
     }
 
     public void mostrarDialogoNuevo() {

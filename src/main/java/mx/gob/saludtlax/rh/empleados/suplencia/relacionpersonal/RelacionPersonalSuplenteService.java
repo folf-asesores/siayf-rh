@@ -17,7 +17,7 @@ import org.hibernate.transform.Transformers;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class RelacionPersonalSuplenteService implements Serializable {
@@ -30,16 +30,20 @@ public class RelacionPersonalSuplenteService implements Serializable {
     @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     private EntityManager entityManager;
 
-    protected List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(Integer numeroQuincena, Integer ejercicioFiscal,
+    protected List<RelacionPersonalSuplenteDTO> obtenerListaRelacionPersonalSuplente(
+            Integer numeroQuincena, Integer ejercicioFiscal,
             Integer idCentroResponsabilidad) {
 
         Session session = entityManager.unwrap(Session.class);
 
-        Query query = session.createSQLQuery("CALL usp_relaciones_personales_suplentes(:numeroQuincena, :ejercicioFiscal, :idCentroResponsabilidad) ")
-                .setParameter("numeroQuincena", numeroQuincena).setParameter("ejercicioFiscal", ejercicioFiscal)
-                .setParameter("idCentroResponsabilidad", idCentroResponsabilidad);
+        Query query = session.createSQLQuery(
+                "CALL usp_relaciones_personales_suplentes(:numeroQuincena, :ejercicioFiscal, :idCentroResponsabilidad) ")
+                .setParameter("numeroQuincena", numeroQuincena)
+                .setParameter("ejercicioFiscal", ejercicioFiscal).setParameter(
+                        "idCentroResponsabilidad", idCentroResponsabilidad);
 
-        query.setResultTransformer(Transformers.aliasToBean(RelacionPersonalSuplenteDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(RelacionPersonalSuplenteDTO.class));
 
         @SuppressWarnings("unchecked")
         List<RelacionPersonalSuplenteDTO> list = query.list();

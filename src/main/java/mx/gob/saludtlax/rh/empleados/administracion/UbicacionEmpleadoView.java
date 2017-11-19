@@ -59,7 +59,8 @@ public class UbicacionEmpleadoView {
         return listaCentrosResponsabilidad;
     }
 
-    public void setListaCentrosResponsabilidad(List<SelectItem> listaCentrosResponsabilidad) {
+    public void setListaCentrosResponsabilidad(
+            List<SelectItem> listaCentrosResponsabilidad) {
         this.listaCentrosResponsabilidad = listaCentrosResponsabilidad;
     }
 
@@ -219,7 +220,8 @@ public class UbicacionEmpleadoView {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 

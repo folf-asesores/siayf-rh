@@ -17,8 +17,8 @@ import mx.gob.saludtlax.rh.excepciones.ValidationException;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 24/05/2016 12:27:23
  */
@@ -51,7 +51,8 @@ public class TerceroInstitucionalController implements Serializable {
      */
     public void obtenerListaTerceroInstitucional() {
         try {
-            List<TerceroInstitucionalDTO> listaTercero = terceroInstitucional.obtenerListaTerceroInstitucional();
+            List<TerceroInstitucionalDTO> listaTercero = terceroInstitucional
+                    .obtenerListaTerceroInstitucional();
 
             view.setListaTerceroInstitucional(listaTercero);
 
@@ -68,11 +69,15 @@ public class TerceroInstitucionalController implements Serializable {
         try {
 
             if (view.getAccionButton().equals("Registrar")) {
-                terceroInstitucional.crearTerceroInstitucional(view.getTerceroInstitucional());
-                JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+                terceroInstitucional.crearTerceroInstitucional(
+                        view.getTerceroInstitucional());
+                JSFUtils.infoMessage("Tercero Institucional: ",
+                        "Se realizo correctamente");
             } else if (view.getAccionButton().equals("Actualizar")) {
-                terceroInstitucional.actualizarTerceroInstitucional(view.getTerceroInstitucional());
-                JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+                terceroInstitucional.actualizarTerceroInstitucional(
+                        view.getTerceroInstitucional());
+                JSFUtils.infoMessage("Tercero Institucional: ",
+                        "Se realizo correctamente");
             }
 
             deseleccionarTerceroInstitucional();
@@ -86,8 +91,10 @@ public class TerceroInstitucionalController implements Serializable {
      */
     public void eliminarTerceroInstitucional() {
         try {
-            terceroInstitucional.eliminarTerceroInstitucional(view.getTerceroInstitucional().getIdTerceroInstitucional());
-            JSFUtils.infoMessage("Tercero Institucional: ", "Se realizo correctamente");
+            terceroInstitucional.eliminarTerceroInstitucional(
+                    view.getTerceroInstitucional().getIdTerceroInstitucional());
+            JSFUtils.infoMessage("Tercero Institucional: ",
+                    "Se realizo correctamente");
             deseleccionarTerceroInstitucional();
         } catch (BusinessException ex) {
             JSFUtils.errorMessage("Error: ", ex.getMessage());
@@ -99,7 +106,8 @@ public class TerceroInstitucionalController implements Serializable {
      *
      * @param terceroInstitucionalDTO
      */
-    public void seleccionarActualizacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
+    public void seleccionarActualizacionTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucionalDTO) {
         view.setTerceroInstitucional(terceroInstitucionalDTO);
         view.setAccionButton("Actualizar");
     }
@@ -109,7 +117,8 @@ public class TerceroInstitucionalController implements Serializable {
      *
      * @param terceroInstitucionalDTO
      */
-    public void seleccionarEliminacionTerceroInstitucional(TerceroInstitucionalDTO terceroInstitucionalDTO) {
+    public void seleccionarEliminacionTerceroInstitucional(
+            TerceroInstitucionalDTO terceroInstitucionalDTO) {
         view.setTerceroInstitucional(terceroInstitucionalDTO);
     }
 

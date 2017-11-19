@@ -47,7 +47,8 @@ public class DetalleProgramacionMovimientoEntity implements Serializable {
         return idDetalleProgramacionMovimiento;
     }
 
-    public void setIdDetalleProgramacionMovimiento(Integer idDetalleProgramacionMovimiento) {
+    public void setIdDetalleProgramacionMovimiento(
+            Integer idDetalleProgramacionMovimiento) {
         this.idDetalleProgramacionMovimiento = idDetalleProgramacionMovimiento;
     }
 
@@ -55,7 +56,8 @@ public class DetalleProgramacionMovimientoEntity implements Serializable {
         return idProgramacionMovimiento;
     }
 
-    public void setIdProgramacionMovimiento(ProgramarMovimientoEntity idProgramacionMovimiento) {
+    public void setIdProgramacionMovimiento(
+            ProgramarMovimientoEntity idProgramacionMovimiento) {
         this.idProgramacionMovimiento = idProgramacionMovimiento;
     }
 
@@ -71,7 +73,8 @@ public class DetalleProgramacionMovimientoEntity implements Serializable {
         return idTipoContratacion;
     }
 
-    public void setIdTipoContratacion(TipoContratacionEntity idTipoContratacion) {
+    public void setIdTipoContratacion(
+            TipoContratacionEntity idTipoContratacion) {
         this.idTipoContratacion = idTipoContratacion;
     }
 

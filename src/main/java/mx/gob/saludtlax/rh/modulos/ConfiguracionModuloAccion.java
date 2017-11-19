@@ -15,13 +15,17 @@ public interface ConfiguracionModuloAccion {
 
     List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTO();
 
-    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorModulo(Integer idModulo);
+    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorModulo(
+            Integer idModulo);
 
-    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(Integer idAccion);
+    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(
+            Integer idAccion);
 
-    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(Integer idUsuario);
+    List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorUsuario(
+            Integer idUsuario);
 
     ConfiguracionModuloAccionDTO obtenerConfAccModPorId(Integer IdConfAccMod);
 
-    List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion, List<Integer> idAcciones);
+    List<AccionDTO> obtenerAccionesNoRegistradasEnConfg(Integer idConfiguracion,
+            List<Integer> idAcciones);
 }

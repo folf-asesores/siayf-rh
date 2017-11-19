@@ -19,6 +19,7 @@ public class CalculoNominaEJB {
         BigDecimal ingresoGravable = BigDecimal.valueOf(3500.5);
         Integer peridiocidad = 4;
         Integer anio = 2016;
-        ResultadoIsrDTO resultadoIsrDTO = isrService.calculoIsr(ingresoGravable, peridiocidad, anio);
+        ResultadoIsrDTO resultadoIsrDTO = isrService.calculoIsr(ingresoGravable,
+                peridiocidad, anio);
     }
 }

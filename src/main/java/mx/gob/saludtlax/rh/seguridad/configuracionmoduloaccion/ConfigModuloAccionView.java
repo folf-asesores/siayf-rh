@@ -11,7 +11,7 @@ import java.util.List;
 import mx.gob.saludtlax.rh.modulos.ConfiguracionModuloAccionDTO;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ConfigModuloAccionView implements Serializable {
@@ -36,7 +36,8 @@ public class ConfigModuloAccionView implements Serializable {
      * @param listaConfiguracionModuloAccion
      *            the listaConfiguracionModuloAccion to set
      */
-    public void setListaConfiguracionModuloAccion(List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccion) {
+    public void setListaConfiguracionModuloAccion(
+            List<ConfiguracionModuloAccionDTO> listaConfiguracionModuloAccion) {
         this.listaConfiguracionModuloAccion = listaConfiguracionModuloAccion;
     }
 
@@ -51,7 +52,8 @@ public class ConfigModuloAccionView implements Serializable {
      * @param filtroConfiguracionModuloAccion
      *            the filtroConfiguracionModuloAccion to set
      */
-    public void setFiltroConfiguracionModuloAccion(List<ConfiguracionModuloAccionDTO> filtroConfiguracionModuloAccion) {
+    public void setFiltroConfiguracionModuloAccion(
+            List<ConfiguracionModuloAccionDTO> filtroConfiguracionModuloAccion) {
         this.filtroConfiguracionModuloAccion = filtroConfiguracionModuloAccion;
     }
 

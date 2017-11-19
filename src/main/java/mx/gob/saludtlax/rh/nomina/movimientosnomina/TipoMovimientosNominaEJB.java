@@ -38,7 +38,8 @@ public class TipoMovimientosNominaEJB {
 
     public TipoMovimientoNominaDTO obtenerTipoMovimientoPorId(Integer id) {
 
-        TiposMovimientosNominaEntity en = tiposMovimientosNominaRepository.obtenerPorId(id);
+        TiposMovimientosNominaEntity en = tiposMovimientosNominaRepository
+                .obtenerPorId(id);
         TipoMovimientoNominaDTO dto = new TipoMovimientoNominaDTO();
         dto.setClave(en.getClave());
         dto.setDescripcion(en.getDescripcion());

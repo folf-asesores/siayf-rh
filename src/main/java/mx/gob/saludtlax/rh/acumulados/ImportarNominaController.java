@@ -21,8 +21,8 @@ import mx.gob.saludtlax.rh.util.GenerateUtil;
 import mx.gob.saludtlax.rh.util.JSFUtils;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 18:18:45 24/09/2016
  */
@@ -34,7 +34,8 @@ public class ImportarNominaController implements Serializable {
      *
      */
     private static final long serialVersionUID = -8192401318131614693L;
-    private static final Logger LOGGER = Logger.getLogger(ImportarNominaController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(ImportarNominaController.class.getName());
 
     @Inject
     private ImportarNomina importarNomina;
@@ -48,12 +49,16 @@ public class ImportarNominaController implements Serializable {
 
     public void importarDatTra() {
         boolean eval = true;
-        if (view.getPaqueteEntrada().getDat() == null || StringUtils.isEmpty(view.getPaqueteEntrada().getDat().getFileName())) {
-            JSFUtils.errorMessage("Archivo Requerido", "El Archivo DAT es requerido, El Archivo debe tener la extención *.dat");
+        if (view.getPaqueteEntrada().getDat() == null || StringUtils
+                .isEmpty(view.getPaqueteEntrada().getDat().getFileName())) {
+            JSFUtils.errorMessage("Archivo Requerido",
+                    "El Archivo DAT es requerido, El Archivo debe tener la extención *.dat");
             eval = false;
         }
-        if (view.getPaqueteEntrada().getTra() == null || StringUtils.isEmpty(view.getPaqueteEntrada().getTra().getFileName())) {
-            JSFUtils.errorMessage("Archivo Requerido", "El Archivo TRA es requerido, El Archivo debe tener la extención *.tra");
+        if (view.getPaqueteEntrada().getTra() == null || StringUtils
+                .isEmpty(view.getPaqueteEntrada().getTra().getFileName())) {
+            JSFUtils.errorMessage("Archivo Requerido",
+                    "El Archivo TRA es requerido, El Archivo debe tener la extención *.tra");
             eval = false;
         }
 
@@ -63,11 +68,15 @@ public class ImportarNominaController implements Serializable {
 
             try {
 
-                importarNomina.importarNominaTheosToSIIF(view.getPaqueteEntrada().getDat(), view.getPaqueteEntrada().getTra(), GenerateUtil.generarId());
+                importarNomina.importarNominaTheosToSIIF(
+                        view.getPaqueteEntrada().getDat(),
+                        view.getPaqueteEntrada().getTra(),
+                        GenerateUtil.generarId());
 
                 view.setPaqueteEntrada(new PaqueteEntradaFederalDTO());
 
-                JSFUtils.infoMessage("Importar Nomina: ", "En este momento se han terminado de importar los archivos DAT TRA");
+                JSFUtils.infoMessage("Importar Nomina: ",
+                        "En este momento se han terminado de importar los archivos DAT TRA");
             } catch (Exception e) {
                 JSFUtils.errorMessage("Error: ", e.getMessage());
                 e.printStackTrace();
@@ -76,14 +85,19 @@ public class ImportarNominaController implements Serializable {
 
     }
 
-    public void importarExcel() throws ValidacionException, EstructuraException {
+    public void importarExcel()
+            throws ValidacionException, EstructuraException {
         boolean eval = true;
-        if (view.getPaqueteEntrada().getDat() == null || StringUtils.isEmpty(view.getPaqueteEntrada().getDat().getFileName())) {
-            JSFUtils.errorMessage("Archivo Requerido", "El Archivo EXCEL DAT es requerido, El Archivo debe tener la extención *.xls, *.xlsx");
+        if (view.getPaqueteEntrada().getDat() == null || StringUtils
+                .isEmpty(view.getPaqueteEntrada().getDat().getFileName())) {
+            JSFUtils.errorMessage("Archivo Requerido",
+                    "El Archivo EXCEL DAT es requerido, El Archivo debe tener la extención *.xls, *.xlsx");
             eval = false;
         }
-        if (view.getPaqueteEntrada().getTra() == null || StringUtils.isEmpty(view.getPaqueteEntrada().getTra().getFileName())) {
-            JSFUtils.errorMessage("Archivo Requerido", "El Archivo EXCEL TRA es requerido, El Archivo debe tener la extención *.xls, *.xlsx");
+        if (view.getPaqueteEntrada().getTra() == null || StringUtils
+                .isEmpty(view.getPaqueteEntrada().getTra().getFileName())) {
+            JSFUtils.errorMessage("Archivo Requerido",
+                    "El Archivo EXCEL TRA es requerido, El Archivo debe tener la extención *.xls, *.xlsx");
             eval = false;
         }
 
@@ -96,11 +110,15 @@ public class ImportarNominaController implements Serializable {
                 //				importarNomina.importarNominaTheosToSIIF(this.view.getPaqueteEntrada().getDat(),
                 //						this.view.getPaqueteEntrada().getTra(), GenerateUtil.generarId());
 
-                importarNomina.importarNominaExcelDatTra(view.getPaqueteEntrada().getDat(), view.getPaqueteEntrada().getTra(), GenerateUtil.generarId());
+                importarNomina.importarNominaExcelDatTra(
+                        view.getPaqueteEntrada().getDat(),
+                        view.getPaqueteEntrada().getTra(),
+                        GenerateUtil.generarId());
 
                 view.setPaqueteEntrada(new PaqueteEntradaFederalDTO());
 
-                JSFUtils.infoMessage("Importar Nomina Excel: ", "En este momento se han terminado de importar los archivos EXCEL");
+                JSFUtils.infoMessage("Importar Nomina Excel: ",
+                        "En este momento se han terminado de importar los archivos EXCEL");
             } catch (Exception e) {
                 JSFUtils.errorMessage("Error: ", e.getMessage());
                 e.printStackTrace();

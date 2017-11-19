@@ -44,7 +44,8 @@ import javax.xml.bind.annotation.XmlType;
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "insercion_tramite_arr_detalle_tramite", propOrder = { "element" })
+@XmlType(name = "insercion_tramite_arr_detalle_tramite", propOrder = {
+        "element" })
 public class InsercionTramiteArrDetalleTramite {
 
     @XmlElement(required = true, nillable = true)

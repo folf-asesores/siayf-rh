@@ -110,7 +110,8 @@ public class UsuarioView {
         return habilitarBotonNuevoUsuario;
     }
 
-    public void setHabilitarBotonNuevoUsuario(boolean habilitarBotonNuevoUsuario) {
+    public void setHabilitarBotonNuevoUsuario(
+            boolean habilitarBotonNuevoUsuario) {
         this.habilitarBotonNuevoUsuario = habilitarBotonNuevoUsuario;
     }
 
@@ -166,7 +167,8 @@ public class UsuarioView {
         return habilitarFormularioEdicion;
     }
 
-    public void setHabilitarFormularioEdicion(boolean habilitarFormularioEdicion) {
+    public void setHabilitarFormularioEdicion(
+            boolean habilitarFormularioEdicion) {
         this.habilitarFormularioEdicion = habilitarFormularioEdicion;
     }
 

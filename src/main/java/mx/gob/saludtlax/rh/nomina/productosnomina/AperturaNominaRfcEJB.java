@@ -30,7 +30,8 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class AperturaNominaRfcEJB implements AperturaNominaRfc {
 
     private static final long serialVersionUID = -4033186613542883700L;
-    private static final Logger LOGGER = Logger.getLogger(AperturaNominaRfcEJB.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(AperturaNominaRfcEJB.class.getName());
 
     @Inject
     private AperturaNominaRfcService aperturaNominaRfcService;
@@ -38,24 +39,34 @@ public class AperturaNominaRfcEJB implements AperturaNominaRfc {
     private ProductosNominaService productoNominaService;
 
     @Override
-    public ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina, byte[] archivoRfc) {
+    public ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina,
+            byte[] archivoRfc) {
         if (archivoRfc == null) {
-            throw new ValidacionException("El archivo no puede ser nulo.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("El archivo no puede ser nulo.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
-        return abrirProductoNomina(idProductoNomina, obtenerListaRfc(archivoRfc), 0);
+        return abrirProductoNomina(idProductoNomina,
+                obtenerListaRfc(archivoRfc), 0);
     }
 
     @Override
-    public ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina, List<String> listaRfc, Integer idBitacora) {
+    public ProductoNominaDTO abrirProductoNomina(Integer idProductoNomina,
+            List<String> listaRfc, Integer idBitacora) {
         if (ValidacionUtil.esMenorQueUno(idProductoNomina)) {
-            throw new ValidacionException("El ID del pruducto de nómina no puede ser cero o nulo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del pruducto de nómina no puede ser cero o nulo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
         if (listaRfc == null || listaRfc.isEmpty()) {
-            throw new ValidacionException("La lista de RFC no puede ser nula o vacia.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "La lista de RFC no puede ser nula o vacia.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
-        ProductoNominaDTO productoNomina = productoNominaService.obtenerProductoNomina(idProductoNomina);
-        aperturaNominaRfcService.abrirProductoNomina(productoNomina, listaRfc, idBitacora);
+        ProductoNominaDTO productoNomina = productoNominaService
+                .obtenerProductoNomina(idProductoNomina);
+        aperturaNominaRfcService.abrirProductoNomina(productoNomina, listaRfc,
+                idBitacora);
         productoNomina.setIdEstatusProductoNomina(2);
         productoNominaService.aplicarConsecutivosProductoNomina(productoNomina);
         productoNominaService.actualizarProductoNomina(productoNomina);
@@ -65,7 +76,9 @@ public class AperturaNominaRfcEJB implements AperturaNominaRfc {
     @Override
     public Integer obtenerIdBitacora(Integer idUsuario) {
         if (ValidacionUtil.esMenorQueUno(idUsuario)) {
-            throw new ValidacionException("El ID del usuario no puede ser cero o nulo", ValidacionCodigoError.NUMERO_NEGATIVO);
+            throw new ValidacionException(
+                    "El ID del usuario no puede ser cero o nulo",
+                    ValidacionCodigoError.NUMERO_NEGATIVO);
         }
         return aperturaNominaRfcService.obtenerIdBitacora(idUsuario);
     }
@@ -76,56 +89,79 @@ public class AperturaNominaRfcEJB implements AperturaNominaRfc {
     }
 
     @Override
-    public void registrarEnBitacoraEventoInformacion(Integer idBitacora, String mensaje) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, mensaje);
+    public void registrarEnBitacoraEventoInformacion(Integer idBitacora,
+            String mensaje) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION, mensaje);
     }
 
     @Override
-    public void registrarEnBitacoraEventoInformacion(Integer idBitacora, String patron, Object... argumentos) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, patron, argumentos);
+    public void registrarEnBitacoraEventoInformacion(Integer idBitacora,
+            String patron, Object... argumentos) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION, patron,
+                argumentos);
     }
 
     @Override
-    public void registrarEnBitacoraEventoAdvertencia(Integer idBitacora, String mensaje) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.ADVERTENCIA, mensaje);
+    public void registrarEnBitacoraEventoAdvertencia(Integer idBitacora,
+            String mensaje) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.ADVERTENCIA, mensaje);
     }
 
     @Override
-    public void registrarEnBitacoraEventoAdvertencia(Integer idBitacora, String patron, Object... argumentos) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.ADVERTENCIA, patron, argumentos);
+    public void registrarEnBitacoraEventoAdvertencia(Integer idBitacora,
+            String patron, Object... argumentos) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.ADVERTENCIA, patron,
+                argumentos);
     }
 
     @Override
-    public void registrarEnBitacoraEventoError(Integer idBitacora, String mensaje) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.ERROR, mensaje);
+    public void registrarEnBitacoraEventoError(Integer idBitacora,
+            String mensaje) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.ERROR, mensaje);
     }
 
     @Override
-    public void registrarEnBitacoraEventoError(Integer idBitacora, String patron, Object... argumentos) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.ERROR, patron, argumentos);
+    public void registrarEnBitacoraEventoError(Integer idBitacora,
+            String patron, Object... argumentos) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.ERROR, patron, argumentos);
     }
 
     @Override
-    public void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String mensaje) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, categoria, mensaje);
+    public void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String mensaje) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                categoria, mensaje);
     }
 
     @Override
-    public void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String patron, Object... argumentos) {
-        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora, categoria, patron, argumentos);
+    public void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String patron,
+            Object... argumentos) {
+        aperturaNominaRfcService.registrarEnBitacoraEvento(idBitacora,
+                categoria, patron, argumentos);
     }
 
     private List<String> obtenerListaRfc(byte[] archivoRfc) {
         List<String> listaRfc = new ArrayList<>();
         int linea = 1;
 
-        try (ByteArrayInputStream bis = new ByteArrayInputStream(archivoRfc); BufferedReader br = new BufferedReader(new InputStreamReader(bis))) {
+        try (ByteArrayInputStream bis = new ByteArrayInputStream(archivoRfc);
+                BufferedReader br = new BufferedReader(
+                        new InputStreamReader(bis))) {
             String rfc;
             while ((rfc = br.readLine()) != null) {
                 if (ValidacionUtil.validarRfc(rfc)) {
                     listaRfc.add(rfc);
                 } else {
-                    LOGGER.debugv("El formato del RFC \"{0}\" no es valido, en la línea {1}.", rfc, linea);
+                    LOGGER.debugv(
+                            "El formato del RFC \"{0}\" no es valido, en la línea {1}.",
+                            rfc, linea);
                 }
                 linea++;
             }

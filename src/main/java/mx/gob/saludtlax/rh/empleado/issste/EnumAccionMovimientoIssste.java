@@ -5,7 +5,7 @@
 package mx.gob.saludtlax.rh.empleado.issste;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class EnumAccionMovimientoIssste {

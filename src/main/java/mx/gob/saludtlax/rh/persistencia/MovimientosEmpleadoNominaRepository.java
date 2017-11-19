@@ -3,7 +3,9 @@ package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 
-public class MovimientosEmpleadoNominaRepository extends GenericRepository<MovimientosEmpleadoNominaEntity, Integer> implements Serializable {
+public class MovimientosEmpleadoNominaRepository
+        extends GenericRepository<MovimientosEmpleadoNominaEntity, Integer>
+        implements Serializable {
 
     /**
      *

@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.nomina.presupuestocalendario;
 import java.util.List;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public interface PresupuestoCalendario {
@@ -20,6 +20,7 @@ public interface PresupuestoCalendario {
 
     public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendario();
 
-    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(Integer anio);
+    public List<PresupuestoCalendarioDTO> obtenerListaPresupuestoCalendarioPorAnio(
+            Integer anio);
 
 }

@@ -32,37 +32,49 @@ public class DepenedienteEconomicoService {
     private DependienteEconomicoRepository dependienteEconomicoRepository;
     @Inject
     private EmpleadoRepository empleadoRepository;
-    private static final Logger LOGGER = Logger.getLogger(DepenedienteEconomicoService.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(DepenedienteEconomicoService.class.getName());
 
     @Deprecated
-    protected void crearDependienteEconomicoEmpleado(DependienteEconomicoDTO dto) {
+    protected void crearDependienteEconomicoEmpleado(
+            DependienteEconomicoDTO dto) {
         EmpleadoEntity empleado = validarEmpleado(dto.getIdEmpleado());
         String contexto = "Registro Dependiente Economico: ";
 
-        int numeroDependientes = dependienteEconomicoRepository.obtenerNumeroDependientesRegistradosParentesco(dto.getIdEmpleado(), dto.getParentesco());
+        int numeroDependientes = dependienteEconomicoRepository
+                .obtenerNumeroDependientesRegistradosParentesco(
+                        dto.getIdEmpleado(), dto.getParentesco());
 
         switch (dto.getParentesco()) {
             case "CONYUGE":
                 if (empleado.getNumeroConyuges() == numeroDependientes) {
 
-                    throw new BusinessException(contexto + "Ya ha registrado a los " + empleado.getNumeroConyuges() + " conyuges.");
+                    throw new BusinessException(contexto
+                            + "Ya ha registrado a los "
+                            + empleado.getNumeroConyuges() + " conyuges.");
                 }
                 break;
             case "PADRES":
                 if (empleado.getNumeroPadres() == numeroDependientes) {
-                    throw new BusinessException(contexto + "Ya ha registrado a los " + empleado.getNumeroPadres() + " padres.");
+                    throw new BusinessException(
+                            contexto + "Ya ha registrado a los "
+                                    + empleado.getNumeroPadres() + " padres.");
                 }
                 break;
             case "HIJOS":
                 if (empleado.getNumeroHijos() == numeroDependientes) {
-                    throw new BusinessException(contexto + "Ya ha registrado a los " + empleado.getNumeroPadres() + " padres.");
+                    throw new BusinessException(
+                            contexto + "Ya ha registrado a los "
+                                    + empleado.getNumeroPadres() + " padres.");
                 }
                 break;
 
         }
 
-        if (dependienteEconomicoRepository.existeDependientePorCurp(dto.getCurp())) {
-            throw new BusinessException(contexto + "Existe un dependiente economico registrado con la curp, por favor verifiquela o ingrese una nueva.");
+        if (dependienteEconomicoRepository
+                .existeDependientePorCurp(dto.getCurp())) {
+            throw new BusinessException(contexto
+                    + "Existe un dependiente economico registrado con la curp, por favor verifiquela o ingrese una nueva.");
         }
 
         DependienteEconomicoEntity entity = new DependienteEconomicoEntity();
@@ -80,47 +92,64 @@ public class DepenedienteEconomicoService {
 
         entity.setNombreCompleto(nombreCompleto);
 
-        if (dependienteEconomicoRepository.existeDependientePorNombre(entity.getNombreCompleto())) {
-            throw new BusinessException(
-                    contexto + "Existe un dependiente economico registrado con ese nombre por favor verifique el nombre o ingrese uno nuevo.");
+        if (dependienteEconomicoRepository
+                .existeDependientePorNombre(entity.getNombreCompleto())) {
+            throw new BusinessException(contexto
+                    + "Existe un dependiente economico registrado con ese nombre por favor verifique el nombre o ingrese uno nuevo.");
         }
 
         if (!ValidacionUtil.esCadenaVacia(dto.getCurp())) {
-            if (dependienteEconomicoRepository.existeDependientePorCurp(dto.getCurp().trim())) {
-                throw new BusinessException("Existe un dependiente economico registrado con esa curp por favor verifique la curp o ingrese una nueva.");
+            if (dependienteEconomicoRepository
+                    .existeDependientePorCurp(dto.getCurp().trim())) {
+                throw new BusinessException(
+                        "Existe un dependiente economico registrado con esa curp por favor verifique la curp o ingrese una nueva.");
             }
         }
 
         dependienteEconomicoRepository.crear(entity);
     }
 
-    protected void crearDependienteEconomico(DependienteEconomicoDTO dependienteEconomicoDTO) {
+    protected void crearDependienteEconomico(
+            DependienteEconomicoDTO dependienteEconomicoDTO) {
         String contexto = "Registro Dependiente: ";
-        EmpleadoEntity empleado = empleadoRepository.obtenerPorId(dependienteEconomicoDTO.getIdEmpleado());
+        EmpleadoEntity empleado = empleadoRepository
+                .obtenerPorId(dependienteEconomicoDTO.getIdEmpleado());
 
         if (empleado == null) {
-            throw new ReglaNegocioException(contexto + "El empleado con id " + dependienteEconomicoDTO.getIdEmpleado()
-                    + " no está registrado en el sistema, verificar con soporte técnico.", ReglaNegocioCodigoError.EMPLEADO_NO_ENCONTRADO);
+            throw new ReglaNegocioException(contexto + "El empleado con id "
+                    + dependienteEconomicoDTO.getIdEmpleado()
+                    + " no está registrado en el sistema, verificar con soporte técnico.",
+                    ReglaNegocioCodigoError.EMPLEADO_NO_ENCONTRADO);
 
         }
 
         if (existeDependientePorCurp(dependienteEconomicoDTO.getCurp())) {
-            throw new ReglaNegocioException(
-                    contexto + "Ya existe un dependiente económico registrado con la misma CURP, por favor verifiquela o ingrese una nueva.",
+            throw new ReglaNegocioException(contexto
+                    + "Ya existe un dependiente económico registrado con la misma CURP, por favor verifiquela o ingrese una nueva.",
                     ReglaNegocioCodigoError.CURP_DUPLICADA);
         }
 
-        DependienteEconomicoEntity dependiente = convertirDtoAEntidad(dependienteEconomicoDTO, null);
+        DependienteEconomicoEntity dependiente = convertirDtoAEntidad(
+                dependienteEconomicoDTO, null);
 
-        int numeroDependientes = dependienteEconomicoRepository.obtenerNumeroDependientesRegistradosParentesco(dependienteEconomicoDTO.getIdEmpleado(),
-                dependienteEconomicoDTO.getParentesco()) + 1;
+        int numeroDependientes = dependienteEconomicoRepository
+                .obtenerNumeroDependientesRegistradosParentesco(
+                        dependienteEconomicoDTO.getIdEmpleado(),
+                        dependienteEconomicoDTO.getParentesco())
+                + 1;
 
-        if ("CONYUGE".equals(dependiente.getIdParentesco()) && numeroDependientes > 1) {
-            throw new ReglaNegocioException(contexto + "Un empleado sólo puede tener un conyuge.", ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
+        if ("CONYUGE".equals(dependiente.getIdParentesco())
+                && numeroDependientes > 1) {
+            throw new ReglaNegocioException(
+                    contexto + "Un empleado sólo puede tener un conyuge.",
+                    ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
         }
 
-        if ("PADRES".equals(dependiente.getIdParentesco()) && numeroDependientes > 2) {
-            throw new ReglaNegocioException(contexto + "Un empleado sólo puede tener un conyuge.", ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
+        if ("PADRES".equals(dependiente.getIdParentesco())
+                && numeroDependientes > 2) {
+            throw new ReglaNegocioException(
+                    contexto + "Un empleado sólo puede tener un conyuge.",
+                    ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
         }
 
         dependienteEconomicoRepository.crear(dependiente);
@@ -153,30 +182,42 @@ public class DepenedienteEconomicoService {
 
         LOGGER.infov("Service: Actualizar dependiente: {0}", dto);
 
-        if (dependienteEconomicoRepository.existeDependientePorCurp(dto.getCurp(), dto.getIdDependienteEconomico())) {
-            throw new ReglaNegocioException(
-                    contexto + "Ya existe un dependiente económico registrado con la misma CURP, por favor verifiquela o ingrese una nueva.",
+        if (dependienteEconomicoRepository.existeDependientePorCurp(
+                dto.getCurp(), dto.getIdDependienteEconomico())) {
+            throw new ReglaNegocioException(contexto
+                    + "Ya existe un dependiente económico registrado con la misma CURP, por favor verifiquela o ingrese una nueva.",
                     ReglaNegocioCodigoError.CURP_DUPLICADA);
         }
 
         DependienteEconomicoEntity dependiente = convertirDtoAEntidad(dto);
 
-        if (dependienteEconomicoRepository.existeDependientePorNombre(dependiente.getNombreCompleto(), dto.getIdDependienteEconomico())) {
-            throw new ReglaNegocioException(
-                    contexto + "Ya existe un dependiente económico registrado con ese nombre, por favor verifique el nombre o ingrese uno nuevo.",
+        if (dependienteEconomicoRepository.existeDependientePorNombre(
+                dependiente.getNombreCompleto(),
+                dto.getIdDependienteEconomico())) {
+            throw new ReglaNegocioException(contexto
+                    + "Ya existe un dependiente económico registrado con ese nombre, por favor verifique el nombre o ingrese uno nuevo.",
                     ReglaNegocioCodigoError.DEPENDIENTE_REGISTRADO);
         }
 
         EmpleadoEntity empleado = validarEmpleado(dto.getIdEmpleado());
 
-        int numeroDependientes = dependienteEconomicoRepository.obtenerNumeroDependientesRegistradosParentesco(dto.getIdEmpleado(), dto.getParentesco()) + 1;
+        int numeroDependientes = dependienteEconomicoRepository
+                .obtenerNumeroDependientesRegistradosParentesco(
+                        dto.getIdEmpleado(), dto.getParentesco())
+                + 1;
 
-        if ("CONYUGE".equals(dependiente.getIdParentesco()) && numeroDependientes > 1) {
-            throw new ReglaNegocioException(contexto + "Un empleado sólo puede tener un conyuge.", ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
+        if ("CONYUGE".equals(dependiente.getIdParentesco())
+                && numeroDependientes > 1) {
+            throw new ReglaNegocioException(
+                    contexto + "Un empleado sólo puede tener un conyuge.",
+                    ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
         }
 
-        if ("PADRES".equals(dependiente.getIdParentesco()) && numeroDependientes > 2) {
-            throw new ReglaNegocioException(contexto + "Un empleado sólo puede tener un conyuge.", ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
+        if ("PADRES".equals(dependiente.getIdParentesco())
+                && numeroDependientes > 2) {
+            throw new ReglaNegocioException(
+                    contexto + "Un empleado sólo puede tener un conyuge.",
+                    ReglaNegocioCodigoError.DEPENDIENTE_MAXIMO);
         }
 
         dependienteEconomicoRepository.actualizar(dependiente);
@@ -200,8 +241,10 @@ public class DepenedienteEconomicoService {
         empleadoRepository.actualizar(empleado);
     }
 
-    protected DependienteEconomicoDTO obtenerDependienteEconimicoPorId(Integer idDependienteEconomico) {
-        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository.obtenerPorId(idDependienteEconomico);
+    protected DependienteEconomicoDTO obtenerDependienteEconimicoPorId(
+            Integer idDependienteEconomico) {
+        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository
+                .obtenerPorId(idDependienteEconomico);
 
         if (dependienteEconomicoEntity == null) {
             return null;
@@ -210,8 +253,10 @@ public class DepenedienteEconomicoService {
         return convertirEntidadADto(dependienteEconomicoEntity);
     }
 
-    protected DependienteEconomicoDTO obtenerDependienteEconimicoPorCurp(String curp) {
-        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository.obtenerDependienteEconimicoPorCurp(curp);
+    protected DependienteEconomicoDTO obtenerDependienteEconimicoPorCurp(
+            String curp) {
+        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository
+                .obtenerDependienteEconimicoPorCurp(curp);
 
         if (dependienteEconomicoEntity == null) {
             return null;
@@ -221,15 +266,18 @@ public class DepenedienteEconomicoService {
     }
 
     protected void eliminarDependienteEconomico(Integer idDependiente) {
-        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository.obtenerPorId(idDependiente);
+        DependienteEconomicoEntity dependienteEconomicoEntity = dependienteEconomicoRepository
+                .obtenerPorId(idDependiente);
         dependienteEconomicoRepository.eliminar(dependienteEconomicoEntity);
 
     }
 
-    protected List<InfoDependienteEconomicoDTO> consultarDependientesEmpleado(Integer idEmpleado) {
+    protected List<InfoDependienteEconomicoDTO> consultarDependientesEmpleado(
+            Integer idEmpleado) {
         List<InfoDependienteEconomicoDTO> dependientes = new ArrayList<>();
 
-        List<DependienteEconomicoEntity> consulta = dependienteEconomicoRepository.consultarDependientesEmpleado(idEmpleado);
+        List<DependienteEconomicoEntity> consulta = dependienteEconomicoRepository
+                .consultarDependientesEmpleado(idEmpleado);
         if (!consulta.isEmpty()) {
             for (DependienteEconomicoEntity entity : consulta) {
                 InfoDependienteEconomicoDTO dto = new InfoDependienteEconomicoDTO();
@@ -248,15 +296,18 @@ public class DepenedienteEconomicoService {
         return dependientes;
     }
 
-    protected List<InfoDependienteEconomicoDTO> consultarDependientesEconomicoPadres(Integer idEmpleado) {
+    protected List<InfoDependienteEconomicoDTO> consultarDependientesEconomicoPadres(
+            Integer idEmpleado) {
 
         List<InfoDependienteEconomicoDTO> dependientes = new ArrayList<>();
 
-        List<DependienteEconomicoEntity> consulta = dependienteEconomicoRepository.consultarDependientesEmpleado(idEmpleado);
+        List<DependienteEconomicoEntity> consulta = dependienteEconomicoRepository
+                .consultarDependientesEmpleado(idEmpleado);
         if (!consulta.isEmpty()) {
             for (DependienteEconomicoEntity entity : consulta) {
                 InfoDependienteEconomicoDTO dto = new InfoDependienteEconomicoDTO();
-                if (entity.getIdParentesco().equals("PADRES") || entity.getIdParentesco().equals("CONYUGE")) {
+                if (entity.getIdParentesco().equals("PADRES")
+                        || entity.getIdParentesco().equals("CONYUGE")) {
 
                     dto.setCurp(entity.getCurp());
                     dto.setFechaNacimiento(entity.getFechaNacimiento());
@@ -279,22 +330,28 @@ public class DepenedienteEconomicoService {
         String contexto = "Actualizacion datos: ";
         EmpleadoEntity empleado = empleadoRepository.obtenerPorId(idEmpleado);
         if (empleado == null) {
-            throw new ReglaNegocioException(contexto + "El empleado con identificador " + idEmpleado + " no esta registrado en el sistema",
+            throw new ReglaNegocioException(
+                    contexto + "El empleado con identificador " + idEmpleado
+                            + " no esta registrado en el sistema",
                     ReglaNegocioCodigoError.EMPLEADO_NO_ENCONTRADO);
         }
 
         if (empleado.getIdEstatus().equals("INACTIVO")) {
-            throw new ReglaNegocioException(contexto + " El empleado no esta activo.", ReglaNegocioCodigoError.EMPLEADO_INACTIVO);
+            throw new ReglaNegocioException(
+                    contexto + " El empleado no esta activo.",
+                    ReglaNegocioCodigoError.EMPLEADO_INACTIVO);
         }
 
         return empleado;
     }
 
-    private DependienteEconomicoEntity convertirDtoAEntidad(DependienteEconomicoDTO dto) {
+    private DependienteEconomicoEntity convertirDtoAEntidad(
+            DependienteEconomicoDTO dto) {
         return convertirDtoAEntidad(dto, null);
     }
 
-    private DependienteEconomicoEntity convertirDtoAEntidad(DependienteEconomicoDTO dto, DependienteEconomicoEntity entidad) {
+    private DependienteEconomicoEntity convertirDtoAEntidad(
+            DependienteEconomicoDTO dto, DependienteEconomicoEntity entidad) {
 
         if (entidad == null) {
             entidad = new DependienteEconomicoEntity();
@@ -302,8 +359,10 @@ public class DepenedienteEconomicoService {
         }
 
         entidad.setNombre(dto.getNombre());
-        entidad.setApellidoPaterno(dto.getApellidoPaterno() == null ? "" : dto.getApellidoPaterno());
-        entidad.setApellidoMaterno(dto.getApellidoMaterno() == null ? "" : dto.getApellidoMaterno());
+        entidad.setApellidoPaterno(dto.getApellidoPaterno() == null ? ""
+                : dto.getApellidoPaterno());
+        entidad.setApellidoMaterno(dto.getApellidoMaterno() == null ? ""
+                : dto.getApellidoMaterno());
         entidad.setCurp(dto.getCurp());
         entidad.setFechaNacimiento(dto.getFechaNacimiento());
         entidad.setIdEmpleado(dto.getIdEmpleado());
@@ -315,7 +374,8 @@ public class DepenedienteEconomicoService {
         return entidad;
     }
 
-    private DependienteEconomicoDTO convertirEntidadADto(DependienteEconomicoEntity entidad) {
+    private DependienteEconomicoDTO convertirEntidadADto(
+            DependienteEconomicoEntity entidad) {
         DependienteEconomicoDTO dto = new DependienteEconomicoDTO();
 
         dto.setIdDependienteEconomico(entidad.getIdDependiente());

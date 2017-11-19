@@ -67,7 +67,8 @@ public class PagoNominaEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -75,7 +76,8 @@ public class PagoNominaEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 

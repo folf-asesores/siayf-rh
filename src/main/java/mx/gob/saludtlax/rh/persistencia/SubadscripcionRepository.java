@@ -13,7 +13,8 @@ import javax.persistence.NoResultException;
  *
  * @since 04/09/2016 21:20:36
  */
-public class SubadscripcionRepository extends GenericRepository<SubadscripcionEntity, Integer> {
+public class SubadscripcionRepository
+        extends GenericRepository<SubadscripcionEntity, Integer> {
 
     /**
      *
@@ -21,22 +22,31 @@ public class SubadscripcionRepository extends GenericRepository<SubadscripcionEn
     private static final long serialVersionUID = -1321409601971684852L;
 
     public List<SubadscripcionEntity> consultarAreasAdscripcion() {
-        return em.createQuery("SELECT  a FROM SubadscripcionEntity AS a", SubadscripcionEntity.class).getResultList();
+        return em.createQuery("SELECT  a FROM SubadscripcionEntity AS a",
+                SubadscripcionEntity.class).getResultList();
     }
 
-    public String obtenerDescripcionAreaAdscripcionPorId(Integer idAreaAdscripcion) {
+    public String obtenerDescripcionAreaAdscripcionPorId(
+            Integer idAreaAdscripcion) {
         try {
-            return em.createQuery("SELECT a.subadscripcion FROM SubadscripcionEntity AS a WHERE a.idSubadscripcion =:idSubadscripcion", String.class)
-                    .setParameter("idSubadscripcion", idAreaAdscripcion).getSingleResult();
+            return em.createQuery(
+                    "SELECT a.subadscripcion FROM SubadscripcionEntity AS a WHERE a.idSubadscripcion =:idSubadscripcion",
+                    String.class)
+                    .setParameter("idSubadscripcion", idAreaAdscripcion)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return "";
         }
     }
 
-    public SubadscripcionEntity obtenerSubadscripcionPorDescripcion(String subadscripcion) {
+    public SubadscripcionEntity obtenerSubadscripcionPorDescripcion(
+            String subadscripcion) {
         try {
-            return em.createQuery("SELECT a FROM SubadscripcionEntity AS a WHERE a.subadscripcion =:subadscripcion", SubadscripcionEntity.class)
-                    .setParameter("subadscripcion", subadscripcion).getSingleResult();
+            return em.createQuery(
+                    "SELECT a FROM SubadscripcionEntity AS a WHERE a.subadscripcion =:subadscripcion",
+                    SubadscripcionEntity.class)
+                    .setParameter("subadscripcion", subadscripcion)
+                    .getSingleResult();
         } catch (NoResultException e) {
             return null;
         }

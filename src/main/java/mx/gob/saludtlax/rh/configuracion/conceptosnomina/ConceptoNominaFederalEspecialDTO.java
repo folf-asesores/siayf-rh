@@ -69,7 +69,8 @@ public class ConceptoNominaFederalEspecialDTO {
         return descripcionConceptoCompensacion;
     }
 
-    public void setDescripcionConceptoCompensacion(String descripcionConceptoCompensacion) {
+    public void setDescripcionConceptoCompensacion(
+            String descripcionConceptoCompensacion) {
         this.descripcionConceptoCompensacion = descripcionConceptoCompensacion;
     }
 

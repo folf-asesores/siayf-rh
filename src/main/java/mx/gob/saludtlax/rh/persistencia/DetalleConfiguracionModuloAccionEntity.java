@@ -35,7 +35,8 @@ public class DetalleConfiguracionModuloAccionEntity implements Serializable {
         return idDetalleConfiguracionModuloAccion;
     }
 
-    public void setId_detalle_configuracion_modulo_accion(Integer idDetalleConfiguracionModuloAccion) {
+    public void setId_detalle_configuracion_modulo_accion(
+            Integer idDetalleConfiguracionModuloAccion) {
         this.idDetalleConfiguracionModuloAccion = idDetalleConfiguracionModuloAccion;
     }
 
@@ -43,7 +44,8 @@ public class DetalleConfiguracionModuloAccionEntity implements Serializable {
         return idConfiguracionModuloAccion;
     }
 
-    public void setIdConfiguracionModuloAccion(Integer idConfiguracionModuloAccion) {
+    public void setIdConfiguracionModuloAccion(
+            Integer idConfiguracionModuloAccion) {
         this.idConfiguracionModuloAccion = idConfiguracionModuloAccion;
     }
 

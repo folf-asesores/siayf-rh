@@ -18,8 +18,10 @@ public class ConceptoNominaFederalesEJB implements Serializable {
     @Inject
     private ConceptoNominaFederalesService conceptoNominaService;
 
-    public List<ConceptoNominaFederalesDTO> obtenerConceptoNominasLista(TipoConceptoNominaEnum tipoConceptoNominaEnum) {
-        List<ConceptoNominaFederalesDTO> conceptoNominasLista = conceptoNominaService.obtenerConceptoNominasLista(tipoConceptoNominaEnum);
+    public List<ConceptoNominaFederalesDTO> obtenerConceptoNominasLista(
+            TipoConceptoNominaEnum tipoConceptoNominaEnum) {
+        List<ConceptoNominaFederalesDTO> conceptoNominasLista = conceptoNominaService
+                .obtenerConceptoNominasLista(tipoConceptoNominaEnum);
         return conceptoNominasLista;
     }
 
@@ -43,16 +45,20 @@ public class ConceptoNominaFederalesEJB implements Serializable {
         return conceptoNominaService.nuevoConceptoNomina();
     }
 
-    public ConceptoNominaFederalesDTO crearConceptoNomina(ConceptoNominaFederalesDTO dto) {
+    public ConceptoNominaFederalesDTO crearConceptoNomina(
+            ConceptoNominaFederalesDTO dto) {
         return conceptoNominaService.crearConceptoNomina(dto);
     }
 
-    public ConceptoNominaFederalesDTO actualizarConceptoNomina(ConceptoNominaFederalesDTO dto) {
+    public ConceptoNominaFederalesDTO actualizarConceptoNomina(
+            ConceptoNominaFederalesDTO dto) {
         return conceptoNominaService.actualizarConceptoNomina(dto);
     }
 
-    public ConceptoNominaFederalesDTO obtenerConceptoNominaPorId(Integer idConceptoNomina) {
-        return conceptoNominaService.obtenerConceptoNominaPorId(idConceptoNomina);
+    public ConceptoNominaFederalesDTO obtenerConceptoNominaPorId(
+            Integer idConceptoNomina) {
+        return conceptoNominaService
+                .obtenerConceptoNominaPorId(idConceptoNomina);
     }
 
     public List<FormulaDTO> listaFormula() {
@@ -67,7 +73,9 @@ public class ConceptoNominaFederalesEJB implements Serializable {
         return String.valueOf(evaluador.getResult());
     }
 
-    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorConfiguracionPresupuestal(Integer idConfiguracion) {
-        return conceptoNominaService.obtenerConceptosPorConfiguracionPresupuestal(idConfiguracion);
+    public List<ConceptoNominaFederalesDTO> obtenerConceptosPorConfiguracionPresupuestal(
+            Integer idConfiguracion) {
+        return conceptoNominaService
+                .obtenerConceptosPorConfiguracionPresupuestal(idConfiguracion);
     }
 }

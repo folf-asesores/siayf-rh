@@ -11,7 +11,8 @@ import javax.persistence.NoResultException;
  *
  * @since 28/12/2016 13:58:03
  */
-public class QuincenaActivaSuplenciaRepository extends GenericRepository<QuincenaActivaSuplenciaEntity, Integer> {
+public class QuincenaActivaSuplenciaRepository
+        extends GenericRepository<QuincenaActivaSuplenciaEntity, Integer> {
 
     /**
      *
@@ -20,8 +21,9 @@ public class QuincenaActivaSuplenciaRepository extends GenericRepository<Quincen
 
     public QuincenaActivaSuplenciaEntity obtenerQuincenaActiva() {
         try {
-            return em.createQuery("SELECT q FROM QuincenaActivaSuplenciaEntity AS q WHERE q.activo =true", QuincenaActivaSuplenciaEntity.class)
-                    .getSingleResult();
+            return em.createQuery(
+                    "SELECT q FROM QuincenaActivaSuplenciaEntity AS q WHERE q.activo =true",
+                    QuincenaActivaSuplenciaEntity.class).getSingleResult();
         } catch (NoResultException exception) {
             return null;
         }

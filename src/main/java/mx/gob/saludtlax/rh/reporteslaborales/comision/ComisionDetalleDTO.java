@@ -4,7 +4,7 @@ package mx.gob.saludtlax.rh.reporteslaborales.comision;
 import java.io.Serializable;
 
 /**
- * @author Daniela
+ * @author Daniela Hernández
  *
  */
 

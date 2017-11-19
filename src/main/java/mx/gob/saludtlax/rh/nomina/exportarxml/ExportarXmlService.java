@@ -25,7 +25,8 @@ public class ExportarXmlService {
     public void exportarXml() {
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery("CALL sp_exportar_comprobante()");
-        query.setResultTransformer(Transformers.aliasToBean(TimbreExportarXmlDTO.class));
+        query.setResultTransformer(
+                Transformers.aliasToBean(TimbreExportarXmlDTO.class));
 
         @SuppressWarnings("unchecked")
         List<TimbreExportarXmlDTO> result = query.list();
@@ -38,7 +39,8 @@ public class ExportarXmlService {
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     private void exportarArchivo(TimbreExportarXmlDTO xml) {
         try {
-            OutputStream out = new FileOutputStream("C:\\xmlTimbres\\" + xml.getRfc() + "-" + xml.getUuid() + ".xml");
+            OutputStream out = new FileOutputStream("C:\\xmlTimbres\\"
+                    + xml.getRfc() + "-" + xml.getUuid() + ".xml");
             out.write(xml.getComprobanteXml());
             out.close();
         } catch (IOException e) {

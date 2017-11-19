@@ -115,7 +115,8 @@ public class MovimientosNominaContratosEntity implements Serializable {
         return conceptoNominaContrato;
     }
 
-    public void setConceptoNominaContrato(ConceptoNominaContratosEntity conceptoNominaContrato) {
+    public void setConceptoNominaContrato(
+            ConceptoNominaContratosEntity conceptoNominaContrato) {
         this.conceptoNominaContrato = conceptoNominaContrato;
     }
 

@@ -59,9 +59,13 @@ public class EstructuraEntity implements Serializable {
     private String jornadaTrabajo;
 
     public String lccEstructuraNomina() {
-        return "Estructura Nomina [idEstructura=" + idEstructura + ", subfuncion=" + subfuncion + ", tabuladorPuesto=" + tabuladorPuesto + ", pagaduria="
-                + pagaduria + ", indicadorMando=" + indicadorMando + ", tipoUnidad=" + tipoUnidad + ", tipoPago=" + tipoPago + ", financiamientoFederal="
-                + financiamientoFederal + ", jornadaTrabajo=" + jornadaTrabajo + "]";
+        return "Estructura Nomina [idEstructura=" + idEstructura
+                + ", subfuncion=" + subfuncion + ", tabuladorPuesto="
+                + tabuladorPuesto + ", pagaduria=" + pagaduria
+                + ", indicadorMando=" + indicadorMando + ", tipoUnidad="
+                + tipoUnidad + ", tipoPago=" + tipoPago
+                + ", financiamientoFederal=" + financiamientoFederal
+                + ", jornadaTrabajo=" + jornadaTrabajo + "]";
     }
 
     public Integer getIdPuesto() {

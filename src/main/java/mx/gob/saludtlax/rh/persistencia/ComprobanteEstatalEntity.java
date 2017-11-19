@@ -230,7 +230,8 @@ public class ComprobanteEstatalEntity implements Serializable {
         return totalImpuestosTrasladados;
     }
 
-    public void setTotalImpuestosTrasladados(BigDecimal totalImpuestosTrasladados) {
+    public void setTotalImpuestosTrasladados(
+            BigDecimal totalImpuestosTrasladados) {
         this.totalImpuestosTrasladados = totalImpuestosTrasladados;
     }
 
@@ -761,7 +762,8 @@ public class ComprobanteEstatalEntity implements Serializable {
         return percepcionesTotalGravado;
     }
 
-    public void setPercepcionesTotalGravado(BigDecimal percepcionesTotalGravado) {
+    public void setPercepcionesTotalGravado(
+            BigDecimal percepcionesTotalGravado) {
         this.percepcionesTotalGravado = percepcionesTotalGravado;
     }
 

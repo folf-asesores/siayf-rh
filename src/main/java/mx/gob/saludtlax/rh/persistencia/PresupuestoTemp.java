@@ -12,8 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/07/2016 14:16:03
  */
@@ -46,8 +46,10 @@ public class PresupuestoTemp {
 
     @Override
     public String toString() {
-        return "PresupuestoEntity [clave presupuestal=" + clavePresupuestal + ", id mes=" + idMes + ", por ejercer=" + porEjercer + ", compremetido="
-                + comprometido + ", devengado=" + devengado + ", ejercicio=" + ejercido + ", pagado=" + pagado + "]";
+        return "PresupuestoEntity [clave presupuestal=" + clavePresupuestal
+                + ", id mes=" + idMes + ", por ejercer=" + porEjercer
+                + ", compremetido=" + comprometido + ", devengado=" + devengado
+                + ", ejercicio=" + ejercido + ", pagado=" + pagado + "]";
     }
 
     /**

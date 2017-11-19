@@ -38,14 +38,20 @@ import mx.gob.saludtlax.rh.util.Configuracion;
 public class AperturaNominaRfcService implements Serializable {
 
     private static final long serialVersionUID = 2094074994987836067L;
-    private static final Logger LOGGER = Logger.getLogger(AperturaNominaRfcService.class.getName());
-    private static final String OBTENER_RFC_EMPLEADOS_ACTIVOS = "SELECT conf.empleado.rfc " + " FROM ConfiguracionPresupuestoEntity AS conf "
-            + " WHERE conf.estatus.id = 1 " + " AND conf.empleado.rfc IN (:rfcEmpleados)";
-    private static final String OBTENER_RFC_EMPLEADOS_TIPO_CONTRATACION = "SELECT conf.empleado.rfc " + " FROM ConfiguracionPresupuestoEntity AS conf "
-            + " WHERE conf.tipoContratacion.id = :idTipoContratacion" + " AND conf.empleado.rfc IN (:rfcEmpleados)";
+    private static final Logger LOGGER = Logger
+            .getLogger(AperturaNominaRfcService.class.getName());
+    private static final String OBTENER_RFC_EMPLEADOS_ACTIVOS = "SELECT conf.empleado.rfc "
+            + " FROM ConfiguracionPresupuestoEntity AS conf "
+            + " WHERE conf.estatus.id = 1 "
+            + " AND conf.empleado.rfc IN (:rfcEmpleados)";
+    private static final String OBTENER_RFC_EMPLEADOS_TIPO_CONTRATACION = "SELECT conf.empleado.rfc "
+            + " FROM ConfiguracionPresupuestoEntity AS conf "
+            + " WHERE conf.tipoContratacion.id = :idTipoContratacion"
+            + " AND conf.empleado.rfc IN (:rfcEmpleados)";
     private static final String USP_ACTUALIZAR_NOMINA_EMPLEADO = "CALL usp_actualizar_estructura_nomina_por_rfc(:idProductoNomina)";
     private static final String APERTURAR_PRODUCTO_DE_NOMINA = "UPDATE ProductoNominaEntity AS pne"
-            + " SET pne.estatusProductoNomina.idEstatusConceptoNomina = 2" + " WHERE pne.idProductoNomina = :idProductoNomina";
+            + " SET pne.estatusProductoNomina.idEstatusConceptoNomina = 2"
+            + " WHERE pne.idProductoNomina = :idProductoNomina";
 
     private static final short RFC_NO_ACTIVAS = 0;
     private static final short RFC_NO_COINCIDE_TIPO_CONTRATACION = 1;
@@ -57,21 +63,40 @@ public class AperturaNominaRfcService implements Serializable {
     @Inject
     private ProductoNominaBitacoraRepository productosNominaBitacorasAperturasRepository;
 
-    protected void abrirProductoNomina(final ProductoNominaDTO productoNomina, final List<String> listaRfc, final Integer idBitacora) {
+    protected void abrirProductoNomina(final ProductoNominaDTO productoNomina,
+            final List<String> listaRfc, final Integer idBitacora) {
         List<String> listaRfcActivos = obtenerRfcActivos(listaRfc);
-        List<String> listaTipoContratacion = obtenerTipoContratacion(productoNomina.getIdTipoContratacion(), listaRfcActivos);
-        insertarNominaEmpleado(productoNomina.getIdProductoNomina(), listaTipoContratacion);
-        int totalActualizado = actualizarNominaEmpleado(productoNomina.getIdProductoNomina());
-        int aperturarProductoNomina = aperturarProductoNomina(productoNomina.getIdProductoNomina());
-        registrarEnBitacoraListaRfcRechazadas(idBitacora, listaRfc, listaRfcActivos, RFC_NO_ACTIVAS);
-        registrarEnBitacoraListaRfcRechazadas(idBitacora, listaRfcActivos, listaTipoContratacion, RFC_NO_COINCIDE_TIPO_CONTRATACION);
-        registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, "Número de RFC encontrados: {0}", listaRfc.size());
-        registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, "Número de RFC activos: {0}", listaRfcActivos.size());
-        registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, "Número de RFC con tipo de contratación que coninciden: {0}",
+        List<String> listaTipoContratacion = obtenerTipoContratacion(
+                productoNomina.getIdTipoContratacion(), listaRfcActivos);
+        insertarNominaEmpleado(productoNomina.getIdProductoNomina(),
+                listaTipoContratacion);
+        int totalActualizado = actualizarNominaEmpleado(
+                productoNomina.getIdProductoNomina());
+        int aperturarProductoNomina = aperturarProductoNomina(
+                productoNomina.getIdProductoNomina());
+        registrarEnBitacoraListaRfcRechazadas(idBitacora, listaRfc,
+                listaRfcActivos, RFC_NO_ACTIVAS);
+        registrarEnBitacoraListaRfcRechazadas(idBitacora, listaRfcActivos,
+                listaTipoContratacion, RFC_NO_COINCIDE_TIPO_CONTRATACION);
+        registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                "Número de RFC encontrados: {0}", listaRfc.size());
+        registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                "Número de RFC activos: {0}", listaRfcActivos.size());
+        registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                "Número de RFC con tipo de contratación que coninciden: {0}",
                 listaTipoContratacion.size());
-        registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, "Se agregaron al producto de nómina {0} RFC.", totalActualizado);
-        registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.INFORMACION, "Aperturar producto de nomina {0}: {1}.",
-                productoNomina.getIdProductoNomina(), aperturarProductoNomina == 1 ? "HECHO" : "FALLO");
+        registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                "Se agregaron al producto de nómina {0} RFC.",
+                totalActualizado);
+        registrarEnBitacoraEvento(idBitacora,
+                AperturaNominaRfcBitacoraCategoria.INFORMACION,
+                "Aperturar producto de nomina {0}: {1}.",
+                productoNomina.getIdProductoNomina(),
+                aperturarProductoNomina == 1 ? "HECHO" : "FALLO");
         LOGGER.debug("Apertura del producto de nomina");
     }
 
@@ -85,12 +110,17 @@ public class AperturaNominaRfcService implements Serializable {
     }
 
     protected AperturaNominaRfcBitacoraDTO obtenerBitacora(Integer idBitacora) {
-        ProductoNominaBitacoraAperturaEntity bitacoraEntity = productosNominaBitacorasAperturasRepository.obtenerPorId(idBitacora);
-        AperturaNominaRfcBitacoraDTO bitacoraDto = convertirBitacoraEntidadADto(bitacoraEntity);
-        List<AperturaNominaRfcBitacoraEventoDTO> eventos = bitacoraDto.getEventos();
+        ProductoNominaBitacoraAperturaEntity bitacoraEntity = productosNominaBitacorasAperturasRepository
+                .obtenerPorId(idBitacora);
+        AperturaNominaRfcBitacoraDTO bitacoraDto = convertirBitacoraEntidadADto(
+                bitacoraEntity);
+        List<AperturaNominaRfcBitacoraEventoDTO> eventos = bitacoraDto
+                .getEventos();
 
-        for (ProductoNominaBitacoraEventoEntity eventoEntity : productosNominaBitacorasAperturasRepository.obtenerEventosPorIdBitacora(idBitacora)) {
-            AperturaNominaRfcBitacoraEventoDTO eventoDto = convertirEventoEntidadADto(eventoEntity);
+        for (ProductoNominaBitacoraEventoEntity eventoEntity : productosNominaBitacorasAperturasRepository
+                .obtenerEventosPorIdBitacora(idBitacora)) {
+            AperturaNominaRfcBitacoraEventoDTO eventoDto = convertirEventoEntidadADto(
+                    eventoEntity);
 
             if (eventoDto != null) {
                 eventos.add(eventoDto);
@@ -100,13 +130,17 @@ public class AperturaNominaRfcService implements Serializable {
         return bitacoraDto;
     }
 
-    protected void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String patron, Object... argumentos) {
+    protected void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String patron,
+            Object... argumentos) {
         String mensaje = MessageFormat.format(patron, argumentos);
         registrarEnBitacoraEvento(idBitacora, categoria, mensaje);
     }
 
-    protected void registrarEnBitacoraEvento(Integer idBitacora, AperturaNominaRfcBitacoraCategoria categoria, String mensaje) {
-        ProductoNominaBitacoraAperturaEntity bitacoraEntity = productosNominaBitacorasAperturasRepository.obtenerPorId(idBitacora);
+    protected void registrarEnBitacoraEvento(Integer idBitacora,
+            AperturaNominaRfcBitacoraCategoria categoria, String mensaje) {
+        ProductoNominaBitacoraAperturaEntity bitacoraEntity = productosNominaBitacorasAperturasRepository
+                .obtenerPorId(idBitacora);
         ProductoNominaBitacoraEventoEntity eventoEntity = new ProductoNominaBitacoraEventoEntity();
         eventoEntity.setIdEvento(null);
         eventoEntity.setBitacora(bitacoraEntity);
@@ -117,23 +151,29 @@ public class AperturaNominaRfcService implements Serializable {
     }
 
     private List<String> obtenerRfcActivos(List<String> listaRfc) {
-        TypedQuery<String> query = em.createQuery(OBTENER_RFC_EMPLEADOS_ACTIVOS, String.class);
+        TypedQuery<String> query = em.createQuery(OBTENER_RFC_EMPLEADOS_ACTIVOS,
+                String.class);
         query.setParameter("rfcEmpleados", listaRfc);
         return query.getResultList();
     }
 
-    private List<String> obtenerTipoContratacion(Integer idTipoContratacion, List<String> listaRfc) {
-        TypedQuery<String> query = em.createQuery(OBTENER_RFC_EMPLEADOS_TIPO_CONTRATACION, String.class);
+    private List<String> obtenerTipoContratacion(Integer idTipoContratacion,
+            List<String> listaRfc) {
+        TypedQuery<String> query = em.createQuery(
+                OBTENER_RFC_EMPLEADOS_TIPO_CONTRATACION, String.class);
         query.setParameter("idTipoContratacion", idTipoContratacion);
         query.setParameter("rfcEmpleados", listaRfc);
         return query.getResultList();
     }
 
-    private void insertarNominaEmpleado(Integer idProductoNomina, List<String> listaTipoContratacion) {
-        ProductoNominaEntity productoNominaEntity = em.find(ProductoNominaEntity.class, idProductoNomina);
+    private void insertarNominaEmpleado(Integer idProductoNomina,
+            List<String> listaTipoContratacion) {
+        ProductoNominaEntity productoNominaEntity = em
+                .find(ProductoNominaEntity.class, idProductoNomina);
 
         for (String rfc : listaTipoContratacion) {
-            EmpleadoEntity empleadoEntity = empleadoRepository.obtenerEmpleadoRfc(rfc);
+            EmpleadoEntity empleadoEntity = empleadoRepository
+                    .obtenerEmpleadoRfc(rfc);
             NominaEmpleadoEntity nominaEmpleadoEntity = new NominaEmpleadoEntity();
             nominaEmpleadoEntity.setIdNominaEmpleado(null);
             nominaEmpleadoEntity.setIdProductoNomina(productoNominaEntity);
@@ -154,7 +194,8 @@ public class AperturaNominaRfcService implements Serializable {
         return query.executeUpdate();
     }
 
-    private void registrarEnBitacoraListaRfcRechazadas(final Integer idBitacora, final List<String> origen, final List<String> coincidencias,
+    private void registrarEnBitacoraListaRfcRechazadas(final Integer idBitacora,
+            final List<String> origen, final List<String> coincidencias,
             final short tipoEvento) {
         String patron = "El RFC \"{0}\" no se ha registrado porque {1}.";
 
@@ -173,12 +214,14 @@ public class AperturaNominaRfcService implements Serializable {
                         break;
                 }
                 String mensaje = MessageFormat.format(patron, rfc, evento);
-                registrarEnBitacoraEvento(idBitacora, AperturaNominaRfcBitacoraCategoria.ERROR, mensaje);
+                registrarEnBitacoraEvento(idBitacora,
+                        AperturaNominaRfcBitacoraCategoria.ERROR, mensaje);
             }
         }
     }
 
-    private AperturaNominaRfcBitacoraDTO convertirBitacoraEntidadADto(ProductoNominaBitacoraAperturaEntity entidad) {
+    private AperturaNominaRfcBitacoraDTO convertirBitacoraEntidadADto(
+            ProductoNominaBitacoraAperturaEntity entidad) {
         if (entidad == null) {
             return null;
         }
@@ -197,13 +240,15 @@ public class AperturaNominaRfcService implements Serializable {
 
         AperturaNominaRfcBitacoraDTO dto = new AperturaNominaRfcBitacoraDTO();
         dto.setIdBitacora(entidad.getIdBitacora());
-        dto.setIdUsuario(entidad.getUsuario() != null ? entidad.getUsuario().getIdUsuario() : null);
+        dto.setIdUsuario(entidad.getUsuario() != null
+                ? entidad.getUsuario().getIdUsuario() : null);
         dto.setFechaHora(fechaHora.getTime());
 
         return dto;
     }
 
-    private AperturaNominaRfcBitacoraEventoDTO convertirEventoEntidadADto(ProductoNominaBitacoraEventoEntity entidad) {
+    private AperturaNominaRfcBitacoraEventoDTO convertirEventoEntidadADto(
+            ProductoNominaBitacoraEventoEntity entidad) {
         if (entidad == null) {
             return null;
         }

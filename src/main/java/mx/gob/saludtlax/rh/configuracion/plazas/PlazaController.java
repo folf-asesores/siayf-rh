@@ -41,15 +41,23 @@ public class PlazaController implements Serializable {
         try {
             String claveEncontrada = plazaEJB.buscarClave(plaza.getClave());
             if (!claveEncontrada.isEmpty()) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Clave encontrada", "Ingrese una clave diferente");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_INFO, "Clave encontrada",
+                        "Ingrese una clave diferente");
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             } else {
                 plazaEJB.registrarPlaza(plaza);
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Plaza", "Registrada correctamente");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_INFO, "Plaza",
+                        "Registrada correctamente");
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
         } catch (BusinessException ex) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrio un problema al registrar la plaza");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error",
+                    "Ocurrio un problema al registrar la plaza");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -59,10 +67,13 @@ public class PlazaController implements Serializable {
             PlazaDTO plaza = plazaView.getEditarPlazaDTO();
             plazaEJB.actualizarPlaza(plaza);
             obtenerPlaza();
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Plaza", "Cambios guardados");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Plaza", "Cambios guardados");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         } catch (BusinessException ex) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrio un problema al guardar los cambios de la plaza");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error",
+                    "Ocurrio un problema al guardar los cambios de la plaza");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
     }
@@ -88,19 +99,26 @@ public class PlazaController implements Serializable {
      */
 
     public String eliminarPlaza() throws IOException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) FacesContext
+                .getCurrentInstance().getExternalContext().getResponse();
         try {
             Integer idPlaza = plazaView.getSeleccionarPlaza().getIdPlaza();
             plazaEJB.eliminarPlaza(idPlaza);
             obtenerPlaza();
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO, "Plaza", "Eliminada Correctamente");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_INFO, "Plaza",
+                    "Eliminada Correctamente");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         } catch (BusinessException ex) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Ocurrio un problema al eliminar la plaza seleccionada");
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "Error",
+                    "Ocurrio un problema al eliminar la plaza seleccionada");
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
-        response.sendRedirect(request.getContextPath() + "/contenido/plazas/plaza.xhtml");
+        response.sendRedirect(
+                request.getContextPath() + "/contenido/plazas/plaza.xhtml");
         plazaView.cancelar();
         return null;
     }
@@ -111,21 +129,27 @@ public class PlazaController implements Serializable {
     }
 
     public String habilitarFormulario() throws IOException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) FacesContext
+                .getCurrentInstance().getExternalContext().getResponse();
 
         plazaView.habilitarFormulario();
-        response.sendRedirect(request.getContextPath() + "/contenido/plazas/plazaRegistroEdicion.xhtml");
+        response.sendRedirect(request.getContextPath()
+                + "/contenido/plazas/plazaRegistroEdicion.xhtml");
         return null;
     }
 
     public String habilitarFormularioEdicion() throws IOException {
-        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        HttpServletRequest request = (HttpServletRequest) FacesContext
+                .getCurrentInstance().getExternalContext().getRequest();
+        HttpServletResponse response = (HttpServletResponse) FacesContext
+                .getCurrentInstance().getExternalContext().getResponse();
 
         plazaView.setEditarPlazaDTO(plazaView.getSeleccionarPlaza());
         plazaView.habilitarFormularioEdicion();
-        response.sendRedirect(request.getContextPath() + "/contenido/plazas/plazaRegistroEdicion.xhtml");
+        response.sendRedirect(request.getContextPath()
+                + "/contenido/plazas/plazaRegistroEdicion.xhtml");
         return null;
     }
 

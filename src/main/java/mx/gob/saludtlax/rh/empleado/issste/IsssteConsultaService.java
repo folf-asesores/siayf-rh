@@ -14,7 +14,7 @@ import mx.gob.saludtlax.rh.persistencia.MovimientoIsssteEmpleadoEntity;
 import mx.gob.saludtlax.rh.persistencia.MovimientoIsssteEmpleadoRepository;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class IsssteConsultaService implements Serializable {
@@ -32,32 +32,48 @@ public class IsssteConsultaService implements Serializable {
         return movimientoIsssteEmpleadoRepository.existeEmpleado(idEmpleado);
     }
 
-    protected List<InfoMovimientoIsssteDTO> obtenerListaMovimientoPorCriterio(String criterio) {
+    protected List<InfoMovimientoIsssteDTO> obtenerListaMovimientoPorCriterio(
+            String criterio) {
 
         List<InfoMovimientoIsssteDTO> dtos = new ArrayList<>();
 
-        List<MovimientoIsssteEmpleadoEntity> lista = movimientoIsssteEmpleadoRepository.obtenerListaMovimientoPorCriterio(criterio);
+        List<MovimientoIsssteEmpleadoEntity> lista = movimientoIsssteEmpleadoRepository
+                .obtenerListaMovimientoPorCriterio(criterio);
 
         if (!lista.isEmpty()) {
 
             for (MovimientoIsssteEmpleadoEntity movimientoIsssteEmpleadoEntity : lista) {
                 InfoMovimientoIsssteDTO dto = new InfoMovimientoIsssteDTO();
 
-                dto.setIdMovimientoIsssteEmpleado(movimientoIsssteEmpleadoEntity.getIdMovimientoIsssteEmpleado());
-                dto.setRfc(movimientoIsssteEmpleadoEntity.getEmpleado().getRfc());
-                dto.setNombreEmpleado(movimientoIsssteEmpleadoEntity.getEmpleado().getNombreCompleto());
-                dto.setTipoMovimientoIssste(movimientoIsssteEmpleadoEntity.getTipoMovimientoIssste().getTipoMovimientoIssste());
-                dto.setIdTipoMovimientoIssste(movimientoIsssteEmpleadoEntity.getTipoMovimientoIssste().getIdTipoMovimientoIsssteEmpleado());
-                dto.setNumeroSeguroSocial(movimientoIsssteEmpleadoEntity.getEmpleado().getNumeroSeguroSocial());
-                dto.setSueldoIssste(movimientoIsssteEmpleadoEntity.getSueldoIssste());
+                dto.setIdMovimientoIsssteEmpleado(movimientoIsssteEmpleadoEntity
+                        .getIdMovimientoIsssteEmpleado());
+                dto.setRfc(
+                        movimientoIsssteEmpleadoEntity.getEmpleado().getRfc());
+                dto.setNombreEmpleado(movimientoIsssteEmpleadoEntity
+                        .getEmpleado().getNombreCompleto());
+                dto.setTipoMovimientoIssste(movimientoIsssteEmpleadoEntity
+                        .getTipoMovimientoIssste().getTipoMovimientoIssste());
+                dto.setIdTipoMovimientoIssste(
+                        movimientoIsssteEmpleadoEntity.getTipoMovimientoIssste()
+                                .getIdTipoMovimientoIsssteEmpleado());
+                dto.setNumeroSeguroSocial(movimientoIsssteEmpleadoEntity
+                        .getEmpleado().getNumeroSeguroSocial());
+                dto.setSueldoIssste(
+                        movimientoIsssteEmpleadoEntity.getSueldoIssste());
                 dto.setSueldoSar(movimientoIsssteEmpleadoEntity.getSueldoSar());
-                dto.setTotalRemuneracion(movimientoIsssteEmpleadoEntity.getTotalRemuneracion());
-                dto.setCurp(movimientoIsssteEmpleadoEntity.getEmpleado().getCurp());
-                dto.setDomicilio(movimientoIsssteEmpleadoEntity.getEmpleado().getDireccionCompleta());
-                dto.setClaveCobro(movimientoIsssteEmpleadoEntity.getEmpleado().getClaveCobro());
-                dto.setNombramiento(movimientoIsssteEmpleadoEntity.getNombramiento());
+                dto.setTotalRemuneracion(
+                        movimientoIsssteEmpleadoEntity.getTotalRemuneracion());
+                dto.setCurp(
+                        movimientoIsssteEmpleadoEntity.getEmpleado().getCurp());
+                dto.setDomicilio(movimientoIsssteEmpleadoEntity.getEmpleado()
+                        .getDireccionCompleta());
+                dto.setClaveCobro(movimientoIsssteEmpleadoEntity.getEmpleado()
+                        .getClaveCobro());
+                dto.setNombramiento(
+                        movimientoIsssteEmpleadoEntity.getNombramiento());
                 if (movimientoIsssteEmpleadoEntity.getCausaBaja() != null) {
-                    dto.setIdCausaBaja(movimientoIsssteEmpleadoEntity.getCausaBaja().getIdCausaBaja());
+                    dto.setIdCausaBaja(movimientoIsssteEmpleadoEntity
+                            .getCausaBaja().getIdCausaBaja());
                 }
 
                 dtos.add(dto);

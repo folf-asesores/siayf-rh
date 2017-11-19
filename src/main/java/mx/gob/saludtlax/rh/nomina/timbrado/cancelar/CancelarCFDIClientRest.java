@@ -22,7 +22,8 @@ import mx.gob.saludtlax.rh.util.ServicioWebEnum;
 import com.google.gson.Gson;
 
 @Stateless
-public class CancelarCFDIClientRest extends ClienteRest implements Serializable {
+public class CancelarCFDIClientRest extends ClienteRest
+        implements Serializable {
 
     /**
      *
@@ -34,7 +35,8 @@ public class CancelarCFDIClientRest extends ClienteRest implements Serializable 
 
     }
 
-    public String cancelarCFDI(String certificado, String llave, String rfc, String uuid, String claveLlave) throws RESTClientException {
+    public String cancelarCFDI(String certificado, String llave, String rfc,
+            String uuid, String claveLlave) throws RESTClientException {
         CloseableHttpClient httpClient = HttpClients.createDefault();
 
         String urlTimbrado = url_serivicio;
@@ -60,41 +62,51 @@ public class CancelarCFDIClientRest extends ClienteRest implements Serializable 
 
             cfdiPeticionJSON.setContentType("application/json");
             httpPost.setEntity(cfdiPeticionJSON);
-            CloseableHttpResponse servicioResponse = httpClient.execute(httpPost);
+            CloseableHttpResponse servicioResponse = httpClient
+                    .execute(httpPost);
 
             String resultTimbradoCFDI;
             Gson timbradoCFDIGson;
 
             switch (servicioResponse.getStatusLine().getStatusCode()) {
                 case 200:
-                    resultTimbradoCFDI = EntityUtils.toString(servicioResponse.getEntity());
+                    resultTimbradoCFDI = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     timbradoCFDIGson = new Gson();
-                    cfdiRespuesta = timbradoCFDIGson.fromJson(resultTimbradoCFDI, CancelarCFDIRespuesta.class);
+                    cfdiRespuesta = timbradoCFDIGson.fromJson(
+                            resultTimbradoCFDI, CancelarCFDIRespuesta.class);
 
                     System.out.println(cfdiRespuesta.getMensaje());
                     System.out.println(cfdiRespuesta.getCodigo());
                     return cfdiRespuesta.getCodigo();
                 case 201:
-                    resultTimbradoCFDI = EntityUtils.toString(servicioResponse.getEntity());
+                    resultTimbradoCFDI = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     timbradoCFDIGson = new Gson();
-                    cfdiRespuesta = timbradoCFDIGson.fromJson(resultTimbradoCFDI, CancelarCFDIRespuesta.class);
+                    cfdiRespuesta = timbradoCFDIGson.fromJson(
+                            resultTimbradoCFDI, CancelarCFDIRespuesta.class);
 
                     System.out.println(cfdiRespuesta.getMensaje());
                     System.out.println(cfdiRespuesta.getCodigo());
                     return cfdiRespuesta.getCodigo();
 
                 case 400:
-                    resultTimbradoCFDI = EntityUtils.toString(servicioResponse.getEntity());
+                    resultTimbradoCFDI = EntityUtils
+                            .toString(servicioResponse.getEntity());
 
                     throw new RESTClientException(resultTimbradoCFDI);
                 case 502:
-                    System.out.println("Error 502 al Timbrar Intentando de Nuevo");
+                    System.out.println(
+                            "Error 502 al Timbrar Intentando de Nuevo");
                     break;
                 default:
 
-                    throw new RESTClientException(servicioResponse.getStatusLine().getStatusCode() + " " + servicioResponse.getStatusLine().getReasonPhrase());
+                    throw new RESTClientException(
+                            servicioResponse.getStatusLine().getStatusCode()
+                                    + " " + servicioResponse.getStatusLine()
+                                            .getReasonPhrase());
 
             }
             return "";

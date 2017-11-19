@@ -68,8 +68,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroHistorialAcademicoValidator.class })
-    public void crearHistorialAcademicoAspirante(HistorialAcademicoDTO historialAcademico) {
-        historialAcademicoService.crearHistorialAcademicoAspirante(historialAcademico);
+    public void crearHistorialAcademicoAspirante(
+            HistorialAcademicoDTO historialAcademico) {
+        historialAcademicoService
+                .crearHistorialAcademicoAspirante(historialAcademico);
     }
 
     /*
@@ -81,8 +83,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroHistorialAcademicoValidator.class })
-    public void actualizarHistorialAcademicoAspirante(HistorialAcademicoDTO historialAcademico) {
-        historialAcademicoService.actualizarHistorialAcademicoAspirante(historialAcademico);
+    public void actualizarHistorialAcademicoAspirante(
+            HistorialAcademicoDTO historialAcademico) {
+        historialAcademicoService
+                .actualizarHistorialAcademicoAspirante(historialAcademico);
     }
 
     /*
@@ -94,8 +98,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroExperienciaLaboralValidator.class })
-    public void crearExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral) {
-        experienciaLaboralService.crearExperienciaLaboralAspirante(experienciaLaboral);
+    public void crearExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral) {
+        experienciaLaboralService
+                .crearExperienciaLaboralAspirante(experienciaLaboral);
     }
 
     /*
@@ -107,8 +113,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroExperienciaLaboralValidator.class })
-    public void actualizarExperienciaLaboralAspirante(ExperienciaLaboralAspiranteDTO experienciaLaboral) {
-        experienciaLaboralService.actualizarExperienciaLaboralAspirante(experienciaLaboral);
+    public void actualizarExperienciaLaboralAspirante(
+            ExperienciaLaboralAspiranteDTO experienciaLaboral) {
+        experienciaLaboralService
+                .actualizarExperienciaLaboralAspirante(experienciaLaboral);
     }
 
     /*
@@ -120,8 +128,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroHabilidadPersonalValidator.class })
-    public void crearHabilidadesPersonalesAspirante(HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante) {
-        habilidadesPersonalesService.crearHabilidadesPersonalesAspirante(encuestaPersonalAspirante);
+    public void crearHabilidadesPersonalesAspirante(
+            HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante) {
+        habilidadesPersonalesService
+                .crearHabilidadesPersonalesAspirante(encuestaPersonalAspirante);
     }
 
     /*
@@ -133,8 +143,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     @Interceptors({ RegistroHabilidadPersonalValidator.class })
-    public void actualizarHabilidadesPersonalesAspirante(HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante) {
-        habilidadesPersonalesService.actualizarHabilidadesPersonalesAspirante(encuestaPersonalAspirante);
+    public void actualizarHabilidadesPersonalesAspirante(
+            HabilidadesPersonalesAspiranteDTO encuestaPersonalAspirante) {
+        habilidadesPersonalesService.actualizarHabilidadesPersonalesAspirante(
+                encuestaPersonalAspirante);
     }
 
     /*
@@ -144,8 +156,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      * encuestaPersonalPorIdAspirante(java.lang.Integer)
      */
     @Override
-    public HabilidadesPersonalesAspiranteDTO obtenerHabilidadesPersonalesPorIdAspirante(Integer idAspirante) {
-        return habilidadesPersonalesService.obtenerHabilidadesPersonalesPorIdAspirante(idAspirante);
+    public HabilidadesPersonalesAspiranteDTO obtenerHabilidadesPersonalesPorIdAspirante(
+            Integer idAspirante) {
+        return habilidadesPersonalesService
+                .obtenerHabilidadesPersonalesPorIdAspirante(idAspirante);
     }
 
     /*
@@ -156,7 +170,8 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     public void eliminarHistorialAcademico(Integer idHistorialAcademico) {
-        historialAcademicoService.eliminarHistorialAcademico(idHistorialAcademico);
+        historialAcademicoService
+                .eliminarHistorialAcademico(idHistorialAcademico);
     }
 
     /*
@@ -167,7 +182,8 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      */
     @Override
     public void eliminarExperienciaLaboral(Integer idExperienciaLaboral) {
-        experienciaLaboralService.eliminarExperienciaLaboral(idExperienciaLaboral);
+        experienciaLaboralService
+                .eliminarExperienciaLaboral(idExperienciaLaboral);
     }
 
     /*
@@ -178,8 +194,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      * java.lang.Integer)
      */
     @Override
-    public List<HistorialAcademicoDTO> obtenerListaHistorialAcademico(Integer idAspirante) {
-        return historialAcademicoService.obtenerListaHistorialAcademicoPorIdAspirante(idAspirante);
+    public List<HistorialAcademicoDTO> obtenerListaHistorialAcademico(
+            Integer idAspirante) {
+        return historialAcademicoService
+                .obtenerListaHistorialAcademicoPorIdAspirante(idAspirante);
     }
 
     /*
@@ -190,8 +208,10 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
      * java.lang.Integer)
      */
     @Override
-    public List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboral(Integer idAspirante) {
-        return experienciaLaboralService.obtenerListaExperienciaLaboralPorIdAspirante(idAspirante);
+    public List<ExperienciaLaboralAspiranteDTO> obtenerListaExperienciaLaboral(
+            Integer idAspirante) {
+        return experienciaLaboralService
+                .obtenerListaExperienciaLaboralPorIdAspirante(idAspirante);
     }
 
     @Override
@@ -224,13 +244,15 @@ public class BolsaTrabajoEJB implements BolsaTrabajo {
     @Override
     public boolean validarRfcyIdAspirante(Integer idAspirante, String rfc) {
 
-        return registrarAspiranteService.validarRfcyIdAspirante(idAspirante, rfc);
+        return registrarAspiranteService.validarRfcyIdAspirante(idAspirante,
+                rfc);
     }
 
     @Override
     public boolean validarCurpyIdAspirante(Integer idAspirante, String curp) {
 
-        return registrarAspiranteService.validarCurpyIdAspirante(idAspirante, curp);
+        return registrarAspiranteService.validarCurpyIdAspirante(idAspirante,
+                curp);
     }
 
     @Override

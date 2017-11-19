@@ -36,34 +36,46 @@ public class BiometricoControllerEditar implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = servicioWebEJB.getServicioActivo(ServicioWebEnum.RELOJ_CHECADOR);
+            ServiciosRSEntity servicioRSEntity = servicioWebEJB
+                    .getServicioActivo(ServicioWebEnum.RELOJ_CHECADOR);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath().toString();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("id");
 
         if (id != null) {
 
             Integer idBiometrico = new Integer(id);
             try {
-                biometricoFormModel = biometricoClientRest.buscarBiometrico(idBiometrico);
+                biometricoFormModel = biometricoClientRest
+                        .buscarBiometrico(idBiometrico);
             } catch (RESTClientException e) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                        e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
 
         }
@@ -72,16 +84,22 @@ public class BiometricoControllerEditar implements Serializable {
 
     public String guardar() {
         try {
-            BiometricoClientRestResponse biometricoClienteRestResponse = biometricoClientRest.actualizarBiometrico(biometricoFormModel);
+            BiometricoClientRestResponse biometricoClienteRestResponse = biometricoClientRest
+                    .actualizarBiometrico(biometricoFormModel);
 
             if (!biometricoClienteRestResponse.isExitoso()) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Guardar", biometricoClienteRestResponse.getMensaje());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, "Guardar",
+                        biometricoClienteRestResponse.getMensaje());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
             return "index.xhml?faces-redirect=true";
 
         } catch (RESTClientException e) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                    e.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
@@ -93,7 +111,8 @@ public class BiometricoControllerEditar implements Serializable {
         return biometricoFormModel;
     }
 
-    public void setBiometricoFormModel(BiometricoFormModel biometricoFormModel) {
+    public void setBiometricoFormModel(
+            BiometricoFormModel biometricoFormModel) {
         this.biometricoFormModel = biometricoFormModel;
     }
 

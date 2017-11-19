@@ -80,35 +80,47 @@ public class EditarJornadaController implements Serializable {
     public void init() {
 
         try {
-            ServiciosRSEntity servicioRSEntity = serviocWebEJB.getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
+            ServiciosRSEntity servicioRSEntity = serviocWebEJB
+                    .getServicioActivo(ServicioWebEnum.CONTROL_ASISTENCIA_RS);
             if (!servicioRSEntity.isProduccion()) {
-                HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+                HttpServletRequest req = (HttpServletRequest) FacesContext
+                        .getCurrentInstance().getExternalContext().getRequest();
                 String url = req.getContextPath();
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
-                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='" + url
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_WARN, "Servicio en Modo Prueba",
+                        "El servcio configurado como activo para este modulo es de pruebas consulte la <a href='"
+                                + url
                                 + "/contenido/configuracion/serviciosweb/index.xhtml'>configuracion</a>");
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
 
             }
 
         } catch (ServicioWebException e1) {
-            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e1.getMessage(), e1.getMessage());
+            FacesMessage facesMessage = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, e1.getMessage(),
+                    e1.getMessage());
             FacesContext.getCurrentInstance().addMessage(null, facesMessage);
         }
 
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
         String id = params.get("id");
 
         if (id != null) {
             Integer idJornada = new Integer(id);
             try {
-                jornadaFormModel = jornadaClientRest.obtenerJornadaPorId(idJornada);
+                jornadaFormModel = jornadaClientRest
+                        .obtenerJornadaPorId(idJornada);
                 llenarHorario(idJornada);
                 llenarReglasAsistencia(idJornada);
             } catch (RESTClientException e) {
-                FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getMessage(), e.getMessage());
-                FacesContext.getCurrentInstance().addMessage(null, facesMessage);
+                FacesMessage facesMessage = new FacesMessage(
+                        FacesMessage.SEVERITY_ERROR, e.getMessage(),
+                        e.getMessage());
+                FacesContext.getCurrentInstance().addMessage(null,
+                        facesMessage);
             }
         }
 
@@ -119,7 +131,8 @@ public class EditarJornadaController implements Serializable {
         reglaAsistencia = new ReglaAsistenciaJornadaFormModel();
         reglaAsistencia.setMinutoFinal(0);
         reglaAsistencia.setMinutoInicio(0);
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevaRegla').show()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevaRegla').show()");
 
     }
 
@@ -131,7 +144,8 @@ public class EditarJornadaController implements Serializable {
         horarioJornada.setIdDia(null);
         horarioJornada.setIdHorarioJornada(null);
         horarioJornada.setIdJornada(jornadaFormModel.getIdJornada());
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevoHorario').show()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevoHorario').show()");
 
     }
 
@@ -140,9 +154,11 @@ public class EditarJornadaController implements Serializable {
         try {
             jornadaClientRest.actuializarJornada(jornadaFormModel);
         } catch (RESTClientJornadaException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         } catch (RESTClientReglaAsistenciaJornadaException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
         }
         return "index.xhtml?faces-redirect=true";
     }
@@ -171,27 +187,33 @@ public class EditarJornadaController implements Serializable {
 
         }
 
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevoHorario').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevoHorario').hide()");
 
     }
 
     public void agregarNuevaIncidencia() {
 
         if (reglaAsistencia.getIdIncidencia() == null) {
-            JSFUtils.errorMessage("Agregar", ListadoMensajesSistema.CARA001.getMensaje());
+            JSFUtils.errorMessage("Agregar",
+                    ListadoMensajesSistema.CARA001.getMensaje());
             return;
         }
         IncidenciaModelView incidenciaModelView = null;
         try {
-            incidenciaModelView = incidenciaClienteRest.buscarIncidenciaPorId(reglaAsistencia.getIdIncidencia());
+            incidenciaModelView = incidenciaClienteRest
+                    .buscarIncidenciaPorId(reglaAsistencia.getIdIncidencia());
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
             e.printStackTrace();
             return;
         }
 
-        if (reglaAsistencia.getMinutoInicio() > reglaAsistencia.getMinutoFinal()) {
-            JSFUtils.errorMessage("Agregar", ListadoMensajesSistema.CARA002.getMensaje());
+        if (reglaAsistencia.getMinutoInicio() > reglaAsistencia
+                .getMinutoFinal()) {
+            JSFUtils.errorMessage("Agregar",
+                    ListadoMensajesSistema.CARA002.getMensaje());
             return;
         }
 
@@ -207,11 +229,13 @@ public class EditarJornadaController implements Serializable {
         try {
             llenarReglasAsistencia(reglaAsistencia.getIdJornada());
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
 
             e.printStackTrace();
         }
-        RequestContext.getCurrentInstance().execute("PF('dlgNuevaRegla').hide()");
+        RequestContext.getCurrentInstance()
+                .execute("PF('dlgNuevaRegla').hide()");
 
     }
 
@@ -220,19 +244,23 @@ public class EditarJornadaController implements Serializable {
         List<IncidenciaModelView> listadoIncidencias = null;
 
         try {
-            listadoIncidencias = incidenciaClienteRest.buscarIncidenciaPorDescripcion(query);
+            listadoIncidencias = incidenciaClienteRest
+                    .buscarIncidenciaPorDescripcion(query);
         } catch (RESTClientException e) {
-            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(), e.getMessage());
+            JSFUtils.errorMessage(ListadoMensajesSistema.E002.getMensaje(),
+                    e.getMessage());
             e.printStackTrace();
         }
 
         return listadoIncidencias;
     }
 
-    public void eliminarReglaAsistencia(ReglaAsistenciaViewModel reglaEliminar) {
+    public void eliminarReglaAsistencia(
+            ReglaAsistenciaViewModel reglaEliminar) {
 
         try {
-            jornadaClientRest.eliminarReglaAsistencia(reglaEliminar.getIdReglaAsistencia());
+            jornadaClientRest.eliminarReglaAsistencia(
+                    reglaEliminar.getIdReglaAsistencia());
             llenarReglasAsistencia(jornadaFormModel.getIdJornada());
         } catch (RESTClientException e) {
             JSFUtils.errorMessage("Eliminar", e.getMessage());
@@ -245,7 +273,8 @@ public class EditarJornadaController implements Serializable {
     public void eliminarHorarioJornada(HorarioJornadaViewModel horarioJornada) {
 
         try {
-            jornadaClientRest.eliminarHorarioJornada(horarioJornada.getIdHorarioJornada());
+            jornadaClientRest.eliminarHorarioJornada(
+                    horarioJornada.getIdHorarioJornada());
             llenarHorario(jornadaFormModel.getIdJornada());
         } catch (RESTClientException e) {
             JSFUtils.errorMessage("Eliminar", e.getMessage());
@@ -256,11 +285,14 @@ public class EditarJornadaController implements Serializable {
     }
 
     private void llenarHorario(Integer idJornada) throws RESTClientException {
-        listadoHorarioJornada = jornadaClientRest.listadoHorarioPorJornada(idJornada);
+        listadoHorarioJornada = jornadaClientRest
+                .listadoHorarioPorJornada(idJornada);
     }
 
-    private void llenarReglasAsistencia(Integer idJornada) throws RESTClientException {
-        listadoReglaAsistencia = jornadaClientRest.listadoReglasAsistenciaPorJornada(idJornada);
+    private void llenarReglasAsistencia(Integer idJornada)
+            throws RESTClientException {
+        listadoReglaAsistencia = jornadaClientRest
+                .listadoReglasAsistenciaPorJornada(idJornada);
     }
 
     public JornadaFormModel getJornadaFormModel() {
@@ -275,7 +307,8 @@ public class EditarJornadaController implements Serializable {
         return listadoHorarioJornada;
     }
 
-    public void setListadoHorarioJornada(List<HorarioJornadaViewModel> listadoHorarioJornada) {
+    public void setListadoHorarioJornada(
+            List<HorarioJornadaViewModel> listadoHorarioJornada) {
         this.listadoHorarioJornada = listadoHorarioJornada;
     }
 
@@ -283,7 +316,8 @@ public class EditarJornadaController implements Serializable {
         return listadoReglaAsistencia;
     }
 
-    public void setListadoReglaAsistencia(List<ReglaAsistenciaViewModel> listadoReglaAsistencia) {
+    public void setListadoReglaAsistencia(
+            List<ReglaAsistenciaViewModel> listadoReglaAsistencia) {
         this.listadoReglaAsistencia = listadoReglaAsistencia;
     }
 
@@ -291,7 +325,8 @@ public class EditarJornadaController implements Serializable {
         return reglaAsistencia;
     }
 
-    public void setReglaAsistencia(ReglaAsistenciaJornadaFormModel reglaAsistencia) {
+    public void setReglaAsistencia(
+            ReglaAsistenciaJornadaFormModel reglaAsistencia) {
         this.reglaAsistencia = reglaAsistencia;
     }
 
@@ -299,7 +334,8 @@ public class EditarJornadaController implements Serializable {
         return incidenciaModelViewSelecionada;
     }
 
-    public void setIncidenciaModelViewSelecionada(IncidenciaModelView incidenciaModelViewSelecionada) {
+    public void setIncidenciaModelViewSelecionada(
+            IncidenciaModelView incidenciaModelViewSelecionada) {
         this.incidenciaModelViewSelecionada = incidenciaModelViewSelecionada;
     }
 

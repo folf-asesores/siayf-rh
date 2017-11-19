@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.reportes.word;
 import mx.gob.saludtlax.rh.reportes.Reporte;
 
 /**
- * @author eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class WordReporte extends Reporte {

@@ -36,11 +36,18 @@ public class DatosLaboralesDTO {
     public DatosLaboralesDTO() {
     }
 
-    public DatosLaboralesDTO(Integer idEmpleadoDatosLaborales, Integer idEmpleadoDatosPersonales, String rfc, Integer idRfc, String idPlaza, Integer idProyecto,
-            Integer idDependencia, Integer idUnidadResponsable, Character nombramiento, String idPuesto, Integer idSindicato, Integer idHabilitado,
-            Date fechaIngreso, Integer noQuinquenios, BigDecimal sueldoMensual, BigDecimal percepcionComplementaria, BigDecimal despensa,
-            BigDecimal incentivoAhorro, BigDecimal compensacion, BigDecimal quinquenio, String noCuenta, Integer policia, Integer idFuenteFinanciamiento,
-            Integer idSubfuentefinanciamiento, Integer idTipoRecurso, Character idEstadoEmpleado, Integer idNomina) {
+    public DatosLaboralesDTO(Integer idEmpleadoDatosLaborales,
+            Integer idEmpleadoDatosPersonales, String rfc, Integer idRfc,
+            String idPlaza, Integer idProyecto, Integer idDependencia,
+            Integer idUnidadResponsable, Character nombramiento,
+            String idPuesto, Integer idSindicato, Integer idHabilitado,
+            Date fechaIngreso, Integer noQuinquenios, BigDecimal sueldoMensual,
+            BigDecimal percepcionComplementaria, BigDecimal despensa,
+            BigDecimal incentivoAhorro, BigDecimal compensacion,
+            BigDecimal quinquenio, String noCuenta, Integer policia,
+            Integer idFuenteFinanciamiento, Integer idSubfuentefinanciamiento,
+            Integer idTipoRecurso, Character idEstadoEmpleado,
+            Integer idNomina) {
         this.idEmpleadoDatosLaborales = idEmpleadoDatosLaborales;
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
         this.rfc = rfc;
@@ -84,7 +91,8 @@ public class DatosLaboralesDTO {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 
@@ -210,7 +218,8 @@ public class DatosLaboralesDTO {
         return percepcionComplementaria;
     }
 
-    public void setPercepcionComplementaria(BigDecimal percepcionComplementaria) {
+    public void setPercepcionComplementaria(
+            BigDecimal percepcionComplementaria) {
         this.percepcionComplementaria = percepcionComplementaria;
     }
 
@@ -282,7 +291,8 @@ public class DatosLaboralesDTO {
         return idSubfuentefinanciamiento;
     }
 
-    public void setIdSubfuentefinanciamiento(Integer idSubfuentefinanciamiento) {
+    public void setIdSubfuentefinanciamiento(
+            Integer idSubfuentefinanciamiento) {
         this.idSubfuentefinanciamiento = idSubfuentefinanciamiento;
     }
 

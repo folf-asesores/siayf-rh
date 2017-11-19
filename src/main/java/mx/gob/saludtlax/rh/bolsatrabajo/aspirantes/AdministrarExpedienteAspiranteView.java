@@ -176,7 +176,8 @@ public class AdministrarExpedienteAspiranteView {
      * @param mostrarAperturaExpediente
      *            el nuevo valor de mostrarAperturaExpediente
      */
-    public void setMostrarAperturaExpediente(Boolean mostrarAperturaExpediente) {
+    public void setMostrarAperturaExpediente(
+            Boolean mostrarAperturaExpediente) {
         this.mostrarAperturaExpediente = mostrarAperturaExpediente;
     }
 
@@ -196,7 +197,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            mostrarActualizacionExpediente
      */
-    public void setMostrarActualizacionExpediente(Boolean mostrarActualizacionExpediente) {
+    public void setMostrarActualizacionExpediente(
+            Boolean mostrarActualizacionExpediente) {
         this.mostrarActualizacionExpediente = mostrarActualizacionExpediente;
     }
 
@@ -311,7 +313,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            listaTiposDocumentosExpediente
      */
-    public void setListaTiposDocumentosExpediente(List<SelectItem> listaTiposDocumentosExpediente) {
+    public void setListaTiposDocumentosExpediente(
+            List<SelectItem> listaTiposDocumentosExpediente) {
         this.listaTiposDocumentosExpediente = listaTiposDocumentosExpediente;
     }
 
@@ -330,7 +333,8 @@ public class AdministrarExpedienteAspiranteView {
      * @param documentosExpedientes
      *            el nuevo valor de documentosExpedientes
      */
-    public void setDocumentosExpedientes(List<InformacionAdjuntoDTO> documentosExpedientes) {
+    public void setDocumentosExpedientes(
+            List<InformacionAdjuntoDTO> documentosExpedientes) {
         this.documentosExpedientes = documentosExpedientes;
     }
 
@@ -407,7 +411,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            mostrarAdjuntarDocumentoHistorial
      */
-    public void setMostrarAdjuntarDocumentoHistorial(Boolean mostrarAdjuntarDocumentoHistorial) {
+    public void setMostrarAdjuntarDocumentoHistorial(
+            Boolean mostrarAdjuntarDocumentoHistorial) {
         this.mostrarAdjuntarDocumentoHistorial = mostrarAdjuntarDocumentoHistorial;
     }
 
@@ -426,7 +431,8 @@ public class AdministrarExpedienteAspiranteView {
      * @param historialesAcademicos
      *            el nuevo valor de historialesAcademicos
      */
-    public void setHistorialesAcademicos(List<HistorialAcademicoDTO> historialesAcademicos) {
+    public void setHistorialesAcademicos(
+            List<HistorialAcademicoDTO> historialesAcademicos) {
         this.historialesAcademicos = historialesAcademicos;
     }
 
@@ -445,7 +451,8 @@ public class AdministrarExpedienteAspiranteView {
      * @param mostrarHistorialAcademico
      *            el nuevo valor de mostrarHistorialAcademico
      */
-    public void setMostrarHistorialAcademico(Boolean mostrarHistorialAcademico) {
+    public void setMostrarHistorialAcademico(
+            Boolean mostrarHistorialAcademico) {
         this.mostrarHistorialAcademico = mostrarHistorialAcademico;
     }
 
@@ -465,7 +472,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            historialAcademicoSeleccionado
      */
-    public void setHistorialAcademicoSeleccionado(HistorialAcademicoDTO historialAcademicoSeleccionado) {
+    public void setHistorialAcademicoSeleccionado(
+            HistorialAcademicoDTO historialAcademicoSeleccionado) {
         this.historialAcademicoSeleccionado = historialAcademicoSeleccionado;
     }
 
@@ -541,7 +549,8 @@ public class AdministrarExpedienteAspiranteView {
      * @param listaComprobantesEstudios
      *            el nuevo valor de listaComprobantesEstudios
      */
-    public void setListaComprobantesEstudios(List<SelectItem> listaComprobantesEstudios) {
+    public void setListaComprobantesEstudios(
+            List<SelectItem> listaComprobantesEstudios) {
         this.listaComprobantesEstudios = listaComprobantesEstudios;
     }
 
@@ -561,7 +570,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            documentacionActualHistorial
      */
-    public void setDocumentacionActualHistorial(List<String> documentacionActualHistorial) {
+    public void setDocumentacionActualHistorial(
+            List<String> documentacionActualHistorial) {
         this.documentacionActualHistorial = documentacionActualHistorial;
     }
 
@@ -581,7 +591,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            idDocumentoAdjuntableHistorial
      */
-    public void setIdDocumentoAdjuntableHistorial(Integer idDocumentoAdjuntableHistorial) {
+    public void setIdDocumentoAdjuntableHistorial(
+            Integer idDocumentoAdjuntableHistorial) {
         this.idDocumentoAdjuntableHistorial = idDocumentoAdjuntableHistorial;
     }
 
@@ -601,7 +612,8 @@ public class AdministrarExpedienteAspiranteView {
      *            el nuevo valor de
      *            listaDocumentosHistorialAcademico
      */
-    public void setListaDocumentosHistorialAcademico(List<SelectItem> listaDocumentosHistorialAcademico) {
+    public void setListaDocumentosHistorialAcademico(
+            List<SelectItem> listaDocumentosHistorialAcademico) {
         this.listaDocumentosHistorialAcademico = listaDocumentosHistorialAcademico;
     }
 

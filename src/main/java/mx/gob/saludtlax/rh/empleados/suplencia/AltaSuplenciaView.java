@@ -91,7 +91,8 @@ public class AltaSuplenciaView {
         return documentosAdjuntos;
     }
 
-    public void setDocumentosAdjuntos(List<InformacionAdjuntoDTO> documentosAdjuntos) {
+    public void setDocumentosAdjuntos(
+            List<InformacionAdjuntoDTO> documentosAdjuntos) {
         this.documentosAdjuntos = documentosAdjuntos;
     }
 
@@ -123,7 +124,8 @@ public class AltaSuplenciaView {
         return mostrarAltaSuplenciaRango;
     }
 
-    public void setMostrarAltaSuplenciaRango(boolean mostrarAltaSuplenciaRango) {
+    public void setMostrarAltaSuplenciaRango(
+            boolean mostrarAltaSuplenciaRango) {
         this.mostrarAltaSuplenciaRango = mostrarAltaSuplenciaRango;
     }
 
@@ -139,7 +141,8 @@ public class AltaSuplenciaView {
         return detalleSeleccionado;
     }
 
-    public void setDetalleSeleccionado(DetalleSuplenciaDTO detalleSeleccionado) {
+    public void setDetalleSeleccionado(
+            DetalleSuplenciaDTO detalleSeleccionado) {
         this.detalleSeleccionado = detalleSeleccionado;
     }
 
@@ -291,7 +294,8 @@ public class AltaSuplenciaView {
         return detallesSuplencias;
     }
 
-    public void setDetallesSuplencias(List<DetalleSuplenciaDTO> detallesSuplencias) {
+    public void setDetallesSuplencias(
+            List<DetalleSuplenciaDTO> detallesSuplencias) {
         this.detallesSuplencias = detallesSuplencias;
     }
 
@@ -323,7 +327,8 @@ public class AltaSuplenciaView {
         return suplentesAutorizados;
     }
 
-    public void setSuplentesAutorizados(List<SuplenteDTO> suplentesAutorizados) {
+    public void setSuplentesAutorizados(
+            List<SuplenteDTO> suplentesAutorizados) {
         this.suplentesAutorizados = suplentesAutorizados;
     }
 

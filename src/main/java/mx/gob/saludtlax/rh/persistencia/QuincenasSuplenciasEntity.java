@@ -170,7 +170,8 @@ public class QuincenasSuplenciasEntity implements Serializable {
         return unidadResponsable;
     }
 
-    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+    public void setUnidadResponsable(
+            UnidadResponsableEntity unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
     }
 
@@ -178,7 +179,8 @@ public class QuincenasSuplenciasEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -186,7 +188,8 @@ public class QuincenasSuplenciasEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 

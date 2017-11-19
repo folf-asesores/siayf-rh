@@ -21,7 +21,8 @@ public class ProductoNominaDTOBuilder {
     private String nombreAutorizo;
     private String cargoAutorizo;
 
-    public ProductoNominaDTOBuilder(Integer idProductoNomina, Date fechaPago, Map<Integer, ProgramaDTO> programas) {
+    public ProductoNominaDTOBuilder(Integer idProductoNomina, Date fechaPago,
+            Map<Integer, ProgramaDTO> programas) {
         this.idProductoNomina = idProductoNomina;
         this.fechaPago = fechaPago;
         this.programas = programas;
@@ -33,7 +34,8 @@ public class ProductoNominaDTOBuilder {
         cargoAutorizo = null;
     }
 
-    public ProductoNominaDTOBuilder setIdProductoNomina(Integer idProductoNomina) {
+    public ProductoNominaDTOBuilder setIdProductoNomina(
+            Integer idProductoNomina) {
         this.idProductoNomina = idProductoNomina;
         return this;
     }
@@ -43,7 +45,8 @@ public class ProductoNominaDTOBuilder {
         return this;
     }
 
-    public ProductoNominaDTOBuilder setProgramas(Map<Integer, ProgramaDTO> programas) {
+    public ProductoNominaDTOBuilder setProgramas(
+            Map<Integer, ProgramaDTO> programas) {
         this.programas = programas;
         return this;
     }
@@ -79,8 +82,9 @@ public class ProductoNominaDTOBuilder {
     }
 
     public ProductoNominaDTO createProductoNominaDTO() {
-        return new ProductoNominaDTO(idProductoNomina, fechaPago, programas, nombreElaboro, cargoElaboro, nombreReviso, cargoReviso, nombreAutorizo,
-                cargoAutorizo);
+        return new ProductoNominaDTO(idProductoNomina, fechaPago, programas,
+                nombreElaboro, cargoElaboro, nombreReviso, cargoReviso,
+                nombreAutorizo, cargoAutorizo);
     }
 
 }

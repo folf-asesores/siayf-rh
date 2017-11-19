@@ -29,7 +29,8 @@ public class ConsultaSuplenciaView {
         return suplentesAutorizados;
     }
 
-    public void setSuplentesAutorizados(List<SuplenteDTO> suplentesAutorizados) {
+    public void setSuplentesAutorizados(
+            List<SuplenteDTO> suplentesAutorizados) {
         this.suplentesAutorizados = suplentesAutorizados;
     }
 

@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.empleados.movimientos.reportes;
 import java.util.Date;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  *
  */
 public class ComisionadoLicenciaExcelDTO {

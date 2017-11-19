@@ -108,7 +108,8 @@ public class DatosLaboralesCruceEntity implements Serializable {
         return idEmpleadoDatosPersonales;
     }
 
-    public void setIdEmpleadoDatosPersonales(Integer idEmpleadoDatosPersonales) {
+    public void setIdEmpleadoDatosPersonales(
+            Integer idEmpleadoDatosPersonales) {
         this.idEmpleadoDatosPersonales = idEmpleadoDatosPersonales;
     }
 
@@ -148,7 +149,8 @@ public class DatosLaboralesCruceEntity implements Serializable {
         return unidadResponsable;
     }
 
-    public void setUnidadResponsable(UnidadResponsableEntity unidadResponsable) {
+    public void setUnidadResponsable(
+            UnidadResponsableEntity unidadResponsable) {
         this.unidadResponsable = unidadResponsable;
     }
 
@@ -164,7 +166,8 @@ public class DatosLaboralesCruceEntity implements Serializable {
         return fuenteFinanciamiento;
     }
 
-    public void setFuenteFinanciamiento(FuenteFinanciamientoEntity fuenteFinanciamiento) {
+    public void setFuenteFinanciamiento(
+            FuenteFinanciamientoEntity fuenteFinanciamiento) {
         this.fuenteFinanciamiento = fuenteFinanciamiento;
     }
 
@@ -172,7 +175,8 @@ public class DatosLaboralesCruceEntity implements Serializable {
         return subfuenteFinanciamiento;
     }
 
-    public void setSubfuenteFinanciamiento(SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
+    public void setSubfuenteFinanciamiento(
+            SubFuenteFinanciamientoTempEntity subfuenteFinanciamiento) {
         this.subfuenteFinanciamiento = subfuenteFinanciamiento;
     }
 

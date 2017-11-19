@@ -19,8 +19,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * @author Eduardo Mex
-
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 25/05/2016 13:50:30
  */
@@ -106,7 +106,8 @@ public class MovimientoFijoEntity implements Serializable {
         return terceroInstitucional;
     }
 
-    public void setTerceroInstitucional(TerceroInstitucionalEntity terceroInstitucional) {
+    public void setTerceroInstitucional(
+            TerceroInstitucionalEntity terceroInstitucional) {
         this.terceroInstitucional = terceroInstitucional;
     }
 

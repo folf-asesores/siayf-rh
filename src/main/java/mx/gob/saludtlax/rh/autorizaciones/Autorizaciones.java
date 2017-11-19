@@ -17,9 +17,11 @@ public interface Autorizaciones {
 
     public void autorizarProceso(AutorizacionDTO autorizacionDTO);
 
-    public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(Integer idUsuario, boolean autorizado);
+    public List<BuzonAutorizacionDTO> consultarAutorizacionesUsuarioEstatus(
+            Integer idUsuario, boolean autorizado);
 
-    public List<BuzonAutorizacionDTO> consultarAutorizacionesPorOperacionEstatus(Integer idUsuario, boolean autorizado, Integer idOperacion);
+    public List<BuzonAutorizacionDTO> consultarAutorizacionesPorOperacionEstatus(
+            Integer idUsuario, boolean autorizado, Integer idOperacion);
 
     public DetalleAutorizacionDTO obtenerDetalleAutorizacion(Integer idBuzon);
 

@@ -7,7 +7,9 @@ import java.util.List;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 
-public class TiposNombramientosRepository extends GenericRepository<TiposNombramientosEntity, Integer> implements Serializable {
+public class TiposNombramientosRepository
+        extends GenericRepository<TiposNombramientosEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -15,7 +17,9 @@ public class TiposNombramientosRepository extends GenericRepository<TiposNombram
     private static final long serialVersionUID = 5301679043467897979L;
 
     public List<TiposNombramientosEntity> nombramientos() {
-        List<TiposNombramientosEntity> nombramientos = em.createQuery("SELECT n FROM TiposNombramientosEntity AS n", TiposNombramientosEntity.class)
+        List<TiposNombramientosEntity> nombramientos = em
+                .createQuery("SELECT n FROM TiposNombramientosEntity AS n",
+                        TiposNombramientosEntity.class)
                 .getResultList();
         return nombramientos;
     }
@@ -26,8 +30,10 @@ public class TiposNombramientosRepository extends GenericRepository<TiposNombram
 
     public TiposNombramientosEntity nombramientoPorClave(String clave) {
         try {
-            return em.createQuery("SELECT n FROM TiposNombramientosEntity AS n WHERE n.nombramiento =:clave", TiposNombramientosEntity.class)
-                    .setParameter("clave", clave).getSingleResult();
+            return em.createQuery(
+                    "SELECT n FROM TiposNombramientosEntity AS n WHERE n.nombramiento =:clave",
+                    TiposNombramientosEntity.class).setParameter("clave", clave)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
             return null;
@@ -36,8 +42,10 @@ public class TiposNombramientosRepository extends GenericRepository<TiposNombram
 
     public Integer obtenerIdNombramientoPorClave(String clave) {
         try {
-            return em.createQuery("SELECT n.idTipoNombramiento FROM TiposNombramientosEntity AS n WHERE n.clave =:clave", Integer.class)
-                    .setParameter("clave", clave).getSingleResult();
+            return em.createQuery(
+                    "SELECT n.idTipoNombramiento FROM TiposNombramientosEntity AS n WHERE n.clave =:clave",
+                    Integer.class).setParameter("clave", clave)
+                    .getSingleResult();
 
         } catch (NoResultException exception) {
             return null;
@@ -47,9 +55,9 @@ public class TiposNombramientosRepository extends GenericRepository<TiposNombram
     }
 
     public List<TiposNombramientosEntity> nombramientosConSubfuente() {
-        List<TiposNombramientosEntity> nombramientos = em
-                .createQuery("SELECT n FROM TiposNombramientosEntity AS n WHERE n.idSubfuenteFinanciamiento IS NOT NULL ", TiposNombramientosEntity.class)
-                .getResultList();
+        List<TiposNombramientosEntity> nombramientos = em.createQuery(
+                "SELECT n FROM TiposNombramientosEntity AS n WHERE n.idSubfuenteFinanciamiento IS NOT NULL ",
+                TiposNombramientosEntity.class).getResultList();
         return nombramientos;
     }
 }

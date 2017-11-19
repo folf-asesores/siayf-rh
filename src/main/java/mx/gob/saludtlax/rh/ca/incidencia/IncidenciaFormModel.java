@@ -90,7 +90,8 @@ public class IncidenciaFormModel implements Serializable {
     @Override
     public String toString() {
 
-        return super.toString() + idIncidencia + "|" + descripcion + "|" + marcaReporte + "|" + esImagen + "|" + imagenMarca;
+        return super.toString() + idIncidencia + "|" + descripcion + "|"
+                + marcaReporte + "|" + esImagen + "|" + imagenMarca;
     }
 
 }

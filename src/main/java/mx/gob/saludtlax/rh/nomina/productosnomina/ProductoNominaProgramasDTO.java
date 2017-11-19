@@ -144,7 +144,8 @@ public class ProductoNominaProgramasDTO implements Serializable {
         return idSubfuenteFinanciamiento;
     }
 
-    public void setIdSubfuenteFinanciamiento(Integer idSubfuenteFinanciamiento) {
+    public void setIdSubfuenteFinanciamiento(
+            Integer idSubfuenteFinanciamiento) {
         this.idSubfuenteFinanciamiento = idSubfuenteFinanciamiento;
     }
 
@@ -256,7 +257,8 @@ public class ProductoNominaProgramasDTO implements Serializable {
         return cambiarFuenteFinanciamiento;
     }
 
-    public void setCambiarFuenteFinanciamiento(Boolean cambiarFuenteFinanciamiento) {
+    public void setCambiarFuenteFinanciamiento(
+            Boolean cambiarFuenteFinanciamiento) {
         this.cambiarFuenteFinanciamiento = cambiarFuenteFinanciamiento;
     }
 
@@ -416,7 +418,8 @@ public class ProductoNominaProgramasDTO implements Serializable {
         return diasExentoPrimaVacasional;
     }
 
-    public void setDiasExentoPrimaVacasional(BigDecimal diasExentoPrimaVacasional) {
+    public void setDiasExentoPrimaVacasional(
+            BigDecimal diasExentoPrimaVacasional) {
         this.diasExentoPrimaVacasional = diasExentoPrimaVacasional;
     }
 
@@ -430,19 +433,39 @@ public class ProductoNominaProgramasDTO implements Serializable {
 
     @Override
     public String toString() {
-        return "ProductoNominaDTO{" + "idProductoNomina=" + idProductoNomina + ", idTipoPeriodo=" + idTipoPeriodo + ", idPeriodoCalendario="
-                + idPeriodoCalendario + ", idUsuario=" + idUsuario + ", idEjercicioFiscal=" + idEjercicioFiscal + ", idEstatusProductoNomina="
-                + idEstatusProductoNomina + ", idBanco=" + idBanco + ", idCuentaBancaria=" + idCuentaBancaria + ", idTipoContratacion=" + idTipoContratacion
-                + ", idFuenteFinanciamiento=" + idFuenteFinanciamiento + ", idSubfuenteFinanciamiento=" + idSubfuenteFinanciamiento + ", idTipoNomina="
-                + idTipoNomina + ", idArea=" + idArea + ", tipoPeriodo=" + tipoPeriodo + ", periodoCalendario=" + periodoCalendario + ", usuario=" + usuario
-                + ", ejercicioFiscal=" + ejercicioFiscal + ", estatusProductoNomina=" + estatusProductoNomina + ", banco=" + banco + ", cuentaBancaria="
-                + cuentaBancaria + ", tipoContratacion=" + tipoContratacion + ", fuenteFinanciamiento=" + fuenteFinanciamiento + ", subfuenteFinanciamiento="
-                + subfuenteFinanciamiento + ", tipoNomina=" + tipoNomina + ", cambiarFuenteFinanciamiento=" + cambiarFuenteFinanciamiento
-                + ", anyoEjercicioFiscal=" + anyoEjercicioFiscal + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo=" + finPeriodo + ", numeroPeriodo="
-                + numeroPeriodo + ", fechaPago=" + fechaPago + ", nombreProducto=" + nombreProducto + ", numeroInicioCheques=" + numeroInicioCheques
-                + ", totalPercepciones=" + totalPercepciones + ", totalDeducciones=" + totalDeducciones + ", totalNeto=" + totalNeto + ", totalSubsidio="
-                + totalSubsidio + ", totalIsr=" + totalIsr + ", tipoRecurso=" + tipoRecurso + ", diasPagarAguinaldo=" + diasPagarAguinaldo
-                + ", inicioRangoFaltas=" + inicioRangoFaltas + ", finRangoFaltas=" + finRangoFaltas + ", idNominaEmpleado=" + idNominaEmpleado + '}';
+        return "ProductoNominaDTO{" + "idProductoNomina=" + idProductoNomina
+                + ", idTipoPeriodo=" + idTipoPeriodo + ", idPeriodoCalendario="
+                + idPeriodoCalendario + ", idUsuario=" + idUsuario
+                + ", idEjercicioFiscal=" + idEjercicioFiscal
+                + ", idEstatusProductoNomina=" + idEstatusProductoNomina
+                + ", idBanco=" + idBanco + ", idCuentaBancaria="
+                + idCuentaBancaria + ", idTipoContratacion="
+                + idTipoContratacion + ", idFuenteFinanciamiento="
+                + idFuenteFinanciamiento + ", idSubfuenteFinanciamiento="
+                + idSubfuenteFinanciamiento + ", idTipoNomina=" + idTipoNomina
+                + ", idArea=" + idArea + ", tipoPeriodo=" + tipoPeriodo
+                + ", periodoCalendario=" + periodoCalendario + ", usuario="
+                + usuario + ", ejercicioFiscal=" + ejercicioFiscal
+                + ", estatusProductoNomina=" + estatusProductoNomina
+                + ", banco=" + banco + ", cuentaBancaria=" + cuentaBancaria
+                + ", tipoContratacion=" + tipoContratacion
+                + ", fuenteFinanciamiento=" + fuenteFinanciamiento
+                + ", subfuenteFinanciamiento=" + subfuenteFinanciamiento
+                + ", tipoNomina=" + tipoNomina
+                + ", cambiarFuenteFinanciamiento=" + cambiarFuenteFinanciamiento
+                + ", anyoEjercicioFiscal=" + anyoEjercicioFiscal
+                + ", inicioPeriodo=" + inicioPeriodo + ", finPeriodo="
+                + finPeriodo + ", numeroPeriodo=" + numeroPeriodo
+                + ", fechaPago=" + fechaPago + ", nombreProducto="
+                + nombreProducto + ", numeroInicioCheques="
+                + numeroInicioCheques + ", totalPercepciones="
+                + totalPercepciones + ", totalDeducciones=" + totalDeducciones
+                + ", totalNeto=" + totalNeto + ", totalSubsidio="
+                + totalSubsidio + ", totalIsr=" + totalIsr + ", tipoRecurso="
+                + tipoRecurso + ", diasPagarAguinaldo=" + diasPagarAguinaldo
+                + ", inicioRangoFaltas=" + inicioRangoFaltas
+                + ", finRangoFaltas=" + finRangoFaltas + ", idNominaEmpleado="
+                + idNominaEmpleado + '}';
     }
 
     public Boolean getCalcularFaltas() {

@@ -19,29 +19,35 @@ import org.apache.commons.lang3.StringUtils;
  * </p>
  *
  * <p>
- * Basado en el trabajo de Rene Gómez.
- * (<a href="https://github.com/Axiacore/numero-a-letras/blob/master/java/NumberToLetterConverter.java">código en GitHub</a>)
+ * Basado en el trabajo de Rene Gómez
+ * (<a href="https://github.com/Axiacore/numero-a-letras/blob/master/java/NumberToLetterConverter.java">código en GitHub</a>).
  * </p>
  *
  * @author Rene Gómez
- * @author Freddy Barrera
- * @author Eduardo Mex
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  */
 public class NumeroALetra implements Serializable {
 
     /** Número para serializar la clase. */
     private static final long serialVersionUID = -7523110768389321147L;
 
-    private static final String[] UNIDADES = { "", "UN ", "DOS ", "TRES ", "CUATRO ", "CINCO ", "SEIS ", "SIETE ", "OCHO ", "NUEVE ", "DIEZ ", "ONCE ", "DOCE ",
-            "TRECE ", "CATORCE ", "QUINCE ", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE" };
+    private static final String[] UNIDADES = { "", "UN ", "DOS ", "TRES ",
+            "CUATRO ", "CINCO ", "SEIS ", "SIETE ", "OCHO ", "NUEVE ", "DIEZ ",
+            "ONCE ", "DOCE ", "TRECE ", "CATORCE ", "QUINCE ", "DIECISEIS",
+            "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE" };
 
-    private static final String[] DECENAS = { "VENTI", "TREINTA ", "CUARENTA ", "CINCUENTA ", "SESENTA ", "SETENTA ", "OCHENTA ", "NOVENTA ", "CIEN " };
+    private static final String[] DECENAS = { "VENTI", "TREINTA ", "CUARENTA ",
+            "CINCUENTA ", "SESENTA ", "SETENTA ", "OCHENTA ", "NOVENTA ",
+            "CIEN " };
 
-    private static final String[] CENTENAS = { "CIENTO ", "DOSCIENTOS ", "TRESCIENTOS ", "CUATROCIENTOS ", "QUINIENTOS ", "SEISCIENTOS ", "SETECIENTOS ",
-            "OCHOCIENTOS ", "NOVECIENTOS " };
+    private static final String[] CENTENAS = { "CIENTO ", "DOSCIENTOS ",
+            "TRESCIENTOS ", "CUATROCIENTOS ", "QUINIENTOS ", "SEISCIENTOS ",
+            "SETECIENTOS ", "OCHOCIENTOS ", "NOVECIENTOS " };
 
     // TODO: Usar al escribir los decimales.
-    private static final String[] DECIMALES = { "DÉCIMAS", "CENTÉSIMAS", "MILÉSIMAS", "DIEZMILÉSIMAS", "CIENMILÉSIMAS", "MILLONÉSIMAS" };
+    private static final String[] DECIMALES = { "DÉCIMAS", "CENTÉSIMAS",
+            "MILÉSIMAS", "DIEZMILÉSIMAS", "CIENMILÉSIMAS", "MILLONÉSIMAS" };
 
     /**
      * Por ser una utilería el constructor no debe ser accesible para crear una
@@ -60,7 +66,8 @@ public class NumeroALetra implements Serializable {
     public static String convertir(BigDecimal numero) {
 
         if (numero.scale() != 2) {
-            throw new NumberFormatException("El número " + numero + " no tiene el formato moneda a 2 decimales.");
+            throw new NumberFormatException("El número " + numero
+                    + " no tiene el formato moneda a 2 decimales.");
         }
 
         numero = NumeroUtil.redondear(numero);
@@ -77,7 +84,8 @@ public class NumeroALetra implements Serializable {
      *             Si valor del número no es valido (fuera de
      *             rango)
      */
-    public static String convertNumberToLetter(String number) throws NumberFormatException {
+    public static String convertNumberToLetter(String number)
+            throws NumberFormatException {
         return convertNumberToLetter(new BigDecimal(number));
     }
 
@@ -93,7 +101,8 @@ public class NumeroALetra implements Serializable {
      *             Si valor del número no es valido (fuera de
      *             rango).
      */
-    public static String convertNumberToLetter(String number, boolean moneda) throws NumberFormatException {
+    public static String convertNumberToLetter(String number, boolean moneda)
+            throws NumberFormatException {
         return convertNumberToLetter(new BigDecimal(number), moneda);
     }
 
@@ -112,7 +121,8 @@ public class NumeroALetra implements Serializable {
      * @throws NumberFormatException
      *             si el número esta fuera del rango.
      */
-    public static String convertNumberToLetter(BigDecimal doubleNumber) throws NumberFormatException {
+    public static String convertNumberToLetter(BigDecimal doubleNumber)
+            throws NumberFormatException {
         return convertNumberToLetter(doubleNumber, true);
     }
 
@@ -133,24 +143,29 @@ public class NumeroALetra implements Serializable {
      * @throws NumberFormatException
      *             si el número esta fuera del rango.
      */
-    public static String convertNumberToLetter(BigDecimal doubleNumber, boolean moneda) throws NumberFormatException {
+    public static String convertNumberToLetter(BigDecimal doubleNumber,
+            boolean moneda) throws NumberFormatException {
         StringBuilder converted = new StringBuilder();
         doubleNumber.setScale(3);
 
         // Validamos que sea un número legal //doubleNumber > 999 999 999
         if (doubleNumber.compareTo(new BigDecimal("999999999")) == 1) {
-            throw new NumberFormatException("El número es mayor de 999,999.999 no es posible convertirlo");
+            throw new NumberFormatException(
+                    "El número es mayor de 999,999.999 no es posible convertirlo");
         }
 
         if (doubleNumber.compareTo(new BigDecimal("0")) == -1) {
             throw new NumberFormatException("El número debe ser positivo");
         }
 
-        String splitNumber[] = String.valueOf(doubleNumber).replace('.', '#').split("#");
+        String splitNumber[] = String.valueOf(doubleNumber).replace('.', '#')
+                .split("#");
 
         // Descompone el trio de millones
-        int millon = Integer.parseInt(
-                String.valueOf(getDigitAt(splitNumber[0], 8)) + String.valueOf(getDigitAt(splitNumber[0], 7)) + String.valueOf(getDigitAt(splitNumber[0], 6)));
+        int millon = Integer
+                .parseInt(String.valueOf(getDigitAt(splitNumber[0], 8))
+                        + String.valueOf(getDigitAt(splitNumber[0], 7))
+                        + String.valueOf(getDigitAt(splitNumber[0], 6)));
         if (millon == 1) {
             converted.append("UN MILLÓN ");
         } else if (millon > 1) {
@@ -159,8 +174,10 @@ public class NumeroALetra implements Serializable {
         }
 
         // Descompone el trio de miles
-        int miles = Integer.parseInt(
-                String.valueOf(getDigitAt(splitNumber[0], 5)) + String.valueOf(getDigitAt(splitNumber[0], 4)) + String.valueOf(getDigitAt(splitNumber[0], 3)));
+        int miles = Integer
+                .parseInt(String.valueOf(getDigitAt(splitNumber[0], 5))
+                        + String.valueOf(getDigitAt(splitNumber[0], 4))
+                        + String.valueOf(getDigitAt(splitNumber[0], 3)));
         if (miles == 1) {
             converted.append(" MIL ");
         } else if (miles > 1) {
@@ -169,8 +186,10 @@ public class NumeroALetra implements Serializable {
         }
 
         // Descompone el ultimo trio de unidades
-        int cientos = Integer.parseInt(
-                String.valueOf(getDigitAt(splitNumber[0], 2)) + String.valueOf(getDigitAt(splitNumber[0], 1)) + String.valueOf(getDigitAt(splitNumber[0], 0)));
+        int cientos = Integer
+                .parseInt(String.valueOf(getDigitAt(splitNumber[0], 2))
+                        + String.valueOf(getDigitAt(splitNumber[0], 1))
+                        + String.valueOf(getDigitAt(splitNumber[0], 0)));
         if (cientos == 1) {
             converted.append("UN");
         }
@@ -189,7 +208,9 @@ public class NumeroALetra implements Serializable {
             // Descompone los centavos
             int centavos;
             if (splitNumber.length > 1) {
-                centavos = Integer.parseInt(String.valueOf(getDigitAt(splitNumber[1], 2)) + String.valueOf(getDigitAt(splitNumber[1], 1))
+                centavos = Integer.parseInt(String
+                        .valueOf(getDigitAt(splitNumber[1], 2))
+                        + String.valueOf(getDigitAt(splitNumber[1], 1))
                         + String.valueOf(getDigitAt(splitNumber[1], 0)));
             } else {
                 centavos = 0;
@@ -219,7 +240,8 @@ public class NumeroALetra implements Serializable {
      */
     private static String convertNumber(String number) {
         if (number.length() > 3) {
-            throw new NumberFormatException("La longitud máxima debe ser 3 dígitos");
+            throw new NumberFormatException(
+                    "La longitud máxima debe ser 3 dígitos");
         }
 
         // Caso especial con el 100
@@ -232,7 +254,8 @@ public class NumeroALetra implements Serializable {
             output.append(CENTENAS[getDigitAt(number, 2) - 1]);
         }
 
-        int k = Integer.parseInt(String.valueOf(getDigitAt(number, 1)) + String.valueOf(getDigitAt(number, 0)));
+        int k = Integer.parseInt(String.valueOf(getDigitAt(number, 1))
+                + String.valueOf(getDigitAt(number, 0)));
         if (k <= 20) {
             output.append(UNIDADES[k]);
         } else if (k > 30 && getDigitAt(number, 0) != 0) {

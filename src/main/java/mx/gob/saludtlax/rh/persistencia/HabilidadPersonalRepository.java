@@ -15,11 +15,13 @@ import mx.gob.saludtlax.rh.excepciones.BusinessException;
 import mx.gob.saludtlax.rh.util.Configuracion;
 
 /**
- * @author Eduardo Mex
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
  * @version 22/03/2016 17:58:09
- * @email Lic.Eduardo_Mex@hotmail.com
+ * 
  */
-public class HabilidadPersonalRepository extends GenericRepository<HabilidadPersonalEntity, Integer> implements Serializable {
+public class HabilidadPersonalRepository
+        extends GenericRepository<HabilidadPersonalEntity, Integer>
+        implements Serializable {
 
     /**
      *
@@ -40,13 +42,16 @@ public class HabilidadPersonalRepository extends GenericRepository<HabilidadPers
         String contexto = "Registro Habilidad Personal: ";
         try {
             HabilidadPersonalEntity experienciaLaboral = entityManager
-                    .createQuery("SELECT e FROM HabilidadPersonalEntity AS e WHERE e.aspirante.idAspirante =:idAspirante", HabilidadPersonalEntity.class)
+                    .createQuery(
+                            "SELECT e FROM HabilidadPersonalEntity AS e WHERE e.aspirante.idAspirante =:idAspirante",
+                            HabilidadPersonalEntity.class)
                     .setParameter("idAspirante", idAspirante).getSingleResult();
             resultado = true;
         } catch (NoResultException ex) {
             resultado = false;
         } catch (NonUniqueResultException ex) {
-            throw new BusinessException(contexto + "La encuesta laboral del aspirante ya se encuentra registrado mas de una vez");
+            throw new BusinessException(contexto
+                    + "La encuesta laboral del aspirante ya se encuentra registrado mas de una vez");
         }
 
         return resultado;
@@ -58,18 +63,22 @@ public class HabilidadPersonalRepository extends GenericRepository<HabilidadPers
      * @param idAspirante
      * @return
      */
-    public HabilidadPersonalEntity encuentaPersonalPorIdAspirante(Integer idAspirante) {
+    public HabilidadPersonalEntity encuentaPersonalPorIdAspirante(
+            Integer idAspirante) {
         // String contexto = "Encuesta laboral: ";
         try {
             HabilidadPersonalEntity experienciaLaboral = entityManager
-                    .createQuery("SELECT e FROM HabilidadPersonalEntity AS e WHERE e.aspirante.idAspirante =:idAspirante", HabilidadPersonalEntity.class)
+                    .createQuery(
+                            "SELECT e FROM HabilidadPersonalEntity AS e WHERE e.aspirante.idAspirante =:idAspirante",
+                            HabilidadPersonalEntity.class)
                     .setParameter("idAspirante", idAspirante).getSingleResult();
             return experienciaLaboral;
         } catch (NoResultException ex) {
             //throw new BusinessException("No se encontro registrado su habilidad personal del aspirante");
             return null;
         } catch (NonUniqueResultException ex) {
-            throw new BusinessException("La  habilidad personal ya se encuentra registrado mas de una vez");
+            throw new BusinessException(
+                    "La  habilidad personal ya se encuentra registrado mas de una vez");
         }
 
     }

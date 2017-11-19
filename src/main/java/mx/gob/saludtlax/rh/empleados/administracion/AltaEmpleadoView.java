@@ -102,7 +102,8 @@ public class AltaEmpleadoView {
         return detalleVacante;
     }
 
-    public void setDetalleVacante(DetalleConfiguracionPresupuestoDTO detalleVacante) {
+    public void setDetalleVacante(
+            DetalleConfiguracionPresupuestoDTO detalleVacante) {
         this.detalleVacante = detalleVacante;
     }
 
@@ -126,7 +127,8 @@ public class AltaEmpleadoView {
         return listaTiposContratacion;
     }
 
-    public void setListaTiposContratacion(List<SelectItem> listaTiposContratacion) {
+    public void setListaTiposContratacion(
+            List<SelectItem> listaTiposContratacion) {
         this.listaTiposContratacion = listaTiposContratacion;
     }
 
@@ -134,7 +136,8 @@ public class AltaEmpleadoView {
         return vacantesDisponibles;
     }
 
-    public void setVacantesDisponibles(List<InfoPuestoDTO> vacantesDisponibles) {
+    public void setVacantesDisponibles(
+            List<InfoPuestoDTO> vacantesDisponibles) {
         this.vacantesDisponibles = vacantesDisponibles;
     }
 

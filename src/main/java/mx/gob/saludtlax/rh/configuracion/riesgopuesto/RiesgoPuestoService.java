@@ -15,8 +15,8 @@ import mx.gob.saludtlax.rh.persistencia.RiesgoPuestoEntity;
 import mx.gob.saludtlax.rh.persistencia.RiesgoPuestoRepository;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 07/06/2016 19:04:22
  */
@@ -35,19 +35,23 @@ public class RiesgoPuestoService implements Serializable {
         String contexto = "Registro Riesgo Puesto: ";
 
         if (dto.getClave() == null) {
-            throw new BusinessException(contexto + "la clave es necesario, ingrese la clave");
+            throw new BusinessException(
+                    contexto + "la clave es necesario, ingrese la clave");
         }
 
-        Boolean validarClave = riesgoPuestoRepository.validarClave(dto.getClave());
+        Boolean validarClave = riesgoPuestoRepository
+                .validarClave(dto.getClave());
 
         if (validarClave) {
-            throw new BusinessException(contexto + "la clave ya se encuetra registrada, ingrese otra clave");
+            throw new BusinessException(contexto
+                    + "la clave ya se encuetra registrada, ingrese otra clave");
         }
 
         RiesgoPuestoEntity riesgoPuestoEntity = new RiesgoPuestoEntity();
 
         riesgoPuestoEntity.setClave(dto.getClave());
-        riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
+        riesgoPuestoEntity
+                .setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
 
         riesgoPuestoRepository.crear(riesgoPuestoEntity);
 
@@ -55,17 +59,20 @@ public class RiesgoPuestoService implements Serializable {
 
     protected void actualizarRiesgoPuesto(RiesgoPuestoDTO dto) {
 
-        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(dto.getIdRiesgoPuesto());
+        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository
+                .obtenerPorId(dto.getIdRiesgoPuesto());
 
         riesgoPuestoEntity.setClave(dto.getClave());
-        riesgoPuestoEntity.setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
+        riesgoPuestoEntity
+                .setDescripcionRiesgoPuesto(dto.getDescripcionRiesgoPuesto());
 
         riesgoPuestoRepository.actualizar(riesgoPuestoEntity);
 
     }
 
     protected void eliminarRiesgoPuesto(Integer idRiesgoPuesto) {
-        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository.obtenerPorId(idRiesgoPuesto);
+        RiesgoPuestoEntity riesgoPuestoEntity = riesgoPuestoRepository
+                .obtenerPorId(idRiesgoPuesto);
 
         riesgoPuestoRepository.eliminar(riesgoPuestoEntity);
     }
@@ -73,7 +80,8 @@ public class RiesgoPuestoService implements Serializable {
     protected List<RiesgoPuestoDTO> obtenerListaRiesgoPuesto() {
         List<RiesgoPuestoDTO> listaRiesgoPuestoDTOs = new ArrayList<>();
 
-        List<RiesgoPuestoEntity> obtenerRiesgoPuestoEntities = riesgoPuestoRepository.obtenerListaRiesgoPuesto();
+        List<RiesgoPuestoEntity> obtenerRiesgoPuestoEntities = riesgoPuestoRepository
+                .obtenerListaRiesgoPuesto();
 
         if (!obtenerRiesgoPuestoEntities.isEmpty()) {
             for (RiesgoPuestoEntity riesgoPuestoEntity : obtenerRiesgoPuestoEntities) {
@@ -81,7 +89,8 @@ public class RiesgoPuestoService implements Serializable {
 
                 dto.setIdRiesgoPuesto(riesgoPuestoEntity.getIdRiesgoPuesto());
                 dto.setClave(riesgoPuestoEntity.getClave());
-                dto.setDescripcionRiesgoPuesto(riesgoPuestoEntity.getDescripcionRiesgoPuesto());
+                dto.setDescripcionRiesgoPuesto(
+                        riesgoPuestoEntity.getDescripcionRiesgoPuesto());
 
                 listaRiesgoPuestoDTOs.add(dto);
             }

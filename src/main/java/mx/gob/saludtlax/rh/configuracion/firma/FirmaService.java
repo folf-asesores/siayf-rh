@@ -52,7 +52,8 @@ public class FirmaService {
     }
 
     protected void actualizar(FirmaDTO dto) {
-        FirmaEntity entidad = convertirDtoAEntidad(dto, firmaRepository.obtenerPorId(dto.getIdFirma()));
+        FirmaEntity entidad = convertirDtoAEntidad(dto,
+                firmaRepository.obtenerPorId(dto.getIdFirma()));
         firmaRepository.actualizar(entidad);
     }
 
@@ -64,12 +65,14 @@ public class FirmaService {
         return convertirDtoAEntidad(dto, null);
     }
 
-    private FirmaEntity convertirDtoAEntidad(FirmaDTO dto, FirmaEntity entidad) {
+    private FirmaEntity convertirDtoAEntidad(FirmaDTO dto,
+            FirmaEntity entidad) {
         if (entidad == null) {
             entidad = new FirmaEntity();
         }
 
-        AdscripcionEntity adscripcion = adscripcionRepository.obtenerPorId(dto.getIdAdscripcion());
+        AdscripcionEntity adscripcion = adscripcionRepository
+                .obtenerPorId(dto.getIdAdscripcion());
 
         entidad.setAdscripcion(adscripcion);
         entidad.setNombre(dto.getNombre());

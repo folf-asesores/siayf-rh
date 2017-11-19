@@ -19,22 +19,30 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 public class DescuentoSuplenciaValidator {
     @AroundInvoke
     public Object validate(InvocationContext context) throws Exception {
-        DescuentoSuplenciaDTO dto = (DescuentoSuplenciaDTO) context.getParameters()[0];
+        DescuentoSuplenciaDTO dto = (DescuentoSuplenciaDTO) context
+                .getParameters()[0];
 
         if (dto == null) {
-            throw new ValidacionException("La información de la edición es requerida.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "La información de la edición es requerida.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivo(dto.getIdDetalleSuplencia())) {
-            throw new ValidacionException("Seleccione el detalle de suplencia a editar", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "Seleccione el detalle de suplencia a editar",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivo(dto.getImporteADescontar())) {
-            throw new ValidacionException("El importe a descontar es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException(
+                    "El importe a descontar es requerido.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         if (!ValidacionUtil.esNumeroPositivo(dto.getIdUsuarioLogeado())) {
-            throw new ValidacionException("El usuario es requerido.", ValidacionCodigoError.VALOR_REQUERIDO);
+            throw new ValidacionException("El usuario es requerido.",
+                    ValidacionCodigoError.VALOR_REQUERIDO);
         }
 
         return context.proceed();

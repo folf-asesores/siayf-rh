@@ -18,7 +18,8 @@ public interface HistorialAcademico {
      *
      * @param idEmpleado
      */
-    public List<HistorialAcademicoDTO> consultarHistorialAcademicoEmpleado(Integer idEmpleado);
+    public List<HistorialAcademicoDTO> consultarHistorialAcademicoEmpleado(
+            Integer idEmpleado);
 
     /**
      * Crea un historial academico de un aspirante o empleado
@@ -28,9 +29,11 @@ public interface HistorialAcademico {
      * @param esEmpleado
      *            indica si el historial es del empleado o del aspirante.
      */
-    public void crearHistorialAcademico(NuevoHistorialDTO nuevoHistorial, boolean esEmpleado);
+    public void crearHistorialAcademico(NuevoHistorialDTO nuevoHistorial,
+            boolean esEmpleado);
 
-    public void actualizarHistorialAcademico(HistorialAcademicoDTO actualizarHistorial);
+    public void actualizarHistorialAcademico(
+            HistorialAcademicoDTO actualizarHistorial);
 
     public void actualizarAdjuntoHistorial(Integer idHistorialAcademico);
 

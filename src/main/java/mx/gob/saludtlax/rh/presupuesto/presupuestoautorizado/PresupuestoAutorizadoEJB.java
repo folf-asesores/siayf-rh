@@ -14,7 +14,8 @@ import javax.inject.Inject;
  */
 
 @Stateless
-public class PresupuestoAutorizadoEJB implements PresupuestoAutorizado, Serializable {
+public class PresupuestoAutorizadoEJB
+        implements PresupuestoAutorizado, Serializable {
 
     private static final long serialVersionUID = 7829750091048865871L;
 
@@ -33,7 +34,8 @@ public class PresupuestoAutorizadoEJB implements PresupuestoAutorizado, Serializ
 
     @Override
     public void eliminarPresupuestoAutorizado(Integer idPresupuestoAutorizado) {
-        presupuestoAutorizadoService.eliminarPresupuestoAutorizado(idPresupuestoAutorizado);
+        presupuestoAutorizadoService
+                .eliminarPresupuestoAutorizado(idPresupuestoAutorizado);
     }
 
     @Override

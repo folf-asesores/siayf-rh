@@ -8,7 +8,7 @@ package mx.gob.saludtlax.rh.siif.reportarcontratos;
 import java.io.Serializable;
 
 /**
- * @author Freddy Barrera
+ * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  *
  */
 public class CampoExcel implements Serializable {

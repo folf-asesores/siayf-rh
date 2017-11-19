@@ -50,8 +50,6 @@ public class DocumentacionEntity implements Serializable {
     @JoinColumn(name = "id_aspirante")
     private AspiranteEntity idAspirante;
 
-    
-
     public Integer getIdDocumentacion() {
         return idDocumentacion;
     }

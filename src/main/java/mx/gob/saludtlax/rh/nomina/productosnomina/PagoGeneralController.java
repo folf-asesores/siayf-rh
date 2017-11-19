@@ -27,7 +27,8 @@ import org.jboss.logging.Logger;
 public class PagoGeneralController implements Serializable {
 
     private static final long serialVersionUID = -5983498898625094712L;
-    private static final Logger LOGGER = Logger.getLogger(PagoGeneralController.class.getName());
+    private static final Logger LOGGER = Logger
+            .getLogger(PagoGeneralController.class.getName());
 
     private PagoGeneralView view;
 
@@ -40,8 +41,12 @@ public class PagoGeneralController implements Serializable {
 
     @PostConstruct
     public void init() {
-        Map<String, String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        final Integer idProductoNomina = parameters.get("idProductoNomina") != null ? Integer.parseInt(parameters.get("idProductoNomina")) : 0;
+        Map<String, String> parameters = FacesContext.getCurrentInstance()
+                .getExternalContext().getRequestParameterMap();
+        final Integer idProductoNomina = parameters
+                .get("idProductoNomina") != null
+                        ? Integer.parseInt(parameters.get("idProductoNomina"))
+                        : 0;
         //        HttpSession session =  (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         //        final Integer idProductoNomina = session.getAttribute("idProductoNomina") != null ? (Integer) session.getAttribute("idProductoNomina") : 0;
         //        session.removeAttribute("idProductoNomina");

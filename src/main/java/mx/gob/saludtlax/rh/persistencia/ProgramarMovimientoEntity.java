@@ -61,7 +61,8 @@ public class ProgramarMovimientoEntity implements Serializable {
         return idTipoMovimiento;
     }
 
-    public void setIdTipoMovimiento(TiposMovimientosNominaEntity idTipoMovimiento) {
+    public void setIdTipoMovimiento(
+            TiposMovimientosNominaEntity idTipoMovimiento) {
         this.idTipoMovimiento = idTipoMovimiento;
     }
 

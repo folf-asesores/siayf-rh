@@ -100,7 +100,8 @@ public class ConceptoNominaFederalesEntity implements Serializable {
         return estatusConceptoNomina;
     }
 
-    public void setEstatusConceptoNomina(EstatusConceptoNominaEntity estatusConceptoNomina) {
+    public void setEstatusConceptoNomina(
+            EstatusConceptoNominaEntity estatusConceptoNomina) {
         this.estatusConceptoNomina = estatusConceptoNomina;
     }
 

@@ -19,11 +19,14 @@ public interface Profesion {
 
     List<ProfesionDTO> obtenerListaProfesionPorIdEmpleado(Integer idEmpleado);
 
-    public List<InfoVacantePostularDTO> obtenerListaProfesionPorTipoCandidato(Integer idProfesion, Integer tipoCandidato);
+    public List<InfoVacantePostularDTO> obtenerListaProfesionPorTipoCandidato(
+            Integer idProfesion, Integer tipoCandidato);
 
-    public void crearProfesionAspirante(Integer idProfesion, Integer idAspirante);
+    public void crearProfesionAspirante(Integer idProfesion,
+            Integer idAspirante);
 
-    public void actualizarProfesionAspirante(ProfesionDTO profesionDTO, Integer idAspirante);
+    public void actualizarProfesionAspirante(ProfesionDTO profesionDTO,
+            Integer idAspirante);
 
     public void eliminarProfesionAspirante(Integer idProfesionAspirante);
 

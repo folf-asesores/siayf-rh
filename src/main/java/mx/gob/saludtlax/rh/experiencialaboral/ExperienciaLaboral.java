@@ -13,10 +13,13 @@ import java.util.List;
  */
 public interface ExperienciaLaboral {
 
-    public List<ExperienciaLaboralDTO> consultaExperienciaLaboralEmpleado(Integer idEmpleado);
+    public List<ExperienciaLaboralDTO> consultaExperienciaLaboralEmpleado(
+            Integer idEmpleado);
 
-    public void crearExperienciaLaboralEmpleado(ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado);
+    public void crearExperienciaLaboralEmpleado(
+            ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado);
 
-    public void actualizarExperienciaLaboralEmpleado(ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado);
+    public void actualizarExperienciaLaboralEmpleado(
+            ExperienciaLaboralDTO experienciaLaboral, Integer idEmpleado);
 
 }

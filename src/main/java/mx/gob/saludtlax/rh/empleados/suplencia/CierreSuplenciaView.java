@@ -99,7 +99,8 @@ public class CierreSuplenciaView implements Serializable {
         return listaUnidadesResponsables;
     }
 
-    public void setListaUnidadesResponsables(List<SelectItem> listaUnidadesResponsables) {
+    public void setListaUnidadesResponsables(
+            List<SelectItem> listaUnidadesResponsables) {
         this.listaUnidadesResponsables = listaUnidadesResponsables;
     }
 
@@ -107,7 +108,8 @@ public class CierreSuplenciaView implements Serializable {
         return listaFuentesFinanciamiento;
     }
 
-    public void setListaFuentesFinanciamiento(List<SelectItem> listaFuentesFinanciamiento) {
+    public void setListaFuentesFinanciamiento(
+            List<SelectItem> listaFuentesFinanciamiento) {
         this.listaFuentesFinanciamiento = listaFuentesFinanciamiento;
     }
 
@@ -115,7 +117,8 @@ public class CierreSuplenciaView implements Serializable {
         return listaSubfuentesFinanciamiento;
     }
 
-    public void setListaSubfuentesFinanciamiento(List<SelectItem> listaSubfuentesFinanciamiento) {
+    public void setListaSubfuentesFinanciamiento(
+            List<SelectItem> listaSubfuentesFinanciamiento) {
         this.listaSubfuentesFinanciamiento = listaSubfuentesFinanciamiento;
     }
 
@@ -131,7 +134,8 @@ public class CierreSuplenciaView implements Serializable {
         return listaCuentaFinanciamiento;
     }
 
-    public void setListaCuentaFinanciamiento(List<SelectItem> listaCuentaFinanciamiento) {
+    public void setListaCuentaFinanciamiento(
+            List<SelectItem> listaCuentaFinanciamiento) {
         this.listaCuentaFinanciamiento = listaCuentaFinanciamiento;
     }
 

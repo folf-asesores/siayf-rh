@@ -24,13 +24,15 @@ public class ConsultaTcode extends Service {
 
     private final static URL CONSULTATCODE_WSDL_LOCATION;
     private final static WebServiceException CONSULTATCODE_EXCEPTION;
-    private final static QName CONSULTATCODE_QNAME = new QName("http://tempuri.org/", "consulta_tcode");
+    private final static QName CONSULTATCODE_QNAME = new QName(
+            "http://tempuri.org/", "consulta_tcode");
 
     static {
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://opd2016.ddns.net:2280/test/ws/r/consulta_tcoded?WSDL");
+            url = new URL(
+                    "http://opd2016.ddns.net:2280/test/ws/r/consulta_tcoded?WSDL");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }
@@ -58,7 +60,8 @@ public class ConsultaTcode extends Service {
         super(wsdlLocation, serviceName);
     }
 
-    public ConsultaTcode(URL wsdlLocation, QName serviceName, WebServiceFeature... features) {
+    public ConsultaTcode(URL wsdlLocation, QName serviceName,
+            WebServiceFeature... features) {
         super(wsdlLocation, serviceName, features);
     }
 
@@ -69,7 +72,9 @@ public class ConsultaTcode extends Service {
      */
     @WebEndpoint(name = "consulta_tcodePortType")
     public ConsultaTcodePortType getConsultaTcodePortType() {
-        return super.getPort(new QName("http://tempuri.org/", "consulta_tcodePortType"), ConsultaTcodePortType.class);
+        return super.getPort(
+                new QName("http://tempuri.org/", "consulta_tcodePortType"),
+                ConsultaTcodePortType.class);
     }
 
     /**
@@ -81,8 +86,11 @@ public class ConsultaTcode extends Service {
      *         returns ConsultaTcodePortType
      */
     @WebEndpoint(name = "consulta_tcodePortType")
-    public ConsultaTcodePortType getConsultaTcodePortType(WebServiceFeature... features) {
-        return super.getPort(new QName("http://tempuri.org/", "consulta_tcodePortType"), ConsultaTcodePortType.class, features);
+    public ConsultaTcodePortType getConsultaTcodePortType(
+            WebServiceFeature... features) {
+        return super.getPort(
+                new QName("http://tempuri.org/", "consulta_tcodePortType"),
+                ConsultaTcodePortType.class, features);
     }
 
     private static URL __getWsdlLocation() {

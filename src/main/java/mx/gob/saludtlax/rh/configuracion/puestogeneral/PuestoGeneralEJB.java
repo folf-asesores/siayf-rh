@@ -11,8 +11,8 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- * @author Eduardo Mex
- * @email Lic.Eduardo_Mex@hotmail.com
+ * @author L.I. Eduardo B. C. Mex (lic.eduardo_mex@hotmail.com)
+ * 
  * @version 1.0
  * @since 21/07/2016 13:40:39
  */
@@ -53,8 +53,10 @@ public class PuestoGeneralEJB implements PuestoGeneral, Serializable {
     }
 
     @Override
-    public Boolean existeCodigoIdPuesto(Integer idPuestoGeneral, String codigo) {
-        return puestoGeneralService.existeCodigoIdPuesto(idPuestoGeneral, codigo);
+    public Boolean existeCodigoIdPuesto(Integer idPuestoGeneral,
+            String codigo) {
+        return puestoGeneralService.existeCodigoIdPuesto(idPuestoGeneral,
+                codigo);
     }
 
     @Override

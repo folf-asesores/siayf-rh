@@ -58,16 +58,24 @@ public class ConsultaAfaspeProsperaController {
     }
 
     public String irPrincipal() {
-        System.out.println("consultaProspera-irPrincipal: this.view.getRfcCriterio():: " + view.getRfcCriterio());
+        System.out.println(
+                "consultaProspera-irPrincipal: this.view.getRfcCriterio():: "
+                        + view.getRfcCriterio());
         //this.view.setListDatosPersonalesLista(datoPersonal.obtenerlistaDatosPersonalesPorCriterio(this.view.getRfcCriterio()));
-        view.setListEstructuraProspera(ejb.obtenerConsultaProsperaListaPorCriterios(view.getRfcCriterio()));
+        view.setListEstructuraProspera(
+                ejb.obtenerConsultaProsperaListaPorCriterios(
+                        view.getRfcCriterio()));
         view.panelPrincipal();
         return "/contenido/siif/consultaNomina.xhtml?redirect-true";
     }
 
     public String filtrarPorCriterios() {
-        view.setListEstructuraProspera(ejb.obtenerConsultaProsperaListaPorCriterios(view.getRfcCriterio()));
-        view.setListEstructuraProsperaTrailers(ejb.obtenerConsultaProsperaTrailersListaPorCriterios(view.getRfcCriterio()));
+        view.setListEstructuraProspera(
+                ejb.obtenerConsultaProsperaListaPorCriterios(
+                        view.getRfcCriterio()));
+        view.setListEstructuraProsperaTrailers(
+                ejb.obtenerConsultaProsperaTrailersListaPorCriterios(
+                        view.getRfcCriterio()));
         view.setTabDat(Boolean.TRUE);
         view.setTabTra(Boolean.TRUE);
         return null;
@@ -94,7 +102,8 @@ public class ConsultaAfaspeProsperaController {
     }
 
     public void modificarTrailers() {
-        ejb.modificarTrailers(view.getEstructuraProspera().getRfc(), view.getEstructuraProsperaSelect().getIdEstructurasContratos());
+        ejb.modificarTrailers(view.getEstructuraProspera().getRfc(),
+                view.getEstructuraProsperaSelect().getIdEstructurasContratos());
         //		System.out.println("el RFC es....."+view.getEstructuraNomina().getRfc());
         //		System.out.println("el Originales....."+rfcOriginal);
         //		System.out.println("el ID es....."+view.getEstructuraNominaSelect().getIdEstructurasNominas());
@@ -117,7 +126,8 @@ public class ConsultaAfaspeProsperaController {
     }
 
     public String irGestionarDatos() {
-        view.setEstructuraProspera(ejb.obtenerDatos(view.getEstructuraProsperaSelect()));
+        view.setEstructuraProspera(
+                ejb.obtenerDatos(view.getEstructuraProsperaSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelDatos();
         rfcOriginal = view.getEstructuraProsperaSelect().getRfc();
@@ -128,7 +138,8 @@ public class ConsultaAfaspeProsperaController {
         if (view.getOperacionNuevo()) {
             ejb.crearDatos(view.getEstructuraProspera());
         } else {
-            System.out.println("Original..." + rfcOriginal + "Nuevo..." + view.getEstructuraProspera().getRfc());
+            System.out.println("Original..." + rfcOriginal + "Nuevo..."
+                    + view.getEstructuraProspera().getRfc());
             if (rfcOriginal.equals(view.getEstructuraProspera().getRfc())) {
                 ejb.actualizarDatos(view.getEstructuraProspera());
             } else {
@@ -167,7 +178,8 @@ public class ConsultaAfaspeProsperaController {
     }
 
     public String irGestionarTrailers() {
-        view.setEstructuraProsperaTrailers(ejb.obtenerTrailers(view.getEstructuraProsperaTrailersSelect()));
+        view.setEstructuraProsperaTrailers(ejb
+                .obtenerTrailers(view.getEstructuraProsperaTrailersSelect()));
         view.setOperacionNuevo(Boolean.FALSE);
         view.panelTrailers();
         ;
@@ -213,7 +225,8 @@ public class ConsultaAfaspeProsperaController {
         view.setDisabledIrGestionarTrailers(Boolean.TRUE);
     }
 
-    public void validatorconsultaProspera(FacesContext context, UIComponent component, Object value) {
+    public void validatorconsultaProspera(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
@@ -221,13 +234,18 @@ public class ConsultaAfaspeProsperaController {
                 String rfcCriterio = (String) value;
 
                 if (ValidacionUtil.esCadenaVacia(rfcCriterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (rfcCriterio.length() < 5) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese minimo 5 caracteres");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese minimo 5 caracteres");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     }
                 }

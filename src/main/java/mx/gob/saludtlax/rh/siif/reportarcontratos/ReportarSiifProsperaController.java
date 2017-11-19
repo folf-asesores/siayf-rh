@@ -45,35 +45,50 @@ public class ReportarSiifProsperaController {
     public void uploadFile() {
 
         try {
-            JSFUtils.infoMessage("En este momento han terminado de subir los archivos y se empieza a procesar", "");
-            view.setSiifBitacoraProcesada(ejb.procesarContratosTheosToSIIF(view.getPaqueteEntrada()));
-            view.setSiifBitacoraProcesada(ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));// revisar proceso, no se ha movido nada
+            JSFUtils.infoMessage(
+                    "En este momento han terminado de subir los archivos y se empieza a procesar",
+                    "");
+            view.setSiifBitacoraProcesada(
+                    ejb.procesarContratosTheosToSIIF(view.getPaqueteEntrada()));
+            view.setSiifBitacoraProcesada(
+                    ejb.obtenerSiifBitacora(view.getSiifBitacoraProcesada()));// revisar proceso, no se ha movido nada
 
-            JSFUtils.infoMessage("En este momento se han terminado de procesar los archivos", "");
+            JSFUtils.infoMessage(
+                    "En este momento se han terminado de procesar los archivos",
+                    "");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void validatorReporteSiif(FacesContext context, UIComponent component, Object value) {
+    public void validatorReporteSiif(FacesContext context,
+            UIComponent component, Object value) {
 
         String nombreComponete = component.getId();
         switch (nombreComponete) {
             case "anioCriterio":
                 Integer anioCriterio = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(anioCriterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 } else {
                     if (anioCriterio < 999) {
-                        FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese 4 digitos");
-                        context.addMessage(component.getClientId(), facesMessage);
+                        FacesMessage facesMessage = new FacesMessage(
+                                FacesMessage.SEVERITY_ERROR, "",
+                                "Por favor ingrese 4 digitos");
+                        context.addMessage(component.getClientId(),
+                                facesMessage);
                         throw new ValidatorException(facesMessage);
                     } else {
                         if (anioCriterio > 9999) {
-                            FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese 4 digitos");
-                            context.addMessage(component.getClientId(), facesMessage);
+                            FacesMessage facesMessage = new FacesMessage(
+                                    FacesMessage.SEVERITY_ERROR, "",
+                                    "Por favor ingrese 4 digitos");
+                            context.addMessage(component.getClientId(),
+                                    facesMessage);
                             throw new ValidatorException(facesMessage);
                         }
                     }
@@ -82,7 +97,9 @@ public class ReportarSiifProsperaController {
             case "periodoCriterio":
                 String periodoCriterio = (String) value;
                 if (ValidacionUtil.esCadenaVacia(periodoCriterio)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor ingrese un criterio de búsqueda.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -90,7 +107,9 @@ public class ReportarSiifProsperaController {
             case "idCuentaBancaria":
                 Integer idCuentaBancaria = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idCuentaBancaria)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor seleccione una Cuenta Bancaria.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor seleccione una Cuenta Bancaria.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }
@@ -98,7 +117,9 @@ public class ReportarSiifProsperaController {
             case "idTipoNomina":
                 Integer idTipoNomina = (Integer) value;
                 if (!ValidacionUtil.esNumeroPositivo(idTipoNomina)) {
-                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor Seleccione un Tipo de Nomina.");
+                    FacesMessage facesMessage = new FacesMessage(
+                            FacesMessage.SEVERITY_ERROR, "",
+                            "Por favor Seleccione un Tipo de Nomina.");
                     context.addMessage(component.getClientId(), facesMessage);
                     throw new ValidatorException(facesMessage);
                 }

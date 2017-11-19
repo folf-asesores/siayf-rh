@@ -16,7 +16,8 @@ import mx.gob.saludtlax.rh.empleados.nombramientos.impresion.InfoNombramientoDTO
  *
  * @since 04/09/2016 20:59:39
  */
-public class NombramientoRepository extends GenericRepository<NombramientoEntity, Integer> implements Serializable {
+public class NombramientoRepository extends
+        GenericRepository<NombramientoEntity, Integer> implements Serializable {
 
     /**
      *
@@ -28,15 +29,21 @@ public class NombramientoRepository extends GenericRepository<NombramientoEntity
         return em.createQuery(query, InfoNombramientoDTO.class).getResultList();
     }
 
-    public List<InfoNombramientoDTO> obtenerListaInfoNombramientoPorTipo(Integer tipoNombramiento) {
+    public List<InfoNombramientoDTO> obtenerListaInfoNombramientoPorTipo(
+            Integer tipoNombramiento) {
         String query = "SELECT new mx.gob.saludtlax.rh.empleados.nombramientos.impresion.InfoNombramientoDTO(n.idNombramiento, n.clasificacionNombramiento.clasificacionNombramiento, n.empleado.nombreCompleto, n.clavePresupuestal, n.funcion, n.sueldo, n.domicilio, n.clasificacionNombramiento.idClasificacionNombramiento) FROM NombramientoEntity AS n WHERE n.clasificacionNombramiento.idClasificacionNombramiento =:tipoNombramiento";
-        return em.createQuery(query, InfoNombramientoDTO.class).setParameter("tipoNombramiento", tipoNombramiento).getResultList();
+        return em.createQuery(query, InfoNombramientoDTO.class)
+                .setParameter("tipoNombramiento", tipoNombramiento)
+                .getResultList();
     }
 
     public Integer obtenerIdEmpleadoPorIdNombramiento(Integer idNombramiento) {
         try {
-            return em.createQuery("SELECT n.empleado.idEmpleado FROM NombramientoEntity AS n WHERE n.idNombramiento =:idNombramiento", Integer.class)
-                    .setParameter("idNombramiento", idNombramiento).getSingleResult();
+            return em.createQuery(
+                    "SELECT n.empleado.idEmpleado FROM NombramientoEntity AS n WHERE n.idNombramiento =:idNombramiento",
+                    Integer.class)
+                    .setParameter("idNombramiento", idNombramiento)
+                    .getSingleResult();
         } catch (NullPointerException e) {
             return null;
         } catch (NonUniqueResultException e) {
