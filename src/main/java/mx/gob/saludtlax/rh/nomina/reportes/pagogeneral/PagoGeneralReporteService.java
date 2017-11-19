@@ -1,12 +1,10 @@
 /*
  * PagoGeneralReporteService.java
- * Creado el 15/Feb/2017 5:30:39 AM
+ * Creado el 15/feb/2017 5:30:39 AM
  *
  */
-package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
-import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
-import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
+package mx.gob.saludtlax.rh.nomina.reportes.pagogeneral;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,17 +14,20 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.jboss.logging.Logger;
+
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
+import static mx.gob.saludtlax.rh.util.PlantillaMensaje.SQL_ERROR_MESSAGE;
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
  */
 public class PagoGeneralReporteService {
 
-    @Resource(mappedName = DATASOURCE_ESPEJO)
-    private DataSource ds;
     private static final Logger LOGGER = Logger.getLogger(PagoGeneralReporteService.class.getName());
     private static final String USP_PAGO_GENERAL = "CALL usp_reporte_pago_general(?)";
     private static final String CONSULTA_DESCRIPCION =
@@ -34,6 +35,9 @@ public class PagoGeneralReporteService {
             + "  FROM conceptos_nominas_contratos AS cn"
             + " WHERE cn.clave = ?";
     private static final Map<String, String> TITULOS;
+    
+    @Resource(mappedName = DATASOURCE)
+    private DataSource ds;
 
     static {
         TITULOS  = new HashMap<>();

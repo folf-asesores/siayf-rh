@@ -107,17 +107,9 @@ public class FirmaTest {
         jar.addClass(UsuarioRepository.class);
         jar.addClass(ValidacionException.class);
         jar.addClass(ValidacionUtil.class);
-        
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.BitacoraReporteEntity.class);
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.FirmaReporteQuery.class);
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.PerfilUsuarioEntity.class);        
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.ReporteParametroEntity.class);
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.ReporteParametroEntity.class);
-        jar.addClass(mx.gob.saludtlax.rh.persistencia.espejo.UsuarioEntity.class);
 
         jar.addClass(AlmacenReportesJasperReports.class);
         jar.addClass(JasperReporte.class);
-        
         
         war.addAsLibraries(jar);
 

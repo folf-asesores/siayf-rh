@@ -4,7 +4,7 @@
  * 
  */
 
-package mx.gob.saludtlax.rh.persistencia.espejo;
+package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.util.List;
@@ -28,7 +28,7 @@ public class ComprobanteEmpleadoRepository implements Serializable {
     
     private static final long serialVersionUID = -1006356522264912212L;
     
-    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA_ESPEJO)
+    @PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
     protected EntityManager em;
     
     @SuppressWarnings("unchecked")

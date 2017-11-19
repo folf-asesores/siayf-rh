@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 import javax.inject.Inject;
 
-import mx.gob.saludtlax.rh.persistencia.espejo.FirmaReporteQuery;
+import mx.gob.saludtlax.rh.persistencia.FirmaReporteQuery;
 
 /**
  *

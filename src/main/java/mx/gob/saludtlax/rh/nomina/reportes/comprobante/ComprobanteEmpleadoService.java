@@ -15,7 +15,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
+import mx.gob.saludtlax.rh.persistencia.ComprobanteEmpleadoRepository;
 
 /**
  *

@@ -1,10 +1,10 @@
 /*
  * FirmaReporteQuery.java
- * Creado el 11/Sep/2017 12:53:29 PM
+ * Creado el 11/sep/2017 12:53:29 PM
  * 
  */
 
-package mx.gob.saludtlax.rh.persistencia.espejo;
+package mx.gob.saludtlax.rh.persistencia;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -55,7 +55,7 @@ public class FirmaReporteQuery implements Serializable {
     private static final String COLUMNA_JEFE_3_NOMBRE = "jefe3Nombre";
     private static final String COLUMNA_JEFE_3_CARGO = "jefe3Cargo";
     
-    @Resource(mappedName = Configuracion.DATASOURCE_ESPEJO)
+    @Resource(mappedName = Configuracion.DATASOURCE)
     private DataSource dataSource;
     
     public List<FirmaPojo> obtenerDatos(Integer idProductoNomina) {

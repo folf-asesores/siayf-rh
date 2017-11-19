@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
-import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
+import mx.gob.saludtlax.rh.persistencia.ComprobanteEmpleadoRepository;
 
 /**
  * Esta clase representa la información tal cual se obtiene desde la 

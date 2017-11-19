@@ -1,11 +1,10 @@
 /*
  * ProductoNominaFederalReporteService.java
- * Creado el 16/Mar/2017 11:21:03 AM
+ * Creado el 16/mar/2017 11:21:03 AM
  * 
  */
 package mx.gob.saludtlax.rh.nomina.reportes.federales;
 
-import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE_ESPEJO;
 
 import java.io.Serializable;
 import java.sql.Connection;
@@ -16,9 +15,13 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+
 import org.jboss.logging.Logger;
+
+import static mx.gob.saludtlax.rh.util.Configuracion.DATASOURCE;
 
 /**
  *
@@ -31,7 +34,7 @@ public class ProductoNominaFederalReporteService implements Serializable {
     private static final String USP_PRODUCTO_NOMINA_FEDERAL =
             "CALL usp_reporte_producto_nomina_federales(?)";
 
-    @Resource(mappedName = DATASOURCE_ESPEJO)
+    @Resource(mappedName = DATASOURCE)
     private DataSource ds; 
     private static final Map<String, String> TITULOS = new HashMap<>();
     

@@ -22,7 +22,7 @@ import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionReporteService;
 import mx.gob.saludtlax.rh.nomina.reportes.dispersion.DispersionService;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteEntity;
 import mx.gob.saludtlax.rh.persistencia.BitacoraReporteRepository;
-import mx.gob.saludtlax.rh.persistencia.espejo.ComprobanteEmpleadoRepository;
+import mx.gob.saludtlax.rh.persistencia.ComprobanteEmpleadoRepository;
 import mx.gob.saludtlax.rh.persistencia.GenericRepository;
 import mx.gob.saludtlax.rh.persistencia.PerfilUsuarioEntity;
 import mx.gob.saludtlax.rh.persistencia.ReporteParametroEntity;

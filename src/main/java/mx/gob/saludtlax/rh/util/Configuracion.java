@@ -25,9 +25,7 @@ public class Configuracion {
 	public static final String PATH_XML_TIMBRADO = "C:\\ArchivosXSLT\\xmlTimbrado\\";
 	
 	public static final String UNIDAD_PERSISTENCIA = "siayfrhPU";
-	public static final String UNIDAD_PERSISTENCIA_ESPEJO = "siayfrhespPU";
 	public static final String DATASOURCE = "java:jboss/datasources/SIAYFRHDS";
-	public static final String DATASOURCE_ESPEJO = "java:jboss/datasources/SIAYFRHDSESP";
 	
 	private Configuracion() {}
 	
