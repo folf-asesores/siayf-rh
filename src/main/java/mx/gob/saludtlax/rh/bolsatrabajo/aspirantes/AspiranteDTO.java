@@ -53,7 +53,7 @@ public class AspiranteDTO implements Serializable {
 	private DireccionDTO direccionDTO = new DireccionDTO();
 	private Integer idFotografia = 0;
 
-	/*********** Getters and Setters *************/
+	
 
 	public String getViveCon() {
 		return viveCon;

@@ -16,31 +16,31 @@ public class VistaUsuarioEJB implements VistaUsuario{
 
 	@Override
 	public void crear(VistaUsuarioDTO dto) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void editar(VistaUsuarioDTO dto) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void eliminar(Integer id) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public List<VistaUsuarioDTO> obtenerLista() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
 	@Override
 	public List<VistaUsuarioDTO> obtenerListaPorUsuario(Integer idUsuario) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

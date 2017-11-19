@@ -78,7 +78,7 @@ public class HistorialAcademicoEntity implements Serializable {
 	@Column(name = "numero_cedula")
 	private Integer numeroCedula;
 
-	/*************** Getters and Setters ****************/
+	
 
 
 	@Override

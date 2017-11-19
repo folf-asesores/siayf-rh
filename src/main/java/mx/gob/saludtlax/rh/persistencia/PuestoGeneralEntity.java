@@ -54,7 +54,7 @@ public class PuestoGeneralEntity implements Serializable {
 
 	
 	
-	/********** Getters and Setters *******/
+	
 
 	/**
 	 * @return the idPuestoGeneral

@@ -35,7 +35,7 @@ public class EspecialidadEntity implements Serializable {
 	@Column(name = "especialidad")
 	private String especialidad;
 
-	/************* Getters and Setters ****************/
+	
 
 	/**
 	 * @return the idEspecialidad

@@ -26,7 +26,7 @@ public class ConfigModuloAccionView implements Serializable {
 	private List<ConfiguracionModuloAccionDTO> filtroConfiguracionModuloAccion;
 
 	
-	/************ Getters and Setters ***************/
+	
 
 	/**
 	 * @return the listaConfiguracionModuloAccion

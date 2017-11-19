@@ -1410,7 +1410,7 @@ public class ActualizacionAspiranteController implements Serializable {
 		}
 	}
 
-	/**************** Getters and Setters ************/
+	
 
 	public ActualizacionAspiranteView getView() {
 		return view;

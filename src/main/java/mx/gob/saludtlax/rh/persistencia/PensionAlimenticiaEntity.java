@@ -72,7 +72,7 @@ public class PensionAlimenticiaEntity implements Serializable {
 	@JoinColumn(name = "id_banco")
 	private BancoSatEntity banco;
 
-	/******************** Getters and Setters ******************/
+	
 
 	public int getIdPensionAlimenticia() {
 		return idPensionAlimenticia;

@@ -117,7 +117,7 @@ public class ReservacionPlazaConfianzaEJB {
 	}
 
 	private MovimientoEmpleadoEntity convertirDtoAEntidad(ReservacionDTO dto) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

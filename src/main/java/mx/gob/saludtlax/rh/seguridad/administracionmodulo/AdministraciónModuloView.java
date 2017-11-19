@@ -22,7 +22,7 @@ public class AdministraciónModuloView implements Serializable{
 	
 	private List<ModuloDTO> listaModulo = new ArrayList<>();
 	
-	/**********Getters and Setters************/
+	
 
 	/**
 	 * @return the listaModulo

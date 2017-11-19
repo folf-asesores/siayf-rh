@@ -1707,7 +1707,7 @@ public class ReporteSiifService {
 		try {
 			updateConceptosResource(bitacora);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 		bitacora.setStatus("Conceptos Cambiados");
@@ -2141,7 +2141,7 @@ public class ReporteSiifService {
 			ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:jboss/datasources/SIAYFRHDS");
 		} catch (NamingException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 	}
@@ -2158,7 +2158,7 @@ public class ReporteSiifService {
 				initcontext = new InitialContext();
 				DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
 			} catch (NamingException e) {
-				// TODO Auto-generated catch block
+				 
 				e.printStackTrace();
 			}
 			con = ds.getConnection();

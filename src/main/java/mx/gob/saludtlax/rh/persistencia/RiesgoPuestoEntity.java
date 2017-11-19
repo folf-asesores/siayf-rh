@@ -38,7 +38,7 @@ public class RiesgoPuestoEntity implements Serializable {
 	@Column(name = "descripcion_riesgo_puesto")
 	private String descripcionRiesgoPuesto;
 
-	/********************** Getters and Setters **********************/
+	
 
 	/**
 	 * @return the idRiesgoPuesto

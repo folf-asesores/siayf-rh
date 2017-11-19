@@ -83,7 +83,7 @@ public class FormatoAltaIsssteController {
 		}
 	}
 
-	/************* Validar *************/
+	
 	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 		String nombreComponete = component.getId();
 

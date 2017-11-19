@@ -44,7 +44,7 @@ public class ProfesionDTO implements Serializable {
 
 	}
 
-	/********************* Getters and Setters ******************/
+	
 	/**
 	 * @return the idProfesion
 	 */

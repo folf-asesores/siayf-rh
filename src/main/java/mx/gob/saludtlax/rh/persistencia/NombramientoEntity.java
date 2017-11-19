@@ -98,7 +98,7 @@ public class NombramientoEntity implements Serializable {
 		this.tiposNombramientos = tiposNombramientos;
 	}
 
-	/********* Getters and Setters ********/
+	
 
 	public Date getFechaRecepcion() {
 		return fechaRecepcion;

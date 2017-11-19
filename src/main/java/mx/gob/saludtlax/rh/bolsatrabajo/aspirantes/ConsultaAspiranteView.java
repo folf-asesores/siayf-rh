@@ -93,7 +93,7 @@ public class ConsultaAspiranteView implements Serializable {
 	//Habilidad Personal
 	private HabilidadesPersonalesAspiranteDTO encuestaPersonal = new HabilidadesPersonalesAspiranteDTO();
 
-	/********* Getters and Setters ***********/
+	
 
 	public List<SelectItem> getListaFiltros() {
 		return listaFiltros;

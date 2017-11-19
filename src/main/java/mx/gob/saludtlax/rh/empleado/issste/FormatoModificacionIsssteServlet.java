@@ -23,14 +23,14 @@ import net.sf.jasperreports.engine.JasperRunManager;
 
 @WebServlet("/FormatoModificacionIsssteServlet")
 public class FormatoModificacionIsssteServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public FormatoModificacionIsssteServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 	/**

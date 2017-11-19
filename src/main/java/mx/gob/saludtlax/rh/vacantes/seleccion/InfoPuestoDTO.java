@@ -136,7 +136,7 @@ public class InfoPuestoDTO implements Serializable {
 		this.nombreEmpleado = nombreEmpleado;
 	}
 
-	/*********** Getters and Setters ****************/
+	
 	/**
 	 * @return the idInventarioVacante
 	 */

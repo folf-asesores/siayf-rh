@@ -122,7 +122,7 @@ public class ProfesionController implements Serializable {
 		return "/contenido/inicio.xhtml?faces-redirect=true";
 	}
 
-	/************** Getters and Setters ***************/
+	
 	/**
 	 * @return the profesion
 	 */

@@ -44,7 +44,7 @@ public class PlazaView {
 	}
 	
 	
-	/****** Getters and Setters ******/
+	
 
 	public PlazaDTO getPlazaDTO() {
 		return plazaDTO;

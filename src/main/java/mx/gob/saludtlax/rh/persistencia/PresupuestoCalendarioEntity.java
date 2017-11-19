@@ -125,7 +125,7 @@ public class PresupuestoCalendarioEntity implements Serializable {
 				+ diciembre + "]";
 	}
 	
-	/************Getters and Setters****************/
+	
 
 	public Integer getIdPresupuestoCalendario() {
 		return idPresupuestoCalendario;

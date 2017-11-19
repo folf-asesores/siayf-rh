@@ -141,7 +141,7 @@ public class AspiranteEntity implements Serializable {
 	@Column(name = "perfil_academico")
 	private String perfilAcademico;
 
-	/********* Getters and Setters ***************/
+	
 
 	public void toUpperCase() {
 		this.nombre = this.nombre.toUpperCase();

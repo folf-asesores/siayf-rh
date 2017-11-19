@@ -199,7 +199,7 @@ public class CrearModuloController implements Serializable {
 		this.view.setMostrarFormularioAccion(false);
 	}
 
-	/************ Getters and Setters ****************/
+	
 	/**
 	 * @return the view
 	 */

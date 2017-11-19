@@ -14,7 +14,7 @@ public class InfoTabuladorPuestoDTO implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	
 	private String codigoPuestoGeneral;
 
@@ -22,7 +22,7 @@ public class InfoTabuladorPuestoDTO implements Serializable{
 
 	private String nombreRamaPuesto;
 	
-	/************Getters and Setters*********/
+	
 
 	/**
 	 * @return the codigoPuestoGeneral

@@ -38,7 +38,7 @@ public class ExpedienteAspiranteEntity implements Serializable {
 	@Column(name = "numero_expediente")
 	private String numeroExpediente;
 
-	/************** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the idExpedienteAspirante

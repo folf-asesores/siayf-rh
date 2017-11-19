@@ -13,7 +13,7 @@ public class SiifSeguroPopularDTO implements Serializable {
 	private String periodo;
 	private Integer idTipoNomina;
 	
-	/**************** Getters and Setters ***********************/
+	
 	
 	public String getIdSeguroPopularFederal() {
 		return idSeguroPopularFederal;

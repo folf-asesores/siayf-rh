@@ -298,7 +298,7 @@ public class PuestoGeneralController implements Serializable {
 
 	}
 
-	/********* Getters and Setters *****/
+	
 	/**
 	 * @return the view
 	 */

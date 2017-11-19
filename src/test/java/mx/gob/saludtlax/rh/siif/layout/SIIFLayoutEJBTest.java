@@ -7,7 +7,7 @@ package mx.gob.saludtlax.rh.siif.layout;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 import javax.inject.Inject;
 import mx.gob.saludtlax.rh.excepciones.SistemaException;
 import mx.gob.saludtlax.rh.persistencia.CuentasBancariasEntity;

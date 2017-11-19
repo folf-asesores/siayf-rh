@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class ComisionOficialDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	
 	
 	private Integer idMovimiento;
 	private String nombreCompleto ;

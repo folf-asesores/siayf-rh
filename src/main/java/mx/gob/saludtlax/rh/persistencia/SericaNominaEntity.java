@@ -201,7 +201,7 @@ public class SericaNominaEntity implements Serializable {
 	@Column(name = "col_81")
 	private String col81;
 
-	/************* Getters and Setters ***********/
+	
 
 	public Integer getIdSericaNomina() {
 		return idSericaNomina;

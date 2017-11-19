@@ -63,7 +63,7 @@ public class InfoVacantePostularDTO implements Serializable {
 
 	}
 
-	/************ Getters and Setters **************/
+	
 
 	public Integer getIdEmpleadoAspirante() {
 		return idEmpleadoAspirante;

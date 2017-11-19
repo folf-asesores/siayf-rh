@@ -338,7 +338,7 @@ public class TabuladorController implements Serializable {
 
 	}
 
-	/********* Getters and Setters *******/
+	
 	public TabuladorView getView() {
 		return view;
 	}

@@ -84,7 +84,7 @@ public class DetalleEmpleadoDTO implements Serializable {
 	private String tipoTabuladorDescripcion;
 	private String tipoPeriodo;
 
-	/************ Getters and Setters ************/
+	
 	public String getNombreCompleto() {
 		return nombreCompleto;
 	}

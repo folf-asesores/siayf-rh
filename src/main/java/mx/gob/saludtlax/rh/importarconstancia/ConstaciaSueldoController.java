@@ -99,7 +99,7 @@ public class ConstaciaSueldoController {
 		response.sendRedirect(request.getContextPath()+"/contenido/nomina/importarConstancia.xhtml");
 	}
 	
-	/************* Getters and Setters *************/
+	
 
 	public UploadedFile getUploadFile() {
 		return uploadFile;

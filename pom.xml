@@ -285,9 +285,6 @@
     </dependencyManagement>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <logging.app.level>INFO</logging.app.level>
-        <logging.console.level>INFO</logging.console.level>
-        <logging.file.level>CONFIG</logging.file.level>
         <surefire.skip>true</surefire.skip>
     </properties>
 
@@ -297,13 +294,6 @@
             <resource>
                 <directory>${basedir}/src/main/resources</directory>
                 <filtering>false</filtering>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <filtering>true</filtering>
-                <includes>
-                    <include>logging.properties</include>
-                </includes>
             </resource>
         </resources>
         <testResources>
@@ -485,9 +475,6 @@
         <profile>
             <id>development</id>
             <properties>
-                <logging.app.level>FINE</logging.app.level>
-                <logging.console.level>FINE</logging.console.level>
-                <logging.file.level>ALL</logging.file.level>
                 <surefire.skip>true</surefire.skip>
             </properties>
         </profile>
@@ -495,9 +482,6 @@
         <profile>
             <id>arq-wildfly-remote</id>
             <properties>
-                <logging.app.level>FINE</logging.app.level>
-                <logging.console.level>FINE</logging.console.level>
-                <logging.file.level>ALL</logging.file.level>
                 <surefire.skip>false</surefire.skip>
             </properties>
             <dependencies>

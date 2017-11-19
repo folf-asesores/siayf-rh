@@ -22,7 +22,7 @@ public class RevisarChequesEJB implements RevisarCheques, Serializable{
 
 	@Override
 	public void crearRevisarCheques(RevisarChequesDTO dto) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

@@ -97,7 +97,7 @@ public class UsuarioEJB implements Usuario {
 
 	@Override
 	public List<CatalogoDTO> obtenerAdscripciones() {
-		// TODO Auto-generated method stub
+		
 		return catalogos.consultarAdscripciones();
 	}
 

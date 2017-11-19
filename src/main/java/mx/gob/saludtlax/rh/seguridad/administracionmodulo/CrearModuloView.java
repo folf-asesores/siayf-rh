@@ -32,7 +32,7 @@ public class CrearModuloView implements Serializable {
 	
 	private boolean mostrarFormularioAccion = false;
 
-	/********** Getters and Setters *************/
+	
 
 	/**
 	 * @return the crearModulo

@@ -22,7 +22,7 @@ public class RamaPuestoRepository extends GenericRepository<RamaPuestoEntity, In
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 		@PersistenceContext(unitName = Configuracion.UNIDAD_PERSISTENCIA)
 	private EntityManager entityManager;

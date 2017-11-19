@@ -12,7 +12,7 @@ import javax.persistence.NoResultException;
  */
 public class PresupuestoAutorizadoRepository extends GenericRepository<PresupuestoAutorizadoEntity, Integer> implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	
 
 	public List<PresupuestoAutorizadoEntity> obtenerListaPresupuestoAutorizado() {
 		try {

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class ReincorporacionBaseDTO implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+	
 	
 	private Integer idMovimiento;
 	private String asunto;

@@ -56,7 +56,7 @@ public class ConsultaProsperaEJB {
 	}
 
 	public void eliminarDatos(EstructuraContratosDatDTO estructuraNominaSelect) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -82,7 +82,7 @@ public class ConsultaProsperaEJB {
 	}
 
 	public void eliminarTrailers(EstructuraContratosTrailersDTO estructuraNominaSelect) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

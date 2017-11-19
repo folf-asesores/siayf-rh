@@ -1060,7 +1060,7 @@ public class ActualizarEmpleadoController implements Serializable {
 		this.view.setMostrarDialogoConfirmacionExperiencia(false);
 	}
 
-	/************ Getters and Setters ***********/
+	
 
 	/**
 	 * @return the view

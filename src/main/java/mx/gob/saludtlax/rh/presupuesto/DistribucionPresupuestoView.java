@@ -28,7 +28,7 @@ public class DistribucionPresupuestoView {
     private boolean mostrarOpcionDescarga;
     
     
-    /***********Getters and Setters************/
+    
     public List<DistribucionPresupuestoDTO> getListaDistribucion() {
         return listaDistribucion;
     }

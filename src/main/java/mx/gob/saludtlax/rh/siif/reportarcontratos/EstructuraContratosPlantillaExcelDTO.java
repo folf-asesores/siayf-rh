@@ -47,7 +47,7 @@ public class EstructuraContratosPlantillaExcelDTO implements Serializable {
 	private Integer idLaborale;
 	private String cuentaBancaria;
 	
-	/**************** Getters and Setters ***********************/
+	
 	
 	
 	

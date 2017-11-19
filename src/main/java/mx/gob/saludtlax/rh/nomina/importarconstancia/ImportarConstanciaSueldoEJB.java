@@ -181,7 +181,7 @@ public class ImportarConstanciaSueldoEJB {
 
 	}
 
-	/************* Getters and Setters *************/
+	
 
 	public ConstanciaSueldoEntity getConstanciaDTO() {
 		return constanciaDTO;

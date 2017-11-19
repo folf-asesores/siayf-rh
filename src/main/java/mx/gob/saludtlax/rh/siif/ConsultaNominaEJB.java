@@ -60,7 +60,7 @@ public class ConsultaNominaEJB {
     }
 
     public void eliminarDatos(EstructuraNominaDatDTO estructuraNominaSelect) {
-        // TODO Auto-generated method stub
+        
 
     }
 
@@ -84,7 +84,7 @@ public class ConsultaNominaEJB {
     }
 
     public void eliminarTrailers(EstructuraNominaTrailersDTO estructuraNominaSelect) {
-        // TODO Auto-generated method stub
+        
 
     }
 

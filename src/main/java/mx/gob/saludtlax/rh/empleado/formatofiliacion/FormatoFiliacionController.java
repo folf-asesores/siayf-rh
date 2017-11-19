@@ -367,7 +367,7 @@ public class FormatoFiliacionController implements Serializable {
 		}
 	}
 
-	/************* Validar *************/
+	
 	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 		String nombreComponete = component.getId();
 

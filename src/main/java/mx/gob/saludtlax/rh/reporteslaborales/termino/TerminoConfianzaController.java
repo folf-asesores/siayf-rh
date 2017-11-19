@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.IOException;
@@ -5,9 +6,9 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
@@ -23,106 +24,103 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
  *
  */
 
-@ManagedBean (name = "terminoConfianza")
+@ManagedBean(name = "terminoConfianza")
 @SessionScoped
 public class TerminoConfianzaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 7501320044148633206L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 7501320044148633206L;
 
-	@Inject
-	private TerminoConfianzaEJB terminoConfianzaEJB;
+    @Inject
+    private TerminoConfianzaEJB terminoConfianzaEJB;
 
-	private TerminoView view;
+    private TerminoView view;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new TerminoView();
-	}
+    @PostConstruct
+    public void inicio() {
+        this.view = new TerminoView();
+    }
 
-	/************* Validar *************/
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
-		String nombreComponete = component.getId();
+        String nombreComponete = component.getId();
 
-		switch (nombreComponete) {
-		case "criterio":
-			Integer criterio = (Integer) value;
+        switch (nombreComponete) {
+            case "criterio":
+                Integer criterio = (Integer) value;
 
-			if (ValidacionUtil.esNumeroPositivo(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+                if (ValidacionUtil.esNumeroPositivo(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-	public void buscarEmpleados() {
-		String criterio = view.getCriterio();
+    public void buscarEmpleados() {
+        String criterio = this.view.getCriterio();
 
-		List<TerminoDetalleDTO> resultado = terminoConfianzaEJB.consultarPorCriterio(criterio);
-		view.setTerminoDetalleDTO(resultado);
-	}
+        List<TerminoDetalleDTO> resultado = this.terminoConfianzaEJB.consultarPorCriterio(criterio);
+        this.view.setTerminoDetalleDTO(resultado);
+    }
 
-	public void descargarTermino() {
+    public void descargarTermino() {
 
-		TerminoDTO terminoDTO = view.getTerminoDTO();
-		TerminoConfianzaWord terminoConfianzaWord = new TerminoConfianzaWord();
-		byte[] bytesWord = terminoConfianzaWord.generar(terminoDTO);
+        TerminoDTO terminoDTO = this.view.getTerminoDTO();
+        TerminoConfianzaWord terminoConfianzaWord = new TerminoConfianzaWord();
+        byte[] bytesWord = terminoConfianzaWord.generar(terminoDTO);
 
-		FacesContext fc = FacesContext.getCurrentInstance();
+        FacesContext fc = FacesContext.getCurrentInstance();
 
-		try {
-			ExternalContext ec = fc.getExternalContext();
+        try {
+            ExternalContext ec = fc.getExternalContext();
 
-			ec.responseReset();
-			ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-			ec.setResponseContentLength(bytesWord.length);
-			ec.setResponseHeader("Content-Disposition",
-					"attachment;filename=" + "TerminoConfianza.docx");
+            ec.responseReset();
+            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentLength(bytesWord.length);
+            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoConfianza.docx");
 
-			OutputStream outputStream = ec.getResponseOutputStream();
-			outputStream.write(bytesWord, 0, bytesWord.length);
-			outputStream.flush();
+            OutputStream outputStream = ec.getResponseOutputStream();
+            outputStream.write(bytesWord, 0, bytesWord.length);
+            outputStream.flush();
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			fc.responseComplete();
-		}
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            fc.responseComplete();
+        }
 
-	}
+    }
 
-	public void contenidoTermino(Integer idTipoMovimiento) {
-		TerminoDTO terminoDTO = terminoConfianzaEJB.obtenerTermino(idTipoMovimiento);
+    public void contenidoTermino(Integer idTipoMovimiento) {
+        TerminoDTO terminoDTO = this.terminoConfianzaEJB.obtenerTermino(idTipoMovimiento);
 
-		view.setTerminoDTO(terminoDTO);
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarTermino(true);
-	}
+        this.view.setTerminoDTO(terminoDTO);
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarTermino(true);
+    }
 
-	public void regresar() {
-		this.view.setCriterio("");
-		this.view.setTerminoDetalleDTO(null);
-		this.view.setMostrarPrincipal(true);
-		this.view.setMostrarTermino(false);
-	}
+    public void regresar() {
+        this.view.setCriterio("");
+        this.view.setTerminoDetalleDTO(null);
+        this.view.setMostrarPrincipal(true);
+        this.view.setMostrarTermino(false);
+    }
 
-	public TerminoView getView() {
-		return view;
-	}
+    public TerminoView getView() {
+        return this.view;
+    }
 
-	public void setView(TerminoView view) {
-		this.view = view;
-	}
+    public void setView(TerminoView view) {
+        this.view = view;
+    }
 
 }

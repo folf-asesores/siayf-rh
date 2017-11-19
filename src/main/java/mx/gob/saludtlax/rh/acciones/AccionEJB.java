@@ -39,7 +39,7 @@ public class AccionEJB implements Accion{
 
 	@Override
 	public List<AccionDTO> obtenerListaAccionesPorModulo(Integer idModulo) {
-		// TODO Auto-generated method stub
+		
 		return accionService.obtenerAccionesPorModulo(idModulo);
 	}
 

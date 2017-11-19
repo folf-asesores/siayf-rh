@@ -32,7 +32,7 @@ public class MovimientoEmpleadoReporteView implements Serializable{
 	private Integer idTipoContratacion;
 	private boolean mostrarSelectTipoContratacion = false;
 
-	/************Getters and Setters*****************/
+	
 	
 	/**
 	 * @return the fechaInicialComisionadoLicencia

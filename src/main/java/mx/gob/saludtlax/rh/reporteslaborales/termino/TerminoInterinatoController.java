@@ -42,7 +42,7 @@ public class TerminoInterinatoController implements Serializable{
 		this.view = new TerminoView();
 	}
 
-	/************* Validar *************/
+	
 	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
 		String nombreComponete = component.getId();
@@ -94,7 +94,7 @@ public class TerminoInterinatoController implements Serializable{
 			outputStream.flush();
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		} finally {
 			fc.responseComplete();

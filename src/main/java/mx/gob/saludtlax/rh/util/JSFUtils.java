@@ -37,7 +37,7 @@ public class JSFUtils {
     			try {
 					obj= (new InitialContext()).lookup("java:global/siayf-rh/" + service);
 				} catch (NamingException e) {
-					// TODO Auto-generated catch block
+					 
 					e.printStackTrace();
 				}
     		

@@ -90,7 +90,7 @@ public class ExperienciaLaboralEntity implements Serializable {
 	@Column(name = "id_empleado")
 	private Integer idEmpleado;
 
-	/************** Getters and Setters ***************/
+	
 	
 	
 	public Integer getIdEmpleado() {
@@ -132,7 +132,7 @@ public class ExperienciaLaboralEntity implements Serializable {
 		this.idEmpleado = idEmpleado;
 	}
 
-	/********************** Getters and Setters **********************/
+	
 	public String getNombreEmpresa() {
 		return nombreEmpresa;
 	}

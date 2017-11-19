@@ -393,7 +393,7 @@ public class ConsultaEmpleadoController implements Serializable {
 
 	}
 
-	/***************** Getters and Setters ***************/
+	
 	/**
 	 * @return the view
 	 */

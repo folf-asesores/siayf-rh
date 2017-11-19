@@ -28,7 +28,7 @@ public class TerceroInstitucionalController implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	@Inject
 	private TerceroInstitucional terceroInstitucional;
@@ -117,7 +117,7 @@ public class TerceroInstitucionalController implements Serializable {
 		obtenerListaTerceroInstitucional();
 	}
 
-	/********************* Getters and Setters *******************/
+	
 
 	public TerceroInstitucionalView getView() {
 		return view;

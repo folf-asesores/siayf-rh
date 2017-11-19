@@ -32,7 +32,7 @@ public class CandidatoVacanteDTO implements Serializable {
 		super();
 	}
 
-	/************ Getters and Setters ********/
+	
 
 
 

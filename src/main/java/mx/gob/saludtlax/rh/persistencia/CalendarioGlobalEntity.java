@@ -49,7 +49,7 @@ public class CalendarioGlobalEntity implements Serializable {
 				+ ", partida1000=" + partida1000 + ", concepto=" + concepto + ", importeAnual=" + importeAnual + "]";
 	}
 
-	/*********** Getters and Setters ***************/
+	
 
 	public Integer getIdCalendarioGlobal() {
 		return idCalendarioGlobal;

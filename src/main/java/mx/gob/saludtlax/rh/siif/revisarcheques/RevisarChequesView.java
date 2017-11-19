@@ -17,7 +17,7 @@ public class RevisarChequesView{
 	
 	private boolean mostrarResultadoConsulta;
 	
-	/*************** Getters and Setters **************/
+	
 	
 	public boolean isMostrarResultadoConsulta() {
 		return mostrarResultadoConsulta;

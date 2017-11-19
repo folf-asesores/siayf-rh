@@ -47,7 +47,7 @@ public class TerceroInstitucionalEntity implements Serializable {
 	@Column(name = "giro")
 	private String giro;
 
-	/******************** Getters and Setters ********************/
+	
 
 	/**
 	 * @return the idTerceroInstitucional

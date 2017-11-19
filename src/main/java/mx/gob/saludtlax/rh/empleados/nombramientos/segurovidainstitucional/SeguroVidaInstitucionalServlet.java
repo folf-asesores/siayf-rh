@@ -26,14 +26,14 @@ import net.sf.jasperreports.engine.JasperRunManager;
  */
 @WebServlet("/SeguroVidaInstitucionalServlet")
 public class SeguroVidaInstitucionalServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public SeguroVidaInstitucionalServlet() {
 		super();
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

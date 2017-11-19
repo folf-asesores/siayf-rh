@@ -16,7 +16,7 @@ public class ContratoDTO implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	private Integer idContrato;
 

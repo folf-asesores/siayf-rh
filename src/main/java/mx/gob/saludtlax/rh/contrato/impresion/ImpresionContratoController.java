@@ -219,7 +219,7 @@ public class ImpresionContratoController implements Serializable {
 
 	}
 
-	/************** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the view

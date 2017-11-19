@@ -28,7 +28,7 @@ public class AreaAdscripcionEJB implements AreaAdscripcion {
 	@Override
 	public List<InfoAreaAdscripcionDTO> consultarAreasAdscripcion(
 			TipoFiltro filtro, Integer idFiltro) {
-		// TODO Auto-generated method stub
+		
 		return areaAdscripcionService.consultarAreasAdscripcion(filtro,
 				idFiltro);
 	}

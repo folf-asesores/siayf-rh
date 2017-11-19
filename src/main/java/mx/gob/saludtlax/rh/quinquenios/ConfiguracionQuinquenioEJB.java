@@ -49,7 +49,7 @@ public class ConfiguracionQuinquenioEJB implements ConfiguracionQuinquenioServic
 
 	@Override
 	public List<InfoEmpleadoVacanteDTO> buscarEmpleadosPorTipoNombramiento(Integer idTipoNombramiento) {
-		// TODO Auto-generated method stub
+		
 		try{
 		List<InventarioVacanteEntity> listaInventariosEntity = new ArrayList<>();
 		listaInventariosEntity = inventarioVacante.consultaEmpleadosPorTipoNombramiento(idTipoNombramiento);
@@ -113,7 +113,7 @@ ConfiguracionQuinquenioEntity entity = configuracionQuinquenioRepository.obtener
 
 	@Override
 	public ConfiguracionQuinquenioDTO obtenerConfiguracionPorConfiguracionPresup(Integer idConfiguracion) {
-		// TODO Auto-generated method stub
+		
 		return configuracionQuinquenioRepository.obtenerQuinquenioPorConfiguracionPresupuestal(idConfiguracion);
 	}
 

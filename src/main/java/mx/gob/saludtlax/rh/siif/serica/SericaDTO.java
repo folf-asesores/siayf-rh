@@ -130,7 +130,7 @@ public class SericaDTO implements Serializable {
 				+ ", col79=" + col79 + ", col80=" + col80 + ", col81=" + col81 + "]";
 	}
 
-	/********* Getters and Setters ******/
+	
 
 	public int getId_serica_nomina() {
 		return id_serica_nomina;

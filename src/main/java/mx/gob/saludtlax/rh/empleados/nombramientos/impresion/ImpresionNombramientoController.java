@@ -554,7 +554,7 @@ public class ImpresionNombramientoController implements Serializable {
 
 	}
 
-	/************** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the view

@@ -91,7 +91,7 @@ public class ConfiguracionNominaEmpleadoController implements Serializable {
 
     }
 
-    /***************Getters and Setters*************/
+    
     
     public ConfiguracionNominaEmpleadoView getView() {
         return view;

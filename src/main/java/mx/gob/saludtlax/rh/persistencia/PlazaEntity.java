@@ -120,7 +120,7 @@ public class PlazaEntity implements Serializable {
 		this.estatus = estatus;
 	}
 
-	/******** Getters and Setters ********/
+	
 
 	public Integer getIdPlaza() {
 		return idPlaza;

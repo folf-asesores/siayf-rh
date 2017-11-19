@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -112,10 +112,10 @@ public class CambioAdscripcion {
 			LOGGER.info("Error: " + e.getMessage());
 		} catch (NullPointerException nullPointerException) {
 			nullPointerException.printStackTrace();
-			LOGGER.severe("Mensaje crítico..." + nullPointerException.getMessage());
+			LOGGER.error("Mensaje crítico..." + nullPointerException.getMessage());
 		} catch (Exception exception) {
 			exception.printStackTrace();
-			LOGGER.severe("Ocurrio un error al general el documento: " + exception.getMessage());
+			LOGGER.error("Ocurrio un error al general el documento: " + exception.getMessage());
 		}
 		return null;
 	}

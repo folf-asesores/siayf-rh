@@ -11,7 +11,7 @@ public class AreasAdscripcionRepository extends GenericRepository<AreaAdscripcio
     /**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	private static final Logger LOGGER = Logger.getLogger(AreasAdscripcionRepository.class.getName());
 
 	public List<AreaAdscripcionEntity> listaAreas() {

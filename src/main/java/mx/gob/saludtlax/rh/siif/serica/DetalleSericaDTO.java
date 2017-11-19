@@ -132,7 +132,7 @@ public class DetalleSericaDTO implements Serializable {
 				+ ", col78=" + col78 + ", col79=" + col79 + ", col80=" + col80 + ", col81=" + col81 + "]";
 	}
 
-	/************* Getters and Setters ***********/
+	
 
 	public String getCol1() {
 		return col1;

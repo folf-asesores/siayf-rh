@@ -44,7 +44,7 @@ public class ConfiguracionModuloAccionEJB implements ConfiguracionModuloAccion{
 
 	@Override
 	public List<ConfiguracionModuloAccionDTO> obtenerListaConfiguracionModuloAccionDTOPorAccion(Integer idAccion) {
-		// TODO Auto-generated method stub
+		
 		return service.obtenerRegistrosPorAccion(idAccion);
 	}
 

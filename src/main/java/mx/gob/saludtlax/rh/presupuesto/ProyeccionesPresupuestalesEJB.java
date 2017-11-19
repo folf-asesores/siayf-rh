@@ -23,13 +23,13 @@ public class ProyeccionesPresupuestalesEJB {
     
     public List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales(Integer anio) 
     		throws ReglaNegocioException {
-    	 // TODO Auto-generated method stub
+    	 
         return proyeccionesPresupuestalesService.proyeccionesPresupuestales(anio);
     }
     
 //    public List<ProyeccionesPresupuestalesDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento)
 //            throws ReglaNegocioException {
-//        // TODO Auto-generated method stub
+//        
 //        return proyeccionesPresupuestalesService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
 //    }
 

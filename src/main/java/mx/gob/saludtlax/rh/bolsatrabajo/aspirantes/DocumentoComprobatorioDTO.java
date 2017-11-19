@@ -22,7 +22,7 @@ public class DocumentoComprobatorioDTO implements Serializable{
 	private String estatus;
 
 	
-	/****************Getters and Setters********/
+	
 	/**
 	 * @return the estatus
 	 */

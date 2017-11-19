@@ -42,7 +42,7 @@ public class ConfiguracionAprobacionView implements Serializable {
 	private boolean panelActualizar = false;
 	private boolean dialogEliminar = false;
 	private Boolean aplicaMovimientos;
-	/************** Getters and Setters ***************/
+	
 	public Boolean getPanelPrincipal() {
 		return panelPrincipal;
 	}

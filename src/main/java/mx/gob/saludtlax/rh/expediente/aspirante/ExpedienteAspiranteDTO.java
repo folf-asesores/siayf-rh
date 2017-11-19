@@ -23,7 +23,7 @@ public class ExpedienteAspiranteDTO implements Serializable{
 	private String numeroExpediente;
 	
 	
-	/*******************Getters and Setters****************/
+	
 
 	/**
 	 * @return the idAspirante

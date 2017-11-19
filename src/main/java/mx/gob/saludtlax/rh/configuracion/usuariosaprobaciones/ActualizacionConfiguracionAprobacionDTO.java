@@ -22,7 +22,7 @@ public class ActualizacionConfiguracionAprobacionDTO implements Serializable {
 	private Integer idTipoMovimiento;
 	private Integer estatus;// 1 inactivo, 2 activo
 	
-	/*********** Getters and Setters ***********/
+	
 	public Integer getIdConfiguracionAprobacion() {
 		return idConfiguracionAprobacion;
 	}

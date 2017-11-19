@@ -79,7 +79,7 @@ public class ConfiguracionPresupuestalBean implements ConfiguracionPresupuestal 
 
 	@Override
 	public InfoConfiguracionDTO obtenerPorIdEmpleado(Integer idEmpleado) {
-		// TODO Auto-generated method stub
+		
 		List<InfoConfiguracionDTO> listaConfiguraciones = new ArrayList<>();
 		listaConfiguraciones=configuracionPresupuestalService.consultarConfiguracionesPorEmpleado(idEmpleado); 
 		if(listaConfiguraciones!=null && !listaConfiguraciones.isEmpty()){

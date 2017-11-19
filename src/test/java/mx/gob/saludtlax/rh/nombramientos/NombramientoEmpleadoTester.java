@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 import org.docx4j.model.fields.merge.DataFieldName;
 import org.docx4j.model.fields.merge.MailMerger;
@@ -160,13 +160,13 @@ public class NombramientoEmpleadoTester {
 
 		} catch (NullPointerException nullPointerException) {
 			nullPointerException.printStackTrace();
-			LOGGER.severe("Mensaje crítico..." + nullPointerException.getMessage());
+			LOGGER.error("Mensaje crítico..." + nullPointerException.getMessage());
 		} catch (Docx4JException docx4jException) {
 			docx4jException.printStackTrace();
-			LOGGER.severe("Ocurrio un error al general el documento: " + docx4jException.getMessage());
+			LOGGER.error("Ocurrio un error al general el documento: " + docx4jException.getMessage());
 		} catch (Exception exception) {
 			exception.printStackTrace();
-			LOGGER.severe("Ocurrio un error al general el documento: " + exception.getMessage());
+			LOGGER.error("Ocurrio un error al general el documento: " + exception.getMessage());
 		}
 	}
 

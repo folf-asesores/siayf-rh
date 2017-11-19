@@ -242,7 +242,7 @@ public class ActualizarModuloController implements Serializable {
 		this.view.setMostrarFormularioAccion(false);
 	}
 
-	/*********** Getters and Setters **************/
+	
 
 	/**
 	 * @return the view

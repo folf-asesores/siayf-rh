@@ -40,7 +40,7 @@ public class PuestoGeneralView implements Serializable {
 
 	private boolean panelActualizar = false;
 
-	/********* Getters and Setters ************/
+	
 
 	/**
 	 * @return the listaPuestoGeneral

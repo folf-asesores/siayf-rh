@@ -29,7 +29,7 @@ public class HistorialPagoView implements Serializable{
 	// Renderizados consulta
 	private boolean mostrarResultadoConsulta = false;
 	
-	/************Getters and Setters**********/
+	
 
 	/**
 	 * @return the filtro

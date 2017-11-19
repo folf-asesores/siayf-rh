@@ -11,7 +11,7 @@ import javax.ejb.ApplicationException;
 @ApplicationException(rollback=true)
 public class ReglaNegocioException extends RuntimeException implements Serializable{
 
-	private static final long serialVersionUID = 1L;
+	
 	
 	public ReglaNegocioException(String message){
 		super(message);

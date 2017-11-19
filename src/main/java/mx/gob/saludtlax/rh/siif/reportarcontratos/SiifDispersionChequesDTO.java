@@ -16,7 +16,7 @@ public class SiifDispersionChequesDTO implements Serializable{
 	private Integer quincena;
 	private String rfc;
 		
-	/**************** Getters and Setters ***********************/
+	
 	
 	public Integer getIdDispersionCheques() {
 		return idDispersionCheques;

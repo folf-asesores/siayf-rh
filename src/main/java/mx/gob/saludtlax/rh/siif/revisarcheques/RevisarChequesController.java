@@ -63,7 +63,7 @@ public class RevisarChequesController implements Serializable {
 	}
 	
 	
-	/********************** Getters and Setters *************************/
+	
 
 //	public RevisarCheques getRevisarCheque() {
 //		return revisarCheque;

@@ -39,24 +39,24 @@ public class ConsultarPartidaEJB {
     }
     
     public List<ConsultarPartidaDTO> consultarPartidasPorRfc(String rfc) {
-        // TODO Auto-generated method stub
+        
         return consultarPartidaService.consultarPartidasPorRfc(rfc);
     }
 
     public List<ConsultarPartidaDTO> consultarPartidasPorUnidadResponsable(Integer unidadResponsable)
             throws ReglaNegocioException {
-        // TODO Auto-generated method stub
+        
         return consultarPartidaService.consultarPartidasPorUnidadResponsable(unidadResponsable);
     }
 
     public List<ConsultarPartidaDTO> consultarPartidasPorTipoNombramiento(Integer tipoNombramiento)
             throws ReglaNegocioException {
-        // TODO Auto-generated method stub
+        
         return consultarPartidaService.consultarPartidasPorTipoNombramiento(tipoNombramiento);
     }
     public List<ConsultarPartidaDTO> consultarPartidasPorDependencia(Integer dependencia)
             throws ReglaNegocioException {
-        // TODO Auto-generated method stub
+        
         return consultarPartidaService.consultarPartidasPorDependencia(dependencia);
     }
     

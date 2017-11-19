@@ -12,7 +12,7 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 import org.apache.poi.xwpf.usermodel.ParagraphAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -139,10 +139,10 @@ public class TerminoComisionReincorporacion {
 			LOGGER.info("Error: " + e.getMessage());
 		} catch (NullPointerException nullPointerException) {
 			nullPointerException.printStackTrace();
-			LOGGER.severe("Mensaje crítico..." + nullPointerException.getMessage());
+			LOGGER.error("Mensaje crítico..." + nullPointerException.getMessage());
 		} catch (Exception exception) {
 			exception.printStackTrace();
-			LOGGER.severe("Ocurrio un error al general el documento: " + exception.getMessage());
+			LOGGER.error("Ocurrio un error al general el documento: " + exception.getMessage());
 		}
 		return null;
 	}

@@ -51,7 +51,7 @@ public class TabuladorView implements Serializable {
 	private boolean mostrarInputUnicoPersonalSuplente = false;
 	private boolean mostrarInputMandosMedios = false;
 
-	/******************** Getters and Setters *******************/
+	
 
 	public TabuladorDTO getTabuladorDTO() {
 		return tabuladorDTO;

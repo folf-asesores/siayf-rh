@@ -30,7 +30,7 @@ public class BancoView implements Serializable {
 
 	private Boolean dialogEliminarBanco = Boolean.FALSE;
 
-	/******************** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the listaBanco

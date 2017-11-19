@@ -72,7 +72,7 @@ public class CancelarCFDIService implements Serializable {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 

@@ -58,13 +58,13 @@ public class PuestoGeneralEJB implements PuestoGeneral, Serializable {
 
 	@Override
 	public PuestoGeneralDTO puestoPorClave(String clave) {
-		// TODO Auto-generated method stub
+		
 		return puestoGeneralService.puestoPorClave(clave);
 	}
 
 	@Override
 	public PuestoGeneralDTO puestoPorId(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return puestoGeneralService.puestoPorId(id);
 	}
 

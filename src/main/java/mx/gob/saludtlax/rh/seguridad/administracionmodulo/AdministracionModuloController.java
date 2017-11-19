@@ -60,7 +60,7 @@ public class AdministracionModuloController implements Serializable {
 		cargarListaModulos();
 	}
 
-	/********** Getters and Setters ************/
+	
 
 	/**
 	 * @return the view

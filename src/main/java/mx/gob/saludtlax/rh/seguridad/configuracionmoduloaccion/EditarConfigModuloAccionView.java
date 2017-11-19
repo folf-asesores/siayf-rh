@@ -36,7 +36,7 @@ public class EditarConfigModuloAccionView implements Serializable{
 	
 	private boolean panelPrincipal;
 	
-	/*************Getters and Setters************/
+	
 
 	/**
 	 * @return the idConfigModuloAccion

@@ -108,7 +108,7 @@ public class ConsultaEmpleadoView implements Serializable {
 	private boolean mostrarAdjuntoDocumentoHistorial;
 	private List<InformacionAdjuntoDTO> documentosAdjuntosGradoAcademico;
 
-	/*************** Getters and Setters ****************/
+	
 
 	public List<SelectItem> getListaEstadosCiviles() {
 		return listaEstadosCiviles;

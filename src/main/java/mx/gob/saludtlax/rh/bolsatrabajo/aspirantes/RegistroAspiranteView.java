@@ -130,7 +130,7 @@ public class RegistroAspiranteView implements Serializable {
 	private Integer idImagenExpediente;
 	private boolean mostrarImagenExpediente;
 
-	/******************** Getters and Setters **************************/
+	
 	public List<SelectItem> getListaTiposLicencia() {
 		return listaTiposLicencia;
 	}

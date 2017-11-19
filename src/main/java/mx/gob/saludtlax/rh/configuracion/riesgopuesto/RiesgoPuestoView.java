@@ -30,7 +30,7 @@ public class RiesgoPuestoView implements Serializable {
 
 	private Boolean dialogRiesgoPuestoEliminar = Boolean.FALSE;
 
-	/*************** Getters and Setters **************/
+	
 
 	/**
 	 * @return the obtenerListaPuestoDTOs

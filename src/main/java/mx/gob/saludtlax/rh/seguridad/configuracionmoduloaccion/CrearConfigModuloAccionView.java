@@ -33,7 +33,7 @@ public class CrearConfigModuloAccionView implements Serializable {
 
 	private ConfiguracionModuloAccionDTO configuracionModuloAccionDTONew = new ConfiguracionModuloAccionDTO();
 
-	/************** Getters and Setters ***************/
+	
 
 	/**
 	 * @return the configuracionModuloAccionDTONew

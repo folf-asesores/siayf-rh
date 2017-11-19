@@ -131,7 +131,7 @@ public class ConsultaMovimientosService {
 	}
 
 	public MovimientosNominaEmpleadoDTO obtenerMovimientos(MovimientosNominaEmpleadoDTO movimientosNomina) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

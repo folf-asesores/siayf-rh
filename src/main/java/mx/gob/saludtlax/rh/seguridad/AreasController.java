@@ -3,7 +3,7 @@ package mx.gob.saludtlax.rh.seguridad;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.jboss.logging.Logger;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;

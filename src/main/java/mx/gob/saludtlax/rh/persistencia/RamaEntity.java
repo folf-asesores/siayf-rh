@@ -35,7 +35,7 @@ public class RamaEntity implements Serializable{
 	@Column(name  = "nombre_rama_puesto")
 	private String nombreRamaPuesto;
 	
-	/**************Getters and Setters***************/
+	
 
 	/**
 	 * @return the idRamaPuesto

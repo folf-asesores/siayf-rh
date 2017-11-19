@@ -103,7 +103,7 @@ public class RiesgoPuestoController implements Serializable {
 		obtenerListaRiesgoPuesto();
 	}
 
-	/********************** Getters and Setters *************************/
+	
 	/**
 	 * @return the view
 	 */

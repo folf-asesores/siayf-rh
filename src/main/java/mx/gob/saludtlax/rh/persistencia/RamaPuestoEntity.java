@@ -26,7 +26,7 @@ public class RamaPuestoEntity implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	@Id
 	@Column(name = "id_rama_puesto")

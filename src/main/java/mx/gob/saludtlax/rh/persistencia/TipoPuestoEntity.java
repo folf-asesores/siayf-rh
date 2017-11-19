@@ -35,7 +35,7 @@ public class TipoPuestoEntity implements Serializable {
 	@Column(name = "descripcion")
 	private String descripcion;
 
-	/******************* Getters and Setters *************/
+	
 
 	/**
 	 * @return the descripcion

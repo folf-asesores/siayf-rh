@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.reservacion;
 
 import java.io.IOException;
@@ -27,128 +28,123 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @SessionScoped
 public class ReservacionPlazaConfianzaController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7359263173765732160L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7359263173765732160L;
 
-	@Inject
-	private ReservacionPlazaConfianzaEJB reservacionPlazaConfianzaEJB;
+    @Inject
+    private ReservacionPlazaConfianzaEJB reservacionPlazaConfianzaEJB;
 
-	private ReservacionView view;
-	
-	private String nombre = "[nombre]";
+    private ReservacionView view;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new ReservacionView();
-	}
+    private String nombre = "[nombre]";
 
-	/************* Validar *************/
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    @PostConstruct
+    public void inicio() {
+        this.view = new ReservacionView();
+    }
 
-		String nombreComponete = component.getId();
+    
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
-		switch (nombreComponete) {
-		case "criterio":
-			Integer criterio = (Integer) value;
+        String nombreComponete = component.getId();
 
-			if (ValidacionUtil.esNumeroPositivo(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+        switch (nombreComponete) {
+            case "criterio":
+                Integer criterio = (Integer) value;
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+                if (ValidacionUtil.esNumeroPositivo(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	public void buscarEmpleados() {
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-		String criterio = view.getCriterio();
+    public void buscarEmpleados() {
 
-		List<ReservacionDetalleDTO> resultado = reservacionPlazaConfianzaEJB.consultarPorCriterio(criterio);
-		view.setReservacionDetalleDTO(resultado);
-	}
+        String criterio = this.view.getCriterio();
 
-	public void descargarReservacionPlazaConfianza() {
-		ReservacionDTO reservacionDTO = view.getReservacionDTO();
-		
-		Integer idMovimientoEmpledo  = reservacionPlazaConfianzaEJB.guardar(reservacionDTO);
-		ReservacionDTO reservacionDTOPersistida = reservacionPlazaConfianzaEJB.obtenerReservacion(idMovimientoEmpledo); 
+        List<ReservacionDetalleDTO> resultado = this.reservacionPlazaConfianzaEJB.consultarPorCriterio(criterio);
+        this.view.setReservacionDetalleDTO(resultado);
+    }
 
-		ReservacionPlazaConfianzaWord wordReservacionPlazaConfianza = new ReservacionPlazaConfianzaWord();
-		byte[] bytesWord = wordReservacionPlazaConfianza.generar(reservacionDTOPersistida);
-		FacesContext fc = FacesContext.getCurrentInstance();
+    public void descargarReservacionPlazaConfianza() {
+        ReservacionDTO reservacionDTO = this.view.getReservacionDTO();
 
-		try {
-			ExternalContext ec = fc.getExternalContext();
+        Integer idMovimientoEmpledo = this.reservacionPlazaConfianzaEJB.guardar(reservacionDTO);
+        ReservacionDTO reservacionDTOPersistida = this.reservacionPlazaConfianzaEJB.obtenerReservacion(idMovimientoEmpledo);
 
-			ec.responseReset();
-			ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-			ec.setResponseContentLength(bytesWord.length);
-			ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReservacionPlazaConfianza.docx");
+        ReservacionPlazaConfianzaWord wordReservacionPlazaConfianza = new ReservacionPlazaConfianzaWord();
+        byte[] bytesWord = wordReservacionPlazaConfianza.generar(reservacionDTOPersistida);
+        FacesContext fc = FacesContext.getCurrentInstance();
 
-			OutputStream outputStream = ec.getResponseOutputStream();
-			outputStream.write(bytesWord, 0, bytesWord.length);
-			outputStream.flush();
+        try {
+            ExternalContext ec = fc.getExternalContext();
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			fc.responseComplete();
-		}
-	}
+            ec.responseReset();
+            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentLength(bytesWord.length);
+            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReservacionPlazaConfianza.docx");
 
-	public void contenidoReservacion(Integer idTipoMovimiento) {
-		ReservacionDTO reservacionDTO = reservacionPlazaConfianzaEJB.obtenerReservacion(idTipoMovimiento);
+            OutputStream outputStream = ec.getResponseOutputStream();
+            outputStream.write(bytesWord, 0, bytesWord.length);
+            outputStream.flush();
 
-		view.setReservacionDTO(reservacionDTO);
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReservacion(true);
-	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            fc.responseComplete();
+        }
+    }
 
-	public void regresar() {
-		this.view.setCriterio("");
-		this.view.setReservacionDetalleDTO(null);
-		this.view.setMostrarPrincipal(true);
-		this.view.setMostrarReservacion(false);
-	}
-	
-	public void edicion(){
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReservacion(false);
-		this.view.setMostrarEdicion(true);
-	}
-	
-	public void guardar() {
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReservacion(true);
-		this.view.setMostrarEdicion(false);
-	}
+    public void contenidoReservacion(Integer idTipoMovimiento) {
+        ReservacionDTO reservacionDTO = this.reservacionPlazaConfianzaEJB.obtenerReservacion(idTipoMovimiento);
 
-	/************** Getters and Setters ****************/
+        this.view.setReservacionDTO(reservacionDTO);
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReservacion(true);
+    }
 
-	public ReservacionView getView() {
-		return view;
-	}
+    public void regresar() {
+        this.view.setCriterio("");
+        this.view.setReservacionDetalleDTO(null);
+        this.view.setMostrarPrincipal(true);
+        this.view.setMostrarReservacion(false);
+    }
 
-	public void setView(ReservacionView view) {
-		this.view = view;
-	}
+    public void edicion() {
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReservacion(false);
+        this.view.setMostrarEdicion(true);
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public void guardar() {
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReservacion(true);
+        this.view.setMostrarEdicion(false);
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public ReservacionView getView() {
+        return this.view;
+    }
 
-	
+    public void setView(ReservacionView view) {
+        this.view = view;
+    }
+
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

@@ -22,7 +22,7 @@ public class EscolaridadDTO implements Serializable {
 
 	private String grupoAcademico;
 
-	/*************** Getters and Setters *******************/
+	
 	/**
 	 * @return the grupoAcademico
 	 */

@@ -29,7 +29,7 @@ public class UsuarioDTO implements Serializable {
 	private String areaAdscripcionDescripcion;
 	
 	
-	/************* Getters and Setters *************/
+	
 	
 	public Integer getIdUsuario() {
 		return idUsuario;

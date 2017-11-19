@@ -53,7 +53,7 @@ public class ExperienciaLaboralAspiranteDTO implements Serializable {
 
 	private String razonNoSolicitar;
 
-	/*********************** Getters and Setters ********************/
+	
 	/**
 	 * @return the idExperienciaLaboralAspirante
 	 */

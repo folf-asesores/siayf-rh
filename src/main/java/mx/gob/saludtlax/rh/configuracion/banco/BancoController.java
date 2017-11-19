@@ -107,7 +107,7 @@ public class BancoController implements Serializable {
 		obtenerListaBanco();
 	}
 
-	/***************** Getters and Setters *******************/
+	
 
 	/**
 	 * @return the view

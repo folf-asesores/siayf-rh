@@ -13,7 +13,7 @@ public class SiifDeudoresDiversosDTO implements Serializable {
 	private Integer quincena;
 	private BigDecimal importe;
 	
-	/**************** Getters and Setters ***********************/
+	
 	
 	
 	public String getRfc() {

@@ -149,7 +149,7 @@ public class PlazaController implements Serializable {
 		plazaView.setHabilitarBotonNuevaPlaza(false);
 	}
 
-	/******* Getters and Setters *******/
+	
 
 	public PlazaEJB getPlazaEJB() {
 		return plazaEJB;

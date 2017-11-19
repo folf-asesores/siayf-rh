@@ -13,7 +13,7 @@ public class PlazaDTO implements Serializable {
 	private String tipo;
 	private String condicionLaboral;
 
-	/******** Getters and Setters ********/
+	
 
 	public Integer getIdPlaza() {
 		return idPlaza;

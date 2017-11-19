@@ -50,7 +50,7 @@ public class CandidatoVacanteEntity implements Serializable {
 	@Column(name = "seleccionado")
 	private Boolean seleccionado;
 
-	/************** Getters and Setters ***************/
+	
 
 	/**
 	 * @return the idCandidatoVacante

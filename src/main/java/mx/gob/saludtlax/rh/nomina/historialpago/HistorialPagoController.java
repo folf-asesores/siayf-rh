@@ -159,7 +159,7 @@ public class HistorialPagoController implements Serializable {
 
 	}
 
-	/*********** Getters and Setters *********/
+	
 
 	/**
 	 * @return the view

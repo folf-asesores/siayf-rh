@@ -51,7 +51,7 @@ public class InfoAspiranteDTO {
 		this.setProfesionEspecialidad(profesionEspecialidad);
 	}
 
-	/*********** Getters and Setters *****************/
+	
 
 	public String getEstatus() {
 		return estatus;

@@ -355,7 +355,7 @@ public class ConsultaAspiranteController implements Serializable {
 		JSFUtils.redireccionar("/siayf-rh/contenido/bolsaTrabajo/consultaAspirante.xhtml?faces-redirect=true");
 	}
 
-	/********* Getters and Setters ***********/
+	
 
 	public ConsultaAspiranteView getView() {
 		return view;

@@ -157,7 +157,7 @@ public class HabilidadPersonalEntity implements Serializable {
 	@Column(name = "gasto_mensual")
 	private BigDecimal gastoMensual;
 
-	/****************** Getters and Setters ***********************/
+	
 	/**
 	 * @return the idEncuestaPersonalAspirante
 	 */

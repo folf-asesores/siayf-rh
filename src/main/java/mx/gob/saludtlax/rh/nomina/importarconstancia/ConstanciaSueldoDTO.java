@@ -117,7 +117,7 @@ public class ConstanciaSueldoDTO {
 	private Integer EjercicioFiscal;
 	private Date FechaDeclaracion;
 
-	/***************** Getters and Setters ********************/
+	
 
 	public Integer getIdConstanciaSueldo() {
 		return IdConstanciaSueldo;

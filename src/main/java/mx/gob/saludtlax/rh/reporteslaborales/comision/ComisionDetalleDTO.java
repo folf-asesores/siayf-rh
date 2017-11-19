@@ -12,7 +12,7 @@ public class ComisionDetalleDTO implements Serializable{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	
 	private Integer idMovimiento;
 	private String empleado;

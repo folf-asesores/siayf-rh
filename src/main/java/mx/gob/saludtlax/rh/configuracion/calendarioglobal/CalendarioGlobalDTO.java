@@ -47,7 +47,7 @@ public class CalendarioGlobalDTO implements Serializable {
 		this.importeAnual = importeAnual;
 	}
 
-	/************** Getters and Setters ********/
+	
 
 	public Integer getIdCalendarioGlobal() {
 		return idCalendarioGlobal;

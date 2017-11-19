@@ -140,7 +140,7 @@ public class PresupuestoCalendarioController implements Serializable {
 		this.view.setMostrarVistaActualizar(true);
 	}
 
-	/************* Getters and Setters **************/
+	
 
 	/**
 	 * @return the view

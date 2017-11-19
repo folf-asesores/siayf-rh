@@ -59,7 +59,7 @@ public class TabuladorDTO implements Serializable {
 
 	private Integer idSubClasificacion = 0;
 
-	/****************** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the idTabulador

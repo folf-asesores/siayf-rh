@@ -883,7 +883,7 @@ public class TimbradoService implements Serializable {
 			String llaveBase64 = new String(laveBase64Byte);
 			String CertificadoBase64 = new String(certificadoDigital64Byte);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 

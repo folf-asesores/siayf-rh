@@ -10,7 +10,7 @@ public class PerfilDTO implements Serializable {
 	private String nombre;
 	private String descripcion;
 
-	/********* Getters and Setters *********/
+	
 	
 	public Integer getIdPerfil() {
 		return idPerfil;

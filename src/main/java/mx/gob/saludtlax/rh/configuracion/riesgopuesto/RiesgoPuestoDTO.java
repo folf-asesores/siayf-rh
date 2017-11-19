@@ -25,7 +25,7 @@ public class RiesgoPuestoDTO implements Serializable {
 
 	private String descripcionRiesgoPuesto;
 
-	/************************** Getters and Setters **************************/
+	
 
 	/**
 	 * @return the idRiesgoPuesto

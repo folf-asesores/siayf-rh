@@ -37,7 +37,7 @@ public class ProfesionEntity implements Serializable{
 
 	
 	
-	/****************Getters and Setters***********/
+	
 	/**
 	 * @return the idProfesion
 	 */

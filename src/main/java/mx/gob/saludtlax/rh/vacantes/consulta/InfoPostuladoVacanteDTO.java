@@ -47,7 +47,7 @@ public class InfoPostuladoVacanteDTO implements Serializable {
 		super();
 	}
 
-	/*********** Getters and Setters *************/
+	
 
 	/**
 	 * @return the tipoContratacion

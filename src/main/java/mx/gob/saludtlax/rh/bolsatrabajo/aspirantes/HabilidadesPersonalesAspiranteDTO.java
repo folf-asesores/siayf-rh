@@ -101,7 +101,7 @@ public class HabilidadesPersonalesAspiranteDTO implements Serializable {
 
 	private BigDecimal gastoMensual;
 
-	/****************** Getters and Setters *******************/
+	
 
 	/**
 	 * @return the idEncuestaPersonalAspirante

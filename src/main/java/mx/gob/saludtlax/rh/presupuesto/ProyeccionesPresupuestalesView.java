@@ -17,7 +17,7 @@ public class ProyeccionesPresupuestalesView {
     private boolean mostrarOpcionDescarga = false;
     
     
-    /***********Getters and Setters************/
+    
     public List<ProyeccionesPresupuestalesDTO> getListaProyecciones() {
         return listaProyecciones;
     }

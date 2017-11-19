@@ -57,7 +57,7 @@ public class ConsultaCandidatoPostuladoView implements Serializable {
 	// Experiencia Laboral
 	private List<ExperienciaLaboralAspiranteDTO> listaExperienciaLaboral = new ArrayList<>();
 
-	/*********** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the mostrarTablaCandidatos

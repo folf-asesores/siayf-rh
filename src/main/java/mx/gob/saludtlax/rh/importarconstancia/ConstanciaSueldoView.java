@@ -6,7 +6,7 @@ public class ConstanciaSueldoView {
 
 	private UploadedFile file;
 
-	/************* Getters and Setters *************/
+	
 
 	public UploadedFile getFile() {
 		return file;

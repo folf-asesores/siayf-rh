@@ -168,7 +168,7 @@ public class PresupuestoCalendarioDTO implements Serializable {
 		this.diciembre = diciembre;
 	}
 
-	/*************** Getters and Setters **************/
+	
 
 	public Integer getIdPresupuestoCalendario() {
 		return idPresupuestoCalendario;

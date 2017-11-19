@@ -207,7 +207,7 @@ public class ReporteMovimientoEmpleadoController implements Serializable {
 
 	}
 
-	/****** Getters and Setters *******/
+	
 
 	/**
 	 * @return the view

@@ -1,6 +1,7 @@
 /**
  * Copyright © 2016
  */
+
 package mx.gob.saludtlax.rh.empleado.formatofiliacion;
 
 import java.io.IOException;
@@ -9,7 +10,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -20,8 +20,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import javax.sql.DataSource;
+
+import org.jboss.logging.Logger;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
@@ -35,70 +36,64 @@ import net.sf.jasperreports.engine.JasperRunManager;
 @WebServlet("/FormatoFiliacionServlet")
 public class FormatoFiliacionServlet extends HttpServlet {
 
-	/**
-	* 
-	*/
-	private static final long serialVersionUID = 3946310335496722188L;
-	private static final Logger LOGGER = Logger.getLogger(FormatoFiliacionServlet.class.getName());
+    /**
+    * 
+    */
+    private static final long serialVersionUID = 3946310335496722188L;
+    private static final Logger LOGGER = Logger.getLogger(FormatoFiliacionServlet.class.getName());
 
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
-		
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Integer idEmpleado = Integer.parseInt(request.getParameter("idEmpleado"));
 
-		byte[] bytes = doReport(idEmpleado);
+        byte[] bytes = doReport(idEmpleado);
 
-		ServletOutputStream servletOutputStream = response.getOutputStream();
-		response.setContentType("application/pdf");
-		response.setContentLength(bytes.length);
-		response.setHeader("Content-Disposition",
-				"inline;filename=" + "Formato_Filiacion.pdf");
-		servletOutputStream.write(bytes, 0, bytes.length);
-		servletOutputStream.flush();
-		servletOutputStream.close();
-	}
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        response.setHeader("Content-Disposition", "inline;filename=" + "Formato_Filiacion.pdf");
+        servletOutputStream.write(bytes, 0, bytes.length);
+        servletOutputStream.flush();
+        servletOutputStream.close();
+    }
 
-	private byte[] doReport(Integer idEmpleado) {
-		byte[] bytes = null;
+    private byte[] doReport(Integer idEmpleado) {
+        byte[] bytes = null;
 
-		InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/FORMATO_FILIACION.jasper");
-		Connection conexion = null;
-		try {
-			Context initcontext = new InitialContext();
-			DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/reportes/FORMATO_FILIACION.jasper");
+        Connection conexion = null;
+        try {
+            Context initcontext = new InitialContext();
+            DataSource ds = (DataSource) initcontext.lookup("java:jboss/datasources/SIAYFRHDS");
 
-			conexion = ds.getConnection();
+            conexion = ds.getConnection();
 
-			Map<String, Object> parameters = new HashMap<String, Object>();
+            Map<String, Object> parameters = new HashMap<>();
 
-			parameters.put("ID_EMPLEADO", idEmpleado);
-			
+            parameters.put("ID_EMPLEADO", idEmpleado);
 
-			bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
+            bytes = JasperRunManager.runReportToPdf(inputStream, parameters, conexion);
 
-		} catch (NamingException ex) {
-			System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS"
-					+ getClass().getName());
-			ex.printStackTrace();
-		} catch (SQLException ex) {
-			System.err.println("Error al tratar obtener la conexiÃ³n con la base de datos en " + getClass().getName());
-			ex.printStackTrace();
-		} catch (JRException ex) {
-			System.err.println("Error durante la generación del reporte ");
-			ex.printStackTrace();
-		} finally {
-			if (conexion != null) {
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-					System.err.println(
-							"Error al tratar cerrar la conexiÃ³n con la base de datos en " + getClass().getName());
-					e.printStackTrace();
-				}
-			}
-		}
+        } catch (NamingException ex) {
+            System.err.println("Error al cargar tratar de resolver el nombre: java:jboss/datasources/SIAYFRHDS" + getClass().getName());
+            ex.printStackTrace();
+        } catch (SQLException ex) {
+            System.err.println("Error al tratar obtener la conexión con la base de datos en " + getClass().getName());
+            ex.printStackTrace();
+        } catch (JRException ex) {
+            System.err.println("Error durante la generación del reporte ");
+            ex.printStackTrace();
+        } finally {
+            if (conexion != null) {
+                try {
+                    conexion.close();
+                } catch (SQLException e) {
+                    LOGGER.error("Error al tratar cerrar la conexión con la base de datos en " + getClass().getName());
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		return bytes;
-	}
+        return bytes;
+    }
 }

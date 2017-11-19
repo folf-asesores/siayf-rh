@@ -61,7 +61,7 @@ public class PostulacionVacanteEntity implements Serializable {
 	@JoinColumn(name = "id_tipo_postulacion")
 	private TipoPostulacionEntity tipoPostulacion;
 
-	/************** Getters and Setters ***************/
+	
 
 	/**
 	 * @return the idPostuladoVacante

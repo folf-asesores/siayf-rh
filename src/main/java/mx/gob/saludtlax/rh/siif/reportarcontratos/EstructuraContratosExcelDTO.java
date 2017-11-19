@@ -59,7 +59,7 @@ public class EstructuraContratosExcelDTO implements Serializable {
 	private String tipoEmisionNomina;
 	private Integer idSiifBitacora;
 	
-	/**************** Getters and Setters ***********************/
+	
 	
 	
 	public String getIdEstructura() {

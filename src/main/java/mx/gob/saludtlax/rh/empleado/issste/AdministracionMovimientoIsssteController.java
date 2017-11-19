@@ -37,7 +37,7 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	@Inject
 	private Catalogo catalogo;
 	@Inject
@@ -300,7 +300,7 @@ public class AdministracionMovimientoIsssteController implements Serializable {
 		this.view.setVentanaNuevoReporte(false);
 	}
 
-	/************* Validar *************/
+	
 	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 		String nombreComponete = component.getId();
 

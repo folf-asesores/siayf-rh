@@ -52,7 +52,7 @@ public class ConfigModuloAccionController implements Serializable {
 		JSFUtils.infoMessage("Configuración Modulo Acción: ", "¡Se elimino Correctamente!");
 	}
 
-	/************* Getters and Setters *******/
+	
 
 	public ConfigModuloAccionView getView() {
 		return view;

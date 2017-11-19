@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.reincorporacion;
 
 import java.io.IOException;
@@ -27,126 +28,120 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @SessionScoped
 public class ReincorporacionBaseController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7359263173765732160L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -7359263173765732160L;
 
-	@Inject
-	private ReincorporacionBaseEJB reincorporacionBaseEJB;
+    @Inject
+    private ReincorporacionBaseEJB reincorporacionBaseEJB;
 
-	private ReincorporacionBaseView view;
-	
-	private String nombre = "[nombre]";
+    private ReincorporacionBaseView view;
 
-	@PostConstruct
-	public void inicio() {
-		this.view = new ReincorporacionBaseView();
-	}
+    private String nombre = "[nombre]";
 
-	/************* Validar *************/
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    @PostConstruct
+    public void inicio() {
+        this.view = new ReincorporacionBaseView();
+    }
 
-		String nombreComponete = component.getId();
+    
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
-		switch (nombreComponete) {
-		case "criterio":
-			Integer criterio = (Integer) value;
+        String nombreComponete = component.getId();
 
-			if (ValidacionUtil.esNumeroPositivo(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+        switch (nombreComponete) {
+            case "criterio":
+                Integer criterio = (Integer) value;
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
+                if (ValidacionUtil.esNumeroPositivo(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-	public void buscarEmpleados() {
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-		String criterio = view.getCriterio();
+    public void buscarEmpleados() {
 
-		List<ReincorporacionBaseDetalleDTO> resultado = reincorporacionBaseEJB.consultarPorCriterio(criterio);
-		view.setReincorporacionBaseDetalleDTO(resultado);
-	}
+        String criterio = this.view.getCriterio();
 
-	public void descargarReservacionPlazaConfianza() {
-		ReincorporacionBaseDTO reincorporacionBaseDTO = view.getReincorporacionBaseDTO();
-		
+        List<ReincorporacionBaseDetalleDTO> resultado = this.reincorporacionBaseEJB.consultarPorCriterio(criterio);
+        this.view.setReincorporacionBaseDetalleDTO(resultado);
+    }
 
-		ReincorporacionBaseWord reincorporacionBaseWord = new ReincorporacionBaseWord();
-		byte[] bytesWord = reincorporacionBaseWord.generar(reincorporacionBaseDTO);
-		FacesContext fc = FacesContext.getCurrentInstance();
+    public void descargarReservacionPlazaConfianza() {
+        ReincorporacionBaseDTO reincorporacionBaseDTO = this.view.getReincorporacionBaseDTO();
 
-		try {
-			ExternalContext ec = fc.getExternalContext();
+        ReincorporacionBaseWord reincorporacionBaseWord = new ReincorporacionBaseWord();
+        byte[] bytesWord = reincorporacionBaseWord.generar(reincorporacionBaseDTO);
+        FacesContext fc = FacesContext.getCurrentInstance();
 
-			ec.responseReset();
-			ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-			ec.setResponseContentLength(bytesWord.length);
-			ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReincorporacionBase.docx");
+        try {
+            ExternalContext ec = fc.getExternalContext();
 
-			OutputStream outputStream = ec.getResponseOutputStream();
-			outputStream.write(bytesWord, 0, bytesWord.length);
-			outputStream.flush();
+            ec.responseReset();
+            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentLength(bytesWord.length);
+            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "ReincorporacionBase.docx");
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			fc.responseComplete();
-		}
-	}
+            OutputStream outputStream = ec.getResponseOutputStream();
+            outputStream.write(bytesWord, 0, bytesWord.length);
+            outputStream.flush();
 
-	public void contenidoReservacion(Integer idTipoMovimiento) {
-		ReincorporacionBaseDTO reincorporacionBaseDTO = reincorporacionBaseEJB.obtenerReincorporacion(idTipoMovimiento);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            fc.responseComplete();
+        }
+    }
 
-		view.setReincorporacionBaseDTO(reincorporacionBaseDTO);
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReincorporacion(true);
-	}
+    public void contenidoReservacion(Integer idTipoMovimiento) {
+        ReincorporacionBaseDTO reincorporacionBaseDTO = this.reincorporacionBaseEJB.obtenerReincorporacion(idTipoMovimiento);
 
-	public void regresar() {
-		this.view.setCriterio("");
-		this.view.setReincorporacionBaseDetalleDTO(null);
-		this.view.setMostrarPrincipal(true);
-		this.view.setMostrarReincorporacion(false);
-	}
-	
-	public void edicion(){
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReincorporacion(false);
-		this.view.setMostrarEdicion(true);
-	}
-	
-	public void guardar() {
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarReincorporacion(true);
-		this.view.setMostrarEdicion(false);
-	}
+        this.view.setReincorporacionBaseDTO(reincorporacionBaseDTO);
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReincorporacion(true);
+    }
 
-	/************** Getters and Setters ****************/
+    public void regresar() {
+        this.view.setCriterio("");
+        this.view.setReincorporacionBaseDetalleDTO(null);
+        this.view.setMostrarPrincipal(true);
+        this.view.setMostrarReincorporacion(false);
+    }
 
-	public ReincorporacionBaseView getView() {
-		return view;
-	}
+    public void edicion() {
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReincorporacion(false);
+        this.view.setMostrarEdicion(true);
+    }
 
-	public void setView(ReincorporacionBaseView view) {
-		this.view = view;
-	}
+    public void guardar() {
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarReincorporacion(true);
+        this.view.setMostrarEdicion(false);
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    public ReincorporacionBaseView getView() {
+        return this.view;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setView(ReincorporacionBaseView view) {
+        this.view = view;
+    }
 
-	
+    public String getNombre() {
+        return this.nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
 }

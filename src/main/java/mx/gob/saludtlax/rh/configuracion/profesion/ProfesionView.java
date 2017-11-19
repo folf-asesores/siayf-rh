@@ -28,7 +28,7 @@ public class ProfesionView implements Serializable {
 	private Boolean dialogActualizar = Boolean.FALSE;
 	private Boolean dialogEliminar = Boolean.FALSE;
 
-	/*********** Getters and Setters ****************/
+	
 
 	/**
 	 * @return the listaProfesion

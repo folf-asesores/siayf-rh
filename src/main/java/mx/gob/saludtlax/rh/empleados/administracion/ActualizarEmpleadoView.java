@@ -91,7 +91,7 @@ public class ActualizarEmpleadoView implements Serializable {
 	private boolean mostrarDialogoConfirmacionHistorial = false;
 	private boolean mostrarDialogoConfirmacionExperiencia = false;
 
-	/**************** Getters and Setters ************/
+	
 	/**
 	 * @return the listaEstadosCiviles
 	 */

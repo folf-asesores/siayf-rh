@@ -107,7 +107,7 @@ public class SuplenciaBean implements Suplencia {
 
 	@Override
 	public List<SuplenciasQuincenaDTO> consultarSuplenciasQuincena(int numeroQuincena, int ejercicioFiscal) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

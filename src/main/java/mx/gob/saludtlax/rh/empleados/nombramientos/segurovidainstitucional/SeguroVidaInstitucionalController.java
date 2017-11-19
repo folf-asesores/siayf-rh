@@ -325,7 +325,7 @@ public class SeguroVidaInstitucionalController implements Serializable {
 		view.setInfoDependienteEconomicoDTOSeleccionado(new InfoDependienteEconomicoDTO());
 	}
 
-	/************* Validar *************/
+	
 	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 		String nombreComponete = component.getId();
 

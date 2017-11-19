@@ -35,7 +35,7 @@ public class ActualizarModuloView implements Serializable {
 	private boolean mostrarFormularioAccion = false;
 
 
-	/********* Getters and Setters *****************/
+	
 
 	/**
 	 * @return the idModulo

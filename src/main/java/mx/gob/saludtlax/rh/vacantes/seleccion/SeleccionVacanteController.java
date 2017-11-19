@@ -452,7 +452,7 @@ public class SeleccionVacanteController implements Serializable {
 		return resultado;
 	}
 
-	/*************** Getters and Setters *****************/
+	
 
 	/**
 	 * @return the view

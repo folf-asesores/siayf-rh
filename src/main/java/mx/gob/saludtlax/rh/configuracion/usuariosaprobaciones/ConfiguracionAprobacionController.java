@@ -203,7 +203,7 @@ public class ConfiguracionAprobacionController implements Serializable {
 		return "/contenido/configuracion/configuracionAprobaciones.xhtml?faces-redirect=true";
 	}
 
-	/************ Getters and Setters **************/
+	
 
 	public ConfiguracionAprobacionView getView() {
 		return view;

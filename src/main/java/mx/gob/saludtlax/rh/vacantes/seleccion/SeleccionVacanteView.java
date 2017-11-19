@@ -52,7 +52,7 @@ public class SeleccionVacanteView implements Serializable {
 
 	private String headerPerfil = "Profesión/Especialidad";
 
-	/**************** Getters and Setters ********************/
+	
 	/**
 	 * @return the listaSeleccionVacante
 	 */

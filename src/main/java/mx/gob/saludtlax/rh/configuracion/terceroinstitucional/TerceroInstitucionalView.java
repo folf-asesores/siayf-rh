@@ -26,7 +26,7 @@ public class TerceroInstitucionalView implements Serializable {
 
 	private String accionButton = "Registrar";
 
-	/**************** Getters and Setters ***************************/
+	
 	/**
 	 * @return the terceroInstitucional
 	 */

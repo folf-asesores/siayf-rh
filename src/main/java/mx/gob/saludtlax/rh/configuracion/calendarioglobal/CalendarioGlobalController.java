@@ -166,7 +166,7 @@ public class CalendarioGlobalController implements Serializable {
 
 	}
 
-	/****************** Getters and Setters *************/
+	
 
 	/**
 	 * @return the view

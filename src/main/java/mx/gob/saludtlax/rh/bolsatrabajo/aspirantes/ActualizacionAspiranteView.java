@@ -306,7 +306,7 @@ public class ActualizacionAspiranteView implements Serializable {
 		this.mostrarFormularioEspecialidad = mostrarFormularioEspecialidad;
 	}
 
-	/************** Getters and Setters ************/
+	
 
 	public List<SelectItem> getListaTiposSangre() {
 		return listaTiposSangre;

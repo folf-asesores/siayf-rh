@@ -47,7 +47,7 @@ public class ImpresionContratoView implements Serializable {
 		this.mostrarReimpresion = mostrarReimpresion;
 	}
 
-	/******** Getters and Setters ***********/
+	
 	/**
 	 * @return the listaContrato
 	 */

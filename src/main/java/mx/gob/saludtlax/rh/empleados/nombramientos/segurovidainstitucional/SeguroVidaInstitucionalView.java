@@ -20,7 +20,7 @@ public class SeguroVidaInstitucionalView implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 
 	private List<InfoEmpleadoDTO> listaEmpleados = new ArrayList<InfoEmpleadoDTO>();
 
@@ -51,7 +51,7 @@ public class SeguroVidaInstitucionalView implements Serializable {
 	private String urlReporte;
 	private Integer idSeguroVida = 0;
 
-	/*********** Getters and Setters **/
+	
 
 	public List<InfoEmpleadoDTO> getListaEmpleados() {
 		return listaEmpleados;

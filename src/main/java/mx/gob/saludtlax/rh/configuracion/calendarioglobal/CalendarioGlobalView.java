@@ -32,7 +32,7 @@ public class CalendarioGlobalView implements Serializable {
 
 	private Integer idCalendarioGlobal;
 
-	/*********** Getters and Setters **************/
+	
 
 	public CalendarioGlobalDTO getCreaCalendarioGlobal() {
 		return creaCalendarioGlobal;

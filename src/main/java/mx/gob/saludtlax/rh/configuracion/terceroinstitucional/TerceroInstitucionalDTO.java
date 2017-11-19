@@ -29,7 +29,7 @@ public class TerceroInstitucionalDTO implements Serializable {
 
 	private String giro;
 
-	/********************* Getters and Setters ************************/
+	
 
 	/**
 	 * @return the idTerceroInstitucional

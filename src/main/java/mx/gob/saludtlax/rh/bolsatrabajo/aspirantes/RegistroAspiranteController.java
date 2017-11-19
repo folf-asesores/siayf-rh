@@ -1360,7 +1360,7 @@ public class RegistroAspiranteController implements Serializable {
 
 	}
 
-	/********* Getters and Setters ******************/
+	
 	public RegistroAspiranteView getView() {
 		return view;
 	}

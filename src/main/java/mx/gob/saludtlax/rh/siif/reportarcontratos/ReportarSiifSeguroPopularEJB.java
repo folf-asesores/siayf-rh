@@ -44,7 +44,7 @@ public class ReportarSiifSeguroPopularEJB implements Serializable{
 			    procesarArchivo(dato);
 			}
 		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
+			 
 			e.printStackTrace();
 		}
 		JSFUtils.infoMessage("En este momento ha terminado de subir el archivo y se empieza a procesar","En este momento ha terminado de subir el archivo y se empieza a procesar");

@@ -1,3 +1,4 @@
+
 package mx.gob.saludtlax.rh.reporteslaborales.termino;
 
 import java.io.IOException;
@@ -27,103 +28,98 @@ import mx.gob.saludtlax.rh.util.ValidacionUtil;
 @SessionScoped
 public class TerminoComisionReincorporacionAdscripcionController implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 5469082605209462517L;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 5469082605209462517L;
 
-	@Inject
-	private TerminoComisionReincorporacionAdscripcionEJB terminoComisionReincorporacionAdscripcionEJB;
-	
-	private TerminoView view;
-	
-	@PostConstruct
-	public void inicio() {
-		this.view = new TerminoView();
-	}
-	
-	/************* Validar *************/
-	public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
+    @Inject
+    private TerminoComisionReincorporacionAdscripcionEJB terminoComisionReincorporacionAdscripcionEJB;
 
-		String nombreComponete = component.getId();
+    private TerminoView view;
 
-		switch (nombreComponete) {
-		case "criterio":
-			Integer criterio = (Integer) value;
+    @PostConstruct
+    public void inicio() {
+        this.view = new TerminoView();
+    }
 
-			if (ValidacionUtil.esNumeroPositivo(criterio)) {
-				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "",
-						"Por favor ingrese un criterio de búsqueda.");
-				context.addMessage(component.getClientId(), facesMessage);
-				throw new ValidatorException(facesMessage);
-			}
+    
+    public void validatorConsulta(FacesContext context, UIComponent component, Object value) {
 
-			break;
-		default:
-			JSFUtils.errorMessage("Error: ", "Validar criterio");
-			break;
-		}
-	}
-	
-	public void buscarEmpleados() {
-		String criterio = view.getCriterio();
-		
-		List<TerminoDetalleDTO> resultado = terminoComisionReincorporacionAdscripcionEJB.consultarPorCriterio(criterio);
-		view.setTerminoDetalleDTO(resultado);
-	}
-	
-	public void descargarTermino() {
-		
-		TerminoDTO terminoDTO = view.getTerminoDTO();
-		TerminoComisionReincorporacionAdscripcionWord terminoComisionReincorporacionAdscripcionWord = new TerminoComisionReincorporacionAdscripcionWord();
-		byte[] bytesWord = terminoComisionReincorporacionAdscripcionWord.generar(terminoDTO);
-		
-		FacesContext fc = FacesContext.getCurrentInstance();
+        String nombreComponete = component.getId();
 
-		try {
-			ExternalContext ec = fc.getExternalContext();
+        switch (nombreComponete) {
+            case "criterio":
+                Integer criterio = (Integer) value;
 
-			ec.responseReset();
-			ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-			ec.setResponseContentLength(bytesWord.length);
-			ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoComisionReincorporacionAdscripcion.docx");
+                if (ValidacionUtil.esNumeroPositivo(criterio)) {
+                    FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR, "", "Por favor ingrese un criterio de búsqueda.");
+                    context.addMessage(component.getClientId(), facesMessage);
+                    throw new ValidatorException(facesMessage);
+                }
 
-			OutputStream outputStream = ec.getResponseOutputStream();
-			outputStream.write(bytesWord, 0, bytesWord.length);
-			outputStream.flush();
+                break;
+            default:
+                JSFUtils.errorMessage("Error: ", "Validar criterio");
+                break;
+        }
+    }
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			fc.responseComplete();
-		}
-		
-	}
-	
-	public void contenidoTermino(Integer idTipoMovimiento) {
-		TerminoDTO terminoDTO = terminoComisionReincorporacionAdscripcionEJB.obtenerTermino(idTipoMovimiento);
+    public void buscarEmpleados() {
+        String criterio = this.view.getCriterio();
 
-		view.setTerminoDTO(terminoDTO);
-		this.view.setMostrarPrincipal(false);
-		this.view.setMostrarTermino(true);
-	}
+        List<TerminoDetalleDTO> resultado = this.terminoComisionReincorporacionAdscripcionEJB.consultarPorCriterio(criterio);
+        this.view.setTerminoDetalleDTO(resultado);
+    }
 
-	public void regresar() {
-		this.view.setCriterio("");
-		this.view.setTerminoDetalleDTO(null);
-		this.view.setMostrarPrincipal(true);
-		this.view.setMostrarTermino(false);
-	}
-	
-	
-	
+    public void descargarTermino() {
 
-	public TerminoView getView() {
-		return view;
-	}
+        TerminoDTO terminoDTO = this.view.getTerminoDTO();
+        TerminoComisionReincorporacionAdscripcionWord terminoComisionReincorporacionAdscripcionWord = new TerminoComisionReincorporacionAdscripcionWord();
+        byte[] bytesWord = terminoComisionReincorporacionAdscripcionWord.generar(terminoDTO);
 
-	public void setView(TerminoView view) {
-		this.view = view;
-	}
+        FacesContext fc = FacesContext.getCurrentInstance();
+
+        try {
+            ExternalContext ec = fc.getExternalContext();
+
+            ec.responseReset();
+            ec.setResponseContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            ec.setResponseContentLength(bytesWord.length);
+            ec.setResponseHeader("Content-Disposition", "attachment;filename=" + "TerminoComisionReincorporacionAdscripcion.docx");
+
+            OutputStream outputStream = ec.getResponseOutputStream();
+            outputStream.write(bytesWord, 0, bytesWord.length);
+            outputStream.flush();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            fc.responseComplete();
+        }
+
+    }
+
+    public void contenidoTermino(Integer idTipoMovimiento) {
+        TerminoDTO terminoDTO = this.terminoComisionReincorporacionAdscripcionEJB.obtenerTermino(idTipoMovimiento);
+
+        this.view.setTerminoDTO(terminoDTO);
+        this.view.setMostrarPrincipal(false);
+        this.view.setMostrarTermino(true);
+    }
+
+    public void regresar() {
+        this.view.setCriterio("");
+        this.view.setTerminoDetalleDTO(null);
+        this.view.setMostrarPrincipal(true);
+        this.view.setMostrarTermino(false);
+    }
+
+    public TerminoView getView() {
+        return this.view;
+    }
+
+    public void setView(TerminoView view) {
+        this.view = view;
+    }
 }

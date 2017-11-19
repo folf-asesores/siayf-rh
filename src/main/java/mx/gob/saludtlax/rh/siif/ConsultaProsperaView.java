@@ -187,12 +187,12 @@ public class ConsultaProsperaView {
 	 */
 
 	public void setEstructuraProspera(EstructuraNominaDatDTO nuevoDatos) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void setEstructuraProsperaTrailers(EstructuraNominaTrailersDTO nuevoTrailers) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	

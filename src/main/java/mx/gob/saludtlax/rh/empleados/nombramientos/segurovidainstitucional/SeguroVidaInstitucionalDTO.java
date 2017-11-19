@@ -34,7 +34,7 @@ public class SeguroVidaInstitucionalDTO implements Serializable {
 
 	private List<BeneficiariosDTO> beneficiariosDTOs = new ArrayList<BeneficiariosDTO>();
 
-	/********** Getters and Setters *******/
+	
 
 	public Integer getIdSeguroVida() {
 		return idSeguroVida;

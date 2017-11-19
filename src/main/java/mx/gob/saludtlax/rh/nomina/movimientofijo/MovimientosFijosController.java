@@ -501,7 +501,7 @@ public class MovimientosFijosController implements Serializable {
 		return "/contenido/nomina/movimientos/index.xhtml?faces-config=true";
 	}
 
-	/****************** Getters and Setters **********************/
+	
 
 	/**
 	 * @return the criterio
