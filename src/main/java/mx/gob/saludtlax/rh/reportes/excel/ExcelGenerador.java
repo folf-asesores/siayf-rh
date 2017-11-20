@@ -6,17 +6,11 @@
 
 package mx.gob.saludtlax.rh.reportes.excel;
 
-import static mx.gob.saludtlax.rh.util.FechaUtil.PATRON_FECHA_BASE_DE_DATOS;
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.jboss.logging.Logger;
 
@@ -59,6 +53,9 @@ import mx.gob.saludtlax.rh.siif.ConsultaNominaService;
 import mx.gob.saludtlax.rh.siif.seguropopular.SeguroPopularReporte;
 import mx.gob.saludtlax.rh.util.FechaUtil;
 
+import static mx.gob.saludtlax.rh.util.BeanFactory.getBean;
+import static mx.gob.saludtlax.rh.util.FechaUtil.PATRON_FECHA_BASE_DE_DATOS;
+
 /**
  *
  * @author Freddy Barrera (freddy.barrera.moo@gmail.com)
@@ -72,19 +69,6 @@ public class ExcelGenerador implements Generador, Serializable {
     private static final long serialVersionUID = -5384835789936086358L;
 
     private static final Logger LOGGER = Logger.getLogger(ExcelGenerador.class);
-
-    private static final String CONSULTA_NOMINA_SERVICE_BEAN = "java:module/ConsultaNominaService";
-    private static final String CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN = "java:module/MovimientoEmpleadoReporteService";
-    private static final String SEGURO_POPULAR_REPORTE_BEAN = "java:module/SeguroPopularReporteEJB";
-    private static final String PROYECCIONES_PRESUPUESTALES_BEAN = "java:module/ProyeccionesPresupuestalesEJB";
-    private static final String DETALLE_EMPLEADO_BEAN = "java:module/DetalleEmpleadoEJB";
-    private static final String PRODUCTO_NOMINA_BEAN = "java:module/ProductoNominaEJB";
-    private static final String HISTORIAL_PAGO_BEAN = "java:module/HistorialPagoEJB";
-    private static final String RELACION_PERSONAL_SUPLENTE_BEAN = "java:module/RelacionPersonalSuplenteEJB";
-    private static final String DISPERSION_BEAN = "java:module/DispersionEJB";
-    private static final String PAGO_GENERAL_BEAN = "java:module/PagoGeneralReporteEJB";
-    private static final String DISTRIBUCION_PRESUPUESTO_BEAN = "java:module/DistribucionPresupuestoEJB";
-    private static final String PRODUCTO_NOMINA_PROGRAMAS_BEAN = "java:module/ProductoNominaEJB";
 
     @Override
     public byte[] obtenerReporte(Map<String, String> parametros) {
@@ -104,7 +88,9 @@ public class ExcelGenerador implements Generador, Serializable {
                     Integer anio = Integer
                             .parseInt(parametros.get("ANIO_REAL"));
 
-                    List<AcumuladosDTO> detalles = getConsultaNominaService()
+                    ConsultaNominaService consultaNominaService = getBean(
+                            ConsultaNominaService.class);
+                    List<AcumuladosDTO> detalles = consultaNominaService
                             .listaConsultaNominaPorNombramiento(
                                     tipoNombramiento, quincenaInicial,
                                     quincenaFinal, anio);
@@ -121,7 +107,9 @@ public class ExcelGenerador implements Generador, Serializable {
                             parametros.get("FECHA_FINAL"),
                             PATRON_FECHA_BASE_DE_DATOS);
 
-                    List<ComisionadoLicenciaExcelDTO> comisionadoLicenciaExcelDTOs = getMovimientoEmpleadoReporteService()
+                    MovimientoEmpleadoReporteService movimientoEmpleadoReporteService = getBean(
+                            MovimientoEmpleadoReporteService.class);
+                    List<ComisionadoLicenciaExcelDTO> comisionadoLicenciaExcelDTOs = movimientoEmpleadoReporteService
                             .listaConsultaComisionadoLicenciaPorRangoFecha(
                                     fechaInicial, fechaFinal);
 
@@ -149,7 +137,9 @@ public class ExcelGenerador implements Generador, Serializable {
                             parametros.get("FECHA_FINAL"),
                             PATRON_FECHA_BASE_DE_DATOS);
 
-                    List<ConsentradoAltaBajaExcelDTO> consentradoAltaBajaExcelDTOs = getMovimientoEmpleadoReporteService()
+                    MovimientoEmpleadoReporteService movimientoEmpleadoReporteService = getBean(
+                            MovimientoEmpleadoReporteService.class);
+                    List<ConsentradoAltaBajaExcelDTO> consentradoAltaBajaExcelDTOs = movimientoEmpleadoReporteService
                             .listaConsultaConsentradoAltaBajaPorRangoFecha(
                                     idTipoContratacionConsentrado, fechaInicial,
                                     fechaFinal);
@@ -168,7 +158,8 @@ public class ExcelGenerador implements Generador, Serializable {
                     break;
 
                 case "seguro_popular": {
-                    SeguroPopularReporte seguroPopularBean = getSeguroPopularReporteBean();
+                    SeguroPopularReporte seguroPopularBean = getBean(
+                            SeguroPopularReporte.class);
                     bytes = seguroPopularBean.obtenerReporte();
                 }
                     break;
@@ -177,9 +168,9 @@ public class ExcelGenerador implements Generador, Serializable {
                     String anyo = parametros.get("ANYO");
                     Integer quincena = Integer
                             .parseInt(parametros.get("QUINCENA"));
-                    SeguroPopularReporte seguroPopularBeanReporte = getSeguroPopularReporteBean();
-                    bytes = seguroPopularBeanReporte.obtenerReporte(anyo,
-                            quincena);
+                    SeguroPopularReporte seguroPopularBean = getBean(
+                            SeguroPopularReporte.class);
+                    bytes = seguroPopularBean.obtenerReporte(anyo, quincena);
                 }
                     break;
 
@@ -188,7 +179,9 @@ public class ExcelGenerador implements Generador, Serializable {
                             .parseInt(parametros.get("ANYO_PRESUPUESTO"));
                     Integer idTipoNombramiento = Integer
                             .parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
-                    List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales = getProyeccionesPresupuestalesBean()
+                    ProyeccionesPresupuestalesEJB proyeccionesPresupuestalesBean = getBean(
+                            ProyeccionesPresupuestalesEJB.class);
+                    List<ProyeccionesPresupuestalesDTO> proyeccionesPresupuestales = proyeccionesPresupuestalesBean
                             .proyeccionesPresupuestales(anyoPresupuesto,
                                     idTipoNombramiento);
 
@@ -203,8 +196,9 @@ public class ExcelGenerador implements Generador, Serializable {
                             .parseInt(parametros.get("ANYO_PRESUPUESTO"));
                     Integer idTipoNombramientos = Integer
                             .parseInt(parametros.get("ID_TIPO_NOMBRAMIENTO"));
-
-                    List<ProyeccionesPresupuestalesDTO> proyecciones = getProyeccionesPresupuestalesBean()
+                    ProyeccionesPresupuestalesEJB proyeccionesPresupuestalesBean = getBean(
+                            ProyeccionesPresupuestalesEJB.class);
+                    List<ProyeccionesPresupuestalesDTO> proyecciones = proyeccionesPresupuestalesBean
                             .proyeccionesPresupuestales(anioPresupuesto,
                                     idTipoNombramientos);
 
@@ -218,8 +212,9 @@ public class ExcelGenerador implements Generador, Serializable {
 
                     Integer idTipoContratacion = Integer
                             .parseInt(parametros.get("ID_TIPO_CONTRATACION"));
-
-                    List<DetalleEmpleadoDTO> detalleEmpleado = getDetalleEmpleadoBean()
+                    DetalleEmpleado detalleEmpleadoBean = getBean(
+                            DetalleEmpleado.class);
+                    List<DetalleEmpleadoDTO> detalleEmpleado = detalleEmpleadoBean
                             .detalleEmpleadoPorIdTipoContratacion(
                                     idTipoContratacion);
 
@@ -233,8 +228,9 @@ public class ExcelGenerador implements Generador, Serializable {
 
                     Integer idProducto = Integer
                             .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                    ProductoNomina productoNominaBean = getBean(
+                            ProductoNomina.class);
+                    List<ProductosNominaExcelDTO> listaProductoNomina = productoNominaBean
                             .obtenerListaProductoNominaPorIdProducto(
                                     idProducto);
 
@@ -251,15 +247,16 @@ public class ExcelGenerador implements Generador, Serializable {
                     break;
 
                 case "producto_nomina_programas": {
-
                     Integer idProducto = Integer
                             .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = getProductoNomina()
+                    ProductoNomina productoNominaBean = getBean(
+                            ProductoNomina.class);
+                    List<ProductosNominaProgramasExcelDTO> listaProductoNominaProgramas = productoNominaBean
                             .obtenerListaProductoNominaProgramasPorIdProducto(
                                     idProducto);
-                    List<String> listaProgramas = getProductoNomina()
+                    List<String> listaProgramas = productoNominaBean
                             .obtenerListaProgramasPorIdProducto(idProducto);
-                    ProductoNominaDTO producto = getProductoNomina()
+                    ProductoNominaDTO producto = productoNominaBean
                             .obtenerProductoNominaPorIdProducto(idProducto);
 
                     if (!listaProductoNominaProgramas.isEmpty()) {
@@ -276,13 +273,13 @@ public class ExcelGenerador implements Generador, Serializable {
                     break;
 
                 case "producto_nomina_estatus": {
-
                     Integer idProducto = Integer
                             .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
                     Integer idEstatus = Integer
                             .parseInt(parametros.get("ID_ESTATUS"));
-
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                    ProductoNomina productoNominaBean = getBean(
+                            ProductoNomina.class);
+                    List<ProductosNominaExcelDTO> listaProductoNomina = productoNominaBean
                             .obtenerListaProductoNominaPorIdProductoEstatus(
                                     idProducto, idEstatus);
 
@@ -303,7 +300,9 @@ public class ExcelGenerador implements Generador, Serializable {
                 case "producto_nomina_suplencia": {
                     Integer idProducto = Integer
                             .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    List<ProductosNominaExcelDTO> listaProductoNomina = getProductoNomina()
+                    ProductoNomina productoNominaBean = getBean(
+                            ProductoNomina.class);
+                    List<ProductosNominaExcelDTO> listaProductoNomina = productoNominaBean
                             .obtenerListaProductoNominaPorIdProducto(
                                     idProducto);
 
@@ -325,7 +324,9 @@ public class ExcelGenerador implements Generador, Serializable {
                     Integer idEmpleado = Integer
                             .parseInt(parametros.get("ID_EMPLEADO"));
 
-                    List<HistorialPagoDetalleDTO> listaHistorialPago = getHistorialPago()
+                    HistorialPago historialPagoBean = getBean(
+                            HistorialPago.class);
+                    List<HistorialPagoDetalleDTO> listaHistorialPago = historialPagoBean
                             .obtenerListaHistorialPagoPorIdEmpleado(idEmpleado);
 
                     if (!listaHistorialPago.isEmpty()) {
@@ -351,7 +352,9 @@ public class ExcelGenerador implements Generador, Serializable {
                     Integer idCentroResponsabilidad = Integer.parseInt(
                             parametros.get("ID_CENTRO_RESPONSABILIDAD"));
 
-                    List<RelacionPersonalSuplenteDTO> listaRelacionPersonalSuplenteDTOs = getRelacionPersonalSuplente()
+                    RelacionPersonalSuplente relacionPersonalSuplenteBean = getBean(
+                            RelacionPersonalSuplente.class);
+                    List<RelacionPersonalSuplenteDTO> listaRelacionPersonalSuplenteDTOs = relacionPersonalSuplenteBean
                             .obtenerListaRelacionPersonalSuplente(
                                     numeroQuincena, ejercicioFiscal,
                                     idCentroResponsabilidad);
@@ -375,7 +378,8 @@ public class ExcelGenerador implements Generador, Serializable {
                 case "dispersion_nomina": {
                     Integer idProducto = Integer
                             .parseInt(parametros.get("ID_PRODUCTO_NOMINA"));
-                    bytes = getDispersion().generarReporte(idProducto, true);
+                    Dispersion dispersionBean = getBean(Dispersion.class);
+                    bytes = dispersionBean.generarReporte(idProducto, true);
                 }
                     break;
 
@@ -400,7 +404,9 @@ public class ExcelGenerador implements Generador, Serializable {
                     Integer idSubfuenteFinanciamiento = Integer.parseInt(
                             parametros.get("ID_SUBFUENTE_FINANCIAMIENTO"));
 
-                    List<DistribucionPresupuestoDTO> listaDistribucionPresupuestoDTOs = getDistribucionPresupuestal()
+                    DistribucionPresupuestoEJB distribucionPresupuestoBean = getBean(
+                            DistribucionPresupuestoEJB.class);
+                    List<DistribucionPresupuestoDTO> listaDistribucionPresupuestoDTOs = distribucionPresupuestoBean
                             .distribucionPresupuesto(anioPresupuesto,
                                     idTipoNombramiento, idDependencia,
                                     idSubfuenteFinanciamiento);
@@ -430,186 +436,6 @@ public class ExcelGenerador implements Generador, Serializable {
             }
         }
         return bytes;
-    }
-
-    private ConsultaNominaService getConsultaNominaService() {
-        try {
-            Context initContext = new InitialContext();
-
-            ConsultaNominaService consultaNominaService = (ConsultaNominaService) initContext
-                    .lookup(CONSULTA_NOMINA_SERVICE_BEAN);
-
-            return consultaNominaService;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
-                    CONSULTA_NOMINA_SERVICE_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private MovimientoEmpleadoReporteService getMovimientoEmpleadoReporteService() {
-        try {
-            Context initContext = new InitialContext();
-
-            MovimientoEmpleadoReporteService consultaMovimientosEmpleados = (MovimientoEmpleadoReporteService) initContext
-                    .lookup(CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN);
-            return consultaMovimientosEmpleados;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\n{1}",
-                    CONSULTA_COMISIONADO_LICENCIA_SERVICE_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private SeguroPopularReporte getSeguroPopularReporteBean() {
-        try {
-            Context initContext = new InitialContext();
-            SeguroPopularReporte seguroPopularReporteBean = (SeguroPopularReporte) initContext
-                    .lookup(SEGURO_POPULAR_REPORTE_BEAN);
-            return seguroPopularReporteBean;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    SEGURO_POPULAR_REPORTE_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private ProyeccionesPresupuestalesEJB getProyeccionesPresupuestalesBean() {
-        try {
-            Context initContext = new InitialContext();
-            ProyeccionesPresupuestalesEJB proyeccionesPresupuestalesBean = (ProyeccionesPresupuestalesEJB) initContext
-                    .lookup(PROYECCIONES_PRESUPUESTALES_BEAN);
-            return proyeccionesPresupuestalesBean;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    PROYECCIONES_PRESUPUESTALES_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private DetalleEmpleado getDetalleEmpleadoBean() {
-        try {
-            Context initContext = new InitialContext();
-
-            DetalleEmpleado detalleEmpleado = (DetalleEmpleado) initContext
-                    .lookup(DETALLE_EMPLEADO_BEAN);
-
-            return detalleEmpleado;
-
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    DETALLE_EMPLEADO_BEAN, ex.getCause());
-            return null;
-        }
-
-    }
-
-    private ProductoNomina getProductoNomina() {
-        try {
-            Context initContext = new InitialContext();
-
-            ProductoNomina productoNomina = (ProductoNomina) initContext
-                    .lookup(PRODUCTO_NOMINA_BEAN);
-
-            return productoNomina;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    PRODUCTO_NOMINA_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private ProductoNomina getProductoNominaProgramas() {
-        try {
-            Context initContext = new InitialContext();
-
-            ProductoNomina productoNomina = (ProductoNomina) initContext
-                    .lookup(PRODUCTO_NOMINA_BEAN);
-
-            return productoNomina;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    PRODUCTO_NOMINA_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private HistorialPago getHistorialPago() {
-        try {
-            Context initContext = new InitialContext();
-
-            HistorialPago historialPago = (HistorialPago) initContext
-                    .lookup(HISTORIAL_PAGO_BEAN);
-
-            return historialPago;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    HISTORIAL_PAGO_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private RelacionPersonalSuplente getRelacionPersonalSuplente() {
-        try {
-            Context initContext = new InitialContext();
-
-            RelacionPersonalSuplente relacionPersonalSuplente = (RelacionPersonalSuplente) initContext
-                    .lookup(RELACION_PERSONAL_SUPLENTE_BEAN);
-
-            return relacionPersonalSuplente;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    RELACION_PERSONAL_SUPLENTE_BEAN, ex.getCause());
-            return null;
-        }
-    }
-
-    private Dispersion getDispersion() {
-        try {
-            Context initContext = new InitialContext();
-            Dispersion dispersion = (Dispersion) initContext
-                    .lookup(DISPERSION_BEAN);
-            return dispersion;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", DISPERSION_BEAN,
-                    ex.getCause());
-            return null;
-        }
-    }
-
-    private <T> T getBean(Class<T> clase) {
-        String bean = "";
-        try {
-            switch (clase.getName()) {
-                case "mx.gob.saludtlax.rh.nomina.reportes.pagogeneral.PagoGeneralReporte":
-                    bean = PAGO_GENERAL_BEAN;
-                    break;
-                default:
-                    return null;
-            }
-
-            Context initContext = new InitialContext();
-            return (T) initContext.lookup(bean);
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}", bean,
-                    ex.getCause());
-            return null;
-        }
-    }
-
-    private DistribucionPresupuestoEJB getDistribucionPresupuestal() {
-        try {
-            Context initContext = new InitialContext();
-
-            DistribucionPresupuestoEJB relacionPersonalSuplente = (DistribucionPresupuestoEJB) initContext
-                    .lookup(DISTRIBUCION_PRESUPUESTO_BEAN);
-
-            return relacionPersonalSuplente;
-        } catch (NamingException ex) {
-            LOGGER.errorv("Error al buscar el bean: {0}\t{1}",
-                    DISTRIBUCION_PRESUPUESTO_BEAN, ex.getCause());
-            return null;
-        }
     }
 
 }
