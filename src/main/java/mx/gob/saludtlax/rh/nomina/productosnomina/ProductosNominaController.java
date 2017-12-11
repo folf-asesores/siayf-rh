@@ -518,8 +518,6 @@ public class ProductosNominaController implements Serializable {
             }
             if (this.view.getProductoNomina().getIdTipoContratacion() == 1) {
                 byte[] layout = this.generarLayout.getDatTraProdNomRH_Cont(this.view.getProductoNomina().getIdProductoNomina());
-                // JSFUtils.descargarArchivo(layout, "datytra",
-                // TipoArchivo.ZIP.getMIMEType());
                 if (layout != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(layout);
                     setReporte(new DefaultStreamedContent(bis, TipoArchivo.ZIP.getMIMEType(),
@@ -531,8 +529,7 @@ public class ProductosNominaController implements Serializable {
                 }
             } else {
                 byte[] layout = this.generarLayout.getDatTraProdNomRH(this.view.getProductoNomina().getIdProductoNomina());
-                // JSFUtils.descargarArchivo(layout, "datytra",
-                // TipoArchivo.ZIP.getMIMEType());
+
                 if (layout != null) {
                     ByteArrayInputStream bis = new ByteArrayInputStream(layout);
                     setReporte(new DefaultStreamedContent(bis, TipoArchivo.ZIP.getMIMEType(),
@@ -559,8 +556,13 @@ public class ProductosNominaController implements Serializable {
 
     public void generarLayout() {
         try {
+
+            if (this.generarLayout.verificaLayoutNomina(this.view.getProductoNomina().getIdProductoNomina()) <= 0) {
+                this.generarLayout.crearLayoutNominaContrato(this.view.getProductoNomina().getIdProductoNomina());
+            }
+
             byte[] layout = this.generarLayout.getLayoutComoZipRH(this.view.getProductoNomina().getIdProductoNomina());
-            //JSFUtils.descargarArchivo(layout, "layout", TipoArchivo.ZIP.getMIMEType());
+
             if (layout != null) {
                 ByteArrayInputStream bis = new ByteArrayInputStream(layout);
                 setReporte(
