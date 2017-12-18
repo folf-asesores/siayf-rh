@@ -28,20 +28,17 @@
 			<p:dataTable emptyMessage="No se encontrarón resultados"
 				value="#{postulacionVacante.view.puestosDisponibles}" var="s"
 				rendered="#{postulacionVacante.view.mostrarBusqueda}"
-				widgetVar="vacante" paginator="true" rows="5"
-				paginatorAlwaysVisible="false"
+				 paginator="true" rows="5"
 				currentPageReportTemplate="(Entrada: {startRecord} de {totalRecords}, Pagina: {currentPage}/{totalPages})"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 				rowsPerPageTemplate="5,10,15">
 
-				<f:facet name="header">
-				</f:facet>
-
+				
 				<p:column headerText="Tipo Vacante">
 					<h:outputText value="#{s.tipoVacante}" />
 				</p:column>
 
-				<p:column headerText="Empleado anterior"  filterBy="#{s.empleadoAnterior}" filterMatchMode="contains">
+				<p:column headerText="Empleado Anterior"  filterBy="#{s.empleadoAnterior}" filterMatchMode="contains">
 					<h:outputText value="#{s.empleadoAnterior}" />
 				</p:column>
 				<p:column headerText="Adscripción" filterBy="#{s.adscripcion}" filterMatchMode="contains">
@@ -72,8 +69,8 @@
 
 				<p:column headerText="Opción" style="text-align: center;" width="80">
 					<p:commandButton icon="ui-icon-person" title="Seleccionar Vacante"
-						onsuccess="PF('statusDialog').hide()" update="form"
-						action="#{postulacionVacante.seleccionarVacante(s.idPuesto)}"
+						onsuccess="PF('statusDialog').hide()" update="form" process="@this"
+						actionListener="#{postulacionVacante.seleccionarVacante(s.idPuesto)}"
 						oncomplete="mymessages();" onstart="PF('statusDialog').show()" />
 				</p:column>
 

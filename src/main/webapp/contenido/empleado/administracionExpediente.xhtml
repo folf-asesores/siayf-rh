@@ -55,6 +55,15 @@ Creado el Oct 18, 2016 12:29:19 PM
 				<p:spacer />
 			</p:panelGrid>
 
+
+<p:ajaxStatus>
+				<f:facet name="start">
+					<center>
+						<p:graphicImage library="imagenes" name="load.gif" />
+					</center>
+				</f:facet>
+				<f:facet name="complete" />
+			</p:ajaxStatus>
 			<!-- Tabla que muestra los resultados de la búsqueda. -->
 			<p:dataTable id="tblEmpleados"
 				value="#{administracionExpedienteEmpleado.view.empleados}" var="e"

@@ -410,12 +410,12 @@
 		<p:selectOneMenu id="fuenteFinanciamiento"
 						filter="true"
 						filterMatchMode="contains"
-						value="#{ejecutarProductoNomina.view.pagoNominaSelect.idFuenteFinanciamiento}"
+						value="#{ejecutarProductoNomina.view.pagoNominaSelect.idFuenteFinanciamientoOPD}"
 						disabled="#{ejecutarProductoNomina.view.editar}">
 			<f:selectItem itemLabel="Selecciona uno..." itemValue="" />
 			<f:selectItems	value="#{ejecutarProductoNomina.view.fuenteFinanciamientoList}"
 							var="fuenteFinanciamientoFiltro"
-							itemValue="#{fuenteFinanciamientoFiltro.idFuenteFinanciamiento}"
+							itemValue="#{fuenteFinanciamientoFiltro.idFuenteFinanciamientoOPD}"
 							itemLabel="#{fuenteFinanciamientoFiltro.descripcion}" />
 		</p:selectOneMenu>
 		<p:spacer />

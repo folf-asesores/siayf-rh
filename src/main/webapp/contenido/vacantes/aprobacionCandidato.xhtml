@@ -146,15 +146,17 @@
 
 						<p:commandButton icon="fm-icon-eye"
 							actionListener="#{aprobacionCandidato.visualizarDetalleSeleccionado(c)}"
+							oncomplete="PF('dlg1').show();"
 							update="form" styleClass="fm-btn-exitoso fm-btn-elevado"></p:commandButton>
 
 					</p:column>
 				</p:dataTable>
 
 				<p:dialog header="Detalle Candidato" showEffect="Slide"
-					id="detalle_candidato"
-					visible="#{aprobacionCandidato.view.mostrarDetalleSeleccionado}"
-					modal="true" closable="false" height="500">
+					id="detalle_candidato" widgetVar="dlg1"
+					modal="true" closable="false" height="500"
+					
+					>
 					<p:panelGrid columns="2"
 						columnClasses="ui-grid-col-3,ui-grid-col-9" layout="grid"
 						styleClass="fm-tarjeta ui-fluid ">
@@ -204,11 +206,11 @@
 						<div align="center">
 							<p:commandButton icon="ui-icon-circle-check" label="aprobar"
 								update="form errorAprobacion"  
-								actionListener="#{aprobacionCandidato.aprobarCandidato()}" />
+								actionListener="#{aprobacionCandidato.aprobarCandidato()}"  oncomplete="PF('dlg1').hide();"/>
 							<p:spacer width="20" />
 							<p:commandButton icon="ui-icon-circle-close" update="form" label="cancelar"
 								oncomplete="mymessages();" process="@this"
-								actionListener="#{aprobacionCandidato.ocultarDetalleSeleccionado()}"
+								onclick="PF('dlg1').hide();"
 								styleClass="fm-btn-peligro fm-btn-elevado" />
 							<p:spacer width="20" />
 <!-- 							<p:commandButton icon="fm-icon-eye" update="detalle_candidato" -->

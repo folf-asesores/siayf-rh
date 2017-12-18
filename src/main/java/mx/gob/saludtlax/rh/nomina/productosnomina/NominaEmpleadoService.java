@@ -354,6 +354,8 @@ public class NominaEmpleadoService {
         BigDecimal percepcionPeriodo = sueldoQuincenal01.add(sueldoQuincenal14);
         // FALTAS Y RETARDOS
         if (aplicarFaltas) {
+
+            System.out.println("aplicando faltas:: ");
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String inicioPeriodo = format.format(productoNomina.getInicioRangoFaltas());
             String finPeriodo = format.format(productoNomina.getFinRangoFaltas());
@@ -545,7 +547,7 @@ public class NominaEmpleadoService {
 
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public void calcularProductoNominaContratoFederal(ProductoNominaDTO productoNomina, NominaEmpleadoDTO nominaEmpleado, Boolean aplicarFaltas) {
-        System.out.println("nominaEmpleado.getIdNominaEmpleado():: " + nominaEmpleado.getIdNominaEmpleado());
+        System.out.println("tipo nomina" + productoNomina.getTipoPeriodo());
         NominaEmpleadoEntity nominaEmpleadoEntity = this.nominaEmpleadoRepository.obtenerPorId(nominaEmpleado.getIdNominaEmpleado());
         limpiarConceptos(nominaEmpleadoEntity);
 
